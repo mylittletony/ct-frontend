@@ -458,7 +458,6 @@ module.exports = function (grunt) {
       heroku: {
         options: {
           remote: 'git@heroku.com:sheltered-bayou-9283.git',
-          // remote: 'git@heroku.com:ct-app-development.git',
           branch: 'master'
         }
       },
