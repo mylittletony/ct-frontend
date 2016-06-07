@@ -1,0 +1,69 @@
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="100">
+      <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+          <span>Invoice</span>
+          <div flex></div>
+        </div>
+      </md-toolbar>
+      <div layout="row" layout-wrap class="md-padding">
+        <md-list-item class="md-3-line">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ user.billing_name }}</h3>
+            <h4>{{ user.billing_address }}</h4>
+            <p>{{ user.billing_city }} {{ user.billing_postcode }}</p>
+            <p>{{ results.invoice.created * 1000 | amDateFormat:'MMMM Do YYYY' }}</p>
+          </div>
+        </md-list-item>
+      </div>
+      <md-table-container>
+        <table md-table>
+          <thead md-head>
+            <tr md-row class="md-table-headers-row">
+              <th md-column>Description</th>
+              <th md-column>Cost</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat="line in filtered = (results.lines | filter: query.filter | orderBy: query.direction)">
+              <td md-cell>
+                {{ ::line.plan_name }} Plan <br>
+                <small>{{ line.period_start * 1000 | amDateFormat:'MMMM Do YYYY' }} - {{ line.period_end * 1000 | amDateFormat:'MMMM Do YYYY' }}</small>
+              </td>
+              <td md-cell>{{ (line.amount / 100) | currency : results.invoice.currency_f }}</td>
+            </tr>
+            <tr md-row>
+              <td md-cell style="text-align: right;">Subtotal</td>
+              <td md-cell>{{ results.invoice.subtotal / 100 | currency : results.invoice.currency_f }}</td>
+            </tr>
+            <tr md-row>
+              <td md-cell style="text-align: right;">Tax at {{ invoice.tax_percent }}%</td>
+              <td md-cell>{{ results.invoice.tax / 100 | currency : results.invoice.currency_f }}</td>
+            </tr>
+            <tr md-row>
+              <td md-cell style="text-align: right;"><b>Total</b></td>
+              <td md-cell><b>{{ results.invoice.total / 100 | currency : results.invoice.currency_f }}</b></td>
+            </tr>
+        </table>
+      </md-table-container>
+      <!-- <md-divider ></md-divider> -->
+      <div layout="row" layout-wrap class="md-padding">
+        <md-list-item class="md-3-line">
+          <div class="md-list-item-text" layout="column">
+            <h3>Cucumber Tony Limited</h3>
+            <h4>
+              62 Britton Street<br>
+              London EC1M 5UY
+            </h4>
+            <p>
+              Company Number: 09332205<br>
+              VAT Number: 207491904<br>
+              Email: hello@cucumberwifi.io
+            </p>
+          </div>
+        </md-list-item>
+      </div>
+    </div>
+  </div>
+</md-content>

@@ -1,0 +1,94 @@
+<md-toolbar class="md-table-toolbar md-default" ng-show="client.id">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Back to Client</p>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+
+  <!-- <div flex flex-gt-sm="20" layout="row"> -->
+  <!--   <md-input-container flex> -->
+  <!--     <label>Range</label> -->
+  <!--     <md-select ng-model="ctrl.userState"> -->
+  <!--       <md-option ng-repeat="state in ctrl.states" value="{{state.abbrev}}"> -->
+  <!--         {{state.abbrev}} -->
+  <!--       </md-option> -->
+  <!--     </md-select> -->
+  <!--   </md-input-container> -->
+  <!--   <span flex></span> -->
+  <!-- </div> -->
+
+  <div layout="row" ng-hide="client.id">
+    <md-input-container flex flex-gt-sm="40">
+      <md-icon md-font-icon="search">search</md-icon>
+      <label ng-hide="q">Search</label>
+      <input md-autofocus ng-model="query.filter">
+    </md-input-container>
+  </div>
+
+  <md-card>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <p>{{ query.filter ? filtered.length : _links.total_entries }} Order<span ng-if="filtered.length != 1">s</span></p>
+        <div flex></div>
+        <md-button ng-if="selected.length > 0" class="md-raised" ng-click="showPayloadDialog($event)">Payload</md-button>
+      </div>
+    </md-toolbar>
+
+    <md-table-container>
+      <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+        <thead md-head md-order="query.order" md-on-reorder="logOrder">
+          <tr md-row>
+            <th md-column md-order-by="status"><span>Status</span></th>
+            <th md-column md-numeric md-order-by="created_at" md-desc><span>Created</span></th>
+            <th md-column md-order-by="total"><span>Total</span></th>
+            <th md-column md-order-by="email"><span>Email</span></th>
+            <th md-column><span>Action<span></th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row md-select="order" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="box.allowed_job != true" ng-repeat="order in filtered = (orders | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+            <td md-cell>
+              <md-icon md-menu-origin md-menu-icon="hourglass_empty" ng-show="order.state == 'pending'">hourglass_empty</md-icon>
+              <md-icon md-menu-origin md-menu-icon="error" ng-show="order.state == 'failed'">error</md-icon>
+              <md-icon md-menu-origin md-menu-icon="check_circle" ng-show="order.state == 'success'">attach_money</md-icon>
+              <md-icon md-menu-origin md-menu-icon="check_circle" ng-show="order.state == 'refunded'">money_off</md-icon>
+              <md-tooltip>
+                Order state: {{ order.state }}
+              </md-tooltip>
+            </td>
+            <td md-cell>
+              {{ order.created_at | humanTime }}
+            </td>
+            <td md-cell>
+              {{ (order.total / 100) | currency:order.currency }}
+            </td>
+            <td md-cell>
+              {{ order.email }}
+            </td>
+            <td md-cell>
+              <md-menu ng-show="menu.length">
+                <md-button aria-label="Open Orders Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+                <md-menu-content width="4" >
+                  <md-menu-item ng-repeat="item in menu">
+                    <md-button ng-click="action(order.id,item.type)" ng-disabled="">
+                      <p flex>{{ item.name }}</p>
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+  </md-card>
+</md-content>
+

@@ -1,0 +1,505 @@
+'use strict';
+
+var app = angular.module('myApp.controllers', [
+
+  'myApp.authentications.controller',
+  'myApp.boxes.controller',
+  'myApp.events.controller',
+  'myApp.heartbeats.controller',
+  'myApp.jobs.controller',
+  'myApp.invoices.controller',
+  'myApp.locations.controller',
+  'myApp.port_forwards.controller',
+  'myApp.reports.controller',
+  'myApp.speedtests.controller',
+  'myApp.splash_pages.controller',
+  'myApp.registrations.controller',
+  'myApp.zones.controller',
+  'myApp.users.controller',
+  'myApp.vouchers.controller'
+]);
+
+app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER',
+
+  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER) {
+
+    $scope.ct_login = CTLogin;
+
+    docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
+    docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/72-getting-started';
+    docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/72-getting-started';
+    docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
+    docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
+
+    function isOpen(section) {
+      return (menu.isSectionSelected(section) && menu.isOpen());
+    }
+
+    $scope.toggle = function(section){
+      $mdSidenav(section || 'left').toggle();
+    };
+
+    var toggleOpen = function(){
+      if ($mdMedia('gt-sm')) {
+        vm.menu.isOpenLeft = false;
+        menu.isOpen = !menu.isOpen;
+        vm._ctm = !vm._ctm;
+        $cookies.put('_ctm', !menu.isOpen);
+      } else {
+        vm.menu.isOpenLeft = !vm.menu.isOpenLeft;
+      }
+      $(window).trigger('resize');
+    };
+
+    function toggle(section) {
+      menu.toggleSelectSection(section);
+    }
+
+    var vm = this;
+
+    vm._ctm = $cookies.get('_ctm');
+    vm.menu = menu;
+
+    vm.designer = designer;
+    vm.toggle = toggle;
+
+    if ($cookies.get('_ctm') === 'true') {
+      vm.menu.isOpenLeft = false;
+      vm.menu.isOpen = false;
+    }
+
+    vm.menu.main = [{
+      title: 'Home',
+      link: '/#/',
+      type: 'link',
+      icon: 'home'
+    }];
+
+    // vm.menu.main.push({
+    //   title: 'Boxes',
+    //   type: 'link',
+    //   link: '/#/boxes',
+    //   icon: 'router'
+    // });
+
+    vm.menu.main.push({
+      title: 'Reports',
+      type: 'link',
+      link: '/#/reports',
+      icon: 'timeline'
+    });
+
+    vm.menu.main.push({
+      title: 'Audit',
+      type: 'link',
+      link: '/#/audit',
+      icon: 'assignment'
+    });
+
+    vm.menu.main.push({
+      title: 'Downloads',
+      type: 'link',
+      link: '/#/downloads',
+      icon: 'get_app'
+    });
+
+    vm.menu.main.push({
+      title: 'Developer',
+      type: 'link',
+      link: '/#/apps',
+      icon: 'android'
+    });
+
+    vm.status = {
+      isFirstOpen: true,
+      isFirstDisabled: false
+    };
+
+    vm.settingsMenu = [];
+
+    vm.menuRight = [];
+
+    vm.menuRight.push({
+      name: 'Home',
+      link: '/#/',
+      type: 'link',
+      icon: 'home'
+    });
+
+    // vm.menuRight.push({
+    //   name: 'Boxes',
+    //   link: '/#/boxes',
+    //   type: 'link',
+    //   icon: 'router'
+    // });
+
+    vm.menuRight.push({
+      name: 'Reports',
+      link: '/#/reports',
+      type: 'link',
+      icon: 'timeline'
+    });
+
+    vm.menuRight.push({
+      name: 'Audit',
+      link: '/#/audit',
+      type: 'link',
+      icon: 'assignment'
+    });
+
+    vm.menuRight.push({
+      type: 'divider',
+    });
+
+    vm.menuRight.push({
+      name: 'Developer',
+      link: '/#/developer',
+      type: 'link',
+      icon: 'android'
+    });
+
+    // Permissions //
+    vm.menuRight.push({
+      name: 'Documentation',
+      link: 'http://docs.cucumberwifi.io',
+      type: 'link',
+      target: '_blank',
+      icon: 'account_balance'
+    });
+
+    vm.menuRight.push({
+      name: 'Discussions',
+      link: 'https://discuss.cucumberwifi.io',
+      target: '_blank',
+      type: 'link',
+      icon: 'forum'
+    });
+
+    vm.menuRight.push({
+      name: 'Downloads',
+      link: '/#/downloads',
+      type: 'link',
+      icon: 'get_app'
+    });
+
+    vm.menuRight.push({
+      type: 'divider',
+    });
+
+    vm.menuRight.push({
+      name: 'Profile',
+      link: '/#/me',
+      type: 'link',
+      icon: 'face'
+    });
+
+    vm.menuRight.push({
+      type: 'divider',
+    });
+
+    // vm.menuRight.push({
+    //   name: 'Logout',
+    //   type: 'link',
+    //   icon: 'exit_to_app'
+    // });
+
+    $scope.toggleOpen = toggleOpen;
+
+    $scope.$on('logout', function(args) {
+      logout().then(function(response) {
+        $route.reload();
+        console.log('Refreshing Token.');
+      }, function() {
+        Auth.fullLogin();
+      });
+    });
+
+    var logout = function(args) {
+      var deferred = $q.defer();
+      var user = $localStorage.user;
+      var path = $location.path();
+      AccessToken.del();
+      if ( user && user.refresh ) {
+        var host  = locationHelper.domain();
+        $cookies.put('_ctp', JSON.stringify(path) );
+        RefreshToken.refresh(user.refresh, path).then(function(response) {
+          Auth.refresh(response).then(function(a){
+            deferred.resolve();
+          });
+        }, function(er) {
+          deferred.reject();
+        });
+      } else {
+        deferred.reject();
+      }
+      return deferred.promise;
+    };
+
+    $scope.$on('login', function(args,event) {
+
+      console.log('Logging in...');
+      var cname = event.data.cname;
+      if ((cname === null || cname === '') && event.data.url !== 'default') {
+        var sub   = locationHelper.subdomain();
+        var host  = locationHelper.domain();
+        // put back when on public //
+        // if (event.data.url && (sub !== event.data.url)) {
+        //   var newUrl = locationHelper.reconstructed(event.data.url);
+        //   var reconstructed = newUrl + '/#/switch?return_to=' + event.path;
+        //   $cookies.put('event', JSON.stringify(event), {'domain': host});
+        //   window.location = reconstructed;
+        // } else {
+          doLogin(event);
+        // }
+      } else {
+        doLogin(event);
+      }
+    });
+
+    function doLogin(event) {
+      Auth.login(event.data).then(function(a) {
+        var path;
+        $scope.loggedIn = true;
+        if (event.path) {
+          path = event.path;
+        } else {
+          var raw = $cookies.get('_ctp');
+          if (raw) {
+            try{
+              path = JSON.parse(raw);
+            }catch(e){
+              console.log('Couldn\'t parse JSON to redirect');
+            }
+          }
+        }
+        $location.path(path || '/').search(event.search || {});
+        if (event !== undefined && event.rdir !== undefined) {
+          $location.search({rdir: event.rdir});
+        }
+        $cookies.remove('_ctp');
+        $scope.ct_login = undefined;
+      });
+    }
+
+    $scope.$on('intercom', function(args,event) {
+      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
+        vm.menu.Intercom = true;
+        var settings = {
+            app_id: INTERCOM,
+            user_id: Auth.currentUser().accountId,
+            email: Auth.currentUser().email,
+            name: Auth.currentUser().username,
+            created_at: Auth.currentUser().created_at,
+            user_hash: Auth.currentUser().user_hash,
+            brand_name: Auth.currentUser().url,
+            cname: Auth.currentUser().cname,
+            sense_active: Auth.currentUser().sense_active,
+            plan_name: Auth.currentUser().plan_name,
+            paid_plan: Auth.currentUser().paid_plan,
+            locs: Auth.currentUser().locs,
+        };
+        settings.widget = {
+          activator: '#intercom'
+        };
+        window.Intercom('boot', settings);
+      }
+    });
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      var pusher;
+      if (Auth.currentUser() && Auth.currentUser().key !== null) {
+        $scope.$broadcast('intercom', {hi: 'simon'});
+        window.client = new Pusher(PUSHER, {
+          authEndpoint: API + '/pusherAuth?token=' + Auth.currentUser().key
+        });
+        pusher = $pusher(client);
+        if (Auth.currentUser().fake) {
+          $('.hidden-boy').addClass('real-boy');
+        }
+      }
+
+      $scope.brandName = BrandName;
+      // $scope.brandName.name = 'Cucumber';
+
+      // $scope.brandName.icon = 'https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/blank.png';
+      // var default_image = 'https://d3e9l1phmgx8f2.cloudfront.net/images/logos/cucumber-white.svg';
+      // var default_icon  = 'https://d3e9l1phmgx8f2.cloudfront.net/images/logos/ct-wifi.svg';
+
+      // var channel;
+
+      function getSubdomain () {
+        var sub   = locationHelper.subdomain();
+        var host  = locationHelper.domain();
+        var parts = $location.host().split('.');
+        var cname;
+        if (host !== 'ctapp.io' && host !== 'ctapp.dev') {
+          getBrand(host, true);
+        }
+        else if (parts.length === 3) {
+          sub = parts[0];
+          if (sub !== 'my' && sub !== 'dev') {
+            getBrand(sub);
+          } else {
+            setDefaultImages();
+          }
+        } else {
+          console.log('Defo a problem with your domain');
+        }
+      }
+
+      function getBrand(domain, cname) {
+        Brand.query({
+          id: domain, cname: cname
+        }).$promise.then(function(results) {
+          $scope.brandName.name   = results.brand_name || 'Cucumber';
+          // $scope.brandName.image  = results.brand_image || default_image;
+          // $scope.brandName.icon   = results.brand_icon || default_icon;
+        }, function() {
+          setDefaultImages(domain);
+        });
+      }
+
+      function getMe() {
+        Me.get({}).$promise.then(function(res) {
+          Auth.login(res).then(function(a) {
+            $scope.user = Auth.currentUser();
+            $scope.loggedIn = true;
+          });
+        });
+      }
+
+      var setDefaultImages = function(sub) {
+        $scope.brandName.name = 'Cucumber';
+        // $scope.brandName.image = default_image;
+        // $scope.brandName.icon = default_icon;
+        // var a = AccessToken.get();
+        // if ( (!Auth.currentUser() && a ) || Auth.currentUser() && (Auth.currentUser().url !== 'default' )) {
+        //   getMe();
+        // }
+      };
+
+      var firstName = function() {
+        // if (Auth.currentUser() && Auth.currentUser().username) {
+        //   $scope.user = { gravatar: Auth.currentUser().gravatar, lucky_dip: Auth.currentUser().lucky_dip };
+        //   var name = Auth.currentUser().username;
+        //   var split = name.split(' ');
+        //   if (split.length > 1 && split[0].toLowerCase() !== 'the') {
+        //     $scope.user.name = split[0];
+        //   } else {
+        //     $scope.user.name = name.substring(0, 10);
+        //   }
+        // }
+      };
+
+      var a = AccessToken.get();
+      if ( (!Auth.currentUser() && a ) || Auth.currentUser() && (Auth.currentUser().url !== 'default' )) {
+        getMe();
+      }
+      firstName();
+      getSubdomain();
+      // getAlerts();
+      // subAlerts();
+
+      var domain = 'ctapp.io';
+      var addDistro = function() {
+        $cookies.put('_ct', $location.search().dst, {'domain': domain});
+        $location.search({});
+      };
+
+      if ($location.search().dst) {
+        addDistro();
+      }
+
+      var removeCtCookie = function() {
+        $cookies.remove('_ct', { domain: domain } );
+      };
+
+      var cookie = $cookies.get('_ct', {'domain': domain});
+      if (cookie && Auth.currentUser() && Auth.currentUser().id) {
+        User.distro({dst: cookie}).$promise.then(function(result) {
+          removeCtCookie();
+        }, function() {
+          removeCtCookie();
+        });
+      }
+    });
+
+    var setLoggedIn = function(isLoggedIn) {
+      $scope.loggedIn = isLoggedIn;
+      return isLoggedIn;
+    };
+
+    setLoggedIn(AccessToken.get() !== undefined);
+
+    $scope.logout = function() {
+      Auth.logout();
+    };
+
+    $scope.onlineStatus = onlineStatus;
+    if ( $scope.loggedIn ) {
+      // $scope.$watch('onlineStatus.isOnline()', function(online) {
+      //   $scope.online_status_string = online ? 'online' : 'offline';
+      //   if ($scope.online_status_string === 'offline') {
+      //     $scope.open('md');
+      //   } else if ($scope.online_status_string === 'online' ){
+      //     // if ($scope.modalInstance !== undefined) {
+      //     //   $scope.modalInstance.close();
+      //     // }
+      //   }
+      // });
+    }
+
+    $scope.open = function (size) {
+      // $scope.modalInstance = $modal.open({
+      //   templateUrl: 'offlineModal.html',
+      //   size: size,
+      //   scope: $scope,
+      //   resolve: {
+      //     items: function () {
+      //       return $scope.items;
+      //     }
+      //   }
+      // });
+    };
+
+    $scope.close = function() {
+      // $scope.modalInstance.close();
+    };
+
+    // $scope.user = Auth.currentUser();
+
+}]);
+
+app.controller( 'ParentCtrl', function ParentCtrl($scope, onlineStatus) {
+
+  $scope.items = [];
+  $scope.linkItems = {
+  };
+
+  $scope.onlineStatus = onlineStatus;
+  $scope.$watch('onlineStatus.isOnline()', function(online) {
+    $scope.online_status_string = online ? 'online' : 'offline';
+    if ($scope.online_status_string === 'offline') {
+      $scope.open('md');
+    } else if ($scope.online_status_string === 'online' ){
+      // if ($scope.modalInstance !== undefined) {
+      //   $scope.modalInstance.close();
+      // }
+    }
+  });
+
+  $scope.open = function (size) {
+    // $scope.modalInstance = $modal.open({
+    //   templateUrl: 'offlineModal.html',
+    //   size: size,
+    //   scope: $scope,
+    //   resolve: {
+    //     items: function () {
+    //       return $scope.items;
+    //     }
+    //   }
+    // });
+  };
+
+});
+

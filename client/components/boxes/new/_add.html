@@ -1,0 +1,158 @@
+<div flex="" layout="column" class="layout-column flex" >
+
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Back to Location">
+        <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
+      </md-button>
+      <p>Back to Location</p>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <md-content layout-padding>
+    <div flex flex-gt-sm="100" layout="column">
+      <md-card>
+        <md-card-title ng-if="setup.stage === 1">
+          <md-card-title-text>
+            <span class="md-headline">Add a Device</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+
+          <form name="myForm" ng-submit="create(temp)">
+            <div ng-show="setup.stage == 1" class="text-left">
+              <div layout-gt-xs="row" layout="column" flex layout-wrap>
+                <md-radio-group ng-model="setup.type">
+                  <md-radio-button value="ct" class="md-primary"> Discover my Devices</md-radio-button>
+                  <md-radio-button value="mac"> Enter MAC Address </md-radio-button>
+                </md-radio-group>
+              </div>
+              <div ng-if="setup.type == 'mac' || setup.type == 'third'">
+                <div layout="column" flex-gt-sm="50">
+                  <md-input-container class="md-block" flex>
+                    <label>MAC Address</label>
+                    <input name="mac" ng-model="temp.calledstationid" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" autofocus required>
+                    <div ng-messages="myForm.mac.$error">
+                      <div ng-message="required">MAC is required.</div>
+                      <div ng-message="pattern">Must be a valid mac, including dashes or colons.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block" flex>
+                    <label>Description</label>
+                    <input name="description" ng-minlength=5 md-maxlength="100" ng-model="temp.description" required>
+                    <div ng-messages="myForm.description.$error">
+                      <div ng-message="required">A description is required.</div>
+                      <div ng-message="md-maxlength">Must be less than 100 characters.</div>
+                      <div ng-message="minlength">Must be greater than 5 characters.</div>
+                    </div>
+                  </md-input-container>
+
+                  <md-input-container flex ng-if="zones.length > 0" style="padding-bottom: 10px;">
+                    <label>Zone</label>
+                    <md-select ng-model="temp.zone_id">
+                      <md-option value=""></md-option>
+                      <md-option ng-repeat="zone in zones" value="{{zone.id}}">
+                        {{zone.zone_name}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+
+                </div>
+
+                <md-checkbox ng-model="temp.is_polkaspots" aria-label="Is Cucumber">
+                  Cucumber firmware
+                </md-checkbox>
+                <div></div>
+                <md-button type="submit" aria-label="add box" class="md-primary md-raised" ng-disabled="myForm.$invalid || myForm.$pristine">ADD</md-button>
+                <p><ct-docs name="find-mac">Where is my mac address?</ct-docs></p>
+              </div>
+            </div>
+
+            <div ng-show="setup.stage == 2 && setup.ct_type =='rogue'">
+              <div ng-if="setup.detecting">
+                <h3>Searching for boxes, please wait.</h3>
+                <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.determinateValue}}"
+                  md-buffer-value="{{vm.determinateValue2}}"
+                  ng-show="true"></md-progress-linear>
+                <p>You must be connected to the same network and use the Cucumber firmware.</p>
+              </div>
+
+              <div ng-hide="setup.detecting == true">
+                <div ng-if="rogues.length">
+
+                  <h3>Devices Discovered</h3>
+                  <p>Select the ones you want to add.</p>
+
+                  <div layout="row" flex="100" flex-gt-sm="40">
+                    <md-input-container flex ng-if="zones.length > 1" style="padding-bottom: 10px;" flex="50">
+                      <label>Choose a Zone</label>
+                      <md-select ng-model="temp.zone_id" required>
+                        <md-option ng-repeat="zone in zones" value="{{zone.id}}">
+                          {{zone.zone_name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                  <md-table-container>
+
+                    <table md-table md-row-select="table.rowSelection" ng-model="selected" md-progress="promise">
+                      <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                        <tr md-row>
+                          <th md-column md-order-by="mac"><span>Mac</span></th>
+                          <th md-column hide show-gt-sm md-order-by="type"><span>Type</span></th>
+                          <th md-column><span>Comment</span></th>
+                        </tr>
+                      </thead>
+                      <tbody md-body>
+                        <tr md-row md-select="box" md-on-select="logItem" md-auto-select="table.autoSelect" ng-disabled="!existing" ng-repeat="box in filtered = (rogues | filter: filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+                          <td md-cell>{{ box.mac }}</td>
+                          <td hide show-gt-sm md-cell>{{ box.type }}</td>
+                          <td md-cell ng-click="editDescription($event, box)" ng-class="{'md-placeholder': !box.description}">
+                            {{box.description || 'Add a comment'}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </md-table-container>
+
+                  <md-toolbar class="md-table-toolbar md-default">
+                    <div class="md-toolbar-tools">
+                      <div flex></div>
+                      <span ng-show="rogues.length">
+                        <md-button ng-disabled="selected.length == 0" class="md-raised" ng-click="createBoxFromRogues()">ADD DEVICES <i ng-if="creating == true" class="fa fa-cog fa-spin"></i> <i class="fa fa-arrow-right" ng-if="!creating"></i></md-button>
+                      </span>
+
+                    </div>
+                  </md-toolbar>
+
+                </div>
+              </div>
+              <div ng-hide="setup.detecting == true">
+                <div ng-if="!rogues.length">
+                  <h2>No Devices Discovered</h2>
+                  <p>Ensure your devices have the Cucumber firmware installed.</p>
+                  <p><b>You must be on the same network as the devices you're trying to add.</b></p>
+                  <p>If you have a third-party device or you're in a different network, add it manually</p>
+                </div>
+              </div>
+            </div>
+
+            <div layout-gt-xs="row" flex>
+              <span ng-if="setup.stage == 1 && setup.type == 'ct'">
+                <md-button aria-label="discover boxes" class="md-raised md-primary" ng-click="nextStage()">Discover</md-button>
+              </span>
+            </div>
+
+          </form>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="left center" ng-show="setup.stage == 2 && setup.ct_type =='rogue' && !rogues.length && setup.detecting != true">
+          <md-button ng-click="manualBox()" class="">Add Box</md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </md-content>
+</div>
+
+

@@ -1,0 +1,82 @@
+<!-- <md-button ng-click="toggle('cols-menu')" aria-controls="cols-menu" class="md-primary" aria-expanded="{{isOpen()}}"> --> 
+<!--   <div flex></div> -->
+<!--   <md-icon md-font-icon="settings">settings</md-icon> -->
+<!-- </md-button> -->
+
+<div ng-show="isOpen('cols-menu')" id="cols-menu" class="menu-toggle-list" layout="column" layout-gt-sm="row" layout-wrap>
+
+  <md-divider></md-divider>
+  
+  <!-- <div flex="100" layout="row"> -->
+  <!--   Display Columns -->
+  <!-- </div> -->
+
+  <md-switch ng-change="saveCols()" ng-model="columns.ssid" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Connected To
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.txbps" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Txbps
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.rxbps" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Rxbps
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.expected_throughput" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Expected Tput
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.txbitrate" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Tx Rate
+  </md-switch>
+  
+  <md-switch ng-change="saveCols()"ng-model="columns.rxbitrate" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Rx Rate
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.snr" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    SNR
+  </md-switch>
+  
+  <md-switch ng-change="saveCols()"ng-model="columns.signal" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Signal
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.mcs" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    MCS
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.ip" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    IPv4
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.updated_at" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Last Seen
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.description" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    AP Description
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.channel" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Channel
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.capabilities" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Frequency
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.manufacturer" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Manufacturer
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.splash_username" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Splash User
+  </md-switch>
+
+  <md-switch ng-change="saveCols()"ng-model="columns.type" ng-click="saveCols()" aria-label="Switch 1" layout="row" flex flex-gt-sm="20">
+    Type
+  </md-switch>
+
+</div>

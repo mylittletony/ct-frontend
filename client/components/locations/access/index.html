@@ -1,0 +1,11 @@
+<div class='col-xs-12 col-sm-12 col-md-2 col-lg-2' id='location_sidebar'>
+  <div ng-include="'components/locations/layouts/sidebar.html'"></div>
+</div>
+<div class='col-xs-12 col-sm-12 col-md-10 col-lg-10 generate_defaults_wide'>
+  <div class="spinner" ng-show="loading"><h1>Loading...</h1></div>
+  <div ng-hide="loading">
+    <div ng-include="'components/locations/access/access-header.html'"></div>
+    <div errors="location.errors"></div>
+    <div ng-include="'components/locations/access/access-panel-top.html'"></div>
+  </div>
+</div>

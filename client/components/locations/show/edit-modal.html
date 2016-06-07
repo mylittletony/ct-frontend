@@ -1,0 +1,86 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ location.location_name }}</h3>
+  <!-- Selected: <b>{{ selected.location_name }}</b> -->
+</div>
+<div class="modal-body">
+  <div class="alert alert-danger fade in" id="notice" ng-if='errors'>
+    <a class="close" data-dismiss="alert" data-href="#">x</a>
+    <h4></h4>
+    <ul class="list-unstyled">
+      <li ng-repeat="(key, value) in errors">{{ key | titleCase }} {{ value[0] }}</li>
+    </ul>
+  </div>
+  <form ng-submit="save(location)" name="myForm">
+    <div class="form-group row">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <label for="location_name">Location name</label>
+        <input ng-model="location.location_name" class='form-control' placeholder='Location name' name='location_name' ng-minlength="5" ng-maxlength="64" required>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <label for="location_phone1">Phone Number</label>
+        <input ng-model="location.phone1" class='form-control' placeholder='Telephone number'>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <label for="location_address">Address</label>
+        <input ng-model="location.location_address" class='form-control' placeholder='Your address' required>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <label for="location_street">Street</label>
+        <input ng-model="location.street" class='form-control' placeholder='Your address'>
+      </div>
+    </div>
+    <div class="form-group row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <label for="location_town">Town</label>
+      <input ng-model="location.town" class='form-control' placeholder='Your town' required>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <label for="location_postcode">Postcode</label>
+      <input ng-model="location.postcode" class='form-control' placeholder='Your postcode' required>
+    </div>
+    </div>
+    <hr>
+    <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <label>Country</label>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <label>Category</label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p class="help-block small">
+    An accurate location category == better analytics :)
+    </p>
+    <hr>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <label for="location_twitter">Twitter Handle</label>
+    <div class="input-group">
+      <span class="input-group-addon">@</span>
+      <input ng-model="location.location_twitter" class='form-control' placeholder='Twitter handle'>
+    </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <label for="facebook_username">Facebook ID</label>
+      <input ng-model="location.facebook_username" class='form-control' placeholder='Facebook page'>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p class="help-block">
+    Your Twitter &amp; Facebook links appear on your login screens.
+    </p>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <button ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary">Update</button>
+    </div>
+    </div>
+    </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

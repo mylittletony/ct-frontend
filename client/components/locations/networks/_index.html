@@ -1,0 +1,109 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-input-container flex="100" flex-gt-xs="30" flex style="margin-top: 50px" ng-show="networks.length > 0">
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query.filter" md-autofocus placeholder="Filter Networks">
+    </md-input-container>
+    <md-button ng-if="!networks.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
+      <md-icon md-font-icon="" >layers</md-icon>
+    </md-button>
+    <p ng-if="networks.length === 0">Networks</p>
+    <div flex></div>
+    <new-network networks="networks"></new-network>
+    <md-button-group hide show-gt-sm class="md-raised">
+      <md-button ng-click="updateBand('two')" ng-class="{ 'active': band === 'two' }">2.4Ghz</md-button>
+      <md-button ng-click="updateBand('five')" ng-class="{ 'active': band === 'five' }">5Ghz</md-button>
+      <md-button ng-click="updateBand('all')" ng-class="{ 'active': band === '' }">2.4 & 5Ghz</md-button>
+    </md-button-group>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
+  <div flex layout="column">
+
+    <md-card>
+      <md-table-container>
+        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-order-by="ssid_disabled" md-column><span>Active</span></th>
+              <th md-column md-order-by="ssid"><span>SSID</span></th>
+              <th hide show-gt-sm md-column md-order-by="interface_ipaddr"><span>Network</span></th>
+              <th hide show-gt-sm md-column md-order-by="access_type"><span>Type</span></th>
+              <th hide show-gt-xs md-column md-order-by="captive_portal_enabled"><span>Splash</span></th>
+              <th hide show-gt-md md-column><span>Zone</span></th>
+              <th md-column ng-show="menu.length"><span>Action</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr ng-class="network.highlight ? 'highlight' : ''" md-row ng-repeat="network in filtered = (networks | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+              <td md-cell>
+                <md-icon md-menu-origin md-font-icon="">{{ network.active ? "check_circle" : 'cancel' }}</md-icon>
+              </td>
+              <td md-cell>
+                {{ network.ssid }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ network.interface_ipaddr }}/{{ network.interface_netmask }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                <span>
+                  {{ network.access_type | titleCase }}
+                  <md-tooltip ng-if="network.access_type != 'open'" >
+                    {{ network.encryption_type }}
+                  </md-tooltip>
+                </span>
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ network.captive_portal_enabled == true ? 'Enabled' : '' }}
+                <md-tooltip ng-if="network.captive_portal_enabled">
+                  <span ng-repeat="s in network.splash_pages">
+                    ID: {{ s }}<br>
+                  </span>
+                </md-tooltip>
+              </td>
+              <td hide show-gt-md md-cell>
+                <span ng-if="network.zones.length === 1">
+                  <a href="/#/locations/{{ location.slug }}/zones/{{ network.zones[0].id }}">{{ network.zones[0].name | truncate:10 }}</a>
+                  <md-tooltip>
+                    {{ network.zones[0].name }}
+                  </md-tooltip>
+                </span>
+                <span ng-if="network.zones.length > 1">
+                  {{ network.zones.length}} zones
+                  <md-tooltip>
+                    <span ng-repeat="n in network.zones">
+                      Name: {{ n.name }}<br>
+                    </span>
+                  </md-tooltip>
+                </span>
+              </td>
+              <td md-cell ng-show="menu.length">
+                <span ng-if="network.state == 'processing'">
+                  <md-progress-circular class="md-warn" md-diameter="40"></md-progress-circular>
+                </span>
+                <span ng-if="network.state != 'processing'">
+                  <md-menu>
+                    <md-button aria-label="Open Networks Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content width="4" >
+                      <md-menu-item ng-repeat="item in menu">
+                        <md-button ng-click="action(network,item.type)" ng-disabled="false">
+                          <md-icon md-menu-origin md-font-icon="{{ item.icon}}">{{ item.icon }}</md-icon>
+                          <p flex>{{ item.name }}</p>
+                        </md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </md-menu>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <!-- <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination> -->
+    </md-card>
+  </div>
+</md-content>

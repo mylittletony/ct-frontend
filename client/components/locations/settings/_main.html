@@ -1,0 +1,134 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >settings</md-icon>
+    </md-button>
+    <p>Settings</p>
+    <div flex></div>
+    <location-settings-menu location="location"></location-settings-menu>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Details
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="row" layout-wrap>
+            <md-list-item class="md-3-line" flex="100" flex-gt-sm="{{ showToken ? '100' : '50' }}">
+              <div class="md-list-item-text">
+                <h3>API Token (<span ng-click="showToken = !showToken">{{ showToken ? "Hide" : "Show" }}</span>)</h3>
+                <p>
+                  <span ng-if="showToken">{{ location.api_token }}</span>
+                  <span ng-if="!showToken">●●●●●●●●●●●●●●●●●●</span>
+                </p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3>Unique ID</h3>
+                <p>{{ ::location.unique_id }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3>Created On</h3>
+                <p>{{ location.created_at | humanTime }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3>Cluster ID</h3>
+                <p>{{ ::location.lucky_dip }}</p>
+              </div>
+            </md-list-item>
+          </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <change-location-token token="location.api_token"></change-location-token>
+        </md-card-actions>
+      </md-card>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Address
+            </span>
+            <span class="md-subhead">
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <form name="myForm" submit="update(myForm)">
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100">
+                <label>Name</label>
+                <input ng-model="location.location_name" name="location_name" type="text" md-maxlength='255' placeholder='Location Name' ng-minlength="5" required></input>
+                <div ng-messages="myForm.location_name.$error">
+                  <div ng-message="minlength">Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
+                  <div ng-message="required">You must enter an name</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Street Address</label>
+                <input ng-model="location.location_address" name="address" type="text" md-maxlength='255' placeholder='Street Name' required></input>
+                <div ng-messages="myForm.address.$error">
+                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
+                  <div ng-message="required">You must enter an address</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>City</label>
+                <input ng-model="location.town" name="town" type="text" md-maxlength='255' placeholder='Enter a town or city.' required></input>
+                <div ng-messages="myForm.town.$error">
+                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
+                  <div ng-message="required">You must enter a town</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Postcode (Zipcode)</label>
+                <input ng-model="location.postcode" name="postcode" type="text" md-maxlength='255' placeholder="Postcode" required></input>
+                <div ng-messages="myForm.postcode.$error" md-auto-hide="false">
+                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
+                  <div ng-message="required">You must enter a postcode</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Country</label>
+                <country-select country="location.country"></country-select>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Timezone</label>
+                <md-select ng-model="location.timezone">
+                  <md-option ng-repeat="zone in timezones">
+                    {{zone}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <div flex="100"></div>
+              <md-switch ng-model="location.add_to_global_map" aria-label="Public Location">
+                {{ location.add_to_global_map ? "Public" : "Private"}} Location
+              </md-switch>
+            </div>
+          </form>
+        </md-card-content>
+      </md-card>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+        Save
+      </md-button>
+
+    </div>
+
+</md-content>
+

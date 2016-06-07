@@ -1,0 +1,101 @@
+<loader></loader>
+
+<div ng-hide="loading" ng-cloak>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="locations.length == 0" ng-cloak>
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="50">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                <md-icon>favorite</md-icon>
+                No Favourites
+              </span>
+              <span class="md-subhead">
+                Add a location to your favourites by clicking the heart on the dashboard.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button ng-click="back()">Back</md-button>
+            </md-card-actions>
+          </md-card-content>
+        </md-card>
+      </div>
+    </div>
+  </md-content>
+
+  <md-content class="md-padding" layout="column" layout-gt-xs='column' ng-if="locations.length > 0">
+    <div layout="row" layout-align="center center">
+      <div flex="100">
+        <md-card>
+          <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+              <p>{{ ::_links.total_entries }} Favourite<span ng-if="_links.total_entries != 1">s</span></p>
+              <div flex></div>
+              <md-button class="md-icon-button" ng-click="back()">
+                <md-icon>arrow_back</md-icon>
+              </md-button></div>
+          </md-toolbar>
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+              <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th md-column md-order-by="archived"><span>Active</span></th>
+                  <th md-column md-order-by="location_name" md-desc><span>Name</span></th>
+                  <th hide show-gt-sm md-column md-order-by="location_address"><span>Address</span></th>
+                  <th hide show-gt-sm md-column md-order-by="created_at"><span>Created</span></th>
+                  <th hide show-gt-sm md-column md-order-by="firmware_version"><span>Online</span></th>
+                  <th hide show-gt-xs md-column md-order-by="boxes_count" class="no-padding"><span>Boxes</span></th>
+                  <th md-column><span>Action</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="location" ng-repeat="location in filtered = (locations | filter: filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+                  <td md-cell>
+                    <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon>
+                  </td>
+                  <td md-cell>
+                    {{ location.location_name }}
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ location.location_address }}
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ location.created_at | humanTime }}
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ location.clients_online }}
+                  </td>
+                  <td md-cell hide show-gt-xs>
+                    {{ location.boxes_count }}
+                  </td>
+                  <td md-cell>
+                    <md-menu>
+                      <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                      </md-button>
+                      <md-menu-content width="4" >
+                        <md-menu-item ng-repeat="item in menu">
+                          <md-button ng-click="action(location,item.type)">
+                            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
+                        <p flex>{{ ::item.name }}</p>
+                          </md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination ng-if="_links.total_entries > query.limit" md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
+        </md-card>
+
+      </div>
+    </div>
+  </md-content>
+</div>

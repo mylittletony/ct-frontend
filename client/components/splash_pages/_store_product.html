@@ -1,0 +1,147 @@
+<md-dialog aria-label="Transfer Splash"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create Product</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+
+        <div class="alert-box warning" ng-if="product.distance == 'minutes' && product.session_timeout > product.duration">Your session timeout is longer than the duration of your voucher. Users may not get logged off before their voucher expires.</div>
+        <h2>Add a product to the store.</h2>
+
+        <p>Choose from a selection of the most popular products. Or, use the <a href="" ng-click="advanced = !advanced">{{ advanced ? "simple" : "advanced"}} method</a>.</p>
+
+        <p><small>Enter the price in the smallest common currency unit for your store. For example, if your store is in USD, this is the amount in cents. In GBP, it would be pence. To create a charge for €1.00, you would set amount=100 (100 cents).</small></p>
+
+        <div layout="column" layout-gt-sm="row">
+
+          <div flex-gt-sm="50">
+
+            <md-input-container ng-hide="advanced">
+              <label>Product Name</label>
+              <md-select ng-model="product.template_id">
+                <md-option ng-repeat="product in templates" value="{{product.id}}">
+                  {{product.name}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+
+            <span ng-show="advanced">
+              <p>Product Type</p>
+              <md-radio-group ng-model="product.type" layout="row">
+                <md-radio-button value="multiuse" class="md-primary">Multi-use</md-radio-button>
+                <md-radio-button value="singleuse"> Single-use</md-radio-button>
+              </md-radio-group>
+
+              <p>
+                <small>
+                  <span ng-if="product.type == 'multiuse'">Multi-use vouchers can be used many times until they've been used up.</span>
+                  <span ng-if="product.type == 'singleuse'">Single-use vouchers stop working after the preset duration, regardless of whether they've been used.</span>
+                </small>
+              </p>
+
+            </span>
+
+            <div layout="column" layout-gt-sm="row" layout-wrap>
+              <div flex-gt-xs="20">
+                <md-input-container class="md-block" flex-gt-xs>
+                  <label>Price</label>
+                  <input name="value" ng-model="product.value" type="number" ng-min=50 required>
+                  <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                    <div ng-message="required">You must set a value for the product.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div flex-gt-xs="40">
+                <md-input-container class="md-block" ng-show="advanced">
+                  <label>Validity Period ({{ product.distance | titleCase }})</label>
+                  <input name="duration" ng-model="product.duration" type="number" required>
+                  <div ng-messages="myForm.duration.$error" md-auto-hide="false">
+                    <div ng-message="required">You must set a duration for the product.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div flex-gt-xs="40">
+                <md-input-container class="md-block" ng-show="advanced">
+                  <label>Validity Period</label>
+                  <md-select ng-model="product.distance">
+                    <md-option ng-repeat="distance in distances" value="{{distance.value}}">
+                      {{distance.key}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+
+              <div flex-gt-xs="30" ng-show="advanced">
+                <md-input-container class="md-block">
+                  <label>Session Timeout (mins)</label>
+                  <input name="timeout" ng-model="product.session_timeout" ng-min=10 ng-max=50000 type="number" required>
+                  <div ng-messages="myForm.timeout.$error" md-auto-hide="false">
+                    <div ng-message="required">You must set a timeout for the product.</div>
+                    <div ng-message="max">Must be less than 50,000 minutes.</div>
+                    <div ng-message="min">Must be greater than 10 minutes.</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div flex-gt-xs="30" ng-show="advanced">
+                <md-input-container class="md-block">
+                  <label>Max Devices</label>
+                  <input name="devices" ng-model="product.devices" ng-min=1 ng-max=50 type="number" required>
+                  <div ng-messages="myForm.devices.$error" md-auto-hide="false">
+                    <div ng-message="required">You must set a timeout for the product.</div>
+                    <div ng-message="max">Must be less than 50 devices.</div>
+                    <div ng-message="min">Must be greater than 1.</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div flex-gt-xs="30" ng-show="advanced">
+                <small>Expiration Date</small>
+                <md-datepicker ng-model="product.expiration" md-min-date="minDate" md-placeholder="Enter date"></md-datepicker>
+              </div>
+
+              <div flex="50" ng-show="advanced">
+                Download Speed {{ (product.download_speed / 1024) | number }}Mbps
+                <md-slider flex md-discrete ng-model="product.download_speed" step="256" min="0" max="49134" aria-label="download">
+                </md-slider>
+              </div>
+
+              <div flex="50" ng-show="advanced">
+                Upload Speed {{ (product.upload_speed / 1024) | number }}Mbps
+                <md-slider flex md-discrete ng-model="product.upload_speed" step="256" min="0" max="49134" aria-label="upload">
+                </md-slider>
+              </div>
+
+              <div flex="100">
+                <md-input-container class="md-block">
+                  <label>Description</label>
+                  <textarea rows=3 name="description" ng-model="product.description" md-maxlength=145 required></textarea>
+                  <div ng-messages="myForm.description.$error" md-auto-hide="false">
+                    <div ng-message="required">You must set a description for the product.</div>
+                    <div ng-message="md-maxlength">Must be less than 145 characters.</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </div>
+          </div>
+          <div flex></div>
+          <div hide flex-gt-sm="50">
+            <h2>Help</h2>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        Cancel
+      </md-button>
+      <md-button ng-disabled="advanced && (myForm.$invalid || myForm.$pristine)" ng-click="save()" style="margin-right:20px;">
+        CREATE
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

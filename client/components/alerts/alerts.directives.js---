@@ -1,0 +1,79 @@
+'use strict';
+
+var app = angular.module('myApp.alerts.directives', []);
+
+app.directive('listAlerts', ['Alert', 'AlertCount', '$location', '$routeParams', function(Alert, AlertCount, $location, $routeParams) {
+
+  var link = function(scope,element,attrs) {
+
+    scope.alertCount  = AlertCount;
+    scope.loading     = true;
+    scope.page        = $routeParams.page;
+
+    var init = function() {
+      Alert.get({page: scope.page}).$promise.then(function(results) {
+        scope.alerts            = results.alerts;
+        scope._links            = results._links;
+        scope.loading           = undefined;
+        scope.alertCount.count  = 0;
+      }, function(error) {
+      });
+    };
+
+    scope.updatePage = function(page) {
+      var hash              = {};
+      scope.page            = scope._links.current_page;
+      hash.page             = scope.page;
+
+      $location.search(hash);
+      init();
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {},
+    template:
+        '<loader></loader>'+
+        '<div ng-hide=\'loading\'>'+
+        '<h2>Alerts</h2>'+
+        '<div ng-hide=\'alerts.length\'>'+
+        '<p ng-hide=\'loading || _info.total > 0\'>No alerts found.</p>'+
+        '<span ng-show=\'_info.total > 0\'><div class=\'alert-box alert\'>We found {{ _info.total }} alerts for this location and this box isn\'t a member of any of them.</div>'+
+        '<p><b><small>You won\'t be able to connect to this box</b>. Please add it to a alert to restore the splash pages and connectivity.</small></p>'+
+        // '<p><a href=\'/#/locations/{{ location.slug }}/alerts\' class=\'button tiny\'>Add to alert</a></p>'+
+        '</span>'+
+        '</div>'+
+        '<div ng-show=\'alerts.length\'>'+
+        '<table>' +
+        '<thead>' +
+        '<tr>' +
+        '<th>Type</th>' +
+        '<th>Alert</th>' +
+        '<th>Created</th>' +
+        '<th>Type</th>' +
+        '<th>View</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tr ng-repeat="alert in alerts">' +
+        '<td>'+
+        '<i ng-if=\'alert.type == "info"\' class="fa fa-info-circle"></i>'+
+        '<i ng-if=\'alert.type == "alert"\' class="fa fa-exclamation-triangle"></i>'+
+        '</td>' +
+        '<td>{{ alert.description }}</td>' +
+        '<td>{{ alert.created_at | humanTime }}</td>' +
+        '<td>{{ alert.item_type }}</td>' +
+        '<td>' +
+        '<a href="/#/{{ alert.resource_slug }}">View</a>' +
+        '</td>' +
+        '</tr>' +
+        '</table>' +
+        '<pagination ng-click="updatePage()" total-items="_links.total_entries" page="_links.current_page" max-size="5" class="pagination-sm" boundary-links="false" rotate="false" num-pages="_links.total_pages" items-per-page="{{ _links.size }}"></pagination>'+
+        '</div>'
+  };
+
+}]);
+

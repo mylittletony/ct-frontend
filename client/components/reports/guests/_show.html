@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="small-12 columns">
+    <loader></loader>
+  </div>
+</div>
+
+<div ng-hide="loading">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Guest History</h2>
+      <p>
+        <b>Name:</b> {{ guest.guest.username }}</b><br>
+        <b>Created:</b> {{ guest.guest.created_at | humanTime }}<br>
+
+        <span ng-if="guest.guest.registered"><b>Registered:</b> <i class="fa fa-check"></i> <a href="" ng-click="unregister()">Unregister</a></span>
+      </p>
+      <p>
+        <b>Splash Page:</b> {{ guest.splash_page.splash_name || "Not available" }}<br>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <ul class="inline-list guests">
+        <li><a href="" ng-class="{ 'guest-active': details_loaded }" ng-click="loadDetails()">Details</a></li>
+        <li><a href="" ng-class="{ 'guest-active': sessions_loaded }" ng-click="loadSessions()">Activity</a></li>
+        <li><a href="" ng-class="{ 'guest-active': notes_loaded }" ng-click="loadNotes()" >Notes</a></li>
+      </ul>
+      <hr>
+    </div>
+  </div>
+
+  <sessions ng-if="sessions_loaded">
+    <div class="row">
+      <div class="small-12 columns" ng-hide="sessions.length">
+        <p>No sessions for this guest yet.</p>
+      </div>
+      <div class="small-12 columns" ng-show="sessions.length">
+        <div ng-include="'components/reports/sessions/_shared_table.html'"></div>
+      </div>
+    </div>
+  </sessions>
+
+  <gdetails ng-if="details_loaded">
+    <div class="row">
+      <div class="small-12 columns">
+        <p><b>Email Address</b></p>
+        <p>{{ guest.guest.username }}</p>
+        <p ng-hide="guest.registration_data"><b>No other details available</b></p>
+        <div ng-repeat="field in guest.registration_data">
+          <p><b>{{ field._k | titleCase }} </b></p>
+          <p>{{ field._v | titleCase }} </p>
+        </div>
+      </div>
+    </div>
+  </gdetails>
+
+  <notes ng-if="notes_loaded">
+    <div class="row">
+      <div class="small-12 columns">
+        <div ng-repeat="note in guest.notes" class="guest_notes">
+          <p><b>{{ note.created_by }}</b> <span class="text-muted">{{ note.created_at | humanTime }}</span></p>
+          <p>{{ note.body }}</p>
+        </div>
+        <form ng-submit="updateGuest()" name="myForm">
+          <label>Notes</label>
+          <textarea ng-model="guest.guest.notes" rows=3 placeholder="Notes about this guest"></textarea>
+          <button ng-disabled="myForm.$pristine || !guest.guest.notes">Add Note</button>
+        </form>
+      </div>
+    </div>
+  </sessions>
+
+</div>

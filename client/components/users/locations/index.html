@@ -1,0 +1,28 @@
+<div class="container-normal">
+  <div class="hide-for-small" id="sidebar-normal">
+    <ul class="side-nav">
+      <div hide="loading">
+        <div ng-include="'components/users/layouts/sidebar.html'" ></div>
+      </div>
+    </ul>
+  </div>
+  <div class="row">
+    <div class='small-12 columns' id="s">
+      <loader></loader>
+      <div ng-hide="loading">
+        <div class="row">
+          <div class="small-12 medium-8 columns">
+            <h2>Locations</h2>
+          </div>
+        </div>
+        <!-- <div class="panel"> -->
+          <div class="row">
+            <div class="small-12 columns">
+              <user-locations slug="{{user.slug}}" account-id="{{user.account_id}}"></user-locations>
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>

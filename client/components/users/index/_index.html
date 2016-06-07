@@ -1,0 +1,81 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="Splash">
+      <md-icon md-font-icon="" >people</md-icon>
+    </md-button>
+    <p>Users</p>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
+
+  <div flex layout="column">
+
+    <form ng-submit="search()">
+      <md-card style="padding: 18px 28px 10px 24px;">
+        <md-input-container layout="column" layout-gt-sm="row" flex-gt-sm="30">
+          <md-icon md-font-icon="search">search</md-icon>
+          <label>Search</label>
+          <input ng-model="query.filter" md-autofocus>
+        </md-input-container>
+      </md-card>
+    </form>
+
+    <md-card>
+      <md-table-container>
+        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-column><span hide show-gt-sm>Verified</span></th>
+              <th md-column md-order-by="username">Username</th>
+              <th hide show-gt-sm md-column md-order-by="email">Email</th>
+              <th hide show-gt-sm md-column md-order-by="plan">Plan</th>
+              <th hide show-gt-sm md-column>Created</th>
+              <th md-column ng-show="menu.length">Action</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+          <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.direction)">
+              <td md-cell>
+                <md-icon md-menu-origin md-font-icon="">{{ ::user.verified ? "verifed" : '' }}</md-icon>
+              </td>
+              <td md-cell>
+                {{ ::user.username | truncate:15 }}
+                <md-tooltip hide-gt-sm>
+                  {{ ::user.email }}
+                </md-tooltip>
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ ::user.email }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ ::user.company }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ user.created_at | humanTime }}
+              </td>
+              <td md-cell ng-show="menu.length">
+                <md-menu>
+                  <md-button aria-label="Zone Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                  </md-button>
+                  <md-menu-content width="4" >
+                    <md-menu-item ng-repeat="item in menu">
+                      <md-button ng-click="action(user.slug,item.type)">
+                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+                        <p flex>{{ item.name }}</p>
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+    </md-card>
+  </div>
+</md-content>
+

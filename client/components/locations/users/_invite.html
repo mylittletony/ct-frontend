@@ -1,0 +1,31 @@
+<md-dialog aria-label="Invite" ng-cloak>
+  <form>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2>Invite User</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="row" layout-wrap>
+        <div flex="100">
+          <p>Invite a user to this location.</p>
+        </div>
+        <md-input-container flex="100">
+          <label>Email</label>
+          <input ng-model="user.email" name="email" placeholder="User Email" type="email" required>
+          <div ng-messages="myForm.email.$error">
+            <div ng-message="required">You must enter an email</div>
+            <div ng-message="email">You must enter a valid email</div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+       Cancel
+      </md-button>
+      <md-button ng-click="invite(user)" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary">invite</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

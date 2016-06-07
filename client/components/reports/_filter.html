@@ -1,0 +1,89 @@
+<reports-filter>
+  <section ng-hide="loading">
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <md-menu-bar style="padding: 0">
+          <md-menu>
+            <button ng-click="$mdOpenMenu()">
+              <span hide show-gt-xs>{{ name | titleCase }} Stats </span>
+              <span hide-gt-xs>Type</span>
+              <md-icon>arrow_drop_down</md-icon>
+            </button>
+            <md-menu-content >
+              <md-menu-item>
+                <md-button ng-class="{ 'active': active() }" href="/#/reports?location_id={{ location.id }}">
+                  Wireless Stats
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-class="{ 'active': active('radius') }" href="/#/reports/radius?location_id={{ location.id }}">
+                  Radius Stats
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </md-menu-bar>
+        
+        <div flex></div>
+
+        <md-button aria-label="Open Clients Menu" class="md-icon-button" ng-click="showSearch = !showSearch">
+          <md-icon>search</md-icon>
+        </md-button>
+
+        <span ng-hide="showSearch">
+          <md-select ng-change="changeLocation()" placeholder="Favourite Locations" ng-model-options="{trackBy: '$value.id'}" ng-model="location" iiimd-on-open="loadLocations()" style="min-width: 200px;">
+            <md-option value="">Select Location</md-option>
+            <md-option ng-value="location" ng-repeat="location in locations">{{location.location_name}}</md-option>
+          </md-select>
+        </span>
+       
+        <span ng-if="showSearch">
+          <form ng-submit="$event.preventDefault()">
+            <md-autocomplete
+                md-selected-item="selectedItem"
+                ng-enter="go(item.slug)"
+                md-search-text-change="searchTextChange(searchText)"
+                md-search-text="searchText"
+                md-selected-item-change="selectedItemChange(item)"
+                md-items="item in querySearch(searchText)"
+                md-item-text="item.location_name"
+                md-min-length="5"
+                md-autofocus="true"
+                md-menu-class="locations-autocomplete"
+                placeholder="Search">
+
+              <md-item-template >
+                <a ng-click="go(item)">
+                  <span class="item-title">
+                    <md-icon md-font-icon="arrow_back" >business</md-icon>
+                    <span>&nbsp;{{item.location_name | titleCase }} </span>
+                  </span>
+                  <span class="item-metadata">
+                    <span class="item-metastat">
+                      <strong>{{ ::item.boxes_count || 0 }}</strong> boxes
+                    </span>
+                 </span>
+                </a>
+              </md-item-template>
+              <md-not-found>
+                No locations found.
+              </md-not-found>
+            </md-autocomplete>
+            <br/>
+          </form>
+        </span>
+
+        <md-button-group hide show-gt-sm class="md-raised">
+          <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }">5m</md-button>
+          <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }">30m</md-button>
+          <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }">60m</md-button>
+          <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }">6h</md-button>
+          <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }">1d</md-button>
+          <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }">7d</md-button>
+          <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }">30d</md-button>
+        </md-button-group>
+      </div>
+      <md-divider></md-divider>
+    </md-toolbar>
+  </section>
+</reports-filter>

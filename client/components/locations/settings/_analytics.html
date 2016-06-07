@@ -1,0 +1,46 @@
+<div ng-include="'components/locations/settings/_settings_header.html'"></div>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Analytics Settings
+            </span>
+            <span class="md-subhead">
+              Enable Meraki Presence Analytics
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+          <form name="myForm" submit="update(myForm)">
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="100">
+                <label>Meraki Validator</label>
+                <input name="meraki_validator" ng-model="location.meraki_validator" ng-blur="showValidator = !showValidator" ng-focus="showValidator = !showValidator" type="{{ showValidator ? 'text' : 'password' }}" placeholder="Your Meraki Validator" ng-minlength="40" md-maxlength="255"></input>
+                <div ng-messages="myForm.meraki_validator.$error" md-auto-hide="false">
+                  <div ng-message="max">Must be less than 255</div>
+                  <div ng-message="min">Must be greater than 30 characters</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="100" ng-show="location.meraki_secret">
+                <label>Meraki Secret</label>
+                <input name="meraki_validator" ng-model="location.meraki_secret" type="text" ng-disabled="true"></input>
+              </md-input-container>
+            </div>
+          </form>
+        </md-card-content>
+      </md-card>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+        Save
+      </md-button>
+
+    </div>
+
+  </div>
+
+</md-content>

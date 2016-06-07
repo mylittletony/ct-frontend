@@ -1,0 +1,37 @@
+<div flex="" layout="column" class="layout-column flex" >
+  <loader></loader>
+  <div ng-hide="loading">
+    <div location-zone-show loading="loading" slug="{{ location.slug }}"></div>
+  </div>
+</div>
+<!-- <location-banner></location-banner> -->
+<!-- <div class="container"> -->
+<!--   <div class="show-for-medium-up" id="sidebar"> -->
+<!--     <ul class="side-nav"> -->
+<!--       <div hide="loading"> -->
+<!--         <div ng-include="'components/locations/layouts/sidebar.html'"></div> -->
+<!--       </div> -->
+<!--     </ul> -->
+<!--   </div> -->
+<!--   <div class="row"> -->
+<!--     <div class='small-12 columns' id="s"> -->
+<!--       <div class="spinner" ng-show="loading"><h1>Loading...</h1></div> -->
+<!--       <div ng-hide="loading"> -->
+<!--         <div class="row"> -->
+<!--           <div class="small-12 medium-6 columns"> -->
+<!--             <h3 ng-show="editing">Updating Zone</h3> -->
+<!--             <h3 ng-hide="editing" ng-click="editing = !editing">{{ zone.zone.zone_name }}</h3> -->
+<!--             <input ng-show="editing" type="text" ng-model="zone.zone.zone_name" placeholder="Zone Name (lobby, reception)" required> -->
+<!--             <span ng-show="editing" > -->
+<!--               <a href="" ng-click="updateZone(zone.zone.unique_id)">Save</a> | -->
+<!--               <a href="" ng-click="editing = !editing">Cancel</a><br><br> -->
+<!--             </span> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--         <div location-zone-show loading="loading" slug="{{ location.slug }}"></div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+
+

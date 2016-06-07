@@ -1,0 +1,124 @@
+<div class='row' ng-if="loading">
+  <div class='small-12 medium-10 columns'>
+    <loader></loader>
+  </div>
+</div>
+<div ng-if="load_stats">
+  <div class='row'>
+    <div class='small-12 medium-10 columns'>
+      <h2>Location Dashboard</h2>
+      <p>What's been happening at {{ location.location_name }} recently.</p>
+    </div>
+    <div class='show-for-large-up medium-2 columns'>
+      <span class="right">
+        <a href="/#/locations/{{location.slug}}/boxes/new" class="button small success">Add Box</a>
+      </span>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="small-12 columns show-for-medium-up" id='location-chart'>
+      <line-chart data="{{timeline}}" legend="true" interval='day' align="left" start="{{ _stats.start }}"></line-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 large-4 columns">
+      <div class="ct-stats-outer">
+        <div class="ct-stats-inner">
+          <h1>Online</h1><h2 class="loc-has-tip" tooltip="Currently connected devices">{{ location.online }} </h2>
+        </div>
+        <div class="ct-stats-inner">
+          <h1>Splash views</h1><h2 class="loc-has-tip" ng-class="{ 'text-danger': allowed == false }" tooltip="Splash page hits this period.">{{ location.splash_views_this_period }}<span ng-if="allowed == false">!!</span></h2>
+        </div>
+        <div class="ct-stats-inner">
+          <h1>Avg. visit (mins) </h1><h2 class="loc-has-tip" tooltip="Avg splash visit time">{{ avg_visit }} </h2>
+        </div>
+        <div class="ct-stats-inner">
+          <h1>Unique users</h1><h2 class="loc-has-tip" tooltip="Total unique devices seen">{{ summary.uniques }} </h2>
+        </div>
+        <div class="ct-stats-inner">
+          <h1>SSIDs</h1><h2 class="loc-has-tip" tooltip="Total SSIDs for this location">{{ location.networks }} </h2>
+        </div>
+        <div class="ct-stats-inner">
+          <h1>Zones</h1><h2 class="loc-has-tip" tooltip="Number of zones in use">{{ location.zones }} </h2>
+        </div>
+        <div class="ct-stats-inner">
+          <h1>Splash pages</h1><h2 class="loc-has-tip" tooltip="Number of splash pages">{{ location.splash_pages }} </h2>
+        </div>
+      </div>
+    </div>
+    <div class="show-for-large-up large-4 columns">
+      <div id="mans_chart" class="location-overlay-mans"></div>
+      <pie-chart data="{{summary.manufacturers}}" name="Manufacturers" div="mans_chart"></pie-chart>
+    </div>
+    <div class="show-for-medium-up medium-6 large-4 columns">
+      <div class="panel overlay-text">
+        <p>{{ boxes.length || 0 }} Boxes in {{ location.location_name | truncate:40 }}</p>
+        <input type="text" placeholder="What are you looking for?" ng-model="query"></input>
+        <div ng-show="boxes.length > 0" class="location-overlay-table-lg">
+          <location-overlay-table large="true"></location-overlay-table>
+        </div>
+        <div ng-if="(filtered.length < 1) || !boxes"><p>Nothing to be seen. <b><a href="/#/locations/{{ location.slug }}/boxes/new">Add a box?</a></b></p></div>
+        <div class="row">
+          <div class="small-6 columns">
+            <p><a class="locations-overlay-stats" href="" ng-click="switchView()"><b>Switch view <i class="fa fa-map-marker"></i> </b></a></p>
+          </div>
+          <div class="small-6 columns">
+            <p class="locations-overlay-stats right"><a href="" ng-click="incrQuantity()" ng-if="quantity < max_quantity"><i class="fa fa-plus"></i> Show more</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="show-for-small-only small-12 columns">
+      <p><a class="locations-overlay-stats" href="" ng-click="switchView()"><b>Switch view <i class="fa fa-map-marker"></i> </b></a></p>
+      <br><br>
+    </div>
+  </div>
+</div>
+
+<div ng-if="load_map">
+  <div class="locations-overlay overlay-text">
+    <div ng-hide="hidePanel">
+      <p>{{ filtered.length || 0 }} of {{ boxes.length || 0 }} total boxes in <b>{{ location.location_name | truncate:40 }}</b></p>
+      <input type="text" placeholder="What are you looking for?" ng-model="query"></input>
+      <div ng-show="boxes.length > 0" class="locations-overlay-table">
+        <location-overlay-table></location-overlay-table>
+      </div>
+      <div ng-if="(filtered.length < 1) || !boxes"><p>Nothing to be seen. <b><a href="/#/locations/{{ location.slug }}/boxes/new">Add a box?</a></b></p></div>
+      <div class="show-for-medium-up" ng-if="filtered.length > 1"><p><small>Drag the markers to adjust their position</small></p></div>
+    </div>
+    <p>
+      <a class="locations-overlay-stats" href="" ng-click="switchView()"><b>Switch view <i class="fa fa-line-chart"></i> </b></a>
+      <span class="show-for-medium-up right"><a class="locations-overlay-stats" href="" ng-click="togglePanel()"><b>{{ hidePanel ? 'Show' : 'Hide' }} panel</b></a>
+    </p>
+    <p class="locations-overlay-stats show-for-small-only"><a href="" ng-click="incrQuantity()" ng-if="quantity < max_quantity"><i class="fa fa-plus"></i> Show more</a></p>
+  </div>
+
+  <google-maps id="map_canvas" lat="{{ location.latitude }}" lng="{{ location.longitude }}" zoom="12" div='map' update="updateCT(options)">
+    <div ng-repeat="box in boxes | filter:query ">
+      <google-marker lat="{{box.lat}}" lng="{{box.lng}}" color="{{ box.colour }}" state="{{ box.state }}" network="{{ location.network_name }}" alerting="true" symbol="grocery" draggable="true" slug="{{ box.slug }}" style="display: none">
+      <h4>
+        <img ng-if="box.is_polkaspots || box.last_heartbeat" class="status-icon" title='This box is {{box.state}}.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/{{box.is_online || box.state == 'processing' ? box.state == 'rebooting' ? 'amber' : 'online' : 'offline' }}.png"></span>
+        <img ng-hide="box.is_polkaspots" class="status-icon" title='This box is not a CT box.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/other.png"></span>
+        {{ box.description || 'No Description' | truncate:15 }}
+      </h4>
+      <p class="text-muted"><small>
+          {{ box.mac }}
+        </small></p>
+      <hr>
+      <p>
+        Total sessions: {{ box.sessions }}
+        <br>
+        <span ng-show="box.heartbeat">Last seen: <span am-time-ago="box.heartbeat" am-preprocess="unix"></span></span>
+        <span ng-hide="box.heartbeat">Last seen: Never checked in</span>
+        <br>
+        Connected: {{ box.clients }}
+      </p>
+      <hr>
+      <a href='/#/locations/{{ location.slug }}/boxes/{{ box.slug }}' class="button tiny">View</a>
+      <span class="right">
+        <span ng-class="box.device_icon !== 'blank.png' ? 'locations-overlay-box-popover' : '' " ng-if="box.device_icon" ng-cloak><img class="center" src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}"/></span>
+      </span>
+      </google-marker>
+    </div>
+  </google-maps>
+</div>

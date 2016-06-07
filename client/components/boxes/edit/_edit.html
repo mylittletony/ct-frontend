@@ -1,0 +1,370 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
+    </md-button>
+    <p>Back to Device</p>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<section ng-cloak ng-show="!loading">
+  <md-subheader class="md-accent"><b>MAC Address</b>: {{ box.calledstationid}}<span hide show-gt-sm> <b>Description</b>: {{ box.description }}<b> Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
+</section>
+
+<md-content class="md-padding" layout-gt-sm="column" layout="column" ng-if="box.is_polkaspots == false">
+  <div flex layout="column">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Splash Only Device</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <p>This device only supports splash pages. Management features are disabled.</p>
+        <splash-only box="box"></splash-only>
+      </md-card-content>
+    </md-card>
+  </div>
+</md-content>
+
+<md-content class="md-padding" layout="column" ng-if="box.is_polkaspots === true">
+  <form ng-submit="update(myForm)" name="myForm">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Device Settings</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="column" layout-gt-xs="row" layout-wrap>
+          <div flex-gt-sm="50">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Description</label>
+              <input ng-model="box.description" name="desc" md-maxlength="255" required>
+              <div ng-messages="myForm.desc.$error">
+                <div ng-message="required">This device must have a valid MAC address</div>
+                <div ng-message="md-maxlength">Must be less than 255 characters</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>MAC Address</label>
+              <input ng-model="box.calledstationid" name="mac" ng-pattern="/^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/" required>
+              <div ng-messages="myForm.mac.$error">
+                <div ng-message="required">This device must have a valid MAC address</div>
+                <div ng-message="pattern">Must be a valid MAC address</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Timezone</label>
+              <md-select ng-model="box.timezone" required>
+                <md-option ng-repeat="zone in timezones" value="{{zone}}">
+                  {{zone}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div hide-xs flex-gt-xs="10"></div>
+          <div flex-gt-xs="40" layout="column">
+            <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
+              Alerts {{ box.is_monitored ? 'enabled' : 'disabled'}}
+            </md-switch>
+            <md-checkbox ng-model="box.tony" aria-label="Cucumber box">
+              Cucumber Box
+            </md-checkbox>
+            <small>Don't disable this unless you're using a splash-only device.</small>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Wireless Settings</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+
+        <div layout="column" layout-gt-xs="row" layout-wrap>
+          <div flex-gt-sm="50">
+            <div layout="column" layout-gt-xs="row">
+              <md-input-container flex-gt-xs="50">
+                <label>2.4Ghz Channel</label>
+                <md-select ng-model="box.channel" required>
+                  <md-option ng-repeat="channel in channels" value="{{channel}}">
+                    {{channel}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container flex-gt-xs="50">
+                <label>2.4Ghz Mode</label>
+                <md-select ng-model="box.ht_mode_2" ng-change="updateChannelTwo()" required>
+                  <md-option ng-repeat="mode in ht_modes" value="{{mode.value}}">
+                    {{mode.key}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+            <div flex="100">
+              <p>2.4Gz Power ({{box.tx_power_2}}dBm)</p>
+              <md-slider-container>
+                <md-slider flex class="md-primary" md-discrete ng-model="box.tx_power_2" step="1" min="5" max="20" aria-label="tx_power_2">
+                </md-slider>
+              </md-slider-container>
+
+            </div>
+          </div>
+          <div hide-xs flex-gt-xs="10"></div>
+          <div flex="40">
+            <span ng-if="box.dual_band">
+              <div layout="column" layout-gt-xs="row">
+                <md-input-container flex-gt-xs="50">
+                  <label>5Ghz Channel</label>
+                  <md-select ng-model="box.channel" required>
+                    <md-option ng-repeat="channel in channels5" value="{{channel}}">
+                      {{channel}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container flex-gt-xs="50">
+                  <label>5Ghz Mode</label>
+                  <md-select ng-model="box.ht_mode_5" ng-change="updateChannelFive()" required>
+                    <md-option ng-repeat="mode in ht_modes_5" value="{{mode.value}}">
+                      {{mode.key}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+              <div flex="100">
+                <p>5Gz Power ({{box.tx_power_5}}dBm)</p>
+                <md-slider-container>
+                  <md-slider flex class="md-primary" md-discrete ng-model="box.tx_power_5" step="1" min="5" max="20" aria-label="tx_power_2">
+                  </md-slider>
+                </md-slider-container>
+
+              </div>
+            </span>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Advanced Radio Settings</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+
+        <div layout="row">
+          <md-checkbox ng-disabled="box.legacy_mode_b" ng-model="box.basic_rate_enabled" aria-label="Basic Rate Support">
+            Minimum Data Rate
+          </md-checkbox>
+          <md-checkbox ng-model="box.band_steering" aria-label="Band Steering">
+            Band Steering
+          </md-checkbox>
+          <md-checkbox ng-model="box.no_scan" aria-label="No Scan">
+            No Scan Mode
+          </md-checkbox>
+          <md-checkbox ng-disabled="box.basic_rate_enabled" ng-model="box.legacy_mode_b" aria-label="Legacy Mode">
+            Legacy Mode
+          </md-checkbox>
+        </div>
+
+        <div layout="row" ng-if="box.basic_rate_enabled == true">
+          <div flex-gt-sm="50">
+            <box-data-rates nas="box"></box-data-rates>
+          </div>
+        </div>
+
+        <div layout="row" ng-hide="box.band_steering">
+          <div flex-gt-sm="50">
+            <p>2.4Gz Beacon Interval ({{box.beacon_interval_2}})</p>
+            <md-slider-container>
+              <md-slider flex class="md-primary" md-discrete ng-model="box.beacon_interval_2" step="1" min="1" max="1000" aria-label="beacon_interval_2">
+              </md-slider>
+            </md-slider-container>
+            <span ng-show="box.dual_band">
+              <p>5Ghz Beacon Interval ({{box.beacon_interval_5}})</p>
+              <md-slider-container>
+                <md-slider flex class="md-primary" md-discrete ng-model="box.beacon_interval_5" step="1" min="1" max="1000" aria-label="beacon_interval_5">
+                </md-slider>
+              </md-slider-container>
+            </span>
+          </div>
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Logging</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content layout-gt-xs="row" layout-wrap>
+      <div flex-gt-xs="50">
+        <div layout="row">
+          <md-input-container class="md-block" flex="80">
+            <label>Syslog Host</label>
+            <input ng-model="box.rsyslog_host" name="rsyslog_host" placeholder="Remote host address">
+            <!-- <div ng-messages="myForm.rsyslog_host.$error"> -->
+            <!--   <div ng-message="url">Must be a valid URL</div> -->
+            <!-- </div> -->
+          </md-input-container>
+        </div>
+        <div layout="row" ng-if="box.rsyslog_host">
+          <md-input-container class="md-block" flex-gt-xs="40">
+            <label>Syslog Port</label>
+            <input ng-model="box.rsyslog_port" name="rsyslog_port" placeholder="Remote Port" type="number" ng-min="1" ng-max="65535" ng-required="box.rsyslog_host">
+            <div ng-messages="myForm.rsyslog_port.$error">
+              <div ng-message="required">This is required</div>
+              <div ng-message="min">Must be greated than 1</div>
+              <div ng-message="max">Must be less than 65535</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-xs="40">
+            <label>Protocol</label>
+            <md-select ng-model="box.rsyslog_protocol" ng-required="box.rsyslog_host">
+              <md-option value="udp">UDP</md-option>
+              <md-option value="tcp">TCP</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <md-checkbox ng-model="box.debug" aria-label="Cucumber Debug">
+          Enable Debug Mode
+        </md-checkbox>
+        <p>
+          <small>
+            <md-icon>star_rate</md-icon>
+            Enterprise Only
+          </small>
+        </p>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Network Settings</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div flex-gt-xs="30">
+        <md-input-container class="md-block">
+          <label>WAN Protocol</label>
+          <md-select ng-model="box.wan_proto" required>
+            <md-option ng-repeat="proto in protos" value="{{proto.value}}">
+              {{proto.key}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+
+      <div layout="column" layout-gt-xs="row" layout-wrap>
+        <div flex-gt-sm="50">
+          <md-input-container class="md-block">
+            <label>IP Address</label>
+            <input ng-model="box.wan_ipaddr" name="wan_ip" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
+            <div ng-messages="myForm.wan_ip.$error">
+              <div ng-message="required">This device must have a valid WAN IP</div>
+              <div ng-message="pattern">Must be a valid IPv4 address</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Netmask</label>
+            <input ng-model="box.wan_netmask" name="netmask" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
+            <div ng-messages="myForm.netmask.$error">
+              <div ng-message="required">Must have a valid subnet</div>
+              <div ng-message="pattern">Must be a valid netmask</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Gateway IP</label>
+            <input ng-model="box.wan_gateway" name="gateway" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
+            <div ng-messages="myForm.gateway.$error">
+              <div ng-message="required">This device must have a valid gateway</div>
+              <div ng-message="pattern">Must be a valid gateway address</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div hide-xs flex-gt-xs="10"></div>
+        <div flex-gt-xs="40" layout="column" layout-gt-xs="row" layout-wrap>
+          <md-input-container class="md-block" flex-gt-xs="50">
+            <label>DNS 1</label>
+            <input ng-model="box.wan_dns_1" name="wan_dns_1" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
+            <div ng-messages="myForm.wan_dns_1.$error">
+              <div ng-message="required">A DNS value is required</div>
+              <div ng-message="pattern">Must be a valid IPv4 address</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-xs="50">
+            <label>DNS 2</label>
+            <input ng-model="box.wan_dns_2" name="wan_dns_2" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
+            <div ng-messages="myForm.wan_dns_2.$error">
+              <div ng-message="required">A DNS value is required</div>
+              <div ng-message="pattern">Must be a valid IPv4 address</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-xs="50">
+            <label>WAN MTU</label>
+            <input ng-model="box.wan_mtu" name="mtu" type="number" step="1" ng-min=100 ng-max=1500 required>
+            <div ng-messages="myForm.mtu.$error">
+              <div ng-message="required">A valid MTU is required</div>
+              <div ng-message="min">Must be greated than 100</div>
+              <div ng-message="max">Must be less than 1500</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-xs="50">
+            <label>WAN Metric</label>
+            <input ng-model="box.wan_metric_1" name="wan_metric_1" type="number" ng-max=1000 ng-min=0 required>
+            <div ng-messages="myForm.wan_metric_1.$error">
+              <div ng-message="required">A WAN metric is required</div>
+              <div ng-message="min">Must not be less than 0</div>
+              <div ng-message="max">Must be less than 1000</div>
+            </div>
+          </md-input-container>
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Radius Settings</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm="50" flex>
+          <label>Radius NAS ID</label>
+          <input ng-model="box.radiusnasid" name="nasid" md-maxlength="255" ng-pattern="/^[a-zA-Z0-9\-\_]*$/" required>
+          <div ng-messages="myForm.nasid.$error" md-auto-hide="false">
+            <div ng-message="md-maxlength">Upto 255 characters</div>
+            <div ng-message="required">Radius NAS ID is required</div>
+            <div ng-message="pattern">Numbers, letters and hyphens only.</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm="50" flex>
+          <label>Radius Secret</label>
+          <input ng-model="box.radius_secret" name="secret" ng-disabled="true" required>
+        </md-input-container>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
+  <div class="lock-size" layout="row" layout-align="center center">
+    <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" type="submit" class="md-fab md-primary md-fab-bottom-right ">
+      <md-icon>save</md-icon>
+    </md-button>
+  </div>
+
+</form>
+</md-content>

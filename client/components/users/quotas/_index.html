@@ -1,0 +1,65 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="book">book</md-icon>
+    </md-button>
+    <p>Resource Quotas</p>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="100">
+      <md-card>
+        <md-card-content>
+          <md-table-container>
+            <table md-table>
+              <thead md-head>
+                <tr md-row>
+                  <th md-column>Resource</th>
+                  <th md-column>Usage</th>
+                  <th md-column>Limit</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row>
+                  <td md-cell><a href="/#/locations?user_id={{ quota.user_id }}">Locations</a></td>
+                  <td md-cell>{{ usage.locations || 0}}</td>
+                  <td md-cell>{{ quota.locations || 0}}</td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>Boxes</td>
+                  <td md-cell>{{ usage.boxes || 0 }}</td>
+                  <td md-cell>{{ quota.boxes || 0 }}</td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>Vouchers</td>
+                  <td md-cell>{{ usage.vouchers || 0}}</td>
+                  <td md-cell>{{ quota.vouchers || 0}}</td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>Splash Views</td>
+                  <td md-cell>{{ usage.splash_views || 0 }}</td>
+                  <td md-cell>{{ quota.splash_views || 0 }}</td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>Zones per location</td>
+                  <td md-cell>NA</td>
+                  <td md-cell>{{ usage.zones || 0 }}</td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>Admin Users</td>
+                  <td md-cell>{{ usage.admins || 0 }}</td>
+                  <td md-cell>{{ quota.admins || 0 }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+<md-content>

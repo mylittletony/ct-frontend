@@ -1,0 +1,44 @@
+<md-dialog aria-label="Radius Test"  ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Run Radius Tests</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content" layout="column">
+      <p>Please make sure your radius server accepts requests from 23.251.132.81/32</p>
+      <div flex layout="column">
+        <form name="myForm">
+          <div layout-gt-xs="row">
+            <input style="display:none" type="text" name="radtest_username"/>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Username</label>
+              <input name='radtest_username' placeholder='Enter a username' ng-model='radtest.username' type='text' required></input>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Password</label>
+              <input name='radtest_password' placeholder='Enter a password' ng-model='radtest.password' type='password' required></input>
+            </md-input-container>
+          </div>
+          <p ng-if="radtest.results">
+            {{ radtest.results }}
+          </p>
+          <p ng-if="radtest.state == 'testing'">
+            <md-progress-linear md-mode="query"></md-progress-linear>
+            <br>Test running, please wait.
+          </p>
+        </form>
+      </div>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="close()">
+      Close
+    </md-button>
+    <md-button ng-click="test(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine">
+      Test 
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
+

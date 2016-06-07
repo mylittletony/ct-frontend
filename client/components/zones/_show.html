@@ -1,0 +1,79 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-input-container flex style="margin-top: 50px">
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query.filter" md-autofocus placeholder="Filter Networks">
+    </md-input-container>
+    <div flex></div>
+    <md-button class="md-icon-button md-warn" ng-if="allowed" ng-click="destroy()" aria-label="Add Device">
+      <md-icon>delete_forever</md-icon>
+    </md-button>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+
+  <form name="myForm">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-header">{{ zone.zone_name | titleCase }}. {{ zone.boxes.length || 0 }} box<span ng-if="zone.boxes.length != 1">es</span>, {{ selected.length || 0 }} network<span ng-if="selected.length != 1">s</span>. {{ zone.zone_description }}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-divider ng-if="!$last"></md-divider>
+          <md-card-content>
+
+            <md-table-container>
+              <table md-table md-row-select="options.rowSelect" ng-model="selected" md-auto-select="options.autoSelect" md-progress="promise">
+                <thead md-head md-order="query.order">
+                  <tr md-row>
+                    <th md-column><span>SSID</span></th>
+                    <th md-column><span>Description</span></th>
+                    <th md-column><span>Splash</span></th>
+                    <th md-column><span>Action</span></th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row md-select="network" md-on-change="logItem" md-auto-select="options.autoSelect" ng-repeat="network in filtered = (networks | filter: query.filter | orderBy: options.order)">
+                    <td md-cell>
+                      {{::network.ssid }}
+                    </td>
+                    <td md-cell>
+                      {{ ::network.description }}
+                    </td>
+                    <td hide show-gt-xs md-cell>
+                      {{ ::network.captive_portal_enabled ? "Enabled" : '-' }}
+                    </td>
+                    <td md-cell>
+                      <md-menu>
+                        <md-button aria-label="Open Boxes Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                        </md-button>
+                        <md-menu-content width="4" >
+                          <md-menu-item>
+                            <md-button ng-click="view(network.id)">
+                              <md-icon>pageview</md-icon>
+                              <p>View</p>
+                            </md-button>
+                          </md-menu-item>
+                        </md-menu-content>
+                      </md-menu>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </md-card-content>
+        </md-card>
+
+        <md-button class="md-raised" ng-click="update()">
+          Save
+        </md-button>
+
+      </div>
+    </div>
+  </form>
+</md-content>

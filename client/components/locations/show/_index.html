@@ -1,0 +1,67 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query" md-autofocus placeholder="Filter Devices">
+    </md-input-container>
+    <div flex></div>
+    <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="Add Device">
+      <md-icon>add_circle</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="Map">
+      <md-icon>map</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ng-click="favourite()" aria-label="Favourte">
+      <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
+    </md-button>
+    <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="Switch 1" ng-change='streamingUpdater()'>
+    </md-switch>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content layout-padding>
+
+  <!-- has devices ! -->
+  <div ng-show="location.has_nas == false">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Please Add a Device</span>
+              <span class="md-subhead">Manage and monitor all your device remotely.</span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content>
+            <p>You haven't added any devices yet. Please check through the list of compatible devices <a href='http://docs.cucumberwifi.io/article/78-compatible-devices-access-points' target="_blank">here</a>.</p>
+            <p>The firmware is available in the downloads section.</p>
+            <p>Once you have installed this, add your device(s) to your dashboard. They will provision automatically.</p>
+          </md-card-content>
+          
+          <md-divider ng-if="!$last"></md-divider>
+
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button href="/#/downloads" aria-label="Downloads">
+              Downloads
+            </md-button>
+            <md-button ng-click="addDevice()" aria-label="Add Device">
+              Add Device
+            </md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+
+  </div>
+
+  <div ng-if="location.has_nas">
+    <client-chart>
+      <location-chart ></location-chart>
+    </client-chart>
+
+    <location-boxes filter="query" loading="loading"></location-boxes>
+  </div>
+
+</md-content>

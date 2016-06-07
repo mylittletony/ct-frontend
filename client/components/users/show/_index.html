@@ -1,0 +1,123 @@
+<form name="myForm" ng-submit="update(myForm)">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+        <md-icon md-font-icon="arrow_back" >face</md-icon>
+      </md-button>
+      <p>Profile</p>
+      <div flex></div>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                <md-icon md-font-icon="" ng-if="user.verified">verified_user</md-icon>
+                {{ ::user.username }}
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-list-item class="md-3-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3>Account ID</h3>
+                  <p>{{ ::user.account_id }}
+                  </p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3>Plan</h3>
+                  <p>You're on the {{ ::user.plan.plan_name }} Plan which <span ng-show="user.plan.plan_price < 1">is free</span><span ng-show="user.plan.plan_price > 0">costs {{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} and is billed {{ ::user.plan.billing_period }}</span>.</p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3>Account Created</h3>
+                  <p>{{ user.created_at | humanTime }}</p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3>Subscription Status</h3>
+                  <p>{{ user.subscription_active ? "Active" : "Free User" }}</p>
+                </div>
+              </md-list-item>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                Profile Settings
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Username</label>
+                <input ng-disabled="!user.allowed" md-maxlength="50" ng-minlength="5" type="text" name="username" ng-model='user.username' placeholder='Username' required></input>
+                <div ng-messages="myForm.username.$error">
+                  <div ng-message="minlength">Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength">Max 20 characters</div>
+                  <div ng-message="required">You must set a username</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Email Address</label>
+                <input ng-disabled="!user.allowed" md-maxlength="100" ng-minlength="5" type="email" name="username" ng-model='user.email' placeholder='Email address' required></input>
+                <div ng-messages="myForm.email.$error">
+                  <div ng-message="minlength">Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength">Max 100 characters</div>
+                  <div ng-message="required">You must set an email</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Company</label>
+                <input md-maxlength="255" ng-minlength="5" type="text" name="company" ng-model='user.company_name' placeholder='Company'></input>
+                <div ng-messages="myForm.company.$error">
+                  <div ng-message="minlength">Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength">Max 100 characters</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Phone Number</label>
+                <input md-maxlength="100" ng-minlength="5" type="text" name="phone" ng-model='user.mobile_number' placeholder='Phone'></input>
+                <div ng-messages="myForm.phone.$error">
+                  <div ng-message="minlength">Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength">Max 100 characters</div>
+                </div>
+              </md-input-container>
+
+              <div flex="100"></div>
+              <div flex="50" style="padding-top: 30px;" ng-if="user.admin">
+                <md-checkbox ng-model="user.verified" aria-label="Verified">
+                  Verified Account
+                </md-checkbox>
+              </div>
+            </div>
+          </md-card-content>
+          <user-password ng-if="user.allowed"></user-password>
+        </md-card>
+
+        <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+          Save
+        </md-button>
+
+      </div>
+
+  </md-content>
+</form>

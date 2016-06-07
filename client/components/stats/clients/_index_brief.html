@@ -1,0 +1,13 @@
+<div ng-hide="loading">
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <line-chart ng-show="charts > 0" legend="true" interval="{{ _stats.interval }}" align="left" start="{{ _stats.start }}" data="{{ chart_series }}"></line-chart>
+    </div>
+  </div>
+</div>
+
+

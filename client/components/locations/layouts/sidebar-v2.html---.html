@@ -1,0 +1,13 @@
+<md-subheader class="md-primary">Location Details</md-subheader>
+
+<md-content role="navigation" class="flex">
+  <ul class="side-menu">
+    <li ng-repeat="section in sections" class="parent-list-item" ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+      <h2 class="menu-heading" ng-if="section.type === 'heading'" id="heading_{{ section.name | nospace }}">
+        {{section}}
+      </h2>
+      <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+      <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+    </li>
+  </ul>
+</md-content>

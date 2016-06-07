@@ -1,0 +1,11 @@
+<div ng-controller="LocationsCtrlShort" class="location-search text-center" ng-cloak>
+{{ selected.item.location_name }}
+  <typeaheads class="typeahead" items="locations" term="term" search="getLocation(term)" select="selectLocation(item)">
+    <div class="menu" ng-cloak>
+      <li typeahead-item="location" ng-repeat="location in locations" class="results">
+        {{ location.location_name }}
+      </li>
+    </div>
+  </typeaheads>
+</div>
+

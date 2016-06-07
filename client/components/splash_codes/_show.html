@@ -1,0 +1,134 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Splash Codes</p>
+    <md-menu ng-if="menu.length">
+      <md-button aria-label="Open Tools" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
+        TOOLS
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in menu">
+          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+            {{item.name}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">
+          Code Details
+        </span>
+        <span class="md-subhead">
+          <span ng-show="splash_code.valid == false"><b>This code has expired. Please create another.</b></span>
+          <span ng-show="splash_code.valid == true"><b>This code is valid.</b></span>
+        </span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+
+      <div layout="row" layout-wrap>
+        <div flex="100" flex-gt-sm="50">
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Password</h3>
+              <p>{{ splash_code.password }}</p>
+            </div>
+          </md-list-item>
+
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Validity</h3>
+              <p>{{ splash_code.volume }} mins, {{ splash_code.simultaneous_use }} simultaneous users</p>
+            </div>
+          </md-list-item>
+
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Expire{{ splash_code.valid ? 's' : 'd' }}</h3>
+              <p>{{ splash_code.expires | humanTime }}</p>
+            </div>
+          </md-list-item>
+
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Access Restriction</h3>
+              <p>{{ splash_code.period == "all" ? "All time" : "Daily"}}</p>
+            </div>
+          </md-list-item>
+          
+        </div>
+        <div flex="100" flex-gt-sm="50">
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Speeds</h3>
+              <p>
+                {{ (splash_code.download_speed / 1024) | number:0 }}Mbps
+                <md-icon md-font-icon="" >arrow_downward</md-icon>
+                {{ (splash_code.upload_speed / 1024) | number:0 }}Mbps
+                <md-icon md-font-icon="" >arrow_upward</md-icon>
+              </p>
+            </div>
+          </md-list-item>
+
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Splash Page</h3>
+              <p><a href="/#/locations/{{location.slug}}/splash_pages/{{ splash_code.splash_page_id}}">{{ splash_code.splash_page_id || "Unnamed Splash" }}</a></p>
+            </div>
+          </md-list-item>
+
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Created</h3>
+              <p>{{ splash_code.created_at | humanTime }}</p>
+            </div>
+          </md-list-item>
+
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Created By</h3>
+              <p>{{ splash_code.created_by }}</p>
+            </div>
+          </md-list-item>
+
+        </div>
+
+      </div>
+
+    </md-card-content>
+
+    <md-card-actions layout="row" style="padding-left: 20px">
+      <md-switch ng-model="splash_code.active" ng-change="update()" aria-label="Active" class="md-primary">
+        Code {{ splash_code.active ? "Active" : "Disabled" }}
+      </md-switch>
+    </md-card-actions>
+
+  </md-card>
+
+</md-content>
+
+
+<!-- <p ng-show="splash_code.valid == false"><b>This code is not valid. Either it's expired or has been disabled.</b></p> -->
+<!-- <h2>{{ splash_code.password }}</h2> -->
+<!-- <p><small><span class="text-muted">Give this password to your guests</span></small></p> -->
+<!-- <ul> -->
+<!--   <li>Valid for {{ splash_code.volume }} mins and up to {{ splash_code.simultaneous_use }} simultaneous users</li> -->
+<!--   <li>{{ splash_code.download_speed }}Kbps <i class="fa fa-arrow-down"></i> {{ splash_code.upload_speed }}Kbps <i class="fa fa-arrow-up"></i></li> -->
+<!--   <li>Expires <span am-time-ago="splash_code.expires" am-preprocess="unix"></span> <span class="text-muted">on {{ splash_code.expires | humanTime }}.</span></li> -->
+<!--   <li>Valid on: {{ splash_code.splash_name || "Unknown" }} splash</li> -->
+<!--   <hr> -->
+<!--   <li>Created by {{ splash_code.created_by }} on {{ splash_code.created_at | humanTime }}</li> -->
+<!--   <li>{{ splash_code.active ? "Is active" : "Is disabled"}} {{ splash_code.valid ? "and valid" : "and invalid" }} for use.</li> -->
+<!--   <li>Upto {{ splash_code.volume }} mins {{ splash_code.period == "all" ? "forever and ever and ever." : "per day"}}</li> -->
+<!-- </ul> -->

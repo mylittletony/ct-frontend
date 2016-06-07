@@ -1,0 +1,305 @@
+<md-card>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">
+        Social Settings
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+
+  <md-card-content>
+
+    <div layout="column" layout-gt-sm="row">
+
+      <md-checkbox ng-model="splash.fb_login_on" name="fb_login_on" type="checkbox">
+        Facebook
+      </md-checkbox>
+      <md-checkbox ng-model="splash.g_login_on" name="g_login_on" type="checkbox">
+        Google+
+      </md-checkbox>
+      <md-checkbox ng-model="splash.li_login_on" name="li_login_on" type="checkbox">
+        LinkedIn
+      </md-checkbox>
+      <md-checkbox ng-model="splash.backup_vouchers" name="backup_vouchers" type="checkbox">
+        Vouchers
+      </md-checkbox>
+      <md-checkbox ng-model="splash.backup_email" name="backup_email" type="checkbox">
+        Email Backup
+      </md-checkbox>
+
+    </div>
+
+  </md-card-content>
+</md-card>
+
+<md-card ng-show="splash.fb_login_on">
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">
+        Facebook Settings
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+
+  <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
+    <div flex="40">
+      <div layout="column">
+        
+        <md-input-container class="md-block">
+          <label>Facebook Page ID (numeric)</label>
+          <input ng-model="splash.fb_page_id" name="fb_page_id" placeholder="Facebook Page ID" type="text" ng-required="splash.fb_redirect_to_page || splash.fb_checkin" ng-pattern="/^-?\d+\.?\d*$/">
+          <div ng-messages="myForm.fb_page_id.$error" md-auto-hide="false">
+            <div ng-message="required">Page ID required</div>
+            <div ng-message="pattern">Invalid Page ID</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Facebook App ID</label>
+          <input ng-model="splash.fb_app_id" name="fb_app_id" placeholder="Enter your App ID" type="text" ng-disabled="splash.fb_use_ps" ng-required='!splash.fb_use_ps'>
+          <div ng-messages="myForm.fb_app_id.$error" md-auto-hide="false">
+            <div ng-message="required">Required when using your own App.</div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+      <div layout="column">
+        <md-input-container class="md-block">
+          <label>Checkin Message</label>
+          <textarea ng-model="splash.fb_checkin_msg" md-maxlength="255" ng-minlength="5" name="fb_checkin_msg" rows=5 placeholder="Enter a checkin message for the user to edit"></textarea>
+          <div ng-messages="myForm.fb_checkin_msg.$error">
+            <div ng-message="md-maxlength">Max 255 characters.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+    </div>
+
+    <div flex></div>
+
+    <div flex="40">
+      <div layout="column">
+        <md-switch class="md-accent" ng-model="splash.fb_redirect_to_page" aria-label="Redirect To Page">
+          Redirect To Facebook Page {{ splash.fb_redirect_to_page ? 'Enabled' : 'Disabled' }}
+        </md-switch>
+        <md-switch class="md-accent" ng-model="splash.fb_checkin" aria-label="FB Checkin">
+          Allow Checkin {{ splash.fb_checkin ? 'Enabled' : 'Disabled' }}
+        </md-switch>
+        <md-switch class="md-accent" ng-model="splash.fb_use_ps" aria-label="FB Use CT" ng-true-value="0" ng-false-value="1">
+          Use Your Own Facebook App 
+        </md-switch>
+      </div>
+    </div>
+
+  </md-card-content>
+
+</md-card>
+
+<md-card ng-show="splash.g_login_on">
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">
+        Google+ Settings
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+
+  <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
+    <div flex="40">
+      <div layout="column">
+        <md-input-container class="md-block">
+          <label>Google Page ID</label>
+          <input ng-model="splash.g_page_id" name="g_page_id" ng-class="{ 'input-error' : myForm.g_page_id.$error.required }" placeholder="Enter your Google Page ID" type="text" ng-required="splash.g_redirect_to_page" ng-disabled="!splash.g_redirect_to_page">
+          <div ng-messages="myForm.g_page_id.$error" md-auto-hide="false">
+            <div ng-message="md-maxlength">Page ID required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Google Client ID</label>
+          <input ng-model="splash.g_api_key" ng-focus="gKey = !gKey" ng-blur="gKey = !gKey" name="g_api_key" ng-class="{ 'input-error' : myForm.g_api_key.$error.required }" placeholder="Enter your Google API Key" type='{{ gKey ? "text" : "password" }}' ng-required="!splash.g_use_ps" ng-disabled="splash.g_use_ps">
+          <div ng-messages="myForm.g_api_key.$error">
+            <div ng-message="md-maxlength">Google Client ID required when using your own App.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+    </div>
+
+    <div flex></div>
+
+    <div flex="40">
+      <div layout="column">
+        <md-switch class="md-accent" ng-model="splash.g_redirect_to_page" aria-label="Redirect To Page">
+          Redirect To Google Page {{ splash.g_redirect_to_page ? 'Enabled' : 'Disabled' }}
+        </md-switch>
+        <md-switch class="md-accent" ng-model="splash.g_use_ps" aria-label="Google Use CT" ng-true-value="0" ng-false-value="1">
+          Use Your Own Google App 
+        </md-switch>
+      </div>
+    </div>
+
+  </md-card-content>
+</md-card>
+
+<md-card ng-show="splash.li_login_on">
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">
+        LinkedIn+ Settings
+      </span>
+      <span class="md-subhead">
+        For LinkedIn, you must enable secure captive portal in your network settings otherwise the icon won't appear.
+      </span>
+
+    </md-card-title-text>
+  </md-card-title>
+
+  <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
+    <div flex="40">
+      <div layout="column">
+        <md-input-container class="md-block">
+          <label>LinkedIn Api Key</label>
+          <input ng-model="splash.li_api_key" ng-focus="liKey = !liKey" ng-blur="liKey = !liKey" name="li_api_key" placeholder="Enter your LinkedIn API Key" type='{{ liKey ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
+          <div ng-messages="myForm.li_api_key.$error" md-auto-hide="false">
+            <div ng-message="md-maxlength">LinkedIn API key required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>LinkedIn Api Key</label>
+          <input ng-model="splash.li_api_secret" ng-focus="liSecret = !liSecret" ng-blur="liSecret = !liSecret" name="li_api_secret" placeholder="Enter your LinkedIn Secret" type='{{ liSecret ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
+          <div ng-messages="myForm.li_api_secret.$error" md-auto-hide="false">
+            <div ng-message="md-maxlength">API secret required when using your own App.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+    </div>
+
+    <div flex></div>
+
+    <div flex="40">
+      <div layout="column">
+        <md-switch class="md-accent" ng-model="splash.li_use_ps" aria-label="LinkedIn Use CT" ng-true-value="0" ng-false-value="1">
+          Use Your Own LinkedIn App 
+        </md-switch>
+      </div>
+    </div>
+
+  </md-card-content>
+</md-card>
+
+<!--                 <div class="small-10 columns" ng-if="splash.fb_redirect_to_page || splash.fb_checkin"> -->
+<!--                   <label for="fb_page_id">Facebook Page ID (numeric)</label> -->
+<!--                   <input ng-model="splash.fb_page_id" ng-class="{ 'input-error' : myForm.fb_page_id.$error.required }" class="form-control" name="fb_page_id" placeholder="Facebook Page ID" type="text" required ng-pattern="/^-?\d+\.?\d*$/"> -->
+<!--                   <p><small class="text-danger" ng-show="myForm.fb_page_id.$error.pattern">Page ID should be a number.</small></p> -->
+<!--                   <p><small class="text-danger" ng-show="myForm.fb_page_id.$error.required">Page ID required if you want users to checkin.</small></p> -->
+<!--                   <p><small class="text-muted" ng-hide="myForm.fb_page_id.$error.required">Allow checkins at your location and redirect to your page. <a href="" data-elevio-article="18815"><b>Help</b></a>!</small></p> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--               <div class="row"> -->
+<!--                 <div class="small-12 medium-10 columns"> -->
+<!--                   <div ng-if="!splash.fb_use_ps"> -->
+<!--                     <label>Facebook App ID</label> -->
+<!--                     <input ng-model="splash.fb_app_id" ng-class="{ 'input-error' : myForm.fb_app_id.$error.required }" name="fb_app_id" placeholder="Enter your App ID" type="text" required> -->
+<!--                     <p><small class="text-danger" ng-show="myForm.fb_app_id.$error.required">App ID required if you want to use your own credentials.</small></p> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--               <div class="row"> -->
+<!--                 <div class="small-12 columns"> -->
+<!--                   <input ng-model="splash.fb_redirect_to_page" name="fb_redirect_to_page" type="checkbox"> -->
+<!--                   <label class="checkbox">Redirect to Facebook page after login?</label> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--               <div class="row"> -->
+<!--                 <div class="small-12 columns"> -->
+<!--                   <input ng-model="splash.fb_checkin" name="fb_login_checkin_allow" type="checkbox"> -->
+<!--                   <label class="checkbox">Allow check-in?</label> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--               <div class="row"> -->
+<!--                 <div class="small-12 columns"> -->
+<!--                   <input ng-model="splash.fb_use_ps" name="fb_use_ps" type="checkbox"> -->
+<!--                   <label class="checkbox">Use our credentials</label> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--             <div class="small-12 medium-6 columns"> -->
+<!--               <div ng-show="splash.fb_checkin"> -->
+<!--                 <label>Facebook checkin message</label> -->
+<!--                 <textarea ng-model="splash.fb_checkin_msg" ng-maxlength="255" ng-minlength="5" name="fb_checkin_msg" rows=5 placeholder="Enter a default checkin message for the user to edit"></textarea> -->
+<!--                 <p><small class="text-danger" ng-show="myForm.fb_checkin_msg.$error.minlength || myForm.fb_checkin_msg.$error.maxlength">Between 5 and 255 characters.</small></p> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <hr> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--       <div class="row" ng-if="splash.g_login_on"> -->
+<!--         <div class="small-12 columns"> -->
+<!--           <ul class="inline-list social"> -->
+<!--             <li><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/google.svg" width="32"></li> -->
+<!--             <li><h3>Google Settings</h3></li> -->
+<!--           </ul> -->
+<!--           <div class="row"> -->
+<!--             <div class="small-12 medium-6 columns" ng-if="splash.g_redirect_to_page"> -->
+<!--               <label>Google Page ID</label> -->
+<!--               <input ng-model="splash.g_page_id" name="g_page_id" ng-class="{ 'input-error' : myForm.g_page_id.$error.required }" placeholder="Enter your Google Page ID" type="text" required> -->
+<!--               <p><small class="text-danger" ng-show="myForm.g_page_id.$error.required">Page ID required if you want to redirect to this page.</small></p> -->
+<!--             </div> -->
+<!--             <div class="small-12 medium-6 columns" ng-if="!splash.g_use_ps"> -->
+<!--               <label>Google Client ID</label> -->
+<!--               <input ng-model="splash.g_api_key" name="g_api_key" ng-class="{ 'input-error' : myForm.g_api_key.$error.required }" placeholder="Enter your Google API Key" type="text" required> -->
+<!--               <p><small class="text-danger" ng-show="myForm.g_api_key.$error.required">App ID required if you want to use your own credentials.</small></p> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <div class="row"> -->
+<!--             <div class="small-12 columns"> -->
+<!--               <input ng-model="splash.g_redirect_to_page" name="g_redirect_to_page" type="checkbox"> -->
+<!--               <label>Redirect to Google page</label> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <div class="row"> -->
+<!--             <div class="small-12 columns"> -->
+<!--               <input ng-model="splash.g_use_ps" name="g_use_ps" type="checkbox"> -->
+<!--               <label class="checkbox">Use our credentials</label> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--         <hr> -->
+<!--       </div> -->
+<!--       <div class="row" ng-if="splash.li_login_on"> -->
+<!--         <div class="small-12 columns"> -->
+<!--           <ul class="inline-list social"> -->
+<!--             <li><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/linkedin.svg" width="32"></li> -->
+<!--             <li><h3>LinkedIn Settings</h3></li> -->
+<!--           </ul> -->
+<!--           <div class="row"> -->
+<!--             <div class="small-12 medium-6 columns" ng-if="!splash.li_use_ps"> -->
+<!--               <label>LinkedIn Api Key</label> -->
+<!--               <input ng-model="splash.li_api_key" name="li_api_key" placeholder="Enter your LinkedIn API Key" type="text" required> -->
+<!--               <p><small class="text-danger" ng-show="myForm.li_api_key.$error.required">App ID required if you want to use your own credentials.</small></p> -->
+<!--               <label>LinkedIn Secret</label> -->
+<!--               <input ng-model="splash.li_api_secret" name="li_api_secret" placeholder="Enter your LinkedIn Secret" type="text"> -->
+<!--               <p><small>If you don't to enter a secret, your users can login. It's just not possible to fetch profile data from LinkedIn. It's up to you.</small></p> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <div class="row"> -->
+<!--             <div class="small-12 columns"> -->
+<!--               <input ng-model="splash.li_use_ps" name="li_use_ps" type="checkbox"> -->
+<!--               <label>Use our credentials</label> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <p><small>For LinkedIn, you must enable secure captive portal in your network settings otherwise the icon won't appear</small>.</p> -->
+<!--         </div> -->
+<!--         <hr> -->
+<!--       </div> -->
+<!--       <div class="row"> -->
+<!--         <div class="small-12 columns"> -->
+<!--           <button ng-hide="myForm.$invalid || myForm.$pristine" class="button success" id="update">Save <span ng-show="submitting"> <i class="fa fa-spinner fa-spin"></i></span></button> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->

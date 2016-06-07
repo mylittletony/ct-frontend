@@ -1,0 +1,24 @@
+machine:
+  timezone:
+    'Europe/London'
+  node:
+    version: 0.12
+
+dependencies:
+  pre:
+    - gem install sass
+    - npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
+    - bower install --save
+    - npm install grunt-contrib-sass --save
+    - npm install urijs --save
+    - curl https://js.stripe.com/v2/ -o client/bower_components/angular-payments/stripe.js
+
+test:
+  override:
+    - grunt test
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - chmod +x ./circle/deploy.sh && ./circle/deploy.sh

@@ -1,0 +1,8 @@
+<div class="container-wide">
+  <div class="row">
+    <div class="small-12 columns">
+      <list-apps></list-apps>
+    </div>
+  </div>
+</div>
+

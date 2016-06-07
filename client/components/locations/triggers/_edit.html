@@ -1,0 +1,24 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Triggers</p>
+    <md-menu ng-if="menu.length">
+      <md-button aria-label="Open Tools" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
+        TOOLS
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in menu">
+          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+            {{item.name}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+

@@ -1,0 +1,67 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Triggers</p>
+    <md-menu ng-if="menu.length">
+      <md-button aria-label="Open Tools" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
+        TOOLS
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in menu">
+          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+            {{item.name}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <div layout="row" layout-wrap>
+    <div flex="100" flex-gt-sm="50">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Details
+            </span>
+            <span class="md-subhead">
+              <span ng-hide="trigger.active">This trigger has been disabled!</span>
+              <span ng-show="trigger.active">Trigger active.</span>
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p>This trigger has run {{ trigger.run_count || 0 }} time<span ng-if="trigger.run_count != 1">s</span>. It has failed {{ trigger.total_fail_count || 0 }} time<span ng-if="trigger.total_fail_count != 1">s</span> <span ng-if="trigger.fail_count > 0">({{ trigger.fail_count}} time<span ng-if="trigger.fail_count != 1">s</span> since the last reset)</span></p>
+
+          <p class="text-muted"><small>Created {{ trigger.created_at | humanTime }}</small></p>
+          
+          <md-switch ng-model="trigger.active" aria-label="Active" ng-change="active()" class="md-warn">
+            Trigger {{ trigger.active ? 'Active' : 'Disabled' }}
+          </md-switch>
+
+          <small><span ng-if="trigger.active" class="text-muted">Disabling this will stop the alerts.</span> Triggers are automatically disabled if they fail 3 times.</small>
+
+          <span ng-show="trigger.testing == true">
+            <p>Testing Trigger</p>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </span>
+
+          <span ing-if="trigger.test" class="">
+            <p><b>{{ trigger.test }}</b></p>
+          </span>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div flex="100" flex-gt-sm="50">
+      <div show-trigger-details ver='{{ trigger.channel }}'></div>
+    </div>
+  </div>
+
+</md-content>

@@ -1,0 +1,44 @@
+<md-dialog aria-label="Change Password" ng-cloak flex="100" flex-sm="50" flex-gt-sm="30">
+  <form name="form" stripe-form="stripeCallback">
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2>Add Credit Card</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="row" layout-wrap>
+        <div flex="100">
+          <h3>Update or add your credit card</h3>
+        </div>
+        <md-input-container class="md-block" flex="100">
+          <label>Card Number</label>
+          <input md-autofocus type='text' ng-model='number' placeholder='Card Number' payments-format='card' payments-validate='card' name='card' value=''/>
+          <div ng-messages="form.card.$error">
+            <div ng-message="card">Card number invalid</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+          <label for='expiry'>Expiry Date</label>
+          <input type='text' ng-model='expiry' placeholder='Expiration' payments-format='expiry' payments-validate='expiry' name='expiry'/>
+          <div ng-messages="form.expiry.$error">
+            <div ng-message="expiry">Invalid expiry date</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+          <label for='cvc'>Security Code</label>
+          <input type='text' ng-model='cvc' placeholder='CVC' payments-validate='cvc' payments-format='cvc' name='cvc'/>
+          <div ng-messages="form.cvc.$error">
+            <div ng-message="expiry">Invalid CVC</div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        Cancel
+      </md-button>
+      <md-button type="submit" ng-disabled="form.$pristine || form.$invalid" class="md-raised md-primary">SAVE</md-button>
+    </md-dialog-actions>
+    <!-- </form> -->
+</md-dialog>

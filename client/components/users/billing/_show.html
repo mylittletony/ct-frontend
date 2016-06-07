@@ -1,0 +1,70 @@
+<md-dialog aria-label="Change Password" ng-cloak>
+  <form name="myForm" ng-submit="update(user)">
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2>Plan Details</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="row" layout-wrap>
+        <div flex="100" ng-if="loading">
+          Please wait while we load the plan.
+        </div>
+        <div flex="100" ng-if="!loading">
+          <h3>{{ ::plan.plan_name }} Plan</h3>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Plan Description</h3>
+              <p>{{ ::plan.plan_description }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Included Devices</h3>
+              <p>
+                <span ng-if="plan.per_ap_allowance">{{ plan.per_ap_allowance }} free devices included.</span>
+                <span ng-if="!plan.per_ap_allowance">Add unlimited devices.</span>
+              </p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Monthly Costs</h3>
+              <p>{{ (plan.plan_price || 0) | currency : curr }} per month.</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Additional Device Costs</h3>
+              <p>{{ plan.cost_per_250 / 100 | currency : currency }} monthly for each addition device added.</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Admin Users</h3>
+              <p>{{ plan.admin_users }} admin users, per location.</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Support Level</h3>
+              <p>
+                <span ng-if="plan.plan_price == 0 ">Basic Support</span>
+                <span ng-if="plan.plan_price > 0 && plan.plan_price < 350 ">Standard Support</span>
+                <span ng-if="plan.plan_price >= 350 ">Premium Support</span>
+                (No SLA)
+              </p>
+            </div>
+          </md-list-item>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        Cancel
+      </md-button>
+      <md-button ng-click="upgrade(plan)" class="md-raised md-primary">UPGRADE</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

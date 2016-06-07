@@ -1,0 +1,25 @@
+<md-dialog aria-label="Transfer Device"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Transfer Device</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <p>Transfer your device to another location you own.</p>
+        <p>You are unable to transfer a box to a location that isn't yours. If you need to transfer to a location you don't own, please delete it and send them the MAC address.</p>
+        <transfer-box box='obj'></transfer-box>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+      <md-button ng-disabled="!obj.transfer_to" ng-click="transfer(obj.transfer_to)" style="margin-right:20px;">
+        transfer
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

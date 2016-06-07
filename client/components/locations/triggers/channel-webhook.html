@@ -1,0 +1,23 @@
+<p ng-bind-html="error"></p>
+
+<div layout="column">
+  <md-input-container>
+    <label>URL</label>
+    <textarea rows=8 name="webhook_url" ng-model="trigger.attr_1" placeholder="Enter your URL" required></textarea>
+    <div ng-messages="myForm.webhook_url.$error" md-auto-hide="false">
+      <div ng-message="required">You must enter a valid URL including http(s)</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <input type="text" name="webhook-body" ng-model="trigger.attr_3" placeholder="Body"></input>
+  </md-input-container>
+  <md-input-container>
+    <label>Type</label>
+    <md-select ng-model="trigger.attr_2">
+      <md-option ng-repeat="type in webhook_types">
+        {{type}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>
+

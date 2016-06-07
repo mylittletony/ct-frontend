@@ -1,0 +1,105 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="zones.length > 0">
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query.filter" md-autofocus placeholder="Filter Zones">
+    </md-input-container>
+    <md-button ng-if="!zones.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
+      <md-icon md-font-icon="" >layers</md-icon>
+    </md-button>
+    <p ng-if="zones.length === 0">Zones</p>
+    <div flex></div>
+    <md-button class='md-icon-button md-accent' ng-click='open()'>
+      <md-icon>add_circle</md-icon>
+    </md-button>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
+
+  <div ng-show="zones.length == 0">
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            Get Started
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <p>Zones let you organise and segment your networks.</p>
+        <p>Create a zone then add your boxes and networks.</p>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class='md-raised' ng-click='open()'>
+            Create
+          </md-button>
+        </md-card-actions>
+      </md-card-content>
+    </md-card>
+
+  </div>
+
+  <div flex layout="column" ng-show="zones.length > 0">
+
+    <md-card>
+      <md-table-container>
+        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-column md-order-by="zone_name">
+                <span>
+                  <md-icon md-menu-origin md-font-icon="" class="s12">comment</md-icon>
+                  Name
+                </span>
+              </th>
+              <th hide show-gt-sm md-column md-order-by="zone_description"><span>Description</span></th>
+              <th hide show-gt-md md-column md-order-by="created_at"><span>Created</span></th>
+              <th hide show-gt-xs md-column><span>Boxes</span></th>
+              <th hide show-gt-xs md-column md-order-by="weight"><span>Networks</span></th>
+              <th md-column ng-show="menu.length"></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr ng-class="zone.highlight ? 'highlight' : ''" md-row ng-repeat="zone in filtered = (zones | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+              <td md-cell ng-click="editName($event, zone)">
+                {{ zone.zone_name | truncate:20 }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ (zone.zone_description || 'N/A') | truncate:20 }}
+                <md-tooltip ng-show="zone.zone_description.length > 20">
+                  {{ zone.zone_description }}
+                </md-tooltip>
+              </td>
+              <td hide show-gt-md md-cell>
+                {{ zone.created_at | humanTime }}
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ zone.boxes.length || 0 }}
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ zone.networks.length || 0 }}
+              </td>
+              <td md-cell ng-show="menu.length">
+                <md-menu>
+                  <md-button aria-label="Zone Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                  </md-button>
+                  <md-menu-content width="4" >
+                    <md-menu-item ng-repeat="item in menu">
+                      <md-button ng-click="action(zone,item.type)" ng-disabled="{{ disabled(box,item.type) }}">
+                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+                        <p flex>{{ item.name }}</p>
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-card>
+  </div>
+</md-content>

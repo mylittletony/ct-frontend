@@ -1,0 +1,32 @@
+<analytics ng-if="!loading">
+
+  <reports-header location="location"></reports-header>
+
+  <div layout="column" class="md-padding">
+    <div flex-md="100" flex-gt-md="100">
+      <wireless-timeline type="clients" render="sessions" show-gt-sm></wireless-timeline>
+    </div>
+  </div>
+
+  <wireless-stats></wireless-stats>
+
+  <md-content class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
+
+    <div flex-gt-xs="20">
+      <reports-pie hole="0.4" type="capabilities" title="Capabilities" render="caps"></reports-pie>
+    </div>
+
+    <div flex-gt-xs="20">
+      <reports-pie resource="wireless" type="manufacturers" title="Manufacturers" render="mans"></reports-pie>
+    </div>
+
+    <div flex-gt-xs="20">
+      <reports-pie hole="0.4" tooltip="Device" resource="wireless_device" type="popular" title="Top Devices" render="popular_aps" subhead="Top aps by session count"></reports-pie>
+    </div>
+
+    <div flex-gt-xs="20">
+      <reports-pie hole="0.4" resource="wireless_client" type="popular" title="Top Clients" render="popular_clients" subhead="Top aps by session count"></reports-pie>
+    </div>
+
+  </md-content>
+</analytics>

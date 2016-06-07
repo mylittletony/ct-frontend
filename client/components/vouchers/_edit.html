@@ -1,0 +1,18 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Back to Voucher</p>
+    <div flex></div>
+    <!-- <md-button ng-show="allowed == true" ng-click="create()" class="md-raised">Create</md-button> -->
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+
+  <div ng-include="'components/vouchers/_form.html'"></div>
+
+</md-content>
+

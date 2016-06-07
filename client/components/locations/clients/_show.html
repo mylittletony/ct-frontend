@@ -1,0 +1,133 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Back to Clients</p>
+    <span flex></span>
+    <!-- <md-button class="md-icon-button" ng-click="refresh()" ng-if="!loadingChart && period != '6h'"> -->
+    <!--   <md-icon>zoom_out</md-icon> -->
+    <!-- </md-button> -->
+    <!-- <md-tooltip>Reset zoom</md-tooltip> -->
+    <md-button class="md-icon-button" ng-click="updatePage()" ng-disabled="loadingChart">
+      <md-icon>refresh</md-icon>
+    </md-button>
+    <md-button-group hide show-gt-sm class="md-raised">
+      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }">5m</md-button>
+      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }">30m</md-button>
+      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }">60m</md-button>
+      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }">6h</md-button>
+      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }">1d</md-button>
+      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }">7d</md-button>
+      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }">30d</md-button>
+    </md-button-group>
+    <md-menu ng-if="menu">
+      <md-button aria-label="Open Tools" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon>more_vert</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in menu">
+          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+            {{item.name}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
+
+  <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            Client {{ client.online ? (client.splash_status == 'dnat' ? 'Not Logged In' : 'Online' ) : 'Offline' }}
+          </span>
+        </md-card-title-text>
+        <md-icon md-font-icon="wifi" ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
+      </md-card-title>
+
+      <md-card-content>
+        <md-list flex>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>Last Seen</h3>
+              <p>{{client.lastseen | humanTime }}</p>
+              <md-tooltip>
+                First seen {{ client.created_at | humanTime }}
+              </md-tooltip>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>Client Mac</h3>
+              <p>{{client.client_mac}}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>Device Name</h3>
+              <p>{{ client.name || client.device_name | truncate:30 }} </p>
+              <md-button ng-click="editName()" aria-controls="splash" class="md-secondary md-icon-button" aria-label="call">
+                <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+              </md-button>
+              <md-tooltip ng-if="client.name">
+                Original name: {{ client.device_name }}
+              </md-tooltip>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>Manufacturer</h3>
+              <p>{{client.manufacturer || 'NA' }}</p>
+            </div>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-card>
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Splash</span>
+          <span class="md-subhead">
+            Client
+            {{client.splash_status == 'pass' ? 'Logged In' : (client.splash_status == 'dnat' ? 'Not Logged In' : 'Not connected')}}</p>
+          </span>
+        </md-card-title-text>
+        <md-button ng-click="toggle('splash')" aria-controls="splash" class="md-secondary md-icon-button" ng-if="client.splash_status == 'pass' || client.splash.status === 'dnat'" aria-label="call">
+          <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('splash') ? "up" : "down" }}</md-icon>
+        </md-button>
+      </md-card-title>
+      <md-card-content ng-if="isOpen('splash')" id="splash" class="menu-toggle-list" layout="column" layout-gt-sm="row" layout-wrap>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3>Current Username</h3>
+            <p>{{client.splash_username || 'NA' }}</p>
+          </div>
+        </md-list-item>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div flex flex-gt-sm="70" layout="column" class="clients-charts">
+    <div layout="" layout-wrap>
+      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <usage-chart ></usage-chart>
+      </div>
+      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'tx'">
+        <tx-chart></tx-chart>
+      </div>
+      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'mcs'">
+        <mcs-chart ></mcs-chart>
+      </div>
+      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'snr'">
+        <snr-chart ></snr-chart>
+      </div>
+    </div>
+  </div>
+</md-content>
+

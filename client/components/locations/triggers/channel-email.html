@@ -1,0 +1,36 @@
+<div layout="column">
+  <md-input-container>
+    <label>To Address</label>
+    <input type="text" name="to" ng-model="trigger.attr_1" placeholder="Enter an email to send the notification" required></input>
+    <div ng-messages="myForm.to.$error" md-auto-hide="false">
+      <div ng-message="required">You must set the email</div>
+    </div>
+  </md-input-container>
+
+  <md-input-container>
+    <label>From Address</label>
+    <input type="email" name="from" ng-model="trigger.attr_2" placeholder="Who's the email from" required></input>
+    <div ng-messages="myForm.from.$error" md-auto-hide="false">
+      <div ng-message="required">You must set a from address</div>
+      <div ng-message="email">Enter a valid email</div>
+    </div>
+  </md-input-container>
+
+  <md-input-container>
+    <label>Subject</label>
+    <input type="text" name="subject" ng-model="trigger.attr_3" placeholder="Enter a subject" required md-maxlength=100></input>
+    <div ng-messages="myForm.subject.$error" md-auto-hide="false">
+      <div ng-message="required">You must set a subject</div>
+      <div ng-message="md-maxlength">Must be less than 100 characters</div>
+    </div>
+  </md-input-container>
+
+  <md-input-container>
+    <label>Message Body</label>
+    <textarea name="body" ng-model="trigger.attr_4" placeholder="What to say" rows=7 md-maxlength=1000 required></textarea>
+    <div ng-messages="myForm.body.$error" md-auto-hide="false">
+      <div ng-message="required">You must set a body for the message</div>
+      <div ng-message="md-maxlength">Must be less than 1000 characters</div>
+    </div>
+  </md-input-container>
+</div>

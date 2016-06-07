@@ -1,0 +1,39 @@
+'use strict';
+
+var app = angular.module('myApp.alerts.services', ['ngResource',]);
+
+app.factory('AlertListing', [function() {
+  return { alerts: [] };
+}]);
+
+app.factory('Alert', ['$resource', '$localStorage', 'API_END_POINT',
+  function($resource, $localStorage, API_END_POINT){
+    return $resource(API_END_POINT + '/alerts',
+      {
+      },
+      {
+      count: {
+        method: 'GET',
+        isArray: false,
+        dataType: 'json',
+        cache: true,
+        params: {
+          count: true,
+        }
+      },
+      get: {
+        method: 'GET',
+        isArray: false,
+        dataType: 'json',
+        params: {
+          page: '@page'
+        }
+      },
+    });
+  }]);
+
+app.factory('AlertCount', [function() {
+  return { count: 0 };
+}]);
+
+

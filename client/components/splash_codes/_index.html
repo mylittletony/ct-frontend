@@ -1,0 +1,102 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="splash_codes.length > 0 || searching || query.filter">
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query.filter" md-autofocus placeholder="Filter Codes">
+    </md-input-container>
+    <md-button ng-hide="splash_codes.length > 0 || searching || query.filter" id="main" class="md-icon-button md-primary" aria-label="Splash">
+      <md-icon md-font-icon="" >graphic_eq</md-icon>
+    </md-button>
+    <p ng-hide="splash_codes.length > 0 || searching || query.filter">Splash Codes</p>
+    <div flex></div>
+    <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
+      <md-icon>add_circle</md-icon>
+    </md-button>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<form ng-submit="search()" name="myForm">
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="splash_codes.length == 0 && !query.filter && !searching && myForm.$pristine">
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            Get Started
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+
+        <p>SplashCodes are unique passwords that can be used on mutliple devices.</p>
+        <p>Create rules and restrictions to control access.</p>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-show="allowed == true" ng-click="create()">Create</md-button>
+        </md-card-actions>
+      </md-card-content>
+    </md-card>
+
+  </md-content>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
+
+    <div flex ng-show="splash_codes.length > 0 || searching || query.filter">
+
+      <md-card>
+
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder="logOrder">
+              <tr md-row>
+                <th md-column md-order-by="active"><span>Active</span></th>
+                <th md-column><span>Password</span></th>
+                <th hide show-gt-sm md-column md-order-by="type" md-desc><span>Restriction</span></th>
+                <th hide show-gt-sm md-column md-order-by="expires"><span>Expires</span></th>
+                <th md-column><span>Action</span></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row md-select="code" md-auto-select="options.autoSelect" ng-repeat="code in filtered = (splash_codes | filter: query.filter | orderBy: query.direction)">
+                <td md-cell>
+                  <md-icon md-menu-origin md-font-icon="">{{ code.active ? "check_circle" : 'warning' }}</md-icon>
+                </td>
+                <td md-cell>
+                  {{ code.password }}
+                  <md-tooltip hide-gt-sm>
+                    {{ code.expires | humanTime }}
+                  </md-tooltip>
+                </tdexpires>
+                <td hide show-gt-sm md-cell>
+                  {{ code.volume }} {{ code.type === 'timed' ? 'Minutes' : 'Mb' }}
+                </td>
+                <td hide show-gt-sm md-cell>
+                  {{ code.expires | humanTime }}
+                </td>
+                <td md-cell>
+                  <md-menu>
+                    <md-button aria-label="Open Boxes Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content width="4" >
+                      <md-menu-item ng-repeat="item in menuItems">
+                        <md-button ng-disabled="isActive(code,item.type)" ng-click="action(code,item.type)">
+                          <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+                          <p flex>{{ item.name }}</p>
+                        </md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </md-menu>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
+      </md-card>
+    </div>
+  </md-content>
+</form>

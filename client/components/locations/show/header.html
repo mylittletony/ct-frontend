@@ -1,0 +1,48 @@
+<!-- <div class='row'> -->
+  <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+    <h2>
+      <stong>{{ location.location_name }}</stong>
+    </h2>
+    <p ng-if='location.location_categories' class='small'>
+      {{ location.location_categories }} |
+      {{ location.location_address | titleCase }}, {{ location.town | titleCase }}, {{ location.postcode | uppercase }}
+    </p>
+    <p class='small muted'>
+      <span ng-if='location.phone1'>
+        <i class='fa fa-phone fa-sm'></i>
+        {{ location.phone1 }}
+        |
+      </span>
+      <span ng-if='location.location_twitter'>
+        <a href="http://twitter.com/{{ location.location_twitter}}"><i class='fa fa-twitter fa-sm'></i>
+        Twitter
+        </a>
+        |
+      </span>
+      <span ng-if='location.facebook_link'>
+        <a href="http://facebook.com/{{ location.facebook_link }}"><i class='fa fa-facebook fa-sm'></i>
+        Facebook
+        </a>
+        |
+      </span>
+      <span ng-if='location.santised_website'>
+        <a href="http://{{ location.sanitised_website }}"><i class='fa fa-globe fa-sm'></i>
+        {{ location.sanitised_website }}
+        </a>
+      </span>
+    </p>
+    <p class='visible-xs text-muted small'>
+      <a href="/locations/derby-city-council/edit">Edit details</a>
+    </p>
+  </div>
+  <div class='hidden-xs col-sm-2 col-md-2 col-lg-2'>
+    <div id='location_profile_edit'>
+      <p ng-click="open('small')" class='btn btn-default btn-sm'><i class='fa fa-edit fa-sm'></i>Edit</p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<script type="text/ng-template" id="myModalContent.html">
+  <div ng-include="'components/locations/show/edit-modal.html'"></div>
+</script>

@@ -1,0 +1,47 @@
+<md-dialog aria-label="Create Zone" ng-cloak>
+  <form name="myForm" ng-submit="save(zone)">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create New Zone</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p>Create up to 16 zones per location.</p>
+        </div>
+        <div flex layout="column">
+          <div ng-show='loading'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+          <span ng-hide="loading" layout="column">
+            <md-input-container>
+              <label>Name</label>
+              <input ng-model="zone.zone_name" type='text' name="zone_name" placeholder="Lobby, Hallway, Entrance" md-maxlength="32" required md-autofocus>
+              <div ng-messages="myForm.zone_name.$error">
+                <div ng-message="md-maxlength">Max 32 characters</div>
+                <div ng-message="required">You must give the zone a name</div>
+              </div>
+            </md-input-container>
+            <md-input-container>
+              <label>Description</label>
+              <input ng-model="zone.zone_description" placeholder="A short description of the zone" type='text' name="description" ng-maxlength='100'>
+              <div ng-messages="myForm.description.$error">
+                <div ng-message="md-maxlength">Max 100 characters</div>
+              </div>
+            </md-input-container>
+          </span>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        Close
+      </md-button>
+      <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        {{ zone.id ? 'UPDATE' : 'CREATE' }}
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

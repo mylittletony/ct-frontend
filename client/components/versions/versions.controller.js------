@@ -1,0 +1,25 @@
+'use strict';
+
+var app = angular.module('myApp.versions.controller', []);
+
+app.controller('VersionsCtrl', ['$scope', '$routeParams', 'Version',
+
+  function($scope, $routeParams, Version) {
+
+    $scope.loading = true;
+    $scope.box = {
+      slug: $routeParams.id
+    };
+
+    $scope.location = { slug: $routeParams.location_id };
+
+    $scope.init = function() {
+      Version.query({resource_id: $routeParams.id, resource: 'boxes'}, function(data) {
+        $scope.versions = data.versions;
+        $scope.loading = false;
+        $scope.histView = true;
+      });
+    };
+    $scope.init();
+
+}]);

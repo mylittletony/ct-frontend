@@ -1,0 +1,96 @@
+<div ng-hide="loading">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Social Services</h2>
+      <h4>{{ info.info.total || 0 }} checkins and {{ info.info.count || 0 }} users <span ng-show="info.info.avg">({{ info.info.avg}} checkins avg)</span></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <range-filter start="{{start}}" end="{{end}}" update-fn="updateRange(message)"></range-filter>
+      <p ng-hide="locationSelect"><small><span ng-show="location_name">Showing sessions for <b>{{ location_name }}</b>. </span><span ng-hide="location_name">All locations.</span> <a href="" ng-click="locationSelect = !locationSelect">Change location</a>. <span ng-click="hChart()">{{ hideChart ? "Show" : "Hide" }} chart</span> <i class="fa fa-line-chart fa-fw"></i></small></p>
+      <span ng-show="locationSelect">
+        <typeaheads class="typeahead" items="locations" term="term" search="locationSearch(term)" select="selectLocation(item)">
+          <p ng-show="locations.length">Click one to filter your results</p>
+          <p ng-hide="locations.length">No results found. Sad Panda. <span ng-hide="term">Try typing in the box.</span></p>
+          <div class="menu" ng-cloak>
+            <ul typeahead-item="location" ng-repeat="location in locations" class="results no-bullet">
+              <li><b><a href=""><i class="fa fa-building-o"></i> {{ location.location_name }}</a></b></li>
+            </ul>
+          </div>
+        </typeaheads>
+        <p>
+          <small>
+            <a href="" ng-click="locationSelect = !locationSelect">Cancel</a>.
+            <a ng-show="location_name" href="" ng-click="clearLocations()">Show all my locations.</a>
+          </small>
+        </p>
+        <br><br>
+      </span>
+    </div>
+    <div class="small-12 medium-6 end columns">
+      <div class="row" ng-hide="locationSelect">
+        <div class="large-12 columns">
+          <div class="row collapse">
+            <!-- <label>Search sessions</label> -->
+            <div class="small-10 columns">
+              <input type="text" ng-model="query" placeholder="I'm looking for..."><p></p>
+              <p ng-if="query || q" ><small><a href="" ng-click="updatePage()"><b>Click here</b></a> for a detailed search. <a ng-click="clearQuery()">Clear search.</a> </small></p>
+            </div>
+            <div class="small-2 columns">
+              <a ng-click="updatePage()" class="button postfix" ng-disabled="searching">Go<span ng-show="searching"> <i class="fa fa-cog fa-spin"></i></span></a>
+            </div>
+          </div>
+          <p><small>If you want to search for a location, <b><a href="" ng-click="locationSelect = !locationSelect">use the filter</a></b> instead.</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <line-chart ng-hide="hideChart" data="{{ chart_series }}" legend="true" interval="{{ _stats.interval }}" align="left" start="{{ _stats.start }}"></line-chart>
+    </div>
+  </div>
+  <div class="row" ng-hide="hideChart">
+    <div class="small-12 medium-4 columns">
+      <h3>Top Locations</h3>
+      <div ng-hide="locations.length">
+        <p>No results yet. What's this?<br><small class="text-muted">With social logins enabled, you can see where in the world your customers come from..</small></p>
+      </div>
+      <div ng-show="locations.length">
+        <table>
+          <tr>
+            <th><a href='' ng-click='predicate = "name"; reverse=!reverse' >Name</a></th>
+            <th><a href='' ng-click='predicate = "total"; reverse=!reverse' >Users</a></th>
+          </tr>
+          <tr ng-repeat='location in filtered = (locations | filter:query | orderBy:predicate:reverse)'>
+            <td>{{ location.name }}</td>
+            <td>{{ location.total }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <div ng-hide="genders.length">
+        <h3>Genders</h3>
+        <p>Nothing to be seen, yet</p>
+      </div>
+      <div ng-show="genders.length">
+        <div id="mans_chart" style="width: 300px"></div>
+        <pie-chart data="{{genders}}" name="Boys and Girls" div="mans_chart"></pie-chart>
+      </div>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <div ng-hide="networks.length">
+        <h3>Networks</h3>
+        <p>Nothing to be seen, yet</p>
+      </div>
+      <div ng-show="networks.length">
+        <div id="caps_chart" style="width: 300px"></div>
+        <pie-chart data="{{networks}}" name="Networks" div="caps_chart"></pie-chart>
+      </div>
+    </div>
+  </div>
+</div>
+
+

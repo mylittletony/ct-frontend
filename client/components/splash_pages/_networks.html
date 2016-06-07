@@ -1,0 +1,45 @@
+<md-dialog aria-label="Splash Networks"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Splash Networks</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <p>This splash is associated with the following networks.</p>
+        <div ng-if='loading'>
+          <md-progress-linear md-mode="query"></md-progress-linear>
+        </div>
+        <div ng-hide='loading'>
+          <md-table-container>
+            <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
+              <thead md-head>
+                <tr md-row>
+                  <th md-column><span>SSID</span></th>
+                  <th md-column><span>Network ID</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="network" ng-repeat="network in networks">
+                  <td md-cell>{{ network.ssid | titleCase }}</td>
+                  <td md-cell>{{ network.id }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <p ng-hide="selected.length"><small>Should be associated with at least one network.</small></p>
+        </div>
+    </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        Cancel
+      </md-button>
+      <md-button ng-click="update()" ng-disabled="selected.length === 0" style="margin-right:20px;">
+        Update 
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,125 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon>arrow_back</md-icon>
+    </md-button>
+    <p>Back to Invoices</p>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' ng-if="!loading && no_details">
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            Additional Information Unavailable
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <p>Detailed invoice credentials are only available on per-ap billed plans.</p>
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-actions layout="row" layout-align="">
+        <md-button id="main" class="md-primary" ng-click="back()" aria-label="Settings">
+          <md-icon>arrow_back</md-icon>
+          Back
+        </md-button>
+      </md-card-actions>
+    </md-card>
+
+</md-content>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="!loading && item.id ">
+
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Invoice Details
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="row" layout-wrap>
+            <md-list-item class="md-3-line" flex="100" flex-gt-xs="50">
+              <div class="md-list-item-text">
+                <h3>Invoice Date</h3>
+                <p>{{ item.created_at | humanTime }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-3-line" flex="100" flex-gt-xs="50">
+              <div class="md-list-item-text">
+                <h3>Invoice</h3>
+                <p>{{ ::item.invoice_id }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-3-line" flex="100" flex-gt-xs="50">
+              <div class="md-list-item-text">
+                <h3>Total Access Points</h3>
+                <p>{{ ::item.total_aps }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-3-line" flex="100" flex-gt-xs="50">
+              <div class="md-list-item-text">
+                <h3>Aps Included in Plan</h3>
+                <p>{{ ::item.ap_allowance }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-3-line" flex="100" flex-gt-xs="50">
+              <div class="md-list-item-text">
+                <h3>Billable Access Points</h3>
+                <p>{{ ::item.aps_billed }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-3-line" flex="100" flex-gt-xs="50">
+              <div class="md-list-item-text">
+                <h3>Access Point Cost</h3>
+                <p>{{ (item.ap_cost / 100) | currency:user.currency }}</p>
+              </div>
+            </md-list-item>
+          </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="view()">INVOICE</md-button>
+        </md-card-actions>
+      </md-card>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Inventory
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="column" layout-gt-xs="row" layout-wrap>
+            <md-list-item class="md-3-line" flex="100">
+              <div class="md-list-item-text">
+                <h3>APs Added Since Last Invoice</h3>
+                <p>{{ item.new_aps.join(", ") }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-3-line" flex="100">
+              <div class="md-list-item-text">
+                <h3>Active APs</h3>
+                <p>{{ item.active_aps.join(", ") }}</p>
+              </div>
+            </md-list-item>
+          </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button href="/#/users/{{ user.slug }}/inventory">INVENTORY</md-button>
+        </md-card-actions>
+      </md-card>
+
+    </div>
+
+</md-content>
+

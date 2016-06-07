@@ -1,0 +1,12 @@
+<google-maps id="map_canvas_wide" zoom="12" div="map" update="updateCT(options)">
+  <div ng-repeat="box in boxes | filter:query ">
+    <google-marker lat="{{box.latitude}}" lng="{{box.longitude}}" spot="true" color="#000" state="{{ box.state }}" alerting="true" symbol="grocery" draggable="false" slug="{{ box.slug }}" zoom="true" style="display: none">
+      <h4>{{ box.location_name }}</h4>
+      <p><a href="/#/locations/{{box.location_slug}}/boxes/{{ box.slug}}">{{ box.description }}</a></p>
+
+    </google-marker-movable>
+  </div>
+</google-maps>
+
+
+

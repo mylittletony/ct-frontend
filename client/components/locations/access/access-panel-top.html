@@ -1,0 +1,41 @@
+<div class="row">
+  <form ng-submit="update(location)" name="myForm" form_submitted>
+    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <b>General information</b>
+        </div>
+        <div class='panel-body'>
+          <div class='form-group row'>
+            <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+              <p>
+                <b>I want to offer my customers:</b>
+              </p>
+              <label class='radio'>
+                <input ng-model="location.timed_access" class="timed_access" type="radio" ng-value='false'/>
+                Unlimited access
+              </label>
+              <label class='radio'>
+                <input ng-model="location.timed_access" class="timed_access" type="radio" ng-value='true'/>
+                Timed access
+              </label>
+            </div>
+            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5' id=''>
+              <div id='primary_access_select'>
+                <p>Access Type</p>
+                <select ng-model="location.access_types.primary_access" ng-options="type.name for type in primaryAccessTypes track by type.id" class='form-control' required></select>
+              </div>
+              <span class='help-block'>
+                Scroll down to adjust the settings
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div access-types ver='{{ access_types.primary_access.name }}'></div>
+    <hr>
+    <div ng-include="'components/locations/access/access-speed-limits.html'"></div>
+    <form-submit></form-submit>
+  </form>
+</div>

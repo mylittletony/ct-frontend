@@ -1,0 +1,59 @@
+<form name="myForm" ng-submit="save(myForm)">
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">
+          Billing Preferences
+        </span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div layout="row" layout-wrap>
+
+        <md-input-container flex="100" flex-gt-sm="100">
+          <label>Billing Name</label>
+          <input type="text" name="billing_name" ng-model='user.billing_name' placeholder='Your company name' md-maxlength="255">
+          <div ng-messages="myForm.billing_name.$error">
+            <div ng-message="md-maxlength">Max 255 characters</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>Billing Name</label>
+          <input type="text" name="billing_city" ng-model='user.billing_city' placeholder='Billing City' md-maxlength="255">
+          <div ng-messages="myForm.billing_city.$error">
+            <div ng-message="md-maxlength">Max 255 characters</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>Billing Postcode</label>
+          <input type="text" name="billing_postcode" ng-model='user.billing_postcode' placeholder='Billing Postcode' md-maxlength="10">
+          <div ng-messages="myForm.billing_postcode.$error">
+            <div ng-message="md-maxlength">Max 10 characters</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="100" flex-gt-sm="100">
+          <label>Additional Billing Emails</label>
+          <textarea type="text" name="billing_email" ng-model='user.billing_email' placeholder='Additional Billing Emails'></textarea>
+        </md-input-container>
+
+        <div flex="100">
+          <p>Billing Currency</p>
+          <md-radio-group ng-model="user.currency" layout="row">
+            <md-radio-button ng-disabled="user.subscription_active" value="USD">USD</md-radio-button>
+            <md-radio-button ng-disabled="user.subscription_active" value="GBP">GBP</md-radio-button>
+            <md-radio-button ng-disabled="user.subscription_active" value="EUR">EURO</md-radio-button>
+          </md-radio-group>
+          <p><small>You can't change the currency if you have an active subscription.</small></p>
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+    Save
+  </md-button>
+
+</form>

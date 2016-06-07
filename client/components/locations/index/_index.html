@@ -1,0 +1,62 @@
+<div ng-show="loggedIn === true">
+
+  <section ng-show="alerts != true">
+    <md-subheader class="md-primary">
+      <form ng-submit="$event.preventDefault()">
+        <md-autocomplete
+            md-selected-item="selectedItem"
+            ng-enter="go(item.slug)"
+            md-search-text-change="searchTextChange(searchText)"
+            md-search-text="searchText"
+            md-selected-item-change="selectedItemChange(item)"
+            md-items="item in querySearch(searchText)"
+            md-item-text="item.location_name"
+            md-min-length="5"
+            md-autofocus="true"
+            md-menu-class="locations-autocomplete"
+            placeholder="Search">
+
+          <md-item-template >
+            <a ng-click="go(item.slug)">
+              <span class="item-title">
+                <md-icon md-font-icon="arrow_back" >business</md-icon>
+                <span>&nbsp;{{item.location_name | titleCase }} </span>
+              </span>
+              <span class="item-metadata">
+                <span class="item-metastat">
+                  <strong>{{ ::item.boxes_count || 0 }}</strong> boxes
+                </span>
+              </span>
+            </a>
+          </md-item-template>
+          <md-not-found>
+            No locations found.
+            <a ng-click="create(searchText)">Create a new one!</a>
+          </md-not-found>
+        </md-autocomplete>
+        <br/>
+      </form>
+
+    </md-subheader>
+    <md-divider ng-if="!$last"></md-divider>
+  </section>
+
+  <md-content class="md-padding" layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' ng-if="!pinned && !alerts">
+    <div flex-md="50" flex-gt-md="33">
+      <dashing></dashing>
+      <favourites></favourites>
+    </div>
+    <div flex-sm="50" flex-md="50" flex-gt-md="33">
+      <periscope hide show-gt-sm></periscope>
+      <warnings></warnings>
+    </div>
+
+    <div flex-md="50" flex-gt-md="33">
+      <app-status></app-status>
+      <dash-inventory></dash-inventory>
+    </div>
+  </md-content>
+
+  <favourites-extended ng-if="pinned && !alerts"></favourites-extended>
+
+</div>

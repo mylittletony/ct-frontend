@@ -1,0 +1,28 @@
+<md-dialog aria-label="Health Check"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Associated Zones</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <md-input-container>
+            <network-zones></network-zones>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="view()">
+        ZONES
+      </md-button>
+      <md-button ng-click="close()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+

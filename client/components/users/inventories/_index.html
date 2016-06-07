@@ -1,0 +1,88 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon>track_changes</md-icon>
+    </md-button>
+    <p>Inventory Details</p>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="inventories.length == 0">
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">
+          No devices added
+        </span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <p>Keep track of the devices added and removed from your account.</p>
+      <md-card-actions layout="row" layout-align="end center">
+      </md-card-actions>
+    </md-card-content>
+  </md-card>
+
+</md-content>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="inventories.length > 0">
+
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="100">
+      <md-card>
+        <md-card-title ng-if="summary.active">
+          <span class="md-subhead">
+            {{ summary.total }} active device<span ng-if="summary.total != 1">s</span>. {{ summary.new }} added this month.
+          </span>
+        </md-card-title>
+
+        <md-card-content>
+
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+              <thead md-head>
+                <tr md-row class="md-table-headers-row">
+                  <th hide show-gt-xs md-column md-order-by="state"><span>State</span></th>
+                  <th md-column md-order-by="ap_mac"><span>Ap Mac</span></th>
+                  <th hide show-gt-xs md-column md-order-by="created_at"><span>Added</span></th>
+                  <th md-column md-order-by="username"><span>Created By</span></th>
+                  <th hide show-gt-sm md-column md-order-by="location"><span>Location</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row ng-repeat="i in filtered = (inventories | filter: query.filter)" ng-class="{'muted': i.staff, 'muted': i.state == 'cancelled'}">
+                  <td hide show-gt-sm md-cell>
+                    {{ (i.staff ? 'staff' : i.state) | titleCase }}
+                    <md-tooltip ng-if="i.state == 'removed'">
+                      Removed {{ ::i.removed_at | humanTime }}
+                    </md-tooltip>
+                  </td>
+                  <td md-cell>
+                    {{ ::i.ap_mac }}
+                    <md-tooltip hide-gt-xs>
+                      Added {{ ::i.created_at | humanTime }} to {{ ::i.location_name }}
+                    </md-tooltip>
+                  </td>
+                  <td hide show-gt-xs md-cell>
+                    {{ ::i.created_at | humanTime }}
+                  </td>
+                  <td md-cell>
+                    {{ ::i.username }}
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ ::i.location_name }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="query.limit" md-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        </md-card-content>
+      </md-card>
+
+    </div>
+
+</md-content>

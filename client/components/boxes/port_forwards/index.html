@@ -1,0 +1,21 @@
+<div ng-include="'components/boxes/layouts/header.html'"></div>
+<div class="container" ng-cloak>
+  <div class="show-for-medium-up" id="sidebar">
+    <ul class="side-nav">
+      <div hide="loading">
+        <div ng-include="'components/locations/layouts/sidebar.html'"></div>
+      </div>
+    </ul>
+  </div>
+  <div class="row">
+    <div class='small-12 columns' id="s">
+      <loader></loader>
+      <div ng-hide="loading">
+        <div ng-include="'components/boxes/layouts/sub-nav.html'"></div>
+        <!-- <h2>Edit Port Forwarding</h2> -->
+        <div port-forward-form></div>
+      </div>
+    </div>
+  </div>
+</div>
+

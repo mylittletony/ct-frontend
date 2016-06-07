@@ -1,0 +1,25 @@
+<div ng-include="'components/reports/layouts/banner.html'"></div>
+<div class="container">
+  <div class="show-for-medium-up" id="sidebar">
+    <ul class="side-nav">
+      <div hide="loading">
+        <div ng-include="'components/stats/layouts/sidebar.html'"></div>
+      </div>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Social Services</h2>
+      <p>This is a list of people who've signed-in with a social network.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <loader></loader>
+    </div>
+  </div>
+  <div ng-hide="loading">
+    <analytics><list-social></list-social></analytics>
+  </div>
+</div>
+

@@ -1,0 +1,33 @@
+<table class="clients">
+  <tbody>
+    <tr>
+      <th class=""><a href="" ng-click='predicate = "starttime"; reverse=!reverse'>Session</a></th>
+      <th class=""><a href="" ng-click='predicate = "client_mac"; reverse=!reverse'>Client</a></th>
+      <th class="show-for-medium-up"><a href="" ng-click='predicate = "downloads"; reverse=!reverse'>Data</a></th>
+      <th class="show-for-medium-up"><a href="" ng-click='predicate = "manufacturer"; reverse=!reverse'>Manufacturer</a></th>
+      <th class="show-for-medium-up"><a href="" ng-click='predicate = "location_name"; reverse=!reverse'>Location</a></th>
+    </tr>
+    <tr class="" ng-repeat="session in filtered = (sessions | filter:query | filter: { state: onlineFilter } | orderBy:predicate:reverse)">
+      <td>
+        <b>Stop:</b> {{ session.acctstoptime | humanTime }}<br>
+        <b>Start:</b> {{ session.acctstarttime | humanTime }}<br>
+        <span ng-if="session.ap_mac"><b>AP:</b> <a href="/#/boxes?q={{session.ap_mac}}">{{ session.ap_mac }}</a><br></span>
+        <b>Duration:</b> {{ session.acctsessiontime | humanised }}<br>
+        <a class="has-tip" tooltip-html-unsafe="<ul class='no-bullet'><li>Session ID: {{ session.acctsessionid || NA }}</li><li>Terminate cause: {{session.acctstopcause}}</li><li>Client IP: {{session.device_ip}}</li><li>AP IP: {{session.ap_ipaddr}}</li><li>Username Full: {{session.username_full }}</li><li>Session time: {{session.acctsessiontime }}s</li></ul>">More Details</a>
+
+      </td>
+      <td>
+        <a href="" ng-click="filterClient(session.client_mac)"><b>{{ session.client_mac }}</b></a><br>
+        <small class="text-muted show-for-medium-up"><a href="" ng-click="filterUser(session.username)">{{ session.username }}</a></span>
+      </td>
+      <td class="show-for-medium-up">
+        <span ng-show="session.download">{{ session.download | humanData }} <i class="fa fa-arrow-down"></i></span><br>
+        <small class="show-for-medium-up text-muted" ng-show="session.upload" >{{session.upload | humanData }} <i class="fa fa-arrow-up"></i></small>
+      </td>
+      <td class="show-for-medium-up">{{ session.manufacturer }}</td>
+      <td>
+        <a href="/#/locations/{{ session.location_id }}">{{ session.location_name }}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

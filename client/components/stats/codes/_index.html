@@ -1,0 +1,50 @@
+<div ng-hide="loading">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Voucher Codes</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <range-filter start="{{start}}" end="{{end}}" update-fn="updateRange(message)"></range-filter>
+      <p><span ng-show="location_name">Showing sessions for <b>{{ location_name }}</b>. </span><span ng-hide="location_name">All locations.</span> <a href="" ng-click="locationSelect = !locationSelect">Change location</a></p>
+      <span ng-show="locationSelect">
+        <typeaheads class="typeahead" items="locations" term="term" search="locationSearch(term)" select="selectLocation(item)">
+          <p ng-show="locations.length">Click one to filter your results</p>
+          <p ng-hide="locations.length">No results found. Sad Panda. <span ng-hide="term">Try typing in the box.</span></p>
+          <div class="menu" ng-cloak>
+            <ul typeahead-item="location" ng-repeat="location in locations" class="results no-bullet">
+              <li><b><a href=""><i class="fa fa-building-o"></i> {{ location.location_name }}</a></b></li>
+            </ul>
+          </div>
+        </typeaheads>
+        <p>
+          <small>
+            <a href="" ng-click="locationSelect = !locationSelect">Cancel</a>.
+            <a ng-show="location_name" href="" ng-click="clearLocations()">Show all my locations.</a>
+          </small>
+        </p>
+        <br><br>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <line-chart data="{{ chart_series }}" legend="Y" interval="{{ _stats.interval }}" align="left" start="{{ _stats.start }}"></line-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="summary">
+        <h1>{{ info.generated }}</h1>
+        <p class="text-muted">Created</p>
+      </div>
+      <div class="summary">
+        <h1>{{ info.activated }}</h1>
+        <p class="text-muted">Activated</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

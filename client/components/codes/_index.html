@@ -1,0 +1,105 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="Vouchers">
+      <md-icon md-font-icon="arrow_back" ng-click="back()">arrow_back</md-icon>
+    </md-button>
+    <p>Back to Voucher</p>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
+
+  <div flex ng-show="codes.length === 0 && !searching && !query.filter">
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            No codes found
+          </span>
+          <span class="md-subhead">
+            <md-progress-linear md-mode="query"></md-progress-linear>
+            Your codes are still generating, please wait.
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+    </md-card>
+
+  </div>
+
+  <div flex ng-show="codes.length > 0 || searching || query.filter">
+
+    <md-card layout="row" style="padding: 18px 8px 0px 24px;">
+      <md-input-container>
+        <md-icon md-font-icon="search">search</md-icon>
+        <label>Search</label>
+        <input ng-blur="search()" ng-model="query.filter" md-autofocus>
+      </md-input-container>
+    </md-card>
+
+    <md-card>
+
+      <md-card-content>
+      <md-table-container>
+
+        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-column md-order-by="active"><span>Active</span></th>
+              <th hide show-gt-sm md-column md-numeric md-order-by="serial"><span>Serial</span></th>
+              <th md-column md-order-by="username"><span hide show-gt-sm>Username</span><span hide-gt-sm>Details</span></th>
+              <th hide show-gt-sm md-column md-order-by="password"><span>Password</span></th>
+              <th hide show-gt-sm md-column md-numeric md-order-by="date_activated"><span>Activated</span></th>
+              <th md-column><span>Action</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row md-select="code" ng-repeat="code in filtered = (codes | filter: query.filter | orderBy: query.order)">
+              <td md-cell>
+                <md-icon md-menu-origin md-font-icon="">{{ code.active ? "check_circle" : 'cancel' }}</md-icon>
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ code.serial }}
+              </td>
+              <td md-cell>
+                {{ code.username }} <span hide-gt-sm>/ {{ code.password }}</span>
+                <md-tooltip hide-gt-sm>
+                  Activated: {{ (code.date_activated | humanTime) || 'N/A'}}
+                </md-tooltip>
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ code.password }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                <span>{{ (code.date_activated | humanTime) || 'N/A' }}</span>
+              </td>
+              <td md-cell>
+                <md-menu>
+                  <md-button aria-label="Open Boxes Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                  </md-button>
+                  <md-menu-content width="4" >
+                    <md-menu-item ng-repeat="item in menuItems">
+                      <md-button ng-disabled="isDisabled(item.type,code)" ng-click="action(item.type,code)">
+                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+                        <p flex>{{ itemName(item,code) }}</p>
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
+      </md-card-content>
+      </md-card>
+
+  </div>
+
+</md-content>

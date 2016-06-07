@@ -1,0 +1,42 @@
+<md-content class="md-padding" layout="column">
+
+  <md-card>
+
+    <md-card-content>
+      <md-table-container>
+        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-column><span>Change Log</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row md-select="version" md-auto-select="options.autoSelect" ng-repeat="version in filtered = (versions | filter: query.filter | orderBy: query.direction)">
+              <td md-cell>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>
+                      Changed By
+                    </h3>
+                    <p>
+                      {{ ::version.whodunnit || 'Ghost'}} on {{ version.created_at | humanTime}}
+                    </p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-3-line" ng-repeat="(name,value) in version.changeset">
+                  <div class="md-list-item-text">
+                    <h3>Attribute: {{ name | titleCase }}</h3>
+                    <p>From: {{ ::value[0] }}</p>
+                    <p>To: {{ ::value[1] }}</p>
+                  </div>
+                </md-list-item>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-options="query.options" md-page="query.page" md-total="{{ ::_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
+    </md-card-content>
+  </md-card>
+</md-content>

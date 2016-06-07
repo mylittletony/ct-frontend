@@ -1,0 +1,18 @@
+<div ng-include="'components/reports/layouts/banner.html'"></div>
+<div class="container">
+  <div class="show-for-medium-up" id="sidebar">
+    <ul class="side-nav">
+      <div hide="loading">
+        <div ng-include="'components/stats/layouts/sidebar.html'"></div>
+      </div>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>{{ online }} Splash Users Online</h2>
+      <p>This is a list of users who are currently connected to the splash pages. The list is cached every 5 mins. <p>
+    </div>
+  </div>
+  <sessions-online active="online"></sessions-online>
+</div>
+

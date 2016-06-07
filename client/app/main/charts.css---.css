@@ -1,0 +1,31 @@
+#chart_wrap {
+    /* border:1px solid gray; */
+    position: relative;
+    padding-bottom: 100%;
+    height: 0;
+    overflow:hidden;
+}
+
+#donut {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+}
+
+#pie {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+}
+
+#line {
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    width:100%;
+    height:100%;
+}

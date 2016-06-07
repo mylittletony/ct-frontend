@@ -1,0 +1,63 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >credit_card</md-icon>
+    </md-button>
+    <p>Billing Details</p>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <div layout="row" layout-align="center center">
+    <div flex-gt-sm="100">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Overview
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="row" layout-wrap>
+            <md-list-item class="md-3-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3>Card Details</h3>
+                <p>
+                  <span ng-if="!user.credit_card_last4">
+                    No card available
+                  </span>
+                  <span ng-if="user.credit_card_last4">
+                    {{ user.credit_card_type }} ending {{ user.credit_card_last4 }}. Expires {{ user.credit_card_expiry }}
+                  </span>
+                </p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3>Plan</h3>
+                <p>{{ ::user.plan.plan_name }} Plan. <span ng-show="user.plan.plan_price > 0">{{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} {{ ::user.plan.billing_period }}</span></p>
+              </div>
+            </md-list-item>
+          </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <user-credit-card user="user"></user-credit-card>
+        </md-card-actions>
+      </md-card>
+
+      <user-plans user="user"></user-plans>
+
+      <user-coupon key="{{user.key}}" coupons="user.active_coupons"></user-coupon>
+
+      <user-cancel user="user" ng-if="user.subscription_active"></user-cancel>
+
+      <user-billing-settings user="user"></user-billing-settings>
+
+
+    </div>
+
+</md-content>

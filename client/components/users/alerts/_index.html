@@ -1,0 +1,61 @@
+<form name="myForm" ng-submit="update(myForm)">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+        <md-icon>email</md-icon>
+      </md-button>
+      <p>Notifications</p>
+      <div flex></div>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                Notification Settings
+              </span>
+              <span class="md-subhead">
+                Adjust your email settings and notification preferences.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <md-switch ng-model="user.receive_alerts" aria-label="Switch 1">
+              Weekly Reports {{ user.receive_alerts ? 'Enabled' : 'Disabled' }}
+            </md-switch>
+            
+            <md-switch ng-model="user.box_alerts" aria-label="Switch 1">
+              Device Alerts {{ user.box_alerts ? 'Enabled' : 'Disabled' }}
+            </md-switch>
+
+            <div ng-if="user.box_alerts">
+              <md-input-container>
+                <label>Start Time</label>
+                <input type="time" ng-model="user.starttime">
+              </md-input-container>
+              <md-input-container>
+                <label>End Time</label>
+                <input type="time" ng-model="user.endtime">
+              </md-input-container>
+              <div style="margin-top: -30px;">
+                <p><small>Allowed Days</small></p>
+                <day-selector active="true" days="user.alerts_window_days" array="user.periodic_days"></day-selector>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Save
+        </md-button>
+
+      </div>
+
+  </md-content>
+</form>

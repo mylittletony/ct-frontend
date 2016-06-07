@@ -1,0 +1,43 @@
+<div ng-include="'components/locations/settings/_settings_header.html'"></div>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Notification Settings
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+          <form name="myForm" submit="update(myForm)">
+            <div layout="row" layout-wrap>
+              <md-switch ng-model="location.reports_active" aria-label="reports_active">
+                Weekly Reports {{ location.reports_active ? "Enabled" : "Disabled"}}
+              </md-switch>
+              <md-chips flex="100"
+                  ng-model="ctrl.emails"
+                  placeholder="Enter an email"
+                  delete-button-label="Remove Email"
+                  delete-hint="Press delete to remove email"
+                  secondary-placeholder="+Email"></md-chips>
+                <br/>
+            </div>
+            <small>The admin user always receives an email.</small>
+          </form>
+        </md-card-content>
+      </md-card>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+        Save
+      </md-button>
+
+    </div>
+
+  </div>
+
+</md-content>
+

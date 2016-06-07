@@ -1,0 +1,46 @@
+<p ng-bind-html="error"></p>
+
+<md-button href="/#/users/{{ user.slug }}/integrations" ng-if="error" class="">Authorise</md-button>
+
+<div layout="column">
+  <span ng-if="loading_integration">
+    <p>Loading</p>
+    <md-progress-linear md-mode="query"></md-progress-linear>
+  </span>
+
+  <div ng-if="chimp_lists.length > 0" layout="column">
+
+    <md-input-container>
+      <label>Choose a list</label>
+      <md-select ng-model="trigger.attr_1">
+        <md-option ng-repeat="list in chimp_lists" value="{{list.id}}">
+          {{list.name}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <md-input-container ng-if="trigger.attr_1">
+      <label>Email</label>
+      <input type="text" name="chimp_email" ng-model="trigger.attr_2" placeholder="Email" required></input>
+      <div ng-messages="myForm.chimp_email.$error" md-auto-hide="false">
+        <div ng-message="required">Please enter an email</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <!-- Only if they're a guest --> 
+      <label>First Name</label>
+      <input type="text" name="chimp-first" ng-model="trigger.attr_3" placeholder="First name"></input>
+    </md-input-container>
+
+    <md-input-container>
+      <label>Last Name</label>
+      <input type="text" name="chimp-last" ng-model="trigger.attr_4" placeholder="Last name"></input>
+    </md-input-container>
+
+    <md-checkbox name="slack-icon" ng-model="trigger.attr_5">
+      Bypass double opt-in
+    </md-checkbox>
+
+  </div>
+</div>

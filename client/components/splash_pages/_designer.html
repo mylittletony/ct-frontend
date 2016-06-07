@@ -1,0 +1,223 @@
+<style>
+
+  .dc {
+    font-family: {{ splash.font_family }}!important;
+  }
+
+  .dc h1 {
+    font-size: {{ splash.heading_text_size}};
+    font-weight: normal;
+    color: {{ splash.heading_text_colour}};
+    font-family: {{ splash.font_family }};
+  }
+
+  .dc h2 {
+    font-size: {{ splash.heading_2_text_size}};
+    color: {{ splash.heading_2_text_colour}};
+    font-family: {{ splash.font_family }};
+    font-weight: normal;
+    line-height: 1.3em;
+  }
+
+  h3 {
+    font-size: {{ splash.heading_3_text_size}};
+    color: {{ splash.heading_3_text_colour}};
+    font-weight: normal;
+    font-family: {{ splash.font_family }};
+    line-height: 1.3em;
+  }
+
+  .dc p {
+    font-size: {{ splash.body_font_size }}!important;
+    color: {{ splash.body_text_colour }};
+    font-family: {{ splash.font_family }};
+  }
+
+  a {
+    color: {{splash.link_colour}};
+    font-family: {{ splash.font_family }};
+  }
+
+  .designer .button, button {
+  }
+
+  .btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    font-family: Lato,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+    font-weight: 400;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 300ms ease-out;
+    font-size: {{ splash.btn_font_size }}!important;
+    color: {{splash.btn_font_colour}}!important;
+    margin: 10px 0 15px 0;
+    padding: {{ splash.button_padding }};
+    height: {{ splash.button_height || '50px' }}!important;
+    line-height: {{ splash.button_height || '50px' }}!important;
+    border-radius: {{ splash.button_radius }};
+    background-color: {{splash.button_colour}};
+    border-color: {{ splash.button_border_colour }};
+  }
+
+  small, .small {
+    font-size: 11px;
+  }
+
+  .design-container {
+    float: {{ splash.container_float }}!important;
+    margin: 0 auto;
+  }
+  
+  .splash-container {
+    padding: 0px 0 0 0;
+    margin: 0 auto;
+    max-width: {{ splash.container_width }};
+    width: 98%;
+  }
+
+  .ps_inner {
+    text-align: {{ splash.container_text_align }};
+    border: 1px solid {{ splash.border_colour }};
+    display: block;
+    background-color: {{ splash.container_colour }}!important;
+    opacity: {{ splash.container_transparency }};
+    padding-top: 10px;
+    padding-left: {{ splash.container_inner_padding }};
+    padding-right: {{ splash.container_inner_padding }};
+    margin: 0 auto;
+    width: 95%;
+    min-height: 400px;
+  }
+
+  .banner {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .splash-footer, .splash_footer a {
+    padding: 20px 0;
+    font-size: 10px;
+    color: {{ splash.footer_text_colour }};
+  }
+
+  .location_logo {
+    text-align: {{ splash.logo_position }};
+  }
+
+  .location_logo img {
+    max-width: 220px;
+    padding: 14px 0;
+  }
+
+  .social {
+    margin: 10px 0 0 -5px;
+  }
+
+  .social img {
+    width: 32px;
+    height: 32px;
+  }
+
+  #container-c1 {
+
+  }
+
+  #container-c2 {
+    padding-top: 15px;
+  }
+
+  h2.norm {
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 18px;
+    color: #1fad5c;
+    text-rendering: optimizeLegibility;
+    margin-top: 0.2rem;
+  }
+
+  input.design-input, textarea.designer-input {
+    font-family: {{ splash.font_family }}!important;
+    max-width: {{ splash.input_max_width || '400px' }}!important;
+    width: 100%;
+    margin-left: -7px;
+    padding: {{ splash.input_padding}}!important;
+
+    border: {{ splash.input_border_width}} solid {{ splash.input_border_colour}}!important;
+    border-radius: {{ splash.input_border_radius }}!important;
+    box-shadow: inset 0 0px 0px rgb(255, 255, 255)!important;
+    background-color: #ffffff!important;
+
+    border-width: 1px!important;
+    border-color: {{ splash.input_border_width}} solid {{ splash.input_border_colour}}!important;
+    margin: 0 0 0.5rem -5px!important;
+    color: #3d3d3d!important;
+  }
+
+  .designer label {
+    font-size: {{ splash.body_font_size }}!important;
+    color: {{ splash.body_text_colour }};
+    line-height: 40px;
+    font-family: {{ splash.font_family }};
+  }
+
+  .designer {
+    height:100vh;
+    padding: 0 10px 0 10px;
+    margin: 0 auto;
+    background-image: url({{ splash.background_image_name }} );
+    background-color: {{splash.background_image_name ? 'transparent' : splash.body_background_colour}}!important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .des-facebook {
+    background-color: #3b5998;
+    min-width: 150px;
+    max-width: 200px;
+    width: 100%;
+    color: white!important;
+    font-weight: bold;
+  }
+  
+  .social {
+    margin: 10px;
+    border-style: solid;
+    border-width: 0px;
+    cursor: pointer;
+    line-height: normal;
+    margin: 0 0 1.25rem;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    -webkit-appearance: none;
+    border-radius: 0;
+    display: inline-block;
+    padding-top: 1rem;
+    padding-right: 2rem;
+    padding-bottom: 1.0625rem;
+    padding-left: 2rem;
+    font-size: 1rem;
+    /* background-color: #008CBA; */
+    border-color: #007095;
+    color: #FFFFFF;
+    transition: background-color 300ms ease-out;
+  }
+
+</style>
+
+<div class="designer" ng-hide="loading">
+  <div class="dc design-container">
+    <div class="splash-container md-padding">
+      <splash-design ver='{{ splash.design_id }}'></splash-design>
+    </div>
+  </div>
+</div>

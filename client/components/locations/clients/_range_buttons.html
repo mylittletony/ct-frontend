@@ -1,0 +1,18 @@
+<div layout="column" layout-gt-xs="row">
+  <md-input-container class="md-block">
+    <label>Interval</label>
+    <md-select aria-label="select interval" ng-model="formData.interval" ng-change="updateInterval()">
+      <md-option ng-repeat="interval in intervals" value="{{ interval.value }}">
+        {{ interval.key }}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container class="md-block">
+    <label>Distance</label>
+    <md-select aria-label="select distance" ng-model="formData.distance" ng-change="updateDistance()">
+      <md-option ng-repeat="dist in distances" value="{{ dist.value }}">
+        {{ dist.key }}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>
