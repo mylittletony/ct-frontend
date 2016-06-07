@@ -27,6 +27,14 @@ bower install
 To run, you need to start two services. The NodeJS server which handles the auth and the application using Grunt.
 
 ```
+npm install
+bower install
+```
+
+To run the application, you can try something like this:
+>>>>>>> Invites branch
+
+```
 CT_URL=api.ctapp.io npm start
 ```
 
