@@ -1,7 +1,5 @@
 <md-content class="md-padding" layout="column">
-
   <md-card>
-
     <md-card-content>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
@@ -11,8 +9,8 @@
             </tr>
           </thead>
           <tbody md-body>
-            <tr md-row md-select="version" md-auto-select="options.autoSelect" ng-repeat="version in filtered = (versions | filter: query.filter | orderBy: query.direction)">
-              <td md-cell>
+            <tr md-row ng-repeat="version in filtered = (versions | filter: query.filter | orderBy: query.direction)">
+              <td md-cell style="padding: 0">
                 <md-list-item class="md-2-line">
                   <div class="md-list-item-text">
                     <h3>
@@ -36,7 +34,6 @@
         </table>
       </md-table-container>
       <md-table-pagination md-limit="query.limit" md-options="query.options" md-page="query.page" md-total="{{ ::_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-
     </md-card-content>
   </md-card>
 </md-content>
