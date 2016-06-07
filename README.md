@@ -1,8 +1,16 @@
-## Welcome To Cucumber
+# Welcome To Cucumber
 
-This is a demo portal which acts as an interface to the Cucumber API.
+Cucumber Tony is an orchestration tool for WiFi Devices. It's like mission control for your networks - a single-pane of glass to manage all your devices. That whole sentence is trademarked.
 
-To run it:
+The core of the service is the Cucumber RESTFul API. This portal is currently our beta portal - soon to be production. It communicates with the API to provide a 'nice' interface for controlling your devices.
+
+It's proof that anything is possible using the API. Just use your imagination.
+
+## Getting Started
+
+This is a demo portal which acts as an interface to the Cucumber API. It's not production ready, the tests are currently broken.
+
+To run the project:
 
 - Move Gruntfile.js.default to Gruntfile.js
 - Move local.env.sample.js.default to local.env.sample.js
@@ -23,7 +31,17 @@ And the rest is history.
 
 The tests DO NOT RUN at the moment since we've moved massive sections out. These will be back in action shortly.
 
-### Using with Heroku 
+##Running Locally
+
+This is a pain right now since you'll need to use the production end-points. However, it's 100% possible. All you need to do is check the development section of the Gruntfile include the api.ctapp.io end-points.
+
+Then run:
+
+```
+grunt serve
+```
+
+## Using with Heroku 
 
 If you want to deploy yourself with Heroku, you need to do a few things.
 
@@ -53,15 +71,15 @@ Then you can deploy with:
 grunt buildcontrol:heroku
 ```
 
-###Running Locally
+## Contributing 
 
-This is a pain right now since you'll need to use the production end-points. However, it's 100% possible. All you need to do is check the development section of the Gruntfile include the api.ctapp.io end-points.
+### Issues 
 
-Then run:
+Search before posting. Describe your issue in detail. **Do not raise an issue if you have a problem with the API**. Front-end only please.
 
-```
-grunt serve
-```
+### Code
+
+There's now contributing guide available which guides you through how we roll.
 
 ## Copyright and License
 
