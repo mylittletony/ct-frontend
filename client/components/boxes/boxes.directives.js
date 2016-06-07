@@ -1670,7 +1670,7 @@ app.directive('interfaceButtons', ['$routeParams', '$location', function($routeP
 
 }]);
 
-app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', 'Notification', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', function(Payload, $routeParams, $pusher, Notification, $rootScope, $mdDialog, showToast, Upgrade) {
+app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', function(Payload, $routeParams, $pusher, $rootScope, $mdDialog, showToast, Upgrade) {
 
   var link = function( scope, element, attrs ) {
 
@@ -2210,7 +2210,7 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
 
 }]);
 
-app.directive('addBoxWizard', ['Box', 'Notification', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', function(Box, Notification, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone) {
+app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', function(Box, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone) {
 
   var link = function( scope, element, attrs, controller ) {
 

@@ -143,11 +143,10 @@ app.directive('showApp', ['App', '$routeParams', function(App, $routeParams) {
 
 }]);
 
-app.directive('editApp', ['App', '$routeParams', '$location', 'Notification', function(App, $routeParams, $location, Notification) {
+app.directive('editApp', ['App', '$routeParams', '$location', function(App, $routeParams, $location) {
 
   var link = function(scope) {
 
-    scope.notificationMsg = Notification;
     scope.loading         = true;
 
     scope.init = function() {
@@ -160,29 +159,23 @@ app.directive('editApp', ['App', '$routeParams', '$location', 'Notification', fu
     };
 
     scope.create = function() {
-      App.create({app: scope.app}).$promise.then(function(results) {
-        $location.path('/apps/' + results.id).search({n: true});
-        scope.notificationMsg.msg = 'Application created';
-        scope.notificationMsg.err = undefined;
-      }, function(err) {
-        if ( err.data && err.data.message ) {
-          formatErrors(err.data.message);
-        }
-      });
-
+      // App.create({app: scope.app}).$promise.then(function(results) {
+      //   $location.path('/apps/' + results.id).search({n: true});
+      // }, function(err) {
+      //   if ( err.data && err.data.message ) {
+      //     formatErrors(err.data.message);
+      //   }
+      // });
     };
 
     scope.update = function() {
-      App.update({id: $routeParams.id, app: scope.app}).$promise.then(function(results) {
-        $location.path('/apps/' + results.id).search({n: true});
-        scope.notificationMsg.msg = 'Application updated';
-        scope.notificationMsg.err = undefined;
-      }, function(err) {
-        if ( err.data && err.data.message ) {
-          formatErrors(err.data.message);
-        }
-      });
-
+      // App.update({id: $routeParams.id, app: scope.app}).$promise.then(function(results) {
+      //   $location.path('/apps/' + results.id).search({n: true});
+      // }, function(err) {
+      //   if ( err.data && err.data.message ) {
+      //     formatErrors(err.data.message);
+      //   }
+      // });
     };
 
     scope.save = function() {
@@ -194,13 +187,6 @@ app.directive('editApp', ['App', '$routeParams', '$location', 'Notification', fu
     };
 
     function formatErrors(res) {
-      var errors    = [];
-      var keys      = Object.keys(res);
-      angular.forEach(keys, function(v,k) {
-        errors.push(v.split('_').join(' ')  + ' ' + res[v]);
-      });
-      scope.notificationMsg.msg = errors[0];
-      scope.notificationMsg.err = true;
     }
     if ($routeParams.id) {
       scope.init();

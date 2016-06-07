@@ -852,7 +852,7 @@ app.directive('uSw', ['User', '$rootScope', 'AccessToken', function(User, $rootS
 
 }]);
 
-app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$location', 'SLACK_TOKEN', 'CHIMP_TOKEN', '$pusher', 'Notification', '$rootScope', 'Auth', '$route', function(User, Integration, $routeParams, $location, SLACK_TOKEN, CHIMP_TOKEN, $pusher, Notification, $rootScope, Auth, $route) {
+app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$location', 'SLACK_TOKEN', 'CHIMP_TOKEN', '$pusher', '$rootScope', 'Auth', '$route', function(User, Integration, $routeParams, $location, SLACK_TOKEN, CHIMP_TOKEN, $pusher, $rootScope, Auth, $route) {
 
   var link = function( scope, element, attrs ) {
 
@@ -963,8 +963,6 @@ app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$loca
           }
 
           var success = (msg.success === true || msg.success === 'true' );
-          scope.notificationMsg.msg = msg.message;
-          scope.notificationMsg.err = !success;
           scope.auth = undefined;
           scope.type = undefined;
 
