@@ -13,7 +13,9 @@ You also need to install via npm install && bower install to get all the depende
 
 To run, you can try something like this:
 
+```
 CT_URL=api.ctapp.io npm start
+```
 
 Where CT_URL is the callback URL for the oauth flow.
 
