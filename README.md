@@ -9,9 +9,13 @@ To run it:
 - Create an Application in the current Tony and obtain your APP ID and Secret
 - Enter these in the local.enc.sample.js.default. Or use some ENV variables.
 
+You also need to install via npm install && bower install to get all the dependencies.
+
 To run, you can try something like this:
 
 CT_URL=api.ctapp.io npm start
+
+Where CT_URL is the callback URL for the oauth flow.
 
 And the rest is history.
 
