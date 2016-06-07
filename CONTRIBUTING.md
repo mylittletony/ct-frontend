@@ -1,7 +1,7 @@
 # How to contribute
 
 Here are a few guidelines that we need contributors to follow so that we can 
-have a chance of keeping oh top of things.
+have a chance of keeping on top of things.
 
 ## Getting Started
 
