@@ -53,6 +53,18 @@ Then you can deploy with:
 grunt buildcontrol:heroku
 ```
 
+###Running Locally
+
+This is a pain right now since you'll need to use the production end-points. However, it's 100% possible. All you need to do is check the development section of the Gruntfile include the api.ctapp.io end-points.
+
+Then run:
+
+```
+grunt serve
+```
+
+## Copyright and License
+
 MIT License
 
 Copyright (c) 2016 Cucumber Tony Limited
