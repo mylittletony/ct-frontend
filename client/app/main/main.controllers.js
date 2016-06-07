@@ -319,11 +319,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
 
       $scope.brandName = BrandName;
-      // $scope.brandName.name = 'Cucumber';
-
-      // $scope.brandName.icon = 'https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/blank.png';
-      // var default_image = 'https://d3e9l1phmgx8f2.cloudfront.net/images/logos/cucumber-white.svg';
-      // var default_icon  = 'https://d3e9l1phmgx8f2.cloudfront.net/images/logos/ct-wifi.svg';
 
       // var channel;
 
