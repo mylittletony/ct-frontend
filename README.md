@@ -1,10 +1,10 @@
 # Welcome To Cucumber
 
-Cucumber Tony is an orchestration tool for WiFi Devices. It's like mission control for your networks - a single-pane of glass to manage all your devices. That whole sentence is trademarked.
+Cucumber Tony is an orchestration tool for WiFi Devices. It's like mission control for your networks - a single-pane of glass to manage all your devices. (That whole sentence is trademarked btw).
 
 The core of the service is the Cucumber RESTFul API. This portal is currently our beta portal - soon to be production. It communicates with the API to provide a 'nice' interface for controlling your devices.
 
-It's proof that anything is possible using the API. Just use your imagination.
+It's proof that anything is possible. Just use your imagination. 
 
 ## Getting Started
 
