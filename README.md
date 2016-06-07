@@ -42,10 +42,10 @@ heroku: {
 
 You need to add:
 
-APP_ID=YOUR-APP-ID
-APP_SECRET=YOUR-SECRET
-CT_URL=your-dash-url
-NODE_ENV=production
+-APP_ID=YOUR-APP-ID
+-APP_SECRET=YOUR-SECRET
+-CT_URL=your-dash-url
+-NODE_ENV=production
 
 Then you can deploy with:
 
