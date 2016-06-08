@@ -19,7 +19,7 @@ To run the project:
 
 You also need to install via npm install && bower install to get all the dependencies.
 
-To run, you can try something like this:
+To run, you need to start two services. The NodeJS server which handles the auth and the application using grunt.
 
 ```
 CT_URL=api.ctapp.io npm start
@@ -27,7 +27,11 @@ CT_URL=api.ctapp.io npm start
 
 Where CT_URL is the callback URL for the oauth flow.
 
-And the rest is history.
+Then, open a new terminal and run:
+
+```
+grunt serve
+```
 
 The tests DO NOT RUN at the moment since we've moved massive sections out. These will be back in action shortly.
 
