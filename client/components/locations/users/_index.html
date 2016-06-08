@@ -64,7 +64,7 @@
                       </md-button>
                       <md-menu-content width="4" >
                         <md-menu-item ng-repeat="item in menu">
-                          <md-button ng-click="action(item.type,user)" ng-disabled="user.state == 'owner' && item.type == 'revoke'">
+                          <md-button ng-click="action(item.type,user)" ng-disabled="user.primary === true && item.type == 'revoke'">
                             <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
                             <p flex>{{ ::item.name }}</p>
                           </md-button>

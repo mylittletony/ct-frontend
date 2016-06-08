@@ -591,8 +591,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     DialogController.$inject = ['$scope'];
 
     var inviteUser = function(invite) {
-      invite.location_ids = scope.location.id;
-      Invite.create({invite: invite}).$promise.then(function(results) {
+      Invite.create({location_id: scope.location.slug, invite: invite}).$promise.then(function(results) {
         scope.users.push(results);
         showToast('New user invited.');
       }, function(err) {
@@ -602,29 +601,11 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     var init = function() {
       Location.users({id: scope.location.slug}).$promise.then(function(results) {
-        populateAdmins(results.admin_users);
+        scope.users = results.users;
         createMenu();
         scope.loading = undefined;
         // initPusher(scope.location.api_token);
       });
-    };
-
-    var populateAdmins = function(admins) {
-      scope.users = [];
-      admins.owner.state = 'owner';
-      scope.users.push(admins.owner);
-      if (admins.admins && admins.admins.length) {
-        for (var i = 0, len = admins.admins.length; i < len; i++) {
-          var admin = admins.admins[i].state = 'active';
-          scope.users.push(admins.admins[i]);
-        }
-      }
-      if (admins.invites && admins.invites.length) {
-        for (var j = 0, l = admins.invites.length; j < l; j++) {
-          admins.invites[j].state = 'pending';
-          scope.users.push(admins.invites[j]);
-        }
-      }
     };
 
     var revoke = function(user) {
@@ -639,10 +620,10 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       });
     };
 
-    var revokeAdmin = function(user) {
-      user.state = 'revoking';
-      Invite.destroy({invite: user}).$promise.then(function(results) {
-        removeFromList(user.email);
+    var revokeAdmin = function(invite) {
+      invite.state = 'revoking';
+      Invite.destroy({location_id: scope.location.slug, invite: invite}).$promise.then(function(results) {
+        removeFromList(invite.email);
       }, function(err) {
         showErrors(err);
       });

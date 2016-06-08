@@ -40,6 +40,9 @@ app.factory('showToast', ['$mdToast', function ($mdToast) {
 
 app.factory('showErrors', ['$mdBottomSheet', function ($mdBottomSheet) {
 
+  // Serious tidy in order //
+  // Should handle all the errors gracefully. It doesn't //
+
   var formatErrors = function(errors) {
     var e = [];
     var res;
@@ -58,14 +61,22 @@ app.factory('showErrors', ['$mdBottomSheet', function ($mdBottomSheet) {
         });
       }
     } else if (errors.data && errors.data.message) {
+      // This should loop through the array and remove the 'keys'
+      // The keys don't actually work though since Rails sends full messages
       e.push(errors.data.message);
     } else if (errors && errors.data) {
-      e.push(errors.data);
+      console.log(errors);
+      var err = errors.data || 'An unknown error occurred, please try again.';
+      e.push(err);
     } else {
       console.log(errors);
       e.push('An unknown error occurred, please try again.');
     }
-    return e;
+    if (e.length > 0) {
+      return e[0];
+    } else {
+      return e;
+    }
   };
 
   function MenuCtrl($scope, errors) {
