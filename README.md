@@ -27,7 +27,7 @@ bower install
 To run, you need to start two services. The NodeJS server which handles the auth and the application using Grunt.
 
 ```
-CT_URL=api.ctapp.io npm start
+CT_URL=my.ctapp.dev:9090 npm start
 ```
 
 Where CT_URL is the callback URL for the oauth flow.
@@ -65,12 +65,6 @@ You need to add:
 - APP_SECRET=YOUR-SECRET
 - CT_URL=your-local-dash-url
 - NODE_ENV=production
-
-For example:
-
-```
-CT_URL=my.ctapp.dev:9090 npm start
-```
 
 Then you can deploy with:
 
