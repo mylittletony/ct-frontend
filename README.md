@@ -19,7 +19,12 @@ To run the project:
 
 You also need to install via npm install && bower install to get all the dependencies.
 
-To run, you need to start two services. The NodeJS server which handles the auth and the application using grunt.
+```
+npm install
+bower install
+```
+
+To run, you need to start two services. The NodeJS server which handles the auth and the application using Grunt.
 
 ```
 CT_URL=api.ctapp.io npm start
@@ -66,6 +71,12 @@ Then you can deploy with:
 ```
 grunt buildcontrol:heroku
 ```
+
+## Push Notifications
+
+TBC. We should detail what notifications we use, including the channels in use. Think this is going to take some work since we have dozens coming from multiple services.
+
+For now, use the code samples etc. to figure it out.
 
 ## Contributing 
 

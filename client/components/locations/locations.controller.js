@@ -30,7 +30,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
   function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache) {
 
     $scope.loading = true;
-
     $scope.location = { slug: $routeParams.id };
 
     function isOpen(section) {
@@ -173,7 +172,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     };
 
     var init = function() {
-      // scope.loading = true;
+
       var id, slug;
       Location.get({id: $routeParams.id}, function(data) {
         if (id % 1 === 0) {
@@ -181,7 +180,9 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         }
         menu.header = data.location_name;
         $scope.location = data;
-        slug = $scope.location.slug; // used to check for location name change
+        // Used to check for location name change
+        // Will refresh the page if a change is detected
+        slug = $scope.location.slug;
         $scope.$broadcast('locationLoaded');
       });
     };

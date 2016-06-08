@@ -1,5 +1,5 @@
 <md-dialog aria-label="Invite" ng-cloak>
-  <form>
+  <form ng-submit="invite(user)">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
         <h2>Invite User</h2>
@@ -10,6 +10,13 @@
         <div flex="100">
           <p>Invite a user to this location.</p>
         </div>
+        <md-input-container flex="100">
+          <label>Username</label>
+          <input ng-model="user.name" name="name" placeholder="First and Last Name" type="text" required>
+          <div ng-messages="myForm.name.$error">
+            <div ng-message="required">You must enter a username</div>
+          </div>
+        </md-input-container>
         <md-input-container flex="100">
           <label>Email</label>
           <input ng-model="user.email" name="email" placeholder="User Email" type="email" required>
@@ -25,7 +32,7 @@
       <md-button ng-click="close()">
        Cancel
       </md-button>
-      <md-button ng-click="invite(user)" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary">invite</md-button>
+      <md-button type="submit" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary">invite</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
