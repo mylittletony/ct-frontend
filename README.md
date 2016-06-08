@@ -35,7 +35,7 @@ grunt serve
 
 The tests DO NOT RUN at the moment since we've moved massive sections out. These will be back in action shortly.
 
-**Make sure you have updated the Gruntfile to include the api.ctapp.io end-points
+**Make sure you have updated the Gruntfile to include the api.ctapp.io end-points.**
 
 ## Using with Heroku 
 
