@@ -16,7 +16,6 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
     scope.streamingUpdater = function() {
       if (scope.streamingUpdates) {
-        // loadPusher(scope.box.sockets_hash);
         console.log('Not implemented, add pusher');
         showToast('Streaming updates enabled');
       } else {
@@ -519,11 +518,29 @@ app.directive('newLocationCreating', ['Location', '$location', function(Location
 
 }]);
 
-app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$pusher', '$rootScope', function(Location, Invite, $routeParams, $mdDialog, showToast, showErrors, $pusher, $rootScope) {
+app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$pusher', '$rootScope', '$timeout', function(Location, Invite, $routeParams, $mdDialog, showToast, showErrors, $pusher, $rootScope, $timeout) {
 
   var link = function( scope, element, attrs ) {
 
-    // scope.location = { slug: $routeParams.id };
+    scope.location = { slug: $routeParams.id };
+
+    var channel;
+    function loadPusher(key) {
+      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+        scope.pusherLoaded = true;
+        var pusher = $pusher(client);
+        channel = pusher.subscribe('private-' + key);
+        channel.bind('invites', function(data) {
+          console.log('Message recvd.', data);
+          if (data.message.success === true) {
+            showToast(data.message.msg);
+          } else {
+            // Someone should fix the showErrors service so we can send an object in
+            showErrors({message: data.message.msg });
+          }
+        });
+      }
+    }
 
     // User Permissions //
     var createMenu = function() {
@@ -570,6 +587,17 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       page: 1
     };
 
+    function allowedEmail(email) {
+      var truth = true;
+      for (var i = 0, len = scope.users.length; i < len; i++) {
+        if (scope.users[i].email === email) {
+          truth = false;
+          break;
+        }
+      }
+      return truth;
+    }
+
     scope.invite = function() {
       $mdDialog.show({
         templateUrl: 'components/locations/users/_invite.html',
@@ -591,21 +619,15 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     DialogController.$inject = ['$scope'];
 
     var inviteUser = function(invite) {
-      Invite.create({location_id: scope.location.slug, invite: invite}).$promise.then(function(results) {
-        scope.users.push(results);
-        showToast('New user invited.');
-      }, function(err) {
-        showErrors(err);
-      });
-    };
-
-    var init = function() {
-      Location.users({id: scope.location.slug}).$promise.then(function(results) {
-        scope.users = results.users;
-        createMenu();
-        scope.loading = undefined;
-        // initPusher(scope.location.api_token);
-      });
+      if (allowedEmail(invite.email)) {
+        Invite.create({location_id: scope.location.slug, invite: invite}).$promise.then(function(results) {
+          scope.users.push(results);
+        }, function(err) {
+          showErrors(err);
+        });
+      } else {
+        showErrors({message: 'This email has already been added' });
+      }
     };
 
     var revoke = function(user) {
@@ -632,11 +654,19 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     var removeFromList = function(email) {
       for (var i = 0, len = scope.users.length; i < len; i++) {
         if (scope.users[i].email === email) {
-          showToast('Successfully Removed User.');
           scope.users.splice(i, 1);
           break;
         }
       }
+    };
+
+    var init = function() {
+      Location.users({id: scope.location.slug}).$promise.then(function(results) {
+        scope.users = results.users;
+        createMenu();
+        scope.loading = undefined;
+        scope.location.api_token = attrs.locationToken;
+      });
     };
 
     var view = function(user) {
@@ -644,6 +674,12 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     };
 
     init();
+
+    var timer = $timeout(function() {
+      loadPusher(scope.location.api_token);
+      $timeout.cancel(timer);
+    }, 125);
+
   };
 
   return {
@@ -651,7 +687,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     scope: {
       id: '@',
       loading: '=',
-      location: '='
+      locationToken: '@'
     },
     templateUrl: 'components/locations/users/_index.html'
   };

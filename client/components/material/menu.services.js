@@ -45,7 +45,7 @@ app.factory('showErrors', ['$mdBottomSheet', function ($mdBottomSheet) {
 
   var formatErrors = function(errors) {
     var e = [];
-    var res;
+    var err, res;
     if (errors.data && errors.data.errors) {
       res = errors.data.errors;
     }
@@ -66,7 +66,10 @@ app.factory('showErrors', ['$mdBottomSheet', function ($mdBottomSheet) {
       e.push(errors.data.message);
     } else if (errors && errors.data) {
       console.log(errors);
-      var err = errors.data || 'An unknown error occurred, please try again.';
+      err = errors.data || 'An unknown error occurred, try again.';
+      e.push(err);
+    } else if (errors && errors.message) {
+      err = errors.message;
       e.push(err);
     } else {
       console.log(errors);
