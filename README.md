@@ -63,8 +63,14 @@ You need to add:
 
 - APP_ID=YOUR-APP-ID
 - APP_SECRET=YOUR-SECRET
-- CT_URL=your-dash-url
+- CT_URL=your-local-dash-url
 - NODE_ENV=production
+
+For example:
+
+```
+CT_URL=my.ctapp.dev:9090 npm start
+```
 
 Then you can deploy with:
 
