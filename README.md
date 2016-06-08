@@ -30,7 +30,7 @@ To run, you need to start two services. The NodeJS server which handles the auth
 CT_URL=my.ctapp.dev:9090 npm start
 ```
 
-Where CT_URL is the callback URL for the oauth flow.
+Where CT_URL is the URL your local server.
 
 Then, open a new terminal and run:
 
