@@ -20,7 +20,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', funct
     };
 
     scope.query = {
-      order:      'created_at',
+      order:      '-created_at',
       filter:     $routeParams.q,
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,

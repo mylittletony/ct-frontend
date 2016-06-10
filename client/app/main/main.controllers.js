@@ -133,12 +133,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       icon: 'business'
     });
 
-    vm.menuRight.push({
-      name: 'Boxes',
-      link: '/#/boxes',
-      type: 'link',
-      icon: 'router'
-    });
+    // vm.menuRight.push({
+    //   name: 'Boxes',
+    //   link: '/#/boxes',
+    //   type: 'link',
+    //   icon: 'router'
+    // });
 
     vm.menuRight.push({
       name: 'Reports',
