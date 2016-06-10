@@ -68,7 +68,7 @@
         <span flex></span>
         <span hide show-gt-sm>
 
-          <md-menu>
+          <md-menu md-offset="2000 0">
             <md-button aria-label="Open Apps Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <md-icon>apps</md-icon>
             </md-button>
@@ -111,6 +111,19 @@
                 <md-button target="_blank" ng-href="https://discuss.cucumberwifi.io/" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">forum</md-icon>
                   Discussions
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item>
+                <md-button href="/#/downloads" >
+                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">get_app</md-icon>
+                  Dowloads
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button href="/#/apps" >
+                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">android</md-icon>
+                  Developer
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
@@ -284,6 +297,8 @@
   <script src="components/events/events.controller.js"></script>
   <script src="components/events/events.directives.js"></script>
   <script src="components/events/events.services.js"></script>
+  <script src="components/firmwares/firmwares.directives.js"></script>
+  <script src="components/firmwares/firmwares.services.js"></script>
   <script src="components/forms/forms.directives.js"></script>
   <script src="components/forms/forms.services.js"></script>
   <script src="components/geocoder/geocoder.services.js"></script>

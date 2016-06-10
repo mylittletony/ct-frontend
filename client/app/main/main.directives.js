@@ -16,6 +16,7 @@ var app = angular.module('myApp.directives', [
   'myApp.emails.directives',
   'myApp.events.directives',
   'myApp.forms.directives',
+  'myApp.firmwares.directives',
   'myApp.google.maps.directives',
   'myApp.guests.directives',
   'myApp.invoices.directives',

@@ -83,6 +83,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     // });
 
     vm.menu.main.push({
+      title: 'Locations',
+      type: 'link',
+      link: '/#/locations',
+      icon: 'business'
+    });
+
+    vm.menu.main.push({
       title: 'Reports',
       type: 'link',
       link: '/#/reports',
@@ -97,17 +104,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menu.main.push({
-      title: 'Downloads',
+      title: 'Events',
       type: 'link',
-      link: '/#/downloads',
-      icon: 'get_app'
-    });
-
-    vm.menu.main.push({
-      title: 'Developer',
-      type: 'link',
-      link: '/#/apps',
-      icon: 'android'
+      link: '/#/events',
+      icon: 'warning'
     });
 
     vm.status = {
@@ -126,12 +126,19 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       icon: 'home'
     });
 
-    // vm.menuRight.push({
-    //   name: 'Boxes',
-    //   link: '/#/boxes',
-    //   type: 'link',
-    //   icon: 'router'
-    // });
+    vm.menuRight.push({
+      name: 'Locations',
+      link: '/#/locations',
+      type: 'link',
+      icon: 'business'
+    });
+
+    vm.menuRight.push({
+      name: 'Boxes',
+      link: '/#/boxes',
+      type: 'link',
+      icon: 'router'
+    });
 
     vm.menuRight.push({
       name: 'Reports',
