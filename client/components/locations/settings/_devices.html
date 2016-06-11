@@ -24,7 +24,7 @@
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="50">
                 <label>Send Offline Alert After (mins)</label>
-                <input type="number" name="alert_interval" ng-model="location.alert_interval" placeholder="10" ng-min="5" ng-max='10080' required/>
+                <input type="number" name="alert_interval" ng-model="location.alert_interval" placeholder="10" ng-min="1" ng-max='10080' required/>
                 <div ng-messages="myForm.alert_interval.$error" md-auto-hide="false">
                   <div ng-message="max">Must be less than 10,080 minutes</div>
                   <div ng-message="min">Must be greater than 1 minutes</div>
