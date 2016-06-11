@@ -68,7 +68,7 @@ app.factory('Location', ['$resource', '$localStorage', 'API_END_POINT',
       },
       users: {
         method: 'GET',
-        isArray: false,
+        isArray: true,
         dataType: 'json',
         params: {
           q: '@q',

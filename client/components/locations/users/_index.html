@@ -36,7 +36,7 @@
                   <th hide show-gt-sm md-column><span>Username</span></th>
                   <th md-column><span>Email</span></th>
                   <th hide show-gt-sm md-column><span>Status</span></th>
-                  <th hide show-gt-sm md-column><span>Created</span></th>
+                  <th hide show-gt-md md-column><span>Created</span></th>
                   <th ng-show="menu.length" md-column>Action</th>
                 </tr>
               </thead>
@@ -54,7 +54,7 @@
                   <td hide show-gt-sm md-cell>
                     {{ ::user.primary ? "Owner" : "Admin" }}
                   </td md-cell>
-                  <td hide show-gt-sm md-cell>
+                  <td hide show-gt-md md-cell>
                     {{ (user.created_at || user.timestamp ) | humanTime }}
                   </td md-cell>
                   <td md-cell ng-if="menu.length">

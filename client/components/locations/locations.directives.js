@@ -662,7 +662,8 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     var init = function() {
       Location.users({id: scope.location.slug}).$promise.then(function(results) {
-        scope.users = results.users;
+        console.log(results);
+        scope.users = results;
         createMenu();
         scope.loading = undefined;
         scope.location.api_token = attrs.locationToken;
