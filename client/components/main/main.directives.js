@@ -12,8 +12,6 @@ app.directive('daySelector', [function() {
 
     scope.days_array = [{id:1, name: 'Mon'},{id:2, name: 'Tue'},{id:3, name: 'Wed'},{id:4, name: 'Thu'}, {id:5, name: 'Fri'}, {id:6, name:'Sat'}, {id:0, name:'Sun'}];
 
-    console.log(scope.days)
-
     scope.updateDays = function() {
       for (var day in scope.array ) {
         if (scope.array[day] === 1) {
@@ -72,12 +70,10 @@ app.directive('loader', function() {
     link: link,
     replace: true,
     template:
-      '<div layout="row" layout-align="center center" class="loader" layout-padding ng-show=\'loading\'>'+
-      '<md-content>'+
-      '<div layout="row" layout-sm="column" layout-align="center center">'+
+      '<div ing-show=\'loading\'>'+
+      '<div style="margin-top: 40px;" layout="row" layout-sm="column" layout-align="center center">'+
       '<md-progress-circular md-mode="indeterminate"></md-progress-circular>'+
       '</div>'+
-      '</md-content>'+
       '</div>'
     };
 });
