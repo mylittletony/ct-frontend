@@ -40,12 +40,10 @@
             <input style="display:none" type="text" name="ssid"/>
             <md-input-container class="md-block" flex-gt-sm="50" >
               <label>Network SSID</label>
-              <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" ng-pattern="/^[a-zA-ZäöåÄÖÅ0-9\-\'\-\_\ \.]*$/" required>
-              <div ng-messages="myForm.ssid.$error">
+              <input name="ssid" md-maxlength="32" ng-model="network.ssid" required>
+              <div ng-messages="myForm.ssid.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength">Max 32 characters</div>
-                <div ng-message="minlength">Min 5 characters</div>
                 <div ng-message="required">You must set an SSID</div>
-                <div ng-message="pattern">Invalid SSID</div>
               </div>
             </md-input-container>
           </div>
@@ -310,7 +308,7 @@
         </md-card-content>
       </md-card>
       <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
-      <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid">Network invalid, please check your settings.</p>
+      <!-- <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid">Network invalid, please check your settings.</p> -->
 
       <div class="lock-size" layout="row" layout-align="center center">
         <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" ng-click="update(myForm)" class="md-fab md-primary md-fab-bottom-right ">
