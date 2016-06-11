@@ -8,6 +8,19 @@
   width: 10px;
 }
 
+md-table-container::-webkit-scrollbar {
+  margin-top: 10px;
+  -webkit-appearance: none;
+  width: 1px;
+  height: 5px;
+}
+
+md-table-container::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #CCC;
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
 /* Temp fixes to address */
 /* Temp fixes to address */
 

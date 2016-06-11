@@ -21,7 +21,6 @@
             <md-button ng-class="{ 'active': ap_mac == box.ap_mac }" ng-click="updateAp(box.ap_mac)">
               {{box.description}}
             </md-button>
-            <!-- <br><small class="muted">{{ box.ap_mac }}</small> -->
           </md-menu-item>
         </md-menu-content>
       </md-menu>
@@ -45,14 +44,6 @@
 <md-content layout-padding>
   <div layout="row" layout-wrap layout-align="space-between start">
     <div flex="100">
-
-      <!-- <div layout="column" layout-gt-xs="row"> -->
-      <!--   <div flex hide show-gt-xs> -->
-      <!--   </div> -->
-
-      <!--   <div flex></div> -->
-
-      <!-- </div> -->
 
       <md-card hide show-gt-sm>
         <md-card-header>
@@ -142,13 +133,8 @@
           </md-menu-bar>
         </md-card-header>
         <md-card-content>
-          <!-- <div id="line" style="height: 300px;" layout="row" layout-align="left end"> -->
-          <!--   <p ng-if="!noData">Loading graph data</p> -->
-          <!--   <p ng-if="noData">No data for selected period.</p> -->
-          <!-- </div> -->
-          <!-- <md-progress-linear ng-if="loadingChart" md-mode="query"></md-progress-linear> -->
           <clients-chart></clients-chart>
-        <!-- </md-card-content> -->
+        </md-card-content>
       </md-card>
 
       <md-card>
@@ -158,17 +144,17 @@
               {{ clients.info.connected || 0 }} Connected.
             </span>
           </div>
-          <md-table-container>
+          <md-table-container style="overflow-x:scroll;">
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="clients">
               <thead md-head>
                 <tr md-row class="md-table-headers-row">
                   <th md-column><a href="" ng-click='sort("online", query.direction)'>Status</a></th>
                   <th md-column><a href="" ng-click='sort("device_name", query.direction)'>Description</a></th>
                   <th md-column hide show-gt-sm><a href="" ng-click='sort("client_mac", query.direction)'>Mac Address</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.ssid"><a href="" ng-click='sort("ssid", query.direction)'>Connected To</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.ssid"><a href="" ng-click='sort("ssid", query.direction)'>SSID</a></th>
                   <!-- <th hide show-gt-sm md-column ng-show="columns.tx"><a href="" ng-click='sort("tx", query.direction)'>Usage</a></th> -->
-                  <th hide show-gt-sm md-column ng-show="columns.txbps"><a href="" ng-click='sort("txbps", query.direction)'>Txbps</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.rxbps"><a href="" ng-click='sort("rxbps", query.direction)'>Rxbps</a></th>
+                  <!-- <th hide show-gt-sm md-column ng-show="columns.txbps"><a href="" ng-click='sort("txbps", query.direction)'>Txbps</a></th> -->
+                  <!-- <th hide show-gt-sm md-column ng-show="columns.rxbps"><a href="" ng-click='sort("rxbps", query.direction)'>Rxbps</a></th> -->
                   <th hide show-gt-sm md-column ng-show="columns.expected_throughput"><a href="" ng-click='sort("expected_throughput", query.direction)'>Expected Tput</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.txbitrate"><a href="" ng-click='sort("txbitrate", query.direction)'>Tx Rate</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.rxbitrate"><a href="" ng-click='sort("rxbitrate", query.direction)'>Rx Rate</a></th>
@@ -213,13 +199,12 @@
                       {{ client.ap_mac }}
                     </md-tooltip>
                   </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.txbps">
-                    {{ client.txbps | bitsToBytes }}
-                    <!-- {{ client.txbps }} -->
-                  </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.rxbps">
-                    {{ client.rxbps | bitsToBytes }}
-                  </td md-cell>
+                  <!-- <td hide show-gt-sm md-cell ng-show="columns.txbps"> -->
+                  <!--   {{ client.txbps | bitsToBytes }} -->
+                  <!-- </td md-cell> -->
+                  <!-- <td hide show-gt-sm md-cell ng-show="columns.rxbps"> -->
+                  <!--   {{ client.rxbps | bitsToBytes }} -->
+                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.expected_throughput">
                     {{ client.expected_throughput }}Mbps
                   </td md-cell>
