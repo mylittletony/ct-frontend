@@ -678,7 +678,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     var timer = $timeout(function() {
       loadPusher(scope.location.api_token);
       $timeout.cancel(timer);
-    }, 125);
+    }, 500);
 
   };
 

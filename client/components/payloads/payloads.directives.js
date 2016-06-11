@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.payloads.directives', []);
 
-app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', function(Payload, Command, $routeParams, showToast) {
+app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 'showErrors', function(Payload, Command, $routeParams, showToast, showErrors) {
 
   var link = function( scope, element, attrs ) {
 
@@ -22,13 +22,13 @@ app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 
       var cmd = scope.command.selected;
       scope.command.selected = undefined;
       Payload.create({payload: {
-        save: scope.command.save,
         box_ids: $routeParams.box_id,
         command_id: cmd
       }}).$promise.then(function() {
-        scope.command.success = true;
+        // scope.command.success = true;
+        showToast('Payload running, please wait.');
       }, function(errors) {
-        showToast('Could not run payload.');
+        showErrors(errors);
       });
     };
 
@@ -61,8 +61,8 @@ app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 
       '</div>' +
       '<p ng-hide=\'allowed\'>You can\'t run a payload on this box since it\'s not connected or is already processing a job.</p>'+
       '<div ng-if=\'command.success\'>'+
-      '<p>Payload running, please wait.</p>'+
-      '<md-progress-linear md-mode="query"></md-progress-linear>'+
+      // '<p>Payload running, please wait.</p>'+
+      // '<md-progress-linear md-mode="query"></md-progress-linear>'+
       '</div>'+
       '</div>'
 
