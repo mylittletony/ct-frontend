@@ -70,7 +70,7 @@ app.directive('loader', function() {
     link: link,
     replace: true,
     template:
-      '<div ing-show=\'loading\'>'+
+      '<div ng-show=\'loading\'>'+
       '<div style="margin-top: 40px;" layout="row" layout-sm="column" layout-align="center center">'+
       '<md-progress-circular md-mode="indeterminate"></md-progress-circular>'+
       '</div>'+
