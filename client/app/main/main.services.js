@@ -42,6 +42,7 @@ var app = angular.module('myApp.services', [
   'myApp.triggers.services',
   'myApp.users.services',
   'myApp.versions.services',
+  'myApp.upgrades.services',
   'myApp.vouchers.services',
   'myApp.webhooks.services',
   'myApp.zones.services'
