@@ -89,7 +89,7 @@
                   <md-menu-content width="4" >
                     <md-menu-item ng-repeat="item in menu">
                       <md-button ng-click="action(zone,item.type)" ng-disabled="{{ disabled(box,item.type) }}">
-                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+                        <md-icon ng-if="item.icon">{{ item.icon }}</md-icon>
                         <p flex>{{ item.name }}</p>
                       </md-button>
                     </md-menu-item>
