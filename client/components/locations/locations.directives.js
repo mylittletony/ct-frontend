@@ -662,7 +662,6 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     var init = function() {
       Location.users({id: scope.location.slug}).$promise.then(function(results) {
-        console.log(results);
         scope.users = results;
         createMenu();
         scope.loading = undefined;
