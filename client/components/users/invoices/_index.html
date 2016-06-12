@@ -19,9 +19,12 @@
             <div class="md-toolbar-tools">
               <span>Invoices</span>
               <div flex></div>
-              <md-button ng-disabled="selected.length < 1" class="md-icon-button" ng-click="emailInvoices()">
+              <span>
+              <md-button ng-if="selected.length > 0" class="md-fab md-primary" ng-click="emailInvoices()">
                 <md-icon>email</md-icon>
               </md-button>
+              <md-tooltip md-direction="left">Send selected invoices to billing emails</md-tooltip>
+              </span>
             </div>
           </md-toolbar>
           <md-table-container>
