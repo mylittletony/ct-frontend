@@ -1,0 +1,74 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon>android</md-icon>
+    </md-button>
+    <p>Apps</p>
+    <div flex></div>
+    <md-button class="md-icon-button md-accent" href="/#/apps/new" aria-label="Add App">
+      <md-icon>add_circle</md-icon>
+      <md-tooltip md-direction="bottom">
+        Add a new app.
+      </md-tooltip>
+    </md-button>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+
+  <div ng-hide="apps.length">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Please Create an App</span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content>
+            Build services on top of the Cucumber API. Wondering what you might build? The dashboard you're looking at now is an App. It's built on top of the API. You might do something similar if you wanted different functionality. <br><br>By using our API, you agree to the terms of use.
+          </md-card-content>
+          
+          <md-divider ng-if="!$last"></md-divider>
+
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button href="/#/apps/new" aria-label="New">
+              New App
+            </md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+
+  </div>
+
+  <div layout="row" layout-align="center center" ng-show="apps.length > 0">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Integrate your services with Cucumber
+            </span>
+            <span class="md-subhead">
+              Create an application before use the API and build some awesome.
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <md-list-item class="md-3-line" ng-repeat="app in apps">
+            <div class="md-list-item-text" layout="column">
+              <h3>{{ app.name }}</h3>
+              <h4>{{ app.created_at | humanTime }}</h4>
+              <p>{{ app.description }}</p>
+            </div>
+          </md-list-item>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+
+</md-content>
+
