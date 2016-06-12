@@ -7,15 +7,29 @@
     <div flex></div>
     <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="Add Device">
       <md-icon>add_circle</md-icon>
+      <md-tooltip md-direction="bottom">
+        Add a new device.
+      </md-tooltip>
     </md-button>
     <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="Map">
       <md-icon>map</md-icon>
+      <md-tooltip md-direction="bottom">
+        View device map.
+      </md-tooltip>
     </md-button>
     <md-button class="md-icon-button" ng-click="favourite()" aria-label="Favourte">
       <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
+      <md-tooltip md-direction="bottom">
+        Add location to favourites.
+      </md-tooltip>
     </md-button>
-    <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="Switch 1" ng-change='streamingUpdater()'>
-    </md-switch>
+    <span>
+      <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="Switch 1" ng-change='streamingUpdater()'>
+      </md-switch>
+      <md-tooltip md-direction="bottom">
+        Streaming updates.
+      </md-tooltip>
+    </span>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -57,7 +71,7 @@
   </div>
 
   <div ng-if="location.has_nas">
-    <client-chart>
+    <client-chart ng-if="!query">
       <location-chart ></location-chart>
     </client-chart>
 
