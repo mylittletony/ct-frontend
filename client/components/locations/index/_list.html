@@ -3,6 +3,7 @@
 
 <div ng-hide="loading" ng-cloak>
 
+  <form ng-submit="blur()">
     <section>
       <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
@@ -15,6 +16,7 @@
       </md-toolbar>
 
     </section>
+  </form>
 
     <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="locations.length == 0 && !query.filter" ng-cloak>
       <div layout="row" layout-align="center center">
@@ -58,7 +60,7 @@
                     <th hide show-gt-sm md-column md-order-by="owner" ng-if="user_id"><span>Owner</span></th>
                     <th md-column md-order-by="location_name" md-desc><span>Name</span></th>
                     <th hide show-gt-sm md-column md-order-by="location_address"><span>Address</span></th>
-                    <th hide show-gt-sm md-column md-order-by="boxes_count"><span>Devices</span></th>
+                    <th hide show-gt-xs md-column md-order-by="boxes_count"><span>Devices</span></th>
                     <th hide show-gt-sm md-column md-order-by="created_at"><span>Created</span></th>
                     <th md-column><span>Action</span></th>
                   </tr>
@@ -82,7 +84,7 @@
                     <td hide show-gt-sm md-cell>
                       {{ ::location.location_address }}
                     </td>
-                    <td hide show-gt-sm md-cell>
+                    <td hide show-gt-xs md-cell>
                       {{ ::location.boxes_count }}
                     </td>
                     <td hide show-gt-sm md-cell>
