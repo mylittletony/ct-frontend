@@ -48,26 +48,26 @@
 <section ng-cloak ng-if="!loading">
   <md-subheader class="md-accent">
     <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" class='box-image'/>
-    <b>{{ ::box.metadata.online || 0 }} client<span ng-if="box.metadata.online != 1">s</span> connected. {{ (box.throughput || 0) | mbps }} avg. throughput. <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }}</span><md-tooltip>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</md-tooltip></span>
+    <b>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} avg. throughput. <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }}</span><md-tooltip>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</md-tooltip></span>
   </md-subheader>
 </section>
 
-<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="box.initialising">
+<md-content class="md-padding" ng-if="box.initialising">
 
-  <div flex flex-gt-sm="100" layout="column">
-    <md-card>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Initialising Device</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.determinateValue}}"
-          md-buffer-value="{{vm.determinateValue2}}"
-          ng-if="true"></md-progress-linear>
-        <p>Please wait while this device initialises.</p>
-      </md-card-content>
-    </md-card>
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Initialising Device</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.determinateValue}}" md-buffer-value="{{vm.determinateValue2}}" ng-if="true"></md-progress-linear>
+          <p>Please wait while this device initialises.</p>
+        </md-card-content>
+      </md-card>
+    </div>
   </div>
 
 </md-content>
