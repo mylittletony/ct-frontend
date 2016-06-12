@@ -2,42 +2,12 @@
 
 <div ng-hide="loading" ng-cloak>
 
-  <!-- <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="events.length == 0" ng-cloak> -->
-  <!--   <div layout="row" layout-align="center center"> -->
-  <!--     <div flex="100" flex-gt-sm="50"> -->
-  <!--       <md-card> -->
-  <!--         <md-card-title> -->
-  <!--           <md-card-title-text> -->
-  <!--             <span class="md-headline"> -->
-  <!--               <md-icon>favorite</md-icon> -->
-  <!--               No Events Yet -->
-  <!--             </span> -->
-  <!--             <1!-- <span class="md-subhead"> --1> -->
-  <!--             <1!--   Add a location to your favourites by clicking the heart on the dashboard. --1> -->
-  <!--             <1!-- </span> --1> -->
-  <!--           </md-card-title-text> -->
-  <!--         </md-card-title> -->
-  <!--         <md-card-content> -->
-  <!--           <md-card-actions layout="row" layout-align="end center"> -->
-  <!--             <md-button ng-click="back()">Back</md-button> -->
-  <!--           </md-card-actions> -->
-  <!--         </md-card-content> -->
-  <!--       </md-card> -->
-  <!--     </div> -->
-  <!--   </div> -->
-  <!-- </md-content> -->
-
   <md-content class="md-padding" layout="column" layout-gt-xs='column'>
     <div layout="row" layout-align="center center">
       <div flex="100">
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <!-- <md-toolbar class="md-table-toolbar md-default"> -->
-              <!--   <div class="md-toolbar-tools"> -->
-              <!-- <span class="md-subhead"> -->
-              <!--   <p>{{ ::_links.total_entries }} Event<span ng-if="_links.total_entries != 1">s</span></p> -->
-              <!-- </span> -->
               <md-input-container layout="row" flex="30">
                 <label>Event Type</label>
                 <md-select ng-model="query.filter" ng-change="search()">
@@ -46,10 +16,7 @@
                   </md-option>
                 </md-select>
               </md-input-container>
-              <!-- <p><small>Clear filter.</small></p> -->
               <div flex></div>
-              <!-- </div> -->
-              <!-- </md-toolbar> -->
             </md-card-title-text>
           </md-card-title>
           <md-table-container>
