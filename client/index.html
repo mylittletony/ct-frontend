@@ -178,6 +178,10 @@
             <md-toolbar class="md-table-toolbar md-default" ng-if='vm.menu.header'>
               <div class="sidenav md-toolbar-tools">
                 <h2 class="menu-heading menu-subhead" iing-if="section.type === 'header'">
+                  <span ng-if="vm.menu.archived">
+                    <md-icon>archived</md-icon>
+                    <md-tooltip md-direction="bottom">This location has been archived</md-tooltip>
+                  </span>
                   {{ vm.menu.header }}
                 </h2>
               </div>

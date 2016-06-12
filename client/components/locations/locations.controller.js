@@ -178,7 +178,9 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         if (id % 1 === 0) {
           $location.path('/locations/' + data.slug).replace().notify(false);
         }
-        menu.header = data.location_name;
+        menu.header   = data.location_name;
+        menu.archived = data.archived;
+
         $scope.location = data;
         // Used to check for location name change
         // Will refresh the page if a change is detected
