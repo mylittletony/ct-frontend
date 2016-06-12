@@ -21,6 +21,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', funct
 
     scope.query = {
       order:      '-created_at',
+      type:       $routeParams.type,
       filter:     $routeParams.q,
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
@@ -39,25 +40,35 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', funct
       init();
     };
 
-    scope.triggers = { 'All': 'all', 'Boxes' : 'box', 'Clients': 'client', 'Email': 'email', 'Guests': 'guest', 'Locations': 'location', 'Networks': 'network', 'Splash': 'splash', 'Social': 'social', 'Vouchers': 'voucher', 'Zones': 'zone' };
+    scope.triggers = [{ name: 'All', value: 'all'}, {name: 'Boxes', value: 'box'}, {name: 'Clients', value: 'client'}, {name: 'Email', value: 'email'}, {name: 'Guests', value: 'guest'}, {name: 'Locations', value: 'location'}, {name: 'Networks', value: 'network'}, {name: 'Splash', value: 'splash'}, {name: 'Social', value: 'social'}, {name: 'Vouchers', value: 'voucher'}, {name: 'Zones', value: 'zone' }];
 
-    scope.event = { type: 'all' };
-    // scope.query = undefined;
-    // scope.search = function() {
-      // if ( scope.event.type === 'all' ) {
-      //   scope.query = undefined;
-      // } else {
-      //   scope.query = scope.event.type;
-      // }
-    // };
+    scope.search = function() {
+      var hash  = $location.search();
+      hash.q    = scope.query.filter;
+      hash.type = undefined;
+      $location.search(hash);
+    };
+
+    scope.setType = function(type, obj) {
+      var hash  = $location.search();
+      hash.q      = obj;
+      hash.type   = type;
+      $location.search(hash);
+    };
 
     var init = function() {
-      Event.query({page: scope.query.page, per: scope.query.limit}).$promise.then(function(results) {
+      if (scope.query.filter === 'all') {
+        scope.query.filter = undefined;
+      }
+      Event.query({
+        page: scope.query.page,
+        per: scope.query.limit, 
+        object: scope.query.filter,
+        type: scope.query.type
+      }).$promise.then(function(results) {
         scope.events            = results.events;
         scope._links            = results._links;
-
         scope.loading           = undefined;
-        // scope.eventCount.count  = 0;
       }, function(error) {
       });
     };
@@ -79,35 +90,6 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', funct
     link: link,
     scope: {},
     templateUrl: 'components/events/_index.html'
-        // '<loader></loader>'+
-        // '<div ng-hide=\'loading\'>'+
-        // '<h2>Dashboard Events</h2>'+
-        // '<p>A list of things that have been happening. You can create custom triggers when events take place too.</p>'+
-        // '<div ng-hide=\'events.length\'>'+
-        // '<p>Nothing to be seen yet, move along please</p>'+
-        // '</div>'+
-        // '<div ng-show=\'events.length\'>'+
-        // '<div class=\'row\'>'+
-        // '<div class=\'small-12 medium-3 columns\'>'+
-        // '<select ng-model="event.type" class="form-control" ng-options="name for (name, value) in triggers" ng-change="search()" name="type"></select>'+
-        // '</div>'+
-        // '</div>'+
-        // '<table>' +
-        // '<thead>' +
-        // '<tr>' +
-        // '<th>Type</th>' +
-        // '<th>Event</th>' +
-        // '<th>Created</th>' +
-        // '</tr>' +
-        // '</thead>' +
-        // '<tr ng-class="event.ps ? \'muted\' : \'\'" ng-repeat="event in filtered = (events | filter:{ event_type: query } | orderBy:predicate:reverse)">' +
-        // '<td><a href="/#/events/{{ event.id }}">{{ event.event_type || \'NA\' }}</a></td>' +
-        // '<td>{{ event.message }}</td>' +
-        // '<td>{{ event.created_at | humanTime }}</td>' +
-        // '</tr>' +
-        // '</table>' +
-        // '<pagination ng-click="updatePage()" total-items="_links.total_entries" page="_links.current_page" max-size="5" class="pagination-sm" boundary-links="false" rotate="false" num-pages="_links.total_pages" items-per-page="100"></pagination>'+
-        // '</div>'
   };
 
 }]);
