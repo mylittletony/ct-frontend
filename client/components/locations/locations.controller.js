@@ -178,9 +178,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         if (id % 1 === 0) {
           $location.path('/locations/' + data.slug).replace().notify(false);
         }
-        menu.header   = data.location_name;
-        menu.archived = data.archived;
-
+        // menu.sectionName = data.location_name;
+        menu.header = data.location_name;
+        menu.sectionName = 'Location';
+        if (data.archived) {
+          menu.archived = data.archived;
+          // menu.header = 'Location Archived';
+        }
         $scope.location = data;
         // Used to check for location name change
         // Will refresh the page if a change is detected
@@ -210,6 +214,42 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav',
     var vm = this;
 
     menu.isOpen = false;
-    menu.hideBurger = true;
+    menu.hideBurger = false;
     menu.sections = [{}];
+    menu.sectionName = 'Home';
+
+    var createMenu = function() {
+
+      menu.sections.push({
+        name: 'Locations',
+        link: '/#/locations/',
+        type: 'link',
+        icon: 'business',
+      });
+
+      menu.sections.push({
+        name: 'Reports',
+        link: '/#/reports/',
+        type: 'link',
+        icon: 'timeline',
+      });
+
+      menu.sections.push({
+        name: 'Audit',
+        link: '/#/audit/',
+        type: 'link',
+        icon: 'assignment',
+      });
+
+      menu.sections.push({
+        name: 'Events',
+        link: '/#/events/',
+        type: 'link',
+        icon: 'warning'
+      });
+
+    };
+
+    createMenu();
+
 }]);

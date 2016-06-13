@@ -117,76 +117,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/apps/new.html',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/analytics', {
-    //   templateUrl: 'components/analytics/boxpark.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    // when('/analytics/traffic', {
-    //   templateUrl: 'components/analytics/traffic.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   // controller: 'AnalyticsController'
-    // }).
-    // when('/analytics/sense', {
-    //   templateUrl: 'components/analytics/sense/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    // when('/analytics/sense/labs', {
-    //   templateUrl: 'components/sense/labs.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'SenseController',
-    //   reloadOnSearch: false
-    // }).
-    // when('/analytics/sense/entry-exit', {
-    //   templateUrl: 'components/analytics/sense/entry-exit.html',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/analytics/sense/heat', {
-    //   templateUrl: 'components/sense/heat.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    when('/reset_password', {
-      templateUrl: 'components/home/reset-pass.html',
+    when('/audit', {
+      // templateUrl: 'components/audit/index.html',
+      templateUrl: 'components/audit/sessions/index.html',
+      resolve: { loginRequired: loginRequired },
     }).
-    // when('/stats/clients', {
-    //   templateUrl: 'components/stats/clients/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    // when('/stats/codes', {
-    //   templateUrl: 'components/stats/codes/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    // when('/stats/financials', {
-    //   templateUrl: 'components/stats/financials/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    // when('/stats/impressions', {
-    //   templateUrl: 'components/stats/impressions/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    // when('/stats/social', {
-    //   templateUrl: 'components/stats/social/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    // when('/stats/sessions', {
-    //   templateUrl: 'components/stats/sessions/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'AnalyticsController'
-    // }).
-    when('/update_password', {
-      templateUrl: 'components/home/update-pass.html',
+    when('/audit/sessions', {
+      templateUrl: 'components/audit/sessions/index.html',
+      resolve: { loginRequired: loginRequired }
     }).
     when('/login', {
       controller: 'AuthenticationsController',
       templateUrl: 'components/home/hello.html',
-      // resolve: { loggedIn: loggedIn }
     }).
     when('/switch', {
       templateUrl: 'components/home/switching.html',
@@ -234,10 +176,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/alerts', {
       templateUrl: 'components/locations/index/alerts.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/audit', {
-      templateUrl: 'components/audit/index.html',
       resolve: { loginRequired: loginRequired },
     }).
     when('/distributors/:id', {

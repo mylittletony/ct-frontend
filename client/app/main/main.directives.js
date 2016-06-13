@@ -5,6 +5,7 @@
 var app = angular.module('myApp.directives', [
 
   'myApp.apps.directives',
+  'myApp.audits.directives',
   'myApp.brands.directives',
   'myApp.boxes.directives',
   'myApp.codes.directives',

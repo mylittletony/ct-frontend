@@ -7,13 +7,12 @@ app.controller('ReportsCtrl', ['$scope', '$routeParams', 'Location', '$location'
 
     $scope.loading = true;
 
-    // $scope.location = { id: $routeParams.location_id };
-
     var vm = this;
 
     menu.isOpen = false;
     menu.hideBurger = true;
     menu.sections = [{}];
+    menu.sectionName = 'Reports';
 
     function isOpen(section) {
       return menu.isSectionSelected(section);

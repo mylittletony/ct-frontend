@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('myApp.sessions.services', ['ngResource',]);
+var app = angular.module('myApp.audit.services', ['ngResource',]);
 
 app.factory('Session', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){

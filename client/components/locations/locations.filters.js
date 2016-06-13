@@ -94,7 +94,17 @@ app.filter('humanTimeShort', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMM Do, h:mm:ss a');
+      return window.moment.unix(input).format('MMM Do, H:mm:ss');
+    }
+  };
+}]);
+
+app.filter('humanTimeShortest', [function() {
+  return function(input) {
+    if ( input === undefined || input === null) {
+      return 'N/A';
+    } else {
+      return window.moment.unix(input).format('H:mm:ss MMMM');
     }
   };
 }]);

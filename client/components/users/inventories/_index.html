@@ -45,16 +45,16 @@
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
               <thead md-head>
                 <tr md-row class="md-table-headers-row">
-                  <th hide show-gt-xs md-column md-order-by="state"><span>State</span></th>
+                  <th md-column md-order-by="state"><span>State</span></th>
                   <th md-column md-order-by="ap_mac"><span>Ap Mac</span></th>
                   <th hide show-gt-xs md-column md-order-by="created_at"><span>Added</span></th>
-                  <th md-column md-order-by="username"><span>Created By</span></th>
+                  <th hide show-gt-md md-column md-order-by="username"><span>Created By</span></th>
                   <th hide show-gt-sm md-column md-order-by="location"><span>Location</span></th>
                 </tr>
               </thead>
               <tbody md-body>
                 <tr md-row ng-repeat="i in filtered = (inventories | filter: query.filter)" ng-class="{'muted': i.staff, 'muted': i.state == 'cancelled'}">
-                  <td hide show-gt-sm md-cell>
+                  <td md-cell>
                     {{ (i.staff ? 'staff' : i.state) | titleCase }}
                     <md-tooltip ng-if="i.state == 'removed'">
                       Removed {{ ::i.removed_at | humanTime }}
@@ -69,7 +69,7 @@
                   <td hide show-gt-xs md-cell>
                     {{ ::i.created_at | humanTime }}
                   </td>
-                  <td md-cell>
+                  <td hide show-gt-md md-cell>
                     {{ ::i.username }}
                   </td>
                   <td hide show-gt-sm md-cell>

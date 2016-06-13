@@ -3,6 +3,7 @@
 var app = angular.module('myApp.services', [
 
   'myApp.apps.services',
+  'myApp.audit.services',
   'myApp.authentications.services',
   'myApp.access-token.services',
   'myApp.brands.services',
@@ -34,7 +35,7 @@ var app = angular.module('myApp.services', [
   'myApp.quotas.services',
   'myApp.reports.services',
   'myApp.registrations.services',
-  'myApp.sessions.services',
+  // 'myApp.sessions.services',
   'myApp.splash_codes.services',
   'myApp.splash_pages.services',
   'myApp.subscriptions.services',
