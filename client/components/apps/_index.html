@@ -17,7 +17,7 @@
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
 
-  <div ng-hide="apps.length">
+  <div ng-show="apps.length === 0">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
         <md-card>
@@ -50,15 +50,15 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">
-              Integrate your services with Cucumber
+              Your Cucumber Applications
             </span>
             <span class="md-subhead">
-              Create an application before use the API and build some awesome.
+              Integrate your services with the Cucumber API.
             </span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
-          <md-list-item class="md-3-line" ng-repeat="app in apps">
+          <md-list-item class="md-3-line" ng-repeat="app in apps" href="/#/apps/{{ app.id }}">
             <div class="md-list-item-text" layout="column">
               <h3>{{ app.name }}</h3>
               <h4>{{ app.created_at | humanTime }}</h4>
@@ -66,6 +66,10 @@
             </div>
           </md-list-item>
         </md-card-content>
+        <md-divider ng-if="!$last"></md-divider>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button href="/#/apps/new">New</md-button>
+        </md-card-actions>
       </md-card>
     </div>
   </div>

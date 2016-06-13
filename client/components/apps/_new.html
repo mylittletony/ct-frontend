@@ -1,12 +1,23 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" href="/#/apps" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Back to Apps</p>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
 <div layout="row" layout-align="center center">
   <div flex="100" flex-gt-sm="75">
     <md-card>
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">
-            {{ scope.app.id ? "Edit" : "Create" }} App
+            {{ app.id ? "Edit" : "Create" }} App
           </span>
-          <span class="md-subhead">
+          <span class="md-subhead" ng-if="!app.id">
             Create an application before use the API and build some awesome.
           </span>
         </md-card-title-text>
