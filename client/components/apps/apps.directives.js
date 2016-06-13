@@ -41,12 +41,9 @@ app.directive('showApp', ['App', '$routeParams', 'menu', function(App, $routePar
 
     menu.isOpen = false;
     menu.hideBurger = true;
-
     scope.loading   = true;
-    // scope.appId     = '●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●';
-    // scope.appSecret = '●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●';
 
-    scope.init = function() {
+    var init = function() {
       App.query({id: $routeParams.id}).$promise.then(function(results) {
         scope.app        = results;
         redirectUris();
@@ -63,17 +60,7 @@ app.directive('showApp', ['App', '$routeParams', 'menu', function(App, $routePar
       }
     };
 
-    // scope.showAppId = function() {
-    //   scope.showId = !scope.showId;
-    //   scope.appId = scope.showId ? scope.app.uid : '●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●';
-    // };
-
-    // scope.showAppSecret = function() {
-    //   scope.showSecret = !scope.showSecret;
-    //   scope.appSecret = scope.showSecret ? scope.app.secret : '●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●';
-    // };
-
-    scope.init();
+    init();
 
   };
 
