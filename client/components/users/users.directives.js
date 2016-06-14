@@ -219,6 +219,7 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
   var link = function( scope, element, attrs ) {
 
     if (STRIPE_KEY && window.Stripe) {
+      alert(STRIPE_KEY)
       window.Stripe.setPublishableKey(STRIPE_KEY);
     }
 
