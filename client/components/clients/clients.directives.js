@@ -213,11 +213,11 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
             'clientIndexChart', obj
           );
         } else {
-          scope.loading       = undefined;
+          scope.loading = undefined;
           controller.$scope.$broadcast('clientIndexChart', {});
         }
       }, function() {
-        scope.loading       = undefined;
+        scope.loading = undefined;
         controller.$scope.$broadcast('clientIndexChart', {});
       });
     };

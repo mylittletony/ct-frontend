@@ -30,6 +30,7 @@ app.factory('Client', ['$resource', 'API_END_POINT',
         isArray: false,
         params: {
           location_id: '@location_id',
+          q: '@q',
           id: '@id'
         }
       },

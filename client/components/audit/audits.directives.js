@@ -82,7 +82,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
 }]);
 
-app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Location', '$q', '$timeout', function(Session,$routeParams,$location,Location, $q, $timeout) {
+app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', function(Session, $routeParams, $location, Client, $q, $timeout) {
 
   var link = function( scope, element, attrs ) {
 
@@ -192,9 +192,15 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
       search();
     };
 
-    // scope.visitClient = function() {
+    // Don't like this however it's less annoying than dealing with
+    // the conversion from a numeric id to slug in the locs. controller
 
-    // };
+    scope.visitClient = function(session) {
+      Client.get({location_id: session.location_id, q: session.client_mac}, function(data) {
+        $location.path('/locations/' + data.location_slug + '/clients/' + data.id);
+      }, function(){
+      });
+    };
 
     var init = function() {
       var deferred = $q.defer();
