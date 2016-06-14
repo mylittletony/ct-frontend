@@ -104,7 +104,7 @@ app.filter('humanTimeShortest', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('H:mm:ss MMMM');
+      return window.moment.unix(input).format('MMMM D, H:mm:ss');
     }
   };
 }]);

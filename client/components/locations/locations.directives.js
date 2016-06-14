@@ -188,12 +188,11 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       $location.search({name: name});
     };
 
-    function searchTextChange(text) {
-      // $log.info('Text changed to ' + text);
+    function searchTextChange(id) {
     }
-    function selectedItemChange(item) {
-      // scope.location = item;
-      // $log.info('Item changed to ' + JSON.stringify(item));
+
+    function selectedItemChange(id) {
+      $location.path('/locations/' + id);
     }
 
     if ($routeParams.xtr) {

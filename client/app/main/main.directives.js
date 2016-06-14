@@ -32,7 +32,7 @@ var app = angular.module('myApp.directives', [
   'myApp.quotas.directives',
   'myApp.registrations.directives',
   'myApp.reports.v2.directives',
-  'myApp.sessions.directives',
+  // 'myApp.sessions.directives',
   'myApp.social.directives',
   'myApp.splash_codes.directives',
   'myApp.splash_pages.directives',

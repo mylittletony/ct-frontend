@@ -1,11 +1,40 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <form ng-submit="search()">
-      <md-input-container class="md-block">
-        <md-icon md-font-icon="search">search</md-icon>
-        <label>Search</label>
-        <input ng-blur="search()" ng-model="query.filter" md-autofocus>
-      </md-input-container>
+    <form ng-submit="$event.preventDefault()">
+      <md-autocomplete
+          flex="100"
+          md-selected-item="selectedItem"
+          ng-enter="search(item._key)"
+          md-search-text-change="searchTextChange(searchText)"
+          md-no-cache="true"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item._key"
+          md-min-length="5"
+          md-autofocus="true"
+          md-menu-class="locations-autocomplete"
+          placeholder="Search">
+
+        <md-item-template >
+          <a ng-click="go(item.slug)">
+            <span class="item-title">
+              <md-icon>{{ item._index == 'devices' ? "router" : item._index == 'clients' ? "devices" : "business" }}</md-icon>
+              <span>&nbsp;{{ item._key }}</span>
+            </span>
+            <span class="item-metadata">
+              <span class="item-metastat">
+                Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span>
+              </span>
+            </span>
+          </a>
+        </md-item-template>
+        <md-not-found>
+          No locations found.
+          <a ng-click="create(searchText)">Create a new one!</a>
+        </md-not-found>
+      </md-autocomplete>
+      <br/>
     </form>
     <div flex></div>
   </div>
@@ -20,7 +49,8 @@
 
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <span>Radius Sessions</span>
+              <md-icon>donut_large</md-icon>
+              <span>{{ (_links.total_entries || 0) }} Radius Sessions</span>
               <div flex></div>
               <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="selected.length" ng-click="filterClient()">
                 <md-icon>filter_list</md-icon>
@@ -39,10 +69,11 @@
                 <tr md-row>
                   <th md-column><span>Start</span></th>
                   <th hide show-gt-md md-column><span>Stop</span></th>
-                  <th md-column><span>Client Mac</span></th>
-                  <th hide><span>Inbound</span></th>
-                  <th hide><span>Outbound</span></th>
-                  <th hide><span>Manufacturer</span></th>
+                  <th hide show-gt-xs md-column><span>Client Mac</span></th>
+                  <th hide show-gt-lg md-column><span>Device Mac</span></th>
+                  <th hide show-gt-xs md-column><span>Inbound</span></th>
+                  <th hide show-gt-md md-column><span>Outbound</span></th>
+                  <th hide show-gt-xs md-column><span>Manufacturer</span></th>
                   <th hide show-gt-sm md-column><span>Location</span></th>
                   <th md-column>Action</th>
                 </tr>
@@ -52,15 +83,19 @@
                   <td md-cell>
                     <span hide show-gt-xs>{{ ::(session.acctstarttime | humanTimeShort) }}</span>
                     <span hide show-xs>{{ ::(session.acctstarttime | humanTimeShortest) }}</span>
+                    <span hide show-xs><br><small>{{ ::session.client_mac }}</small></span>
                     <md-tooltip hide-gt-md>Stop: {{ ::session.acctstoptime | humanTime }}</md-tooltip>
                   </td>
                   <td hide show-gt-md md-cell>
                     {{ ::(session.acctstoptime | humanTimeShort) || 'NA'}}
                     <md-tooltip ng-if="session.acctstoptime">{{ ::session.acctstopcause }}</md-tooltip>
                   </td>
-                  <td md-cell>
+                  <td hide show-gt-xs md-cell>
                     {{ session.client_mac }}
                     <md-tooltip ng-if="session.device_ipaddr">{{ ::session.device_ipaddr }}</md-tooltip>
+                  </td>
+                  <td hide show-gt-lg md-cell>
+                    {{ session.ap_mac }}
                   </td>
                   <td hide show-gt-xs md-cell>
                     {{::(session.download | humanData)}}
@@ -107,6 +142,4 @@
       </md-card>
     </div>
   </div>
-
 </md-content>
-

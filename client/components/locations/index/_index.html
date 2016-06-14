@@ -8,7 +8,7 @@
             ng-enter="go(item.slug)"
             md-search-text-change="searchTextChange(searchText)"
             md-search-text="searchText"
-            md-selected-item-change="selectedItemChange(item)"
+            md-selected-item-change="selectedItemChange(item.slug)"
             md-items="item in querySearch(searchText)"
             md-item-text="item.location_name"
             md-min-length="5"
