@@ -4,14 +4,17 @@ use strict;
 
 use Cwd qw(abs_path);
 use File::Spec;
+use Net::Domain qw(hostfqdn);
 
-use vars qw($APP_ID $APP_SECRET $OPENSSL);
+use vars qw($APP_ID $APP_SECRET $OPENSSL $AUTH_PORT $APP_PORT);
 
 sub slurp_file($);
 sub load_config();
 sub create_directories();
 sub create_ca();
 sub create_openssl_conf();
+sub openssl;
+sub create_server_cert($);
 
 my ($volume, $directories, undef) = File::Spec->splitpath(abs_path $0);
 my $here = File::Spec->catpath($volume, $directories);
@@ -21,14 +24,20 @@ $here =~ s{/$}{};
 load_config;
 create_directories;
 create_ca;
+my $fqdn = hostfqdn;
+if (!defined $fqdn) {
+    warn "Cannot determine fully qualified domain name.  Fall back to localhost.\n";
+    $fqdn = 'localhost';
+}
+create_server_cert $fqdn;
 
 sub create_ca() {
     my $ca_dir = "$here/ca";
-    my $exists = -e "$ca_dir/ready";
+    my $exists = -e "$ca_dir/certs/ca.cert.pem";
 
     if ($exists) {
         print <<EOF;
-$ca_dir/ready exists.
+$ca_dir/certs/ca.cert.pem exists.
 Will not create a certificate authority.
 EOF
 
@@ -36,6 +45,19 @@ EOF
     }
 
     create_openssl_conf;
+
+    print "# Generating CA private key.\n";
+    openssl 'genrsa', '-out', "$ca_dir/private/ca.key.pem", 2048;
+    chmod 0600, "$ca_dir/private/ca.key.pem";
+
+    print "# Create and sign CA certificate.\n";
+    openssl 'req', '-config', "$ca_dir/openssl.conf", '-batch', 
+            '-subj', '/CN=Cucumber Tony Development Dummy Root CA',
+            '-key', "$ca_dir/private/ca.key.pem",
+            '-new', '-x509', '-days', 60, '-sha256', '-extensions', 'v3_ca',
+            '-out', "$ca_dir/certs/ca.cert.pem";
+
+    return 1;
 }
 
 sub create_directories() {
@@ -77,6 +99,10 @@ $APP_SECRET = "";
 
 # OpenSSL command.  If "openssl" is not in your $PATH set it here.
 $OPENSSL = "openssl";
+
+# Port numbers of the authentication server and app server.
+$AUTH_PORT = 4443;
+$APP_PORT = 4444;
 EOF
         }
         die <<EOF;
@@ -98,6 +124,25 @@ EOF
         ++$errors;
     }
 
+    unless (defined $OPENSSL && length $OPENSSL) {
+        warn "$here/config.pm: error: OPENSSL not configured.\n";
+        ++$errors;
+    }
+
+    unless (defined $AUTH_PORT && length $AUTH_PORT
+            && $AUTH_PORT =~ /^[1-9][0-9]*$/
+            && $AUTH_PORT > 0 && $AUTH_PORT <= 65536) {
+        warn "$here/config.pm: error: AUTH_PORT not configured (1-65536).\n";
+        ++$errors;
+    }
+
+    unless (defined $APP_PORT && length $APP_PORT
+            && $APP_PORT =~ /^[1-9][0-9]*$/
+            && $APP_PORT > 0 && $APP_PORT <= 65536 && $APP_PORT != $AUTH_PORT) {
+        warn "$here/config.pm: error: APP_PORT not configured (1-65536).\n";
+        ++$errors;
+    }
+
     exit 1 if $errors;
 
     return 1;
@@ -111,6 +156,41 @@ sub slurp_file($) {
 
     open HANDLE, "<$filename" or die "$filename: $!\n";
     return <HANDLE>;
+}
+
+sub openssl {
+    my (@args) = @_;
+
+    my @quoted_args;
+    foreach my $arg ($OPENSSL, @args) {
+        if ($arg =~ /[ \t\r\n\\"]/) {
+            my $quoted_arg = $arg;
+            $quoted_arg =~ s/([\\"])/\\$1/g;
+            push @quoted_args, qq("$quoted_arg");
+        } else {
+            push @quoted_args, $arg;
+        }
+    }
+    $quoted_args[-1] .= "\n" if @quoted_args;
+
+    print '$ ', join ' ', @quoted_args;
+
+    if (0 != system $OPENSSL, @args) {
+        if ($? == -1) {
+            die "$OPENSSL: $!\n";
+        } elsif ($? & 0x7f) {
+            my $signo = $? & 0x7f;
+            die "$OPENSSL: killed by signal number $signo.\n";
+        } else {
+            my $code = $? >> 8;
+            die "$OPENSSL: terminated with exit code $code.\n";
+        }
+    }
+
+    return 1;
+}
+
+sub create_server_cert($) {
 }
 
 sub create_openssl_conf() {
@@ -220,3 +300,4 @@ EOF
 
     return 1;
 }
+
