@@ -95,7 +95,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
 
     if (scope.location_name) {
       scope.selectedItem  = scope.location_name;
-    } else if (scope.ap_mac) { 
+    } else if (scope.ap_mac) {
       scope.selectedItem = scope.ap_mac;
     } else if (scope.client_mac) {
       scope.selectedItem = scope.client_mac;
@@ -139,7 +139,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
           }
         }
         $location.search(hash);
-      }, 150);
+      }, 250);
     }
 
     scope.querySearch         = querySearch;
@@ -174,10 +174,6 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
     };
 
     var search = function() {
-
-            alert(123)
-
-
       var hash        = $location.search();
       hash.q          = scope.query.filter;
       hash.client_mac = scope.client_mac;
@@ -195,6 +191,10 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
       scope.client_mac = undefined;
       search();
     };
+
+    // scope.visitClient = function() {
+
+    // };
 
     var init = function() {
       var deferred = $q.defer();
@@ -215,11 +215,6 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
         scope._stats      = results._stats;
         scope.predicate   = '-starttime';
         scope._links      = results._links;
-        // scope.start       = scope.start || results._stats.start;
-        // scope.end         = scope.end || results._stats.end;
-        // scope.loading     = undefined;
-        // scope.rangeFilter = undefined;
-        // scope.searching   = undefined;
         scope.promise = deferred.promise;
         deferred.resolve();
       }, function(err) {

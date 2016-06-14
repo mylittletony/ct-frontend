@@ -147,11 +147,6 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
 
     scope.predicate   = $routeParams.predicate;
 
-    var fakeClient = function() {
-      var client = {};
-      scope.clients.clients.push(client);
-    };
-
     var getParams = function() {
 
       var params = {};
@@ -182,9 +177,6 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
       Client.query(params).$promise.then(function(results) {
         scope.clients         = results;
         scope._links          = results._links;
-        if (results.length === 0) {
-          fakeClient();
-        }
         loadPusher(scope.location.api_token);
         deferred.resolve();
       }, function() {

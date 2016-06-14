@@ -1,4 +1,3 @@
-
 <loader></loader>
 
 <div ng-hide="loading" ng-cloak>
@@ -59,7 +58,7 @@
                     <th md-column md-order-by="state"><span>State</span></th>
                     <th hide show-gt-sm md-column md-order-by="owner" ng-if="user_id"><span>Owner</span></th>
                     <th md-column md-order-by="location_name" md-desc><span>Name</span></th>
-                    <th hide show-gt-sm md-column md-order-by="location_address"><span>Address</span></th>
+                    <th hide show-gt-md md-column md-order-by="location_address"><span>Address</span></th>
                     <th hide show-gt-xs md-column md-order-by="boxes_count"><span>Devices</span></th>
                     <th hide show-gt-sm md-column md-order-by="created_at"><span>Created</span></th>
                     <th md-column><span>Action</span></th>
@@ -81,7 +80,7 @@
                     <td md-cell>
                       {{ ::location.location_name | truncate:20 }}
                     </td>
-                    <td hide show-gt-sm md-cell>
+                    <td hide show-gt-md md-cell>
                       {{ ::location.location_address }}
                     </td>
                     <td hide show-gt-xs md-cell>

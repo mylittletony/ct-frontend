@@ -30,8 +30,7 @@
           </a>
         </md-item-template>
         <md-not-found>
-          No locations found.
-          <a ng-click="create(searchText)">Create a new one!</a>
+          No results found.
         </md-not-found>
       </md-autocomplete>
       <br/>
@@ -84,30 +83,24 @@
                 <tr md-row md-select="session" ng-repeat="session in sessions | filter: filter.search | orderBy: query.order">
                   <td md-cell>
                     <span hide show-gt-xs>{{ ::(session.acctstarttime | humanTime) }}</span>
-                    <!-- <span hide show-xs>{{ ::(session.acctstarttime | humanTimeShortest) }}</span> -->
-                    <!-- <span hide show-xs><br><small>{{ ::session.client_mac }}</small></span> -->
                     <md-tooltip>Stop: {{ ::session.acctstoptime | humanTime }}</md-tooltip>
                   </td>
                   <td hide show-gt-sm md-cell>
                     {{ ::(session.acctsessiontime | humanised ) || '-' }}
                     <md-tooltip ng-if="session.acctstoptime">{{ ::session.acctstopcause }}</md-tooltip>
                   </td>
-                  <!-- <td hide show-gt-md md-cell> -->
-                  <!--   {{ ::(session.acctstoptime | humanTimeShort) || 'NA'}} -->
-                  <!--   <md-tooltip ng-if="session.acctstoptime">{{ ::session.acctstopcause }}</md-tooltip> -->
-                  <!-- </td> -->
                   <td hide show-gt-md md-cell>
-                    {{ session.client_mac }}
+                    {{ ::(session.client_mac | uppercase)}}
                     <md-tooltip ng-if="session.device_ipaddr">{{ ::session.device_ipaddr }}</md-tooltip>
                   </td>
                   <td hide show-gt-xs md-cell>
                     {{ session.username | truncate:20 }}
                     <md-tooltip ng-if="session.username.length > 20">
-                      {{ session.username }}
+                      {{ ::session.username }}
                     </md-tooltip>
                   </td>
                   <td hide show-gt-lg md-cell>
-                    {{ session.ap_mac }}
+                    {{ ::(session.ap_mac | uppercase )}}
                   </td>
                   <td hide show-gt-xs md-cell>
                     {{::(session.download | humanData)}}
@@ -115,7 +108,12 @@
                   </td>
                   <td hide show-gt-md md-cell>{{::(session.upload | humanData)}}</td>
                   <td hide show-gt-sm md-cell>{{ ::(session.manufacturer | truncate: 20) }}</td>
-                  <td hide show-gt-sm md-cell>{{ ::(session.location_name | truncate:20 ) }}</td>
+                  <td hide show-gt-sm md-cell>
+                    {{ ::(session.location_name | truncate:20 ) }}
+                    <md-tooltip ng-if="session.location_name.length > 20">
+                      {{ ::session.location_name }}
+                    </md-tooltip>
+                  </td>
                   <td md-cell>
                     <md-menu>
                       <md-button aria-label="Open sessions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">

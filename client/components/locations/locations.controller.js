@@ -175,6 +175,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
       var id = $routeParams.id;
       var slug;
+
       Location.get({id: id}, function(data) {
         if (id % 1 === 0) {
           $location.path('/locations/' + data.slug).replace();
