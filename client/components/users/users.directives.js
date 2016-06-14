@@ -218,11 +218,6 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
 
   var link = function( scope, element, attrs ) {
 
-    if (STRIPE_KEY && window.Stripe) {
-      alert(STRIPE_KEY)
-      window.Stripe.setPublishableKey(STRIPE_KEY);
-    }
-
     scope.addCard = function() {
       $mdDialog.show({
         templateUrl: 'components/users/billing/_card.html',
@@ -277,6 +272,13 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
         }
       }
     };
+
+    if (STRIPE_KEY && window.Stripe) {
+      console.log('Setting Stripe Token');
+      window.Stripe.setPublishableKey(STRIPE_KEY);
+    } else {
+      console.log('Could not set stripe token');
+    }
 
     scope.$watch('user',function(nv){
       if (nv !== undefined) {
