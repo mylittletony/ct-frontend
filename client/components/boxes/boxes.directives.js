@@ -2161,11 +2161,14 @@ app.directive('heartbeatChart', ['Box', 'Heartbeat', '$routeParams', '$compile',
 
 }]);
 
-app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', '$cookies', function($routeParams, $location, Box, Firmware, $cookies) {
+app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', '$cookies', 'menu', function($routeParams, $location, Box, Firmware, $cookies, menu) {
 
   var link = function( scope, element, attrs ) {
 
     scope.firmwares = [];
+    menu.isOpen = false;
+    menu.hideBurger = true;
+    menu.sectionName = 'Downloads';
 
     var init = function() {
       Firmware.query({public: true}).$promise.then(function(res) {

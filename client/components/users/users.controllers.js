@@ -21,11 +21,6 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       id = $routeParams.id;
     }
 
-    // if ($cookies.get('_ctm') === 'true') {
-    //   menu.isOpenLeft = false;
-    //   menu.isOpen = false;
-    // }
-
     menu.isOpen = isOpen;
     menu.hideBurger = false;
 
@@ -39,6 +34,8 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     };
 
     menu.header = undefined;
+    menu.sectionName = Auth.currentUser().username;
+
     menu.sections = [{
       name: 'Profile',
       type: 'link',
