@@ -2,6 +2,13 @@
 
 var app = angular.module('myApp.users.directives', []);
 
+app.directive('userAvatar', [function() {
+  return {
+    replace: true,
+    template: '<md-icon><img class=\'user-avatar\' src="https://www.gravatar.com/avatar/{{user.gravatar}}?s=25" ng-if=\'user.gravatar\'></img><span ng-if=\'!user.gravatar\'>face</span></md-icon>'
+  };
+}]);
+
 app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', '$route', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, $route) {
 
   var link = function( scope, element, attrs ) {
@@ -1027,10 +1034,10 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
         formatDays();
         scope.loading = undefined;
       }, function() {
-        scope.loading = undefined;                                 
+        scope.loading = undefined;
       });
     };
-    
+
     function formatAlertTime() {
 
       var start, end;
@@ -1045,7 +1052,7 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
       scope.user.endtime = new Date(end);
 
     }
-    
+
     var formatDays = function() {
       scope.user.periodic_days = [];
       if (scope.user.alerts_window_days === null) {
@@ -1057,7 +1064,7 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
       scope.user.alerts_window_start = scope.user.starttime.getHours() + '' + ('0' + scope.user.starttime.getMinutes()).slice(-2);
       scope.user.alerts_window_end = scope.user.endtime.getHours() + '' + ('0' + scope.user.endtime.getMinutes()).slice(-2);
     };
-    
+
     scope.update = function(form) {
       formatTonyTime();
       form.$setPristine();
@@ -1173,7 +1180,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       scope.updatePage();
     };
 
-    // user permissions 
+    // user permissions
     var createMenu = function() {
       scope.menu = [];
       scope.menu.push({

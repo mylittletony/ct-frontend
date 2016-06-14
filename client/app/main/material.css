@@ -25,6 +25,10 @@ md-table-container::-webkit-scrollbar-thumb {
   margin-top: 50px;
 }
 
+.user-avatar {
+  border-radius: 99%;
+}
+
 /* Temp fixes to address */
 /* Temp fixes to address */
 

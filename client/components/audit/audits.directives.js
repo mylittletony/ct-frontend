@@ -91,6 +91,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
     scope.client_mac    = $routeParams.client_mac;
     scope.ap_mac        = $routeParams.ap_mac;
     scope.location_name = $routeParams.location_name;
+    scope.username      = $routeParams.username;
 
     if (scope.location_name) {
       scope.selectedItem  = scope.location_name;
@@ -98,6 +99,8 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
       scope.selectedItem = scope.ap_mac;
     } else if (scope.client_mac) {
       scope.selectedItem = scope.client_mac;
+    } else if (scope.username) {
+      scope.selectedItem = scope.username;
     }
 
     function querySearch (query) {
@@ -128,12 +131,15 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
             case 'locations':
               hash.location_name = item._key;
               break;
+            case 'vouchers':
+              hash.username = item._key;
+              break;
             default:
               console.log(item._index);
           }
         }
         $location.search(hash);
-      }, 500);
+      }, 150);
     }
 
     scope.querySearch         = querySearch;
@@ -168,24 +174,30 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
     };
 
     var search = function() {
-      var hash  = $location.search();
-      hash.q    = scope.query.filter;
-      hash.page = scope.query.page;
-      hash.per  = scope.query.limit;
+
+            alert(123)
+
+
+      var hash        = $location.search();
+      hash.q          = scope.query.filter;
+      hash.client_mac = scope.client_mac;
+      hash.page       = scope.query.page;
+      hash.per        = scope.query.limit;
       $location.search(hash);
     };
 
     scope.filterClient = function() {
-      scope.query.filter = scope.selected[0].client_mac;
+      scope.client_mac = scope.selected[0].client_mac;
       search();
     };
 
     scope.clearFilter = function() {
-      scope.query.filter = undefined;
+      scope.client_mac = undefined;
       search();
     };
 
     var init = function() {
+      var deferred = $q.defer();
       var params = {
         page: scope.query.page,
         username: scope.username,
@@ -203,11 +215,13 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Locatio
         scope._stats      = results._stats;
         scope.predicate   = '-starttime';
         scope._links      = results._links;
-        scope.start       = scope.start || results._stats.start;
-        scope.end         = scope.end || results._stats.end;
-        scope.loading     = undefined;
-        scope.rangeFilter = undefined;
-        scope.searching   = undefined;
+        // scope.start       = scope.start || results._stats.start;
+        // scope.end         = scope.end || results._stats.end;
+        // scope.loading     = undefined;
+        // scope.rangeFilter = undefined;
+        // scope.searching   = undefined;
+        scope.promise = deferred.promise;
+        deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
       });

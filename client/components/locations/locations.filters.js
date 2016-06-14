@@ -109,6 +109,16 @@ app.filter('humanTimeShortest', [function() {
   };
 }]);
 
+app.filter('humanised', ['$window', function(window) {
+    return function(input) {
+      if ( input === undefined || input === null) {
+        return '-';
+      } else {
+        return window.moment.duration(input, 'seconds').format('HH:mm:ss');
+      }
+    };
+}]);
+
 app.filter('lastSeen', [function() {
   return function(input) {
     if ( input === undefined || input === null) {

@@ -173,19 +173,19 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     var init = function() {
 
-      var id, slug;
-      Location.get({id: $routeParams.id}, function(data) {
+      var id = $routeParams.id;
+      var slug;
+      Location.get({id: id}, function(data) {
         if (id % 1 === 0) {
-          $location.path('/locations/' + data.slug).replace().notify(false);
+          $location.path('/locations/' + data.slug).replace();
         }
-        // menu.sectionName = data.location_name;
         menu.header = data.location_name;
         menu.sectionName = 'Location';
         if (data.archived) {
           menu.archived = data.archived;
-          // menu.header = 'Location Archived';
         }
         $scope.location = data;
+
         // Used to check for location name change
         // Will refresh the page if a change is detected
         slug = $scope.location.slug;

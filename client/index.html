@@ -95,7 +95,13 @@
           </md-button>
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <md-icon md-menu-origin>face</md-icon>
+              <!-- <md-icon md-menu-origin> -->
+                <user-avatar></user-avatar>
+              <!-- </md-icon> -->
+              <!-- <md-icon md-menu-origin class="avatar"> -->
+                <!-- <img src="https://www.gravatar.com/avatar/{{user.gravatar}}?s=40"></img> -->
+              <!-- </md-icon> -->
+
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item>
@@ -267,6 +273,7 @@
   <script src="bower_components/filepicker-js-bower/filepicker.min.js"></script>
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <script src="bower_components/promise-polyfill/Promise.js"></script>
+  <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 

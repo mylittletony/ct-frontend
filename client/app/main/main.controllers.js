@@ -381,16 +381,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       };
 
       var firstName = function() {
-        // if (Auth.currentUser() && Auth.currentUser().username) {
-        //   $scope.user = { gravatar: Auth.currentUser().gravatar, lucky_dip: Auth.currentUser().lucky_dip };
-        //   var name = Auth.currentUser().username;
-        //   var split = name.split(' ');
-        //   if (split.length > 1 && split[0].toLowerCase() !== 'the') {
-        //     $scope.user.name = split[0];
-        //   } else {
-        //     $scope.user.name = name.substring(0, 10);
-        //   }
-        // }
+        if (Auth.currentUser() && Auth.currentUser().username) {
+          $scope.user = { gravatar: Auth.currentUser().gravatar, lucky_dip: Auth.currentUser().lucky_dip };
+        }
       };
 
       var a = AccessToken.get();
@@ -437,8 +430,8 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       Auth.logout();
     };
 
-    $scope.onlineStatus = onlineStatus;
-    if ( $scope.loggedIn ) {
+    // $scope.onlineStatus = onlineStatus;
+    // if ( $scope.loggedIn ) {
       // $scope.$watch('onlineStatus.isOnline()', function(online) {
       //   $scope.online_status_string = online ? 'online' : 'offline';
       //   if ($scope.online_status_string === 'offline') {
@@ -449,59 +442,33 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       //     // }
       //   }
       // });
-    }
+    // }
 
-    $scope.open = function (size) {
-      // $scope.modalInstance = $modal.open({
-      //   templateUrl: 'offlineModal.html',
-      //   size: size,
-      //   scope: $scope,
-      //   resolve: {
-      //     items: function () {
-      //       return $scope.items;
-      //     }
-      //   }
-      // });
-    };
+    // $scope.open = function (size) {
+    // };
 
-    $scope.close = function() {
-      // $scope.modalInstance.close();
-    };
-
-    // $scope.user = Auth.currentUser();
+    // $scope.close = function() {
+    // };
 
 }]);
 
 app.controller( 'ParentCtrl', function ParentCtrl($scope, onlineStatus) {
 
-  $scope.items = [];
-  $scope.linkItems = {
-  };
+  // $scope.items = [];
+  // $scope.linkItems = {
+  // };
 
-  $scope.onlineStatus = onlineStatus;
-  $scope.$watch('onlineStatus.isOnline()', function(online) {
-    $scope.online_status_string = online ? 'online' : 'offline';
-    if ($scope.online_status_string === 'offline') {
-      $scope.open('md');
-    } else if ($scope.online_status_string === 'online' ){
-      // if ($scope.modalInstance !== undefined) {
-      //   $scope.modalInstance.close();
-      // }
-    }
-  });
+  // $scope.onlineStatus = onlineStatus;
+  // $scope.$watch('onlineStatus.isOnline()', function(online) {
+  //   $scope.online_status_string = online ? 'online' : 'offline';
+  //   if ($scope.online_status_string === 'offline') {
+  //     $scope.open('md');
+  //   } else if ($scope.online_status_string === 'online' ){
+  //   }
+  // });
 
-  $scope.open = function (size) {
-    // $scope.modalInstance = $modal.open({
-    //   templateUrl: 'offlineModal.html',
-    //   size: size,
-    //   scope: $scope,
-    //   resolve: {
-    //     items: function () {
-    //       return $scope.items;
-    //     }
-    //   }
-    // });
-  };
+  // $scope.open = function (size) {
+  // };
 
 });
 
