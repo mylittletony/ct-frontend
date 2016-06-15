@@ -18,6 +18,7 @@ sub openssl;
 sub create_server_cert($);
 sub get_ip();
 sub create_nginx_conf($);
+sub create_local_env($);
 
 my ($volume, $directories, undef) = File::Spec->splitpath(abs_path $0);
 my $here = File::Spec->catpath($volume, $directories);
@@ -38,7 +39,35 @@ if (!defined $fqdn) {
 }
 $fqdn = lc $fqdn;
 create_server_cert $fqdn;
+create_local_env $fqdn;
 create_nginx_conf $fqdn;
+
+sub create_local_env($) {
+    my ($fqdn) = @_;
+
+    my $filename = abs_path "$here/../server/config/local.env.sample.js";
+    open(my $fh, '>', $filename)
+        or die "cannot create '$filename': $!\n";
+
+    print $fh <<EOF;
+'use strict';
+
+module.exports = {
+    callbackURL: "https://$fqdn:$AUTH_PORT/auth/login/callback",
+    authorizationURL: "http://id.ctapp.io/oauth/authorize",
+    profileURL: "http://api.ctapp.io/api/v1/me.json",
+    tokenURL: "http://id.ctapp.io/oauth/token",
+    APP_ID: "$APP_ID",
+    APP_SECRET: "$APP_SECRET",
+    baseURL: "https://$fqdn:$APP_PORT/#/",
+    DEBUG: 'true'
+};
+EOF
+
+    print "# Wrote '$filename'.\n";
+
+    return 1;
+}
 
 sub create_nginx_conf($) {
     my ($fqdn) = @_;
