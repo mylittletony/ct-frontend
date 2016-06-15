@@ -28,56 +28,70 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
 
     // User permissions //
 
-    // var clientsMenu = function() {
-    //   if (true) { // user permissions
-    //     scope.clientsMenu = [];
+    var clientsMenu = function() {
+      if (true) { // user permissions
+        scope.clientsMenu = [];
 
-    //     scope.clientsMenu.push({
-    //       name: 'View',
-    //       type: 'view',
-    //       icon: 'pageview'
-    //     });
+        scope.clientsMenu.push({
+          name: 'View',
+          type: 'view',
+          icon: 'pageview'
+        });
 
-    //     scope.clientsMenu.push({
-    //       name: 'Disconnect',
-    //       type: 'disconnect',
-    //       icon: 'block'
-    //     });
+        scope.clientsMenu.push({
+          name: 'Disconnect',
+          type: 'disconnect',
+          icon: 'block'
+        });
 
-    //     scope.clientsMenu.push({
-    //       name: 'Logout',
-    //       type: 'logout',
-    //       icon: 'exit_to_app'
-    //     });
+        scope.clientsMenu.push({
+          name: 'Logout',
+          type: 'logout',
+          icon: 'exit_to_app'
+        });
 
-    //   }
-    // };
+      }
+    };
 
-    // scope.menuAction = function(type,client) {
-    //   switch(type) {
-    //     case 'view':
-    //       view(client.id);
-    //       break;
-    //     case 'disconnect':
-    //       client.processing = true;
-    //       alert('I will disconnect the client');
-    //       break;
-    //     case 'logout':
-    //       logout(client);
-    //       break;
-    //   }
-    // };
+    scope.menuAction = function(type,client) {
+      switch(type) {
+        case 'view':
+          view(client.id);
+          break;
+        case 'disconnect':
+          client.processing = true;
+          alert('I will disconnect the client');
+          break;
+        case 'logout':
+          logout(client);
+          break;
+      }
+    };
 
-    // scope.menuDisabled = function(type,client) {
-    //   switch(type) {
-    //     case 'disconnect':
-    //       return false;
-    //     case 'logout':
-    //       return !(client.online && client.splash_status === 'pass');
-    //   }
-    // };
+    scope.menuDisabled = function(type,client) {
+      switch(type) {
+        case 'disconnect':
+          return false;
+        case 'logout':
+          return !(client.online && client.splash_status === 'pass');
+      }
+    };
 
-    // clientsMenu();
+    var logout = function() {
+      scope.client.splash_status = 'dnat';
+      Client.logout({
+        location_id: scope.location.slug,
+        box_id: scope.client.slug,
+        id: scope.client.id
+      }).$promise.then(function(results) {
+        showToast('Successfully disconnected client.');
+      }, function(err) {
+        scope.client.splash_status = 'pass';
+        showErrors(err);
+      });
+    };
+
+    clientsMenu();
 
     var interval;
     var setInterval = function() {
