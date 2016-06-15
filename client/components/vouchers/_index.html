@@ -1,20 +1,21 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="vouchers.length > 0 || searching || query.filter">
-      <md-icon md-font-icon="search">search</md-icon>
-      <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="Filter Vouchers">
-    </md-input-container>
-    <md-button ng-hide="vouchers.length > 0 || searching || query.filter" id="main" class="md-icon-button md-primary" aria-label="Splash">
-      <md-icon md-font-icon="" >receipt</md-icon>
-    </md-button>
-    <p ng-if="vouchers.length === 0">Vouchers</p>
-    <div flex></div>
-    <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
-      <md-icon>add_circle</md-icon>
-    </md-button>
-  </div>
-  <md-divider></md-divider>
-</md-toolbar>
+<form ng-submit="search()">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="vouchers.length > 0 || searching || query.filter">
+        <md-icon md-font-icon="search">search</md-icon>
+        <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="Filter Vouchers">
+      </md-input-container>
+      <md-button ng-hide="vouchers.length > 0 || searching || query.filter" id="main" class="md-icon-button md-primary" aria-label="Splash">
+        <md-icon md-font-icon="" >receipt</md-icon>
+      </md-button>
+      <div flex></div>
+      <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
+        <md-icon>add_circle</md-icon>
+      </md-button>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+</form>
 
 <form ng-submit="search()" name="myForm">
 

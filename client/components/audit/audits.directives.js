@@ -10,6 +10,61 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     menu.hideBurger = false;
     menu.sections = [{}];
     menu.sectionName = 'Audit';
+    menu.header = '';
+
+    var isActive = function(path) {
+      var split = $location.path().split('/');
+      if (split.length >= 3) {
+        return ($location.path().split('/')[2] === path);
+      } else if (path === 'dashboard') {
+        return true;
+      }
+    };
+
+    var createMenu = function() {
+      menu.header = 'Audit Reports';
+
+      menu.sections.push({
+        name: 'Radius',
+        link: '/#/audit/',
+        type: 'link',
+        icon: 'donut_large',
+        active: isActive('dashboard')
+      });
+
+      menu.sections.push({
+        name: 'Emails',
+        type: 'link',
+        link: '/#/audit/emails',
+        icon: 'email',
+        active: isActive('emails')
+      });
+
+      menu.sections.push({
+        name: 'Social',
+        type: 'link',
+        link: '/#/audit/social',
+        icon: 'people',
+        active: isActive('social')
+      });
+
+      menu.sections.push({
+        name: 'Guests',
+        type: 'link',
+        link: '/#/audit/guests',
+        icon: 'person_pin',
+        active: isActive('guests')
+      });
+
+      menu.sections.push({
+        name: 'Sales',
+        type: 'link',
+        link: '/#/audit/sales',
+        icon: 'shopping_cart',
+        active: isActive('sales')
+      });
+
+    };
 
     // scope.updatePage = function(item) {
     //   var hash            = {};
@@ -37,6 +92,8 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     //   return deferred.promise;
 
     // };
+
+    createMenu();
 
   };
 
@@ -82,7 +139,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
 }]);
 
-app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', function(Session, $routeParams, $location, Client, $q, $timeout) {
+app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -160,6 +217,8 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
     scope.query = {
       order:          '-acctstarttime',
+      start:          $routeParams.start,// || start,
+      end:            $routeParams.end,// || end,
       filter:         $routeParams.q,
       limit:          $routeParams.per || 25,
       page:           $routeParams.page || 1,
@@ -179,6 +238,8 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
       hash.client_mac = scope.client_mac;
       hash.page       = scope.query.page;
       hash.per        = scope.query.limit;
+      hash.start      = scope.query.start;
+      hash.end        = scope.query.end;
       $location.search(hash);
     };
 
@@ -188,9 +249,54 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
     };
 
     scope.clearFilter = function() {
-      scope.client_mac = undefined;
-      search();
+      $location.search({});
     };
+
+    // This is duplicated from the codes directive //
+    // Should be consolodated in to a single dir   //
+
+    scope.rangeFilter = function(ev) {
+      $mdDialog.show({
+        templateUrl: 'components/locations/clients/_range_filter.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        controller: DialogController
+      });
+    };
+
+    function DialogController($scope) {
+
+      $scope.myDate = new Date();
+      $scope.minDate = new Date(
+        $scope.myDate.getFullYear(),
+        $scope.myDate.getMonth() - 2,
+        $scope.myDate.getDate()
+      );
+      $scope.maxDate = new Date(
+        $scope.myDate.getFullYear(),
+        $scope.myDate.getMonth(),
+        $scope.myDate.getDate()
+      );
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.search = function() {
+        scope.query.start = new Date($scope.startDate).getTime() / 1000;
+        scope.query.end   = new Date($scope.endDate).getTime() / 1000;
+        if (scope.query.start >= scope.query.end) {
+          $scope.error = 'The start date must be less than the end date';
+        } else {
+          $mdDialog.cancel();
+          scope.query.page = 1;
+          scope.query.limit = 50;
+          search();
+        }
+      };
+    }
+    DialogController.$inject = ['$scope'];
 
     // Don't like this however it's less annoying than dealing with
     // the conversion from a numeric id to slug in the locs. controller
@@ -207,8 +313,8 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
       var params = {
         page: scope.query.page,
         username: scope.username,
-        start: scope.start,
-        end: scope.end,
+        start: scope.query.start,
+        end: scope.query.end,
         location_id: scope.location_id,
         q: scope.query.filter,
         per: scope.query.limit,
@@ -239,6 +345,74 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
     link: link,
     require: '^audit',
     templateUrl: 'components/audit/sessions/_index.html'
+  };
+
+}]);
+
+app.directive('auditEmails', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+
+  var link = function( scope, element, attrs ) {
+
+  };
+
+  return {
+    scope: {
+      username: '@',
+    },
+    link: link,
+    require: '^audit',
+    templateUrl: 'components/audit/emails/_index.html'
+  };
+
+}]);
+
+app.directive('auditSocial', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+
+  var link = function( scope, element, attrs ) {
+
+  };
+
+  return {
+    scope: {
+      username: '@',
+    },
+    link: link,
+    require: '^audit',
+    templateUrl: 'components/audit/social/_index.html'
+  };
+
+}]);
+
+app.directive('auditGuests', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+
+  var link = function( scope, element, attrs ) {
+
+  };
+
+  return {
+    scope: {
+      username: '@',
+    },
+    link: link,
+    require: '^audit',
+    templateUrl: 'components/audit/guests/_index.html'
+  };
+
+}]);
+
+app.directive('auditSales', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+
+  var link = function( scope, element, attrs ) {
+
+  };
+
+  return {
+    scope: {
+      username: '@',
+    },
+    link: link,
+    require: '^audit',
+    templateUrl: 'components/audit/sales/_index.html'
   };
 
 }]);

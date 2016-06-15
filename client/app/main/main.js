@@ -118,12 +118,23 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       resolve: { loginRequired: loginRequired }
     }).
     when('/audit', {
-      // templateUrl: 'components/audit/index.html',
       templateUrl: 'components/audit/sessions/index.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/audit/sessions', {
-      templateUrl: 'components/audit/sessions/index.html',
+    when('/audit/emails', {
+      templateUrl: 'components/audit/emails/index.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/audit/social', {
+      templateUrl: 'components/audit/social/index.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/audit/guests', {
+      templateUrl: 'components/audit/guests/index.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/audit/sales', {
+      templateUrl: 'components/audit/sales/index.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/login', {
