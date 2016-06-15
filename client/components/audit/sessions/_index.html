@@ -2,7 +2,6 @@
   <div class="md-toolbar-tools">
     <form ng-submit="$event.preventDefault()">
       <md-autocomplete
-          flex="100"
           md-selected-item="selectedItem"
           ng-enter="search(item._key)"
           md-search-text-change="searchTextChange(searchText)"
@@ -42,7 +41,7 @@
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
   <div layout="row" layout-align="center center">
-    <div flex="100" flex-gt-sm="100">
+    <div flex-gt-sm="100">
       <md-card>
         <md-card-content>
 
