@@ -5,6 +5,7 @@ use strict;
 use Cwd qw(abs_path);
 use File::Spec;
 use Net::Domain qw(hostfqdn);
+use IO::Socket::INET;
 
 use vars qw($APP_ID $APP_SECRET $OPENSSL $AUTH_PORT $APP_PORT);
 
@@ -15,6 +16,7 @@ sub create_ca();
 sub create_openssl_conf();
 sub openssl;
 sub create_server_cert($);
+sub get_ip();
 
 my ($volume, $directories, undef) = File::Spec->splitpath(abs_path $0);
 my $here = File::Spec->catpath($volume, $directories);
@@ -26,9 +28,14 @@ create_directories;
 create_ca;
 my $fqdn = hostfqdn;
 if (!defined $fqdn) {
-    warn "Cannot determine fully qualified domain name.  Fall back to localhost.\n";
-    $fqdn = 'localhost';
+    warn "Cannot determine fully qualified domain name.  Fall back to IP.\n";
+    $fqdn = get_ip;
+    if (!defined $fqdn) {
+        $fqdn = 'localhost';
+        warn "Cannot determine your IP address.  Fall back to localhost.\n";
+    }
 }
+$fqdn = lc $fqdn;
 create_server_cert $fqdn;
 
 sub create_ca() {
@@ -60,12 +67,53 @@ EOF
     return 1;
 }
 
+sub create_server_cert($) {
+    my ($fqdn) = @_;
+
+    die "ca is an invalid hostname" if 'ca' eq $fqdn;
+
+    my $ca_dir = "$here/ca";
+    my $exists = -e "$ca_dir/certs/$fqdn.cert.pem";
+
+    if ($exists) {
+        print <<EOF;
+$ca_dir/certs/$fqdn.cert.pem exists.
+Will not create a server certificate.
+EOF
+
+        return 1;
+    }
+
+    print "# Generating private key for $fqdn.\n";
+    openssl 'genrsa', '-out', "$ca_dir/private/$fqdn.key.pem", 2048;
+    chmod 0600, "$ca_dir/private/$fqdn.key.pem";
+
+    # We can just as well create and sign the request in one go but
+    # we go with two steps for illustration purposes.
+
+    print "# Generate certificate signing request for $fqdn.\n";
+    openssl 'req', '-batch', '-subj', "/CN=$fqdn",
+            '-config', "$ca_dir/openssl.conf",
+            '-key', "$ca_dir/private/$fqdn.key.pem",
+            '-new', '-sha256', '-out', "$ca_dir/csr/$fqdn.csr.pem";
+
+    print "# Sign the certificate for $fqdn.\n";
+    openssl 'ca', '-batch', 
+            '-config', "$ca_dir/openssl.conf", '-extensions', 'server_cert',
+            '-days', 30, '-notext', '-md', 'sha256',
+            '-in', "$ca_dir/csr/$fqdn.csr.pem",
+            '-out', "$ca_dir/certs/$fqdn.cert.pem";
+
+    return 1;
+}
+
 sub create_directories() {
     my @directories = (
         "$here/logs",
         "$here/ca",
         "$here/ca/certs",
         "$here/ca/crl",
+        "$here/ca/csr",
         "$here/ca/newcerts",
         "$here/ca/private",
     );
@@ -81,8 +129,19 @@ sub create_directories() {
 
     chmod 0700, "$here/ca/private";
 
+    my $fh;
+    my $filename = "$here/ca/serial";
+    open(my $fh, '>', $filename)
+        or die "cannot create '$filename': $!\n";
+    print $fh '1000' or die;
+
+    $filename = "$here/ca/index.txt";
+    open ($fh, '>', $filename)
+        or die "cannot create '$filename': $!\n";
+
     return 1;
 }
+
 sub load_config() {
     eval {
         unshift @INC, $here;
@@ -190,7 +249,16 @@ sub openssl {
     return 1;
 }
 
-sub create_server_cert($) {
+sub get_ip() {
+    my $socket = IO::Socket::INET->new(
+        Proto       => 'udp',
+        PeerAddr    => '8.8.8.8',
+        PeerPort    => '53', # DNS
+    ) or return;
+
+    my $local_ip = $socket->sockhost or return;
+
+    return $local_ip;
 }
 
 sub create_openssl_conf() {
