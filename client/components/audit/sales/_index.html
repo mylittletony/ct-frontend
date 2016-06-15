@@ -1,0 +1,55 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <form ng-submit="$event.preventDefault()">
+      <md-autocomplete
+          flex="100"
+          md-selected-item="selectedItem"
+          ng-enter="search(item._key)"
+          md-search-text-change="searchTextChange(searchText)"
+          md-no-cache="true"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item._key"
+          md-min-length="5"
+          md-autofocus="true"
+          md-menu-class="locations-autocomplete"
+          placeholder="Search">
+
+        <md-item-template >
+          <a ng-click="go(item.slug)">
+            <span class="item-title">
+              <md-icon>{{ item._index == 'devices' ? "router" : item._index == 'clients' ? "devices" : item._index == 'vouchers' ? "receipt" : "business" }}</md-icon>
+              <span>&nbsp;{{ item._key }}</span>
+            </span>
+            <span class="item-metadata">
+              <span class="item-metastat">
+                Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span>
+              </span>
+            </span>
+          </a>
+        </md-item-template>
+        <md-not-found>
+          No results found.
+        </md-not-found>
+      </md-autocomplete>
+      <br/>
+    </form>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="100">
+      <md-card>
+        <md-card-content>
+
+          Sales TBC
+
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</md-content>

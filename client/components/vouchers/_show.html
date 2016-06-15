@@ -5,8 +5,8 @@
     </md-button>
     <p>Vouchers</p>
     <md-menu ng-if="menu.length">
-      <md-button aria-label="Open Tools" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
-        TOOLS
+      <md-button aria-label="Open Tools" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon>more_vert</md-icon>
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="item in menu">

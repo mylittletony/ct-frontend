@@ -105,17 +105,6 @@ app.directive('currency', function() {
 
 });
 
-app.filter('humanised', ['$window', function(window) {
-    return function(input) {
-      if ( input === undefined || input === null) {
-        return 'N/A';
-      } else {
-        var duration = window.moment.duration(input, 'seconds');
-        return duration.humanize();
-      }
-    };
-}]);
-
 app.directive('countrySelect', ['$parse', function($parse) {
 
   var countries = [

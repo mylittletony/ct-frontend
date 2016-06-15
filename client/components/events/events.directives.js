@@ -8,6 +8,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', funct
 
     menu.isOpenLeft = false;
     menu.isOpen = false;
+    menu.sectionName = 'Events';
 
     scope.loading     = true;
     scope.page        = $routeParams.page;

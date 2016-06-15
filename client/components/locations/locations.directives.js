@@ -64,6 +64,8 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
     menu.isOpenLeft = false;
     menu.isOpen = false;
+    menu.sectionName = 'Locations';
+
     if ($routeParams.user_id) {
       scope.user_id = parseInt($routeParams.user_id);
     }
@@ -186,12 +188,11 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       $location.search({name: name});
     };
 
-    function searchTextChange(text) {
-      // $log.info('Text changed to ' + text);
+    function searchTextChange(id) {
     }
-    function selectedItemChange(item) {
-      // scope.location = item;
-      // $log.info('Item changed to ' + JSON.stringify(item));
+
+    function selectedItemChange(id) {
+      $location.path('/locations/' + id);
     }
 
     if ($routeParams.xtr) {
@@ -2083,12 +2084,14 @@ app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showTo
 
 }]);
 
-app.directive('dashInventory', ['Report', function(Report) {
+app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
   var link = function(scope) {
 
     scope.loading = true;
     scope.stats = { new: 0, active: 0 };
+
+    scope.user = Auth.currentUser();
 
     var init = function() {
       Report.inventory({}).$promise.then(function(results) {
@@ -2134,7 +2137,7 @@ app.directive('dashInventory', ['Report', function(Report) {
       'Loading'+
       '</div>'+
       '<div ng-if=\'!loading\'>'+
-      '<md-list-item class="md-3-line" href=\'/#/me/inventory\'>'+
+      '<md-list-item class="md-3-line" href=\'/#/users/{{ user.slug }}/inventory\'>'+
       '<md-icon md-font-icon="">devices</md-icon>'+
       '<div class="md-list-item-text">'+
       '<h3>New Boxes</h3>'+

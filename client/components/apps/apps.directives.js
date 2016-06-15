@@ -8,6 +8,7 @@ app.directive('listApps', ['App', '$routeParams', 'menu', function(App, $routePa
 
     menu.isOpen = false;
     menu.hideBurger = true;
+    menu.sectionName = 'Developer';
 
     scope.loading   = true;
 

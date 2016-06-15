@@ -4,6 +4,20 @@
 
 var app = angular.module('myApp.locations.filters', []);
 
+app.filter('humanData', function() {
+  return function(bytes, precision) {
+
+    if(bytes === 0 || bytes === '' || bytes === undefined || bytes === null) {
+      return '0 Bytes';
+    } else {
+      var k = 1000;
+      var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+      var i = Math.floor(Math.log(bytes) / Math.log(k));
+      return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+  };
+});
+
 app.filter('sentenceCase', function() {
   return function(input) {
     input = input || '';
@@ -71,10 +85,11 @@ app.filter('bitsToBytes', function() {
 
 app.filter('humanTime', ['$window', function(window) {
   return function(input) {
+
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMMM Do YYYY, h:mm:ss a');
+      return window.moment.utc(input*1000).format('MMMM Do YYYY, h:mm:ss a');
     }
   };
 }]);
@@ -94,9 +109,34 @@ app.filter('humanTimeShort', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMM Do, h:mm:ss a');
+      return window.moment.utc(input*1000).format('MMM Do, H:mm:ss');
     }
   };
+}]);
+
+app.filter('humanTimeShortest', [function() {
+  return function(input) {
+    if ( input === undefined || input === null) {
+      return 'N/A';
+    } else {
+      return window.moment.utc(input*1000).format('MMMM D, H:mm:ss');
+    }
+  };
+}]);
+
+app.filter('humanised', ['$window', function(window) {
+    return function(input) {
+      if ( input === undefined || input === null) {
+        return '-';
+      } else {
+        var d = '';
+        if (input < 60) {
+          d = 's';
+        }
+        // return window.moment.duration(input, 'seconds').format('hh:mm:ss');
+        return window.moment.duration(input, 'seconds').format('HH:mm:ss') + d;
+      }
+    };
 }]);
 
 app.filter('lastSeen', [function() {
@@ -104,7 +144,7 @@ app.filter('lastSeen', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMM Do h:mm:ssa');
+      return window.moment.utc(input*1000).format('MMM Do h:mm:ssa');
     }
   };
 }]);

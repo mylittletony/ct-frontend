@@ -1,4 +1,4 @@
-<form name="myForm">
+<form name="myForm" ng-submit="save()">
   <md-card>
     <md-card-title>
       <md-card-title-text>
@@ -202,7 +202,7 @@
 
   </md-card>
 
-  <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save()">
+  <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
     {{ voucher.unique_id ? 'Update' : 'Create' }}
   </md-button>
 

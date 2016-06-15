@@ -77,6 +77,20 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
       }
     };
 
+    var logout = function() {
+      scope.client.splash_status = 'dnat';
+      Client.logout({
+        location_id: scope.location.slug,
+        box_id: scope.client.slug,
+        id: scope.client.id
+      }).$promise.then(function(results) {
+        showToast('Successfully disconnected client.');
+      }, function(err) {
+        scope.client.splash_status = 'pass';
+        showErrors(err);
+      });
+    };
+
     clientsMenu();
 
     var interval;
@@ -147,11 +161,6 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
 
     scope.predicate   = $routeParams.predicate;
 
-    var fakeClient = function() {
-      var client = {};
-      scope.clients.clients.push(client);
-    };
-
     var getParams = function() {
 
       var params = {};
@@ -182,9 +191,6 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
       Client.query(params).$promise.then(function(results) {
         scope.clients         = results;
         scope._links          = results._links;
-        if (results.length === 0) {
-          fakeClient();
-        }
         loadPusher(scope.location.api_token);
         deferred.resolve();
       }, function() {
@@ -221,11 +227,11 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
             'clientIndexChart', obj
           );
         } else {
-          scope.loading       = undefined;
+          scope.loading = undefined;
           controller.$scope.$broadcast('clientIndexChart', {});
         }
       }, function() {
-        scope.loading       = undefined;
+        scope.loading = undefined;
         controller.$scope.$broadcast('clientIndexChart', {});
       });
     };
@@ -336,18 +342,6 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
     }
     colsCtrl.$inject = ['$scope', 'columns'];
 
-    var logout = function(client) {
-      client.processing = true;
-      client.splash_status = 'dnat';
-      Client.logout({location_id: scope.location.slug, box_id: client.slug, id: client.id}).$promise.then(function(results) {
-        showToast('The client was logged out');
-      }, function(err) {
-        showErrors(err);
-        client.splash_status = 'pass';
-        client.processing = undefined;
-      });
-    };
-
     var channel, pusherLoaded;
     var loadPusher = function(key) {
       if (pusherLoaded === undefined && typeof client !== 'undefined') {
@@ -424,7 +418,7 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
       loading: '='
     },
     require: '^clientsIndex',
-    templateUrl: 'components/locations/clients/_table_v2.html'
+    templateUrl: 'components/locations/clients/_index.html'
   };
 
 }]);
@@ -607,67 +601,11 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     scope.fn              = $routeParams.fn;
     scope.period          = $routeParams.period || '30m';
 
-    var clientMenu = function() {
-      if (true) { // user permissions
-        scope.menu = [{
-          name: 'Logout',
-          type: 'logout',
-          disabled: !(scope.client.online && scope.client.splash_status === 'pass'),
-          icon: 'exit_to_app'
-        }];
-        scope.menu.push({
-          name: 'Vouchers',
-          type: 'codes',
-          icon: 'receipt'
-        });
-        scope.menu.push({
-          name: 'Sessions',
-          type: 'sessions',
-          icon: 'data_usage'
-        });
-        scope.menu.push({
-          name: 'Orders',
-          type: 'orders',
-          icon: 'attach_money'
-        });
-        scope.menu.push({
-          name: 'Social',
-          type: 'social',
-          icon: 'people'
-        });
-
-        if (false) {
-          scope.menu.push({
-            name: 'Policies',
-            type: 'policies',
-            icon: ''
-          });
-        }
-      }
-    };
-
-    scope.action = function(type) {
-      switch(type) {
-        case 'logout':
-          logout();
-          break;
-        case 'policies':
-          policies();
-          break;
-        case 'social':
-          socialRedirect();
-          break;
-        default:
-          redirect(type);
-      }
-    };
-
     Client.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
       ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
       scope.client    = results;
       scope.loading   = undefined;
       loadPusher(results.location_token);
-      clientMenu();
       controller.$scope.$broadcast('loadClientChart');
     });
 
@@ -753,18 +691,6 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
 
     scope.isOpen = function(section) {
       return menu.isSectionSelected(section);
-    };
-
-    var socialRedirect = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/social/' + scope.client.social_id;
-    };
-
-    var redirect = function(type) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/' + type;
-    };
-
-    var policies = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/policies?client_mac=' + scope.client.client_mac;
     };
 
     scope.back = function() {
@@ -853,6 +779,116 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
   };
 }]);
 
+app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToast', 'showErrors', function($routeParams, $cookies, Client, showToast, showErrors) {
+
+  var link = function(scope, element)  {
+
+    scope.location = { slug: $routeParams.id };
+
+    var init = function() {
+      if (true) { // user permissions
+        scope.menu = [];
+        scope.menu.push({
+          name: 'Logout',
+          type: 'logout',
+          disabled: !(scope.client.online && scope.client.splash_status === 'pass'),
+          icon: 'exit_to_app'
+        });
+        scope.menu.push({
+          name: 'Vouchers',
+          type: 'codes',
+          icon: 'receipt'
+        });
+        scope.menu.push({
+          name: 'Sessions',
+          type: 'sessions',
+          icon: 'data_usage'
+        });
+        scope.menu.push({
+          name: 'Orders',
+          type: 'orders',
+          icon: 'attach_money'
+        });
+        scope.menu.push({
+          name: 'Social',
+          type: 'social',
+          disabled: !scope.client.social_id,
+          icon: 'people'
+        });
+
+        if (false) {
+          scope.menu.push({
+            name: 'Policies',
+            type: 'policies',
+            icon: ''
+          });
+        }
+      }
+    };
+
+    scope.action = function(type) {
+      switch(type) {
+        case 'logout':
+          logout();
+          break;
+        case 'policies':
+          policies();
+          break;
+        case 'social':
+          socialRedirect();
+          break;
+        default:
+          redirect(type);
+      }
+    };
+
+    var socialRedirect = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/social/' + scope.client.social_id;
+    };
+
+    var redirect = function(type) {
+      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/' + type;
+    };
+
+    var policies = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/policies?client_mac=' + scope.client.client_mac;
+    };
+
+    var logout = function() {
+
+      // Not finished //
+      // Must test //
+
+      scope.client.processing = true;
+      scope.client.splash_status = 'dnat';
+      Client.logout({location_id: scope.location.slug, box_id: scope.client.slug, id: scope.client.id}).$promise.then(function(results) {
+        showToast('The client was logged out');
+      }, function(err) {
+        showErrors(err);
+        scope.client.splash_status = 'pass';
+        scope.client.processing = undefined;
+      });
+    };
+
+    scope.$watch('client',function(nv){
+      if (nv !== undefined) {
+        init();
+      }
+    });
+
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      client: '='
+    },
+    templateUrl: 'components/locations/clients/_toolbar.html'
+  };
+
+}]);
+
 app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 'showErrors', function(Client, $routeParams, $q, showToast, showErrors) {
 
   var link = function( scope, element, attrs ) {
@@ -868,7 +904,7 @@ app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 's
     };
 
     scope.query = {
-      order:      'date_activated',
+      order:      '-date_activated',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],

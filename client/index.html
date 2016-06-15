@@ -65,6 +65,10 @@
         <h2>
           <a href="/#/">{{ brandName.name | titleCase }}</a>
         </h2>
+        <md-divider class="vertical-divider" ng-if="vm.menu.sectionName"></md-divider>
+        <h2>
+          {{ vm.menu.sectionName }}
+        </h2>
         <span flex></span>
         <span hide show-gt-sm>
 
@@ -75,7 +79,7 @@
             <md-menu-content width="4" >
               <md-menu-item ng-repeat="item in vm.menu.main">
                 <md-button href='{{item.link}}'>
-                  <md-icon md-menu-align-target class="md-dark">{{ item.icon }}</md-icon>
+                  <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
                   {{ item.title }}
                 </md-button>
               </md-menu-item>
@@ -91,7 +95,8 @@
           </md-button>
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <md-icon md-menu-origin>face</md-icon>
+              <user-avatar></user-avatar>
+
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item>
@@ -263,6 +268,7 @@
   <script src="bower_components/filepicker-js-bower/filepicker.min.js"></script>
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <script src="bower_components/promise-polyfill/Promise.js"></script>
+  <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -277,6 +283,8 @@
   <script src="components/access_token/access-token.services.js"></script>
   <script src="components/apps/apps.directives.js"></script>
   <script src="components/apps/apps.services.js"></script>
+  <script src="components/audit/audits.directives.js"></script>
+  <script src="components/audit/audits.services.js"></script>
   <script src="components/authentications/authentications.controller.js"></script>
   <script src="components/authentications/authentications.services.js"></script>
   <script src="components/boxes/boxes.controllers.js"></script>
@@ -351,11 +359,8 @@
   <script src="components/registrations/registrations.directive.js"></script>
   <script src="components/registrations/registrations.services.js"></script>
   <script src="components/reports/reports.controller.js"></script>
-  <script src="components/reports/reports.directives.js"></script>
   <script src="components/reports/reports.services.js"></script>
   <script src="components/reports/reports.v2.directives.js"></script>
-  <script src="components/sessions/sessions.directives.js"></script>
-  <script src="components/sessions/sessions.services.js"></script>
   <script src="components/social/social.directives.js"></script>
   <script src="components/social/social.services.js"></script>
   <script src="components/speedtests/speedtests.controller.js"></script>

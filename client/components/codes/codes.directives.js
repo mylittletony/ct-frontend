@@ -458,7 +458,8 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
         start: scope.query.start,
         end: scope.query.end,
         location_id: scope.location.slug,
-        q: $routeParams.username,
+        // q: $routeParams.username,
+        client_mac: scope.client.client_mac
       };
       Session.query(params).$promise.then(function(results) {
         scope.sessions    = results.sessions;
@@ -530,13 +531,23 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
       }
     };
 
-    init();
+    var getClient = function() {
+      var deferred = $q.defer();
+      Client.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
+        scope.client = results;
+        deferred.resolve();
+      });
+      return deferred.promise;
+    };
+
+    getClient().then(init);
   };
 
   return {
     link: link,
     scope: {
-      loading: '='
+      loading: '=',
+      client_mac: '@'
     },
     templateUrl: 'components/codes/_sessions.html'
   };
