@@ -17,6 +17,7 @@ sub create_openssl_conf();
 sub openssl;
 sub create_server_cert($);
 sub get_ip();
+sub create_nginx_conf($);
 
 my ($volume, $directories, undef) = File::Spec->splitpath(abs_path $0);
 my $here = File::Spec->catpath($volume, $directories);
@@ -37,6 +38,69 @@ if (!defined $fqdn) {
 }
 $fqdn = lc $fqdn;
 create_server_cert $fqdn;
+create_nginx_conf $fqdn;
+
+sub create_nginx_conf($) {
+    my ($fqdn) = @_;
+
+    my $filename = "$here/nginx.new.conf";
+    open(my $fh, '>', $filename)
+        or die "cannot create '$filename': $!\n";
+
+    print $fh <<EOF;
+server {
+    listen $AUTH_PORT ssl;
+
+    server_name $fqdn;
+
+    access_log $here/logs/auth-server-access.log;
+    error_log $here/logs/auth-server-error.log;
+
+    ssl on;
+    ssl_certificate $here/ca/certs/$fqdn.cert.pem;
+    ssl_certificate_key $here/ca/private/$fqdn.key.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:9000;
+        include $here/conf/proxy.inc;
+    }
+}
+
+server {
+    listen $APP_PORT ssl;
+
+    server_name $fqdn;
+
+    access_log $here/logs/app-server-access.log;
+    error_log $here/logs/app-server-error.log;
+
+    ssl on;
+    ssl_certificate $here/ca/certs/$fqdn.cert.pem;
+    ssl_certificate_key $here/ca/private/$fqdn.key.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:9090;
+        include $here/conf/proxy.inc;
+    }
+}
+EOF
+
+    print <<EOF;
+# nginx conf written: $filename
+# Add this line to the http context of your nginx configuration:
+#
+#    include $here/nginx.conf;
+#
+# Then reload nginx ("sudo nginx -s reload"), and start the authentication
+# server ("grunt serve") and the application server ("npm start").  If the
+# browser does not open automatically point it here:
+#
+#    https://$fqdn:$APP_PORT/
+#
+# Optionally install the CA certificate in your browser (see README.md).
+EOF
+    return 1;
+}
 
 sub create_ca() {
     my $ca_dir = "$here/ca";
@@ -44,8 +108,8 @@ sub create_ca() {
 
     if ($exists) {
         print <<EOF;
-$ca_dir/certs/ca.cert.pem exists.
-Will not create a certificate authority.
+# $ca_dir/certs/ca.cert.pem exists.
+# Will not create a certificate authority.
 EOF
 
         return 1;
@@ -77,8 +141,8 @@ sub create_server_cert($) {
 
     if ($exists) {
         print <<EOF;
-$ca_dir/certs/$fqdn.cert.pem exists.
-Will not create a server certificate.
+# $ca_dir/certs/$fqdn.cert.pem exists.
+# Will not create a server certificate.
 EOF
 
         return 1;
