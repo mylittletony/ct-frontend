@@ -19,6 +19,10 @@
       <tr md-row md-select="session" ng-repeat="session in sessions | filter: filter.search | orderBy: query.order">
         <td md-cell>
           <span hide show-gt-xs>{{ ::(session.acctstarttime | humanTime) }}</span>
+          <span hide-gt-xs>
+            {{ ::(session.acctstarttime | humanTimeShort) }}<br>
+            <small>{{ ::session.username | truncate:30 }}</small>
+          </span>
           <md-tooltip>Stop: {{ ::session.acctstoptime | humanTime }}</md-tooltip>
         </td>
         <td hide show-gt-sm md-cell>
@@ -30,8 +34,8 @@
           <md-tooltip ng-if="session.device_ipaddr">{{ ::session.device_ipaddr }}</md-tooltip>
         </td>
         <td hide show-gt-xs md-cell>
-          {{ session.username | truncate:20 }}
-          <md-tooltip ng-if="session.username.length > 20">
+          {{ session.username | truncate:30 }}
+          <md-tooltip ng-if="session.username.length > 30">
             {{ ::session.username }}
           </md-tooltip>
         </td>
@@ -45,8 +49,8 @@
         <!-- <td hide show-gt-md md-cell>{{::(session.upload | humanData)}}</td> -->
         <td hide show-gt-md md-cell>{{ ::(session.manufacturer | truncate: 20) }}</td>
         <td hide show-gt-sm md-cell>
-          {{ ::(session.location_name | truncate:20 ) }}
-          <md-tooltip ng-if="session.location_name.length > 20">
+          {{ ::(session.location_name | truncate:30 ) }}
+          <md-tooltip ng-if="session.location_name.length > 30">
             {{ ::session.location_name }}
           </md-tooltip>
         </td>
@@ -59,13 +63,13 @@
               <md-menu-item>
                 <md-button href="/#/locations/{{ session.location_id }}">
                   <md-icon>business</md-icon>
-                  <p flex>Location</p>
+                  <p>Location</p>
                 </md-button>
               </md-menu-item>
               <md-menu-item>
                 <md-button ng-click="visitClient(session)">
                   <md-icon>devices</md-icon>
-                  <p flex>Client</p>
+                  <p>Client</p>
                 </md-button>
               </md-menu-item>
               <!-- <md-menu-item> -->
