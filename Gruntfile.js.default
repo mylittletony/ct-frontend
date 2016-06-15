@@ -2,11 +2,17 @@
 'use strict';
 
 module.exports = function (grunt) {
-  var localConfig;
+  var localConfig, localConstants;
   try {
     localConfig = require('./server/config/local.env');
   } catch(e) {
     localConfig = {};
+  }
+
+  try {
+    localConstants = require('./server/config/local.constants');
+  } catch(e) {
+    localConstants = {};
   }
 
   grunt.loadNpmTasks('grunt-karma');
@@ -68,14 +74,14 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.client %>/scripts/config.js',
         },
         constants: {
-          API_END_POINT: 'http://mywifi.dev:8080/api/v1',
-          API_URL: 'http://mywifi.dev:8080',
-          AUTH_URL: 'http://id.mywifi.dev:8080',
-          STRIPE_KEY: '',
-          SLACK_TOKEN: '',
-          CHIMP_TOKEN: '',
-          INTERCOM: '',
-          PUSHER: ''
+          API_END_POINT: localConstants.API_END_POINT || 'http://mywifi.dev:8080/api/v1',
+          API_URL: localConstants.API_URL || 'http://mywifi.dev:8080',
+          AUTH_URL: localConstants.AUTH_URL || 'http://id.mywifi.dev:8080',
+          STRIPE_KEY: localConstants.STRIPE_KEY || '',
+          SLACK_TOKEN: localConstants.SLOCK_TOKEN || '',
+          CHIMP_TOKEN: localConstants.CHIMP_TOKEN || '',
+          INTERCOM: localConstants.INTERCOM || '',
+          PUSHER: localConstants.PUSHER || ''
         }
       },
       production: {

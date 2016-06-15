@@ -19,6 +19,7 @@ sub create_server_cert($);
 sub get_ip();
 sub create_nginx_conf($);
 sub create_local_env($);
+sub create_local_constants;
 
 my ($volume, $directories, undef) = File::Spec->splitpath(abs_path $0);
 my $here = File::Spec->catpath($volume, $directories);
@@ -40,7 +41,33 @@ if (!defined $fqdn) {
 $fqdn = lc $fqdn;
 create_server_cert $fqdn;
 create_local_env $fqdn;
+create_local_constants;
 create_nginx_conf $fqdn;
+
+sub create_local_constants {
+    my $filename = abs_path "$here/../server/config/local.constants.js";
+    open(my $fh, '>', $filename)
+        or die "cannot create '$filename': $!\n";
+
+    print $fh <<EOF;
+'use strict';
+
+module.exports = {
+    API_END_POINT: 'https://api.ctapp.io/api/v1',
+    AUTH_URL: 'https://api.ctapp.io',
+    AUTH_URL: 'https://id.ctapp.io',
+    STRIP_KEY: '',
+    SLACK_TOKEN: '',
+    CHIMP_TOKEN: '',
+    INTERCOM: '',
+    PUSHER: ''
+};
+EOF
+
+    print "# Wrote '$filename'.\n";
+
+    return 1;
+}
 
 sub create_local_env($) {
     my ($fqdn) = @_;
@@ -72,7 +99,7 @@ EOF
 sub create_nginx_conf($) {
     my ($fqdn) = @_;
 
-    my $filename = "$here/nginx.new.conf";
+    my $filename = "$here/nginx.conf";
     open(my $fh, '>', $filename)
         or die "cannot create '$filename': $!\n";
 
