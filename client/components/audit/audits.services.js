@@ -15,7 +15,8 @@ app.factory('Session', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
           box_id: '@box_id',
           location_id: '@location_id',
-          id: '@id'
+          id: '@id',
+          client_mac: '@client_mac'
         }
       }
     });

@@ -1,0 +1,76 @@
+<!-- <md-toolbar class="md-table-toolbar md-default"> -->
+<!--   <div class="md-toolbar-tools"> -->
+<!--     <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings"> -->
+<!--       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon> -->
+<!--     </md-button> -->
+<!--     <p>Back to {{ code.username ? "Codes" : "Client" }}</p> -->
+<!--     <span flex></span> -->
+<!--     <clients-toolbar client="client"></clients-toolbar> -->
+<!--   </div> -->
+<!--   <md-divider></md-divider> -->
+<!-- </md-toolbar> -->
+
+<!-- <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap> -->
+
+<!--   <div flex flex-gt-sm="50" layout="column"> -->
+<!--     <md-card> -->
+<!--       <md-card-title> -->
+<!--         <md-card-title-text> -->
+<!--           <span class="md-headline">{{ _links.total_entries }} Sessions for {{ code.username ? code.username : "Client" }}</span> -->
+<!--           <span class="md-subhead">Between {{ query.start | humanTimeShort }} and {{ query.end | humanTimeShort }}</span> -->
+<!--         </md-card-title-text> -->
+<!--         <md-button ng-click="rangeFilter()" class="md-icon-button" hide show-gt-xs> -->
+<!--           <md-icon md-font-icon="date_range">date_range</md-icon> -->
+<!--         </md-button> -->
+<!--       </md-card-title> -->
+<!--       <md-card-content ng-if="sessions.length === 0"> -->
+<!--         <p>No sessions found.</p> -->
+<!--       </md-card-content> -->
+<!--       <md-card-content ng-if="sessions.length"> -->
+<!--         <md-table-container> -->
+<!--           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise"> -->
+<!--             <thead md-head> -->
+<!--               <tr md-row> -->
+<!--                 <th md-column><span>Start</span></th> -->
+<!--                 <th hide show-gt-sm md-column><span>End</span></th> -->
+<!--                 <th md-column><span>Duration</span></th> -->
+<!--                 <th md-column><span>Usage</span></th> -->
+<!--                 <th hide show-gt-sm md-column><span>AP Mac</span></th> -->
+<!--               </tr> -->
+<!--             </thead> -->
+<!--             <tbody md-body> -->
+<!--               <tr md-row md-select="session" md-auto-select="options.autoSelect" ng-repeat="session in filtered = (sessions | filter: query.filter)"> -->
+<!--                 <td md-cell> -->
+<!--                   <span hide-gt-sm>From: </span>{{ session.acctstarttime | humanTimeShort }}<br> -->
+<!--                   <span hide-gt-sm><small>To: {{ session.acctstoptime | humanTimeShort }}</small></span> -->
+<!--                 </td> -->
+<!--                 <td hide show-gt-sm md-cell> -->
+<!--                   {{ session.acctstoptime | humanTimeShort }} -->
+<!--                 </td> -->
+<!--                 <td md-cell> -->
+<!--                   {{ session.acctsessiontime | humanised }} -->
+<!--                   <md-tooltip> -->
+<!--                     {{ (session.acctsessiontime / 60) | number:0 }} mins -->
+<!--                   </md-tooltip> -->
+<!--                 </td> -->
+<!--                 <td md-cell> -->
+<!--                   {{ (session.download + session.upload) | humanData }} -->
+<!--                   <md-tooltip> -->
+<!--                     {{ (session.download || 0) | humanData }} -->
+<!--                     <md-icon md-font-icon="download">arrow_downward</md-icon> -->
+<!--                     {{ (session.upload || 0) | humanData }} -->
+<!--                     <md-icon md-font-icon="upload">arrow_upward</md-icon> -->
+<!--                   </md-tooltip> -->
+<!--                 </td> -->
+<!--                 <td hide show-gt-sm md-cell> -->
+<!--                   {{ session.ap_mac }} -->
+<!--                 </td> -->
+<!--               </tr> -->
+<!--             </tbody> -->
+<!--           </table> -->
+<!--         </md-table-container> -->
+<!--         <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination> -->
+<!--       </md-card-content> -->
+<!--     </md-card> -->
+<!--   </div> -->
+<!-- </md-content> -->

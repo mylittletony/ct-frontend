@@ -6,6 +6,8 @@
         <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
       </md-button>
       <p>Back to Client</p>
+      <span flex></span>
+      <clients-toolbar client="client"></clients-toolbar>
     </div>
     <md-divider></md-divider>
   </md-toolbar>
@@ -13,7 +15,6 @@
   <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
 
     <div flex layout="column">
-<!-- hide show-gt-sm --> 
       <md-card>
         <md-card-title>
           <md-card-title-text>
@@ -27,7 +28,7 @@
               <thead md-head md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
                   <th md-column md-order-by="active"><span>Active</span></th>
-                  <th md-column md-order-by="username"><span>Username</span></th>
+                  <th md-column md-order-by="username_human"><span>Username</span></th>
                   <th hide show-gt-sm md-column hide show-gt-sm md-order-by="password" md-desc><span>Password</span></th>
                   <th hide show-gt-sm md-column md-numeric md-order-by="date_activated"><span>Activated</span></th>
                   <th md-column><span>Action<span></th>
@@ -39,17 +40,17 @@
                     <md-icon md-menu-origin md-menu-icon="error_outline">{{ code.active ? "check_circle" : "highlight_off" }}</md-icon>
                   </td>
                   <td md-cell>
-                    <span hide show-gt-sm>{{ code.username }}</span>
-                    <span hide-gt-sm>{{ code.username | truncate:20 }}
-                      <md-tooltip>{{ code.username }}</md-tooltip>
+                    <span hide show-gt-sm>{{ ::code.username }}</span>
+                    <span hide-gt-sm>{{ ::(code.username | truncate:20) }}
+                      <md-tooltip>{{ ::code.username }}</md-tooltip>
                     </span>
                     <span hide-gt-sm>
-                      {{ code.date_activated | humanTimeShort }}
+                      {{ ::(code.date_activated | humanTimeShort) }}
                     </span>
                   </td>
-                  <td hide show-gt-sm md-cell>{{ code.password }}</td>
+                  <td hide show-gt-sm md-cell>{{ ::code.password }}</td>
                   <td hide show-gt-sm md-cell>
-                    {{ code.date_activated | humanTime }}
+                    {{ ::(code.date_activated | humanTime) }}
                   </td>
                   <td md-cell>
                     <md-menu ng-show="codesMenu">
