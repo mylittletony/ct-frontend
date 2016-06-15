@@ -4,12 +4,10 @@
       <tr md-row>
         <th md-column><span>Start</span></th>
         <th hide show-gt-sm md-column><span>Duration</span></th>
-        <!-- <th hide show-gt-md md-column><span>Stop</span></th> -->
         <th hide show-gt-md md-column><span>Client Mac</span></th>
         <th hide show-gt-xs md-column><span>Username</span></th>
         <th hide show-gt-lg md-column><span>Device Mac</span></th>
         <th hide show-gt-xs md-column><span>Usage</span></th>
-        <!-- <th hide show-gt-md md-column><span>Outbound</span></th> -->
         <th hide show-gt-md md-column><span>Manufacturer</span></th>
         <th hide show-gt-sm md-column><span>Location</span></th>
         <th md-column>Action</th>
@@ -46,7 +44,6 @@
           {{::((session.download + session.upload)| humanData)}}
           <md-tooltip hide-gt-md>Inbound: {{ ::session.download | humanData }}. Outbound: {{ ::session.upload | humanData }}</md-tooltip>
         </td>
-        <!-- <td hide show-gt-md md-cell>{{::(session.upload | humanData)}}</td> -->
         <td hide show-gt-md md-cell>{{ ::(session.manufacturer | truncate: 20) }}</td>
         <td hide show-gt-sm md-cell>
           {{ ::(session.location_name | truncate:30 ) }}
