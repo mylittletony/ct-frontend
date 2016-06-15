@@ -85,10 +85,11 @@ app.filter('bitsToBytes', function() {
 
 app.filter('humanTime', ['$window', function(window) {
   return function(input) {
+
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMMM Do YYYY, h:mm:ss a');
+      return window.moment.utc(input*1000).format('MMMM Do YYYY, h:mm:ss a');
     }
   };
 }]);
@@ -108,7 +109,7 @@ app.filter('humanTimeShort', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMM Do, H:mm:ss');
+      return window.moment.utc(input*1000).format('MMM Do, H:mm:ss');
     }
   };
 }]);
@@ -118,7 +119,7 @@ app.filter('humanTimeShortest', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMMM D, H:mm:ss');
+      return window.moment.utc(input*1000).format('MMMM D, H:mm:ss');
     }
   };
 }]);
@@ -128,7 +129,12 @@ app.filter('humanised', ['$window', function(window) {
       if ( input === undefined || input === null) {
         return '-';
       } else {
-        return window.moment.duration(input, 'seconds').format('HH:mm:ss');
+        var d = '';
+        if (input < 60) {
+          d = 's';
+        }
+        // return window.moment.duration(input, 'seconds').format('hh:mm:ss');
+        return window.moment.duration(input, 'seconds').format('HH:mm:ss') + d;
       }
     };
 }]);
@@ -138,7 +144,7 @@ app.filter('lastSeen', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.unix(input).format('MMM Do h:mm:ssa');
+      return window.moment.utc(input*1000).format('MMM Do h:mm:ssa');
     }
   };
 }]);
