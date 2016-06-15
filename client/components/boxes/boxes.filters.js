@@ -36,20 +36,6 @@ app.filter('filterUptime', function() {
   };
 });
 
-app.filter('humanData', function() {
-  return function(bytes, precision) {
-
-    if(bytes === 0) {
-      return '0 Bytes';
-    } else {
-      var k = 1000;
-      var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-      var i = Math.floor(Math.log(bytes) / Math.log(k));
-      return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-    }
-  };
-});
-
 app.filter('kbps', function() {
   return function(bytes) {
     if (bytes === undefined || bytes === null || bytes === '') {

@@ -48,7 +48,6 @@
 
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <!-- <md-icon>donut_large</md-icon> -->
               <span>{{ (_links.total_entries || 0) }} Radius Sessions</span>
               <div flex></div>
               <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="selected.length" ng-click="filterClient()">
@@ -64,93 +63,7 @@
               </md-button>
             </div>
           </md-toolbar>
-
-          <md-table-container>
-            <table ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
-              <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
-                <tr md-row>
-                  <th md-column><span>Start</span></th>
-                  <th hide show-gt-sm md-column><span>Duration</span></th>
-                  <!-- <th hide show-gt-md md-column><span>Stop</span></th> -->
-                  <th hide show-gt-md md-column><span>Client Mac</span></th>
-                  <th hide show-gt-xs md-column><span>Username</span></th>
-                  <th hide show-gt-lg md-column><span>Device Mac</span></th>
-                  <th hide show-gt-xs md-column><span>Inbound</span></th>
-                  <th hide show-gt-md md-column><span>Outbound</span></th>
-                  <th hide show-gt-sm md-column><span>Manufacturer</span></th>
-                  <th hide show-gt-sm md-column><span>Location</span></th>
-                  <th md-column>Action</th>
-                </tr>
-              </thead>
-              <tbody md-body>
-                <tr md-row md-select="session" ng-repeat="session in sessions | filter: filter.search | orderBy: query.order">
-                  <td md-cell>
-                    <span hide show-gt-xs>{{ ::(session.acctstarttime | humanTime) }}</span>
-                    <md-tooltip>Stop: {{ ::session.acctstoptime | humanTime }}</md-tooltip>
-                  </td>
-                  <td hide show-gt-sm md-cell>
-                    {{ ::(session.acctsessiontime | humanised ) || '-' }}
-                    <md-tooltip ng-if="session.acctstoptime">{{ ::session.acctstopcause }}</md-tooltip>
-                  </td>
-                  <td hide show-gt-md md-cell>
-                    {{ ::(session.client_mac | uppercase)}}
-                    <md-tooltip ng-if="session.device_ipaddr">{{ ::session.device_ipaddr }}</md-tooltip>
-                  </td>
-                  <td hide show-gt-xs md-cell>
-                    {{ session.username | truncate:20 }}
-                    <md-tooltip ng-if="session.username.length > 20">
-                      {{ ::session.username }}
-                    </md-tooltip>
-                  </td>
-                  <td hide show-gt-lg md-cell>
-                    {{ ::(session.ap_mac | uppercase )}}
-                  </td>
-                  <td hide show-gt-xs md-cell>
-                    {{::(session.download | humanData)}}
-                    <md-tooltip hide-gt-md>Outbound: {{ ::session.upload | humanData }}</md-tooltip>
-                  </td>
-                  <td hide show-gt-md md-cell>{{::(session.upload | humanData)}}</td>
-                  <td hide show-gt-sm md-cell>{{ ::(session.manufacturer | truncate: 20) }}</td>
-                  <td hide show-gt-sm md-cell>
-                    {{ ::(session.location_name | truncate:20 ) }}
-                    <md-tooltip ng-if="session.location_name.length > 20">
-                      {{ ::session.location_name }}
-                    </md-tooltip>
-                  </td>
-                  <td md-cell>
-                    <md-menu>
-                      <md-button aria-label="Open sessions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                        <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                      </md-button>
-                      <md-menu-content width="4" >
-                        <md-menu-item>
-                          <md-button href="/#/locations/{{ session.location_id }}">
-                            <md-icon>business</md-icon>
-                            <p flex>Location</p>
-                          </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                          <md-button ng-click="visitClient(session)">
-                            <md-icon>devices</md-icon>
-                            <p flex>Client</p>
-                          </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                          <md-button href="">
-                            <md-icon>receipt</md-icon>
-                            <p flex>Voucher</p>
-                          </md-button>
-                        </md-menu-item>
-                      </md-menu-content>
-                    </md-menu>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </md-table-container>
-
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-
+          <div ng-include="'components/codes/_table.html'"></div>
         </md-card-content>
       </md-card>
     </div>

@@ -458,7 +458,7 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
         start: scope.query.start,
         end: scope.query.end,
         location_id: scope.location.slug,
-        q: $routeParams.username,
+        // q: $routeParams.username,
         client_mac: scope.client.client_mac
       };
       Session.query(params).$promise.then(function(results) {

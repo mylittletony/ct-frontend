@@ -4,6 +4,20 @@
 
 var app = angular.module('myApp.locations.filters', []);
 
+app.filter('humanData', function() {
+  return function(bytes, precision) {
+
+    if(bytes === 0 || bytes === '' || bytes === undefined || bytes === null) {
+      return '0 Bytes';
+    } else {
+      var k = 1000;
+      var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+      var i = Math.floor(Math.log(bytes) / Math.log(k));
+      return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+  };
+});
+
 app.filter('sentenceCase', function() {
   return function(input) {
     input = input || '';

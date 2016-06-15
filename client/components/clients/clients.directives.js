@@ -890,7 +890,7 @@ app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 's
     };
 
     scope.query = {
-      order:      'date_activated',
+      order:      '-date_activated',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
