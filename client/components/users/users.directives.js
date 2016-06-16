@@ -1291,6 +1291,8 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
     var summary = function() {
       Inventory.show({id: $routeParams.id}).$promise.then(function(results) {
         scope.summary = results;
+      }, function(err) {
+        console.log(err);
       });
 
     };
