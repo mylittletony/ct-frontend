@@ -16,7 +16,8 @@ var app = angular.module('myApp', [
   'md.data.table',
   'minicolors',
   'pusher-angular',
-  'config'
+  'config',
+  'gettext'
 ]);
 
 app.config(['$compileProvider', function ($compileProvider) {
