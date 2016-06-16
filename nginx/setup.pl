@@ -26,9 +26,6 @@ my $here = File::Spec->catpath($volume, $directories);
 $here =~ y{\\}{/};
 $here =~ s{/$}{};
 
-load_config;
-create_directories;
-create_ca;
 my $fqdn = hostfqdn;
 if (!defined $fqdn) {
     warn "Cannot determine fully qualified domain name.  Fall back to IP.\n";
@@ -39,6 +36,10 @@ if (!defined $fqdn) {
     }
 }
 $fqdn = lc $fqdn;
+
+load_config;
+create_directories;
+create_ca;
 create_server_cert $fqdn;
 create_local_env $fqdn;
 create_local_constants;
@@ -287,7 +288,12 @@ EOF
         die <<EOF;
 Local configuration not found.
 Created $here/config.pm.
-Please fill in the missing configuration values!
+Create a Cucumber app with the following values:
+
+    Callback URL: https://$fqdn:4443/auth/login/callback
+    Application Website: https://$fqdn:4444
+
+Then fill in the APP_ID and APP_SECRET in config.pm.
 EOF
     }
 
