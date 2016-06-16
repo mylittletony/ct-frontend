@@ -7,7 +7,7 @@ use File::Spec;
 use Net::Domain qw(hostfqdn);
 use IO::Socket::INET;
 
-use vars qw($APP_ID $APP_SECRET $OPENSSL $AUTH_PORT $APP_PORT);
+use vars qw($APP_ID $APP_SECRET $OPENSSL $AUTH_PORT $APP_PORT $HOSTNAME);
 
 sub slurp_file($);
 sub load_config();
@@ -20,24 +20,16 @@ sub get_ip();
 sub create_nginx_conf($);
 sub create_local_env($);
 sub create_local_constants;
+sub get_hostname;
 
 my ($volume, $directories, undef) = File::Spec->splitpath(abs_path $0);
 my $here = File::Spec->catpath($volume, $directories);
 $here =~ y{\\}{/};
 $here =~ s{/$}{};
 
-my $fqdn = hostfqdn;
-if (!defined $fqdn) {
-    warn "Cannot determine fully qualified domain name.  Fall back to IP.\n";
-    $fqdn = get_ip;
-    if (!defined $fqdn) {
-        $fqdn = 'localhost';
-        warn "Cannot determine your IP address.  Fall back to localhost.\n";
-    }
-}
-$fqdn = lc $fqdn;
-
 load_config;
+my $fqdn = $HOSTNAME;
+$fqdn = get_hostname unless defined $fqdn && length $fqdn;
 create_directories;
 create_ca;
 create_server_cert $fqdn;
@@ -283,6 +275,10 @@ $OPENSSL = "openssl";
 # Port numbers of the authentication server and app server.
 $AUTH_PORT = 4443;
 $APP_PORT = 4444;
+
+# Fully-qualified domain name of your server.  Leave empty for your current
+# hostname.
+$HOSTNAME = "";
 EOF
         }
         die <<EOF;
@@ -373,6 +369,20 @@ sub openssl {
     }
 
     return 1;
+}
+
+sub get_hostname() {
+    my $fqdn = hostfqdn;
+    if (!defined $fqdn) {
+        warn "Cannot determine fully qualified domain name.  Fall back to IP.\n";
+        $fqdn = get_ip;
+        if (!defined $fqdn) {
+            $fqdn = 'localhost';
+            warn "Cannot determine your IP address.  Fall back to localhost.\n";
+        }
+    }
+
+    return lc $fqdn;
 }
 
 sub get_ip() {
