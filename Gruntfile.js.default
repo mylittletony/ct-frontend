@@ -749,7 +749,10 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('update-po', [
-    'msgInitMerge',
+    'msgInitMerge'
+  ]);
+
+  grunt.registerTask('install-po', [
     'potomo',
     'nggettext_compile'
   ]);
@@ -757,7 +760,8 @@ module.exports = function (grunt) {
   grunt.registerTask('all-po', [
     'po/POTFILES',
     'pot',
-    'update-po'
+    'update-po',
+    'install-po'
   ]);
 
   grunt.loadNpmTasks('grunt-msg-init-merge');
