@@ -56,12 +56,11 @@
           <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="box in boxes | filter: filter | orderBy: query.order">
             <td md-cell class="box-status">
               <span ng-if="box.state == 'processing'" class="box-spinner">
-                <!-- <md-progress-circular class="md-warn" md-diameter="20">i</md-progress-circular> -->
                 <md-icon class="box-status processing" md-menu-origin md-font-icon="">rotate_right</md-icon>
               </span>
               <span ng-if="box.state != 'processing'">
-                <md-icon md-menu-origin md-menu-icon="check_circle" class="box-status online" ng-if="box.state == 'online'">check_circle</md-icon>
-                <md-icon md-menu-origin md-menu-icon="error_outline" class="box-status offline md-warn" ng-if="box.state != 'online'" class="s48">error_outline</md-icon>
+                <md-icon md-menu-origin class="box-status online" ng-if="box.state == 'online'">check_circle</md-icon>
+                <md-icon md-menu-origin class="box-status offline md-warn" ng-if="box.state != 'online'" class="s48">error_outline</md-icon>
               </span>
               <md-tooltip>
                 This box is {{ ::box.state === 'online' ? 'online' : 'offline' }}
@@ -109,7 +108,7 @@
                   <md-menu-item>
                     <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
                       <md-icon>pageview</md-icon>
-                  <p flex>View</p>
+                      <p flex>View</p>
                     </md-button>
                   </md-menu-item>
                   <md-menu-item ng-repeat="item in menuItems">

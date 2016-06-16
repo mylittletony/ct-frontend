@@ -400,9 +400,114 @@ app.directive('auditGuests', ['Session', '$routeParams', '$location', 'Client', 
 
 }]);
 
-app.directive('auditSales', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Order, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
+
+    scope.options = {
+      boundaryLinks: false,
+      largeEditDialog: false,
+      pageSelector: false,
+      // rowSelection: rowSelect
+    };
+
+    scope.query = {
+      order:          '-created_at',
+      start:          $routeParams.start,// || start,
+      end:            $routeParams.end,// || end,
+      filter:         $routeParams.q,
+      limit:          $routeParams.per || 25,
+      page:           $routeParams.page || 1,
+      options:        [5,10,25,50,100],
+      direction:      $routeParams.direction || 'desc'
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      search();
+    };
+
+    function init (query) {
+      var q = query || scope.query.filter;
+      var deferred = $q.defer();
+      Order.get({
+        page: scope.query.page,
+        per:  scope.query.limit,
+        q:    q,
+      }).$promise.then(function(results) {
+        scope.orders      = results.orders;
+        scope.loading     = undefined;
+        scope.predicate   = '-created_at';
+        scope._links      = results._links;
+        deferred.resolve(results);
+      }, function(err) {
+        scope.loading = undefined;
+        deferred.reject();
+      });
+      return deferred.promise;
+    }
+
+    function searchTextChange(text) {
+    }
+
+    // var timer;
+    function selectedItemChange(item) {
+    //   timer = $timeout(function() {
+    //     var hash = {};
+    //     if (item && item._index) {
+    //       switch(item._index) {
+    //         case 'devices':
+    //           hash.ap_mac = item._key;
+    //           break;
+    //         case 'clients':
+    //           hash.client_mac = item._key;
+    //           break;
+    //         case 'locations':
+    //           hash.location_name = item._key;
+    //           break;
+    //         case 'vouchers':
+    //           hash.username = item._key;
+    //           break;
+    //         default:
+    //           console.log(item._index);
+    //       }
+    //     }
+    //     $location.search(hash);
+    //   }, 250);
+    }
+
+    scope.querySearch         = init;
+    scope.selectedItemChange  = selectedItemChange;
+    scope.searchTextChange    = searchTextChange;
+
+    var search = function() {
+      var hash        = $location.search();
+      hash.q          = scope.query.filter;
+      hash.page       = scope.query.page;
+      hash.per        = scope.query.limit;
+      // hash.start      = scope.query.start;
+      // hash.end        = scope.query.end;
+      $location.search(hash);
+    };
+
+    // var init = function() {
+    //   Order.get({
+    //     page: scope.query.page,
+    //     per:  scope.query.limit,
+    //     q:    scope.query.filter,
+    //   }).$promise.then(function(results) {
+    //     scope.orders      = results.orders;
+    //     scope.loading     = undefined;
+    //     scope.predicate   = '-created_at';
+    //     scope._links      = results._links;
+    //   }, function(err) {
+
+    //     scope.loading = undefined;
+    //   });
+    // };
+
+    init();
 
   };
 
