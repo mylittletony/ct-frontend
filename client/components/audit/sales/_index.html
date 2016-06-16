@@ -19,7 +19,7 @@
         <md-item-template >
           <a ng-click="go(item.slug)">
             <span class="item-title">
-              <md-icon>{{ item._index == 'devices' ? "router" : item._index == 'clients' ? "devices" : item._index == 'vouchers' ? "receipt" : "business" }}</md-icon>
+              <md-icon>{{ item._index == 'emails' ? "email" : item._index == 'vouchers' ? "receipt" : item._index == 'authorization' ? "stars" : "business" }}</md-icon>
               <span>&nbsp;{{ item._key }}</span>
             </span>
             <span class="item-metadata">
@@ -51,10 +51,11 @@
                 <tr md-row>
                   <th md-column><span>State</span></th>
                   <th iihide md-column><span>Email</span></th>
-                  <th iihide md-column><span>Mac</span></th>
-                  <th iihide md-column><span>Total</span></th>
-                  <th iihide md-column><span>Date</span></th>
-                  <th iihide md-column><span>Merchant</span></th>
+                  <th hide show-gt-md md-column><span>Mac</span></th>
+                  <th hide show-gt-sm md-column><span>Voucher</span></th>
+                  <th hide show-gt-xs md-column><span>Total</span></th>
+                  <th hide show-gt-xs md-column><span>Date</span></th>
+                  <th hide show-gt-sm md-column><span>Merchant</span></th>
                   <th md-column>Action</th>
                 </tr>
               </thead>
@@ -68,11 +69,30 @@
                       <span ng-if="order.state == 'refunded'">This order was refunded</span>
                     </md-tooltip>
                   </td>
-                  <td md-cell>{{ ::(order.email || '-') }}</td>
-                  <td md-cell>{{ ::(order.client_mac) }}</td>
-                  <td md-cell>{{ order.total / 100 | currency:order.currency }}</td>
-                  <td md-cell>{{ ::(order.created_at | humanTime) }}</td>
-                  <td md-cell>{{ ::(order.merchant_type | titleCase) }}</td>
+                  <td md-cell>
+                    <span hide-gt-xs>
+                      {{ ::(order.email | truncate:15 || '-') }}
+                    </span>
+                    <span hide show-gt-xs>
+                      {{ ::(order.email || '-') }}
+                    </span>
+                    <span ng-if="order.email.length >= 15">
+                      <md-tooltip>
+                        {{ ::order.email }}
+                      </md-tooltip>
+                    </span>
+                    <span hide show-xs>
+                      <br><small>{{ ::(order.created_at | humanTimeShort) }}</small>
+                      <md-tooltip>
+                        Order Total: {{ order.total / 100 | currency:order.currency }}
+                      </md-tooltip>
+                    </span>
+                  </td>
+                  <td hide show-gt-md md-cell>{{ ::(order.client_mac) }}</td>
+                  <td hide show-gt-sm md-cell>{{ ::(order.vouchers) }}</td>
+                  <td hide show-gt-xs md-cell>{{ order.total / 100 | currency:order.currency }}</td>
+                  <td hide show-gt-xs md-cell>{{ ::(order.created_at | humanTime) }}</td>
+                  <td hide show-gt-sm md-cell>{{ ::(order.merchant_type | titleCase) || '-' }}</td>
                   <td md-cell>
                     <md-menu>
                       <md-button aria-label="Open Boxes Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -88,7 +108,7 @@
                         <md-menu-item>
                           <md-button ng-click="visitClient(session)">
                             <md-icon>devices</md-icon>
-                            <p>Client</p>
+                            <p flex>Client</p>
                           </md-button>
                         </md-menu-item>
                       </md-menu-content>

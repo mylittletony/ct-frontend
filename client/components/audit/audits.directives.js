@@ -404,6 +404,18 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
 
   var link = function( scope, element, attrs ) {
 
+    scope.email         = $routeParams.email;
+    scope.voucher       = $routeParams.voucher;
+    scope.authorization = $routeParams.authorization;
+
+    if (scope.email) {
+      scope.selectedItem  = scope.email;
+    } else if (scope.vouchers) {
+      scope.selectedItem = scope.voucher;
+    } else if (scope.authorization) {
+      scope.selectedItem = scope.authorization;
+    }
+
     scope.options = {
       boundaryLinks: false,
       largeEditDialog: false,
@@ -428,19 +440,12 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
       search();
     };
 
-    function init (query) {
-      var q = query || scope.query.filter;
+    function querySearch (query) {
       var deferred = $q.defer();
       Order.get({
-        page: scope.query.page,
-        per:  scope.query.limit,
-        q:    q,
+        q: query,
       }).$promise.then(function(results) {
-        scope.orders      = results.orders;
-        scope.loading     = undefined;
-        scope.predicate   = '-created_at';
-        scope._links      = results._links;
-        deferred.resolve(results);
+        deferred.resolve(results.results);
       }, function(err) {
         scope.loading = undefined;
         deferred.reject();
@@ -451,33 +456,30 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
     function searchTextChange(text) {
     }
 
-    // var timer;
+    var timer;
     function selectedItemChange(item) {
-    //   timer = $timeout(function() {
-    //     var hash = {};
-    //     if (item && item._index) {
-    //       switch(item._index) {
-    //         case 'devices':
-    //           hash.ap_mac = item._key;
-    //           break;
-    //         case 'clients':
-    //           hash.client_mac = item._key;
-    //           break;
-    //         case 'locations':
-    //           hash.location_name = item._key;
-    //           break;
-    //         case 'vouchers':
-    //           hash.username = item._key;
-    //           break;
-    //         default:
-    //           console.log(item._index);
-    //       }
-    //     }
-    //     $location.search(hash);
-    //   }, 250);
+      timer = $timeout(function() {
+        var hash = {};
+        if (item && item._index) {
+          switch(item._index) {
+            case 'emails':
+              hash.email = item._key;
+              break;
+            case 'vouchers':
+              hash.voucher = item._key;
+              break;
+            case 'authorization':
+              hash.authorization = item._key;
+              break;
+            default:
+              console.log(item._index);
+          }
+        }
+        $location.search(hash);
+      }, 250);
     }
 
-    scope.querySearch         = init;
+    scope.querySearch         = querySearch;
     scope.selectedItemChange  = selectedItemChange;
     scope.searchTextChange    = searchTextChange;
 
@@ -491,21 +493,30 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
       $location.search(hash);
     };
 
-    // var init = function() {
-    //   Order.get({
-    //     page: scope.query.page,
-    //     per:  scope.query.limit,
-    //     q:    scope.query.filter,
-    //   }).$promise.then(function(results) {
-    //     scope.orders      = results.orders;
-    //     scope.loading     = undefined;
-    //     scope.predicate   = '-created_at';
-    //     scope._links      = results._links;
-    //   }, function(err) {
+    scope.visitClient = function(session) {
+      Client.get({location_id: session.location_id, q: session.client_mac}, function(data) {
+        $location.path('/locations/' + data.location_slug + '/clients/' + data.id);
+      }, function(){
+      });
+    };
 
-    //     scope.loading = undefined;
-    //   });
-    // };
+    var init = function() {
+      Order.get({
+        page:           scope.query.page,
+        per:            scope.query.limit,
+        email:          scope.email,
+        voucher:        scope.voucher,
+        authorization:  scope.authorization
+      }).$promise.then(function(results) {
+        scope.orders      = results.orders;
+        scope.loading     = undefined;
+        scope.predicate   = '-created_at';
+        scope._links      = results._links;
+      }, function(err) {
+
+        scope.loading = undefined;
+      });
+    };
 
     init();
 
