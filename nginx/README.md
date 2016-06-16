@@ -17,6 +17,9 @@ Run the script `setup.pl`.  It will complain about a missing configuration file 
 
 Create the app and fill in the `APP_ID` and `APP_SECRET` in the configuration file `config.pm` that had been automatically created.  If you already have an app and the hostname matches, you can, of course, use the existing app.
 
+You can also override the hostname in `config.pm`.  By default the hostname is
+determined automatically.
+
 Now re-run `setup.pl`.  It will create all configuration files needed for cucumber-frontend and an nginx configuration file for two new virtual hosts.  Include the nginx configuration in the http context of your nginx and reload nginx ("sudo nginx -s reload" or whatever your vendor has prepared for reloading nginx).
 
 ## Start the Two Services
