@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: client/index.html:100
+msgid "Account"
+msgstr ""
+
+#: client/index.html:126
+msgid "Developer"
+msgstr ""
+
+#: client/index.html:113
+msgid "Discussions"
+msgstr ""
+
+#: client/index.html:107
+msgid "Documentation"
+msgstr ""
+
+#: client/index.html:120
+msgid "Downloads"
+msgstr ""
+
+#: client/index.html:133
+#: client/index.html:161
+msgid "Logout"
+msgstr ""
+
+#: client/index.html:169
+msgid "Main Menu"
+msgstr ""
+
+#: client/index.html:72
+msgid "Open Apps Menu"
+msgstr ""
+
+#: client/index.html:93
+msgid "Open Menu"
+msgstr ""
+
+#: client/index.html:203
+msgid "Privacy Policy - Terms of Service"
+msgstr ""
+
+#: client/index.html:139
+#: client/index.html:62
+msgid "Settings"
+msgstr ""
+
+#: client/index.html:84
+#: client/index.html:89
+msgid "Support"
+msgstr ""
+
+#: client/index.html:20
+msgid "Wi-Fi Management Platform"
+msgstr ""
