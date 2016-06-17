@@ -33,8 +33,8 @@ module.exports = function (grunt) {
   ];
 
   var languages = [
-      'en',
-      'de'
+      'en_GB',
+      'de_DE'
   ];
 
 

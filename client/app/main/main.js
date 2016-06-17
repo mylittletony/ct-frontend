@@ -20,6 +20,39 @@ var app = angular.module('myApp', [
   'gettext'
 ]);
 
+app.run(['gettextCatalog',  function(gettextCatalog) {
+  //FIXME: should be read from user profile
+  var supported = {'en_GB': true, 'de_DE': true},
+      lingua = localStorage.getItem('lang');
+
+  if (!supported.hasOwnProperty(lingua))
+    lingua = undefined;
+
+  // Modern browsers expose the accepted languages via navigator.languages.
+  for (var i = 0;  lingua === null && navigator.languages !== null
+       && i < navigator.languages.length; ++i) {
+    var lang = navigator.languages[i].substr(0, 5).replace('-', '_');
+    if (supported[lang]) {
+      lingua = lang;
+    }
+  }
+  // Fallback for older browsers and the non-browser.
+  if (lingua === null) {
+    lingua = navigator.language || navigator.userLanguage;
+    if (lingua !== null) {
+      lingua = lingua.substr(0, 5).replace('-', '_');
+    }
+  }
+  if (!supported[lingua])
+    lingua = 'en_GB';
+
+  localStorage.setItem('lingua', lingua);
+
+  gettextCatalog.setCurrentLanguage(lingua);
+
+  gettextCatalog.loadRemote('/app/translations/' + lingua + '.json');
+}]);
+
 app.config(['$compileProvider', function ($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }]);
