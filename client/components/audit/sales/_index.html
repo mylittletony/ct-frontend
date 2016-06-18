@@ -89,7 +89,7 @@
                     </span>
                   </td>
                   <td hide show-gt-md md-cell>{{ ::(order.client_mac) }}</td>
-                  <td hide show-gt-sm md-cell>{{ ::(order.vouchers) }}</td>
+                  <td hide show-gt-sm md-cell>{{ ::(order.vouchers | truncate:20) }}</td>
                   <td hide show-gt-xs md-cell>{{ order.total / 100 | currency:order.currency }}</td>
                   <td hide show-gt-xs md-cell>{{ ::(order.created_at | humanTime) }}</td>
                   <td hide show-gt-sm md-cell>{{ ::(order.merchant_type | titleCase) || '-' }}</td>
