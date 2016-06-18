@@ -4,8 +4,8 @@
       <tr md-row>
         <th md-column><span>Start</span></th>
         <th hide show-gt-sm md-column><span>Duration</span></th>
-        <th hide show-gt-md md-column><span>Client Mac</span></th>
-        <th hide show-gt-xs md-column><span>Username</span></th>
+        <th hide show-gt-xs md-column><span>Client Mac</span></th>
+        <th hide show-gt-md md-column><span>Username</span></th>
         <th hide show-gt-lg md-column><span>Device Mac</span></th>
         <th hide show-gt-xs md-column><span>Usage</span></th>
         <th hide show-gt-md md-column><span>Manufacturer</span></th>
@@ -27,11 +27,11 @@
           {{ ::(session.acctsessiontime | humanised ) || '-' }}
           <md-tooltip ng-if="session.acctstoptime">{{ ::session.acctstopcause }}</md-tooltip>
         </td>
-        <td hide show-gt-md md-cell>
+        <td hide show-gt-xs md-cell>
           {{ ::(session.client_mac | uppercase)}}
           <md-tooltip ng-if="session.device_ipaddr">{{ ::session.device_ipaddr }}</md-tooltip>
         </td>
-        <td hide show-gt-xs md-cell>
+        <td hide show-gt-md md-cell>
           {{ session.username | truncate:30 }}
           <md-tooltip ng-if="session.username.length > 30">
             {{ ::session.username }}

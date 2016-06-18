@@ -52,9 +52,9 @@
                   <th md-column><span>State</span></th>
                   <th iihide md-column><span>Email</span></th>
                   <th hide show-gt-md md-column><span>Mac</span></th>
-                  <th hide show-gt-sm md-column><span>Voucher</span></th>
+                  <th hide show-gt-md md-column><span>Voucher</span></th>
                   <th hide show-gt-xs md-column><span>Total</span></th>
-                  <th hide show-gt-xs md-column><span>Date</span></th>
+                  <th hide show-gt-sm md-column><span>Date</span></th>
                   <th hide show-gt-sm md-column><span>Merchant</span></th>
                   <th md-column>Action</th>
                 </tr>
@@ -89,9 +89,9 @@
                     </span>
                   </td>
                   <td hide show-gt-md md-cell>{{ ::(order.client_mac) }}</td>
-                  <td hide show-gt-sm md-cell>{{ ::(order.vouchers | truncate:20) }}</td>
+                  <td hide show-gt-md md-cell>{{ ::(order.vouchers | truncate:20) }}</td>
                   <td hide show-gt-xs md-cell>{{ order.total / 100 | currency:order.currency }}</td>
-                  <td hide show-gt-xs md-cell>{{ ::(order.created_at | humanTime) }}</td>
+                  <td hide show-gt-xs md-cell>{{ ::(order.created_at | humanTimeShort) }}</td>
                   <td hide show-gt-sm md-cell>{{ ::(order.merchant_type | titleCase) || '-' }}</td>
                   <td md-cell>
                     <md-menu>

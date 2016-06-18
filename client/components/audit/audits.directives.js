@@ -2,11 +2,16 @@
 
 var app = angular.module('myApp.audits.directives', []);
 
-app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q', 'menu', function(Report, $routeParams,$location,Location, $q, menu) {
+app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q', 'menu', '$cookies', function(Report, $routeParams,$location,Location, $q, menu, $cookies) {
 
   var link = function( scope, element, attrs ) {
 
-    menu.isOpen = false;
+    if ($cookies.get('_ctm') === 'true') {
+      menu.isOpenLeft = false;
+      menu.isOpen = false;
+    } else {
+      menu.isOpen = true;
+    }
     menu.hideBurger = false;
     menu.sections = [{}];
     menu.sectionName = 'Audit';
