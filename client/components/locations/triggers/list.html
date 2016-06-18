@@ -57,7 +57,9 @@
                   <md-icon md-menu-origin md-font-icon="">{{ trigger.active ? "check_circle" : 'cancel' }}</md-icon>
                 </td md-cell>
                 <td md-cell>
-                  {{ trigger.trigger_name }}
+                  <a href="/#/locations/{{ location.slug }}/triggers/{{ trigger.id }}">
+                    {{ trigger.trigger_name }}
+                  </a>
                   <md-tooltip hide-gt-sm>
                     Type: {{ trigger.trigger_type }}. Runs: {{ trigger.run_count }}
                   </md-tooltip>

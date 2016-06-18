@@ -178,7 +178,7 @@
                     <md-icon ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
                   </td md-cell>
                   <td ng-mouseover="updateChart(client.client_mac)" md-cell ng-show="columns.device_name">
-                    {{ client.name || client.device_name || 'No Name' | truncate:20 }}<br>
+                    <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.name || client.device_name || 'No Name' | truncate:20 }}</a><br>
                     <span hide show-sm>
                       <small>{{ client.client_mac }}</small>
                     </span>

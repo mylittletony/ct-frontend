@@ -40,7 +40,7 @@
             <th><span></span></th>
             <th colspan="2" md-column md-order-by="description" md-desc>
               <span>
-                <md-icon>comments</md-icon>
+                <!-- <md-icon>comments</md-icon> -->
                 &nbsp; Name
               </span>
             </th>
@@ -74,9 +74,11 @@
                 </md-tooltip>
               </span>
             </td>
-            <td md-cell ng-click="editDescription($event, box)">
-              <span hide-gt-xs>{{ (box.description || 'No description' ) | truncate:10 }}</span>
-              <span hide show-gt-xs>{{ (box.description || 'No description' ) | truncate:20 }}</span>
+            <td md-cell ing-click="editDescription($event, box)">
+              <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
+                <span hide-gt-xs>{{ (box.description || 'No description' ) | truncate:10 }}</span>
+                <span hide show-gt-xs>{{ (box.description || 'No description' ) | truncate:20 }}</span>
+              </a>
               <md-tooltip>
                 {{ ::box.calledstationid }}
               </md-tooltip>
@@ -88,7 +90,9 @@
               {{::box.metadata.online || '-' }}
             </td>
             <td hide show-gt-sm md-cell>
-              {{ box.metadata.zone_name | truncate:20 | titleCase }}
+              <a href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}">
+                {{ box.metadata.zone_name | truncate:20 | titleCase }}
+              </a>
             </td>
             <td hide show-gt-md md-cell>
               {{::box.wan_ip }}

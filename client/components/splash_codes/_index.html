@@ -64,7 +64,9 @@
                   <md-icon md-menu-origin md-font-icon="">{{ code.active ? "check_circle" : 'warning' }}</md-icon>
                 </td>
                 <td md-cell>
-                  {{ code.password }}
+                  <a href="/#/locations/{{ location.slug }}/splash_codes/{{ code.id }}">
+                    {{ code.password }}
+                  </a>
                   <md-tooltip hide-gt-sm>
                     {{ code.expires | humanTime }}
                   </md-tooltip>
