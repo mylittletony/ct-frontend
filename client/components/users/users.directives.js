@@ -13,7 +13,10 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
 
   var link = function( scope, element, attrs ) {
 
-    var id;
+    var id, locale;
+
+    scope.locales = [{key: 'Deutsche', value: 'de-de'}, { key: 'English', value: 'en-gb'}, { key: 'Français', value: 'fr-fr'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
     } else {
@@ -23,6 +26,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
     var init = function() {
       User.query({id: id}).$promise.then(function (res) {
         scope.user = res;
+        locale = res.locale;
         if (scope.user.slug === Auth.currentUser().slug) {
           scope.user.allowed = true;
         }
@@ -36,6 +40,11 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
     scope.update = function(form) {
       form.$setPristine();
       User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+        if (locale !== results.locale) {
+          // $route.reload();
+          console.log('Hey Guido and friends, I\'ll put a reload in here when we\'re ready.');
+          Auth.currentUser().locale = results.locale;
+        }
         showToast('User successfully updated.');
       }, function(err) {
         showErrors(err);
