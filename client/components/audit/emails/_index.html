@@ -19,7 +19,7 @@
         <md-item-template >
           <a ng-click="go(item.slug)">
             <span class="item-title">
-              <md-icon>{{ item._index == 'devices' ? "router" : item._index == 'clients' ? "devices" : item._index == 'vouchers' ? "receipt" : "business" }}</md-icon>
+              <md-icon>{{ item._index == 'emails' ? "email" : "business" }}</md-icon>
               <span>&nbsp;{{ item._key }}</span>
             </span>
             <span class="item-metadata">
@@ -39,14 +39,74 @@
   </div>
   <md-divider></md-divider>
 </md-toolbar>
-
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="100">
       <md-card>
         <md-card-content>
+          <md-table-container>
+            <table ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
+              <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th hide show-gt-xs md-column><span>Added</span></th>
+                  <th md-column><span>Email</span></th>
+                  <th hide show-gt-sm md-column><span>Type</span></th>
+                  <th hide show-gt-md md-column><span>Location</span></th>
+                  <th hide show-gt-sm md-column><span>Location</span></th>
+                  <th md-column>Action</th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="email" ng-repeat="email in emails | filter: filter.search | orderBy: query.order">
+                  <td hide show-gt-xs md-cell>
+                    <md-icon>{{ email.added ? "check" : "" }}</md-icon>
+                  </td>
+                  <td md-cell>
+                    <span hide show-xs>
+                      {{ email.email | truncate:18 }}
+                    </span>
+                    <span hide show-gt-xs>
+                      {{ email.email }}
+                    </span>
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ email.list_type }}
+                  </td>
+                  <td hide show-gt-md md-cell>
+                    {{ email.location_name | truncate:20 }}
+                    <md-tooltip ng-if="email.location_name.length >= 20">{{ email.location_name }}</md-tooltip>
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ ::(email.created_at | humanTimeShort ) }}
+                  </td>
+                  <td md-cell>
+                    <md-menu>
+                      <md-button aria-label="Open sessions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                      </md-button>
+                      <md-menu-content width="4" >
+                        <md-menu-item>
+                          <md-button href="/#/locations/{{ session.location_id }}">
+                            <md-icon>business</md-icon>
+                        <p flex>Location</p>
+                          </md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-if="email.client_id && email.location_id">
+                          <md-button ng-click="visitClient(email)">
+                            <md-icon>devices</md-icon>
+                            <p flex>Client</p>
+                          </md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
 
-          Emails TBC
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
 
         </md-card-content>
       </md-card>

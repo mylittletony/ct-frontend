@@ -15,7 +15,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
 
     var id, locale;
 
-    scope.locales = [{key: 'Deutsche', value: 'de-de'}, { key: 'English', value: 'en-gb'}, { key: 'Français', value: 'fr-fr'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    scope.locales = [{key: 'Deutsch', value: 'de-de'}, { key: 'English', value: 'en-gb'}, { key: 'Français', value: 'fr-fr'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;

@@ -1,16 +1,19 @@
 <div ng-show="loggedIn === true">
 
-  <section ng-show="alerts != true">
-    <md-subheader class="md-primary">
+  <section>
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
       <form ng-submit="$event.preventDefault()">
         <md-autocomplete
+            flex="100"
             md-selected-item="selectedItem"
-            ng-enter="go(item.slug)"
+            ng-enter="search(item._key)"
             md-search-text-change="searchTextChange(searchText)"
+            md-no-cache="true"
             md-search-text="searchText"
-            md-selected-item-change="selectedItemChange(item.slug)"
+            md-selected-item-change="selectedItemChange(item)"
             md-items="item in querySearch(searchText)"
-            md-item-text="item.location_name"
+            md-item-text="item._key"
             md-min-length="5"
             md-autofocus="true"
             md-menu-class="locations-autocomplete"
@@ -19,26 +22,45 @@
           <md-item-template >
             <a ng-click="go(item.slug)">
               <span class="item-title">
-                <md-icon md-font-icon="arrow_back" >business</md-icon>
-                <span>&nbsp;{{item.location_name | titleCase }} </span>
+                <md-icon>{{ item._index == 'devices' ? "router" : "business" }}</md-icon>
+            <span>&nbsp;{{ item._key }}</span>
               </span>
               <span class="item-metadata">
                 <span class="item-metastat">
-                  <strong>{{ ::item.boxes_count || 0 }}</strong> boxes
+                  Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span>
                 </span>
               </span>
             </a>
           </md-item-template>
           <md-not-found>
-            No locations found.
-            <a ng-click="create(searchText)">Create a new one!</a>
+            No results found.
           </md-not-found>
         </md-autocomplete>
         <br/>
       </form>
-
-    </md-subheader>
-    <md-divider ng-if="!$last"></md-divider>
+      <div flex></div>
+      <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="Add Device">
+        <md-icon>add_circle</md-icon>
+        <md-tooltip md-direction="bottom">
+          Add a new location.
+        </md-tooltip>
+      </md-button>
+      <md-button class="md-icon-button" href="" aria-label="Map">
+        <md-icon>map</md-icon>
+        <md-tooltip md-direction="bottom">
+          View device map.
+        </md-tooltip>
+      </md-button>
+      <span>
+        <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="Switch 1" ng-change='streamingUpdater()'>
+        </md-switch>
+        <md-tooltip md-direction="bottom">
+          Streaming updates.
+        </md-tooltip>
+      </span>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
   </section>
 
   <md-content class="md-padding" layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' ng-if="!pinned && !alerts">

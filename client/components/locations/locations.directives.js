@@ -138,13 +138,13 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', 'locationHelper', '$q','Shortener', function (Location, $routeParams, $rootScope, $http, $location, $cookies, locationHelper, $q, Shortener) {
+app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, locationHelper, $q, Shortener, $timeout, Box) {
 
   var link = function(scope,element,attrs) {
 
     var load = function() {
 
-      scope.querySearch   = querySearch;
+      scope.querySearch        = querySearch;
       scope.selectedItemChange = selectedItemChange;
       scope.searchTextChange   = searchTextChange;
 
@@ -162,8 +162,8 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
 
     function querySearch (query) {
       var deferred = $q.defer();
-      Location.query({q: query}).$promise.then(function(results) {
-        deferred.resolve(results.locations);
+      Location.query({q: query, aggs: true}).$promise.then(function(results) {
+        deferred.resolve(results.results);
       }, function() {
         deferred.reject();
       });
@@ -179,10 +179,6 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       });
     }
 
-    scope.go = function(id) {
-      $location.path('/locations/' + id);
-    };
-
     scope.create = function(name) {
       $location.path('/locations/new');
       $location.search({name: name});
@@ -191,9 +187,41 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
     function searchTextChange(id) {
     }
 
-    function selectedItemChange(id) {
-      $location.path('/locations/' + id);
+    var timer;
+    function selectedItemChange(item) {
+      timer = $timeout(function() {
+        var hash = {};
+        if (item && item._index) {
+          switch(item._index) {
+            case 'locations':
+              goLocation(item._key);
+              break;
+            case 'devices':
+              goDevice(item._key);
+              break;
+            default:
+              console.log(item._index);
+          }
+        }
+      }, 250);
     }
+
+    var goLocation = function(query) {
+      Location.query({location_name: query}).$promise.then(function(results) {
+        $location.path('/locations/' + results.locations[0].slug);
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    var goDevice = function(query) {
+      Box.query({description: query}).$promise.then(function(results) {
+        $location.path('/locations/' + results.boxes[0].location_slug + '/devices/' + results.boxes[0].slug);
+      }, function(err) {
+        console.log(err);
+      });
+
+    };
 
     if ($routeParams.xtr) {
       shortener();

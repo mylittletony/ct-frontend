@@ -1,26 +1,18 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" aria-label="Splash">
-      <md-icon md-font-icon="" >people</md-icon>
-    </md-button>
-    <p>Users</p>
-  </div>
-  <md-divider></md-divider>
-</md-toolbar>
+<form ng-submit="search()">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
+        <md-icon md-font-icon="search">search</md-icon>
+        <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="Filter Users">
+      </md-input-container>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+</form>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
 
   <div flex layout="column">
-
-    <form ng-submit="search()">
-      <md-card style="padding: 18px 28px 10px 24px;">
-        <md-input-container layout="column" layout-gt-sm="row" flex-gt-sm="30">
-          <md-icon md-font-icon="search">search</md-icon>
-          <label>Search</label>
-          <input ng-model="query.filter" md-autofocus>
-        </md-input-container>
-      </md-card>
-    </form>
 
     <md-card>
       <md-table-container>
@@ -41,7 +33,9 @@
                 <md-icon md-menu-origin md-font-icon="">{{ ::user.verified ? "verifed" : '' }}</md-icon>
               </td>
               <td md-cell>
-                {{ ::user.username | truncate:15 }}
+                <a href="/#/users/{{ user.slug }}">
+                  {{ ::user.username | truncate:15 }}
+                </a>
                 <md-tooltip hide-gt-sm>
                   {{ ::user.email }}
                 </md-tooltip>
