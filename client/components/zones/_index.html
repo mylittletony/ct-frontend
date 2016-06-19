@@ -50,7 +50,7 @@
             <tr md-row>
               <th md-column md-order-by="zone_name">
                 <span>
-                  <md-icon md-menu-origin md-font-icon="" class="s12">comment</md-icon>
+                  <!-- <md-icon md-menu-origin md-font-icon="" class="s12">comment</md-icon> -->
                   Name
                 </span>
               </th>
@@ -63,8 +63,10 @@
           </thead>
           <tbody md-body>
             <tr ng-class="zone.highlight ? 'highlight' : ''" md-row ng-repeat="zone in filtered = (zones | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
-              <td md-cell ng-click="editName($event, zone)">
-                {{ zone.zone_name | truncate:20 }}
+              <td md-cell xxng-click="editName($event, zone)">
+                <a href="/#/locations/{{ location.slug }}/zones/{{ zone.id }}">
+                  {{ zone.zone_name | truncate:20 }}
+                </a>
               </td>
               <td hide show-gt-sm md-cell>
                 {{ (zone.zone_description || 'N/A') | truncate:20 }}

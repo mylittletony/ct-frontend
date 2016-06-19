@@ -2,11 +2,16 @@
 
 var app = angular.module('myApp.audits.directives', []);
 
-app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q', 'menu', function(Report, $routeParams,$location,Location, $q, menu) {
+app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q', 'menu', '$cookies', function(Report, $routeParams,$location,Location, $q, menu, $cookies) {
 
   var link = function( scope, element, attrs ) {
 
-    menu.isOpen = false;
+    if ($cookies.get('_ctm') === 'true') {
+      menu.isOpenLeft = false;
+      menu.isOpen = false;
+    } else {
+      menu.isOpen = true;
+    }
     menu.hideBurger = false;
     menu.sections = [{}];
     menu.sectionName = 'Audit';
@@ -400,9 +405,125 @@ app.directive('auditGuests', ['Session', '$routeParams', '$location', 'Client', 
 
 }]);
 
-app.directive('auditSales', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Order, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
+
+    scope.email         = $routeParams.email;
+    scope.voucher       = $routeParams.voucher;
+    scope.authorization = $routeParams.authorization;
+
+    if (scope.email) {
+      scope.selectedItem  = scope.email;
+    } else if (scope.vouchers) {
+      scope.selectedItem = scope.voucher;
+    } else if (scope.authorization) {
+      scope.selectedItem = scope.authorization;
+    }
+
+    scope.options = {
+      boundaryLinks: false,
+      largeEditDialog: false,
+      pageSelector: false,
+      // rowSelection: rowSelect
+    };
+
+    scope.query = {
+      order:          '-created_at',
+      start:          $routeParams.start,// || start,
+      end:            $routeParams.end,// || end,
+      filter:         $routeParams.q,
+      limit:          $routeParams.per || 25,
+      page:           $routeParams.page || 1,
+      options:        [5,10,25,50,100],
+      direction:      $routeParams.direction || 'desc'
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      search();
+    };
+
+    function querySearch (query) {
+      var deferred = $q.defer();
+      Order.get({
+        q: query,
+      }).$promise.then(function(results) {
+        deferred.resolve(results.results);
+      }, function(err) {
+        scope.loading = undefined;
+        deferred.reject();
+      });
+      return deferred.promise;
+    }
+
+    function searchTextChange(text) {
+    }
+
+    var timer;
+    function selectedItemChange(item) {
+      timer = $timeout(function() {
+        var hash = {};
+        if (item && item._index) {
+          switch(item._index) {
+            case 'emails':
+              hash.email = item._key;
+              break;
+            case 'vouchers':
+              hash.voucher = item._key;
+              break;
+            case 'authorization':
+              hash.authorization = item._key;
+              break;
+            default:
+              console.log(item._index);
+          }
+        }
+        $location.search(hash);
+      }, 250);
+    }
+
+    scope.querySearch         = querySearch;
+    scope.selectedItemChange  = selectedItemChange;
+    scope.searchTextChange    = searchTextChange;
+
+    var search = function() {
+      var hash        = $location.search();
+      hash.q          = scope.query.filter;
+      hash.page       = scope.query.page;
+      hash.per        = scope.query.limit;
+      // hash.start      = scope.query.start;
+      // hash.end        = scope.query.end;
+      $location.search(hash);
+    };
+
+    scope.visitClient = function(session) {
+      Client.get({location_id: session.location_id, q: session.client_mac}, function(data) {
+        $location.path('/locations/' + data.location_slug + '/clients/' + data.id);
+      }, function(){
+      });
+    };
+
+    var init = function() {
+      Order.get({
+        page:           scope.query.page,
+        per:            scope.query.limit,
+        email:          scope.email,
+        voucher:        scope.voucher,
+        authorization:  scope.authorization
+      }).$promise.then(function(results) {
+        scope.orders      = results.orders;
+        scope.loading     = undefined;
+        scope.predicate   = '-created_at';
+        scope._links      = results._links;
+      }, function(err) {
+
+        scope.loading = undefined;
+      });
+    };
+
+    init();
 
   };
 

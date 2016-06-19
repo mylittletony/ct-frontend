@@ -50,10 +50,10 @@
             <thead md-head md-order="query.order" md-on-reorder="logOrder">
               <tr md-row>
                 <th md-column md-order-by="is_active"><span>Active</span></th>
-                <th md-column hide show-gt-md md-order-by="created_at"><span>Created</span></th>
                 <th md-column md-order-by="batch_name" md-desc><span>Name</span></th>
                 <th hide show-gt-sm md-column md-order-by="description" md-desc><span>Description</span></th>
                 <th hide show-gt-sm md-column md-numeric md-order-by="quantity" md-desc><span>Quantity</span></th>
+                <th md-column hide show-gt-md md-order-by="created_at"><span>Created</span></th>
                 <!-- <th md-column md-order-by="splash_page_id"><span>Splash</span></th> -->
                 <th md-column><span>Action</span></th>
               </tr>
@@ -63,11 +63,10 @@
                 <td md-cell>
                   <md-icon md-menu-origin md-font-icon="">{{ voucher.is_active ? "check_circle" : 'cancel' }}</md-icon>
                 </td>
-                <td hide show-gt-md md-cell>
-                  {{ voucher.created_at | humanTime }}
-                </td>
                 <td md-cell>
-                  {{ voucher.batch_name }}
+                  <a href="/#/locations/{{ location.slug }}/vouchers/{{ voucher.unique_id }}">
+                    {{ voucher.batch_name }}
+                  </a>
                 </td>
                 <td hide show-gt-sm md-cell>
                   {{ voucher.batch_description | truncate:20 }}
@@ -77,6 +76,9 @@
                 </td>
                 <td hide show-gt-sm md-cell>
                   {{ voucher.quantity }}
+                </td>
+                <td hide show-gt-md md-cell>
+                  {{ voucher.created_at | humanTime }}
                 </td>
                 <td md-cell>
                   <md-menu>

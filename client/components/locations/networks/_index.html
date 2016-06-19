@@ -42,7 +42,9 @@
                 <md-icon md-menu-origin md-font-icon="">{{ network.active ? "check_circle" : 'cancel' }}</md-icon>
               </td>
               <td md-cell>
-                {{ network.ssid }}
+                <a href="/#/locations/{{ location.slug }}/networks/{{ network.id }}">
+                  {{ network.ssid }}
+                </a>
               </td>
               <td hide show-gt-sm md-cell>
                 {{ network.interface_ipaddr }}/{{ network.interface_netmask }}

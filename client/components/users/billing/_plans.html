@@ -30,7 +30,7 @@
               {{ ::plan.plan_price | currency : curr }}
             </td>
             <td hide show-gt-sm md-cell>
-              {{ ::(plan.cost_per_250 / 100 || 0) | currency : curr }}
+              {{ ::(plan.cost_per_50 / 100 || 0) | currency : curr }}
             </td>
             <td hide show-gt-sm md-cell>
               {{ ::plan.per_ap_allowance || '∞' }}
@@ -41,7 +41,7 @@
                 UPGRADE
               </md-button>
               <span ng-if="plan.upgrading">
-                <md-progress-circular style="margin: 0 0 0 30px;" md-diameter="40px"></md-progress-circular>
+                <md-progress-circular style="margin: 0 0 0 30px;" md-diameter="20px"></md-progress-circular>
               </span>
             </td>
           </tr>

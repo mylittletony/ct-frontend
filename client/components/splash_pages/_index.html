@@ -39,16 +39,6 @@
 
   <div flex layout="column" ng-show="splash_pages.length">
 
-    <!-- <md-card style="padding: 18px 8px 0px 24px;"> -->
-    <!--   <div layout="column" layout-gt-sm="row" flex-gt-sm="30"> -->
-    <!--     <md-input-container> -->
-    <!--       <md-icon md-font-icon="search">search</md-icon> -->
-    <!--       <label>Search</label> -->
-    <!--       <input ng-model="query.filter"> -->
-    <!--     </md-input-container> -->
-    <!--   </div> -->
-    <!-- </md-card> -->
-
     <md-card>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
@@ -68,7 +58,9 @@
                 <md-icon md-menu-origin md-font-icon="">{{ splash.active ? "check_circle" : 'cancel' }}</md-icon>
               </td>
               <td hide show-gt-sm md-cell>
-                {{ (splash.splash_name || 'No name') | truncate:20 }}
+                <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}">
+                  {{ (splash.splash_name || 'No name') | truncate:20 }}
+                </a>
                 <md-tooltip>
                   Created {{ splash.created_at | humanTime }}
                 </md-tooltip>
