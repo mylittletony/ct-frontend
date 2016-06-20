@@ -14,6 +14,10 @@ msgstr ""
 msgid "Account"
 msgstr "Konto"
 
+#: client/components/audit/sales/_index.html:59
+msgid "Action"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:2396
 #: client/components/boxes/boxes.directives.js:2401
 msgid "Add a comment"
@@ -152,6 +156,10 @@ msgstr ""
 msgid "Credentials"
 msgstr ""
 
+#: client/components/audit/sales/_index.html:57
+msgid "Date"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:292
 msgid "Delete Box"
 msgstr ""
@@ -197,6 +205,14 @@ msgstr "Downloads"
 msgid "Edit"
 msgstr ""
 
+#: client/components/audit/sales/_index.html:53
+msgid "Email"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:47
+msgid "Emails TBC"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:1811
 msgid "exit"
 msgstr ""
@@ -209,8 +225,20 @@ msgstr ""
 msgid "Failed to resync device, please try again."
 msgstr ""
 
+#: client/components/audit/emails/_index.html:26
+#: client/components/audit/guests/_index.html:26
+#: client/components/audit/sales/_index.html:26
+msgid "Found {{ ::item._score || 0 }} record"
+msgid_plural "{{item._score}} records"
+msgstr[0] ""
+msgstr[1] ""
+
 #: client/components/apps/_new.html:26
 msgid "found here"
+msgstr ""
+
+#: client/components/audit/guests/_index.html:47
+msgid "Guests TBC"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1807
@@ -226,9 +254,17 @@ msgstr ""
 msgid "Logout"
 msgstr "Abmelden"
 
+#: client/components/audit/sales/_index.html:54
+msgid "Mac"
+msgstr ""
+
 #: client/index.html:173
 msgid "Main Menu"
 msgstr "Hauptmenü"
+
+#: client/components/audit/sales/_index.html:58
+msgid "Merchant"
+msgstr ""
 
 #: client/components/apps/_new.html:60
 msgid "Must be a valid URL"
@@ -256,6 +292,12 @@ msgstr ""
 
 #: client/components/apps/_index.html:37
 msgid "New App"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:32
+#: client/components/audit/guests/_index.html:32
+#: client/components/audit/sales/_index.html:32
+msgid "No results found."
 msgstr ""
 
 #: client/index.html:76
@@ -335,6 +377,12 @@ msgstr ""
 msgid "Running speedtest, please wait."
 msgstr ""
 
+#: client/components/audit/emails/_index.html:17
+#: client/components/audit/guests/_index.html:17
+#: client/components/audit/sales/_index.html:17
+msgid "Search"
+msgstr ""
+
 #: client/components/apps/_index.html:3 client/components/apps/_new.html:3
 #: client/components/apps/_show.html:3 client/index.html:143
 #: client/index.html:62
@@ -344,6 +392,10 @@ msgstr "Einstellungen"
 #: client/components/boxes/boxes.directives.js:664
 #: client/components/boxes/boxes.directives.js:758
 msgid "Settings updated successfully"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:52
+msgid "State"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:422
@@ -373,10 +425,26 @@ msgid ""
 "forget this exists."
 msgstr ""
 
+#: client/components/audit/sales/_index.html:67
+msgid "This order is pending and hasn't completed"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:68
+msgid "This order was a success"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:69
+msgid "This order was refunded"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:234
 msgid ""
 "This will force a complete refresh of it's configuration files. A resync "
 "will disconnect any wireless clients temporarily"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:56
+msgid "Total"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:354
@@ -385,6 +453,10 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1821
 msgid "Upgrade cancelled successfully."
+msgstr ""
+
+#: client/components/audit/sales/_index.html:55
+msgid "Voucher"
 msgstr ""
 
 #: client/index.html:20

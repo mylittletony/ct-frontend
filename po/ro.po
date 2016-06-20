@@ -1,8 +1,15 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2016-06-20 16:10+0300\n"
+"Last-Translator: Antoaneta Marinova <test@test.test>\n"
+"Language-Team: Romanian\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
 
 #: client/index.html:104
 msgid "Account"
@@ -17,8 +24,7 @@ msgstr ""
 msgid "Add a comment"
 msgstr ""
 
-#: client/components/apps/_index.html:10
-#: client/components/apps/_show.html:11
+#: client/components/apps/_index.html:10 client/components/apps/_show.html:11
 msgid "Add a new app."
 msgstr ""
 
@@ -66,8 +72,7 @@ msgstr ""
 msgid "Automatically discovered"
 msgstr ""
 
-#: client/components/apps/_new.html:6
-#: client/components/apps/_show.html:6
+#: client/components/apps/_new.html:6 client/components/apps/_show.html:6
 msgid "Back to Apps"
 msgstr ""
 
@@ -92,11 +97,17 @@ msgid "Box upgrading. Do not unplug or restart your device."
 msgstr ""
 
 #: client/components/apps/_index.html:31
-msgid "Build services on top of the Cucumber API. Wondering what you might build? The dashboard you're looking at now is an App. It's built on top of the API. You might do something similar if you wanted different functionality."
+msgid ""
+"Build services on top of the Cucumber API. Wondering what you might build? "
+"The dashboard you're looking at now is an App. It's built on top of the API. "
+"You might do something similar if you wanted different functionality."
 msgstr ""
 
 #: client/components/apps/_new.html:79
-msgid "By creating this application, you are agreeing to the developer agreement found <a href=\"https://cucumberwifi.io/developer-terms\" target=\"_blank\">here</a>."
+msgid ""
+"By creating this application, you are agreeing to the developer agreement "
+"found <a href=\"https://cucumberwifi.io/developer-terms\" target=\"_blank"
+"\">here</a>."
 msgstr ""
 
 #: client/components/apps/_index.html:31
@@ -221,6 +232,7 @@ msgid "Found {{ ::item._score || 0 }} record"
 msgid_plural "{{item._score}} records"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: client/components/apps/_new.html:26
 msgid "found here"
@@ -231,15 +243,15 @@ msgid "Guests TBC"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1807
-msgid "If the upgrade has begun, you cannot stop it. Please wait until it completes."
+msgid ""
+"If the upgrade has begun, you cannot stop it. Please wait until it completes."
 msgstr ""
 
 #: client/components/apps/_index.html:55
 msgid "Integrate your services with the Cucumber API."
 msgstr ""
 
-#: client/index.html:137
-#: client/index.html:165
+#: client/index.html:137 client/index.html:165
 msgid "Logout"
 msgstr ""
 
@@ -344,7 +356,10 @@ msgid "Reset this Device"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:200
-msgid "Resetting your box is not recommended. If you are having problems with it, please resync first. If the device is offline, it will reset next time it restarts."
+msgid ""
+"Resetting your box is not recommended. If you are having problems with it, "
+"please resync first. If the device is offline, it will reset next time it "
+"restarts."
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:235
@@ -369,10 +384,8 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: client/components/apps/_index.html:3
-#: client/components/apps/_new.html:3
-#: client/components/apps/_show.html:3
-#: client/index.html:143
+#: client/components/apps/_index.html:3 client/components/apps/_new.html:3
+#: client/components/apps/_show.html:3 client/index.html:143
 #: client/index.html:62
 msgid "Settings"
 msgstr ""
@@ -394,8 +407,7 @@ msgstr ""
 msgid "Streaming updates enabled"
 msgstr ""
 
-#: client/index.html:88
-#: client/index.html:93
+#: client/index.html:88 client/index.html:93
 msgid "Support"
 msgstr ""
 
@@ -404,11 +416,14 @@ msgid "Tell us about your App"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:291
-msgid "This cannot be reversed, please be careful. Deleting a box is permanent."
+msgid ""
+"This cannot be reversed, please be careful. Deleting a box is permanent."
 msgstr ""
 
 #: client/components/apps/_new.html:26
-msgid "This is for developers. If you're not sure what an API is, it's best you forget this exists."
+msgid ""
+"This is for developers. If you're not sure what an API is, it's best you "
+"forget this exists."
 msgstr ""
 
 #: client/components/audit/sales/_index.html:67
@@ -424,7 +439,9 @@ msgid "This order was refunded"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:234
-msgid "This will force a complete refresh of it's configuration files. A resync will disconnect any wireless clients temporarily"
+msgid ""
+"This will force a complete refresh of it's configuration files. A resync "
+"will disconnect any wireless clients temporarily"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:56
