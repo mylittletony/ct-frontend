@@ -36,7 +36,7 @@
         </md-card-title>
         <md-card-content>
           <div layout-gt-sm="row">
-            <input style="display:none" type="text" name="ssid"/>
+            <input style="display:none" type="password" name="ssid"/>
             <md-input-container class="md-block" flex-gt-sm="50" >
               <label>Network SSID</label>
               <input name="ssid" md-maxlength="32" ng-model="network.ssid" required>
@@ -146,7 +146,6 @@
                   </md-option>
                 </md-select>
               </md-input-container>
-
             </div>
           </div>
           <div flex></div>
@@ -175,17 +174,17 @@
                 <div ng-message="max">Must be less than 4096</div>
               </div>
             </md-input-container>
-            <md-switch ng-disabled="network.captive_portal_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" class="md-accent" ng-model="network.dhcp_enabled" aria-label="Enable DHCP" ng-disabled="(network.captive_portal_enabled == true) || (network.network_radio_mode == 'sta')" style="margin-top: -10px" >
+            <md-switch ng-disabled="network.captive_portal_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" class="md-accent" ng-model="network.dhcp_enabled" aria-label="Enable DHCP" ng-disabled="(network.captive_portal_enabled == true) || (network.network_radio_mode == 'sta')" style="margin-top: -10px">
               DHCP Server {{ network.dhcp_enabled ? 'Enabled' : 'Disabled' }}
             </md-switch>
             <md-switch ng-disabled="network.make_part_of_lan" class="md-accent" ng-model="network.network_radio_mode" aria-label="Enable Repeater" ng-false-value="'ap'" ng-true-value="'sta'">
               Repeater Mode {{ network.network_radio_mode == 'ap' ? 'Disabled' : 'Enabled' }}
             </md-switch>
           </div>
-          <div flex-gt-sm="100">
-            <small><br><b>{{ disabled(network) }}</b></small>
-          </div>
         </md-card-content>
+        <md-card-actions layout="row" layout-align="left center" class="md-padding">
+          <small><br><b>{{ disabled(network) }}</b></small>       
+        </md-card-actions>
       </md-card>
 
       <md-card>
@@ -307,8 +306,7 @@
         </md-card-content>
       </md-card>
       <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
-      <!-- <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid">Network invalid, please check your settings.</p> -->
-
+      
       <div class="lock-size" layout="row" layout-align="center center">
         <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" ng-click="update(myForm)" class="md-fab md-primary md-fab-bottom-right ">
           <md-icon md-font-icon="" >save</md-icon>
