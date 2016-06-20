@@ -1,13 +1,13 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon>android</md-icon>
     </md-button>
-    <p>Apps</p>
+    <p translate>Apps</p>
     <div flex></div>
-    <md-button class="md-icon-button md-accent" href="/#/apps/new" aria-label="Add App">
+    <md-button class="md-icon-button md-accent" href="/#/apps/new" aria-label="{{ 'Add App' | translate }}">
       <md-icon>add_circle</md-icon>
-      <md-tooltip md-direction="bottom">
+      <md-tooltip md-direction="bottom" translate>
         Add a new app.
       </md-tooltip>
     </md-button>
@@ -23,18 +23,18 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">Please Create an App</span>
+              <span class="md-headline" translate>Please Create an App</span>
             </md-card-title-text>
           </md-card-title>
 
           <md-card-content>
-            Build services on top of the Cucumber API. Wondering what you might build? The dashboard you're looking at now is an App. It's built on top of the API. You might do something similar if you wanted different functionality. <br><br>By using our API, you agree to the terms of use.
+            <translate>Build services on top of the Cucumber API. Wondering what you might build? The dashboard you're looking at now is an App. It's built on top of the API. You might do something similar if you wanted different functionality.</translate> <br><br><translate>By using our API, you agree to the terms of use.</translate>
           </md-card-content>
 
           <md-divider ng-if="!$last"></md-divider>
 
           <md-card-actions layout="row" layout-align="end center">
-            <md-button href="/#/apps/new" aria-label="New">
+            <md-button href="/#/apps/new" aria-label="New" translate>
               New App
             </md-button>
           </md-card-actions>
@@ -49,10 +49,10 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Your Cucumber Applications
             </span>
-            <span class="md-subhead">
+            <span class="md-subhead" translate>
               Integrate your services with the Cucumber API.
             </span>
           </md-card-title-text>
@@ -68,7 +68,7 @@
         </md-card-content>
         <md-divider ng-if="!$last"></md-divider>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button href="/#/apps/new">New</md-button>
+          <md-button href="/#/apps/new" translate>New</md-button>
         </md-card-actions>
       </md-card>
     </div>

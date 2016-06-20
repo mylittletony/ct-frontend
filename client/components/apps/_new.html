@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" href="/#/apps" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" href="/#/apps" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Back to Apps</p>
+    <p translate>Back to Apps</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -15,59 +15,58 @@
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">
-            {{ app.id ? "Edit" : "Create" }} App
+            {{ app.id ? "Edit" : "Create" }} <translate>App</translate>
           </span>
-          <span class="md-subhead" ng-if="!app.id">
+          <span class="md-subhead" ng-if="!app.id" translate>
             Create an application before use the API and build some awesome.
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p>This is for developers. If you're not sure what an API is, please forget this exists. </p>
-
+        <p translate>This is for developers. If you're not sure what an API is, please forget this exists. </p>
         <div layout="column">
           <form name="myForm" ng-submit="save()">
             <md-input-container class="md-block">
-              <label for="name">Application Name</label>
-              <input type="text" ng-model="app.name" ng-class='{ "input-error" : myForm.name.$error.required || myForm.name.$error.maxlength }' name="name" placeholder="Your application name" md-maxlength=32 md-minlength=5 required>
+              <label for="name" translate>Application Name</label>
+              <input type="text" ng-model="app.name" ng-class='{ "input-error" : myForm.name.$error.required || myForm.name.$error.maxlength }' name="name" placeholder="{{ 'Your application name' | translate }}" md-maxlength=32 md-minlength=5 required>
               
               <div ng-messages="myForm.name.$error">
-                <div ng-message="minlength">Name should be more than 5 characters</div>
-                <div ng-message="md-maxlength">Name should be less than 32 characters</div>
-                <div ng-message="required">You must set a name</div>
+                <div ng-message="minlength" translate>Name should be more than 5 characters</div>
+                <div ng-message="md-maxlength" translate>Name should be less than 32 characters</div>
+                <div ng-message="required" translate>You must set a name</div>
               </div>
 
             </md-input-container>
 
             <md-input-container class="md-block">
 
-              <label for="name">Callback URL</label>
-              <input type="url" ng-model="app.redirect_uri" ng-class='{ "input-error" : myForm.redirect_uri.$error.required || myForm.redirect_uri.$error.url }' name="redirect_uri" placeholder="Your callback URL" required>
+              <label for="name" translate>Callback URL</label>
+              <input type="url" ng-model="app.redirect_uri" ng-class='{ "input-error" : myForm.redirect_uri.$error.required || myForm.redirect_uri.$error.url }' name="redirect_uri" placeholder="{{ 'Your callback URL' | translate }}" required>
               
               <div ng-messages="myForm.redirect_uri.$error">
-                <div ng-message="url">Must be a valid, https URL</div>
-                <div ng-message="required">You must set a callback URI</div>
+                <div ng-message="url" translate>Must be a valid, https URL</div>
+                <div ng-message="required" translate>You must set a callback URI</div>
               </div>
 
             </md-input-container>
 
             <md-input-container class="md-block">
-              <label for="name">Application Website</label>
-              <input type="url" ng-model="app.website" ng-class='{ "input-error" : myForm.website.$error.required || myForm.website.$error.url }' name="website" placeholder="Your website" required>
+              <label for="name" translate>Application Website</label>
+              <input type="url" ng-model="app.website" ng-class='{ "input-error" : myForm.website.$error.required || myForm.website.$error.url }' name="website" placeholder="{{ 'Your website' | translate }}" required>
               
               <div ng-messages="myForm.website.$error">
-                <div ng-message="url">You must set a webite</div>
-                <div ng-message="required">Must be a valid URL</div>
+                <div ng-message="url" translate>You must set a webite</div>
+                <div ng-message="required" translate>Must be a valid URL</div>
               </div>
 
             </md-input-container>
 
             <md-input-container class="md-block">
-              <label for="name">Description</label>
-              <textarea ng-model="app.description" ng-class='{ "input-error" : myForm.description.$error.required }' name="description" placeholder="Tell us about your App" rows=5 required></textarea>
+              <label for="name" translate>Description</label>
+              <textarea ng-model="app.description" ng-class='{ "input-error" : myForm.description.$error.required }' name="description" placeholder="{{ 'Tell us about your App' | translate }}" rows=5 required></textarea>
               
               <div ng-messages="myForm.webshite.$error">
-                <div ng-message="required">Please enter a description</div>
+                <div ng-message="required" translate>Please enter a description</div>
               </div>
 
             </md-input-container>
@@ -76,7 +75,7 @@
           </form>
 
         </div>
-        <p>By creating this application, you are agreeing to the developer agreement found <a href="https://cucumberwifi.io/developer-terms" target="_blank">here</a>.</p>
+        <p translate>By creating this application, you are agreeing to the developer agreement found <a href="https://cucumberwifi.io/developer-terms" target="_blank">here</a>.</p>
       </md-card-content>
     </md-card>
   </div>

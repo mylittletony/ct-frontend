@@ -4,13 +4,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: client/index.html:100
+#: client/index.html:104
 msgid "Account"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2393
-#: client/components/boxes/boxes.directives.js:2398
+#: client/components/boxes/boxes.directives.js:2396
+#: client/components/boxes/boxes.directives.js:2401
 msgid "Add a comment"
+msgstr ""
+
+#: client/components/apps/_index.html:10
+#: client/components/apps/_show.html:11
+msgid "Add a new app."
+msgstr ""
+
+#: client/components/apps/_index.html:8
+msgid "Add App"
+msgstr ""
+
+#: client/components/apps/_new.html:18
+msgid "App"
+msgstr ""
+
+#: client/components/apps/_show.html:46
+msgid "App ID"
+msgstr ""
+
+#: client/components/apps/_show.html:50
+msgid "App Secret"
+msgstr ""
+
+#: client/components/apps/_new.html:31
+msgid "Application Name"
+msgstr ""
+
+#: client/components/apps/_show.html:38
+msgid "Application URLs:"
+msgstr ""
+
+#: client/components/apps/_new.html:55
+msgid "Application Website"
+msgstr ""
+
+#: client/components/apps/_index.html:6
+msgid "Apps"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1806
@@ -21,8 +58,13 @@ msgstr ""
 msgid "Are you sure you want to delete this device?"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2321
+#: client/components/boxes/boxes.directives.js:2324
 msgid "Automatically discovered"
+msgstr ""
+
+#: client/components/apps/_new.html:6
+#: client/components/apps/_show.html:6
+msgid "Back to Apps"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:355
@@ -43,6 +85,26 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1847
 msgid "Box upgrading. Do not unplug or restart your device."
+msgstr ""
+
+#: client/components/apps/_index.html:31
+msgid "Build services on top of the Cucumber API. Wondering what you might build? The dashboard you're looking at now is an App. It's built on top of the API. You might do something similar if you wanted different functionality."
+msgstr ""
+
+#: client/components/apps/_new.html:79
+msgid "By creating this application, you are agreeing to the developer agreement found <a href=\"https://cucumberwifi.io/developer-terms\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: client/components/apps/_index.html:31
+msgid "By using our API, you agree to the terms of use."
+msgstr ""
+
+#: client/components/apps/_new.html:44
+msgid "Callback URL"
+msgstr ""
+
+#: client/components/apps/_show.html:34
+msgid "Callback URLs:"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:204
@@ -72,6 +134,14 @@ msgstr ""
 msgid "Could not schedule upgrade, try again."
 msgstr ""
 
+#: client/components/apps/_new.html:20
+msgid "Create an application before use the API and build some awesome."
+msgstr ""
+
+#: client/components/apps/_show.html:44
+msgid "Credentials"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:292
 msgid "Delete Box"
 msgstr ""
@@ -80,8 +150,16 @@ msgstr ""
 msgid "Delete it"
 msgstr ""
 
-#: client/index.html:126
+#: client/components/apps/_new.html:66
+msgid "Description"
+msgstr ""
+
+#: client/index.html:130
 msgid "Developer"
+msgstr ""
+
+#: client/components/apps/_new.html:26
+msgid "Developer documentation can be"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:213
@@ -92,16 +170,20 @@ msgstr ""
 msgid "Device resync in progress. Please wait."
 msgstr ""
 
-#: client/index.html:113
+#: client/index.html:117
 msgid "Discussions"
 msgstr ""
 
-#: client/index.html:107
+#: client/index.html:111
 msgid "Documentation"
 msgstr ""
 
-#: client/index.html:120
+#: client/index.html:124
 msgid "Downloads"
+msgstr ""
+
+#: client/components/apps/_show.html:56
+msgid "Edit"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1811
@@ -116,29 +198,57 @@ msgstr ""
 msgid "Failed to resync device, please try again."
 msgstr ""
 
+#: client/components/apps/_new.html:26
+msgid "found here"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:1807
 msgid "If the upgrade has begun, you cannot stop it. Please wait until it completes."
 msgstr ""
 
-#: client/index.html:133
-#: client/index.html:161
+#: client/components/apps/_index.html:55
+msgid "Integrate your services with the Cucumber API."
+msgstr ""
+
+#: client/index.html:137
+#: client/index.html:165
 msgid "Logout"
 msgstr ""
 
-#: client/index.html:169
+#: client/index.html:173
 msgid "Main Menu"
+msgstr ""
+
+#: client/components/apps/_new.html:60
+msgid "Must be a valid URL"
+msgstr ""
+
+#: client/components/apps/_new.html:48
+msgid "Must be a valid, https URL"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:354
 msgid "muted"
 msgstr ""
 
-#: client/index.html:72
-msgid "Open Apps Menu"
+#: client/components/apps/_new.html:36
+msgid "Name should be less than 32 characters"
 msgstr ""
 
-#: client/index.html:93
-msgid "Open Menu"
+#: client/components/apps/_new.html:35
+msgid "Name should be more than 5 characters"
+msgstr ""
+
+#: client/components/apps/_index.html:71
+msgid "New"
+msgstr ""
+
+#: client/components/apps/_index.html:37
+msgid "New App"
+msgstr ""
+
+#: client/index.html:76
+msgid "Open Apps Menu"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:621
@@ -153,7 +263,15 @@ msgstr ""
 msgid "please cancel it"
 msgstr ""
 
-#: client/index.html:203
+#: client/components/apps/_index.html:26
+msgid "Please Create an App"
+msgstr ""
+
+#: client/components/apps/_new.html:70
+msgid "Please enter a description"
+msgstr ""
+
+#: client/index.html:207
 msgid "Privacy Policy - Terms of Service"
 msgstr ""
 
@@ -199,11 +317,14 @@ msgstr ""
 msgid "Resync this Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2460
+#: client/components/boxes/boxes.directives.js:2463
 msgid "Running speedtest, please wait."
 msgstr ""
 
-#: client/index.html:139
+#: client/components/apps/_index.html:3
+#: client/components/apps/_new.html:3
+#: client/components/apps/_show.html:3
+#: client/index.html:143
 #: client/index.html:62
 msgid "Settings"
 msgstr ""
@@ -221,13 +342,21 @@ msgstr ""
 msgid "Streaming updates enabled"
 msgstr ""
 
-#: client/index.html:84
-#: client/index.html:89
+#: client/index.html:88
+#: client/index.html:93
 msgid "Support"
+msgstr ""
+
+#: client/components/apps/_new.html:67
+msgid "Tell us about your App"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:291
 msgid "This cannot be reversed, please be careful. Deleting a box is permanent."
+msgstr ""
+
+#: client/components/apps/_new.html:26
+msgid "This is for developers. If you're not sure what an API is, it's best you forget this exists."
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:234
@@ -250,14 +379,42 @@ msgstr ""
 msgid "Would you like to reboot this device?"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2337
-msgid "Your device has been added."
+#: client/components/apps/_new.html:49
+msgid "You must set a callback URI"
+msgstr ""
+
+#: client/components/apps/_new.html:37
+msgid "You must set a name"
+msgstr ""
+
+#: client/components/apps/_new.html:59
+msgid "You must set a webite"
+msgstr ""
+
+#: client/components/apps/_new.html:32
+msgid "Your application name"
+msgstr ""
+
+#: client/components/apps/_new.html:45
+msgid "Your callback URL"
+msgstr ""
+
+#: client/components/apps/_index.html:52
+msgid "Your Cucumber Applications"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:2340
+msgid "Your device has been added."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:2343
 msgid "Your devices have been added."
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1699
 msgid "Your upgrade has been scheduled."
+msgstr ""
+
+#: client/components/apps/_new.html:56
+msgid "Your website"
 msgstr ""
