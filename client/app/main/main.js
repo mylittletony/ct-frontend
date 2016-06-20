@@ -137,6 +137,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/audit/sales/index.html',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/audit/sales/:id', {
+      templateUrl: 'components/audit/sales/show.html',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/login', {
       controller: 'AuthenticationsController',
       templateUrl: 'components/home/hello.html',
@@ -273,11 +277,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    when('/locations/:id/clients/:client_id/orders', {
-      templateUrl: 'components/locations/clients/orders.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
+    // when('/locations/:id/clients/:client_id/orders', {
+    //   templateUrl: 'components/locations/clients/orders.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
     when('/locations/:id/clients/:client_id/orders/:order_id', {
       templateUrl: 'components/locations/clients/show_order.html',
       resolve: { loginRequired: loginRequired },

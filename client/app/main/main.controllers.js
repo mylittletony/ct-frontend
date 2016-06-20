@@ -160,7 +160,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     vm.menuRight.push({
       name: 'Developer',
-      link: '/#/developer',
+      link: '/#/apps',
       type: 'link',
       icon: 'android'
     });

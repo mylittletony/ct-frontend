@@ -70,12 +70,14 @@
                     </md-tooltip>
                   </td>
                   <td md-cell>
-                    <span hide-gt-xs>
-                      {{ ::(order.email | truncate:15 || '-') }}
-                    </span>
-                    <span hide show-gt-xs>
-                      {{ ::(order.email || '-') }}
-                    </span>
+                    <a href="/#/audit/sales/{{ order.id }}">
+                      <span hide-gt-xs>
+                        {{ ::(order.email | truncate:15 || '-') }}
+                      </span>
+                      <span hide show-gt-xs>
+                        {{ ::(order.email || '-') }}
+                      </span>
+                    </a>
                     <span ng-if="order.email.length >= 15">
                       <md-tooltip>
                         {{ ::order.email }}
@@ -99,6 +101,12 @@
                         <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                       </md-button>
                       <md-menu-content width="4" >
+                        <md-menu-item>
+                          <md-button href="/#/audit/sales/{{ order.id }}">
+                            <md-icon>pageview</md-icon>
+                            <p flex>View</p>
+                          </md-button>
+                        </md-menu-item>
                         <md-menu-item>
                           <md-button href="/#/locations/{{ order.location_id }}">
                             <md-icon>business</md-icon>

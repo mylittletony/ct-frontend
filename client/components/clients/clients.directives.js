@@ -837,9 +837,16 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
         case 'social':
           socialRedirect();
           break;
+        case 'orders':
+          orderRedirect();
+          break;
         default:
           redirect(type);
       }
+    };
+
+    var orderRedirect = function() {
+      window.location.href = '/#/audit/sales?client_id=' + scope.client.id;
     };
 
     var socialRedirect = function() {

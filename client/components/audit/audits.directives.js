@@ -615,14 +615,14 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
         per:            scope.query.limit,
         email:          scope.email,
         voucher:        scope.voucher,
-        authorization:  scope.authorization
+        authorization:  scope.authorization,
+        client_id:      $routeParams.client_id
       }).$promise.then(function(results) {
         scope.orders      = results.orders;
-        scope.loading     = undefined;
         scope.predicate   = '-created_at';
         scope._links      = results._links;
+        scope.loading     = undefined;
       }, function(err) {
-
         scope.loading = undefined;
       });
     };
@@ -633,7 +633,7 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
 
   return {
     scope: {
-      username: '@',
+      loading: '='
     },
     link: link,
     require: '^audit',
@@ -641,3 +641,74 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
   };
 
 }]);
+
+app.directive('showOrder', ['Order', '$routeParams', '$timeout', 'menu', '$mdDialog', 'showToast', 'showErrors', function(Order, $routeParams, $timeout, menu, $mdDialog, showToast, showErrors) {
+
+  var link = function(scope) {
+
+    scope.loading   = true;
+    scope.page      = $routeParams.page;
+
+    menu.isOpenLeft = false;
+    menu.isOpen = false;
+    menu.hideBurger = false;
+
+    var init = function() {
+      Order.query({id: $routeParams.id}).$promise.then(function(results) {
+        scope.order      = results;
+        scope.loading     = undefined;
+      }, function(err) {
+
+        scope.loading = undefined;
+      });
+    };
+
+    scope.refund = function() {
+      scope.initialState = scope.order.state;
+      $mdDialog.show({
+        controller: dialogCtrl,
+        templateUrl: 'components/audit/sales/_refund.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true
+      });
+    };
+
+    function dialogCtrl($scope) {
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.refund = function(id) {
+        scope.order.state = 'refunding';
+        $mdDialog.cancel();
+        refund();
+      };
+    }
+    dialogCtrl.$inject = ['$scope'];
+
+    function refund () {
+      Order.update({id: $routeParams.id, store_order: { refund: true }}).$promise.then(function(results) {
+        // scope.order.state = 'refunded';
+        showToast('Order successfully refunded.');
+      }, function(err) {
+        scope.order.state   = scope.initialState;
+        scope.initialState  = undefined;
+        showErrors(err);
+      });
+    }
+
+    scope.back = function() {
+      window.history.back();
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {},
+    templateUrl: 'components/audit/sales/_show.html'
+  };
+
+}]);
+

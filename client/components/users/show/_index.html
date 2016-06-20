@@ -64,7 +64,7 @@
           </md-card-title>
           <md-card-content>
             <div layout="row" layout-wrap>
-              <md-input-container flex-gt-sm="50">
+              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label>Username</label>
                 <input ng-disabled="!user.allowed" md-maxlength="50" ng-minlength="5" type="text" name="username" ng-model='user.username' placeholder='Username' required></input>
                 <div ng-messages="myForm.username.$error">
@@ -74,7 +74,7 @@
                 </div>
               </md-input-container>
 
-              <md-input-container flex-gt-sm="50">
+              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label>Email Address</label>
                 <input ng-disabled="!user.allowed" md-maxlength="100" ng-minlength="5" type="email" name="username" ng-model='user.email' placeholder='Email address' required></input>
                 <div ng-messages="myForm.email.$error">
@@ -84,7 +84,7 @@
                 </div>
               </md-input-container>
 
-              <md-input-container flex-gt-sm="50">
+              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label>Company</label>
                 <input md-maxlength="255" ng-minlength="5" type="text" name="company" ng-model='user.company_name' placeholder='Company'></input>
                 <div ng-messages="myForm.company.$error">
@@ -93,7 +93,7 @@
                 </div>
               </md-input-container>
 
-              <md-input-container flex-gt-sm="50">
+              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label>Phone Number</label>
                 <input md-maxlength="100" ng-minlength="5" type="text" name="phone" ng-model='user.mobile_number' placeholder='Phone'></input>
                 <div ng-messages="myForm.phone.$error">
@@ -102,7 +102,7 @@
                 </div>
               </md-input-container>
               
-              <md-input-container class="md-block" flex-gt-sm="50">
+              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label>Locale</label>
                 <md-select ng-model="user.locale">
                   <md-option ng-repeat="locale in locales" value="{{locale.value}}">

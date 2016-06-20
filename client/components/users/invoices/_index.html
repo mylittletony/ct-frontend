@@ -32,20 +32,25 @@
               <thead md-head>
                 <tr md-row class="md-table-headers-row">
                   <th md-column md-order-by="created_at"><span>Created</span></th>
-                  <th md-column><span>Description</span></th>
-                  <th md-column><span>Total</span></th>
+                  <th hide show-gt-xs md-column><span>Description</span></th>
+                  <th hide show-gt-xs md-column><span>Total</span></th>
                   <th ng-if="menu.length" md-column>Action</th>
                 </tr>
               </thead>
               <tbody md-body>
                 <tr md-row md-select="invoice" md-auto-select="options.autoSelect" ng-repeat="invoice in filtered = (invoices | filter: query.filter | orderBy: query.direction)">
                   <td md-cell>
-                    {{ invoice.created_at | humanTime }}
+                    <span hide show-gt-xs>
+                      {{ invoice.created_at | humanTime }}
+                    </span>
+                    <span hide show-xs>
+                      {{ invoice.created_at | humanTimeShort }}
+                    </span>
                   </td>
-                  <td md-cell>
+                  <td hide show-gt-xs md-cell>
                     {{ ::invoice.description }}
                   </td>
-                  <td md-cell>
+                  <td hide show-gt-xs md-cell>
                     {{ ::invoice.total }}
                   </td>
                   <td md-cell ng-if="menu.length">
