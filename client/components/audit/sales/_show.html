@@ -1,0 +1,99 @@
+<form name="myForm" ng-submit="update(myForm)">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+        <md-icon>arrow_back</md-icon>
+      </md-button>
+      <p>Back to Orders</p>
+      <div flex></div>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                Order Details
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-align="center center">
+              <div flex="100" flex-gt-sm="50">
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Order Status</h3>
+                    <p>{{ order.state | titleCase }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Order Total</h3>
+                    <p>{{ (order.total / 100) | currency:order.currency || '$' }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line" href="/#/locations/{{ order.location_slug }}/clients/{{ order.client_id }}">
+                  <div class="md-list-item-text">
+                    <h3>Customer Email</h3>
+                    <p>{{ ::(order.email )}}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Order Date</h3>
+                    <p>{{ order.created_at | humanTime }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Authorisation Code</h3>
+                    <p>{{ order.authorization }}</p>
+                  </div>
+                </md-list-item>
+              </div>
+              <div flex="100" flex-gt-sm="50">
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Merchant</h3>
+                    <p>{{ order.merchant || '-' }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line" href="/#/locations/{{ order.location_slug }}">
+                  <div class="md-list-item-text">
+                    <h3>Location</h3>
+                    <p>{{ order.location_name }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Voucher Code</h3>
+                    <p>{{ order.codes[0].username }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Product</h3>
+                    <p>{{ order.line_items[0].description }}</p>
+                  </div>
+                </md-list-item>
+              </div>
+            </div>
+          </md-card-content>
+
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-disabled="order.state != 'success'" ng-click="refund()">Refund</md-button>
+            <!-- <md-button>Action 2</md-button> -->
+          </md-card-actions>
+
+        </md-card>
+
+      </div>
+
+  </md-content>
+</form>
+
