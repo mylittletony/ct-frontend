@@ -105,8 +105,8 @@
                             <p flex>Location</p>
                           </md-button>
                         </md-menu-item>
-                        <md-menu-item>
-                          <md-button ng-click="visitClient(session)">
+                        <md-menu-item ng-if="order.client_mac">
+                          <md-button ng-click="visitClient(order)">
                             <md-icon>devices</md-icon>
                             <p flex>Client</p>
                           </md-button>

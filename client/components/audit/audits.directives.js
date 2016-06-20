@@ -598,15 +598,14 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
       hash.q          = scope.query.filter;
       hash.page       = scope.query.page;
       hash.per        = scope.query.limit;
-      // hash.start      = scope.query.start;
-      // hash.end        = scope.query.end;
       $location.search(hash);
     };
 
     scope.visitClient = function(session) {
       Client.get({location_id: session.location_id, q: session.client_mac}, function(data) {
         $location.path('/locations/' + data.location_slug + '/clients/' + data.id);
-      }, function(){
+      }, function(err){
+        console.log(err);
       });
     };
 
