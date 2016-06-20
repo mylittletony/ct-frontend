@@ -179,22 +179,6 @@
           </div>
         </div>
 
-        <div layout="row" ng-hide="box.band_steering">
-          <div flex-gt-sm="50">
-            <p>2.4Gz Beacon Interval ({{box.beacon_interval_2}})</p>
-            <md-slider-container>
-              <md-slider flex class="md-primary" md-discrete ng-model="box.beacon_interval_2" step="1" min="1" max="1000" aria-label="beacon_interval_2">
-              </md-slider>
-            </md-slider-container>
-            <span ng-show="box.dual_band">
-              <p>5Ghz Beacon Interval ({{box.beacon_interval_5}})</p>
-              <md-slider-container>
-                <md-slider flex class="md-primary" md-discrete ng-model="box.beacon_interval_5" step="1" min="1" max="1000" aria-label="beacon_interval_5">
-                </md-slider>
-              </md-slider-container>
-            </span>
-          </div>
-        </div>
       </div>
     </md-card-content>
   </md-card>
@@ -211,9 +195,6 @@
           <md-input-container class="md-block" flex="80">
             <label>Syslog Host</label>
             <input ng-model="box.rsyslog_host" name="rsyslog_host" placeholder="Remote host address">
-            <!-- <div ng-messages="myForm.rsyslog_host.$error"> -->
-            <!--   <div ng-message="url">Must be a valid URL</div> -->
-            <!-- </div> -->
           </md-input-container>
         </div>
         <div layout="row" ng-if="box.rsyslog_host">

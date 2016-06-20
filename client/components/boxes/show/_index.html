@@ -162,7 +162,6 @@
       <md-progress-linear ng-if="box.state == 'rebooting' || box.state == 'processing' || box.state == 'upgrading'" class="md-{{ box.state == 'rebooting' ? 'warn' : box.state == 'upgrading' ? 'accent' : 'warn' }}" md-mode="query"></md-progress-linear>
       <md-card-title>
         <md-card-title-text>
-          <!-- <span class="md-headline">{{ box.machine_type }}</span> -->
           <span class="md-headline">{{ box.description | truncate:20 }}</span>
         </md-card-title-text>
       </md-card-title>
@@ -171,7 +170,15 @@
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3>Status</h3>
-              <p>{{ box.state | deviceStatus }}</p>
+              <p>
+                {{ box.state | deviceStatus }}
+                <span ng-if="::(!box.connected)">
+                  <md-icon>info_outline</md-icon>
+                  <md-tooltip>
+                    Device out of sync.
+                  </md-tooltip>
+                </span>
+              </p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
