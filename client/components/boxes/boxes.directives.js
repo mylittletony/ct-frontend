@@ -1081,39 +1081,6 @@ app.directive('boxesTemplate', ['Box', '$routeParams', '$location', '$modal', fu
 
 }]);
 
-app.directive('boxAlerts', ['Box', function(Box) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.updateAlerts = function(item) {
-      scope.box.alerts = 'enabling';
-      updateCT();
-    };
-
-    var updateCT = function() {
-      Box.alerts({id: scope.box.slug, alerts: scope.box.is_monitored}).$promise.then(function(data) {
-        scope.box.alerts = 'complete';
-      }, function(errors) {
-        scope.box.errors = errors.data.errors.base;
-        scope.box.alerts = 'failed';
-      });
-    };
-  };
-
-  return {
-    link: link,
-    restrict: 'AE',
-    model: '^ngModel',
-    replace: true,
-    template:
-      '<div class=\'checkbox\'>' +
-      '<input type="checkbox" name="is_monitored" ng-model="box.is_monitored" ng-change="updateAlerts()">' +
-      '<label for="email_alerts">Enable Email Alerts</label>' +
-      '<i ng-show="box.alerts ==\'errored\'" class="fa fa-exclamation"></i>' +
-      '</div>'
-  };
-}]);
-
 app.directive('boxDataRates', ['$compile', function($compile) {
 
   var link = function(scope, element, attrs) {
