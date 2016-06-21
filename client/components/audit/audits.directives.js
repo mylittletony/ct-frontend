@@ -477,9 +477,121 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
 
 }]);
 
-app.directive('auditSocial', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Social, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
+
+    scope.loading   = true;
+
+    scope.email         = $routeParams.email;
+    scope.location_name = $routeParams.location_name;
+
+    if (scope.email) {
+      scope.selectedItem = scope.email;
+    } else if (scope.location_name) {
+      scope.selectedItem  = scope.location_name;
+    }
+
+    scope.options = {
+      boundaryLinks: false,
+      largeEditDialog: false,
+      pageSelector: false,
+    };
+
+    scope.query = {
+      order:          '-created_at',
+      start:          $routeParams.start,// || start,
+      end:            $routeParams.end,// || end,
+      filter:         $routeParams.q,
+      limit:          $routeParams.per || 25,
+      page:           $routeParams.page || 1,
+      options:        [5,10,25,50,100],
+      direction:      $routeParams.direction || 'desc'
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      search();
+    };
+
+    var search = function() {
+      var hash        = $location.search();
+      hash.q          = scope.query.filter;
+      hash.page       = scope.query.page;
+      hash.per        = scope.query.limit;
+      $location.search(hash);
+    };
+
+    function querySearch (query) {
+      var deferred = $q.defer();
+      Social.get({
+        q: query,
+        v2: true // -------------------> remove when old-tony gone
+      }).$promise.then(function(results) {
+        deferred.resolve(results.results);
+      }, function(err) {
+        scope.loading = undefined;
+        deferred.reject();
+      });
+      return deferred.promise;
+    }
+
+    function searchTextChange(text) {
+    }
+
+    var timer;
+    function selectedItemChange(item) {
+      timer = $timeout(function() {
+        var hash = {};
+        if (item && item._index) {
+          switch(item._index) {
+            case 'locations':
+              hash.location_name = item._key;
+              break;
+            case 'socials':
+              hash.email = item._key;
+              break;
+            default:
+              console.log(item._index);
+          }
+        }
+        $location.search(hash);
+      }, 250);
+    }
+
+    scope.querySearch         = querySearch;
+    scope.selectedItemChange  = selectedItemChange;
+    scope.searchTextChange    = searchTextChange;
+
+    var init = function() {
+      Social.query({
+        id: $routeParams.id,
+        page: scope.query.page,
+        per: scope.query.limit,
+        email: scope.email,
+        location_name: scope.location_name
+      }).$promise.then(function(results) {
+        scope.socials    = results.social;
+        scope._links     = results._links;
+        scope.loading    = undefined;
+      }, function(err) {
+        scope.loading = undefined;
+      });
+    };
+
+    scope.update = function() {
+      scope.social.state = 'updating';
+      Social.update({id: $routeParams.id, social: { notes: scope.social.notes }}).$promise.then(function(results) {
+        scope.social.notes  = results.social.notes;
+        scope.social.state  = 'updated';
+      }, function(err) {
+        scope.social.errors  = 'There was a problem updating this user.';
+        scope.social.state  = undefined;
+      });
+    };
+
+    init();
 
   };
 
@@ -493,6 +605,7 @@ app.directive('auditSocial', ['Session', '$routeParams', '$location', 'Client', 
   };
 
 }]);
+
 
 app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Guest, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
 

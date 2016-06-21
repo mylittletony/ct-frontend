@@ -19,7 +19,7 @@
         <md-item-template >
           <a ng-click="go(item.slug)">
             <span class="item-title">
-              <md-icon>{{ item._index == 'devices' ? "router" : item._index == 'clients' ? "devices" : item._index == 'vouchers' ? "receipt" : "business" }}</md-icon>
+              <md-icon>{{ item._index == 'guests' ? "person_pin" : "business" }}</md-icon>
               <span>&nbsp;{{ item._key }}</span>
             </span>
             <span class="item-metadata">
@@ -57,11 +57,9 @@
               <tbody md-body>
                 <tr md-row md-select="guest" ng-repeat="guest in guests | filter: filter.search | orderBy: query.order">
                   <td md-cell>
-                    <!-- <a href="/#/audit/guests/{{ guest.id }}"> -->
-                      {{ guest.username }}
-                    <!-- </a> -->
+                    {{ guest.username }}
                   </td>
-                  <td md-cell>
+                  <td hide show-gt-xs md-cell>
                     {{ guest.created_at | humanTime }}
                   </td>
                   <td md-cell>
