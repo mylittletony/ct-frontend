@@ -1104,25 +1104,7 @@ app.directive('boxDataRates', ['$compile', function($compile) {
     scope: {
       nas: '='
     },
-    template:
-      '<div layout="column" layout-gt-xs="row" layout-wrap style=\'margin: 0px 0 20px 0;\'>'+
-      '<md-input-container class="md-block" flex="50">'+
-      '<label>Min allowed 2.4Ghz basic rate</label>'+
-      '<md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_2" required>'+
-      '<md-option ng-repeat="rate in two" value="{{rate.value}}">'+
-      '{{rate.key}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '<md-input-container class="md-block" ng-f="nas.dual_band" flex="50">'+
-      '<label>Min allowed 5Ghz basic rate</label>'+
-      '<md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_5" required>'+
-      '<md-option ng-repeat="rate in five" value="{{rate.value}}">'+
-      '{{rate.key}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '</div>'
+    templateUrl: 'components/boxes/edit/_minimum_datarates.html',
   };
 
 }]);
