@@ -51,6 +51,7 @@
                 <tr md-row>
                   <th md-column><span>Name</span></th>
                   <th hide show-gt-xs md-column><span>Email</span></th>
+                  <th hide show-gt-md md-column><span>Last Seen</span></th>
                   <th hide show-gt-xs md-column><span>Gender</span></th>
                   <th md-column><span>Networks</span></th>
                   <th md-column>Action</th>
@@ -64,8 +65,11 @@
                   <td hide show-gt-xs md-cell>
                     {{ social.email }}
                   </td>
+                  <td hide show-gt-md md-cell>
+                    {{ social.updated_at | humanTimeShort }}
+                  </td>
                   <td hide show-gt-xs md-cell>
-                    {{ social.gender }}
+                    {{ social.gender == 'male' ? 'M' : 'F' }}
                   </td>
                   <td md-cell>
                     <span ng-if="social.facebook_id">
