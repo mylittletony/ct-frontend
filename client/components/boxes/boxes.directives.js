@@ -1105,46 +1105,6 @@ app.directive('boxDataRates', ['$compile', function($compile) {
 
 }]);
 
-app.directive('boxClientsGraph', ['Box', 'Report', '$routeParams', '$location', function(Box, Report, $routeParams, $location) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.chart = {};
-
-    attrs.$observe('apMac', function(val){
-      if (val !== '' && !scope.chart.length ) {
-        scope.clientsChart(attrs.apMac);
-      }
-    });
-
-    scope.chart.interval = $routeParams.interval || 'day';
-    scope.chart.distance = $routeParams.distance || 5;
-
-    scope.clientsChart = function(ap_mac) {
-      scope.chart.loading = true;
-      Report.clients({clients: true, location_id: attrs.locationId, interval: scope.chart.interval, distance: scope.chart.distance, ap_mac: ap_mac}).$promise.then(function(data) {
-        scope.stats = data._stats;
-        scope.chart = data.timeline;
-      });
-    };
-
-  };
-
-  return {
-    link: link,
-    restrict: 'E',
-    scope: {
-      ap_mac: '@',
-      location_id: '@',
-      interval: '@',
-      distance: '@',
-      chart: '='
-    },
-    template:
-      '<line-chart data="{{chart}}" legend="true" interval="{{stats.interval}}" align="right" start="{{ stats.start }}"></line-chart>'
-  };
-}]);
-
 app.directive('adjustInterval', ['$routeParams', '$location', function($routeParams, $location) {
 
   var link = function( scope, element, attrs ) {
