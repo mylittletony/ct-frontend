@@ -15,7 +15,7 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
       boundaryLinks: false,
       largeEditDialog: false,
       pageSelector: false,
-      rowSelection: false
+      rowSelection: true
     };
 
     scope.query = {
@@ -377,12 +377,10 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
       scope.ap_mac = undefined;
       scope.period = '6h';
       scope.updatePage();
-      // setInterval();
-      // clientsChart();
     };
 
-    scope.updateChart = function(client_mac) {
-      scope.client_mac = client_mac;
+    scope.updateChart = function() {
+      scope.client_mac = scope.selected[0].client_mac;
       clientsChart();
     };
 

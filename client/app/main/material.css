@@ -275,7 +275,7 @@ table.clients th {
 
 table.clients td {
   font-size: 0.65rem!important;
-  padding: 0 12px 0 0!important;
+  /* padding: 0 12px 0 5px!important; */
 }
 
 table.md-table tr.highlight {
