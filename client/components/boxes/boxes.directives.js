@@ -1236,46 +1236,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     scope.runUpgrade = function(ev) {
       $mdDialog.show({
-        template:
-        '<md-dialog aria-label="Upgrade Device" ng-cloak>'+
-        '<form>'+
-        '<md-toolbar>'+
-        '<div class="md-toolbar-tools">'+
-        '<h2>Upgrade Your Device</h2>'+
-        '</div>'+
-        '</md-toolbar>'+
-        '<md-dialog-content>'+
-        '<div class="md-dialog-content">'+
-        '<h2>Firmware Upgrade</h2>'+
-        '<p>Upgrade your firmware to the latest version. Firmware upgrades include security updates and new features.</p>'+
-        '<div flex-xs flex="50" ng-if="ps">'+
-        '<md-input-container>'+
-        '<label>Enter a Version</label>'+
-        '<input ng-model="prefs.version" placeholder="B_160201_01">'+
-        '</md-input-container>'+
-        '</div>'+
-        '<div flex-xs flex="50">'+
-        '<md-checkbox ng-model="prefs.now" aria-label="Upgrade Now">'+
-        'Upgrade Now'+
-        '</md-checkbox>'+
-        '</div>'+
-        '<div flex-xs flex="100" ng-hide="prefs.now">'+
-        '<h4>Upgrade at 2am localtime on the following date</h4>'+
-        '<md-datepicker ng-model="myDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>'+
-        '</div>'+
-        '</div>'+
-        '</md-dialog-content>'+
-        '<md-dialog-actions layout="row">'+
-        '<span flex></span>'+
-        '<md-button ng-click="cancel()">'+
-        'Cancel'+
-        '</md-button>'+
-        '<md-button ng-click="runUpgrade()" style="margin-right:20px;">'+
-        'upgrade <span ng-if="upgrade.now">now</span>'+
-        '</md-button>'+
-        '</md-dialog-actions>'+
-        '</form>'+
-        '</md-dialog>',
+        templateUrl: 'components/boxes/firmware/_upgrade_firmware_dialog.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
@@ -1349,13 +1310,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
       box: '=',
       ps: '@'
     },
-    template:
-      '<span ng-if="box.next_firmware && box.allowed_job">'+
-      '<md-button id="main" class="md-icon-button md-warn" ng-click="runUpgrade()" aria-label="Settings" >'+
-      '<md-icon>system_update_alt</md-icon>'+
-      '<md-tooltip md-direction="left">An upgrade is available for this device</md-tooltip>'+
-      '</md-button>'+
-      '</span>'
+    templateUrl: 'components/boxes/firmware/_upgrade_firmware.html'
   };
 }]);
 
