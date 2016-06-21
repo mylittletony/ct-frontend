@@ -1105,30 +1105,6 @@ app.directive('boxDataRates', ['$compile', function($compile) {
 
 }]);
 
-app.directive('adjustInterval', ['$routeParams', '$location', function($routeParams, $location) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.interval = $routeParams.interval || 'day';
-    scope.distance = $routeParams.distance;
-
-    scope.adjustInterval = function(dist,int) {
-      scope.distance = dist;
-      scope.interval = int || 'day';
-      $location.search({distance: scope.distance, interval: scope.interval});
-    };
-
-  };
-
-  return {
-    link: link,
-    restrict: 'E',
-    template:
-      '<p><i class="fa fa-calendar"></i> <a ng-class="distance == \'1\' ? \'active-search\' : \'\'" href=\'\' ng-click=\'adjustInterval(1)\'>1 Day</a> | <a ng-class="distance == \'7\' ? \'active-search\' : \'\'" href=\'\' ng-click=\'adjustInterval(7)\'>1 Week</a> | <a ng-class="distance == \'30\' ? \'active-search\' : \'\'" href=\'\' ng-click=\'adjustInterval(30)\'>1 Month</a></p>'
-  };
-
-}]);
-
 app.directive('boxIntStats', ['Box', 'Report', '$routeParams', '$location', '$q', function(Box, Report, $routeParams, $location, $q) {
 
   var link = function( scope, element, attrs ) {
