@@ -1,0 +1,25 @@
+<div class="container" ng-class="{"visible" : !vm.activated}">
+  <span ng-hide="loading">
+    <div layout="column" layout-gt-xs="row" layout-wrap>
+      <md-input-container flex-gt-xs="50">
+        <label>Run the command</label>
+        <md-select ng-model="command.selected">
+          <md-option ng-disabled="command.upgrade" ng-repeat="command in commands" value="{{command.unique_id}}">
+            {{ command.payload_description }}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <div flex="100">
+        <md-checkbox ng-model="command.upgrade" aria-label="Upgrade Firmware">
+          Upgrade Firmware
+        </md-checkbox>
+      </div>
+    </div>
+  </span>
+  <span ng-show="loading == true">
+    <md-progress-linear md-mode="query"></md-progress-linear>
+    <div class="bottom-block">
+      <span>Loading Payloads...</span>
+    </span>
+  </div>
+</div>
