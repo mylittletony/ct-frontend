@@ -71,33 +71,6 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
     };
 
-    // scope.updatePage = function(item) {
-    //   var hash            = {};
-    //   item                = item || {};
-    //   hash.start          = item.start || scope.start;
-    //   hash.end            = item.end || scope.end;
-    //   hash.location_id    = item.id;
-    //   hash.location_name  = item.location_name;
-    //   hash.q              = item.q;
-    //   hash.hc             = scope.hc;
-    //   scope.start         = hash.start;
-    //   scope.end           = hash.end;
-    //   $location.search(hash);
-    // };
-
-    // scope.init = function(params) {
-    //   var deferred = $q.defer();
-
-    //   Report.get(params).$promise.then(function(results) {
-    //     deferred.resolve(results);
-    //   }, function(err) {
-    //     deferred.reject(err);
-    //   });
-
-    //   return deferred.promise;
-
-    // };
-
     createMenu();
 
   };

@@ -80,9 +80,6 @@
                 <span hide-gt-xs>{{ (box.description || 'No description' ) | truncate:10 }}</span>
                 <span hide show-gt-xs>{{ (box.description || 'No description' ) | truncate:20 }}</span>
               </a>
-              <!-- <md-tooltip> -->
-              <!--   {{ ::box.calledstationid }} -->
-              <!-- </md-tooltip> -->
             </td>
             <td hide show-gt-lg md-cell>
               {{ ::box.calledstationid }}
@@ -129,6 +126,9 @@
         </tbody>
       </table>
     </md-table-container>
-    <md-table-pagination md-limit="options.limit" md-page="options.page" md-limit-options="options.options" md-total="{{::_links.total_entries}}" md-on-paginate="onpaginate" md-page-select></md-table-pagination>
+
+    <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
+    <!-- <md-table-pagination md-limit="options.limit" md-page="options.page" md-limit-options="options.options" md-total="{{::_links.total_entries}}" md-on-paginate="onpaginate" md-page-select></md-table-pagination> -->
   </md-card>
 </div>

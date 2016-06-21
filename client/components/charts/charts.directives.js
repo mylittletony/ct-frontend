@@ -31,11 +31,9 @@ app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $roo
 
     function init(obj) {
 
-      // if (obj) {
       scope.fn = obj.fn;
       scope.type = obj.type;
       json = obj.data;
-      // }
 
       timer = $timeout(function() {
         drawChart();
@@ -1353,13 +1351,13 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
         var suffix;
 
         if (scope.type === 'snr' ) {
-          suffix = 'dBm';
+          suffix = 'dB';
         } else if (scope.type === 'noise' || scope.type === 'signal') {
-          suffix = 'dB';
+          suffix = 'dBm';
         } else if (scope.type === 'quality') {
-          // No prefix //
-        } else {
-          suffix = 'dB';
+          suffix = '%';
+        // } else {
+        //   suffix = '';
         }
 
         var formatter = new window.google.visualization.NumberFormat(
@@ -1617,6 +1615,10 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
           targetAxisIndex: 1
         }
       };
+      opts.hAxis = {
+        format: 'dd/MM/yyyy',
+        // maxValue: new Date()
+      };
       opts.vAxes = {
         0: {
           textPosition: 'none'
@@ -1647,8 +1649,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
     var clientsChart = function() {
 
+      var time;
       var stats = json.timeline.stats;
-
       var start = new Date(json._stats.start * 1000);
 
       if (stats && stats.length) {
@@ -1658,11 +1660,23 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         data.addColumn('number', 'Clients');
 
         for(var i = 0; i < stats.length; i++) {
-          var time = new Date(stats[i].time * (1000));
+          time = new Date(stats[i].time * (1000));
           data.addRow([time, null, stats[i].count]);
         }
 
+        // Google charts, you are annoying. Why can't we just have a single-point chart ? //
+        if (stats.length <= 1) {
+          time = new Date();
+          data.addRow([time, null, 0]);
+          // time.setDate(time.getDate() + 1);
+          // data.addRow([time, null, 0]);
+        }
       }
+      
+      var date_formatter = new window.google.visualization.DateFormat({ 
+        pattern: 'MMM dd, yyyy'
+      }); 
+      date_formatter.format(data,0);
 
       var formatter = new window.google.visualization.NumberFormat(
         { pattern: '#,##0'}

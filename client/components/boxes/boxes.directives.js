@@ -520,6 +520,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       if (channel) {
         channel.unbind();
       }
+      $mdBottomSheet.hide();
       $timeout.cancel(timeout);
     });
 
