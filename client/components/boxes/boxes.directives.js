@@ -1903,21 +1903,7 @@ app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', fun
     scope: {
       box: '='
     },
-    template:
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Speedtest</h3>'+
-      '<md-button class=\'md-secondary md-icon-button\' ng-if=\'box.allowed_job && !box.speedtest_running\' ng-click="runSpeedtest()">'+
-      '<md-icon>replay</md-icon>'+
-      '</md-button>'+
-      '<span>'+
-      '<p>Last result: <b>{{ box.latest_speedtest.result || 0 }}Mb/s</b> <span ng-if=""box.latest_speedtest.result"> at {{ box.latest_speedtest.timestamp | humanTime }}</span></p>'+
-      '</span>'+
-      '<span ng-if="box.speedtest_running">'+
-      '<md-progress-linear md-mode="query"></md-progress-linear>'+
-      '</span>'+
-      '</div>' +
-      '</md-list-item>'
+    templateUrl: 'components/boxes/payloads/_speedtest_widget.html'
   };
 
 }]);
