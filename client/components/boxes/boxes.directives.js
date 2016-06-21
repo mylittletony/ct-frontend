@@ -1635,21 +1635,7 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
     scope: {
       next: '='
     },
-    template:
-      '<div>'+
-      '<p>Download the firmware for your devices. You can read about installing the firmwares in the <ct-docs name=\'firmware\' alt="documentation">documentation<ct-docs>.</p>'+
-      '<div flex flex-gt-sm="30" layout="column">'+
-      '<md-input-container>'+
-      '<label>Choose a firmware version</label>'+
-      '<md-select iiing-if=\'firmwares.length\' ng-model="firmware">'+
-      '<md-option ng-repeat="f in firmwares" value="{{f.url}}">'+
-      '{{f.type}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '</div>'+
-      '<md-button ng-click="download()" class="md-raised" ng-disabled="!firmware" aria-label="download firmware">Download</md-button>'+
-      '</div>'
+    templateUrl: 'components/boxes/firmware/_download_firmware.html',
   };
 
 }]);
