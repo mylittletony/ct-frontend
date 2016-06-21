@@ -1,0 +1,45 @@
+<form name="myForm" ng-submit="update(myForm)">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+        <md-icon>arrow_back</md-icon>
+      </md-button>
+      <p>Back to Guests</p>
+      <div flex></div>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                Guest Details
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-align="center center">
+              <!-- <div flex="100" flex-gt-sm="50"> -->
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Guest Email</h3>
+                    <p>{{ guest.guest.username }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text">
+                    <h3>Created On</h3>
+                    <p>{{ guest.guest.created_at | humanTime }}</p>
+                  </div>
+                </md-list-item>
+              </div>
+          </md-card-content>
+        </md-card>
+      </div>
+  </md-content>
+</form>

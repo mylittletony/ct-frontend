@@ -494,10 +494,108 @@ app.directive('auditSocial', ['Session', '$routeParams', '$location', 'Client', 
 
 }]);
 
-app.directive('auditGuests', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Guest, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
 
+    scope.loading       = true;
+
+    scope.email         = $routeParams.email;
+    scope.location_name = $routeParams.location_name;
+
+    if (scope.email) {
+      scope.selectedItem  = scope.email;
+    } else if (scope.location_name) {
+      scope.selectedItem = scope.location_name;
+    }
+
+    scope.options = {
+      boundaryLinks: false,
+      largeEditDialog: false,
+      pageSelector: false,
+    };
+
+    scope.query = {
+      order:          '-created_at',
+      start:          $routeParams.start,
+      end:            $routeParams.end,
+      filter:         $routeParams.q,
+      limit:          $routeParams.per || 25,
+      page:           $routeParams.page || 1,
+      options:        [5,10,25,50,100],
+      direction:      $routeParams.direction || 'desc'
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page  = page;
+      scope.query.limit = limit;
+      search();
+    };
+
+    function querySearch (query) {
+      var deferred = $q.defer();
+      Guest.get({
+        q: query,
+      }).$promise.then(function(results) {
+        deferred.resolve(results.results);
+      }, function(err) {
+        scope.loading = undefined;
+        deferred.reject();
+      });
+      return deferred.promise;
+    }
+
+    function searchTextChange(text) {
+    }
+
+    var timer;
+    function selectedItemChange(item) {
+      timer = $timeout(function() {
+        var hash = {};
+        if (item && item._index) {
+          switch(item._index) {
+            case 'guests':
+              hash.email = item._key;
+              break;
+            case 'locations':
+              hash.location_name = item._key;
+              break;
+            default:
+              console.log(item._index);
+          }
+        }
+        $location.search(hash);
+      }, 250);
+    }
+
+    scope.querySearch         = querySearch;
+    scope.selectedItemChange  = selectedItemChange;
+    scope.searchTextChange    = searchTextChange;
+
+    var search = function() {
+      var hash        = $location.search();
+      hash.q          = scope.query.filter;
+      hash.page       = scope.query.page;
+      hash.per        = scope.query.limit;
+      $location.search(hash);
+    };
+
+    var init = function() {
+      Guest.get({
+        page: scope.query.page,
+        per:  scope.query.limit,
+        email: scope.email,
+        location_name: scope.location_name
+      }).$promise.then(function(results) {
+        scope.guests        = results.guests;
+        scope._links        = results._links;
+        scope.loading       = undefined;
+      }, function(err) {
+        scope.loading = undefined;
+      });
+    };
+
+    init();
   };
 
   return {
@@ -708,6 +806,43 @@ app.directive('showOrder', ['Order', '$routeParams', '$timeout', 'menu', '$mdDia
     link: link,
     scope: {},
     templateUrl: 'components/audit/sales/_show.html'
+  };
+
+}]);
+
+app.directive('showGuest', ['Guest', '$routeParams', '$timeout', 'menu', '$mdDialog', 'showToast', 'showErrors', function(Guest, $routeParams, $timeout, menu, $mdDialog, showToast, showErrors) {
+
+  var link = function(scope) {
+
+    scope.loading   = true;
+    scope.page      = $routeParams.page;
+
+    menu.isOpenLeft = false;
+    menu.isOpen = false;
+    menu.hideBurger = false;
+
+    var init = function() {
+      Guest.query({id: $routeParams.id}).$promise.then(function(results) {
+        scope.guest       = results;
+        scope.loading     = undefined;
+      }, function(err) {
+
+        scope.loading = undefined;
+      });
+    };
+
+    scope.back = function() {
+      window.history.back();
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {},
+    templateUrl: 'components/audit/guests/_show.html'
   };
 
 }]);

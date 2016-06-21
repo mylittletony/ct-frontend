@@ -133,6 +133,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/audit/guests/index.html',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/audit/guests/:id', {
+      templateUrl: 'components/audit/guests/show.html',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/audit/sales', {
       templateUrl: 'components/audit/sales/index.html',
       resolve: { loginRequired: loginRequired }
