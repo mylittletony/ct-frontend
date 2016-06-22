@@ -109,8 +109,11 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
     };
 
     scope.init = function() {
-
-      Trigger.query({q: scope.query, page: scope.page, location_id: scope.location.slug}).$promise.then(function(results) {
+      Trigger.query({
+        q: scope.query,
+        page: scope.page,
+        location_id: scope.location.slug
+      }).$promise.then(function(results) {
         scope.triggers = results.triggers;
         scope.loading = undefined;
         createMenu();

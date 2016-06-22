@@ -121,7 +121,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $routeProvider.
     when('/', {
       templateUrl: 'components/locations/index/index.html',
-      // reloadOnSearch: false,
       controller: 'HomeCtrl'
     }).
     when('/hey', {
