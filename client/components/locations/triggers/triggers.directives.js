@@ -219,21 +219,21 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       if (scope.trigger.channel === 'slack') {
         for (var i = 0; i < scope.slack_channels.length; i++) {
           if (scope.slack_channels[i].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.slack_channels[0].name;
+            scope.trigger.custom_1 = scope.slack_channels[i].name;
           }
         }
       }
       else if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
         for (var j = 0; j < scope.chimp_lists.length; j++) {
           if (scope.chimp_lists[j].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.chimp_lists[0].name;
+            scope.trigger.custom_1 = scope.chimp_lists[i].name;
           }
         }
       }
       else if (scope.trigger.channel === 'sms') {
         // for (var i = 0; i < scope.chimp_lists.length; i++) {
         //   if (scope.chimp_lists[i].id === scope.trigger.attr_1) {
-        //     scope.trigger.custom_1 = scope.chimp_lists[0].name;
+        //     scope.trigger.custom_1 = scope.chimp_lists[i].name;
         //   }
         // }
       }
