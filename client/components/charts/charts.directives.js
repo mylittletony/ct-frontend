@@ -656,25 +656,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', function($tim
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      '{{ resource == \'device\'  ? \'Device\' : \'WiFi\' }} Usage'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="usage-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/clients/_client_usage_chart.html',
   };
 
 }]);
