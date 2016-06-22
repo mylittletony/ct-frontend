@@ -172,12 +172,19 @@ md-sidenav.md-sidenav-right ul {
   margin: 0px -15px 0 -13px;
 }
 
-.md-button.md-fab.md-fab-bottom-right {
+.splash-design-buttons {
   top: auto;
+  left: auto;
   right: 20px;
   bottom: 20px;
-  left: auto;
   position: fixed;
+}
+
+.md-button.md-fab.md-fab-bottom-right {
+  /* top: auto; */
+  /* left: 20px; */
+  /* bottom: 20px; */
+  /* position: fixed; */
 }
 
 .active {
