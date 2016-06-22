@@ -5,7 +5,7 @@
         {{ fn | titleCase }} {{ title }}
       </span>
     </md-card-header-text>
-    <md-button class="md-icon-button" ng-click="refresh()">
+    <md-button class="md-icon-button" ng-click="init()">
       <md-icon>refresh</md-icon>
     </md-button>
     <md-menu-bar style="padding: 0">
