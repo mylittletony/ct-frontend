@@ -91,15 +91,7 @@ app.directive('currency', function() {
     scope: {
       model: '='
     },
-    template:
-      '<md-input-container layout="column">'+
-      '<label for=\'currency\'>Currency</label>'+
-      '<md-select ng-model="model">'+
-      '<md-option ng-repeat="name in currencies">'+
-      '{{name}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'
+    templateUrl: 'components/main/_currency.html',
   };
 
 
@@ -364,7 +356,7 @@ app.directive('countrySelect', ['$parse', function($parse) {
   };
 
   return {
-    template: 
+    template:
       '<md-select ng-model="country">'+
       '<md-option ng-repeat=\'c in countries\' value="{{ c.code }}">'+
       '{{ c.name }}'+
