@@ -412,7 +412,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       });
     }
 
-    
+
     var init = function() {
 
       var params = {
@@ -539,7 +539,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].inbound / (1000*1000) , stats[i].outbound / (-1000*1000) ]);
       }
-      
+
       options.vAxes = {
         0: {
           textPosition: 'none'
@@ -548,7 +548,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
           format: '#Gb'
         }
       };
-      
+
       var formatter = new window.google.visualization.NumberFormat(
         { suffix: 'Gb', pattern: '#,##0.00;'}
       );
@@ -567,7 +567,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].count]);
       }
-      
+
       options.vAxes = {
         0: {
           textPosition: 'none'
@@ -576,7 +576,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
           format: ''
         }
       };
-      
+
       var date_formatter = new window.google.visualization.DateFormat({
         pattern: 'MMM dd, yyyy'
       });
@@ -638,7 +638,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         },500);
         scope.loading = undefined;
       }, function(err) {
-        console.log(err);                          
+        console.log(err);
       });
     };
 
@@ -657,7 +657,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       subhead: '@'
     },
     require: '^analytics',
-    templateUrl: 'components/reports/_radius_sessions.html',
+    templateUrl: 'components/reports/_radius_timeline.html',
   };
 
 }]);
@@ -746,7 +746,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
           format: '#Gb'
         }
       };
-      
+
       var formatter = new window.google.visualization.NumberFormat(
         { suffix: 'Gb', pattern: '#,##0.00;'}
       );
@@ -765,7 +765,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].count]);
       }
-      
+
       options.vAxes = {
         0: {
           textPosition: 'none'
@@ -774,7 +774,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
           format: ''
         }
       };
-      
+
       var formatter = new window.google.visualization.NumberFormat(
         { pattern: '#,##0;'}
       );
@@ -831,7 +831,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
         },500);
         scope.loading = undefined;
       }, function(err) {
-        console.log(err);                          
+        console.log(err);
       });
     };
 
@@ -851,47 +851,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       subhead: '@'
     },
     require: '^analytics',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      '{{ fn | titleCase }} {{ title }}'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-click="init()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '<md-menu-bar style="padding: 0">'+
-      '<md-menu>'+
-      '<button ng-click="$mdOpenMenu()">'+
-      '<md-icon>more_vert</md-icon>'+
-      '</button>'+
-      '<md-menu-content width="3">'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'clients\')">'+
-      'Unique Clients'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'usage\')">'+
-      'Usage Data'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '</md-menu-content>'+
-      '</md-menu>'+
-      '</md-menu-bar>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="{{ render }}"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading graph data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/reports/_wireless_timeline.html',
   };
 
 }]);
