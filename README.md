@@ -78,6 +78,10 @@ TBC. We should detail what notifications we use, including the channels in use. 
 
 For now, use the code samples etc. to figure it out.
 
+## Translations
+
+TBC
+
 ## Contributing 
 
 ### Issues 
