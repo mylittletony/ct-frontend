@@ -254,7 +254,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
     };
 
-    scope.rebootBox = function(ev) {debugger;
+    scope.rebootBox = function(ev) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Would you like to reboot this device?'))
       .textContent(gettextCatalog.getString('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete'))
@@ -280,7 +280,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
     };
 
-    scope.deleteBox = function(ev) {debugger;
+    scope.deleteBox = function(ev) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Are you sure you want to delete this device?'))
       .textContent(gettextCatalog.getString('This cannot be reversed, please be careful. Deleting a box is permanent.'))
@@ -675,7 +675,7 @@ app.directive('splashOnly', 'gettextCatalog', ['Box', 'showToast', 'showErrors',
 
 }]);
 
-app.directive('editBox', 'gettextCatalog', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog) {
+app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -1666,7 +1666,7 @@ app.directive('interfaceButtons', ['$routeParams', '$location', function($routeP
 
 }]);
 
-app.directive('upgradeBox', 'gettextCatalog', ['Payload', '$routeParams', '$pusher', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', function(Payload, $routeParams, $pusher, $rootScope, $mdDialog, showToast, Upgrade, gettextCatalog) {
+app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', 'gettextCatalog', function(Payload, $routeParams, $pusher, $rootScope, $mdDialog, showToast, Upgrade, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -2209,7 +2209,7 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
 
 }]);
 
-app.directive('addBoxWizard', 'gettextCatalog', ['Box', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', function(Box, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone, gettextCatalog) {
+app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', 'gettextCatalog', function(Box, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -2445,7 +2445,7 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('boxSpeedtestWidget', 'gettextCatalog', ['showErrors', 'showToast', 'Speedtest', function(showErrors,showToast,Speedtest, gettextCatalog) {
+app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     scope.runSpeedtest = function() {

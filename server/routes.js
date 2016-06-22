@@ -43,6 +43,10 @@ module.exports = function(app) {
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
 
+   app.get('/translations/:lang', function(req, res) {
+     res.sendfile(app.get('appPath') + '/app/translations/' + req.params.lang);
+  });
+
   // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {

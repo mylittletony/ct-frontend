@@ -27,42 +27,45 @@ app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
     }
     locale = Auth.currentUser().locale.split('-');
     var language = locale[0],
-        country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
-    
-    return country === undefined ? language : [language, country].join('_');
+      country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
+
+      return country === undefined ? language : [language, country].join('_');
   }
-  
-  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true},
-      lingua,
-      userLocale =  Auth.currentUser().locale;
-  
-  lingua = fixLocale(userLocale);
+
+  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
+  var language, userLocale;
+
+  if (Auth.currentUser() && Auth.currentUser().locale) {
+    userLocale =  Auth.currentUser().locale;
+  }
+
+  language = fixLocale(userLocale);
 
   // Modern browsers expose the accepted languages via navigator.languages.
-  for (var i = 0;  lingua === null && navigator.languages !== null
-       && i < navigator.languages.length; ++i) {
+  for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
     var lang = navigator.languages[i].substr(0, 5);
-    lingua = fixLocale(lang);
+    language = fixLocale(lang);
     if (supported[lang]) {
-      lingua = lang;
+      language = lang;
     }
     if (!supported[lang]) {
       var localeArr = lang.split('-'),
-          browserLang = localeArr[0];
-      for (var language in supported) {
-        if (language.indexOf(browserLang) !== -1) {
-          lingua = language;
+        browserLang = localeArr[0];
+        for (var l in supported) {
+          if (l.indexOf(browserLang) !== -1) {
+            language = l;
+          }
         }
-      }
     }
   }
 
-  if (!supported[lingua])
-    lingua = 'en_GB';
+  if (!supported[language]) {
+    language = 'en_GB';
+  }
 
-  gettextCatalog.setCurrentLanguage(lingua);
+  gettextCatalog.setCurrentLanguage(language);
+  gettextCatalog.loadRemote('/translations/' + language + '.json');
 
-  gettextCatalog.loadRemote('/app/translations/' + lingua + '.json');
 }]);
 
 app.config(['$compileProvider', function ($compileProvider) {
