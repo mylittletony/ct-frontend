@@ -1,3 +1,4 @@
+// Generated on 2014-09-08 using generator-angular-fullstack 2.0.13
 'use strict';
 
 module.exports = function (grunt) {
@@ -26,6 +27,7 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // Required for the translations //
   var potfiles = [
       'client/index.html',
       'client/components/**/*.html',
@@ -39,8 +41,6 @@ module.exports = function (grunt) {
       'ro',
       'it'
   ];
-
-
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -184,8 +184,10 @@ module.exports = function (grunt) {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
         }
-      },
+      }
     },
+    
+    // Required for the translations //
     nggettext_extract: {
       pot: {
         files: {
@@ -234,7 +236,6 @@ module.exports = function (grunt) {
         ]
       }
     },
-
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
@@ -521,6 +522,7 @@ module.exports = function (grunt) {
       heroku: {
         options: {
           remote: 'git@heroku.com:sheltered-bayou-9283.git',
+          // remote: 'git@heroku.com:ct-app-development.git',
           branch: 'master'
         }
       },
@@ -770,7 +772,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-msg-init-merge');
   grunt.loadNpmTasks('grunt-potomo');
   grunt.loadNpmTasks('grunt-angular-gettext');
-
   grunt.registerTask('server', function () {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
@@ -836,8 +837,8 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin'
-
   ]);
+
   // grunt.loadNpmTasks('grunt-sass');
   // grunt.loadNpmTasks('grunt-contrib-watch');
 
