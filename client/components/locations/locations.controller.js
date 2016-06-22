@@ -21,7 +21,6 @@ app.controller('LocationsCtrlShort', ['$scope', '$routeParams', '$filter', 'Loca
     };
 
     $scope.getLocation();
-    var test = function() {};
 
   }
 
