@@ -11,6 +11,7 @@
     "errorhandler": "~1.0.0",
     "express": "^4.0.0",
     "express-session": "~1.0.2",
+    "grunt-angular-gettext": "^2.2.3",
     "grunt-contrib-sass": "^0.9.2",
     "helmet": "^0.10.0",
     "lodash": "~2.4.1",

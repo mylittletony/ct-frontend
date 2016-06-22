@@ -232,7 +232,6 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
     // This is duplicated from the codes directive //
     // Should be consolodated in to a single dir   //
-
     scope.rangeFilter = function(ev) {
       $mdDialog.show({
         templateUrl: 'components/locations/clients/_range_filter.html',
@@ -277,7 +276,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
     DialogController.$inject = ['$scope'];
 
     // Don't like this however it's less annoying than dealing with
-    // the conversion from a numeric id to slug in the locs. controller
+    // the conversion from a numeric id to slug in the locs. controller what???
 
     scope.visitClient = function(session) {
       Client.get({location_id: session.location_id, q: session.client_mac}, function(data) {
@@ -348,8 +347,8 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
 
     scope.query = {
       order:          '-created_at',
-      start:          $routeParams.start,// || start,
-      end:            $routeParams.end,// || end,
+      start:          $routeParams.start,
+      end:            $routeParams.end,
       filter:         $routeParams.q,
       limit:          $routeParams.per || 25,
       page:           $routeParams.page || 1,
