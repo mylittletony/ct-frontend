@@ -261,12 +261,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $roo
       fn: '@',
       type: '@'
     },
-    template:
-      '<div id="clients-chart" layout="row" layout-align="left end"></div>'+
-      '<md-progress-linear ng-if="loadingChart" md-mode="query"></md-progress-linear>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'
+    templateUrl: 'components/charts/clients/_clients_chart.html',
   };
 
 }]);
