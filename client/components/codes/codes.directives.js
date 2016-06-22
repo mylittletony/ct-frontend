@@ -320,70 +320,6 @@ app.directive('codesShow', ['Code', '$routeParams', '$location', function(Code, 
 
 }]);
 
-// Untested naughty directive //
-
-app.directive('rangeFilter', ['Code', '$routeParams', '$location', function(Code, $routeParams, $location) {
-
-  var link = function(scope,element,attrs) {
-
-    scope.loading = true;
-
-    scope.updateRange = function(message) {
-      scope.rangeFilter = undefined;
-      var start         = new Date(scope.startT).getTime() / 1000;
-      var end           = new Date(scope.endT).getTime() / 1000;
-      scope.updateFn({message: {start: start, end: end}});
-    };
-
-    attrs.$observe('end', function(val){
-      if (val !== '' ) {
-        scope.startT      = new Date(attrs.start*1000);
-        scope.endT        = new Date(attrs.end*1000);
-        scope.loading     = undefined;
-      }
-    });
-  };
-
-  return {
-    link: link,
-    scope: {
-      updateFn: '&',
-      start: '@',
-      end: '@'
-    },
-    template:
-        '<div ng-hide=\'loading\'>'+
-        '<span ng-hide="rangeFilter">'+
-        '<p><small>Range: {{ start*1000 | amDateFormat:\'MMMM Do YYYY\'}} - {{ end*1000 | amDateFormat:\'MMMM Do YYYY\' }}. <a href="" ng-click="rangeFilter = !rangeFilter">Change</a></small></p>'+
-        '</span>'+
-        '<span ng-show="rangeFilter">'+
-        '<div class="row">'+
-        '<div class="large-12 columns">'+
-        '<div class="row collapse">'+
-        '<div class="small-12 medium-4 columns">'+
-        '<label>From</label>'+
-        '<input ng-model="startT" type="date"></input>'+
-        '</div>'+
-        '<div class="small-12 medium-4 columns">'+
-        '<label>To</label>'+
-        '<input ng-model="endT" type="date"></input>'+
-        '</div>'+
-        '<div class="small-12 medium-2 end columns">'+
-        '<label>&nbsp;</label>'+
-        '<a ng-click="updateRange()" class="button postfix">Go</a>'+
-        '</div>'+
-        '</div>'+
-        '<p><a href="" ng-click="rangeFilter = !rangeFilter">Cancel</a></p>'+
-        '</div>'+
-        '</div>'+
-        '</span>'+
-        '</div>'
-
-
-  };
-
-}]);
-
 app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', '$q', '$mdDialog', 'showErrors', function(Client, $routeParams, Session, $location, $q, $mdDialog, showErrors) {
 
   var link = function( scope, element, attrs ) {
@@ -552,4 +488,3 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
     templateUrl: 'components/codes/_sessions.html'
   };
 }]);
-
