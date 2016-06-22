@@ -2588,4 +2588,3 @@ app.directive('boxUpgradeWidget', ['$compile', function($compile) {
   };
 
 }]);
-
