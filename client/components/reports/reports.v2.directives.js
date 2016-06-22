@@ -800,59 +800,7 @@ app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location',
       subhead: '@'
     },
     require: '^analytics',
-    template:
-      '<div class=\'md-padding\' layout-gt-xs=\'row\' layout=\'column\'>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Unique Users</h3>'+
-      '<p>{{ stats.splash.uniques || 0 }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Average Session</h3>'+
-      '<p>{{ (stats.splash.durations.avg / 60) | number:0 }} Mins</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Total Sessions</h3>'+
-      '<p>{{ stats.splash.total_sessions }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Data Transferred</h3>'+
-      '<p>{{ (stats.splash.usage.inbound.sum + stats.splash.usage.outbound.sum) | humanData }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20" hide show-gt-sm>'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Vouchers</h3>'+
-      '<p>{{ stats.vouchers.created }} created, {{ stats.vouchers.activated }} used.</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '</div>'
+    templateUrl: 'components/reports/_radius_stats.html',
   };
 
 }]);
