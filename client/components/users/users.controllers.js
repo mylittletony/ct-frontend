@@ -135,3 +135,52 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
 
   }
 ]);
+
+app.controller('UsersIntegrationsController', ['Integration', '$scope', '$routeParams', 'User', '$location', 'Auth', '$pusher',
+  function(Integration, $scope, $routeParams, User, $location, Auth, $pusher) {
+
+    function parse(val) {
+      var result, tmp = [];
+      location.search
+      .substr(1)
+      .split('&')
+      .forEach(function (item) {
+        tmp = item.split('=');
+        if (tmp[0] === val) {
+          result = decodeURIComponent(tmp[1]);
+        }
+      });
+      return result;
+    }
+
+    var code = $routeParams.code || parse('code');
+
+    var type;
+    if (($routeParams.id === 'slacker' || $routeParams.id === 'slacker') && code ) {
+      type = 'slack';
+    }
+    else if ($routeParams.id === 'mailchimp' && code ) {
+      type = 'mailchimp';
+    }
+    else if ($routeParams.id === 'twillio' && code ) {
+      type = 'twillio';
+    }
+
+    if ($routeParams.error) {
+      $location.path('/users/' + Auth.currentUser().slug + '/integrations');
+      $location.search({success: false, error: $routeParams.error});
+    } else if (type) {
+      Integration.create({integration: { code: code, type: type }}).$promise.then(function(results) {
+        $location.path('/users/' + Auth.currentUser().slug + '/integrations');
+        $location.search({success: true, type: type});
+      }, function(err) {
+        $location.path('/users/' + Auth.currentUser().slug + '/integrations');
+        $location.search({success: false, type: type});
+      });
+    } else {
+      $location.path('/users/' + Auth.currentUser().slug + '/integrations');
+      $location.search({success: false, type: type});
+    }
+  }
+
+]);

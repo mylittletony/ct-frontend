@@ -741,7 +741,6 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
     };
 
     designer.back = function() {
-      // window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id;
       window.history.back();
     };
 

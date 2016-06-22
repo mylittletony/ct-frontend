@@ -294,8 +294,8 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       if (!scope.trigger.id) {
         scope.trigger.attr_1 = '{{ Email }}';
         scope.trigger.attr_2 = undefined;
-        scope.trigger.attr_3 = '[WELCOME] Thanks for logging in {{ First_Name }}';
-        scope.trigger.attr_4 = 'Hello {{ First_Name }}\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge';
+        scope.trigger.attr_3 = '[WELCOME] Thanks for logging in';
+        scope.trigger.attr_4 = 'Hello\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge';
       }
     };
 
@@ -443,11 +443,12 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     };
 
     scope.back = function() {
-      if (scope.trigger.id) {
-        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id;
-      } else {
-        window.location.href = '/#/locations/' + scope.location.slug + '/triggers';
-      }
+      window.history.back();
+      // if (scope.trigger.id) {
+      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id;
+      // } else {
+      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers';
+      // }
     };
 
     if ($routeParams.id) {
