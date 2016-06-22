@@ -41,7 +41,6 @@ app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
 
   language = fixLocale(userLocale);
 
-  // Modern browsers expose the accepted languages via navigator.languages.
   for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
     var lang = navigator.languages[i].substr(0, 5);
     language = fixLocale(lang);
@@ -83,24 +82,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
 
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
-  // var item = items[Math.floor(Math.random()*items.length)];
-
   var item = 'blue';
 
   $mdThemingProvider.theme('default')
     .primaryPalette(item, {
-      // 'default': '700', // by default use shade 400 from the pink palette for primary intentions
-      'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
-      // 'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
-      // 'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+      'hue-1': '100',
     }).
     accentPalette('blue', {
       'default': '500',
       'hue-1': '50'
     });
-    // .warnPalette('red');
-
-  // $mdThemingProvider.theme('red').primaryPalette('red');
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();

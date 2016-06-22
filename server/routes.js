@@ -7,6 +7,7 @@
 var errors = require('./components/errors');
 var secrets = require('./config/local.env.sample');
 var request = require('request');
+var path = require('path');
 
 module.exports = function(app) {
 
@@ -44,12 +45,11 @@ module.exports = function(app) {
    .get(errors[404]);
 
    app.get('/translations/:lang', function(req, res) {
-     res.sendfile(app.get('appPath') + '/app/translations/' + req.params.lang);
+     res.sendFile(path.join(__dirname, '/translations/' + req.params.lang));
   });
 
-  // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {
-      res.sendfile(app.get('appPath') + '/index.html');
+      res.sendFile(app.get('appPath') + '/index.html');
     });
 };
