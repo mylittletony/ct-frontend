@@ -266,7 +266,6 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       checkSlackIntegrated().then(function(a) {
         slackChannels();
         scope.trigger.attr_2 = 'A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}';
-        // scope.loading_integration = undefined;
       }, function(err) {
         blank(true);
         scope.error = err;

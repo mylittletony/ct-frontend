@@ -12,8 +12,8 @@ msgstr ""
 msgid "Add App"
 msgstr ""
 
+#: client/components/boxes/boxes.directives.js:2392
 #: client/components/boxes/boxes.directives.js:2397
-#: client/components/boxes/boxes.directives.js:2402
 msgid "Add a comment"
 msgstr ""
 
@@ -50,15 +50,15 @@ msgstr ""
 msgid "Apps"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1807
+#: client/components/boxes/boxes.directives.js:1802
 msgid "Are you sure you want to cancel?"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:290
+#: client/components/boxes/boxes.directives.js:285
 msgid "Are you sure you want to delete this device?"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2325
+#: client/components/boxes/boxes.directives.js:2320
 msgid "Automatically discovered"
 msgstr ""
 
@@ -67,23 +67,23 @@ msgstr ""
 msgid "Back to Apps"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:355
+#: client/components/boxes/boxes.directives.js:350
 msgid "Box successfully"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:304
+#: client/components/boxes/boxes.directives.js:299
 msgid "Box successfully deleted"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:280
+#: client/components/boxes/boxes.directives.js:275
 msgid "Box successfully rebooted."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:339
+#: client/components/boxes/boxes.directives.js:334
 msgid "Box transfer was a success."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1848
+#: client/components/boxes/boxes.directives.js:1843
 msgid "Box upgrading. Do not unplug or restart your device."
 msgstr ""
 
@@ -107,30 +107,30 @@ msgstr ""
 msgid "Callback URLs:"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:204
-#: client/components/boxes/boxes.directives.js:238
-#: client/components/boxes/boxes.directives.js:269
-#: client/components/boxes/boxes.directives.js:295
+#: client/components/boxes/boxes.directives.js:199
+#: client/components/boxes/boxes.directives.js:233
+#: client/components/boxes/boxes.directives.js:264
+#: client/components/boxes/boxes.directives.js:290
 msgid "Cancel"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1809
+#: client/components/boxes/boxes.directives.js:1804
 msgid "Cancel Upgrade"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:307
+#: client/components/boxes/boxes.directives.js:302
 msgid "Could not delete box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:561
+#: client/components/boxes/boxes.directives.js:556
 msgid "Could not delete the payload."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:222
+#: client/components/boxes/boxes.directives.js:217
 msgid "Could not reset this device, please try again"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1708
+#: client/components/boxes/boxes.directives.js:1703
 msgid "Could not schedule upgrade, try again."
 msgstr ""
 
@@ -142,11 +142,11 @@ msgstr ""
 msgid "Credentials"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:292
+#: client/components/boxes/boxes.directives.js:287
 msgid "Delete Box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:294
+#: client/components/boxes/boxes.directives.js:289
 msgid "Delete it"
 msgstr ""
 
@@ -158,11 +158,11 @@ msgstr ""
 msgid "Developer"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:213
+#: client/components/boxes/boxes.directives.js:208
 msgid "Device reset in progress, please wait."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:254
+#: client/components/boxes/boxes.directives.js:249
 msgid "Device resync in progress. Please wait."
 msgstr ""
 
@@ -182,15 +182,15 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:282
+#: client/components/boxes/boxes.directives.js:277
 msgid "Failed to reboot box, please try again."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:256
+#: client/components/boxes/boxes.directives.js:251
 msgid "Failed to resync device, please try again."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1808
+#: client/components/boxes/boxes.directives.js:1803
 msgid "If the upgrade has begun, you cannot stop it. Please wait until it completes."
 msgstr ""
 
@@ -235,11 +235,11 @@ msgstr ""
 msgid "Open Apps Menu"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:622
+#: client/components/boxes/boxes.directives.js:617
 msgid "Payload completed!"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:559
+#: client/components/boxes/boxes.directives.js:554
 msgid "Payload deleted successfully"
 msgstr ""
 
@@ -255,49 +255,49 @@ msgstr ""
 msgid "Privacy Policy - Terms of Service"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:266
+#: client/components/boxes/boxes.directives.js:261
 msgid "Reboot Box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:268
+#: client/components/boxes/boxes.directives.js:263
 msgid "Reboot it"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:265
+#: client/components/boxes/boxes.directives.js:260
 msgid ""
 "Rebooting will disconnect your clients.\n"
 "A reboot takes about 60 seconds to complete"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:201
+#: client/components/boxes/boxes.directives.js:196
 msgid "Reset Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:203
+#: client/components/boxes/boxes.directives.js:198
 msgid "Reset it"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:199
+#: client/components/boxes/boxes.directives.js:194
 msgid "Reset this Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:200
+#: client/components/boxes/boxes.directives.js:195
 msgid "Resetting your box is not recommended. If you are having problems with it, please resync first. If the device is offline, it will reset next time it restarts."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:235
+#: client/components/boxes/boxes.directives.js:230
 msgid "Resync Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:237
+#: client/components/boxes/boxes.directives.js:232
 msgid "Resync it"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:233
+#: client/components/boxes/boxes.directives.js:228
 msgid "Resync this Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2464
+#: client/components/boxes/boxes.directives.js:2459
 msgid "Running speedtest, please wait."
 msgstr ""
 
@@ -309,16 +309,16 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:665
-#: client/components/boxes/boxes.directives.js:759
+#: client/components/boxes/boxes.directives.js:660
+#: client/components/boxes/boxes.directives.js:754
 msgid "Settings updated successfully"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:422
+#: client/components/boxes/boxes.directives.js:417
 msgid "Streaming updates disabled"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:417
+#: client/components/boxes/boxes.directives.js:412
 msgid "Streaming updates enabled"
 msgstr ""
 
@@ -331,7 +331,7 @@ msgstr ""
 msgid "Tell us about your App"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:291
+#: client/components/boxes/boxes.directives.js:286
 msgid "This cannot be reversed, please be careful. Deleting a box is permanent."
 msgstr ""
 
@@ -339,11 +339,11 @@ msgstr ""
 msgid "This is for developers. If you're not sure what an API is, please forget this exists."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:234
+#: client/components/boxes/boxes.directives.js:229
 msgid "This will force a complete refresh of it's configuration files. A resync will disconnect any wireless clients temporarily"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1822
+#: client/components/boxes/boxes.directives.js:1817
 msgid "Upgrade cancelled successfully."
 msgstr ""
 
@@ -351,7 +351,7 @@ msgstr ""
 msgid "Wi-Fi Management Platform"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:264
+#: client/components/boxes/boxes.directives.js:259
 msgid "Would you like to reboot this device?"
 msgstr ""
 
@@ -379,15 +379,15 @@ msgstr ""
 msgid "Your callback URL"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2341
+#: client/components/boxes/boxes.directives.js:2336
 msgid "Your device has been added."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2344
+#: client/components/boxes/boxes.directives.js:2339
 msgid "Your devices have been added."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1700
+#: client/components/boxes/boxes.directives.js:1695
 msgid "Your upgrade has been scheduled."
 msgstr ""
 
@@ -395,18 +395,18 @@ msgstr ""
 msgid "Your website"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1812
+#: client/components/boxes/boxes.directives.js:1807
 msgid "exit"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:354
+#: client/components/boxes/boxes.directives.js:349
 msgid "muted"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1811
+#: client/components/boxes/boxes.directives.js:1806
 msgid "please cancel it"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:354
+#: client/components/boxes/boxes.directives.js:349
 msgid "unmuted"
 msgstr ""

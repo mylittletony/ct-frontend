@@ -39,17 +39,10 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
 
-    // init();
-
-    ////////////////////////////////////////////////////
-    // window.amplitude.logEvent('dashboard');
-    ////////////////////////////////////////////////////
-
   };
 
   return {
     scope: {
-      // loading: '=',
     },
     link: link,
     controller: 'LocationsCtrl',
