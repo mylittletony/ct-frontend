@@ -138,7 +138,7 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
       Holding.create({email: scope.user.email}).$promise.then(function(data) {
       }, function() {
-        scope.clearCookies();                                                      
+        scope.clearCookies();
       });
     };
 
