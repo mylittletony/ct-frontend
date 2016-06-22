@@ -1665,17 +1665,18 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         }
 
         // Google charts, you are annoying. Why can't we just have a single-point chart ? //
-        if (stats.length <= 1) {
-          time = new Date();
-          data.addRow([time, null, 0]);
-          // time.setDate(time.getDate() + 1);
-          // data.addRow([time, null, 0]);
-        }
+        // I thought you fixed the issue but you seem to make the reset worse //
+        // if (stats.length <= 1) {
+        //   time = new Date();
+        //   data.addRow([time, null, 0]);
+        //   // time.setDate(time.getDate() + 1);
+        //   // data.addRow([time, null, 0]);
+        // }
       }
-      
-      var date_formatter = new window.google.visualization.DateFormat({ 
+
+      var date_formatter = new window.google.visualization.DateFormat({
         pattern: 'MMM dd, yyyy'
-      }); 
+      });
       date_formatter.format(data,0);
 
       var formatter = new window.google.visualization.NumberFormat(
@@ -1723,7 +1724,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     var sessionsChart = function() {
-      
+
       var start = new Date(json._stats.start * 1000);
 
       if (scope.type === 'impressions') {
