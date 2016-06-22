@@ -226,7 +226,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       else if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
         for (var j = 0; j < scope.chimp_lists.length; j++) {
           if (scope.chimp_lists[j].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.chimp_lists[i].name;
+            scope.trigger.custom_1 = scope.chimp_lists[j].name;
           }
         }
       }
