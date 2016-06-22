@@ -10,21 +10,17 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
     // User permissions //
     var createMenu = function() {
-
       scope.menu = [];
-
       scope.menu.push({
         name: 'Edit Settings',
         icon: 'settings',
         type: 'settings'
       });
-
       scope.menu.push({
         name: 'Delete Zone',
         icon: 'delete_forever',
         type: 'delete'
       });
-
     };
 
     scope.action = function(zone,type) {

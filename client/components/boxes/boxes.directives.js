@@ -93,10 +93,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           name: 'Changelog',
           icon: 'history',
         });
-        // scope.menu.push({
-        //   name: 'Firewall',
-        //   icon: 'security',
-        // });
       }
 
       scope.menu.push({
@@ -118,7 +114,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
         scope.menu.push({
           name: 'Reset',
-          // icon: 'undo',
           icon: 'clear',
         });
       }
