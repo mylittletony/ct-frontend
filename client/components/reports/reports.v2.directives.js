@@ -6,33 +6,41 @@ app.factory('Locations', [function() {
   return { current: '', all: '' };
 }]);
 
-app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location', '$q', '$window', 'Locations', function(Report, $routeParams,$location,Location, $q, $window, Locations) {
+app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location', '$q', '$window', 'Locations', '$timeout', '$cookies', function(Report, $routeParams,$location,Location, $q, $window, Locations, $timeout, $cookies) {
 
   var link = function( scope, element, attrs, controller ) {
 
-    scope.period = $routeParams.period || '7d';
+    scope.period        = $routeParams.period || '7d';
 
-    var setType = function() {
-      var split = $location.path().split('/');
-      if (split.length > 2) {
-        scope.name = split[2];
-      } else {
-        scope.name = 'Wireless';
-      }
-    };
+    var cid = $cookies.get('_ctlid');
+    if (cid) {
+      cid = JSON.parse(cid);
+    }
 
-    setType();
+    scope.location_name = $routeParams.location_name;
+    scope.selectedItem  = scope.location_name;
 
-    scope.active = function(path) {
-      var split = $location.path().split('/');
-      if (split.length >= 2) {
-        if (split[2] === path) {
-          return true;
-        }
-      } else if (path === '') {
-        return true;
-      }
-    };
+    // var setType = function() {
+    //   var split = $location.path().split('/');
+    //   if (split.length > 2) {
+    //     scope.name = split[2];
+    //   } else {
+    //     scope.name = 'Wireless';
+    //   }
+    // };
+
+    // setType();
+
+    // scope.active = function(path) {
+    //   var split = $location.path().split('/');
+    //   if (split.length >= 2) {
+    //     if (split[2] === path) {
+    //       return true;
+    //     }
+    //   } else if (path === '') {
+    //     return true;
+    //   }
+    // };
 
     function querySearch (query) {
       var deferred = $q.defer();
@@ -46,18 +54,26 @@ app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location
 
     function searchTextChange(text) {
     }
+
+    var timer;
     function selectedItemChange(item) {
+      timer = $timeout(function() {
+        var hash = {};
+        hash.location_id   = item.id;
+        hash.location_name = item.location_name;
+        $location.search(hash);
+      }, 0);
     }
 
-    scope.querySearch   = querySearch;
+    scope.querySearch        = querySearch;
     scope.selectedItemChange = selectedItemChange;
     scope.searchTextChange   = searchTextChange;
 
-    scope.changeLocation = function() {
-      var hash = $location.search();
-      hash.location_id = scope.location.id;
-      $location.search(hash);
-    };
+    // scope.changeLocation = function() {
+    //   var hash = $location.search();
+    //   hash.location_id = scope.location.id;
+    //   $location.search(hash);
+    // };
 
     scope.updatePeriod = function(period) {
       var hash = $location.search();
@@ -65,18 +81,18 @@ app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location
       $location.search(hash);
     };
 
-    scope.go = function(item) {
-      scope.location = item;
-      scope.locations.push(item);
-      scope.changeLocation();
-    };
+    // scope.go = function(item) {
+    //   scope.location = item;
+    //   scope.locations.push(item);
+    //   scope.changeLocation();
+    // };
 
-    var init = function() {
-      scope.locations = Locations.all;
-      scope.location = Location.current;
-    };
+    // var init = function() {
+    //   scope.locations = Locations.all;
+    //   scope.location = Location.current;
+    // };
 
-    init();
+    // init();
 
   };
 
@@ -86,20 +102,33 @@ app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location
     scope: {
       loading: '=',
     },
-    templateUrl: 'components/reports/_filter.html'
+    templateUrl: 'components/reports/_header.html'
   };
 
 }]);
 
-app.directive('wirelessReports', ['Report', '$routeParams', '$location', 'Location', '$q', 'Locations', function(Report, $routeParams,$location,Location, $q, Locations) {
+app.directive('wirelessReports', ['Report', '$routeParams', '$location', 'Location', '$q', 'Locations', '$cookies', function(Report, $routeParams,$location,Location, $q, Locations, $cookies) {
 
   var link = function( scope, element, attrs ) {
 
+    var params;
+    var cid = $cookies.get('_ctlid');
+    var lid = $routeParams.location_id;
+
     function init() {
-      if ($routeParams.location_id) {
-        Location.current  = { id: $routeParams.location_id };
+      if (lid) {
+        Location.current  = { id: lid };
+        params = {id: lid, location_name: $routeParams.location_name};
+        var json = JSON.stringify(params);
+        $cookies.put('_ctlid', json);
+      } else if (cid) {
+        cid = JSON.parse(cid);
+        params = {location_id: cid.id, location_name: cid.location_name};
+        Location.current = { id: cid.id };
+        $location.search(params);
+      } else {
+        getLocations();
       }
-      getLocations();
     }
 
     function getLocations() {
@@ -107,7 +136,7 @@ app.directive('wirelessReports', ['Report', '$routeParams', '$location', 'Locati
         Locations.all     = results.locations;
         if (!$routeParams.location_id) {
           Location.current  = results.locations[0];
-          $location.search({location_id: Location.current.id});
+          $location.search({location_id: Location.current.id, location_name: results.locations[0].location_name});
         }
         scope.loading     = undefined;
       }, function(err) {
@@ -150,7 +179,6 @@ app.directive('radiusReports', ['Report', '$routeParams', '$location', 'Location
       });
     }
 
-
     init();
 
   };
@@ -165,9 +193,52 @@ app.directive('radiusReports', ['Report', '$routeParams', '$location', 'Location
 
 }]);
 
-app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '$q', '$route', function(Report, $routeParams,$location,Location, $q, $route) {
+app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '$q', '$route', '$cookies', 'menu', function(Report, $routeParams,$location,Location, $q, $route, $cookies, menu) {
 
   var link = function( scope, element, attrs ) {
+
+    if ($cookies.get('_ctm') === 'true') {
+      menu.isOpenLeft = false;
+      menu.isOpen = false;
+    } else {
+      menu.isOpen = true;
+    }
+    menu.hideBurger = false;
+    menu.sections = [{}];
+    menu.sectionName = 'Reports';
+    menu.header = '';
+
+    var isActive = function(path) {
+      var split = $location.path().split('/');
+      if (split.length >= 3) {
+        return ($location.path().split('/')[2] === path);
+      } else if (path === 'dashboard') {
+        return true;
+      }
+    };
+
+    var createMenu = function() {
+      menu.header = 'Usage Reports';
+
+      menu.sections.push({
+        name: 'Wireless Stats',
+        link: '/#/reports/',
+        type: 'link',
+        icon: 'wifi',
+        active: isActive('dashboard')
+      });
+
+      menu.sections.push({
+        name: 'Radius Stats',
+        type: 'link',
+        link: '/#/reports/radius',
+        icon: 'donut_large',
+        active: isActive('radius')
+      });
+
+    };
+
+    createMenu();
 
   };
 
@@ -189,9 +260,9 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
       var deferred = $q.defer();
 
       params.v2 = true;
-      params.location_id = $routeParams.location_id;
-      params.period = $routeParams.period || '7d';
-      params.interval = $routeParams.interval || '1h';
+      params.location_id  = $routeParams.location_id;
+      params.period       = $routeParams.period || '7d';
+      params.interval     = $routeParams.interval || '1h';
 
       Report.get(params).$promise.then(function(results) {
         deferred.resolve(results);
@@ -249,9 +320,9 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
       //     min: 0
       //   }
       // },
-      // hAxis: {
-      //   format: 'dd MMM'
-      // },
+      hAxis: {
+        format: 'dd MMM'
+      },
       crosshair: {
         trigger: 'both',
         orientation: 'vertical'
@@ -279,9 +350,6 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
 app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', '$timeout', 'Shortener', function(Report, $routeParams, $location, Location, $timeout, Shortener) {
 
   var link = function( scope, element, attrs, controller ) {
-
-    // scope.location_name   = $routeParams.location_name;
-    // scope.loading         = controller.loading;
 
     var timer, json;
 
