@@ -17,7 +17,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <base href="/">
-  <title>Wi-Fi Management Platform</title>
+  <title translate>Wi-Fi Management Platform</title>
   <meta name="description" content="">
   <!-- <meta name="viewport" content="width=device-width"> -->
   <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' >
@@ -59,7 +59,7 @@
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
     <md-toolbar ng-hide="vm.menu.hideToolbar">
       <div class="md-toolbar-tools">
-        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="Settings">
+        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
         <h2>
@@ -72,7 +72,7 @@
         <span flex></span>
         <span hide show-gt-sm ng-if="loggedIn">
           <md-menu>
-            <md-button aria-label="Open Apps Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-button aria-label="'Open Apps Menu' | translate" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <md-icon>apps</md-icon>
             </md-button>
             <md-menu-content width="4" >
@@ -84,63 +84,62 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-          <md-button class="md-icon-button" aria-label="Support" ng-if="!vm.menu.Intercom">
+          <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="!vm.menu.Intercom">
             <a target="_blank" href="http://discuss.cucumberwifi.io">
               <md-icon>forum</md-icon>
             </a>
           </md-button>
-          <md-button class="md-icon-button" aria-label="Support" id="intercom" ng-if="vm.menu.Intercom">
+          <md-button class="md-icon-button" aria-label="'Support' | translate" id="intercom" ng-if="vm.menu.Intercom">
             <md-icon>chat</md-icon>
           </md-button>
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <user-avatar></user-avatar>
-
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item>
                 <md-button ng-href="/#/me" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
-                  Account
+                  <span translate>Account</span>
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
               <md-menu-item>
                 <md-button target="_blank" ng-href="http://docs.cucumberwifi.io" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">account_balance</md-icon>
-                  Documentation
+                  <span translate>Documentation</span>
                 </md-button>
               </md-menu-item>
               <md-menu-item>
                 <md-button target="_blank" ng-href="https://discuss.cucumberwifi.io/" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">forum</md-icon>
-                  Discussions
+                  <span translate>Discussions</span>
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
               <md-menu-item>
                 <md-button href="/#/downloads" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">get_app</md-icon>
-                  Downloads
+                  <span translate>Downloads</span>
                 </md-button>
               </md-menu-item>
               <md-menu-item>
                 <md-button href="/#/apps" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">android</md-icon>
-                  Developer
+                  <span translate>Developer</span>
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
               <md-menu-item>
                 <md-button ng-click="logout()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">exit_to_app</md-icon>
-                  Logout
+                  <span translate>Logout</span>
                 </md-button>
               </md-menu-item>
             </md-menu-content>
           </md-menu>
         </span>
-        <md-button id="main" hide-gt-sm class="md-icon-button" ng-click="toggle('right')" aria-label="Settings">
+        <md-button id="main" hide-gt-sm class="md-icon-button" ng-click="toggle('right')" aria-label="'Settings' | translate">
           <md-icon>apps</md-icon>
         </md-button>
       </div>
@@ -162,7 +161,7 @@
               <li class="parent-list-item">
                 <md-button ng-click="logout()">
                   <md-icon md-menu-align-target>exit_to_app</md-icon>
-                  Logout
+                  <span translate>Logout</span>
                 </md-button>
               </li>
             </ul>
@@ -172,7 +171,7 @@
 
         <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-1dp"
                     md-component-id="left"
-                    aria-label="Main Menu"
+                    aria-label="'Main Menu' | translate"
                     md-whiteframe="4"
                     md-is-open="vm.menu.isOpenLeft"
                     md-is-locked-open="vm.menu.isOpen && $mdMedia('gt-sm')">
@@ -204,7 +203,7 @@
 
             <div layout="row" layout-align="end" class="copy" hide show-gt-md>
               <small>
-                Privacy Policy - Terms of Service<br>
+                <translate>Privacy Policy - Terms of Service</translate><br>
                 ©2016 Cucumber Tony</small>
             </div>
           </md-content>
@@ -268,6 +267,7 @@
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <script src="bower_components/promise-polyfill/Promise.js"></script>
   <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
+  <script src="bower_components/angular-gettext/dist/angular-gettext.min.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 

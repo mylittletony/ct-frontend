@@ -16,8 +16,54 @@ var app = angular.module('myApp', [
   'md.data.table',
   'minicolors',
   'pusher-angular',
-  'config'
+  'config',
+  'gettext'
 ]);
+
+app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
+  function fixLocale(locale) {
+    if (!locale) {
+      return undefined;
+    }
+    locale = Auth.currentUser().locale.split('-');
+    var language = locale[0],
+        country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
+    
+    return country === undefined ? language : [language, country].join('_');
+  }
+  
+  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true},
+      lingua,
+      userLocale =  Auth.currentUser().locale;
+  
+  lingua = fixLocale(userLocale);
+
+  // Modern browsers expose the accepted languages via navigator.languages.
+  for (var i = 0;  lingua === null && navigator.languages !== null
+       && i < navigator.languages.length; ++i) {
+    var lang = navigator.languages[i].substr(0, 5);
+    lingua = fixLocale(lang);
+    if (supported[lang]) {
+      lingua = lang;
+    }
+    if (!supported[lang]) {
+      var localeArr = lang.split('-'),
+          browserLang = localeArr[0];
+      for (var language in supported) {
+        if (language.indexOf(browserLang) !== -1) {
+          lingua = language;
+        }
+      }
+    }
+  }
+
+  if (!supported[lingua])
+    lingua = 'en_GB';
+
+  gettextCatalog.setCurrentLanguage(lingua);
+
+  gettextCatalog.loadRemote('/app/translations/' + lingua + '.json');
+}]);
 
 app.config(['$compileProvider', function ($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
