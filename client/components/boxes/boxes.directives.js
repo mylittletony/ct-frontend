@@ -144,16 +144,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var showResetConfirm = function() {
       $mdBottomSheet.show({
-        template:
-          '<md-bottom-sheet class="md-list md-has-header" ng-cloak>'+
-          '<md-subheader>Action Required. This box has been manually reset. Please confirm this action. Or click cancel to ignore.</md-subheader>'+
-          '<md-button ng-click="cancel()" class="md-list-item-content">'+
-          '<span class="md-inline-list-icon-label">Cancel</span>'+
-          '</md-button>'+
-          '<md-button ng-click="reset()" md-autofocus="true" class="md-list-item-content md-accent" >'+
-          '<span class="md-inline-list-icon-label">CONFIRM</span>'+
-          '</md-button>'+
-          '</md-bottom-sheet>',
+        templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
         controller: Ctrl
       });
     };
