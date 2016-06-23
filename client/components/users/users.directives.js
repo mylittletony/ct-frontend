@@ -674,7 +674,7 @@ app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog'
     scope: {
       loading: '='
     },
-    template: '<md-button ng-click=\'logout()\'>LOGOUT ALL</md-button>'
+    templateUrl: 'components/users/sessions/_logout_all.html',
   };
 
 }]);
