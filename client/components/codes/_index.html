@@ -4,10 +4,10 @@
     <!--   <md-icon md-font-icon="search">search</md-icon> -->
     <!--   <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="Filter Codes"> -->
     <!-- </md-input-container> -->
-    <md-button id="main" class="md-icon-button md-primary" aria-label="Vouchers">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="{{'Vouchers' | translate }}">
       <md-icon md-font-icon="arrow_back" ng-click="back()">arrow_back</md-icon>
     </md-button>
-    <p>Back to Voucher</p>
+    <p translate>Back to Voucher</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -20,12 +20,12 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">
+          <span class="md-headline" translate>
             No codes found
           </span>
           <span class="md-subhead">
             <md-progress-linear md-mode="query"></md-progress-linear>
-            Your codes are still generating, please wait.
+            <translate>Your codes are still generating, please wait.</translate>
           </span>
         </md-card-title-text>
       </md-card-title>
@@ -43,12 +43,12 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
             <tr md-row>
-              <th md-column md-order-by="active"><span>Active</span></th>
-              <th hide show-gt-sm md-column md-order-by="serial"><span>Serial</span></th>
-              <th md-column md-order-by="username"><span hide show-gt-sm>Username</span><span hide-gt-sm>Details</span></th>
-              <th hide show-gt-sm md-column md-order-by="password"><span>Password</span></th>
-              <th hide show-gt-sm md-column md-order-by="date_activated"><span>Activated</span></th>
-              <th md-column><span>Action</span></th>
+              <th md-column md-order-by="active"><span translate>Active</span></th>
+              <th hide show-gt-sm md-column md-order-by="serial"><span translate>Serial</span></th>
+              <th md-column md-order-by="username"><span hide show-gt-sm translate>Username</span><span hide-gt-sm translate>Details</span></th>
+              <th hide show-gt-sm md-column md-order-by="password"><span translate>Password</span></th>
+              <th hide show-gt-sm md-column md-order-by="date_activated"><span translate>Activated</span></th>
+              <th md-column><span translate>Action</span></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -61,7 +61,7 @@
               </td>
               <td md-cell>
                 {{ code.username }} <span hide-gt-sm>/ {{ code.password }}</span>
-                <md-tooltip hide-gt-sm>
+                <md-tooltip hide-gt-sm translate>
                   Activated: {{ (code.date_activated | humanTime) || 'N/A'}}
                 </md-tooltip>
               </td>
@@ -73,7 +73,7 @@
               </td>
               <td md-cell>
                 <md-menu>
-                  <md-button aria-label="Open Boxes Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                   </md-button>
                   <md-menu-content width="4" >
