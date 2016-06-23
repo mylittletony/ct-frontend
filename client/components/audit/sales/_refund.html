@@ -1,22 +1,22 @@
-<md-dialog aria-label="Transfer Device"  ng-cloak>
+<md-dialog aria-label="{{ 'Transfer Device' | translate }}"  ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Refund Transaction</h2>
+        <h2 translate>Refund Transaction</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <div class="md-dialog-content">
+      <div class="md-dialog-content" translate>
         Are you sure you want to refund this transaction?<br>
         <b>This cannot be reversed.</b>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()">
+      <md-button ng-click="cancel()" translate>
         Cancel
       </md-button>
-      <md-button ng-click="refund()">
+      <md-button ng-click="refund()" translate>
         Refund
       </md-button>
     </md-dialog-actions>
