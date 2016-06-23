@@ -884,12 +884,7 @@ app.directive('splashGeneratePassy', ['Code', function(Code) {
       loading: '=',
       showPass: '='
     },
-    template:
-      '<span><small>' +
-      'Generate password <a ng-hide=\'loading\' href=\'\' ng-click=\'generatePassy()\'>now</a>' +
-      '<span ng-show=\'loading\'><i class="fa fa-cog fa-spin"></i> Generating a new passy</span>' +
-      '<span ng-show=\'error\'><i class="fa fa-exclamation"></i> Error!</span>' +
-      '</small></span>'
+    templateUrl: 'components/splash_pages/_generate_password.html',
   };
 }]);
 
