@@ -577,11 +577,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       pages: '=',
       style: '@'
     },
-    template: 
-      '<md-button class="{{ style }}" ng-click=\'open()\'>'+
-      '<md-icon ng-if="style !== \'md-raised\'">add_circle</md-icon>'+
-      '<span ng-if="style === \'md-raised\'">Create</span>'+
-      '</md-button>'
+    templateUrl: 'components/splash_pages/_splash_new.html',
   };
 
 }]);
@@ -883,12 +879,7 @@ app.directive('splashGeneratePassy', ['Code', function(Code) {
       loading: '=',
       showPass: '='
     },
-    template:
-      '<span><small>' +
-      'Generate password <a ng-hide=\'loading\' href=\'\' ng-click=\'generatePassy()\'>now</a>' +
-      '<span ng-show=\'loading\'><i class="fa fa-cog fa-spin"></i> Generating a new passy</span>' +
-      '<span ng-show=\'error\'><i class="fa fa-exclamation"></i> Error!</span>' +
-      '</small></span>'
+    templateUrl: 'components/splash_pages/_generate_password.html',
   };
 }]);
 
@@ -1133,4 +1124,3 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
   };
 
 }]);
-

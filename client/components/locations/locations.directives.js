@@ -303,25 +303,7 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
   return {
     link: link,
     scope: {},
-    template:
-        '<md-card>'+
-        '<md-card-title>'+
-        '<md-card-title-text>'+
-        '<span class="md-headline">'+
-        // '<md-icon md-font-icon="arrow_back">timeline</md-icon>'+
-        'Usage Statistics'+
-        '</span>'+
-        '<span class="md-subhead">Showing the last 7 days activity</span>'+
-        '</md-card-title-text>'+
-        '</md-card-title>'+
-        '<md-card-content>'+
-        '<div id="line"></div>'+
-        '</md-card-content>'+
-        '<md-divider></md-divider>'+
-        '<md-card-actions layout="row" layout-align="end center">'+
-        '<md-button href=\'/#/reports/radius\'>Reports</md-button>'+
-        '</md-card-actions>'+
-        '</md-card>'
+    templateUrl: 'components/locations/show/_periscope.html',
   };
 
 }]);
@@ -365,10 +347,7 @@ app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', '
     scope: {
       token: '='
     },
-    template:
-      '<span>'+
-      '<md-button ng-click=\'changeToken()\'>Change Token</md-button>'+
-      '</span>'
+    templateUrl: 'components/locations/settings/_change_token.html',
   };
 
 }]);
@@ -417,54 +396,7 @@ app.directive('dashing', ['Report', function (Report) {
     scope: {
       locations: '@'
     },
-    template:
-        '<md-card>'+
-        '<md-card-title>'+
-        '<md-card-title-text>'+
-        '<span class="md-headline">'+
-        'Network Stats'+
-        '</span>'+
-        '</md-card-title-text>'+
-        '</md-card-title>'+
-        '<md-card-content>'+
-        '<md-list-item class="md-2-line">'+
-        '<md-icon md-font-icon="">router</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Boxes</h3>'+
-        '<span ng-if=\'loading\'><small>Loading stats</small></span>'+
-        '<p ng-if=\'!loading\'>{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline. <span ng-if=\'splash_only > 0\'>{{ ::splash_only }} Splash Only</span></p>'+
-        '<md-tooltip>{{ ::stats.boxes.stats.total }} Total boxes </md-tooltip>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<md-list-item class="md-2-line">'+
-        '<md-icon md-font-icon="">devices</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Clients Connected</h3>'+
-        '<p>{{ ::stats.online }} connected</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<md-list-item class="md-2-line" href=\'/#/locations\'>'+
-        '<md-icon md-font-icon="">business</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Locations</h3>'+
-        '<span ng-if=\'loading\'><small>Loading stats</small></span>'+
-        '<p ng-if=\'!loading\'>{{ ::stats.locations }} location<span ng-if=\'stats.locations != 1\'>s</span></p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<md-list-item class="md-2-line">'+
-        '<md-icon md-font-icon="">web</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Splash Views</h3>'+
-        '<p>{{ ::stats.splash_views }} this period</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '</md-card-content>'+
-        '<md-divider></md-divider>'+
-        '<md-card-actions layout="row" layout-align="end center" >'+
-        '<md-button ng-href=\'/#/alerts\'>Alerting Devices</md-button>'+
-        '</md-card-actions>'+
-        '</md-card-content>'+
-        '</md-card>'
+    templateUrl: 'components/locations/show/_dashing.html',
   };
 
 }]);
@@ -1646,20 +1578,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     scope: {
       location: '='
     },
-    template:
-        '<md-menu ng-if="menu.length">'+
-        '<md-button aria-label="Open Tools" class="md-icon-button" ng-click="$mdOpenMenu($event)">'+
-        '<md-icon>more_vert</md-icon>'+
-        '</md-button>'+
-        '<md-menu-content width="4">'+
-        '<md-menu-item ng-repeat="item in menu">'+
-        '<md-button ng-disabled="item.disabled" ng-click="action(item.type)">'+
-        '<md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>'+
-        '{{item.name}}'+
-        '</md-button>'+
-        '</md-menu-item>'+
-        '</md-menu-content>'+
-        '</md-menu>'
+    templateUrl: 'components/locations/settings/_settings_menu.html',
   };
 
 }]);
@@ -1698,37 +1617,7 @@ app.directive('appStatus', ['statusPage', function(statusPage) {
       loading: '=',
     },
     link: link,
-    template:
-      '<md-card>'+
-      '<div class="md-card-image" style=\'height: 5px; background-color: {{ color }};\'></div>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      'Cucumber Status'+
-      '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<div ng-if=\'!status\'>'+
-      'Loading status'+
-      '</div>'+
-      '<div ng-if=\'status\'>'+
-      '<p ng-if=\'status.incidents.length == 0\'>{{ incidents }}</p>'+
-      '<span ng-if=\'status.incidents.length > 0\'>'+
-      '<md-list-item class="md-2-line" ng-repeat=\'i in status.incidents\'>'+
-      '<div class="md-list-item-text">'+
-      '<h3>{{ i.name }}</h3>'+
-      '<p>{{ i.incident_updates[0].body }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</span>'+
-      '</div>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '<md-card-actions layout="row" layout-align="end center">'+
-      '<md-button target=\'_blank\' href=\'{{ url}}\'>VIEW</md-button>'+
-      '</md-card-actions>'+
-      '</md-card>'
+    templateUrl: 'components/locations/show/_app_status.html',
   };
 
 }]);
@@ -1765,36 +1654,7 @@ app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Sho
     scope: {
     },
     link: link,
-    template:
-      '<md-card>'+
-      '<div class="md-card-image" style=\'height: 5px; background-color: {{ color }};\'></div>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      'Warnings'+
-      '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<span ng-if=\'loading\'>'+
-      'Loading.'+
-      '</span>'+
-      '<span ng-if=\'!events.length && !loading\'>'+
-      'No warnings found.'+
-      '</span>'+
-      '<md-list-item class="md-2-line" href="" ng-click="visitBox(event.short_url)" ng-repeat=\'event in events\'>'+
-      '<div class="md-list-item-text">'+
-      '<h3 ng-class="event.event_type == \'box.online\' ? \'muted\' : \'offline\'">{{ event.data.description }} {{ event.event_type == \'box.online\' ? \'Reconnected\' : \'Disconnected\' }}</h3>'+
-      '<md-tooltip>{{ event.data.ap_mac }}</md-tooltip>'+
-      '<p>Last seen {{ event.data.last_heartbeat | mysqlTime }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '<md-card-actions layout="row" layout-align="end center">'+
-      '<md-button href=\'/#/events\'>events</md-button>'+
-      '</md-card-actions>'+
-      '</md-card>'
+    templateUrl: 'components/locations/show/_warnings.html',
   };
 
 }]);
@@ -1826,41 +1686,7 @@ app.directive('favourites', ['Location', '$location', function(Location, $locati
     scope: {
     },
     link: link,
-    template:
-      '<md-card>'+
-      '<div class="md-card-image" style=\'height: 5px; background-color: {{ color }};\'></div>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      // '<md-icon md-font-icon="arrow_back">favorite</md-icon>'+
-      'Favourites'+
-      '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<span ng-if=\'loading\'>'+
-      'Loading.'+
-      '</span>'+
-      '<span ng-if=\'!loading\'>'+
-      '<span ng-if=\'!locations.length\'>'+
-      'You have no favourite locations.'+
-      '</span>'+
-      '<md-list>'+
-      '<md-list-item class="md-3-line" ng-repeat=\'item in locations\' href=\'/#/locations/{{ ::item.slug }}\'>'+
-      '<div class="md-list-item-text">'+
-      '<h3>{{ ::item.location_name }}</h3>'+
-      '<h4>{{ ::item.location_address | truncate:20 }}.</h4>'+
-      '<p>{{ ::item.boxes_count }} boxes. {{ ::item.clients_online }} client<span ng-if=\'item.clients_online != 1\'>s</span> online.</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-list>'+
-      '</span>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '<md-card-actions layout="row" layout-align="end center" >'+
-      '<md-button target=\'_blank\' ng-disabled=\'!locations\' ng-click=\'all()\'>VIEW ALL</md-button>'+
-      '</md-card-actions>'+
-      '</md-card>'
+    templateUrl: 'components/locations/show/_favourites.html',
   };
 
 }]);
@@ -2111,35 +1937,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
     scope: {
     },
     link: link,
-    template:
-      '<md-card>'+
-      '<div class="md-card-image" style=\'height: 5px; background-color: {{ color }};\'></div>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      'Inventory'+
-      '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<div ng-if=\'loading\'>'+
-      'Loading'+
-      '</div>'+
-      '<div ng-if=\'!loading\'>'+
-      '<md-list-item class="md-3-line" href=\'/#/users/{{ user.slug }}/inventory\'>'+
-      '<md-icon md-font-icon="">devices</md-icon>'+
-      '<div class="md-list-item-text">'+
-      '<h3>New Boxes</h3>'+
-      '<p>{{ stats.new }} added this period. {{ stats.active }} existing boxes.</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</div>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '<md-card-actions layout="row" layout-align="end center">'+
-      '<md-button href=\'/#/locations/new\'>NEW LOCATION</md-button>'+
-      '</md-card-actions>'+
-      '</md-card>'
+    templateUrl: 'components/locations/show/_inventory.html',
   };
 
 }]);

@@ -261,12 +261,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $roo
       fn: '@',
       type: '@'
     },
-    template:
-      '<div id="clients-chart" layout="row" layout-align="left end"></div>'+
-      '<md-progress-linear ng-if="loadingChart" md-mode="query"></md-progress-linear>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'
+    templateUrl: 'components/charts/clients/_clients_chart.html',
   };
 
 }]);
@@ -571,85 +566,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', function($timeou
       type: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      '{{ fn | titleCase }} {{ title }}'+
-      '</span>'+
-      '</md-card-header-text>'+
-      // '<div flex></div>'+
-      '<md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">'+
-      '<md-icon>fullscreen_exit</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen(\'tx\')">'+
-      '<md-icon>fullscreen</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '<md-menu-bar style="padding: 0">'+
-      '<md-menu>'+
-      '<button ng-click="$mdOpenMenu()">'+
-      '<md-icon>more_vert</md-icon>'+
-      '</button>'+
-      '<md-menu-content width="3">'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeTxType(\'tx\')">'+
-      'WiFi Traffic'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeTxType(\'usage\')">'+
-      'WiFi Usage'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item ng-if="resource != \'device\'">'+
-      '<md-button ng-click="changeTxType(\'txfailed\')">'+
-      'TX Fails'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item ng-if="resource != \'device\'">'+
-      '<md-button ng-click="changeTxType(\'txretries\')">'+
-      'TX Retries'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-divider></md-menu-divider>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'mean\')">'+
-      'Average Values'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'max\')">'+
-      'Max. Values'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'median\')">'+
-      'Median Values'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'sum\')" ng-disabled="type == \'tx\'">'+
-      'Sum'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '</md-menu-content>'+
-      '</md-menu>'+
-      '</md-menu-bar>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="tx-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/clients/_client_tx_chart.html',
   };
 
 }]);
@@ -739,25 +656,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', function($tim
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      '{{ resource == \'device\'  ? \'Device\' : \'WiFi\' }} Usage'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="usage-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/clients/_client_usage_chart.html',
   };
 
 }]);
@@ -883,34 +782,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      'Load Average'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">'+
-      '<md-icon>fullscreen_exit</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen(\'mcs\')">'+
-      '<md-icon>fullscreen</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="load-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/devices/_load_chart.html',
   };
 
 }]);
@@ -1035,34 +907,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      'MCS Index'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">'+
-      '<md-icon>fullscreen_exit</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen(\'mcs\')">'+
-      '<md-icon>fullscreen</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="mcs-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/clients/_mcs_chart.html',
   };
 
 }]);
@@ -1207,34 +1052,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      'Signal Strength'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">'+
-      '<md-icon>fullscreen_exit</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen(\'snr\')">'+
-      '<md-icon>fullscreen</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="snr-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/clients/_signal_chart.html',
   };
 
 }]);
@@ -1420,63 +1238,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead" ng-cloak>'+
-      'Average {{ type | titleCase }}'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">'+
-      '<md-icon>fullscreen_exit</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen(\'mcs\')">'+
-      '<md-icon>fullscreen</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '<md-menu-bar style="padding: 0">'+
-      '<md-menu>'+
-      '<button ng-click="$mdOpenMenu()">'+
-      '<md-icon>more_vert</md-icon>'+
-      '</button>'+
-      '<md-menu-content width="3">'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'snr\')">'+
-      'SNR'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'signal\')">'+
-      'Signal'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'noise\')">'+
-      'Noise'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'quality\')">'+
-      'Quality'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '</md-menu-content>'+
-      '</md-menu>'+
-      '</md-menu-bar>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="mcs-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/devices/_snr_chart.html',
   };
 
 }]);
@@ -1767,83 +1529,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      '{{ fn | titleCase }} {{ title }}'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '<md-menu-bar style="padding: 0">'+
-      '<md-menu>'+
-      '<button ng-click="$mdOpenMenu()">'+
-      '<md-icon>more_vert</md-icon>'+
-      '</button>'+
-      '<md-menu-content width="3">'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType()">'+
-      'Splash Sessions'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'uniques\')">'+
-      'Splash Users'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'impressions\')">'+
-      'Splash Views'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'usage\')">'+
-      'Usage Data'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'clients\')">'+
-      'Wireless Clients'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-divider></md-menu-divider>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'mean\')">'+
-      'Average Values'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'max\')">'+
-      'Max. Values'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'median\')">'+
-      'Median Values'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeFn(\'sum\')" ng-disabled="type == \'tx\'">'+
-      'Sum'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '</md-menu-content>'+
-      '</md-menu>'+
-      '</md-menu-bar>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="location-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading graph data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/devices/_wireless_chart.html',
   };
 
 }]);

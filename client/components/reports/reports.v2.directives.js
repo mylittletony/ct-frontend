@@ -412,7 +412,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       });
     }
 
-    
+
     var init = function() {
 
       var params = {
@@ -460,35 +460,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       subhead: '@'
     },
     require: '^analytics',
-    template:
-      '<md-card>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      '{{ title }}'+
-      '</span>'+
-      // '<span class="md-subhead" ng-if=\'subhead\'>'+
-      // '{{ subhead }}'+
-      // '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<span ng-if=\'loading\'>'+
-      'Loading.'+
-      '</span>'+
-      '<span ng-if=\'!loading\'>'+
-      '<div id="{{ render }}"></div>'+
-      // 'No warnings found.'+
-      '</span>'+
-      '<md-list-item class="md-2-line" ng-repeat=\'event in events\'>'+
-      '<div class="md-list-item-text">'+
-      '<h3 ng-class="event.event_type == \'box.online\' ? \'muted\' : \'offline\'">{{ event.data.ap_mac }} {{ event.event_type == \'box.online\' ? \'Reconnected\' : \'Disconnected\' }}</h3>'+
-      '<p>Last seen {{ event.data.last_heartbeat | mysqlTime }} <a href=\'/#/locations/{{ event.data.location_name}}/boxes?q={{ event.data.ap_mac}}\'><md-icon md-font-icon="" style="font-size: 14px;">arrow_forward</md-icon></a></p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '</md-card>'
+    templateUrl: 'components/reports/_pie_charts.html',
   };
 
 }]);
@@ -567,7 +539,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].inbound / (1000*1000) , stats[i].outbound / (-1000*1000) ]);
       }
-      
+
       options.vAxes = {
         0: {
           textPosition: 'none'
@@ -576,7 +548,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
           format: '#Gb'
         }
       };
-      
+
       var formatter = new window.google.visualization.NumberFormat(
         { suffix: 'Gb', pattern: '#,##0.00;'}
       );
@@ -595,7 +567,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].count]);
       }
-      
+
       options.vAxes = {
         0: {
           textPosition: 'none'
@@ -604,7 +576,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
           format: ''
         }
       };
-      
+
       var date_formatter = new window.google.visualization.DateFormat({
         pattern: 'MMM dd, yyyy'
       });
@@ -666,7 +638,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         },500);
         scope.loading = undefined;
       }, function(err) {
-        console.log(err);                          
+        console.log(err);
       });
     };
 
@@ -685,57 +657,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       subhead: '@'
     },
     require: '^analytics',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      '{{ fn | titleCase }} {{ title }}'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-click="init()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '<md-menu-bar style="padding: 0">'+
-      '<md-menu>'+
-      '<button ng-click="$mdOpenMenu()">'+
-      '<md-icon>more_vert</md-icon>'+
-      '</button>'+
-      '<md-menu-content width="3">'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType()">'+
-      'Sessions'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'uniques\')">'+
-      'Unique Clients'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'impressions\')">'+
-      'Splash Views'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'usage\')">'+
-      'Usage Data'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '</md-menu-content>'+
-      '</md-menu>'+
-      '</md-menu-bar>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="{{ render }}"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading graph data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/reports/_radius_timeline.html',
   };
 
 }]);
@@ -824,7 +746,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
           format: '#Gb'
         }
       };
-      
+
       var formatter = new window.google.visualization.NumberFormat(
         { suffix: 'Gb', pattern: '#,##0.00;'}
       );
@@ -843,7 +765,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].count]);
       }
-      
+
       options.vAxes = {
         0: {
           textPosition: 'none'
@@ -852,7 +774,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
           format: ''
         }
       };
-      
+
       var formatter = new window.google.visualization.NumberFormat(
         { pattern: '#,##0;'}
       );
@@ -909,7 +831,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
         },500);
         scope.loading = undefined;
       }, function(err) {
-        console.log(err);                          
+        console.log(err);
       });
     };
 
@@ -929,47 +851,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       subhead: '@'
     },
     require: '^analytics',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      '{{ fn | titleCase }} {{ title }}'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-click="init()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '<md-menu-bar style="padding: 0">'+
-      '<md-menu>'+
-      '<button ng-click="$mdOpenMenu()">'+
-      '<md-icon>more_vert</md-icon>'+
-      '</button>'+
-      '<md-menu-content width="3">'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'clients\')">'+
-      'Unique Clients'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'usage\')">'+
-      'Usage Data'+
-      '</md-button>'+
-      '</md-menu-item>'+
-      '</md-menu-content>'+
-      '</md-menu>'+
-      '</md-menu-bar>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="{{ render }}"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading graph data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/reports/_wireless_timeline.html',
   };
 
 }]);
@@ -1007,49 +889,7 @@ app.directive('wirelessStats', ['Report', '$routeParams', '$location', 'Location
       subhead: '@'
     },
     require: '^analytics',
-    template:
-      '<div class=\'md-padding\' layout-gt-xs=\'row\' layout=\'column\'>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Unique Users</h3>'+
-      '<p>{{ stats.uniques || 0 }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>New Clients</h3>'+
-      '<p>{{ stats.created || 0 }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Data Transferred</h3>'+
-      '<p>0 TBC</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>TBC</h3>'+
-      '<p>0 TBC</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '</div>'
+    templateUrl: 'components/reports/_wireless_stats.html',
   };
 
 }]);
@@ -1094,59 +934,7 @@ app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location',
       subhead: '@'
     },
     require: '^analytics',
-    template:
-      '<div class=\'md-padding\' layout-gt-xs=\'row\' layout=\'column\'>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Unique Users</h3>'+
-      '<p>{{ stats.splash.uniques || 0 }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Average Session</h3>'+
-      '<p>{{ (stats.splash.durations.avg / 60) | number:0 }} Mins</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Total Sessions</h3>'+
-      '<p>{{ stats.splash.total_sessions }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20">'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Data Transferred</h3>'+
-      '<p>{{ (stats.splash.usage.inbound.sum + stats.splash.usage.outbound.sum) | humanData }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '<md-card flex-gt-xs="20" hide show-gt-md>'+
-      '<md-card-content>'+
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Vouchers</h3>'+
-      '<p>{{ stats.vouchers.created }} created, {{ stats.vouchers.activated }} used.</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '</md-card>'+
-      '</div>'
+    templateUrl: 'components/reports/_radius_stats.html',
   };
 
 }]);

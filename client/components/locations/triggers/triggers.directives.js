@@ -734,7 +734,7 @@ app.directive('triggerTags', ['$mdDialog',function($mdDialog) {
     scope: {
       type: '@'
     },
-    template: '<div>View the available dynamic variables <a href="" ng-click="showVars()">here</a>.</div>'
+    templateUrl: 'components/locations/triggers/_webhook_variables.html',
   };
 
 }]);
@@ -854,6 +854,7 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
         var results = JSON.stringify(res,null,2);
         var json  = window.hljs.highlight('json',results).value;
 
+        // CANT TRANSLATE YET
         var template =
           '<md-toolbar class="md-table-toolbar md-default">'+
           '<div class="md-toolbar-tools">'+
@@ -908,4 +909,3 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
   };
 
 }]);
-

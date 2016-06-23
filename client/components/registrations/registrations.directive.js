@@ -2,115 +2,6 @@
 
 var app = angular.module('myApp.registrations.directives', []);
 
-app.directive('registerUser', ['Registration', 'Auth', 'Invite', '$routeParams', '$rootScope', 'CTLogin', function(Reg, Auth, Invite, $routeParams, $rootScope, CTLogin) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.ct_login              = CTLogin;
-    scope.ct_login.class_name   = 'ct-login';
-    scope.ct_login.active       = 'true';
-
-    function validateToken(token) {
-      Invite.query({invite_token: token}).$promise.then(function(data) {
-        scope.user = { email: data.email };
-        scope.invite = scope.user.email;
-        scope.checking = undefined;
-      }, function() {
-        scope.inviteerrors = true;
-        scope.checking = undefined;
-      });
-    }
-
-    if ($routeParams.invite_token !== undefined) {
-      scope.invite_token = $routeParams.invite_token;
-      validateToken(scope.invite_token);
-      scope.checking = true;
-    } else if ( $routeParams.customer_token !== undefined ) {
-      scope.customer_token = $routeParams.customer_token;
-    }
-
-    scope.register = function(user) {
-      scope.creating = true;
-      user.invite_token   = scope.invite_token;
-      user.customer_token = scope.customer_token;
-      Reg.create({user: user}).$promise.then(function(data) {
-        scope.creating = undefined;
-        doLogin(data);
-      }, function(err) {
-        formatErrors(err.data);
-      });
-
-    };
-
-    function doLogin(user) {
-      var path = '/';
-      var search = {newinvite: true};
-      var loginEvent = 'login';
-      var loginArgs = {data: user, path: path, search: search};
-      $rootScope.$broadcast(loginEvent, loginArgs);
-    }
-
-    function formatErrors(res) {
-      var errors    = [];
-      var keys      = Object.keys(res);
-      angular.forEach(keys, function(v,k) {
-        errors.push(v.split('_').join(' ')  + ' ' + res[v]);
-      });
-      scope.errors    = errors;
-      scope.creating  = undefined;
-    }
-
-  };
-
-  return {
-    link: link,
-    scope: {},
-    template:
-      '<div ng-hide=\'\'>'+
-      '<div ng-show=\'checking\'>'+
-      '<p>One second, we\'re validating your token</p>'+
-      '</div>'+
-      '<div ng-hide=\'checking\'>'+
-      '<div ng-show=\'errors\' class=\'alert-box alert\'>'+
-      '<span ng-repeat=\'error in errors\'>'+
-      '{{ error }}<br>'+
-      '</span>'+
-      '</div>'+
-      '<div ng-hide=\'invite\'>' +
-      'Konnichiwa.<br><br>You\'ve just been invited to manage a network however <b>the invitation token has expired</b>. <br><br>You should contact the person who invited you. <br>Or, <a href=\'/#/create\'>sign-up now</a>..<br><br>'+
-      '</div>'+
-      '<div ng-show=\'invite\'>'+
-      '<form ng-submit=\'register(user)\' name=\'myForm\'>'+
-      'Konnichiwa. You\'ve just been invited to manage a network. <br><br>Please create an account and we\'ll send you on your way.<br><br>'+
-      '<div class=\'row\' ng-hide=\'invite\'>'+
-      '<div class=\'small-12 medium-10 columns medium-centered\'>'+
-      '<label>Enter your email address</label>'+
-      '<input type=\'email\' ng-model=\'user.email\' name=\'email\' placeholder="What\'s your email" autofocus required></input>' +
-      '<p class="text text-danger" ng-show="myForm.email.$error.email"><small>Please enter a valid email.</small></p>'+
-      '</div>'+
-      '</div>'+
-      '<div class=\'row\'>'+
-      '<div class=\'small-12 medium-10 columns medium-centered\'>'+
-      '<label>Choose a memorable username</label>'+
-      '<input type=\'text\' ng-model=\'user.username\' name=\'username\' placeholder=\'Username\' autofocus required></input>' +
-      '<p class="text text-danger" ng-show="myForm.username.$error.required"><small>Please choose a username.</small></p>'+
-      '</div>'+
-      '</div>'+
-      '<div class=\'row\'>'+
-      '<div class=\'small-12 medium-10 columns medium-centered\'>'+
-      '<label>And set a decent, strong password.</label>'+
-      '<input type=\'password\' ng-model=\'user.password\' placeholder=\'What is the password?\' name=\'password\' ng-minlength=\'8\' required></input>' +
-      '<p class="text text-danger" ng-show="myForm.password.$error.minlength"><small>Must be more than 8 characters.</small></p>'+
-      '</div>'+
-      '</div>'+
-      '<p><button ng-disabled="myForm.$invalid || myForm.$pristine" class="button" id="update">Register <span ng-show="creating"> <i class="fa fa-spinner fa-spin"></i></span></button></p>' +
-      '</div>'+
-      '</div>'+
-      '</div>'
-  };
-
-}]);
-
 app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$cookies', 'menu', function(Holding, locationHelper, $routeParams, $cookies, menu) {
 
   var link = function( scope, element, attrs ) {
@@ -138,7 +29,7 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
       Holding.create({email: scope.user.email}).$promise.then(function(data) {
       }, function() {
-        scope.clearCookies();                                                      
+        scope.clearCookies();
       });
     };
 

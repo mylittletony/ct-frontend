@@ -195,37 +195,7 @@ app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'sh
       coupons: '=',
       key: '@'
     },
-    template:
-        '<form name=\'myForm\' ng-submit=\'save(myForm)\'>'+
-        '<md-card>'+
-        '<md-card-title>'+
-        '<md-card-title-text>'+
-        '<span class="md-headline">'+
-        'Coupons & Discount Codes'+
-        '</span>'+
-        '</md-card-title-text>'+
-        '</md-card-title>'+
-        '<md-card-content>'+
-        '<div layout="row" layout-wrap>'+
-        '<span ng-if="user.adding_coupon" flex=\'100\' flex-gt-sm=\'100\'>'+
-        '<p>Verifying Coupon</p>'+
-        '<md-progress-linear md-mode="query"></md-progress-linear>'+
-        '</span>'+
-        '<div flex=\'100\' flex-gt-sm=\'100\'>'+
-        '<md-list-item class="md-2-line" ng-repeat=\'coupon in coupons\' ng-if=\'coupons.length > 0\'>'+
-        '<div class="md-list-item-text">'+
-        '<p>{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | humanTime }}</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<p ng-if=\'coupons.length < 1\'>No active coupons found.</p>'+
-        '</div>'+
-        '</div>'+
-        '</md-card-content>'+
-        '<md-card-actions layout="row" layout-align="end center">'+
-        '<md-button ng-disabled="user.adding_coupon" ng-click="addCoupon()">ADD COUPON</md-button>'+
-        '</md-card-actions>'+
-        '</md-card>'+
-        '</form>'
+    templateUrl: 'components/users/billing/_add_coupon.html',
   };
 
 }]);
@@ -309,14 +279,7 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
     scope: {
       user: '='
     },
-    template:
-        '<div ng-if=\'user.subscribing\'>'+
-        '<p>Updating, please wait.</p>'+
-        '<md-progress-linear md-mode="query"></md-progress-linear>'+
-        '</div>'+
-        '<div ng-if=\'!user.subscribing\'>'+
-        '<md-button class=\'{{ user.credit_card_last4 ? "" : "md-raised md-primary" }}\' ng-disabled="" ng-click="addCard()">{{ user.credit_card_last4 ? "update" : "add" }} CARD</md-button>'+
-        '</div>'
+    templateUrl: 'components/users/billing/_update_card.html',
   };
 
 }]);
@@ -704,7 +667,7 @@ app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog'
     scope: {
       loading: '='
     },
-    template: '<md-button ng-click=\'logout()\'>LOGOUT ALL</md-button>'
+    templateUrl: 'components/users/sessions/_logout_all.html',
   };
 
 }]);
@@ -750,10 +713,7 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
   return {
     link: link,
     scope: {},
-    template:
-        '<md-card-actions ng-click="changePassword()" layout="row" layout-align="end center">'+
-        '<md-button>Change Password</md-button>'+
-        '</md-card-actions>'
+    templateUrl: 'components/users/show/_change_password.html',
   };
 }]);
 
@@ -829,46 +789,6 @@ app.directive('userCancel', ['User', 'Subscription', '$routeParams', '$mdDialog'
     },
     templateUrl: 'components/users/billing/_cancel.html'
   };
-}]);
-
-app.directive('uSw', ['User', '$rootScope', 'AccessToken', function(User, $rootScope, AccessToken) {
-
-  var link = function( scope, element, attrs ) {
-
-    var i = 0;
-
-    $('#usw').click(function() {
-      i++;
-      if (i === 13) {
-        i = 0;
-        var msg = 'OK clicky, let\'s do it. Are you sure?';
-        if ( window.confirm(msg) ) {
-          console.log('Switching to', attrs.id);
-          doLogin();
-        }
-      }
-    });
-
-    var doLogin = function() {
-      User.switcher({account_id: attrs.id}).$promise.then(function(data) {
-        AccessToken.set(data.token);
-        $('.hidden-boy').addClass('real-boy');
-        var loginArgs = {data: data, path: '/', rdir: data.rdir};
-        $rootScope.$broadcast('login', loginArgs);
-      }, function(err) {
-        console.log(err);
-      });
-    };
-  };
-
-  return {
-    link: link,
-    scope: {
-      id: '@'
-    },
-    template: '<div id=\'usw\' class=\'text-white\'><a href="">Stevie Wonder?</a></div>'
-  };
-
 }]);
 
 app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$location', 'SLACK_TOKEN', 'CHIMP_TOKEN', '$pusher', '$rootScope', 'Auth', '$route', function(User, Integration, $routeParams, $location, SLACK_TOKEN, CHIMP_TOKEN, $pusher, $rootScope, Auth, $route) {
