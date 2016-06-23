@@ -381,14 +381,14 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
           scope.splash.splash_tags = scope.splash.splash_tags.toString();
         }
 
+        console.log(scope.splash.walled_gardens)
 
-        scope.splash.walled_gardens_array = [];
+        if (scope.splash.walled_gardens && scope.splash.walled_gardens.length) {
+          scope.splash.walled_gardens_array = scope.splash.walled_gardens.split(',');
+        } else {
+          scope.splash.walled_gardens_array = [];
+        }
 
-        // if (scope.splash.splash_tags && scope.splash.splash_tags.length > 0) {
-        //   scope.splash.splash_tags_array = scope.splash.splash_tags.split(',');
-        // } else {
-        //   scope.splash.splash_tags_array = [];
-        // }
         scope.access_types = results.access_types;
         scope.access_name();
 
@@ -404,7 +404,12 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
     scope.update = function(form) {
       form.$setPristine();
+      formatWalledGardens();
       updateCT();
+    };
+
+    var formatWalledGardens = function() {
+      scope.splash.walled_gardens = scope.splash.walled_gardens_array.join(',');
     };
 
     var updateCT = function() {
@@ -577,7 +582,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       pages: '=',
       style: '@'
     },
-    template: 
+    template:
       '<md-button class="{{ style }}" ng-click=\'open()\'>'+
       '<md-icon ng-if="style !== \'md-raised\'">add_circle</md-icon>'+
       '<span ng-if="style === \'md-raised\'">Create</span>'+
