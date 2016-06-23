@@ -303,25 +303,7 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
   return {
     link: link,
     scope: {},
-    template:
-        '<md-card>'+
-        '<md-card-title>'+
-        '<md-card-title-text>'+
-        '<span class="md-headline">'+
-        // '<md-icon md-font-icon="arrow_back">timeline</md-icon>'+
-        'Usage Statistics'+
-        '</span>'+
-        '<span class="md-subhead">Showing the last 7 days activity</span>'+
-        '</md-card-title-text>'+
-        '</md-card-title>'+
-        '<md-card-content>'+
-        '<div id="line"></div>'+
-        '</md-card-content>'+
-        '<md-divider></md-divider>'+
-        '<md-card-actions layout="row" layout-align="end center">'+
-        '<md-button href=\'/#/reports/radius\'>Reports</md-button>'+
-        '</md-card-actions>'+
-        '</md-card>'
+    templateUrl: 'components/locations/show/_periscope.html',
   };
 
 }]);
