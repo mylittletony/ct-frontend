@@ -541,37 +541,19 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
     scope.showPayload = function(index,ev) {
       $mdDialog.show({
-        template:
-        '<md-dialog aria-label="Payload Output" ng-cloak>'+
-        '<md-toolbar>'+
-        '<div class="md-toolbar-tools">'+
-        '<h2>Command Output</h2>'+
-        '<span flex></span>'+
-        '</div>'+
-        '</md-toolbar>'+
-        '<md-dialog-content>'+
-        '<div class="md-dialog-content">'+
-        '<div flex-xs flex="100" ng-hide="prefs.now">'+
-        '<pre>{{ command.body }}</pre>'+
-        '</div>'+
-        '</div>'+
-        '</md-dialog-content>'+
-        '<md-dialog-actions layout="row">'+
-        '<span flex></span>'+
-        '<md-button ng-click="cancel()">'+
-        'CLOSE'+
-        '</md-button>'+
-        '</md-dialog-actions>'+
-        '</md-dialog>',
+        templateUrl: 'components/boxes/payloads/_show_payload.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
         controller: Ctrl,
         locals: {
-          command: scope.payloads[index]
+          command: 'scope.payloads[index]'
         }
       });
     };
+
+    scope.showPayload()
+
 
     function Ctrl ($scope, command) {
       $scope.command = command;
