@@ -34,6 +34,8 @@ app.directive('listReferrals', ['Referral', '$location', '$routeParams', functio
     link: link,
     scope: {},
     template:
+        // NO NEED TO TRANSLATE AT THE MOMENT
+        // SECTION TO BE COMPLETED
         '<loader></loader>'+
         '<div ng-hide=\'loading\'>'+
         '<h2><i class=\'fa fa-star fa-fw\'></i> Your Referrals</h2>'+
@@ -64,7 +66,6 @@ app.directive('listReferrals', ['Referral', '$location', '$routeParams', functio
         '<td>{{ r.value/100 | currency }}</td>' +
         '</tr>' +
         '</table>' +
-        // '<pagination ng-click="updatePage()" total-items="_links.total_entries" page="_links.current_page" max-size="5" class="pagination-sm" boundary-links="false" rotate="false" num-pages="_links.total_pages" items-per-page="{{ _links.size }}"></pagination>'+
         '</div>'
   };
 
@@ -97,4 +98,3 @@ app.directive('distro', ['Distributor', '$location', '$routeParams', function(Di
   };
 
 }]);
-
