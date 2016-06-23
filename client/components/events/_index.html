@@ -9,7 +9,7 @@
           <md-card-title>
             <md-card-title-text>
               <md-input-container layout="row" flex="30">
-                <label>Event Type</label>
+                <label translate>Event Type</label>
                 <md-select ng-model="query.filter" ng-change="search()">
                   <md-option ng-repeat="trigger in triggers" value="{{trigger.value}}">
                     {{trigger.name}}
@@ -23,10 +23,10 @@
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
               <thead md-head md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
-                  <th md-column md-order-by="message" md-desc><span>Message</span></th>
-                  <th hide show-gt-xs md-column md-order-by="event_type"><span>Type</span></th>
-                  <th hide show-gt-sm md-column md-order-by="created_at"><span>Created</span></th>
-                  <th md-column><span>Action</span></th>
+                  <th md-column md-order-by="message" md-desc><span translate>Message</span></th>
+                  <th hide show-gt-xs md-column md-order-by="event_type"><span translate>Type</span></th>
+                  <th hide show-gt-sm md-column md-order-by="created_at"><span translate>Created</span></th>
+                  <th md-column><span translate>Action</span></th>
                 </tr>
               </thead>
               <tbody md-body>
@@ -44,14 +44,14 @@
                   </td>
                   <td md-cell>
                     <md-menu>
-                      <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                         <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                       </md-button>
                       <md-menu-content width="4" >
                         <md-menu-item>
                           <md-button ng-href="/#/events/{{ event.id }}">
                             <md-icon>pageview</md-icon>
-                        <p flex>View Event</p>
+                        <p flex translate>View Event</p>
                           </md-button>
                         </md-menu-item>
                       </md-menu-content>
