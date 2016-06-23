@@ -339,18 +339,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
     var timer, json;
 
-    var period        = $routeParams.period   || '7d';
-    var location_id   = $routeParams.location_id;
-
-    attrs.$observe('render', function(val){
-      if (val !== '' && !scope.type ) {
-        scope.title     = attrs.title;
-        scope.type      = attrs.type;
-        scope.subhead   = attrs.subhead;
-        scope.render    = attrs.render;
-        init();
-      }
-    });
+    var period, location_id;
 
     function createCustomHTMLContent(flagURL, totalGold, totalSilver, totalBronze) {
       return '<div style="padding:5px 5px 5px 5px;">' +
@@ -423,6 +412,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       });
     }
 
+    
     var init = function() {
 
       var params = {
@@ -447,7 +437,18 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       });
     };
 
-    init();
+    attrs.$observe('render', function(val){
+      if (val !== '') {
+        scope.title     = attrs.title;
+        scope.type      = attrs.type;
+        scope.subhead   = attrs.subhead;
+        scope.render    = attrs.render;
+        period          = $routeParams.period   || '7d';
+        location_id     = $routeParams.location_id;
+        init();
+      }
+    });
+
   };
 
   return {
