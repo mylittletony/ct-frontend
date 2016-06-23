@@ -1,11 +1,11 @@
-<md-dialog aria-label="Health Check"  ng-cloak>
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Health Check Results</h2>
+        <h2 translate>Health Check Results</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="{{ 'Close dialog' | translate }}"></md-icon>
         </md-button>
       </div>
     </md-toolbar>
@@ -15,13 +15,13 @@
           <table md-table md-row-select="false" ng-model="selected">
             <tr md-row>
               <thead md-head>
-                <th md-column>Description</th>
-                <th md-column>Passed</th>
+                <th md-column translate>Description</th>
+                <th md-column translate>Passed</th>
               </thead>
             </tr>
             <tbody md-body>
               <tr md-row>
-                <td md-cell>Internet Check</td>
+                <td md-cell translate>Internet Check</td>
                 <td md-cell>
                   <span ng-if="box.health.icmp_ip == true">
                     <md-icon md-menu-origin md-font-icon="check_circle" class="s48">check_circle</md-icon>
@@ -32,19 +32,19 @@
                 </td>
               </tr>
               <tr md-row>
-                <td md-cell>DNS Check</td>
+                <td md-cell translate>DNS Check</td>
                 <td md-cell>
                   <span ng-if="box.health.icmp_host == true">
                     <md-icon md-menu-origin md-font-icon="check_circle" class="s48">check_circle</md-icon>
                   </span>
                   <span ng-if="box.health.icmp_host == false">
                     <md-icon md-menu-origin md-font-icon="error_outline" class="s48">error_outline</md-icon>
-                    The box cannot resolve hostnames. Please check your DNS settings.
+                    <translate>The box cannot resolve hostnames. Please check your DNS settings.</translate>
                   </span>
                 </td>
               </tr>
               <tr md-row>
-                <td md-cell>MTU Check</td>
+                <td md-cell translate>MTU Check</td>
                 <td md-cell>
                   <span ng-if="box.health.mtu_check == true">
                     <md-icon md-menu-origin md-font-icon="check_circle" class="s48">check_circle</md-icon>
@@ -55,38 +55,38 @@
                 </td>
               </tr>
               <tr md-row>
-                <td md-cell>Connected to Cucumber</td>
+                <td md-cell translate>Connected to Cucumber</td>
                 <td md-cell>
                   <span ng-if="box.health.ct == true">
                     <md-icon md-menu-origin md-font-icon="check_circle" class="s48">check_circle</md-icon>
                   </span>
                   <span ng-if="box.health.ct == false">
                     <md-icon md-menu-origin md-font-icon="error_outline" class="s48">error_outline</md-icon>
-                    Cannot communicate with Cucumber Tony. Please reboot.
+                    <translate>Cannot communicate with Cucumber Tony. Please reboot.</translate>
                   </span>
                 </td>
               </tr>
               <tr md-row>
-                <td md-cell>Splash Pages</td>
+                <td md-cell translate>Splash Pages</td>
                 <td md-cell>
                   <span ng-if="box.health.splash == true">
                     <md-icon md-menu-origin md-font-icon="check_circle" class="s48">check_circle</md-icon>
                   </span>
                   <span ng-if="box.health.splash == false">
                     <md-icon md-menu-origin md-font-icon="error_outline" class="s48">error_outline</md-icon>
-                    Splash pages aren't active. This is OK if you're not using a captive portal
+                    <translate>Splash pages aren't active. This is OK if you're not using a captive portal</translate>
                   </span>
                 </td>
               </tr>
               <tr md-row>
-                <td md-cell>In Sync</td>
+                <td md-cell translate>In Sync</td>
                 <td md-cell>
                   <span ng-if="box.health.sync == true">
                     <md-icon md-menu-origin md-font-icon="check_circle" class="s48">check_circle</md-icon>
                   </span>
                   <span ng-if="box.health.sync == false">
                     <md-icon md-menu-origin md-font-icon="error_outline" class="s48">error_outline</md-icon>
-                    The box is out of sync. Resync or reboot to get updated configs.
+                    <translate>The box is out of sync. Resync or reboot to get updated configs.</translate>
                   </span>
                 </td>
               </tr>
@@ -97,7 +97,7 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="close()">
+      <md-button ng-click="close()" translate>
         Close
       </md-button>
     </md-dialog-actions>

@@ -1,18 +1,18 @@
-<div class="alert-box success" ng-if="command.completed == true" ng-cloak>Payload has been queued, please wait a few seconds for it to finish.</div>
+<div class="alert-box success" ng-if="command.completed == true" ng-cloak translate>Payload has been queued, please wait a few seconds for it to finish.</div>
 <div ng-show='selection.length' class='row' ng-cloak>
   <div class='small-12 medium-6 columns'>
-    <p ng-click='getPayloads()' ng-hide="status.processing" class='button tiny' id='list-payloads'>Run Payload</p>
+    <p ng-click='getPayloads()' ng-hide="status.processing" class='button tiny' id='list-payloads' translate>Run Payload</p>
     <div ng-show='status.processing' id="bulk-payloads">
-      <h4 ng-hide='command.upgrade' >Run a bulk payload on {{ selection.length }} boxes</h4>
-      <h4 ng-show='command.upgrade' >Upgrade firmware on {{ selection.length }} boxes</h4>
-      <div ng-show="!commands">Loading, one second please</div>
+      <h4 ng-hide='command.upgrade' translate>Run a bulk payload on {{ selection.length }} boxes</h4>
+      <h4 ng-show='command.upgrade' translate>Upgrade firmware on {{ selection.length }} boxes</h4>
+      <div ng-show="!commands" translate>Loading, one second please</div>
       <div ng-show="commands.length">
         <command-select ng-hide='command.upgrade'></command-select>
       </div>
-      <p><input ng-disabled='command.processing' ng-model='command.upgrade' type='checkbox'></input><label for="upgrade">Or, upgrade the firmware</label></p>
-      <p ng-disabled='command.processing' ng-show='command.selected || command.upgrade === true' ng-click='runCommand()' class='button tiny' id='run-payload'>Create</p>
-      <p ng-show='command.processing'><i class="fa fa-cog fa-spin"></i> Running payload, please be patient.</p>
-      <p ng-hide='command.processing'><b><a href='' ng-click="cancel()" class="text text-danger" id='cancel'>Cancel, I don't want to do this.</a></b></p>
+      <p><input ng-disabled='command.processing' ng-model='command.upgrade' type='checkbox'></input><label for="upgrade" translate>Or, upgrade the firmware</label></p>
+      <p ng-disabled='command.processing' ng-show='command.selected || command.upgrade === true' ng-click='runCommand()' class='button tiny' id='run-payload' translate>Create</p>
+      <p ng-show='command.processing'><i class="fa fa-cog fa-spin"></i> <translate>Running payload, please be patient.</translate></p>
+      <p ng-hide='command.processing'><b><a href='' ng-click="cancel()" class="text text-danger" id='cancel' translate>Cancel, I don't want to do this.</a></b></p>
     </div>
   </div>
 </div>

@@ -1,28 +1,28 @@
-<md-dialog aria-label="Edit Device Name"  ng-cloak>
+<md-dialog aria-label="{{ 'Edit Device Name' | translate }}"  ng-cloak>
   <form name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h3>Change Client Name</h3>
+        <h3 translate>Change Client Name</h3>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
         <md-input-container class="md-block" flex-gt-xs>
-          <label>Client Name</label>
+          <label translate>Client Name</label>
           <input name="device_name" md-maxlength="30" minlength="5" ng-model="client.name" required>
           <div ng-messages="myForm.device_name.$error">
-            <div ng-message="required">Please enter a name</div>
-            <div ng-message="md-maxlength">Must be less than 30 characters</div>
-            <div ng-message="minlength">Must be less more than 5 characters</div>
+            <div ng-message="required" translate>Please enter a name</div>
+            <div ng-message="md-maxlength" translate>Must be less than 30 characters</div>
+            <div ng-message="minlength" translate>Must be less more than 5 characters</div>
           </div>
         </md-input-container>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="close()">
+      <md-button ng-click="close()" translate>
         Close
       </md-button>
-      <md-button ng-click="save()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">
+      <md-button ng-click="save()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>
         Save
       </md-button>
     </md-dialog-actions>

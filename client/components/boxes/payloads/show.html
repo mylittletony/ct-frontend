@@ -3,8 +3,8 @@
     <div class='small-12 columns'>
       <loader></loader>
       <div ng-hide="loading">
-        <h3>Payload created on {{ payload.created_at | humanTime }}</h3>
-        <p><a href='/#/locations/{{location_name}}/boxes/{{box.slug}}/payloads'>Go back</a></p>
+        <h3 translate>Payload created on {{ payload.created_at | humanTime }}</h3>
+        <p><a href='/#/locations/{{location_name}}/boxes/{{box.slug}}/payloads' translate>Go back</a></p>
         <hr>
         <pre>{{ payload.body  }}</pre>
       </div>

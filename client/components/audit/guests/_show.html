@@ -1,10 +1,10 @@
 <form name="myForm" ng-submit="update(myForm)">
   <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
         <md-icon>arrow_back</md-icon>
       </md-button>
-      <p>Back to Guests</p>
+      <p translate>Back to Guests</p>
       <div flex></div>
     </div>
     <md-divider></md-divider>
@@ -17,7 +17,7 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Guest Details
               </span>
             </md-card-title-text>
@@ -27,13 +27,13 @@
               <!-- <div flex="100" flex-gt-sm="50"> -->
                 <md-list-item class="md-2-line">
                   <div class="md-list-item-text">
-                    <h3>Guest Email</h3>
+                    <h3 translate>Guest Email</h3>
                     <p>{{ guest.guest.username }}</p>
                   </div>
                 </md-list-item>
                 <md-list-item class="md-2-line">
                   <div class="md-list-item-text">
-                    <h3>Created On</h3>
+                    <h3 translate>Created On</h3>
                     <p>{{ guest.guest.created_at | humanTime }}</p>
                   </div>
                 </md-list-item>
