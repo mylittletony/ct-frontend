@@ -4,78 +4,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: client/components/locations/clients/_index.html:62
-msgid "{{ (fn || 'average') | titleCase }} aggregated network usage"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:59
-msgid "{{ (fn || 'average') | titleCase }} client MCS values"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:61
-msgid "{{ (fn || 'average') | titleCase }} network throughput"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:60
-msgid "{{ (fn || 'average') | titleCase }} signal, noise and SNR values"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:63
-msgid "{{ (fn || 'average') | titleCase }} transmission packets that failed"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:52
-msgid "{{ client_mac }} MCS Value"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:55
-msgid "{{ client_mac }} Total WiFi Usage"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:56
-msgid "{{ client_mac }} Transmission Failures"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:53
-msgid "{{ client_mac }} WiFi Signal"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:54
-msgid "{{ client_mac }} WiFi Traffic"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:143
-msgid "{{ clients.info.connected || 0 }} Connected."
-msgstr ""
-
-#: client/components/locations/access/access-clickthrough.html:6
-#: client/components/locations/access/access-password.html:6
-#: client/components/locations/access/access-social.html:8
-#: client/components/locations/access/access-vouchers.html:6
-msgid "{{ primarySelected.name }} - Primary Access"
-msgstr ""
-
-#: client/components/locations/access/access-clickthrough.html:7
-#: client/components/locations/access/access-password.html:7
-#: client/components/locations/access/access-social.html:9
-#: client/components/locations/access/access-vouchers.html:7
-msgid "{{ secondarySelected.name }} - Secondary Access"
-msgstr ""
-
-#: client/components/locations/boxes/_table.html:42
-msgid ""
-"<!-- <md-icon>comments</md-icon> -->\n"
-"                &nbsp; Name"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:12
-msgid "<b>MAC Address</b>: {{ box.calledstationid}} <span hide=\"\" show-gt-sm=\"\"> <b>Description</b>: {{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span>"
-msgstr ""
-
-#: client/components/locations/access/access-clickthrough.html:11
-msgid "<p>There are no settings to play with for clickthrough access</p>"
-msgstr ""
-
 #: client/components/boxes/edit/_edit.html:93
 msgid "2.4Ghz Channel"
 msgstr ""
@@ -104,17 +32,35 @@ msgstr ""
 msgid "5Gz Power ({{box.tx_power_5}}dBm)"
 msgstr ""
 
+#: client/components/locations/boxes/_table.html:42
+msgid ""
+"<!-- <md-icon>comments</md-icon> -->\n"
+"                &nbsp; Name"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:12
+msgid "<b>MAC Address</b>: {{ box.calledstationid}} <span hide=\"\" show-gt-sm=\"\"> <b>Description</b>: {{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span>"
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:11
+msgid "<p>There are no settings to play with for clickthrough access</p>"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:282
+#: client/components/boxes/edit/_edit.html:290
+msgid "A DNS value is required"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:307
+msgid "A WAN metric is required"
+msgstr ""
+
 #: client/components/boxes/show/_non_ps.html:27
 msgid "A description is required"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:45
 msgid "A description is required."
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:282
-#: client/components/boxes/edit/_edit.html:290
-msgid "A DNS value is required"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:260
@@ -125,8 +71,20 @@ msgstr ""
 msgid "A valid MTU is required"
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:307
-msgid "A WAN metric is required"
+#: client/components/boxes/new/_add.html:67
+msgid "ADD"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:124
+msgid "ADD DEVICES <i ng-if=\"creating == true\" class=\"fa fa-cog fa-spin\"></i> <i class=\"fa fa-arrow-right\" ng-if=\"!creating\"></i>"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:54
+msgid "AP Description"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:166
+msgid "AP Name"
 msgstr ""
 
 #: client/components/locations/access/access-panel-top.html:25
@@ -166,8 +124,16 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:67
-msgid "ADD"
+#: client/components/apps/_index.html:8
+msgid "Add App"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:151
+msgid "Add Box"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:18
+msgid "Add a Device"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:2392
@@ -175,29 +141,9 @@ msgstr ""
 msgid "Add a comment"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:18
-msgid "Add a Device"
-msgstr ""
-
 #: client/components/apps/_index.html:10
 #: client/components/apps/_show.html:11
 msgid "Add a new app."
-msgstr ""
-
-#: client/components/apps/_index.html:8
-msgid "Add App"
-msgstr ""
-
-#: client/components/boxes/new/_add.html:67
-msgid "add box"
-msgstr ""
-
-#: client/components/boxes/new/_add.html:151
-msgid "Add Box"
-msgstr ""
-
-#: client/components/boxes/new/_add.html:124
-msgid "ADD DEVICES <i ng-if=\"creating == true\" class=\"fa fa-cog fa-spin\"></i> <i class=\"fa fa-arrow-right\" ng-if=\"!creating\"></i>"
 msgstr ""
 
 #: client/components/audit/emails/_index.html:52
@@ -222,14 +168,6 @@ msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:10
 msgid "Allowed IPs"
-msgstr ""
-
-#: client/components/locations/clients/_columns_filter.html:54
-msgid "AP Description"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:166
-msgid "AP Name"
 msgstr ""
 
 #: client/components/apps/_new.html:18
@@ -379,10 +317,6 @@ msgstr ""
 msgid "By using our API, you agree to the terms of use."
 msgstr ""
 
-#: client/components/boxes/show/_index.html:235
-msgid "call"
-msgstr ""
-
 #: client/components/apps/_new.html:43
 msgid "Callback URL"
 msgstr ""
@@ -426,8 +360,8 @@ msgstr ""
 msgid "Change your password automatically &amp; have it emailed it to you."
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:58
 #: client/components/locations/clients/_columns.html:62
+#: client/components/locations/clients/_columns_filter.html:58
 #: client/components/locations/clients/_index.html:167
 msgid "Channel"
 msgstr ""
@@ -549,16 +483,16 @@ msgid "Credentials"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:72
-msgid "Cucumber box"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:72
 #: client/components/boxes/show/_non_ps.html:54
 msgid "Cucumber Box"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:218
 msgid "Cucumber Debug"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:72
+msgid "Cucumber box"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:63
@@ -571,6 +505,22 @@ msgstr ""
 
 #: client/components/audit/sales/_show.html:42
 msgid "Customer Email"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:279
+msgid "DNS 1"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:287
+msgid "DNS 2"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:35
+msgid "DNS Check"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:154
+msgid "DOCUMENTATION"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:57
@@ -587,10 +537,6 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:289
 msgid "Delete it"
-msgstr ""
-
-#: client/components/boxes/payloads/_index.html:54
-msgid "delete payload"
 msgstr ""
 
 #: client/components/apps/_new.html:65
@@ -629,20 +575,8 @@ msgstr ""
 msgid "Device Mac"
 msgstr ""
 
-#: client/components/boxes/show/_index.html:177
-msgid "Device out of sync."
-msgstr ""
-
 #: client/components/boxes/payloads/_index.html:23
 msgid "Device Payloads"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:208
-msgid "Device reset in progress, please wait."
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:249
-msgid "Device resync in progress. Please wait."
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:36
@@ -651,6 +585,18 @@ msgstr ""
 
 #: client/components/boxes/show/_non_ps.html:45
 msgid "Device Type"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:177
+msgid "Device out of sync."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:208
+msgid "Device reset in progress, please wait."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:249
+msgid "Device resync in progress. Please wait."
 msgstr ""
 
 #: client/components/boxes/new/_add.html:84
@@ -665,10 +611,6 @@ msgstr ""
 msgid "Discover"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:144
-msgid "discover boxes"
-msgstr ""
-
 #: client/components/boxes/new/_add.html:27
 msgid "Discover my Devices"
 msgstr ""
@@ -681,24 +623,8 @@ msgstr ""
 msgid "Distance"
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:279
-msgid "DNS 1"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:287
-msgid "DNS 2"
-msgstr ""
-
-#: client/components/boxes/show/_health_modal.html:35
-msgid "DNS Check"
-msgstr ""
-
 #: client/index.html:110
 msgid "Documentation"
-msgstr ""
-
-#: client/components/boxes/show/_index.html:154
-msgid "DOCUMENTATION"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:75
@@ -755,12 +681,12 @@ msgstr ""
 msgid "Ensure your devices have the Cucumber firmware installed."
 msgstr ""
 
-#: client/components/locations/access/access-password.html:45
-msgid "Enter an email"
-msgstr ""
-
 #: client/components/boxes/new/_add.html:28
 msgid "Enter MAC Address"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:45
+msgid "Enter an email"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:224
@@ -783,12 +709,8 @@ msgstr ""
 msgid "Event Type"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1807
-msgid "exit"
-msgstr ""
-
-#: client/components/locations/clients/_columns_filter.html:22
 #: client/components/locations/clients/_columns.html:26
+#: client/components/locations/clients/_columns_filter.html:22
 #: client/components/locations/clients/_index.html:158
 msgid "Expected Tput"
 msgstr ""
@@ -830,8 +752,8 @@ msgid_plural "Found {{item._score}} records"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/components/locations/clients/_columns_filter.html:62
 #: client/components/locations/clients/_columns.html:66
+#: client/components/locations/clients/_columns_filter.html:62
 #: client/components/locations/clients/_index.html:168
 msgid "Frequency"
 msgstr ""
@@ -852,16 +774,12 @@ msgstr ""
 msgid "Generate random password"
 msgstr ""
 
-#: client/components/boxes/show/_index.html:154
-msgid "getting started"
+#: client/components/home/brand-not-found.html:6
+msgid "Go Forth and Prosper"
 msgstr ""
 
 #: client/components/boxes/payloads/show.html:7
 msgid "Go back"
-msgstr ""
-
-#: client/components/home/brand-not-found.html:6
-msgid "Go Forth and Prosper"
 msgstr ""
 
 #: client/components/home/404.html:5
@@ -890,6 +808,20 @@ msgstr ""
 
 #: client/components/firmwares/_index.html:18
 msgid "ID"
+msgstr ""
+
+#: client/components/locations/boxes/_table.html:50
+msgid "IP"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:252
+msgid "IP Address"
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:50
+#: client/components/locations/clients/_columns_filter.html:46
+#: client/components/locations/clients/_index.html:164
+msgid "IPv4"
 msgstr ""
 
 #: client/components/locations/clients/_index.html:227
@@ -940,20 +872,6 @@ msgstr ""
 msgid "Interval"
 msgstr ""
 
-#: client/components/locations/boxes/_table.html:50
-msgid "IP"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:252
-msgid "IP Address"
-msgstr ""
-
-#: client/components/locations/clients/_columns_filter.html:46
-#: client/components/locations/clients/_columns.html:50
-#: client/components/locations/clients/_index.html:164
-msgid "IPv4"
-msgstr ""
-
 #: client/components/boxes/new/_add.html:63
 msgid "Is Cucumber"
 msgstr ""
@@ -962,8 +880,8 @@ msgstr ""
 #: client/components/boxes/payloads/_index.html:13
 #: client/components/boxes/show/_index.html:186
 #: client/components/locations/boxes/_table.html:51
-#: client/components/locations/clients/_columns_filter.html:50
 #: client/components/locations/clients/_columns.html:54
+#: client/components/locations/clients/_columns_filter.html:50
 #: client/components/locations/clients/_index.html:165
 msgid "Last Seen"
 msgstr ""
@@ -1016,17 +934,6 @@ msgstr ""
 msgid "Looks like you've lost connection. It's probably best you wait until you reconnect, otherwise we can't save your changes."
 msgstr ""
 
-#: client/components/audit/sales/_index.html:54
-#: client/components/boxes/new/_add.html:103
-#: client/components/locations/boxes/_table.html:47
-msgid "Mac"
-msgstr ""
-
-#: client/components/boxes/show/_index.html:222
-#: client/components/locations/clients/_index.html:153
-msgid "Mac Address"
-msgstr ""
-
 #: client/components/boxes/edit/_edit.html:51
 #: client/components/boxes/new/_add.html:34
 #: client/components/boxes/payloads/_index.html:13
@@ -1036,6 +943,31 @@ msgstr ""
 
 #: client/components/boxes/new/_add.html:37
 msgid "MAC is required."
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:46
+#: client/components/locations/clients/_columns_filter.html:42
+msgid "MCS"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:101
+#: client/components/locations/clients/_index.html:163
+msgid "MCS Index"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:47
+msgid "MTU Check"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:54
+#: client/components/boxes/new/_add.html:103
+#: client/components/locations/boxes/_table.html:47
+msgid "Mac"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:222
+#: client/components/locations/clients/_index.html:153
+msgid "Mac Address"
 msgstr ""
 
 #: client/components/firmwares/_index.html:23
@@ -1055,8 +987,8 @@ msgid "Make sure you enter a valid email."
 msgstr ""
 
 #: client/components/codes/_table.html:11
-#: client/components/locations/clients/_columns_filter.html:66
 #: client/components/locations/clients/_columns.html:70
+#: client/components/locations/clients/_columns_filter.html:66
 #: client/components/locations/clients/_index.html:169
 msgid "Manufacturer"
 msgstr ""
@@ -1065,22 +997,8 @@ msgstr ""
 msgid "Max. Values"
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:42
-#: client/components/locations/clients/_columns.html:46
-msgid "MCS"
-msgstr ""
-
-#: client/components/locations/clients/_index.html:101
-#: client/components/locations/clients/_index.html:163
-msgid "MCS Index"
-msgstr ""
-
 #: client/components/locations/clients/_index.html:122
 msgid "Median Values"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:345
-msgid "menu"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:58
@@ -1094,14 +1012,6 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:162
 msgid "Minimum Data Rate"
-msgstr ""
-
-#: client/components/boxes/show/_health_modal.html:47
-msgid "MTU Check"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:272
-msgid "Must be a valid gateway address"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:20
@@ -1119,16 +1029,20 @@ msgstr ""
 msgid "Must be a valid MAC address"
 msgstr ""
 
+#: client/components/apps/_new.html:59
+msgid "Must be a valid URL"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:272
+msgid "Must be a valid gateway address"
+msgstr ""
+
 #: client/components/boxes/new/_add.html:38
 msgid "Must be a valid mac, including dashes or colons."
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:264
 msgid "Must be a valid netmask"
-msgstr ""
-
-#: client/components/apps/_new.html:59
-msgid "Must be a valid URL"
 msgstr ""
 
 #: client/components/apps/_new.html:47
@@ -1188,10 +1102,6 @@ msgstr ""
 msgid "Must not be less than 0"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:349
-msgid "muted"
-msgstr ""
-
 #: client/components/locations/clients/_index.html:218
 msgid "NA"
 msgstr ""
@@ -1240,16 +1150,24 @@ msgstr ""
 msgid "New Device"
 msgstr ""
 
-#: client/components/codes/_index.html:23
-msgid "No codes found"
-msgstr ""
-
 #: client/components/boxes/new/_add.html:134
 msgid "No Devices Discovered"
 msgstr ""
 
 #: client/components/layouts/offline-modal.html:2
 msgid "No Internet."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:168
+msgid "No Scan"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:168
+msgid "No Scan Mode"
+msgstr ""
+
+#: client/components/codes/_index.html:23
+msgid "No codes found"
 msgstr ""
 
 #: client/components/locations/access/access-password.html:26
@@ -1261,14 +1179,6 @@ msgstr ""
 #: client/components/audit/sessions/_index.html:31
 #: client/components/audit/social/_index.html:32
 msgid "No results found."
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:168
-msgid "No Scan"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:168
-msgid "No Scan Mode"
 msgstr ""
 
 #: client/components/codes/_sessions.html:27
@@ -1326,14 +1236,14 @@ msgstr ""
 msgid "Open Menu"
 msgstr ""
 
+#: client/components/boxes/show/_index.html:31
+msgid "Open Tools"
+msgstr ""
+
 #: client/components/audit/emails/_index.html:85
 #: client/components/audit/social/_index.html:87
 #: client/components/codes/_table.html:56
 msgid "Open sessions menu"
-msgstr ""
-
-#: client/components/boxes/show/_index.html:31
-msgid "Open Tools"
 msgstr ""
 
 #: client/components/boxes/payloads/_bulk.html:12
@@ -1403,16 +1313,12 @@ msgstr ""
 msgid "Payload has been queued, please wait a few seconds for it to finish."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1806
-msgid "please cancel it"
+#: client/components/apps/_index.html:26
+msgid "Please Create an App"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:153
 msgid "Please connect your device to an Internet connection. The device hasn't initialised."
-msgstr ""
-
-#: client/components/apps/_index.html:26
-msgid "Please Create an App"
 msgstr ""
 
 #: client/components/apps/_new.html:69
@@ -1517,12 +1423,12 @@ msgstr ""
 msgid "Refund Transaction"
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:197
-msgid "Remote host address"
-msgstr ""
-
 #: client/components/boxes/edit/_edit.html:203
 msgid "Remote Port"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:197
+msgid "Remote host address"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:19
@@ -1567,6 +1473,13 @@ msgstr ""
 msgid "Resync this Device"
 msgstr ""
 
+#: client/components/boxes/payloads/_bulk.html:4
+#: client/components/locations/boxes/_table.html:22
+#: client/components/locations/boxes/dialog.html:5
+#: client/components/locations/boxes/zones.html:1
+msgid "Run Payload"
+msgstr ""
+
 #: client/components/boxes/payloads/_bulk.html:6
 msgid "Run a bulk payload on {{ selection.length }} boxes"
 msgstr ""
@@ -1579,13 +1492,6 @@ msgstr ""
 msgid "Run commands on your access points"
 msgstr ""
 
-#: client/components/boxes/payloads/_bulk.html:4
-#: client/components/locations/boxes/_table.html:22
-#: client/components/locations/boxes/dialog.html:5
-#: client/components/locations/boxes/zones.html:1
-msgid "Run Payload"
-msgstr ""
-
 #: client/components/boxes/payloads/_bulk.html:14
 msgid "Running payload, please be patient."
 msgstr ""
@@ -1594,15 +1500,31 @@ msgstr ""
 msgid "Running speedtest, please wait."
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:30
 #: client/components/locations/clients/_columns.html:34
+#: client/components/locations/clients/_columns_filter.html:30
 #: client/components/locations/clients/_index.html:160
 msgid "Rx Rate"
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:18
 #: client/components/locations/clients/_columns.html:22
+#: client/components/locations/clients/_columns_filter.html:18
 msgid "Rxbps"
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:38
+#: client/components/locations/clients/_columns_filter.html:34
+#: client/components/locations/clients/_index.html:161
+msgid "SNR"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:272
+msgid "SSH Password"
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:14
+#: client/components/locations/clients/_columns_filter.html:10
+#: client/components/locations/clients/_index.html:154
+msgid "SSID"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:343
@@ -1632,14 +1554,6 @@ msgstr ""
 
 #: client/components/home/bye.html:1
 msgid "See you later, come back soon."
-msgstr ""
-
-#: client/components/locations/clients/_range_buttons.html:12
-msgid "select distance"
-msgstr ""
-
-#: client/components/locations/clients/_range_buttons.html:4
-msgid "select interval"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:85
@@ -1698,20 +1612,14 @@ msgstr ""
 msgid "Should be a valid IP (10.1.1.1)"
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:38
 #: client/components/locations/clients/_columns.html:42
+#: client/components/locations/clients/_columns_filter.html:38
 #: client/components/locations/clients/_index.html:162
 msgid "Signal"
 msgstr ""
 
 #: client/components/locations/clients/_index.html:86
 msgid "Signal Strength"
-msgstr ""
-
-#: client/components/locations/clients/_columns_filter.html:34
-#: client/components/locations/clients/_columns.html:38
-#: client/components/locations/clients/_index.html:161
-msgid "SNR"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:46
@@ -1736,28 +1644,18 @@ msgstr ""
 msgid "Splash Pages"
 msgstr ""
 
-#: client/components/boxes/show/_health_modal.html:77
-msgid "Splash pages aren't active. This is OK if you're not using a captive portal"
-msgstr ""
-
 #: client/components/boxes/show/_index.html:128
 msgid "Splash URL"
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:70
 #: client/components/locations/clients/_columns.html:74
+#: client/components/locations/clients/_columns_filter.html:70
 #: client/components/locations/clients/_index.html:170
 msgid "Splash User"
 msgstr ""
 
-#: client/components/boxes/show/_index.html:272
-msgid "SSH Password"
-msgstr ""
-
-#: client/components/locations/clients/_columns_filter.html:10
-#: client/components/locations/clients/_columns.html:14
-#: client/components/locations/clients/_index.html:154
-msgid "SSID"
+#: client/components/boxes/show/_health_modal.html:77
+msgid "Splash pages aren't active. This is OK if you're not using a captive portal"
 msgstr ""
 
 #: client/components/codes/_table.html:5
@@ -1799,23 +1697,6 @@ msgid "Support"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:18
-#: client/components/locations/clients/_columns_filter.html:10
-#: client/components/locations/clients/_columns_filter.html:14
-#: client/components/locations/clients/_columns_filter.html:18
-#: client/components/locations/clients/_columns_filter.html:22
-#: client/components/locations/clients/_columns_filter.html:26
-#: client/components/locations/clients/_columns_filter.html:30
-#: client/components/locations/clients/_columns_filter.html:34
-#: client/components/locations/clients/_columns_filter.html:38
-#: client/components/locations/clients/_columns_filter.html:42
-#: client/components/locations/clients/_columns_filter.html:46
-#: client/components/locations/clients/_columns_filter.html:50
-#: client/components/locations/clients/_columns_filter.html:54
-#: client/components/locations/clients/_columns_filter.html:58
-#: client/components/locations/clients/_columns_filter.html:62
-#: client/components/locations/clients/_columns_filter.html:66
-#: client/components/locations/clients/_columns_filter.html:70
-#: client/components/locations/clients/_columns_filter.html:74
 #: client/components/locations/clients/_columns.html:14
 #: client/components/locations/clients/_columns.html:18
 #: client/components/locations/clients/_columns.html:22
@@ -1833,6 +1714,23 @@ msgstr ""
 #: client/components/locations/clients/_columns.html:70
 #: client/components/locations/clients/_columns.html:74
 #: client/components/locations/clients/_columns.html:78
+#: client/components/locations/clients/_columns_filter.html:10
+#: client/components/locations/clients/_columns_filter.html:14
+#: client/components/locations/clients/_columns_filter.html:18
+#: client/components/locations/clients/_columns_filter.html:22
+#: client/components/locations/clients/_columns_filter.html:26
+#: client/components/locations/clients/_columns_filter.html:30
+#: client/components/locations/clients/_columns_filter.html:34
+#: client/components/locations/clients/_columns_filter.html:38
+#: client/components/locations/clients/_columns_filter.html:42
+#: client/components/locations/clients/_columns_filter.html:46
+#: client/components/locations/clients/_columns_filter.html:50
+#: client/components/locations/clients/_columns_filter.html:54
+#: client/components/locations/clients/_columns_filter.html:58
+#: client/components/locations/clients/_columns_filter.html:62
+#: client/components/locations/clients/_columns_filter.html:66
+#: client/components/locations/clients/_columns_filter.html:70
+#: client/components/locations/clients/_columns_filter.html:74
 msgid "Switch 1"
 msgstr ""
 
@@ -1846,6 +1744,10 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:202
 msgid "Syslog Port"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:106
+msgid "TX Fails"
 msgstr ""
 
 #: client/components/apps/_new.html:66
@@ -1870,10 +1772,6 @@ msgstr ""
 msgid "This cannot be reversed, please be careful. Deleting a box is permanent."
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:271
-msgid "This device must have a valid gateway"
-msgstr ""
-
 #: client/components/boxes/edit/_edit.html:46
 #: client/components/boxes/edit/_edit.html:54
 #: client/components/boxes/show/_non_ps.html:10
@@ -1882,6 +1780,10 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:255
 msgid "This device must have a valid WAN IP"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:271
+msgid "This device must have a valid gateway"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:24
@@ -1932,10 +1834,6 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: client/components/boxes/show/_transfer.html:20
-msgid "transfer"
-msgstr ""
-
 #: client/components/audit/sales/_refund.html:1
 #: client/components/boxes/show/_transfer.html:1
 #: client/components/boxes/show/_transfer.html:5
@@ -1946,26 +1844,22 @@ msgstr ""
 msgid "Transfer your device to another location you own."
 msgstr ""
 
-#: client/components/locations/clients/_index.html:106
-msgid "TX Fails"
-msgstr ""
-
-#: client/components/locations/clients/_columns_filter.html:26
 #: client/components/locations/clients/_columns.html:30
+#: client/components/locations/clients/_columns_filter.html:26
 #: client/components/locations/clients/_index.html:159
 msgid "Tx Rate"
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:14
 #: client/components/locations/clients/_columns.html:18
+#: client/components/locations/clients/_columns_filter.html:14
 msgid "Txbps"
 msgstr ""
 
 #: client/components/audit/emails/_index.html:54
 #: client/components/boxes/new/_add.html:104
 #: client/components/events/_index.html:27
-#: client/components/locations/clients/_columns_filter.html:74
 #: client/components/locations/clients/_columns.html:78
+#: client/components/locations/clients/_columns_filter.html:74
 #: client/components/locations/clients/_index.html:171
 msgid "Type"
 msgstr ""
@@ -1980,10 +1874,6 @@ msgstr ""
 
 #: client/components/locations/access/access-panel-top.html:16
 msgid "Unlimited access"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:349
-msgid "unmuted"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:45
@@ -2049,24 +1939,24 @@ msgstr ""
 msgid "Vouchers"
 msgstr ""
 
-#: client/components/boxes/show/_index.html:134
-msgid "Walled Gardens"
-msgstr ""
-
 #: client/components/boxes/show/_index.html:210
 msgid "WAN IP"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:304
-msgid "WAN Metric"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:295
 msgid "WAN MTU"
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:304
+msgid "WAN Metric"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:240
 msgid "WAN Protocol"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:134
+msgid "Walled Gardens"
 msgstr ""
 
 #: client/components/home/404.html:4
@@ -2149,6 +2039,14 @@ msgstr ""
 msgid "You've stumbled upon a page that doesn't exist yet."
 msgstr ""
 
+#: client/components/apps/_index.html:52
+msgid "Your Cucumber Applications"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:53
+msgid "Your Facebook Page Id"
+msgstr ""
+
 #: client/components/apps/_new.html:31
 msgid "Your application name"
 msgstr ""
@@ -2161,10 +2059,6 @@ msgstr ""
 msgid "Your codes are still generating, please wait."
 msgstr ""
 
-#: client/components/apps/_index.html:52
-msgid "Your Cucumber Applications"
-msgstr ""
-
 #: client/components/locations/access/access-password.html:21
 msgid "Your customers enter this on the login pages."
 msgstr ""
@@ -2175,10 +2069,6 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:2339
 msgid "Your devices have been added."
-msgstr ""
-
-#: client/components/locations/access/access-social.html:53
-msgid "Your Facebook Page Id"
 msgstr ""
 
 #: client/components/locations/access/access-social.html:80
@@ -2196,4 +2086,114 @@ msgstr ""
 #: client/components/boxes/new/_add.html:52
 #: client/components/locations/boxes/_table.html:49
 msgid "Zone"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:67
+msgid "add box"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:235
+msgid "call"
+msgstr ""
+
+#: client/components/boxes/payloads/_index.html:54
+msgid "delete payload"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:144
+msgid "discover boxes"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1807
+msgid "exit"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:154
+msgid "getting started"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:345
+msgid "menu"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:349
+msgid "muted"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1806
+msgid "please cancel it"
+msgstr ""
+
+#: client/components/locations/clients/_range_buttons.html:12
+msgid "select distance"
+msgstr ""
+
+#: client/components/locations/clients/_range_buttons.html:4
+msgid "select interval"
+msgstr ""
+
+#: client/components/boxes/show/_transfer.html:20
+msgid "transfer"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:349
+msgid "unmuted"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:62
+msgid "{{ (fn || 'average') | titleCase }} aggregated network usage"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:59
+msgid "{{ (fn || 'average') | titleCase }} client MCS values"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:61
+msgid "{{ (fn || 'average') | titleCase }} network throughput"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:60
+msgid "{{ (fn || 'average') | titleCase }} signal, noise and SNR values"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:63
+msgid "{{ (fn || 'average') | titleCase }} transmission packets that failed"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:52
+msgid "{{ client_mac }} MCS Value"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:55
+msgid "{{ client_mac }} Total WiFi Usage"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:56
+msgid "{{ client_mac }} Transmission Failures"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:53
+msgid "{{ client_mac }} WiFi Signal"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:54
+msgid "{{ client_mac }} WiFi Traffic"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:143
+msgid "{{ clients.info.connected || 0 }} Connected."
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:6
+#: client/components/locations/access/access-password.html:6
+#: client/components/locations/access/access-social.html:8
+#: client/components/locations/access/access-vouchers.html:6
+msgid "{{ primarySelected.name }} - Primary Access"
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:7
+#: client/components/locations/access/access-password.html:7
+#: client/components/locations/access/access-social.html:9
+#: client/components/locations/access/access-vouchers.html:7
+msgid "{{ secondarySelected.name }} - Secondary Access"
 msgstr ""
