@@ -907,34 +907,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
       loc: '@'
     },
     require: '^clientChart',
-    template:
-      '<md-card>'+
-      '<md-card-header class="graph-small">'+
-      '<md-card-header-text>'+
-      '<span class="md-subhead">'+
-      'MCS Index'+
-      '</span>'+
-      '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">'+
-      '<md-icon>fullscreen_exit</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen(\'mcs\')">'+
-      '<md-icon>fullscreen</md-icon>'+
-      '</md-button>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
-      '<md-icon>refresh</md-icon>'+
-      '</md-button>'+
-      '</md-card-header>'+
-      '<md-card-content>'+
-      '<div id="mcs-chart"></div>'+
-      '<div>'+
-      '<div layout="row" ng-if=\'noData || loading\' style=\'min-height: 250px;\' layout-align="left end" class=\'muted\'>'+
-      '<p><small><span ng-if=\'noData\'>No graph data</span><span ng-if=\'loading\'>Loading usage data</span></small></p>'+
-      '</div>'+
-      '<md-progress-linear ng-if=\'loading\' md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '</md-card-content>'+
-      '</md-card>'
+    templateUrl: 'components/charts/clients/_mcs_chart.html',
   };
 
 }]);
