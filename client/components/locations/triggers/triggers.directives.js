@@ -734,7 +734,7 @@ app.directive('triggerTags', ['$mdDialog',function($mdDialog) {
     scope: {
       type: '@'
     },
-    template: '<div>View the available dynamic variables <a href="" ng-click="showVars()">here</a>.</div>'
+    templateUrl: 'components/locations/triggers/_webhook_variables.html',
   };
 
 }]);
@@ -908,4 +908,3 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
   };
 
 }]);
-
