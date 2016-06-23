@@ -720,10 +720,7 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
   return {
     link: link,
     scope: {},
-    template:
-        '<md-card-actions ng-click="changePassword()" layout="row" layout-align="end center">'+
-        '<md-button>Change Password</md-button>'+
-        '</md-card-actions>'
+    templateUrl: 'components/users/show/_change_password.html',
   };
 }]);
 
