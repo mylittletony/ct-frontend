@@ -347,10 +347,7 @@ app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', '
     scope: {
       token: '='
     },
-    template:
-      '<span>'+
-      '<md-button ng-click=\'changeToken()\'>Change Token</md-button>'+
-      '</span>'
+    templateUrl: 'components/locations/settings/_change_token.html',
   };
 
 }]);
