@@ -396,54 +396,7 @@ app.directive('dashing', ['Report', function (Report) {
     scope: {
       locations: '@'
     },
-    template:
-        '<md-card>'+
-        '<md-card-title>'+
-        '<md-card-title-text>'+
-        '<span class="md-headline">'+
-        'Network Stats'+
-        '</span>'+
-        '</md-card-title-text>'+
-        '</md-card-title>'+
-        '<md-card-content>'+
-        '<md-list-item class="md-2-line">'+
-        '<md-icon md-font-icon="">router</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Boxes</h3>'+
-        '<span ng-if=\'loading\'><small>Loading stats</small></span>'+
-        '<p ng-if=\'!loading\'>{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline. <span ng-if=\'splash_only > 0\'>{{ ::splash_only }} Splash Only</span></p>'+
-        '<md-tooltip>{{ ::stats.boxes.stats.total }} Total boxes </md-tooltip>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<md-list-item class="md-2-line">'+
-        '<md-icon md-font-icon="">devices</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Clients Connected</h3>'+
-        '<p>{{ ::stats.online }} connected</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<md-list-item class="md-2-line" href=\'/#/locations\'>'+
-        '<md-icon md-font-icon="">business</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Locations</h3>'+
-        '<span ng-if=\'loading\'><small>Loading stats</small></span>'+
-        '<p ng-if=\'!loading\'>{{ ::stats.locations }} location<span ng-if=\'stats.locations != 1\'>s</span></p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<md-list-item class="md-2-line">'+
-        '<md-icon md-font-icon="">web</md-icon>'+
-        '<div class="md-list-item-text">'+
-        '<h3>Splash Views</h3>'+
-        '<p>{{ ::stats.splash_views }} this period</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '</md-card-content>'+
-        '<md-divider></md-divider>'+
-        '<md-card-actions layout="row" layout-align="end center" >'+
-        '<md-button ng-href=\'/#/alerts\'>Alerting Devices</md-button>'+
-        '</md-card-actions>'+
-        '</md-card-content>'+
-        '</md-card>'
+    templateUrl: 'components/locations/show/_dashing.html',
   };
 
 }]);
