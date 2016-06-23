@@ -495,6 +495,8 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       Location.save({location: scope.location}).$promise.then(function(results) {
         $location.path('/locations/' + results.slug);
         $location.search({gs: true});
+        menu.isOpen = true;
+        menu.hideBurger = false;
         showToast('Location successfully created.');
       }, function(err) {
         showErrors(err);
