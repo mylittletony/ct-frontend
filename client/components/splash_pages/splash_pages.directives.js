@@ -577,11 +577,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       pages: '=',
       style: '@'
     },
-    template: 
-      '<md-button class="{{ style }}" ng-click=\'open()\'>'+
-      '<md-icon ng-if="style !== \'md-raised\'">add_circle</md-icon>'+
-      '<span ng-if="style === \'md-raised\'">Create</span>'+
-      '</md-button>'
+    templateUrl: 'components/splash_pages/_new_splash_create.html',
   };
 
 }]);
@@ -1137,4 +1133,3 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
   };
 
 }]);
-
