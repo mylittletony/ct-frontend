@@ -40,7 +40,8 @@ app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location
         hash.location_id   = item.id;
         hash.location_name = item.location_name;
         $location.search(hash);
-      }, 0);
+        $route.reload();
+      }, 250);
     }
 
     scope.querySearch        = querySearch;
@@ -512,26 +513,6 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       }
     });
 
-    // scope.period        = $routeParams.period   || '7d';
-    // scope.location_id   = $routeParams.location_id;
-    // scope.interval      = $routeParams.interval;
-    // scope.type          = $routeParams.type;
-
-    // attrs.$observe('render', function(val){
-    //   if (val !== '') {
-    //     // scope.type = attrs.type;
-    //     if ($routeParams.type) {
-    //       scope.type = $routeParams.type;
-    //     }
-    //     if (scope.type === 'clients') {
-    //       scope.interval = 'day';
-    //     }
-    //     scope.subhead = attrs.subhead;
-    //     scope.render = attrs.render;
-    //     init();
-    //   }
-    // });
-
     $(window).resize(function() {
       if (this.resizeTO) {
         clearTimeout(this.resizeTO);
@@ -687,38 +668,6 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       $timeout.cancel(timer);
     });
 
-    // scope.changeType = function(t) {
-    //   clearChart();
-    //   var hash = $location.search();
-    //   hash.type = t;
-    //   $location.search(hash);
-    //   scope.type = t;
-    //   init();
-    // };
-
-    // var init = function() {
-
-    //   createTitle();
-    //   var params = {
-    //     resource: 'splash',
-    //     type: scope.type,
-    //     interval: scope.interval || 'hour',
-    //     location_id: scope.location_id,
-    //     period: scope.period
-    //   };
-
-    //   controller.get(params).then(function(results) {
-
-    //     json = results;
-
-    //     timer = $timeout(function() {
-    //       drawChart();
-    //     },500);
-    //     scope.loading = undefined;
-    //   });
-    // };
-
-    // init();
   };
 
   return {

@@ -551,14 +551,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/plans', {
-    //   templateUrl: 'components/plans/index.html',
-    //   controller: 'PlansController',
-    // }).
-    // when('/plans/:id', {
-    //   templateUrl: 'components/plans/show.html',
-    //   controller: 'PlansController',
-    // }).
     when('/reports', {
       templateUrl: 'components/reports/wireless.html',
       controller: 'ReportsCtrl as rc',
@@ -568,67 +560,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/reports/radius', {
       templateUrl: 'components/reports/radius.html',
       controller: 'ReportsCtrl as rc',
-      // reloadOnSearch: false,
+      reloadOnSearch: false,
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/stats', {
-    //   redirectTo: '/stats/clients'
-    // }).
-    // when('/reports/social', {
-    //   templateUrl: 'components/reports/social/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   // reloadOnSearch: false
-    // }).
-    // when('/reports/social/:id', {
-    //   templateUrl: 'components/reports/social/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/sessions', {
-    //   templateUrl: 'components/reports/sessions/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/online', {
-    //   templateUrl: 'components/reports/splash_online/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/codes', {
-    //   templateUrl: 'components/reports/codes/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   // reloadOnSearch: false
-    // }).
-    // when('/reports/codes/:id', {
-    //   templateUrl: 'components/reports/codes/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/guests', {
-    //   templateUrl: 'components/reports/guests/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: true
-    // }).
-    // when('/reports/guests/:id', {
-    //   templateUrl: 'components/reports/guests/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/emails', {
-    //   templateUrl: 'components/reports/emails/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   // reloadOnSearch: false
-    // }).
-    // when('/reports/orders', {
-    //   templateUrl: 'components/reports/orders/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/orders/:id', {
-    //   templateUrl: 'components/reports/orders/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
     when('/shop', {
       templateUrl: 'components/shop/index.html',
     }).
