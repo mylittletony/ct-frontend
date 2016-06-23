@@ -4,12 +4,75 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
+#: client/components/boxes/edit/_edit.html:12
+msgid "<b>MAC Address</b>: {{ box.calledstationid}} <span hide=\"\" show-gt-sm=\"\"> <b>Description</b>: {{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span>"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:93
+msgid "2.4Ghz Channel"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:101
+msgid "2.4Ghz Mode"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:110
+msgid "2.4Gz Power ({{box.tx_power_2}}dBm)"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:123
+msgid "5Ghz Channel"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:131
+msgid "5Ghz Mode"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:140
+msgid "5Gz Power ({{box.tx_power_5}}dBm)"
+msgstr ""
+
+#: client/components/boxes/show/_non_ps.html:27
+msgid "A description is required"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:45
+msgid "A description is required."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:282
+#: client/components/boxes/edit/_edit.html:290
+msgid "A DNS value is required"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:260
+msgid "A firmware upgrade is available."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:298
+msgid "A valid MTU is required"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:307
+msgid "A WAN metric is required"
+msgstr ""
+
 #: client/index.html:103
 msgid "Account"
 msgstr ""
 
-#: client/components/apps/_index.html:8
-msgid "Add App"
+#: client/components/boxes/show/_index.html:122
+msgid "Accounting Port"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:57
+#: client/components/audit/sales/_index.html:59
+#: client/components/audit/social/_index.html:57
+msgid "Action"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:67
+msgid "ADD"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:2392
@@ -17,9 +80,45 @@ msgstr ""
 msgid "Add a comment"
 msgstr ""
 
+#: client/components/boxes/new/_add.html:18
+msgid "Add a Device"
+msgstr ""
+
 #: client/components/apps/_index.html:10
 #: client/components/apps/_show.html:11
 msgid "Add a new app."
+msgstr ""
+
+#: client/components/apps/_index.html:8
+msgid "Add App"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:67
+msgid "add box"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:151
+msgid "Add Box"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:124
+msgid "ADD DEVICES <i ng-if=\"creating == true\" class=\"fa fa-cog fa-spin\"></i> <i class=\"fa fa-arrow-right\" ng-if=\"!creating\"></i>"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:52
+msgid "Added"
+msgstr ""
+
+#: client/components/boxes/show/_non_ps.html:16
+msgid "Address"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:156
+msgid "Advanced Radio Settings"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:10
+msgid "Allowed IPs"
 msgstr ""
 
 #: client/components/apps/_new.html:18
@@ -58,6 +157,28 @@ msgstr ""
 msgid "Are you sure you want to delete this device?"
 msgstr ""
 
+#: client/components/audit/sales/_refund.html:9
+msgid ""
+"Are you sure you want to refund this transaction?<br>\n"
+"        <b>This cannot be reversed.</b>"
+msgstr ""
+
+#: client/components/audit/index.html:6
+msgid "Audit"
+msgstr ""
+
+#: client/components/audit/index.html:19
+msgid "Audit Logs"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:116
+msgid "Authentication Port"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:54
+msgid "Authorisation Code"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:2320
 msgid "Automatically discovered"
 msgstr ""
@@ -65,6 +186,38 @@ msgstr ""
 #: client/components/apps/_new.html:6
 #: client/components/apps/_show.html:6
 msgid "Back to Apps"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:6
+#: client/components/boxes/payloads/_index.html:6
+#: client/components/boxes/versions/_index.html:6
+msgid "Back to Device"
+msgstr ""
+
+#: client/components/audit/guests/_show.html:7
+msgid "Back to Guests"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:5
+#: client/components/boxes/new/_add.html:8
+#: client/components/boxes/show/_index.html:6
+msgid "Back to Location"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:7
+msgid "Back to Orders"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:165
+msgid "Band Steering"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:162
+msgid "Basic Rate Support"
+msgstr ""
+
+#: client/components/boxes/port_forwards/header.html:4
+msgid "Box Port Forwards"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:350
@@ -99,6 +252,10 @@ msgstr ""
 msgid "By using our API, you agree to the terms of use."
 msgstr ""
 
+#: client/components/boxes/show/_index.html:235
+msgid "call"
+msgstr ""
+
 #: client/components/apps/_new.html:43
 msgid "Callback URL"
 msgstr ""
@@ -107,15 +264,66 @@ msgstr ""
 msgid "Callback URLs:"
 msgstr ""
 
+#: client/components/audit/sales/_refund.html:16
 #: client/components/boxes/boxes.directives.js:199
 #: client/components/boxes/boxes.directives.js:233
 #: client/components/boxes/boxes.directives.js:264
 #: client/components/boxes/boxes.directives.js:290
+#: client/components/boxes/show/_transfer.html:17
 msgid "Cancel"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1804
 msgid "Cancel Upgrade"
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:15
+msgid "Cancel, I don't want to do this."
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:65
+msgid "Cannot communicate with Cucumber Tony. Please reboot."
+msgstr ""
+
+#: client/components/boxes/show/_non_ps.html:54
+msgid "Checkbox 2"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:89
+msgid "Choose a Zone"
+msgstr ""
+
+#: client/components/audit/sessions/_index.html:58
+msgid "Clear filters"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:44
+msgid "Click here to add another rule"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:98
+#: client/components/audit/sales/_index.html:119
+msgid "Client"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:100
+msgid "Close"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:8
+msgid "Close dialog"
+msgstr ""
+
+#: client/components/boxes/payloads/_index.html:44
+msgid "Command"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:105
+msgid "Comment"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:58
+msgid "Connected to Cucumber"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:302
@@ -134,12 +342,50 @@ msgstr ""
 msgid "Could not schedule upgrade, try again."
 msgstr ""
 
+#: client/components/boxes/payloads/_bulk.html:13
+msgid "Create"
+msgstr ""
+
 #: client/components/apps/_new.html:20
 msgid "Create an application before use the API and build some awesome."
 msgstr ""
 
+#: client/components/boxes/payloads/_index.html:43
+#: client/components/boxes/show/_index.html:265
+msgid "Created"
+msgstr ""
+
+#: client/components/audit/guests/_show.html:36
+msgid "Created On"
+msgstr ""
+
 #: client/components/apps/_show.html:44
 msgid "Credentials"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:72
+msgid "Cucumber box"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:72
+#: client/components/boxes/show/_non_ps.html:54
+msgid "Cucumber Box"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:218
+msgid "Cucumber Debug"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:63
+msgid "Cucumber firmware"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:42
+msgid "Customer Email"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:57
+msgid "Date"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:287
@@ -150,12 +396,45 @@ msgstr ""
 msgid "Delete it"
 msgstr ""
 
+#: client/components/boxes/payloads/_index.html:54
+msgid "delete payload"
+msgstr ""
+
 #: client/components/apps/_new.html:65
+#: client/components/boxes/edit/_edit.html:43
+#: client/components/boxes/new/_add.html:42
+#: client/components/boxes/payloads/_index.html:13
+#: client/components/boxes/show/_health_modal.html:18
+#: client/components/boxes/show/_non_ps.html:24
 msgid "Description"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:13
+msgid "Dest. IP"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:12
+msgid "Dest. Port"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:35
+msgid "Destination IP"
+msgstr ""
+
+#: client/components/boxes/show/_non_ps.html:4
+msgid "Details"
 msgstr ""
 
 #: client/index.html:129
 msgid "Developer"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:177
+msgid "Device out of sync."
+msgstr ""
+
+#: client/components/boxes/payloads/_index.html:23
+msgid "Device Payloads"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:208
@@ -166,12 +445,60 @@ msgstr ""
 msgid "Device resync in progress. Please wait."
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:36
+msgid "Device Settings"
+msgstr ""
+
+#: client/components/boxes/show/_non_ps.html:45
+msgid "Device Type"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:84
+msgid "Devices Discovered"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:144
+msgid "Discover"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:144
+msgid "discover boxes"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:27
+msgid "Discover my Devices"
+msgstr ""
+
 #: client/index.html:116
 msgid "Discussions"
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:279
+msgid "DNS 1"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:287
+msgid "DNS 2"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:35
+msgid "DNS Check"
+msgstr ""
+
 #: client/index.html:110
 msgid "Documentation"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:154
+msgid "DOCUMENTATION"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:75
+msgid "Don't disable this unless you're using a splash-only device."
+msgstr ""
+
+#: client/components/boxes/firmware/index.html:4
+msgid "Download Firmware"
 msgstr ""
 
 #: client/index.html:123
@@ -182,6 +509,40 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: client/components/audit/emails/_index.html:53
+#: client/components/audit/sales/_index.html:53
+#: client/components/audit/social/_index.html:53
+msgid "Email"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:218
+msgid "Enable Debug Mode"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:135
+msgid "Ensure your devices have the Cucumber firmware installed."
+msgstr ""
+
+#: client/components/boxes/new/_add.html:28
+msgid "Enter MAC Address"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:224
+msgid "Enterprise Only"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:246
+msgid "Environment"
+msgstr ""
+
+#: client/components/boxes/index/sidebar.html:15
+msgid "Environments"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1807
+msgid "exit"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:277
 msgid "Failed to reboot box, please try again."
 msgstr ""
@@ -190,12 +551,115 @@ msgstr ""
 msgid "Failed to resync device, please try again."
 msgstr ""
 
+#: client/components/audit/sessions/_index.html:54
+msgid "Filter this client"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:253
+msgid ""
+"Firmware Version\n"
+"                  <md-icon ng-if=\"::box.next_firmware\">info_outline</md-icon>"
+msgstr ""
+
+#: client/components/boxes/index/sidebar.html:23
+msgid "Firmwares"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:27
+msgid "Found 1 record"
+msgid_plural "Found {{item._score}} records"
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/boxes/edit/_edit.html:268
+msgid "Gateway IP"
+msgstr ""
+
+#: client/components/audit/social/_index.html:55
+msgid "Gender"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:154
+msgid "getting started"
+msgstr ""
+
+#: client/components/boxes/payloads/show.html:7
+msgid "Go back"
+msgstr ""
+
+#: client/components/audit/guests/_show.html:20
+msgid "Guest Details"
+msgstr ""
+
+#: client/components/audit/guests/_show.html:30
+msgid "Guest Email"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:1
+msgid "Health Check"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:5
+msgid "Health Check Results"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:1803
 msgid "If the upgrade has begun, you cannot stop it. Please wait until it completes."
 msgstr ""
 
+#: client/components/boxes/new/_add.html:137
+msgid "If you have a third-party device or you're in a different network, add it manually"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:82
+msgid "In Sync"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:62
+msgid "Initialising Device"
+msgstr ""
+
 #: client/components/apps/_index.html:55
 msgid "Integrate your services with the Cucumber API."
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:24
+msgid "Internet Check"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:252
+msgid "IP Address"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:63
+msgid "Is Cucumber"
+msgstr ""
+
+#: client/components/audit/social/_index.html:54
+#: client/components/boxes/payloads/_index.html:13
+#: client/components/boxes/show/_index.html:186
+msgid "Last Seen"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:171
+msgid "Legacy Mode"
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:8
+msgid "Loading, one second please"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:55
+#: client/components/audit/emails/_index.html:56
+#: client/components/audit/emails/_index.html:92
+#: client/components/audit/sales/_index.html:113
+#: client/components/audit/sales/_show.html:68
+#: client/components/audit/social/_index.html:94
+msgid "Location"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:189
+msgid "Logging"
 msgstr ""
 
 #: client/index.html:136
@@ -203,8 +667,76 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+#: client/components/audit/sales/_index.html:54
+#: client/components/boxes/new/_add.html:103
+msgid "Mac"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:222
+msgid "Mac Address"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:51
+#: client/components/boxes/new/_add.html:34
+#: client/components/boxes/payloads/_index.html:13
+#: client/components/boxes/show/_non_ps.html:7
+msgid "MAC Address"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:37
+msgid "MAC is required."
+msgstr ""
+
 #: client/index.html:172
 msgid "Main Menu"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:47
+msgid "Make some changes before trying to save."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:345
+msgid "menu"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:58
+#: client/components/audit/sales/_show.html:62
+msgid "Merchant"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:162
+msgid "Minimum Data Rate"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:47
+msgid "MTU Check"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:272
+msgid "Must be a valid gateway address"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:20
+msgid "Must be a valid IP with range. <br> For example: 10.1.1.0/24"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:256
+#: client/components/boxes/edit/_edit.html:283
+#: client/components/boxes/edit/_edit.html:291
+msgid "Must be a valid IPv4 address"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:55
+#: client/components/boxes/show/_non_ps.html:11
+msgid "Must be a valid MAC address"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:38
+msgid "Must be a valid mac, including dashes or colons."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:264
+msgid "Must be a valid netmask"
 msgstr ""
 
 #: client/components/apps/_new.html:59
@@ -215,12 +747,85 @@ msgstr ""
 msgid "Must be a valid, https URL"
 msgstr ""
 
+#: client/components/boxes/port_forwards/form.html:26
+#: client/components/boxes/port_forwards/form.html:32
+msgid "Must be between 1 and 65322."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:206
+msgid "Must be greated than 1"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:299
+msgid "Must be greated than 100"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:47
+msgid "Must be greater than 5 characters."
+msgstr ""
+
+#: client/components/boxes/new/_add.html:46
+msgid "Must be less than 100 characters."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:309
+msgid "Must be less than 1000"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:300
+msgid "Must be less than 1500"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:47
+msgid "Must be less than 255 characters"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:207
+msgid "Must be less than 65535"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:263
+msgid "Must have a valid subnet"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:308
+msgid "Must not be less than 0"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:349
+msgid "muted"
+msgstr ""
+
+#: client/components/audit/social/_index.html:52
+msgid "Name"
+msgstr ""
+
 #: client/components/apps/_new.html:35
 msgid "Name should be less than 32 characters"
 msgstr ""
 
 #: client/components/apps/_new.html:34
 msgid "Name should be more than 5 characters"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:260
+msgid "Netmask"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:203
+msgid "Network Details"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:234
+msgid "Network Settings"
+msgstr ""
+
+#: client/components/audit/social/_index.html:56
+msgid "Networks"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:190
+msgid "Never"
 msgstr ""
 
 #: client/components/apps/_index.html:71
@@ -231,16 +836,108 @@ msgstr ""
 msgid "New App"
 msgstr ""
 
+#: client/components/boxes/show/_index.html:149
+msgid "New Device"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:134
+msgid "No Devices Discovered"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:33
+#: client/components/audit/sales/_index.html:32
+#: client/components/audit/sessions/_index.html:31
+#: client/components/audit/social/_index.html:32
+msgid "No results found."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:168
+msgid "No Scan"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:168
+msgid "No Scan Mode"
+msgstr ""
+
+#: client/components/boxes/index/sidebar.html:10
+msgid "Not enough results for a filter."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:331
+msgid "Numbers, letters and hyphens only."
+msgstr ""
+
 #: client/index.html:75
 msgid "Open Apps Menu"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:100
+msgid "Open Boxes Menu"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:85
+#: client/components/audit/social/_index.html:87
+msgid "Open sessions menu"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:31
+msgid "Open Tools"
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:12
+msgid "Or, upgrade the firmware"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:48
+msgid "Order Date"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:20
+msgid "Order Details"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:30
+msgid "Order Status"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:36
+msgid "Order Total"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:88
+msgid "Order Total: {{ order.total / 100 | currency:order.currency }}"
+msgstr ""
+
+#: client/components/boxes/firmware/index.html:5
+msgid "Our firmware is a slightly modified version of OpenWrt running software which gives you all the features. You can install this on a <span data-elevio-inline=\"7108\">compatible device</span>."
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:19
+msgid "Passed"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:617
 msgid "Payload completed!"
 msgstr ""
 
+#: client/components/boxes/payloads/show.html:6
+msgid "Payload created on {{ payload.created_at | humanTime }}"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:554
 msgid "Payload deleted successfully"
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:1
+msgid "Payload has been queued, please wait a few seconds for it to finish."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1806
+msgid "please cancel it"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:153
+msgid "Please connect your device to an Internet connection. The device hasn't initialised."
 msgstr ""
 
 #: client/components/apps/_index.html:26
@@ -251,8 +948,62 @@ msgstr ""
 msgid "Please enter a description"
 msgstr ""
 
+#: client/components/boxes/show/_non_ps.html:19
+msgid "Please enter an address"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:67
+msgid "Please wait while this device initialises."
+msgstr ""
+
+#: client/components/boxes/port_forwards/header.html:6
+msgid "Port Forwarding Action"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:29
+msgid "Port Number"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:104
+msgid "Primary Radius"
+msgstr ""
+
 #: client/index.html:206
 msgid "Privacy Policy - Terms of Service"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:80
+msgid "Product"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:211
+msgid "Protocol"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:216
+msgid "Public IP"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:96
+msgid "Radius Configuration"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:326
+#: client/components/boxes/show/_non_ps.html:32
+msgid "Radius NAS ID"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:330
+msgid "Radius NAS ID is required"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:337
+#: client/components/boxes/show/_non_ps.html:40
+msgid "Radius Secret"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:320
+msgid "Radius Settings"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:261
@@ -269,6 +1020,33 @@ msgid ""
 "A reboot takes about 60 seconds to complete"
 msgstr ""
 
+#: client/components/audit/sales/_refund.html:19
+#: client/components/audit/sales/_show.html:89
+msgid "Refund"
+msgstr ""
+
+#: client/components/audit/sales/_refund.html:5
+msgid "Refund Transaction"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:197
+msgid "Remote host address"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:203
+msgid "Remote Port"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:19
+msgid "Required field."
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:24
+#: client/components/boxes/port_forwards/form.html:30
+#: client/components/boxes/port_forwards/form.html:36
+msgid "Required."
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:196
 msgid "Reset Device"
 msgstr ""
@@ -279,6 +1057,10 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:194
 msgid "Reset this Device"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:15
+msgid "Reset zoom level"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:195
@@ -297,21 +1079,127 @@ msgstr ""
 msgid "Resync this Device"
 msgstr ""
 
+#: client/components/boxes/payloads/_bulk.html:6
+msgid "Run a bulk payload on {{ selection.length }} boxes"
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:4
+msgid "Run Payload"
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:14
+msgid "Running payload, please be patient."
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:2459
 msgid "Running speedtest, please wait."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:343
+#: client/components/boxes/show/_non_ps.html:59
+msgid "Save"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:17
+#: client/components/audit/sales/_index.html:17
+#: client/components/audit/sessions/_index.html:16
+#: client/components/audit/social/_index.html:17
+msgid "Search"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:74
+msgid "Searching for boxes, please wait."
+msgstr ""
+
+#: client/components/boxes/show/_index.html:110
+msgid "Secondary Radius"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:85
+msgid "Select the ones you want to add."
+msgstr ""
+
+#: client/components/boxes/show/_index.html:281
+msgid "Serial Number"
 msgstr ""
 
 #: client/components/apps/_index.html:3
 #: client/components/apps/_new.html:3
 #: client/components/apps/_show.html:3
+#: client/components/audit/guests/_show.html:4
+#: client/components/audit/index.html:3
+#: client/components/audit/sales/_show.html:4
+#: client/components/boxes/edit/_edit.html:3
+#: client/components/boxes/payloads/_index.html:3
+#: client/components/boxes/show/_index.html:3
+#: client/components/boxes/versions/_index.html:3
 #: client/index.html:142
 #: client/index.html:62
 msgid "Settings"
 msgstr ""
 
+#: client/components/boxes/show/_index.html:97
+msgid "Settings for your splash-only device"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:660
 #: client/components/boxes/boxes.directives.js:754
 msgid "Settings updated successfully"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:25
+#: client/components/boxes/port_forwards/form.html:31
+msgid "Should be a number."
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:37
+msgid "Should be a valid IP (10.1.1.1)"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:46
+msgid "Some required fields are blank or have invalid values."
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:18
+msgid "Source IP (0.0.0.0/24)"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:11
+#: client/components/boxes/port_forwards/form.html:23
+msgid "Source Port"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:20
+#: client/components/boxes/show/_index.html:81
+msgid "Splash Only Device"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:70
+msgid "Splash Pages"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:77
+msgid "Splash pages aren't active. This is OK if you're not using a captive portal"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:128
+msgid "Splash URL"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:272
+msgid "SSH Password"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:52
+msgid "State"
+msgstr ""
+
+#: client/components/boxes/index/sidebar.html:3
+msgid "States"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:172
+msgid "Status"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:417
@@ -327,32 +1215,205 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
+#: client/components/boxes/show/_index.html:18
+msgid "Switch 1"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:196
+msgid "Syslog Host"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:202
+msgid "Syslog Port"
+msgstr ""
+
 #: client/components/apps/_new.html:66
 msgid "Tell us about your App"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:42
+msgid "The box cannot resolve hostnames. Please check your DNS settings."
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:89
+msgid "The box is out of sync. Resync or reboot to get updated configs."
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:286
 msgid "This cannot be reversed, please be careful. Deleting a box is permanent."
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:271
+msgid "This device must have a valid gateway"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:46
+#: client/components/boxes/edit/_edit.html:54
+#: client/components/boxes/show/_non_ps.html:10
+msgid "This device must have a valid MAC address"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:255
+msgid "This device must have a valid WAN IP"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:24
+msgid "This device only supports splash pages. Management features are disabled."
+msgstr ""
+
+#: client/components/boxes/show/_index.html:82
+msgid "This device only supports splash pages. Management is disabled."
+msgstr ""
+
 #: client/components/apps/_new.html:26
 msgid "This is for developers. If you're not sure what an API is, please forget this exists."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:205
+msgid "This is required"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:67
+msgid "This order is pending and hasn't completed"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:68
+msgid "This order was a success"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:69
+msgid "This order was refunded"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:229
 msgid "This will force a complete refresh of it's configuration files. A resync will disconnect any wireless clients temporarily"
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:59
+msgid "Timezone"
+msgstr ""
+
+#: client/components/audit/index.html:22
+msgid "To be completed"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:56
+msgid "Total"
+msgstr ""
+
+#: client/components/boxes/show/_transfer.html:20
+msgid "transfer"
+msgstr ""
+
+#: client/components/audit/sales/_refund.html:1
+#: client/components/boxes/show/_transfer.html:1
+#: client/components/boxes/show/_transfer.html:5
+msgid "Transfer Device"
+msgstr ""
+
+#: client/components/boxes/show/_transfer.html:10
+msgid "Transfer your device to another location you own."
+msgstr ""
+
+#: client/components/audit/emails/_index.html:54
+#: client/components/boxes/new/_add.html:104
+msgid "Type"
+msgstr ""
+
+#: client/components/boxes/index/sidebar.html:31
+msgid "Types"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:349
+msgid "unmuted"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:45
+msgid "Update"
+msgstr ""
+
+#: client/components/boxes/port_forwards/form.html:48
+msgid "Updating"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:1817
 msgid "Upgrade cancelled successfully."
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:7
+msgid "Upgrade firmware on {{ selection.length }} boxes"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:228
+msgid "Uptime"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:329
+msgid "Upto 255 characters"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:107
+msgid "View"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:135
+msgid "View required URLs"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:55
+msgid "Voucher"
+msgstr ""
+
+#: client/components/audit/sales/_show.html:74
+msgid "Voucher Code"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:134
+msgid "Walled Gardens"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:210
+msgid "WAN IP"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:304
+msgid "WAN Metric"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:295
+msgid "WAN MTU"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:240
+msgid "WAN Protocol"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:68
+msgid "Where is my mac address?"
 msgstr ""
 
 #: client/index.html:20
 msgid "Wi-Fi Management Platform"
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:84
+msgid "Wireless Settings"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:259
 msgid "Would you like to reboot this device?"
+msgstr ""
+
+#: client/components/boxes/show/_transfer.html:11
+msgid "You are unable to transfer a box to a location that isn't yours. If you need to transfer to a location you don't own, please delete it and send them the MAC address."
+msgstr ""
+
+#: client/components/boxes/new/_add.html:78
+msgid "You must be connected to the same network and use the Cucumber firmware."
+msgstr ""
+
+#: client/components/boxes/new/_add.html:136
+msgid "You must be on the same network as the devices you're trying to add."
 msgstr ""
 
 #: client/components/apps/_new.html:48
@@ -367,16 +1428,16 @@ msgstr ""
 msgid "You must set a webite"
 msgstr ""
 
-#: client/components/apps/_index.html:52
-msgid "Your Cucumber Applications"
-msgstr ""
-
 #: client/components/apps/_new.html:31
 msgid "Your application name"
 msgstr ""
 
 #: client/components/apps/_new.html:44
 msgid "Your callback URL"
+msgstr ""
+
+#: client/components/apps/_index.html:52
+msgid "Your Cucumber Applications"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:2336
@@ -395,18 +1456,6 @@ msgstr ""
 msgid "Your website"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1807
-msgid "exit"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:349
-msgid "muted"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:1806
-msgid "please cancel it"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:349
-msgid "unmuted"
+#: client/components/boxes/new/_add.html:52
+msgid "Zone"
 msgstr ""
