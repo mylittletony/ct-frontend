@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon>assignment</md-icon>
     </md-button>
-    <p>Audit</p>
+    <p translate>Audit</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -16,10 +16,10 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Audit Logs
             </span>
-            <span class="md-subhead">
+            <span class="md-subhead" translate>
               To be completed
             </span>
           </md-card-title-text>

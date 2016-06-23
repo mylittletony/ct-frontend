@@ -3,8 +3,8 @@
     <div class="panel-heading">
       <b>
         <p>
-          <span ng-if="primarySelected.name == 'Vouchers'">{{ primarySelected.name }} - Primary Access</span>
-          <span ng-if="secondarySelected.name == 'Vouchers'">{{ secondarySelected.name }} - Secondary Access</span>
+          <span ng-if="primarySelected.name == 'Vouchers'" translate>{{ primarySelected.name }} - Primary Access</span>
+          <span ng-if="secondarySelected.name == 'Vouchers'" translate>{{ secondarySelected.name }} - Secondary Access</span>
         </p>
       </b>
     </div>
@@ -16,7 +16,7 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
               <div class="checkbox">
-                <label for="shop_active">
+                <label for="shop_active" translate>
                   Sell Online (via PayPal)
                   <i class="fa fa-star fa-sm gold"></i>
                 </label>
@@ -24,14 +24,14 @@
                   <input ng-model="location.shop_active" type="checkbox" ng-disabled="{{ location.shop_allowed != true}}">
                 </label>
               </div>
-              <p ng-if="location.shop_allowed != true" class="small muted">
+              <p ng-if="location.shop_allowed != true" class="small muted" translate>
                 Paid Wi-Fi is only available on non-free plans. You can read more
                 <a href="http://polkaspots.com/paid-wifi">here</a>.
               </p>
               <div ng-if="location.shop.shop_name">
                 <p>Shop: <a href="/#/shops/{{location.shop.unique_id}}">{{ location.shop.shop_name }}</a></p>
               </div>
-              <p>If you haven't done so already, generate your vouchers <a href="/#/vouchers">here</a>.</p>
+              <p translate>If you haven't done so already, generate your vouchers <a href="/#/vouchers">here</a>.</p>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <div class="checkbox">
@@ -39,7 +39,7 @@
                 <input name="logins_forgot_password" type="checkbox" ng-model="location.logins_forgot_password">
                 <p class="text-muted small"></p>
               </div>
-              <p class="help-block">
+              <p class="help-block" translate>
                 This allows the end-user to request their password by email. We recommend you turn this on.
                 <a href="http://polkaspots.com/forgot-password-link">Read more<i class="fa fa-question"></i></a>
               </p>

@@ -5,8 +5,8 @@
     <div class="panel-heading">
       <b>
         <p>
-          <span ng-if="primarySelected.name == 'Social'">{{ primarySelected.name }} - Primary Access</span>
-          <span ng-if="secondarySelected.name == 'Social'">{{ secondarySelected.name }} - Secondary Access</span>
+          <span ng-if="primarySelected.name == 'Social'" translate>{{ primarySelected.name }} - Primary Access</span>
+          <span ng-if="secondarySelected.name == 'Social'" translate>{{ secondarySelected.name }} - Secondary Access</span>
         </p>
       </b>
     </div>
@@ -15,13 +15,13 @@
         <div class="col-xs-12 choose_access_type">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <h4>Offer the following social logins</h4>
+              <h4 translate>Offer the following social logins</h4>
               <label class="checkbox-inline">
-                <input ng-model="location.fb_login_on" name="fb_login_on" type="checkbox">
+                <input ng-model="location.fb_login_on" name="fb_login_on" type="checkbox" translate>
                 Facebook?
               </label>
               <label class="checkbox-inline" id="linkedin_social">
-                <input ng-mode="location.li_login_on" name="li_login_on" type="checkbox">
+                <input ng-mode="location.li_login_on" name="li_login_on" type="checkbox" translate>
                 LinkedIn?
               </label>
               <hr>
@@ -29,34 +29,34 @@
           </div>
           <div ng-if="location.fb_login_on == true" class="row" style="">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-              <p ng-if="fbLoginError">Oh, there's been a problem logging you in</p>
+              <p ng-if="fbLoginError" translate>Oh, there's been a problem logging you in</p>
               <div ng-if="loggedIn">
-                <p ng-if="fb_page_cache_processing == true">You're logged in. We're just getting your pages. One moment, please...</p>
+                <p ng-if="fb_page_cache_processing == true" translate>You're logged in. We're just getting your pages. One moment, please...</p>
                 <div ng-if="fb_page_cache_processing == 'ready'">
-                  <a ng-click="open()" href="" class="btn btn-default">View Pages</a>
+                  <a ng-click="open()" href="" class="btn btn-default" translate>View Pages</a>
                   <script type="text/ng-template" id="myModalContent.html">
                     <div ng-include="'components/locations/access/fb-pages-modal.html'"></div>
                   </script>
                 </div>
               </div>
               <div ng-if="loggedIn != true || fb_page_cache_processing == 'ready' || fb_page_cache_processing == false ">
-                <p ng-if="fb_page_cache_processing != 'ready'" class="help-block">Connect to Facebook and get your pages.</p>
+                <p ng-if="fb_page_cache_processing != 'ready'" class="help-block" translate>Connect to Facebook and get your pages.</p>
                 <p>
                   <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/authbuttons/facebook.png" width="32px">
-                  <b><a ng-click="fbLogin()" href="">Connect to Facebook</a></b>
+                  <b><a ng-click="fbLogin()" href="" translate>Connect to Facebook</a></b>
                 </p>
               </div>
               <div ng-if="noFbPages">
-                <p>You don't have any facebook pages on that account, please try again</p>
+                <p translate>You don't have any facebook pages on that account, please try again</p>
               </div>
               <div class="form-group col-lg-8 row">
-                <label for="facebook_id">Your Facebook Page Id</label>
-                <p class="small text-muted">If you already know your page ID, type it here.</p>
+                <label for="facebook_id" translate>Your Facebook Page Id</label>
+                <p class="small text-muted" translate>If you already know your page ID, type it here.</p>
                 <input ng-model="location.facebook_id" class="form-control" name="facebook_id" type="text">
               </div>
               <div class="break"></div>
               <div class="validate_facebook_msg validate_facebook">
-                <b><a ng-if="fb_verifing != 'success'" ng-click="fb_verify_page(location.facebook_id)" href="">Check page</a></b>
+                <b><a ng-if="fb_verifing != 'success'" ng-click="fb_verify_page(location.facebook_id)" href="" translate>Check page</a></b>
               </div>
               <div ng-if="fb_verifing == 'processing'">
                 <div class="spinner">
@@ -68,30 +68,30 @@
                 </div>
               </div>
               <div ng-if="fb_verifing == 'fail'">
-                <p class='text-danger'><b><i class='fa fa-frown-o'></i> Page invalid, it might not exist.</b></p>
+                <p class='text-danger'><b><i class='fa fa-frown-o'></i> <translate>Page invalid, it might not exist.</translate></b></p>
               </div>
               <div ng-if="fb_verifing == 'success'">
-                <li class='fb-thumb'> Page valid</li>
+                <li class='fb-thumb' translate> Page valid</li>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <div ng-if="facebook_id">
                 <p>
-                  <b>Your page: {{ facebook_username }}</b>
+                  <b translate>Your page: {{ facebook_username }}</b>
                 </p>
                 <p class="help-block"><a href="http://facebook.com/{{ facebook_username }}">http://facebook.com/{{ facebook_username }}</a></p>
               </div>
               <div ng-if="facebook_id == null">
-                <p>You don't have a facebook page set up</p>
+                <p translate>You don't have a facebook page set up</p>
               </div>
-              <label class="checkbox">
+              <label class="checkbox" translate>
                 Allow checkin
                 <a href="http://polkaspots.com/allow-facebook-checkin " target="_blank"><i class="fa fa-question-circle"></i>
                 </a>
                 <input ng-model="location.fb_login_checkin_allow" name="fb_login_checkin_allow" type="checkbox">
               </label>
               <div id="fb_leave_message" style="display:none">
-                <label class="checkbox">
+                <label class="checkbox" translate>
                   Leave a message
                   <a href="http://polkaspots.com/allow-facebook-message " target="_blank"><i class="fa fa-question-circle"></i>
                   </a>

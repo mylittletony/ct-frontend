@@ -2,15 +2,15 @@
   <table ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
     <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
       <tr md-row>
-        <th md-column><span>Start</span></th>
-        <th hide show-gt-sm md-column><span>Duration</span></th>
-        <th hide show-gt-xs md-column><span>Client Mac</span></th>
-        <th hide show-gt-md md-column><span>Username</span></th>
-        <th hide show-gt-lg md-column><span>Device Mac</span></th>
-        <th hide show-gt-xs md-column><span>Usage</span></th>
-        <th hide show-gt-md md-column><span>Manufacturer</span></th>
-        <th hide show-gt-sm md-column><span>Location</span></th>
-        <th md-column>Action</th>
+        <th md-column><span translate>Start</span></th>
+        <th hide show-gt-sm md-column><span translate>Duration</span></th>
+        <th hide show-gt-xs md-column><span translate>Client Mac</span></th>
+        <th hide show-gt-md md-column><span translate>Username</span></th>
+        <th hide show-gt-lg md-column><span translate>Device Mac</span></th>
+        <th hide show-gt-xs md-column><span translate>Usage</span></th>
+        <th hide show-gt-md md-column><span translate>Manufacturer</span></th>
+        <th hide show-gt-sm md-column><span translate>Location</span></th>
+        <th md-column translate>Action</th>
       </tr>
     </thead>
     <tbody md-body>
@@ -21,7 +21,7 @@
             {{ ::(session.acctstarttime | humanTimeShort) }}<br>
             <small>{{ ::session.username | truncate:30 }}</small>
           </span>
-          <md-tooltip>Stop: {{ ::session.acctstoptime | humanTime }}</md-tooltip>
+          <md-tooltip translate>Stop: {{ ::session.acctstoptime | humanTime }}</md-tooltip>
         </td>
         <td hide show-gt-sm md-cell>
           {{ ::(session.acctsessiontime | humanised ) || '-' }}
@@ -42,7 +42,7 @@
         </td>
         <td hide show-gt-xs md-cell>
           {{::((session.download + session.upload)| humanData)}}
-          <md-tooltip hide-gt-md>Inbound: {{ ::session.download | humanData }}. Outbound: {{ ::session.upload | humanData }}</md-tooltip>
+          <md-tooltip hide-gt-md translate>Inbound: {{ ::session.download | humanData }}. Outbound: {{ ::session.upload | humanData }}</md-tooltip>
         </td>
         <td hide show-gt-md md-cell>{{ ::(session.manufacturer | truncate: 20) }}</td>
         <td hide show-gt-sm md-cell>
@@ -53,20 +53,20 @@
         </td>
         <td md-cell>
           <md-menu>
-            <md-button aria-label="Open sessions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-button aria-label="{{ 'Open sessions menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item>
                 <md-button href="/#/locations/{{ session.location_id }}">
                   <md-icon>business</md-icon>
-                  <p flex>Location</p>
+                  <p flex translate>Location</p>
                 </md-button>
               </md-menu-item>
               <md-menu-item>
                 <md-button ng-click="visitClient(session)">
                   <md-icon>devices</md-icon>
-                  <p flex>Client</p>
+                  <p flex translate>Client</p>
                 </md-button>
               </md-menu-item>
             </md-menu-content>
