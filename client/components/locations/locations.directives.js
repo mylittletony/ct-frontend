@@ -1686,41 +1686,7 @@ app.directive('favourites', ['Location', '$location', function(Location, $locati
     scope: {
     },
     link: link,
-    template:
-      '<md-card>'+
-      '<div class="md-card-image" style=\'height: 5px; background-color: {{ color }};\'></div>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      // '<md-icon md-font-icon="arrow_back">favorite</md-icon>'+
-      'Favourites'+
-      '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<span ng-if=\'loading\'>'+
-      'Loading.'+
-      '</span>'+
-      '<span ng-if=\'!loading\'>'+
-      '<span ng-if=\'!locations.length\'>'+
-      'You have no favourite locations.'+
-      '</span>'+
-      '<md-list>'+
-      '<md-list-item class="md-3-line" ng-repeat=\'item in locations\' href=\'/#/locations/{{ ::item.slug }}\'>'+
-      '<div class="md-list-item-text">'+
-      '<h3>{{ ::item.location_name }}</h3>'+
-      '<h4>{{ ::item.location_address | truncate:20 }}.</h4>'+
-      '<p>{{ ::item.boxes_count }} boxes. {{ ::item.clients_online }} client<span ng-if=\'item.clients_online != 1\'>s</span> online.</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-list>'+
-      '</span>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '<md-card-actions layout="row" layout-align="end center" >'+
-      '<md-button target=\'_blank\' ng-disabled=\'!locations\' ng-click=\'all()\'>VIEW ALL</md-button>'+
-      '</md-card-actions>'+
-      '</md-card>'
+    templateUrl: 'components/locations/show/_favourites.html',
   };
 
 }]);
