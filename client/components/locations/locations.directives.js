@@ -1937,35 +1937,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
     scope: {
     },
     link: link,
-    template:
-      '<md-card>'+
-      '<div class="md-card-image" style=\'height: 5px; background-color: {{ color }};\'></div>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      'Inventory'+
-      '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<div ng-if=\'loading\'>'+
-      'Loading'+
-      '</div>'+
-      '<div ng-if=\'!loading\'>'+
-      '<md-list-item class="md-3-line" href=\'/#/users/{{ user.slug }}/inventory\'>'+
-      '<md-icon md-font-icon="">devices</md-icon>'+
-      '<div class="md-list-item-text">'+
-      '<h3>New Boxes</h3>'+
-      '<p>{{ stats.new }} added this period. {{ stats.active }} existing boxes.</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</div>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '<md-card-actions layout="row" layout-align="end center">'+
-      '<md-button href=\'/#/locations/new\'>NEW LOCATION</md-button>'+
-      '</md-card-actions>'+
-      '</md-card>'
+    templateUrl: 'components/locations/show/_inventory.html',
   };
 
 }]);
