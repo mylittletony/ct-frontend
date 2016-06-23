@@ -176,6 +176,7 @@
 ../client/components/registrations/index.html
 ../client/components/registrations/success.html
 ../client/components/reports/_filter.html
+../client/components/reports/_header.html
 ../client/components/reports/_radius.html
 ../client/components/reports/_wireless.html
 ../client/components/reports/radius.html

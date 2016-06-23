@@ -500,8 +500,8 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
+    scope.interval    = '1d';
     scope.period      = $routeParams.period   || '7d';
-    scope.interval    = $routeParams.interval || '12h';
     scope.fill        = $routeParams.fill     || '0';
     scope.location_id = $routeParams.location_id;
     scope.type        = $routeParams.type;
