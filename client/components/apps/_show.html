@@ -1,14 +1,14 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" href="/#/apps" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" href="/#/apps" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Back to Apps</p>
+    <p translate>Back to Apps</p>
     <div flex></div>
-    <md-button class="md-icon-button md-accent" href="/#/apps/new" aria-label="Add App">
+    <md-button class="md-icon-button md-accent" href="/#/apps/new" aria-label="{{ 'Add App' || translate">
       <md-icon>add_circle</md-icon>
       <md-tooltip md-direction="bottom">
-        Add a new app.
+        <translate>Add a new app.</translate>
       </md-tooltip>
     </md-button>
   </div>
@@ -31,29 +31,29 @@
       <md-card-content>
         <h4>Scopes</h4>
         <p>{{ app.scopes.length ? app.scopes : "None" }}</p>
-        <h4>Callback URLs:</h4>
+        <h4 translate>Callback URLs:</h4>
         <ul ng-repeat="a in uris">
           <li ng-if="a">{{ a }}</li>
         </ul>
-        <h4>Application URLs:</h4>
+        <h4 translate>Application URLs:</h4>
         <ul>
           <li>https://id.ctapp.io/oauth/authorize</li>
           <li>https://id.ctapp.io/oauth/token</li>
           <li>https://id.ctapp.io/oauth/revoke</li>
         </ul>
-        <h4>Credentials</h4>
+        <h4 translate>Credentials</h4>
         <md-input-container class="md-block">
-          <label>App ID</label>
+          <label translate>App ID</label>
           <input type="{{ showid == true ? 'text' : 'password' }}" ng-focus="showid = !showid" ng-blur="showid = !showid" type="text" ng-model="app.uid"></input></li>
         </md-input-container>
         <md-input-container class="md-block">
-          <label>App Secret</label>
+          <label translate>App Secret</label>
           <input type="{{ showsec == true ? 'text' : 'password' }}" ng-focus="showsec = !showsec" ng-blur="showsec = !showsec" type="text" ng-model="app.secret"></input></li>
         </md-input-container>
       </md-card-content>
       <md-divider ng-if="!$last"></md-divider>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button href="/#/apps/{{ app.id }}/edit">Edit</md-button>
+        <md-button href="/#/apps/{{ app.id }}/edit" translate>Edit</md-button>
       </md-card-actions>
     </md-card>
   </div>

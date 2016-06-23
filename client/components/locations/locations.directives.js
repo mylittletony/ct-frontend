@@ -39,17 +39,10 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
 
-    // init();
-
-    ////////////////////////////////////////////////////
-    // window.amplitude.logEvent('dashboard');
-    ////////////////////////////////////////////////////
-
   };
 
   return {
     scope: {
-      // loading: '=',
     },
     link: link,
     controller: 'LocationsCtrl',
@@ -434,6 +427,8 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       Location.save({location: scope.location}).$promise.then(function(results) {
         $location.path('/locations/' + results.slug);
         $location.search({gs: true});
+        menu.isOpen = true;
+        menu.hideBurger = false;
         showToast('Location successfully created.');
       }, function(err) {
         showErrors(err);
@@ -699,6 +694,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
   var link = function( scope, element, attrs ) {
 
+    scope.selected = [];
     scope.location = {
       slug: $routeParams.id
     };
@@ -747,37 +743,30 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     createMenu();
 
-    scope.selected = [];
-
     scope.options = {
-      rowSelection: true,
-      multiSelect: true,
-      autoSelect: true,
-      decapitate: false,
-      largeEditDialog: false,
       boundaryLinks: false,
-      limitSelect: true,
-      pageSelect: true,
-      options: [5,10,25,50,100],
-      limit: $routeParams.per || 25,
-      page: $routeParams.page || 1,
-
+      pageSelector: false,
+      rowSelection: true
     };
 
     scope.query = {
-      order: 'updated_at',
+      order:          '-last_heartbeat',
+      limit:          $routeParams.per || 25,
+      page:           $routeParams.page || 1,
+      options:        [5,10,25,50,100],
+      direction:      $routeParams.direction || 'desc'
     };
 
     scope.onPaginate = function (page, limit) {
-      scope.options.page = page;
-      scope.options.limit = limit;
-      updatePage();
+      scope.query.page = page;
+      scope.query.limit = limit;
+      search();
     };
 
-    var updatePage = function(item) {
+    var search = function() {
       var hash            = {};
-      hash.page           = scope.options.page;
-      hash.per            = scope.options.limit;
+      hash.page           = scope.query.page;
+      hash.per            = scope.query.limit;
       $location.search(hash);
       init();
     };
@@ -961,34 +950,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       } else {
         closeDialog();
       }
-    };
-
-    scope.editDescription = function (event, box) {
-
-      var editDialog = {
-        modelValue: box.description,
-        placeholder: 'Add a comment',
-        save: function (input) {
-          box.description = input.$modelValue;
-          update(box);
-        },
-        targetEvent: event,
-        title: 'Add a comment',
-        validators: {
-          'md-maxlength': 30,
-          'md-minlength': 5
-        }
-      };
-
-      var promise;
-      promise = $mdEditDialog.small(editDialog);
-      promise.then(function (ctrl) {
-        var input = ctrl.getInput();
-        input.$viewChangeListeners.push(function () {
-          input.$setValidity('test', input.$modelValue !== 'test');
-        });
-      });
-
     };
 
     scope.deleteDevices = function() {
@@ -1188,8 +1149,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       scope.deferred = $q.defer();
       Box.query({
         location_id: scope.location.slug,
-        page: scope.options.page,
-        per: scope.options.limit,
+        page: scope.query.page,
+        per:  scope.query.limit,
         metadata: true
       }).$promise.then(function(results) {
         scope.boxes           = results.boxes;

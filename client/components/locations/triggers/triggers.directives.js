@@ -109,8 +109,11 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
     };
 
     scope.init = function() {
-
-      Trigger.query({q: scope.query, page: scope.page, location_id: scope.location.slug}).$promise.then(function(results) {
+      Trigger.query({
+        q: scope.query,
+        page: scope.page,
+        location_id: scope.location.slug
+      }).$promise.then(function(results) {
         scope.triggers = results.triggers;
         scope.loading = undefined;
         createMenu();
@@ -219,21 +222,21 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       if (scope.trigger.channel === 'slack') {
         for (var i = 0; i < scope.slack_channels.length; i++) {
           if (scope.slack_channels[i].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.slack_channels[0].name;
+            scope.trigger.custom_1 = scope.slack_channels[i].name;
           }
         }
       }
       else if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
         for (var j = 0; j < scope.chimp_lists.length; j++) {
           if (scope.chimp_lists[j].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.chimp_lists[0].name;
+            scope.trigger.custom_1 = scope.chimp_lists[j].name;
           }
         }
       }
       else if (scope.trigger.channel === 'sms') {
         // for (var i = 0; i < scope.chimp_lists.length; i++) {
         //   if (scope.chimp_lists[i].id === scope.trigger.attr_1) {
-        //     scope.trigger.custom_1 = scope.chimp_lists[0].name;
+        //     scope.trigger.custom_1 = scope.chimp_lists[i].name;
         //   }
         // }
       }
@@ -266,7 +269,6 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       checkSlackIntegrated().then(function(a) {
         slackChannels();
         scope.trigger.attr_2 = 'A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}';
-        // scope.loading_integration = undefined;
       }, function(err) {
         blank(true);
         scope.error = err;
@@ -294,8 +296,8 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       if (!scope.trigger.id) {
         scope.trigger.attr_1 = '{{ Email }}';
         scope.trigger.attr_2 = undefined;
-        scope.trigger.attr_3 = '[WELCOME] Thanks for logging in {{ First_Name }}';
-        scope.trigger.attr_4 = 'Hello {{ First_Name }}\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge';
+        scope.trigger.attr_3 = '[WELCOME] Thanks for logging in';
+        scope.trigger.attr_4 = 'Hello\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge';
       }
     };
 
@@ -443,11 +445,12 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     };
 
     scope.back = function() {
-      if (scope.trigger.id) {
-        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id;
-      } else {
-        window.location.href = '/#/locations/' + scope.location.slug + '/triggers';
-      }
+      window.history.back();
+      // if (scope.trigger.id) {
+      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id;
+      // } else {
+      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers';
+      // }
     };
 
     if ($routeParams.id) {

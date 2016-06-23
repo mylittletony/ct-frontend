@@ -172,12 +172,15 @@ md-sidenav.md-sidenav-right ul {
   margin: 0px -15px 0 -13px;
 }
 
-.md-button.md-fab.md-fab-bottom-right {
+.splash-design-buttons {
   top: auto;
+  left: auto;
   right: 20px;
   bottom: 20px;
-  left: auto;
   position: fixed;
+}
+
+.md-button.md-fab.md-fab-bottom-right {
 }
 
 .active {
@@ -275,7 +278,7 @@ table.clients th {
 
 table.clients td {
   font-size: 0.65rem!important;
-  padding: 0 12px 0 0!important;
+  /* padding: 0 12px 0 5px!important; */
 }
 
 table.md-table tr.highlight {

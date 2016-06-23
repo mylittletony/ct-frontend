@@ -1,11 +1,10 @@
 node_modules
 public
-dist
 .tmp
 .idea
 client/bower_components
 client/scripts/config.js
-dist/*
+dist/
 /server/config/local.env.js
 /server/config/local.env.sample.js
 Gruntfile.js
@@ -13,3 +12,4 @@ circle/deploy.sh
 .sass-cache
 .tmp
 **/.DS_Store
+*.mo

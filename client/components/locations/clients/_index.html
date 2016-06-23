@@ -173,11 +173,11 @@
                 </tr>
               </thead>
               <tbody md-body>
-                <tr md-row md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients.clients | filter: query.filter | orderBy: query.direction)">
+                <tr md-row md-auto-select="false" md-on-select="updateChart" md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients.clients | filter: query.filter | orderBy: query.direction)">
                   <td md-cell class="with-padding">
                     <md-icon ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
                   </td md-cell>
-                  <td ng-mouseover="updateChart(client.client_mac)" md-cell ng-show="columns.device_name">
+                  <td md-cell ng-show="columns.device_name">
                     <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.name || client.device_name || 'No Name' | truncate:20 }}</a><br>
                     <span hide show-sm>
                       <small>{{ client.client_mac }}</small>

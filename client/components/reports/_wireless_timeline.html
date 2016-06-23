@@ -5,7 +5,7 @@
         {{ fn | titleCase }} {{ title }}
       </span>
     </md-card-header-text>
-    <md-button class="md-icon-button" ng-click="refresh()">
+    <md-button class="md-icon-button" ng-click="init()">
       <md-icon>refresh</md-icon>
     </md-button>
     <md-menu-bar style="padding: 0">
@@ -14,26 +14,16 @@
           <md-icon>more_vert</md-icon>
         </button>
         <md-menu-content width="3">
-    <!-- <md-menu-item>
-            <md-button ng-click="changeType()">
-              Sessions
+          <md-menu-item>
+            <md-button ng-click="changeType('clients')">
+              Unique Clients
             </md-button>
-        </md-menu-item> -->
-        <md-menu-item>
-          <md-button ng-click="changeType('uniques')">
-            Unique Clients
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="changeType('usage')">
-            Usage Data
-          </md-button>
-        </md-menu-item>
-        <!-- <md-menu-item>
-                <md-button ng-click="changeType("usage")">
-                  Usage Data
-                </md-button>
-            </md-menu-item> -->
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="changeType('usage')">
+              Usage Data
+            </md-button>
+          </md-menu-item>
         </md-menu-content>
       </md-menu>
     </md-menu-bar>

@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.boxes.directives', []);
 
-app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location', '$mdBottomSheet', 'Zone', 'ZoneListing', '$cookies', 'showToast', 'showErrors', '$mdDialog', '$q', 'ClientDetails', '$timeout', '$rootScope', 'Report', 'menu', function(Box, $routeParams, Auth, $pusher, $location, $mdBottomSheet, Zone, ZoneListing, $cookies, showToast, showErrors, $mdDialog, $q, ClientDetails, $timeout, $rootScope, Report, menu) {
+app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location', '$mdBottomSheet', 'Zone', 'ZoneListing', '$cookies', 'showToast', 'showErrors', '$mdDialog', '$q', 'ClientDetails', '$timeout', '$rootScope', 'Report', 'menu', 'gettextCatalog', function(Box, $routeParams, Auth, $pusher, $location, $mdBottomSheet, Zone, ZoneListing, $cookies, showToast, showErrors, $mdDialog, $q, ClientDetails, $timeout, $rootScope, Report, menu, gettextCatalog) {
 
   var link = function(scope,attrs,element,controller) {
 
@@ -93,10 +93,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           name: 'Changelog',
           icon: 'history',
         });
-        // scope.menu.push({
-        //   name: 'Firewall',
-        //   icon: 'security',
-        // });
       }
 
       scope.menu.push({
@@ -118,7 +114,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
         scope.menu.push({
           name: 'Reset',
-          // icon: 'undo',
           icon: 'clear',
         });
       }
@@ -178,12 +173,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.resetBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Reset this Device')
-      .textContent('Resetting your box is not recommended. If you are having problems with it, please resync first. If the device is offline, it will reset next time it restarts.')
-      .ariaLabel('Reset Device')
+      .title(gettextCatalog.getString('Reset this Device'))
+      .textContent(gettextCatalog.getString('Resetting your box is not recommended. If you are having problems with it, please resync first. If the device is offline, it will reset next time it restarts.'))
+      .ariaLabel(gettextCatalog.getString('Reset Device'))
       .targetEvent(ev)
-      .ok('Reset it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Reset it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         resetBox();
       });
@@ -192,7 +187,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var resetBox = function() {
       scope.resetting = true;
       Box.reset({id: scope.box.slug}).$promise.then(function(results) {
-        showToast('Device reset in progress, please wait.');
+        showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
         scope.box.allowed_job = false;
         scope.box.state = 'resetting';
         scope.resetting = undefined;
@@ -201,7 +196,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         if (errors && errors.data && errors.data.errors && errors.data.errors.base) {
           err = errors.data.errors.base;
         } else {
-          err = 'Could not reset this device, please try again';
+          err = gettextCatalog.getString('Could not reset this device, please try again');
         }
         console.log(errors);
         showToast(err);
@@ -212,12 +207,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.resyncBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Resync this Device')
-      .textContent('This will force a complete refresh of it\'s configuration files. A resync will disconnect any wireless clients temporarily')
-      .ariaLabel('Resync Device')
+      .title(gettextCatalog.getString('Resync this Device'))
+      .textContent(gettextCatalog.getString('This will force a complete refresh of it\'s configuration files. A resync will disconnect any wireless clients temporarily'))
+      .ariaLabel(gettextCatalog.getString('Resync Device'))
       .targetEvent(ev)
-      .ok('Resync it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Resync it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         resyncBox();
       });
@@ -233,9 +228,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           resync: true
         }
       }).$promise.then(function(res) {
-        showToast('Device resync in progress. Please wait.');
+        showToast(gettextCatalog.getString('Device resync in progress. Please wait.'));
       }, function(errors) {
-        showToast('Failed to resync device, please try again.');
+        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
         console.log('Could not resync device:', errors);
         scope.box.state = 'online';
       });
@@ -243,12 +238,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.rebootBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Would you like to reboot this device?')
-      .textContent('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete')
-      .ariaLabel('Reboot Box')
+      .title(gettextCatalog.getString('Would you like to reboot this device?'))
+      .textContent(gettextCatalog.getString('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete'))
+      .ariaLabel(gettextCatalog.getString('Reboot Box'))
       .targetEvent(ev)
-      .ok('Reboot it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Reboot it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         rebootBox();
       });
@@ -259,9 +254,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.box.allowed_job = false;
       Box.reboot({id: scope.box.slug}).$promise.then(function(results) {
         scope.box.state = 'rebooting';
-        showToast('Box successfully rebooted.');
+        showToast(gettextCatalog.getString('Box successfully rebooted.'));
       }, function(errors) {
-        showToast('Failed to reboot box, please try again.');
+        showToast(gettextCatalog.getString('Failed to reboot box, please try again.'));
         console.log('Could not reboot box:', errors);
         scope.box.state = 'online';
       });
@@ -269,12 +264,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.deleteBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to delete this device?')
-      .textContent('This cannot be reversed, please be careful. Deleting a box is permanent.')
-      .ariaLabel('Delete Box')
+      .title(gettextCatalog.getString('Are you sure you want to delete this device?'))
+      .textContent(gettextCatalog.getString('This cannot be reversed, please be careful. Deleting a box is permanent.'))
+      .ariaLabel(gettextCatalog.getString('Delete Box'))
       .targetEvent(ev)
-      .ok('Delete it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Delete it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteBox();
       });
@@ -283,10 +278,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var deleteBox = function() {
       Box.destroy({id: scope.box.slug}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug);
-        showToast('Box successfully deleted');
+        showToast(gettextCatalog.getString('Box successfully deleted'));
       }, function(errors) {
         console.log(errors);
-        showToast('Could not delete box');
+        showToast(gettextCatalog.getString('Could not delete box'));
       });
     };
 
@@ -318,7 +313,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var transferBox = function(id) {
       Box.transfer({id: scope.box.slug, transfer_to: id}).$promise.then(function(results) {
         scope.back();
-        showToast('Box transfer was a success.');
+        showToast(gettextCatalog.getString('Box transfer was a success.'));
       }, function(errors) {
         showErrors(errors);
       });
@@ -333,8 +328,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           ignored: scope.box.ignored
         }
       }).$promise.then(function(res) {
-        var val = scope.box.ignored ? 'muted' : 'unmuted';
-        showToast('Box successfully ' + val + '.');
+        var val = scope.box.ignored ? gettextCatalog.getString('muted') : gettextCatalog.getString('unmuted');
+        showToast(gettextCatalog.getString('Box successfully ') + val + '.');
       }, function(errors) {
       });
     };
@@ -396,12 +391,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     scope.streamingUpdater = function() {
       if (scope.streamingUpdates) {
         loadPusher(scope.box.sockets_hash);
-        showToast('Streaming updates enabled');
+        showToast(gettextCatalog.getString('Streaming updates enabled'));
       } else {
         if (channel) {
           channel.unbind();
         }
-        showToast('Streaming updates disabled');
+        showToast(gettextCatalog.getString('Streaming updates disabled'));
       }
     };
 
@@ -502,6 +497,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       if (channel) {
         channel.unbind();
       }
+      $mdBottomSheet.hide();
       $timeout.cancel(timeout);
     });
 
@@ -516,7 +512,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
 }]);
 
-app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog) {
+app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', 'gettextCatalog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -537,9 +533,9 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     scope.deletePayload = function(index,id) {
       Payload.destroy({box_id: scope.box.slug, id: id}).$promise.then(function() {
         scope.payloads.splice(index, 1);
-        showToast('Payload deleted successfully');
+        showToast(gettextCatalog.getString('Payload deleted successfully'));
       }, function(errors) {
-        showToast('Could not delete the payload.');
+        showToast(gettextCatalog.getString('Could not delete the payload.'));
       });
     };
 
@@ -579,7 +575,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
         channel = pusher.subscribe(key);
         channel.bind('general', function(data) {
           scope.command.success = undefined;
-          showToast('Payload completed!')
+          showToast(gettextCatalog.getString('Payload completed!'))
           loadPayloads();
         });
       }
@@ -603,7 +599,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
 }]);
 
-app.directive('splashOnly', ['Box', 'showToast', 'showErrors', function(Box, showToast, showErrors) {
+app.directive('splashOnly', 'gettextCatalog', ['Box', 'showToast', 'showErrors', function(Box, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -622,7 +618,7 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', function(Box, sho
         id: scope.box.slug,
         box: scope.box
       }).$promise.then(function(box) {
-        showToast('Settings updated successfully');
+        showToast(gettextCatalog.getString('Settings updated successfully'));
       }, function(errors) {
         showErrors(errors);
       });
@@ -640,7 +636,7 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', function(Box, sho
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', function(Box, $routeParams, showToast, showErrors, moment) {
+app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -716,7 +712,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         id: scope.box.slug,
         box: scope.box
       }).$promise.then(function(box) {
-        showToast('Settings updated successfully');
+        showToast(gettextCatalog.getString('Settings updated successfully'));
       }, function(errors) {
         form.$setPristine();
         showErrors(errors);
@@ -1121,7 +1117,7 @@ app.directive('interfaceButtons', ['$routeParams', '$location', function($routeP
 
 }]);
 
-app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', function(Payload, $routeParams, $pusher, $rootScope, $mdDialog, showToast, Upgrade) {
+app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', 'gettextCatalog', function(Payload, $routeParams, $pusher, $rootScope, $mdDialog, showToast, Upgrade, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1147,7 +1143,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
           scope.box.next_firmware = prefs.version;
         }
         loadPusher(scope.box.sockets_hash);
-        showToast('Your upgrade has been scheduled.');
+        showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';
         scope.box.upgrade_scheduled   = undefined;
@@ -1155,7 +1151,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         if (err && err.data && err.data.message) {
           e = err.data.message;
         } else {
-          e = 'Could not schedule upgrade, try again.';
+          e = gettextCatalog.getString('Could not schedule upgrade, try again.');
         }
         showToast(e);
       });
@@ -1215,12 +1211,12 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     scope.cancel = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to cancel?')
-      .textContent('If the upgrade has begun, you cannot stop it. Please wait until it completes.')
-      .ariaLabel('Cancel Upgrade')
+      .title(gettextCatalog.getString('Are you sure you want to cancel?'))
+      .textContent(gettextCatalog.getString('If the upgrade has begun, you cannot stop it. Please wait until it completes.'))
+      .ariaLabel(gettextCatalog.getString('Cancel Upgrade'))
       .targetEvent(ev)
-      .ok('please cancel it')
-      .cancel('exit');
+      .ok(gettextCatalog.getString('please cancel it'))
+      .cancel(gettextCatalog.getString('exit'));
       $mdDialog.show(confirm).then(function() {
         cancelUpgrade();
       });
@@ -1230,7 +1226,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
       Upgrade.destroy({box_id: scope.box.slug}).$promise.then(function(result) {
         scope.box.state = 'online';
         scope.box.upgrade_scheduled = undefined;
-        showToast('Upgrade cancelled successfully.');
+        showToast(gettextCatalog.getString('Upgrade cancelled successfully.'));
       }, function(err) {
         showToast(err);
       });
@@ -1256,7 +1252,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
             scope.box.allowed_job = false;
             channel.unbind();
           }
-          showToast('Box upgrading. Do not unplug or restart your device.');
+          showToast(gettextCatalog.getString('Box upgrading. Do not unplug or restart your device.'));
         });
       }
     };
@@ -1317,7 +1313,7 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
 
 }]);
 
-app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', function(Box, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone) {
+app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', 'gettextCatalog', function(Box, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -1425,7 +1421,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
           box.calledstationid = scope.selected[i].mac;
           box.is_polkaspots   = true;
           box.zone_id         = scope.temp.zone_id;
-          box.description = scope.selected[i].description || 'Automatically discovered' ;
+          box.description = scope.selected[i].description || gettextCatalog.getString('Automatically discovered');
           if (i === scope.selected.length - 1) {
             last = true;
           }
@@ -1441,10 +1437,10 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
 
         if (scope.selected.length <= 1) {
           redirect(data.slug);
-          showToast('Your device has been added.');
+          showToast(gettextCatalog.getString('Your device has been added.'));
         } else if (last) {
           redirect(data.slug);
-          showToast('Your devices have been added.');
+          showToast(gettextCatalog.getString('Your devices have been added.'));
         }
       }, function(err) {
         if (!scope.err) {
@@ -1497,12 +1493,12 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
 
       var editDialog = {
         modelValue: box.description,
-        placeholder: 'Add a comment',
+        placeholder: gettextCatalog.getString('Add a comment'),
         save: function (input) {
           box.description = input.$modelValue;
         },
         targetEvent: event,
-        title: 'Add a comment',
+        title: gettextCatalog.getString('Add a comment'),
         validators: {
           'md-maxlength': 30,
           'md-minlength': 5
@@ -1553,7 +1549,7 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', function(showErrors,showToast,Speedtest) {
+app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     scope.runSpeedtest = function() {
@@ -1564,7 +1560,7 @@ app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', fun
 
     var updateCT = function() {
       Speedtest.create({box_id: scope.box.slug}).$promise.then(function(results) {
-        showToast('Running speedtest, please wait.');
+        showToast(gettextCatalog.getString('Running speedtest, please wait.'));
       }, function(errors) {
         showErrors(errors);
       });

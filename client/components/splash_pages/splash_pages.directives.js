@@ -94,7 +94,7 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
     };
 
     var designer = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + id + '/design';
+      $location.path('/locations/' + scope.location.slug + '/splash_pages/' + id + '/design');
     };
 
     var edit = function(id) {
@@ -689,12 +689,8 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
         scope.splash.updating = undefined;
         form.$setPristine();
         showToast('Layout successfully updated.');
-        // scope.uploadLogo          = undefined;
       }, function(err) {
         showErrors(err);
-        // if ( err.data && err.data.errors ) {
-        //   scope.splash.errors = err.data.error.base;
-        // }
         scope.splash.updating = undefined;
       });
     };
@@ -741,7 +737,7 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
     };
 
     designer.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id;
+      window.history.back();
     };
 
     designer.preview = function() {
