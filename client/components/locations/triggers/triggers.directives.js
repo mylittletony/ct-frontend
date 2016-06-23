@@ -851,6 +851,7 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
         var results = JSON.stringify(res,null,2);
         var json  = window.hljs.highlight('json',results).value;
 
+        // CANT TRANSLATE YET
         var template =
           '<md-toolbar class="md-table-toolbar md-default">'+
           '<div class="md-toolbar-tools">'+
