@@ -547,13 +547,10 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
         clickOutsideToClose:true,
         controller: Ctrl,
         locals: {
-          command: 'scope.payloads[index]'
+          command: scope.payloads[index]
         }
       });
     };
-
-    scope.showPayload()
-
 
     function Ctrl ($scope, command) {
       $scope.command = command;
