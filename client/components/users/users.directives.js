@@ -195,37 +195,7 @@ app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'sh
       coupons: '=',
       key: '@'
     },
-    template:
-        '<form name=\'myForm\' ng-submit=\'save(myForm)\'>'+
-        '<md-card>'+
-        '<md-card-title>'+
-        '<md-card-title-text>'+
-        '<span class="md-headline">'+
-        'Coupons & Discount Codes'+
-        '</span>'+
-        '</md-card-title-text>'+
-        '</md-card-title>'+
-        '<md-card-content>'+
-        '<div layout="row" layout-wrap>'+
-        '<span ng-if="user.adding_coupon" flex=\'100\' flex-gt-sm=\'100\'>'+
-        '<p>Verifying Coupon</p>'+
-        '<md-progress-linear md-mode="query"></md-progress-linear>'+
-        '</span>'+
-        '<div flex=\'100\' flex-gt-sm=\'100\'>'+
-        '<md-list-item class="md-2-line" ng-repeat=\'coupon in coupons\' ng-if=\'coupons.length > 0\'>'+
-        '<div class="md-list-item-text">'+
-        '<p>{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | humanTime }}</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<p ng-if=\'coupons.length < 1\'>No active coupons found.</p>'+
-        '</div>'+
-        '</div>'+
-        '</md-card-content>'+
-        '<md-card-actions layout="row" layout-align="end center">'+
-        '<md-button ng-disabled="user.adding_coupon" ng-click="addCoupon()">ADD COUPON</md-button>'+
-        '</md-card-actions>'+
-        '</md-card>'+
-        '</form>'
+    templateUrl: 'components/users/billing/_add_coupon.html',
   };
 
 }]);
