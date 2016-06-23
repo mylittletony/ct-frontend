@@ -56,7 +56,7 @@ app.filter('deviceStatus', function() {
           return 'Device online';
           break;
         case 'processing':
-          return 'Processing job';
+          return 'Waiting for configs';
           break;
         case 'offline':
           return 'Device offline';
@@ -82,9 +82,6 @@ app.filter('statusColour', function() {
         case 'online':
           return '#16AC5B';
           break;
-        // case 'processing':
-        //   return '#FF9800';
-        //   break;
         case 'rebooting':
           return 'Device rebooting';
           break;
@@ -94,12 +91,8 @@ app.filter('statusColour', function() {
         case 'splash_only':
           return '#009688';
           break;
-        // case 'upgrading':
-        //   return 'Device upgrading';
-        //   break;
         default:
           return '#607D8B';
-          // default
       }}
   };
 });
