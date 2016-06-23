@@ -569,6 +569,9 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       }
       
       options.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
         1: {
           format: '#Gb'
         }
@@ -594,6 +597,9 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       }
       
       options.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
         1: {
           format: ''
         }
@@ -809,7 +815,11 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
         var time = new Date(json.timeline.inbound[i].time / (1000*1000));
         data.addRow([time, null, json.timeline.inbound[i].value / (1000*1000*1000) , json.timeline.outbound[i].value / (1000*1000*1000) ]);
       }
+
       options.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
         1: {
           format: '#Gb'
         }
@@ -835,6 +845,9 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       }
       
       options.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
         1: {
           format: ''
         }
