@@ -13,7 +13,7 @@
           md-min-length="5"
           md-autofocus="true"
           md-menu-class="locations-autocomplete"
-          placeholder="Search">
+          placeholder="{{ 'Search' | translate }}">
 
         <md-item-template >
           <a ng-click="go(item.slug)">
@@ -28,7 +28,7 @@
             </span>
           </a>
         </md-item-template>
-        <md-not-found>
+        <md-not-found translate>
           No results found.
         </md-not-found>
       </md-autocomplete>
@@ -51,11 +51,11 @@
               <div flex></div>
               <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="selected.length" ng-click="filterClient()">
                 <md-icon>filter_list</md-icon>
-                <md-tooltip>Filter this client</md-tooltip>
+                <md-tooltip translate>Filter this client</md-tooltip>
               </md-button>
               <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="query.filter || query.start" ng-click="clearFilter()">
                 <md-icon>clear_all</md-icon>
-                <md-tooltip>Clear filters</md-tooltip>
+                <md-tooltip translate>Clear filters</md-tooltip>
               </md-button>
               <md-button ng-click="rangeFilter()" class="md-icon-button" hide show-gt-xs>
                 <md-icon md-font-icon="date_range">date_range</md-icon>
