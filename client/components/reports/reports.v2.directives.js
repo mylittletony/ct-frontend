@@ -245,7 +245,6 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
     };
 
     this.setInterval = function(period) {
-      console.log(period)
       var interval;
       switch(period) {
         case '5m':
@@ -272,7 +271,6 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
         default:
           interval = '60s';
       }
-      console.log(interval)
       return interval;
     };
 
@@ -493,35 +491,46 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
 }]);
 
-app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', function(Report, $routeParams, $location, Location, $timeout) {
+app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', function(Report, $routeParams, $location, Location, $timeout, $rootScope) {
 
   var link = function( scope, element, attrs, controller ) {
 
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.period        = $routeParams.period   || '7d';
-    scope.location_id   = $routeParams.location_id;
-    scope.interval      = $routeParams.interval;
-    scope.type          = $routeParams.type;
-
-    // scope.interval = $routeParams.interval || '12h';
-    // scope.fill     = $routeParams.fill     || '0';
+    scope.period      = $routeParams.period   || '7d';
+    scope.interval    = $routeParams.interval || '12h';
+    scope.fill        = $routeParams.fill     || '0';
+    scope.location_id = $routeParams.location_id;
+    scope.type        = $routeParams.type;
 
     attrs.$observe('render', function(val){
       if (val !== '') {
-        // scope.type = attrs.type;
-        if ($routeParams.type) {
-          scope.type = $routeParams.type;
-        }
-        if (scope.type === 'clients') {
-          scope.interval = 'day';
-        }
         scope.subhead = attrs.subhead;
         scope.render = attrs.render;
         init();
       }
     });
+
+    // scope.period        = $routeParams.period   || '7d';
+    // scope.location_id   = $routeParams.location_id;
+    // scope.interval      = $routeParams.interval;
+    // scope.type          = $routeParams.type;
+
+    // attrs.$observe('render', function(val){
+    //   if (val !== '') {
+    //     // scope.type = attrs.type;
+    //     if ($routeParams.type) {
+    //       scope.type = $routeParams.type;
+    //     }
+    //     if (scope.type === 'clients') {
+    //       scope.interval = 'day';
+    //     }
+    //     scope.subhead = attrs.subhead;
+    //     scope.render = attrs.render;
+    //     init();
+    //   }
+    // });
 
     $(window).resize(function() {
       if (this.resizeTO) {
@@ -576,6 +585,19 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].inbound / (1000*1000) , stats[i].outbound / (-1000*1000) ]);
       }
+      
+      options.vAxes = {
+        1: {
+          format: '#Gb'
+        }
+      };
+      
+      var formatter = new window.google.visualization.NumberFormat(
+        { suffix: 'Gb', pattern: '#,##0.00;'}
+      );
+      formatter.format(data,3);
+      formatter.format(data,2);
+
     };
 
     var drawClients = function(data) {
@@ -588,6 +610,18 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         var time = new Date(stats[i].time * (1000));
         data.addRow([time, null, stats[i].count]);
       }
+      
+      options.vAxes = {
+        1: {
+          format: ''
+        }
+      };
+      
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: 'MMM dd, yyyy'
+      });
+      date_formatter.format(data,0);
+
     };
 
     var clearChart = function() {
@@ -598,10 +632,12 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
     scope.changeType = function(t) {
       clearChart();
-      var hash = $location.search();
-      hash.type = t;
+      var hash        = $location.search();
+      hash.type       = t;
+      scope.type      = t;
+      scope.interval  = controller.setInterval(scope.period);
+      hash.interval   = scope.interval;
       $location.search(hash);
-      scope.type = t;
       init();
     };
 
@@ -621,29 +657,68 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       }
     };
 
-    var init = function() {
+    scope.init = function() {
+      init();
+    };
 
+    var init = function() {
       createTitle();
       var params = {
-        resource: 'splash',
-        type: scope.type,
-        interval: scope.interval || 'hour',
-        location_id: scope.location_id,
-        period: scope.period
+        resource:       'splash',
+        type:           scope.type,
+        period:         scope.period,
+        interval:       scope.interval,
+        fill:           scope.fill,
+        location_id:    scope.location_id
       };
 
       controller.get(params).then(function(results) {
-
         json = results;
-
         timer = $timeout(function() {
           drawChart();
         },500);
         scope.loading = undefined;
+      }, function(err) {
+        console.log(err);                          
       });
     };
 
-    init();
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $timeout.cancel(timer);
+    });
+
+    // scope.changeType = function(t) {
+    //   clearChart();
+    //   var hash = $location.search();
+    //   hash.type = t;
+    //   $location.search(hash);
+    //   scope.type = t;
+    //   init();
+    // };
+
+    // var init = function() {
+
+    //   createTitle();
+    //   var params = {
+    //     resource: 'splash',
+    //     type: scope.type,
+    //     interval: scope.interval || 'hour',
+    //     location_id: scope.location_id,
+    //     period: scope.period
+    //   };
+
+    //   controller.get(params).then(function(results) {
+
+    //     json = results;
+
+    //     timer = $timeout(function() {
+    //       drawChart();
+    //     },500);
+    //     scope.loading = undefined;
+    //   });
+    // };
+
+    // init();
   };
 
   return {
@@ -663,7 +738,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       '{{ fn | titleCase }} {{ title }}'+
       '</span>'+
       '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
+      '<md-button class="md-icon-button" ng-click="init()">'+
       '<md-icon>refresh</md-icon>'+
       '</md-button>'+
       '<md-menu-bar style="padding: 0">'+
@@ -792,7 +867,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       };
       
       var formatter = new window.google.visualization.NumberFormat(
-        { suffix: 'GiB', pattern: '#,##0.00;'}
+        { suffix: 'Gb', pattern: '#,##0.00;'}
       );
       formatter.format(data,3);
       formatter.format(data,2);
@@ -850,6 +925,10 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       }
     };
 
+    scope.init = function() {
+      init();
+    };
+
     var init = function() {
       createTitle();
       var params = {
@@ -905,11 +984,6 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       '<md-icon>more_vert</md-icon>'+
       '</button>'+
       '<md-menu-content width="3">'+
-      // '<md-menu-item>'+
-      // '<md-button ng-click="changeType()">'+
-      // 'Sessions'+
-      // '</md-button>'+
-      // '</md-menu-item>'+
       '<md-menu-item>'+
       '<md-button ng-click="changeType(\'clients\')">'+
       'Unique Clients'+
@@ -920,11 +994,6 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       'Usage Data'+
       '</md-button>'+
       '</md-menu-item>'+
-      // '<md-menu-item>'+
-      // '<md-button ng-click="changeType(\'usage\')">'+
-      // 'Usage Data'+
-      // '</md-button>'+
-      // '</md-menu-item>'+
       '</md-menu-content>'+
       '</md-menu>'+
       '</md-menu-bar>'+
@@ -1034,7 +1103,9 @@ app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location',
       var params = {
         resource: 'splash',
         type: 'splash_stats',
-        interval: 'hour'
+        interval: 'hour',
+        location_id: $routeParams.location_id,
+        period: $routeParams.period || '7d'
       };
 
       // Get the splash stats
@@ -1103,7 +1174,7 @@ app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location',
       '</md-list-item>'+
       '</md-card-content>'+
       '</md-card>'+
-      '<md-card flex-gt-xs="20" hide show-gt-sm>'+
+      '<md-card flex-gt-xs="20" hide show-gt-md>'+
       '<md-card-content>'+
       '<md-list-item class="md-2-line">'+
       '<div class="md-list-item-text">'+
