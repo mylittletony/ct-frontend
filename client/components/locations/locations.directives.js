@@ -1693,36 +1693,7 @@ app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Sho
     scope: {
     },
     link: link,
-    template:
-      '<md-card>'+
-      '<div class="md-card-image" style=\'height: 5px; background-color: {{ color }};\'></div>'+
-      '<md-card-title>'+
-      '<md-card-title-text>'+
-      '<span class="md-headline">'+
-      'Warnings'+
-      '</span>'+
-      '</md-card-title-text>'+
-      '</md-card-title>'+
-      '<md-card-content>'+
-      '<span ng-if=\'loading\'>'+
-      'Loading.'+
-      '</span>'+
-      '<span ng-if=\'!events.length && !loading\'>'+
-      'No warnings found.'+
-      '</span>'+
-      '<md-list-item class="md-2-line" href="" ng-click="visitBox(event.short_url)" ng-repeat=\'event in events\'>'+
-      '<div class="md-list-item-text">'+
-      '<h3 ng-class="event.event_type == \'box.online\' ? \'muted\' : \'offline\'">{{ event.data.description }} {{ event.event_type == \'box.online\' ? \'Reconnected\' : \'Disconnected\' }}</h3>'+
-      '<md-tooltip>{{ event.data.ap_mac }}</md-tooltip>'+
-      '<p>Last seen {{ event.data.last_heartbeat | mysqlTime }}</p>'+
-      '</div>'+
-      '</md-list-item>'+
-      '</md-card-content>'+
-      '<md-divider></md-divider>'+
-      '<md-card-actions layout="row" layout-align="end center">'+
-      '<md-button href=\'/#/events\'>events</md-button>'+
-      '</md-card-actions>'+
-      '</md-card>'
+    templateUrl: 'components/locations/show/_warnings.html',
   };
 
 }]);
