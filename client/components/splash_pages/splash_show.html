@@ -341,6 +341,15 @@
               delete-hint="Press delete to remove URL"
               secondary-placeholder="+URL"></md-chips>
           </md-input-container>
+          <md-input-container class="md-block">
+            <label>Blocked Mac Addresses</label>
+            <md-chips
+              ng-model="splash.blacklisted_array"
+              placeholder="Enter a Mac"
+              delete-button-label="Remove Mac"
+              delete-hint="Press delete to remove Mac"
+              secondary-placeholder="+Mac"></md-chips>
+          </md-input-container>
           <div flex-gt-sm="50"></div>
         </md-card-content>
       </md-card>

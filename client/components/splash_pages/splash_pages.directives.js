@@ -381,12 +381,16 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
           scope.splash.splash_tags = scope.splash.splash_tags.toString();
         }
 
-        console.log(scope.splash.walled_gardens)
-
         if (scope.splash.walled_gardens && scope.splash.walled_gardens.length) {
           scope.splash.walled_gardens_array = scope.splash.walled_gardens.split(',');
         } else {
           scope.splash.walled_gardens_array = [];
+        }
+
+        if (scope.splash.blacklisted && scope.splash.blacklisted.length) {
+          scope.splash.blacklisted_array = scope.splash.blacklisted.split(',');
+        } else {
+          scope.splash.blacklisted_array = [];
         }
 
         scope.access_types = results.access_types;
@@ -405,11 +409,16 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
     scope.update = function(form) {
       form.$setPristine();
       formatWalledGardens();
+      formatBlacklisted();
       updateCT();
     };
 
     var formatWalledGardens = function() {
       scope.splash.walled_gardens = scope.splash.walled_gardens_array.join(',');
+    };
+
+    var formatBlacklisted = function() {
+      scope.splash.blacklisted = scope.splash.blacklisted_array.join(',');
     };
 
     var updateCT = function() {
