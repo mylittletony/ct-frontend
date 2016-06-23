@@ -582,7 +582,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       pages: '=',
       style: '@'
     },
-    templateUrl: 'components/splash_pages/_new_splash_create.html',
+    templateUrl: 'components/splash_pages/_splash_new.html',
   };
 
 }]);
