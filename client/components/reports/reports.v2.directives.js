@@ -6,11 +6,11 @@ app.factory('Locations', [function() {
   return { current: '', all: '' };
 }]);
 
-app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location', '$q', '$window', 'Locations', '$timeout', '$cookies', function(Report, $routeParams,$location,Location, $q, $window, Locations, $timeout, $cookies) {
+app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location', '$q', '$window', 'Locations', '$timeout', '$cookies', '$route', function(Report, $routeParams,$location, Location, $q, $window, Locations, $timeout, $cookies, $route) {
 
   var link = function( scope, element, attrs, controller ) {
 
-    scope.period        = $routeParams.period || '7d';
+    scope.period = $routeParams.period || '7d';
 
     var cid = $cookies.get('_ctlid');
     if (cid) {
@@ -19,28 +19,6 @@ app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location
 
     scope.location_name = $routeParams.location_name;
     scope.selectedItem  = scope.location_name;
-
-    // var setType = function() {
-    //   var split = $location.path().split('/');
-    //   if (split.length > 2) {
-    //     scope.name = split[2];
-    //   } else {
-    //     scope.name = 'Wireless';
-    //   }
-    // };
-
-    // setType();
-
-    // scope.active = function(path) {
-    //   var split = $location.path().split('/');
-    //   if (split.length >= 2) {
-    //     if (split[2] === path) {
-    //       return true;
-    //     }
-    //   } else if (path === '') {
-    //     return true;
-    //   }
-    // };
 
     function querySearch (query) {
       var deferred = $q.defer();
@@ -69,30 +47,12 @@ app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location
     scope.selectedItemChange = selectedItemChange;
     scope.searchTextChange   = searchTextChange;
 
-    // scope.changeLocation = function() {
-    //   var hash = $location.search();
-    //   hash.location_id = scope.location.id;
-    //   $location.search(hash);
-    // };
-
     scope.updatePeriod = function(period) {
       var hash = $location.search();
       hash.period = period;
       $location.search(hash);
+      $route.reload();
     };
-
-    // scope.go = function(item) {
-    //   scope.location = item;
-    //   scope.locations.push(item);
-    //   scope.changeLocation();
-    // };
-
-    // var init = function() {
-    //   scope.locations = Locations.all;
-    //   scope.location = Location.current;
-    // };
-
-    // init();
 
   };
 
@@ -258,12 +218,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
 
     var init = function(params) {
       var deferred = $q.defer();
-
       params.v2 = true;
-      params.location_id  = $routeParams.location_id;
-      params.period       = $routeParams.period || '7d';
-      params.interval     = $routeParams.interval || '1h';
-
       Report.get(params).$promise.then(function(results) {
         deferred.resolve(results);
       }, function(err) {
@@ -289,6 +244,38 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
       $scope.clearQuery();
     };
 
+    this.setInterval = function(period) {
+      console.log(period)
+      var interval;
+      switch(period) {
+        case '5m':
+          interval = '10s';
+          break;
+        case '30m':
+          interval = '1m';
+          break;
+        case '1d':
+          interval = '30m';
+          break;
+        case '6h':
+          interval = '180s';
+          break;
+        case '7d':
+          interval = '1h';
+          break;
+        case '14d':
+          interval = '1h';
+          break;
+        case '30d':
+          interval = '1h';
+          break;
+        default:
+          interval = '60s';
+      }
+      console.log(interval)
+      return interval;
+    };
+
     this.options = {
       height: 350,
       colors: ['#009688', '#009688', '#FF5722', '#03A9F4', '#FF5722', '#607D8B'],
@@ -308,20 +295,14 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
           textPosition: 'none'
         },
         1: {
-          // title: title,
         },
       },
       legend: {
         position: 'none'
       },
       lineWidth: 1.5,
-      // vAxis: {
-      //   viewWindow: {
-      //     min: 0
-      //   }
-      // },
       hAxis: {
-        format: 'dd MMM'
+        // format: 'dd MMM'
       },
       crosshair: {
         trigger: 'both',
@@ -332,6 +313,12 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
         top: '3%',
         height: '84%',
         width: '92%'
+      },
+      explorer: {
+        maxZoomOut:2,
+        keepInBounds: true,
+        axis: 'horizontal',
+        actions: [ 'dragToZoom', 'rightClickToReset'],
       }
     };
 
@@ -353,12 +340,15 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
     var timer, json;
 
+    var period        = $routeParams.period   || '7d';
+    var location_id   = $routeParams.location_id;
+
     attrs.$observe('render', function(val){
       if (val !== '' && !scope.type ) {
-        scope.title = attrs.title;
-        scope.type = attrs.type;
-        scope.subhead = attrs.subhead;
-        scope.render = attrs.render;
+        scope.title     = attrs.title;
+        scope.type      = attrs.type;
+        scope.subhead   = attrs.subhead;
+        scope.render    = attrs.render;
         init();
       }
     });
@@ -438,7 +428,9 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
       var params = {
         type: scope.type,
-        resource: attrs.resource
+        resource: attrs.resource,
+        location_id: location_id,
+        period: period
       };
 
       controller.get(params).then(function(results) {
@@ -505,16 +497,20 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
   var link = function( scope, element, attrs, controller ) {
 
-    var timer, results, c, json;
+    var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.period   = $routeParams.period   || '7d';
+    scope.period        = $routeParams.period   || '7d';
+    scope.location_id   = $routeParams.location_id;
+    scope.interval      = $routeParams.interval;
+    scope.type          = $routeParams.type;
+
     // scope.interval = $routeParams.interval || '12h';
     // scope.fill     = $routeParams.fill     || '0';
 
     attrs.$observe('render', function(val){
       if (val !== '') {
-        scope.type = attrs.type;
+        // scope.type = attrs.type;
         if ($routeParams.type) {
           scope.type = $routeParams.type;
         }
@@ -542,7 +538,6 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
     var drawChart = function() {
 
-      var stats, start;
       $timeout.cancel(timer);
 
       var data = new window.google.visualization.DataTable();
@@ -556,30 +551,10 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         scope.loading = undefined;
 
         if (scope.type === 'usage') {
-
-          data.addColumn('number', 'Inbound');
-          data.addColumn('number', 'Outbound');
-
-          stats = json.timeline.stats;
-
-          for(var i = 0; i < stats.length; i++) {
-            var time = new Date(stats[i].time * (1000));
-            data.addRow([time, null, stats[i].inbound / (1000*1000) , stats[i].outbound / (-1000*1000) ]);
-          }
-
+          drawUsage(data);
         } else {
-
-          data.addColumn('number', scope.title);
-
-          stats = json.timeline.stats;
-          start = new Date(json._stats.start * 1000);
-
-          for(var i = 0; i < stats.length; i++) {
-            var time = new Date(stats[i].time * (1000));
-            data.addRow([time, null, stats[i].count]);
-          }
+          drawClients(data);
         }
-
 
         c = new window.google.visualization.LineChart(document.getElementById(scope.render));
         c.draw(data, options);
@@ -591,6 +566,30 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       }
     };
 
+    var drawUsage = function(data) {
+      data.addColumn('number', 'Inbound');
+      data.addColumn('number', 'Outbound');
+
+      stats = json.timeline.stats;
+
+      for(var i = 0; i < stats.length; i++) {
+        var time = new Date(stats[i].time * (1000));
+        data.addRow([time, null, stats[i].inbound / (1000*1000) , stats[i].outbound / (-1000*1000) ]);
+      }
+    };
+
+    var drawClients = function(data) {
+      data.addColumn('number', scope.title);
+
+      stats = json.timeline.stats;
+      start = new Date(json._stats.start * 1000);
+
+      for(var i = 0; i < stats.length; i++) {
+        var time = new Date(stats[i].time * (1000));
+        data.addRow([time, null, stats[i].count]);
+      }
+    };
+
     var clearChart = function() {
       if (c) {
         c.clearChart();
@@ -599,16 +598,12 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
     scope.changeType = function(t) {
       clearChart();
+      var hash = $location.search();
+      hash.type = t;
+      $location.search(hash);
       scope.type = t;
-      // searchParams();
       init();
     };
-
-    // var searchParams = function() {
-    //   var hash = {};
-    //   hash.type = scope.type;
-    //   $location.search(hash);
-    // };
 
     var createTitle = function() {
       switch(scope.type) {
@@ -632,8 +627,9 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       var params = {
         resource: 'splash',
         type: scope.type,
-        interval: scope.interval || 'hour'
-        // distance: ''
+        interval: scope.interval || 'hour',
+        location_id: scope.location_id,
+        period: scope.period
       };
 
       controller.get(params).then(function(results) {
@@ -714,25 +710,21 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
 }]);
 
-app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', function(Report, $routeParams, $location, Location, $timeout) {
+app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', function(Report, $routeParams, $location, Location, $timeout, $rootScope) {
 
   var link = function( scope, element, attrs, controller ) {
 
-    var timer, results, c, json;
+    var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.period   = $routeParams.period   || '7d';
-    scope.interval = $routeParams.interval || '12h';
-    scope.fill     = $routeParams.fill     || '0';
-
+    scope.period      = $routeParams.period   || '7d';
+    scope.interval    = $routeParams.interval || '12h';
+    scope.fill        = $routeParams.fill     || '0';
     scope.location_id = $routeParams.location_id;
+    scope.type        = $routeParams.type;
 
     attrs.$observe('render', function(val){
       if (val !== '') {
-        scope.type = attrs.type;
-        if ($routeParams.type) {
-          scope.type = $routeParams.type;
-        }
         scope.subhead = attrs.subhead;
         scope.render = attrs.render;
         init();
@@ -754,9 +746,6 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
 
     var drawChart = function() {
 
-      var stats, start, i, time;
-      $timeout.cancel(timer);
-
       var data = new window.google.visualization.DataTable();
 
       data.addColumn('datetime', 'Date');
@@ -768,27 +757,15 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
         scope.loading = undefined;
 
         if (scope.type === 'usage') {
-
-          data.addColumn('number', 'Inbound');
-          data.addColumn('number', 'Outbound');
-
-          for(i = 0; i < json.timeline.inbound.length; i++) {
-            time = new Date(json.timeline.inbound[i].time / (1000*1000));
-            data.addRow([time, null, json.timeline.inbound[i].value / (1000*1000) , json.timeline.outbound[i].value / (1000*1000) ]);
-          }
-
+          drawUsage(data);
         } else {
-
-          data.addColumn('number', scope.title);
-
-          stats = json.timeline.stats;
-          start = new Date(json._stats.start * 1000);
-
-          for(i = 0; i < stats.length; i++) {
-            time = new Date(stats[i].time * (1000));
-            data.addRow([time, null, stats[i].count]);
-          }
+          drawUniques(data);
         }
+
+        var date_formatter = new window.google.visualization.DateFormat({
+          pattern: 'MMM dd, yyyy'
+        });
+        date_formatter.format(data,0);
 
         c = new window.google.visualization.LineChart(document.getElementById(scope.render));
         c.draw(data, options);
@@ -800,6 +777,52 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       }
     };
 
+    var drawUsage = function(data) {
+      data.addColumn('number', 'Inbound');
+      data.addColumn('number', 'Outbound');
+
+      for(var i = 0; i < json.timeline.inbound.length; i++) {
+        var time = new Date(json.timeline.inbound[i].time / (1000*1000));
+        data.addRow([time, null, json.timeline.inbound[i].value / (1000*1000*1000) , json.timeline.outbound[i].value / (1000*1000*1000) ]);
+      }
+      options.vAxes = {
+        1: {
+          format: '#Gb'
+        }
+      };
+      
+      var formatter = new window.google.visualization.NumberFormat(
+        { suffix: 'GiB', pattern: '#,##0.00;'}
+      );
+      formatter.format(data,3);
+      formatter.format(data,2);
+
+    };
+
+    var drawUniques = function(data) {
+      data.addColumn('number', scope.title);
+
+      stats = json.timeline.stats;
+      start = new Date(json._stats.start * 1000);
+
+      for(var i = 0; i < stats.length; i++) {
+        var time = new Date(stats[i].time * (1000));
+        data.addRow([time, null, stats[i].count]);
+      }
+      
+      options.vAxes = {
+        1: {
+          format: ''
+        }
+      };
+      
+      var formatter = new window.google.visualization.NumberFormat(
+        { pattern: '#,##0;'}
+      );
+
+      formatter.format(data,2);
+    };
+
     var clearChart = function() {
       if (c) {
         c.clearChart();
@@ -808,19 +831,14 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
 
     scope.changeType = function(t) {
       clearChart();
-      scope.type = t;
-      // searchParams();
+      var hash        = $location.search();
+      hash.type       = t;
+      scope.type      = t;
+      scope.interval  = controller.setInterval(scope.period);
+      hash.interval   = scope.interval;
+      $location.search(hash);
       init();
     };
-
-    // var searchParams = function() {
-    //   var hash = {};
-    //   hash.type = scope.type;
-    //   hash.period = scope.period;
-    //   hash.location_id = scope.location_id;
-    //   hash.fill = scope.fill;
-    //   $location.search(hash);
-    // };
 
     var createTitle = function() {
       switch(scope.type) {
@@ -833,29 +851,32 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
     };
 
     var init = function() {
-
       createTitle();
       var params = {
-        resource: 'device',
-        type: scope.type,
-        period: scope.period,
-        interval: scope.interval,
-        fill: scope.fill
-        // distance: ''
+        resource:       'device',
+        type:           scope.type,
+        period:         scope.period,
+        interval:       scope.interval,
+        fill:           scope.fill,
+        location_id:    scope.location_id
       };
 
       controller.get(params).then(function(results) {
-
         json = results;
-
         timer = $timeout(function() {
           drawChart();
         },500);
         scope.loading = undefined;
+      }, function(err) {
+        console.log(err);                          
       });
     };
 
-    init();
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $timeout.cancel(timer);
+    });
+
+    // init();
   };
 
   return {
@@ -875,7 +896,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       '{{ fn | titleCase }} {{ title }}'+
       '</span>'+
       '</md-card-header-text>'+
-      '<md-button class="md-icon-button" ng-click="refresh()">'+
+      '<md-button class="md-icon-button" ng-click="init()">'+
       '<md-icon>refresh</md-icon>'+
       '</md-button>'+
       '<md-menu-bar style="padding: 0">'+
@@ -890,7 +911,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       // '</md-button>'+
       // '</md-menu-item>'+
       '<md-menu-item>'+
-      '<md-button ng-click="changeType(\'uniques\')">'+
+      '<md-button ng-click="changeType(\'clients\')">'+
       'Unique Clients'+
       '</md-button>'+
       '</md-menu-item>'+
@@ -933,7 +954,9 @@ app.directive('wirelessStats', ['Report', '$routeParams', '$location', 'Location
       var params = {
         resource: 'client',
         type: 'wireless_stats',
-        interval: 'hour'
+        interval: 'hour',
+        location_id: $routeParams.location_id,
+        period: $routeParams.period || '7d'
       };
 
       controller.get(params).then(function(results) {

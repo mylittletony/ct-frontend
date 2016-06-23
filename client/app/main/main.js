@@ -562,7 +562,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/reports', {
       templateUrl: 'components/reports/wireless.html',
       controller: 'ReportsCtrl as rc',
-      // reloadOnSearch: false,
+      reloadOnSearch: false,
       resolve: { loginRequired: loginRequired }
     }).
     when('/reports/radius', {
