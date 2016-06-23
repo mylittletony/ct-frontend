@@ -798,46 +798,6 @@ app.directive('userCancel', ['User', 'Subscription', '$routeParams', '$mdDialog'
   };
 }]);
 
-app.directive('uSw', ['User', '$rootScope', 'AccessToken', function(User, $rootScope, AccessToken) {
-
-  var link = function( scope, element, attrs ) {
-
-    var i = 0;
-
-    $('#usw').click(function() {
-      i++;
-      if (i === 13) {
-        i = 0;
-        var msg = 'OK clicky, let\'s do it. Are you sure?';
-        if ( window.confirm(msg) ) {
-          console.log('Switching to', attrs.id);
-          doLogin();
-        }
-      }
-    });
-
-    var doLogin = function() {
-      User.switcher({account_id: attrs.id}).$promise.then(function(data) {
-        AccessToken.set(data.token);
-        $('.hidden-boy').addClass('real-boy');
-        var loginArgs = {data: data, path: '/', rdir: data.rdir};
-        $rootScope.$broadcast('login', loginArgs);
-      }, function(err) {
-        console.log(err);
-      });
-    };
-  };
-
-  return {
-    link: link,
-    scope: {
-      id: '@'
-    },
-    template: '<div id=\'usw\' class=\'text-white\'><a href="">Stevie Wonder?</a></div>'
-  };
-
-}]);
-
 app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$location', 'SLACK_TOKEN', 'CHIMP_TOKEN', '$pusher', '$rootScope', 'Auth', '$route', function(User, Integration, $routeParams, $location, SLACK_TOKEN, CHIMP_TOKEN, $pusher, $rootScope, Auth, $route) {
 
   var link = function( scope, element, attrs ) {
