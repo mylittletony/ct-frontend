@@ -617,7 +617,6 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       var hash        = $location.search();
       hash.type       = t;
       scope.type      = t;
-      scope.interval  = controller.setInterval(scope.period);
       hash.interval   = scope.interval;
       $location.search(hash);
       init();
