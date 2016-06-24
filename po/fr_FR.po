@@ -10,11 +10,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: client/components/locations/clients/_index.html:62
+msgid "{{ (fn || 'average') | titleCase }} aggregated network usage"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:59
+msgid "{{ (fn || 'average') | titleCase }} client MCS values"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:61
+msgid "{{ (fn || 'average') | titleCase }} network throughput"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:60
+msgid "{{ (fn || 'average') | titleCase }} signal, noise and SNR values"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:63
+msgid "{{ (fn || 'average') | titleCase }} transmission packets that failed"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:52
+msgid "{{ client_mac }} MCS Value"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:55
+msgid "{{ client_mac }} Total WiFi Usage"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:56
+msgid "{{ client_mac }} Transmission Failures"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:53
+msgid "{{ client_mac }} WiFi Signal"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:54
+msgid "{{ client_mac }} WiFi Traffic"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:143
+msgid "{{ clients.info.connected || 0 }} Connected."
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:6
+#: client/components/locations/access/access-password.html:6
+#: client/components/locations/access/access-social.html:8
+#: client/components/locations/access/access-vouchers.html:6
+msgid "{{ primarySelected.name }} - Primary Access"
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:7
+#: client/components/locations/access/access-password.html:7
+#: client/components/locations/access/access-social.html:9
+#: client/components/locations/access/access-vouchers.html:7
+msgid "{{ secondarySelected.name }} - Secondary Access"
+msgstr ""
+
+#: client/components/locations/boxes/_table.html:42
+msgid ""
+"<!-- <md-icon>comments</md-icon> -->\n"
+"                &nbsp; Name"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:12
 msgid ""
 "<b>MAC Address</b>: {{ box.calledstationid}} <span hide=\"\" show-gt-sm="
 "\"\"> <b>Description</b>: {{ box.description }}<b>&nbsp;Last Seen</b>: "
 "{{ box.last_heartbeat | humanTime }}</span>"
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:11
+msgid "<p>There are no settings to play with for clickthrough access</p>"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:93
@@ -25,8 +93,16 @@ msgstr ""
 msgid "2.4Ghz Mode"
 msgstr ""
 
+#: client/components/boxes/boxes.filters.js:22
+msgid "2.4Ghz only"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:110
 msgid "2.4Gz Power ({{box.tx_power_2}}dBm)"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:25
+msgid "5 letters or more please."
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:123
@@ -35,6 +111,10 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:131
 msgid "5Ghz Mode"
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:24
+msgid "5Ghz only"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:140
@@ -66,6 +146,10 @@ msgstr ""
 msgid "A WAN metric is required"
 msgstr ""
 
+#: client/components/locations/access/access-panel-top.html:25
+msgid "Access Type"
+msgstr ""
+
 #: client/index.html:103
 msgid "Account"
 msgstr ""
@@ -77,15 +161,46 @@ msgstr ""
 #: client/components/audit/emails/_index.html:57
 #: client/components/audit/sales/_index.html:59
 #: client/components/audit/social/_index.html:57
+#: client/components/codes/_index.html:51
+#: client/components/codes/_table.html:13
+#: client/components/events/_index.html:29
+#: client/components/locations/boxes/_table.html:52
+#: client/components/locations/clients/_index.html:172
 msgid "Action"
+msgstr ""
+
+#: client/components/boxes/show/_toast_reset_confirm.html:2
+msgid ""
+"Action Required. This box has been manually reset. Please confirm this "
+"action. Or click cancel to ignore."
+msgstr ""
+
+#: client/components/boxes/show/_toast_zone.html:2
+msgid ""
+"Action Required. This box is not part of a zone. The box will function but "
+"will not broadcast an SSID. Add this box to a zone to complete setup."
+msgstr ""
+
+#: client/components/codes/_index.html:50
+msgid "Activated"
+msgstr ""
+
+#: client/components/codes/_index.html:64
+msgid "Activated: {{ (code.date_activated | humanTime) || 'N/A'}}"
+msgstr ""
+
+#: client/components/codes/_index.html:46
+#: client/components/firmwares/_index.html:21
+#: client/components/firmwares/_index.html:9
+msgid "Active"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:67
 msgid "ADD"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2392
-#: client/components/boxes/boxes.directives.js:2397
+#: client/components/boxes/boxes.directives.js:1497
+#: client/components/boxes/boxes.directives.js:1502
 msgid "Add a comment"
 msgstr ""
 
@@ -115,7 +230,12 @@ msgid ""
 "<i class=\"fa fa-arrow-right\" ng-if=\"!creating\"></i>"
 msgstr ""
 
+#: client/components/boxes/show/_toast_zone.html:7
+msgid "Add To Zone"
+msgstr ""
+
 #: client/components/audit/emails/_index.html:52
+#: client/components/audit/guests/_index.html:53
 msgid "Added"
 msgstr ""
 
@@ -127,8 +247,34 @@ msgstr ""
 msgid "Advanced Radio Settings"
 msgstr ""
 
+#: client/components/boxes/boxes.filters.js:20
+msgid "All available bands"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:87
+msgid ""
+"Allow checkin\n"
+"                <a href=\"http://polkaspots.com/allow-facebook-checkin \" "
+"target=\"_blank\"><i class=\"fa fa-question-circle\"></i>\n"
+"                </a>\n"
+"                <input ng-model=\"location.fb_login_checkin_allow\" name="
+"\"fb_login_checkin_allow\" type=\"checkbox\">"
+msgstr ""
+
 #: client/components/boxes/port_forwards/form.html:10
 msgid "Allowed IPs"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware.html:4
+msgid "An upgrade is available for this device"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:54
+msgid "AP Description"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:166
+msgid "AP Name"
 msgstr ""
 
 #: client/components/apps/_new.html:18
@@ -147,6 +293,14 @@ msgstr ""
 msgid "Application Name"
 msgstr ""
 
+#: client/components/apps/apps.directives.js:97
+msgid "Application successfully created"
+msgstr ""
+
+#: client/components/apps/apps.directives.js:106
+msgid "Application successfully updated"
+msgstr ""
+
 #: client/components/apps/_show.html:38
 msgid "Application URLs:"
 msgstr ""
@@ -159,11 +313,11 @@ msgstr ""
 msgid "Apps"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1802
+#: client/components/boxes/boxes.directives.js:1215
 msgid "Are you sure you want to cancel?"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:285
+#: client/components/boxes/boxes.directives.js:267
 msgid "Are you sure you want to delete this device?"
 msgstr ""
 
@@ -173,12 +327,17 @@ msgid ""
 "        <b>This cannot be reversed.</b>"
 msgstr ""
 
+#: client/components/audit/audits.directives.js:17
 #: client/components/audit/index.html:6
 msgid "Audit"
 msgstr ""
 
 #: client/components/audit/index.html:19
 msgid "Audit Logs"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:32
+msgid "Audit Reports"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:116
@@ -189,8 +348,12 @@ msgstr ""
 msgid "Authorisation Code"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2320
+#: client/components/boxes/boxes.directives.js:1425
 msgid "Automatically discovered"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:112
+msgid "Average Values"
 msgstr ""
 
 #: client/components/apps/_new.html:6 client/components/apps/_show.html:6
@@ -217,6 +380,10 @@ msgstr ""
 msgid "Back to Orders"
 msgstr ""
 
+#: client/components/codes/_index.html:10
+msgid "Back to Voucher"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:165
 msgid "Band Steering"
 msgstr ""
@@ -225,28 +392,38 @@ msgstr ""
 msgid "Basic Rate Support"
 msgstr ""
 
+#: client/components/codes/_sessions.html:20
+msgid ""
+"Between {{ query.start | humanTimeShort }} and {{ query.end | "
+"humanTimeShort }}"
+msgstr ""
+
 #: client/components/boxes/port_forwards/header.html:4
 msgid "Box Port Forwards"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:350
+#: client/components/boxes/boxes.directives.js:332
 msgid "Box successfully"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:299
+#: client/components/boxes/boxes.directives.js:281
 msgid "Box successfully deleted"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:275
+#: client/components/boxes/boxes.directives.js:257
 msgid "Box successfully rebooted."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:334
+#: client/components/boxes/boxes.directives.js:316
 msgid "Box transfer was a success."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1843
+#: client/components/boxes/boxes.directives.js:1256
 msgid "Box upgrading. Do not unplug or restart your device."
+msgstr ""
+
+#: client/components/home/brand-not-found.html:4
+msgid "Brand Not Found"
 msgstr ""
 
 #: client/components/apps/_index.html:31
@@ -280,15 +457,20 @@ msgid "Callback URLs:"
 msgstr ""
 
 #: client/components/audit/sales/_refund.html:16
-#: client/components/boxes/boxes.directives.js:199
-#: client/components/boxes/boxes.directives.js:233
-#: client/components/boxes/boxes.directives.js:264
-#: client/components/boxes/boxes.directives.js:290
+#: client/components/boxes/boxes.directives.js:181
+#: client/components/boxes/boxes.directives.js:215
+#: client/components/boxes/boxes.directives.js:246
+#: client/components/boxes/boxes.directives.js:272
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:31
+#: client/components/boxes/show/_toast_reset_confirm.html:4
+#: client/components/boxes/show/_toast_zone.html:4
 #: client/components/boxes/show/_transfer.html:17
+#: client/components/locations/boxes/dialog.html:19
+#: client/components/locations/boxes/zones.html:34
 msgid "Cancel"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1804
+#: client/components/boxes/boxes.directives.js:1217
 msgid "Cancel Upgrade"
 msgstr ""
 
@@ -300,12 +482,52 @@ msgstr ""
 msgid "Cannot communicate with Cucumber Tony. Please reboot."
 msgstr ""
 
+#: client/components/locations/clients/_device_name.html:5
+msgid "Change Client Name"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:50
+msgid "Change on these days"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:34
+msgid "Change your password automatically &amp; have it emailed it to you."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:93
+msgid "Changelog"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:58
+#: client/components/locations/clients/_columns.html:62
+#: client/components/locations/clients/_index.html:167
+msgid "Channel"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:59
+msgid "Check page"
+msgstr ""
+
+#: client/components/layouts/offline-modal.html:7
+msgid ""
+"Check you're connected to the correct network and that the box has "
+"connectivity."
+msgstr ""
+
 #: client/components/boxes/show/_non_ps.html:54
 msgid "Checkbox 2"
 msgstr ""
 
+#: client/components/boxes/firmware/_download_firmware.html:5
+msgid "Choose a firmware version"
+msgstr ""
+
 #: client/components/boxes/new/_add.html:89
 msgid "Choose a Zone"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:15
+msgid "Clear Filter"
 msgstr ""
 
 #: client/components/audit/sessions/_index.html:58
@@ -318,11 +540,31 @@ msgstr ""
 
 #: client/components/audit/emails/_index.html:98
 #: client/components/audit/sales/_index.html:119
+#: client/components/codes/_table.html:69
 msgid "Client"
 msgstr ""
 
+#: client/components/codes/_table.html:7
+msgid "Client Mac"
+msgstr ""
+
+#: client/components/locations/clients/_device_name.html:11
+msgid "Client Name"
+msgstr ""
+
+#: client/components/locations/boxes/_table.html:48
+msgid "Clients"
+msgstr ""
+
 #: client/components/boxes/show/_health_modal.html:100
+#: client/components/layouts/offline-modal.html:10
+#: client/components/locations/clients/_columns_filter.html:81
+#: client/components/locations/clients/_device_name.html:22
 msgid "Close"
+msgstr ""
+
+#: client/components/boxes/payloads/_show_payload.html:17
+msgid "CLOSE"
 msgstr ""
 
 #: client/components/boxes/show/_health_modal.html:8
@@ -333,27 +575,47 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
+#: client/components/boxes/payloads/_show_payload.html:4
+msgid "Command Output"
+msgstr ""
+
 #: client/components/boxes/new/_add.html:105
 msgid "Comment"
+msgstr ""
+
+#: client/components/boxes/show/_toast_reset_confirm.html:7
+msgid "CONFIRM"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:46
+msgid "Connect to Facebook"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:43
+msgid "Connect to Facebook and get your pages."
 msgstr ""
 
 #: client/components/boxes/show/_health_modal.html:58
 msgid "Connected to Cucumber"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:302
+#: client/components/boxes/boxes.directives.js:284
 msgid "Could not delete box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:556
+#: client/components/boxes/boxes.directives.js:538
 msgid "Could not delete the payload."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:217
+#: client/components/boxes/show/_transfer_select.html:5
+msgid "Could not find any locations to tranfer this device to."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:199
 msgid "Could not reset this device, please try again"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1703
+#: client/components/boxes/boxes.directives.js:1155
 msgid "Could not schedule upgrade, try again."
 msgstr ""
 
@@ -367,6 +629,8 @@ msgstr ""
 
 #: client/components/boxes/payloads/_index.html:43
 #: client/components/boxes/show/_index.html:265
+#: client/components/events/_index.html:28
+#: client/components/firmwares/_index.html:20
 msgid "Created"
 msgstr ""
 
@@ -395,6 +659,10 @@ msgstr ""
 msgid "Cucumber firmware"
 msgstr ""
 
+#: client/components/locations/access/access-header.html:2
+msgid "Currently offering {{ primarySelected.name }} logins"
+msgstr ""
+
 #: client/components/audit/sales/_show.html:42
 msgid "Customer Email"
 msgstr ""
@@ -403,11 +671,19 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:287
+#: client/components/audit/audits.directives.js:92
+msgid "day"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:269
 msgid "Delete Box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:289
+#: client/components/locations/boxes/_table.html:28
+msgid "Delete Devices"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:271
 msgid "Delete it"
 msgstr ""
 
@@ -421,6 +697,8 @@ msgstr ""
 #: client/components/boxes/payloads/_index.html:13
 #: client/components/boxes/show/_health_modal.html:18
 #: client/components/boxes/show/_non_ps.html:24
+#: client/components/firmwares/_index.html:19
+#: client/components/locations/clients/_index.html:152
 msgid "Description"
 msgstr ""
 
@@ -437,11 +715,24 @@ msgid "Destination IP"
 msgstr ""
 
 #: client/components/boxes/show/_non_ps.html:4
+#: client/components/codes/_index.html:48
 msgid "Details"
 msgstr ""
 
 #: client/index.html:129
 msgid "Developer"
+msgstr ""
+
+#: client/components/codes/_table.html:9
+msgid "Device Mac"
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:62
+msgid "Device offline"
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:56
+msgid "Device online"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:177
@@ -452,11 +743,11 @@ msgstr ""
 msgid "Device Payloads"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:208
+#: client/components/boxes/boxes.directives.js:190
 msgid "Device reset in progress, please wait."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:249
+#: client/components/boxes/boxes.directives.js:231
 msgid "Device resync in progress. Please wait."
 msgstr ""
 
@@ -468,8 +759,16 @@ msgstr ""
 msgid "Device Type"
 msgstr ""
 
+#: client/components/boxes/boxes.filters.js:65
+msgid "Device upgrading"
+msgstr ""
+
 #: client/components/boxes/new/_add.html:84
 msgid "Devices Discovered"
+msgstr ""
+
+#: client/components/locations/boxes/zones.html:20
+msgid "Devices will sync after you alter their zone."
 msgstr ""
 
 #: client/components/boxes/new/_add.html:144
@@ -486,6 +785,10 @@ msgstr ""
 
 #: client/index.html:116
 msgid "Discussions"
+msgstr ""
+
+#: client/components/locations/clients/_range_buttons.html:11
+msgid "Distance"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:279
@@ -512,22 +815,63 @@ msgstr ""
 msgid "Don't disable this unless you're using a splash-only device."
 msgstr ""
 
+#: client/components/boxes/firmware/_download_firmware.html:13
+msgid "Download"
+msgstr ""
+
 #: client/components/boxes/firmware/index.html:4
 msgid "Download Firmware"
+msgstr ""
+
+#: client/components/downloads/index.html:7
+msgid "Download the Firmware"
+msgstr ""
+
+#: client/components/boxes/firmware/_download_firmware.html:2
+msgid ""
+"Download the firmware for your devices. You can read about installing the "
+"firmwares in the <ct-docs name=\"firmware\" alt=\"documentation"
+"\">documentation<ct-docs>.</ct-docs></ct-docs>"
 msgstr ""
 
 #: client/index.html:123
 msgid "Downloads"
 msgstr ""
 
+#: client/components/codes/_table.html:6
+msgid "Duration"
+msgstr ""
+
 #: client/components/apps/_show.html:56
+#: client/components/boxes/boxes.directives.js:75
 msgid "Edit"
 msgstr ""
 
+#: client/components/locations/clients/_device_name.html:1
+msgid "Edit Device Name"
+msgstr ""
+
+#: client/components/locations/boxes/zones.html:5
+msgid "Edit Device Zones"
+msgstr ""
+
+#: client/components/locations/boxes/_table.html:16
+msgid "Edit Zones"
+msgstr ""
+
 #: client/components/audit/emails/_index.html:53
+#: client/components/audit/guests/_index.html:52
 #: client/components/audit/sales/_index.html:53
 #: client/components/audit/social/_index.html:53
 msgid "Email"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:41
+msgid "Email it to the following address"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:43
+msgid "Emails"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:218
@@ -536,6 +880,18 @@ msgstr ""
 
 #: client/components/boxes/new/_add.html:135
 msgid "Ensure your devices have the Cucumber firmware installed."
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:14
+msgid "Enter a Version"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:45
+msgid "Enter an email"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:25
+msgid "Enter date"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:28
@@ -550,24 +906,46 @@ msgstr ""
 msgid "Environment"
 msgstr ""
 
-#: client/components/boxes/index/sidebar.html:15
-msgid "Environments"
+#: client/components/events/show.html:8
+msgid "Event Details"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1807
+#: client/components/events/_index.html:12
+msgid "Event Type"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1220
 msgid "exit"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:277
+#: client/components/locations/clients/_columns_filter.html:22
+#: client/components/locations/clients/_columns.html:26
+#: client/components/locations/clients/_index.html:158
+msgid "Expected Tput"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:258
+msgid "Failed"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:259
 msgid "Failed to reboot box, please try again."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:251
+#: client/components/boxes/boxes.directives.js:233
 msgid "Failed to resync device, please try again."
+msgstr ""
+
+#: client/components/locations/clients/_index.html:5
+msgid "Filter Clients"
 msgstr ""
 
 #: client/components/audit/sessions/_index.html:54
 msgid "Filter this client"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:10
+msgid "Firmware Upgrade"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:253
@@ -577,7 +955,7 @@ msgid ""
 "icon>"
 msgstr ""
 
-#: client/components/boxes/index/sidebar.html:23
+#: client/components/firmwares/_index.html:4
 msgid "Firmwares"
 msgstr ""
 
@@ -587,12 +965,26 @@ msgid_plural "Found {{item._score}} records"
 msgstr[0] ""
 msgstr[1] ""
 
+#: client/components/locations/clients/_columns_filter.html:62
+#: client/components/locations/clients/_columns.html:66
+#: client/components/locations/clients/_index.html:168
+msgid "Frequency"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:268
 msgid "Gateway IP"
 msgstr ""
 
 #: client/components/audit/social/_index.html:55
 msgid "Gender"
+msgstr ""
+
+#: client/components/locations/access/access-panel-top.html:6
+msgid "General information"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:29
+msgid "Generate random password"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:154
@@ -603,12 +995,24 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
+#: client/components/home/brand-not-found.html:6
+msgid "Go Forth and Prosper"
+msgstr ""
+
+#: client/components/home/404.html:5
+msgid "Goodness gracious me."
+msgstr ""
+
 #: client/components/audit/guests/_show.html:20
 msgid "Guest Details"
 msgstr ""
 
 #: client/components/audit/guests/_show.html:30
 msgid "Guest Email"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:59
+msgid "Guests"
 msgstr ""
 
 #: client/components/boxes/show/_health_modal.html:1
@@ -619,9 +1023,25 @@ msgstr ""
 msgid "Health Check Results"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1803
+#: client/components/locations/access/access-panel-top.html:12
+msgid "I want to offer my customers:"
+msgstr ""
+
+#: client/components/firmwares/_index.html:18
+msgid "ID"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:227
+msgid "If the client signal drops below 16dB, they may have problems browsing."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1216
 msgid ""
 "If the upgrade has begun, you cannot stop it. Please wait until it completes."
+msgstr ""
+
+#: client/components/locations/access/access-social.html:54
+msgid "If you already know your page ID, type it here."
 msgstr ""
 
 #: client/components/boxes/new/_add.html:137
@@ -630,8 +1050,26 @@ msgid ""
 "manually"
 msgstr ""
 
+#: client/components/locations/access/access-vouchers.html:34
+msgid ""
+"If you haven't done so already, generate your vouchers <a href=\"/#/vouchers"
+"\">here</a>."
+msgstr ""
+
+#: client/components/layouts/offline-modal.html:7
+msgid ""
+"If you rebooted you box or synced any network settings, you might have been "
+"disconnected."
+msgstr ""
+
 #: client/components/boxes/show/_health_modal.html:82
 msgid "In Sync"
+msgstr ""
+
+#: client/components/codes/_table.html:45
+msgid ""
+"Inbound: {{ ::session.download | humanData }}. Outbound: {{ ::session.upload "
+"| humanData }}"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:62
@@ -646,34 +1084,84 @@ msgstr ""
 msgid "Internet Check"
 msgstr ""
 
+#: client/components/locations/clients/_range_buttons.html:3
+msgid "Interval"
+msgstr ""
+
+#: client/components/locations/boxes/_table.html:50
+msgid "IP"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:252
 msgid "IP Address"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:46
+#: client/components/locations/clients/_columns.html:50
+#: client/components/locations/clients/_index.html:164
+msgid "IPv4"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:63
 msgid "Is Cucumber"
 msgstr ""
 
+#: client/components/boxes/payloads/_speedtest_widget.html:8
+msgid ""
+"Last result: <b>{{ box.latest_speedtest.result || 0 }}Mb/s</b> <span ng-if="
+"\"box.latest_speedtest.result\"> at {{ box.latest_speedtest.timestamp | "
+"humanTime }}</span>"
+msgstr ""
+
 #: client/components/audit/social/_index.html:54
 #: client/components/boxes/payloads/_index.html:13
 #: client/components/boxes/show/_index.html:186
+#: client/components/locations/boxes/_table.html:51
+#: client/components/locations/clients/_columns_filter.html:50
+#: client/components/locations/clients/_columns.html:54
+#: client/components/locations/clients/_index.html:165
 msgid "Last Seen"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:94
+msgid ""
+"Leave a message\n"
+"                  <a href=\"http://polkaspots.com/allow-facebook-message \" "
+"target=\"_blank\"><i class=\"fa fa-question-circle\"></i>\n"
+"                  </a>\n"
+"                  <input ng-model=\"location.fb_login_leave_msg\" name="
+"\"fb_login_leave_msg\" type=\"checkbox\">"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:171
 msgid "Legacy Mode"
 msgstr ""
 
+#: client/components/locations/boxes/zones.html:12
+msgid "Loading"
+msgstr ""
+
+#: client/components/boxes/payloads/_payloads_mass.html:22
+msgid "Loading Payloads..."
+msgstr ""
+
 #: client/components/boxes/payloads/_bulk.html:8
 msgid "Loading, one second please"
+msgstr ""
+
+#: client/components/locations/access/index.html:5
+msgid "Loading..."
 msgstr ""
 
 #: client/components/audit/emails/_index.html:55
 #: client/components/audit/emails/_index.html:56
 #: client/components/audit/emails/_index.html:92
+#: client/components/audit/guests/_index.html:74
 #: client/components/audit/sales/_index.html:113
 #: client/components/audit/sales/_show.html:68
 #: client/components/audit/social/_index.html:94
+#: client/components/codes/_table.html:12
+#: client/components/codes/_table.html:63
 msgid "Location"
 msgstr ""
 
@@ -685,12 +1173,20 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+#: client/components/layouts/offline-modal.html:6
+msgid ""
+"Looks like you've lost connection. It's probably best you wait until you "
+"reconnect, otherwise we can't save your changes."
+msgstr ""
+
 #: client/components/audit/sales/_index.html:54
 #: client/components/boxes/new/_add.html:103
+#: client/components/locations/boxes/_table.html:47
 msgid "Mac"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:222
+#: client/components/locations/clients/_index.html:153
 msgid "Mac Address"
 msgstr ""
 
@@ -705,12 +1201,45 @@ msgstr ""
 msgid "MAC is required."
 msgstr ""
 
+#: client/components/firmwares/_index.html:23
+msgid "Machine Type"
+msgstr ""
+
 #: client/index.html:172
 msgid "Main Menu"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:47
 msgid "Make some changes before trying to save."
+msgstr ""
+
+#: client/components/locations/access/access-password.html:42
+msgid "Make sure you enter a valid email."
+msgstr ""
+
+#: client/components/codes/_table.html:11
+#: client/components/locations/clients/_columns_filter.html:66
+#: client/components/locations/clients/_columns.html:70
+#: client/components/locations/clients/_index.html:169
+msgid "Manufacturer"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:117
+msgid "Max. Values"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:42
+#: client/components/locations/clients/_columns.html:46
+msgid "MCS"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:101
+#: client/components/locations/clients/_index.html:163
+msgid "MCS Index"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:122
+msgid "Median Values"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:345
@@ -720,6 +1249,18 @@ msgstr ""
 #: client/components/audit/sales/_index.html:58
 #: client/components/audit/sales/_show.html:62
 msgid "Merchant"
+msgstr ""
+
+#: client/components/events/_index.html:26
+msgid "Message"
+msgstr ""
+
+#: client/components/boxes/edit/_minimum_datarates.html:3
+msgid "Min allowed 2.4Ghz basic rate"
+msgstr ""
+
+#: client/components/boxes/edit/_minimum_datarates.html:11
+msgid "Min allowed 5Ghz basic rate"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:162
@@ -782,6 +1323,10 @@ msgstr ""
 msgid "Must be greater than 5 characters."
 msgstr ""
 
+#: client/components/locations/clients/_device_name.html:16
+msgid "Must be less more than 5 characters"
+msgstr ""
+
 #: client/components/boxes/new/_add.html:46
 msgid "Must be less than 100 characters."
 msgstr ""
@@ -798,6 +1343,10 @@ msgstr ""
 msgid "Must be less than 255 characters"
 msgstr ""
 
+#: client/components/locations/clients/_device_name.html:15
+msgid "Must be less than 30 characters"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:207
 msgid "Must be less than 65535"
 msgstr ""
@@ -810,8 +1359,17 @@ msgstr ""
 msgid "Must not be less than 0"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:349
+#: client/components/boxes/boxes.directives.js:331
 msgid "muted"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:480
+#: client/components/boxes/boxes.filters.js:32
+msgid "N/A"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:218
+msgid "NA"
 msgstr ""
 
 #: client/components/audit/social/_index.html:52
@@ -854,15 +1412,32 @@ msgstr ""
 msgid "New App"
 msgstr ""
 
+#: client/components/boxes/boxes.filters.js:68
+msgid "New device"
+msgstr ""
+
 #: client/components/boxes/show/_index.html:149
 msgid "New Device"
+msgstr ""
+
+#: client/components/codes/_index.html:23
+msgid "No codes found"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:134
 msgid "No Devices Discovered"
 msgstr ""
 
+#: client/components/layouts/offline-modal.html:2
+msgid "No Internet."
+msgstr ""
+
+#: client/components/locations/access/access-password.html:26
+msgid "No more that 12 letters please."
+msgstr ""
+
 #: client/components/audit/emails/_index.html:33
+#: client/components/audit/guests/_index.html:32
 #: client/components/audit/sales/_index.html:32
 #: client/components/audit/sessions/_index.html:31
 #: client/components/audit/social/_index.html:32
@@ -877,12 +1452,41 @@ msgstr ""
 msgid "No Scan Mode"
 msgstr ""
 
-#: client/components/boxes/index/sidebar.html:10
-msgid "Not enough results for a filter."
+#: client/components/codes/_sessions.html:27
+msgid "No sessions found for this date range."
+msgstr ""
+
+#: client/components/locations/boxes/zones.html:16
+msgid ""
+"No zones found. Create one <a href=\"\" ng-click=\"createZone()\">now</a>."
+msgstr ""
+
+#: client/components/locations/access/access-password.html:47
+msgid "Not a valid email!"
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:10
+msgid "Not available"
+msgstr ""
+
+#: client/components/firmwares/_index.html:41
+msgid "Nothing to be seen here, move along please"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:27
+msgid "Numbers and letters only please"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:331
 msgid "Numbers, letters and hyphens only."
+msgstr ""
+
+#: client/components/locations/access/access-social.html:18
+msgid "Offer the following social logins"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:32
+msgid "Oh, there's been a problem logging you in"
 msgstr ""
 
 #: client/index.html:75
@@ -890,11 +1494,24 @@ msgid "Open Apps Menu"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:100
+#: client/components/codes/_index.html:76
+#: client/components/locations/boxes/_table.html:106
+#: client/components/locations/boxes/_table.html:9
 msgid "Open Boxes Menu"
 msgstr ""
 
+#: client/components/locations/clients/_index.html:270
+msgid "Open Clients Menu"
+msgstr ""
+
+#: client/components/events/_index.html:47
+msgid "Open Menu"
+msgstr ""
+
 #: client/components/audit/emails/_index.html:85
+#: client/components/audit/guests/_index.html:67
 #: client/components/audit/social/_index.html:87
+#: client/components/codes/_table.html:56
 msgid "Open sessions menu"
 msgstr ""
 
@@ -918,6 +1535,10 @@ msgstr ""
 msgid "Order Status"
 msgstr ""
 
+#: client/components/audit/audits.directives.js:878
+msgid "Order successfully refunded."
+msgstr ""
+
 #: client/components/audit/sales/_show.html:36
 msgid "Order Total"
 msgstr ""
@@ -933,11 +1554,30 @@ msgid ""
 "elevio-inline=\"7108\">compatible device</span>."
 msgstr ""
 
+#: client/components/locations/access/access-social.html:71
+msgid "Page invalid, it might not exist."
+msgstr ""
+
+#: client/components/locations/access/access-social.html:74
+msgid "Page valid"
+msgstr ""
+
+#: client/components/locations/access/access-vouchers.html:27
+msgid ""
+"Paid Wi-Fi is only available on non-free plans. You can read more\n"
+"                <a href=\"http://polkaspots.com/paid-wifi\">here</a>."
+msgstr ""
+
 #: client/components/boxes/show/_health_modal.html:19
 msgid "Passed"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:617
+#: client/components/codes/_index.html:49
+#: client/components/locations/access/access-password.html:24
+msgid "Password"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:578
 msgid "Payload completed!"
 msgstr ""
 
@@ -945,7 +1585,7 @@ msgstr ""
 msgid "Payload created on {{ payload.created_at | humanTime }}"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:554
+#: client/components/boxes/boxes.directives.js:536
 msgid "Payload deleted successfully"
 msgstr ""
 
@@ -953,7 +1593,15 @@ msgstr ""
 msgid "Payload has been queued, please wait a few seconds for it to finish."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1806
+#: client/components/boxes/payloads/_show_payload.html:1
+msgid "Payload Output"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:88
+msgid "Payloads"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1219
 msgid "please cancel it"
 msgstr ""
 
@@ -971,8 +1619,16 @@ msgstr ""
 msgid "Please enter a description"
 msgstr ""
 
+#: client/components/locations/clients/_device_name.html:14
+msgid "Please enter a name"
+msgstr ""
+
 #: client/components/boxes/show/_non_ps.html:19
 msgid "Please enter an address"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:46
+msgid "Please enter an email"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:67
@@ -1003,8 +1659,21 @@ msgstr ""
 msgid "Protocol"
 msgstr ""
 
+#: client/components/firmwares/_index.html:11
+#: client/components/firmwares/_index.html:22
+msgid "Public"
+msgstr ""
+
+#: client/components/locations/access/access-header.html:1
+msgid "Public Access Settings"
+msgstr ""
+
 #: client/components/boxes/show/_index.html:216
 msgid "Public IP"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:35
+msgid "Radius"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:96
@@ -1029,15 +1698,19 @@ msgstr ""
 msgid "Radius Settings"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:261
+#: client/components/boxes/boxes.directives.js:82
+msgid "Reboot"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:243
 msgid "Reboot Box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:263
+#: client/components/boxes/boxes.directives.js:245
 msgid "Reboot it"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:260
+#: client/components/boxes/boxes.directives.js:242
 msgid ""
 "Rebooting will disconnect your clients.\n"
 "A reboot takes about 60 seconds to complete"
@@ -1070,15 +1743,19 @@ msgstr ""
 msgid "Required."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:196
+#: client/components/boxes/boxes.directives.js:116
+msgid "Reset"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:178
 msgid "Reset Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:198
+#: client/components/boxes/boxes.directives.js:180
 msgid "Reset it"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:194
+#: client/components/boxes/boxes.directives.js:176
 msgid "Reset this Device"
 msgstr ""
 
@@ -1086,22 +1763,26 @@ msgstr ""
 msgid "Reset zoom level"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:195
+#: client/components/boxes/boxes.directives.js:177
 msgid ""
 "Resetting your box is not recommended. If you are having problems with it, "
 "please resync first. If the device is offline, it will reset next time it "
 "restarts."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:230
+#: client/components/boxes/boxes.directives.js:110
+msgid "Resync"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:212
 msgid "Resync Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:232
+#: client/components/boxes/boxes.directives.js:214
 msgid "Resync it"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:228
+#: client/components/boxes/boxes.directives.js:210
 msgid "Resync this Device"
 msgstr ""
 
@@ -1109,24 +1790,62 @@ msgstr ""
 msgid "Run a bulk payload on {{ selection.length }} boxes"
 msgstr ""
 
+#: client/components/locations/boxes/dialog.html:11
+msgid ""
+"Run a command on your devices simultaneously. Your devices must be online to "
+"receive the payload."
+msgstr ""
+
+#: client/components/locations/boxes/dialog.html:10
+msgid "Run commands on your access points"
+msgstr ""
+
 #: client/components/boxes/payloads/_bulk.html:4
+#: client/components/locations/boxes/_table.html:22
+#: client/components/locations/boxes/dialog.html:5
+#: client/components/locations/boxes/zones.html:1
 msgid "Run Payload"
+msgstr ""
+
+#: client/components/boxes/payloads/_payloads_mass.html:5
+msgid "Run the command"
 msgstr ""
 
 #: client/components/boxes/payloads/_bulk.html:14
 msgid "Running payload, please be patient."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2459
+#: client/components/boxes/boxes.directives.js:1564
 msgid "Running speedtest, please wait."
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:30
+#: client/components/locations/clients/_columns.html:34
+#: client/components/locations/clients/_index.html:160
+msgid "Rx Rate"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:18
+#: client/components/locations/clients/_columns.html:22
+msgid "Rxbps"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:67
+msgid "Sales"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:343
 #: client/components/boxes/show/_non_ps.html:59
+#: client/components/locations/clients/_device_name.html:25
 msgid "Save"
 msgstr ""
 
+#: client/components/locations/access/access-panel-top.html:28
+msgid "Scroll down to adjust the settings"
+msgstr ""
+
 #: client/components/audit/emails/_index.html:17
+#: client/components/audit/guests/_index.html:17
 #: client/components/audit/sales/_index.html:17
 #: client/components/audit/sessions/_index.html:16
 #: client/components/audit/social/_index.html:17
@@ -1141,8 +1860,30 @@ msgstr ""
 msgid "Secondary Radius"
 msgstr ""
 
+#: client/components/home/bye.html:1
+msgid "See you later, come back soon."
+msgstr ""
+
+#: client/components/locations/clients/_range_buttons.html:12
+msgid "select distance"
+msgstr ""
+
+#: client/components/locations/clients/_range_buttons.html:4
+msgid "select interval"
+msgstr ""
+
 #: client/components/boxes/new/_add.html:85
 msgid "Select the ones you want to add."
+msgstr ""
+
+#: client/components/locations/access/access-vouchers.html:19
+msgid ""
+"Sell Online (via PayPal)\n"
+"                  <i class=\"fa fa-star fa-sm gold\"></i>"
+msgstr ""
+
+#: client/components/codes/_index.html:47
+msgid "Serial"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:281
@@ -1155,9 +1896,11 @@ msgstr ""
 #: client/components/audit/index.html:3
 #: client/components/audit/sales/_show.html:4
 #: client/components/boxes/edit/_edit.html:3
+#: client/components/boxes/firmware/_upgrade_firmware.html:2
 #: client/components/boxes/payloads/_index.html:3
 #: client/components/boxes/show/_index.html:3
-#: client/components/boxes/versions/_index.html:3 client/index.html:142
+#: client/components/boxes/versions/_index.html:3
+#: client/components/codes/_sessions.html:3 client/index.html:142
 #: client/index.html:62
 msgid "Settings"
 msgstr ""
@@ -1166,9 +1909,13 @@ msgstr ""
 msgid "Settings for your splash-only device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:660
-#: client/components/boxes/boxes.directives.js:754
+#: client/components/boxes/boxes.directives.js:621
+#: client/components/boxes/boxes.directives.js:716
 msgid "Settings updated successfully"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:80
+msgid "Share"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:25
@@ -1178,6 +1925,26 @@ msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:37
 msgid "Should be a valid IP (10.1.1.1)"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:38
+#: client/components/locations/clients/_columns.html:42
+#: client/components/locations/clients/_index.html:162
+msgid "Signal"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:86
+msgid "Signal Strength"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:34
+#: client/components/locations/clients/_columns.html:38
+#: client/components/locations/clients/_index.html:161
+msgid "SNR"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:51
+msgid "Social"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:46
@@ -1191,6 +1958,10 @@ msgstr ""
 #: client/components/boxes/port_forwards/form.html:11
 #: client/components/boxes/port_forwards/form.html:23
 msgid "Source Port"
+msgstr ""
+
+#: client/components/boxes/payloads/_speedtest_widget.html:3
+msgid "Speedtest"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:20
@@ -1211,28 +1982,53 @@ msgstr ""
 msgid "Splash URL"
 msgstr ""
 
+#: client/components/locations/clients/_columns_filter.html:70
+#: client/components/locations/clients/_columns.html:74
+#: client/components/locations/clients/_index.html:170
+msgid "Splash User"
+msgstr ""
+
 #: client/components/boxes/show/_index.html:272
 msgid "SSH Password"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:10
+#: client/components/locations/clients/_columns.html:14
+#: client/components/locations/clients/_index.html:154
+msgid "SSID"
+msgstr ""
+
+#: client/components/codes/_table.html:5
+msgid "Start"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:52
 msgid "State"
 msgstr ""
 
-#: client/components/boxes/index/sidebar.html:3
-msgid "States"
+#: client/components/boxes/boxes.filters.js:52
+msgid "State Unavailable"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:172
+#: client/components/locations/clients/_index.html:151
 msgid "Status"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:417
+#: client/components/codes/_table.html:24
+msgid "Stop: {{ ::session.acctstoptime | humanTime }}"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:399
 msgid "Streaming updates disabled"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:412
+#: client/components/boxes/boxes.directives.js:394
 msgid "Streaming updates enabled"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:127
+msgid "Sum"
 msgstr ""
 
 #: client/index.html:87 client/index.html:92
@@ -1240,7 +2036,45 @@ msgid "Support"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:18
+#: client/components/locations/clients/_columns_filter.html:10
+#: client/components/locations/clients/_columns_filter.html:14
+#: client/components/locations/clients/_columns_filter.html:18
+#: client/components/locations/clients/_columns_filter.html:22
+#: client/components/locations/clients/_columns_filter.html:26
+#: client/components/locations/clients/_columns_filter.html:30
+#: client/components/locations/clients/_columns_filter.html:34
+#: client/components/locations/clients/_columns_filter.html:38
+#: client/components/locations/clients/_columns_filter.html:42
+#: client/components/locations/clients/_columns_filter.html:46
+#: client/components/locations/clients/_columns_filter.html:50
+#: client/components/locations/clients/_columns_filter.html:54
+#: client/components/locations/clients/_columns_filter.html:58
+#: client/components/locations/clients/_columns_filter.html:62
+#: client/components/locations/clients/_columns_filter.html:66
+#: client/components/locations/clients/_columns_filter.html:70
+#: client/components/locations/clients/_columns_filter.html:74
+#: client/components/locations/clients/_columns.html:14
+#: client/components/locations/clients/_columns.html:18
+#: client/components/locations/clients/_columns.html:22
+#: client/components/locations/clients/_columns.html:26
+#: client/components/locations/clients/_columns.html:30
+#: client/components/locations/clients/_columns.html:34
+#: client/components/locations/clients/_columns.html:38
+#: client/components/locations/clients/_columns.html:42
+#: client/components/locations/clients/_columns.html:46
+#: client/components/locations/clients/_columns.html:50
+#: client/components/locations/clients/_columns.html:54
+#: client/components/locations/clients/_columns.html:58
+#: client/components/locations/clients/_columns.html:62
+#: client/components/locations/clients/_columns.html:66
+#: client/components/locations/clients/_columns.html:70
+#: client/components/locations/clients/_columns.html:74
+#: client/components/locations/clients/_columns.html:78
 msgid "Switch 1"
+msgstr ""
+
+#: client/components/home/switching.html:3
+msgid "Switching brands, hold tight"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:196
@@ -1263,7 +2097,19 @@ msgstr ""
 msgid "The box is out of sync. Resync or reboot to get updated configs."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:286
+#: client/components/audit/audits.directives.js:565
+msgid "There was a problem updating this user."
+msgstr ""
+
+#: client/components/locations/access/access-vouchers.html:42
+msgid ""
+"This allows the end-user to request their password by email. We recommend "
+"you turn this on.\n"
+"                <a href=\"http://polkaspots.com/forgot-password-link\">Read "
+"more<i class=\"fa fa-question\"></i></a>"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:268
 msgid ""
 "This cannot be reversed, please be careful. Deleting a box is permanent."
 msgstr ""
@@ -1313,10 +2159,14 @@ msgstr ""
 msgid "This order was refunded"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:229
+#: client/components/boxes/boxes.directives.js:211
 msgid ""
 "This will force a complete refresh of it's configuration files. A resync "
 "will disconnect any wireless clients temporarily"
+msgstr ""
+
+#: client/components/locations/access/access-panel-top.html:20
+msgid "Timed access"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:59
@@ -1335,30 +2185,62 @@ msgstr ""
 msgid "transfer"
 msgstr ""
 
+#: client/components/boxes/boxes.directives.js:99
+msgid "Transfer"
+msgstr ""
+
 #: client/components/audit/sales/_refund.html:1
 #: client/components/boxes/show/_transfer.html:1
 #: client/components/boxes/show/_transfer.html:5
 msgid "Transfer Device"
 msgstr ""
 
+#: client/components/boxes/show/_transfer_select.html:10
+msgid "Transfer device to"
+msgstr ""
+
 #: client/components/boxes/show/_transfer.html:10
 msgid "Transfer your device to another location you own."
 msgstr ""
 
+#: client/components/locations/clients/_index.html:106
+msgid "TX Fails"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:26
+#: client/components/locations/clients/_columns.html:30
+#: client/components/locations/clients/_index.html:159
+msgid "Tx Rate"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:14
+#: client/components/locations/clients/_columns.html:18
+msgid "Txbps"
+msgstr ""
+
 #: client/components/audit/emails/_index.html:54
 #: client/components/boxes/new/_add.html:104
+#: client/components/events/_index.html:27
+#: client/components/locations/clients/_columns_filter.html:74
+#: client/components/locations/clients/_columns.html:78
+#: client/components/locations/clients/_index.html:171
 msgid "Type"
 msgstr ""
 
-#: client/components/boxes/index/sidebar.html:31
-msgid "Types"
+#: client/components/locations/clients/_index.html:191
+msgid "Unknown network"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:349
+#: client/components/locations/access/access-panel-top.html:16
+msgid "Unlimited access"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:331
 msgid "unmuted"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:45
+#: client/components/locations/boxes/zones.html:37
 msgid "Update"
 msgstr ""
 
@@ -1366,12 +2248,42 @@ msgstr ""
 msgid "Updating"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1817
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:34
+msgid "upgrade <span ng-if=\"upgrade.now\">now</span>"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:24
+msgid "Upgrade at 2am localtime on the following date"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1230
 msgid "Upgrade cancelled successfully."
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:1
+msgid "Upgrade Device"
+msgstr ""
+
+#: client/components/boxes/payloads/_payloads_mass.html:13
+msgid "Upgrade Firmware"
 msgstr ""
 
 #: client/components/boxes/payloads/_bulk.html:7
 msgid "Upgrade firmware on {{ selection.length }} boxes"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:19
+msgid "Upgrade Now"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:5
+msgid "Upgrade Your Device"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:11
+msgid ""
+"Upgrade your firmware to the latest version. Firmware upgrades include "
+"security updates and new features."
 msgstr ""
 
 #: client/components/boxes/show/_index.html:228
@@ -1382,8 +2294,25 @@ msgstr ""
 msgid "Upto 255 characters"
 msgstr ""
 
+#: client/components/codes/_table.html:10
+msgid "Usage"
+msgstr ""
+
+#: client/components/codes/_index.html:48 client/components/codes/_table.html:8
+msgid "Username"
+msgstr ""
+
 #: client/components/audit/sales/_index.html:107
+#: client/components/events/show.html:16
 msgid "View"
+msgstr ""
+
+#: client/components/events/_index.html:54
+msgid "View Event"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:36
+msgid "View Pages"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:135
@@ -1396,6 +2325,14 @@ msgstr ""
 
 #: client/components/audit/sales/_show.html:74
 msgid "Voucher Code"
+msgstr ""
+
+#: client/components/codes/_index.html:7
+msgid "Vouchers"
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:59
+msgid "Waiting for configs"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:134
@@ -1418,6 +2355,18 @@ msgstr ""
 msgid "WAN Protocol"
 msgstr ""
 
+#: client/components/home/404.html:4
+msgid "Weird"
+msgstr ""
+
+#: client/components/firmwares/_index.html:7
+msgid "What are you looking for?"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:18
+msgid "What's the password?"
+msgstr ""
+
 #: client/components/boxes/new/_add.html:68
 msgid "Where is my mac address?"
 msgstr ""
@@ -1426,11 +2375,19 @@ msgstr ""
 msgid "Wi-Fi Management Platform"
 msgstr ""
 
+#: client/components/locations/clients/_index.html:91
+msgid "WiFi Traffic"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:96
+msgid "WiFi Usage"
+msgstr ""
+
 #: client/components/boxes/edit/_edit.html:84
 msgid "Wireless Settings"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:259
+#: client/components/boxes/boxes.directives.js:241
 msgid "Would you like to reboot this device?"
 msgstr ""
 
@@ -1439,6 +2396,14 @@ msgid ""
 "You are unable to transfer a box to a location that isn't yours. If you need "
 "to transfer to a location you don't own, please delete it and send them the "
 "MAC address."
+msgstr ""
+
+#: client/components/locations/access/access-social.html:85
+msgid "You don't have a facebook page set up"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:50
+msgid "You don't have any facebook pages on that account, please try again"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:78
@@ -1462,6 +2427,20 @@ msgstr ""
 msgid "You must set a webite"
 msgstr ""
 
+#: client/components/locations/access/access-social.html:34
+msgid "You're logged in. We're just getting your pages. One moment, please..."
+msgstr ""
+
+#: client/components/home/brand-not-found.html:5
+msgid ""
+"You've stumbled into the weirdness ¯\\_(ツ)_/¯ and should probably return to "
+"the login page."
+msgstr ""
+
+#: client/components/home/404.html:5
+msgid "You've stumbled upon a page that doesn't exist yet."
+msgstr ""
+
 #: client/components/apps/_new.html:31
 msgid "Your application name"
 msgstr ""
@@ -1470,19 +2449,35 @@ msgstr ""
 msgid "Your callback URL"
 msgstr ""
 
+#: client/components/codes/_index.html:28
+msgid "Your codes are still generating, please wait."
+msgstr ""
+
 #: client/components/apps/_index.html:52
 msgid "Your Cucumber Applications"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2336
+#: client/components/locations/access/access-password.html:21
+msgid "Your customers enter this on the login pages."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1441
 msgid "Your device has been added."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:2339
+#: client/components/boxes/boxes.directives.js:1444
 msgid "Your devices have been added."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1695
+#: client/components/locations/access/access-social.html:53
+msgid "Your Facebook Page Id"
+msgstr ""
+
+#: client/components/locations/access/access-social.html:80
+msgid "Your page: {{ facebook_username }}"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1147
 msgid "Your upgrade has been scheduled."
 msgstr ""
 
@@ -1491,5 +2486,6 @@ msgid "Your website"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:52
+#: client/components/locations/boxes/_table.html:49
 msgid "Zone"
 msgstr ""

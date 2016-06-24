@@ -4,37 +4,37 @@
 
 var app = angular.module('myApp.boxes.filters', []);
 
-app.filter('toString', function() {
+app.filter('toString', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null || !input.length) {
-      return 'Not available';
+      return gettextCatalog.getString('Not available');
     } else {
       return input.toString();
     }
   };
-});
+}]);
 
-app.filter('bandSelection', function() {
+app.filter('bandSelection', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null) {
-      return 'All available bands';
+      return gettextCatalog.getString('All available bands');
     } else if ( input === 'two' ) {
-      return '2.4Ghz only';
+      return gettextCatalog.getString('2.4Ghz only');
     } else if ( input === 'five' ) {
-      return '5Ghz only';
+      return gettextCatalog.getString('5Ghz only');
     }
   };
-});
+}]);
 
-app.filter('filterUptime', function() {
+app.filter('filterUptime', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       return (input.split(',')[0].split('up')[1]);
     }
   };
-});
+}]);
 
 app.filter('kbps', function() {
   return function(bytes) {
@@ -46,27 +46,32 @@ app.filter('kbps', function() {
   };
 });
 
-app.filter('deviceStatus', function() {
+app.filter('deviceStatus',['gettextCatalog', function(gettextCatalog) {
   return function(state) {
     if (state === '' || state === undefined || state === null || !state.length) {
-      return 'State Unavailable';
+      return gettextCatalog.getString('State Unavailable');
     } else {
       switch(state) {
         case 'online':
-          return 'Device online';
+          return gettextCatalog.getString('Device online');
+          break;
         case 'processing':
-          return 'Waiting for configs';
+          return gettextCatalog.getString('Waiting for configs');
+          break;
         case 'offline':
-          return 'Device offline';
+          return gettextCatalog.getString('Device offline');
+          break;
         case 'upgrading':
-          return 'Device upgrading';
+          return gettextCatalog.getString('Device upgrading');
+          break;
         case 'new':
-          return 'New device';
+          return gettextCatalog.getString('New device');
+          break;
         default:
           // default
       }}
   };
-});
+}]);
 
 app.filter('statusColour', function() {
   return function(state) {
