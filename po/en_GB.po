@@ -221,8 +221,8 @@ msgstr ""
 msgid "Add a Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1502
-#: client/components/boxes/boxes.directives.js:1507
+#: client/components/boxes/boxes.directives.js:1504
+#: client/components/boxes/boxes.directives.js:1509
 #: client/components/boxes/new/_add.html:114
 msgid "Add a comment"
 msgstr ""
@@ -313,7 +313,7 @@ msgstr ""
 msgid "Apps"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1220
+#: client/components/boxes/boxes.directives.js:1222
 msgid "Are you sure you want to cancel?"
 msgstr ""
 
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Authorisation Code"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1430
+#: client/components/boxes/boxes.directives.js:1432
 msgid "Automatically discovered"
 msgstr ""
 
@@ -458,10 +458,6 @@ msgstr ""
 msgid "Box transfer was a success."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1261
-msgid "Box upgrading. Do not unplug or restart your device."
-msgstr ""
-
 #: client/components/locations/index/_favourites.html:51
 msgid "Boxes"
 msgstr ""
@@ -531,7 +527,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1222
+#: client/components/boxes/boxes.directives.js:1224
 msgid "Cancel Upgrade"
 msgstr ""
 
@@ -562,10 +558,6 @@ msgstr ""
 
 #: client/components/locations/access/access-password.html:34
 msgid "Change your password automatically &amp; have it emailed it to you."
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:97
-msgid "Changelog"
 msgstr ""
 
 #: client/components/locations/clients/_columns.html:62
@@ -677,7 +669,7 @@ msgstr ""
 msgid "Could not delete box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:543
+#: client/components/boxes/boxes.directives.js:545
 msgid "Could not delete the payload."
 msgstr ""
 
@@ -689,7 +681,7 @@ msgstr ""
 msgid "Could not reset this device, please try again"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1160
+#: client/components/boxes/boxes.directives.js:1162
 msgid "Could not schedule upgrade, try again."
 msgstr ""
 
@@ -1198,7 +1190,7 @@ msgstr ""
 msgid "If the client signal drops below 16dB, they may have problems browsing."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1221
+#: client/components/boxes/boxes.directives.js:1223
 msgid ""
 "If the upgrade has begun, you cannot stop it. Please wait until it completes."
 msgstr ""
@@ -1562,7 +1554,7 @@ msgstr ""
 msgid "Must not be less than 0"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:485
+#: client/components/boxes/boxes.directives.js:487
 #: client/components/boxes/boxes.filters.js:32
 msgid "N/A"
 msgstr ""
@@ -1745,7 +1737,7 @@ msgstr ""
 
 #: client/components/audit/sales/_index.html:100
 #: client/components/codes/_index.html:76
-#: client/components/locations/boxes/_table.html:106
+#: client/components/locations/boxes/_table.html:107
 #: client/components/locations/boxes/_table.html:9
 msgid "Open Boxes Menu"
 msgstr ""
@@ -1854,25 +1846,16 @@ msgstr ""
 msgid "Payload Output"
 msgstr "To be completed"
 
-#: client/components/boxes/boxes.directives.js:583
-#, fuzzy
-msgid "Payload completed!"
-msgstr "To be completed"
-
 #: client/components/boxes/payloads/show.html:6
 msgid "Payload created on {{ payload.created_at | humanTime }}"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:541
+#: client/components/boxes/boxes.directives.js:543
 msgid "Payload deleted successfully"
 msgstr ""
 
 #: client/components/boxes/payloads/_bulk.html:1
 msgid "Payload has been queued, please wait a few seconds for it to finish."
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:91
-msgid "Payloads"
 msgstr ""
 
 #: client/components/apps/_index.html:26
@@ -1996,10 +1979,6 @@ msgstr ""
 msgid "Range Filter"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:83
-msgid "Reboot"
-msgstr ""
-
 #: client/components/boxes/boxes.directives.js:248
 msgid "Reboot Box"
 msgstr ""
@@ -2041,10 +2020,6 @@ msgstr ""
 msgid "Required."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:121
-msgid "Reset"
-msgstr ""
-
 #: client/components/boxes/boxes.directives.js:183
 msgid "Reset Device"
 msgstr ""
@@ -2066,10 +2041,6 @@ msgid ""
 "Resetting your box is not recommended. If you are having problems with it, "
 "please resync first. If the device is offline, it will reset next time it "
 "restarts."
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:115
-msgid "Resync"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:217
@@ -2113,7 +2084,7 @@ msgstr ""
 msgid "Running payload, please be patient."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1569
+#: client/components/boxes/boxes.directives.js:1571
 msgid "Running speedtest, please wait."
 msgstr ""
 
@@ -2233,8 +2204,8 @@ msgstr ""
 msgid "Settings for your splash-only device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:626
-#: client/components/boxes/boxes.directives.js:721
+#: client/components/boxes/boxes.directives.js:628
+#: client/components/boxes/boxes.directives.js:723
 msgid "Settings updated successfully"
 msgstr ""
 
@@ -2375,11 +2346,11 @@ msgstr ""
 msgid "Stop: {{ ::session.acctstoptime | humanTime }}"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:404
+#: client/components/boxes/boxes.directives.js:406
 msgid "Streaming updates disabled"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:399
+#: client/components/boxes/boxes.directives.js:401
 msgid "Streaming updates enabled"
 msgstr ""
 
@@ -2584,10 +2555,6 @@ msgstr ""
 msgid "Total Codes"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:103
-msgid "Transfer"
-msgstr ""
-
 #: client/components/audit/sales/_refund.html:1
 #: client/components/boxes/show/_transfer.html:1
 #: client/components/boxes/show/_transfer.html:5
@@ -2687,7 +2654,7 @@ msgstr ""
 msgid "Upgrade at 2am localtime on the following date"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1235
+#: client/components/boxes/boxes.directives.js:1237
 msgid "Upgrade cancelled successfully."
 msgstr ""
 
@@ -2936,11 +2903,11 @@ msgstr ""
 msgid "Your customers enter this on the login pages."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1446
+#: client/components/boxes/boxes.directives.js:1448
 msgid "Your device has been added."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1449
+#: client/components/boxes/boxes.directives.js:1451
 msgid "Your devices have been added."
 msgstr ""
 
@@ -2948,7 +2915,7 @@ msgstr ""
 msgid "Your page: {{ facebook_username }}"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1152
+#: client/components/boxes/boxes.directives.js:1154
 msgid "Your upgrade has been scheduled."
 msgstr ""
 
@@ -3002,7 +2969,7 @@ msgstr ""
 msgid "enabled"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1225
+#: client/components/boxes/boxes.directives.js:1227
 msgid "exit"
 msgstr ""
 
@@ -3026,7 +2993,7 @@ msgstr ""
 msgid "not muted. Appears in alerts."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1224
+#: client/components/boxes/boxes.directives.js:1226
 msgid "please cancel it"
 msgstr ""
 
@@ -3129,3 +3096,7 @@ msgstr ""
 #: client/components/locations/access/access-vouchers.html:7
 msgid "{{ secondarySelected.name }} - Secondary Access"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Payload completed!"
+#~ msgstr "To be completed"

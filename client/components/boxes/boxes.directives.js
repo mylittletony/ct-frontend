@@ -348,15 +348,15 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var channel;
     function loadPusher(key) {
-      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
-        scope.pusherLoaded = true;
-        var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('general', function(data) {
-          console.log('Message recvd.', data);
-          init();
-        });
-      }
+      // if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+      //   scope.pusherLoaded = true;
+      //   var pusher = $pusher(client);
+      //   channel = pusher.subscribe(key);
+      //   channel.bind('general', function(data) {
+      //     console.log('Message recvd.', data);
+      //     init();
+      //   });
+      // }
     }
 
     var processAlertMessages = function() {
@@ -576,16 +576,16 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
     var channel;
     function loadPusher(key) {
-      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
-        scope.pusherLoaded = true;
-        var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('general', function(data) {
-          scope.command.success = undefined;
-          showToast(gettextCatalog.getString('Payload completed!'));
-          loadPayloads();
-        });
-      }
+      // if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+      //   scope.pusherLoaded = true;
+      //   var pusher = $pusher(client);
+      //   channel = pusher.subscribe(key);
+      //   channel.bind('general', function(data) {
+      //     scope.command.success = undefined;
+      //     showToast(gettextCatalog.getString('Payload completed!'));
+      //     loadPayloads();
+      //   });
+      // }
     }
 
     scope.back = function() {
@@ -1150,7 +1150,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         if (prefs.version) {
           scope.box.next_firmware = prefs.version;
         }
-        loadPusher(scope.box.socket_tokens);
+        loadPusher(scope.box.socket_token);
         showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';
@@ -1244,24 +1244,24 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
     var loadPusher = function(key) {
 
       if (pusherLoaded === undefined && typeof client !== 'undefined') {
-        pusherLoaded = true;
-        var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('box_upgrade', function(data) {
-          var msg;
-          try{
-            msg = JSON.parse(data.message);
-          } catch(e) {
-            msg = data.message;
-          }
-          if (msg.status) {
-            scope.box.upgrade_scheduled = undefined;
-            scope.box.state = 'upgrading';
-            scope.box.allowed_job = false;
-            channel.unbind();
-          }
-          showToast(gettextCatalog.getString('Box upgrading. Do not unplug or restart your device.'));
-        });
+        // pusherLoaded = true;
+        // var pusher = $pusher(client);
+        // channel = pusher.subscribe(key);
+        // channel.bind('box_upgrade', function(data) {
+        //   var msg;
+        //   try{
+        //     msg = JSON.parse(data.message);
+        //   } catch(e) {
+        //     msg = data.message;
+        //   }
+        //   if (msg.status) {
+        //     scope.box.upgrade_scheduled = undefined;
+        //     scope.box.state = 'upgrading';
+        //     scope.box.allowed_job = false;
+        //     channel.unbind();
+        //   }
+        //   showToast(gettextCatalog.getString('Box upgrading. Do not unplug or restart your device.'));
+        // });
       }
     };
 
