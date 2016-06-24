@@ -160,3 +160,23 @@ app.filter('humanBoolean', ['$window', function(window) {
     }
   };
 }]);
+
+app.filter('updateCreate', ['$window', function(window) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return 'Create';
+    } else {
+      return 'Update';
+    }
+  };
+}]);
+
+app.filter('emptyFilter', ['$window', function(window) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return 'N/A';
+    } else {
+      return input; 
+    }
+  };
+}]);

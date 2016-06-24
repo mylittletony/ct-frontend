@@ -211,13 +211,13 @@
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3 translate>WAN IP</h3>
-              <p>{{ box.wan_ip || 'No details' }}</p>
+              <p>{{ box.wan_ip | emptyFilter }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3 translate>Public IP</h3>
-              <p>{{ box.public_ip || "No public IP"}}</p>
+              <p>{{ box.public_ip | emptyFilter }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">

@@ -3,7 +3,7 @@
     <md-card-title>
       <md-card-title-text>
         <span class="md-headline">
-          {{ voucher.unique_id ? "Edit" : "Create" }} Voucher Batch
+          ::{{ voucher.unique_id | updateCreate }} Voucher Batch
         </span>
         <span class="md-subhead" ng-show="voucher.unique_id">
           Some settings can't be changed after creation.
@@ -84,7 +84,7 @@
             </md-input-container>
 
             <md-switch aria-label="Active switch" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
-              Voucher {{ voucher.is_active ? "Enabled" : "Disabled" }}
+              Voucher {{ voucher.is_active | humanBoolean }}
             </md-switch>
 
           </div>
@@ -193,7 +193,7 @@
         </md-slider-container>
 
         <md-switch aria-label="Disabled switch" ng-model="voucher.secure_password" ng-disabled="voucher.unique_id">
-          Secure Mode {{ voucher.secure_password ? "Enabled" : "Disabled" }}
+          Secure Mode {{ voucher.secure_password | humanBoolean }}
         </md-switch>
 
       </div>
@@ -203,7 +203,7 @@
   </md-card>
 
   <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-    {{ voucher.unique_id ? 'Update' : 'Create' }}
+    {{ voucher.unique_id | updateCreate }}
   </md-button>
 
 </form>

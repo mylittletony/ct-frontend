@@ -1,9 +1,5 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <!-- <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px"> -->
-    <!--   <md-icon md-font-icon="search">search</md-icon> -->
-    <!--   <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="Filter Codes"> -->
-    <!-- </md-input-container> -->
     <md-button id="main" class="md-icon-button md-primary" aria-label="{{'Vouchers' | translate }}">
       <md-icon md-font-icon="arrow_back" ng-click="back()">arrow_back</md-icon>
     </md-button>
@@ -57,19 +53,19 @@
                 <md-icon md-menu-origin md-font-icon="">{{ code.active ? "check_circle" : 'cancel' }}</md-icon>
               </td>
               <td hide show-gt-sm md-cell>
-                {{ code.serial }}
+                {{ ::code.serial }}
               </td>
               <td md-cell>
-                {{ code.username }} <span hide-gt-sm>/ {{ code.password }}</span>
+                {{ ::code.username }} <span hide-gt-sm>/ {{ ::code.password }}</span>
                 <md-tooltip hide-gt-sm translate>
-                  Activated: {{ (code.date_activated | humanTime) || 'N/A'}}
+                  Activated: {{ ::(code.date_activated | humanTime) }}
                 </md-tooltip>
               </td>
               <td hide show-gt-sm md-cell>
-                {{ code.password }}
+                {{ ::code.password }}
               </td>
               <td hide show-gt-sm md-cell>
-                <span>{{ (code.date_activated | humanTime) || 'N/A' }}</span>
+                <span>{{ ::(code.date_activated | humanTime) }}</span>
               </td>
               <td md-cell>
                 <md-menu>
@@ -79,7 +75,7 @@
                   <md-menu-content width="4" >
                     <md-menu-item ng-repeat="item in menuItems">
                       <md-button ng-disabled="isDisabled(item.type,code)" ng-click="action(item.type,code)">
-                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ ::item.icon }}</md-icon>
                         <p flex>{{ itemName(item,code) }}</p>
                       </md-button>
                     </md-menu-item>
@@ -91,7 +87,7 @@
           </tbody>
         </table>
       </md-table-container>
-      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{ ::_links.total_entries }}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
 
       </md-card-content>
       </md-card>
