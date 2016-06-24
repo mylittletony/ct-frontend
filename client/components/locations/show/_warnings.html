@@ -16,7 +16,7 @@
     </span>
     <md-list-item class="md-2-line" href="" ng-click="visitBox(event.short_url)" ng-repeat="event in events">
       <div class="md-list-item-text">
-        <h3 ng-class="event.event_type == "box.online" ? "muted" : "offline"">{{ event.data.description }} {{ event.event_type == "box.online" ? "Reconnected" : "Disconnected" }}</h3>
+        <h3 ng-class="event.event_type == 'box.online' ? 'muted' : 'offline'">{{ event.data.description }} {{ event.event_type == "box.online" ? "Reconnected" : "Disconnected" }}</h3>
         <md-tooltip>{{ event.data.ap_mac }}</md-tooltip>
         <p>Last seen {{ event.data.last_heartbeat | mysqlTime }}</p>
       </div>
