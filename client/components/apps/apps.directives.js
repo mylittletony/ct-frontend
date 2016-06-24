@@ -73,7 +73,7 @@ app.directive('showApp', ['App', '$routeParams', 'menu', function(App, $routePar
 
 }]);
 
-app.directive('editApp', ['App', '$routeParams', '$location', 'menu', 'showErrors', 'showToast', function(App, $routeParams, $location, menu, showErrors, showToast) {
+app.directive('editApp', ['App', '$routeParams', '$location', 'menu', 'showErrors', 'showToast', 'gettextCatalog', function(App, $routeParams, $location, menu, showErrors, showToast, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -94,7 +94,7 @@ app.directive('editApp', ['App', '$routeParams', '$location', 'menu', 'showError
     var create = function() {
       App.create({app: scope.app}).$promise.then(function(results) {
         $location.path('/apps/' + results.id).search({n: true});
-        showToast('Application successfully created');
+        showToast(gettextCatalog.getString('Application successfully created'));
       }, function(err) {
         showErrors(err);
       });
@@ -103,7 +103,7 @@ app.directive('editApp', ['App', '$routeParams', '$location', 'menu', 'showError
     var update = function() {
       App.update({id: scope.app.id, app: scope.app}).$promise.then(function(results) {
         $location.path('/apps/' + results.id).search({n: true});
-        showToast('Application successfully updated');
+        showToast(gettextCatalog.getString('Application successfully updated'));
       }, function(err) {
         showErrors(err);
       });
