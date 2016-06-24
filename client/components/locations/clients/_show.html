@@ -1,21 +1,21 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Back to Clients</p>
+    <p translate>Back to Clients</p>
     <span flex></span>
     <md-button class="md-icon-button" ng-click="updatePage()" ng-disabled="loadingChart">
       <md-icon>refresh</md-icon>
     </md-button>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }">5m</md-button>
-      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }">30m</md-button>
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }">60m</md-button>
-      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }">6h</md-button>
-      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }">1d</md-button>
-      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }">7d</md-button>
-      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }">30d</md-button>
+      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }" translate>5m</md-button>
+      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }" translate>30m</md-button>
+      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" translate>60m</md-button>
+      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" translate>6h</md-button>
+      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" translate>1d</md-button>
+      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }" translate>7d</md-button>
+      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" translate>30d</md-button>
     </md-button-group>
     <clients-toolbar client="client"></clients-toolbar>
   </div>
@@ -39,34 +39,34 @@
         <md-list flex>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Last Seen</h3>
+              <h3 translate>Last Seen</h3>
               <p>{{client.lastseen | humanTime }}</p>
-              <md-tooltip>
+              <md-tooltip translate>
                 First seen {{ client.created_at | humanTime }}
               </md-tooltip>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Client Mac</h3>
+              <h3 translate>Client Mac</h3>
               <p>{{client.client_mac}}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Device Name</h3>
+              <h3 translate>Device Name</h3>
               <p>{{ client.name || client.device_name | truncate:30 }} </p>
-              <md-button ng-click="editName()" aria-controls="splash" class="md-secondary md-icon-button" aria-label="call">
+              <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                 <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
               </md-button>
-              <md-tooltip ng-if="client.name">
+              <md-tooltip ng-if="client.name" translate>
                 Original name: {{ client.device_name }}
               </md-tooltip>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Manufacturer</h3>
+              <h3 translate>Manufacturer</h3>
               <p>{{client.manufacturer || 'NA' }}</p>
             </div>
           </md-list-item>
@@ -82,14 +82,14 @@
             {{client.splash_status == 'pass' ? 'Logged In' : (client.splash_status == 'dnat' ? 'Not Logged In' : 'Not connected')}}</p>
           </span>
         </md-card-title-text>
-        <md-button ng-click="toggle('splash')" aria-controls="splash" class="md-secondary md-icon-button" ng-if="client.splash_status == 'pass' || client.splash.status === 'dnat'" aria-label="call">
+        <md-button ng-click="toggle('splash')" aria-controls="{{ 'splash' | translate}}" class="md-secondary md-icon-button" ng-if="client.splash_status == 'pass' || client.splash.status === 'dnat'" aria-label="{{ 'call' | translate }}">
           <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('splash') ? "up" : "down" }}</md-icon>
         </md-button>
       </md-card-title>
       <md-card-content ng-if="isOpen('splash')" id="splash" class="menu-toggle-list" layout="column" layout-gt-sm="row" layout-wrap>
         <md-list-item class="md-2-line">
           <div class="md-list-item-text" layout="column">
-            <h3>Current Username</h3>
+            <h3 translate>Current Username</h3>
             <p>{{client.splash_username || 'NA' }}</p>
           </div>
         </md-list-item>

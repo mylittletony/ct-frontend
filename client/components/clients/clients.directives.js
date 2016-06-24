@@ -4,7 +4,7 @@ var app = angular.module('myApp.clients.directives', []);
 
 // I have not tested this at all !!! //
 
-app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', function(Client, Location, Report, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope) {
+app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', function(Client, Location, Report, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -33,19 +33,19 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
         scope.clientsMenu = [];
 
         scope.clientsMenu.push({
-          name: 'View',
+          name: gettextCatalog.getString('View'),
           type: 'view',
           icon: 'pageview'
         });
 
         scope.clientsMenu.push({
-          name: 'Disconnect',
+          name: gettextCatalog.getString('Disconnect'),
           type: 'disconnect',
           icon: 'block'
         });
 
         scope.clientsMenu.push({
-          name: 'Logout',
+          name: gettextCatalog.getString('Logout'),
           type: 'logout',
           icon: 'exit_to_app'
         });
@@ -84,7 +84,7 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
         box_id: scope.client.slug,
         id: scope.client.id
       }).$promise.then(function(results) {
-        showToast('Successfully disconnected client.');
+        showToast(gettextCatalog.getString('Successfully disconnected client.'));
       }, function(err) {
         scope.client.splash_status = 'pass';
         showErrors(err);
@@ -590,7 +590,7 @@ app.directive('clientsRangeButtons', ['$routeParams', '$location', '$route', 'Au
 
 }]);
 
-app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', function(Client,ClientDetails,Report,$routeParams,menu,$pusher, $rootScope,showToast,showErrors,$mdDialog, $timeout, $location) {
+app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', 'gettextCatalog', function(Client,ClientDetails,Report,$routeParams,menu,$pusher, $rootScope,showToast,showErrors,$mdDialog, $timeout, $location, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -627,7 +627,7 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
         box_id: scope.client.slug,
         id: scope.client.id
       }).$promise.then(function(results) {
-        showToast('Successfully disconnected client.');
+        showToast(gettextCatalog.getString('Successfully disconnected client.'));
       }, function(err) {
         scope.client.splash_status = 'pass';
         showErrors(err);
@@ -777,7 +777,7 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
   };
 }]);
 
-app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToast', 'showErrors', function($routeParams, $cookies, Client, showToast, showErrors) {
+app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $cookies, Client, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element)  {
 
@@ -787,28 +787,28 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
       if (true) { // user permissions
         scope.menu = [];
         scope.menu.push({
-          name: 'Logout',
+          name: gettextCatalog.getString('Logout'),
           type: 'logout',
           disabled: !(scope.client.online && scope.client.splash_status === 'pass'),
           icon: 'exit_to_app'
         });
         scope.menu.push({
-          name: 'Vouchers',
+          name: gettextCatalog.getString('Vouchers'),
           type: 'codes',
           icon: 'receipt'
         });
         scope.menu.push({
-          name: 'Sessions',
+          name: gettextCatalog.getString('Sessions'),
           type: 'sessions',
           icon: 'data_usage'
         });
         scope.menu.push({
-          name: 'Orders',
+          name: gettextCatalog.getString('Orders'),
           type: 'orders',
           icon: 'attach_money'
         });
         scope.menu.push({
-          name: 'Social',
+          name: gettextCatalog.getString('Social'),
           type: 'social',
           disabled: !scope.client.social_id,
           icon: 'people'
@@ -816,7 +816,7 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
 
         if (false) {
           scope.menu.push({
-            name: 'Policies',
+            name: gettextCatalog.getString('Policies'),
             type: 'policies',
             icon: ''
           });
@@ -867,7 +867,7 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
       scope.client.processing = true;
       scope.client.splash_status = 'dnat';
       Client.logout({location_id: scope.location.slug, box_id: scope.client.slug, id: scope.client.id}).$promise.then(function(results) {
-        showToast('The client was logged out');
+        showToast(gettextCatalog.getString('The client was logged out'));
       }, function(err) {
         showErrors(err);
         scope.client.splash_status = 'pass';
@@ -894,7 +894,7 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
 
 }]);
 
-app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 'showErrors', function(Client, $routeParams, $q, showToast, showErrors) {
+app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 'showErrors', 'gettextCatalog', function(Client, $routeParams, $q, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -919,16 +919,16 @@ app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 's
     var codesMenu = function() {
       if (true) { // user permissions
         scope.codesMenu = [{
-          name: 'Usage',
+          name: gettextCatalog.getString('Usage'),
           icon: ''
         }];
         scope.codesMenu.push({
-          name: 'Details',
+          name: gettextCatalog.getString('Details'),
           link: '',
           icon: ''
         });
         scope.codesMenu.push({
-          name: 'activate',
+          name: gettextCatalog.getString('activate'),
           link: '',
           icon: ''
         });
@@ -962,8 +962,8 @@ app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 's
         id: code.username,
         code: { active: code.active }
       }).$promise.then(function(results) {
-        var text = code.active ? 'activated' : 'disabled';
-        showToast('Code ' +  text + ' successfully.');
+        var text = code.active ? gettextCatalog.getString('activated') : gettextCatalog.getString('disabled');
+        showToast(gettextCatalog.getString('Code ') +  text + gettextCatalog.getString(' successfully.'));
       }, function(err) {
         showErrors(err);
       });

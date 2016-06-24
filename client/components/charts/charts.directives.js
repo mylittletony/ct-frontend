@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.charts.directives', []);
 
-app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $rootScope) {
+app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', function($timeout, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -114,7 +114,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $roo
 
     var signalChart = function() {
 
-      title = toTitleCase(scope.fn || 'Mean') + ' Signal Strength';
+      title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString(' Signal Strength');
       data.addColumn('number', 'SNR');
       data.addColumn('number', 'Signal');
       data.addColumn('number', 'Noise');
@@ -164,7 +164,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $roo
     };
 
     var failureChart = function() {
-      title = toTitleCase(scope.fn || 'Mean') + 'Transmission Failures';
+      title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString('Transmission Failures');
       data.addColumn('number', 'TX Failed');
 
       if (json && json.txfailed && json.txfailed.length) {
@@ -185,7 +185,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $roo
     };
 
     var mcsChart = function() {
-      title = toTitleCase(scope.fn || 'Mean') + 'MCS Values';
+      title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString('MCS Values');
       data.addColumn('number', 'MCS Index');
       if (json.mcs && json.mcs.length) {
         len = json.mcs.length;
@@ -216,7 +216,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', function($timeout, $roo
         suffix = 'MiB';
       }
 
-      title = toTitleCase(scope.fn || 'Mean') + ' ' + type + ' (' + suffix + ')';
+      title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + ' ' + type + ' (' + suffix + ')';
 
       data.addColumn('number', 'Inbound');
       data.addColumn('number', 'Outbound');
@@ -371,7 +371,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', f
 
 }]);
 
-app.directive('txChart', ['$timeout', 'Report', '$routeParams', function($timeout, Report, $routeParams) {
+app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', function($timeout, Report, $routeParams, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -447,19 +447,19 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', function($timeou
       if (json.txfailed || json.txretries || json.inbound) {
 
         if (scope.type === 'usage') {
-          scope.title = 'WiFi Usage';
+          scope.title = gettextCatalog.getString('WiFi Usage');
           suffix = 'MB';
         } else if (scope.resource === 'device') {
-          scope.title = 'Device Traffic (Mbps)';
+          scope.title = gettextCatalog.getString('Device Traffic (Mbps)');
           suffix = 'Mbps';
         } else if (scope.type === 'tx') {
-          scope.title = 'WiFi Traffic (Mbps)';
+          scope.title = gettextCatalog.getString('WiFi Traffic (Mbps)');
           suffix = 'Mbps';
         } else if (scope.type === 'txfailed') {
-          scope.title = 'Failed Tx Count';
+          scope.title = gettextCatalog.getString('Failed Tx Count');
           suffix = undefined;
         } else if (scope.type === 'txretries') {
-          scope.title = 'Tx Retries';
+          scope.title = gettextCatalog.getString('Tx Retries');
           suffix = undefined;
         }
 
@@ -1243,7 +1243,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
 
 }]);
 
-app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location', function(Report, $routeParams, $timeout, $location) {
+app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location', 'gettextCatalog', function(Report, $routeParams, $timeout, $location, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -1270,15 +1270,15 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
     function setTitle() {
       if (scope.type === 'usage') {
-        scope.title = 'Usage Data';
+        scope.title = gettextCatalog.getString('Usage Data');
       } else if (scope.type === 'clients') {
-        scope.title = 'Wireless Clients';
+        scope.title = gettextCatalog.getString('Wireless Clients');
       } else if (scope.type === 'impressions') {
-        scope.title = 'Splash Impressions';
+        scope.title = gettextCatalog.getString('Splash Impressions');
       } else if (scope.type === 'uniques') {
-        scope.title = 'Splash Users';
+        scope.title = gettextCatalog.getString('Splash Users');
       } else {
-        scope.title = 'Splash Sessions';
+        scope.title = gettextCatalog.getString('Splash Sessions');
       }
     }
 
@@ -1489,11 +1489,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       var start = new Date(json._stats.start * 1000);
 
       if (scope.type === 'impressions') {
-        scope.title = 'Splash Impressions';
+        scope.title = gettextCatalog.getString('Splash Impressions');
       } else if (scope.type === 'uniques') {
-        scope.title = 'Splash Users';
+        scope.title = gettextCatalog.getString('Splash Users');
       } else {
-        scope.title = 'Splash Sessions';
+        scope.title = gettextCatalog.getString('Splash Sessions');
       }
 
       var sessions = json.timeline.stats;

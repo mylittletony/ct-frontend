@@ -8,12 +8,12 @@
         {{location.location_name}}
         <br>
         <small>{{ location.location_address }}</small>
-        <br><small>Network: {{ location.network_name }}</small>
+        <br><small translate>Network: {{ location.network_name }}</small>
         <br><small>Box alerts: {{ location.summary.boxes_alerting ? "Yes" : "No" }}</small></li>
       </h4>
       <hr>
       <p>
-        <small>
+        <small translate>
           Boxes: {{ location.summary.boxes_count }}
           <br>
           Sessions: {{ location.summary.total_sessions }}
@@ -24,7 +24,7 @@
         </small>
       </p>
       <hr>
-      <a href="/#/locations/{{ location.slug }}" class="tiny" >View</a>
+      <a href="/#/locations/{{ location.slug }}" class="tiny" translate>View</a>
 
 
 

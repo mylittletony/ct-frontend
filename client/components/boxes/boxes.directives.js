@@ -72,53 +72,53 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Edit',
         type: 'edit',
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings'
       });
 
       if (scope.box.is_polkaspots) {
 
         scope.menu.push({
-          name: 'Reboot',
+          name: gettextCatalog.getString('Reboot'),
           icon: 'autorenew',
           type: 'reboot',
           disabled: !scope.box.allowed_job
         });
 
         scope.menu.push({
-          name: 'Payloads',
           type: 'payloads',
+          name: gettextCatalog.getString('Payloads'),
           icon: 'present_to_all',
         });
 
         scope.menu.push({
-          name: 'Changelog',
           type: 'changelog',
+          name: gettextCatalog.getString('Changelog'),
           icon: 'history',
         });
       }
 
       scope.menu.push({
-        name: 'Transfer',
+        name: gettextCatalog.getString('Transfer'),
         icon: 'transform',
         type: 'transfer',
       });
 
       scope.menu.push({
-        name: 'Delete',
+        name: gettextCatalog('Delete'),
         icon: 'delete_forever'
       });
 
       if (scope.box.is_polkaspots) {
         scope.menu.push({
-          name: 'Resync',
+          name: gettextCatalog.getString('Resync'),
           icon: 'settings_backup_restore',
           disabled: !scope.box.allowed_job
         });
 
         scope.menu.push({
-          name: 'Reset',
+          name: gettextCatalog.getString('Reset'),
           icon: 'clear',
         });
       }
@@ -482,7 +482,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           }
         }
       } else {
-        scope.box.ssids = 'N/A';
+        scope.box.ssids = gettextCatalog.getString('N/A');
       }
     };
 
@@ -580,7 +580,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
         channel = pusher.subscribe(key);
         channel.bind('general', function(data) {
           scope.command.success = undefined;
-          showToast(gettextCatalog.getString('Payload completed!'))
+          showToast(gettextCatalog.getString('Payload completed!'));
           loadPayloads();
         });
       }
@@ -604,7 +604,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
 }]);
 
-app.directive('splashOnly', 'gettextCatalog', ['Box', 'showToast', 'showErrors', function(Box, showToast, showErrors, gettextCatalog) {
+app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog', function(Box, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -648,6 +648,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
 
+    //fixme: some of these might also have to be translated
     var ht20_channels  = ['auto', '01','02','03','04','05','06','07','08','09','10','11'];
     var ht40m_channels = ['auto','05','06','07','08','09','10','11'];
     var ht40p_channels = ['auto','01','02','03','04','05','06','07'];
@@ -1079,7 +1080,7 @@ app.directive('interfaceButtons', ['$routeParams', '$location', function($routeP
 
     scope.formData = {};
     var a = [];
-
+    //fixme: translations
     scope.formData.interval = $routeParams.interval || 'quarter';
 
     if ( scope.formData.interval === 'quarter' ) {

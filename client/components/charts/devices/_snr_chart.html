@@ -1,7 +1,7 @@
 <md-card>
   <md-card-header class="graph-small">
     <md-card-header-text>
-      <span class="md-subhead" ng-cloak>
+      <span class="md-subhead" ng-cloak translate>
         Average {{ type | titleCase }}
       </span>
     </md-card-header-text>
@@ -21,22 +21,22 @@
         </button>
         <md-menu-content width="3">
           <md-menu-item>
-            <md-button ng-click="changeType('snr')">
+            <md-button ng-click="changeType('snr')" translate>
               SNR
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeType('signal')">
+            <md-button ng-click="changeType('signal')" translate>
               Signal
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeType('noise')">
+            <md-button ng-click="changeType('noise')" translate>
               Noise
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeType('quality')">
+            <md-button ng-click="changeType('quality')" translate>
               Quality
             </md-button>
           </md-menu-item>
@@ -48,7 +48,7 @@
     <div id="mcs-chart"></div>
     <div>
       <div layout="row" ng-if="noData || loading" style="min-height: 250px;" layout-align="left end" class="muted">
-        <p><small><span ng-if="noData">No graph data</span><span ng-if="loading">Loading usage data</span></small></p>
+        <p><small><span ng-if="noData" translate>No graph data</span><span ng-if="loading" translate>Loading usage data</span></small></p>
       </div>
       <md-progress-linear ng-if="loading" md-mode="query"></md-progress-linear>
     </div>
