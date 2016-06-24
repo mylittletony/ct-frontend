@@ -30,7 +30,10 @@
       </md-card-title>
       <md-card-content>
         <h4>Scopes</h4>
-        <p>{{ app.scopes.length ? app.scopes : "None" }}</p>
+        <p>
+          <span ng-if="app.scopes.length" translate>{{ app.scopes }}</span>
+          <span ng-if="!app.scopes.length" translate>None</span>
+        </p>
         <h4 translate>Callback URLs:</h4>
         <ul ng-repeat="a in uris">
           <li ng-if="a">{{ a }}</li>

@@ -9,7 +9,7 @@
 </md-toolbar>
 
 <section ng-cloak ng-show="!loading">
-  <md-subheader class="md-accent" translate><b>MAC Address</b>: {{ box.calledstationid}} <span hide show-gt-sm> <b>Description</b>: {{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
+  <md-subheader class="md-accent" translate><b>MAC Address</b>: {{ box.calledstationid }} <span hide show-gt-sm> <b>Description</b>: {{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
 </section>
 
 <md-content class="md-padding" layout-gt-sm="column" layout="column" ng-if="box.is_polkaspots == false">
@@ -67,7 +67,9 @@
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">
             <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
-              Alerts {{ box.is_monitored ? 'enabled' : 'disabled'}}
+              <span translate>Alerts</span>
+              <span ng-if="box.is_monitored" translate>enabled</span>
+              <span ng-if="!box.is_monitored" translate>disabled</span>
             </md-switch>
             <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}" translate>
               Cucumber Box
