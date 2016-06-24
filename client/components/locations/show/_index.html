@@ -74,7 +74,7 @@
     <client-chart ng-if="!query">
       <location-chart ></location-chart>
     </client-chart>
-    <location-boxes filter="query" loading="loading"></location-boxes>
+    <location-boxes filter="query" loading="loading" token="{{location.socket_token}}"></location-boxes>
   </div>
 
 </md-content>

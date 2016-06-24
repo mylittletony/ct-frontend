@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', function(Location, $routeParams, $location, showToast, menu) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', function(Location, $routeParams, $location, showToast, menu, $pusher, $route) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -16,7 +16,7 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
     scope.streamingUpdater = function() {
       if (scope.streamingUpdates) {
-        console.log('Not implemented, add pusher');
+        loadPusher(scope.location.api_token);
         showToast('Streaming updates enabled');
       } else {
         if (channel) {
@@ -27,6 +27,18 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       }
     };
 
+    function loadPusher(key) {
+      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+        scope.pusherLoaded = true;
+        var pusher = $pusher(client);
+        channel = pusher.subscribe('private-' + key);
+        channel.bind('location', function(data) {
+          console.log('Message recvd.', data);
+          $route.reload();
+        });
+      }
+    }
+
     function updateLocation() {
       Location.update({id: $routeParams.id, location: { favourite: scope.location.is_favourite }} ).$promise.then(function(results) {
         var val = scope.location.is_favourite ? 'added to' : 'removed from';
@@ -34,6 +46,8 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       }, function(err) {
       });
     }
+
+    loadPusher(scope.location.api_token);
 
     scope.addDevice = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
@@ -690,7 +704,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1145,6 +1159,22 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       }
     };
 
+    var channel;
+    function loadPusher() {
+      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+        scope.pusherLoaded = true;
+        var pusher = $pusher(client);
+        channel = pusher.subscribe('private-' + attrs.token);
+        console.log('Binding to:', attrs.token)
+        for( var i = 0; i < scope.boxes.length; ++i ) {
+          channel.bind('boxes_' + scope.boxes[i].socket_token, function(data) {
+            console.log('Message recvd.', data);
+          });
+        }
+
+      }
+    }
+
     var init = function() {
       scope.deferred = $q.defer();
       Box.query({
@@ -1161,16 +1191,18 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       }, function(err) {
         scope.loading = undefined;
       });
+      return scope.deferred.promise;
     };
 
-    init();
+    init().then(loadPusher);
 
   };
   return {
     link: link,
     scope: {
       filter: '=',
-      loading: '='
+      loading: '=',
+      token: '@'
     },
     templateUrl: 'components/locations/boxes/_table.html'
   };

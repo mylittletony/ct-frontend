@@ -395,7 +395,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.streamingUpdater = function() {
       if (scope.streamingUpdates) {
-        loadPusher(scope.box.sockets_hash);
+        loadPusher(scope.box.sockets_token);
         showToast(gettextCatalog.getString('Streaming updates enabled'));
       } else {
         if (channel) {
@@ -420,7 +420,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ClientDetails.client = { location_id: box.location_id, ap_mac: box.calledstationid };
         createMenu();
         sortSsids();
-        loadPusher(box.sockets_hash);
+        loadPusher(box.sockets_token);
         scope.loading = undefined;
         deferred.resolve(box);
 
@@ -568,7 +568,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     var loadPayloads = function() {
       Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
         scope.payloads = data;
-        loadPusher(scope.box.sockets_hash);
+        loadPusher(scope.box.sockets_token);
       });
     };
 
@@ -1148,7 +1148,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         if (prefs.version) {
           scope.box.next_firmware = prefs.version;
         }
-        loadPusher(scope.box.sockets_hash);
+        loadPusher(scope.box.sockets_tokens);
         showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';
