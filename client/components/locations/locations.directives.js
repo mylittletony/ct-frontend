@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', function(Location, $routeParams, $location, showToast, menu, $pusher, $route) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -15,29 +15,8 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
     };
 
     scope.streamingUpdater = function() {
-      if (scope.streamingUpdates) {
-        loadPusher(scope.location.api_token);
-        showToast('Streaming updates enabled');
-      } else {
-        if (channel) {
-          channel.unbind();
-        }
-        console.log('Not implemented, add pusher');
-        showToast('Streaming updates disabled');
-      }
+      $rootScope.$broadcast('streaming', { enabled: scope.streamingUpdates });
     };
-
-    function loadPusher(key) {
-      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
-        scope.pusherLoaded = true;
-        var pusher = $pusher(client);
-        channel = pusher.subscribe('private-' + key);
-        channel.bind('location', function(data) {
-          console.log('Message recvd.', data);
-          $route.reload();
-        });
-      }
-    }
 
     function updateLocation() {
       Location.update({id: $routeParams.id, location: { favourite: scope.location.is_favourite }} ).$promise.then(function(results) {
@@ -46,8 +25,6 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       }, function(err) {
       });
     }
-
-    loadPusher(scope.location.api_token);
 
     scope.addDevice = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
@@ -704,7 +681,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1165,15 +1142,31 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
         channel = pusher.subscribe('private-' + attrs.token);
-        console.log('Binding to:', attrs.token)
+        console.log('Binding to:', attrs.token);
         for( var i = 0; i < scope.boxes.length; ++i ) {
           channel.bind('boxes_' + scope.boxes[i].socket_token, function(data) {
-            console.log('Message recvd.', data);
+            updateBox(data.message);
           });
         }
-
       }
     }
+
+    var updateBox = function(data) {
+      data = JSON.parse(data);
+      angular.forEach(scope.boxes, function(value, key) {
+        if (data.id === value.id) {
+          var box = scope.boxes[key];
+          box.calledstationid = data.calledstationid;
+          box.wan_proto       = data.wan_proto;
+          box.description     = data.description;
+          box.last_heartbeat  = data.last_heartbeat;
+          box.state           = data.state;
+          box.wan_ipaddr      = data.wan_ipaddr;
+          scope.boxes[key]       = box;
+          console.log('Updated', box.socket_token + ' at ' + new Date().getTime());
+        }
+      });
+    };
 
     var init = function() {
       scope.deferred = $q.defer();
@@ -1194,6 +1187,19 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       return scope.deferred.promise;
     };
 
+    $rootScope.$on('streaming', function(args,res) {
+      if (res.enabled) {
+        loadPusher();
+        showToast('Streaming updates enabled');
+      } else {
+        scope.pusherLoaded = undefined;
+        if (channel) {
+          channel.unbind();
+        }
+        showToast('Streaming updates disabled');
+      }
+    });
+
     init().then(loadPusher);
 
   };
@@ -1202,7 +1208,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     scope: {
       filter: '=',
       loading: '=',
-      token: '@'
+      token: '@',
+      streaming: '='
     },
     templateUrl: 'components/locations/boxes/_table.html'
   };

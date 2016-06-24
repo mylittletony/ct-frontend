@@ -79,48 +79,48 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
       if (scope.box.is_polkaspots) {
 
-        scope.menu.push({
-          name: gettextCatalog.getString('Reboot'),
-          icon: 'autorenew',
-          type: 'reboot',
-          disabled: !scope.box.allowed_job
-        });
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Reboot'),
+        //   icon: 'autorenew',
+        //   type: 'reboot',
+        //   disabled: !scope.box.allowed_job
+        // });
 
-        scope.menu.push({
-          type: 'payloads',
-          name: gettextCatalog.getString('Payloads'),
-          icon: 'present_to_all',
-        });
+        // scope.menu.push({
+        //   type: 'payloads',
+        //   name: gettextCatalog.getString('Payloads'),
+        //   icon: 'present_to_all',
+        // });
 
-        scope.menu.push({
-          type: 'changelog',
-          name: gettextCatalog.getString('Changelog'),
-          icon: 'history',
-        });
-      }
+        // scope.menu.push({
+        //   type: 'changelog',
+        //   name: gettextCatalog.getString('Changelog'),
+        //   icon: 'history',
+        // });
+      // }
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Transfer'),
-        icon: 'transform',
-        type: 'transfer',
-      });
+      // scope.menu.push({
+        // name: gettextCatalog.getString('Transfer'),
+        // icon: 'transform',
+        // type: 'transfer',
+      // });
 
-      scope.menu.push({
-        name: gettextCatalog('Delete'),
-        icon: 'delete_forever'
-      });
+      // scope.menu.push({
+        // name: gettextCatalog.getString('Delete'),
+        // icon: 'delete_forever'
+      // });
 
-      if (scope.box.is_polkaspots) {
-        scope.menu.push({
-          name: gettextCatalog.getString('Resync'),
-          icon: 'settings_backup_restore',
-          disabled: !scope.box.allowed_job
-        });
+      // if (scope.box.is_polkaspots) {
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Resync'),
+        //   icon: 'settings_backup_restore',
+        //   disabled: !scope.box.allowed_job
+        // });
 
-        scope.menu.push({
-          name: gettextCatalog.getString('Reset'),
-          icon: 'clear',
-        });
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Reset'),
+        //   icon: 'clear',
+        // });
       }
 
     };
@@ -395,7 +395,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.streamingUpdater = function() {
       if (scope.streamingUpdates) {
-        loadPusher(scope.box.sockets_token);
+        if (scope.box.socket_token) {
+          loadPusher(scope.box.socket_token);
+        }
         showToast(gettextCatalog.getString('Streaming updates enabled'));
       } else {
         if (channel) {
@@ -420,7 +422,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ClientDetails.client = { location_id: box.location_id, ap_mac: box.calledstationid };
         createMenu();
         sortSsids();
-        loadPusher(box.sockets_token);
+        loadPusher(box.socket_token);
         scope.loading = undefined;
         deferred.resolve(box);
 
@@ -568,7 +570,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     var loadPayloads = function() {
       Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
         scope.payloads = data;
-        loadPusher(scope.box.sockets_token);
+        loadPusher(scope.box.socket_token);
       });
     };
 
@@ -1148,7 +1150,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         if (prefs.version) {
           scope.box.next_firmware = prefs.version;
         }
-        loadPusher(scope.box.sockets_tokens);
+        loadPusher(scope.box.socket_tokens);
         showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';

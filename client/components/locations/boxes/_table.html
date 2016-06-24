@@ -53,7 +53,8 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="box in boxes | filter: filter | orderBy: query.order">
+          <!-- <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="box in boxes | filter: filter | orderBy: query.order"> -->
+          <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="box in boxes">
             <td md-cell class="box-status">
               <span ng-if="box.state == 'processing'" class="box-spinner">
                 <md-icon class="box-status processing" md-menu-origin md-font-icon="">rotate_right</md-icon>
@@ -82,7 +83,7 @@
               </a>
             </td>
             <td hide show-gt-lg md-cell>
-              {{ ::box.calledstationid }}
+              {{ box.calledstationid }}
             </td>
             <td hide show-gt-md md-cell>
               {{::box.metadata.online || '-' }}
