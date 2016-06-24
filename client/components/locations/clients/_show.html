@@ -29,7 +29,8 @@
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">
-            Client {{ client.online ? (client.splash_status == 'dnat' ? 'Not Logged In' : 'Online' ) : 'Offline' }}
+           Client {{ client.online | splashStatus:client.splash_status }}
+            <!-- Client {{ client.online ? (client.splash_status == 'dnat' ? 'Not Logged In' : 'Online' ) : 'Offline' }} -->
           </span>
         </md-card-title-text>
         <md-icon md-font-icon="wifi" ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
@@ -114,4 +115,3 @@
     </div>
   </div>
 </md-content>
-

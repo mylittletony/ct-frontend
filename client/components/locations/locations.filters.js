@@ -176,7 +176,21 @@ app.filter('emptyFilter', ['$window', function(window) {
     if ( input === undefined || input === null || input === '') {
       return 'N/A';
     } else {
-      return input; 
+      return input;
+    }
+  };
+}]);
+
+app.filter('splashStatus', ['$window', function(window) {
+  return function(online,status) {
+    if ( !online ) {
+      if ( status !== 'dnat' ) {
+        return 'Not logged in';
+      } else {
+        return 'Online';
+      }
+    } else {
+      return 'Offline';
     }
   };
 }]);
