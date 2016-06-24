@@ -28,6 +28,7 @@
 ../client/components/boxes/firmware/_upgrade_firmware.html
 ../client/components/boxes/firmware/_upgrade_firmware_dialog.html
 ../client/components/boxes/firmware/index.html
+../client/components/boxes/index/sidebar.html
 ../client/components/boxes/new/_add.html
 ../client/components/boxes/new/index.html
 ../client/components/boxes/payloads/_bulk.html
