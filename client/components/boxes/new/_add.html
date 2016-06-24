@@ -1,9 +1,9 @@
-<div flex="" layout="column" class="layout-column flex" >
+<div flex="" layout="column" class="layout-column flex">
 
   <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
       <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Location' | translate }}">
-        <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
+        <md-icon md-font-icon="arrow-left">arrow_back</md-icon>
       </md-button>
       <p translate>Back to Location</p>
     </div>
@@ -48,7 +48,7 @@
                     </div>
                   </md-input-container>
 
-                  <md-input-container flex ng-if="zones.length > 0" style="padding-bottom: 10px;">
+                  <md-input-container flex ng-if="zones.length> 0" style="padding-bottom: 10px;">
                     <label translate>Zone</label>
                     <md-select ng-model="temp.zone_id">
                       <md-option value=""></md-option>
@@ -85,7 +85,7 @@
                   <p translate>Select the ones you want to add.</p>
 
                   <div layout="row" flex="100" flex-gt-sm="40">
-                    <md-input-container flex ng-if="zones.length > 1" style="padding-bottom: 10px;" flex="50">
+                    <md-input-container flex ng-if="zones.length> 1" style="padding-bottom: 10px;" flex="50">
                       <label translate>Choose a Zone</label>
                       <md-select ng-model="temp.zone_id" required>
                         <md-option ng-repeat="zone in zones" value="{{zone.id}}">
@@ -155,5 +155,3 @@
     </div>
   </md-content>
 </div>
-
-
