@@ -147,15 +147,15 @@ app.filter('lastSeen', [function() {
   };
 }]);
 
-app.filter('humanBool', ['$window', function(window) {
+app.filter('humanBoolean', ['$window', function(window) {
   return function(input) {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
       if ( input === true ) {
-        return 'Enabled';
+        return 'enabled';
       } else {
-        return 'Disabled';
+        return 'disabled';
       }
     }
   };
