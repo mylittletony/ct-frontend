@@ -67,9 +67,9 @@
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">
             <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
-              <span translate>Alerts</span>
-              <span ng-if="box.is_monitored" translate>enabled</span>
-              <span ng-if="!box.is_monitored" translate>disabled</span>
+              <span translate>Alerts {{ box.is_monitored | humanBool }}</span>
+              <!-- <span ng-if="box.is_monitored" translate>enabled</span>
+              <span ng-if="!box.is_monitored" translate>disabled</span> -->
             </md-switch>
             <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}" translate>
               Cucumber Box
