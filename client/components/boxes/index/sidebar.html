@@ -1,0 +1,39 @@
+<div class="hide-for-small" id="sidebar" ng-show="loading != true">
+  <ul class="side-nav">
+    <h4 translate>States</h4>
+    <span ng-show="aggregations.states.length > 1">
+      <ul ng-repeat="state in aggregations.states" class="no-bullet">
+        <li><input ng-change="state_s()" type="checkbox" name="selection[]" value="{{ state.key }}" ng-model="state_selection[$index]"> {{ state.key | titleCase }} ({{ state.count }})</li>
+      </ul>
+    </span>
+    <span ng-show="aggregations.states.length == 0">
+      <p translate>Not enough results for a filter.</p>
+    </span>
+    <hr>
+    </span>
+    <span ng-show="aggregations.environments.length > 1">
+      <h4 translate>Environments</h4>
+      <ul ng-repeat="env in aggregations.environments" class="no-bullet">
+        <li><input ng-change="envs()" type="checkbox" name="selection[]" value="{{ env.key }}" ng-model="env_selection[$index]"> {{ env.key | titleCase }} ({{ env.count }})</li>
+      </ul>
+      <hr>
+    </span>
+
+    <span ng-show="aggregations.firmwares.length > 1">
+      <h4 translate>Firmwares</h4>
+      <ul ng-repeat="firmware in aggregations.firmwares" class="no-bullet">
+        <li><input ng-change="fws()" type="checkbox" name="selection[]" value="{{ firmware.key }}" ng-model="fw_selection[$index]"> {{ firmware.key | truncate:15 | titleCase }} ({{ firmware.count }})</li>
+      </ul>
+      <hr>
+    </span>
+
+    <span ng-show="aggregations.types.length > 1">
+      <h4 translate>Types</h4>
+      <ul ng-repeat="mt in aggregations.types" class="no-bullet">
+        <li><input ng-click="mts()" type="checkbox" name="selection[]" value="{{ mt.key }}" ng-model="mt_selection[$index]"> {{ mt.key | truncate:15 | titleCase }} ({{ mt.count }})</li>
+      </ul>
+      <hr>
+    </span>
+  </ul>
+</div>
+

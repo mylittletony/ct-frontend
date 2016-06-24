@@ -54,19 +54,14 @@ app.filter('deviceStatus', function() {
       switch(state) {
         case 'online':
           return 'Device online';
-          break;
         case 'processing':
           return 'Waiting for configs';
-          break;
         case 'offline':
           return 'Device offline';
-          break;
         case 'upgrading':
           return 'Device upgrading';
-          break;
         case 'new':
           return 'New device';
-          break;
         default:
           // default
       }}
@@ -81,16 +76,12 @@ app.filter('statusColour', function() {
       switch(state) {
         case 'online':
           return '#16AC5B';
-          break;
         case 'rebooting':
           return 'Device rebooting';
-          break;
         case 'offline':
           return '#F44336';
-          break;
         case 'splash_only':
           return '#009688';
-          break;
         default:
           return '#607D8B';
       }}
