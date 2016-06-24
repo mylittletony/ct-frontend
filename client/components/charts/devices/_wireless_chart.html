@@ -15,48 +15,48 @@
         </button>
         <md-menu-content width="3">
           <md-menu-item>
-            <md-button ng-click="changeType()">
+            <md-button ng-click="changeType()" translate>
               Splash Sessions
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeType('uniques')">
+            <md-button ng-click="changeType('uniques')" translate>
               Splash Users
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeType('impressions')">
+            <md-button ng-click="changeType('impressions')" translate>
               Splash Views
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeType('usage')">
+            <md-button ng-click="changeType('usage')" translate>
               Usage Data
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeType('clients')">
+            <md-button ng-click="changeType('clients')" translate>
               Wireless Clients
             </md-button>
           </md-menu-item>
           <md-menu-divider></md-menu-divider>
           <md-menu-item>
-            <md-button ng-click="changeFn('mean')">
+            <md-button ng-click="changeFn('mean')" translate>
               Average Values
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeFn('max')">
+            <md-button ng-click="changeFn('max')" translate>
               Max. Values
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeFn('median')">
+            <md-button ng-click="changeFn('median')" translate>
               Median Values
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeFn('sum')" ng-disabled="type == 'tx'">
+            <md-button ng-click="changeFn('sum')" ng-disabled="type == 'tx'" translate>
               Sum
             </md-button>
           </md-menu-item>
@@ -68,7 +68,7 @@
     <div id="location-chart"></div>
     <div>
       <div layout="row" ng-if="noData || loading" style="min-height: 250px;" layout-align="left end" class="muted">
-        <p><small><span ng-if="noData">No graph data</span><span ng-if="loading">Loading graph data</span></small></p>
+        <p><small><span ng-if="noData" translate>No graph data</span><span ng-if="loading" translate>Loading graph data</span></small></p>
       </div>
       <md-progress-linear ng-if="loading" md-mode="query"></md-progress-linear>
     </div>
