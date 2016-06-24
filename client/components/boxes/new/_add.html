@@ -110,7 +110,8 @@
                           <td md-cell>{{ box.mac }}</td>
                           <td hide show-gt-sm md-cell>{{ box.type }}</td>
                           <td md-cell ng-click="editDescription($event, box)" ng-class="{'md-placeholder': !box.description}">
-                            {{box.description || 'Add a comment'}}
+                            <span ng-if="box.description">{{ box.description }}</span>
+                            <span ng-if="!box.description" translate>Add a comment</span>
                           </td>
                         </tr>
                       </tbody>
