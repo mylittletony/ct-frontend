@@ -4,21 +4,21 @@
 
 var app = angular.module('myApp.heartbeats.filters', []);
 
-app.filter('heartbeatOnline', function() {
+app.filter('heartbeatOnline', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     input = input || '';
-    return input === 'true' ? 'Online' : 'Offline';
+    return input === 'true' ? gettextCatalog.getString('Online') : gettextCatalog.getString('Offline');
   };
-});
+}]);
 
-app.filter('disconnectReason', function() {
+app.filter('disconnectReason',['getString', function(gettextCatalog) {
   return function(input) {
     input = input || '';
     if (input === '') {
-      return 'Unknown';
+      return gettextCatalog.getString('Unknown');
     } else {
-      return input === 'connectivity' ? 'Lost Connection' : 'Lost Power';
+      return input === 'connectivity' ? gettextCatalog.getString('Lost Connection') : gettextCatalog.getString('Lost Power');
     }
   };
-});
+}]);
 

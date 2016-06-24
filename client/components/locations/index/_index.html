@@ -16,7 +16,7 @@
             md-min-length="5"
             md-autofocus="true"
             md-menu-class="locations-autocomplete"
-            placeholder="Search">
+            placeholder="{{ 'Search' | translate }}">
 
           <md-item-template >
             <a ng-click="go(item.slug)">
@@ -31,29 +31,29 @@
               </span>
             </a>
           </md-item-template>
-          <md-not-found>
+          <md-not-found translate>
             No results found.
           </md-not-found>
         </md-autocomplete>
         <br/>
       </form>
       <div flex></div>
-      <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="Add Device" hide show-gt-xs>
+      <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="{{ 'Add Device' | translate }}" hide show-gt-xs>
         <md-icon>add_circle</md-icon>
-        <md-tooltip md-direction="bottom">
+        <md-tooltip md-direction="bottom" translate>
           Add a new location.
         </md-tooltip>
       </md-button>
-      <md-button class="md-icon-button" href="" aria-label="Map" hide show-gt-xs>
+      <md-button class="md-icon-button" href="" aria-label="{{ 'Map' | translate }}" hide show-gt-xs>
         <md-icon>map</md-icon>
-        <md-tooltip md-direction="bottom">
+        <md-tooltip md-direction="bottom" translate>
           View device map.
         </md-tooltip>
       </md-button>
       <span hide show-gt-xs>
-        <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="Switch 1" ng-change='streamingUpdater()'>
+        <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
         </md-switch>
-        <md-tooltip md-direction="bottom">
+        <md-tooltip md-direction="bottom" translate>
           Streaming updates.
         </md-tooltip>
       </span>

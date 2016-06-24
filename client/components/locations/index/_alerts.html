@@ -7,7 +7,7 @@
         <div class="md-toolbar-tools">
           <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
             <md-icon md-font-icon="search">search</md-icon>
-            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="Filter Devices">
+            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
           </md-input-container>
         </div>
         <md-divider></md-divider>
@@ -23,13 +23,13 @@
               <md-card-title-text>
                 <span class="md-headline">
                   <md-icon>router</md-icon>
-                  No Offline Devices Found
+                  <translate>No Offline Devices Found</translate>
                 </span>
               </md-card-title-text>
             </md-card-title>
             <md-card-content>
               <md-card-actions layout="row" layout-align="end center">
-                <md-button href="/#/">Back</md-button>
+                <md-button href="/#/" translate>Back</md-button>
               </md-card-actions>
             </md-card-content>
           </md-card>
@@ -50,13 +50,13 @@
               <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="logOrder">
                   <tr md-row>
-                    <th md-column md-order-by="state"><span>State</span></th>
-                    <th md-column hide show-gt-sm md-order-by="machine_type" md-desc><span>Type</span></th>
-                    <th md-column md-order-by="description"><span>Description</span></th>
-                    <th md-column hide show-gt-sm md-order-by="location_name"><span>Location</span></th>
-                    <th md-column hide show-gt-sm md-order-by="last_heartbeat"><span>Last Seen</span></th>
-                    <th md-column hide show-gt-md md-order-by="mac" class="no-padding"><span>Mac</span></th>
-                    <th md-column><span>Action</span></th>
+                    <th md-column md-order-by="state"><span translate>State</span></th>
+                    <th md-column hide show-gt-sm md-order-by="machine_type" md-desc><span translate>Type</span></th>
+                    <th md-column md-order-by="description"><span translate>Description</span></th>
+                    <th md-column hide show-gt-sm md-order-by="location_name"><span translate>Location</span></th>
+                    <th md-column hide show-gt-sm md-order-by="last_heartbeat"><span translate>Last Seen</span></th>
+                    <th md-column hide show-gt-md md-order-by="mac" class="no-padding"><span translate>Mac</span></th>
+                    <th md-column><span translate>Action</span></th>
                   </tr>
                 </thead>
                 <tbody md-body>
@@ -92,20 +92,20 @@
                     </td>
                     <td md-cell>
                       <md-menu>
-                        <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                           <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4" >
                           <md-menu-item>
                             <md-button href="/#/locations/{{ box.location_slug }}/devices/{{ box.slug }}">
                               <md-icon>router</md-icon>
-                              <p flex>View Device</p>
+                              <p flex translate>View Device</p>
                             </md-button>
                           </md-menu-item>
                           <md-menu-item>
                             <md-button href="/#/locations/{{ box.location_slug }}">
                               <md-icon>business</md-icon>
-                              <p flex>Location</p>
+                              <p flex translate>Location</p>
                             </md-button>
                           </md-menu-item>
                           <md-menu-item ng-if="allowed">
