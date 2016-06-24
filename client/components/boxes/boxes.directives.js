@@ -41,28 +41,28 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.menuAction = function(type) {
       switch(type) {
-        case 'Edit':
+        case 'edit':
           editBox();
           break;
-        case 'Reboot':
+        case 'reboot':
           scope.rebootBox();
           break;
-        case 'Transfer':
+        case 'transfer':
           scope.transferBox();
           break;
-        case 'Payloads':
+        case 'payloads':
           scope.payloads();
           break;
-        case 'Resync':
+        case 'resync':
           scope.resyncBox();
           break;
-        case 'Changelog':
+        case 'changelog':
           viewHistory();
           break;
-        case 'Reset':
+        case 'reset':
           scope.resetBox();
           break;
-        case 'Delete':
+        case 'delete':
           scope.deleteBox();
           break;
       }
@@ -73,6 +73,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
       scope.menu.push({
         name: 'Edit',
+        type: 'edit',
         icon: 'settings'
       });
 
@@ -81,16 +82,19 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         scope.menu.push({
           name: 'Reboot',
           icon: 'autorenew',
+          type: 'reboot',
           disabled: !scope.box.allowed_job
         });
 
         scope.menu.push({
           name: 'Payloads',
+          type: 'payloads',
           icon: 'present_to_all',
         });
 
         scope.menu.push({
           name: 'Changelog',
+          type: 'changelog',
           icon: 'history',
         });
       }
@@ -98,6 +102,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.menu.push({
         name: 'Transfer',
         icon: 'transform',
+        type: 'transfer',
       });
 
       scope.menu.push({
