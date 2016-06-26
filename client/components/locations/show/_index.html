@@ -72,7 +72,7 @@
     <client-chart ng-if="!query">
       <location-chart ></location-chart>
     </client-chart>
-    <location-boxes filter="query" loading="loading" token="{{location.socket_token}}" streaming="location.streamingUpdates"></location-boxes>
+    <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
   </div>
 
 </md-content>

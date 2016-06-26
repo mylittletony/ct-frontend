@@ -406,7 +406,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
     menu.hideBurger = true;
     scope.location = { add_to_global_map: false, location_name: $routeParams.name };
 
-
     scope.save = function(form) {
       form.$setPristine();
       scope.location.creating = true;
@@ -1142,9 +1141,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
         channel = pusher.subscribe('private-' + attrs.token);
-        console.log('Binding to:', attrs.token);
+        console.log('Binding to:', channel.name);
         for( var i = 0; i < scope.boxes.length; ++i ) {
-          channel.bind('boxes_' + scope.boxes[i].socket_token, function(data) {
+          channel.bind('boxes_' + scope.boxes[i].pubsub_token, function(data) {
             updateBox(data.message);
           });
         }
@@ -1154,16 +1153,16 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     var updateBox = function(data) {
       data = JSON.parse(data);
       angular.forEach(scope.boxes, function(value, key) {
-        if (data.id === value.id) {
+        if (parseInt(data.id) === value.id) {
           var box = scope.boxes[key];
           box.calledstationid = data.calledstationid;
-          box.wan_proto       = data.wan_proto;
+          // box.wan_proto       = data.wan_proto;
           box.description     = data.description;
           box.last_heartbeat  = data.last_heartbeat;
           box.state           = data.state;
-          box.wan_ipaddr      = data.wan_ipaddr;
-          scope.boxes[key]       = box;
-          console.log('Updated', box.socket_token + ' at ' + new Date().getTime());
+          box.wan_ip          = data.wan_ip;
+          scope.boxes[key]    = box;
+          console.log('Updated', box.pubsub_token + ' at ' + new Date().getTime());
         }
       });
     };
