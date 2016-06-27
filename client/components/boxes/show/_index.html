@@ -9,14 +9,18 @@
     <span ng-if="box.state == 'offline'">
       <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" :  "volume_up" }}</md-icon>
       <md-tooltip md-direction="left">
-        <span translate>Box is</span>
-        <span ng-if="box.ignored" translate>muted. Will not appear in alerts.</span>
-        <span ng-if="!box.ignored" translate>not muted. Appears in alerts.</span>
+        <!-- <span translate>Box is</span> -->
+        <!-- <span ng-if="box.ignored" translate>muted. Will not appear in alerts.</span> -->
+        <!-- <span ng-if="!box.ignored" translate>not muted. Appears in alerts.</span> -->
       </md-tooltip>
     </span>
     <md-button hide show-gt-sm class="md-icon-button" ng-click="refresh()">
       <md-icon>zoom_out</md-icon>
-      <md-tooltip md-direction="left" translate>Reset zoom level</md-tooltip>
+      <md-tooltip md-direction="left">
+        <translate>
+          Reset zoom level
+        </translate>
+      </md-tooltip>
 
     </md-button>
     <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
@@ -177,8 +181,10 @@
                 {{ box.state | deviceStatus }}
                 <span ng-if="!box.connected && box.state == 'online'">
                   <md-icon>info_outline</md-icon>
-                  <md-tooltip translate>
-                    Device out of sync.
+                  <md-tooltip>
+                    <translate>
+                      Device out of sync.
+                    </translate>
                   </md-tooltip>
                 </span>
               </p>
