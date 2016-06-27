@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.networks.directives', []);
 
-app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', function(Network,$routeParams,$mdDialog,showToast,showErrors,$q) {
+app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', function(Network,$routeParams,$mdDialog,showToast,showErrors,$q, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
@@ -15,19 +15,19 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Edit Settings',
+        name: gettextCatalog.getString('Edit Settings'),
         icon: 'settings',
         type: 'settings'
       });
 
       scope.menu.push({
-        name: 'Change SSID',
+        name: gettextCatalog.getString('Change SSID'),
         icon: 'mode_edit',
         type: 'ssid'
       });
 
       scope.menu.push({
-        name: 'Delete Network',
+        name: gettextCatalog.getString('Delete Network'),
         icon: 'delete_forever',
         type: 'delete'
       });
@@ -80,10 +80,10 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     scope.updateBand = function(band) {
       switch(band) {
         case 'two':
-          scope.band = '2.4Ghz';
+          scope.band = gettextCatalog.getString('2.4Ghz');
           break;
         case 'five':
-          scope.band = '5Ghz';
+          scope.band = gettextCatalog.getString('5Ghz');
           break;
         default:
           scope.band = '';
@@ -119,11 +119,11 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
     var destroy = function(network) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Network')
-      .textContent('Are you sure you want to delete this network?')
-      .ariaLabel('Delete Network')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Network'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this network?'))
+      .ariaLabel(gettextCatalog.getString('Delete Network'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         scope.destroy(network);
       }, function() {
@@ -142,7 +142,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       for (var i = 0, len = scope.networks.length; i < len; i++) {
         if (scope.networks[i].id === network.id) {
           scope.networks.splice(i, 1);
-          showToast('Network successfully deleted.');
+          showToast(gettextCatalog.getString('Network successfully deleted.'));
           break;
         }
       }
@@ -150,7 +150,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
     scope.update = function(network) {
       Network.update({location_id: scope.location.slug, id: network.id, network: { ssid: network.ssid }}).$promise.then(function(results) {
-        showToast('SSID updated, your boxes will resync');
+        showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
         network.state = undefined;
       }, function(error) {
         showErrors(error);
@@ -176,7 +176,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
 }]);
 
-app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', function(Network, Zone, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors) {
+app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network, Zone, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -208,7 +208,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
       Network.create({location_id: scope.location.slug, network: network}).$promise.then(function(results) {
         network.id = results.id;
         scope.networks.push(network);
-        showToast('Network created successfully');
+        showToast(gettextCatalog.getString('Network created successfully'));
       }, function(err) {
         showErrors(err);
       });
@@ -272,7 +272,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
 
 }]);
 
-app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', function(Network, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog) {
+app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(Network, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -295,17 +295,17 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
     var createMenu = function() {
       scope.menu = [];
       scope.menu.push({
-        name: 'Delete Network',
+        name: gettextCatalog.getString('Delete Network'),
         icon: 'delete_forever',
         type: 'delete'
       });
       scope.menu.push({
-        name: 'View Zones',
+        name: gettextCatalog.getString('View Zones'),
         icon: 'layers',
         type: 'zones',
       });
       scope.menu.push({
-        name: 'Test Radius',
+        name: gettextCatalog.getString('Test Radius'),
         icon: 'network_check',
         type: 'radius',
         disabled: scope.network.access_type !== 'radius'
@@ -347,11 +347,11 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     var destroy = function(network) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Network')
-      .textContent('Are you sure you want to delete this network?')
-      .ariaLabel('Delete Network')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Network'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this network?'))
+      .ariaLabel(gettextCatalog.getString('Delete Network'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         scope.destroy(network);
       }, function() {
@@ -361,7 +361,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
     scope.destroy = function(slug) {
       Network.destroy({location_id: scope.location.slug, id: scope.network.id}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug + '/networks');
-        showToast('Network successfully deleted.');
+        showToast(gettextCatalog.getString('Network successfully deleted.'));
       }, function(err) {
         showErrors(err);
       });
@@ -383,7 +383,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.sync = function() {
       scope.network.state = 'syncing';
-      var msg = 'This will cause a full re-sync of all your boxes, nothing bad will happen. Just sayin. \n\nYour users will be disconnected and the earth will stop spinning temporarily.\n\nBe safe, be seen.';
+      var msg = gettextCatalog.getString('This will cause a full re-sync of all your boxes, nothing bad will happen. Just sayin. \n\nYour users will be disconnected and the earth will stop spinning temporarily.\n\nBe safe, be seen.');
       if ( window.confirm(msg) ) {
         Network.update({location_id: $routeParams.location_id, id: scope.network.id, network: { sync: true }}).$promise.then(function(results) {
           scope.network.state     = undefined;
@@ -400,7 +400,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
     scope.update = function(form) {
       form.$setPristine();
       Network.update({location_id: scope.location.slug, id: scope.network.id, network: scope.network}).$promise.then(function(results) {
-        showToast('Network successfully updated.');
+        showToast(gettextCatalog.getString('Network successfully updated.'));
       }, function(err) {
         showErrors(err);
       });
@@ -473,7 +473,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         radiusNotifications();
       }, function(err) {
         $mdDialog.cancel();
-        showErrors('There was a problem processing your request.');
+        showErrors(gettextCatalog.getString('There was a problem processing your request.'));
         scope.radtest = {};
       });
     };
@@ -486,9 +486,9 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         channel.bind('radtest-complete', function(data) {
           scope.radtest.state = undefined;
           if (data.message.res === true) {
-            scope.radtest.results = 'You authenticated successfully.';
+            scope.radtest.results = gettextCatalog.getString('You authenticated successfully.');
           } else {
-            scope.radtest.results = 'Your tests failed. Check your radius credentials and ensure you have added our IP ranges.';
+            scope.radtest.results = gettextCatalog.getString('Your tests failed. Check your radius credentials and ensure you have added our IP ranges.');
           }
         });
       }
@@ -509,15 +509,15 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
     scope.disabled = function(network) {
       if (network) {
         if (network.make_part_of_lan === true) {
-          return 'IP settings disabled because repeater mode is enabled.';
+          return gettextCatalog.getString('IP settings disabled because repeater mode is enabled.');
         } else if (network.network_radio_mode === 'sta') {
-          return 'IP settings disabled because repeater mode is enabled.';
+          return gettextCatalog.getString('IP settings disabled because repeater mode is enabled.');
         } else if (network.captive_portal_enabled === true) {
-          return 'IP settings disabled because splash page is activated.';
+          return gettextCatalog.getString('IP settings disabled because splash page is activated.');
         } else if (network.content_filter !== 'Off') {
-          return 'DNS settings disabled because content filtering is enabled.';
+          return gettextCatalog.getString('DNS settings disabled because content filtering is enabled.');
         } else {
-          return 'Options may be unavailable when an incompatible feature is enabled.';
+          return gettextCatalog.getString('Options may be unavailable when an incompatible feature is enabled.');
         }
       }
     };
