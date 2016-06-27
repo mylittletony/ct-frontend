@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.social.directives', []);
 
-app.directive('showSocial', ['Social', '$routeParams', '$timeout', '$location', function(Social, $routeParams, $timeout, $location) {
+app.directive('showSocial', ['Social', '$routeParams', '$timeout', '$location', 'gettextCatalog', function(Social, $routeParams, $timeout, $location, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -27,7 +27,7 @@ app.directive('showSocial', ['Social', '$routeParams', '$timeout', '$location', 
         scope.social.notes  = results.social.notes;
         scope.social.state  = 'updated';
       }, function(err) {
-        scope.social.errors  = 'There was a problem updating this user.';
+        scope.social.errors  = gettextCatalog.getString('There was a problem updating this user.');
         scope.social.state  = undefined;
       });
     };
