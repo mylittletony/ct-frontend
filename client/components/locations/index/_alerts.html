@@ -95,7 +95,7 @@
                         <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                           <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                         </md-button>
-                        <md-menu-content width="4" >
+                        <md-menu-content width="4">
                           <md-menu-item>
                             <md-button href="/#/locations/{{ box.location_slug }}/devices/{{ box.slug }}">
                               <md-icon>router</md-icon>
@@ -108,10 +108,10 @@
                               <p flex translate>Location</p>
                             </md-button>
                           </md-menu-item>
-                          <md-menu-item ng-if="allowed">
+                          <md-menu-item >
                             <md-button ng-click="ignore(box)">
                               <md-icon>volume_up</md-icon>
-                              <p flex>{{ box.ignored ? "Un-mute" : "Mute" }}</p>
+                              <p flex>{{ box.ignored | booleanToggle }}</p>
                             </md-button>
                           </md-menu-item>
                         </md-menu-content>

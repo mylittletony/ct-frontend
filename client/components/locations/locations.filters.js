@@ -161,6 +161,20 @@ app.filter('humanBoolean', ['$window', function(window) {
   };
 }]);
 
+app.filter('booleanToggle', ['$window', function(window) {
+  return function(input) {
+    if ( input === undefined || input === null) {
+      return 'N/A';
+    } else {
+      if ( input === true ) {
+        return 'Enable';
+      } else {
+        return 'Disable';
+      }
+    }
+  };
+}]);
+
 app.filter('updateCreate', ['$window', function(window) {
   return function(input) {
     if ( input === undefined || input === null || input === '') {
@@ -183,8 +197,8 @@ app.filter('emptyFilter', ['$window', function(window) {
 
 app.filter('splashStatus', ['$window', function(window) {
   return function(online,status) {
-    if ( !online ) {
-      if ( status !== 'dnat' ) {
+    if ( online ) {
+      if ( status == 'dnat' ) {
         return 'Not logged in';
       } else {
         return 'Online';
