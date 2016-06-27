@@ -1,17 +1,17 @@
 <div>
   <md-input-container class="md-block" flex-gt-xs="50">
-    <label>Run Payload</label>
+    <label translate>Run Payload</label>
     <md-select ng-model="command.selected">
       <md-option ng-repeat="cmd in commands" value="{{cmd.unique_id}}">
         {{cmd.payload_description}}
       </md-option>
     </md-select>
   </md-input-container>
-  <md-button ng-disabled="!command.selected || !allowed" class="md-raised" ng-click="runCommand()">RUN</md-button>
+  <md-button ng-disabled="!command.selected || !allowed" class="md-raised" ng-click="runCommand()" translate>RUN</md-button>
 </div>
-<p ng-hide="allowed">You can"t run a payload on this box since it"s not connected or is already processing a job.</p>
+<p ng-hide="allowed" translate>You can"t run a payload on this box since it"s not connected or is already processing a job.</p>
 <div ng-if="command.success">
-  // <p>Payload running, please wait.</p>
+  // <p translate>Payload running, please wait.</p>
   // <md-progress-linear md-mode="query"></md-progress-linear>
 </div>
 </div>

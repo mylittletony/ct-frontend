@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.payloads.directives', []);
 
-app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 'showErrors', function(Payload, Command, $routeParams, showToast, showErrors) {
+app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 'showErrors', 'gettextCatalog', function(Payload, Command, $routeParams, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -26,7 +26,7 @@ app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 
         command_id: cmd
       }}).$promise.then(function() {
         // scope.command.success = true;
-        showToast('Payload running, please wait.');
+        showToast(gettextCatalog.getString('Payload running, please wait.'));
       }, function(errors) {
         showErrors(errors);
       });
