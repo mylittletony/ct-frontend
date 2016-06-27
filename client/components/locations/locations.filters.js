@@ -153,9 +153,9 @@ app.filter('humanBoolean', ['$window', function(window) {
       return 'N/A';
     } else {
       if ( input === true ) {
-        return 'enabled';
+        return 'Enabled';
       } else {
-        return 'disabled';
+        return 'Disabled';
       }
     }
   };
