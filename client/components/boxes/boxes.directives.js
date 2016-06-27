@@ -354,7 +354,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         channel = pusher.subscribe('private-' + scope.box.location_pubsub);
         console.log('Binding to:', channel.name);
         channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
-          console.log('Message recvd.', data);
+          console.log('Message received at', new Date().getTime() / 1000);
           processNotification(data.message);
         });
       }
@@ -368,8 +368,27 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
             timestamp: data.message.timestamp
           };
           break;
-        case 'xxxxxxxxxxxxxx':
+        case 'installer':
+          if (data.status === true) {
+            init();
+            showToast('Device installed successfully.');
+          } else {
+            scope.box.state = 'new';
+            showToast('Device failed to install, please wait.');
+          }
           break;
+        case 'upgrade':
+          if (data.status === true) {
+            scope.box.state = 'upgrading';
+            showToast('Upgrade running, please wait while it completes.');
+          } else {
+            showToast('Upgrade failed to run. Please try again.');
+          }
+          break;
+        default:
+          // Replace this with the object as sent by pusher
+          // Needs to be replaced in the backend workers first
+          init();
       }
     };
 
@@ -587,19 +606,6 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
         scope.payloads = data;
       });
     };
-
-    // var channel;
-    // function loadPusher(key) {
-    //   if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
-    //     scope.pusherLoaded = true;
-    //     var pusher = $pusher(client);
-    //     channel = pusher.subscribe('private-' + scope.box.location_pubsub);
-    //     channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
-    //       console.log('Message recvd.', data);
-    //       init();
-    //     });
-    //   }
-    // }
 
     var channel;
     function loadPusher() {
