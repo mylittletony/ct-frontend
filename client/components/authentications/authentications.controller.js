@@ -2,8 +2,8 @@
 
 var app = angular.module('myApp.authentications.controller', []);
 
-app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies', 'Me', '$location', 'locationHelper', 'CTLogin', '$routeParams', '$localStorage',
-  function($scope,$rootScope,$cookies,Me,$location,locationHelper,CTLogin,$routeParams,$localStorage) {
+app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies', 'Me', '$location', 'locationHelper', 'CTLogin', '$routeParams', '$localStorage', '$timeout',
+  function($scope,$rootScope,$cookies,Me,$location,locationHelper,CTLogin,$routeParams,$localStorage,$timeout) {
 
     $scope.ct_login              = CTLogin;
     $scope.ct_login.active       = true;
@@ -24,6 +24,7 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
         $scope.ct_login.active = undefined;
       }, function(err) {
         console.log('CTME Auth 401');
+        $cookies.remove('_cta' );
         $cookies.remove('_cta', { domain: domain } );
         if ($localStorage.user) {
           $localStorage.user.refresh = undefined;
@@ -33,10 +34,15 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
     };
 
     if ($routeParams.token) {
-      console.log(domain);
-      $cookies.put('_cta', $routeParams.token);
-      $cookies.put('_cta', $routeParams.token, { domain: domain });
-      getMe();
+      if ($localStorage.user) {
+        $localStorage.user.refresh = undefined;
+      }
+      $timeout(function() {
+        console.log(domain, $routeParams.token);
+        $cookies.put('_cta', $routeParams.token);
+        $cookies.put('_cta', $routeParams.token, { domain: domain });
+        getMe();
+      }, 500);
     } else {
       window.location.href = '/';
       // login();

@@ -32,6 +32,7 @@
               <div ng-message="required">You must give the batch a name</div>
             </div>
           </md-input-container>
+
           <md-input-container class="md-block" flex-gt-sm>
             <label>Batch Description</label>
             <input name="desc" ng-model="voucher.batch_description" md-maxlength=255 required>
@@ -83,11 +84,12 @@
               </div>
             </md-input-container>
 
-            <md-switch aria-label="Active switch" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
-              Voucher {{ voucher.is_active ? "Enabled" : "Disabled" }}
-            </md-switch>
-
           </div>
+          
+          <md-switch aria-label="Active switch" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
+            Voucher {{ voucher.is_active ? "Enabled" : "Disabled" }}
+          </md-switch>
+
         </div>
       </div>
 

@@ -221,8 +221,8 @@ msgstr ""
 msgid "Add a Device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1504
-#: client/components/boxes/boxes.directives.js:1509
+#: client/components/boxes/boxes.directives.js:1503
+#: client/components/boxes/boxes.directives.js:1508
 #: client/components/boxes/new/_add.html:114
 msgid "Add a comment"
 msgstr ""
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Authorisation Code"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1432
+#: client/components/boxes/boxes.directives.js:1431
 msgid "Automatically discovered"
 msgstr ""
 
@@ -456,6 +456,10 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:321
 msgid "Box transfer was a success."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1262
+msgid "Box upgrading. Do not unplug or restart your device."
 msgstr ""
 
 #: client/components/locations/index/_favourites.html:51
@@ -1845,6 +1849,10 @@ msgstr ""
 msgid "Payload Output"
 msgstr ""
 
+#: client/components/boxes/boxes.directives.js:585
+msgid "Payload completed!"
+msgstr ""
+
 #: client/components/boxes/payloads/show.html:6
 msgid "Payload created on {{ payload.created_at | humanTime }}"
 msgstr ""
@@ -2083,7 +2091,7 @@ msgstr ""
 msgid "Running payload, please be patient."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1571
+#: client/components/boxes/boxes.directives.js:1570
 msgid "Running speedtest, please wait."
 msgstr ""
 
@@ -2684,8 +2692,7 @@ msgstr ""
 msgid "Usage Data"
 msgstr ""
 
-#: client/components/codes/_index.html:48
-#: client/components/codes/_table.html:8
+#: client/components/codes/_index.html:48 client/components/codes/_table.html:8
 #: client/components/locations/clients/_show_code.html:27
 #: client/components/locations/clients/codes.html:31
 msgid "Username"
@@ -2901,11 +2908,11 @@ msgstr ""
 msgid "Your customers enter this on the login pages."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1448
+#: client/components/boxes/boxes.directives.js:1447
 msgid "Your device has been added."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1451
+#: client/components/boxes/boxes.directives.js:1450
 msgid "Your devices have been added."
 msgstr ""
 

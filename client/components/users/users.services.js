@@ -87,8 +87,8 @@ app.factory('UserSettings', ['$resource', 'API_END_POINT',
   }
 ]);
 
-app.factory('Me', ['$resource', '$localStorage', 'API_END_POINT',
-  function($resource, $localStorage, API_END_POINT){
+app.factory('Me', ['$resource', 'API_END_POINT',
+  function($resource, API_END_POINT){
     return $resource(API_END_POINT + '/me.json', {}, {
       get: {
         params: {
