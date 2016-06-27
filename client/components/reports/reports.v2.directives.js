@@ -6,11 +6,11 @@ app.factory('Locations', [function() {
   return { current: '', all: '' };
 }]);
 
-app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location', '$q', '$window', 'Locations', '$timeout', '$cookies', '$route', function(Report, $routeParams,$location, Location, $q, $window, Locations, $timeout, $cookies, $route) {
+app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location', '$q', '$window', 'Locations', '$timeout', '$cookies', '$route', 'gettextCatalog', function(Report, $routeParams,$location, Location, $q, $window, Locations, $timeout, $cookies, $route, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
-    scope.period = $routeParams.period || '7d';
+    scope.period = $routeParams.period || gettextCatalog.getString('7d');
 
     var cid = $cookies.get('_ctlid');
     if (cid) {
@@ -154,7 +154,7 @@ app.directive('radiusReports', ['Report', '$routeParams', '$location', 'Location
 
 }]);
 
-app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '$q', '$route', '$cookies', 'menu', function(Report, $routeParams,$location,Location, $q, $route, $cookies, menu) {
+app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '$q', '$route', '$cookies', 'menu', 'gettextCatalog', function(Report, $routeParams,$location,Location, $q, $route, $cookies, menu, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -166,7 +166,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
     }
     menu.hideBurger = false;
     menu.sections = [{}];
-    menu.sectionName = 'Reports';
+    menu.sectionName = gettextCatalog.getString('Reports');
     menu.header = '';
 
     var isActive = function(path) {
@@ -179,10 +179,10 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
     };
 
     var createMenu = function() {
-      menu.header = 'Usage Reports';
+      menu.header = gettextCatalog.getString('Usage Reports');
 
       menu.sections.push({
-        name: 'Wireless Stats',
+        name: gettextCatalog.getString('Wireless Stats'),
         link: '/#/reports/',
         type: 'link',
         icon: 'wifi',
@@ -190,7 +190,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
       });
 
       menu.sections.push({
-        name: 'Radius Stats',
+        name: gettextCatalog.getString('Radius Stats'),
         type: 'link',
         link: '/#/reports/radius',
         icon: 'donut_large',
@@ -391,7 +391,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
         chart.setAction({
           id: 'record',
-          text: 'View ' + attrs.tooltip,
+          text: gettextCatalog.getString('View ') + attrs.tooltip,
           action: function() {
             var selection = chart.getSelection();
             shortener(json[selection[0].row].short);
@@ -465,7 +465,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
 }]);
 
-app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', function(Report, $routeParams, $location, Location, $timeout, $rootScope) {
+app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', 'gettextCatalog', function(Report, $routeParams, $location, Location, $timeout, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -603,16 +603,16 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     var createTitle = function() {
       switch(scope.type) {
         case 'usage':
-          scope.title = 'Radius Usage';
+          scope.title = gettextCatalog.getString('Radius Usage');
           break;
         case 'impressions':
-          scope.title = 'Splash Views';
+          scope.title = gettextCatalog.getString('Splash Views');
           break;
         case 'uniques':
-          scope.title = 'Radius Uniques';
+          scope.title = gettextCatalog.getString('Radius Uniques');
           break;
         default:
-          scope.title = 'Radius Sessions';
+          scope.title = gettextCatalog.getString('Radius Sessions');
       }
     };
 
@@ -662,7 +662,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
 }]);
 
-app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', function(Report, $routeParams, $location, Location, $timeout, $rootScope) {
+app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', 'gettextCatalog', function(Report, $routeParams, $location, Location, $timeout, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -802,10 +802,10 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
     var createTitle = function() {
       switch(scope.type) {
         case 'usage':
-          scope.title = 'Wireless Usage';
+          scope.title = gettextCatalog.getString('Wireless Usage');
           break;
         default:
-          scope.title = 'Unique Clients';
+          scope.title = gettextCatalog.getString('Unique Clients');
       }
     };
 

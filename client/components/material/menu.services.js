@@ -38,7 +38,7 @@ app.factory('showToast', ['$mdToast', function ($mdToast) {
 
 }]);
 
-app.factory('showErrors', ['$mdBottomSheet', function ($mdBottomSheet) {
+app.factory('showErrors', ['$mdBottomSheet', 'gettextCatalog', function ($mdBottomSheet, gettextCatalog) {
 
   // Serious tidy in order //
   // Should handle all the errors gracefully. It doesn't //
@@ -66,14 +66,14 @@ app.factory('showErrors', ['$mdBottomSheet', function ($mdBottomSheet) {
       e.push(errors.data.message);
     } else if (errors && errors.data) {
       console.log(errors);
-      err = errors.data || 'An unknown error occurred, try again.';
+      err = errors.data || gettextCatalog.getString('An unknown error occurred, try again.');
       e.push(err);
     } else if (errors && errors.message) {
       err = errors.message;
       e.push(err);
     } else {
       console.log(errors);
-      e.push('An unknown error occurred, please try again.');
+      e.push(gettextCatalog.getString('An unknown error occurred, please try again.'));
     }
     if (e.length > 0) {
       return e[0];

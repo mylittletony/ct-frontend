@@ -1,8 +1,8 @@
-<md-dialog aria-label="Health Check"  ng-cloak>
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
   <form name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Associated Zones</h2>
+        <h2 translate>Associated Zones</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
@@ -16,10 +16,10 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="view()">
+      <md-button ng-click="view()" translate>
         ZONES
       </md-button>
-      <md-button ng-click="close()">
+      <md-button ng-click="close()" translate>
         Close
       </md-button>
     </md-dialog-actions>

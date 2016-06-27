@@ -1,28 +1,28 @@
-<md-dialog aria-label="Transfer Location" ng-cloak>
+<md-dialog aria-label="{{ 'Transfer Location' | translate }}" ng-cloak>
   <form>
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h2>Transfer Location</h2>
+        <h2 translate>Transfer Location</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="row" layout-wrap>
         <div flex="100">
-          <p>Transfer this location to another user.</p>
-          <p>Enter the Account ID for the user, this can be found in their settings.</p>
+          <p translate>Transfer this location to another user.</p>
+          <p translate>Enter the Account ID for the user, this can be found in their settings.</p>
         </div>
         <md-input-container flex="100">
-          <label>User Account ID</label>
+          <label translate>User Account ID</label>
           <input ng-model="user.account_id" placeholder="A253444">
         </md-input-container>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="close()">
+      <md-button ng-click="close()" translate>
        Cancel
       </md-button>
-      <md-button ng-click="transfer(user.account_id)" ng-disabled="!user.account_id" class="md-raised md-primary">transfer</md-button>
+      <md-button ng-click="transfer(user.account_id)" ng-disabled="!user.account_id" class="md-raised md-primary" translate>transfer</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

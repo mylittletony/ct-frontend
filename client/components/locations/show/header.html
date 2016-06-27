@@ -15,13 +15,13 @@
       </span>
       <span ng-if='location.location_twitter'>
         <a href="http://twitter.com/{{ location.location_twitter}}"><i class='fa fa-twitter fa-sm'></i>
-        Twitter
+        <translate>Twitter</translate>
         </a>
         |
       </span>
       <span ng-if='location.facebook_link'>
         <a href="http://facebook.com/{{ location.facebook_link }}"><i class='fa fa-facebook fa-sm'></i>
-        Facebook
+        <translate>Facebook</translate>
         </a>
         |
       </span>
@@ -32,12 +32,12 @@
       </span>
     </p>
     <p class='visible-xs text-muted small'>
-      <a href="/locations/derby-city-council/edit">Edit details</a>
+      <a href="/locations/derby-city-council/edit" translate>Edit details</a>
     </p>
   </div>
   <div class='hidden-xs col-sm-2 col-md-2 col-lg-2'>
     <div id='location_profile_edit'>
-      <p ng-click="open('small')" class='btn btn-default btn-sm'><i class='fa fa-edit fa-sm'></i>Edit</p>
+      <p ng-click="open('small')" class='btn btn-default btn-sm'><i class='fa fa-edit fa-sm'></i><translate>Edit</translate></p>
       </div>
     </div>
   </div>

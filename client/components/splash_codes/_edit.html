@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Splash Codes</p>
+    <p translate>Splash Codes</p>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -14,16 +14,16 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">
+          <span class="md-headline" translate>
             You don't have any splash pages.
           </span>
-          <span class="md-subhead">
+          <span class="md-subhead" translate>
             Please create a splash page before generating some splash codes.
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button href="/#/locations/{{ location.slug }}/splash_pages">CREATE SPLASH</md-button>
+        <md-button href="/#/locations/{{ location.slug }}/splash_pages" translate>CREATE SPLASH</md-button>
       </md-card-actions>
     </md-card>
   </div>
@@ -34,11 +34,11 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Create New Password 
               </span>
               <span class="md-subhead" ng-show="splash_pages.length == 1">
-                This code will be for the splash page <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash_pages[0].id }}">{{ splash_pages[0].splash_name || "No name" }}</a>
+                <translate>This code will be for the splash page</translate> <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash_pages[0].id }}">{{ splash_pages[0].splash_name || "No name" }}</a>
 
               </span>
             </md-card-title-text>
@@ -47,7 +47,7 @@
             <div layout="row" layout-wrap>
               <input style="display:none" type="text" name="ssid"/>
               <md-input-container flex="100" ng-if="splash_pages.length > 1">
-                <label>Splash Page</label>
+                <label translate>Splash Page</label>
                 <md-select ng-model="code.splash_page_id" required>
                   <md-option ng-repeat="splash in splash_pages" value="{{splash.id}}">
                     {{splash.splash_name || 'No name' }}
@@ -55,51 +55,51 @@
                 </md-select>
               </md-input-container>
               <md-input-container flex="100">
-                <label>Password</label>
-                <input type="text" ng-model="code.password" name="password" placeholder="Enter a Password" ng-minlength="3" md-maxlength="20" md-select-on-focus required>
+                <label translate>Password</label>
+                <input type="text" ng-model="code.password" name="password" placeholder="{{ 'Enter a Password' | translate }}" ng-minlength="3" md-maxlength="20" md-select-on-focus required>
                 <div ng-messages="myForm.password.$error" md-auto-hide="false">
-                  <div ng-message="minlength">Must be greater than 3 characters</div>
-                  <div ng-message="md-maxlength">Max 20 characters</div>
-                  <div ng-message="required">You must set a password</div>
+                  <div ng-message="minlength" translate>Must be greater than 3 characters</div>
+                  <div ng-message="md-maxlength" translate>Max 20 characters</div>
+                  <div ng-message="required" translate>You must set a password</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50">
-                <label>Validity Minutes</label>
+                <label translate>Validity Minutes</label>
                 <input type="number" ng-model="code.volume" placeholder="" name="volume" ng-min="10" required>
                 <div ng-messages="myForm.volume.$error">
-                  <div ng-message="minlength">Must be greater than 10 minutes</div>
-                  <div ng-message="required">You must set the validity minutes</div>
+                  <div ng-message="minlength" translate>Must be greater than 10 minutes</div>
+                  <div ng-message="required" translate>You must set the validity minutes</div>
                 </div>
               </md-input-container>
               
               <md-input-container flex="50">
-                <label>Max. Users</label>
+                <label translate>Max. Users</label>
                 <input type="number" ng-model="code.simultaneous_use" name="sim_use" placeholder="" ng-min="1" required>
                 <div ng-messages="myForm.sim_use.$error">
-                  <div ng-message="min">Must be greater than 1</div>
-                  <div ng-message="required">You must set the max. users</div>
+                  <div ng-message="min" translate>Must be greater than 1</div>
+                  <div ng-message="required" translate>You must set the max. users</div>
                 </div>
               </md-input-container>
 
               <div flex="100">
                 <md-radio-group ng-model="code.period" layout="row" style="margin: -10px 0 10px 0;">
-                  <md-radio-button value="daily"> Per day </md-radio-button>
-                  <md-radio-button value="all" class="md-primary">All time</md-radio-button>
+                  <md-radio-button value="daily" translate> Per day </md-radio-button>
+                  <md-radio-button value="all" class="md-primary" translate>All time</md-radio-button>
                 </md-radio-group>
               </div>
 
               <div flex="100">
                 <div layout="column">
-                  <p>Download Speed ({{(code.download_speed / 1024) | number:0 }}Mbps)</p>
+                  <p translate>Download Speed ({{(code.download_speed / 1024) | number:0 }}Mbps)</p>
 
                   <md-slider-container>
-                    <md-slider flex ng-model="code.download_speed" min="56" max="51200" step="56" aria-label="down" id="down-slider" class="md-accent">
+                    <md-slider flex ng-model="code.download_speed" min="56" max="51200" step="56" aria-label="{{ 'down' | translate }}" id="down-slider" class="md-accent">
                     </md-slider>
                   </md-slider-container>
-                  <p>Upload Speed ({{(code.upload_speed / 1024) | number:0 }}Mbps)</p>
+                  <p translate>Upload Speed ({{(code.upload_speed / 1024) | number:0 }}Mbps)</p>
 
                   <md-slider-container flex="50">
-                    <md-slider flex ng-model="code.upload_speed" min="56" max="51200" step="56" aria-label="down" id="down-slider" class="md-accent">
+                    <md-slider flex ng-model="code.upload_speed" min="56" max="51200" step="56" aria-label="{{ 'down' | translate }}" id="down-slider" class="md-accent">
                     </md-slider>
                   </md-slider-container>
 
@@ -107,13 +107,13 @@
               </div>
 
               <div flex="100">
-                <p>Expiration Date</p>
-                <md-datepicker class="picker-wider" name="dateField" ng-model="code.expires" md-placeholder="Expiration Date" required md-min-date="minDate" style="margin: 10px 0 0 -10px;"></md-datepicker>
+                <p translate>Expiration Date</p>
+                <md-datepicker class="picker-wider" name="dateField" ng-model="code.expires" md-placeholder="{{ 'Expiration Date' | translate }}" required md-min-date="minDate" style="margin: 10px 0 0 -10px;"></md-datepicker>
               </div>
             </div>
           </md-card-content>
         </md-card>
-        <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
+        <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>Save</md-button>
       </form>
     </div>
   </div>

@@ -47,7 +47,7 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
 
 }]);
 
-app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'BrandName', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'Brand', function(Holding, $routeParams, $location, $rootScope, BrandName, locationHelper, $cookies, menu, Me, showErrors, showToast, Brand) {
+app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'BrandName', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'Brand', 'gettextCatalog', function(Holding, $routeParams, $location, $rootScope, BrandName, locationHelper, $cookies, menu, Me, showErrors, showToast, Brand, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -77,20 +77,20 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var setHeadings = function() {
       if ($location.hash() === 'done') {
-        scope.title = 'Your dashboard is being created.';
-        scope.subhead = 'You\'ll be on your way soon, please wait.';
+        scope.title = gettextCatalog.getString('Your dashboard is being created.');
+        scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
       } else if ($location.hash() === 'brand') {
-        scope.title = 'What web address do you want use for your dashboard?';
-        scope.subhead = 'This is the address you\'ll use to sign-in.';
+        scope.title = gettextCatalog.getString('What web address do you want use for your dashboard?');
+        scope.subhead = gettextCatalog.getString('This is the address you\'ll use to sign-in.');
       } else if ($location.hash() === 'user') {
-        scope.title = 'What should we call you?';
-        scope.subhead = 'You can call me Alice. Nice to meet you.';
+        scope.title = gettextCatalog.getString('What should we call you?');
+        scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
       } else if ($location.hash() === 'confirm') {
-        scope.title = 'Hello. Confirm your choices.';
-        scope.subhead = 'You can change all these later if you need.';
+        scope.title = gettextCatalog.getString('Hello. Confirm your choices.');
+        scope.subhead = gettextCatalog.getString('You can change all these later if you need.');
       } else if (!scope.creatingAccount) {
-        scope.title = 'What do you want to call your first network?';
-        scope.subhead = 'This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'';
+        scope.title = gettextCatalog.getString('What do you want to call your first network?');
+        scope.subhead = gettextCatalog.getString('This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'');
       }
     };
 
@@ -104,7 +104,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     scope.brandName = BrandName;
     if (scope.brandName.name === 'Cucumber WiFi') {
-      scope.brandName.name = 'My Awesome Company';
+      scope.brandName.name = gettextCatalog.getString('My Awesome Company');
     }
 
     scope.checkBrand = function(form) {
@@ -112,7 +112,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         Brand.query({
           id: scope.holding.url
         }).$promise.then(function(results) {
-          showToast('This URL has already been take, try another.');
+          showToast(gettextCatalog.getString('This URL has already been take, try another.'));
         }, function() {
           scope.brandOk = true;
         });

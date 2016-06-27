@@ -12,18 +12,18 @@
   <md-content class="md-padding" layout="column" layout-xs="column" layout-sm='row' iilayout-wrap layout-gt-sm='row'>
 
     <div flex-gt-sm="20">
-      <reports-pie hole="0.4" type="loyalty" title="Visitor Loyalty" render="loyalty"></reports-pie>
-      <reports-pie resource="radius" type="manufacturers" title="Manufacturers" render="mans"></reports-pie>
+      <reports-pie hole="0.4" type="loyalty" title="{{ 'Visitor Loyalty' | translate }}" render="loyalty"></reports-pie>
+      <reports-pie resource="radius" type="manufacturers" title="{{ 'Manufacturers' | translate }}" render="mans"></reports-pie>
     </div>
 
     <div flex-gt-sm="20">
-      <reports-pie hole="0.4" type="splash_data" title="Data Usage" render="data"></reports-pie>
-      <reports-pie hole="0.4" type="access_types" title="Access Types" render="access"></reports-pie>
+      <reports-pie hole="0.4" type="splash_data" title="{{ 'Data Usage' | translate }}" render="data"></reports-pie>
+      <reports-pie hole="0.4" type="access_types" title="{{ 'Access Types' | translate }}" render="access"></reports-pie>
     </div>
 
     <div flex-gt-sm="20">
-      <reports-pie hole="0.4" tooltip="Location" resource="radius_location" type="popular" title="Top Locations" render="popular" subhead="Top 10 locations by session count"></reports-pie>
-      <reports-pie hole="0.4" tooltip="Device" resource="radius_device" type="popular" title="Top Devices" render="popular_aps" subhead="Top aps by session count"></reports-pie>
+      <reports-pie hole="0.4" tooltip="Location" resource="radius_location" type="popular" title="{{ 'Top Locations' | translate }}" render="popular" subhead="{{ 'Top 10 locations by session count' | translate }}"></reports-pie>
+      <reports-pie hole="0.4" tooltip="{{ 'Device' | translate }}" resource="radius_device" type="popular" title="{{ 'Top Devices' | translate }}" render="popular_aps" subhead="{{ 'Top aps by session count' | translate }}"></reports-pie>
     </div>
 
   </md-content>
