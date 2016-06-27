@@ -9,7 +9,8 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
     var originalUrl;
     scope.brandName       = BrandName;
     scope.user            = Auth.currentUser();
-    scope.brand           = { creating: true };
+    scope.brand           = { creating: true, network_location: 'eu-west' };
+    scope.locations       = ['eu-west', 'us-central', 'us-west', 'asia-east'];
 
     if (scope.user) {
       if (scope.user.slug === $routeParams.id) {
@@ -67,14 +68,15 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
           id: scope.brand.id,
           brand:
             {
-              brand_name:     scope.brandName.name,
-              url:            scope.brand.url,
-              cname:          scope.brand.cname,
-              brand_image:    scope.brand.brand_image,
-              remove_image:   scope.brand.remove_image,
-              from_email:     scope.brand.from_email,
-              website:        scope.brand.website,
-              from_name:      scope.brand.from_name
+              brand_name:         scope.brandName.name,
+              url:                scope.brand.url,
+              cname:              scope.brand.cname,
+              brand_image:        scope.brand.brand_image,
+              remove_image:       scope.brand.remove_image,
+              from_email:         scope.brand.from_email,
+              website:            scope.brand.website,
+              from_name:          scope.brand.from_name,
+              network_location:   scope.brand.network_location
             }
         }).$promise.then(function(results) {
           scope.brand       = results;

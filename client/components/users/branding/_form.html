@@ -10,26 +10,6 @@
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
 
-  <!-- <div ng-if="!brand"> -->
-
-  <!-- <md-card> -->
-  <!--   <md-card-title> -->
-  <!--     <md-card-title-text> -->
-  <!--       <span class="md-headline"> -->
-  <!--         Get Started -->
-  <!--       </span> -->
-  <!--     </md-card-title-text> -->
-  <!--   </md-card-title> -->
-  <!--   <md-card-content> -->
-  <!--     <p>Create a Brand to customise the look and feel of your portal.</p> -->
-  <!--   </md-card-content> -->
-  <!--   <md-card-actions layout="row" layout-align="end center"> -->
-  <!--     <md-button ng-click="createBrand()" >Create</md-button> -->
-  <!--   </md-card-actions> -->
-  <!-- </md-card> -->
-
-  <!-- </div> -->
-
   <div flex layout="column" ng-if="brand">
 
     <form name="myForm" ng-submit="save(brand)">
@@ -63,8 +43,7 @@
                       </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-xs="50">
-                      <label>Brand URL</label>
-                      <input ng-disabled="brand.cname || user.ps" type="text" name="url" placeholder="Enter a dashboard url" ng-model="brand.url" md-maxlength=55 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required></input>
+                      <input ng-disabled="brand.cname || user.ps" type="text" name="url" placeholder="Dashboard URL" ng-model="brand.url" md-maxlength=55 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required></input>
                       <div ng-messages="myForm.url.$error" md-auto-hide="false">
                         <div ng-message="required">Please enter a brand URL</div>
                         <div ng-message="md-maxlength">Must be less than 55 characters</div>
@@ -114,23 +93,20 @@
               </md-card-title>
               <md-card-content layout="column" layout-gt-xs="row" layout-wrap>
                 <md-input-container class="md-block" flex-gt-xs="100">
-                  <label>Website</label>
-                  <input type="url" ng-model="brand.website" name="website" placeholder="https://acme.inc/wifi"></input>
+                  <input type="url" ng-model="brand.website" name="website" placeholder="Your Website"></input>
                   <div ng-messages="myForm.website.$error">
                     <div ng-message="required">Please enter a brand URL</div>
                     <div ng-message="url">Must be a valid URL</div>
                   </div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs="50">
-                  <label>From Email</label>
-                  <input type="email" ng-model="brand.from_email" name="from_email" placeholder="Email from address"></input>
+                  <input type="email" ng-model="brand.from_email" name="from_email" placeholder="From Email"></input>
                   <div ng-messages="myForm.from_email.$error">
                     <div ng-message="email">Must be a valid email</div>
                   </div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs="50">
-                  <label>From Name</label>
-                  <input type="text" ng-model="brand.from_name" name="from_name" placeholder="Sender name" md-maxlength=100></input>
+                  <input type="text" ng-model="brand.from_name" name="from_name" placeholder="Sender Name" md-maxlength=100></input>
                   <div ng-messages="myForm.from_name.$error">
                     <div ng-message="md-maxlength">Max 100 characters</div>
                   </div>
@@ -147,15 +123,15 @@
                 <md-card-title-text>
                   <span class="md-headline">
                     <md-icon md-font-icon="android" aria-label="android">star</md-icon>
-                    Custom Domain
+                    Advanced Settings
                   </span>
                   <span class="md-subhead">
-                    Use your own URL for the dashboard. Enterprise plans only.
+                    <!-- Use your own URL for the dashboard. Enterprise plans only. -->
                   </span>
                 </md-card-title-text>
               </md-card-title>
 
-              <md-card-content layout-gt-xs="row" layout="column" layout-wrap>
+              <md-card-content layout-gt-xs="row" layout="column" layout-gt-sm="row" flex="50" layout-wrap>
 
                 <div ng-if="brand.cname_status === 'processing'">
                   <p>Processing domain change</p>
@@ -164,22 +140,24 @@
                 </div>
 
                 <md-input-container class="md-block" flex-gt-xs="100" ng-if="brand.cname_status != 'processing'">
-                  <label>Custom Domain URL</label>
-                  <input type="text" name="cname" placeholder="Enter your custom domain" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
+                  <input type="text" name="cname" placeholder="Custom Domain URL" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
                   <div ng-messages="myForm.cname.$error">
                     <div ng-message="pattern">Please enter a valid URL</div>
                   </div>
                 </md-input-container>
 
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label>Network Location</label>
+                  <md-select ng-model="brand.network_location">
+                    <md-option ng-repeat="loc in locations">
+                      {{loc}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
               </md-card-content>
             </md-card>
             <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
           </div>
         </div>
     </form>
-
   </div>
-
-
-  <!--               <p ng-if="brand.cname_status"><b><span ng-if="brand.cname_status == 'processing'"><i class="fa fa-cog fa-spin"></i> Adding your custom domain, please wait</span><span ng-if="brand.cname_status !== 'processing'">{{ brand.cname_status }}</span></b></p> -->
-

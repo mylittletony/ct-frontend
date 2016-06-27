@@ -366,6 +366,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var processNotification = function(data) {
       switch(data.type) {
         case 'speedtest':
+          scope.box.speedtest_running = undefined;
           scope.box.latest_speedtest = {
             result: data.message.val,
             timestamp: data.message.timestamp
