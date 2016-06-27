@@ -24,8 +24,8 @@
             <div ng-show="setup.stage == 1" class="text-left">
               <div layout-gt-xs="row" layout="column" flex layout-wrap>
                 <md-radio-group ng-model="setup.type">
-                  <md-radio-button value="ct" class="md-primary" translate> Discover my Devices</md-radio-button>
-                  <md-radio-button value="mac" translate> Enter MAC Address </md-radio-button>
+                  <md-radio-button value="ct" class="md-primary"><translate>Discover my Devices</translate></md-radio-button>
+                  <md-radio-button value="mac"><translate>Enter MAC Address</translate></md-radio-button>
                 </md-radio-group>
               </div>
               <div ng-if="setup.type == 'mac' || setup.type == 'third'">
@@ -60,12 +60,13 @@
 
                 </div>
 
-                <md-checkbox ng-model="temp.is_polkaspots" aria-label="{{ 'Is Cucumber' | translate }}" translate>
-                  Cucumber firmware
+                <md-checkbox ng-model="temp.is_polkaspots" aria-label="{{ 'Is Cucumber' | translate }}">
+                  <translate>Cucumber firmware</translate>
                 </md-checkbox>
+
                 <div></div>
-                <md-button type="submit" aria-label="{{ 'add box' | translate }}" class="md-primary md-raised" ng-disabled="myForm.$invalid || myForm.$pristine" translate>ADD</md-button>
-                <p><ct-docs name="find-mac" translate>Where is my mac address?</ct-docs></p>
+                <md-button type="submit" aria-label="{{ 'add box' | translate }}" class="md-primary md-raised" ng-disabled="myForm.$invalid || myForm.$pristine">ADD</md-button>
+                <p><ct-docs name="find-mac"><translate>Where is my mac address?</translate></ct-docs></p>
               </div>
             </div>
 
