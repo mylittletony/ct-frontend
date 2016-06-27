@@ -107,19 +107,22 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
       scope.menu.push({
         name: gettextCatalog.getString('Delete'),
-        icon: 'delete_forever'
+        icon: 'delete_forever',
+        type: 'delete'
       });
 
       if (scope.box.is_polkaspots) {
         scope.menu.push({
           name: gettextCatalog.getString('Resync'),
           icon: 'settings_backup_restore',
-          disabled: !scope.box.allowed_job
+          disabled: !scope.box.allowed_job,
+          type: 'resync',
         });
 
         scope.menu.push({
           name: gettextCatalog.getString('Reset'),
           icon: 'clear',
+          type: 'reset',
         });
       }
 
