@@ -1,21 +1,44 @@
-<form ng-submit="search()">
-  <md-toolbar class="md-table-toolbar md-default">
-    <div class="md-toolbar-tools">
-      <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="vouchers.length > 0 || searching || query.filter">
-        <md-icon md-font-icon="search">search</md-icon>
-        <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="Filter Vouchers">
-      </md-input-container>
-      <md-button ng-hide="vouchers.length > 0 || searching || query.filter" id="main" class="md-icon-button md-primary" aria-label="Splash">
-        <md-icon md-font-icon="" >receipt</md-icon>
-      </md-button>
-      <div flex></div>
-      <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
-        <md-icon>add_circle</md-icon>
-      </md-button>
-    </div>
-    <md-divider></md-divider>
-  </md-toolbar>
-</form>
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <form ng-submit="$event.preventDefault()">
+      <md-autocomplete
+          flex="100"
+          md-selected-item="selectedItem"
+          ng-enter="search(item._key)"
+          md-search-text-change="searchTextChange(searchText)"
+          md-no-cache="true"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item._key"
+          md-min-length="5"
+          md-autofocus="true"
+          md-menu-class="locations-autocomplete"
+          placeholder="{{ 'Search' | translate }}">
+
+        <md-item-template >
+          <a ng-click="go(item.slug)">
+            <span class="item-title">
+              <md-icon>{{ item._index == 'vouchers' ? "receipt" : "vpn_key" }}</md-icon>
+          <span>&nbsp;{{ item._key }}</span>
+            </span>
+            <span class="item-metadata">
+              <span class="item-metastat">
+                <!-- Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span> -->
+              </span>
+            </span>
+          </a>
+        </md-item-template>
+        <md-not-found translate>
+          No results found.
+        </md-not-found>
+      </md-autocomplete>
+      <br/>
+    </form>
+    <div flex></div>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
 
 <form ng-submit="search()" name="myForm">
 

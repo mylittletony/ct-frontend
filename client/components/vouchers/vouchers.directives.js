@@ -2,14 +2,60 @@
 
 var app = angular.module('myApp.vouchers.directives', []);
 
-app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q) {
+app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout) {
 
 
   var link = function(scope) {
 
     scope.location = { slug: $routeParams.id };
 
-    scope.selected = [];
+    scope.selected = []; 
+
+    scope.batch_name = $routeParams.batch_name;
+    scope.username      = $routeParams.username;
+
+    if (scope.batch_name) {
+      scope.selectedItem  = scope.batch_name;
+    } else if (scope.username) {
+      scope.selectedItem = scope.username;
+    }
+
+    function querySearch (query) {
+      var deferred = $q.defer();
+      Voucher.query({q: query, v2: true, location_id: scope.location.slug}).$promise.then(function(results) {
+        deferred.resolve(results.results);
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    }
+
+    function searchTextChange(text) {
+    }
+    var timer;
+    function selectedItemChange(item) {
+      timer = $timeout(function() {
+        var hash = {};
+        if (item && item._index) {
+          switch(item._index) {
+            case 'vouchers':
+              hash.batch_name = item._key;
+              break;
+            case 'codes':
+              hash.username = item._key;
+              break;
+            default:
+              console.log(item._index);
+          }
+        }
+        $location.search(hash);
+        init();
+      }, 250);
+    }
+
+    scope.querySearch         = querySearch;
+    scope.selectedItemChange  = selectedItemChange;
+    scope.searchTextChange    = searchTextChange;
 
     scope.options = {
       autoSelect: true,
@@ -42,7 +88,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       hash.per            = scope.query.limit;
       hash.q              = scope.query.filter;
       $location.search(hash);
-      scope.init();
+      init();
     };
 
     scope.search = function() {
@@ -131,10 +177,17 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       }
     };
 
-    scope.init = function() {
+    var init = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
-      return Voucher.get({location_id: scope.location.slug, q: $routeParams.q, page: scope.query.page, per: scope.query.limit}).$promise.then(function(data) {
+      return Voucher.get({
+        location_id: scope.location.slug, 
+        q: $routeParams.q, 
+        page: scope.query.page, 
+        per: scope.query.limit,
+        username: scope.username,
+        batch_name: scope.batch_name
+      }).$promise.then(function(data) {
         scope.vouchers   = data.vouchers;
         scope._links     = data._links;
         scope.loading    = undefined;
@@ -162,7 +215,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + id + '/codes';
     };
 
-    scope.init();
+    init();
 
   };
 
