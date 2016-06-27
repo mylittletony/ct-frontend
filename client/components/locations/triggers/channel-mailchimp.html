@@ -28,7 +28,7 @@
     </md-input-container>
 
     <md-input-container>
-      <!-- Only if they're a guest --> 
+      <!-- Only if they're a guest -->
       <label translate>First Name</label>
       <input type="text" name="chimp-first" ng-model="trigger.attr_3" placeholder="{{ 'First name' | translate }}"></input>
     </md-input-container>
@@ -38,8 +38,10 @@
       <input type="text" name="chimp-last" ng-model="trigger.attr_4" placeholder="{{ 'Last name' | translate }}"></input>
     </md-input-container>
 
-    <md-checkbox name="slack-icon" ng-model="trigger.attr_5" translate>
-      Bypass double opt-in
+    <md-checkbox name="slack-icon" ng-model="trigger.attr_5">
+      <translate>
+        Bypass double opt-in
+      </translate>
     </md-checkbox>
 
   </div>
