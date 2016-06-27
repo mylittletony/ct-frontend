@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -20,8 +20,8 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
     function updateLocation() {
       Location.update({id: $routeParams.id, location: { favourite: scope.location.is_favourite }} ).$promise.then(function(results) {
-        var val = scope.location.is_favourite ? 'added to' : 'removed from';
-        showToast('Location ' + val + ' favourites.');
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
       }, function(err) {
       });
     }
@@ -42,13 +42,13 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener) {
+app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
     menu.isOpenLeft = false;
     menu.isOpen = false;
-    menu.sectionName = 'Locations';
+    menu.sectionName = gettextCatalog.getString('Locations');
 
     if ($routeParams.user_id) {
       scope.user_id = parseInt($routeParams.user_id);
@@ -299,18 +299,18 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
 
 }]);
 
-app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', function (Location, $routeParams, showToast, showErrors, $mdDialog) {
+app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function (Location, $routeParams, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
     scope.changeToken = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to change the API Token?')
-      .textContent('This will revoke your existing credentials and cannot be reversed.')
-      .ariaLabel('Revoke')
+      .title(gettextCatalog.getString('Are you sure you want to change the API Token?'))
+      .textContent(gettextCatalog.getString('This will revoke your existing credentials and cannot be reversed.'))
+      .ariaLabel(gettextCatalog.getString('Revoke'))
       .targetEvent(ev)
-      .ok('Revoke it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Revoke it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         changeToken();
       });
@@ -325,7 +325,7 @@ app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', '
     function updateLocation() {
       Location.update({id: $routeParams.id, location: { update_token: true }} ).$promise.then(function(results) {
         scope.token = results.api_token;
-        showToast('Token successfully changed.');
+        showToast(gettextCatalog.getString('Token successfully changed.'));
       }, function(err) {
         showErrors(err);
       });
@@ -398,7 +398,7 @@ app.directive('locationShortlist', function() {
   };
 });
 
-app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', function(Location, $location, menu, showErrors, showToast, $routeParams) {
+app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -419,7 +419,7 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
         $location.search({gs: true});
         menu.isOpen = true;
         menu.hideBurger = false;
-        showToast('Location successfully created.');
+        showToast(gettextCatalog.getString('Location successfully created.'));
       }, function(err) {
         showErrors(err);
       });
@@ -464,7 +464,7 @@ app.directive('newLocationCreating', ['Location', '$location', function(Location
 
 }]);
 
-app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$pusher', '$rootScope', '$timeout', function(Location, Invite, $routeParams, $mdDialog, showToast, showErrors, $pusher, $rootScope, $timeout) {
+app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$pusher', '$rootScope', '$timeout', 'gettextCatalog', function(Location, Invite, $routeParams, $mdDialog, showToast, showErrors, $pusher, $rootScope, $timeout, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -495,13 +495,13 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       scope.menu = [];
 
       scope.menu.push({
-        name: 'View',
+        name: gettextCatalog.getString('View'),
         type: 'view',
         icon: 'pageview'
       });
 
       scope.menu.push({
-        name: 'Revoke',
+        name: gettextCatalog.getString('Revoke'),
         type: 'revoke',
         icon: 'delete_forever'
       });
@@ -572,17 +572,17 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
           showErrors(err);
         });
       } else {
-        showErrors({message: 'This email has already been added' });
+        showErrors({message: gettextCatalog.getString('This email has already been added') });
       }
     };
 
     var revoke = function(user) {
       var confirm = $mdDialog.confirm()
-      .title('Remove User')
-      .textContent('Removing a user will prevent them from accessing this location.')
-      .ariaLabel('Remove')
-      .ok('remove')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Remove User'))
+      .textContent(gettextCatalog.getString('Removing a user will prevent them from accessing this location.'))
+      .ariaLabel(gettextCatalog.getString('Remove'))
+      .ok(gettextCatalog.getString('remove'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         revokeAdmin(user);
       });
@@ -680,7 +680,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -695,37 +695,37 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       scope.menuItems = [];
 
       scope.menuItems.push({
-        name: 'Edit',
+        name: gettextCatalog.getString('Edit'),
         type: 'edit',
         icon: 'settings'
       });
 
       scope.menuItems.push({
-        name: 'Reboot',
+        name: gettextCatalog.getString('Reboot'),
         type: 'reboot',
         icon: 'autorenew'
       });
 
       scope.menuItems.push({
-        name: 'Run Payload',
+        name: gettextCatalog.getString('Run Payload'),
         type: 'payload',
         icon: 'present_to_all'
       });
 
       scope.menuItems.push({
-        name: 'Edit Zones',
+        name: gettextCatalog.getString('Edit Zones'),
         type: 'zones',
         icon: 'layers'
       });
 
       scope.menuItems.push({
-        name: 'Resync',
+        name: gettextCatalog.getString('Resync'),
         type: 'resync',
         icon: 'settings_backup_restore'
       });
 
       scope.menuItems.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         type: 'delete',
         icon: 'delete_forever'
       });
@@ -801,12 +801,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var reboot = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title('Would you like to reboot this device?')
-      .textContent('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete')
-      .ariaLabel('Lucky day')
+      .title(gettextCatalog.getString('Would you like to reboot this device?'))
+      .textContent(gettextCatalog.getString('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete'))
+      .ariaLabel(gettextCatalog.getString('Lucky day'))
       .targetEvent(ev)
-      .ok('Reboot it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Reboot it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         rebootBox(box);
       });
@@ -818,9 +818,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
       Box.reboot({id: box.slug}).$promise.then(function(results) {
         box.state = 'rebooting';
-        showToast('Box successfully rebooted.');
+        showToast(gettextCatalog.getString('Box successfully rebooted.'));
       }, function(errors) {
-        showToast('Failed to reboot box, please try again.');
+        showToast(gettextCatalog.getString('Failed to reboot box, please try again.'));
         console.log('Could not reboot box:', errors);
         box.state = 'online';
         box.processing = undefined;
@@ -829,12 +829,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var resync = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title('Resync The Configs for this Device?')
-      .textContent('This will disconnect your clients temporarily.')
-      .ariaLabel('Lucky day')
+      .title(gettextCatalog.getString('Resync The Configs for this Device?'))
+      .textContent(gettextCatalog.getString('This will disconnect your clients temporarily.'))
+      .ariaLabel(gettextCatalog.getString('Lucky day'))
       .targetEvent(ev)
-      .ok('Resync it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Resync it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         resyncBox(box);
       });
@@ -843,25 +843,25 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     var resyncBox = function(box) {
       box.state = 'processing';
       Box.update({location_id: scope.location.slug, id: box.slug, box: { resync: true}}).$promise.then(function(res) {
-        showToast('Access point resynced successfully.');
+        showToast(gettextCatalog.getString('Access point resynced successfully.'));
       }, function(errors) {
         box.state = 'failed';
-        showToast('Failed to resync box, please try again.');
+        showToast(gettextCatalog.getString('Failed to resync box, please try again.'));
         console.log('Could not resync box:', errors);
       });
     };
 
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title('Delete This Device Permanently?')
-      .textContent('Please becareful, this cannot be reversed.')
-      .ariaLabel('Lucky day')
+      .title(gettextCatalog.getString('Delete This Device Permanently?'))
+      .textContent(gettextCatalog.getString('Please becareful, this cannot be reversed.'))
+      .ariaLabel(gettextCatalog.getString('Lucky day'))
       .targetEvent(ev)
-      .ok('Delete it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Delete it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteBox(box);
-        showToast('Deleted device with mac ' + box.calledstationid);
+        showToast(gettextCatalog.getString('Deleted device with mac ' + box.calledstationid));
       });
     };
 
@@ -872,7 +872,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         removeFromList(box);
       }, function(errors) {
         box.processing  = undefined;
-        showToast('Failed to delete this box, please try again.');
+        showToast(gettextCatalog.getString('Failed to delete this box, please try again.'));
         console.log('Could not delete this box:', errors);
       });
     };
@@ -932,10 +932,10 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
           closeDialog();
           selection = [];
           scope.selected = [];
-          showToast('Payload sent successfully.');
+          showToast(gettextCatalog.getString('Payload sent successfully.'));
         }, function(errors) {
           closeDialog();
-          showToast('Payload could not be sent.');
+          showToast(gettextCatalog.getString('Payload could not be sent.'));
         });
       } else {
         closeDialog();
@@ -944,11 +944,11 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     scope.deleteDevices = function() {
       var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to delete these devices?')
-      .textContent('This cannot be undone.')
-      .ariaLabel('Delete')
-      .ok('delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Are you sure you want to delete these devices?'))
+      .textContent(gettextCatalog.getString('This cannot be undone.'))
+      .ariaLabel(gettextCatalog.getString('Delete'))
+      .ok(gettextCatalog.getString('delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteDevices();
       });
@@ -1007,7 +1007,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
         if (results.zones.length) {
           // Must be called remove !! //
-          var z = {id: 'remove', zone_name: 'No Zone'};
+          var z = {id: 'remove', zone_name: gettextCatalog.getString('No Zone')};
 
           results.zones.unshift(z);
 
@@ -1081,11 +1081,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       }
 
       // Write a message to the screen, yeah //
-      var devices = 'device zones';
+      var devices = gettextCatalog.getString('device zones'),
+          selectedLength = scope.selected.length;
       if (scope.selected.length === 1) {
-        devices = 'device zone';
+        devices = gettextCatalog.getString('device zone');
       }
-      showToast(scope.selected.length + ' ' + devices + ' updated.');
+      showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{scope.selected.length}} device zones'));
       scope.selected = [];
     };
 
@@ -1118,7 +1119,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
           description: box.description
         }
       }).$promise.then(function(res) {
-        showToast('Device description updated.');
+        showToast(gettextCatalog.getString('Device description updated.'));
       }, function(errors) {
         showErrors(errors);
       });
@@ -1189,13 +1190,13 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     $rootScope.$on('streaming', function(args,res) {
       if (res.enabled) {
         loadPusher();
-        showToast('Streaming updates enabled');
+        showToast(gettextCatalog.getString('Streaming updates enabled'));
       } else {
         scope.pusherLoaded = undefined;
         if (channel) {
           channel.unbind();
         }
-        showToast('Streaming updates disabled');
+        showToast(gettextCatalog.getString('Streaming updates disabled'));
       }
     });
 
@@ -1215,7 +1216,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
 }]);
 
-app.directive('locationSettings', ['Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'moment', function(Location, $location, $routeParams, $mdDialog, showToast, showErrors, moment) {
+app.directive('locationSettings', ['Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'moment', 'gettextCatalog', function(Location, $location, $routeParams, $mdDialog, showToast, showErrors, moment, gettextCatalog) {
 
   var controller = function($scope) {
     this.$scope = $scope;
@@ -1241,7 +1242,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
         if (slug !== data.slug) {
           $location.path('/locations/' + data.slug + '/settings');
         }
-        showToast('Successfully updated location.');
+        showToast(gettextCatalog.getString('Successfully updated location.'));
       }, function(err) {
         showErrors(err);
       });
@@ -1412,7 +1413,7 @@ app.directive('locationSettingsSplash', [function() {
 
 }]);
 
-app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'moment', '$pusher', '$rootScope', function(Location, $location, $routeParams, $mdDialog, showToast, showErrors, moment, $pusher, $rootScope) {
+app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'moment', '$pusher', '$rootScope', 'gettextCatalog', function(Location, $location, $routeParams, $mdDialog, showToast, showErrors, moment, $pusher, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1424,25 +1425,25 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Notifications',
+        name: gettextCatalog.getString('Notifications'),
         type: 'notifications',
         icon: 'add_alert'
       });
 
       scope.menu.push({
-        name: 'Devices',
+        name: gettextCatalog.getString('Devices'),
         type: 'devices',
         icon: 'router'
       });
 
       scope.menu.push({
-        name: 'Splash',
+        name: gettextCatalog.getString('Splash'),
         type: 'splash',
         icon: 'web'
       });
 
       scope.menu.push({
-        name: 'Analytics',
+        name: gettextCatalog.getString('Analytics'),
         type: 'analytics',
         icon: 'trending_up'
       });
@@ -1454,13 +1455,13 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       });
 
       scope.menu.push({
-        name: scope.location.archived ? 'Unarchive' : 'Archive',
+        name: scope.location.archived ? gettextCatalog.getString('Unarchive') : gettextCatalog.getString('Archive'),
         type: 'archive',
         icon: 'archive'
       });
 
       scope.menu.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         type: 'delete',
         icon: 'delete_forever'
       });
@@ -1495,19 +1496,19 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     var archive = function(ev) {
       var msg, msg2;
       if (scope.location.archived) {
-        msg = 'Are you sure you want to restore this location';
-        msg2 = 'Your splash pages and networks will be activated.';
+        msg = gettextCatalog.getString('Are you sure you want to restore this location');
+        msg2 = gettextCatalog.getString('Your splash pages and networks will be activated.');
       } else {
-        msg = 'Are you sure you want to archive this location';
-        msg2 = 'This will prevent users from logging in.';
+        msg = gettextCatalog.getString('Are you sure you want to archive this location');
+        msg2 = gettextCatalog.getString('This will prevent users from logging in.');
       }
       var confirm = $mdDialog.confirm()
       .title(msg)
       .textContent(msg2)
-      .ariaLabel('Archive')
+      .ariaLabel(gettextCatalog.getString('Archive'))
       .targetEvent(ev)
-      .ok('CONFIRM')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('CONFIRM'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         if (scope.location.archived) {
           unArchiveLocation();
@@ -1520,7 +1521,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     var archiveLocation = function() {
       Location.archive({id: scope.location.slug}).$promise.then(function(results) {
         scope.location.archived = true;
-        showToast('Location successfully archived.');
+        showToast(gettextCatalog.getString('Location successfully archived.'));
       }, function(err) {
         showErrors(err);
       });
@@ -1529,7 +1530,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     var unArchiveLocation = function() {
       Location.unarchive({id: scope.location.slug}).$promise.then(function(results) {
         scope.location.archived = false;
-        showToast('Location successfully restored.');
+        showToast(gettextCatalog.getString('Location successfully restored.'));
       }, function(err) {
         showErrors(err);
       });
@@ -1537,12 +1538,12 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
 
     var destroy = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to delete this location?')
-      .textContent('You cannot delete a location with session data.')
-      .ariaLabel('Archive')
+      .title(gettextCatalog.getString('Are you sure you want to delete this location?'))
+      .textContent(gettextCatalog.getString('You cannot delete a location with session data.'))
+      .ariaLabel(gettextCatalog.getString('Archive'))
       .targetEvent(ev)
-      .ok('delete')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         destroyLocation();
       });
@@ -1551,7 +1552,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     var destroyLocation = function(id) {
       Location.destroy({id: scope.location.id}).$promise.then(function(results) {
         $location.path('/locations');
-        showToast('Successfully deleted location.');
+        showToast(gettextCatalog.getString('Successfully deleted location.'));
       }, function(err) {
         showErrors(err);
       });
@@ -1580,7 +1581,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     var transferLocation = function(accountId) {
       Location.transfer({accountId: accountId, id: scope.location.slug}).$promise.then(function(results) {
         $location.path('/').search('tfer=true');
-        showToast('Location successfully transferred.');
+        showToast(gettextCatalog.getString('Location successfully transferred.'));
       }, function(err) {
         showErrors(err);
       });
@@ -1622,7 +1623,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
 }]);
 
 
-app.directive('appStatus', ['statusPage', function(statusPage) {
+app.directive('appStatus', ['statusPage', 'gettextCatalog', function(statusPage, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -1634,10 +1635,10 @@ app.directive('appStatus', ['statusPage', function(statusPage) {
         if (scope.status.incidents.length === 0) {
           if (scope.status.status.indicator === 'none') {
             scope.color = 'rgb(76,175,80)';
-            scope.incidents = 'All systems operational.';
+            scope.incidents = gettextCatalog.getString('All systems operational.');
           } else {
             scope.color = 'rgb(255,152,0)';
-            scope.incidents = 'Partially degraded service.';
+            scope.incidents = gettextCatalog.getString('Partially degraded service.');
           }
         } else {
           scope.color = 'rgb(244,67,54)';
@@ -1729,7 +1730,7 @@ app.directive('favourites', ['Location', '$location', function(Location, $locati
 
 }]);
 
-app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog) {
+app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -1745,13 +1746,13 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
     var createMenu = function() {
       scope.menu = [];
       scope.menu.push({
-        name: 'View',
+        name: gettextCatalog.getString('View'),
         type: 'view',
         icon: 'pageview'
       });
 
       scope.menu.push({
-        name: 'Unfavourite',
+        name: gettextCatalog.getString('Unfavourite'),
         type: 'remove',
         icon: 'favorite_border'
       });
@@ -1796,11 +1797,11 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
     var remove = function(id) {
       var confirm = $mdDialog.confirm()
-      .title('Remove From Favourites?')
-      .textContent('Are you sure you want to remove this location?')
-      .ariaLabel('Remove Location')
-      .ok('Ok')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Remove From Favourites?'))
+      .textContent(gettextCatalog.getString('Are you sure you want to remove this location?'))
+      .ariaLabel(gettextCatalog.getString('Remove Location'))
+      .ok(gettextCatalog.getString('Ok'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         removeFav(id);
       });
@@ -1822,7 +1823,7 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
       for (var i = 0, len = scope.locations.length; i < len; i++) {
         if (scope.locations[i].slug === id) {
           scope.locations.splice(i, 1);
-          showToast('Location removed from favourites.');
+          showToast(gettextCatalog.getString('Location removed from favourites.'));
           break;
         }
       }
@@ -1850,7 +1851,7 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
 }]);
 
-app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu) {
+app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -1909,8 +1910,8 @@ app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showTo
           ignored: box.ignored
         }
       }).$promise.then(function(res) {
-        var val = box.ignored ? 'muted' : 'unmuted';
-        showToast('Box successfully ' + val + '.');
+        var val = box.ignored ? gettextCatalog.getString('muted') : gettextCatalog.getString('unmuted');
+        showToast(gettextCatalog.getString('Box successfully {{val}}.', {val: val}));
       }, function(errors) {
       });
     };

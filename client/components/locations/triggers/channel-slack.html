@@ -1,18 +1,18 @@
 <p ng-bind-html="error"></p>
 
-<md-button href="/#/users/{{ user.slug }}/integrations" ng-if="error">AUTHORISE</md-button>
+<md-button href="/#/users/{{ user.slug }}/integrations" ng-if="error" translate>AUTHORISE</md-button>
 
 <div layout="column">
 
   <span ng-if="loading_integration">
-    <p>Loading</p>
+    <p translate>Loading</p>
     <md-progress-linear md-mode="query"></md-progress-linear>
   </span>
 
   <div ng-if="slack_channels.length && !loading_integration" layout="column">
 
     <md-input-container>
-      <label>Choose a Slack Channel</label>
+      <label translate>Choose a Slack Channel</label>
       <md-select ng-model="trigger.attr_1">
         <md-option ng-repeat="channel in slack_channels" value="{{channel.id}}">
           {{channel.name}}
@@ -23,30 +23,30 @@
     <span ng-if="trigger.attr_1 != undefined" layout="column">
 
       <md-input-container>
-        <label>Message</label>
+        <label translate>Message</label>
         <textarea name="slack-msg" ng-model="trigger.attr_2" md-maxlength="1000" placeholder="" rows=8 required></textarea>
         <div ng-messages="myForm.slack-msg.$error" md-auto-hide="false">
-          <div ng-message="required">Please enter a message</div>
-          <div ng-message="md-maxlength">Must be less than 1000 characters</div>
+          <div ng-message="required" translate>Please enter a message</div>
+          <div ng-message="md-maxlength" translate>Must be less than 1000 characters</div>
         </div>
       </md-input-container>
 
       <md-input-container>
-        <label>Username (Optional)</label>
-        <input type="text" name="slack-username" ng-model="trigger.attr_3" placeholder="Slack Username"></input>
+        <label translate>Username (Optional)</label>
+        <input type="text" name="slack-username" ng-model="trigger.attr_3" placeholder="{{ 'Slack Username' | translate }}"></input>
       </md-input-container>
 
       <md-input-container>
-        <label>Icon URL (Optional)</label>
-        <input type="url" name="slack_url" ng-model="trigger.attr_4" placeholder="Enter a url for the Icon"></input>
+        <label translate>Icon URL (Optional)</label>
+        <input type="url" name="slack_url" ng-model="trigger.attr_4" placeholder="{{ 'Enter a url for the Icon' | translate }}"></input>
         <div ng-messages="myForm.slack_url.$error" md-auto-hide="false">
-          <div ng-message="url">Must be a valid URL</div>
+          <div ng-message="url" translate>Must be a valid URL</div>
         </div>
       </md-input-container>
 
       <md-input-container>
-        <label>Emoji (Optional)</label>
-        <input type="text" name="slack-icon" ng-model="trigger.attr_5" placeholder="Emoji time!"></input>
+        <label translate>Emoji (Optional)</label>
+        <input type="text" name="slack-icon" ng-model="trigger.attr_5" placeholder="{{ 'Emoji time!' | translate }}"></input>
       </md-input-container>
 
     </span>

@@ -11,10 +11,10 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Device Settings
               </span>
-              <span class="md-subhead">
+              <span class="md-subhead" translate>
                 Adjust the global settings for your boxes and other devices.
               </span>
             </md-card-title-text>
@@ -23,34 +23,34 @@
           <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>Send Offline Alert After (mins)</label>
+                <label translate>Send Offline Alert After (mins)</label>
                 <input type="number" name="alert_interval" ng-model="location.alert_interval" placeholder="10" ng-min="1" ng-max='10080' required/>
                 <div ng-messages="myForm.alert_interval.$error" md-auto-hide="false">
-                  <div ng-message="max">Must be less than 10,080 minutes</div>
-                  <div ng-message="min">Must be greater than 1 minutes</div>
-                  <div ng-message="required">You must enter an alert interval.</div>
+                  <div ng-message="max" translate>Must be less than 10,080 minutes</div>
+                  <div ng-message="min" translate>Must be greater than 1 minutes</div>
+                  <div ng-message="required" translate>You must enter an alert interval.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>Automatic Reboot Interval (mins)</label>
+                <label translate>Automatic Reboot Interval (mins)</label>
                 <input type="number" name="connect_timeout" ng-model="location.connect_timeout" placeholder="10" ng-min="0" ng-max='255' required/>
                 <div ng-messages="myForm.connect_timeout.$error" md-auto-hide="false">
-                  <div ng-message="max">Must be less than 255 minutes</div>
-                  <div ng-message="min">Must be greater than 0 minutes</div>
-                  <div ng-message="required">You must enter a reboot interval.</div>
+                  <div ng-message="max" translate>Must be less than 255 minutes</div>
+                  <div ng-message="min" translate>Must be greater than 0 minutes</div>
+                  <div ng-message="required" translate>You must enter a reboot interval.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>Radius NAS ID</label>
+                <label translate>Radius NAS ID</label>
                 <input ng-model="location.radiusnasid" name="radiusnasid" type="text" md-maxlength="255" md-minlength="10" required>
                 <div ng-messages="myForm.radiusnasid.$error" md-auto-hide="false">
-                  <div ng-message="max">Must be less than 255 characters</div>
-                  <div ng-message="min">Must be greater than 10 characters</div>
-                  <div ng-message="required">You must enter a NAS ID</div>
+                  <div ng-message="max" translate>Must be less than 255 characters</div>
+                  <div ng-message="min" translate>Must be greater than 10 characters</div>
+                  <div ng-message="required" translate>You must enter a NAS ID</div>
                 </div>
               </md-input-container>
               <div flex="100"></div>
-              <md-switch ng-model="location.development_mode" ng-true-value="'Beta'" ng-false-value="'Production'" aria-label="Beta Location" flex="100" flex-gt-sm="50">
+              <md-switch ng-model="location.development_mode" ng-true-value="'Beta'" ng-false-value="'Production'" aria-label="{{ 'Beta Location' | translate }}" flex="100" flex-gt-sm="50">
                 Beta {{ location.development_mode === 'Beta' ? 'Enabled' : 'Disabled' }}
               </md-switch>
             </div>
@@ -60,10 +60,10 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Ruckus vSZ Settings
             </span>
-            <span class="md-subhead">
+            <span class="md-subhead" translate>
               Add support for your Ruckus VSZ.
             </span>
           </md-card-title-text>
@@ -72,62 +72,62 @@
         <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label>vSZ Host</label>
-                <input ng-model="location.vsg_host" type="url" name="vsg_host" placeholder="Hostname of your VSG" ng-required="location.vsg_admin_user || location.vsg_pass"></input>
+                <label translate>vSZ Host</label>
+                <input ng-model="location.vsg_host" type="url" name="vsg_host" placeholder="{{ 'Hostname of your VSG' | translate }}" ng-required="location.vsg_admin_user || location.vsg_pass"></input>
                 <div ng-messages="myForm.vsg_host.$error" md-auto-hide="false">
-                  <div ng-message="url">Must be a valid URL</div>
-                  <div ng-message="required">You must enter a valid URL.</div>
+                  <div ng-message="url" translate>Must be a valid URL</div>
+                  <div ng-message="required" translate>You must enter a valid URL.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label>Northbound API Password</label>
-                <input name="vsg_pass" ng-model="location.vsg_pass" type="{{ showVsg ? 'text' : 'password' }}" ng-blur="showVsg = !showVsg" ng-focus="showVsg = !showVsg" placeholder="Northbound API Password" ng-required="location.vsg_host"></input>
+                <label translate>Northbound API Password</label>
+                <input name="vsg_pass" ng-model="location.vsg_pass" type="{{ showVsg ? 'text' : 'password' }}" ng-blur="showVsg = !showVsg" ng-focus="showVsg = !showVsg" placeholder="{{ 'Northbound API Password' | translate }}" ng-required="location.vsg_host"></input>
                 <div ng-messages="myForm.vsg_pass.$error" md-auto-hide="false">
-                  <div ng-message="required">You must enter a Northbound API password.</div>
+                  <div ng-message="required" translate>You must enter a Northbound API password.</div>
                 </div>
               </md-input-container>
 
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>vSZ Admin User</label>
-                <input ng-model="location.vsg_admin_user" type="text" name="vsg_admin_user" md-maxlength="255" placeholder="vSZ Admin User"></input>
+                <label translate>vSZ Admin User</label>
+                <input ng-model="location.vsg_admin_user" type="text" name="vsg_admin_user" md-maxlength="255" placeholder="{{ 'vSZ Admin User' | translate }}"></input>
                 <div ng-messages="myForm.vsg_admin_user.$error" md-auto-hide="false">
-                  <div ng-message="max">Must be less than 255 characters</div>
+                  <div ng-message="max" translate>Must be less than 255 characters</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>vSZ Admin Password</label>
-                <input ng-model="location.vsg_admin_pass" type="{{ adminPass ? 'text' : 'password' }}" ng-blur="adminPass = !adminPass" ng-focus="adminPass = !adminPass" name="vsg_admin_pass" placeholder="vSZ Admin Password" ng-required="location.vsg_admin_user" mg-maxlength="255"></input>
+                <label translate>vSZ Admin Password</label>
+                <input ng-model="location.vsg_admin_pass" type="{{ adminPass ? 'text' : 'password' }}" ng-blur="adminPass = !adminPass" ng-focus="adminPass = !adminPass" name="vsg_admin_pass" placeholder="{{ 'vSZ Admin Password' | translate }}" ng-required="location.vsg_admin_user" mg-maxlength="255"></input>
                 <div ng-messages="myForm.vsg_admin_pass.$error" md-auto-hide="false">
-                  <div ng-message="max">Must be less than 255 characters</div>
+                  <div ng-message="max" translate>Must be less than 255 characters</div>
                 </div>
               </md-input-container>
             </div>
 
           <span ng-if="location.vsg_testing">
-            <p>Testing vSZ Credentials</p>
+            <p translate>Testing vSZ Credentials</p>
             <md-progress-linear md-mode="query"></md-progress-linear>
           </span>
 
           <span ng-if="location.vsg_controller">
 
             <span ng-if="!location.vsg_controller.Passing">
-              <p><b>vSZ Tests Failed</b></p>
-              Unable to communicate with your Ruckus Virtual SmartZone. Check your credentials.
+              <p><b translate>vSZ Tests Failed</b></p>
+              <translate>Unable to communicate with your Ruckus Virtual SmartZone. Check your credentials.</translate>
               <br>
               <br>
               <span ng-if="location.vsg_controller.Reason == 'auth_failed'">
 
-                <b>We were able to reach the server but your username or password was rejected.</span> <span ng-if="location.vsg_controller.Reason != 'auth_failed'">We were unable to reach your server at {{ location.vsg_host }}.</b>
-                <p>Please ensure it has a public IP and your firewall ports are open. You must use https for security reasons. If your ports are open, please check your user credentials has the correct permissions.</p>
+                <b translate>We were able to reach the server but your username or password was rejected.</span> <span ng-if="location.vsg_controller.Reason != 'auth_failed'">We were unable to reach your server at {{ location.vsg_host }}.</b>
+                <p translate>Please ensure it has a public IP and your firewall ports are open. You must use https for security reasons. If your ports are open, please check your user credentials has the correct permissions.</p>
               </span>
             </span>
 
             <span ng-if="location.vsg_controller.Passing">
 
-              <p><b>vSZ Connection Success!</b></p>
+              <p><b translate>vSZ Connection Success!</b></p>
               <p>
                 {{ isOpen('tests') ? "Hide" : "Show" }} Test Results
-                <md-button ng-click="toggle('tests')" aria-controls="tests" class="md-secondary md-icon-button" aria-label="call">
+                <md-button ng-click="toggle('tests')" aria-controls="tests" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                   <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('tests') ? "up" : "down" }}</md-icon>
                 </md-button>
               </p>
@@ -135,35 +135,35 @@
                 <div flex="100" flex-gt-sm="50">
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Name</h3>
+                      <h3 translate>Name</h3>
                       <p>{{ location.vsg_controller.List[0].Name }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Hostname</h3>
+                      <h3 translate>Hostname</h3>
                       <p>{{ location.vsg_controller.List[0].HostName }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>vSZ Mac</h3>
+                      <h3 translate>vSZ Mac</h3>
                       <p>{{ location.vsg_controller.List[0].Mac }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Management IP</h3>
+                      <h3 translate>Management IP</h3>
                       <p>{{ location.vsg_controller.List[0].ManagementIp }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Description</h3>
+                      <h3 translate>Description</h3>
                       <p>{{ location.vsg_controller.List[0].Description }}</p>
                     </div>
                   </md-list-item>
@@ -173,35 +173,35 @@
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Uptime</h3>
+                      <h3 translate>Uptime</h3>
                       <p>{{ location.vsg_controller.List[0].Uptime }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Version</h3>
+                      <h3 translate>Version</h3>
                       <p>{{ location.vsg_controller.List[0].Version }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>ID</h3>
+                      <h3 translate>ID</h3>
                       <p>{{ location.vsg_controller.List[0].Id }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Serial Numbe</h3>
+                      <h3 translate>Serial Numbe</h3>
                       <p>{{ location.vsg_controller.List[0].SerialNumber }}</p>
                     </div>
                   </md-list-item>
 
                   <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
-                      <h3>Model</h3>
+                      <h3 translate>Model</h3>
                       <p>{{ location.vsg_controller.List[0].Model }}</p>
                     </div>
                   </md-list-item>
@@ -215,7 +215,7 @@
             <md-button ng-click="testVsz(myForm)" ng-disabled="(!location.vsg_admin_user && !location.vsg_admin_pass) || location.vsg_testing">Test vSZ</md-button>
           </md-card-actions>
         </md-card>
-        <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+        <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)" translate>
           Save
         </md-button>
 

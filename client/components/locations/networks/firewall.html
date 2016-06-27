@@ -1,18 +1,18 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="checkbox">
-      <label for="block_access_to_local">Block access to local network?</label>
+      <label for="block_access_to_local" translate>Block access to local network?</label>
       <input ng-model="location.block_access_to_local" name="block_access_to_local" type="checkbox">
     </div>
-    <p class="text-muted small">The prevents users on your Wi-Fi networks from accessing your private network.</p>
+    <p class="text-muted small" translate>The prevents users on your Wi-Fi networks from accessing your private network.</p>
     <hr>
     <table class="table table-bordered">
       <tr>
-        <th>Type</th>
-        <th>From Network</th>
-        <th>From Port</th>
-        <th>Dest. Network</th>
-        <th>Dest. Port</th>
+        <th translate>Type</th>
+        <th translate>From Network</th>
+        <th translate>From Port</th>
+        <th translate>Dest. Network</th>
+        <th translate>Dest. Port</th>
         <th></th>
       </tr>
       <tr name="myForm" ng-if='!rule._destroy' ng-repeat="rule in firewall">
@@ -20,25 +20,25 @@
           <select ng-model='rule.target' ng-options="name for (name, value) in targets" class="form-control" name="target"></select>
         </td>
         <td>
-          <input class="form-control" ng-model="rule.source_ip" name="source_ip" placeholder="From network" type="text" ng-pattern='/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/'>
-          <p class="text text-danger small" ng-show="myForm.source_ip.$error.pattern"><b>Should look like an IP.</b></p>
+          <input class="form-control" ng-model="rule.source_ip" name="source_ip" placeholder="{{ 'From network' | translate }}" type="text" ng-pattern='/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/'>
+          <p class="text text-danger small" ng-show="myForm.source_ip.$error.pattern"><b translate>Should look like an IP.</b></p>
         </td>
         <td>
-          <input class="form-control" ng-model="rule.source_port" name="source_port" placeholder="From port" type="number" ng-min='1', ng-max='64322'>
-          <p class="text text-danger small" ng-show="myForm.source_port.$error.min"><b>Should be between 1 and 65322.</b></p>
+          <input class="form-control" ng-model="rule.source_port" name="source_port" placeholder="{{ 'From port' | translate }}" type="number" ng-min='1', ng-max='64322'>
+          <p class="text text-danger small" ng-show="myForm.source_port.$error.min"><b translate>Should be between 1 and 65322.</b></p>
         </td>
         <td>
-          <input class="form-control" ng-model="rule.dest_ip" name="dest_ip" placeholder="Dest network" type="text">
+          <input class="form-control" ng-model="rule.dest_ip" name="dest_ip" placeholder="{{ 'Dest network' | translate }}" type="text">
         </td>
         <td>
-          <input class="form-control" ng-model="rule.dest_port" name="dest_port" placeholder="Dest port" type="number" ng-min="1" ng-max="64322">
+          <input class="form-control" ng-model="rule.dest_port" name="dest_port" placeholder="{{ 'Dest port' | translate }}" type="number" ng-min="1" ng-max="64322">
         </td>
         <td>
           <span ng-click="deleteField(rule)" class='btn btn-sm btn-danger'><i class="fa fa-trash"></i></span>
         </td>
       </tr>
     </table>
-    <a ng-click="addFwFields(firewall)" class="left btn btn-sm btn-default">Add Another</a>
+    <a ng-click="addFwFields(firewall)" class="left btn btn-sm btn-default" translate>Add Another</a>
     <br>
     <br>
   </form>

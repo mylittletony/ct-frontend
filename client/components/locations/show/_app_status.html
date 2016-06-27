@@ -2,13 +2,13 @@
   <div class="md-card-image" style="height: 5px; background-color: {{ color }};"></div>
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">
+      <span class="md-headline" translate>
         Cucumber Status
       </span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content>
-    <div ng-if="!status">
+    <div ng-if="!status" translate>
       Loading status
     </div>
     <div ng-if="status">
@@ -25,6 +25,6 @@
   </md-card-content>
   <md-divider></md-divider>
   <md-card-actions layout="row" layout-align="end center">
-    <md-button target="_blank" href="{{ url}}">VIEW</md-button>
+    <md-button target="_blank" href="{{ url}}" translate>VIEW</md-button>
   </md-card-actions>
 </md-card>

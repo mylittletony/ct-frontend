@@ -26,8 +26,8 @@ app.controller('LocationsCtrlShort', ['$scope', '$routeParams', '$filter', 'Loca
 
 ]);
 
-app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache',
-  function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache) {
+app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache', 'gettextCatalog',
+  function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache, gettextCatalog) {
 
     $scope.loading = true;
     $scope.location = { slug: $routeParams.id };
@@ -61,12 +61,12 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     menu.hideBurger = false;
 
     menu.sections = [];
-
+    //fixme translations: check if the menu names are used in the logic
     var createMenu = function() {
       // menu.header = $scope.location.location_name;
 
       menu.sections.push({
-        name: 'Devices',
+        name: gettextCatalog.getString('Devices'),
         link: '/#/locations/' + $scope.location.slug,
         type: 'link',
         icon: 'router',
@@ -74,7 +74,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'Networks',
+        name: gettextCatalog.getString('Networks'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/networks',
         icon: 'wifi',
@@ -82,7 +82,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'Clients',
+        name: gettextCatalog.getString('Clients'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/clients',
         icon: 'devices',
@@ -90,7 +90,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'Zones',
+        name: gettextCatalog.getString('Zones'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/zones',
         icon: 'layers',
@@ -98,7 +98,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'Triggers',
+        name: gettextCatalog.getString('Triggers'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/triggers',
         icon: 'notifications_active',
@@ -110,12 +110,12 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'Guest Access',
+        name: gettextCatalog.getString('Guest Access'),
         type: 'subhead',
       });
 
       menu.sections.push({
-        name: 'Splash',
+        name: gettextCatalog.getString('Splash'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/splash_pages',
         icon: 'web',
@@ -123,7 +123,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'vouchers',
+        name: gettextCatalog.getString('vouchers'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/vouchers',
         icon: 'receipt',
@@ -131,7 +131,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'Codes',
+        name: gettextCatalog.getString('Codes'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/splash_codes',
         icon: 'vpn_key',
@@ -143,7 +143,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'History',
+        name: gettextCatalog.getString('History'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/versions',
         icon: 'history',
@@ -158,7 +158,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       // });
 
       menu.sections.push({
-        name: 'Users',
+        name: gettextCatalog.getString('Users'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/users',
         icon: 'people',
@@ -166,7 +166,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: 'Settings',
+        name: gettextCatalog.getString('Settings'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/settings',
         icon: 'settings',
@@ -189,7 +189,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
           $location.path('/locations/' + data.slug).replace();
         }
         menu.header = data.location_name;
-        menu.sectionName = 'Location';
+        menu.sectionName = gettextCatalog.getString('Location');
         if (data.archived) {
           menu.archived = data.archived;
         }
@@ -212,8 +212,8 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
 }]);
 
-app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav',
-  function($scope, menu, $mdSidenav) {
+app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
+  function($scope, menu, $mdSidenav, gettextCatalog) {
 
     $scope.loading = true;
 
@@ -230,33 +230,33 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav',
     menu.isOpen = false;
     menu.hideBurger = false;
     menu.sections = [{}];
-    menu.sectionName = 'Home';
-
+    menu.sectionName = gettextCatalog.getString('Home');
+    //fixme translations: check if the names are used in the logic
     var createMenu = function() {
 
       menu.sections.push({
-        name: 'Locations',
+        name: gettextCatalog.getString('Locations'),
         link: '/#/locations/',
         type: 'link',
         icon: 'business',
       });
 
       menu.sections.push({
-        name: 'Reports',
+        name: gettextCatalog.getString('Reports'),
         link: '/#/reports/',
         type: 'link',
         icon: 'timeline',
       });
 
       menu.sections.push({
-        name: 'Audit',
+        name: gettextCatalog.getString('Audit'),
         link: '/#/audit/',
         type: 'link',
         icon: 'assignment',
       });
 
       menu.sections.push({
-        name: 'Events',
+        name: gettextCatalog.getString('Events'),
         link: '/#/events/',
         type: 'link',
         icon: 'warning'
