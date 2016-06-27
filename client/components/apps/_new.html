@@ -72,7 +72,7 @@
 
             </md-input-container>
 
-            <md-button ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" type="submit">{{ app.id ? "Update" : "Create" }}</md-button>
+            <md-button ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" type="submit">{{ app.id | updateCreate }}</md-button>
           </form>
 
         </div>
@@ -81,4 +81,3 @@
     </md-card>
   </div>
 </div>
-
