@@ -86,7 +86,7 @@
 
           </div>
           
-          <md-switch aria-label="Active switch" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
+          <md-switch aria-label="Active switch" ng-model="voucher.is_active" ng-change="enableDisableWarn(voucher.is_active)" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
             Voucher {{ voucher.is_active ? "Enabled" : "Disabled" }}
           </md-switch>
 
