@@ -682,15 +682,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/vouchers', {
-      templateUrl: 'components/vouchers/delete-me.html',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/locations/:id/vouchers', {
       templateUrl: 'components/vouchers/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
-      reloadOnSearch: false
+      // reloadOnSearch: false
     }).
     when('/locations/:id/vouchers/new', {
       templateUrl: 'components/vouchers/new.html',
