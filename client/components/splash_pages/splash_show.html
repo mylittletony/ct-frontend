@@ -459,6 +459,14 @@
               Debug Mode {{ splash.display_console ? 'Enabled' : 'Disabled' }}
             </md-switch>
 
+            <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
+              Bypass iOS Popup {{ splash.bypass_popup_ios ? 'Enabled' : 'Disabled' }}
+            </md-switch>
+
+            <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
+              Bypass Android Popup {{ splash.bypass_popup_android ? 'Enabled' : 'Disabled' }}
+            </md-switch>
+
           </div>
 
         </md-card-content>
