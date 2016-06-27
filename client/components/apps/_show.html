@@ -24,7 +24,7 @@
             {{ app.name }}
           </span>
           <span class="md-subhead">
-            {{ app.description || "No description" }}
+            {{ app.description | emptyFilter }}
           </span>
         </md-card-title-text>
       </md-card-title>
