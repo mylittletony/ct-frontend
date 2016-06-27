@@ -8,10 +8,10 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Splash Settings
             </span>
-            <span class="md-subhead">
+            <span class="md-subhead" translate>
               Adjust the general settings for your splash pages.
             </span>
           </md-card-title-text>
@@ -20,15 +20,15 @@
         <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex-gt-sm="50">
-                <label>Location Splash Limit</label>
+                <label translate>Location Splash Limit</label>
                 <input ng-model="location.splash_limit" name="splash_limit" type="number" ng-min=0 ng-max=1000000>
                 <div ng-messages="myForm.splash_limit.$error" md-auto-hide="false">
-                  <div ng-message="max">Must be less than 1,000,000</div>
-                  <div ng-message="min">Must be greater than 0</div>
-                  <div ng-message="required">You must enter a splash limit.</div>
+                  <div ng-message="max" translate>Must be less than 1,000,000</div>
+                  <div ng-message="min" translate>Must be greater than 0</div>
+                  <div ng-message="required" translate>You must enter a splash limit.</div>
                 </div>
               </md-input-container>
-              <md-switch ng-model="location.tagged_logins" aria-label="Tagged Logins" flex="100" flex-gt-sm="50">
+              <md-switch ng-model="location.tagged_logins" aria-label="{{ 'Tagged Logins' | translate }}" flex="100" flex-gt-sm="50">
                 Tagged Logins {{ location.tagged_logins ? 'Enabled' : 'Disabled' }}
               </md-switch>
               <md-switch ng-model="location.bypass_popup_android" aria-label="bypass_popup_android" flex-gt-sm="80">
@@ -40,7 +40,7 @@
             </div>
         </md-card-content>
       </md-card>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)" translate>
         Save
       </md-button>
 

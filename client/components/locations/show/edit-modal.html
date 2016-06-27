@@ -13,44 +13,44 @@
   <form ng-submit="save(location)" name="myForm">
     <div class="form-group row">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <label for="location_name">Location name</label>
-        <input ng-model="location.location_name" class='form-control' placeholder='Location name' name='location_name' ng-minlength="5" ng-maxlength="64" required>
+        <label for="location_name" translate>Location name</label>
+        <input ng-model="location.location_name" class='form-control' placeholder="{{ 'Location name' | translate }}" name='location_name' ng-minlength="5" ng-maxlength="64" required>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <label for="location_phone1">Phone Number</label>
-        <input ng-model="location.phone1" class='form-control' placeholder='Telephone number'>
+        <label for="location_phone1" translate>Phone Number</label>
+        <input ng-model="location.phone1" class='form-control' placeholder="{{ 'Telephone number' | translate }}">
       </div>
     </div>
     <div class="form-group row">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <label for="location_address">Address</label>
-        <input ng-model="location.location_address" class='form-control' placeholder='Your address' required>
+        <label for="location_address" translate>Address</label>
+        <input ng-model="location.location_address" class='form-control' placeholder="{{ 'Your address' | translate }}" required>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <label for="location_street">Street</label>
-        <input ng-model="location.street" class='form-control' placeholder='Your address'>
+        <label for="location_street" translate>Street</label>
+        <input ng-model="location.street" class='form-control' placeholder="{{ 'Your address' | translate }}">
       </div>
     </div>
     <div class="form-group row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-      <label for="location_town">Town</label>
-      <input ng-model="location.town" class='form-control' placeholder='Your town' required>
+      <label for="location_town" translate>Town</label>
+      <input ng-model="location.town" class='form-control' placeholder="{{ 'Your town' | translate }}" required>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-      <label for="location_postcode">Postcode</label>
-      <input ng-model="location.postcode" class='form-control' placeholder='Your postcode' required>
+      <label for="location_postcode" translate>Postcode</label>
+      <input ng-model="location.postcode" class='form-control' placeholder="{{ 'Your postcode' | translate }}" required>
     </div>
     </div>
     <hr>
     <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <label>Country</label>
+    <label translate>Country</label>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <label>Category</label>
+    <label translate>Category</label>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <p class="help-block small">
+    <p class="help-block small" translate>
     An accurate location category == better analytics :)
     </p>
     <hr>
@@ -58,29 +58,29 @@
     </div>
     <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <label for="location_twitter">Twitter Handle</label>
+    <label for="location_twitter" translate>Twitter Handle</label>
     <div class="input-group">
       <span class="input-group-addon">@</span>
-      <input ng-model="location.location_twitter" class='form-control' placeholder='Twitter handle'>
+      <input ng-model="location.location_twitter" class='form-control' placeholder="{{ 'Twitter handle' | translate }}">
     </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-      <label for="facebook_username">Facebook ID</label>
-      <input ng-model="location.facebook_username" class='form-control' placeholder='Facebook page'>
+      <label for="facebook_username" translate>Facebook ID</label>
+      <input ng-model="location.facebook_username" class='form-control' placeholder="{{ 'Facebook page' | translate">
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <p class="help-block">
+    <p class="help-block" translate>
     Your Twitter &amp; Facebook links appear on your login screens.
     </p>
     </div>
     </div>
     <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-      <button ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary">Update</button>
+      <button ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary" translate>Update</button>
     </div>
     </div>
     </form>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-warning" ng-click="cancel()" translate>Cancel</button>
 </div>

@@ -11,7 +11,10 @@
       <img ng-hide="box.is_polkaspots" class="status-icon" title='This box is not a CT box.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/other.png"></span>
     </td>
     <td>{{ box.clients }}</td>
-    <td><a href="/#/locations/{{ location.slug }}/boxes/{{box.slug}}">{{ box.description || "No description" | truncate:20 }}</a></td>
+    <td>
+      <a ng-if="box.description" href="/#/locations/{{ location.slug }}/boxes/{{box.slug}}">{{ box.description }}</a>
+      <a ng-if="!box.description" href="/#/locations/{{ location.slug }}/boxes/{{box.slug}}">{{ "No description" | truncate:20 }}</a>
+    </td>
     <td>
       <span ng-class="box.device_icon !== 'blank.png' ? 'locations-overlay-box-popover' : '' " ng-if="box.device_icon" ng-cloak><img class="center" src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}"/></span>
     </td>

@@ -1,17 +1,17 @@
 <p ng-bind-html="error"></p>
 
-<md-button href="/#/users/{{ user.slug }}/integrations" ng-if="error" class="">Authorise</md-button>
+<md-button href="/#/users/{{ user.slug }}/integrations" ng-if="error" class="" translate>Authorise</md-button>
 
 <span ng-if="loading_integration">
-  <p>Loading</p>
+  <p translate>Loading</p>
   <md-progress-linear md-mode="query"></md-progress-linear>
 </span>
 
 <div ng-if="twillio_numbers.length > 0" layout="column">
 
-  <p><b>Please note, you will be billed for any SMS sent from your account.</b></p>
+  <p><b translate>Please note, you will be billed for any SMS sent from your account.</b></p>
   <md-input-container>
-    <label>Outbound number</label>
+    <label translate>Outbound number</label>
     <md-select ng-model="trigger.attr_1">
       <md-option ng-repeat="num in twillio_numbers" value="{{num.phone_number}}">
         {{num.friendly_name}}
@@ -20,20 +20,20 @@
   </md-input-container>
 
   <md-input-container ng-if="trigger.attr_1">
-    <label>To number</label>
-    <input type="text" name="twillio-to" ng-model="trigger.attr_2" md-maxlength='100' placeholder="To number" required></input>
+    <label translate>To number</label>
+    <input type="text" name="twillio-to" ng-model="trigger.attr_2" md-maxlength='100' placeholder="{{ 'To number' | translate }}" required></input>
     <div ng-messages="myForm.twillio_num.$error">
-      <div ng-message="required">Please enter a valid number</div>
-      <div ng-message="md-maxlength">Must be less than 100 characters</div>
+      <div ng-message="required" translate>Please enter a valid number</div>
+      <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
     </div>
   </md-input-container>
 
   <md-input-container>
-    <label>Message</label>
+    <label translate>Message</label>
     <textarea name="twillio_msg" md-maxlength="1000" ng-model="trigger.attr_3" placeholder="" rows=8 required></textarea>
     <div ng-messages="myForm.twillio_msg.$error">
-      <div ng-message="required">Please enter a message body</div>
-      <div ng-message="md-maxlength">Must be less than 1000 characters</div>
+      <div ng-message="required" translate>Please enter a message body</div>
+      <div ng-message="md-maxlength" translate>Must be less than 1000 characters</div>
     </div>
   </md-input-container>
 </div>

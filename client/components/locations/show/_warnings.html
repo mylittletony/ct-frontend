@@ -2,28 +2,28 @@
   <div class="md-card-image" style="height: 5px; background-color: {{ color }};"></div>
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">
+      <span class="md-headline" translate>
         Warnings
       </span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content>
-    <span ng-if="loading">
+    <span ng-if="loading" translate>
       Loading.
     </span>
-    <span ng-if="!events.length && !loading">
+    <span ng-if="!events.length && !loading" translate>
       No warnings found.
     </span>
     <md-list-item class="md-2-line" href="" ng-click="visitBox(event.short_url)" ng-repeat="event in events">
       <div class="md-list-item-text">
         <h3 ng-class="event.event_type == 'box.online' ? 'muted' : 'offline'">{{ event.data.description }} {{ event.event_type == "box.online" ? "Reconnected" : "Disconnected" }}</h3>
         <md-tooltip>{{ event.data.ap_mac }}</md-tooltip>
-        <p>Last seen {{ event.data.last_heartbeat | mysqlTime }}</p>
+        <p translate>Last seen {{ event.data.last_heartbeat | mysqlTime }}</p>
       </div>
     </md-list-item>
   </md-card-content>
   <md-divider></md-divider>
   <md-card-actions layout="row" layout-align="end center">
-    <md-button href="/#/events">events</md-button>
+    <md-button href="/#/events" translate>events</md-button>
   </md-card-actions>
 </md-card>
