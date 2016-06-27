@@ -61,7 +61,7 @@
             <tbody md-body>
               <tr md-row md-select="voucher" md-auto-select="options.autoSelect" ng-repeat="voucher in filtered = (vouchers | filter: query.filter | orderBy: query.direction)">
                 <td md-cell>
-                  <md-icon md-menu-origin md-font-icon="">{{ voucher.is_active ? "check_circle" : 'cancel' }}</md-icon>
+                  <md-icon md-menu-origin md-font-icon="">{{ voucher.is_active ? "check" : 'cancel' }}</md-icon>
                 </td>
                 <td md-cell>
                   <a href="/#/locations/{{ location.slug }}/vouchers/{{ voucher.unique_id }}">

@@ -461,7 +461,7 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
 
 }]);
 
-app.directive('editVoucher', ['Voucher', '$routeParams', '$location', 'menu', 'showToast', 'showErrors', '$mdDialog', function(Voucher, $routeParams, $location, menu, showToast, showErrors, $mdDialog) {
+app.directive('editVoucher', ['Voucher', '$routeParams', '$location', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Voucher, $routeParams, $location, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -492,19 +492,40 @@ app.directive('editVoucher', ['Voucher', '$routeParams', '$location', 'menu', 's
       });
     };
 
-    Voucher.get({location_id: scope.location.slug, id: $routeParams.voucher_id}).$promise.then(function(results) {
-      scope.voucher = results;
-      if (!scope.voucher.access_restrict_period) {
-        scope.voucher.access_restrict_period = '';
+    scope.enableDisableWarn = function(val) {
+      var msg;
+      if (val === true) {
+        msg = gettextCatalog.getString('Reactivating the batch will enable all associated codes.');
+      } else {
+        msg = gettextCatalog.getString('Disabling the batch will disable all the associated codes.');
       }
-      scope.loading = undefined;
-    }, function(err) {
-      scope.loading = undefined;
-    });
+      var confirm = $mdDialog.confirm()
+        .title(gettextCatalog.getString('Disable Voucher Batch'))
+        .textContent(msg)
+        .ariaLabel(gettextCatalog.getString('Disable / Enable Batch'))
+        .ok(gettextCatalog.getString('OK'));
+      $mdDialog.show(confirm).then(function() {
+        $mdDialog.cancel();
+      });
+    };
+
+    var init = function() {
+      Voucher.get({location_id: scope.location.slug, id: $routeParams.voucher_id}).$promise.then(function(results) {
+        scope.voucher = results;
+        if (!scope.voucher.access_restrict_period) {
+          scope.voucher.access_restrict_period = '';
+        }
+        scope.loading = undefined;
+      }, function(err) {
+        scope.loading = undefined;
+      });
+    };
 
     scope.back = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id;
     };
+
+    init();
 
   };
 

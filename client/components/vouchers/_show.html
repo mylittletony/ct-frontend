@@ -31,9 +31,14 @@
             <span class="md-headline">
               Voucher Details
             </span>
-            <span class="md-subhead" ng-hide="voucher.completed == true">
-              <md-progress-linear md-mode="query"></md-progress-linear>
-              Vouchers generating, please wait.
+            <span class="md-subhead">
+              <span ng-hide="voucher.completed == true">
+                <md-progress-linear md-mode="query"></md-progress-linear>
+                Vouchers generating, please wait.
+              </span>
+            </span>
+            <span ng-if="!voucher.is_active">
+              Voucher batch disabled.
             </span>
           </md-card-title-text>
         </md-card-title>

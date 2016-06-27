@@ -72,55 +72,55 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Edit',
         type: 'edit',
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings'
       });
 
       if (scope.box.is_polkaspots) {
 
-        scope.menu.push({
-          name: 'Reboot',
-          icon: 'autorenew',
-          type: 'reboot',
-          disabled: !scope.box.allowed_job
-        });
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Reboot'),
+        //   icon: 'autorenew',
+        //   type: 'reboot',
+        //   disabled: !scope.box.allowed_job
+        // });
 
-        scope.menu.push({
-          name: 'Payloads',
-          type: 'payloads',
-          icon: 'present_to_all',
-        });
+        // scope.menu.push({
+        //   type: 'payloads',
+        //   name: gettextCatalog.getString('Payloads'),
+        //   icon: 'present_to_all',
+        // });
 
-        scope.menu.push({
-          name: 'Changelog',
-          type: 'changelog',
-          icon: 'history',
-        });
-      }
+        // scope.menu.push({
+        //   type: 'changelog',
+        //   name: gettextCatalog.getString('Changelog'),
+        //   icon: 'history',
+        // });
+      // }
 
-      scope.menu.push({
-        name: 'Transfer',
-        icon: 'transform',
-        type: 'transfer',
-      });
+      // scope.menu.push({
+        // name: gettextCatalog.getString('Transfer'),
+        // icon: 'transform',
+        // type: 'transfer',
+      // });
 
-      scope.menu.push({
-        name: 'Delete',
-        icon: 'delete_forever'
-      });
+      // scope.menu.push({
+        // name: gettextCatalog.getString('Delete'),
+        // icon: 'delete_forever'
+      // });
 
-      if (scope.box.is_polkaspots) {
-        scope.menu.push({
-          name: 'Resync',
-          icon: 'settings_backup_restore',
-          disabled: !scope.box.allowed_job
-        });
+      // if (scope.box.is_polkaspots) {
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Resync'),
+        //   icon: 'settings_backup_restore',
+        //   disabled: !scope.box.allowed_job
+        // });
 
-        scope.menu.push({
-          name: 'Reset',
-          icon: 'clear',
-        });
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Reset'),
+        //   icon: 'clear',
+        // });
       }
 
     };
@@ -351,8 +351,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('general', function(data) {
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
           console.log('Message recvd.', data);
           init();
         });
@@ -395,7 +395,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.streamingUpdater = function() {
       if (scope.streamingUpdates) {
-        loadPusher(scope.box.sockets_hash);
+        if (scope.box.pubsub_token) {
+          loadPusher(scope.box.pubsub_token);
+        }
         showToast(gettextCatalog.getString('Streaming updates enabled'));
       } else {
         if (channel) {
@@ -420,7 +422,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ClientDetails.client = { location_id: box.location_id, ap_mac: box.calledstationid };
         createMenu();
         sortSsids();
-        loadPusher(box.sockets_hash);
+        loadPusher(box.pubsub_token);
         scope.loading = undefined;
         deferred.resolve(box);
 
@@ -482,7 +484,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           }
         }
       } else {
-        scope.box.ssids = 'N/A';
+        scope.box.ssids = gettextCatalog.getString('N/A');
       }
     };
 
@@ -568,7 +570,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     var loadPayloads = function() {
       Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
         scope.payloads = data;
-        loadPusher(scope.box.sockets_hash);
+        loadPusher(scope.box.pubsub_token);
       });
     };
 
@@ -580,7 +582,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
         channel = pusher.subscribe(key);
         channel.bind('general', function(data) {
           scope.command.success = undefined;
-          showToast(gettextCatalog.getString('Payload completed!'))
+          showToast(gettextCatalog.getString('Payload completed!'));
           loadPayloads();
         });
       }
@@ -604,7 +606,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
 }]);
 
-app.directive('splashOnly', 'gettextCatalog', ['Box', 'showToast', 'showErrors', function(Box, showToast, showErrors, gettextCatalog) {
+app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog', function(Box, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -648,6 +650,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
 
+    //fixme: some of these might also have to be translated
     var ht20_channels  = ['auto', '01','02','03','04','05','06','07','08','09','10','11'];
     var ht40m_channels = ['auto','05','06','07','08','09','10','11'];
     var ht40p_channels = ['auto','01','02','03','04','05','06','07'];
@@ -1079,7 +1082,7 @@ app.directive('interfaceButtons', ['$routeParams', '$location', function($routeP
 
     scope.formData = {};
     var a = [];
-
+    //fixme: translations
     scope.formData.interval = $routeParams.interval || 'quarter';
 
     if ( scope.formData.interval === 'quarter' ) {
@@ -1147,7 +1150,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         if (prefs.version) {
           scope.box.next_firmware = prefs.version;
         }
-        loadPusher(scope.box.sockets_hash);
+        loadPusher(scope.box.pubsub_token);
         showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';
@@ -1239,7 +1242,6 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     var channel, pusherLoaded;
     var loadPusher = function(key) {
-
       if (pusherLoaded === undefined && typeof client !== 'undefined') {
         pusherLoaded = true;
         var pusher = $pusher(client);

@@ -36,7 +36,6 @@
 
 <md-content layout-padding>
 
-  <!-- has devices ! -->
   <div ng-show="location.has_nas == false">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
@@ -67,14 +66,13 @@
         </md-card>
       </div>
     </div>
-
   </div>
 
   <div ng-if="location.has_nas">
     <client-chart ng-if="!query">
       <location-chart ></location-chart>
     </client-chart>
-    <location-boxes filter="query" loading="loading"></location-boxes>
+    <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
   </div>
 
 </md-content>

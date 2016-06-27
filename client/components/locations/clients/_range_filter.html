@@ -1,25 +1,25 @@
-<md-dialog aria-label="Health Check"  ng-cloak>
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Range Filter</h2>
+        <h2 translate>Range Filter</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
         <div flex layout="column">
-          <p>Search for clients online at a certain point in time.</p>
+          <p translate>Search for clients online at a certain point in time.</p>
         </div>
         <div flex layout="column">
-          <md-datepicker ng-change="setPresence()" ng-model="startDate" md-placeholder="Start date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
-          <md-datepicker ng-change="setPresence()" ng-model="endDate" md-placeholder="End date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+          <md-datepicker ng-change="setPresence()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+          <md-datepicker ng-change="setPresence()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
         </div>
         <p ng-if='error'>{{error}}</p>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="close()">
+      <md-button ng-click="close()" translate>
         Close
       </md-button>
       <md-button class="md-raised" ng-disabled="!startDate || !endDate" ng-click="search()">

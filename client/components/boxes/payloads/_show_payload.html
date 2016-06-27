@@ -1,7 +1,7 @@
-<md-dialog aria-label="Payload Output" ng-cloak>
+<md-dialog aria-label="{{ 'Payload Output' | translate }}" ng-cloak>
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <h2>Command Output</h2>
+      <h2 translate>Command Output</h2>
       <span flex></span>
     </div>
   </md-toolbar>
@@ -14,7 +14,7 @@
   </md-dialog-content>
   <md-dialog-actions layout="row">
     <span flex></span>
-    <md-button ng-click="cancel()">
+    <md-button ng-click="cancel()" translate>
       CLOSE
     </md-button>
   </md-dialog-actions>

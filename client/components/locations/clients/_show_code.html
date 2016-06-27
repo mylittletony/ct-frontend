@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Back to Codes</p>
+    <p translate>Back to Codes</p>
     <span flex></span>
     <clients-toolbar client="client"></clients-toolbar>
   </div>
@@ -17,41 +17,41 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Code Details</span>
+          <span class="md-headline" translate>Code Details</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <md-list flex>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Username</h3>
+              <h3 translate>Username</h3>
               <p>{{results.code.username }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Password</h3>
+              <h3 translate>Password</h3>
               <p>{{results.code.password }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Activated</h3>
+              <h3 translate>Activated</h3>
               <p>{{results.code.date_activated | humanTime }}</p>
-              <md-tooltip>
+              <md-tooltip translate>
                 Created {{ results.code.created_at | humanTime }}
               </md-tooltip>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Client Mac</h3>
+              <h3 translate>Client Mac</h3>
               <p>{{results.code.client_mac }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Label</h3>
+              <h3 translate>Label</h3>
               <p>
                 {{ (results.code.label | titleCase) || 'N/A' }}
               </p>
@@ -59,7 +59,7 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Randomly Generated</h3>
+              <h3 translate>Randomly Generated</h3>
               <p>
                 {{ results.code.random | humanTime }}
               </p>
@@ -67,7 +67,7 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Status</h3>
+              <h3 translate>Status</h3>
               <p>
                 {{ results.code.active ? "Active" : "Disabled" }}
               </p>
@@ -82,26 +82,26 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Batch Details</span>
-          <span class="md-subheader">Batch Details</span>
+          <span class="md-headline" translate>Batch Details</span>
+          <span class="md-subheader" translate>Batch Details</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <md-list>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Batch Name</h3>
+              <h3 translate>Batch Name</h3>
               <p>
                 {{ results.voucher.batch_name | titleCase }}
               </p>
-              <md-tooltip>
+              <md-tooltip translate>
                 Description: {{ results.voucher.batch_description }}
               </md-tooltip>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Created</h3>
+              <h3 translate>Created</h3>
               <p>
                 {{ results.voucher.created_at | humanTime }}
               </p>
@@ -109,7 +109,7 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Total Codes</h3>
+              <h3 translate>Total Codes</h3>
               <p>
                 {{ results.voucher.quantity }}
               </p>
@@ -117,7 +117,7 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Show Splash After</h3>
+              <h3 translate>Show Splash After</h3>
               <p>
                 {{ results.voucher.session_timeout }} minutes
               </p>
@@ -125,7 +125,7 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Simultaneous Users</h3>
+              <h3 translate>Simultaneous Users</h3>
               <p>
                 {{ results.voucher.simultaneous_use }}
               </p>
@@ -133,7 +133,7 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Speeds Restrictions</h3>
+              <h3 translate>Speeds Restrictions</h3>
               <p>
                 {{ results.voucher.download_speed / 1024 }}Mbps
                 <md-icon md-font-icon="download">arrow_downward</md-icon>
@@ -144,23 +144,23 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Validity Minutes</h3>
-              <p>
+              <h3 translate>Validity Minutes</h3>
+              <p translate>
                 {{ results.voucher.validity_minutes }} minutes
               </p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Idle Timeout</h3>
-              <p>
+              <h3 translate>Idle Timeout</h3>
+              <p translate>
                 {{ results.voucher.idle_timeout }} minutes
               </p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Voucher Format</h3>
+              <h3 translate>Voucher Format</h3>
               <p>
                 {{ results.voucher.voucher_format | titleCase }}
               </p>
@@ -168,7 +168,7 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>Status</h3>
+              <h3 translate>Status</h3>
               <p>
                 {{ results.voucher.is_active ? "Active" : "Disabled" }}
               </p>
@@ -177,8 +177,8 @@
         </md-list>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button href="/#/locations/{{location.slug}}/splash_pages/{{ results.voucher.splash_page_id}}">SPLASH PAGE</md-button>
-        <md-button href="/#/locations/{{location.slug}}/vouchers/{{ results.voucher.unique_id}}">VOUCHER</md-button>
+        <md-button href="/#/locations/{{location.slug}}/splash_pages/{{ results.voucher.splash_page_id}}" translate>SPLASH PAGE</md-button>
+        <md-button href="/#/locations/{{location.slug}}/vouchers/{{ results.voucher.unique_id}}" translate>VOUCHER</md-button>
       </md-card-actions>
     </md-card>
   </div>

@@ -32,6 +32,7 @@
               <div ng-message="required">You must give the batch a name</div>
             </div>
           </md-input-container>
+
           <md-input-container class="md-block" flex-gt-sm>
             <label>Batch Description</label>
             <input name="desc" ng-model="voucher.batch_description" md-maxlength=255 required>
@@ -170,7 +171,7 @@
           <label>Voucher Format</label>
           <md-select ng-model="voucher.voucher_format" ng-disabled="voucher.unique_id">
             <md-option ng-repeat="type in voucher_formats" value="{{type.value}}">
-              {{type.key}}
+              {{ type.key }}
             </md-option>
           </md-select>
         </md-input-container>

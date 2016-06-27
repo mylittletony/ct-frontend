@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', function(Location, $routeParams, $location, showToast, menu) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -15,16 +15,7 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
     };
 
     scope.streamingUpdater = function() {
-      if (scope.streamingUpdates) {
-        console.log('Not implemented, add pusher');
-        showToast('Streaming updates enabled');
-      } else {
-        if (channel) {
-          channel.unbind();
-        }
-        console.log('Not implemented, add pusher');
-        showToast('Streaming updates disabled');
-      }
+      $rootScope.$broadcast('streaming', { enabled: scope.streamingUpdates });
     };
 
     function updateLocation() {
@@ -415,7 +406,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
     menu.hideBurger = true;
     scope.location = { add_to_global_map: false, location_name: $routeParams.name };
 
-
     scope.save = function(form) {
       form.$setPristine();
       scope.location.creating = true;
@@ -690,7 +680,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1145,6 +1135,38 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       }
     };
 
+    var channel;
+    function loadPusher() {
+      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+        scope.pusherLoaded = true;
+        var pusher = $pusher(client);
+        channel = pusher.subscribe('private-' + attrs.token);
+        console.log('Binding to:', channel.name);
+        for( var i = 0; i < scope.boxes.length; ++i ) {
+          channel.bind('boxes_' + scope.boxes[i].pubsub_token, function(data) {
+            updateBox(data.message);
+          });
+        }
+      }
+    }
+
+    var updateBox = function(data) {
+      data = JSON.parse(data);
+      angular.forEach(scope.boxes, function(value, key) {
+        if (parseInt(data.id) === value.id) {
+          var box = scope.boxes[key];
+          box.calledstationid = data.calledstationid;
+          // box.wan_proto       = data.wan_proto;
+          box.description     = data.description;
+          box.last_heartbeat  = data.last_heartbeat;
+          box.state           = data.state;
+          box.wan_ip          = data.wan_ip;
+          scope.boxes[key]    = box;
+          console.log('Updated', box.pubsub_token + ' at ' + new Date().getTime());
+        }
+      });
+    };
+
     var init = function() {
       scope.deferred = $q.defer();
       Box.query({
@@ -1161,16 +1183,32 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       }, function(err) {
         scope.loading = undefined;
       });
+      return scope.deferred.promise;
     };
 
-    init();
+    $rootScope.$on('streaming', function(args,res) {
+      if (res.enabled) {
+        loadPusher();
+        showToast('Streaming updates enabled');
+      } else {
+        scope.pusherLoaded = undefined;
+        if (channel) {
+          channel.unbind();
+        }
+        showToast('Streaming updates disabled');
+      }
+    });
+
+    init().then(loadPusher);
 
   };
   return {
     link: link,
     scope: {
       filter: '=',
-      loading: '='
+      loading: '=',
+      token: '@',
+      streaming: '='
     },
     templateUrl: 'components/locations/boxes/_table.html'
   };

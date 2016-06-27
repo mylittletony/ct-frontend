@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.codes.directives', []);
 
-app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', function(Code, $routeParams, $location, Client, showToast, showErrors) {
+app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', 'gettextCatalog', function(Code, $routeParams, $location, Client, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -40,13 +40,13 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
       scope.menuItems = [];
 
       scope.menuItems.push({
-        name: 'Sessions',
+        name: gettextCatalog.getString('Sessions'),
         icon: 'data_usage',
         type: 'sessions'
       });
 
       scope.menuItems.push({
-        name: 'Disable',
+        name: gettextCatalog.getString('Disable'),
         icon: 'pageview',
         type: 'disable'
       });
@@ -66,9 +66,9 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
 
     scope.itemName = function(item,code) {
       if (item.type === 'disable' && code.active ) {
-        return 'Disable';
+        return gettextCatalog.getString('Disable');
       } else if ( item.type === 'disable' && !code.active ) {
-        return 'Enable';
+        return gettextCatalog.getString('Enable');
       } else {
         return item.name;
       }
@@ -85,8 +85,8 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
         id: code.username,
         code: { active: code.active }
       }).$promise.then(function(results) {
-        var text = code.active ? 'activated' : 'disabled';
-        showToast('Code ' +  text + ' successfully.');
+        var text = code.active ? gettextCatalog.getString('activated') : gettextCatalog.getString('disabled');
+        showToast(gettextCatalog.getString('Code ') +  text + gettextCatalog.getString(' successfully.'));
       }, function(err) {
         code.active = !code.active;
         showErrors(err);
@@ -320,7 +320,7 @@ app.directive('codesShow', ['Code', '$routeParams', '$location', function(Code, 
 
 }]);
 
-app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', '$q', '$mdDialog', 'showErrors', function(Client, $routeParams, Session, $location, $q, $mdDialog, showErrors) {
+app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', '$q', '$mdDialog', 'showErrors', 'gettextCatalog', function(Client, $routeParams, Session, $location, $q, $mdDialog, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -444,7 +444,7 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
         scope.query.start = new Date($scope.startDate).getTime() / 1000;
         scope.query.end   = new Date($scope.endDate).getTime() / 1000;
         if (scope.query.start >= scope.query.end) {
-          $scope.error = 'The start date must be less than the end date';
+          $scope.error = gettextCatalog.getString('The start date must be less than the end date');
         } else {
           $mdDialog.cancel();
           scope.query.page = 1;

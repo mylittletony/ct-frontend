@@ -1,7 +1,7 @@
 <md-card>
   <md-card-header class="graph-small">
     <md-card-header-text>
-      <span class="md-subhead">
+      <span class="md-subhead" translate>
         MCS Index
       </span>
     </md-card-header-text>
@@ -19,7 +19,7 @@
     <div id="mcs-chart"></div>
     <div>
       <div layout="row" ng-if="noData || loading" style="min-height: 250px;" layout-align="left end" class="muted">
-        <p><small><span ng-if="noData">No graph data</span><span ng-if="loading">Loading usage data</span></small></p>
+        <p><small><span ng-if="noData" translate>No graph data</span><span ng-if="loading" translate>Loading usage data</span></small></p>
       </div>
       <md-progress-linear ng-if="loading" md-mode="query"></md-progress-linear>
     </div>

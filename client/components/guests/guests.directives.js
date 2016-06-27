@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.guests.directives', []);
 
-app.directive('guestShow', ['Guest', 'Session', '$routeParams', '$location', function(Guest,Session,$routeParams,$location) {
+app.directive('guestShow', ['Guest', 'Session', '$routeParams', '$location', 'gettextCatalog', function(Guest,Session,$routeParams,$location, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -20,7 +20,7 @@ app.directive('guestShow', ['Guest', 'Session', '$routeParams', '$location', fun
     };
 
     scope.unregister = function() {
-      var msg = 'Unregistering a guest will not delete them. Instead, they will see the full registration page next time they login. Please use carefully.';
+      var msg = gettextCatalog.getString('Unregistering a guest will not delete them. Instead, they will see the full registration page next time they login. Please use carefully.');
       if ( window.confirm(msg) ) {
         scope.updateGuest(true);
       }
