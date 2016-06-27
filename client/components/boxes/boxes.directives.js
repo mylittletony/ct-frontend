@@ -352,12 +352,26 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
         channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        console.log('Binding to:', channel.name);
         channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
           console.log('Message recvd.', data);
-          init();
+          processNotification(data.message);
         });
       }
     }
+
+    var processNotification = function(data) {
+      switch(data.type) {
+        case 'speedtest':
+          scope.box.latest_speedtest = {
+            result: data.message.val,
+            timestamp: data.message.timestamp
+          };
+          break;
+        case 'xxxxxxxxxxxxxx':
+          break;
+      }
+    };
 
     var processAlertMessages = function() {
       if (scope.box.is_polkaspots) {
@@ -531,6 +545,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
         scope.box = box;
         scope.loading = undefined;
         loadPayloads();
+        loadPusher();
       }, function(err) {
         scope.loading = undefined;
         console.log(err);
@@ -570,17 +585,29 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     var loadPayloads = function() {
       Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
         scope.payloads = data;
-        loadPusher(scope.box.pubsub_token);
       });
     };
 
+    // var channel;
+    // function loadPusher(key) {
+    //   if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+    //     scope.pusherLoaded = true;
+    //     var pusher = $pusher(client);
+    //     channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+    //     channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
+    //       console.log('Message recvd.', data);
+    //       init();
+    //     });
+    //   }
+    // }
+
     var channel;
-    function loadPusher(key) {
+    function loadPusher() {
       if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('general', function(data) {
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
           scope.command.success = undefined;
           showToast(gettextCatalog.getString('Payload completed!'));
           loadPayloads();
@@ -1245,8 +1272,11 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
       if (pusherLoaded === undefined && typeof client !== 'undefined') {
         pusherLoaded = true;
         var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('box_upgrade', function(data) {
+
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
+        // channel = pusher.subscribe(key);
+        // channel.bind('box_upgrade', function(data) {
           var msg;
           try{
             msg = JSON.parse(data.message);

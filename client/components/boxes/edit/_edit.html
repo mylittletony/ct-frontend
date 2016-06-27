@@ -9,7 +9,7 @@
 </md-toolbar>
 
 <section ng-cloak ng-show="!loading">
-  <md-subheader class="md-accent" translate><b>MAC Address</b>: {{ box.calledstationid }} <span hide show-gt-sm> <b>Description</b>: {{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
+  <md-subheader class="md-accent" translate><b>MAC Address</b>: {{ box.calledstationid }} <span hide show-gt-sm> <b>Description</b>:&nbsp;{{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
 </section>
 
 <md-content class="md-padding" layout-gt-sm="column" layout="column" ng-if="box.is_polkaspots == false">
@@ -109,7 +109,7 @@
               </md-input-container>
             </div>
             <div flex="100">
-              <p translate>2.4Gz Power ({{box.tx_power_2}}dBm)</p>
+              <p translate>2.4Ghz Power ({{box.tx_power_2}}dBm)</p>
               <md-slider-container>
                 <md-slider flex class="md-primary" md-discrete ng-model="box.tx_power_2" step="1" min="5" max="20" aria-label="tx_power_2">
                 </md-slider>
