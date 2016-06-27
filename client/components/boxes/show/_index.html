@@ -7,7 +7,7 @@
     <span flex></span>
     <upgrade-box box="box"></upgrade-box>
     <span ng-if="box.state == 'offline'">
-      <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" :  "volume_up" }}</md-icon>
+      <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" : "volume_up" }}</md-icon>
       <md-tooltip md-direction="left">
         <!-- <span translate>Box is</span> -->
         <!-- <span ng-if="box.ignored" translate>muted. Will not appear in alerts.</span> -->
@@ -23,8 +23,7 @@
       </md-tooltip>
 
     </md-button>
-    <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
-      <!-- <md-tooltip md-direction="left">Enable streaming updates for this page</md-tooltip> -->
+    <md-switch title="Streaming updates {{ streamingUpdates | humanBoolean }}" ng-model="streamingUpdates" aria-label="{{ 'Enable streaming updates' | translate }}" ng-change='streamingUpdater()'>
     </md-switch>
     <md-button-group hide show-gt-sm class="md-raised">
       <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }">5m</md-button>
@@ -217,13 +216,13 @@
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3 translate>WAN IP</h3>
-              <p>{{ box.wan_ip || 'No details' }}</p>
+              <p>{{ box.wan_ip | emptyFilter }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3 translate>Public IP</h3>
-              <p>{{ box.public_ip || "No public IP"}}</p>
+              <p>{{ box.public_ip | emptyFilter }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">

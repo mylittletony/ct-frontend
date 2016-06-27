@@ -53,7 +53,7 @@
             <div class="md-list-item-text" layout="column">
               <h3 translate>Label</h3>
               <p>
-                {{ (results.code.label | titleCase) || 'N/A' }}
+                {{ (results.code.label | titleCase) | emptyFilter }}
               </p>
             </div>
           </md-list-item>
@@ -69,7 +69,7 @@
             <div class="md-list-item-text" layout="column">
               <h3 translate>Status</h3>
               <p>
-                {{ results.code.active ? "Active" : "Disabled" }}
+                {{ results.code.active | humanBoolean }}
               </p>
             </div>
           </md-list-item>
@@ -170,7 +170,7 @@
             <div class="md-list-item-text" layout="column">
               <h3 translate>Status</h3>
               <p>
-                {{ results.voucher.is_active ? "Active" : "Disabled" }}
+                {{ results.voucher.is_active | humanBoolean }}
               </p>
             </div>
           </md-list-item>

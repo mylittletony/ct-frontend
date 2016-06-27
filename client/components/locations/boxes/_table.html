@@ -64,7 +64,7 @@
                 <md-icon md-menu-origin class="box-status offline md-warn" ng-if="box.state != 'online'" class="s48">error_outline</md-icon>
               </span>
               <md-tooltip>
-                This box is {{ ::box.state === 'online' ? 'online' : 'offline' }}
+                {{ ::box.state | deviceStatus }}
               </md-tooltip>
             </td>
             <td md-cell class="box-icon">
@@ -78,8 +78,8 @@
             <td md-cell ing-click="editDescription($event, box)">
               <span>
               <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
-                <span hide-gt-xs>{{ (box.description || 'No description' ) | truncate:10 }}</span>
-                <span hide show-gt-xs>{{ (box.description || 'No description' ) | truncate:20 }}</span>
+                <span hide-gt-xs>{{ box.description | emptyFilter | truncate:10 }}</span>
+                <span hide show-gt-xs>{{ box.description | emptyFilter | truncate:20 }}</span>
               </a>
             </td>
             <td hide show-gt-lg md-cell>
@@ -96,7 +96,7 @@
             <td hide show-gt-md md-cell>
               {{ box.wan_ip }}
               <md-tooltip>
-                WAN Protocol: {{ ::box.wan_proto == 'dhcp' ? 'DHCP' : 'Static' }}<span ng-if='box.wan_proto === "static"'>. Static IP: {{ ::box.wan_ipaddr }}</span>
+                WAN Protocol: {{ ::box.wan_proto }}<span ng-if='box.wan_proto === "static"'>. Static IP: {{ ::box.wan_ipaddr }}</span>
               </md-tooltip>
             </td>
             <td hide show-gt-xs md-cell>
