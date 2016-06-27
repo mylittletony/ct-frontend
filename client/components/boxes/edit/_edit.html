@@ -69,8 +69,10 @@
             <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
               <span translate>Alerts {{ box.is_monitored | humanBoolean }}</span>
             </md-switch>
-            <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}" translate>
-              Cucumber Box
+            <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}">
+              <translate>
+                Cucumber Box
+              </translate>
             </md-checkbox>
             <small translate>Don't disable this unless you're using a splash-only device.</small>
           </div>
@@ -159,17 +161,25 @@
       <md-card-content>
 
         <div layout="row">
-          <md-checkbox ng-disabled="box.legacy_mode_b" ng-model="box.basic_rate_enabled" aria-label="{{ 'Basic Rate Support' | translate }}" translate>
-            Minimum Data Rate
+          <md-checkbox ng-disabled="box.legacy_mode_b" ng-model="box.basic_rate_enabled" aria-label="{{ 'Basic Rate Support' | translate }}">
+            <translate>
+              Minimum Data Rate
+            </translate>
           </md-checkbox>
-          <md-checkbox ng-model="box.band_steering" aria-label="{{ 'Band Steering' | translate }}" translate>
-            Band Steering
+          <md-checkbox ng-model="box.band_steering" aria-label="{{ 'Band Steering' | translate }}">
+            <translate>
+              Band Steering
+            </translate>
           </md-checkbox>
-          <md-checkbox ng-model="box.no_scan" aria-label="{{ 'No Scan' | translate }}" translate>
-            No Scan Mode
+          <md-checkbox ng-model="box.no_scan" aria-label="{{ 'No Scan' | translate }}">
+            <translate>
+              No Scan Mode
+            </translate>
           </md-checkbox>
-          <md-checkbox ng-disabled="box.basic_rate_enabled" ng-model="box.legacy_mode_b" aria-label="{{ 'Legacy Mode' | translate }}" translate>
-            Legacy Mode
+          <md-checkbox ng-disabled="box.basic_rate_enabled" ng-model="box.legacy_mode_b" aria-label="{{ 'Legacy Mode' | translate }}">
+            <translate>
+              Legacy Mode
+            </translate>
           </md-checkbox>
         </div>
 
@@ -215,8 +225,10 @@
             </md-select>
           </md-input-container>
         </div>
-        <md-checkbox ng-model="box.debug" aria-label="{{ 'Cucumber Debug' | translate }}" translate>
-          Enable Debug Mode
+        <md-checkbox ng-model="box.debug" aria-label="{{ 'Cucumber Debug' | translate }}">
+          <translate>
+            Enable Debug Mode
+          </translate>
         </md-checkbox>
         <p>
           <small>

@@ -79,48 +79,48 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
       if (scope.box.is_polkaspots) {
 
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Reboot'),
-        //   icon: 'autorenew',
-        //   type: 'reboot',
-        //   disabled: !scope.box.allowed_job
-        // });
+        scope.menu.push({
+          name: gettextCatalog.getString('Reboot'),
+          icon: 'autorenew',
+          type: 'reboot',
+          disabled: !scope.box.allowed_job
+        });
 
-        // scope.menu.push({
-        //   type: 'payloads',
-        //   name: gettextCatalog.getString('Payloads'),
-        //   icon: 'present_to_all',
-        // });
+        scope.menu.push({
+          type: 'payloads',
+          name: gettextCatalog.getString('Payloads'),
+          icon: 'present_to_all',
+        });
 
-        // scope.menu.push({
-        //   type: 'changelog',
-        //   name: gettextCatalog.getString('Changelog'),
-        //   icon: 'history',
-        // });
-      // }
+        scope.menu.push({
+          type: 'changelog',
+          name: gettextCatalog.getString('Changelog'),
+          icon: 'history',
+        });
+      }
 
-      // scope.menu.push({
-        // name: gettextCatalog.getString('Transfer'),
-        // icon: 'transform',
-        // type: 'transfer',
-      // });
+      scope.menu.push({
+        name: gettextCatalog.getString('Transfer'),
+        icon: 'transform',
+        type: 'transfer',
+      });
 
-      // scope.menu.push({
-        // name: gettextCatalog.getString('Delete'),
-        // icon: 'delete_forever'
-      // });
+      scope.menu.push({
+        name: gettextCatalog.getString('Delete'),
+        icon: 'delete_forever'
+      });
 
-      // if (scope.box.is_polkaspots) {
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Resync'),
-        //   icon: 'settings_backup_restore',
-        //   disabled: !scope.box.allowed_job
-        // });
+      if (scope.box.is_polkaspots) {
+        scope.menu.push({
+          name: gettextCatalog.getString('Resync'),
+          icon: 'settings_backup_restore',
+          disabled: !scope.box.allowed_job
+        });
 
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Reset'),
-        //   icon: 'clear',
-        // });
+        scope.menu.push({
+          name: gettextCatalog.getString('Reset'),
+          icon: 'clear',
+        });
       }
 
     };

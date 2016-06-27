@@ -41,21 +41,27 @@
       <div flex></div>
       <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="{{ 'Add Device' | translate }}" hide show-gt-xs>
         <md-icon>add_circle</md-icon>
-        <md-tooltip md-direction="bottom" translate>
-          Add a new location.
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Add a new location.
+          </translate>
         </md-tooltip>
       </md-button>
       <md-button class="md-icon-button" href="" aria-label="{{ 'Map' | translate }}" hide show-gt-xs>
         <md-icon>map</md-icon>
-        <md-tooltip md-direction="bottom" translate>
-          View device map.
+        <md-tooltip md-direction="bottom">
+          <translate>
+            View device map.
+          </translate>
         </md-tooltip>
       </md-button>
       <span hide show-gt-xs>
         <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
         </md-switch>
-        <md-tooltip md-direction="bottom" translate>
-          Streaming updates.
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Streaming updates.
+          </translate>
         </md-tooltip>
       </span>
     </div>
