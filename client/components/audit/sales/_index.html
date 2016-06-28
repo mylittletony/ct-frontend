@@ -85,8 +85,10 @@
                     </span>
                     <span hide show-xs>
                       <br><small>{{ ::(order.created_at | humanTimeShort) }}</small>
-                      <md-tooltip translate>
-                        Order Total: {{ order.total / 100 | currency:order.currency }}
+                      <md-tooltip>
+                        <translate>
+                          Order Total: {{ order.total / 100 | currency:order.currency }}
+                        </translate>
                       </md-tooltip>
                     </span>
                   </td>

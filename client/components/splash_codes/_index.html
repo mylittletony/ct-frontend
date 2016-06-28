@@ -34,7 +34,7 @@
         <p translate>Create rules and restrictions to control access.</p>
 
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-show="allowed == true" ng-click="create()" translate>Create</md-button>
+          <md-button ng-show="allowed == true" ng-click="create()"><translate>Create</translate></md-button>
         </md-card-actions>
       </md-card-content>
     </md-card>
@@ -51,11 +51,11 @@
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="logOrder">
               <tr md-row>
-                <th md-column md-order-by="active"><span>Active</span></th>
-                <th md-column><span>Password</span></th>
-                <th hide show-gt-sm md-column md-order-by="type" md-desc><span>Restriction</span></th>
-                <th hide show-gt-sm md-column md-order-by="expires"><span>Expires</span></th>
-                <th md-column><span>Action</span></th>
+                <th md-column md-order-by="active"><span translate>Active</span></th>
+                <th md-column><span translate>Password</span></th>
+                <th hide show-gt-sm md-column md-order-by="type" md-desc><span translate>Restriction</span></th>
+                <th hide show-gt-sm md-column md-order-by="expires"><span translate>Expires</span></th>
+                <th md-column><span translate>Action</span></th>
               </tr>
             </thead>
             <tbody md-body>

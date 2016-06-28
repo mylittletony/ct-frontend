@@ -48,8 +48,10 @@
                   </td md-cell>
                   <td md-cell>
                     {{ ::user.email }}
-                    <md-tooltip hide-gt-sm translate>
-                      State: {{ user.state | titleCase }}. Created: {{ (user.created_at || user.timestamp ) | humanTime }}
+                    <md-tooltip hide-gt-sm>
+                      <translate>
+                        State: {{ user.state | titleCase }}. Created: {{ (user.created_at || user.timestamp ) | humanTime }}
+                      </translate>
                     </md-tooltip>
                   </td md-cell>
                   <td hide show-gt-sm md-cell>

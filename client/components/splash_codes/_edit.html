@@ -23,7 +23,7 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button href="/#/locations/{{ location.slug }}/splash_pages" translate>CREATE SPLASH</md-button>
+        <md-button href="/#/locations/{{ location.slug }}/splash_pages"><translate>CREATE SPLASH</translate></md-button>
       </md-card-actions>
     </md-card>
   </div>
@@ -83,8 +83,8 @@
 
               <div flex="100">
                 <md-radio-group ng-model="code.period" layout="row" style="margin: -10px 0 10px 0;">
-                  <md-radio-button value="daily" translate> Per day </md-radio-button>
-                  <md-radio-button value="all" class="md-primary" translate>All time</md-radio-button>
+                  <md-radio-button value="daily"><translate> Per day </translate></md-radio-button>
+                  <md-radio-button value="all" class="md-primary"><translate>All time</translate></md-radio-button>
                 </md-radio-group>
               </div>
 
@@ -113,7 +113,7 @@
             </div>
           </md-card-content>
         </md-card>
-        <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>Save</md-button>
+        <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
       </form>
     </div>
   </div>

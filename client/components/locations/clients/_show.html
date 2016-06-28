@@ -42,8 +42,10 @@
             <div class="md-list-item-text" layout="column">
               <h3 translate>Last Seen</h3>
               <p>{{client.lastseen | humanTime }}</p>
-              <md-tooltip translate>
-                First seen {{ client.created_at | humanTime }}
+              <md-tooltip>
+                <translate>
+                  First seen {{ client.created_at | humanTime }}
+                </translate>
               </md-tooltip>
             </div>
           </md-list-item>
@@ -60,8 +62,10 @@
               <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                 <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
               </md-button>
-              <md-tooltip ng-if="client.name" translate>
-                Original name: {{ client.device_name }}
+              <md-tooltip ng-if="client.name">
+                <translate>
+                  Original name: {{ client.device_name }}
+                </translate>
               </md-tooltip>
             </div>
           </md-list-item>
