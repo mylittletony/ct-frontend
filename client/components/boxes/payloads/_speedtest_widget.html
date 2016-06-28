@@ -1,11 +1,13 @@
 <md-list-item class="md-2-line">
   <div class="md-list-item-text">
-    <h3 translate>Speedtest</h3>
+    <h3 translate>Connection Speed</h3>
     <md-button class="md-secondary md-icon-button" ng-if="box.allowed_job && !box.speedtest_running" ng-click="runSpeedtest()">
       <md-icon>replay</md-icon>
     </md-button>
     <span>
-      <p translate>Last result: <b>{{ box.latest_speedtest.result || 0 }}Mb/s</b> <span ng-if="box.latest_speedtest.result"> at {{ box.latest_speedtest.timestamp | humanTime }}</span></p>
+      <p translate>{{ box.latest_speedtest.result || 0 }}Mb/s
+        <md-tooltip ng-if="box.latest_speedtest.result">Tested at {{ box.latest_speedtest.timestamp | humanTime }}</md-tooltip>
+      </p>
     </span>
     <span ng-if="box.speedtest_running">
       <md-progress-linear md-mode="query"></md-progress-linear>

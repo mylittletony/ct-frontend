@@ -663,7 +663,7 @@ msgstr ""
 msgid "Are you sure you want to archive this location"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1258
+#: client/components/boxes/boxes.directives.js:1260
 msgid "Are you sure you want to cancel?"
 msgstr ""
 
@@ -986,7 +986,7 @@ msgstr ""
 #: client/components/boxes/show/_toast_reset_confirm.html:4
 #: client/components/boxes/show/_toast_zone.html:4
 #: client/components/boxes/show/_transfer.html:17
-#: client/components/brands/brands.directives.js:57
+#: client/components/brands/brands.directives.js:58
 #: client/components/forms/forms.directives.js:185
 #: client/components/locations/boxes/dialog.html:19
 #: client/components/locations/boxes/zones.html:34
@@ -1009,7 +1009,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1260
+#: client/components/boxes/boxes.directives.js:1262
 msgid "Cancel Upgrade"
 msgstr ""
 
@@ -1038,12 +1038,12 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: client/components/brands/brands.directives.js:55
 #: client/components/brands/brands.directives.js:56
+#: client/components/brands/brands.directives.js:57
 msgid "Change"
 msgstr ""
 
-#: client/components/brands/brands.directives.js:53
+#: client/components/brands/brands.directives.js:54
 msgid "Change Brand?"
 msgstr ""
 
@@ -1185,10 +1185,6 @@ msgstr ""
 msgid "Close dialog"
 msgstr ""
 
-#: client/components/locations/settings/_main.html:54
-msgid "Cluster ID"
-msgstr ""
-
 #: client/components/clients/clients.directives.js:966
 #: client/components/codes/codes.directives.js:89
 msgid "Code"
@@ -1239,6 +1235,10 @@ msgstr ""
 msgid "Connected:"
 msgstr ""
 
+#: client/components/boxes/payloads/_speedtest_widget.html:3
+msgid "Connection Speed"
+msgstr ""
+
 #: client/components/locations/networks/_show.html:142
 msgid "Content Filtering"
 msgstr ""
@@ -1247,7 +1247,7 @@ msgstr ""
 msgid "Could not delete box"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:582
+#: client/components/boxes/boxes.directives.js:584
 msgid "Could not delete the payload."
 msgstr ""
 
@@ -1259,7 +1259,7 @@ msgstr ""
 msgid "Could not reset this device, please try again"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1198
+#: client/components/boxes/boxes.directives.js:1200
 msgid "Could not schedule upgrade, try again."
 msgstr ""
 
@@ -2328,7 +2328,7 @@ msgstr ""
 msgid "If the client signal drops below 16dB, they may have problems browsing."
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1259
+#: client/components/boxes/boxes.directives.js:1261
 msgid ""
 "If the upgrade has begun, you cannot stop it. Please wait until it completes."
 msgstr ""
@@ -2455,13 +2455,6 @@ msgstr ""
 
 #: client/components/locations/triggers/channel-mailchimp.html:38
 msgid "Last name"
-msgstr ""
-
-#: client/components/boxes/payloads/_speedtest_widget.html:8
-msgid ""
-"Last result: <b>{{ box.latest_speedtest.result || 0 }}Mb/s</b> <span ng-if="
-"\"box.latest_speedtest.result\"> at {{ box.latest_speedtest.timestamp | "
-"humanTime }}</span>"
 msgstr ""
 
 #: client/components/locations/show/_warnings.html:21
@@ -3086,7 +3079,7 @@ msgstr ""
 msgid "My Awesome Company"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:523
+#: client/components/boxes/boxes.directives.js:525
 #: client/components/boxes/boxes.filters.js:32
 #: client/components/locations/users/_index.html:47
 msgid "N/A"
@@ -3145,6 +3138,8 @@ msgstr ""
 msgid "Network Details"
 msgstr ""
 
+#: client/components/boxes/show/_index.html:298
+#: client/components/locations/settings/_main.html:54
 #: client/components/registrations/_flow.html:103
 msgid "Network Location"
 msgstr ""
@@ -3564,7 +3559,7 @@ msgstr ""
 msgid "Payload Output"
 msgstr "To be completed"
 
-#: client/components/boxes/boxes.directives.js:621
+#: client/components/boxes/boxes.directives.js:623
 #, fuzzy
 msgid "Payload completed!"
 msgstr "To be completed"
@@ -3577,7 +3572,7 @@ msgstr ""
 msgid "Payload created on {{ payload.created_at | humanTime }}"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:580
+#: client/components/boxes/boxes.directives.js:582
 msgid "Payload deleted successfully"
 msgstr ""
 
@@ -3694,7 +3689,7 @@ msgstr ""
 msgid "Please note, you will be billed for any SMS sent from your account."
 msgstr ""
 
-#: client/components/brands/brands.directives.js:54
+#: client/components/brands/brands.directives.js:55
 msgid "Please resync all your boxes after updating your brand."
 msgstr ""
 
@@ -4287,8 +4282,8 @@ msgstr ""
 msgid "Settings for your splash-only device"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:664
-#: client/components/boxes/boxes.directives.js:759
+#: client/components/boxes/boxes.directives.js:666
+#: client/components/boxes/boxes.directives.js:761
 msgid "Settings updated successfully"
 msgstr ""
 
@@ -4395,10 +4390,6 @@ msgstr ""
 
 #: client/components/locations/clients/_show_code.html:136
 msgid "Speeds Restrictions"
-msgstr ""
-
-#: client/components/boxes/payloads/_speedtest_widget.html:3
-msgid "Speedtest"
 msgstr ""
 
 #: client/components/locations/locations.controller.js:118
@@ -4513,12 +4504,12 @@ msgstr ""
 msgid "Stop: {{ ::session.acctstoptime | humanTime }}"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:442
+#: client/components/boxes/boxes.directives.js:444
 #: client/components/locations/locations.directives.js:1199
 msgid "Streaming updates disabled"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:437
+#: client/components/boxes/boxes.directives.js:439
 #: client/components/locations/locations.directives.js:1193
 msgid "Streaming updates enabled"
 msgstr ""
@@ -4557,8 +4548,8 @@ msgstr ""
 msgid "Successfully disconnected client."
 msgstr ""
 
-#: client/components/brands/brands.directives.js:44
-#: client/components/brands/brands.directives.js:87
+#: client/components/brands/brands.directives.js:45
+#: client/components/brands/brands.directives.js:89
 msgid "Successfully updated brand"
 msgstr ""
 
@@ -5173,7 +5164,7 @@ msgstr ""
 msgid "Updated"
 msgstr ""
 
-#: client/components/brands/brands.directives.js:102
+#: client/components/brands/brands.directives.js:104
 msgid "Updated CNAME, please login to finalise changes."
 msgstr ""
 
@@ -5201,7 +5192,7 @@ msgstr ""
 msgid "Upgrade at 2am localtime on the following date"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1273
+#: client/components/boxes/boxes.directives.js:1275
 msgid "Upgrade cancelled successfully."
 msgstr ""
 
@@ -5912,7 +5903,7 @@ msgstr ""
 msgid "Your town"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1190
+#: client/components/boxes/boxes.directives.js:1192
 msgid "Your upgrade has been scheduled."
 msgstr ""
 
@@ -6007,7 +5998,7 @@ msgstr ""
 msgid "events"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1263
+#: client/components/boxes/boxes.directives.js:1265
 msgid "exit"
 msgstr ""
 
@@ -6033,7 +6024,7 @@ msgstr ""
 msgid "muted"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1262
+#: client/components/boxes/boxes.directives.js:1264
 msgid "please cancel it"
 msgstr ""
 
@@ -6189,6 +6180,13 @@ msgstr ""
 
 #: client/components/apps/_show.html:34
 msgid "{{ app.scopes }}"
+msgstr ""
+
+#: client/components/boxes/payloads/_speedtest_widget.html:8
+msgid ""
+"{{ box.latest_speedtest.result || 0 }}Mb/s\n"
+"        <md-tooltip ng-if=\"box.latest_speedtest.result\">Tested at {{ box."
+"latest_speedtest.timestamp | humanTime }}</md-tooltip>"
 msgstr ""
 
 #: client/components/locations/clients/_index.html:52

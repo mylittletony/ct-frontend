@@ -367,6 +367,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       switch(data.type) {
         case 'speedtest':
           scope.box.speedtest_running = undefined;
+          scope.box.allowed_job = true;
           scope.box.latest_speedtest = {
             result: data.message.val,
             timestamp: data.message.timestamp
@@ -1285,8 +1286,6 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
         channel = pusher.subscribe('private-' + scope.box.location_pubsub);
         channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
-        // channel = pusher.subscribe(key);
-        // channel.bind('box_upgrade', function(data) {
           var msg;
           try{
             msg = JSON.parse(data.message);
