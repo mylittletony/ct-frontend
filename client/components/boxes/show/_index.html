@@ -138,7 +138,13 @@
         <md-list-item class="md-2-line">
           <div class="md-list-item-text">
             <h3 translate>Walled Gardens</h3>
-            <p><ct-docs name="walled-gardens" translate>View required URLs</ct-docs></p>
+            <p>
+              <ct-docs name="walled-gardens">
+                <translate>
+                  View required URLs
+                </translate>
+              </ct-docs>
+            </p>
           </div>
         </md-list-item>
       </md-card-content>
@@ -157,7 +163,15 @@
       </md-card-title>
       <md-card-content>
         <h4 translate>Please connect your device to an Internet connection. The device hasn't initialised.</h4>
-        <p><ct-docs name='getting-started'><md-button class="md-raised" aria-label="{{ 'getting started' | translate }}" translate>DOCUMENTATION</md-button></ct-docs></p>
+        <p>
+          <ct-docs name='getting-started'>
+            <md-button class="md-raised" aria-label="{{ 'getting started' | translate }}">
+              <translate>
+                DOCUMENTATION
+              </translate>
+            </md-button>
+          </ct-docs>
+        </p>
       </md-card-content>
     </md-card>
   </div>
@@ -265,7 +279,11 @@
                 <p>
                   {{ ::box.firmware_version }}
                 </p>
-                <md-tooltip ng-if="::box.next_firmware" translate>A firmware upgrade is available.</md-tooltip>
+                <md-tooltip ng-if="::box.next_firmware">
+                  <translate>
+                    A firmware upgrade is available.
+                  </translate>
+                </md-tooltip>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">

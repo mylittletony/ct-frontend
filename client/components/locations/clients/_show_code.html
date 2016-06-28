@@ -38,8 +38,10 @@
             <div class="md-list-item-text" layout="column">
               <h3 translate>Activated</h3>
               <p>{{results.code.date_activated | humanTime }}</p>
-              <md-tooltip translate>
-                Created {{ results.code.created_at | humanTime }}
+              <md-tooltip>
+                <translate>
+                 Created {{ results.code.created_at | humanTime }}
+                </translate>
               </md-tooltip>
             </div>
           </md-list-item>
@@ -94,8 +96,10 @@
               <p>
                 {{ results.voucher.batch_name | titleCase }}
               </p>
-              <md-tooltip translate>
-                Description: {{ results.voucher.batch_description }}
+              <md-tooltip>
+                <translate>
+                  Description: {{ results.voucher.batch_description }}
+                </translate>
               </md-tooltip>
             </div>
           </md-list-item>

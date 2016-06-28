@@ -16,8 +16,10 @@
           </md-input-container>
         </div>
         <div flex-xs flex="50">
-          <md-checkbox ng-model="prefs.now" aria-label="{{ 'Upgrade Now' | translate }}" translate>
-            Upgrade Now
+          <md-checkbox ng-model="prefs.now" aria-label="{{ 'Upgrade Now' | translate }}">
+            <translate>
+              Upgrade Now
+            </translate>
           </md-checkbox>
         </div>
         <div flex-xs flex="100" ng-hide="prefs.now">
