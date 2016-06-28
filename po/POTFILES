@@ -144,6 +144,7 @@
 ../client/components/locations/show/_index.html
 ../client/components/locations/show/_inventory.html
 ../client/components/locations/show/_map.html
+../client/components/locations/show/_periscope.html
 ../client/components/locations/show/_warnings.html
 ../client/components/locations/show/attr-generated.html
 ../client/components/locations/show/edit-modal.html

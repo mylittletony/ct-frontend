@@ -1,10 +1,10 @@
 <md-card>
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">
+      <span class="md-headline" translate>
         Cancel Subscription 
       </span>
-      <span class="md-subhead">
+      <span class="md-subhead" translate>
         Cancelling will take affect immediately. No futher charges will be applied. 
         <p><b>Please note. If you on a per-AP billed plan, you will be charged for any access points outstanding on your account. You can view this month's additions in <a href="/#/users/{{ user.slug }}/inventory">your inventory</a>.</b></p>
       </span>
@@ -12,9 +12,9 @@
   </md-card-title>
   <md-card-actions layout="row" layout-align="end center">
     <span ng-if="cancelling">
-      <p>Cancelling, please wait.</p>
+      <p translate>Cancelling, please wait.</p>
       <md-progress-linear md-mode="query"></md-progress-linear>
     </span>
-    <md-button ng-if="!cancelling" type="submit" ng-click="cancel()">cancel</md-button>
+    <md-button ng-if="!cancelling" type="submit" ng-click="cancel()"><translate>cancel</translate></md-button>
   </md-card-actions>
 </md-card>
