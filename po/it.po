@@ -50,20 +50,20 @@ msgstr ""
 msgid "{{ ::splash_only }} Splash Only"
 msgstr ""
 
-#: client/components/locations/show/_dashing.html:16
+#: client/components/locations/show/_dashing.html:17
 msgid "{{ ::stats.boxes.stats.total }} Total boxes"
 msgstr ""
 
-#: client/components/locations/show/_dashing.html:31
+#: client/components/locations/show/_dashing.html:35
 msgid ""
 "{{ ::stats.locations }} location<span ng-if=\"stats.locations != 1\">s</span>"
 msgstr ""
 
-#: client/components/locations/show/_dashing.html:23
+#: client/components/locations/show/_dashing.html:27
 msgid "{{ ::stats.online }} connected"
 msgstr ""
 
-#: client/components/locations/show/_dashing.html:38
+#: client/components/locations/show/_dashing.html:42
 msgid "{{ ::stats.splash_views }} this period"
 msgstr ""
 
@@ -858,7 +858,7 @@ msgstr ""
 msgid "Advanced Settings"
 msgstr ""
 
-#: client/components/locations/show/_dashing.html:44
+#: client/components/locations/show/_dashing.html:48
 msgid "Alerting Devices"
 msgstr ""
 
@@ -1254,6 +1254,10 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
+#: client/components/users/billing/_billing.html:23
+msgid "Billing City"
+msgstr ""
+
 #: client/components/users/billing/_billing.html:43
 msgid "Billing Currency"
 msgstr ""
@@ -1531,6 +1535,7 @@ msgstr ""
 msgid "Change on these days"
 msgstr ""
 
+#: client/components/users/billing/_card.html:1
 #: client/components/users/billing/_coupon.html:1
 #: client/components/users/billing/_show.html:1
 #: client/components/users/billing/_upgrade.html:1
@@ -1651,7 +1656,7 @@ msgstr ""
 msgid "Clients"
 msgstr ""
 
-#: client/components/locations/show/_dashing.html:22
+#: client/components/locations/show/_dashing.html:26
 msgid "Clients Connected"
 msgstr ""
 
@@ -3352,7 +3357,7 @@ msgid "Loading Payloads..."
 msgstr ""
 
 #: client/components/locations/show/_dashing.html:14
-#: client/components/locations/show/_dashing.html:30
+#: client/components/locations/show/_dashing.html:34
 msgid "Loading stats"
 msgstr ""
 
@@ -3462,7 +3467,7 @@ msgstr ""
 
 #: client/components/locations/locations.controller.js:238
 #: client/components/locations/locations.directives.js:51
-#: client/components/locations/show/_dashing.html:29
+#: client/components/locations/show/_dashing.html:33
 #: client/components/users/layouts/sidebar.html:7
 #: client/components/users/locations/index.html:15
 #: client/components/users/quotas/_index.html:29
@@ -5006,6 +5011,7 @@ msgid "Removing a user will prevent them from accessing this location."
 msgstr ""
 
 #: client/components/locations/locations.controller.js:245
+#: client/components/locations/show/_periscope.html:15
 #: client/components/reports/reports.v2.directives.js:169
 msgid "Reports"
 msgstr ""
@@ -5401,6 +5407,7 @@ msgstr ""
 #: client/components/splash_codes/_edit.html:3
 #: client/components/splash_codes/_show.html:3
 #: client/components/users/alerts/_index.html:4
+#: client/components/users/billing/_index.html:3
 #: client/components/users/integrations/_integrations.html:3
 #: client/components/users/inventories/_index.html:3
 #: client/components/users/invoices/_details.html:27
@@ -5459,6 +5466,10 @@ msgstr ""
 
 #: client/components/locations/clients/_show_code.html:124
 msgid "Show Splash After"
+msgstr ""
+
+#: client/components/locations/show/_periscope.html:7
+msgid "Showing the last 7 days activity"
 msgstr ""
 
 #: client/components/registrations/_create.html:31
@@ -5620,7 +5631,7 @@ msgid "Splash Users"
 msgstr ""
 
 #: client/components/charts/devices/_wireless_chart.html:28
-#: client/components/locations/show/_dashing.html:37
+#: client/components/locations/show/_dashing.html:41
 #: client/components/reports/_radius_timeline.html:33
 #: client/components/reports/reports.v2.directives.js:609
 #: client/components/users/quotas/_index.html:44
@@ -6544,6 +6555,10 @@ msgstr ""
 
 #: client/components/reports/reports.v2.directives.js:182
 msgid "Usage Reports"
+msgstr ""
+
+#: client/components/locations/show/_periscope.html:4
+msgid "Usage Statistics"
 msgstr ""
 
 #: client/components/users/billing/_billing.html:45
