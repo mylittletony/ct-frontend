@@ -111,12 +111,9 @@
 ../client/components/locations/index/alerts.html
 ../client/components/locations/index/index.html
 ../client/components/locations/index/list.html
-../client/components/locations/index/map.html
 ../client/components/locations/layouts/location-banner.html
 ../client/components/locations/layouts/short-list.html
 ../client/components/locations/layouts/sidebar-v2.html---.html
-../client/components/locations/map/_index.html
-../client/components/locations/map/index.html
 ../client/components/locations/networks/_index.html
 ../client/components/locations/networks/_show.html
 ../client/components/locations/networks/blacklists.html
@@ -147,7 +144,6 @@
 ../client/components/locations/show/_index.html
 ../client/components/locations/show/_inventory.html
 ../client/components/locations/show/_map.html
-../client/components/locations/show/_periscope.html
 ../client/components/locations/show/_warnings.html
 ../client/components/locations/show/attr-generated.html
 ../client/components/locations/show/edit-modal.html

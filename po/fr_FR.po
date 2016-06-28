@@ -160,12 +160,6 @@ msgid ""
 "        Favourites"
 msgstr ""
 
-#: client/components/locations/show/_periscope.html:4
-msgid ""
-"<!-- // <md-icon md-font-icon=\"arrow_back\">timeline</md-icon> -->\n"
-"        Usage Statistics"
-msgstr ""
-
 #: client/components/locations/boxes/_table.html:42
 msgid ""
 "<!-- <md-icon>comments</md-icon> -->\n"
@@ -276,7 +270,7 @@ msgstr ""
 msgid "<p>There are no settings to play with for clickthrough access</p>"
 msgstr ""
 
-#: client/components/locations/show/_index.html:50
+#: client/components/locations/show/_index.html:58
 msgid ""
 "<p>You haven't added any devices yet. Please check through the list of "
 "compatible devices <a href=\"http://docs.cucumberwifi.io/article/78-"
@@ -447,7 +441,7 @@ msgid "Add Box"
 msgstr ""
 
 #: client/components/locations/index/_index.html:42
-#: client/components/locations/show/_index.html:62
+#: client/components/locations/show/_index.html:70
 #: client/components/locations/show/_index.html:8
 #: client/components/locations/show/_map.html:8
 msgid "Add Device"
@@ -480,7 +474,7 @@ msgstr ""
 msgid "Add a new app."
 msgstr ""
 
-#: client/components/locations/show/_index.html:10
+#: client/components/locations/show/_index.html:11
 msgid "Add a new device."
 msgstr ""
 
@@ -488,7 +482,7 @@ msgstr ""
 msgid "Add a new location."
 msgstr ""
 
-#: client/components/locations/show/_index.html:22
+#: client/components/locations/show/_index.html:27
 msgid "Add location to favourites."
 msgstr ""
 
@@ -908,17 +902,6 @@ msgstr ""
 #: client/components/locations/index/_favourites.html:51
 #: client/components/locations/show/_dashing.html:13
 msgid "Boxes"
-msgstr ""
-
-#: client/components/locations/index/map.html:17
-msgid ""
-"Boxes: {{ location.summary.boxes_count }}\n"
-"          <br>\n"
-"          Sessions: {{ location.summary.total_sessions }}\n"
-"          <br>\n"
-"          Downloads: {{ location.summary.total_downloads }}\n"
-"          <br>\n"
-"          Connected: {{ location.summary.connected_clients }}"
 msgstr ""
 
 #: client/components/home/brand-not-found.html:4
@@ -1716,7 +1699,7 @@ msgid ""
 "\">documentation<ct-docs>.</ct-docs></ct-docs>"
 msgstr ""
 
-#: client/components/locations/show/_index.html:59 client/index.html:123
+#: client/components/locations/show/_index.html:67 client/index.html:123
 msgid "Downloads"
 msgstr ""
 
@@ -2034,7 +2017,7 @@ msgstr ""
 msgid "Failed to resync device, please try again."
 msgstr ""
 
-#: client/components/locations/show/_index.html:20
+#: client/components/locations/show/_index.html:24
 #: client/components/locations/show/_map.html:14
 msgid "Favourite"
 msgstr ""
@@ -2726,7 +2709,7 @@ msgstr ""
 msgid "Make sure you enter a valid email."
 msgstr ""
 
-#: client/components/locations/show/_index.html:46
+#: client/components/locations/show/_index.html:54
 msgid "Manage and monitor all your device remotely."
 msgstr ""
 
@@ -2748,7 +2731,7 @@ msgid "Manufacturers"
 msgstr ""
 
 #: client/components/locations/index/_index.html:50
-#: client/components/locations/show/_index.html:14
+#: client/components/locations/show/_index.html:16
 #: client/components/locations/show/_map.html:11
 msgid "Map"
 msgstr ""
@@ -3178,10 +3161,6 @@ msgstr ""
 msgid "Network successfully updated."
 msgstr ""
 
-#: client/components/locations/index/map.html:11
-msgid "Network: {{ location.network_name }}"
-msgstr ""
-
 #: client/components/audit/social/_index.html:56
 #: client/components/locations/locations.controller.js:77
 #: client/components/locations/networks/_index.html:10
@@ -3294,7 +3273,7 @@ msgstr ""
 msgid "No warnings found."
 msgstr ""
 
-#: client/components/locations/show/_map.html:36
+#: client/components/locations/show/_map.html:35
 msgid "No zone"
 msgstr ""
 
@@ -3392,7 +3371,7 @@ msgstr ""
 msgid "On The {{ location.plan_name | titleCase }} Plan."
 msgstr ""
 
-#: client/components/locations/show/_index.html:53
+#: client/components/locations/show/_index.html:61
 msgid ""
 "Once you have installed this, add your device(s) to your dashboard. They "
 "will provision automatically."
@@ -3598,7 +3577,7 @@ msgstr ""
 msgid "Phone Number"
 msgstr ""
 
-#: client/components/locations/show/_index.html:45
+#: client/components/locations/show/_index.html:53
 msgid "Please Add a Device"
 msgstr ""
 
@@ -3921,7 +3900,6 @@ msgid "Removing a user will prevent them from accessing this location."
 msgstr ""
 
 #: client/components/locations/locations.controller.js:245
-#: client/components/locations/show/_periscope.html:16
 #: client/components/reports/reports.v2.directives.js:169
 msgid "Reports"
 msgstr ""
@@ -4088,9 +4066,9 @@ msgstr ""
 msgid "SSID updated, your boxes will resync"
 msgstr ""
 
-#: client/components/locations/show/_map.html:34
-msgid "SSIDs: 1"
-msgid_plural "SSIDs: {{ ::box.ssids}}"
+#: client/components/locations/show/_map.html:33
+msgid "SSIDs: {{ box.metadata.ssids | emptyFilter }}"
+msgid_plural "SSIDs: {{ ::box.metadata.ssids }}"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -4323,10 +4301,6 @@ msgstr ""
 msgid "Show Splash After"
 msgstr ""
 
-#: client/components/locations/show/_periscope.html:8
-msgid "Showing the last 7 days activity"
-msgstr ""
-
 #: client/components/registrations/_create.html:31
 msgid "Sign-up for {{ ::brand_name }}."
 msgstr ""
@@ -4511,7 +4485,7 @@ msgid "Streaming updates enabled"
 msgstr ""
 
 #: client/components/locations/index/_index.html:62
-#: client/components/locations/show/_index.html:29
+#: client/components/locations/show/_index.html:36
 msgid "Streaming updates."
 msgstr ""
 
@@ -4602,7 +4576,7 @@ msgstr ""
 #: client/components/locations/clients/_columns_filter.html:70
 #: client/components/locations/clients/_columns_filter.html:74
 #: client/components/locations/index/_index.html:59
-#: client/components/locations/show/_index.html:27
+#: client/components/locations/show/_index.html:33
 #: client/components/locations/show/_map.html:17
 msgid "Switch 1"
 msgstr ""
@@ -4698,7 +4672,7 @@ msgstr ""
 msgid "The default option is 6"
 msgstr ""
 
-#: client/components/locations/show/_index.html:52
+#: client/components/locations/show/_index.html:60
 msgid "The firmware is available in the downloads section."
 msgstr ""
 
@@ -5288,10 +5262,9 @@ msgstr ""
 #: client/components/audit/sales/_index.html:107
 #: client/components/clients/clients.directives.js:36
 #: client/components/events/show.html:16
-#: client/components/locations/index/map.html:28
 #: client/components/locations/locations.directives.js:1749
 #: client/components/locations/locations.directives.js:498
-#: client/components/locations/show/_map.html:44
+#: client/components/locations/show/_map.html:45
 #: client/components/locations/triggers/triggers.directives.js:38
 #: client/components/locations/triggers/triggers.directives.js:789
 #: client/components/reports/reports.v2.directives.js:394
@@ -5327,7 +5300,7 @@ msgid "View Zones"
 msgstr ""
 
 #: client/components/locations/index/_index.html:53
-#: client/components/locations/show/_index.html:16
+#: client/components/locations/show/_index.html:19
 msgid "View device map."
 msgstr ""
 
@@ -5917,8 +5890,8 @@ msgstr ""
 msgid "Zone"
 msgstr ""
 
-#: client/components/locations/show/_map.html:35
-msgid "Zone: {{ ::box.metadata.zone }}"
+#: client/components/locations/show/_map.html:34
+msgid "Zone: {{ ::box.metadata.zone_name }}"
 msgstr ""
 
 #: client/components/locations/locations.controller.js:93
