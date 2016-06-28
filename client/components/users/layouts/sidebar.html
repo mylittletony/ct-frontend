@@ -1,14 +1,14 @@
-<li class="show-for-small-only"><label>Account</label></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}"><i class='fa fa-user fa-fw'></i> Profile</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/billing"><i class='fa fa-credit-card fa-fw'></i> Billing</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/integrations"><i class='fa fa-rocket fa-fw'></i> Integrations</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/webhooks"><i class='fa fa-bell fa-fw'></i> Alerts</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/branding"><i class='fa fa-magic fa-fw'></i> Branding</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/locations"><i class='fa fa-building-o fa-fw'></i> Locations</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/users"><i class='fa fa-users fa-fw'></i> Admins</a></li>
+<li class="show-for-small-only"><label translate>Account</label></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}"><i class='fa fa-user fa-fw'></i><span translate> Profile</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/billing"><i class='fa fa-credit-card fa-fw'></i> <span translate>Billing</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/integrations"><i class='fa fa-rocket fa-fw'></i> <span translate>Integrations</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/webhooks"><i class='fa fa-bell fa-fw'></i> <span translate>Alerts</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/branding"><i class='fa fa-magic fa-fw'></i><span translate>Branding</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/locations"><i class='fa fa-building-o fa-fw'></i><span translate>Locations</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/users"><i class='fa fa-users fa-fw'></i><span translate>Admins</span></a></li>
 <!-- <li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/usage"><i class='fa fa-area-chart fa-fw'></i> Usage & Stats</a></li> -->
-<li><a ng-class="getClass('/')" href="/#/orders"><i class='fa fa-truck fa-fw'></i> Orders</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/history"><i class='fa fa-history fa-fw'></i> History</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/sessions"><i class='fa fa-globe fa-fw'></i> Access Log</a></li>
-<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/quotas"><i class='fa fa-cubes fa-fw'></i> Quotas</a></li>
-<li ng-if="user.is_distributor"><a ng-class="getClass('/')" href="/#/referrals"><i class='fa fa-star fa-fw'></i> Referrals</a></li>
+<li><a ng-class="getClass('/')" href="/#/orders"><i class='fa fa-truck fa-fw'></i><span translate>Orders</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/history"><i class='fa fa-history fa-fw'></i><span translate>History</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/sessions"><i class='fa fa-globe fa-fw'></i><span translate>Access Log</span></a></li>
+<li><a ng-class="getClass('/')" href="/#/users/{{user.slug}}/quotas"><i class='fa fa-cubes fa-fw'></i><span translate>Quotas</span></a></li>
+<li ng-if="user.is_distributor"><a ng-class="getClass('/')" href="/#/referrals"><i class='fa fa-star fa-fw'></i><span translate>Referrals</span></a></li>

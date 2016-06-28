@@ -1,10 +1,10 @@
 <form name="myForm" ng-submit="update(myForm)">
   <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="'Settings' | translate">
         <md-icon md-font-icon="arrow_back" >face</md-icon>
       </md-button>
-      <p>Profile</p>
+      <p translate>Profile</p>
       <div flex></div>
     </div>
     <md-divider></md-divider>
@@ -27,27 +27,30 @@
             <div layout="row" layout-wrap>
               <md-list-item class="md-3-line" flex="100" flex-gt-sm="50">
                 <div class="md-list-item-text">
-                  <h3>Account ID</h3>
+                  <h3 translate>Account ID</h3>
                   <p>{{ ::user.account_id }}
                   </p>
                 </div>
               </md-list-item>
               <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
                 <div class="md-list-item-text">
-                  <h3>Plan</h3>
-                  <p>You're on the {{ ::user.plan.plan_name }} Plan which <span ng-show="user.plan.plan_price < 1">is free</span><span ng-show="user.plan.plan_price > 0">costs {{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} and is billed {{ ::user.plan.billing_period }}</span>.</p>
+                  <h3 translate>Plan</h3>
+                  <p>
+                    <span ng-show="user.plan.plan_price < 1" translate>You're on the {{ ::user.plan.plan_name }} Plan which is free</span>
+                    <span ng-show="user.plan.plan_price > 0" translate>You're on the {{ ::user.plan.plan_name }} Plan which costs {{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} and is billed {{ ::user.plan.billing_period }}</span>.</p>
                 </div>
               </md-list-item>
               <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
                 <div class="md-list-item-text">
-                  <h3>Account Created</h3>
+                  <h3 translate>Account Created</h3>
                   <p>{{ user.created_at | humanTime }}</p>
                 </div>
               </md-list-item>
               <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
                 <div class="md-list-item-text">
-                  <h3>Subscription Status</h3>
-                  <p>{{ user.subscription_active ? "Active" : "Free User" }}</p>
+                  <h3 translate>Subscription Status</h3>
+                  <p ng-if="user.subscription_active == true" translate> Active </p>
+                  <p g-if="user.subscription_active == false" translate> Free User</p>
                 </div>
               </md-list-item>
             </div>
@@ -57,7 +60,7 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Profile Settings
               </span>
             </md-card-title-text>
@@ -65,45 +68,45 @@
           <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label>Username</label>
-                <input ng-disabled="!user.allowed" md-maxlength="50" ng-minlength="5" type="text" name="username" ng-model='user.username' placeholder='Username' required></input>
+                <label translate>Username</label>
+                <input ng-disabled="!user.allowed" md-maxlength="50" ng-minlength="5" type="text" name="username" ng-model='user.username' placeholder="'Username' | translate"  required></input>
                 <div ng-messages="myForm.username.$error">
-                  <div ng-message="minlength">Must be greater than 5 characters</div>
-                  <div ng-message="md-maxlength">Max 20 characters</div>
-                  <div ng-message="required">You must set a username</div>
+                  <div ng-message="minlength" translate>Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength" translate>Max 20 characters</div>
+                  <div ng-message="required" translate>You must set a username</div>
                 </div>
               </md-input-container>
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label>Email Address</label>
-                <input ng-disabled="!user.allowed" md-maxlength="100" ng-minlength="5" type="email" name="username" ng-model='user.email' placeholder='Email address' required></input>
+                <label translate>Email Address</label>
+                <input ng-disabled="!user.allowed" md-maxlength="100" ng-minlength="5" type="email" name="username" ng-model='user.email' placeholder="'Email address' | translate " required></input>
                 <div ng-messages="myForm.email.$error">
-                  <div ng-message="minlength">Must be greater than 5 characters</div>
-                  <div ng-message="md-maxlength">Max 100 characters</div>
-                  <div ng-message="required">You must set an email</div>
+                  <div ng-message="minlength" translate>Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength" translate>Max 100 characters</div>
+                  <div ng-message="required" translate>You must set an email</div>
                 </div>
               </md-input-container>
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label>Company</label>
-                <input md-maxlength="255" ng-minlength="5" type="text" name="company" ng-model='user.company_name' placeholder='Company'></input>
+                <label translate>Company</label>
+                <input md-maxlength="255" ng-minlength="5" type="text" name="company" ng-model='user.company_name' placeholder="'Company' | translate"></input>
                 <div ng-messages="myForm.company.$error">
-                  <div ng-message="minlength">Must be greater than 5 characters</div>
-                  <div ng-message="md-maxlength">Max 100 characters</div>
+                  <div ng-message="minlength" translate>Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength" translate>Max 100 characters</div>
                 </div>
               </md-input-container>
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label>Phone Number</label>
-                <input md-maxlength="100" ng-minlength="5" type="text" name="phone" ng-model='user.mobile_number' placeholder='Phone'></input>
+                <label translate>Phone Number</label>
+                <input md-maxlength="100" ng-minlength="5" type="text" name="phone" ng-model='user.mobile_number' placeholder="'Phone' | translate"></input>
                 <div ng-messages="myForm.phone.$error">
-                  <div ng-message="minlength">Must be greater than 5 characters</div>
-                  <div ng-message="md-maxlength">Max 100 characters</div>
+                  <div ng-message="minlength" translate>Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength" translate>Max 100 characters</div>
                 </div>
               </md-input-container>
               
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label>Locale</label>
+                <label translate>Locale</label>
                 <md-select ng-model="user.locale">
                   <md-option ng-repeat="locale in locales" value="{{locale.value}}">
                     {{locale.key}}
@@ -117,7 +120,7 @@
         </md-card>
 
         <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
-          Save
+          <translate>Save</translate>
         </md-button>
 
       </div>
