@@ -1,6 +1,6 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="'Settings' | translate">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon>arrow_back</md-icon>
     </md-button>
     <p translate>Back to Invoices</p>
@@ -24,7 +24,7 @@
       </md-card-content>
       <md-divider></md-divider>
       <md-card-actions layout="row" layout-align="">
-        <md-button id="main" class="md-primary" ng-click="back()" aria-label="'Settings' | translate">
+        <md-button id="main" class="md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
           <md-icon>arrow_back</md-icon>
           <translate>Back</translate>
         </md-button>

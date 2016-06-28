@@ -1,7 +1,7 @@
 <form name="myForm" ng-submit="update(myForm)">
   <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="'Settings' | translate">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
         <md-icon md-font-icon="arrow_back" >face</md-icon>
       </md-button>
       <p translate>Profile</p>
@@ -69,7 +69,7 @@
             <div layout="row" layout-wrap>
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label translate>Username</label>
-                <input ng-disabled="!user.allowed" md-maxlength="50" ng-minlength="5" type="text" name="username" ng-model='user.username' placeholder="'Username' | translate"  required></input>
+                <input ng-disabled="!user.allowed" md-maxlength="50" ng-minlength="5" type="text" name="username" ng-model='user.username' placeholder="{{ 'Username' | translate }}"  required></input>
                 <div ng-messages="myForm.username.$error">
                   <div ng-message="minlength" translate>Must be greater than 5 characters</div>
                   <div ng-message="md-maxlength" translate>Max 20 characters</div>
@@ -79,7 +79,7 @@
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label translate>Email Address</label>
-                <input ng-disabled="!user.allowed" md-maxlength="100" ng-minlength="5" type="email" name="username" ng-model='user.email' placeholder="'Email address' | translate " required></input>
+                <input ng-disabled="!user.allowed" md-maxlength="100" ng-minlength="5" type="email" name="username" ng-model='user.email' placeholder="{{ 'Email address' | translate }}" required></input>
                 <div ng-messages="myForm.email.$error">
                   <div ng-message="minlength" translate>Must be greater than 5 characters</div>
                   <div ng-message="md-maxlength" translate>Max 100 characters</div>
@@ -89,7 +89,7 @@
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label translate>Company</label>
-                <input md-maxlength="255" ng-minlength="5" type="text" name="company" ng-model='user.company_name' placeholder="'Company' | translate"></input>
+                <input md-maxlength="255" ng-minlength="5" type="text" name="company" ng-model='user.company_name' placeholder="{{ 'Company' | translate }}"></input>
                 <div ng-messages="myForm.company.$error">
                   <div ng-message="minlength" translate>Must be greater than 5 characters</div>
                   <div ng-message="md-maxlength" translate>Max 100 characters</div>
@@ -98,7 +98,7 @@
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label translate>Phone Number</label>
-                <input md-maxlength="100" ng-minlength="5" type="text" name="phone" ng-model='user.mobile_number' placeholder="'Phone' | translate"></input>
+                <input md-maxlength="100" ng-minlength="5" type="text" name="phone" ng-model='user.mobile_number' placeholder="{{ 'Phone' | translate }}"></input>
                 <div ng-messages="myForm.phone.$error">
                   <div ng-message="minlength" translate>Must be greater than 5 characters</div>
                   <div ng-message="md-maxlength" translate>Max 100 characters</div>

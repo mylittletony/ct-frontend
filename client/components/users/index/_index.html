@@ -3,7 +3,7 @@
     <div class="md-toolbar-tools">
       <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
         <md-icon md-font-icon="search">search</md-icon>
-        <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="'Filter Users' | translate">
+        <input ng-blur="search()" ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Users' | translate }}">
       </md-input-container>
     </div>
     <md-divider></md-divider>
@@ -51,7 +51,7 @@
               </td>
               <td md-cell ng-show="menu.length">
                 <md-menu>
-                  <md-button aria-label="'Zone Menu' | translate" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-button aria-label="{{ 'Zone Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                   </md-button>
                   <md-menu-content width="4" >

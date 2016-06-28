@@ -1,6 +1,6 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" aria-label="'Splash' | translate">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
       <md-icon md-font-icon="" >perm_identity</md-icon>
     </md-button>
     <p translate>Branding</p>
@@ -34,7 +34,7 @@
                   <!-- <div flex="100" flex-gt-sm="100"> -->
                     <md-input-container class="md-block" flex-gt-xs="50">
                       <label translate>Brand Name</label>
-                      <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="'Enter a brand name' | translate" ng-model="brandName.name" ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
+                      <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="{{ 'Enter a brand name' | translate }}" ng-model="brandName.name" ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
                       <div ng-messages="myForm.brand_name.$error" md-auto-hide="false">
                         <div ng-message="required" translate>Please enter a name for your brand</div>
                         <div ng-message="md-maxlength" translate>Must be less than 25 characters</div>
@@ -43,7 +43,7 @@
                       </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-xs="50">
-                      <input ng-disabled="brand.cname || user.ps" type="text" name="url" placeholder="'Dashboard URL' | translate" ng-model="brand.url" md-maxlength=55 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required></input>
+                      <input ng-disabled="brand.cname || user.ps" type="text" name="url" placeholder="{{ 'Dashboard URL' | translate }}" ng-model="brand.url" md-maxlength=55 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required></input>
                       <div ng-messages="myForm.url.$error" md-auto-hide="false">
                         <div ng-message="required" translate>Please enter a brand URL</div>
                         <div ng-message="md-maxlength" translate>Must be less than 55 characters</div>
@@ -93,20 +93,20 @@
               </md-card-title>
               <md-card-content layout="column" layout-gt-xs="row" layout-wrap>
                 <md-input-container class="md-block" flex-gt-xs="100">
-                  <input type="url" ng-model="brand.website" name="website" placeholder="'Your Website' | translate"></input>
+                  <input type="url" ng-model="brand.website" name="website" placeholder="{{ 'Your Website' | translate }}"></input>
                   <div ng-messages="myForm.website.$error">
                     <div ng-message="required" translate>Please enter a brand URL</div>
                     <div ng-message="url" translate>Must be a valid URL</div>
                   </div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs="50">
-                  <input type="email" ng-model="brand.from_email" name="from_email" placeholder="'From Email' | translate"></input>
+                  <input type="email" ng-model="brand.from_email" name="from_email" placeholder="{{ 'From Email' | translate }}"></input>
                   <div ng-messages="myForm.from_email.$error">
                     <div ng-message="email" translate>Must be a valid email</div>
                   </div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs="50">
-                  <input type="text" ng-model="brand.from_name" name="from_name" placeholder="'Sender Name' | translate" md-maxlength=100></input>
+                  <input type="text" ng-model="brand.from_name" name="from_name" placeholder="{{ 'Sender Name' | translate }}" md-maxlength=100></input>
                   <div ng-messages="myForm.from_name.$error">
                     <div ng-message="md-maxlength" translate>Max 100 characters</div>
                   </div>
@@ -140,7 +140,7 @@
                 </div>
 
                 <md-input-container class="md-block" flex-gt-xs="100" ng-if="brand.cname_status != 'processing'">
-                  <input type="text" name="cname" placeholder="'Custom Domain URL' | translate" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
+                  <input type="text" name="cname" placeholder="{{ 'Custom Domain URL' | translate }}" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
                   <div ng-messages="myForm.cname.$error">
                     <div ng-message="pattern" translate>Please enter a valid URL</div>
                   </div>
