@@ -6,7 +6,11 @@
     </md-button>
     <span>
       <p translate>{{ box.latest_speedtest.result || 0 }}Mb/s
-        <md-tooltip ng-if="box.latest_speedtest.result">Tested at {{ box.latest_speedtest.timestamp | humanTime }}</md-tooltip>
+        <md-tooltip ng-if="box.latest_speedtest.result">
+          <translate>
+            Tested at {{ box.latest_speedtest.timestamp | humanTime }}
+          </translate>
+        </md-tooltip>
       </p>
     </span>
     <span ng-if="box.speedtest_running">

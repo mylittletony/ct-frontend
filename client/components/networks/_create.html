@@ -42,11 +42,21 @@
               </md-select>
             </md-input-container>
             <md-radio-group ng-model="network.access_type" layout="row">
-              <md-radio-button value="password" class="md-primary" translate>Password</md-radio-button>
-              <md-radio-button value="open" translate> Open </md-radio-button>
+              <md-radio-button value="password" class="md-primary">
+                <translate>
+                  Password
+                </translate>
+              </md-radio-button>
+              <md-radio-button value="open">
+                <translate> 
+                  Open
+                </translate>
+              </md-radio-button>
             </md-radio-group>
-            <md-switch class="md-warn" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;" translate>
-              Captive Portal
+            <md-switch class="md-warn" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;">
+              <translate>
+                Captive Portal
+              </translate>
             </md-switch>
           </span>
         </div>

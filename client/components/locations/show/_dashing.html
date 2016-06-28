@@ -13,7 +13,7 @@
         <h3 translate>Boxes</h3>
         <span ng-if="loading"><small translate>Loading stats</small></span>
         <p ng-if="!loading" translate>{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline. <span ng-if="splash_only > 0" translate>{{ ::splash_only }} Splash Only</span></p>
-        <md-tooltip translate>{{ ::stats.boxes.stats.total }} Total boxes </md-tooltip>
+        <md-tooltip><translate>{{ ::stats.boxes.stats.total }} Total boxes</translate></md-tooltip>
       </div>
     </md-list-item>
     <md-list-item class="md-2-line">

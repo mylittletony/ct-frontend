@@ -60,8 +60,8 @@
             </md-input-container>
           </div>
           <md-radio-group ng-model="network.access_type" layout="row">
-            <md-radio-button value="password" class="md-primary">Password</md-radio-button>
-            <md-radio-button value="open" translate> Open </md-radio-button>
+            <md-radio-button value="password" class="md-primary"><translate>Password</translate></md-radio-button>
+            <md-radio-button value="open"><translate>Open</translate></md-radio-button>
             <md-radio-button value="radius"> 802.1x </md-radio-button>
           </md-radio-group>
           <md-switch ng-disabled="network.vlan_id || !network.dhcp_enabled" class="md-accent" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;">
@@ -295,9 +295,9 @@
             <div flex-gt-sm="40">
               <label translate>Band Selection</label>
               <md-radio-group ng-model="network.band_selection" layout="row" style="padding: 20px 0;">
-                <md-radio-button value="dual" class="md-primary" translate>Dual</md-radio-button>
-                <md-radio-button value="two" translate> 2.4Ghz </md-radio-button>
-                <md-radio-button value="five" translate> 5Ghz </md-radio-button>
+                <md-radio-button value="dual" class="md-primary"><translate>Dual</translate></md-radio-button>
+                <md-radio-button value="two"><translate>2.4Ghz</translate></md-radio-button>
+                <md-radio-button value="five"><translate>5Ghz</translate></md-radio-button>
               </md-radio-group>
               <small translate>Available if your access points have two radios.</small>
             </div>
