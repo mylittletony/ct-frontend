@@ -1,10 +1,10 @@
 <form name="myForm" ng-submit="update(myForm)">
   <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
         <md-icon>email</md-icon>
       </md-button>
-      <p>Notifications</p>
+      <p translate>Notifications</p>
       <div flex></div>
     </div>
     <md-divider></md-divider>
@@ -17,44 +17,48 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Notification Settings
               </span>
-              <span class="md-subhead">
+              <span class="md-subhead" translate>
                 Adjust your email settings and notification preferences.
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <md-switch ng-model="user.receive_alerts" aria-label="Switch 1">
-              Weekly Reports {{ user.receive_alerts ? 'Enabled' : 'Disabled' }}
+            <md-switch ng-model="user.receive_alerts" aria-label="{{ 'Switch 1' | translate }}">
+              <span ng-if="user.receive_alerts === true" translate>Weekly Reports Enabled</span>
+              <span ng-if="user.receive_alerts === false" translate>Weekly Reports Disabled</span>
             </md-switch>
             
-            <md-switch ng-model="user.box_alerts" aria-label="Switch 1">
-              Device Alerts {{ user.box_alerts ? 'Enabled' : 'Disabled' }}
+            <md-switch ng-model="user.box_alerts" aria-label="{{ 'Switch 1' | translate }}">
+              <span ng-if="user.box_alerts === true" translate>Device Alerts Enabled</span>
+              <span ng-if="user.box_alerts === false" translate>Device Alerts Disabled</span>
             </md-switch>
 
             <div ng-if="user.box_alerts">
               <div layout-gt-sm="row" flex-gt-sm="40">
                 <md-input-container class="md-block" flex-gt-sm>
-                  <label>Start Time</label>
+                  <label translate>Start Time</label>
                   <input type="time" ng-model="user.starttime">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                  <label>End Time</label>
+                  <label translate>End Time</label>
                   <input type="time" ng-model="user.endtime">
                 </md-input-container>
               </div>
               <div style="margin-top: -30px;">
-                <p><small>Allowed Days</small></p>
+                <p><small translate>Allowed Days</small></p>
                 <day-selector active="true" days="user.alerts_window_days" array="user.periodic_days"></day-selector>
               </div>
             </div>
           </md-card-content>
         </md-card>
 
-        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-          Save
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">  
+          <translate>
+            Save
+          </translate>
         </md-button>
 
       </div>

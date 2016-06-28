@@ -3,7 +3,7 @@
     <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
       <md-icon md-font-icon="arrow_back" >credit_card</md-icon>
     </md-button>
-    <p>Billing Details</p>
+    <p translate>Billing Details</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -16,7 +16,7 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Overview
             </span>
           </md-card-title-text>
@@ -27,10 +27,10 @@
               <div class="md-list-item-text">
                 <h3>Card Details</h3>
                 <p>
-                  <span ng-if="!user.credit_card_last4">
+                  <span ng-if="!user.credit_card_last4" translate>
                     No card available
                   </span>
-                  <span ng-if="user.credit_card_last4">
+                  <span ng-if="user.credit_card_last4" translate>
                     {{ user.credit_card_type }} ending {{ user.credit_card_last4 }}. Expires {{ user.credit_card_expiry }}
                   </span>
                 </p>
@@ -38,8 +38,8 @@
             </md-list-item>
             <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
               <div class="md-list-item-text">
-                <h3>Plan</h3>
-                <p>{{ ::user.plan.plan_name }} Plan. <span ng-show="user.plan.plan_price > 0">{{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} {{ ::user.plan.billing_period }}</span></p>
+                <h3 translate>Plan</h3>
+                <p>{{ ::user.plan.plan_name }} <translate>Plan.</translate> <span ng-show="user.plan.plan_price > 0">{{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} {{ ::user.plan.billing_period }}</span></p>
               </div>
             </md-list-item>
           </div>

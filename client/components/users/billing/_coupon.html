@@ -1,27 +1,27 @@
-<md-dialog aria-label="Change Password" ng-cloak>
+<md-dialog aria-label="{{ 'Change Password' | translate }}" ng-cloak>
   <form name="myForm" ng-submit="update(user)">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h2>Add Coupon</h2>
+        <h2 translate>Add Coupon</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="row" layout-wrap>
         <div flex="100">
-          <h3>Add a coupon code</h3>
+          <h3 translate>Add a coupon code</h3>
         </div>
         <md-input-container flex="100">
-          <label>Coupon Code</label>
-          <input ng-minlength="3" type="text" name="coupon" ng-model='user.coupon_code' placeholder='Enter coupon code' required>
+          <label translate>Coupon Code</label>
+          <input ng-minlength="3" type="text" name="coupon" ng-model='user.coupon_code' placeholder=" {{ 'Enter coupon code' | translate }}" required>
         </md-input-container>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        Cancel
+        <translate>Cancel</translate>
       </md-button>
-      <md-button ng-click="save(user)" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary">ADD</md-button>
+      <md-button ng-click="save(user)" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary"><translate>ADD</translate></md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

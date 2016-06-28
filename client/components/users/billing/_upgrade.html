@@ -1,22 +1,22 @@
-<md-dialog aria-label="Change Password" ng-cloak>
+<md-dialog aria-label="{{ 'Change Password' | translate }}" ng-cloak>
   <form name="myForm" ng-submit="update(user)">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h2>Confirm Upgrade</h2>
+        <h2 translate>Confirm Upgrade</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="row" layout-wrap>
-        <p>Your monthly cost will be {{ (plan.plan_price || 0) | currency : currency }}. A charge will be applied to your card immediately.</p>
-        <p>This plan includes {{ plan.per_ap_allowance }} devices. When you exceed this limit, you will be charged {{ plan.cost_per_50 / 100 | currency : currency }} per device every month.</p>
+        <p translate>Your monthly cost will be {{ (plan.plan_price || 0) | currency : currency }}. A charge will be applied to your card immediately.</p>
+        <p translate>This plan includes {{ plan.per_ap_allowance }} devices. When you exceed this limit, you will be charged {{ plan.cost_per_50 / 100 | currency : currency }} per device every month.</p>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        Cancel
+        <translate>Cancel</translate>
       </md-button>
-      <md-button ng-click="upgrade()" class="md-raised md-primary">UPGRADE</md-button>
+      <md-button ng-click="upgrade()" class="md-raised md-primary"><translate>UPGRADE</translate></md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

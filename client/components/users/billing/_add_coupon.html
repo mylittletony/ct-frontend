@@ -2,7 +2,7 @@
   <md-card>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">
+        <span class="md-headline" translate>
           Coupons & Discount Codes
         </span>
       </md-card-title-text>
@@ -10,21 +10,21 @@
     <md-card-content>
       <div layout="row" layout-wrap>
         <span ng-if="user.adding_coupon" flex="100" flex-gt-sm="100">
-          <p>Verifying Coupon</p>
+          <p translate>Verifying Coupon</p>
           <md-progress-linear md-mode="query"></md-progress-linear>
         </span>
         <div flex="100" flex-gt-sm="100">
           <md-list-item class="md-2-line" ng-repeat="coupon in coupons" ng-if="coupons.length > 0">
             <div class="md-list-item-text">
-              <p>{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | humanTime }}</p>
+              <p translate>{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | humanTime }}</p>
             </div>
           </md-list-item>
-          <p ng-if="coupons.length < 1">No active coupons found.</p>
+          <p ng-if="coupons.length < 1" translate>No active coupons found.</p>
         </div>
       </div>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-      <md-button ng-disabled="user.adding_coupon" ng-click="addCoupon()">ADD COUPON</md-button>
+      <md-button ng-disabled="user.adding_coupon" ng-click="addCoupon()"><translate>ADD COUPON</translate></md-button>
     </md-card-actions>
   </md-card>
 </form>
