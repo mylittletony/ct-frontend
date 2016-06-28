@@ -71,8 +71,8 @@
                 </md-card-title-text>
               </md-card-title>
               <md-card-content>
-                <p>Appears on your dashboard login page (not your login screens).</p>
-                <p>Image should be <b>300px wide and 70px tall</b> otherwise they will be blurry.</p>
+                <p translate>Appears on your dashboard login page (not your login screens).</p>
+                <p translate>Image should be <b>300px wide and 70px tall</b> otherwise they will be blurry.</p>
               </md-card-content>
               <md-card-actions layout="row" layout-align="end center">
                 <filepicker attribute="brand.brand_image" type="20" uploading="brand.uploading" uploaded="brand.uploaded" ng-hide="brand.uploading || brand.uploaded"></filepicker>
@@ -123,7 +123,7 @@
                 <md-card-title-text>
                   <span class="md-headline">
                     <md-icon md-font-icon="android" aria-label="android">star</md-icon>
-                    Advanced Settings
+                    <translate>Advanced Settings</translate>
                   </span>
                   <span class="md-subhead">
                     <!-- Use your own URL for the dashboard. Enterprise plans only. -->
@@ -134,20 +134,20 @@
               <md-card-content layout-gt-xs="row" layout="column" layout-gt-sm="row" flex="50" layout-wrap>
 
                 <div ng-if="brand.cname_status === 'processing'">
-                  <p>Processing domain change</p>
+                  <p translate>Processing domain change</p>
                   <md-progress-linear md-mode="query"></md-progress-linear>
-                  <p><small>Please wait for the update to complete.</small></p>
+                  <p><small translate>Please wait for the update to complete.</small></p>
                 </div>
 
                 <md-input-container class="md-block" flex-gt-xs="100" ng-if="brand.cname_status != 'processing'">
                   <input type="text" name="cname" placeholder="'Custom Domain URL' | translate" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
                   <div ng-messages="myForm.cname.$error">
-                    <div ng-message="pattern">Please enter a valid URL</div>
+                    <div ng-message="pattern" translate>Please enter a valid URL</div>
                   </div>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="50">
-                  <label>Network Location</label>
+                  <label translate>Network Location</label>
                   <md-select ng-model="brand.network_location">
                     <md-option ng-repeat="loc in locations">
                       {{loc}}
@@ -156,7 +156,7 @@
                 </md-input-container>
               </md-card-content>
             </md-card>
-            <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
+            <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
           </div>
         </div>
     </form>

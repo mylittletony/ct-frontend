@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="'Settings' | translate">
       <md-icon>track_changes</md-icon>
     </md-button>
-    <p>Inventory Details</p>
+    <p translate>Inventory Details</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -14,13 +14,13 @@
   <md-card>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">
+        <span class="md-headline" translate>
           No devices added
         </span>
       </md-card-title-text>
     </md-card-title>
     <md-card-content>
-      <p>Keep track of the devices added and removed from your account.</p>
+      <p translate>Keep track of the devices added and removed from your account.</p>
       <md-card-actions layout="row" layout-align="end center">
       </md-card-actions>
     </md-card-content>
@@ -34,8 +34,8 @@
     <div flex="100" flex-gt-sm="100">
       <md-card>
         <md-card-title ng-if="summary.total">
-          <span class="md-subhead">
-            {{ summary.total }} active device<span ng-if="summary.total != 1">s</span>. {{ summary.new }} added this month.
+          <span class="md-subhead" translate translate-n="{{ summary.total }}" translate-plural="{{ summary.total }} active devices. {{ summary.new }} added this month.">
+            1 active device. {{ summary.new }} added this month.
           </span>
         </md-card-title>
 
@@ -45,24 +45,24 @@
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
               <thead md-head>
                 <tr md-row class="md-table-headers-row">
-                  <th md-column md-order-by="state"><span>State</span></th>
-                  <th md-column md-order-by="ap_mac"><span>Ap Mac</span></th>
-                  <th hide show-gt-xs md-column md-order-by="created_at"><span>Added</span></th>
-                  <th hide show-gt-md md-column md-order-by="username"><span>Created By</span></th>
-                  <th hide show-gt-sm md-column md-order-by="location"><span>Location</span></th>
+                  <th md-column md-order-by="state"><span translate>State</span></th>
+                  <th md-column md-order-by="ap_mac"><span translate>Ap Mac</span></th>
+                  <th hide show-gt-xs md-column md-order-by="created_at"><span translate>Added</span></th>
+                  <th hide show-gt-md md-column md-order-by="username"><span translate>Created By</span></th>
+                  <th hide show-gt-sm md-column md-order-by="location"><span translate>Location</span></th>
                 </tr>
               </thead>
               <tbody md-body>
                 <tr md-row ng-repeat="i in filtered = (inventories | filter: query.filter)" ng-class="{'muted': i.staff, 'muted': i.state == 'cancelled'}">
                   <td md-cell>
                     {{ (i.staff ? 'staff' : i.state) | titleCase }}
-                    <md-tooltip ng-if="i.state == 'removed'">
+                    <md-tooltip ng-if="i.state == 'removed'" translate>
                       Removed {{ ::i.removed_at | humanTime }}
                     </md-tooltip>
                   </td>
                   <td md-cell>
                     {{ ::i.ap_mac }}
-                    <md-tooltip hide-gt-xs>
+                    <md-tooltip hide-gt-xs translate>
                       Added {{ ::i.created_at | humanTime }} to {{ ::i.location_name }}
                     </md-tooltip>
                   </td>
