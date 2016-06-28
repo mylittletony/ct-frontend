@@ -38,7 +38,7 @@
         <span ng-show="::box.heartbeat"><translate>Last seen:</translate> <span am-time-ago="::box.heartbeat" am-preprocess="unix"></span></span>
         <span ng-hide="::box.heartbeat" translate>Never checked in</span>
         <br>
-        <translate>Connected:</translate> {{ box.metadata.online || 0 }}<br>
+        <translate>Connected:&nbsp;</translate> {{ box.metadata.online || 0 }}<br>
         <span>{{ (box.throughput || 0) | mbps }} avg. throughput.</span>
       </p>
       <md-divider></md-divider>

@@ -1213,7 +1213,7 @@ msgstr ""
 msgid "Connected to Cucumber"
 msgstr ""
 
-#: client/components/locations/show/_map.html:40
+#: client/components/locations/show/_map.html:41
 msgid "Connected:"
 msgstr ""
 
@@ -1577,11 +1577,11 @@ msgstr ""
 msgid "Device description updated."
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:62
+#: client/components/boxes/boxes.filters.js:73
 msgid "Device offline"
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:56
+#: client/components/boxes/boxes.filters.js:67
 msgid "Device online"
 msgstr ""
 
@@ -1597,7 +1597,7 @@ msgstr ""
 msgid "Device resync in progress. Please wait."
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:65
+#: client/components/boxes/boxes.filters.js:76
 msgid "Device upgrading"
 msgstr ""
 
@@ -2443,7 +2443,7 @@ msgstr ""
 msgid "Last seen {{ event.data.last_heartbeat | mysqlTime }}"
 msgstr ""
 
-#: client/components/locations/show/_map.html:37
+#: client/components/locations/show/_map.html:38
 msgid "Last seen:"
 msgstr ""
 
@@ -3172,7 +3172,7 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
-#: client/components/locations/show/_map.html:38
+#: client/components/locations/show/_map.html:39
 msgid "Never checked in"
 msgstr ""
 
@@ -3196,7 +3196,7 @@ msgstr ""
 msgid "New Device"
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:68
+#: client/components/boxes/boxes.filters.js:79
 msgid "New device"
 msgstr ""
 
@@ -3273,7 +3273,7 @@ msgstr ""
 msgid "No warnings found."
 msgstr ""
 
-#: client/components/locations/show/_map.html:35
+#: client/components/locations/show/_map.html:36
 msgid "No zone"
 msgstr ""
 
@@ -4066,11 +4066,9 @@ msgstr ""
 msgid "SSID updated, your boxes will resync"
 msgstr ""
 
-#: client/components/locations/show/_map.html:33
-msgid "SSIDs: {{ box.metadata.ssids | emptyFilter }}"
-msgid_plural "SSIDs: {{ ::box.metadata.ssids }}"
-msgstr[0] ""
-msgstr[1] ""
+#: client/components/locations/show/_map.html:34
+msgid "SSIDs: {{ ::box.metadata.ssids | ssidFilter }}"
+msgstr ""
 
 #: client/components/audit/audits.directives.js:67
 msgid "Sales"
@@ -4448,7 +4446,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:52
+#: client/components/boxes/boxes.filters.js:63
 msgid "State Unavailable"
 msgstr ""
 
@@ -5264,7 +5262,7 @@ msgstr ""
 #: client/components/events/show.html:16
 #: client/components/locations/locations.directives.js:1749
 #: client/components/locations/locations.directives.js:498
-#: client/components/locations/show/_map.html:45
+#: client/components/locations/show/_map.html:46
 #: client/components/locations/triggers/triggers.directives.js:38
 #: client/components/locations/triggers/triggers.directives.js:789
 #: client/components/reports/reports.v2.directives.js:394
@@ -5357,7 +5355,7 @@ msgstr ""
 msgid "WAN Protocol"
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:59
+#: client/components/boxes/boxes.filters.js:70
 msgid "Waiting for configs"
 msgstr ""
 
@@ -5890,7 +5888,7 @@ msgstr ""
 msgid "Zone"
 msgstr ""
 
-#: client/components/locations/show/_map.html:34
+#: client/components/locations/show/_map.html:35
 msgid "Zone: {{ ::box.metadata.zone_name }}"
 msgstr ""
 
