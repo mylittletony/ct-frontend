@@ -1,13 +1,13 @@
-<md-dialog aria-label="Splash Networks"  ng-cloak>
+<md-dialog aria-label="{{'Splash Networks' | translate }}"  ng-cloak>
   <form name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Splash Networks</h2>
+        <h2 translate>Splash Networks</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-        <p>This splash is associated with the following networks.</p>
+        <p translate>This splash is associated with the following networks.</p>
         <div ng-if='loading'>
           <md-progress-linear md-mode="query"></md-progress-linear>
         </div>
@@ -16,8 +16,8 @@
             <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
               <thead md-head>
                 <tr md-row>
-                  <th md-column><span>SSID</span></th>
-                  <th md-column><span>Network ID</span></th>
+                  <th md-column><span translate>SSID</span></th>
+                  <th md-column><span translate>Network ID</span></th>
                 </tr>
               </thead>
               <tbody md-body>
@@ -28,17 +28,17 @@
               </tbody>
             </table>
           </md-table-container>
-          <p ng-hide="selected.length"><small>Should be associated with at least one network.</small></p>
+          <p ng-hide="selected.length"><small translate>Should be associated with at least one network.</small></p>
         </div>
     </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        Cancel
+        <translate>Cancel</translate>
       </md-button>
       <md-button ng-click="update()" ng-disabled="selected.length === 0" style="margin-right:20px;">
-        Update 
+        <translate>Update </translate>
       </md-button>
     </md-dialog-actions>
   </form>
