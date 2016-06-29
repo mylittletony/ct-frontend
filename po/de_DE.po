@@ -12,6 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.6\n"
 
+<<<<<<< Updated upstream
 #: client/components/locations/boxes/_table.html:102
 msgid ". Static IP: {{ ::box.wan_ipaddr }}"
 msgstr ". Statische IPv4-Adresse: {{ ::box.wan_ipaddr }}"
@@ -22,6 +23,12 @@ msgstr ""
 
 #: client/components/locations/networks/_show.html:321
 msgid "'Make Part of LAN' disabled because you have an active VLAN."
+=======
+#: client/components/locations/networks/_show.html:305
+msgid ""
+"'Make Part of LAN' disabled because {{ network.vlan_id ? 'you have an active "
+"VLAN' : 'repeater mode is activated' }}."
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/triggers/_show.html:44
@@ -30,52 +37,46 @@ msgid_plural "({{ trigger.fail_count}} times since the last reset)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/components/locations/triggers/triggers.directives.js:300
-msgid "[WELCOME] Thanks for logging in"
+#: client/components/locations/boxes/_table.html:102
+msgid ". Static IP: {{ ::box.wan_ipaddr }}"
 msgstr ""
 
-#: client/components/users/billing/_add_coupon.html:19
+#: client/components/reports/_wireless_stats.html:27
+#: client/components/reports/_wireless_stats.html:37
+msgid "0 TBC"
+msgstr ""
+
+#: client/components/users/inventories/_index.html:37
+msgid "1 active device. {{ summary.new }} added this month."
+msgid_plural ""
+"{{ summary.total }} active devices. {{ summary.new }} added this month."
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/locations/show/_favourites.html:24
 msgid ""
-"{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | "
-"humanTime }}"
-msgstr ""
+"1 box. <span translate=\"\" translate-n=\"{{ ::item.clients_online }}\" "
+"translate-plural=\"{{ ::item.clients_online }} clients online.\"> 1 client "
+"online.</span>"
+msgid_plural "{{ ::item.boxes_count }} boxes"
+msgstr[0] ""
+msgstr[1] ""
 
-#: client/components/locations/show/_dashing.html:15
-msgid ""
-"{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline. <span ng-if="
-"\"splash_only > 0\" translate=\"\">{{ ::splash_only }} Splash Only</span>"
-msgstr ""
+#: client/components/locations/show/_favourites.html:24
+#, fuzzy
+msgid "1 client online."
+msgid_plural "{{ ::item.clients_online }} clients online."
+msgstr[0] "Einstellungen"
+msgstr[1] "Einstellungen"
 
-#: client/components/users/billing/_show.html:14
-msgid "{{ ::plan.plan_name }} Plan"
-msgstr ""
+#: client/components/locations/locations.directives.js:1089
+#, fuzzy
+msgid "1 device zone"
+msgid_plural "{{scope.selected.length}} device zones"
+msgstr[0] "Einstellungen"
+msgstr[1] "Einstellungen"
 
-#: client/components/locations/show/_dashing.html:15
-msgid "{{ ::splash_only }} Splash Only"
-msgstr ""
-
-#: client/components/locations/show/_dashing.html:17
-msgid "{{ ::stats.boxes.stats.total }} Total boxes"
-msgstr ""
-
-#: client/components/locations/show/_dashing.html:35
-msgid ""
-"{{ ::stats.locations }} location<span ng-if=\"stats.locations != 1\">s</span>"
-msgstr ""
-
-#: client/components/locations/show/_dashing.html:27
-msgid "{{ ::stats.online }} connected"
-msgstr ""
-
-#: client/components/locations/show/_dashing.html:42
-msgid "{{ ::stats.splash_views }} this period"
-msgstr ""
-
-#: client/components/main/_history.html:19
-msgid ""
-"{{ ::version.whodunnit || 'Ghost'}} on {{ version.created_at | humanTime}}"
-msgstr ""
-
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_index.html:66
 msgid "{{ (fn || 'average') | titleCase }} aggregated network usage"
 msgstr ""
@@ -94,30 +95,56 @@ msgstr ""
 
 #: client/components/locations/clients/_index.html:67
 msgid "{{ (fn || 'average') | titleCase }} transmission packets that failed"
+=======
+#: client/components/splash_pages/_index.html:78
+#, fuzzy
+msgid "1 network"
+msgid_plural "{{ splash.networks.length }} networks"
+msgstr[0] "Einstellungen"
+msgstr[1] "Einstellungen"
+
+#: client/components/locations/clients/_index.html:36
+#: client/components/locations/clients/_show.html:16
+#: client/components/reports/_filter.html:45
+#: client/components/reports/_header.html:45
+msgid "1d"
 msgstr ""
 
-#: client/components/users/billing/_show.html:33
-msgid "{{ (plan.plan_price || 0) | currency : curr }} per month."
+#: client/components/locations/networks/_index.html:16
+msgid "2.4 & 5Ghz"
 msgstr ""
 
-#: client/components/reports/_radius_stats.html:17
-msgid "{{ (stats.splash.durations.avg / 60) | number:0 }} Mins"
+#: client/components/locations/networks/_index.html:14
+#: client/components/locations/networks/_show.html:299
+#: client/components/networks/networks.directives.js:83
+msgid "2.4Ghz"
 msgstr ""
 
-#: client/components/apps/_show.html:34
-msgid "{{ app.scopes }}"
+#: client/components/boxes/edit/_edit.html:95
+msgid "2.4Ghz Channel"
+>>>>>>> Stashed changes
 msgstr ""
 
-#: client/components/boxes/payloads/_speedtest_widget.html:8
-msgid ""
-"{{ box.latest_speedtest.result || 0 }}Mb/s\n"
-"        <md-tooltip ng-if=\"box.latest_speedtest.result\">\n"
-"          <translate>\n"
-"            Tested at {{ box.latest_speedtest.timestamp | humanTime }}\n"
-"          </translate>\n"
-"        </md-tooltip>"
+#: client/components/boxes/edit/_edit.html:103
+msgid "2.4Ghz Mode"
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:112
+msgid "2.4Ghz Power ({{box.tx_power_2}}dBm)"
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:22
+msgid "2.4Ghz only"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:38
+#: client/components/locations/clients/_show.html:18
+#: client/components/reports/_filter.html:47
+#: client/components/reports/_header.html:47
+msgid "30d"
+msgstr ""
+
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_index.html:55
 msgid "{{ client_mac }} MCS Value"
 msgstr ""
@@ -140,18 +167,49 @@ msgstr ""
 
 #: client/components/locations/clients/_index.html:167
 msgid "{{ clients.info.connected || 0 }} Connected."
+=======
+#: client/components/locations/clients/_index.html:33
+#: client/components/locations/clients/_show.html:13
+#: client/components/reports/_filter.html:42
+#: client/components/reports/_header.html:42
+msgid "30m"
 msgstr ""
 
-#: client/components/users/layouts/location-banner.html:4
-msgid ""
-"{{ location.location_name | titleCase }}. {{ location.full_address | "
-"titleCase }} {{ location.phone1 }}."
+#: client/components/locations/access/access-password.html:25
+msgid "5 letters or more please."
 msgstr ""
 
-#: client/components/locations/networks/header.html:3
-msgid "{{ network_name | titleCase }} Settings"
+#: client/components/locations/networks/_index.html:15
+#: client/components/locations/networks/_show.html:300
+#: client/components/networks/networks.directives.js:86
+msgid "5Ghz"
 msgstr ""
 
+#: client/components/boxes/edit/_edit.html:125
+msgid "5Ghz Channel"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:133
+msgid "5Ghz Mode"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:142
+msgid "5Ghz Power ({{box.tx_power_5}}dBm)"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:24
+msgid "5Ghz only"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:32
+#: client/components/locations/clients/_show.html:12
+#: client/components/reports/_filter.html:41
+#: client/components/reports/_header.html:41
+msgid "5m"
+msgstr ""
+
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_index.html:76
 msgid ""
 "{{ network.zones.length}} zone\n"
@@ -166,76 +224,40 @@ msgstr[1] ""
 
 #: client/components/users/billing/_show.html:45
 msgid "{{ plan.admin_users }} admin users, per location."
+=======
+#: client/components/locations/clients/_index.html:34
+#: client/components/locations/clients/_show.html:14
+#: client/components/reports/_filter.html:43
+#: client/components/reports/_header.html:43
+msgid "60m"
+>>>>>>> Stashed changes
 msgstr ""
 
-#: client/components/users/billing/_show.html:39
+#: client/components/users/invoices/_show.html:55
 msgid ""
-"{{ plan.cost_per_50 / 100 | currency : currency }} monthly for each addition "
-"device added."
+"62 Britton Street<br>\n"
+"              London EC1M 5UY"
 msgstr ""
 
-#: client/components/users/billing/_show.html:25
-msgid "{{ plan.per_ap_allowance }} free devices included."
+#: client/components/locations/clients/_index.html:35
+#: client/components/locations/clients/_show.html:15
+#: client/components/reports/_filter.html:44
+#: client/components/reports/_header.html:44
+msgid "6h"
 msgstr ""
 
-#: client/components/locations/access/access-clickthrough.html:6
-#: client/components/locations/access/access-password.html:6
-#: client/components/locations/access/access-social.html:8
-#: client/components/locations/access/access-vouchers.html:6
-msgid "{{ primarySelected.name }} - Primary Access"
+#: client/components/locations/clients/_index.html:37
+#: client/components/locations/clients/_show.html:17
+#: client/components/reports/_filter.html:46
+#: client/components/reports/_header.html:46
+#: client/components/reports/reports.v2.directives.js:13
+msgid "7d"
 msgstr ""
 
-#: client/components/locations/clients/_show_code.html:160
-msgid "{{ results.voucher.idle_timeout }} minutes"
-msgstr ""
-
-#: client/components/locations/clients/_show_code.html:152
-msgid "{{ results.voucher.validity_minutes }} minutes"
-msgstr ""
-
-#: client/components/locations/access/access-clickthrough.html:7
-#: client/components/locations/access/access-password.html:7
-#: client/components/locations/access/access-social.html:9
-#: client/components/locations/access/access-vouchers.html:7
-msgid "{{ secondarySelected.name }} - Secondary Access"
-msgstr ""
-
-#: client/components/splash_codes/_show.html:89
-msgid "{{ splash_code.splash_page_id || \"Unnamed Splash\" }}"
-msgstr ""
-
-#: client/components/splash_codes/_show.html:52
-msgid ""
-"{{ splash_code.volume }} mins, {{ splash_code.simultaneous_use }} "
-"simultaneous users"
-msgstr ""
-
-#: client/components/locations/show/_inventory.html:19
-msgid "{{ stats.new }} added this period. {{ stats.active }} existing boxes."
-msgstr ""
-
-#: client/components/reports/_radius_stats.html:47
-msgid ""
-"{{ stats.vouchers.created }} created, {{ stats.vouchers.activated }} used."
-msgstr ""
-
-#: client/components/locations/triggers/_vars.html:32
-msgid "{{ type | titleCase }} tags"
-msgstr ""
-
-#: client/components/users/billing/_index.html:33
-msgid ""
-"{{ user.credit_card_type }} ending {{ user.credit_card_last4 }}. Expires "
-"{{ user.credit_card_expiry }}"
-msgstr ""
-
-#: client/components/splash_pages/_index.html:63
-msgid "{{'No name' | truncate:20}}"
-msgstr ""
-
-#: client/components/splash_pages/_index.html:62
-msgid "{{splash.splash_name}}"
-msgstr ""
+#: client/components/locations/networks/_show.html:193
+#, fuzzy
+msgid "802.1x Radius Settings"
+msgstr "Einstellungen"
 
 #: client/components/locations/show/_favourites.html:5
 msgid ""
@@ -247,6 +269,13 @@ msgstr ""
 msgid ""
 "<!-- <md-icon>comments</md-icon> -->\n"
 "                &nbsp; Name"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:12
+msgid ""
+"<b>MAC Address</b>: {{ box.calledstationid }} <span hide=\"\" show-gt-sm="
+"\"\"> <b>Description</b>:&nbsp;{{ box.description }}<b>&nbsp;Last Seen</b>: "
+"{{ box.last_heartbeat | humanTime }}</span>"
 msgstr ""
 
 #: client/components/locations/triggers/show-mailchimp.html:15
@@ -285,6 +314,23 @@ msgid ""
 "    </md-list-item>"
 msgstr ""
 
+#: client/components/locations/triggers/show-sms.html:15
+msgid ""
+"<b>{{ trigger.human }}</b>, send an SMS to <b>{{ trigger.attr_2 }}</b>.\n"
+"    <md-list-item class=\"md-2-line\">\n"
+"      <div class=\"md-list-item-text\">\n"
+"        <h3 translate=\"\">Message</h3>\n"
+"        <p>{{ trigger.attr_3 }}</p>\n"
+"      </div>\n"
+"    </md-list-item>\n"
+"    <md-list-item class=\"md-2-line\">\n"
+"      <div class=\"md-list-item-text\">\n"
+"        <h3 translate=\"\">From</h3>\n"
+"        <p>{{ trigger.attr_1 }}</p>\n"
+"      </div>\n"
+"    </md-list-item>"
+msgstr ""
+
 #: client/components/locations/triggers/show-email.html:15
 msgid ""
 "<b>{{ trigger.human }}</b>, send an email to <b>{{ trigger.attr_1 }}</b>.\n"
@@ -308,23 +354,7 @@ msgid ""
 "    </md-list-item>"
 msgstr ""
 
-#: client/components/locations/triggers/show-sms.html:15
-msgid ""
-"<b>{{ trigger.human }}</b>, send an SMS to <b>{{ trigger.attr_2 }}</b>.\n"
-"    <md-list-item class=\"md-2-line\">\n"
-"      <div class=\"md-list-item-text\">\n"
-"        <h3 translate=\"\">Message</h3>\n"
-"        <p>{{ trigger.attr_3 }}</p>\n"
-"      </div>\n"
-"    </md-list-item>\n"
-"    <md-list-item class=\"md-2-line\">\n"
-"      <div class=\"md-list-item-text\">\n"
-"        <h3 translate=\"\">From</h3>\n"
-"        <p>{{ trigger.attr_1 }}</p>\n"
-"      </div>\n"
-"    </md-list-item>"
-msgstr ""
-
+<<<<<<< Updated upstream
 #: client/components/boxes/edit/_edit.html:12
 msgid ""
 "<b>MAC Address</b>: {{ box.calledstationid }} <span hide=\"\" show-gt-sm="
@@ -345,6 +375,8 @@ msgid ""
 "    <p>Request body: {{ trigger.attr_3 }}</p>"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/access/access-clickthrough.html:11
 msgid "<p>There are no settings to play with for clickthrough access</p>"
 msgstr ""
@@ -360,6 +392,13 @@ msgid ""
 "device(s) to your dashboard. They will provision automatically.</p>"
 msgstr ""
 
+#: client/components/locations/triggers/show-webhook.html:15
+msgid ""
+"<p>{{ trigger.human }}, send a <b>{{ trigger.attr_2 }}</b> request to:<br> "
+"<b>{{ trigger.attr_1 }}</b>.</p>\n"
+"    <p>Request body: {{ trigger.attr_3 }}</p>"
+msgstr ""
+
 #: client/components/splash_pages/_index.html:61
 msgid ""
 "<span ng-if=\"splash.splash_name\" translate=\"\">{{splash.splash_name}}</"
@@ -368,11 +407,14 @@ msgid ""
 "name' | truncate:20}}</span>"
 msgstr ""
 
-#: client/components/reports/_wireless_stats.html:27
-#: client/components/reports/_wireless_stats.html:37
-msgid "0 TBC"
+#: client/components/boxes/edit/_edit.html:294
+#: client/components/boxes/edit/_edit.html:302
+#: client/components/locations/networks/_show.html:108
+#: client/components/locations/networks/_show.html:117
+msgid "A DNS value is required"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/users/inventories/_index.html:37
 msgid "1 active device. {{ summary.new }} added this month."
 msgid_plural ""
@@ -418,24 +460,37 @@ msgstr ""
 #: client/components/locations/networks/_show.html:313
 #: client/components/networks/networks.directives.js:83
 msgid "2.4Ghz"
+=======
+#: client/components/boxes/edit/_edit.html:319
+msgid "A WAN metric is required"
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:95
-msgid "2.4Ghz Channel"
+#: client/components/locations/triggers/triggers.directives.js:272
+msgid "A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}"
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:103
-msgid "2.4Ghz Mode"
+#: client/components/registrations/_create.html:13
+msgid "A confirmation has been sent to your email"
+>>>>>>> Stashed changes
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:22
-msgid "2.4Ghz only"
+#: client/components/registrations/_flow.html:65
+msgid "A dashboard name is required."
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:112
-msgid "2.4Ghz Power ({{box.tx_power_2}}dBm)"
+#: client/components/boxes/show/_non_ps.html:27
+msgid "A description is required"
 msgstr ""
 
+#: client/components/boxes/new/_add.html:45
+msgid "A description is required."
+msgstr ""
+
+#: client/components/boxes/show/_index.html:275
+msgid "A firmware upgrade is available."
+msgstr ""
+
+<<<<<<< Updated upstream
 #: client/components/locations/access/access-password.html:25
 msgid "5 letters or more please."
 msgstr ""
@@ -444,24 +499,42 @@ msgstr ""
 #: client/components/locations/networks/_show.html:314
 #: client/components/networks/networks.directives.js:86
 msgid "5Ghz"
+=======
+#: client/components/registrations/_flow.html:28
+msgid "A network name is required."
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:125
-msgid "5Ghz Channel"
+#: client/components/registrations/_flow.html:82
+msgid "A username is required."
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:133
-msgid "5Ghz Mode"
+#: client/components/boxes/edit/_edit.html:310
+msgid "A valid MTU is required"
 msgstr ""
 
-#: client/components/boxes/boxes.filters.js:24
-msgid "5Ghz only"
+#: client/components/splash_pages/access-password.html:25
+msgid "A valid password is required"
+>>>>>>> Stashed changes
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:142
-msgid "5Ghz Power ({{box.tx_power_5}}dBm)"
+#: client/components/registrations/_flow.html:53
+msgid "A web address is required."
 msgstr ""
 
+#: client/components/boxes/new/_add.html:68
+#: client/components/users/billing/_coupon.html:24
+msgid "ADD"
+msgstr ""
+
+#: client/components/users/billing/_add_coupon.html:27
+msgid "ADD COUPON"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:126
+msgid "ADD DEVICES"
+msgstr ""
+
+<<<<<<< Updated upstream
 #: client/components/users/invoices/_show.html:55
 msgid ""
 "62 Britton Street<br>\n"
@@ -473,10 +546,35 @@ msgid "7d"
 msgstr ""
 
 #: client/components/locations/networks/_show.html:198
+=======
+#: client/components/locations/clients/_columns_filter.html:54
+msgid "AP Description"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:167
+msgid "AP Name"
+msgstr ""
+
+#: client/components/users/invoices/_details.html:105
+msgid "APs Added Since Last Invoice"
+msgstr ""
+
+#: client/components/locations/triggers/channel-slack.html:3
+msgid "AUTHORISE"
+msgstr ""
+
+#: client/components/users/users.controllers.js:114
 #, fuzzy
-msgid "802.1x Radius Settings"
+msgid "Access"
 msgstr "Einstellungen"
 
+#: client/components/users/layouts/sidebar.html:12
+>>>>>>> Stashed changes
+#, fuzzy
+msgid "Access Log"
+msgstr "Einstellungen"
+
+<<<<<<< Updated upstream
 #: client/components/locations/triggers/triggers.directives.js:272
 msgid "A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}"
 msgstr ""
@@ -550,6 +648,8 @@ msgstr ""
 msgid "Access Log"
 msgstr "Einstellungen"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/users/sessions/_index.html:6
 #, fuzzy
 msgid "Access Logs"
@@ -557,10 +657,13 @@ msgstr "Einstellungen"
 
 #: client/components/users/invoices/_details.html:82
 msgid "Access Point Cost"
+<<<<<<< Updated upstream
 msgstr ""
 
 #: client/components/locations/locations.directives.js:846
 msgid "Access point resynced successfully."
+=======
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/splash_codes/_show.html:66
@@ -578,6 +681,14 @@ msgstr "Einstellungen"
 #, fuzzy
 msgid "Access Types"
 msgstr "Einstellungen"
+
+#: client/components/users/integrations/_integrations.html:20
+msgid "Access denied. If you cancelled the request, please try again."
+msgstr ""
+
+#: client/components/locations/locations.directives.js:846
+msgid "Access point resynced successfully."
+msgstr ""
 
 #: client/components/users/layouts/sidebar.html:1 client/index.html:103
 msgid "Account"
@@ -632,16 +743,6 @@ msgid ""
 "will not broadcast an SSID. Add this box to a zone to complete setup."
 msgstr ""
 
-#: client/components/clients/clients.directives.js:931
-msgid "activate"
-msgstr ""
-
-#: client/components/clients/clients.directives.js:965
-#: client/components/codes/codes.directives.js:88
-#: client/components/splash_codes/splash_codes.directives.js:142
-msgid "activated"
-msgstr ""
-
 #: client/components/codes/_index.html:46
 #: client/components/locations/clients/_show_code.html:39
 #: client/components/locations/clients/codes.html:34
@@ -671,6 +772,7 @@ msgstr ""
 msgid "Active APs"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/new/_add.html:68
 #: client/components/users/billing/_coupon.html:24
 msgid "ADD"
@@ -716,6 +818,8 @@ msgstr ""
 msgid "Add a product to the store."
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/networks/blacklists.html:27
 #: client/components/locations/networks/firewall.html:41
 #: client/components/locations/networks/walledgardens.html:23
@@ -726,16 +830,8 @@ msgstr ""
 msgid "Add App"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:68
-msgid "add box"
-msgstr ""
-
 #: client/components/boxes/new/_add.html:153
 msgid "Add Box"
-msgstr ""
-
-#: client/components/users/billing/_update_card.html:8
-msgid "add CARD"
 msgstr ""
 
 #: client/components/users/billing/_coupon.html:5
@@ -743,33 +839,38 @@ msgstr ""
 msgid "Add Coupon"
 msgstr "Dokumentation"
 
-#: client/components/users/billing/_add_coupon.html:27
-msgid "ADD COUPON"
-msgstr ""
-
 #: client/components/users/billing/_card.html:5
 msgid "Add Credit Card"
 msgstr ""
 
 #: client/components/locations/index/_index.html:42
+<<<<<<< Updated upstream
 #: client/components/locations/show/_index.html:73
 #: client/components/locations/show/_index.html:74
+=======
+#: client/components/locations/show/_index.html:71
+>>>>>>> Stashed changes
 #: client/components/locations/show/_index.html:9
 #: client/components/locations/show/_map.html:8
 #, fuzzy
 msgid "Add Device"
 msgstr "Einstellungen"
 
+<<<<<<< Updated upstream
 #: client/components/boxes/new/_add.html:126
 msgid "ADD DEVICES"
 msgstr ""
 
 #: client/components/locations/index/_list.html:37
 #: client/components/locations/index/_list.html:38
+=======
+#: client/components/locations/index/_list.html:36
+>>>>>>> Stashed changes
 #, fuzzy
 msgid "Add Location"
 msgstr "Dokumentation"
 
+<<<<<<< Updated upstream
 #: client/components/locations/show/_index.html:28
 msgid "Add location to favourites."
 msgstr ""
@@ -782,6 +883,8 @@ msgstr ""
 msgid "Add to List"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/users/integrations/_integrations.html:60
 msgid "Add To MailChimp"
 msgstr ""
@@ -796,6 +899,58 @@ msgstr ""
 
 #: client/components/boxes/show/_toast_zone.html:7
 msgid "Add To Zone"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:18
+msgid "Add a Device"
+msgstr ""
+
+#: client/components/users/billing/_plans.html:7
+msgid "Add a card to your account before choosing a plan from the list below."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1542
+#: client/components/boxes/boxes.directives.js:1547
+#: client/components/boxes/new/_add.html:115
+msgid "Add a comment"
+msgstr ""
+
+#: client/components/users/billing/_coupon.html:11
+msgid "Add a coupon code"
+msgstr ""
+
+#: client/components/locations/index/_favourites.html:15
+msgid ""
+"Add a location to your favourites by clicking the heart on the dashboard."
+msgstr ""
+
+#: client/components/apps/_index.html:11 client/components/apps/_show.html:11
+msgid "Add a new app."
+msgstr ""
+
+#: client/components/locations/show/_index.html:12
+#, fuzzy
+msgid "Add a new device."
+msgstr "Einstellungen"
+
+#: client/components/locations/index/_index.html:45
+msgid "Add a new location."
+msgstr ""
+
+#: client/components/splash_pages/_store_product.html:12
+msgid "Add a product to the store."
+msgstr ""
+
+#: client/components/locations/show/_index.html:28
+msgid "Add location to favourites."
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:66
+msgid "Add support for your Ruckus VSZ."
+msgstr ""
+
+#: client/components/locations/triggers/_new.html:369
+msgid "Add to List"
 msgstr ""
 
 #: client/components/users/billing/_show.html:26
@@ -815,10 +970,6 @@ msgstr ""
 
 #: client/components/users/inventories/_index.html:65
 msgid "Added {{ ::i.created_at | humanTime }} to {{ ::i.location_name }}"
-msgstr ""
-
-#: client/components/locations/locations.directives.js:23
-msgid "added to"
 msgstr ""
 
 #: client/components/users/billing/_billing.html:38
@@ -978,19 +1129,25 @@ msgstr "Einstellungen"
 msgid "Analytics Settings"
 msgstr "Einstellungen"
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:77
 #: client/components/locations/clients/_columns.html:81
 msgid "AP Description"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/users/inventories/_index.html:49
 msgid "Ap Mac"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_index.html:190
 msgid "AP Name"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/apps/_show.html:49
 msgid "App ID"
 msgstr ""
@@ -1011,14 +1168,6 @@ msgstr ""
 msgid "Application Name"
 msgstr ""
 
-#: client/components/apps/apps.directives.js:97
-msgid "Application successfully created"
-msgstr ""
-
-#: client/components/apps/apps.directives.js:106
-msgid "Application successfully updated"
-msgstr ""
-
 #: client/components/apps/_show.html:41
 msgid "Application URLs:"
 msgstr ""
@@ -1027,12 +1176,16 @@ msgstr ""
 msgid "Application Website"
 msgstr ""
 
-#: client/components/apps/_index.html:6
-msgid "Apps"
+#: client/components/apps/apps.directives.js:97
+msgid "Application successfully created"
 msgstr ""
 
-#: client/components/users/invoices/_details.html:105
-msgid "APs Added Since Last Invoice"
+#: client/components/apps/apps.directives.js:106
+msgid "Application successfully updated"
+msgstr ""
+
+#: client/components/apps/_index.html:6
+msgid "Apps"
 msgstr ""
 
 #: client/components/users/invoices/_details.html:70
@@ -1143,10 +1296,6 @@ msgstr ""
 msgid "Authorise"
 msgstr ""
 
-#: client/components/locations/triggers/channel-slack.html:3
-msgid "AUTHORISE"
-msgstr ""
-
 #: client/components/users/integrations/_integrations.html:17
 msgid "Authorising {{ ::type }}, please wait."
 msgstr ""
@@ -1171,10 +1320,6 @@ msgstr ""
 msgid "Available if your access points have two radios."
 msgstr ""
 
-#: client/components/charts/devices/_snr_chart.html:4
-msgid "Average {{ type | titleCase }}"
-msgstr ""
-
 #: client/components/reports/_radius_stats.html:16
 #, fuzzy
 msgid "Average Session"
@@ -1184,6 +1329,10 @@ msgstr "Diskussionen"
 #: client/components/charts/devices/_wireless_chart.html:55
 #: client/components/locations/clients/_index.html:129
 msgid "Average Values"
+msgstr ""
+
+#: client/components/charts/devices/_snr_chart.html:4
+msgid "Average {{ type | titleCase }}"
 msgstr ""
 
 #: client/components/users/integrations/_integrations.html:35
@@ -1309,6 +1458,7 @@ msgstr "Einstellungen"
 msgid "Batch Name"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/settings/_devices.html:55
 #, fuzzy
 msgid "Beta Disabled"
@@ -1322,10 +1472,16 @@ msgstr ""
 msgid "Beta feature. Changes to functionality may happen without notice."
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/settings/_devices.html:53
 #, fuzzy
 msgid "Beta Location"
 msgstr "Dokumentation"
+
+#: client/components/splash_pages/access-registration.html:8
+msgid "Beta feature. Changes to functionality may happen without notice."
+msgstr ""
 
 #: client/components/codes/_sessions.html:20
 msgid ""
@@ -1418,10 +1574,6 @@ msgstr ""
 msgid "Box successfully"
 msgstr ""
 
-#: client/components/locations/locations.directives.js:1914
-msgid "Box successfully {{val}}."
-msgstr ""
-
 #: client/components/boxes/boxes.directives.js:289
 msgid "Box successfully deleted"
 msgstr ""
@@ -1429,6 +1581,10 @@ msgstr ""
 #: client/components/boxes/boxes.directives.js:265
 #: client/components/locations/locations.directives.js:821
 msgid "Box successfully rebooted."
+msgstr ""
+
+#: client/components/locations/locations.directives.js:1914
+msgid "Box successfully {{val}}."
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:324
@@ -1532,6 +1688,7 @@ msgstr ""
 msgid "Bypass double opt-in"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/settings/_splash.html:41
 msgid "Bypass iOS Popup Disabled"
 msgstr ""
@@ -1547,6 +1704,35 @@ msgstr ""
 #: client/components/locations/settings/_devices.html:131
 #: client/components/splash_pages/_form_designer.html:78
 msgid "call"
+=======
+#: client/components/users/billing/_cancel_dialog.html:25
+msgid "CANCEL ACCOUNT"
+msgstr ""
+
+#: client/components/users/show/_password.html:36
+msgid "CHANGE"
+msgstr ""
+
+#: client/components/boxes/payloads/_show_payload.html:18
+#: client/components/locations/triggers/_vars.html:130
+msgid "CLOSE"
+msgstr ""
+
+#: client/components/boxes/show/_toast_reset_confirm.html:7
+#: client/components/locations/locations.directives.js:1510
+msgid "CONFIRM"
+msgstr ""
+
+#: client/components/networks/_create.html:70
+#: client/components/splash_pages/_form.html:70
+#: client/components/splash_pages/_store_product.html:143
+#: client/components/splash_pages/access-quickcodes.html:16
+msgid "CREATE"
+msgstr ""
+
+#: client/components/splash_codes/_edit.html:26
+msgid "CREATE SPLASH"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/apps/_new.html:44
@@ -1557,10 +1743,13 @@ msgstr ""
 msgid "Callback URLs:"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/users/billing/_cancel.html:18
 msgid "cancel"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/audit/sales/_refund.html:17
 #: client/components/boxes/boxes.directives.js:189
 #: client/components/boxes/boxes.directives.js:223
@@ -1603,10 +1792,6 @@ msgstr ""
 #: client/components/users/users.directives.js:371
 #: client/components/users/users.directives.js:648
 msgid "Cancel"
-msgstr ""
-
-#: client/components/users/billing/_cancel_dialog.html:25
-msgid "CANCEL ACCOUNT"
 msgstr ""
 
 #: client/components/users/billing/_cancel.html:4
@@ -1691,10 +1876,6 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: client/components/users/show/_password.html:36
-msgid "CHANGE"
-msgstr ""
-
 #: client/components/brands/brands.directives.js:54
 msgid "Change Brand?"
 msgstr ""
@@ -1705,10 +1886,6 @@ msgstr ""
 
 #: client/components/main/_history.html:8
 msgid "Change Log"
-msgstr ""
-
-#: client/components/locations/access/access-password.html:50
-msgid "Change on these days"
 msgstr ""
 
 #: client/components/users/billing/_card.html:1
@@ -1727,6 +1904,10 @@ msgstr ""
 
 #: client/components/locations/settings/_change_token.html:2
 msgid "Change Token"
+msgstr ""
+
+#: client/components/locations/access/access-password.html:50
+msgid "Change on these days"
 msgstr ""
 
 #: client/components/users/show/_password.html:11
@@ -1749,9 +1930,15 @@ msgstr ""
 msgid "Changing the SSID will resync your boxes."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:83
 #: client/components/locations/clients/_columns.html:87
 #: client/components/locations/clients/_index.html:191
+=======
+#: client/components/locations/clients/_columns.html:62
+#: client/components/locations/clients/_columns_filter.html:58
+#: client/components/locations/clients/_index.html:168
+>>>>>>> Stashed changes
 #: client/components/locations/triggers/_new.html:352
 #: client/components/locations/triggers/list.html:48
 msgid "Channel"
@@ -1779,20 +1966,20 @@ msgstr ""
 msgid "Checkin Message"
 msgstr ""
 
-#: client/components/boxes/firmware/_download_firmware.html:5
-msgid "Choose a firmware version"
-msgstr ""
-
-#: client/components/locations/triggers/channel-mailchimp.html:14
-msgid "Choose a list"
-msgstr ""
-
 #: client/components/locations/triggers/channel-slack.html:15
 msgid "Choose a Slack Channel"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:90
 msgid "Choose a Zone"
+msgstr ""
+
+#: client/components/boxes/firmware/_download_firmware.html:5
+msgid "Choose a firmware version"
+msgstr ""
+
+#: client/components/locations/triggers/channel-mailchimp.html:14
+msgid "Choose a list"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:18
@@ -1862,8 +2049,8 @@ msgid "Client Isolation Enabled"
 msgstr ""
 
 #: client/components/codes/_table.html:7
-#: client/components/locations/clients/_show_code.html:50
 #: client/components/locations/clients/_show.html:54
+#: client/components/locations/clients/_show_code.html:50
 msgid "Client Mac"
 msgstr ""
 
@@ -1894,11 +2081,14 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/payloads/_show_payload.html:18
 #: client/components/locations/triggers/_vars.html:131
 msgid "CLOSE"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/show/_health_modal.html:8
 msgid "Close dialog"
 msgstr ""
@@ -1910,10 +2100,6 @@ msgstr ""
 #: client/components/clients/clients.directives.js:966
 #: client/components/codes/codes.directives.js:89
 msgid "Code"
-msgstr ""
-
-#: client/components/splash_codes/splash_codes.directives.js:143
-msgid "Code {{text}} successfully."
 msgstr ""
 
 #: client/components/splash_codes/_show.html:115
@@ -1933,6 +2119,10 @@ msgstr "Kode deaktiviert"
 #: client/components/splash_codes/splash_codes.directives.js:369
 msgid "Code successfully deleted."
 msgstr "Kode erfolgreich gelöscht."
+
+#: client/components/splash_codes/splash_codes.directives.js:143
+msgid "Code {{text}} successfully."
+msgstr ""
 
 #: client/components/locations/locations.controller.js:134
 msgid "Codes"
@@ -1968,11 +2158,6 @@ msgstr ""
 
 #: client/components/locations/triggers/_new.html:308
 msgid "Completed"
-msgstr ""
-
-#: client/components/boxes/show/_toast_reset_confirm.html:7
-#: client/components/locations/locations.directives.js:1510
-msgid "CONFIRM"
 msgstr ""
 
 #: client/components/users/billing/_upgrade.html:5
@@ -2048,13 +2233,13 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: client/components/users/users.directives.js:171
-msgid "Coupon added successfully."
-msgstr "Coupon erfolgreich hinzugefügt."
-
 #: client/components/users/billing/_coupon.html:14
 msgid "Coupon Code"
 msgstr ""
+
+#: client/components/users/users.directives.js:171
+msgid "Coupon added successfully."
+msgstr "Coupon erfolgreich hinzugefügt."
 
 #: client/components/users/billing/_add_coupon.html:5
 msgid "Coupons & Discount Codes"
@@ -2069,6 +2254,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/networks/_create.html:70
 #: client/components/splash_pages/_form.html:70
 #: client/components/splash_pages/_store_product.html:143
@@ -2093,12 +2279,10 @@ msgstr ""
 msgid "Create an application before use the API and build some awesome."
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/apps/_new.html:19
 msgid "Create App"
-msgstr ""
-
-#: client/components/locations/new/_index.html:25
-msgid "Create as many locations or networks as you need."
 msgstr ""
 
 #: client/components/networks/_create.html:1
@@ -2118,16 +2302,34 @@ msgstr "Kennwort ändern"
 msgid "Create Product"
 msgstr "Dokumentation"
 
-#: client/components/splash_codes/_index.html:34
-msgid "Create rules and restrictions to control access."
-msgstr ""
-
 #: client/components/splash_pages/_form.html:5
 msgid "Create Splash"
 msgstr ""
 
-#: client/components/splash_codes/_edit.html:26
-msgid "CREATE SPLASH"
+#: client/components/locations/new/_index.html:22
+#, fuzzy
+msgid "Create a New Location"
+msgstr "Dokumentation"
+
+#: client/components/splash_pages/_index.html:31
+msgid "Create a Splash Page to control your guest's access."
+msgstr ""
+
+#: client/components/splash_pages/_form.html:59
+#, fuzzy
+msgid "Create a new SSID"
+msgstr "Dokumentation"
+
+#: client/components/apps/_new.html:21
+msgid "Create an application before use the API and build some awesome."
+msgstr ""
+
+#: client/components/locations/new/_index.html:25
+msgid "Create as many locations or networks as you need."
+msgstr ""
+
+#: client/components/splash_codes/_index.html:34
+msgid "Create rules and restrictions to control access."
 msgstr ""
 
 #: client/components/networks/_create.html:11
@@ -2159,6 +2361,16 @@ msgstr "Erstelle bis zu 16 Netzwerke/SSIDs pro Standort."
 msgid "Created"
 msgstr ""
 
+#: client/components/splash_codes/_show.html:102
+#: client/components/users/inventories/_index.html:51
+msgid "Created By"
+msgstr ""
+
+#: client/components/audit/guests/_show.html:36
+#: client/components/locations/settings/_main.html:48
+msgid "Created On"
+msgstr ""
+
 #: client/components/locations/clients/_show_code.html:42
 msgid "Created {{ results.code.created_at | humanTime }}"
 msgstr ""
@@ -2171,22 +2383,8 @@ msgstr ""
 msgid "Created {{ trigger.created_at | humanTime }}"
 msgstr ""
 
-#: client/components/splash_codes/_show.html:102
-#: client/components/users/inventories/_index.html:51
-msgid "Created By"
-msgstr ""
-
-#: client/components/audit/guests/_show.html:36
-#: client/components/locations/settings/_main.html:48
-msgid "Created On"
-msgstr ""
-
 #: client/components/apps/_show.html:47
 msgid "Credentials"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:72
-msgid "Cucumber box"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:73
@@ -2198,16 +2396,20 @@ msgstr ""
 msgid "Cucumber Debug"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:64
-msgid "Cucumber firmware"
-msgstr ""
-
 #: client/components/locations/show/_app_status.html:5
 msgid "Cucumber Status"
 msgstr ""
 
 #: client/components/users/invoices/_show.html:54
 msgid "Cucumber Tony Limited"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:72
+msgid "Cucumber box"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:64
+msgid "Cucumber firmware"
 msgstr ""
 
 #: client/components/main/_currency.html:2
@@ -2246,6 +2448,37 @@ msgstr ""
 msgid "Customise your outbound emails. Enterprise plans only."
 msgstr ""
 
+#: client/components/locations/networks/_show.html:162
+msgid "DHCP Option Type"
+msgstr ""
+
+#: client/components/locations/networks/_show.html:106
+#: client/components/locations/networks/_show.html:115
+msgid "DNS (8.8.8.8)"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:291
+#: client/components/locations/networks/_show.html:105
+msgid "DNS 1"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:299
+#: client/components/locations/networks/_show.html:114
+msgid "DNS 2"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:35
+msgid "DNS Check"
+msgstr ""
+
+#: client/components/networks/networks.directives.js:518
+msgid "DNS settings disabled because content filtering is enabled."
+msgstr ""
+
+#: client/components/boxes/show/_index.html:169
+msgid "DOCUMENTATION"
+msgstr ""
+
 #: client/components/splash_codes/_show.html:68
 msgid "Daily"
 msgstr ""
@@ -2272,26 +2505,16 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: client/components/audit/audits.directives.js:92
-msgid "day"
-msgstr ""
-
 #: client/components/splash_pages/access-registration.html:18
 msgid "Default Behaviour After Initial Registration"
-msgstr ""
-
-#: client/components/splash_pages/_form_designer.html:86
-msgid "Default field value"
 msgstr ""
 
 #: client/components/splash_pages/_form_designer.html:85
 msgid "Default Value"
 msgstr ""
 
-#: client/components/locations/locations.directives.js:1545
-#: client/components/locations/locations.directives.js:950
-#: client/components/splash_pages/_menu.html:53
-msgid "delete"
+#: client/components/splash_pages/_form_designer.html:86
+msgid "Default field value"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:109
@@ -2334,11 +2557,6 @@ msgstr ""
 msgid "Delete Field"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:279
-#: client/components/locations/locations.directives.js:860
-msgid "Delete it"
-msgstr ""
-
 #: client/components/networks/networks.directives.js:122
 #: client/components/networks/networks.directives.js:124
 #: client/components/networks/networks.directives.js:298
@@ -2347,10 +2565,6 @@ msgstr ""
 #: client/components/networks/networks.directives.js:352
 msgid "Delete Network"
 msgstr "Netzwerk/SSID löschen"
-
-#: client/components/boxes/payloads/_index.html:54
-msgid "delete payload"
-msgstr ""
 
 #: client/components/locations/locations.directives.js:856
 msgid "Delete This Device Permanently?"
@@ -2361,6 +2575,11 @@ msgstr ""
 #: client/components/locations/triggers/triggers.directives.js:82
 #: client/components/locations/triggers/triggers.directives.js:84
 msgid "Delete Trigger"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:279
+#: client/components/locations/locations.directives.js:860
+msgid "Delete it"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:153
@@ -2464,10 +2683,6 @@ msgstr ""
 msgid "Device Alerts Enabled"
 msgstr ""
 
-#: client/components/locations/locations.directives.js:1122
-msgid "Device description updated."
-msgstr ""
-
 #: client/components/codes/_table.html:9
 msgid "Device Mac"
 msgstr "Geräte-MAC-Adresse"
@@ -2476,6 +2691,7 @@ msgstr "Geräte-MAC-Adresse"
 msgid "Device Name"
 msgstr "Geräte-Name"
 
+<<<<<<< Updated upstream
 #: client/components/boxes/boxes.filters.js:73
 msgid "Device offline"
 msgstr "Geräte Offline"
@@ -2484,16 +2700,10 @@ msgstr "Geräte Offline"
 msgid "Device online"
 msgstr "Geräte Online"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/payloads/_index.html:23
 msgid "Device Payloads"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:198
-msgid "Device reset in progress, please wait."
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:239
-msgid "Device resync in progress. Please wait."
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:36
@@ -2509,6 +2719,7 @@ msgstr ""
 msgid "Device Type"
 msgstr "Geräte-Typ"
 
+<<<<<<< Updated upstream
 #: client/components/boxes/boxes.filters.js:76
 msgid "Device upgrading"
 msgstr "Gerät aktualisieren"
@@ -2525,6 +2736,34 @@ msgstr "Geräte-Zone"
 #: client/components/locations/locations.directives.js:1084
 msgid "device zones"
 msgstr "Geräte-Zonen"
+=======
+#: client/components/locations/locations.directives.js:1122
+msgid "Device description updated."
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:73
+#, fuzzy
+msgid "Device offline"
+msgstr "Einstellungen"
+
+#: client/components/boxes/boxes.filters.js:67
+#, fuzzy
+msgid "Device online"
+msgstr "Einstellungen"
+
+#: client/components/boxes/boxes.directives.js:198
+msgid "Device reset in progress, please wait."
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:239
+msgid "Device resync in progress. Please wait."
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:76
+#, fuzzy
+msgid "Device upgrading"
+msgstr "Einstellungen"
+>>>>>>> Stashed changes
 
 #: client/components/locations/index/_list.html:65
 #: client/components/locations/locations.controller.js:69
@@ -2540,6 +2779,7 @@ msgstr ""
 msgid "Devices will sync after you alter their zone."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:165
 msgid "DHCP Option Type"
 msgstr ""
@@ -2553,6 +2793,8 @@ msgstr "Einstellungen"
 msgid "DHCP Server Enabled"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/registrations/_create.html:24
 msgid ""
 "Didn't get the invite? <a href=\"\" ng-click=\"clearCookies()\">Resend it "
@@ -2571,12 +2813,6 @@ msgstr ""
 
 #: client/components/vouchers/vouchers.directives.js:556
 msgid "Disable Voucher Batch"
-msgstr ""
-
-#: client/components/clients/clients.directives.js:965
-#: client/components/codes/codes.directives.js:88
-#: client/components/splash_codes/splash_codes.directives.js:142
-msgid "disabled"
 msgstr ""
 
 #: client/components/splash_pages/_form_designer.html:69
@@ -2599,10 +2835,6 @@ msgstr ""
 msgid "Discover"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:146
-msgid "discover boxes"
-msgstr ""
-
 #: client/components/boxes/new/_add.html:27
 msgid "Discover my Devices"
 msgstr ""
@@ -2619,6 +2851,7 @@ msgstr ""
 msgid "Distance"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:109
 #: client/components/locations/networks/_show.html:118
 msgid "DNS (8.8.8.8)"
@@ -2642,13 +2875,11 @@ msgstr ""
 msgid "DNS settings disabled because content filtering is enabled."
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/index.html:110
 msgid "Documentation"
 msgstr "Dokumentation"
-
-#: client/components/boxes/show/_index.html:169
-msgid "DOCUMENTATION"
-msgstr ""
 
 #: client/components/boxes/edit/_edit.html:77
 msgid "Don't disable this unless you're using a splash-only device."
@@ -2659,16 +2890,6 @@ msgstr ""
 msgid ""
 "Don't worry about choosing a password, we'll email you a link to set one."
 msgstr ""
-
-#: client/components/splash_codes/_edit.html:102
-#: client/components/splash_codes/_edit.html:96
-msgid "down"
-msgstr ""
-
-#: client/components/splash_pages/_store_product.html:108
-#, fuzzy
-msgid "download"
-msgstr "Downloads"
 
 #: client/components/boxes/firmware/_download_firmware.html:13
 msgid "Download"
@@ -2697,8 +2918,12 @@ msgid ""
 "\">documentation<ct-docs>.</ct-docs></ct-docs>"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/show/_index.html:68
 #: client/components/locations/show/_index.html:69 client/index.html:123
+=======
+#: client/components/locations/show/_index.html:68 client/index.html:123
+>>>>>>> Stashed changes
 msgid "Downloads"
 msgstr "Downloads"
 
@@ -2723,6 +2948,14 @@ msgstr "Dauer"
 msgid "Dynamic Variables"
 msgstr ""
 
+#: client/components/users/users.directives.js:370
+msgid "EMAIL"
+msgstr ""
+
+#: client/components/users/billing/_billing.html:47
+msgid "EURO"
+msgstr ""
+
 #: client/components/apps/_show.html:59
 #: client/components/boxes/boxes.directives.js:76
 #: client/components/locations/locations.directives.js:698
@@ -2740,10 +2973,13 @@ msgstr ""
 msgid "Edit Banner URL"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/show/header.html:35
 msgid "Edit details"
 msgstr "Details ändern"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/clients/_device_name.html:1
 msgid "Edit Device Name"
 msgstr "Geräte-Namen ändern"
@@ -2765,6 +3001,11 @@ msgstr "Einstellungen ändern"
 msgid "Edit Zones"
 msgstr ""
 
+#: client/components/locations/show/header.html:35
+#, fuzzy
+msgid "Edit details"
+msgstr "Einstellungen"
+
 #: client/components/audit/emails/_index.html:53
 #: client/components/audit/guests/_index.html:52
 #: client/components/audit/sales/_index.html:53
@@ -2778,6 +3019,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/users/users.directives.js:370
 msgid "EMAIL"
 msgstr ""
@@ -2786,6 +3028,8 @@ msgstr ""
 msgid "Email address"
 msgstr "Email-Adresse"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/users/show/_index.html:81
 msgid "Email Address"
 msgstr "Email-Adresse"
@@ -2802,10 +3046,6 @@ msgstr ""
 msgid "Email From"
 msgstr ""
 
-#: client/components/locations/access/access-password.html:41
-msgid "Email it to the following address"
-msgstr ""
-
 #: client/components/users/users.directives.js:367
 msgid "Email Selected Invoices"
 msgstr ""
@@ -2816,6 +3056,15 @@ msgstr "Email-Einstellungen"
 
 #: client/components/locations/triggers/show-email.html:25
 msgid "Email Subject"
+msgstr ""
+
+#: client/components/users/show/_index.html:82
+#, fuzzy
+msgid "Email address"
+msgstr "Dokumentation"
+
+#: client/components/locations/access/access-password.html:41
+msgid "Email it to the following address"
 msgstr ""
 
 #: client/components/audit/audits.directives.js:43
@@ -2850,12 +3099,20 @@ msgid ""
 "              </md-button>"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/edit/_edit.html:229
 msgid "Enable Debug Mode"
 msgstr ""
 
 #: client/components/locations/networks/_show.html:180
+=======
+#: client/components/locations/networks/_show.html:177
+>>>>>>> Stashed changes
 msgid "Enable DHCP"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:229
+msgid "Enable Debug Mode"
 msgstr ""
 
 #: client/components/locations/settings/_analytics.html:13
@@ -2874,12 +3131,12 @@ msgstr ""
 msgid "Enable streaming updates"
 msgstr ""
 
-#: client/components/locations/clients/_range_filter.html:15
-msgid "End date"
-msgstr ""
-
 #: client/components/users/alerts/_index.html:46
 msgid "End Time"
+msgstr ""
+
+#: client/components/locations/clients/_range_filter.html:15
+msgid "End date"
 msgstr ""
 
 #: client/components/splash_pages/_menu.html:416
@@ -2888,6 +3145,27 @@ msgstr ""
 
 #: client/components/boxes/new/_add.html:137
 msgid "Ensure your devices have the Cucumber firmware installed."
+msgstr ""
+
+#: client/components/boxes/new/_add.html:28
+msgid "Enter MAC Address"
+msgstr ""
+
+#: client/components/registrations/_create.html:40
+msgid "Enter Your Email"
+msgstr ""
+
+#: client/components/splash_codes/_edit.html:59
+msgid "Enter a Password"
+msgstr ""
+
+#: client/components/registrations/_flow.html:109
+#: client/components/registrations/_flow.html:51
+msgid "Enter a URL for your dashboard"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:14
+msgid "Enter a Version"
 msgstr ""
 
 #: client/components/users/branding/_form.html:37
@@ -2920,10 +3198,6 @@ msgstr ""
 msgid "Enter a password"
 msgstr ""
 
-#: client/components/splash_codes/_edit.html:59
-msgid "Enter a Password"
-msgstr ""
-
 #: client/components/locations/triggers/channel-email.html:21
 msgid "Enter a subject"
 msgstr ""
@@ -2936,21 +3210,12 @@ msgstr ""
 msgid "Enter a url for the Icon"
 msgstr ""
 
-#: client/components/registrations/_flow.html:109
-#: client/components/registrations/_flow.html:51
-msgid "Enter a URL for your dashboard"
-msgstr ""
-
 #: client/components/networks/_radtest.html:17
 msgid "Enter a username"
 msgstr ""
 
 #: client/components/locations/triggers/channel-email.html:15
 msgid "Enter a valid email"
-msgstr ""
-
-#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:14
-msgid "Enter a Version"
 msgstr ""
 
 #: client/components/locations/networks/walledgardens.html:15
@@ -2975,10 +3240,6 @@ msgstr ""
 msgid "Enter date"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:28
-msgid "Enter MAC Address"
-msgstr ""
-
 #: client/components/locations/settings/_transfer.html:12
 msgid "Enter the Account ID for the user, this can be found in their settings."
 msgstr ""
@@ -2996,10 +3257,6 @@ msgstr ""
 msgid "Enter username and password"
 msgstr "Dokumentation"
 
-#: client/components/locations/new/_index.html:44
-msgid "Enter your address"
-msgstr ""
-
 #: client/components/splash_pages/access-social.html:59
 msgid "Enter your App ID"
 msgstr ""
@@ -3008,12 +3265,12 @@ msgstr ""
 msgid "Enter your Email"
 msgstr ""
 
-#: client/components/registrations/_create.html:40
-msgid "Enter Your Email"
-msgstr ""
-
 #: client/components/locations/triggers/channel-webhook.html:6
 msgid "Enter your URL"
+msgstr ""
+
+#: client/components/locations/new/_index.html:44
+msgid "Enter your address"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:236
@@ -3036,10 +3293,6 @@ msgstr ""
 msgid "Error!"
 msgstr ""
 
-#: client/components/users/billing/_billing.html:47
-msgid "EURO"
-msgstr ""
-
 #: client/components/locations/triggers/_new.html:28
 msgid "Event"
 msgstr "Ereignis"
@@ -3052,11 +3305,16 @@ msgstr "Ereignis-Details"
 msgid "Event Type"
 msgstr "Ereignis-Typ"
 
+<<<<<<< Updated upstream
 #: client/components/locations/show/_warnings.html:27
 msgid "events"
 msgstr ""
 
 #: client/components/locations/locations.controller.js:260
+=======
+#: client/components/locations/locations.controller.js:260
+#, fuzzy
+>>>>>>> Stashed changes
 msgid "Events"
 msgstr "Ereignisse"
 
@@ -3064,6 +3322,7 @@ msgstr "Ereignisse"
 msgid "Execute"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/boxes.directives.js:1265
 msgid "exit"
 msgstr ""
@@ -3071,6 +3330,11 @@ msgstr ""
 #: client/components/locations/clients/_columns_filter.html:29
 #: client/components/locations/clients/_columns.html:33
 #: client/components/locations/clients/_index.html:182
+=======
+#: client/components/locations/clients/_columns.html:26
+#: client/components/locations/clients/_columns_filter.html:22
+#: client/components/locations/clients/_index.html:159
+>>>>>>> Stashed changes
 msgid "Expected Tput"
 msgstr ""
 
@@ -3147,6 +3411,10 @@ msgstr "Einstellungen"
 msgid "Failed"
 msgstr ""
 
+#: client/components/charts/charts.directives.js:459
+msgid "Failed Tx Count"
+msgstr ""
+
 #: client/components/locations/locations.directives.js:875
 msgid "Failed to delete this box, please try again."
 msgstr ""
@@ -3162,10 +3430,6 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:241
 msgid "Failed to resync device, please try again."
-msgstr ""
-
-#: client/components/charts/charts.directives.js:459
-msgid "Failed Tx Count"
 msgstr ""
 
 #: client/components/locations/triggers/list.html:83
@@ -3205,7 +3469,11 @@ msgstr "Nach Kode suchen"
 msgid "Filter Codes"
 msgstr "Nach Kode suchen"
 
+<<<<<<< Updated upstream
 #: client/components/locations/index/_alerts.html:11
+=======
+#: client/components/locations/index/_alerts.html:10
+>>>>>>> Stashed changes
 #: client/components/locations/show/_index.html:6
 #: client/components/locations/show/_map.html:5
 msgid "Filter Devices"
@@ -3224,13 +3492,13 @@ msgstr "Nach Netzwerk/SSID suchen"
 msgid "Filter Splash"
 msgstr "Einstellungen"
 
-#: client/components/audit/sessions/_index.html:55
-msgid "Filter this client"
-msgstr ""
-
 #: client/components/users/index/_index.html:6
 msgid "Filter Users"
 msgstr "Nach Benutzer suchen"
+
+#: client/components/audit/sessions/_index.html:55
+msgid "Filter this client"
+msgstr ""
 
 #: client/components/splash_pages/_menu.html:604
 msgid "Fine tune your layouts"
@@ -3256,6 +3524,10 @@ msgstr ""
 msgid "Firmwares"
 msgstr ""
 
+#: client/components/locations/triggers/channel-mailchimp.html:32
+msgid "First Name"
+msgstr ""
+
 #: client/components/locations/users/_invite.html:15
 msgid "First and Last Name"
 msgstr ""
@@ -3266,10 +3538,6 @@ msgstr "Erstmals verbunden"
 
 #: client/components/locations/triggers/channel-mailchimp.html:33
 msgid "First name"
-msgstr ""
-
-#: client/components/locations/triggers/channel-mailchimp.html:32
-msgid "First Name"
 msgstr ""
 
 #: client/components/locations/clients/_show.html:46
@@ -3310,9 +3578,15 @@ msgstr ""
 msgid "Free User"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:89
 #: client/components/locations/clients/_columns.html:93
 #: client/components/locations/clients/_index.html:192
+=======
+#: client/components/locations/clients/_columns.html:66
+#: client/components/locations/clients/_columns_filter.html:62
+#: client/components/locations/clients/_index.html:169
+>>>>>>> Stashed changes
 msgid "Frequency"
 msgstr ""
 
@@ -3332,32 +3606,36 @@ msgstr ""
 msgid "From Email"
 msgstr ""
 
-#: client/components/locations/networks/firewall.html:23
-msgid "From network"
-msgstr ""
-
 #: client/components/locations/networks/firewall.html:12
 msgid "From Network"
-msgstr ""
-
-#: client/components/locations/networks/firewall.html:27
-msgid "From port"
 msgstr ""
 
 #: client/components/locations/networks/firewall.html:13
 msgid "From Port"
 msgstr ""
 
+#: client/components/locations/networks/firewall.html:23
+msgid "From network"
+msgstr ""
+
+#: client/components/locations/networks/firewall.html:27
+msgid "From port"
+msgstr ""
+
 #: client/components/main/_history.html:27
 msgid "From: {{ ::value[0] }}"
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:280
-msgid "Gateway IP"
-msgstr ""
-
 #: client/components/users/billing/_billing.html:46
 msgid "GBP"
+msgstr ""
+
+#: client/components/registrations/success.html:8
+msgid "GO"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:280
+msgid "Gateway IP"
 msgstr ""
 
 #: client/components/audit/social/_index.html:55
@@ -3391,24 +3669,23 @@ msgstr ""
 msgid "Get Started"
 msgstr "Los geht's"
 
+<<<<<<< Updated upstream
 #: client/components/boxes/show/_index.html:168
 msgid "getting started"
 msgstr "beginnen"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/registrations/_create.html:34
 msgid "Getting started only takes a moment."
 msgstr ""
 
-#: client/components/registrations/success.html:8
-msgid "GO"
+#: client/components/home/brand-not-found.html:6
+msgid "Go Forth and Prosper"
 msgstr ""
 
 #: client/components/boxes/payloads/show.html:7
 msgid "Go back"
-msgstr ""
-
-#: client/components/home/brand-not-found.html:6
-msgid "Go Forth and Prosper"
 msgstr ""
 
 #: client/components/home/404.html:5
@@ -3529,11 +3806,15 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:129
 msgid "Host must be an IPv4 Address"
 msgstr ""
 
 #: client/components/locations/networks/_show.html:213
+=======
+#: client/components/locations/networks/_show.html:208
+>>>>>>> Stashed changes
 msgid "Host One IP"
 msgstr ""
 
@@ -3541,7 +3822,15 @@ msgstr ""
 msgid "Host Two IP"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/settings/_devices.html:146
+=======
+#: client/components/locations/networks/_show.html:126
+msgid "Host must be an IPv4 Address"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:145
+>>>>>>> Stashed changes
 msgid "Hostname"
 msgstr ""
 
@@ -3553,6 +3842,48 @@ msgstr ""
 msgid "I want to offer my customers:"
 msgstr ""
 
+#: client/components/firmwares/_index.html:18
+#: client/components/locations/settings/_devices.html:190
+msgid "ID"
+msgstr ""
+
+#: client/components/users/invoices/_details.html:118
+msgid "INVENTORY"
+msgstr ""
+
+#: client/components/users/invoices/_details.html:89
+msgid "INVOICE"
+msgstr ""
+
+#: client/components/locations/boxes/_table.html:50
+msgid "IP"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:264
+#: client/components/locations/networks/_show.html:87
+msgid "IP Address"
+msgstr ""
+
+#: client/components/locations/networks/_show.html:79
+#, fuzzy
+msgid "IP Settings"
+msgstr "Einstellungen"
+
+#: client/components/networks/networks.directives.js:512
+#: client/components/networks/networks.directives.js:514
+msgid "IP settings disabled because repeater mode is enabled."
+msgstr ""
+
+#: client/components/networks/networks.directives.js:516
+msgid "IP settings disabled because splash page is activated."
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:50
+#: client/components/locations/clients/_columns_filter.html:46
+#: client/components/locations/clients/_index.html:165
+msgid "IPv4"
+msgstr ""
+
 #: client/components/locations/triggers/show-slack.html:31
 msgid "Icon"
 msgstr ""
@@ -3561,11 +3892,14 @@ msgstr ""
 msgid "Icon URL (Optional)"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/firmwares/_index.html:18
 #: client/components/locations/settings/_devices.html:191
 msgid "ID"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/clients/_show_code.html:159
 msgid "Idle Timeout"
 msgstr ""
@@ -3601,14 +3935,14 @@ msgid ""
 "disconnected."
 msgstr ""
 
+#: client/components/splash_pages/_menu.html:95
+msgid "Image URL"
+msgstr ""
+
 #: client/components/users/branding/_form.html:75
 msgid ""
 "Image should be <b>300px wide and 70px tall</b> otherwise they will be "
 "blurry."
-msgstr ""
-
-#: client/components/splash_pages/_menu.html:95
-msgid "Image URL"
 msgstr ""
 
 #: client/components/boxes/show/_health_modal.html:82
@@ -3649,10 +3983,13 @@ msgstr ""
 msgid "Integrations"
 msgstr "Integrationen"
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:91
 msgid "interface ip"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/show/_health_modal.html:24
 msgid "Internet Check"
 msgstr ""
@@ -3661,22 +3998,12 @@ msgstr ""
 msgid "Interval"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:140
 #: client/components/locations/networks/_show.html:60
-#: client/components/networks/_create.html:33
-msgid "Invalid characters in password"
-msgstr ""
-
+=======
 #: client/components/users/billing/_card.html:31
 msgid "Invalid CVC"
-msgstr ""
-
-#: client/components/users/billing/_card.html:24
-msgid "Invalid expiry date"
-msgstr ""
-
-#: client/components/locations/networks/blacklists.html:17
-msgid "Invalid mac address."
 msgstr ""
 
 #: client/components/splash_pages/access-social.html:53
@@ -3688,43 +4015,53 @@ msgstr ""
 msgid "Invalid SSID"
 msgstr ""
 
+#: client/components/locations/networks/_show.html:137
+#: client/components/locations/networks/_show.html:58
+>>>>>>> Stashed changes
+#: client/components/networks/_create.html:33
+msgid "Invalid characters in password"
+msgstr ""
+
+#: client/components/users/billing/_card.html:24
+msgid "Invalid expiry date"
+msgstr ""
+
+#: client/components/locations/networks/blacklists.html:17
+msgid "Invalid mac address."
+msgstr ""
+
 #: client/components/locations/show/_inventory.html:5
 #: client/components/users/invoices/_details.html:96
 #: client/components/users/users.controllers.js:122
 msgid "Inventory"
 msgstr ""
 
-#: client/components/users/invoices/_details.html:118
-msgid "INVENTORY"
-msgstr ""
-
 #: client/components/users/inventories/_index.html:6
 msgid "Inventory Details"
 msgstr "Inventar-Details"
 
+<<<<<<< Updated upstream
 #: client/components/locations/users/_invite.html:37
 msgid "invite"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/users/_invite.html:1
 msgid "Invite"
-msgstr ""
-
-#: client/components/locations/users/_invite.html:11
-msgid "Invite a user to this location."
 msgstr ""
 
 #: client/components/locations/users/_invite.html:5
 msgid "Invite User"
 msgstr ""
 
+#: client/components/locations/users/_invite.html:11
+msgid "Invite a user to this location."
+msgstr ""
+
 #: client/components/users/invoices/_details.html:58
 #: client/components/users/invoices/_show.html:6
 msgid "Invoice"
-msgstr ""
-
-#: client/components/users/invoices/_details.html:89
-msgid "INVOICE"
 msgstr ""
 
 #: client/components/users/invoices/_details.html:52
@@ -3745,6 +4082,7 @@ msgstr "Rechnungen"
 msgid "Invoices sent to all billing emails."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/boxes/_table.html:50
 msgid "IP"
 msgstr ""
@@ -3773,6 +4111,8 @@ msgstr ""
 msgid "IPv4"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/new/_add.html:63
 msgid "Is Cucumber"
 msgstr ""
@@ -3799,12 +4139,16 @@ msgstr[1] ""
 msgid "Keep track of the devices added and removed from your account."
 msgstr ""
 
-#: client/components/locations/clients/_show_code.html:56
-msgid "Label"
+#: client/components/users/users.directives.js:647
+msgid "LOGOUT"
 msgstr ""
 
-#: client/components/locations/triggers/channel-mailchimp.html:38
-msgid "Last name"
+#: client/components/users/sessions/_logout_all.html:1
+msgid "LOGOUT ALL"
+msgstr ""
+
+#: client/components/locations/clients/_show_code.html:56
+msgid "Label"
 msgstr ""
 
 #: client/components/locations/triggers/channel-mailchimp.html:37
@@ -3815,12 +4159,22 @@ msgstr ""
 #: client/components/boxes/payloads/_index.html:13
 #: client/components/boxes/show/_index.html:200
 #: client/components/locations/boxes/_table.html:51
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:71
 #: client/components/locations/clients/_columns.html:75
 #: client/components/locations/clients/_index.html:189
+=======
+#: client/components/locations/clients/_columns.html:54
+#: client/components/locations/clients/_columns_filter.html:50
+#: client/components/locations/clients/_index.html:166
+>>>>>>> Stashed changes
 #: client/components/locations/clients/_show.html:43
 #: client/components/locations/index/_alerts.html:58
 msgid "Last Seen"
+msgstr ""
+
+#: client/components/locations/triggers/channel-mailchimp.html:38
+msgid "Last name"
 msgstr ""
 
 #: client/components/locations/show/_warnings.html:21
@@ -3875,14 +4229,18 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/charts/devices/_wireless_chart.html:89
+=======
+#: client/components/boxes/payloads/_payloads_mass.html:24
+msgid "Loading Payloads..."
+msgstr ""
+
+#: client/components/charts/devices/_wireless_chart.html:71
+>>>>>>> Stashed changes
 #: client/components/reports/_radius_timeline.html:53
 #: client/components/reports/_wireless_timeline.html:39
 msgid "Loading graph data"
-msgstr ""
-
-#: client/components/boxes/payloads/_payloads_mass.html:24
-msgid "Loading Payloads..."
 msgstr ""
 
 #: client/components/locations/show/_dashing.html:14
@@ -3940,10 +4298,6 @@ msgstr ""
 msgid "Location"
 msgstr "Standort"
 
-#: client/components/locations/locations.directives.js:24
-msgid "Location {{val}} favourites."
-msgstr ""
-
 #: client/components/locations/new/_index.html:43
 msgid "Location Address"
 msgstr "Standort-Adresse"
@@ -3976,22 +4330,31 @@ msgstr "Dokumentation"
 msgid "Location Info Two"
 msgstr "Dokumentation"
 
+<<<<<<< Updated upstream
 #: client/components/locations/show/edit-modal.html:16
 #: client/components/locations/show/edit-modal.html:17
 msgid "Location name"
 msgstr "Standort-Name"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/new/_index.html:34
 #: client/components/locations/settings/_main.html:80
 msgid "Location Name"
 msgstr "Standort-Name"
 
-#: client/components/locations/locations.directives.js:1826
-msgid "Location removed from favourites."
-msgstr ""
-
 #: client/components/locations/settings/_splash.html:23
 msgid "Location Splash Limit"
+msgstr ""
+
+#: client/components/locations/show/edit-modal.html:16
+#: client/components/locations/show/edit-modal.html:17
+#, fuzzy
+msgid "Location name"
+msgstr "Dokumentation"
+
+#: client/components/locations/locations.directives.js:1826
+msgid "Location removed from favourites."
 msgstr ""
 
 #: client/components/locations/locations.directives.js:1524
@@ -4010,6 +4373,13 @@ msgstr ""
 msgid "Location successfully transferred."
 msgstr ""
 
+<<<<<<< Updated upstream
+=======
+#: client/components/locations/locations.directives.js:24
+msgid "Location {{val}} favourites."
+msgstr ""
+
+>>>>>>> Stashed changes
 #: client/components/locations/locations.controller.js:239
 #: client/components/locations/locations.directives.js:51
 #: client/components/locations/show/_dashing.html:33
@@ -4019,13 +4389,13 @@ msgstr ""
 msgid "Locations"
 msgstr "Standorte"
 
-#: client/components/locations/triggers/_new.html:258
-msgid "Logged in"
-msgstr ""
-
 #: client/components/locations/triggers/_new.html:212
 #: client/components/users/sessions/_index.html:29
 msgid "Logged In"
+msgstr ""
+
+#: client/components/locations/triggers/_new.html:258
+msgid "Logged in"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:199
@@ -4052,14 +4422,6 @@ msgstr "Abmelden"
 #: client/index.html:164
 msgid "Logout"
 msgstr "Abmelden"
-
-#: client/components/users/users.directives.js:647
-msgid "LOGOUT"
-msgstr ""
-
-#: client/components/users/sessions/_logout_all.html:1
-msgid "LOGOUT ALL"
-msgstr ""
 
 #: client/components/users/users.directives.js:644
 msgid "Logout?"
@@ -4102,6 +4464,7 @@ msgstr ""
 msgid "Lucky day"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/audit/sales/_index.html:54
 #: client/components/boxes/new/_add.html:104
 #: client/components/locations/boxes/_table.html:47
@@ -4114,6 +4477,8 @@ msgstr ""
 msgid "Mac Address"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/edit/_edit.html:51
 #: client/components/boxes/new/_add.html:34
 #: client/components/boxes/payloads/_index.html:13
@@ -4123,6 +4488,37 @@ msgstr ""
 
 #: client/components/boxes/new/_add.html:37
 msgid "MAC is required."
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:46
+#: client/components/locations/clients/_columns_filter.html:42
+msgid "MCS"
+msgstr ""
+
+#: client/components/charts/clients/_mcs_chart.html:4
+#: client/components/locations/clients/_index.html:102
+#: client/components/locations/clients/_index.html:164
+msgid "MCS Index"
+msgstr ""
+
+#: client/components/charts/charts.directives.js:188
+msgid "MCS Values"
+msgstr ""
+
+#: client/components/boxes/show/_health_modal.html:47
+msgid "MTU Check"
+msgstr ""
+
+#: client/components/audit/sales/_index.html:54
+#: client/components/boxes/new/_add.html:104
+#: client/components/locations/boxes/_table.html:47
+#: client/components/locations/index/_alerts.html:58
+msgid "Mac"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:236
+#: client/components/locations/clients/_index.html:154
+msgid "Mac Address"
 msgstr ""
 
 #: client/components/firmwares/_index.html:23
@@ -4171,9 +4567,15 @@ msgid "Management IP"
 msgstr "Management-IPv4-Adresse"
 
 #: client/components/codes/_table.html:11
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:95
 #: client/components/locations/clients/_columns.html:99
 #: client/components/locations/clients/_index.html:193
+=======
+#: client/components/locations/clients/_columns.html:70
+#: client/components/locations/clients/_columns_filter.html:66
+#: client/components/locations/clients/_index.html:170
+>>>>>>> Stashed changes
 #: client/components/locations/clients/_show.html:74
 msgid "Manufacturer"
 msgstr ""
@@ -4259,6 +4661,7 @@ msgstr ""
 msgid "Max. Values"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:59
 #: client/components/locations/clients/_columns.html:63
 msgid "MCS"
@@ -4274,6 +4677,8 @@ msgstr ""
 msgid "MCS Values"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/charts/charts.directives.js:117
 #: client/components/charts/charts.directives.js:167
 #: client/components/charts/charts.directives.js:188
@@ -4291,12 +4696,15 @@ msgstr ""
 msgid "Meep Meep..."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/edit/_edit.html:357
 #: client/components/locations/networks/_show.html:329
 #: client/components/splash_pages/_form_designer.html:9
 msgid "menu"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/settings/_analytics.html:31
 msgid "Meraki Secret"
 msgstr ""
@@ -4374,28 +4782,12 @@ msgstr ""
 msgid "More Info"
 msgstr ""
 
-#: client/components/boxes/show/_health_modal.html:47
-msgid "MTU Check"
-msgstr ""
-
 #: client/components/splash_pages/_store_product.html:34
 msgid "Multi-use"
 msgstr ""
 
 #: client/components/splash_pages/_store_product.html:40
 msgid "Multi-use vouchers can be used many times until they've been used up."
-msgstr ""
-
-#: client/components/users/branding/_form.html:105
-msgid "Must be a valid email"
-msgstr ""
-
-#: client/components/splash_pages/access-password.html:39
-msgid "Must be a valid email address"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:284
-msgid "Must be a valid gateway address"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:20
@@ -4418,14 +4810,6 @@ msgstr ""
 msgid "Must be a valid MAC address"
 msgstr ""
 
-#: client/components/boxes/new/_add.html:38
-msgid "Must be a valid mac, including dashes or colons."
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:276
-msgid "Must be a valid netmask"
-msgstr ""
-
 #: client/components/apps/_new.html:60
 #: client/components/locations/settings/_devices.html:79
 #: client/components/locations/triggers/channel-slack.html:43
@@ -4436,6 +4820,26 @@ msgstr ""
 
 #: client/components/splash_pages/_menu.html:557
 msgid "Must be a valid URL including http(s)."
+msgstr ""
+
+#: client/components/users/branding/_form.html:105
+msgid "Must be a valid email"
+msgstr ""
+
+#: client/components/splash_pages/access-password.html:39
+msgid "Must be a valid email address"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:284
+msgid "Must be a valid gateway address"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:38
+msgid "Must be a valid mac, including dashes or colons."
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:276
+msgid "Must be a valid netmask"
 msgstr ""
 
 #: client/components/apps/_new.html:48
@@ -4694,11 +5098,6 @@ msgstr ""
 msgid "Must not be less than 0"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:339
-#: client/components/locations/locations.directives.js:1913
-msgid "muted"
-msgstr ""
-
 #: client/components/registrations/registrations.directive.js:107
 msgid "My Awesome Company"
 msgstr ""
@@ -4714,6 +5113,10 @@ msgstr ""
 msgid "NA"
 msgstr ""
 
+#: client/components/locations/show/_inventory.html:26
+msgid "NEW LOCATION"
+msgstr ""
+
 #: client/components/audit/social/_index.html:52
 #: client/components/locations/index/_favourites.html:47
 #: client/components/locations/index/_list.html:63
@@ -4724,10 +5127,6 @@ msgstr ""
 #: client/components/splash_pages/_index.html:48
 #: client/components/users/billing/_plans.html:18
 msgid "Name"
-msgstr ""
-
-#: client/components/splash_pages/_index.html:72
-msgid "Name {{ splash.splash_name }}"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:390
@@ -4746,7 +5145,15 @@ msgstr ""
 msgid "Name your Trigger"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_index.html:79
+=======
+#: client/components/splash_pages/_index.html:72
+msgid "Name {{ splash.splash_name }}"
+msgstr ""
+
+#: client/components/locations/networks/_index.html:78
+>>>>>>> Stashed changes
 msgid "Name: {{ n.name }}<br>"
 msgstr ""
 
@@ -4763,11 +5170,16 @@ msgstr "Netzwerk/SSID"
 msgid "Network Address"
 msgstr "Netzwerk-IPv4-Adresse"
 
+<<<<<<< Updated upstream
 #: client/components/networks/networks.directives.js:211
 msgid "Network created successfully"
 msgstr ""
 
 #: client/components/boxes/show/_index.html:217
+=======
+#: client/components/boxes/show/_index.html:217
+#, fuzzy
+>>>>>>> Stashed changes
 msgid "Network Details"
 msgstr "Netzwerk-Details"
 
@@ -4792,6 +5204,7 @@ msgstr "Netzwerk-Metrik"
 msgid "Network Name"
 msgstr "Netzwerk-Name"
 
+<<<<<<< Updated upstream
 #: client/components/boxes/edit/_edit.html:246
 #: client/components/locations/networks/_show.html:34
 msgid "Network Settings"
@@ -4800,10 +5213,26 @@ msgstr "Netzwerk/SSID-Einstellungen"
 #: client/components/locations/networks/_show.html:43
 msgid "Network SSID"
 msgstr "Netzwerk-SSID"
+=======
+#: client/components/locations/networks/_show.html:41
+#, fuzzy
+msgid "Network SSID"
+msgstr "Einstellungen"
+
+#: client/components/boxes/edit/_edit.html:246
+#: client/components/locations/networks/_show.html:32
+#, fuzzy
+msgid "Network Settings"
+msgstr "Einstellungen"
+>>>>>>> Stashed changes
 
 #: client/components/locations/show/_dashing.html:4
 msgid "Network Stats"
 msgstr "Netzwerk/SSID-Statistiken"
+
+#: client/components/networks/networks.directives.js:211
+msgid "Network created successfully"
+msgstr ""
 
 #: client/components/networks/networks.directives.js:145
 #: client/components/networks/networks.directives.js:364
@@ -4846,22 +5275,51 @@ msgstr ""
 msgid "New Clients"
 msgstr "Neue Stationen"
 
-#: client/components/boxes/boxes.filters.js:79
-msgid "New device"
-msgstr ""
-
 #: client/components/boxes/show/_index.html:161
 msgid "New Device"
-msgstr ""
-
-#: client/components/locations/show/_inventory.html:26
-msgid "NEW LOCATION"
 msgstr ""
 
 #: client/components/splash_pages/_form.html:58
 #, fuzzy
 msgid "New SSID"
 msgstr "Einstellungen"
+
+#: client/components/boxes/boxes.filters.js:79
+msgid "New device"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:136
+msgid "No Devices Discovered"
+msgstr ""
+
+#: client/components/locations/index/_favourites.html:13
+msgid "No Favourites"
+msgstr ""
+
+#: client/components/layouts/offline-modal.html:2
+msgid "No Internet."
+msgstr ""
+
+#: client/components/locations/index/_list.html:26
+#, fuzzy
+msgid "No Locations Found"
+msgstr "Dokumentation"
+
+#: client/components/locations/index/_alerts.html:26
+msgid "No Offline Devices Found"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:174
+msgid "No Scan"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:175
+msgid "No Scan Mode"
+msgstr ""
+
+#: client/components/locations/locations.directives.js:1010
+msgid "No Zone"
+msgstr ""
 
 #: client/components/users/billing/_add_coupon.html:22
 msgid "No active coupons found."
@@ -4879,6 +5337,7 @@ msgstr ""
 msgid "No devices added"
 msgstr "Keine Geräte hinzugefügt."
 
+<<<<<<< Updated upstream
 #: client/components/boxes/new/_add.html:136
 msgid "No Devices Discovered"
 msgstr ""
@@ -4889,6 +5348,10 @@ msgstr ""
 
 #: client/components/charts/clients/_client_tx_chart.html:89
 #: client/components/charts/clients/_client_usage_chart.html:12
+=======
+#: client/components/charts/clients/_client_tx_chart.html:73
+#: client/components/charts/clients/_client_usage_chart.html:13
+>>>>>>> Stashed changes
 #: client/components/charts/clients/_clients_chart.html:4
 #: client/components/charts/clients/_mcs_chart.html:22
 #: client/components/charts/clients/_signal_chart.html:22
@@ -4900,6 +5363,7 @@ msgstr ""
 msgid "No graph data"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/layouts/offline-modal.html:2
 msgid "No Internet."
 msgstr ""
@@ -4908,6 +5372,8 @@ msgstr ""
 msgid "No Locations Found"
 msgstr "Keine Standorte gefunden."
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/access/access-password.html:26
 msgid "No more that 12 letters please."
 msgstr ""
@@ -4916,10 +5382,13 @@ msgstr ""
 msgid "No name /"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/index/_alerts.html:27
 msgid "No Offline Devices Found"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/audit/emails/_index.html:33
 #: client/components/audit/guests/_index.html:32
 #: client/components/audit/sales/_index.html:32
@@ -4932,14 +5401,6 @@ msgstr ""
 msgid "No results found."
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:174
-msgid "No Scan"
-msgstr ""
-
-#: client/components/boxes/edit/_edit.html:175
-msgid "No Scan Mode"
-msgstr ""
-
 #: client/components/codes/_sessions.html:27
 msgid "No sessions found for this date range."
 msgstr ""
@@ -4950,10 +5411,6 @@ msgstr "Keine Warnungen gefunden."
 
 #: client/components/locations/show/_map.html:36
 msgid "No zone"
-msgstr ""
-
-#: client/components/locations/locations.directives.js:1010
-msgid "No Zone"
 msgstr ""
 
 #: client/components/locations/boxes/zones.html:16
@@ -5035,6 +5492,10 @@ msgstr ""
 msgid "Numbers, letters and hyphens only."
 msgstr ""
 
+#: client/components/vouchers/vouchers.directives.js:559
+msgid "OK"
+msgstr ""
+
 #: client/components/locations/access/access-social.html:18
 msgid "Offer the following social logins"
 msgstr ""
@@ -5059,10 +5520,6 @@ msgstr ""
 
 #: client/components/locations/locations.directives.js:1803
 msgid "Ok"
-msgstr ""
-
-#: client/components/vouchers/vouchers.directives.js:559
-msgid "OK"
 msgstr ""
 
 #: client/components/locations/layouts/location-banner.html:6
@@ -5126,6 +5583,7 @@ msgstr "Öffne Menü"
 msgid "Open Networks Menu"
 msgstr "Öffne Netzwerk/SSID-Menü"
 
+<<<<<<< Updated upstream
 #: client/components/audit/emails/_index.html:85
 #: client/components/audit/guests/_index.html:67
 #: client/components/audit/social/_index.html:87
@@ -5133,6 +5591,8 @@ msgstr "Öffne Netzwerk/SSID-Menü"
 msgid "Open sessions menu"
 msgstr "Öffne Sitzungs-Menü"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/show/_index.html:38
 #: client/components/locations/clients/_toolbar.html:2
 #: client/components/locations/networks/_show.html:9
@@ -5142,6 +5602,14 @@ msgstr "Öffne Sitzungs-Menü"
 #: client/components/splash_codes/_show.html:8
 msgid "Open Tools"
 msgstr ""
+
+#: client/components/audit/emails/_index.html:85
+#: client/components/audit/guests/_index.html:67
+#: client/components/audit/social/_index.html:87
+#: client/components/codes/_table.html:56
+#, fuzzy
+msgid "Open sessions menu"
+msgstr "Öffne App-Menü"
 
 #: client/components/networks/networks.directives.js:520
 msgid "Options may be unavailable when an incompatible feature is enabled."
@@ -5163,16 +5631,16 @@ msgstr ""
 msgid "Order Status"
 msgstr ""
 
-#: client/components/audit/audits.directives.js:878
-msgid "Order successfully refunded."
-msgstr ""
-
 #: client/components/audit/sales/_show.html:36
 msgid "Order Total"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:89
 msgid "Order Total: {{ order.total / 100 | currency:order.currency }}"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:878
+msgid "Order successfully refunded."
 msgstr ""
 
 #: client/components/clients/clients.directives.js:806
@@ -5279,6 +5747,10 @@ msgstr "Einstellungen"
 msgid "Password successfully updated."
 msgstr "Kennwort erfolgreich geändert."
 
+#: client/components/boxes/payloads/_show_payload.html:1
+msgid "Payload Output"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:623
 msgid "Payload completed!"
 msgstr ""
@@ -5297,10 +5769,6 @@ msgstr ""
 
 #: client/components/boxes/payloads/_bulk.html:1
 msgid "Payload has been queued, please wait a few seconds for it to finish."
-msgstr ""
-
-#: client/components/boxes/payloads/_show_payload.html:1
-msgid "Payload Output"
 msgstr ""
 
 #: client/components/payloads/_run_payload.html:14
@@ -5352,15 +5820,19 @@ msgid "Plans"
 msgstr ""
 
 #: client/components/locations/show/_index.html:54
+<<<<<<< Updated upstream
+=======
+#, fuzzy
+>>>>>>> Stashed changes
 msgid "Please Add a Device"
 msgstr "Gerät hinzufügen"
 
-#: client/components/locations/locations.directives.js:857
-msgid "Please becareful, this cannot be reversed."
+#: client/components/apps/_index.html:28
+msgid "Please Create an App"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:1264
-msgid "please cancel it"
+#: client/components/locations/locations.directives.js:857
+msgid "Please becareful, this cannot be reversed."
 msgstr ""
 
 #: client/components/registrations/_create.html:19
@@ -5381,11 +5853,15 @@ msgstr ""
 msgid "Please create a splash page before generating some splash codes."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/apps/_index.html:28
 msgid "Please Create an App"
 msgstr ""
 
 #: client/components/locations/settings/_devices.html:122
+=======
+#: client/components/locations/settings/_devices.html:121
+>>>>>>> Stashed changes
 msgid ""
 "Please ensure it has a public IP and your firewall ports are open. You must "
 "use https for security reasons. If your ports are open, please check your "
@@ -5425,12 +5901,12 @@ msgstr ""
 msgid "Please enter a name for your trigger"
 msgstr ""
 
-#: client/components/locations/triggers/channel-sms.html:26
-msgid "Please enter a valid number"
-msgstr ""
-
 #: client/components/users/branding/_form.html:145
 msgid "Please enter a valid URL"
+msgstr ""
+
+#: client/components/locations/triggers/channel-sms.html:26
+msgid "Please enter a valid number"
 msgstr ""
 
 #: client/components/boxes/show/_non_ps.html:19
@@ -5615,12 +6091,17 @@ msgstr "Einstellungen"
 msgid "Quotas"
 msgstr ""
 
-#: client/components/splash_pages/_form_designer.html:63
-msgid "Radio Values (comma separated)"
+#: client/components/payloads/_run_payload.html:10
+msgid "RUN"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:201
 msgid "radius"
+=======
+#: client/components/splash_pages/_form_designer.html:63
+msgid "Radio Values (comma separated)"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/audit/audits.directives.js:35
@@ -5753,16 +6234,12 @@ msgstr ""
 msgid "Registration Settings"
 msgstr "Einstellungen"
 
-#: client/components/boxes/edit/_edit.html:207
-msgid "Remote host address"
-msgstr ""
-
 #: client/components/boxes/edit/_edit.html:213
 msgid "Remote Port"
 msgstr ""
 
-#: client/components/locations/locations.directives.js:584
-msgid "remove"
+#: client/components/boxes/edit/_edit.html:207
+msgid "Remote host address"
 msgstr ""
 
 #: client/components/locations/locations.directives.js:583
@@ -5782,26 +6259,30 @@ msgstr ""
 msgid "Remove Location"
 msgstr "Standort löschen"
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:74
 msgid "Remove the VLAN ID to enable the splash page"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/locations.directives.js:581
 msgid "Remove User"
+msgstr ""
+
+#: client/components/locations/networks/_show.html:71
+msgid "Remove the VLAN ID to enable the splash page"
 msgstr ""
 
 #: client/components/users/inventories/_index.html:59
 msgid "Removed {{ ::i.removed_at | humanTime }}"
 msgstr ""
 
-#: client/components/locations/locations.directives.js:23
-msgid "removed from"
-msgstr ""
-
 #: client/components/locations/locations.directives.js:582
 msgid "Removing a user will prevent them from accessing this location."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:185
 #, fuzzy
 msgid "Repeater Mode Disabled"
@@ -5811,6 +6292,8 @@ msgstr "Einstellungen"
 msgid "Repeater Mode Enabled"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/locations.controller.js:246
 #: client/components/locations/show/_periscope.html:15
 #: client/components/reports/reports.v2.directives.js:169
@@ -5888,13 +6371,13 @@ msgstr ""
 msgid "Resync Device"
 msgstr ""
 
+#: client/components/locations/locations.directives.js:832
+msgid "Resync The Configs for this Device?"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:222
 #: client/components/locations/locations.directives.js:836
 msgid "Resync it"
-msgstr ""
-
-#: client/components/locations/locations.directives.js:832
-msgid "Resync The Configs for this Device?"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:218
@@ -5910,10 +6393,6 @@ msgstr ""
 msgid "Revoke"
 msgstr ""
 
-#: client/components/locations/locations.directives.js:312
-msgid "Revoke it"
-msgstr ""
-
 #: client/components/users/integrations/_integrations.html:61
 msgid "Revoke MailChim"
 msgstr ""
@@ -5926,6 +6405,10 @@ msgstr ""
 msgid "Revoke Twillio"
 msgstr ""
 
+#: client/components/locations/locations.directives.js:312
+msgid "Revoke it"
+msgstr ""
+
 #: client/components/splash_pages/_menu.html:108
 #: client/components/splash_pages/_menu.html:494
 msgid "Right"
@@ -5935,9 +6418,19 @@ msgstr ""
 msgid "Ruckus vSZ Settings"
 msgstr "RUCKUS vSZ-Einstellungen"
 
-#: client/components/payloads/_run_payload.html:10
-msgid "RUN"
+#: client/components/boxes/payloads/_bulk.html:4
+#: client/components/locations/boxes/_table.html:22
+#: client/components/locations/boxes/dialog.html:5
+#: client/components/locations/boxes/zones.html:1
+#: client/components/locations/locations.directives.js:710
+#: client/components/payloads/_run_payload.html:3
+msgid "Run Payload"
 msgstr ""
+
+#: client/components/networks/_radtest.html:4
+#, fuzzy
+msgid "Run Radius Tests"
+msgstr "Einstellungen"
 
 #: client/components/boxes/payloads/_bulk.html:6
 msgid "Run a bulk payload on {{ selection.length }} boxes"
@@ -5953,6 +6446,7 @@ msgstr ""
 msgid "Run commands on your access points"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/payloads/_bulk.html:4
 #: client/components/locations/boxes/_table.html:22
 #: client/components/locations/boxes/dialog.html:5
@@ -5966,6 +6460,8 @@ msgstr ""
 msgid "Run Radius Tests"
 msgstr "Starte RADIUS-Test"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/payloads/_payloads_mass.html:5
 msgid "Run the command"
 msgstr ""
@@ -5986,6 +6482,7 @@ msgstr ""
 msgid "Runs"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:41
 #: client/components/locations/clients/_columns.html:45
 #: client/components/locations/clients/_index.html:184
@@ -5994,7 +6491,53 @@ msgstr ""
 
 #: client/components/locations/clients/_columns_filter.html:23
 #: client/components/locations/clients/_columns.html:27
+=======
+#: client/components/locations/clients/_columns.html:34
+#: client/components/locations/clients/_columns_filter.html:30
+#: client/components/locations/clients/_index.html:161
+msgid "Rx Rate"
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:22
+#: client/components/locations/clients/_columns_filter.html:18
+>>>>>>> Stashed changes
 msgid "Rxbps"
+msgstr ""
+
+#: client/components/users/billing/_card.html:41
+msgid "SAVE"
+msgstr ""
+
+#: client/components/charts/devices/_snr_chart.html:24
+#: client/components/locations/clients/_columns.html:38
+#: client/components/locations/clients/_columns_filter.html:34
+#: client/components/locations/clients/_index.html:162
+msgid "SNR"
+msgstr ""
+
+#: client/components/locations/clients/_show_code.html:184
+msgid "SPLASH PAGE"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:290
+msgid "SSH Password"
+msgstr ""
+
+#: client/components/locations/clients/_columns.html:14
+#: client/components/locations/clients/_columns_filter.html:10
+#: client/components/locations/clients/_index.html:155
+#: client/components/networks/_create.html:19
+#: client/components/networks/_edit_ssid.html:15
+#: client/components/splash_pages/_networks.html:19
+msgid "SSID"
+msgstr ""
+
+#: client/components/networks/networks.directives.js:153
+msgid "SSID updated, your boxes will resync"
+msgstr ""
+
+#: client/components/locations/show/_map.html:34
+msgid "SSIDs: {{ ::box.metadata.ssids | ssidFilter }}"
 msgstr ""
 
 #: client/components/audit/audits.directives.js:67
@@ -6028,10 +6571,6 @@ msgstr ""
 #: client/components/users/branding/_form.html:159
 #: client/components/users/show/_index.html:123
 msgid "Save"
-msgstr ""
-
-#: client/components/users/billing/_card.html:41
-msgid "SAVE"
 msgstr ""
 
 #: client/components/splash_pages/_menu.html:8
@@ -6083,14 +6622,6 @@ msgstr ""
 msgid "Select a Channel"
 msgstr ""
 
-#: client/components/locations/clients/_range_buttons.html:12
-msgid "select distance"
-msgstr ""
-
-#: client/components/locations/clients/_range_buttons.html:4
-msgid "select interval"
-msgstr ""
-
 #: client/components/boxes/new/_add.html:86
 msgid "Select the ones you want to add."
 msgstr ""
@@ -6101,8 +6632,16 @@ msgid ""
 "                  <i class=\"fa fa-star fa-sm gold\"></i>"
 msgstr ""
 
-#: client/components/locations/triggers/triggers.filters.js:93
-msgid "send a Slack notification."
+#: client/components/locations/settings/_devices.html:26
+msgid "Send Offline Alert After (mins)"
+msgstr ""
+
+#: client/components/locations/triggers/_new.html:370
+msgid "Send SMS"
+msgstr ""
+
+#: client/components/locations/triggers/_new.html:368
+msgid "Send a Webhook"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:45
@@ -6113,28 +6652,8 @@ msgstr ""
 msgid "Send a trigger when your wireless clients cause an event."
 msgstr ""
 
-#: client/components/locations/triggers/_new.html:368
-msgid "Send a Webhook"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:91
-msgid "send a Webhook."
-msgstr ""
-
 #: client/components/locations/triggers/_new.html:366
 msgid "Send an Email"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:89
-msgid "send an Email."
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:87
-msgid "send an SMS."
-msgstr ""
-
-#: client/components/locations/settings/_devices.html:26
-msgid "Send Offline Alert After (mins)"
 msgstr ""
 
 #: client/components/splash_pages/access-password.html:36
@@ -6145,20 +6664,20 @@ msgstr ""
 msgid "Send selected invoices to billing emails"
 msgstr ""
 
-#: client/components/locations/triggers/_new.html:370
-msgid "Send SMS"
-msgstr ""
-
 #: client/components/locations/triggers/_new.html:42
 msgid "Send triggers on splash page events"
 msgstr ""
 
-#: client/components/locations/triggers/_new.html:38
-msgid "Send triggers when a guest causes an event"
+#: client/components/locations/triggers/_new.html:41
+msgid "Send triggers when QuickCodes cause an event."
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:43
 msgid "Send triggers when a Social login causes a trigger."
+msgstr ""
+
+#: client/components/locations/triggers/_new.html:38
+msgid "Send triggers when a guest causes an event"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:44
@@ -6171,10 +6690,6 @@ msgstr ""
 
 #: client/components/locations/triggers/_new.html:39
 msgid "Send triggers when one of your locations causes an event."
-msgstr ""
-
-#: client/components/locations/triggers/_new.html:41
-msgid "Send triggers when QuickCodes cause an event."
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:35
@@ -6224,8 +6739,8 @@ msgstr "Sitzungen"
 #: client/components/boxes/show/_index.html:3
 #: client/components/boxes/versions/_index.html:3
 #: client/components/codes/_sessions.html:3
-#: client/components/locations/clients/_show_code.html:3
 #: client/components/locations/clients/_show.html:3
+#: client/components/locations/clients/_show_code.html:3
 #: client/components/locations/clients/codes.html:5
 #: client/components/locations/locations.controller.js:169
 #: client/components/locations/networks/_show.html:3
@@ -6323,10 +6838,17 @@ msgstr ""
 msgid "Sign-up for {{ ::brand_name }}."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/charts/devices/_snr_chart.html:32
 #: client/components/locations/clients/_columns_filter.html:53
 #: client/components/locations/clients/_columns.html:57
 #: client/components/locations/clients/_index.html:186
+=======
+#: client/components/charts/devices/_snr_chart.html:29
+#: client/components/locations/clients/_columns.html:42
+#: client/components/locations/clients/_columns_filter.html:38
+#: client/components/locations/clients/_index.html:163
+>>>>>>> Stashed changes
 msgid "Signal"
 msgstr ""
 
@@ -6354,21 +6876,22 @@ msgstr ""
 msgid "Slack"
 msgstr ""
 
-#: client/components/locations/triggers/triggers.directives.js:343
-msgid ""
-"Slack isn't setup yet, or you don't have any active integrations. Do that "
-"now and come back."
-msgstr ""
-
 #: client/components/locations/triggers/channel-slack.html:36
 msgid "Slack Username"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/charts/devices/_snr_chart.html:25
 #: client/components/locations/clients/_columns_filter.html:47
 #: client/components/locations/clients/_columns.html:51
 #: client/components/locations/clients/_index.html:185
 msgid "SNR"
+=======
+#: client/components/locations/triggers/triggers.directives.js:343
+msgid ""
+"Slack isn't setup yet, or you don't have any active integrations. Do that "
+"now and come back."
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/registrations/success.html:5
@@ -6418,12 +6941,15 @@ msgstr ""
 msgid "Speeds Restrictions"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_show.html:62
 #: client/components/locations/clients/_show.html:90
 msgid "splash"
 msgstr ""
 
 #: client/components/locations/clients/_show.html:84
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/locations.controller.js:118
 #: client/components/locations/locations.directives.js:1440
 #: client/components/locations/networks/_index.html:35
@@ -6485,6 +7011,7 @@ msgstr ""
 msgid "Splash Page"
 msgstr "Gast-Startseite"
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_show_code.html:184
 msgid "SPLASH PAGE"
 msgstr ""
@@ -6499,20 +7026,22 @@ msgstr "Einstellungen"
 msgid "Splash Page Enabled"
 msgstr "Einstellungen"
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/show/_health_modal.html:70
 #: client/components/splash_pages/_index.html:10
 msgid "Splash Pages"
-msgstr ""
-
-#: client/components/boxes/show/_health_modal.html:77
-msgid ""
-"Splash pages aren't active. This is OK if you're not using a captive portal"
 msgstr ""
 
 #: client/components/splash_pages/access-password.html:20
 #: client/components/splash_pages/access-password.html:21
 #, fuzzy
 msgid "Splash Password"
+msgstr "Einstellungen"
+
+#: client/components/splash_pages/_form.html:49
+#, fuzzy
+msgid "Splash SSID"
 msgstr "Einstellungen"
 
 #: client/components/charts/charts.directives.js:1281
@@ -6525,18 +7054,19 @@ msgstr ""
 msgid "Splash Settings"
 msgstr "Gast-Startseiten-Einstellungen"
 
-#: client/components/splash_pages/_form.html:49
-#, fuzzy
-msgid "Splash SSID"
-msgstr "Einstellungen"
-
 #: client/components/boxes/show/_index.html:134
 msgid "Splash URL"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:101
 #: client/components/locations/clients/_columns.html:105
 #: client/components/locations/clients/_index.html:194
+=======
+#: client/components/locations/clients/_columns.html:74
+#: client/components/locations/clients/_columns_filter.html:70
+#: client/components/locations/clients/_index.html:171
+>>>>>>> Stashed changes
 msgid "Splash User"
 msgstr ""
 
@@ -6554,10 +7084,16 @@ msgstr ""
 msgid "Splash Views"
 msgstr ""
 
+#: client/components/boxes/show/_health_modal.html:77
+msgid ""
+"Splash pages aren't active. This is OK if you're not using a captive portal"
+msgstr ""
+
 #: client/components/splash_codes/_index.html:33
 msgid "SplashCodes are unique passwords that can be used on mutliple devices."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/show/_index.html:290
 msgid "SSH Password"
 msgstr ""
@@ -6596,6 +7132,8 @@ msgstr ""
 msgid "SSIDs: {{ ::box.metadata.ssids | ssidFilter }}"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/users/billing/_show.html:53
 msgid "Standard Support"
 msgstr "Standard-Support"
@@ -6604,12 +7142,12 @@ msgstr "Standard-Support"
 msgid "Start"
 msgstr ""
 
-#: client/components/locations/clients/_range_filter.html:14
-msgid "Start date"
-msgstr ""
-
 #: client/components/users/alerts/_index.html:42
 msgid "Start Time"
+msgstr ""
+
+#: client/components/locations/clients/_range_filter.html:14
+msgid "Start date"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:52
@@ -6675,10 +7213,6 @@ msgstr "Straße"
 msgid "Subject"
 msgstr ""
 
-#: client/components/locations/triggers/triggers.filters.js:95
-msgid "subscribe an email to a MailChimp list."
-msgstr ""
-
 #: client/components/users/show/_index.html:51
 msgid "Subscription Status"
 msgstr ""
@@ -6717,6 +7251,7 @@ msgstr "Details erfolgreich geändert."
 msgid "Successfully updated location."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/clients/clients.directives.js:966
 #: client/components/codes/codes.directives.js:89
 msgid "successfully."
@@ -6725,6 +7260,11 @@ msgstr ""
 #: client/components/charts/clients/_client_tx_chart.html:76
 #: client/components/charts/devices/_wireless_chart.html:76
 #: client/components/locations/clients/_index.html:150
+=======
+#: client/components/charts/clients/_client_tx_chart.html:61
+#: client/components/charts/devices/_wireless_chart.html:59
+#: client/components/locations/clients/_index.html:128
+>>>>>>> Stashed changes
 msgid "Sum"
 msgstr ""
 
@@ -6740,6 +7280,7 @@ msgstr "Support"
 msgid "Support Level"
 msgstr "Support-Stufe"
 
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns_filter.html:10
 #: client/components/locations/clients/_columns_filter.html:100
 #: client/components/locations/clients/_columns_filter.html:106
@@ -6759,6 +7300,8 @@ msgstr "Support-Stufe"
 #: client/components/locations/clients/_columns_filter.html:94
 #: client/components/locations/clients/_columns.html:104
 #: client/components/locations/clients/_columns.html:110
+=======
+>>>>>>> Stashed changes
 #: client/components/locations/clients/_columns.html:14
 #: client/components/locations/clients/_columns.html:20
 #: client/components/locations/clients/_columns.html:26
@@ -6770,10 +7313,31 @@ msgstr "Support-Stufe"
 #: client/components/locations/clients/_columns.html:62
 #: client/components/locations/clients/_columns.html:68
 #: client/components/locations/clients/_columns.html:74
+<<<<<<< Updated upstream
 #: client/components/locations/clients/_columns.html:80
 #: client/components/locations/clients/_columns.html:86
 #: client/components/locations/clients/_columns.html:92
 #: client/components/locations/clients/_columns.html:98
+=======
+#: client/components/locations/clients/_columns.html:78
+#: client/components/locations/clients/_columns_filter.html:10
+#: client/components/locations/clients/_columns_filter.html:14
+#: client/components/locations/clients/_columns_filter.html:18
+#: client/components/locations/clients/_columns_filter.html:22
+#: client/components/locations/clients/_columns_filter.html:26
+#: client/components/locations/clients/_columns_filter.html:30
+#: client/components/locations/clients/_columns_filter.html:34
+#: client/components/locations/clients/_columns_filter.html:38
+#: client/components/locations/clients/_columns_filter.html:42
+#: client/components/locations/clients/_columns_filter.html:46
+#: client/components/locations/clients/_columns_filter.html:50
+#: client/components/locations/clients/_columns_filter.html:54
+#: client/components/locations/clients/_columns_filter.html:58
+#: client/components/locations/clients/_columns_filter.html:62
+#: client/components/locations/clients/_columns_filter.html:66
+#: client/components/locations/clients/_columns_filter.html:70
+#: client/components/locations/clients/_columns_filter.html:74
+>>>>>>> Stashed changes
 #: client/components/locations/index/_index.html:59
 #: client/components/locations/show/_index.html:34
 #: client/components/locations/show/_map.html:17
@@ -6796,6 +7360,7 @@ msgstr ""
 msgid "Syslog Port"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/settings/_splash.html:31
 msgid "Tagged Logins"
 msgstr ""
@@ -6808,20 +7373,41 @@ msgstr ""
 msgid "Tagged Logins Enabled"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/reports/_wireless_stats.html:36
 msgid "TBC"
+msgstr ""
+
+#: client/components/locations/networks/_show.html:9
+#: client/components/locations/triggers/_edit.html:8
+#: client/components/splash_codes/_show.html:9
+msgid "TOOLS"
+msgstr ""
+
+#: client/components/charts/clients/_client_tx_chart.html:35
+#: client/components/locations/clients/_index.html:107
+msgid "TX Fails"
+msgstr ""
+
+#: client/components/charts/clients/_client_tx_chart.html:40
+msgid "TX Retries"
+msgstr ""
+
+#: client/components/locations/settings/_splash.html:31
+msgid "Tagged Logins"
 msgstr ""
 
 #: client/components/locations/show/edit-modal.html:21
 msgid "Telephone number"
 msgstr ""
 
-#: client/components/apps/_new.html:67
-msgid "Tell us about your App"
-msgstr ""
-
 #: client/components/users/billing/_cancel_dialog.html:14
 msgid "Tell Us What We Did Wrong"
+msgstr ""
+
+#: client/components/apps/_new.html:67
+msgid "Tell us about your App"
 msgstr ""
 
 #: client/components/splash_pages/_menu.html:540
@@ -6954,6 +7540,10 @@ msgstr ""
 msgid "There was a problem updating this user."
 msgstr ""
 
+#: client/components/registrations/registrations.directive.js:115
+msgid "This URL has already been take, try another."
+msgstr ""
+
 #: client/components/locations/access/access-vouchers.html:42
 msgid ""
 "This allows the end-user to request their password by email. We recommend "
@@ -6983,6 +7573,7 @@ msgstr ""
 msgid "This code will be for the splash page"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/boxes/edit/_edit.html:283
 msgid "This device must have a valid gateway"
 msgstr ""
@@ -6993,6 +7584,9 @@ msgid "This device must have a valid host IP."
 msgstr ""
 
 #: client/components/locations/networks/_show.html:93
+=======
+#: client/components/locations/networks/_show.html:90
+>>>>>>> Stashed changes
 msgid "This device must have a valid IP"
 msgstr ""
 
@@ -7004,6 +7598,15 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:267
 msgid "This device must have a valid WAN IP"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:283
+msgid "This device must have a valid gateway"
+msgstr ""
+
+#: client/components/locations/networks/_show.html:211
+#: client/components/locations/networks/_show.html:237
+msgid "This device must have a valid host IP."
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:24
@@ -7097,10 +7700,6 @@ msgid_plural "This trigger has run {{ trigger.run_count }} times."
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/components/registrations/registrations.directive.js:115
-msgid "This URL has already been take, try another."
-msgstr ""
-
 #: client/components/networks/networks.directives.js:386
 msgid ""
 "This will cause a full re-sync of all your boxes, nothing bad will happen. "
@@ -7178,20 +7777,17 @@ msgstr ""
 msgid "Token successfully changed."
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:10
 #: client/components/locations/triggers/_edit.html:8
 #: client/components/splash_codes/_show.html:9
 msgid "TOOLS"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/reports/_radius.html:25
 msgid "Top 10 locations by session count"
-msgstr ""
-
-#: client/components/reports/_radius.html:26
-#: client/components/reports/_wireless.html:24
-#: client/components/reports/_wireless.html:28
-msgid "Top aps by session count"
 msgstr ""
 
 #: client/components/reports/_wireless.html:28
@@ -7206,6 +7802,12 @@ msgstr "Meistgenutzte Geräte"
 #: client/components/reports/_radius.html:25
 msgid "Top Locations"
 msgstr "Meistgenutzte Standorte"
+
+#: client/components/reports/_radius.html:26
+#: client/components/reports/_wireless.html:24
+#: client/components/reports/_wireless.html:28
+msgid "Top aps by session count"
+msgstr ""
 
 #: client/components/audit/sales/_index.html:56
 #: client/components/users/invoices/_index.html:36
@@ -7228,6 +7830,7 @@ msgstr "Gesamtanzahl von Sitzungen"
 msgid "Town"
 msgstr ""
 
+<<<<<<< Updated upstream
 #: client/components/locations/networks/_show.html:301
 msgid "Traffic Isolation Disabled"
 msgstr ""
@@ -7242,6 +7845,8 @@ msgstr ""
 msgid "transfer"
 msgstr ""
 
+=======
+>>>>>>> Stashed changes
 #: client/components/boxes/boxes.directives.js:103
 msgid "Transfer"
 msgstr "Transfer"
@@ -7250,10 +7855,6 @@ msgstr "Transfer"
 #: client/components/boxes/show/_transfer.html:1
 #: client/components/boxes/show/_transfer.html:5
 msgid "Transfer Device"
-msgstr ""
-
-#: client/components/boxes/show/_transfer_select.html:10
-msgid "Transfer device to"
 msgstr ""
 
 #: client/components/locations/settings/_transfer.html:1
@@ -7267,6 +7868,10 @@ msgstr "Standort-Transfer"
 #, fuzzy
 msgid "Transfer Splash"
 msgstr "Dokumentation"
+
+#: client/components/boxes/show/_transfer_select.html:10
+msgid "Transfer device to"
+msgstr ""
 
 #: client/components/splash_pages/_transfer.html:21
 #, fuzzy
@@ -7294,11 +7899,9 @@ msgstr ""
 msgid "Transmission Failures"
 msgstr ""
 
-#: client/components/locations/triggers/_show.html:50
-#: client/components/locations/triggers/_show.html:51
-#, fuzzy
-msgid "Trigger Active"
-msgstr "Einstellungen"
+#: client/components/locations/triggers/_vars.html:4
+msgid "Trigger Tags"
+msgstr ""
 
 #: client/components/locations/triggers/_show.html:36
 msgid "Trigger active."
@@ -7317,10 +7920,6 @@ msgstr ""
 msgid "Trigger successfully updated."
 msgstr ""
 
-#: client/components/locations/triggers/_vars.html:4
-msgid "Trigger Tags"
-msgstr ""
-
 #: client/components/locations/locations.controller.js:101
 #: client/components/locations/triggers/_edit.html:6
 #: client/components/locations/triggers/_show.html:6
@@ -7328,7 +7927,7 @@ msgstr ""
 msgid "Triggers"
 msgstr ""
 
-#: client/components/locations/triggers/_show.html:54
+#: client/components/locations/triggers/_show.html:53
 msgid "Triggers are automatically disabled if they fail 3 times."
 msgstr ""
 
@@ -7340,7 +7939,7 @@ msgstr ""
 msgid "Tue"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:73
+#: client/components/locations/networks/_show.html:70
 msgid "Turn on DHCP server to enable the splash page"
 msgstr ""
 
@@ -7358,10 +7957,6 @@ msgstr ""
 msgid "Twitter"
 msgstr ""
 
-#: client/components/locations/show/edit-modal.html:64
-msgid "Twitter handle"
-msgstr ""
-
 #: client/components/locations/show/edit-modal.html:61
 msgid "Twitter Handle"
 msgstr ""
@@ -7371,14 +7966,13 @@ msgstr ""
 msgid "Twitter Name"
 msgstr "Einstellungen"
 
-#: client/components/charts/clients/_client_tx_chart.html:40
-#: client/components/locations/clients/_index.html:121
-msgid "TX Fails"
+#: client/components/locations/show/edit-modal.html:64
+msgid "Twitter handle"
 msgstr ""
 
-#: client/components/locations/clients/_columns_filter.html:35
-#: client/components/locations/clients/_columns.html:39
-#: client/components/locations/clients/_index.html:183
+#: client/components/locations/clients/_columns.html:30
+#: client/components/locations/clients/_columns_filter.html:26
+#: client/components/locations/clients/_index.html:160
 msgid "Tx Rate"
 msgstr ""
 
@@ -7386,24 +7980,20 @@ msgstr ""
 msgid "Tx Retries"
 msgstr ""
 
-#: client/components/charts/clients/_client_tx_chart.html:47
-msgid "TX Retries"
-msgstr ""
-
-#: client/components/locations/clients/_columns_filter.html:17
-#: client/components/locations/clients/_columns.html:21
+#: client/components/locations/clients/_columns.html:18
+#: client/components/locations/clients/_columns_filter.html:14
 msgid "Txbps"
 msgstr ""
 
 #: client/components/audit/emails/_index.html:54
 #: client/components/boxes/new/_add.html:105
 #: client/components/events/_index.html:27
-#: client/components/locations/clients/_columns_filter.html:107
-#: client/components/locations/clients/_columns.html:111
-#: client/components/locations/clients/_index.html:195
+#: client/components/locations/clients/_columns.html:78
+#: client/components/locations/clients/_columns_filter.html:74
+#: client/components/locations/clients/_index.html:172
 #: client/components/locations/clients/codes.html:33
-#: client/components/locations/index/_alerts.html:55
-#: client/components/locations/networks/_index.html:34
+#: client/components/locations/index/_alerts.html:54
+#: client/components/locations/networks/_index.html:33
 #: client/components/locations/networks/firewall.html:11
 #: client/components/locations/triggers/channel-webhook.html:15
 #: client/components/locations/triggers/history/_index.html:20
@@ -7424,7 +8014,25 @@ msgstr ""
 msgid "Typography"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:116
+#: client/components/networks/_edit_ssid.html:32
+msgid "UPDATE"
+msgstr ""
+
+#: client/components/users/billing/_plans.html:41
+#: client/components/users/billing/_show.html:67
+#: client/components/users/billing/_upgrade.html:19
+msgid "UPGRADE"
+msgstr ""
+
+#: client/components/locations/triggers/channel-webhook.html:5
+msgid "URL"
+msgstr ""
+
+#: client/components/users/billing/_billing.html:45
+msgid "USD"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:115
 msgid ""
 "Unable to communicate with your Ruckus Virtual SmartZone. Check your "
 "credentials."
@@ -7445,8 +8053,9 @@ msgstr ""
 #: client/components/reports/_radius_timeline.html:26
 #: client/components/reports/_wireless_timeline.html:19
 #: client/components/reports/reports.v2.directives.js:808
+#, fuzzy
 msgid "Unique Clients"
-msgstr "Eindeutige Stationen"
+msgstr "Einstellungen"
 
 #: client/components/splash_pages/_form_designer.html:95
 #, fuzzy
@@ -7472,17 +8081,12 @@ msgstr ""
 msgid "Unknown error, please try again"
 msgstr ""
 
-#: client/components/locations/clients/_index.html:215
+#: client/components/locations/clients/_index.html:192
 msgid "Unknown network"
 msgstr ""
 
 #: client/components/locations/access/access-panel-top.html:16
 msgid "Unlimited access"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:339
-#: client/components/locations/locations.directives.js:1913
-msgid "unmuted"
 msgstr ""
 
 #: client/components/guests/guests.directives.js:23
@@ -7492,26 +8096,18 @@ msgid ""
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:45
-#: client/components/locations/boxes/zones.html:40
+#: client/components/locations/boxes/zones.html:37
 #: client/components/locations/show/edit-modal.html:79
 #: client/components/splash_pages/_networks.html:41
 msgid "Update"
 msgstr ""
 
-#: client/components/networks/_edit_ssid.html:35
-msgid "UPDATE"
-msgstr ""
-
-#: client/components/users/billing/_update_card.html:7
-msgid "update CARD"
+#: client/components/networks/_edit_ssid.html:5
+msgid "Update SSID"
 msgstr ""
 
 #: client/components/users/billing/_card.html:11
 msgid "Update or add your credit card"
-msgstr ""
-
-#: client/components/networks/_edit_ssid.html:5
-msgid "Update SSID"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:148
@@ -7536,36 +8132,15 @@ msgstr ""
 msgid "Updating, please wait."
 msgstr ""
 
-#: client/components/users/billing/_plans.html:41
-#: client/components/users/billing/_show.html:67
-#: client/components/users/billing/_upgrade.html:19
-msgid "UPGRADE"
-msgstr ""
-
-#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:38
-msgid "upgrade <span ng-if=\"upgrade.now\">now</span>"
-msgstr ""
-
-#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:26
-msgid "Upgrade at 2am localtime on the following date"
-msgstr ""
-
-#: client/components/boxes/boxes.directives.js:1275
-msgid "Upgrade cancelled successfully."
-msgstr ""
-
 #: client/components/boxes/firmware/_upgrade_firmware_dialog.html:1
 msgid "Upgrade Device"
 msgstr ""
 
 #: client/components/boxes/payloads/_payloads_mass.html:13
 #: client/components/boxes/payloads/_payloads_mass.html:14
+#, fuzzy
 msgid "Upgrade Firmware"
-msgstr "Firmware aktualisieren"
-
-#: client/components/boxes/payloads/_bulk.html:7
-msgid "Upgrade firmware on {{ selection.length }} boxes"
-msgstr ""
+msgstr "Downloads"
 
 #: client/components/boxes/firmware/_upgrade_firmware_dialog.html:19
 #: client/components/boxes/firmware/_upgrade_firmware_dialog.html:20
@@ -7576,20 +8151,22 @@ msgstr ""
 msgid "Upgrade Your Device"
 msgstr ""
 
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:26
+msgid "Upgrade at 2am localtime on the following date"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1275
+msgid "Upgrade cancelled successfully."
+msgstr ""
+
+#: client/components/boxes/payloads/_bulk.html:7
+msgid "Upgrade firmware on {{ selection.length }} boxes"
+msgstr ""
+
 #: client/components/boxes/firmware/_upgrade_firmware_dialog.html:11
 msgid ""
 "Upgrade your firmware to the latest version. Firmware upgrades include "
 "security updates and new features."
-msgstr ""
-
-#: client/components/splash_pages/_store_product.html:114
-msgid "upload"
-msgstr ""
-
-#: client/components/splash_pages/_menu.html:48
-msgid ""
-"Upload a background image. Please note, large images will delay page load "
-"times."
 msgstr ""
 
 #: client/components/splash_codes/_edit.html:99
@@ -7598,6 +8175,12 @@ msgstr ""
 
 #: client/components/splash_pages/_store_product.html:113
 msgid "Upload Speed {{ (product.upload_speed / 1024) | number }}Mbps"
+msgstr ""
+
+#: client/components/splash_pages/_menu.html:48
+msgid ""
+"Upload a background image. Please note, large images will delay page load "
+"times."
 msgstr ""
 
 #: client/components/splash_pages/_menu.html:84
@@ -7609,16 +8192,12 @@ msgid "Upload your logo which must be 200px by 106px."
 msgstr ""
 
 #: client/components/boxes/show/_index.html:242
-#: client/components/locations/settings/_devices.html:177
+#: client/components/locations/settings/_devices.html:176
 msgid "Uptime"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:341
 msgid "Upto 255 characters"
-msgstr ""
-
-#: client/components/locations/triggers/channel-webhook.html:5
-msgid "URL"
 msgstr ""
 
 #: client/components/clients/clients.directives.js:922
@@ -7628,7 +8207,7 @@ msgid "Usage"
 msgstr ""
 
 #: client/components/charts/charts.directives.js:1273
-#: client/components/charts/devices/_wireless_chart.html:40
+#: client/components/charts/devices/_wireless_chart.html:33
 #: client/components/reports/_radius_timeline.html:40
 #: client/components/reports/_wireless_timeline.html:26
 msgid "Usage Data"
@@ -7642,25 +8221,35 @@ msgstr ""
 msgid "Usage Statistics"
 msgstr ""
 
-#: client/components/users/billing/_billing.html:45
-msgid "USD"
-msgstr ""
+<<<<<<< Updated upstream
+#: client/components/locations/triggers/_show.html:50
+#: client/components/locations/triggers/_show.html:51
+#, fuzzy
+msgid "Trigger Active"
+msgstr "Einstellungen"
 
+#: client/components/locations/triggers/_show.html:36
+msgid "Trigger active."
+=======
 #: client/components/locations/settings/_transfer.html:15
+#, fuzzy
 msgid "User Account ID"
-msgstr "Benutzerkontonummer"
+msgstr "Konto"
 
 #: client/components/locations/users/_invite.html:22
 msgid "User Email"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/users/users.directives.js:1001
 #: client/components/users/users.directives.js:48
 #: client/components/users/users.directives.js:91
+#, fuzzy
 msgid "User successfully updated."
-msgstr "Benutzer erfolgreich aktualisiert."
+msgstr "Dokumentation"
 
-#: client/components/codes/_index.html:44 client/components/codes/_table.html:8
+#: client/components/codes/_index.html:44
+#: client/components/codes/_table.html:8
 #: client/components/locations/clients/_show_code.html:27
 #: client/components/locations/clients/codes.html:31
 #: client/components/locations/triggers/show-slack.html:25
@@ -7684,13 +8273,40 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
+#: client/components/locations/show/_app_status.html:28
+msgid "VIEW"
+msgstr ""
+
+#: client/components/locations/show/_favourites.html:32
+msgid "VIEW ALL"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/triggers/_show.html:54
+msgid "Triggers are automatically disabled if they fail 3 times."
+=======
+#: client/components/locations/networks/_show.html:170
+#: client/components/locations/networks/_show.html:171
+msgid "VLAN ID"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/locations/clients/_show_code.html:185
+msgid "VOUCHER"
+msgstr ""
+
 #: client/components/splash_codes/_show.html:51
 msgid "Validity"
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/locations/networks/_show.html:73
+msgid "Turn on DHCP server to enable the splash page"
+=======
 #: client/components/locations/clients/_show_code.html:151
 #: client/components/splash_codes/_edit.html:67
 msgid "Validity Minutes"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/splash_pages/_store_product.html:68
@@ -7709,14 +8325,14 @@ msgstr ""
 msgid "Verifying Coupon"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:184
+#: client/components/locations/settings/_devices.html:183
+#, fuzzy
 msgid "Version"
-msgstr "Version"
+msgstr "Diskussionen"
 
 #: client/components/audit/sales/_index.html:109
 #: client/components/clients/clients.directives.js:36
 #: client/components/events/show.html:16
-#: client/components/locations/boxes/_table.html:117
 #: client/components/locations/locations.directives.js:1749
 #: client/components/locations/locations.directives.js:498
 #: client/components/locations/show/_map.html:46
@@ -7729,37 +8345,79 @@ msgstr "Version"
 msgid "View"
 msgstr ""
 
-#: client/components/locations/show/_app_status.html:28
-msgid "VIEW"
-msgstr ""
-
-#: client/components/locations/show/_favourites.html:32
-msgid "VIEW ALL"
-msgstr ""
-
 #: client/components/locations/clients/codes.html:71
+#, fuzzy
 msgid "View Details"
-msgstr "Details zeigen"
+msgstr "Einstellungen"
 
-#: client/components/locations/index/_alerts.html:103
-msgid "View Device"
+<<<<<<< Updated upstream
+#: client/components/charts/clients/_client_tx_chart.html:40
+#: client/components/locations/clients/_index.html:121
+msgid "TX Fails"
 msgstr ""
 
-#: client/components/locations/index/_index.html:53
-#: client/components/locations/show/_index.html:20
-msgid "View device map."
+#: client/components/locations/clients/_columns_filter.html:35
+#: client/components/locations/clients/_columns.html:39
+#: client/components/locations/clients/_index.html:183
+msgid "Tx Rate"
+=======
+#: client/components/locations/index/_alerts.html:102
+msgid "View Device"
 msgstr ""
 
 #: client/components/events/_index.html:54
 msgid "View Event"
+>>>>>>> Stashed changes
 msgstr ""
 
-#: client/components/locations/index/_list.html:106
+#: client/components/locations/index/_list.html:103
+#, fuzzy
 msgid "View Location"
-msgstr "Standorte zeigen"
+msgstr "Dokumentation"
 
+<<<<<<< Updated upstream
+#: client/components/charts/clients/_client_tx_chart.html:47
+msgid "TX Retries"
+msgstr ""
+
+#: client/components/locations/clients/_columns_filter.html:17
+#: client/components/locations/clients/_columns.html:21
+msgid "Txbps"
+msgstr ""
+
+#: client/components/audit/emails/_index.html:54
+#: client/components/boxes/new/_add.html:105
+#: client/components/events/_index.html:27
+#: client/components/locations/clients/_columns_filter.html:107
+#: client/components/locations/clients/_columns.html:111
+#: client/components/locations/clients/_index.html:195
+#: client/components/locations/clients/codes.html:33
+#: client/components/locations/index/_alerts.html:55
+#: client/components/locations/networks/_index.html:34
+#: client/components/locations/networks/firewall.html:11
+#: client/components/locations/triggers/channel-webhook.html:15
+#: client/components/locations/triggers/history/_index.html:20
+#: client/components/locations/triggers/list.html:47
+#: client/components/splash_pages/_index.html:49
+msgid "Type"
+=======
 #: client/components/locations/access/access-social.html:36
 msgid "View Pages"
+msgstr ""
+
+#: client/components/locations/clients/codes.html:68
+msgid "View Usage"
+msgstr ""
+
+#: client/components/networks/networks.directives.js:303
+#, fuzzy
+msgid "View Zones"
+msgstr "Einstellungen"
+
+#: client/components/locations/index/_index.html:53
+#: client/components/locations/show/_index.html:20
+msgid "View device map."
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/boxes/show/_index.html:143
@@ -7772,19 +8430,15 @@ msgid ""
 "\"showVars()\">here</a>."
 msgstr ""
 
-#: client/components/locations/clients/codes.html:68
-msgid "View Usage"
-msgstr ""
-
-#: client/components/networks/networks.directives.js:303
-msgid "View Zones"
-msgstr "Zonen zeigen"
-
 #: client/components/registrations/_flow.html:57
 msgid "Visit https://{{ holding.url }}.my-wifi.co to sign-in"
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_devices.html:116
+=======
 #: client/components/users/billing/_plans.html:55
+>>>>>>> Stashed changes
 msgid ""
 "Visit the main site for more information about the plans. <b>European "
 "customers will be charged tax at the local rate.</b> For more information, "
@@ -7795,29 +8449,33 @@ msgstr ""
 msgid "Visitor Loyalty"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:173
-#: client/components/locations/networks/_show.html:174
-msgid "VLAN ID"
-msgstr ""
-
 #: client/components/audit/sales/_index.html:55
 msgid "Voucher"
-msgstr ""
-
-#: client/components/locations/clients/_show_code.html:185
-msgid "VOUCHER"
 msgstr ""
 
 #: client/components/audit/sales/_show.html:74
 msgid "Voucher Code"
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/reports/_radius_timeline.html:26
+#: client/components/reports/_wireless_timeline.html:19
+#: client/components/reports/reports.v2.directives.js:808
+msgid "Unique Clients"
+msgstr "Eindeutige Stationen"
+
+#: client/components/splash_pages/_form_designer.html:95
+#, fuzzy
+msgid "Unique Field ID"
+msgstr "Einstellungen"
+
+#: client/components/locations/settings/_main.html:42
+#: client/components/splash_pages/_form_designer.html:94
+msgid "Unique ID"
+=======
 #: client/components/locations/clients/_show_code.html:167
 msgid "Voucher Format"
-msgstr ""
-
-#: client/components/locations/locations.controller.js:126
-msgid "vouchers"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/clients/clients.directives.js:796
@@ -7830,54 +8488,21 @@ msgstr ""
 msgid "Vouchers"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:100
-#: client/components/locations/settings/_devices.html:99
-msgid "vSZ Admin Password"
-msgstr ""
-
-#: client/components/locations/settings/_devices.html:92
-#: client/components/locations/settings/_devices.html:93
-msgid "vSZ Admin User"
-msgstr ""
-
-#: client/components/locations/settings/_devices.html:128
-msgid "vSZ Connection Success!"
-msgstr ""
-
-#: client/components/locations/settings/_devices.html:76
-msgid "vSZ Host"
-msgstr ""
-
-#: client/components/locations/settings/_devices.html:153
-msgid "vSZ Mac"
-msgstr ""
-
-#: client/components/locations/settings/_devices.html:115
-msgid "vSZ Tests Failed"
-msgstr ""
-
-#: client/components/boxes/boxes.filters.js:70
-msgid "Waiting for configs"
-msgstr ""
-
-#: client/components/boxes/show/_index.html:140
-msgid "Walled Gardens"
-msgstr ""
-
-#: client/components/locations/networks/walledgardens.html:3
-msgid "Walled Gardens ({{ walledgardens.length || 0 }} of 25 allowed)"
-msgstr ""
-
 #: client/components/boxes/show/_index.html:224
 msgid "WAN IP"
 msgstr ""
 
-#: client/components/boxes/edit/_edit.html:316
-msgid "WAN Metric"
-msgstr ""
-
 #: client/components/boxes/edit/_edit.html:307
 msgid "WAN MTU"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/clients/_index.html:215
+msgid "Unknown network"
+=======
+#: client/components/boxes/edit/_edit.html:316
+msgid "WAN Metric"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:252
@@ -7886,6 +8511,30 @@ msgstr ""
 
 #: client/components/locations/boxes/_table.html:99
 msgid "WAN Protocol: {{ ::box.wan_proto }}"
+msgstr ""
+
+#: client/components/boxes/boxes.filters.js:70
+msgid "Waiting for configs"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/boxes/port_forwards/form.html:45
+#: client/components/locations/boxes/zones.html:40
+#: client/components/locations/show/edit-modal.html:79
+#: client/components/splash_pages/_networks.html:41
+msgid "Update"
+msgstr ""
+
+#: client/components/networks/_edit_ssid.html:35
+msgid "UPDATE"
+=======
+#: client/components/boxes/show/_index.html:140
+msgid "Walled Gardens"
+msgstr ""
+
+#: client/components/locations/networks/walledgardens.html:3
+msgid "Walled Gardens ({{ walledgardens.length || 0 }} of 25 allowed)"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/show/tutorial.html:9
@@ -7898,13 +8547,9 @@ msgstr ""
 msgid "Warnings"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:121
+#: client/components/locations/settings/_devices.html:120
 msgid ""
-"We were unable to reach your server at {{ location.vsg_host }}.\n"
-"                <p translate=\"\">Please ensure it has a public IP and your "
-"firewall ports are open. You must use https for security reasons. If your "
-"ports are open, please check your user credentials has the correct "
-"permissions.</p>"
+"We were able to reach the server but your username or password was rejected."
 msgstr ""
 
 #: client/components/registrations/success.html:6
@@ -7925,14 +8570,17 @@ msgstr ""
 msgid "Wed"
 msgstr ""
 
-#: client/components/locations/settings/_notifications.html:21
 #: client/components/users/alerts/_index.html:31
 msgid "Weekly Reports Disabled"
 msgstr ""
 
-#: client/components/locations/settings/_notifications.html:20
+<<<<<<< Updated upstream
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:38
+msgid "upgrade <span ng-if=\"upgrade.now\">now</span>"
+=======
 #: client/components/users/alerts/_index.html:30
 msgid "Weekly Reports Enabled"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/splash_pages/_index.html:51
@@ -7948,10 +8596,17 @@ msgstr ""
 msgid "Welcome Page"
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/boxes/payloads/_payloads_mass.html:13
+#: client/components/boxes/payloads/_payloads_mass.html:14
+msgid "Upgrade Firmware"
+msgstr "Firmware aktualisieren"
+=======
 #: client/components/splash_pages/_menu.html:516
 #, fuzzy
 msgid "Welcome Page Disabled"
 msgstr "Einstellungen"
+>>>>>>> Stashed changes
 
 #: client/components/splash_pages/_menu.html:515
 msgid "Welcome Page Enabled"
@@ -7989,13 +8644,81 @@ msgstr ""
 msgid "What's the password?"
 msgstr ""
 
+#: client/components/locations/triggers/triggers.filters.js:26
+msgid "When a Social is"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/boxes/show/_index.html:242
+#: client/components/locations/settings/_devices.html:177
+msgid "Uptime"
+=======
+#: client/components/locations/triggers/triggers.filters.js:12
+msgid "When a box is"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:14
+msgid "When a client"
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:18
+msgid "When a guest is"
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:20
+msgid "When a location is"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/charts/charts.directives.js:1273
+#: client/components/charts/devices/_wireless_chart.html:40
+#: client/components/reports/_radius_timeline.html:40
+#: client/components/reports/_wireless_timeline.html:26
+msgid "Usage Data"
+=======
+#: client/components/locations/triggers/triggers.filters.js:22
+msgid "When a network / SSID is"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:72
+msgid "When a purchase happens"
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:24
+msgid "When a splash page is"
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:28
+msgid "When a voucher is"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_transfer.html:15
+msgid "User Account ID"
+msgstr "Benutzerkontonummer"
+=======
+#: client/components/locations/triggers/triggers.filters.js:30
+msgid "When a zone is"
+msgstr ""
+>>>>>>> Stashed changes
+
 #: client/components/locations/triggers/triggers.filters.js:54
 msgid "When a {{object}} goes offline"
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/users/users.directives.js:1001
+#: client/components/users/users.directives.js:48
+#: client/components/users/users.directives.js:91
+msgid "User successfully updated."
+msgstr "Benutzer erfolgreich aktualisiert."
+=======
 #: client/components/locations/triggers/triggers.filters.js:52
 msgid "When a {{object}} goes online"
 msgstr ""
+>>>>>>> Stashed changes
 
 #: client/components/locations/triggers/triggers.filters.js:68
 msgid "When a {{object}} is copied"
@@ -8033,46 +8756,26 @@ msgstr ""
 msgid "When a {{object}} logs in"
 msgstr ""
 
-#: client/components/locations/triggers/triggers.filters.js:12
-msgid "When a box is"
-msgstr ""
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_devices.html:184
+msgid "Version"
+msgstr "Version"
 
-#: client/components/locations/triggers/triggers.filters.js:14
-msgid "When a client"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:18
-msgid "When a guest is"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:20
-msgid "When a location is"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:22
-msgid "When a network / SSID is"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:72
-msgid "When a purchase happens"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:26
-msgid "When a Social is"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:24
-msgid "When a splash page is"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:28
-msgid "When a voucher is"
-msgstr ""
-
-#: client/components/locations/triggers/triggers.filters.js:30
-msgid "When a zone is"
-msgstr ""
-
+#: client/components/audit/sales/_index.html:109
+#: client/components/clients/clients.directives.js:36
+#: client/components/events/show.html:16
+#: client/components/locations/boxes/_table.html:117
+#: client/components/locations/locations.directives.js:1749
+#: client/components/locations/locations.directives.js:498
+#: client/components/locations/show/_map.html:46
+#: client/components/locations/triggers/triggers.directives.js:38
+#: client/components/locations/triggers/triggers.directives.js:789
+#: client/components/reports/reports.v2.directives.js:394
+#: client/components/splash_codes/splash_codes.directives.js:62
+#: client/components/users/users.directives.js:1116
+#: client/components/users/users.directives.js:327
+msgid "View"
+=======
 #: client/components/locations/triggers/_new.html:37
 msgid "When an email address is captured, send a trigger."
 msgstr ""
@@ -8083,6 +8786,7 @@ msgstr ""
 
 #: client/components/locations/triggers/triggers.filters.js:70
 msgid "When an order is refunded"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/networks/blacklists.html:20
@@ -8093,6 +8797,19 @@ msgstr ""
 msgid "When your codes have generated"
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/locations/clients/codes.html:71
+msgid "View Details"
+msgstr "Details zeigen"
+
+#: client/components/locations/index/_alerts.html:103
+msgid "View Device"
+msgstr ""
+
+#: client/components/locations/index/_index.html:53
+#: client/components/locations/show/_index.html:20
+msgid "View device map."
+=======
 #: client/components/boxes/new/_add.html:69
 msgid "Where is my mac address?"
 msgstr ""
@@ -8100,23 +8817,25 @@ msgstr ""
 #: client/components/registrations/_flow.html:104
 #: client/components/registrations/_flow.html:36
 msgid "Where is the network"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/triggers/channel-email.html:12
 msgid "Who's the email from"
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/locations/index/_list.html:106
+msgid "View Location"
+msgstr "Standorte zeigen"
+=======
 #: client/index.html:20
 msgid "Wi-Fi Management Platform"
 msgstr "WiFi-Management-Plattform"
+>>>>>>> Stashed changes
 
-#: client/components/splash_pages/_menu.html:397
-#: client/components/splash_pages/_menu.html:479
-msgid "Width"
-msgstr ""
-
-#: client/components/charts/clients/_client_tx_chart.html:26
-#: client/components/locations/clients/_index.html:100
+#: client/components/charts/clients/_client_tx_chart.html:25
+#: client/components/locations/clients/_index.html:92
 msgid "WiFi Traffic"
 msgstr ""
 
@@ -8125,28 +8844,42 @@ msgid "WiFi Traffic (Mbps)"
 msgstr ""
 
 #: client/components/charts/charts.directives.js:450
-#: client/components/charts/clients/_client_tx_chart.html:33
-#: client/components/charts/clients/_client_usage_chart.html:5
-#: client/components/locations/clients/_index.html:107
+#: client/components/charts/clients/_client_tx_chart.html:30
+#: client/components/locations/clients/_index.html:97
 msgid "WiFi Usage"
 msgstr ""
 
+#: client/components/splash_pages/_menu.html:397
+#: client/components/splash_pages/_menu.html:479
+msgid "Width"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/networks/networks.directives.js:303
+msgid "View Zones"
+msgstr "Zonen zeigen"
+=======
 #: client/components/charts/charts.directives.js:1275
-#: client/components/charts/devices/_wireless_chart.html:47
+#: client/components/charts/devices/_wireless_chart.html:38
+#, fuzzy
 msgid "Wireless Clients"
-msgstr "WiFi-Stationen"
+msgstr "Einstellungen"
+>>>>>>> Stashed changes
 
 #: client/components/boxes/edit/_edit.html:86
+#, fuzzy
 msgid "Wireless Settings"
-msgstr "WiFi-Einstellungen"
+msgstr "Einstellungen"
 
 #: client/components/reports/reports.v2.directives.js:185
+#, fuzzy
 msgid "Wireless Stats"
-msgstr "WiFi-Statistiken"
+msgstr "Einstellungen"
 
 #: client/components/reports/reports.v2.directives.js:805
+#, fuzzy
 msgid "Wireless Usage"
-msgstr "WiFi-Verwendung"
+msgstr "Einstellungen"
 
 #: client/components/locations/triggers/triggers.filters.js:62
 msgid "Wnen a {{object}} is archived"
@@ -8155,6 +8888,16 @@ msgstr ""
 #: client/components/boxes/boxes.directives.js:249
 #: client/components/locations/locations.directives.js:804
 msgid "Would you like to reboot this device?"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/networks/_show.html:173
+#: client/components/locations/networks/_show.html:174
+msgid "VLAN ID"
+=======
+#: client/components/users/billing/_plans.html:39
+msgid "YOUR PLAN"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/triggers/triggers.directives.js:598
@@ -8184,6 +8927,32 @@ msgstr ""
 msgid "You authenticated successfully."
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_devices.html:100
+#: client/components/locations/settings/_devices.html:99
+msgid "vSZ Admin Password"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:92
+#: client/components/locations/settings/_devices.html:93
+msgid "vSZ Admin User"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:128
+msgid "vSZ Connection Success!"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:76
+msgid "vSZ Host"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:153
+msgid "vSZ Mac"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:115
+msgid "vSZ Tests Failed"
+=======
 #: client/components/registrations/registrations.directive.js:87
 msgid "You can call me Alice. Nice to meet you."
 msgstr ""
@@ -8201,14 +8970,15 @@ msgid ""
 "You can put any html, images etc. in here, including links and even iFrames."
 msgstr ""
 
-#: client/components/users/billing/_billing.html:49
-msgid "You can't change the currency if you have an active subscription."
-msgstr ""
-
 #: client/components/payloads/_run_payload.html:12
 msgid ""
 "You can\"t run a payload on this box since it's not connected or is already "
 "processing a job."
+msgstr ""
+
+#: client/components/users/billing/_billing.html:49
+msgid "You can't change the currency if you have an active subscription."
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/locations.directives.js:1542
@@ -8223,8 +8993,13 @@ msgstr ""
 msgid "You don't have any active channel associated with your slack account."
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/boxes/show/_index.html:224
+msgid "WAN IP"
+=======
 #: client/components/locations/triggers/triggers.directives.js:398
 msgid "You don't have any active lists associated with your account."
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/triggers/triggers.directives.js:437
@@ -8252,16 +9027,26 @@ msgstr ""
 msgid "You must be on the same network as the devices you're trying to add."
 msgstr ""
 
-#: client/components/locations/new/_index.html:57
-msgid "You must enter a city."
-msgstr ""
-
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_devices.html:121
+msgid ""
+"We were unable to reach your server at {{ location.vsg_host }}.\n"
+"                <p translate=\"\">Please ensure it has a public IP and your "
+"firewall ports are open. You must use https for security reasons. If your "
+"ports are open, please check your user credentials has the correct "
+"permissions.</p>"
+=======
 #: client/components/locations/settings/_devices.html:49
 msgid "You must enter a NAS ID"
+>>>>>>> Stashed changes
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:87
+#: client/components/locations/settings/_devices.html:86
 msgid "You must enter a Northbound API password."
+msgstr ""
+
+#: client/components/locations/new/_index.html:57
+msgid "You must enter a city."
 msgstr ""
 
 #: client/components/locations/settings/_main.html:108
@@ -8272,28 +9057,39 @@ msgstr ""
 msgid "You must enter a reboot interval."
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_notifications.html:21
+#: client/components/users/alerts/_index.html:31
+msgid "Weekly Reports Disabled"
+msgstr ""
+
+#: client/components/locations/settings/_notifications.html:20
+#: client/components/users/alerts/_index.html:30
+msgid "Weekly Reports Enabled"
+=======
 #: client/components/locations/settings/_splash.html:28
 msgid "You must enter a splash limit."
 msgstr ""
 
 #: client/components/locations/settings/_main.html:100
 msgid "You must enter a town"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/locations/users/_invite.html:17
 msgid "You must enter a username"
 msgstr ""
 
-#: client/components/locations/users/_invite.html:25
-msgid "You must enter a valid email"
-msgstr ""
-
 #: client/components/locations/triggers/channel-webhook.html:8
 msgid "You must enter a valid URL including http(s)"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:80
+#: client/components/locations/settings/_devices.html:79
 msgid "You must enter a valid URL."
+msgstr ""
+
+#: client/components/locations/users/_invite.html:25
+msgid "You must enter a valid email"
 msgstr ""
 
 #: client/components/locations/settings/_main.html:92
@@ -8352,8 +9148,8 @@ msgstr ""
 msgid "You must set a name for the field."
 msgstr ""
 
-#: client/components/locations/networks/_show.html:139
-#: client/components/locations/networks/_show.html:59
+#: client/components/locations/networks/_show.html:136
+#: client/components/locations/networks/_show.html:57
 #: client/components/networks/_create.html:32
 #: client/components/splash_codes/_edit.html:63
 msgid "You must set a password"
@@ -8380,15 +9176,15 @@ msgstr ""
 msgid "You must set a webite"
 msgstr ""
 
-#: client/components/users/show/_index.html:86
-msgid "You must set an email"
-msgstr ""
-
-#: client/components/locations/networks/_show.html:47
+#: client/components/locations/networks/_show.html:45
 #: client/components/networks/_create.html:23
 #: client/components/networks/_edit_ssid.html:20
 #: client/components/splash_pages/_form.html:54
 msgid "You must set an SSID"
+msgstr ""
+
+#: client/components/users/show/_index.html:86
+msgid "You must set an email"
 msgstr ""
 
 #: client/components/locations/triggers/channel-email.html:6
@@ -8436,6 +9232,36 @@ msgstr ""
 msgid "You've stumbled upon a page that doesn't exist yet."
 msgstr ""
 
+#: client/components/apps/_index.html:54
+msgid "Your Cucumber Applications"
+msgstr ""
+
+#: client/components/users/show/_password.html:15
+#, fuzzy
+msgid "Your Current Password"
+msgstr "Dokumentation"
+
+#: client/components/locations/access/access-social.html:53
+msgid "Your Facebook Page Id"
+msgstr ""
+
+#: client/components/locations/settings/_analytics.html:24
+msgid "Your Meraki Validator"
+msgstr ""
+
+#: client/components/users/show/_password.html:23
+#, fuzzy
+msgid "Your New Password"
+msgstr "Dokumentation"
+
+#: client/components/locations/show/edit-modal.html:72
+msgid "Your Twitter &amp; Facebook links appear on your login screens."
+msgstr ""
+
+#: client/components/users/branding/_form.html:96
+msgid "Your Website"
+msgstr ""
+
 #: client/components/locations/show/edit-modal.html:27
 #: client/components/locations/show/edit-modal.html:31
 msgid "Your address"
@@ -8454,30 +9280,54 @@ msgid "Your codes are still generating, please wait."
 msgstr ""
 
 #: client/components/users/billing/_billing.html:15
+#, fuzzy
 msgid "Your company name"
-msgstr "Firma"
-
-#: client/components/apps/_index.html:54
-msgid "Your Cucumber Applications"
-msgstr ""
-
-#: client/components/users/show/_password.html:15
-msgid "Your Current Password"
-msgstr "Bisheriges Kennwort"
+msgstr "Dokumentation"
 
 #: client/components/locations/access/access-password.html:21
 msgid "Your customers enter this on the login pages."
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/charts/clients/_client_tx_chart.html:26
+#: client/components/locations/clients/_index.html:100
+msgid "WiFi Traffic"
+=======
 #: client/components/users/branding/_form.html:55
 msgid ""
 "Your dashboard address is <b> https://{{ brand.url || 'my' }}.ctapp.io</b>"
+>>>>>>> Stashed changes
 msgstr ""
 
 #: client/components/registrations/registrations.directive.js:80
 msgid "Your dashboard is being created."
 msgstr ""
 
+<<<<<<< Updated upstream
+#: client/components/charts/charts.directives.js:450
+#: client/components/charts/clients/_client_tx_chart.html:33
+#: client/components/charts/clients/_client_usage_chart.html:5
+#: client/components/locations/clients/_index.html:107
+msgid "WiFi Usage"
+msgstr ""
+
+#: client/components/charts/charts.directives.js:1275
+#: client/components/charts/devices/_wireless_chart.html:47
+msgid "Wireless Clients"
+msgstr "WiFi-Stationen"
+
+#: client/components/boxes/edit/_edit.html:86
+msgid "Wireless Settings"
+msgstr "WiFi-Einstellungen"
+
+#: client/components/reports/reports.v2.directives.js:185
+msgid "Wireless Stats"
+msgstr "WiFi-Statistiken"
+
+#: client/components/reports/reports.v2.directives.js:805
+msgid "Wireless Usage"
+msgstr "WiFi-Verwendung"
+=======
 #: client/components/boxes/boxes.directives.js:1486
 msgid "Your device has been added."
 msgstr ""
@@ -8486,35 +9336,20 @@ msgstr ""
 msgid "Your devices have been added."
 msgstr ""
 
-#: client/components/locations/access/access-social.html:53
-msgid "Your Facebook Page Id"
-msgstr ""
-
-#: client/components/locations/settings/_analytics.html:24
-msgid "Your Meraki Validator"
-msgstr ""
-
 #: client/components/users/billing/_upgrade.html:10
 msgid ""
 "Your monthly cost will be {{ (plan.plan_price || 0) | currency : "
 "currency }}. A charge will be applied to your card immediately."
 msgstr ""
 
-#: client/components/users/show/_password.html:23
-msgid "Your New Password"
-msgstr "Neues Kennwort"
-
 #: client/components/locations/access/access-social.html:80
 msgid "Your page: {{ facebook_username }}"
-msgstr ""
-
-#: client/components/users/billing/_plans.html:39
-msgid "YOUR PLAN"
 msgstr ""
 
 #: client/components/locations/show/edit-modal.html:41
 msgid "Your postcode"
 msgstr ""
+>>>>>>> Stashed changes
 
 #: client/components/splash_pages/_store_product.html:11
 msgid ""
@@ -8536,10 +9371,6 @@ msgstr ""
 msgid "Your town"
 msgstr ""
 
-#: client/components/locations/show/edit-modal.html:72
-msgid "Your Twitter &amp; Facebook links appear on your login screens."
-msgstr ""
-
 #: client/components/boxes/boxes.directives.js:1192
 msgid "Your upgrade has been scheduled."
 msgstr ""
@@ -8548,10 +9379,487 @@ msgstr ""
 msgid "Your website"
 msgstr ""
 
-#: client/components/users/branding/_form.html:96
-msgid "Your Website"
+#: client/components/networks/_zones.html:19
+msgid "ZONES"
 msgstr ""
 
+#: client/components/boxes/new/_add.html:52
+#: client/components/locations/boxes/_table.html:49
+#: client/components/locations/networks/_index.html:35
+#: client/components/networks/_create.html:37
+msgid "Zone"
+msgstr ""
+
+#: client/components/users/index/_index.html:54
+#, fuzzy
+msgid "Zone Menu"
+msgstr "Hauptmenü"
+
+#: client/components/locations/show/_map.html:35
+msgid "Zone: {{ ::box.metadata.zone_name }}"
+msgstr ""
+
+#: client/components/locations/locations.controller.js:93
+msgid "Zones"
+msgstr ""
+
+#: client/components/users/quotas/_index.html:49
+#, fuzzy
+msgid "Zones per location"
+msgstr "Dokumentation"
+
+#: client/components/locations/triggers/triggers.directives.js:300
+msgid "[WELCOME] Thanks for logging in"
+msgstr ""
+
+#: client/components/users/sessions/_index.html:3
+msgid "access"
+msgstr ""
+
+#: client/components/clients/clients.directives.js:931
+msgid "activate"
+msgstr ""
+
+#: client/components/clients/clients.directives.js:965
+#: client/components/codes/codes.directives.js:88
+#: client/components/splash_codes/splash_codes.directives.js:142
+msgid "activated"
+msgstr ""
+
+#: client/components/users/billing/_update_card.html:8
+msgid "add CARD"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:68
+msgid "add box"
+msgstr ""
+
+#: client/components/locations/locations.directives.js:23
+msgid "added to"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:249
+#: client/components/locations/clients/_show.html:62
+#: client/components/locations/clients/_show.html:90
+#: client/components/locations/networks/_show.html:196
+#: client/components/locations/settings/_devices.html:130
+#: client/components/splash_pages/_form_designer.html:78
+msgid "call"
+msgstr ""
+
+#: client/components/users/billing/_cancel.html:18
+msgid "cancel"
+msgstr ""
+
+#: client/components/audit/audits.directives.js:92
+msgid "day"
+msgstr ""
+
+#: client/components/locations/locations.directives.js:1545
+#: client/components/locations/locations.directives.js:950
+#: client/components/splash_pages/_menu.html:53
+msgid "delete"
+msgstr ""
+
+#: client/components/boxes/payloads/_index.html:54
+msgid "delete payload"
+msgstr ""
+
+#: client/components/locations/locations.directives.js:1087
+#, fuzzy
+msgid "device zone"
+msgstr "Einstellungen"
+
+#: client/components/locations/locations.directives.js:1084
+#, fuzzy
+msgid "device zones"
+msgstr "Einstellungen"
+
+#: client/components/clients/clients.directives.js:965
+#: client/components/codes/codes.directives.js:88
+#: client/components/splash_codes/splash_codes.directives.js:142
+msgid "disabled"
+msgstr ""
+
+#: client/components/boxes/new/_add.html:146
+msgid "discover boxes"
+msgstr ""
+
+#: client/components/splash_codes/_edit.html:102
+#: client/components/splash_codes/_edit.html:96
+msgid "down"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_devices.html:87
+msgid "You must enter a Northbound API password."
+=======
+#: client/components/splash_pages/_store_product.html:108
+#, fuzzy
+msgid "download"
+msgstr "Downloads"
+
+#: client/components/locations/show/_warnings.html:27
+msgid "events"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1265
+msgid "exit"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:168
+#, fuzzy
+msgid "getting started"
+msgstr "Einstellungen"
+
+#: client/components/locations/networks/_show.html:88
+msgid "interface ip"
+msgstr ""
+
+#: client/components/locations/users/_invite.html:35
+msgid "invite"
+msgstr ""
+
+#: client/components/boxes/edit/_edit.html:357
+#: client/components/locations/networks/_show.html:311
+#: client/components/splash_pages/_form_designer.html:9
+msgid "menu"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:339
+#: client/components/locations/locations.directives.js:1913
+msgid "muted"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:1264
+msgid "please cancel it"
+msgstr ""
+
+#: client/components/locations/networks/_show.html:196
+msgid "radius"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/settings/_devices.html:80
+msgid "You must enter a valid URL."
+=======
+#: client/components/locations/locations.directives.js:584
+msgid "remove"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/locations/locations.directives.js:23
+msgid "removed from"
+msgstr ""
+
+#: client/components/locations/clients/_range_buttons.html:12
+msgid "select distance"
+msgstr ""
+
+#: client/components/locations/clients/_range_buttons.html:4
+msgid "select interval"
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:93
+msgid "send a Slack notification."
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:91
+msgid "send a Webhook."
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:89
+msgid "send an Email."
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:87
+msgid "send an SMS."
+msgstr ""
+
+#: client/components/locations/clients/_show.html:62
+#: client/components/locations/clients/_show.html:90
+msgid "splash"
+msgstr ""
+
+#: client/components/locations/triggers/triggers.filters.js:95
+msgid "subscribe an email to a MailChimp list."
+msgstr ""
+
+#: client/components/clients/clients.directives.js:966
+#: client/components/codes/codes.directives.js:89
+msgid "successfully."
+msgstr ""
+
+#: client/components/boxes/show/_transfer.html:23
+#: client/components/locations/settings/_transfer.html:25
+#: client/components/splash_pages/_transfer.html:38
+msgid "transfer"
+msgstr ""
+
+#: client/components/boxes/boxes.directives.js:339
+#: client/components/locations/locations.directives.js:1913
+msgid "unmuted"
+msgstr ""
+
+#: client/components/users/billing/_update_card.html:7
+msgid "update CARD"
+msgstr ""
+
+#: client/components/boxes/firmware/_upgrade_firmware_dialog.html:38
+msgid "upgrade <span ng-if=\"upgrade.now\">now</span>"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/networks/_show.html:139
+#: client/components/locations/networks/_show.html:59
+#: client/components/networks/_create.html:32
+#: client/components/splash_codes/_edit.html:63
+msgid "You must set a password"
+=======
+#: client/components/splash_pages/_store_product.html:114
+msgid "upload"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:98
+#: client/components/locations/settings/_devices.html:99
+msgid "vSZ Admin Password"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:91
+#: client/components/locations/settings/_devices.html:92
+msgid "vSZ Admin User"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:127
+msgid "vSZ Connection Success!"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:75
+msgid "vSZ Host"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:152
+msgid "vSZ Mac"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:114
+msgid "vSZ Tests Failed"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/locations/networks/_show.html:47
+#: client/components/networks/_create.html:23
+#: client/components/networks/_edit_ssid.html:20
+#: client/components/splash_pages/_form.html:54
+msgid "You must set an SSID"
+=======
+#: client/components/locations/locations.controller.js:126
+msgid "vouchers"
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/locations/clients/_index.html:63
+msgid "{{ (fn || 'average') | titleCase }} aggregated network usage"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:60
+msgid "{{ (fn || 'average') | titleCase }} client MCS values"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:62
+msgid "{{ (fn || 'average') | titleCase }} network throughput"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:61
+msgid "{{ (fn || 'average') | titleCase }} signal, noise and SNR values"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:64
+msgid "{{ (fn || 'average') | titleCase }} transmission packets that failed"
+msgstr ""
+
+#: client/components/users/billing/_show.html:33
+msgid "{{ (plan.plan_price || 0) | currency : curr }} per month."
+msgstr ""
+
+#: client/components/reports/_radius_stats.html:17
+msgid "{{ (stats.splash.durations.avg / 60) | number:0 }} Mins"
+msgstr ""
+
+#: client/components/users/billing/_add_coupon.html:19
+msgid ""
+"{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | "
+"humanTime }}"
+msgstr ""
+
+#: client/components/locations/show/_dashing.html:15
+msgid ""
+"{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline. <span ng-if="
+"\"splash_only > 0\" translate=\"\">{{ ::splash_only }} Splash Only</span>"
+msgstr ""
+
+#: client/components/users/billing/_show.html:14
+msgid "{{ ::plan.plan_name }} Plan"
+msgstr ""
+
+#: client/components/locations/show/_dashing.html:15
+msgid "{{ ::splash_only }} Splash Only"
+msgstr ""
+
+#: client/components/locations/show/_dashing.html:17
+msgid "{{ ::stats.boxes.stats.total }} Total boxes"
+msgstr ""
+
+#: client/components/locations/show/_dashing.html:35
+msgid ""
+"{{ ::stats.locations }} location<span ng-if=\"stats.locations != 1\">s</span>"
+msgstr ""
+
+#: client/components/locations/show/_dashing.html:27
+msgid "{{ ::stats.online }} connected"
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/users/billing/_billing.html:15
+msgid "Your company name"
+msgstr "Firma"
+
+#: client/components/apps/_index.html:54
+msgid "Your Cucumber Applications"
+msgstr ""
+
+#: client/components/users/show/_password.html:15
+msgid "Your Current Password"
+msgstr "Bisheriges Kennwort"
+=======
+#: client/components/locations/show/_dashing.html:42
+msgid "{{ ::stats.splash_views }} this period"
+msgstr ""
+
+#: client/components/main/_history.html:19
+msgid ""
+"{{ ::version.whodunnit || 'Ghost'}} on {{ version.created_at | humanTime}}"
+msgstr ""
+>>>>>>> Stashed changes
+
+#: client/components/apps/_show.html:34
+msgid "{{ app.scopes }}"
+msgstr ""
+
+#: client/components/boxes/payloads/_speedtest_widget.html:8
+msgid ""
+"{{ box.latest_speedtest.result || 0 }}Mb/s\n"
+"        <md-tooltip ng-if=\"box.latest_speedtest.result\">\n"
+"          <translate>\n"
+"            Tested at {{ box.latest_speedtest.timestamp | humanTime }}\n"
+"          </translate>\n"
+"        </md-tooltip>"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:52
+msgid "{{ client_mac }} MCS Value"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:55
+msgid "{{ client_mac }} Total WiFi Usage"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:56
+msgid "{{ client_mac }} Transmission Failures"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:53
+msgid "{{ client_mac }} WiFi Signal"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:54
+msgid "{{ client_mac }} WiFi Traffic"
+msgstr ""
+
+#: client/components/locations/clients/_index.html:144
+msgid "{{ clients.info.connected || 0 }} Connected."
+msgstr ""
+
+<<<<<<< Updated upstream
+#: client/components/users/show/_password.html:23
+msgid "Your New Password"
+msgstr "Neues Kennwort"
+
+#: client/components/locations/access/access-social.html:80
+msgid "Your page: {{ facebook_username }}"
+=======
+#: client/components/users/layouts/location-banner.html:4
+msgid ""
+"{{ location.location_name | titleCase }}. {{ location.full_address | "
+"titleCase }} {{ location.phone1 }}."
+>>>>>>> Stashed changes
+msgstr ""
+
+#: client/components/locations/networks/_index.html:75
+msgid ""
+"{{ network.zones.length}} zone\n"
+"                  <md-tooltip>\n"
+"                    <span ng-repeat=\"n in network.zones\" translate=\"\">\n"
+"                      Name: {{ n.name }}<br>\n"
+"                    </span>\n"
+"                  </md-tooltip>"
+msgid_plural "{{ network.zones.length}} zones"
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/locations/networks/header.html:3
+msgid "{{ network_name | titleCase }} Settings"
+msgstr ""
+
+#: client/components/users/billing/_show.html:45
+msgid "{{ plan.admin_users }} admin users, per location."
+msgstr ""
+
+#: client/components/users/billing/_show.html:39
+msgid ""
+"{{ plan.cost_per_50 / 100 | currency : currency }} monthly for each addition "
+"device added."
+msgstr ""
+
+#: client/components/users/billing/_show.html:25
+msgid "{{ plan.per_ap_allowance }} free devices included."
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:6
+#: client/components/locations/access/access-password.html:6
+#: client/components/locations/access/access-social.html:8
+#: client/components/locations/access/access-vouchers.html:6
+msgid "{{ primarySelected.name }} - Primary Access"
+msgstr ""
+
+#: client/components/locations/clients/_show_code.html:160
+msgid "{{ results.voucher.idle_timeout }} minutes"
+msgstr ""
+
+#: client/components/locations/clients/_show_code.html:152
+msgid "{{ results.voucher.validity_minutes }} minutes"
+msgstr ""
+
+#: client/components/locations/access/access-clickthrough.html:7
+#: client/components/locations/access/access-password.html:7
+#: client/components/locations/access/access-social.html:9
+#: client/components/locations/access/access-vouchers.html:7
+msgid "{{ secondarySelected.name }} - Secondary Access"
+msgstr ""
+
+#: client/components/splash_codes/_show.html:89
+msgid "{{ splash_code.splash_page_id || \"Unnamed Splash\" }}"
+msgstr ""
+
+#: client/components/splash_codes/_show.html:52
+msgid ""
+"{{ splash_code.volume }} mins, {{ splash_code.simultaneous_use }} "
+"simultaneous users"
+msgstr ""
+
+<<<<<<< Updated upstream
 #: client/components/boxes/new/_add.html:52
 #: client/components/locations/boxes/_table.html:49
 #: client/components/locations/networks/_index.html:36
@@ -8562,15 +9870,28 @@ msgstr ""
 #: client/components/users/index/_index.html:54
 msgid "Zone Menu"
 msgstr "Zonen-Menü"
-
-#: client/components/locations/show/_map.html:35
-msgid "Zone: {{ ::box.metadata.zone_name }}"
+=======
+#: client/components/locations/show/_inventory.html:19
+msgid "{{ stats.new }} added this period. {{ stats.active }} existing boxes."
 msgstr ""
 
-#: client/components/locations/locations.controller.js:93
-msgid "Zones"
+#: client/components/reports/_radius_stats.html:47
+msgid ""
+"{{ stats.vouchers.created }} created, {{ stats.vouchers.activated }} used."
+msgstr ""
+>>>>>>> Stashed changes
+
+#: client/components/locations/triggers/_vars.html:32
+msgid "{{ type | titleCase }} tags"
 msgstr ""
 
+#: client/components/users/billing/_index.html:33
+msgid ""
+"{{ user.credit_card_type }} ending {{ user.credit_card_last4 }}. Expires "
+"{{ user.credit_card_expiry }}"
+msgstr ""
+
+<<<<<<< Updated upstream
 #: client/components/networks/_zones.html:20
 msgid "ZONES"
 msgstr ""
@@ -8578,6 +9899,15 @@ msgstr ""
 #: client/components/users/quotas/_index.html:49
 msgid "Zones per location"
 msgstr "Zonen pro Standort"
+=======
+#: client/components/splash_pages/_index.html:63
+msgid "{{'No name' | truncate:20}}"
+msgstr ""
+
+#: client/components/splash_pages/_index.html:62
+msgid "{{splash.splash_name}}"
+msgstr ""
+>>>>>>> Stashed changes
 
 #, fuzzy
 #~ msgid "Developer documentation can be"
