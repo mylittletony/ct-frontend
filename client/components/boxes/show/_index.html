@@ -192,14 +192,6 @@
               <h3 translate>Status</h3>
               <p>
                 {{ box.state | deviceStatus }}
-                <span ng-if="!box.connected && box.state == 'online'">
-                  <md-icon>info_outline</md-icon>
-                  <md-tooltip>
-                    <translate>
-                      Device out of sync.
-                    </translate>
-                  </md-tooltip>
-                </span>
               </p>
             </div>
           </md-list-item>
