@@ -87,7 +87,7 @@ app.filter('humanTime', ['$window', function(window) {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.utc(input*1000).format('MMMM Do YYYY, h:mm:ss a');
+      return window.moment.unix(input).format('MMMM Do YYYY, h:mm:ss a');
     }
   };
 }]);
@@ -107,7 +107,8 @@ app.filter('humanTimeShort', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.utc(input*1000).format('MMM Do, H:mm:ss');
+      var time = moment.unix(input).format('MMM Do, H:mm:ss');
+      return time;
     }
   };
 }]);
@@ -117,7 +118,7 @@ app.filter('humanTimeShortest', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.utc(input*1000).format('MMMM D, H:mm:ss');
+      return window.moment.unix(input).format('MMMM D, H:mm:ss');
     }
   };
 }]);
