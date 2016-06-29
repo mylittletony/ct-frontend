@@ -16,10 +16,16 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()" translate>
-       Cancel
+      <md-button ng-click="cancel()">
+        <translate>
+          Cancel
+        </translate>
       </md-button>
-      <md-button ng-click="runCommand(command)" ng-disabled="!command.upgrade && !command.selected" class="md-raised md-primary">Execute</md-button>
+      <md-button ng-click="runCommand(command)" ng-disabled="!command.upgrade && !command.selected" class="md-raised md-primary">
+        <translate>
+          Execute
+        </translate>
+      </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

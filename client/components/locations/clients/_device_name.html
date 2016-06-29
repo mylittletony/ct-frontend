@@ -19,11 +19,15 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="close()" translate>
-        Close
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
       </md-button>
-      <md-button ng-click="save()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>
-        Save
+      <md-button ng-click="save()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">
+        <translate>
+          Save
+        </translate>
       </md-button>
     </md-dialog-actions>
   </form>

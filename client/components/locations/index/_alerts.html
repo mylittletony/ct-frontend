@@ -7,6 +7,7 @@
         <div class="md-toolbar-tools">
           <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
             <md-icon md-font-icon="search">search</md-icon>
+            <label></label>
             <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
           </md-input-container>
         </div>
@@ -29,7 +30,7 @@
             </md-card-title>
             <md-card-content>
               <md-card-actions layout="row" layout-align="end center">
-                <md-button href="/#/" translate>Back</md-button>
+                <md-button href="/#/"><translate>Back</translate></md-button>
               </md-card-actions>
             </md-card-content>
           </md-card>

@@ -6,8 +6,10 @@
     <p translate>Networks</p>
     <span flex></span>
     <md-menu ng-if="menu">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)" translate>
-        TOOLS
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
+        <translate>
+          TOOLS
+        </translate>
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="item in menu">
@@ -65,7 +67,8 @@
             <md-radio-button value="radius"> 802.1x </md-radio-button>
           </md-radio-group>
           <md-switch ng-disabled="network.vlan_id || !network.dhcp_enabled" class="md-accent" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;">
-            Splash Page {{ network.captive_portal_enabled === true ? 'Enabled' : 'Disabled' }}
+            <span  ng-if="network.captive_portal_enabled == true" translate>Splash Page Enabled</span>
+             <span  ng-if="network.captive_portal_enabled != true" translate>Splash Page Disabled</span>
           </md-switch>
           <small ng-show="network.dhcp_enabled == false"><b translate>Turn on DHCP server to enable the splash page</b></small>
           <small ng-show="network.vlan_id"><b translate>Remove the VLAN ID to enable the splash page</b></small>
@@ -175,10 +178,12 @@
               </div>
             </md-input-container>
             <md-switch ng-disabled="network.captive_portal_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" class="md-accent" ng-model="network.dhcp_enabled" aria-label="{{ 'Enable DHCP' | translate }}" ng-disabled="(network.captive_portal_enabled == true) || (network.network_radio_mode == 'sta')" style="margin-top: -10px">
-              DHCP Server {{ network.dhcp_enabled ? 'Enabled' : 'Disabled' }}
+              <span  ng-if="network.dhcp_enabled == true" translate>DHCP Server Enabled</span>
+              <span  ng-if="network.dhcp_enabled == false" translate>DHCP Server Disabled</span>
             </md-switch>
             <md-switch ng-disabled="network.make_part_of_lan" class="md-accent" ng-model="network.network_radio_mode" aria-label="{{ 'Enable Repeater' | translate }}" ng-false-value="'ap'" ng-true-value="'sta'">
-              Repeater Mode {{ network.network_radio_mode == 'ap' ? 'Disabled' : 'Enabled' }}
+              <span  ng-if="network.network_radio_mode === 'ap'" translate>Repeater Mode Disabled</span>
+              <span  ng-if="network.network_radio_mode !== 'ap'" translate>Repeater Mode Enabled</span>
             </md-switch>
           </div>
         </md-card-content>
@@ -214,6 +219,7 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="40">
+                <label translate>Radius Secret</label>
                 <input ng-focus="showRadPassy8021 = !showRadPassy8021" ng-blur="showRadPassy8021 = !showRadPassy8021" ng-model="network.radius_8021x_secret_1" name="radius_8021x_secret_1" placeholder="{{ 'Radius Secret' | translate }}" type="{{ showRadPassy8021 ? 'text' : 'password' }}" ng-required="network.access_type == 'radius'">
                 <div ng-messages="myForm.radius_8021x_secret_1.$error">
                   <div ng-message="required" translate>Must have a valid password.</div>
@@ -240,6 +246,7 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="40">
+                <label translate>Radius Secret</label>
                 <input ng-focus="showRadPassy8022 = !showRadPassy8022" ng-blur="showRadPassy8022 = !showRadPassy8022" ng-model="network.radius_8021x_secret_2" name="radius_8021x_secret_2" placeholder="{{ 'Radius Secret' | translate }}" type="{{ showRadPassy8022 ? 'text' : 'password' }}">
                 <div ng-messages="myForm.radius_8022x_secret_1.$error">
                   <div ng-message="required" translate>Must have a valid password.</div>
@@ -270,25 +277,32 @@
           <div layout="column" layout-gt-sm="row">
             <div flex-gt-sm="40">
               <md-switch class="md-accent" ng-model="network.ssid_disabled" aria-label="{{ 'Enable Radio' | translate }}" ng-false-value=true ng-true-value=false>
-                SSID {{ network.ssid_disabled ? 'Disabled' : 'Enabled' }}
+                <span  ng-if="network.ssid_disabled == true" translate>SSID Disabled</span>
+                <span  ng-if="network.ssid_disabled == false" translate>SSID Enabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-disabled="network.ssid_disabled" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
-                SSID {{ network.ssid_hidden == true ? 'Hidden' : 'Visible' }}
+                <span  ng-if="network.ssid_hidden == true" translate>SSID Hidden</span>
+                <span  ng-if="network.ssid_hidden == false" translate>SSID Visible</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate" aria-label="{{ 'Isolate SSID' | translate }} ">
-                Client Isolation {{ network.isolate == true ? 'Enabled' : 'Disabled' }}
+                <span  ng-if="network.isolate == true" translate>Client Isolation Enabled</span>
+                <span  ng-if="network.isolate == false" translate>Client Isolation Disabled</span>
               </md-switch>
               <md-switch ng-disabled="network.vlan_id > 0 || network.network_radio_mode === 'sta'" class="md-accent" ng-model="network.make_part_of_lan" aria-label="{{ 'Make Part of LAN' | translate }}">
-                Make Part of Lan {{ network.make_part_of_lan == true ? 'Enabled' : 'Disabled' }}
+                <span  ng-if="network.make_part_of_lan == true" translate>Make Part of Lan Enabled</span>
+                <span  ng-if="network.make_part_of_lan == false" translate>Make Part of Lan Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.bridge_to_switch_ports" aria-label="{{ 'Bridge To Switch' | translate }}">
-                Bridge with Switch {{ network.bridge_to_switch_ports == true ? 'Enabled' : 'Disabled' }}
+                <span  ng-if="network.bridge_to_switch_ports == true" translate> Bridge with Switch Enabled</span>
+                <span  ng-if="network.bridge_to_switch_ports == false" translate> Bridge with Switch Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate_traffic" aria-label="{{ 'Isolate Traffic' | translate }}">
-                Traffic Isolation {{ network.isolate_traffic == true ? 'Enabled' : 'Disabled' }}
+                <span  ng-if="network.isolate_traffic == true" translate>Traffic Isolation Enabled</span>
+                <span  ng-if="network.isolate_traffic == false" translate>Traffic Isolation Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate_icmp" aria-label="{{ 'Isolate ICMP' | translate }}">
-                Outbound ICMP {{ network.isolate_icmp == true ? 'Enabled' : 'Disabled' }}
+                <span  ng-if="network.isolate_icmp == true" translate> Outbound ICMP Enabled</span>
+                <span  ng-if="network.isolate_icmp == false" translate> Outbound ICMP Disabled</span>
               </md-switch>
             </div>
             <div flex></div>
@@ -302,10 +316,14 @@
               <small translate>Available if your access points have two radios.</small>
             </div>
           </div>
-          <small ng-if="network.vlan_id > 0 || network.network_radio_mode === 'sta'"><br><b translate>'Make Part of LAN' disabled because {{ network.vlan_id ? 'you have an active VLAN' : 'repeater mode is activated' }}.</b></small>
+          <small ng-if="network.vlan_id > 0 || network.network_radio_mode === 'sta'"><br>
+            <b>
+              <span ng-if="network.vlan_id == true" translate>'Make Part of LAN' disabled because you have an active VLAN.</span>
+              <span ng-if="network.vlan_id == false" translate>'Make Part of LAN' disabled because repeater mode is activated.</span>
+            </b></small>
         </md-card-content>
       </md-card>
-      <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>Save</md-button>
+      <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
       
       <div class="lock-size" layout="row" layout-align="center center">
         <md-button aria-label="{{ 'menu' | translate }}" ng-hide="myForm.$invalid || myForm.$pristine" ng-click="update(myForm)" class="md-fab md-primary md-fab-bottom-right ">
