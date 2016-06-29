@@ -1,18 +1,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2016-06-16 10:58+0300\n"
-"Last-Translator: Antoaneta Marinova <toni@abv.bg>\n"
+"PO-Revision-Date: 2016-06-29 16:17+0200\n"
+"Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: client/components/locations/boxes/_table.html:102
 msgid ". Static IP: {{ ::box.wan_ipaddr }}"
-msgstr ""
+msgstr ". Statische IPv4-Adresse: {{ ::box.wan_ipaddr }}"
 
 #: client/components/locations/networks/_show.html:322
 msgid "'Make Part of LAN' disabled because repeater mode is activated."
@@ -1716,9 +1718,8 @@ msgstr ""
 #: client/components/users/show/_change_password.html:2
 #: client/components/users/show/_password.html:1
 #: client/components/users/show/_password.html:5
-#, fuzzy
 msgid "Change Password"
-msgstr "Dokumentation"
+msgstr "Kennwort ändern"
 
 #: client/components/networks/networks.directives.js:24
 msgid "Change SSID"
@@ -1729,9 +1730,8 @@ msgid "Change Token"
 msgstr ""
 
 #: client/components/users/show/_password.html:11
-#, fuzzy
 msgid "Change your account password"
-msgstr "Dokumentation"
+msgstr "Kennwort des Kontos ändern"
 
 #: client/components/locations/access/access-password.html:34
 msgid "Change your password automatically &amp; have it emailed it to you."
@@ -1917,26 +1917,22 @@ msgid "Code {{text}} successfully."
 msgstr ""
 
 #: client/components/splash_codes/_show.html:115
-#, fuzzy
 msgid "Code Active"
-msgstr "Einstellungen"
+msgstr "Kode aktiv"
 
 #: client/components/locations/clients/_show_code.html:20
 #: client/components/splash_codes/_show.html:29
-#, fuzzy
 msgid "Code Details"
-msgstr "Einstellungen"
+msgstr "Kode-Details"
 
 #: client/components/splash_codes/_show.html:116
-#, fuzzy
 msgid "Code Disabled"
-msgstr "Einstellungen"
+msgstr "Kode deaktiviert"
 
 #: client/components/splash_codes/splash_codes.directives.js:133
 #: client/components/splash_codes/splash_codes.directives.js:369
-#, fuzzy
 msgid "Code successfully deleted."
-msgstr "Dokumentation"
+msgstr "Kode erfolgreich gelöscht."
 
 #: client/components/locations/locations.controller.js:134
 msgid "Codes"
@@ -2000,9 +1996,8 @@ msgid "Connected:&nbsp;"
 msgstr ""
 
 #: client/components/boxes/payloads/_speedtest_widget.html:3
-#, fuzzy
 msgid "Connection Speed"
-msgstr "Dokumentation"
+msgstr "Verbindungs-Geschwindigkeit"
 
 #: client/components/splash_pages/_menu.html:464
 msgid "Container"
@@ -2025,9 +2020,8 @@ msgid "Cost"
 msgstr ""
 
 #: client/components/users/billing/_plans.html:20
-#, fuzzy
 msgid "Cost per Device"
-msgstr "Einstellungen"
+msgstr "Kosten pro Gerät"
 
 #: client/components/boxes/boxes.directives.js:292
 msgid "Could not delete box"
@@ -2055,9 +2049,8 @@ msgid "Country"
 msgstr ""
 
 #: client/components/users/users.directives.js:171
-#, fuzzy
 msgid "Coupon added successfully."
-msgstr "Dokumentation"
+msgstr "Coupon erfolgreich hinzugefügt."
 
 #: client/components/users/billing/_coupon.html:14
 msgid "Coupon Code"
@@ -2084,9 +2077,8 @@ msgid "CREATE"
 msgstr ""
 
 #: client/components/locations/new/_index.html:22
-#, fuzzy
 msgid "Create a New Location"
-msgstr "Dokumentation"
+msgstr "Neuen Standort hinzufügen"
 
 #: client/components/splash_pages/_form.html:59
 #, fuzzy
@@ -2110,19 +2102,16 @@ msgid "Create as many locations or networks as you need."
 msgstr ""
 
 #: client/components/networks/_create.html:1
-#, fuzzy
 msgid "Create Network"
-msgstr "Dokumentation"
+msgstr "Netzwerk/SSID hinzufügen"
 
 #: client/components/networks/_create.html:5
-#, fuzzy
 msgid "Create New Network"
-msgstr "Dokumentation"
+msgstr "Neues Netzwerk/SSID hinzufügen"
 
 #: client/components/splash_codes/_edit.html:37
-#, fuzzy
 msgid "Create New Password"
-msgstr "Dokumentation"
+msgstr "Kennwort ändern"
 
 #: client/components/splash_pages/_store_product.html:5
 #, fuzzy
@@ -2142,9 +2131,8 @@ msgid "CREATE SPLASH"
 msgstr ""
 
 #: client/components/networks/_create.html:11
-#, fuzzy
 msgid "Create up to 16 networks per location."
-msgstr "Dokumentation"
+msgstr "Erstelle bis zu 16 Netzwerke/SSIDs pro Standort."
 
 #: client/components/boxes/payloads/_index.html:43
 #: client/components/boxes/show/_index.html:283
@@ -2227,9 +2215,8 @@ msgid "Currency"
 msgstr ""
 
 #: client/components/users/show/_password.html:14
-#, fuzzy
 msgid "Current Password"
-msgstr "Dokumentation"
+msgstr "Bisheriges Kennwort"
 
 #: client/components/locations/clients/_show.html:97
 msgid "Current Username"
@@ -2335,9 +2322,8 @@ msgstr ""
 #: client/components/splash_codes/splash_codes.directives.js:112
 #: client/components/splash_codes/splash_codes.directives.js:355
 #: client/components/splash_codes/splash_codes.directives.js:357
-#, fuzzy
 msgid "Delete Code"
-msgstr "Einstellungen"
+msgstr "Kode löschen"
 
 #: client/components/locations/boxes/_table.html:28
 msgid "Delete Devices"
@@ -2359,9 +2345,8 @@ msgstr ""
 #: client/components/networks/networks.directives.js:30
 #: client/components/networks/networks.directives.js:350
 #: client/components/networks/networks.directives.js:352
-#, fuzzy
 msgid "Delete Network"
-msgstr "Dokumentation"
+msgstr "Netzwerk/SSID löschen"
 
 #: client/components/boxes/payloads/_index.html:54
 msgid "delete payload"
@@ -2468,9 +2453,8 @@ msgstr "Entwickler"
 
 #: client/components/reports/_radius.html:26
 #: client/components/reports/_wireless.html:24
-#, fuzzy
 msgid "Device"
-msgstr "Einstellungen"
+msgstr "Gerät"
 
 #: client/components/users/alerts/_index.html:36
 msgid "Device Alerts Disabled"
@@ -2485,24 +2469,20 @@ msgid "Device description updated."
 msgstr ""
 
 #: client/components/codes/_table.html:9
-#, fuzzy
 msgid "Device Mac"
-msgstr "Einstellungen"
+msgstr "Geräte-MAC-Adresse"
 
 #: client/components/locations/clients/_show.html:60
-#, fuzzy
 msgid "Device Name"
-msgstr "Einstellungen"
+msgstr "Geräte-Name"
 
 #: client/components/boxes/boxes.filters.js:73
-#, fuzzy
 msgid "Device offline"
-msgstr "Einstellungen"
+msgstr "Geräte Offline"
 
 #: client/components/boxes/boxes.filters.js:67
-#, fuzzy
 msgid "Device online"
-msgstr "Einstellungen"
+msgstr "Geräte Online"
 
 #: client/components/boxes/payloads/_index.html:23
 msgid "Device Payloads"
@@ -2518,23 +2498,20 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:36
 #: client/components/locations/settings/_devices.html:14
-#, fuzzy
 msgid "Device Settings"
-msgstr "Einstellungen"
+msgstr "Geräte-Einstellungen"
 
 #: client/components/charts/charts.directives.js:453
 msgid "Device Traffic (Mbps)"
 msgstr ""
 
 #: client/components/boxes/show/_non_ps.html:45
-#, fuzzy
 msgid "Device Type"
-msgstr "Einstellungen"
+msgstr "Geräte-Typ"
 
 #: client/components/boxes/boxes.filters.js:76
-#, fuzzy
 msgid "Device upgrading"
-msgstr "Einstellungen"
+msgstr "Gerät aktualisieren"
 
 #: client/components/charts/clients/_client_usage_chart.html:4
 #, fuzzy
@@ -2542,21 +2519,18 @@ msgid "Device Usage"
 msgstr "Einstellungen"
 
 #: client/components/locations/locations.directives.js:1087
-#, fuzzy
 msgid "device zone"
-msgstr "Einstellungen"
+msgstr "Geräte-Zone"
 
 #: client/components/locations/locations.directives.js:1084
-#, fuzzy
 msgid "device zones"
-msgstr "Einstellungen"
+msgstr "Geräte-Zonen"
 
 #: client/components/locations/index/_list.html:65
 #: client/components/locations/locations.controller.js:69
 #: client/components/locations/locations.directives.js:1434
-#, fuzzy
 msgid "Devices"
-msgstr "Einstellungen"
+msgstr "Geräte"
 
 #: client/components/boxes/new/_add.html:85
 msgid "Devices Discovered"
@@ -2697,14 +2671,12 @@ msgid "download"
 msgstr "Downloads"
 
 #: client/components/boxes/firmware/_download_firmware.html:13
-#, fuzzy
 msgid "Download"
-msgstr "Downloads"
+msgstr "Heruntergeladene Dateien"
 
 #: client/components/boxes/firmware/index.html:4
-#, fuzzy
 msgid "Download Firmware"
-msgstr "Downloads"
+msgstr "Firmware herunterladen"
 
 #: client/components/splash_codes/_edit.html:93
 msgid "Download Speed ({{(code.download_speed / 1024) | number:0 }}Mbps)"
@@ -2715,9 +2687,8 @@ msgid "Download Speed {{ (product.download_speed / 1024) | number }}Mbps"
 msgstr ""
 
 #: client/components/downloads/index.html:7
-#, fuzzy
 msgid "Download the Firmware"
-msgstr "Downloads"
+msgstr "Herunterladen der Firmware"
 
 #: client/components/boxes/firmware/_download_firmware.html:2
 msgid ""
@@ -2745,9 +2716,8 @@ msgid "Duplicated"
 msgstr ""
 
 #: client/components/codes/_table.html:6
-#, fuzzy
 msgid "Duration"
-msgstr "Dokumentation"
+msgstr "Dauer"
 
 #: client/components/locations/triggers/_vars.html:8
 msgid "Dynamic Variables"
@@ -2771,14 +2741,12 @@ msgid "Edit Banner URL"
 msgstr ""
 
 #: client/components/locations/show/header.html:35
-#, fuzzy
 msgid "Edit details"
-msgstr "Einstellungen"
+msgstr "Details ändern"
 
 #: client/components/locations/clients/_device_name.html:1
-#, fuzzy
 msgid "Edit Device Name"
-msgstr "Einstellungen"
+msgstr "Geräte-Namen ändern"
 
 #: client/components/locations/boxes/zones.html:5
 msgid "Edit Device Zones"
@@ -2789,9 +2757,8 @@ msgid "Edit Logo URL"
 msgstr ""
 
 #: client/components/networks/networks.directives.js:18
-#, fuzzy
 msgid "Edit Settings"
-msgstr "Einstellungen"
+msgstr "Einstellungen ändern"
 
 #: client/components/locations/boxes/_table.html:16
 #: client/components/locations/locations.directives.js:716
@@ -2816,14 +2783,12 @@ msgid "EMAIL"
 msgstr ""
 
 #: client/components/users/show/_index.html:82
-#, fuzzy
 msgid "Email address"
-msgstr "Dokumentation"
+msgstr "Email-Adresse"
 
 #: client/components/users/show/_index.html:81
-#, fuzzy
 msgid "Email Address"
-msgstr "Dokumentation"
+msgstr "Email-Adresse"
 
 #: client/components/splash_pages/access-social.html:26
 msgid "Email Backup"
@@ -2846,9 +2811,8 @@ msgid "Email Selected Invoices"
 msgstr ""
 
 #: client/components/users/branding/_form.html:87
-#, fuzzy
 msgid "Email Settings"
-msgstr "Einstellungen"
+msgstr "Email-Einstellungen"
 
 #: client/components/locations/triggers/show-email.html:25
 msgid "Email Subject"
@@ -3077,28 +3041,24 @@ msgid "EURO"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:28
-#, fuzzy
 msgid "Event"
-msgstr "Einstellungen"
+msgstr "Ereignis"
 
 #: client/components/events/show.html:8
-#, fuzzy
 msgid "Event Details"
-msgstr "Einstellungen"
+msgstr "Ereignis-Details"
 
 #: client/components/events/_index.html:12
-#, fuzzy
 msgid "Event Type"
-msgstr "Einstellungen"
+msgstr "Ereignis-Typ"
 
 #: client/components/locations/show/_warnings.html:27
 msgid "events"
 msgstr ""
 
-#: client/components/locations/locations.controller.js:260
-#, fuzzy
+#: client/components/locations/locations.controller.js:259
 msgid "Events"
-msgstr "Einstellungen"
+msgstr "Ereignisse"
 
 #: client/components/locations/boxes/dialog.html:25
 msgid "Execute"
@@ -3115,9 +3075,8 @@ msgid "Expected Tput"
 msgstr ""
 
 #: client/components/users/billing/_card.html:22
-#, fuzzy
 msgid "Expiration"
-msgstr "Dokumentation"
+msgstr "Ablaufdatum"
 
 #: client/components/splash_codes/_edit.html:110
 #: client/components/splash_codes/_edit.html:111
@@ -3222,46 +3181,23 @@ msgstr ""
 msgid "Field Label"
 msgstr ""
 
-#: client/components/splash_pages/_form_designer.html:31
-#, fuzzy
-msgid "Field Name"
-msgstr "Einstellungen"
-
-#: client/components/splash_pages/_form_designer.html:24
-#, fuzzy
-msgid "Field Settings"
-msgstr "Einstellungen"
-
-#: client/components/splash_pages/_form_designer.html:53
-#, fuzzy
-msgid "Field Type"
-msgstr "Einstellungen"
-
-#: client/components/locations/clients/_index.html:6
-msgid "Filter Clients"
-msgstr ""
-
 #: client/components/splash_codes/_index.html:5
-#, fuzzy
 msgid "Filter Codes"
-msgstr "Einstellungen"
+msgstr "Nach Kode suchen"
 
-#: client/components/locations/index/_alerts.html:11
-#: client/components/locations/show/_index.html:6
+#: client/components/locations/index/_alerts.html:10
+#: client/components/locations/show/_index.html:5
 #: client/components/locations/show/_map.html:5
-#, fuzzy
 msgid "Filter Devices"
-msgstr "Einstellungen"
+msgstr "Nach Gerät suchen"
 
-#: client/components/locations/index/_list.html:12
-#, fuzzy
+#: client/components/locations/index/_list.html:11
 msgid "Filter Locations"
-msgstr "Dokumentation"
+msgstr "Nach Standort suchen"
 
-#: client/components/locations/networks/_index.html:6
-#, fuzzy
+#: client/components/locations/networks/_index.html:5
 msgid "Filter Networks"
-msgstr "Dokumentation"
+msgstr "Nach Netzwerk/SSID suchen"
 
 #: client/components/splash_pages/_index.html:5
 #, fuzzy
@@ -3273,18 +3209,16 @@ msgid "Filter this client"
 msgstr ""
 
 #: client/components/users/index/_index.html:6
-#, fuzzy
 msgid "Filter Users"
-msgstr "Einstellungen"
+msgstr "Nach Benutzer suchen"
 
 #: client/components/splash_pages/_menu.html:604
 msgid "Fine tune your layouts"
 msgstr ""
 
 #: client/components/locations/show/new-location.html:6
-#, fuzzy
 msgid "Finish My Location"
-msgstr "Dokumentation"
+msgstr "Standort anlegen"
 
 #: client/components/boxes/firmware/_upgrade_firmware_dialog.html:10
 msgid "Firmware Upgrade"
@@ -3307,9 +3241,8 @@ msgid "First and Last Name"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:113
-#, fuzzy
 msgid "First connects"
-msgstr "Dokumentation"
+msgstr "Erstmals verbunden"
 
 #: client/components/locations/triggers/channel-mailchimp.html:33
 msgid "First name"
@@ -3434,15 +3367,12 @@ msgstr ""
 
 #: client/components/locations/triggers/list.html:22
 #: client/components/splash_codes/_index.html:26
-#: client/components/splash_pages/_index.html:26
-#, fuzzy
 msgid "Get Started"
-msgstr "Einstellungen"
+msgstr "Los geht's"
 
 #: client/components/boxes/show/_index.html:168
-#, fuzzy
 msgid "getting started"
-msgstr "Einstellungen"
+msgstr "beginnen"
 
 #: client/components/registrations/_create.html:34
 msgid "Getting started only takes a moment."
@@ -3672,9 +3602,8 @@ msgstr ""
 
 #: client/components/users/billing/_plans.html:21
 #: client/components/users/billing/_show.html:23
-#, fuzzy
 msgid "Included Devices"
-msgstr "Einstellungen"
+msgstr "Enthaltene Geräte"
 
 #: client/components/locations/triggers/list.html:49
 msgid "Info"
@@ -3696,9 +3625,8 @@ msgstr ""
 #: client/components/users/integrations/_integrations.html:6
 #: client/components/users/layouts/sidebar.html:4
 #: client/components/users/users.controllers.js:68
-#, fuzzy
 msgid "Integrations"
-msgstr "Dokumentation"
+msgstr "Integrationen"
 
 #: client/components/locations/networks/_show.html:91
 msgid "interface ip"
@@ -3750,9 +3678,8 @@ msgid "INVENTORY"
 msgstr ""
 
 #: client/components/users/inventories/_index.html:6
-#, fuzzy
 msgid "Inventory Details"
-msgstr "Einstellungen"
+msgstr "Inventar-Details"
 
 #: client/components/locations/users/_invite.html:37
 msgid "invite"
@@ -3780,21 +3707,18 @@ msgid "INVOICE"
 msgstr ""
 
 #: client/components/users/invoices/_details.html:52
-#, fuzzy
 msgid "Invoice Date"
-msgstr "Einstellungen"
+msgstr "Rechnungs-Datum"
 
 #: client/components/users/invoices/_details.html:43
-#, fuzzy
 msgid "Invoice Details"
-msgstr "Einstellungen"
+msgstr "Rechnungs-Details"
 
 #: client/components/users/invoices/_index.html:20
 #: client/components/users/invoices/_index.html:6
 #: client/components/users/users.controllers.js:58
-#, fuzzy
 msgid "Invoices"
-msgstr "Einstellungen"
+msgstr "Rechnungen"
 
 #: client/components/users/users.directives.js:380
 msgid "Invoices sent to all billing emails."
@@ -3809,10 +3733,9 @@ msgstr ""
 msgid "IP Address"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:82
-#, fuzzy
+#: client/components/locations/networks/_show.html:79
 msgid "IP Settings"
-msgstr "Einstellungen"
+msgstr "IPv4-Einstellungen"
 
 #: client/components/networks/networks.directives.js:512
 #: client/components/networks/networks.directives.js:514
@@ -3993,34 +3916,29 @@ msgstr ""
 #: client/components/locations/locations.controller.js:192
 #: client/components/reports/_radius.html:25
 #: client/components/users/inventories/_index.html:52
-#, fuzzy
 msgid "Location"
-msgstr "Dokumentation"
+msgstr "Standort"
 
 #: client/components/locations/locations.directives.js:24
 msgid "Location {{val}} favourites."
 msgstr ""
 
 #: client/components/locations/new/_index.html:43
-#, fuzzy
 msgid "Location Address"
-msgstr "Dokumentation"
+msgstr "Standort-Adresse"
 
 #: client/components/locations/layouts/location-banner.html:7
 #: client/components/users/layouts/location-banner.html:6
-#, fuzzy
 msgid "Location Archived"
-msgstr "Dokumentation"
+msgstr "Standort archiviert"
 
 #: client/components/locations/new/_index.html:53
-#, fuzzy
 msgid "Location City"
-msgstr "Dokumentation"
+msgstr "Standort-Ort"
 
 #: client/components/locations/layouts/sidebar-v2.html---.html:1
-#, fuzzy
 msgid "Location Details"
-msgstr "Einstellungen"
+msgstr "Standort-Details"
 
 #: client/components/splash_pages/_menu.html:150
 #, fuzzy
@@ -4039,15 +3957,13 @@ msgstr "Dokumentation"
 
 #: client/components/locations/show/edit-modal.html:16
 #: client/components/locations/show/edit-modal.html:17
-#, fuzzy
 msgid "Location name"
-msgstr "Dokumentation"
+msgstr "Standort-Name"
 
 #: client/components/locations/new/_index.html:34
 #: client/components/locations/settings/_main.html:80
-#, fuzzy
 msgid "Location Name"
-msgstr "Dokumentation"
+msgstr "Standort-Name"
 
 #: client/components/locations/locations.directives.js:1826
 msgid "Location removed from favourites."
@@ -4058,9 +3974,8 @@ msgid "Location Splash Limit"
 msgstr ""
 
 #: client/components/locations/locations.directives.js:1524
-#, fuzzy
 msgid "Location successfully archived."
-msgstr "Dokumentation"
+msgstr "Standort erfolgreich archiviert."
 
 #: client/components/locations/locations.directives.js:422
 msgid "Location successfully created."
@@ -4080,9 +3995,8 @@ msgstr ""
 #: client/components/users/layouts/sidebar.html:7
 #: client/components/users/locations/index.html:15
 #: client/components/users/quotas/_index.html:29
-#, fuzzy
 msgid "Locations"
-msgstr "Dokumentation"
+msgstr "Standorte"
 
 #: client/components/locations/triggers/_new.html:258
 msgid "Logged in"
@@ -4127,9 +4041,8 @@ msgid "LOGOUT ALL"
 msgstr ""
 
 #: client/components/users/users.directives.js:644
-#, fuzzy
 msgid "Logout?"
-msgstr "Abmelden"
+msgstr "Abmelden?"
 
 #: client/components/locations/triggers/triggers.directives.js:50
 #: client/components/locations/triggers/triggers.directives.js:506
@@ -4147,9 +4060,8 @@ msgid ""
 msgstr ""
 
 #: client/components/heartbeats/heartbeats.filters.js:20
-#, fuzzy
 msgid "Lost Connection"
-msgstr "Dokumentation"
+msgstr "Verbindung verloren"
 
 #: client/components/heartbeats/heartbeats.filters.js:20
 msgid "Lost Power"
@@ -4193,9 +4105,8 @@ msgid "MAC is required."
 msgstr ""
 
 #: client/components/firmwares/_index.html:23
-#, fuzzy
 msgid "Machine Type"
-msgstr "Einstellungen"
+msgstr "Geräte-Typ"
 
 #: client/components/locations/triggers/triggers.directives.js:380
 msgid "MailChimp isn't setup yet. Do that first and come back."
@@ -4234,10 +4145,9 @@ msgstr ""
 msgid "Manage and monitor all your device remotely."
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:160
-#, fuzzy
+#: client/components/locations/settings/_devices.html:159
 msgid "Management IP"
-msgstr "WiFi-Management-Plattform"
+msgstr "Management-IPv4-Adresse"
 
 #: client/components/codes/_table.html:11
 #: client/components/locations/clients/_columns_filter.html:95
@@ -4259,14 +4169,12 @@ msgid "Map"
 msgstr ""
 
 #: client/components/locations/triggers/_new.html:104
-#, fuzzy
 msgid "Marked offline"
-msgstr "Einstellungen"
+msgstr "Offline markiert"
 
 #: client/components/locations/triggers/_new.html:99
-#, fuzzy
 msgid "Marked online"
-msgstr "Einstellungen"
+msgstr "Online markiert"
 
 #: client/components/users/billing/_billing.html:33
 msgid "Max 10 characters"
@@ -4825,25 +4733,21 @@ msgstr ""
 msgid "Netmask"
 msgstr ""
 
-#: client/components/locations/networks/_index.html:33
-#: client/components/splash_pages/_index.html:50
-#, fuzzy
+#: client/components/locations/networks/_index.html:32
 msgid "Network"
-msgstr "Einstellungen"
+msgstr "Netzwerk/SSID"
 
 #: client/components/registrations/_flow.html:35
-#, fuzzy
 msgid "Network Address"
-msgstr "Einstellungen"
+msgstr "Netzwerk-IPv4-Adresse"
 
 #: client/components/networks/networks.directives.js:211
 msgid "Network created successfully"
 msgstr ""
 
-#: client/components/boxes/show/_index.html:217
-#, fuzzy
+#: client/components/boxes/show/_index.html:225
 msgid "Network Details"
-msgstr "Einstellungen"
+msgstr "Netzwerk-Details"
 
 #: client/components/splash_pages/_networks.html:20
 #, fuzzy
@@ -4854,47 +4758,39 @@ msgstr "Einstellungen"
 #: client/components/locations/settings/_main.html:54
 #: client/components/registrations/_flow.html:103
 #: client/components/users/branding/_form.html:150
-#, fuzzy
 msgid "Network Location"
-msgstr "Dokumentation"
+msgstr "Netzwerk-Standort"
 
-#: client/components/locations/networks/_show.html:157
-#, fuzzy
+#: client/components/locations/networks/_show.html:154
 msgid "Network Metric"
-msgstr "Einstellungen"
+msgstr "Netzwerk-Metrik"
 
 #: client/components/registrations/_flow.html:25
 #: client/components/registrations/_flow.html:98
-#, fuzzy
 msgid "Network Name"
-msgstr "Einstellungen"
+msgstr "Netzwerk-Name"
 
 #: client/components/boxes/edit/_edit.html:246
-#: client/components/locations/networks/_show.html:34
-#, fuzzy
+#: client/components/locations/networks/_show.html:32
 msgid "Network Settings"
-msgstr "Einstellungen"
+msgstr "Netzwerk/SSID-Einstellungen"
 
-#: client/components/locations/networks/_show.html:43
-#, fuzzy
+#: client/components/locations/networks/_show.html:41
 msgid "Network SSID"
-msgstr "Einstellungen"
+msgstr "Netzwerk-SSID"
 
 #: client/components/locations/show/_dashing.html:4
-#, fuzzy
 msgid "Network Stats"
-msgstr "Einstellungen"
+msgstr "Netzwerk/SSID-Statistiken"
 
 #: client/components/networks/networks.directives.js:145
 #: client/components/networks/networks.directives.js:364
-#, fuzzy
 msgid "Network successfully deleted."
-msgstr "Dokumentation"
+msgstr "Netzwerk/SSID erfolgreich gelöscht."
 
 #: client/components/networks/networks.directives.js:403
-#, fuzzy
 msgid "Network successfully updated."
-msgstr "Dokumentation"
+msgstr "Netzwerk/SSID erfolgreich geändert."
 
 #: client/components/audit/social/_index.html:56
 #: client/components/locations/locations.controller.js:77
@@ -4925,9 +4821,8 @@ msgid "New Boxes"
 msgstr ""
 
 #: client/components/reports/_wireless_stats.html:16
-#, fuzzy
 msgid "New Clients"
-msgstr "Einstellungen"
+msgstr "Neue Stationen"
 
 #: client/components/boxes/boxes.filters.js:79
 msgid "New device"
@@ -4947,9 +4842,8 @@ msgid "New SSID"
 msgstr "Einstellungen"
 
 #: client/components/users/billing/_add_coupon.html:22
-#, fuzzy
 msgid "No active coupons found."
-msgstr "Dokumentation"
+msgstr "Keine aktiven Coupons gefunden."
 
 #: client/components/users/billing/_index.html:30
 msgid "No card available"
@@ -4960,9 +4854,8 @@ msgid "No codes found"
 msgstr ""
 
 #: client/components/users/inventories/_index.html:17
-#, fuzzy
 msgid "No devices added"
-msgstr "Einstellungen"
+msgstr "Keine Geräte hinzugefügt."
 
 #: client/components/boxes/new/_add.html:136
 msgid "No Devices Discovered"
@@ -4989,10 +4882,9 @@ msgstr ""
 msgid "No Internet."
 msgstr ""
 
-#: client/components/locations/index/_list.html:27
-#, fuzzy
+#: client/components/locations/index/_list.html:26
 msgid "No Locations Found"
-msgstr "Dokumentation"
+msgstr "Keine Standorte gefunden."
 
 #: client/components/locations/access/access-password.html:26
 msgid "No more that 12 letters please."
@@ -5031,9 +4923,8 @@ msgid "No sessions found for this date range."
 msgstr ""
 
 #: client/components/locations/show/_warnings.html:14
-#, fuzzy
 msgid "No warnings found."
-msgstr "Dokumentation"
+msgstr "Keine Warnungen gefunden."
 
 #: client/components/locations/show/_map.html:36
 msgid "No zone"
@@ -5079,16 +4970,14 @@ msgstr ""
 
 #: client/components/locations/settings/_notifications.html:10
 #: client/components/users/alerts/_index.html:20
-#, fuzzy
 msgid "Notification Settings"
-msgstr "Einstellungen"
+msgstr "Benachrichtigungs-Einstellungen"
 
 #: client/components/locations/locations.directives.js:1428
 #: client/components/users/alerts/_index.html:7
 #: client/components/users/users.controllers.js:83
-#, fuzzy
 msgid "Notifications"
-msgstr "Einstellungen"
+msgstr "Benachrichtigungen"
 
 #: client/components/locations/triggers/_new.html:367
 msgid "Notify Slack"
@@ -5179,9 +5068,8 @@ msgstr ""
 
 #: client/components/locations/networks/_show.html:66
 #: client/components/networks/_create.html:51
-#, fuzzy
 msgid "Open"
-msgstr "Öffne Menü"
+msgstr "Öffnen"
 
 #: client/index.html:75
 msgid "Open Apps Menu"
@@ -5191,20 +5079,17 @@ msgstr "Öffne App-Menü"
 #: client/components/codes/_index.html:74
 #: client/components/locations/boxes/_table.html:110
 #: client/components/locations/boxes/_table.html:9
-#, fuzzy
 msgid "Open Boxes Menu"
-msgstr "Öffne App-Menü"
+msgstr "Öffne Geräte-Menü"
 
 #: client/components/locations/clients/_index.html:296
 #: client/components/locations/users/_index.html:65
-#, fuzzy
 msgid "Open Clients Menu"
-msgstr "Öffne App-Menü"
+msgstr "Öffne Stationen-Menü"
 
 #: client/components/locations/clients/codes.html:59
-#, fuzzy
 msgid "Open Codes Menu"
-msgstr "Öffne App-Menü"
+msgstr "Öffne Kode-Menü"
 
 #: client/components/events/_index.html:47
 #: client/components/locations/index/_alerts.html:96
@@ -5215,18 +5100,16 @@ msgstr "Öffne App-Menü"
 msgid "Open Menu"
 msgstr "Öffne Menü"
 
-#: client/components/locations/networks/_index.html:91
-#, fuzzy
+#: client/components/locations/networks/_index.html:90
 msgid "Open Networks Menu"
-msgstr "Öffne App-Menü"
+msgstr "Öffne Netzwerk/SSID-Menü"
 
 #: client/components/audit/emails/_index.html:85
 #: client/components/audit/guests/_index.html:67
 #: client/components/audit/social/_index.html:87
 #: client/components/codes/_table.html:56
-#, fuzzy
 msgid "Open sessions menu"
-msgstr "Öffne App-Menü"
+msgstr "Öffne Sitzungs-Menü"
 
 #: client/components/boxes/show/_index.html:38
 #: client/components/locations/clients/_toolbar.html:2
@@ -5371,9 +5254,8 @@ msgid "Password Settings"
 msgstr "Einstellungen"
 
 #: client/components/users/users.directives.js:704
-#, fuzzy
 msgid "Password successfully updated."
-msgstr "Dokumentation"
+msgstr "Kennwort erfolgreich geändert."
 
 #: client/components/boxes/boxes.directives.js:623
 msgid "Payload completed!"
@@ -5436,9 +5318,8 @@ msgid "Plan Description"
 msgstr ""
 
 #: client/components/users/billing/_show.html:5
-#, fuzzy
 msgid "Plan Details"
-msgstr "Einstellungen"
+msgstr "Tarif-Details"
 
 #: client/components/users/billing/_index.html:42
 msgid "Plan."
@@ -5448,10 +5329,9 @@ msgstr ""
 msgid "Plans"
 msgstr ""
 
-#: client/components/locations/show/_index.html:54
-#, fuzzy
+#: client/components/locations/show/_index.html:53
 msgid "Please Add a Device"
-msgstr "Einstellungen"
+msgstr "Gerät hinzufügen"
 
 #: client/components/locations/locations.directives.js:857
 msgid "Please becareful, this cannot be reversed."
@@ -5613,9 +5493,8 @@ msgid "Posting to {{ trigger.custom_1 || 'unknown'}}"
 msgstr ""
 
 #: client/components/users/billing/_show.html:54
-#, fuzzy
 msgid "Premium Support"
-msgstr "Support"
+msgstr "Premium-Support"
 
 #: client/components/locations/settings/_notifications.html:27
 msgid "Press delete to remove email"
@@ -5666,9 +5545,8 @@ msgid "Profile"
 msgstr ""
 
 #: client/components/users/show/_index.html:63
-#, fuzzy
 msgid "Profile Settings"
-msgstr "Einstellungen"
+msgstr "Profil-Einstellungen"
 
 #: client/components/boxes/edit/_edit.html:221
 msgid "Protocol"
@@ -5685,19 +5563,16 @@ msgid "Public"
 msgstr ""
 
 #: client/components/locations/access/access-header.html:1
-#, fuzzy
 msgid "Public Access Settings"
-msgstr "Einstellungen"
+msgstr "Einstellungen für öffentlichen Zugriff"
 
 #: client/components/boxes/show/_index.html:230
 msgid "Public IP"
 msgstr ""
 
 #: client/components/locations/settings/_main.html:124
-#: client/components/locations/settings/_main.html:125
-#, fuzzy
 msgid "Public Location"
-msgstr "Dokumentation"
+msgstr "Öffentlicher Standort"
 
 #: client/components/locations/triggers/_new.html:284
 msgid "Purchase"
@@ -5734,11 +5609,10 @@ msgstr ""
 msgid "Radius Configuration"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:214
-#: client/components/locations/networks/_show.html:241
-#, fuzzy
+#: client/components/locations/networks/_show.html:209
+#: client/components/locations/networks/_show.html:235
 msgid "Radius Host"
-msgstr "Einstellungen"
+msgstr "RADIUS-Server"
 
 #: client/components/boxes/edit/_edit.html:338
 #: client/components/boxes/show/_non_ps.html:32
@@ -5750,11 +5624,10 @@ msgstr ""
 msgid "Radius NAS ID is required"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:231
-#: client/components/locations/networks/_show.html:258
-#, fuzzy
+#: client/components/locations/networks/_show.html:225
+#: client/components/locations/networks/_show.html:251
 msgid "Radius Port"
-msgstr "Einstellungen"
+msgstr "RADIUS-Port"
 
 #: client/components/boxes/edit/_edit.html:349
 #: client/components/boxes/show/_non_ps.html:40
@@ -5766,34 +5639,28 @@ msgid "Radius Secret"
 msgstr ""
 
 #: client/components/reports/reports.v2.directives.js:615
-#, fuzzy
 msgid "Radius Sessions"
-msgstr "Einstellungen"
+msgstr "RADIUS-Sitzungen"
 
 #: client/components/boxes/edit/_edit.html:332
-#, fuzzy
 msgid "Radius Settings"
-msgstr "Einstellungen"
+msgstr "RADIUS-Einstellungen"
 
 #: client/components/reports/reports.v2.directives.js:193
-#, fuzzy
 msgid "Radius Stats"
-msgstr "Einstellungen"
+msgstr "RADIUS-Statistiken"
 
 #: client/components/networks/_radtest.html:1
-#, fuzzy
 msgid "Radius Test"
-msgstr "Einstellungen"
+msgstr "RADIUS-Test"
 
 #: client/components/reports/reports.v2.directives.js:612
-#, fuzzy
 msgid "Radius Uniques"
-msgstr "Einstellungen"
+msgstr "Eindeutige RADIUS-Authentifizierungen"
 
 #: client/components/reports/reports.v2.directives.js:606
-#, fuzzy
 msgid "Radius Usage"
-msgstr "Einstellungen"
+msgstr "RADIUS-Verwendung"
 
 #: client/components/locations/clients/_show_code.html:64
 msgid "Randomly Generated"
@@ -5837,9 +5704,8 @@ msgid ""
 msgstr ""
 
 #: client/components/users/sessions/_index.html:20
-#, fuzzy
 msgid "Recent Sessions"
-msgstr "Diskussionen"
+msgstr "Letzte Sitzungen"
 
 #: client/components/splash_pages/access-password.html:38
 msgid "Recipient email required when using auto change."
@@ -5890,9 +5756,8 @@ msgid "Remove From Favourites?"
 msgstr ""
 
 #: client/components/locations/locations.directives.js:1802
-#, fuzzy
 msgid "Remove Location"
-msgstr "Dokumentation"
+msgstr "Standort löschen"
 
 #: client/components/locations/networks/_show.html:74
 msgid "Remove the VLAN ID to enable the splash page"
@@ -6038,15 +5903,9 @@ msgstr ""
 msgid "Revoke Twillio"
 msgstr ""
 
-#: client/components/splash_pages/_menu.html:108
-#: client/components/splash_pages/_menu.html:494
-msgid "Right"
-msgstr ""
-
-#: client/components/locations/settings/_devices.html:64
-#, fuzzy
+#: client/components/locations/settings/_devices.html:63
 msgid "Ruckus vSZ Settings"
-msgstr "Einstellungen"
+msgstr "RUCKUS vSZ-Einstellungen"
 
 #: client/components/payloads/_run_payload.html:10
 msgid "RUN"
@@ -6076,9 +5935,8 @@ msgid "Run Payload"
 msgstr ""
 
 #: client/components/networks/_radtest.html:4
-#, fuzzy
 msgid "Run Radius Tests"
-msgstr "Einstellungen"
+msgstr "Starte RADIUS-Test"
 
 #: client/components/boxes/payloads/_payloads_mass.html:5
 msgid "Run the command"
@@ -6300,9 +6158,8 @@ msgid "Send triggers when your networks cause an event."
 msgstr ""
 
 #: client/components/users/branding/_form.html:109
-#, fuzzy
 msgid "Sender Name"
-msgstr "Einstellungen"
+msgstr "Name des Absenders"
 
 #: client/components/codes/_index.html:43
 msgid "Serial"
@@ -6325,9 +6182,8 @@ msgstr ""
 #: client/components/reports/_radius_timeline.html:19
 #: client/components/splash_codes/splash_codes.directives.js:304
 #: client/components/splash_codes/splash_codes.directives.js:74
-#, fuzzy
 msgid "Sessions"
-msgstr "Diskussionen"
+msgstr "Sitzungen"
 
 #: client/components/apps/_index.html:3 client/components/apps/_new.html:3
 #: client/components/apps/_show.html:3
@@ -6552,9 +6408,8 @@ msgstr ""
 #: client/components/splash_codes/_edit.html:6
 #: client/components/splash_codes/_index.html:10
 #: client/components/splash_codes/_show.html:6
-#, fuzzy
 msgid "Splash Codes"
-msgstr "Einstellungen"
+msgstr "Gast-Startseiten-Kode"
 
 #: client/components/splash_pages/_menu.html:144
 #, fuzzy
@@ -6599,9 +6454,8 @@ msgstr ""
 
 #: client/components/splash_codes/_edit.html:50
 #: client/components/splash_codes/_show.html:88
-#, fuzzy
 msgid "Splash Page"
-msgstr "Einstellungen"
+msgstr "Gast-Startseite"
 
 #: client/components/locations/clients/_show_code.html:184
 msgid "SPLASH PAGE"
@@ -6640,9 +6494,8 @@ msgid "Splash Sessions"
 msgstr ""
 
 #: client/components/locations/settings/_splash.html:11
-#, fuzzy
 msgid "Splash Settings"
-msgstr "Einstellungen"
+msgstr "Gast-Startseiten-Einstellungen"
 
 #: client/components/splash_pages/_form.html:49
 #, fuzzy
@@ -6716,9 +6569,8 @@ msgid "SSIDs: {{ ::box.metadata.ssids | ssidFilter }}"
 msgstr ""
 
 #: client/components/users/billing/_show.html:53
-#, fuzzy
 msgid "Standard Support"
-msgstr "Support"
+msgstr "Standard-Support"
 
 #: client/components/codes/_table.html:5
 msgid "Start"
@@ -6788,9 +6640,8 @@ msgid "Street Address"
 msgstr ""
 
 #: client/components/locations/settings/_main.html:89
-#, fuzzy
 msgid "Street Name"
-msgstr "Einstellungen"
+msgstr "Straße"
 
 #: client/components/locations/triggers/channel-email.html:20
 msgid "Subject"
@@ -6831,9 +6682,8 @@ msgid "Successfully updated brand"
 msgstr ""
 
 #: client/components/users/users.directives.js:526
-#, fuzzy
 msgid "Successfully updated details."
-msgstr "Dokumentation"
+msgstr "Details erfolgreich geändert."
 
 #: client/components/locations/locations.directives.js:1245
 msgid "Successfully updated location."
@@ -6859,9 +6709,8 @@ msgid "Support"
 msgstr "Support"
 
 #: client/components/users/billing/_show.html:50
-#, fuzzy
 msgid "Support Level"
-msgstr "Support"
+msgstr "Support-Stufe"
 
 #: client/components/locations/clients/_columns_filter.html:10
 #: client/components/locations/clients/_columns_filter.html:100
@@ -7318,20 +7167,17 @@ msgid "Top aps by session count"
 msgstr ""
 
 #: client/components/reports/_wireless.html:28
-#, fuzzy
 msgid "Top Clients"
-msgstr "Dokumentation"
+msgstr "Meistgenutzte Stationen"
 
 #: client/components/reports/_radius.html:26
 #: client/components/reports/_wireless.html:24
-#, fuzzy
 msgid "Top Devices"
-msgstr "Einstellungen"
+msgstr "Meistgenutzte Geräte"
 
 #: client/components/reports/_radius.html:25
-#, fuzzy
 msgid "Top Locations"
-msgstr "Dokumentation"
+msgstr "Meistgenutzte Standorte"
 
 #: client/components/audit/sales/_index.html:56
 #: client/components/users/invoices/_index.html:36
@@ -7339,18 +7185,16 @@ msgid "Total"
 msgstr ""
 
 #: client/components/users/invoices/_details.html:64
-#, fuzzy
 msgid "Total Access Points"
-msgstr "Diskussionen"
+msgstr "Gesamtanzahl von Geräten"
 
 #: client/components/locations/clients/_show_code.html:116
 msgid "Total Codes"
 msgstr ""
 
 #: client/components/reports/_radius_stats.html:26
-#, fuzzy
 msgid "Total Sessions"
-msgstr "Diskussionen"
+msgstr "Gesamtanzahl von Sitzungen"
 
 #: client/components/locations/show/edit-modal.html:36
 msgid "Town"
@@ -7371,9 +7215,8 @@ msgid "transfer"
 msgstr ""
 
 #: client/components/boxes/boxes.directives.js:103
-#, fuzzy
 msgid "Transfer"
-msgstr "Dokumentation"
+msgstr "Transfer"
 
 #: client/components/audit/sales/_refund.html:1
 #: client/components/boxes/show/_transfer.html:1
@@ -7387,9 +7230,8 @@ msgstr ""
 
 #: client/components/locations/settings/_transfer.html:1
 #: client/components/locations/settings/_transfer.html:5
-#, fuzzy
 msgid "Transfer Location"
-msgstr "Dokumentation"
+msgstr "Standort-Transfer"
 
 #: client/components/splash_pages/_store_product.html:1
 #: client/components/splash_pages/_transfer.html:1
@@ -7575,9 +7417,8 @@ msgstr ""
 #: client/components/reports/_radius_timeline.html:26
 #: client/components/reports/_wireless_timeline.html:19
 #: client/components/reports/reports.v2.directives.js:808
-#, fuzzy
 msgid "Unique Clients"
-msgstr "Einstellungen"
+msgstr "Eindeutige Stationen"
 
 #: client/components/splash_pages/_form_designer.html:95
 #, fuzzy
@@ -7691,9 +7532,8 @@ msgstr ""
 
 #: client/components/boxes/payloads/_payloads_mass.html:13
 #: client/components/boxes/payloads/_payloads_mass.html:14
-#, fuzzy
 msgid "Upgrade Firmware"
-msgstr "Downloads"
+msgstr "Firmware aktualisieren"
 
 #: client/components/boxes/payloads/_bulk.html:7
 msgid "Upgrade firmware on {{ selection.length }} boxes"
@@ -7779,9 +7619,8 @@ msgid "USD"
 msgstr ""
 
 #: client/components/locations/settings/_transfer.html:15
-#, fuzzy
 msgid "User Account ID"
-msgstr "Konto"
+msgstr "Benutzerkontonummer"
 
 #: client/components/locations/users/_invite.html:22
 msgid "User Email"
@@ -7790,9 +7629,8 @@ msgstr ""
 #: client/components/users/users.directives.js:1001
 #: client/components/users/users.directives.js:48
 #: client/components/users/users.directives.js:91
-#, fuzzy
 msgid "User successfully updated."
-msgstr "Dokumentation"
+msgstr "Benutzer erfolgreich aktualisiert."
 
 #: client/components/codes/_index.html:44 client/components/codes/_table.html:8
 #: client/components/locations/clients/_show_code.html:27
@@ -7843,10 +7681,9 @@ msgstr ""
 msgid "Verifying Coupon"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:184
-#, fuzzy
+#: client/components/locations/settings/_devices.html:183
 msgid "Version"
-msgstr "Diskussionen"
+msgstr "Version"
 
 #: client/components/audit/sales/_index.html:109
 #: client/components/clients/clients.directives.js:36
@@ -7873,9 +7710,8 @@ msgid "VIEW ALL"
 msgstr ""
 
 #: client/components/locations/clients/codes.html:71
-#, fuzzy
 msgid "View Details"
-msgstr "Einstellungen"
+msgstr "Details zeigen"
 
 #: client/components/locations/index/_alerts.html:103
 msgid "View Device"
@@ -7890,10 +7726,9 @@ msgstr ""
 msgid "View Event"
 msgstr ""
 
-#: client/components/locations/index/_list.html:106
-#, fuzzy
+#: client/components/locations/index/_list.html:103
 msgid "View Location"
-msgstr "Dokumentation"
+msgstr "Standorte zeigen"
 
 #: client/components/locations/access/access-social.html:36
 msgid "View Pages"
@@ -7914,9 +7749,8 @@ msgid "View Usage"
 msgstr ""
 
 #: client/components/networks/networks.directives.js:303
-#, fuzzy
 msgid "View Zones"
-msgstr "Einstellungen"
+msgstr "Zonen zeigen"
 
 #: client/components/registrations/_flow.html:57
 msgid "Visit https://{{ holding.url }}.my-wifi.co to sign-in"
@@ -8270,25 +8104,21 @@ msgid "WiFi Usage"
 msgstr ""
 
 #: client/components/charts/charts.directives.js:1275
-#: client/components/charts/devices/_wireless_chart.html:47
-#, fuzzy
+#: client/components/charts/devices/_wireless_chart.html:38
 msgid "Wireless Clients"
-msgstr "Einstellungen"
+msgstr "WiFi-Stationen"
 
 #: client/components/boxes/edit/_edit.html:86
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Einstellungen"
+msgstr "WiFi-Einstellungen"
 
 #: client/components/reports/reports.v2.directives.js:185
-#, fuzzy
 msgid "Wireless Stats"
-msgstr "Einstellungen"
+msgstr "WiFi-Statistiken"
 
 #: client/components/reports/reports.v2.directives.js:805
-#, fuzzy
 msgid "Wireless Usage"
-msgstr "Einstellungen"
+msgstr "WiFi-Verwendung"
 
 #: client/components/locations/triggers/triggers.filters.js:62
 msgid "Wnen a {{object}} is archived"
@@ -8596,18 +8426,16 @@ msgid "Your codes are still generating, please wait."
 msgstr ""
 
 #: client/components/users/billing/_billing.html:15
-#, fuzzy
 msgid "Your company name"
-msgstr "Dokumentation"
+msgstr "Firma"
 
 #: client/components/apps/_index.html:54
 msgid "Your Cucumber Applications"
 msgstr ""
 
 #: client/components/users/show/_password.html:15
-#, fuzzy
 msgid "Your Current Password"
-msgstr "Dokumentation"
+msgstr "Bisheriges Kennwort"
 
 #: client/components/locations/access/access-password.html:21
 msgid "Your customers enter this on the login pages."
@@ -8645,9 +8473,8 @@ msgid ""
 msgstr ""
 
 #: client/components/users/show/_password.html:23
-#, fuzzy
 msgid "Your New Password"
-msgstr "Dokumentation"
+msgstr "Neues Kennwort"
 
 #: client/components/locations/access/access-social.html:80
 msgid "Your page: {{ facebook_username }}"
@@ -8705,9 +8532,8 @@ msgid "Zone"
 msgstr ""
 
 #: client/components/users/index/_index.html:54
-#, fuzzy
 msgid "Zone Menu"
-msgstr "Hauptmenü"
+msgstr "Zonen-Menü"
 
 #: client/components/locations/show/_map.html:35
 msgid "Zone: {{ ::box.metadata.zone_name }}"
@@ -8722,9 +8548,8 @@ msgid "ZONES"
 msgstr ""
 
 #: client/components/users/quotas/_index.html:49
-#, fuzzy
 msgid "Zones per location"
-msgstr "Dokumentation"
+msgstr "Zonen pro Standort"
 
 #, fuzzy
 #~ msgid "Developer documentation can be"
