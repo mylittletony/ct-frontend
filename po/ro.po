@@ -413,11 +413,6 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: client/components/reports/_filter.html:45
-#: client/components/reports/_header.html:45
-msgid "1d"
-msgstr ""
-
 #: client/components/locations/networks/_index.html:17
 msgid "2.4 & 5Ghz"
 msgstr ""
@@ -442,16 +437,6 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:112
 msgid "2.4Ghz Power ({{box.tx_power_2}}dBm)"
-msgstr ""
-
-#: client/components/reports/_filter.html:47
-#: client/components/reports/_header.html:47
-msgid "30d"
-msgstr ""
-
-#: client/components/reports/_filter.html:42
-#: client/components/reports/_header.html:42
-msgid "30m"
 msgstr ""
 
 #: client/components/locations/access/access-password.html:25
@@ -480,29 +465,12 @@ msgstr ""
 msgid "5Ghz Power ({{box.tx_power_5}}dBm)"
 msgstr ""
 
-#: client/components/reports/_filter.html:41
-#: client/components/reports/_header.html:41
-msgid "5m"
-msgstr ""
-
-#: client/components/reports/_filter.html:43
-#: client/components/reports/_header.html:43
-msgid "60m"
-msgstr ""
-
 #: client/components/users/invoices/_show.html:55
 msgid ""
 "62 Britton Street<br>\n"
 "              London EC1M 5UY"
 msgstr ""
 
-#: client/components/reports/_filter.html:44
-#: client/components/reports/_header.html:44
-msgid "6h"
-msgstr ""
-
-#: client/components/reports/_filter.html:46
-#: client/components/reports/_header.html:46
 #: client/components/reports/reports.v2.directives.js:13
 msgid "7d"
 msgstr ""
