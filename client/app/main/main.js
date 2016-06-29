@@ -36,7 +36,6 @@ app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
   var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
   var language, userLocale;
 
-  console.log(Auth.currentUser())
   if (Auth.currentUser() && Auth.currentUser().locale) {
     userLocale =  Auth.currentUser().locale;
   }
