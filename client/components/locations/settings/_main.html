@@ -122,14 +122,17 @@
               </md-input-container>
               <div flex="100"></div>
               <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public Location' | translate }}">
-                {{ location.add_to_global_map ? "Public" : "Private"}} Location
+                <span ng-if="location.add_to_global_map == true" translate>Public Location</span>
+                <span ng-if="location.add_to_global_map == false" translate>Private Location</span>
               </md-switch>
             </div>
           </form>
         </md-card-content>
       </md-card>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)" translate>
-        Save
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+        <translate>
+          Save
+        </translate>
       </md-button>
 
     </div>
