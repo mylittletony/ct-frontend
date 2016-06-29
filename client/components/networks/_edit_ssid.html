@@ -26,11 +26,15 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="close()" translate>
-        Close
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
       </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update()" translate>
-        UPDATE
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update()">
+        <translate>
+          UPDATE
+        </translate>
       </md-button>
     </md-dialog-actions>
   </form>
