@@ -9,13 +9,13 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', '$route', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, $route, gettextCatalog) {
+app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', '$window', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, $window, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
     var id, locale;
 
-    scope.locales = [{key: 'Deutsch', value: 'de-de'}, { key: 'English', value: 'en-gb'}, { key: 'Français', value: 'fr-fr'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
@@ -41,9 +41,9 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
       form.$setPristine();
       User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
         if (locale !== results.locale) {
-          // $route.reload();
-          console.log('Hey Guido and friends, I\'ll put a reload in here when we\'re ready.');
+          console.log('Setting locale to', results.locale);
           Auth.currentUser().locale = results.locale;
+          $window.location.reload();
         }
         showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
