@@ -1,6 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"POT-Creation-Date: \n"
 "PO-Revision-Date: 2016-06-29 16:17+0200\n"
 "Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
@@ -9,7 +10,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: \n"
 "X-Generator: Poedit 1.8.6\n"
 
 #: client/components/locations/boxes/_table.html:102
@@ -3056,7 +3056,7 @@ msgstr "Ereignis-Typ"
 msgid "events"
 msgstr ""
 
-#: client/components/locations/locations.controller.js:259
+#: client/components/locations/locations.controller.js:260
 msgid "Events"
 msgstr "Ereignisse"
 
@@ -3181,21 +3181,41 @@ msgstr ""
 msgid "Field Label"
 msgstr ""
 
+#: client/components/splash_pages/_form_designer.html:31
+#, fuzzy
+msgid "Field Name"
+msgstr "Geräte-Name"
+
+#: client/components/splash_pages/_form_designer.html:24
+#, fuzzy
+msgid "Field Settings"
+msgstr "Email-Einstellungen"
+
+#: client/components/splash_pages/_form_designer.html:53
+#, fuzzy
+msgid "Field Type"
+msgstr "Geräte-Typ"
+
+#: client/components/locations/clients/_index.html:6
+#, fuzzy
+msgid "Filter Clients"
+msgstr "Nach Kode suchen"
+
 #: client/components/splash_codes/_index.html:5
 msgid "Filter Codes"
 msgstr "Nach Kode suchen"
 
-#: client/components/locations/index/_alerts.html:10
-#: client/components/locations/show/_index.html:5
+#: client/components/locations/index/_alerts.html:11
+#: client/components/locations/show/_index.html:6
 #: client/components/locations/show/_map.html:5
 msgid "Filter Devices"
 msgstr "Nach Gerät suchen"
 
-#: client/components/locations/index/_list.html:11
+#: client/components/locations/index/_list.html:12
 msgid "Filter Locations"
 msgstr "Nach Standort suchen"
 
-#: client/components/locations/networks/_index.html:5
+#: client/components/locations/networks/_index.html:6
 msgid "Filter Networks"
 msgstr "Nach Netzwerk/SSID suchen"
 
@@ -3367,6 +3387,7 @@ msgstr ""
 
 #: client/components/locations/triggers/list.html:22
 #: client/components/splash_codes/_index.html:26
+#: client/components/splash_pages/_index.html:26
 msgid "Get Started"
 msgstr "Los geht's"
 
@@ -3733,7 +3754,7 @@ msgstr ""
 msgid "IP Address"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:79
+#: client/components/locations/networks/_show.html:82
 msgid "IP Settings"
 msgstr "IPv4-Einstellungen"
 
@@ -4145,7 +4166,7 @@ msgstr ""
 msgid "Manage and monitor all your device remotely."
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:159
+#: client/components/locations/settings/_devices.html:160
 msgid "Management IP"
 msgstr "Management-IPv4-Adresse"
 
@@ -4733,7 +4754,8 @@ msgstr ""
 msgid "Netmask"
 msgstr ""
 
-#: client/components/locations/networks/_index.html:32
+#: client/components/locations/networks/_index.html:33
+#: client/components/splash_pages/_index.html:50
 msgid "Network"
 msgstr "Netzwerk/SSID"
 
@@ -4745,7 +4767,7 @@ msgstr "Netzwerk-IPv4-Adresse"
 msgid "Network created successfully"
 msgstr ""
 
-#: client/components/boxes/show/_index.html:225
+#: client/components/boxes/show/_index.html:217
 msgid "Network Details"
 msgstr "Netzwerk-Details"
 
@@ -4761,7 +4783,7 @@ msgstr "Einstellungen"
 msgid "Network Location"
 msgstr "Netzwerk-Standort"
 
-#: client/components/locations/networks/_show.html:154
+#: client/components/locations/networks/_show.html:157
 msgid "Network Metric"
 msgstr "Netzwerk-Metrik"
 
@@ -4771,11 +4793,11 @@ msgid "Network Name"
 msgstr "Netzwerk-Name"
 
 #: client/components/boxes/edit/_edit.html:246
-#: client/components/locations/networks/_show.html:32
+#: client/components/locations/networks/_show.html:34
 msgid "Network Settings"
 msgstr "Netzwerk/SSID-Einstellungen"
 
-#: client/components/locations/networks/_show.html:41
+#: client/components/locations/networks/_show.html:43
 msgid "Network SSID"
 msgstr "Netzwerk-SSID"
 
@@ -4882,7 +4904,7 @@ msgstr ""
 msgid "No Internet."
 msgstr ""
 
-#: client/components/locations/index/_list.html:26
+#: client/components/locations/index/_list.html:27
 msgid "No Locations Found"
 msgstr "Keine Standorte gefunden."
 
@@ -5100,7 +5122,7 @@ msgstr "Öffne Kode-Menü"
 msgid "Open Menu"
 msgstr "Öffne Menü"
 
-#: client/components/locations/networks/_index.html:90
+#: client/components/locations/networks/_index.html:91
 msgid "Open Networks Menu"
 msgstr "Öffne Netzwerk/SSID-Menü"
 
@@ -5329,7 +5351,7 @@ msgstr ""
 msgid "Plans"
 msgstr ""
 
-#: client/components/locations/show/_index.html:53
+#: client/components/locations/show/_index.html:54
 msgid "Please Add a Device"
 msgstr "Gerät hinzufügen"
 
@@ -5571,6 +5593,7 @@ msgid "Public IP"
 msgstr ""
 
 #: client/components/locations/settings/_main.html:124
+#: client/components/locations/settings/_main.html:125
 msgid "Public Location"
 msgstr "Öffentlicher Standort"
 
@@ -5609,8 +5632,8 @@ msgstr ""
 msgid "Radius Configuration"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:209
-#: client/components/locations/networks/_show.html:235
+#: client/components/locations/networks/_show.html:214
+#: client/components/locations/networks/_show.html:241
 msgid "Radius Host"
 msgstr "RADIUS-Server"
 
@@ -5624,8 +5647,8 @@ msgstr ""
 msgid "Radius NAS ID is required"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:225
-#: client/components/locations/networks/_show.html:251
+#: client/components/locations/networks/_show.html:231
+#: client/components/locations/networks/_show.html:258
 msgid "Radius Port"
 msgstr "RADIUS-Port"
 
@@ -5903,7 +5926,12 @@ msgstr ""
 msgid "Revoke Twillio"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:63
+#: client/components/splash_pages/_menu.html:108
+#: client/components/splash_pages/_menu.html:494
+msgid "Right"
+msgstr ""
+
+#: client/components/locations/settings/_devices.html:64
 msgid "Ruckus vSZ Settings"
 msgstr "RUCKUS vSZ-Einstellungen"
 
@@ -7681,7 +7709,7 @@ msgstr ""
 msgid "Verifying Coupon"
 msgstr ""
 
-#: client/components/locations/settings/_devices.html:183
+#: client/components/locations/settings/_devices.html:184
 msgid "Version"
 msgstr "Version"
 
@@ -7726,7 +7754,7 @@ msgstr ""
 msgid "View Event"
 msgstr ""
 
-#: client/components/locations/index/_list.html:103
+#: client/components/locations/index/_list.html:106
 msgid "View Location"
 msgstr "Standorte zeigen"
 
@@ -8104,7 +8132,7 @@ msgid "WiFi Usage"
 msgstr ""
 
 #: client/components/charts/charts.directives.js:1275
-#: client/components/charts/devices/_wireless_chart.html:38
+#: client/components/charts/devices/_wireless_chart.html:47
 msgid "Wireless Clients"
 msgstr "WiFi-Stationen"
 
