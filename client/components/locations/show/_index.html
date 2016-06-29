@@ -65,11 +65,15 @@
           <md-divider ng-if="!$last"></md-divider>
 
           <md-card-actions layout="row" layout-align="end center">
-            <md-button href="/#/downloads" aria-label="{{ 'Downloads' | translate }}" translate>
-              Downloads
+            <md-button href="/#/downloads" aria-label="{{ 'Downloads' | translate }}">
+              <translate>
+                Downloads
+              </translate>
             </md-button>
-            <md-button ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}" p>
-              Add Device
+            <md-button ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
+              <translate>
+                Add Device
+              </translate>
             </md-button>
           </md-card-actions>
         </md-card>

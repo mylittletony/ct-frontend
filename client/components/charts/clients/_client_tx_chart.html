@@ -22,44 +22,60 @@
         </button>
         <md-menu-content width="3">
           <md-menu-item>
-            <md-button ng-click="changeTxType('tx')" translate>
-              WiFi Traffic
+            <md-button ng-click="changeTxType('tx')">
+              <translate>
+                WiFi Traffic
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeTxType('usage')" translate>
-              WiFi Usage
+            <md-button ng-click="changeTxType('usage')">
+              <translate>
+                WiFi Usage
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-item ng-if="resource != 'device'">
-            <md-button ng-click="changeTxType('txfailed')" translate>
-              TX Fails
+            <md-button ng-click="changeTxType('txfailed')">
+              <translate>
+                TX Fails
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-item ng-if="resource != 'device'">
-            <md-button ng-click="changeTxType('txretries')" translate>
-              TX Retries
+            <md-button ng-click="changeTxType('txretries')">
+              <translate>
+                TX Retries
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-divider></md-menu-divider>
           <md-menu-item>
-            <md-button ng-click="changeFn('mean')" translate>
-              Average Values
+            <md-button ng-click="changeFn('mean')">
+              <translate>
+                Average Values
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeFn('max')" translate>
-              Max. Values
+            <md-button ng-click="changeFn('max')">
+              <translate>
+                Max. Values
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeFn('median')" translate>
-              Median Values
+            <md-button ng-click="changeFn('median')">
+              <translate>
+                Median Values
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="changeFn('sum')" ng-disabled="type == 'tx'" translate>
-              Sum
+            <md-button ng-click="changeFn('sum')" ng-disabled="type == 'tx'">
+              <translate>
+                Sum
+              </translate>
             </md-button>
           </md-menu-item>
         </md-menu-content>

@@ -2,6 +2,7 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" flex style="margin-top: 50px" ng-show="networks.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
+      <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Networks' | translate }}">
     </md-input-container>
     <md-button ng-if="!networks.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
@@ -11,9 +12,9 @@
     <div flex></div>
     <new-network networks="networks"></new-network>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updateBand('two')" ng-class="{ 'active': band === 'two' }" translate>2.4Ghz</md-button>
-      <md-button ng-click="updateBand('five')" ng-class="{ 'active': band === 'five' }" translate>5Ghz</md-button>
-      <md-button ng-click="updateBand('all')" ng-class="{ 'active': band === '' }" translate>2.4 & 5Ghz</md-button>
+      <md-button ng-click="updateBand('two')" ng-class="{ 'active': band === 'two' }"><translate>2.4Ghz</translate></md-button>
+      <md-button ng-click="updateBand('five')" ng-class="{ 'active': band === 'five' }"><translate>5Ghz</translate></md-button>
+      <md-button ng-click="updateBand('all')" ng-class="{ 'active': band === '' }"><translate>2.4 & 5Ghz</translate></md-button>
     </md-button-group>
   </div>
   <md-divider></md-divider>

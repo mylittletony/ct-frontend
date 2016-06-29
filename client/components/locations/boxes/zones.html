@@ -31,10 +31,16 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()" translate>
-        Cancel
+      <md-button ng-click="cancel()">
+        <translate>
+          Cancel
+        </translate>
       </md-button>
-      <md-button ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="execute(zone_id)" translate>Update</md-button>
+      <md-button ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="execute(zone_id)">
+        <translate>
+          Update
+        </translate>
+      </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

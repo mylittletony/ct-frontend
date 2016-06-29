@@ -40,7 +40,7 @@
                     </div>
                   </md-input-container>
                 </div>
-                <md-button type="submit" ng-click="update(1)" ng-disabled="myForm.$invalid" class="md-raised md-primary" translate>Save</md-button>
+                <md-button type="submit" ng-click="update(1)" ng-disabled="myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
               </div>
 
               <div ng-if="stage=='brand'">
@@ -69,7 +69,7 @@
 
                 </div>
 
-                <md-button type="submit" ng-click="update(2)" ng-disabled="brandOk !== true || myForm.$invalid" class="md-raised md-primary" translate>Save</md-button>
+                <md-button type="submit" ng-click="update(2)" ng-disabled="brandOk !== true || myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
 
               </div>
 
@@ -87,7 +87,7 @@
                   </md-input-container>
                 </div>
 
-                <md-button type="submit" ng-click="update(3)" ng-disabled="myForm.$invalid" class="md-raised md-primary" translate>Save</md-button>
+                <md-button type="submit" ng-click="update(3)" ng-disabled="myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
 
               </div>
 
@@ -120,7 +120,7 @@
                   </md-input-container>
 
                 </div>
-                <md-button ng-click="update('fin')" type="submit" ng-disabled="myForm.$invalid" class="md-raised md-primary" translate>Save</md-button>
+                <md-button ng-click="update('fin')" type="submit" ng-disabled="myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
 
               </div>
             </div>
@@ -130,7 +130,7 @@
           <md-divider ng-if="!$last"></md-divider>
 
           <md-card-actions layout="row" layout-align="left center" ng-if="stage && stage !== 'done'">
-            <md-button ng-click="back()" translate>Back</md-button>
+            <md-button ng-click="back()"><translate>Back</translate></md-button>
           </md-card-actions>
 
         </md-card>

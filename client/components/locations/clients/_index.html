@@ -2,6 +2,7 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
       <md-icon md-font-icon="search">search</md-icon>
+      <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Clients' | translate }}">
     </md-input-container>
     <div flex></div>
@@ -12,8 +13,10 @@
         </button>
         <md-menu-content >
           <md-menu-item>
-            <md-button ng-click="refresh()" ng-disabled="!ap_mac" translate>
-              Clear Filter
+            <md-button ng-click="refresh()" ng-disabled="!ap_mac">
+              <translate>
+                Clear Filter
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-divider></md-menu-divider>
@@ -29,13 +32,13 @@
       <md-icon md-font-icon="settings">settings</md-icon>
     </md-button>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }" translate>5m</md-button>
-      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }" translate>30m</md-button>
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" translate>60m</md-button>
-      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" translate>6h</md-button>
-      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" translate>1d</md-button>
-      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }" translate>7d</md-button>
-      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" translate>30d</md-button>
+      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }">5m</md-button>
+      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }">30m</md-button>
+      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }">60m</md-button>
+      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }">6h</md-button>
+      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }">1d</md-button>
+      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }">7d</md-button>
+      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }">30d</md-button>
     </md-button-group>
   </div>
   <md-divider></md-divider>
@@ -78,55 +81,75 @@
               </button>
               <md-menu-content>
                 <md-menu-item>
-                  <md-button ng-click="" translate>
-                    Share
+                  <md-button ng-click="">
+                    <translate>
+                      Share
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
                 <md-menu-item>
-                  <md-button ng-click="changeType('signal')" translate>
-                    Signal Strength
+                  <md-button ng-click="changeType('signal')">
+                    <translate>
+                      Signal Strength
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-click="changeType('tx')" translate>
-                    WiFi Traffic
+                  <md-button ng-click="changeType('tx')">
+                    <translate>
+                      WiFi Traffic
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-click="changeType('usage')" translate>
-                    WiFi Usage
+                  <md-button ng-click="changeType('usage')">
+                    <translate>
+                      WiFi Usage
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-click="changeType('mcs')" translate>
-                    MCS Index
+                  <md-button ng-click="changeType('mcs')">
+                    <translate>
+                      MCS Index
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-click="changeType('failures')" translate>
-                    TX Fails
+                  <md-button ng-click="changeType('failures')">
+                    <translate>
+                      TX Fails
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
                 <md-menu-item>
-                  <md-button ng-click="changeFn('mean')" translate>
-                    Average Values
+                  <md-button ng-click="changeFn('mean')">
+                    <translate>
+                      Average Values
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-click="changeFn('max')" translate>
-                    Max. Values
+                  <md-button ng-click="changeFn('max')">
+                    <translate>
+                      Max. Values
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-click="changeFn('median')" translate>
-                    Median Values
+                  <md-button ng-click="changeFn('median')">
+                    <translate>
+                      Median Values
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                  <md-button ng-click="changeFn('sum')" ng-disabled="type != 'usage'" translate>
-                    Sum
+                  <md-button ng-click="changeFn('sum')" ng-disabled="type != 'usage'">
+                    <translate>
+                      Sum
+                    </translate>
                   </md-button>
                 </md-menu-item>
               </md-menu-content>

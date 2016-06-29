@@ -51,7 +51,8 @@
               </md-input-container>
               <div flex="100"></div>
               <md-switch ng-model="location.development_mode" ng-true-value="'Beta'" ng-false-value="'Production'" aria-label="{{ 'Beta Location' | translate }}" flex="100" flex-gt-sm="50">
-                Beta {{ location.development_mode === 'Beta' ? 'Enabled' : 'Disabled' }}
+                <span ng-if="location.development_mode === 'Beta'" translate>Beta Enabled</span>
+                <span ng-if="location.development_mode !== 'Beta'" translate>Beta Disabled</span>
               </md-switch>
             </div>
         </md-card-content>
@@ -115,9 +116,9 @@
               <translate>Unable to communicate with your Ruckus Virtual SmartZone. Check your credentials.</translate>
               <br>
               <br>
-              <span ng-if="location.vsg_controller.Reason == 'auth_failed'">
+              <span ng-if="location.vsg_controller.Reason == 'auth_failed'" translate>
 
-                <b translate>We were able to reach the server but your username or password was rejected.</span> <span ng-if="location.vsg_controller.Reason != 'auth_failed'">We were unable to reach your server at {{ location.vsg_host }}.</b>
+                <b>We were able to reach the server but your username or password was rejected.</span> <span ng-if="location.vsg_controller.Reason != 'auth_failed'" translate>We were unable to reach your server at {{ location.vsg_host }}.</b>
                 <p translate>Please ensure it has a public IP and your firewall ports are open. You must use https for security reasons. If your ports are open, please check your user credentials has the correct permissions.</p>
               </span>
             </span>
@@ -212,11 +213,13 @@
 
           </md-card-content>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ng-click="testVsz(myForm)" ng-disabled="(!location.vsg_admin_user && !location.vsg_admin_pass) || location.vsg_testing">Test vSZ</md-button>
+            <md-button ng-click="testVsz(myForm)" ng-disabled="(!location.vsg_admin_user && !location.vsg_admin_pass) || location.vsg_testing"><translate>Test vSZ</translate></md-button>
           </md-card-actions>
         </md-card>
-        <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)" translate>
-          Save
+        <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+          <translate>
+            Save
+          </translate>
         </md-button>
 
       </div>
