@@ -65,7 +65,7 @@
                 </md-checkbox>
 
                 <div></div>
-                <md-button type="submit" aria-label="{{ 'add box' | translate }}" class="md-primary md-raised" ng-disabled="myForm.$invalid || myForm.$pristine">ADD</md-button>
+                <md-button type="submit" aria-label="{{ 'add box' | translate }}" class="md-primary md-raised" ng-disabled="myForm.$invalid || myForm.$pristine"><translate>ADD</translate></md-button>
                 <p><ct-docs name="find-mac"><translate>Where is my mac address?</translate></ct-docs></p>
               </div>
             </div>
@@ -123,7 +123,7 @@
                     <div class="md-toolbar-tools">
                       <div flex></div>
                       <span ng-show="rogues.length">
-                        <md-button ng-disabled="selected.length == 0" class="md-raised" ng-click="createBoxFromRogues()" translate>ADD DEVICES <i ng-if="creating == true" class="fa fa-cog fa-spin"></i> <i class="fa fa-arrow-right" ng-if="!creating"></i></md-button>
+                        <md-button ng-disabled="selected.length == 0" class="md-raised" ng-click="createBoxFromRogues()"><translate>ADD DEVICES</translate><i ng-if="creating == true" class="fa fa-cog fa-spin"></i> <i class="fa fa-arrow-right" ng-if="!creating"></i></md-button>
                       </span>
 
                     </div>
@@ -143,14 +143,14 @@
 
             <div layout-gt-xs="row" flex>
               <span ng-if="setup.stage == 1 && setup.type == 'ct'">
-                <md-button aria-label="{{ 'discover boxes' | translate }}" class="md-raised md-primary" ng-click="nextStage()" translate>Discover</md-button>
+                <md-button aria-label="{{ 'discover boxes' | translate }}" class="md-raised md-primary" ng-click="nextStage()"><translate>Discover</translate></md-button>
               </span>
             </div>
 
           </form>
         </md-card-content>
         <md-card-actions layout="row" layout-align="left center" ng-show="setup.stage == 2 && setup.ct_type =='rogue' && !rogues.length && setup.detecting != true">
-          <md-button ng-click="manualBox()" class="" translate>Add Box</md-button>
+          <md-button ng-click="manualBox()" class=""><translate>Add Box</translate></md-button>
         </md-card-actions>
       </md-card>
     </div>

@@ -1,12 +1,12 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Back to Splash</p>
+    <p translate>Back to Splash</p>
     <span flex></span>
     <md-menu>
-      <md-button aria-label="menu" class="md-icon-button">
+      <md-button aria-label="{{ 'menu' | translate }}" class="md-icon-button">
         <md-icon md-font-icon="help" >help</md-icon>
       </md-button>
     </md-menu>
@@ -21,36 +21,36 @@
       <form name='myForm' autocomplete="off">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">Field Settings</span>
-            <span class="md-subhead">Click a field to edit. Drag to reorder.</span>
+            <span class="md-headline" translate>Field Settings</span>
+            <span class="md-subhead" translate>Click a field to edit. Drag to reorder.</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
 
           <md-input-container class="md-block" ng-hide='selected.name == "username"'>
-            <label>Field Name</label>
+            <label translate>Field Name</label>
             <input ng-class="{ 'input-error' : myForm.name.$error.required || myForm.name.$error.maxlength || myForm.name.$error.pattern }" ng-model='selected.name' name='name' type='text' ng-minlength='5' md-maxlength='255' ng-pattern='/^[a-zA-Z0-9\ ]+$/' md-autofocus required></input>
             <div ng-messages="myForm.name.$error" md-auto-hide="false">
-              <div ng-message="required">You must set a name for the field.</div>
-              <div ng-message="pattern">Number and letters only please.</div>
-              <div ng-message="md-maxlength">Max 255 characters.</div>
-              <div ng-message="minlength">Must be more than 5 characters.</div>
+              <div ng-message="required" translate>You must set a name for the field.</div>
+              <div ng-message="pattern" translate>Number and letters only please.</div>
+              <div ng-message="md-maxlength" translate>Max 255 characters.</div>
+              <div ng-message="minlength" translate>Must be more than 5 characters.</div>
             </div>
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-xs>
-            <label>Field Label</label>
+            <label translate>Field Label</label>
             <input ng-model='selected.label' type='text' ng-minlength="5" md-maxlength='255' name='label' ng-pattern='/^[a-zA-Z0-9\ ]+$/' required></input>
             <div ng-messages="myForm.label.$error">
-              <div ng-message="required">You must set a label for the field.</div>
-              <div ng-message="pattern">Number and letters only please.</div>
-              <div ng-message="md-maxlength">Max 255 characters.</div>
-              <div ng-message="minlength">Must be more than 5 characters.</div>
+              <div ng-message="required" translate>You must set a label for the field.</div>
+              <div ng-message="pattern" translate>Number and letters only please.</div>
+              <div ng-message="md-maxlength" translate>Max 255 characters.</div>
+              <div ng-message="minlength" translate>Must be more than 5 characters.</div>
             </div>
           </md-input-container>
 
           <md-input-container class="md-block" ng-hide='selected.name == "username"'>
-            <label>Field Type</label>
+            <label translate>Field Type</label>
             <md-select ng-model="selected.field_type" required>
               <md-option ng-repeat="t in types" value="{{t.value}}">
                 {{t.key}}
@@ -60,50 +60,54 @@
 
           <div layout="column" ng-show='selected.field_type == "radio" || selected.field_type == "dropdown"'>
             <md-input-container class="md-block">
-              <label>{{ newF.field_type == 'radio' ? "Radio Values" : "Dropdown Options" }} (comma separated)</label>
+              <label ng-if="newF.field_type === 'radio'" translate>Radio Values (comma separated)</label>
+              <label ng-if="newF.field_type !== 'radio'" translate>Dropdown Options (comma separated)</label>
               <input ng-model='selected.attrs' type='text' ng-maxlength='255' placeholder='Enter the vals here'></input>
             </md-input-container>
           </div>
 
-          <md-switch aria-label="Disabled switch" ng-model="selected.required" ng-hide='selected.name == "username"'>
-            Required Field
+          <md-switch aria-label="{{ 'Disabled switch' | translate }}" ng-model="selected.required" ng-hide='selected.name == "username"'>
+            <translate>Required Field</translate>
           </md-switch>
 
-          <md-switch aria-label="Hidden switch" ng-model="selected.hidden" ng-hide="selected.name === 'username'" ng-hide='selected.name == "username"'>
+          <md-switch aria-label="{{ 'Hidden switch' | translate }}" ng-model="selected.hidden" ng-hide="selected.name === 'username'" ng-hide='selected.name == "username"'>
             Hidden Field
           </md-switch>
 
-          <small>Advanced</small>
-          <md-button ng-click="toggle('advanced')" aria-controls="splash" class="md-secondary md-icon-button" aria-label="call">
+          <small translate>Advanced</small>
+          <md-button ng-click="toggle('advanced')" aria-controls="splash" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
             <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('advanced') ? "up" : "down" }}</md-icon>
           </md-button>
 
           <div ng-show="isOpen('advanced')" id="advanced" class="menu-toggle-list" layout="column" layout-gt-sm="column">
             <md-input-container class="md-block" ng-hide='selected.name == "username" || selected.name == "password"'>
 
-              <label>Default Value</label>
-              <input ng-model='selected.value' name="value" type='text' ng-maxlength='100' placeholder="Default field value"></input>
+              <label translate>Default Value</label>
+              <input ng-model='selected.value' name="value" type='text' ng-maxlength='100' placeholder="{{ 'Default field value' | translate }}"></input>
               <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                <div ng-message="pattern">Number and letters only please.</div>
-                <div ng-message="md-maxlength">Max 100 characters.</div>
+                <div ng-message="pattern" translate>Number and letters only please.</div>
+                <div ng-message="md-maxlength" translate>Max 100 characters.</div>
               </div>
             </md-input-container>
 
             <md-input-container class="md-block" flex-gt-xs>
-              <label>Unique ID</label>
-              <input ng-model='selected.unique_id' type='text' ng-minlength="5" ng-maxlength='255' name='unique_id' placeholder="Unique Field ID"></input>
+              <label translate>Unique ID</label>
+              <input ng-model='selected.unique_id' type='text' ng-minlength="5" ng-maxlength='255' name='unique_id' placeholder="{{ 'Unique Field ID' | translate }}"></input>
             </md-input-container>
           </div>
 
           <div ng-show='selected.name == "username"'>
-            <small>The username / email field is mandatory and can't be removed.</small>
+            <small translate>The username / email field is mandatory and can't be removed.</small>
           </div>
 
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-click="deleteField()" ng-show="selected._id && selected.name != 'username'" class="md-raised">Delete</md-button>
+          <md-button ng-click="deleteField()" ng-show="selected._id && selected.name != 'username'" class="md-raised"><translate>Delete</translate></md-button>
           <md-button ng-click="newField()" ng-hide="" class="md-raised">New Field</md-button>
-          <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised md-primary">{{ selected._id ? 'Save' : 'Create' }}</md-button>
+          <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised md-primary">
+            <span ng-if="selected._id === true" translate>Save</span>
+            <span ng-if="selected._id === false" translate>Create</span>
+          </md-button>
         </md-card-actions>
       </form>
     </md-card>
@@ -114,16 +118,16 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Form Preview</span>
+          <span class="md-headline" translate>Form Preview</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
 
         <md-input-container class="md-block" flex-gt-xs>
-          <label>Description (appears on splash page, not draggable)</label>
+          <label translate>Description (appears on splash page, not draggable)</label>
           <textarea ng-blur="save()" ng-model="form.message" name="description" md-maxlength="100" rows="3"></textarea>
           <div ng-messages="myForm.description.$error">
-            <div ng-message="md-maxlength">Must be less than 100 characters</div>
+            <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
           </div>
         </md-input-container>
 
@@ -154,7 +158,7 @@
               </md-input-container>
             </div>
 
-            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1" ng-if="field.field_type == 'checkbox'">
+            <md-checkbox ng-model="data.cb1" aria-label="{{ 'Checkbox 1' | translate}}" ng-if="field.field_type == 'checkbox'">
               {{ field.label | titleCase }}
             </md-checkbox>
 

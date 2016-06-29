@@ -30,8 +30,10 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()" translate>
-        Cancel
+      <md-button ng-click="cancel()">
+        <translate>
+          Cancel
+        </translate>
       </md-button>
       <md-button ng-click="runUpgrade()" style="margin-right:20px;" translate>
         upgrade <span ng-if="upgrade.now">now</span>

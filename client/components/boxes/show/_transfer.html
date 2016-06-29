@@ -14,11 +14,15 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()" translate>
-        Cancel
+      <md-button ng-click="cancel()">
+        <translate>
+          Cancel
+        </translate>
       </md-button>
-      <md-button ng-disabled="!obj.transfer_to" ng-click="transfer(obj.transfer_to)" style="margin-right:20px;" translate>
-        transfer
+      <md-button ng-disabled="!obj.transfer_to" ng-click="transfer(obj.transfer_to)" style="margin-right:20px;">
+        <translate>
+          transfer
+        </translate>
       </md-button>
     </md-dialog-actions>
   </form>
