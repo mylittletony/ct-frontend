@@ -111,7 +111,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
         chart.draw(data, options);
       }
     }
-
+    //fixme @Toni translations: the titles will not work like that
     var signalChart = function() {
 
       title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString(' Signal Strength');

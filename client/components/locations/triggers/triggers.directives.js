@@ -156,7 +156,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
   var link = function(scope,element,attrs) {
 
     scope.location = { slug: $routeParams.id };
-    //frixme translations:should the key value pairs be translated?
+    //frixme @Toni translations:should the key value pairs be translated?
     scope.triggers = [{ key: 'All', value: 'all'}, { key: 'Boxes', value: 'box'}, { key: 'Clients', value: 'client'}, { key: 'Email', value: 'email'}, {key: 'Guests', value: 'guest'}, {key:'Locations', value: 'location'}, {key: 'Networks', value: 'network'}, {key: 'Splash', value: 'splash'}, {key: 'Social', value: 'social'}, {key: 'Vouchers', value: 'voucher'}, {key: 'Zones', value: 'zone' }];
 
     scope.channels = [{key:'Email', value: 'email'}, {key:'Slack', value: 'slack'}, {key:'Webhook', value: 'webhook'}, {key: 'MailChimp', value: 'mailchimp'}, {key: 'SMS', value: 'sms'}];
@@ -264,12 +264,12 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         initEmail();
       }
     };
-
+    //fixme @Toni tranlsations: remove the getStr for now
     var initSlack = function() {
       scope.loading_integration = true;
       checkSlackIntegrated().then(function(a) {
         slackChannels();
-        scope.trigger.attr_2 = gettextCatalog.getString('A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}');
+        scope.trigger.attr_2 = 'A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}';
       }, function(err) {
         blank(true);
         scope.error = err;
@@ -297,8 +297,8 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       if (!scope.trigger.id) {
         scope.trigger.attr_1 = '{{ Email }}';
         scope.trigger.attr_2 = undefined;
-        scope.trigger.attr_3 = gettextCatalog.getString('[WELCOME] Thanks for logging in');
-        scope.trigger.attr_4 = gettextCatalog.getString('Hello\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge');
+        scope.trigger.attr_3 = '[WELCOME] Thanks for logging in';
+        scope.trigger.attr_4 = 'Hello\n\nThanks for logging in today atrrrr {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge';
       }
     };
 
@@ -413,7 +413,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         if (integrations.length > 0) {
           deferred.resolve();
         } else {
-          //fixme translations: the anchor might not work
+          //fixme @Toni translations: the anchor might not work
           msg = gettextCatalog.getString('Twillio isn\'t setup yet, or you don\'t have any active integrations. You can <a href=\'/#/me/integrations\'>do that here</a>.');
           scope.loading_integration = undefined;
           deferred.reject(msg);
