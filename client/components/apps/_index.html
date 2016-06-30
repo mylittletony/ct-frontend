@@ -7,8 +7,10 @@
     <div flex></div>
     <md-button class="md-icon-button md-accent" href="/#/apps/new" aria-label="{{ 'Add App' | translate }}">
       <md-icon>add_circle</md-icon>
-      <md-tooltip md-direction="bottom" translate>
-        Add a new app.
+      <md-tooltip md-direction="bottom">
+        <translate>
+          Add a new app.
+        </translate>
       </md-tooltip>
     </md-button>
   </div>
@@ -34,8 +36,8 @@
           <md-divider ng-if="!$last"></md-divider>
 
           <md-card-actions layout="row" layout-align="end center">
-            <md-button href="/#/apps/new" aria-label="New" translate>
-              New App
+            <md-button href="/#/apps/new" aria-label="New">
+              <translate>New App</translate>
             </md-button>
           </md-card-actions>
         </md-card>
@@ -68,7 +70,7 @@
         </md-card-content>
         <md-divider ng-if="!$last"></md-divider>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button href="/#/apps/new" translate>New</md-button>
+          <md-button href="/#/apps/new"><translate>New</translate></md-button>
         </md-card-actions>
       </md-card>
     </div>

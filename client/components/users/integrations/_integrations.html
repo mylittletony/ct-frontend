@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="widgets" >widgets</md-icon>
     </md-button>
-    <p>Integrations</p>
+    <p translate>Integrations</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -14,10 +14,10 @@
   <md-card>
     <md-card-content>
       <span ng-if="auth">
-        <p>Authorising {{ ::type }}, please wait.</p>
+        <p translate>Authorising {{ ::type }}, please wait.</p>
         <md-progress-linear md-mode="query"></md-progress-linear>
       </span>
-      <span ng-if="err">
+      <span ng-if="err" translate>
         Access denied. If you cancelled the request, please try again.
       </span>
     </md-card-content>
@@ -31,16 +31,16 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Slack</span>
-          <span class="md-subhead">Awesome Team Communication</span>
+          <span class="md-headline" translate>Slack</span>
+          <span class="md-subhead" translate>Awesome Team Communication</span>
         </md-card-title-text>
         <md-card-title-media>
           <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/slack.png" style="padding-top: 10px; width: 32px!important;">
         </md-card-title-media>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="add('slack')" ng-if="!live('slack')">Add To Slack</md-button>
-        <md-button ng-click="revoke('slack')" ng-if="live('slack')">Revoke Slack</md-button>
+        <md-button ng-click="add('slack')" ng-if="!live('slack')"><translate>Add To Slack</translate></md-button>
+        <md-button ng-click="revoke('slack')" ng-if="live('slack')"><translate>Revoke Slack</translate></md-button>
       </md-card-actions>
     </md-card>
   </div>
@@ -57,8 +57,8 @@
         </md-card-title-media>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="add('chimp')" ng-if="!live('chimp')">Add To MailChimp</md-button>
-        <md-button ng-click="revoke('chimp')" ng-if="live('chimp')">Revoke MailChim</md-button>
+        <md-button ng-click="add('chimp')" ng-if="!live('chimp')"><translate>Add To MailChimp</translate></md-button>
+        <md-button ng-click="revoke('chimp')" ng-if="live('chimp')"><translate>Revoke MailChim</translate></md-button>
       </md-card-actions>
     </md-card>
   </div>
@@ -67,16 +67,16 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Twillio</span>
-          <span class="md-subhead">Cloud communications platform</span>
+          <span class="md-headline" translate>Twillio</span>
+          <span class="md-subhead" translate>Cloud communications platform</span>
         </md-card-title-text>
         <md-card-title-media>
           <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/twillio.png" style="padding-top: 10px; width: 32px!important;">
         </md-card-title-media>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="add('twillio')" ng-if="!live('twillio')">Add To Twillio</md-button>
-        <md-button ng-click="revoke('twillio')" ng-if="live('twillio')">Revoke Twillio</md-button>
+        <md-button ng-click="add('twillio')" ng-if="!live('twillio')"><translate>Add To Twillio</translate></md-button>
+        <md-button ng-click="revoke('twillio')" ng-if="live('twillio')"><translate>Revoke Twillio</translate></md-button>
       </md-card-actions>
     </md-card>
   </div>

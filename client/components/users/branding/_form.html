@@ -1,34 +1,14 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" aria-label="Splash">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
       <md-icon md-font-icon="" >perm_identity</md-icon>
     </md-button>
-    <p>Branding</p>
+    <p translate>Branding</p>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-
-  <!-- <div ng-if="!brand"> -->
-
-  <!-- <md-card> -->
-  <!--   <md-card-title> -->
-  <!--     <md-card-title-text> -->
-  <!--       <span class="md-headline"> -->
-  <!--         Get Started -->
-  <!--       </span> -->
-  <!--     </md-card-title-text> -->
-  <!--   </md-card-title> -->
-  <!--   <md-card-content> -->
-  <!--     <p>Create a Brand to customise the look and feel of your portal.</p> -->
-  <!--   </md-card-content> -->
-  <!--   <md-card-actions layout="row" layout-align="end center"> -->
-  <!--     <md-button ng-click="createBrand()" >Create</md-button> -->
-  <!--   </md-card-actions> -->
-  <!-- </md-card> -->
-
-  <!-- </div> -->
 
   <div flex layout="column" ng-if="brand">
 
@@ -41,10 +21,10 @@
             <md-card>
               <md-card-title>
                 <md-card-title-text>
-                  <span class="md-headline">
+                  <span class="md-headline" translate>
                     Branding Details
                   </span>
-                  <span class="md-subhead">
+                  <span class="md-subhead" translate>
                     Customise the look and feel of your dashboard.
                   </span>
                 </md-card-title-text>
@@ -53,29 +33,29 @@
                 <div layout="column" layout-gt-xs="row" layout-wrap>
                   <!-- <div flex="100" flex-gt-sm="100"> -->
                     <md-input-container class="md-block" flex-gt-xs="50">
-                      <label>Brand Name</label>
-                      <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="Enter a brand name" ng-model="brandName.name" ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
+                      <label translate>Brand Name</label>
+                      <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="{{ 'Enter a brand name' | translate }}" ng-model="brandName.name" ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
                       <div ng-messages="myForm.brand_name.$error" md-auto-hide="false">
-                        <div ng-message="required">Please enter a name for your brand</div>
-                        <div ng-message="md-maxlength">Must be less than 25 characters</div>
-                        <div ng-message="minlength">Minimum 5 characters</div>
-                        <div ng-message="pattern">Number & letters only</div>
+                        <div ng-message="required" translate>Please enter a name for your brand</div>
+                        <div ng-message="md-maxlength" translate>Must be less than 25 characters</div>
+                        <div ng-message="minlength" translate>Minimum 5 characters</div>
+                        <div ng-message="pattern" translate>Number & letters only</div>
                       </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-xs="50">
-                      <label>Brand URL</label>
-                      <input ng-disabled="brand.cname || user.ps" type="text" name="url" placeholder="Enter a dashboard url" ng-model="brand.url" md-maxlength=55 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required></input>
+                      <label translate>Dashboard URL</label>
+                      <input ng-disabled="brand.cname || user.ps" type="text" name="url" placeholder="{{ 'Enter a brand URL' | translate }}" ng-model="brand.url" md-maxlength=55 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required></input>
                       <div ng-messages="myForm.url.$error" md-auto-hide="false">
-                        <div ng-message="required">Please enter a brand URL</div>
-                        <div ng-message="md-maxlength">Must be less than 55 characters</div>
-                        <div ng-message="minlength">Minimum 5 characters</div>
-                        <div ng-message="pattern">Lowercase only, no numbers or special characters</div>
-                        <div ng-message="url">Must be a valid URL</div>
+                        <div ng-message="required" translate>Please enter a brand URL</div>
+                        <div ng-message="md-maxlength" translate>Must be less than 55 characters</div>
+                        <div ng-message="minlength" translate>Minimum 5 characters</div>
+                        <div ng-message="pattern" translate>Lowercase only, no numbers or special characters</div>
+                        <div ng-message="url" translate>Must be a valid URL</div>
                       </div>
                     </md-input-container>
-                    <p>Your dashboard address is <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
+                    <p translate>Your dashboard address is <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
                     <div ng-if="brand.cname">
-                      <small>Brand URL not compatible with a CNAME</small>
+                      <small translate>Brand URL not compatible with a CNAME</small>
                     </div>
                   <!-- </div> -->
                 </div>
@@ -86,14 +66,14 @@
               <img ng-show="brand.brand_image" src="{{brand.brand_image}}" class="md-card-image" alt="Background">
               <md-card-title>
                 <md-card-title-text>
-                  <span class="md-headline">
+                  <span class="md-headline" translate>
                     Login Image
                   </span>
                 </md-card-title-text>
               </md-card-title>
               <md-card-content>
-                <p>Appears on your dashboard login page (not your login screens).</p>
-                <p>Image should be <b>300px wide and 70px tall</b> otherwise they will be blurry.</p>
+                <p translate>Appears on your dashboard login page (not your login screens).</p>
+                <p translate>Image should be <b>300px wide and 70px tall</b> otherwise they will be blurry.</p>
               </md-card-content>
               <md-card-actions layout="row" layout-align="end center">
                 <filepicker attribute="brand.brand_image" type="20" uploading="brand.uploading" uploaded="brand.uploaded" ng-hide="brand.uploading || brand.uploaded"></filepicker>
@@ -105,39 +85,39 @@
                 <md-card-title-text>
                   <span class="md-headline">
                     <md-icon md-font-icon="android" aria-label="android">star</md-icon>
-                    Email Settings
+                    <translate>Email Settings</translate>
                   </span>
-                  <span class="md-subhead">
+                  <span class="md-subhead" translate>
                     Customise your outbound emails. Enterprise plans only.
                   </span>
                 </md-card-title-text>
               </md-card-title>
               <md-card-content layout="column" layout-gt-xs="row" layout-wrap>
                 <md-input-container class="md-block" flex-gt-xs="100">
-                  <label>Website</label>
-                  <input type="url" ng-model="brand.website" name="website" placeholder="https://acme.inc/wifi"></input>
+                  <label translate>Your Website</label>
+                  <input type="url" ng-model="brand.website" name="website" placeholder="{{ 'Enter your website URL' | translate }}"></input>
                   <div ng-messages="myForm.website.$error">
-                    <div ng-message="required">Please enter a brand URL</div>
-                    <div ng-message="url">Must be a valid URL</div>
+                    <div ng-message="required" translate>Please enter a brand URL</div>
+                    <div ng-message="url" translate>Must be a valid URL</div>
                   </div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs="50">
-                  <label>From Email</label>
-                  <input type="email" ng-model="brand.from_email" name="from_email" placeholder="Email from address"></input>
+                  <label translate>From Email</label>
+                  <input type="email" ng-model="brand.from_email" name="from_email" placeholder="{{ 'Enter your from email address' | translate }}"></input>
                   <div ng-messages="myForm.from_email.$error">
-                    <div ng-message="email">Must be a valid email</div>
+                    <div ng-message="email" translate>Must be a valid email</div>
                   </div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs="50">
-                  <label>From Name</label>
-                  <input type="text" ng-model="brand.from_name" name="from_name" placeholder="Sender name" md-maxlength=100></input>
+                  <label translate>Sender Name</label>
+                  <input type="text" ng-model="brand.from_name" name="from_name" placeholder="{{ 'Enter your sender name' | translate }}" md-maxlength=100></input>
                   <div ng-messages="myForm.from_name.$error">
-                    <div ng-message="md-maxlength">Max 100 characters</div>
+                    <div ng-message="md-maxlength" translate>Max 100 characters</div>
                   </div>
                 </md-input-container>
                 <div layout-align="left left">
-                  Enterprise plans only.
-                  <ct-docs name='branding' alt="documentation"> Read the docs<ct-docs>.
+                  <span translate>Enterprise plans only.</span>
+                  <ct-docs name='branding' alt="documentation"><translate>Read the docs</translate><ct-docs>.
                 </div>
               </md-card-content>
             </md-card>
@@ -147,39 +127,42 @@
                 <md-card-title-text>
                   <span class="md-headline">
                     <md-icon md-font-icon="android" aria-label="android">star</md-icon>
-                    Custom Domain
+                    <translate>Advanced Settings</translate>
                   </span>
                   <span class="md-subhead">
-                    Use your own URL for the dashboard. Enterprise plans only.
+                    <!-- Use your own URL for the dashboard. Enterprise plans only. -->
                   </span>
                 </md-card-title-text>
               </md-card-title>
 
-              <md-card-content layout-gt-xs="row" layout="column" layout-wrap>
+              <md-card-content layout-gt-xs="row" layout="column" layout-gt-sm="row" flex="50" layout-wrap>
 
                 <div ng-if="brand.cname_status === 'processing'">
-                  <p>Processing domain change</p>
+                  <p translate>Processing domain change</p>
                   <md-progress-linear md-mode="query"></md-progress-linear>
-                  <p><small>Please wait for the update to complete.</small></p>
+                  <p><small translate>Please wait for the update to complete.</small></p>
                 </div>
 
                 <md-input-container class="md-block" flex-gt-xs="100" ng-if="brand.cname_status != 'processing'">
-                  <label>Custom Domain URL</label>
-                  <input type="text" name="cname" placeholder="Enter your custom domain" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
+                  <label translate>Custom Domain URL</label>
+                  <input type="text" name="cname" placeholder="{{ 'Enter the URL of your custom domain' | translate }}" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
                   <div ng-messages="myForm.cname.$error">
-                    <div ng-message="pattern">Please enter a valid URL</div>
+                    <div ng-message="pattern" translate>Please enter a valid URL</div>
                   </div>
                 </md-input-container>
 
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label translate>Network Location</label>
+                  <md-select ng-model="brand.network_location">
+                    <md-option ng-repeat="loc in locations">
+                      {{loc}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
               </md-card-content>
             </md-card>
-            <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
+            <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
           </div>
         </div>
     </form>
-
   </div>
-
-
-  <!--               <p ng-if="brand.cname_status"><b><span ng-if="brand.cname_status == 'processing'"><i class="fa fa-cog fa-spin"></i> Adding your custom domain, please wait</span><span ng-if="brand.cname_status !== 'processing'">{{ brand.cname_status }}</span></b></p> -->
-

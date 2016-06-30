@@ -86,7 +86,11 @@
           </md-card-content>
 
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ng-disabled="order.state != 'success'" ng-click="refund()" translate>Refund</md-button>
+            <md-button ng-disabled="order.state != 'success'" ng-click="refund()">
+              <translate>
+                Refund
+              </translate>
+            </md-button>
             <!-- <md-button>Action 2</md-button> -->
           </md-card-actions>
 

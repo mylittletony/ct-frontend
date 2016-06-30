@@ -9,13 +9,13 @@
       <md-icon>refresh</md-icon>
     </md-button>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }" translate>5m</md-button>
-      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }" translate>30m</md-button>
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" translate>60m</md-button>
-      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" translate>6h</md-button>
-      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" translate>1d</md-button>
-      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }" translate>7d</md-button>
-      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" translate>30d</md-button>
+      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }">5m</md-button>
+      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }">30m</md-button>
+      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }">60m</md-button>
+      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }">6h</md-button>
+      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }">1d</md-button>
+      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }">7d</md-button>
+      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }">30d</md-button>
     </md-button-group>
     <clients-toolbar client="client"></clients-toolbar>
   </div>
@@ -28,7 +28,7 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">
+          <span class="md-headline" translate>
            Client {{ client.online | splashStatus:client.splash_status }}
             <!-- Client {{ client.online ? (client.splash_status == 'dnat' ? 'Not Logged In' : 'Online' ) : 'Offline' }} -->
           </span>
@@ -42,8 +42,10 @@
             <div class="md-list-item-text" layout="column">
               <h3 translate>Last Seen</h3>
               <p>{{client.lastseen | humanTime }}</p>
-              <md-tooltip translate>
-                First seen {{ client.created_at | humanTime }}
+              <md-tooltip>
+                <translate>
+                  First seen {{ client.created_at | humanTime }}
+                </translate>
               </md-tooltip>
             </div>
           </md-list-item>
@@ -60,8 +62,10 @@
               <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                 <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
               </md-button>
-              <md-tooltip ng-if="client.name" translate>
-                Original name: {{ client.device_name }}
+              <md-tooltip ng-if="client.name">
+                <translate>
+                  Original name: {{ client.device_name }}
+                </translate>
               </md-tooltip>
             </div>
           </md-list-item>
@@ -77,8 +81,8 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Splash</span>
-          <span class="md-subhead">
+          <span class="md-headline" translate>Splash</span>
+          <span class="md-subhead" translate>
             Client
             {{client.splash_status | splashStatus }}</p>
           </span>

@@ -96,7 +96,10 @@
             <td hide show-gt-md md-cell>
               {{ box.wan_ip }}
               <md-tooltip>
-                WAN Protocol: {{ ::box.wan_proto }}<span ng-if='box.wan_proto === "static"'>. Static IP: {{ ::box.wan_ipaddr }}</span>
+                <translate>
+                  WAN Protocol: {{ ::box.wan_proto }}
+                </translate>
+                <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
               </md-tooltip>
             </td>
             <td hide show-gt-xs md-cell>
@@ -111,7 +114,7 @@
                   <md-menu-item>
                     <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
                       <md-icon>pageview</md-icon>
-                      <p flex>View</p>
+                      <p flex translate>View</p>
                     </md-button>
                   </md-menu-item>
                   <md-menu-item ng-repeat="item in menuItems">

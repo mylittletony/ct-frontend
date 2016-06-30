@@ -21,6 +21,7 @@ var app = angular.module('myApp', [
 ]);
 
 app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
+
   function fixLocale(locale) {
     if (!locale) {
       return undefined;

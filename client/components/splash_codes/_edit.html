@@ -23,7 +23,9 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button href="/#/locations/{{ location.slug }}/splash_pages" translate>CREATE SPLASH</md-button>
+        <md-button href="/#/locations/{{ location.slug }}/splash_pages">
+          <translate>CREATE SPLASH</translate>
+        </md-button>
       </md-card-actions>
     </md-card>
   </div>
@@ -35,7 +37,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Create New Password 
+                Create New Password
               </span>
               <span class="md-subhead" ng-show="splash_pages.length == 1">
                 <translate>This code will be for the splash page</translate> <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash_pages[0].id }}">{{ splash_pages[0].splash_name || "No name" }}</a>
@@ -47,7 +49,9 @@
             <div layout="row" layout-wrap>
               <input style="display:none" type="text" name="ssid"/>
               <md-input-container flex="100" ng-if="splash_pages.length > 1">
-                <label translate>Splash Page</label>
+                <label>
+                  <translate>Splash Page</translate>
+                </label>
                 <md-select ng-model="code.splash_page_id" required>
                   <md-option ng-repeat="splash in splash_pages" value="{{splash.id}}">
                     {{splash.splash_name || 'No name' }}
@@ -55,7 +59,9 @@
                 </md-select>
               </md-input-container>
               <md-input-container flex="100">
-                <label translate>Password</label>
+                <label>
+                  <translate>Password</translate>
+                </label>
                 <input type="text" ng-model="code.password" name="password" placeholder="{{ 'Enter a Password' | translate }}" ng-minlength="3" md-maxlength="20" md-select-on-focus required>
                 <div ng-messages="myForm.password.$error" md-auto-hide="false">
                   <div ng-message="minlength" translate>Must be greater than 3 characters</div>
@@ -64,16 +70,20 @@
                 </div>
               </md-input-container>
               <md-input-container flex="50">
-                <label translate>Validity Minutes</label>
+                <label>
+                  <translate>Validity Minutes</translate>
+                </label>
                 <input type="number" ng-model="code.volume" placeholder="" name="volume" ng-min="10" required>
                 <div ng-messages="myForm.volume.$error">
                   <div ng-message="minlength" translate>Must be greater than 10 minutes</div>
                   <div ng-message="required" translate>You must set the validity minutes</div>
                 </div>
               </md-input-container>
-              
+
               <md-input-container flex="50">
-                <label translate>Max. Users</label>
+                <label>
+                  <translate>Max. Users</translate>
+                </label>
                 <input type="number" ng-model="code.simultaneous_use" name="sim_use" placeholder="" ng-min="1" required>
                 <div ng-messages="myForm.sim_use.$error">
                   <div ng-message="min" translate>Must be greater than 1</div>
@@ -83,8 +93,12 @@
 
               <div flex="100">
                 <md-radio-group ng-model="code.period" layout="row" style="margin: -10px 0 10px 0;">
-                  <md-radio-button value="daily" translate> Per day </md-radio-button>
-                  <md-radio-button value="all" class="md-primary" translate>All time</md-radio-button>
+                  <md-radio-button value="daily">
+                    <translate>Per day</translate>
+                  </md-radio-button>
+                  <md-radio-button value="all" class="md-primary">
+                    <translate>All time</translate>
+                  </md-radio-button>
                 </md-radio-group>
               </div>
 
@@ -113,7 +127,7 @@
             </div>
           </md-card-content>
         </md-card>
-        <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>Save</md-button>
+        <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
       </form>
     </div>
   </div>

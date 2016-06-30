@@ -24,14 +24,16 @@
             <div ng-show="setup.stage == 1" class="text-left">
               <div layout-gt-xs="row" layout="column" flex layout-wrap>
                 <md-radio-group ng-model="setup.type">
-                  <md-radio-button value="ct" class="md-primary" translate> Discover my Devices</md-radio-button>
-                  <md-radio-button value="mac" translate> Enter MAC Address </md-radio-button>
+                  <md-radio-button value="ct" class="md-primary"><translate>Discover my Devices</translate></md-radio-button>
+                  <md-radio-button value="mac"><translate>Enter MAC Address</translate></md-radio-button>
                 </md-radio-group>
               </div>
               <div ng-if="setup.type == 'mac' || setup.type == 'third'">
                 <div layout="column" flex-gt-sm="50">
                   <md-input-container class="md-block" flex>
-                    <label translate>MAC Address</label>
+                    <label>
+                      <translate>MAC Address</translate>
+                    </label>
                     <input name="mac" ng-model="temp.calledstationid" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" autofocus required>
                     <div ng-messages="myForm.mac.$error">
                       <div ng-message="required" translate>MAC is required.</div>
@@ -39,7 +41,9 @@
                     </div>
                   </md-input-container>
                   <md-input-container class="md-block" flex>
-                    <label translate>Description</label>
+                    <label>
+                      <translate>Description</translate>
+                    </label>
                     <input name="description" ng-minlength="5" md-maxlength="100" ng-model="temp.description" required>
                     <div ng-messages="myForm.description.$error">
                       <div ng-message="required" translate>A description is required.</div>
@@ -49,7 +53,9 @@
                   </md-input-container>
 
                   <md-input-container flex ng-if="zones.length> 0" style="padding-bottom: 10px;">
-                    <label translate>Zone</label>
+                    <label>
+                      <translate>Zone</translate>
+                    </label>
                     <md-select ng-model="temp.zone_id">
                       <md-option value=""></md-option>
                       <md-option ng-repeat="zone in zones" value="{{zone.id}}">
@@ -60,12 +66,13 @@
 
                 </div>
 
-                <md-checkbox ng-model="temp.is_polkaspots" aria-label="{{ 'Is Cucumber' | translate }}" translate>
-                  Cucumber firmware
+                <md-checkbox ng-model="temp.is_polkaspots" aria-label="{{ 'Is Cucumber' | translate }}">
+                  <translate>Cucumber firmware</translate>
                 </md-checkbox>
+
                 <div></div>
-                <md-button type="submit" aria-label="{{ 'add box' | translate }}" class="md-primary md-raised" ng-disabled="myForm.$invalid || myForm.$pristine" translate>ADD</md-button>
-                <p><ct-docs name="find-mac" translate>Where is my mac address?</ct-docs></p>
+                <md-button type="submit" aria-label="{{ 'add box' | translate }}" class="md-primary md-raised" ng-disabled="myForm.$invalid || myForm.$pristine"><translate>ADD</translate></md-button>
+                <p><ct-docs name="find-mac"><translate>Where is my mac address?</translate></ct-docs></p>
               </div>
             </div>
 
@@ -86,7 +93,9 @@
 
                   <div layout="row" flex="100" flex-gt-sm="40">
                     <md-input-container flex ng-if="zones.length> 1" style="padding-bottom: 10px;" flex="50">
-                      <label translate>Choose a Zone</label>
+                      <label>
+                        <translate>Choose a Zone</translate>
+                      </label>
                       <md-select ng-model="temp.zone_id" required>
                         <md-option ng-repeat="zone in zones" value="{{zone.id}}">
                           {{zone.zone_name}}
@@ -122,7 +131,7 @@
                     <div class="md-toolbar-tools">
                       <div flex></div>
                       <span ng-show="rogues.length">
-                        <md-button ng-disabled="selected.length == 0" class="md-raised" ng-click="createBoxFromRogues()" translate>ADD DEVICES <i ng-if="creating == true" class="fa fa-cog fa-spin"></i> <i class="fa fa-arrow-right" ng-if="!creating"></i></md-button>
+                        <md-button ng-disabled="selected.length == 0" class="md-raised" ng-click="createBoxFromRogues()"><translate>ADD DEVICES</translate><i ng-if="creating == true" class="fa fa-cog fa-spin"></i> <i class="fa fa-arrow-right" ng-if="!creating"></i></md-button>
                       </span>
 
                     </div>
@@ -142,14 +151,14 @@
 
             <div layout-gt-xs="row" flex>
               <span ng-if="setup.stage == 1 && setup.type == 'ct'">
-                <md-button aria-label="{{ 'discover boxes' | translate }}" class="md-raised md-primary" ng-click="nextStage()" translate>Discover</md-button>
+                <md-button aria-label="{{ 'discover boxes' | translate }}" class="md-raised md-primary" ng-click="nextStage()"><translate>Discover</translate></md-button>
               </span>
             </div>
 
           </form>
         </md-card-content>
         <md-card-actions layout="row" layout-align="left center" ng-show="setup.stage == 2 && setup.ct_type =='rogue' && !rogues.length && setup.detecting != true">
-          <md-button ng-click="manualBox()" class="" translate>Add Box</md-button>
+          <md-button ng-click="manualBox()" class=""><translate>Add Box</translate></md-button>
         </md-card-actions>
       </md-card>
     </div>

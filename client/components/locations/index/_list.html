@@ -6,9 +6,10 @@
     <section>
       <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
-          <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
+          <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" >
             <md-icon md-font-icon="search">search</md-icon>
-            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Locations' | translate }}">
+            <label></label>
+            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{'Filter Locations' | translate}}">
           </md-input-container>
         </div>
         <md-divider></md-divider>
@@ -33,8 +34,10 @@
             </md-card-content>
             <md-divider ng-if="!$last"></md-divider>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button href="/#/locations/new" aria-label="{{ 'Add Location' | translate }}" translate>
-                Add Location
+              <md-button href="/#/locations/new" aria-label="{{ 'Add Location' | translate }}">
+                <translate>
+                  Add Location
+                </translate>
               </md-button>
             </md-card-actions>
           </md-card>

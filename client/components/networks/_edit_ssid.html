@@ -12,7 +12,9 @@
         </div>
         <div flex layout="column">
           <md-input-container>
-            <label translate>SSID</label>
+            <label>
+              <translate>SSID</translate>
+            </label>
             <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" ng-pattern="/^[a-zA-ZäöåÄÖÅ0-9\-\'\-\_\ \.]*$/" required>
             <div ng-messages="myForm.ssid.$error">
               <div ng-message="md-maxlength" translate>Max 32 characters</div>
@@ -26,11 +28,15 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="close()" translate>
-        Close
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
       </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update()" translate>
-        UPDATE
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update()">
+        <translate>
+          UPDATE
+        </translate>
       </md-button>
     </md-dialog-actions>
   </form>

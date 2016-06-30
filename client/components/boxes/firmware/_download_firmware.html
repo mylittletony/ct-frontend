@@ -2,7 +2,9 @@
   <p translate>Download the firmware for your devices. You can read about installing the firmwares in the <ct-docs name="firmware" alt="documentation">documentation<ct-docs>.</p>
   <div flex flex-gt-sm="30" layout="column">
     <md-input-container>
-      <label translate>Choose a firmware version</label>
+      <label>
+        <translate>Choose a firmware version</translate>
+      </label>
         <md-select iiing-if="firmwares.length" ng-model="firmware">
         <md-option ng-repeat="f in firmwares" value="{{f.url}}">
           {{f.type}}
@@ -10,5 +12,5 @@
       </md-select>
     </md-input-container>
   </div>
-  <md-button ng-click="download()" class="md-raised" ng-disabled="!firmware" aria-label="{{ 'download firmware' }}" translate>Download</md-button>
+  <md-button ng-click="download()" class="md-raised" ng-disabled="!firmware" aria-label="{{ 'download firmware' }}"><translate>Download</translate></md-button>
 </div>

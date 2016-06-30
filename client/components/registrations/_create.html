@@ -37,12 +37,14 @@
           <md-card-content>
             <div layout="column">
               <md-input-container class="md-block">
-                <label translate>Enter Your Email</label>
+                <label>
+                  <translate>Enter Your Email</translate>
+                </label>
                 <input required ng-model="user.email" type="email">
                 <p class="hint" translate>Don't worry about choosing a password, we'll email you a link to set one.</p>
               </md-input-container>
             </div>
-            <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>Create</md-button>
+            <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Create</translate></md-button>
           </md-card-content>
         </div>
       </md-card>

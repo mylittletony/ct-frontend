@@ -20,7 +20,9 @@
         <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex-gt-sm="50">
-                <label translate>Location Splash Limit</label>
+                <label>
+                  <translate>Location Splash Limit</translate>
+                </label>
                 <input ng-model="location.splash_limit" name="splash_limit" type="number" ng-min=0 ng-max=1000000>
                 <div ng-messages="myForm.splash_limit.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 1,000,000</div>
@@ -29,19 +31,24 @@
                 </div>
               </md-input-container>
               <md-switch ng-model="location.tagged_logins" aria-label="{{ 'Tagged Logins' | translate }}" flex="100" flex-gt-sm="50">
-                Tagged Logins {{ location.tagged_logins ? 'Enabled' : 'Disabled' }}
+                <span ng-if="location.tagged_logins == true" translate>Tagged Logins Enabled</span>
+                <span ng-if="location.tagged_logins == false" translate>Tagged Logins Disabled</span>
               </md-switch>
               <md-switch ng-model="location.bypass_popup_android" aria-label="bypass_popup_android" flex-gt-sm="80">
-                Bypass Android Popup {{ location.bypass_popup_android ? 'Enabled' : 'Disabled' }}
+                <span ng-if="location.bypass_popup_android == true" translate>Bypass Android Popup Enabled</span>
+                <span ng-if="location.bypass_popup_android == false" translate>Bypass Android Popup Disabled</span>
               </md-switch>
               <md-switch ng-model="location.bypass_popup_ios" aria-label="bypass_popup_ios" flex="100" flex-gt-sm="50">
-                Bypass iOS Popup {{ location.bypass_popup_ios ? 'Enabled' : 'Disabled' }}
+                <span ng-if="location.bypass_popup_ios == true" translate>Bypass iOS Popup Enabled</span>
+                <span ng-if="location.bypass_popup_ios == false" translate>Bypass iOS Popup Disabled</span>
               </md-switch>
             </div>
         </md-card-content>
       </md-card>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)" translate>
-        Save
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+        <translate>
+          Save
+        </translate>
       </md-button>
 
     </div>

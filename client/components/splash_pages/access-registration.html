@@ -3,9 +3,9 @@
     <md-card-title-text>
       <span class="md-headline">
         <md-icon md-font-icon="">pan_tool</md-icon>
-        Registration Settings
+        <translate>Registration Settings</translate>
       </span>
-      <span class="md-subhead">
+      <span class="md-subhead" translate>
         Beta feature. Changes to functionality may happen without notice.
       </span>
     </md-card-title-text>
@@ -15,16 +15,16 @@
 
     <div layout="column" flex="100" flex-gt-xs="45">
 
-      <p>Default Behaviour After Initial Registration</p>
+      <p translate>Default Behaviour After Initial Registration</p>
 
       <md-radio-group ng-model="splash.require_registration" layout="column">
-        <md-radio-button value="0" class="md-primary">See a clickthrough login page</md-radio-button>
-        <md-radio-button value="1"> Enter username and password</md-radio-button>
+        <md-radio-button value="0" class="md-primary"><translate>See a clickthrough login page</translate></md-radio-button>
+        <md-radio-button value="1"><translate>Enter username and password</translate></md-radio-button>
       </md-radio-group>
 
     </div>
 
-    <p><small>Caution, changing this after you've captured details may prevent users from logging in.</small></p>
+    <p><small translate>Caution, changing this after you've captured details may prevent users from logging in.</small></p>
 
   </md-card-content>
   <!-- <md-card-actions layout="row" layout-align="end center"> -->

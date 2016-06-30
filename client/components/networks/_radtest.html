@@ -12,12 +12,16 @@
           <div layout-gt-xs="row">
             <input style="display:none" type="text" name="radtest_username"/>
             <md-input-container class="md-block" flex-gt-xs>
-              <label translate>Username</label>
+              <label>
+                <translate>Username</translate>
+              </label>
               <input name='radtest_username' placeholder=
               "{{ 'Enter a username' | translate }}" ng-model='radtest.username' type='text' required></input>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>
-              <label translate>Password</label>
+              <label>
+                <translate>Password</translate>
+              </label>
               <input name='radtest_password' placeholder="{{ 'Enter a password' | translate }}" ng-model='radtest.password' type='password' required></input>
             </md-input-container>
           </div>
@@ -34,12 +38,15 @@
   </md-dialog-content>
   <md-dialog-actions layout="row">
     <span flex></span>
-    <md-button ng-click="close()" translate>
-      Close
+    <md-button ng-click="close()">
+      <translate>
+       Close
+      </translate>
     </md-button>
-    <md-button ng-click="test(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" translate>
-      Test 
+    <md-button ng-click="test(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine">
+      <translate>
+        Test
+      </translate>
     </md-button>
   </md-dialog-actions>
 </md-dialog>
-

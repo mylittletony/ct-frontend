@@ -2,12 +2,13 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="splash_pages.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query.filter" md-autofocus placeholder="Filter Splash">
+      <label></label>
+      <input ng-model="query.filter" md-autofocus placeholder="{{'Filter Splash' | translate }}">
     </md-input-container>
     <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
-      <md-icon md-font-icon="" >layers</md-icon>
+      <md-icon md-font-icon="">layers</md-icon>
     </md-button>
-    <p ng-if="splash_pages.length === 0">Splash Pages</p>
+    <p ng-if="splash_pages.length === 0" translate>Splash Pages</p>
     <div flex></div>
     <splash-new style="md-icon-button md-accent" pages="splash_pages"></splash-new>
   </div>
@@ -23,12 +24,12 @@
         <md-card-title-text>
           <span class="md-headline">
             <!-- <md-icon md-font-icon=""></md-icon> -->
-            Get Started
+            <translate>Get Started</translate>
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p>Create a Splash Page to control your guest's access.</p>
+        <p translate>Create a Splash Page to control your guest's access.</p>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
         <splash-new style="md-raised" pages="splash_pages"></splash-new>
@@ -44,12 +45,12 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
             <tr md-row>
-              <th md-column md-order-by="active"><span>Active</span></th>
-              <th hide show-gt-sm md-column md-order-by="splash_name"><span>Name</span></th>
-              <th md-column md-order-by="primary_access"><span>Type</span></th>
-              <th hide show-gt-sm md-column><span>Network</span></th>
-              <th hide show-gt-sm md-column md-order-by="weight"><span>Weight</span></th>
-              <th md-column ng-show="menu.length"><span>Action</span></th>
+              <th md-column md-order-by="active"><span translate>Active</span></th>
+              <th hide show-gt-sm md-column md-order-by="splash_name"><span translate>Name</span></th>
+              <th md-column md-order-by="primary_access"><span translate>Type</span></th>
+              <th hide show-gt-sm md-column><span translate>Network</span></th>
+              <th hide show-gt-sm md-column md-order-by="weight"><span translate>Weight</span></th>
+              <th md-column ng-show="menu.length"><span translate>Action</span></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -58,23 +59,24 @@
                 <md-icon md-menu-origin md-font-icon="">{{ splash.active ? "check_circle" : 'cancel' }}</md-icon>
               </td>
               <td hide show-gt-sm md-cell>
-                <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}">
-                  {{ (splash.splash_name || 'No name') | truncate:20 }}
+                <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}" translate>
+                  <span ng-if="splash.splash_name" translate>{{splash.splash_name}}</span>
+                  <span ng-if="!splash.splash_name" translate>{{'No name' | truncate:20}}</span>
                 </a>
                 <md-tooltip>
-                  Created {{ splash.created_at | humanTime }}
+                  <translate>Created {{ splash.created_at | humanTime }}</translate>
                 </md-tooltip>
               </td>
               <td md-cell>
                 {{ splash.primary_access }}
                 <md-tooltip hide-gt-sm>
-                  Name {{ splash.splash_name }}
+                  <translate>Name {{ splash.splash_name }}</translate>
                 </md-tooltip>
               </td>
               <td hide show-gt-sm md-cell>
                 <span ng-if="splash.networks.length < 1"></span>
                 <span ng-if="splash.networks.length == 1">{{ splash.networks[0] }}</span>
-                <span ng-if="splash.networks.length > 1">{{ splash.networks.length }} network<span ng-if="splash.networks.length != 1">s</span></span>
+                <span ng-if="splash.networks.length > 1" translate translate-n="{{ splash.networks.length }}" translate-plural="{{ splash.networks.length }} networks">1 network</span>
 
               </td>
               <td hide show-gt-sm md-cell>

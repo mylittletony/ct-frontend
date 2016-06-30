@@ -11,13 +11,17 @@
         <p translate>Upgrade your firmware to the latest version. Firmware upgrades include security updates and new features.</p>
         <div flex-xs flex="50" ng-if="ps">
           <md-input-container>
-            <label translate>Enter a Version</label>
+            <label>
+              <translate>Enter a Version</translate>
+            </label>
             <input ng-model="prefs.version" placeholder="B_160201_01">
           </md-input-container>
         </div>
         <div flex-xs flex="50">
-          <md-checkbox ng-model="prefs.now" aria-label="{{ 'Upgrade Now' | translate }}" translate>
-            Upgrade Now
+          <md-checkbox ng-model="prefs.now" aria-label="{{ 'Upgrade Now' | translate }}">
+            <translate>
+              Upgrade Now
+            </translate>
           </md-checkbox>
         </div>
         <div flex-xs flex="100" ng-hide="prefs.now">
@@ -28,8 +32,10 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="cancel()" translate>
-        Cancel
+      <md-button ng-click="cancel()">
+        <translate>
+          Cancel
+        </translate>
       </md-button>
       <md-button ng-click="runUpgrade()" style="margin-right:20px;" translate>
         upgrade <span ng-if="upgrade.now">now</span>

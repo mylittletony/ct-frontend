@@ -1,7 +1,7 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <md-button id="main" class="md-icon-button md-primary" aria-label="{{ 'Users' | translate }}">
-      <md-icon md-font-icon="" >people</md-icon>
+      <md-icon md-font-icon="">people</md-icon>
     </md-button>
     <p translate>Admin Users</p>
     <div flex></div>
@@ -48,8 +48,10 @@
                   </td md-cell>
                   <td md-cell>
                     {{ ::user.email }}
-                    <md-tooltip hide-gt-sm translate>
-                      State: {{ user.state | titleCase }}. Created: {{ (user.created_at || user.timestamp ) | humanTime }}
+                    <md-tooltip hide-gt-sm>
+                      <translate>
+                        State: {{ user.state | titleCase }}. Created: {{ (user.created_at || user.timestamp ) | humanTime }}
+                      </translate>
                     </md-tooltip>
                   </td md-cell>
                   <td hide show-gt-sm md-cell>

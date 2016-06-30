@@ -1,57 +1,57 @@
-<md-dialog aria-label="Change Password" ng-cloak>
+<md-dialog aria-label="{{ 'Change Password' | translate }}" ng-cloak>
   <form name="myForm" ng-submit="update(user)">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h2>Plan Details</h2>
+        <h2 translate>Plan Details</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="row" layout-wrap>
-        <div flex="100" ng-if="loading">
+        <div flex="100" ng-if="loading" translate>
           Please wait while we load the plan.
         </div>
         <div flex="100" ng-if="!loading">
-          <h3>{{ ::plan.plan_name }} Plan</h3>
+          <h3 translate>{{ ::plan.plan_name }} Plan</h3>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Plan Description</h3>
+              <h3 translate>Plan Description</h3>
               <p>{{ ::plan.plan_description }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Included Devices</h3>
+              <h3 translate>Included Devices</h3>
               <p>
-                <span ng-if="plan.per_ap_allowance">{{ plan.per_ap_allowance }} free devices included.</span>
-                <span ng-if="!plan.per_ap_allowance">Add unlimited devices.</span>
+                <span ng-if="plan.per_ap_allowance" translate>{{ plan.per_ap_allowance }} free devices included.</span>
+                <span ng-if="!plan.per_ap_allowance" translate>Add unlimited devices.</span>
               </p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Monthly Costs</h3>
-              <p>{{ (plan.plan_price || 0) | currency : curr }} per month.</p>
+              <h3 translate>Monthly Costs</h3>
+              <p translate>{{ (plan.plan_price || 0) | currency : curr }} per month.</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Additional Device Costs</h3>
-              <p>{{ plan.cost_per_50 / 100 | currency : currency }} monthly for each addition device added.</p>
+              <h3 translate>Additional Device Costs</h3>
+              <p translate>{{ plan.cost_per_50 / 100 | currency : currency }} monthly for each addition device added.</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Admin Users</h3>
-              <p>{{ plan.admin_users }} admin users, per location.</p>
+              <h3 translate>Admin Users</h3>
+              <p translate>{{ plan.admin_users }} admin users, per location.</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Support Level</h3>
+              <h3 translate>Support Level</h3>
               <p>
-                <span ng-if="plan.plan_price == 0 ">Basic Support</span>
-                <span ng-if="plan.plan_price > 0 && plan.plan_price < 350 ">Standard Support</span>
-                <span ng-if="plan.plan_price >= 350 ">Premium Support</span>
+                <span ng-if="plan.plan_price == 0 " translate>Basic Support</span>
+                <span ng-if="plan.plan_price > 0 && plan.plan_price < 350 " translate>Standard Support</span>
+                <span ng-if="plan.plan_price >= 350 " translate>Premium Support</span>
                 (No SLA)
               </p>
             </div>
@@ -62,9 +62,9 @@
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        Cancel
+        <translate>Cancel</translate>
       </md-button>
-      <md-button ng-click="upgrade(plan)" class="md-raised md-primary">UPGRADE</md-button>
+      <md-button ng-click="upgrade(plan)" class="md-raised md-primary"><translate>UPGRADE</translate></md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

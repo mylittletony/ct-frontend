@@ -2,8 +2,8 @@
 
 var app = angular.module('myApp.users.controller', []);
 
-app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$routeParams', 'User', '$location', 'Auth', 'STRIPE_KEY', '$route', 'locationHelper', 'AUTH_URL', 'menu', '$cookies',
-  function($rootScope, $window, $scope, $routeParams, User, $location, Auth, STRIPE_KEY, $route, locationHelper, AUTH_URL, menu, $cookies) {
+app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$routeParams', 'User', '$location', 'Auth', 'STRIPE_KEY', '$route', 'locationHelper', 'AUTH_URL', 'menu', '$cookies', 'gettextCatalog',
+  function($rootScope, $window, $scope, $routeParams, User, $location, Auth, STRIPE_KEY, $route, locationHelper, AUTH_URL, menu, $cookies, gettextCatalog) {
 
     $scope.loading = true;
 
@@ -37,7 +37,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     menu.sectionName = Auth.currentUser().username;
 
     menu.sections = [{
-      name: 'Profile',
+      name: gettextCatalog.getString('Profile'),
       type: 'link',
       link: '/#/users/' + id,
       icon: 'face',
@@ -46,7 +46,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
 
     // User permissions remove if non account //
     menu.sections.push({
-      name: 'Billing',
+      name: gettextCatalog.getString('Billing'),
       type: 'link',
       link: '/#/users/' + id + '/billing',
       icon: 'credit_card',
@@ -55,7 +55,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
 
     // User permissions remove if non account //
     menu.sections.push({
-      name: 'Invoices',
+      name: gettextCatalog.getString('Invoices'),
       type: 'link',
       link: '/#/users/' + id + '/invoices',
       icon: 'picture_as_pdf',
@@ -65,7 +65,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     // User permissions remove if non account //
 
     menu.sections.push({
-      name: 'Integrations',
+      name: gettextCatalog.getString('Integrations'),
       type: 'link',
       link: '/#/users/' + id + '/integrations',
       icon: 'widgets',
@@ -80,7 +80,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     // });
 
     menu.sections.push({
-      name: 'Notifications',
+      name: gettextCatalog.getString('Notifications'),
       type: 'link',
       link: '/#/users/' + id + '/alerts',
       icon: 'email',
@@ -88,7 +88,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     });
 
     menu.sections.push({
-      name: 'Branding',
+      name: gettextCatalog.getString('Branding'),
       type: 'link',
       link: '/#/users/' + id + '/branding',
       icon: 'perm_identity',
@@ -96,14 +96,14 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     });
 
     // menu.sections.push({
-    //   name: 'Locations',
+    //   name: gettextCatalog.getString('Locations'),
     //   type: 'link',
     //   link: '/#/users/' + id + '/locations',
     //   icon: 'business'
     // });
 
     menu.sections.push({
-      name: 'History',
+      name: gettextCatalog.getString('History'),
       type: 'link',
       link: '/#/users/' + id + '/history',
       icon: 'change_history',
@@ -111,7 +111,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     });
 
     menu.sections.push({
-      name: 'Access',
+      name: gettextCatalog.getString('Access'),
       type: 'link',
       link: '/#/users/' + id + '/sessions',
       icon: 'pan_tool',
@@ -119,14 +119,14 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     });
 
     menu.sections.push({
-      name: 'Inventory',
+      name: gettextCatalog.getString('Inventory'),
       type: 'link',
       link: '/#/users/' + id + '/inventory',
       icon: 'track_changes',
       active: isActive('inventory')
     });
     menu.sections.push({
-      name: 'Quotas',
+      name: gettextCatalog.getString('Quotas'),
       type: 'link',
       link: '/#/users/' + id + '/quotas',
       icon: 'book',

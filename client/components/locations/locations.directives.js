@@ -1417,7 +1417,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
 
   var link = function( scope, element, attrs ) {
 
-    scope.location = { slug: $routeParams.id };
+    // scope.location = { slug: $routeParams.id };
 
     // User Permissions //
     var createMenu = function() {

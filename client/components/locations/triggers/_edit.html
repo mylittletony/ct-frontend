@@ -5,8 +5,8 @@
     </md-button>
     <p translate>Triggers</p>
     <md-menu ng-if="menu.length">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)" translate>
-        TOOLS
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
+        <translate>TOOLS</translate>
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="item in menu">
@@ -20,5 +20,3 @@
   </div>
   <md-divider></md-divider>
 </md-toolbar>
-
-

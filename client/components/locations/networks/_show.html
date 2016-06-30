@@ -1,13 +1,15 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+      <md-icon md-font-icon="arrow_back">arrow_back</md-icon>
     </md-button>
     <p translate>Networks</p>
     <span flex></span>
     <md-menu ng-if="menu">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)" translate>
-        TOOLS
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
+        <translate>
+          TOOLS
+        </translate>
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="item in menu">
@@ -37,8 +39,10 @@
         <md-card-content>
           <div layout-gt-sm="row">
             <input style="display:none" type="password" name="ssid"/>
-            <md-input-container class="md-block" flex-gt-sm="50" >
-              <label translate>Network SSID</label>
+            <md-input-container class="md-block" flex-gt-sm="50">
+              <label>
+                <translate>Network SSID</translate>
+              </label>
               <input name="ssid" md-maxlength="32" ng-model="network.ssid" required>
               <div ng-messages="myForm.ssid.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
@@ -48,8 +52,10 @@
           </div>
           <div layout-gt-sm="row" ng-if="network.access_type == 'password'">
             <input style="display:none" type="password" name="password"/>
-            <md-input-container class="md-block" flex-gt-sm="50" >
-              <label translate>Password</label>
+            <md-input-container class="md-block" flex-gt-sm="50">
+              <label>
+                <translate>Password</translate>
+              </label>
               <input type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ \@\!\£\$\%\^\&\*\(\)]*$/" required>
               <div ng-messages="myForm.password.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
@@ -60,12 +66,13 @@
             </md-input-container>
           </div>
           <md-radio-group ng-model="network.access_type" layout="row">
-            <md-radio-button value="password" class="md-primary">Password</md-radio-button>
-            <md-radio-button value="open" translate> Open </md-radio-button>
+            <md-radio-button value="password" class="md-primary"><translate>Password</translate></md-radio-button>
+            <md-radio-button value="open"><translate>Open</translate></md-radio-button>
             <md-radio-button value="radius"> 802.1x </md-radio-button>
           </md-radio-group>
           <md-switch ng-disabled="network.vlan_id || !network.dhcp_enabled" class="md-accent" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;">
-            Splash Page {{ network.captive_portal_enabled === true ? 'Enabled' : 'Disabled' }}
+            <span  ng-if="network.captive_portal_enabled == true" translate>Splash Page Enabled</span>
+             <span  ng-if="network.captive_portal_enabled != true" translate>Splash Page Disabled</span>
           </md-switch>
           <small ng-show="network.dhcp_enabled == false"><b translate>Turn on DHCP server to enable the splash page</b></small>
           <small ng-show="network.vlan_id"><b translate>Remove the VLAN ID to enable the splash page</b></small>
@@ -84,7 +91,9 @@
             <div layout="row" layout-wrap>
 
               <md-input-container class="md-block" flex="80">
-                <label translate>IP Address</label>
+                <label>
+                  <translate>IP Address</translate>
+                </label>
                 <input ng-disabled="network.make_part_of_lan || network.network_radio_mode == 'sta'" ng-model="network.interface_ipaddr" name="interface_ipaddr" placeholder="{{ 'interface ip' | translate }}" type="text" ng-minlength="8" ng-maxlength='32' ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" required>
                 <div ng-messages="myForm.interface_ipaddr.$error">
                   <div ng-message="required" translate>This device must have a valid IP</div>
@@ -93,7 +102,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="20">
-                <label>Netmask</label>
+                <label>
+                  <translate>Netmask</translate>
+                </label>
                 <md-select ng-disabled="network.make_part_of_lan || network.network_radio_mode == 'sta'" ng-model="network.interface_netmask">
                   <md-option ng-repeat="val in netmasks">
                     {{val}}
@@ -102,7 +113,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label translate>DNS 1</label>
+                <label>
+                  <translate>DNS 1</translate>
+                </label>
                 <input ng-disabled="network.network_radio_mode == 'sta' || network.content_filter != 'Off'" ng-model="network.dns_1" name="dns_1" placeholder="{{ 'DNS (8.8.8.8)' | translate }}" type="text" ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" required>
                 <div ng-messages="myForm.wan_dns_1.$error">
                   <div ng-message="required" translate>A DNS value is required</div>
@@ -111,7 +124,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label translate>DNS 2</label>
+                <label>
+                  <translate>DNS 2</translate>
+                </label>
                 <input ng-disabled="network.network_radio_mode == 'sta' || network.content_filter != 'Off'" ng-model="network.dns_2" name="dns_2" placeholder="{{ 'DNS (8.8.8.8)' | translate }}" type="text" ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" required>
                 <div ng-messages="myForm.wan_dns_2.$error">
                   <div ng-message="required" translate>A DNS value is required</div>
@@ -120,7 +135,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50" >
-                <label translate>Host</label>
+                <label>
+                  <translate>Host</translate>
+                </label>
                 <input ng-disabled="network.captive_portal_enabled" ng-model="network.proxy_server_host" name="proxy_server_host" placeholder="{{ 'Proxy Host' | translate }}" type="text" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/">
                 <div ng-messages="myForm.proxy_server_host.$error">
                   <div ng-message="pattern" translate>Host must be an IPv4 Address</div>
@@ -128,7 +145,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="100" flex-gt-sm="50" >
-                <label translate>Port</label>
+                <label>
+                  <translate>Port</translate>
+                </label>
                 <input ng-disabled="network.captive_portal_enabled" ng-model="network.proxy_server_port" name="proxy_server_port" placeholder="3128" type="number" ng-min="1" ng-max='65432'>
                 <div ng-messages="myForm.proxy_server_port.$error">
                   <div ng-message="max" translate>Max 65432</div>
@@ -139,7 +158,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="100">
-                <label translate>Content Filtering</label>
+                <label>
+                  <translate>Content Filtering</translate>
+                </label>
                 <md-select ng-disabled="network.make_part_of_lan == true || network.network_radio_mode == 'sta'" ng-model="network.content_filter">
                   <md-option ng-repeat="val in content_filters">
                     {{val}}
@@ -151,7 +172,9 @@
           <div flex></div>
           <div flex-gt-sm="40">
             <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-              <label translate>Network Metric</label>
+              <label>
+                <translate>Network Metric</translate>
+              </label>
               <input ng-disabled="network.make_part_of_lan || network.network_radio_mode == 'sta'" type="number" name="metric" ng-model="network.metric" ng-max=10000 ng-min=0 required>
               <div ng-messages="myForm.metric.$error">
                 <div ng-message="min" translate>Must be greater than 0</div>
@@ -159,7 +182,9 @@
               </div>
             </md-input-container>
             <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-              <label translate>DHCP Option Type</label>
+              <label>
+                <translate>DHCP Option Type</translate>
+              </label>
               <input ng-disabled="network.captive_portal_enabled || !network.dhcp_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" type="text" name="dhcp_option_type" ng-model="network.dhcp_option_type" placeholder="{{ 'The default option is 6' | translate }}"  required>
               <div ng-messages="myForm.option_type.$error">
                 <div ng-message="min" translate>Must be greater than 0</div>
@@ -167,7 +192,9 @@
               </div>
             </md-input-container>
             <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-              <label translate>VLAN ID</label>
+              <label>
+                <translate>VLAN ID</translate>
+              </label>
               <input ng-disabled="network.captive_portal_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" ng-model="network.vlan_id" name="vlan_id" placeholder="{{ 'VLAN ID' | translate }}" ng-min="1" type="number" ng-min="1" ng-max="4096">
               <div ng-messages="myForm.vlan_id.$error">
                 <div ng-message="min" translate>Must be greater than 1</div>
@@ -175,15 +202,17 @@
               </div>
             </md-input-container>
             <md-switch ng-disabled="network.captive_portal_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" class="md-accent" ng-model="network.dhcp_enabled" aria-label="{{ 'Enable DHCP' | translate }}" ng-disabled="(network.captive_portal_enabled == true) || (network.network_radio_mode == 'sta')" style="margin-top: -10px">
-              DHCP Server {{ network.dhcp_enabled ? 'Enabled' : 'Disabled' }}
+              <span  ng-if="network.dhcp_enabled == true" translate>DHCP Server Enabled</span>
+              <span  ng-if="network.dhcp_enabled == false" translate>DHCP Server Disabled</span>
             </md-switch>
             <md-switch ng-disabled="network.make_part_of_lan" class="md-accent" ng-model="network.network_radio_mode" aria-label="{{ 'Enable Repeater' | translate }}" ng-false-value="'ap'" ng-true-value="'sta'">
-              Repeater Mode {{ network.network_radio_mode == 'ap' ? 'Disabled' : 'Enabled' }}
+              <span  ng-if="network.network_radio_mode === 'ap'" translate>Repeater Mode Disabled</span>
+              <span  ng-if="network.network_radio_mode !== 'ap'" translate>Repeater Mode Enabled</span>
             </md-switch>
           </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="left center" class="md-padding">
-          <small><br><b>{{ disabled(network) }}</b></small>       
+          <small><br><b>{{ disabled(network) }}</b></small>
         </md-card-actions>
       </md-card>
 
@@ -205,7 +234,9 @@
             <div layout="row" layout-wrap>
 
               <md-input-container class="md-block" flex="40">
-                <label translate>Host One IP</label>
+                <label>
+                  <translate>Host One IP</translate>
+                </label>
                 <input ng-model="network.radius_8021x_host_1" name="radius_8021x_host_1" placeholder="{{ 'Radius Host' | translate }}" type="text" ng-pattern="/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/" ng-required="network.access_type == 'radius'">
                 <div ng-messages="myForm.radius_8021x_host_1.$error">
                   <div ng-message="required" translate>This device must have a valid host IP.</div>
@@ -214,6 +245,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="40">
+                <label>
+                  <translate>Radius Secret</translate>
+                </label>
                 <input ng-focus="showRadPassy8021 = !showRadPassy8021" ng-blur="showRadPassy8021 = !showRadPassy8021" ng-model="network.radius_8021x_secret_1" name="radius_8021x_secret_1" placeholder="{{ 'Radius Secret' | translate }}" type="{{ showRadPassy8021 ? 'text' : 'password' }}" ng-required="network.access_type == 'radius'">
                 <div ng-messages="myForm.radius_8021x_secret_1.$error">
                   <div ng-message="required" translate>Must have a valid password.</div>
@@ -221,7 +255,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="20">
-                <label translate>Port</label>
+                <label>
+                  <translate>Port</translate>
+                </label>
                 <input ng-model="network.radius_8021x_port_1" name="radius_8021x_port_1" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433' ng-required="network.access_type == 'radius'">
                 <div ng-messages="myForm.radius_8021x_port_1.$error">
                   <div ng-message="required" translate>Must have a valid port.</div>
@@ -231,7 +267,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="40">
-                <label translate>Host Two IP</label>
+                <label>
+                  <translate>Host Two IP</translate>
+                </label>
                 <input ng-model="network.radius_8021x_host_2" name="radius_8021x_host_2" placeholder="{{ 'Radius Host' | translate }}" type="text" ng-pattern="/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/">
                 <div ng-messages="myForm.radius_8021x_host_2.$error">
                   <div ng-message="required" translate>This device must have a valid host IP.</div>
@@ -240,6 +278,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="40">
+                <label>
+                  <translate>Radius Secret</translate>
+                </label>
                 <input ng-focus="showRadPassy8022 = !showRadPassy8022" ng-blur="showRadPassy8022 = !showRadPassy8022" ng-model="network.radius_8021x_secret_2" name="radius_8021x_secret_2" placeholder="{{ 'Radius Secret' | translate }}" type="{{ showRadPassy8022 ? 'text' : 'password' }}">
                 <div ng-messages="myForm.radius_8022x_secret_1.$error">
                   <div ng-message="required" translate>Must have a valid password.</div>
@@ -247,7 +288,9 @@
               </md-input-container>
 
               <md-input-container class="md-block" flex="20">
-                <label>Port</label>
+                <label>
+                  <translate>Port</translate>
+                </label>
                 <input ng-model="network.radius_8022x_port_2" name="radius_8022x_port_2" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433'>
                 <div ng-messages="myForm.radius_8022x_port_2.$error">
                   <div ng-message="required" translate>Must have a valid port.</div>
@@ -270,43 +313,56 @@
           <div layout="column" layout-gt-sm="row">
             <div flex-gt-sm="40">
               <md-switch class="md-accent" ng-model="network.ssid_disabled" aria-label="{{ 'Enable Radio' | translate }}" ng-false-value=true ng-true-value=false>
-                SSID {{ network.ssid_disabled ? 'Disabled' : 'Enabled' }}
+                <span ng-show="network.ssid_disabled" translate>SSID Disabled</span>
+                <span ng-hide="network.ssid_disabled" translate>SSID Enabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-disabled="network.ssid_disabled" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
-                SSID {{ network.ssid_hidden == true ? 'Hidden' : 'Visible' }}
+                <span ng-if="network.ssid_hidden == true" translate>SSID Hidden</span>
+                <span ng-if="network.ssid_hidden == false" translate>SSID Visible</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate" aria-label="{{ 'Isolate SSID' | translate }} ">
-                Client Isolation {{ network.isolate == true ? 'Enabled' : 'Disabled' }}
+                <span ng-if="network.isolate == true" translate>Client Isolation Enabled</span>
+                <span ng-if="network.isolate != true" translate>Client Isolation Disabled</span>
               </md-switch>
               <md-switch ng-disabled="network.vlan_id > 0 || network.network_radio_mode === 'sta'" class="md-accent" ng-model="network.make_part_of_lan" aria-label="{{ 'Make Part of LAN' | translate }}">
-                Make Part of Lan {{ network.make_part_of_lan == true ? 'Enabled' : 'Disabled' }}
+                <span ng-if="network.make_part_of_lan == true" translate>Make Part of Lan Enabled</span>
+                <span ng-if="network.make_part_of_lan == false" translate>Make Part of Lan Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.bridge_to_switch_ports" aria-label="{{ 'Bridge To Switch' | translate }}">
-                Bridge with Switch {{ network.bridge_to_switch_ports == true ? 'Enabled' : 'Disabled' }}
+                <span ng-if="network.bridge_to_switch_ports == true" translate>Bridge with Switch Enabled</span>
+                <span ng-if="network.bridge_to_switch_ports == false" translate>Bridge with Switch Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate_traffic" aria-label="{{ 'Isolate Traffic' | translate }}">
-                Traffic Isolation {{ network.isolate_traffic == true ? 'Enabled' : 'Disabled' }}
+                <span ng-if="network.isolate_traffic == true" translate>Traffic Isolation Enabled</span>
+                <span ng-if="network.isolate_traffic == false" translate>Traffic Isolation Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate_icmp" aria-label="{{ 'Isolate ICMP' | translate }}">
-                Outbound ICMP {{ network.isolate_icmp == true ? 'Enabled' : 'Disabled' }}
+                <span ng-if="network.isolate_icmp == true" translate>Outbound ICMP Enabled</span>
+                <span ng-if="network.isolate_icmp == false" translate>Outbound ICMP Disabled</span>
               </md-switch>
             </div>
             <div flex></div>
             <div flex-gt-sm="40">
-              <label translate>Band Selection</label>
+              <label>
+                <translate>Band Selection</translate>
+              </label>
               <md-radio-group ng-model="network.band_selection" layout="row" style="padding: 20px 0;">
-                <md-radio-button value="dual" class="md-primary" translate>Dual</md-radio-button>
-                <md-radio-button value="two" translate> 2.4Ghz </md-radio-button>
-                <md-radio-button value="five" translate> 5Ghz </md-radio-button>
+                <md-radio-button value="dual" class="md-primary"><translate>Dual</translate></md-radio-button>
+                <md-radio-button value="two"><translate>2.4Ghz</translate></md-radio-button>
+                <md-radio-button value="five"><translate>5Ghz</translate></md-radio-button>
               </md-radio-group>
               <small translate>Available if your access points have two radios.</small>
             </div>
           </div>
-          <small ng-if="network.vlan_id > 0 || network.network_radio_mode === 'sta'"><br><b translate>'Make Part of LAN' disabled because {{ network.vlan_id ? 'you have an active VLAN' : 'repeater mode is activated' }}.</b></small>
+          <small ng-if="network.vlan_id > 0 || network.network_radio_mode === 'sta'"><br>
+            <b>
+              <span ng-if="network.vlan_id == true" translate>'Make Part of LAN' disabled because you have an active VLAN.</span>
+              <span ng-if="network.vlan_id == false" translate>'Make Part of LAN' disabled because repeater mode is activated.</span>
+            </b></small>
         </md-card-content>
       </md-card>
-      <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>Save</md-button>
-      
+      <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
+
       <div class="lock-size" layout="row" layout-align="center center">
         <md-button aria-label="{{ 'menu' | translate }}" ng-hide="myForm.$invalid || myForm.$pristine" ng-click="update(myForm)" class="md-fab md-primary md-fab-bottom-right ">
           <md-icon md-font-icon="">save</md-icon>

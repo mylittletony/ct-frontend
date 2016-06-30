@@ -8,7 +8,9 @@
     <md-dialog-content>
       <div class="md-dialog-content">
         <md-input-container class="md-block" flex-gt-xs>
-          <label translate>Client Name</label>
+          <label>
+            <translate>Client Name</translate>
+          </label>
           <input name="device_name" md-maxlength="30" minlength="5" ng-model="client.name" required>
           <div ng-messages="myForm.device_name.$error">
             <div ng-message="required" translate>Please enter a name</div>
@@ -19,11 +21,15 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="close()" translate>
-        Close
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
       </md-button>
-      <md-button ng-click="save()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised" translate>
-        Save
+      <md-button ng-click="save()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">
+        <translate>
+          Save
+        </translate>
       </md-button>
     </md-dialog-actions>
   </form>

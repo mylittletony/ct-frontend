@@ -2,7 +2,7 @@
   <md-card>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">
+        <span class="md-headline" translate>
           Billing Preferences
         </span>
       </md-card-title-text>
@@ -11,49 +11,49 @@
       <div layout="row" layout-wrap>
 
         <md-input-container flex="100" flex-gt-sm="100">
-          <label>Billing Name</label>
-          <input type="text" name="billing_name" ng-model='user.billing_name' placeholder='Your company name' md-maxlength="255">
+          <label translate>Company Name</label>
+          <input type="text" name="billing_name" ng-model='user.billing_name' placeholder="{{ 'Your company name' | translate }}" md-maxlength="255">
           <div ng-messages="myForm.billing_name.$error">
-            <div ng-message="md-maxlength">Max 255 characters</div>
+            <div ng-message="md-maxlength" translate>Max 255 characters</div>
           </div>
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="50">
-          <label>Billing Name</label>
-          <input type="text" name="billing_city" ng-model='user.billing_city' placeholder='Billing City' md-maxlength="255">
+          <label translate>Billing City</label>
+          <input type="text" name="billing_city" ng-model='user.billing_city' placeholder="{{ 'Your billing city' | translate}}"  md-maxlength="255">
           <div ng-messages="myForm.billing_city.$error">
-            <div ng-message="md-maxlength">Max 255 characters</div>
+            <div ng-message="md-maxlength" translate>Max 255 characters</div>
           </div>
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="50">
-          <label>Billing Postcode</label>
-          <input type="text" name="billing_postcode" ng-model='user.billing_postcode' placeholder='Billing Postcode' md-maxlength="10">
+          <label translate>Billing Postcode</label>
+          <input type="text" name="billing_postcode" ng-model='user.billing_postcode' placeholder="{{ 'Your billing postcode' | translate }}" md-maxlength="10">
           <div ng-messages="myForm.billing_postcode.$error">
-            <div ng-message="md-maxlength">Max 10 characters</div>
+            <div ng-message="md-maxlength" translate>Max 10 characters</div>
           </div>
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="100">
-          <label>Additional Billing Emails</label>
-          <textarea type="text" name="billing_email" ng-model='user.billing_email' placeholder='Additional Billing Emails'></textarea>
+          <label translate>Additional Billing Emails</label>
+          <textarea type="text" name="billing_email" ng-model='user.billing_email' placeholder="{{ 'Add additional billing email addresses' | translate }}"></textarea>
         </md-input-container>
 
         <div flex="100">
-          <p>Billing Currency</p>
+          <p translate>Billing Currency</p>
           <md-radio-group ng-model="user.currency" layout="row">
-            <md-radio-button ng-disabled="user.subscription_active" value="USD">USD</md-radio-button>
-            <md-radio-button ng-disabled="user.subscription_active" value="GBP">GBP</md-radio-button>
-            <md-radio-button ng-disabled="user.subscription_active" value="EUR">EURO</md-radio-button>
+            <md-radio-button ng-disabled="user.subscription_active" value="USD"><translate>USD</translate></md-radio-button>
+            <md-radio-button ng-disabled="user.subscription_active" value="GBP"><translate>GBP</translate></md-radio-button>
+            <md-radio-button ng-disabled="user.subscription_active" value="EUR"><translate>EURO</translate></md-radio-button>
           </md-radio-group>
-          <p><small>You can't change the currency if you have an active subscription.</small></p>
+          <p><small translate>You can't change the currency if you have an active subscription.</small></p>
         </div>
       </div>
     </md-card-content>
   </md-card>
 
   <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-    Save
+    <translate>Save</translate>
   </md-button>
 
 </form>

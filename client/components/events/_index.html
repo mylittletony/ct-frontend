@@ -9,7 +9,9 @@
           <md-card-title>
             <md-card-title-text>
               <md-input-container layout="row" flex="30">
-                <label translate>Event Type</label>
+                <label>
+                  <translate>Event Type</translate>
+                </label>
                 <md-select ng-model="query.filter" ng-change="search()">
                   <md-option ng-repeat="trigger in triggers" value="{{trigger.value}}">
                     {{trigger.name}}
@@ -51,7 +53,7 @@
                         <md-menu-item>
                           <md-button ng-href="/#/events/{{ event.id }}">
                             <md-icon>pageview</md-icon>
-                        <p flex translate>View Event</p>
+                            <p flex translate>View Event</p>
                           </md-button>
                         </md-menu-item>
                       </md-menu-content>
@@ -69,4 +71,3 @@
     </div>
   </md-content>
 </div>
-

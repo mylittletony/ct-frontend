@@ -1,6 +1,8 @@
 <div layout="column">
   <md-input-container>
-    <label translate>To Address</label>
+    <label>
+      <translate>To Address</translate>
+    </label>
     <input type="text" name="to" ng-model="trigger.attr_1" placeholder="{{ 'Enter an email to send the notification' | translate }}" required></input>
     <div ng-messages="myForm.to.$error" md-auto-hide="false">
       <div ng-message="required" translate>You must set the email</div>
@@ -8,7 +10,9 @@
   </md-input-container>
 
   <md-input-container>
-    <label translate>From Address</label>
+    <label>
+      <translate>From Address</translate>
+    </label>
     <input type="email" name="from" ng-model="trigger.attr_2" placeholder="{{ 'Who's the email from' | translate }}" required></input>
     <div ng-messages="myForm.from.$error" md-auto-hide="false">
       <div ng-message="required" translate>You must set a from address</div>
@@ -17,7 +21,9 @@
   </md-input-container>
 
   <md-input-container>
-    <label translate>Subject</label>
+    <label>
+      <translate>Subject</translate>
+    </label>
     <input type="text" name="subject" ng-model="trigger.attr_3" placeholder="{{ 'Enter a subject' | translate }}" required md-maxlength=100></input>
     <div ng-messages="myForm.subject.$error" md-auto-hide="false">
       <div ng-message="required" translate>You must set a subject</div>
@@ -26,7 +32,9 @@
   </md-input-container>
 
   <md-input-container>
-    <label translate>Message Body</label>
+    <label>
+      <translate>Message Body</translate>
+    </label>
     <textarea name="body" ng-model="trigger.attr_4" placeholder="{{ 'What to say' | translate }}" rows=7 md-maxlength=1000 required></textarea>
     <div ng-messages="myForm.body.$error" md-auto-hide="false">
       <div ng-message="required" translate>You must set a body for the message</div>

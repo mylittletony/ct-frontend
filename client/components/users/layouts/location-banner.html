@@ -1,8 +1,8 @@
 <div ng-show="true" class="bottom-nav show-for-medium-up" id="location-banner">
   <ul class="left inline-list">
     <li><a href="/#/locations"><i class="fa fa-arrow-left"></i></a></li>
-    <li>{{ location.location_name | titleCase }}. {{ location.full_address | titleCase }} {{ location.phone1 }}.</li>
+    <li translate>{{ location.location_name | titleCase }}. {{ location.full_address | titleCase }} {{ location.phone1 }}.</li>
     <li class='show-for-medium-up'>On The {{ location.plan_name | titleCase }} Plan.</li>
-    <li ng-show="location.archived"><b><i class="fa fa-exclamation-circle"></i> Location Archived</b></li>
+    <li ng-show="location.archived"><b><i class="fa fa-exclamation-circle"></i> <translate>Location Archived</translate></b></li>
   </ul>
 </div>

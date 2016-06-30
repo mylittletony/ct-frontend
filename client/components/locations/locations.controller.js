@@ -194,6 +194,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
           menu.archived = data.archived;
         }
         $scope.location = data;
+        window.moment.tz.setDefault($scope.location.timezone);
 
         var params = {id: data.id, location_name: data.location_name};
         var json = JSON.stringify(params);
@@ -201,7 +202,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
         // Used to check for location name change
         // Will refresh the page if a change is detected
-        
+
         slug = $scope.location.slug;
         $scope.$broadcast('locationLoaded');
       });

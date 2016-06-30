@@ -3,7 +3,7 @@
     <md-button id="main" class="md-icon-button md-primary" aria-label="Vouchers">
       <md-icon md-font-icon="" >notifications_active</md-icon>
     </md-button>
-    <p>Triggers</p>
+    <p translate>Triggers</p>
     <div flex></div>
     <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
       <md-icon>add_circle</md-icon>
@@ -19,16 +19,16 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">
+          <span class="md-headline" translate>
             Get Started
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p>Triggers run automatically in the background.</p>
+        <p translate>Triggers run automatically in the background.</p>
         <p>They monitor things that happen and notify you automatically.</p>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-show="allowed == true" ng-click="create()">Create</md-button>
+          <md-button ng-show="allowed == true" ng-click="create()"><translate>Create</translate></md-button>
         </md-card-actions>
       </md-card-content>
     </md-card>
@@ -42,13 +42,13 @@
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head>
               <tr md-row class="md-table-headers-row">
-                <th md-column md-order-by="active"><span>Active</span></th>
-                <th md-column md-order-by="name"><span>Name</span></th>
-                <th hide show-gt-sm md-column md-order-by="type"><span>Type</span></th>
-                <th hide show-gt-sm md-column md-order-by="channel"><span>Channel</span></th>
-                <th hide show-gt-sm md-column md-order-by="info"><span>Info</span></th>
-                <th hide show-gt-sm md-column md-order-by="runs"><span>Runs</span></th>
-                <th md-column>Action</th>
+                <th md-column md-order-by="active"><span translate>Active</span></th>
+                <th md-column md-order-by="name"><span translate>Name</span></th>
+                <th hide show-gt-sm md-column md-order-by="type"><span translate>Type</span></th>
+                <th hide show-gt-sm md-column md-order-by="channel"><span translate>Channel</span></th>
+                <th hide show-gt-sm md-column md-order-by="info"><span translate>Info</span></th>
+                <th hide show-gt-sm md-column md-order-by="runs"><span translate>Runs</span></th>
+                <th md-column translate>Action</th>
               </tr>
             </thead>
             <tbody md-body>
@@ -61,7 +61,9 @@
                     {{ trigger.trigger_name }}
                   </a>
                   <md-tooltip hide-gt-sm>
-                    Type: {{ trigger.trigger_type }}. Runs: {{ trigger.run_count }}
+                    <translate>
+                      Type: {{ trigger.trigger_type }}. Runs: {{ trigger.run_count }}
+                    </translate>
                   </md-tooltip>
                 </td md-cell>
                 <td hide show-gt-sm md-cell>
@@ -71,14 +73,16 @@
                   {{ trigger.channel }}
                 </td md-cell>
                 <td hide show-gt-sm md-cell>
-                  <span ng-if="trigger.channel == 'slack'">
+                  <span ng-if="trigger.channel == 'slack'" translate>
                     Posting to {{ trigger.custom_1 || 'unknown'}}
                   </span>
                 </td md-cell>
                 <td hide show-gt-sm md-cell>
                   {{ trigger.run_count }}
                   <md-tooltip>
-                    Fails: {{ trigger.total_fail_count || 0}}
+                    <translate>
+                      Fails: {{ trigger.total_fail_count || 0}}
+                    </translate>
                   </md-tooltip>
                 </td md-cell>
                 <td md-cell>

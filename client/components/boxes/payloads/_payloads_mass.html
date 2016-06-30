@@ -2,7 +2,9 @@
   <span ng-hide="loading">
     <div layout="column" layout-gt-xs="row" layout-wrap>
       <md-input-container flex-gt-xs="50">
-        <label translate>Run the command</label>
+        <label>
+          <translate>Run the command</translate>
+        </label>
         <md-select ng-model="command.selected">
           <md-option ng-disabled="command.upgrade" ng-repeat="command in commands" value="{{command.unique_id}}">
             {{ command.payload_description }}
@@ -10,8 +12,10 @@
         </md-select>
       </md-input-container>
       <div flex="100">
-        <md-checkbox ng-model="command.upgrade" aria-label="{{ 'Upgrade Firmware' | translate }}" translate>
-          Upgrade Firmware
+        <md-checkbox ng-model="command.upgrade" aria-label="{{ 'Upgrade Firmware' | translate }}">
+          <translate>
+            Upgrade Firmware
+          </translate>
         </md-checkbox>
       </div>
     </div>

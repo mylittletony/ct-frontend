@@ -57,8 +57,10 @@
               </td>
               <td md-cell>
                 {{ ::code.username }} <span hide-gt-sm>/ {{ ::code.password }}</span>
-                <md-tooltip hide-gt-sm translate>
-                  Activated: {{ ::(code.date_activated | humanTime) }}
+                <md-tooltip hide-gt-sm>
+                  <translate>
+                    Activated: {{ ::(code.date_activated | humanTime) }}
+                  </translate>
                 </md-tooltip>
               </td>
               <td hide show-gt-sm md-cell>
