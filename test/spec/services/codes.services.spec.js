@@ -28,8 +28,8 @@ describe("Code Unit Tests", function() {
   });
 
   it('should have sent a GET request to location codes', function() {
-    var result = Code.get({location_id: 123, voucher_id: 456})
-    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/locations/123/vouchers/456/codes')
+    var result = Code.get({location_id: 123, voucher_id: 456, vouchers: 'vouchers'});
+    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/locations/123/vouchers/456/codes');
     $httpBackend.flush();
   });
 
