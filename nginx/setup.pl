@@ -49,7 +49,7 @@ module.exports = {
     API_END_POINT: 'https://api.ctapp.io/api/v1',
     AUTH_URL: 'https://api.ctapp.io',
     AUTH_URL: 'https://id.ctapp.io',
-    STRIP_KEY: '',
+    STRIPE_KEY: '',
     SLACK_TOKEN: '',
     CHIMP_TOKEN: '',
     INTERCOM: '',
