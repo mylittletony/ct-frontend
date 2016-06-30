@@ -11,9 +11,9 @@ dependencies:
     - bower install --save
     - npm install grunt-contrib-sass --save
     - npm install urijs --save
-    - npm install grunt-msg-init-merge --save
-    - npm install grunt-potomo --save
-    - npm install grunt-angular-gettext --save
+    # - npm install grunt-msg-init-merge --save
+    # - npm install grunt-potomo --save
+    # - npm install grunt-angular-gettext --save
     - curl https://js.stripe.com/v2/ -o client/bower_components/angular-payments/stripe.js
 
 test:
