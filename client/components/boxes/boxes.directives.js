@@ -337,7 +337,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         }
       }).$promise.then(function(res) {
         var val = scope.box.ignored ? gettextCatalog.getString('muted') : gettextCatalog.getString('unmuted');
-        showToast(gettextCatalog.getString('Box successfully ') + val + '.');
+        showToast(gettextCatalog.getString('Box successfully {{val}}.', {val: val}));
       }, function(errors) {
       });
     };
@@ -688,7 +688,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
 
-    //fixme: some of these might also have to be translated
+    //fixme transltions: some of these might also have to be translated
     var ht20_channels  = ['auto', '01','02','03','04','05','06','07','08','09','10','11'];
     var ht40m_channels = ['auto','05','06','07','08','09','10','11'];
     var ht40p_channels = ['auto','01','02','03','04','05','06','07'];

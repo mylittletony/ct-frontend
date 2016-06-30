@@ -36,16 +36,16 @@ app.filter('filterUptime', ['gettextCatalog', function(gettextCatalog) {
   };
 }]);
 
-app.filter('ssidFilter', function() {
+app.filter('ssidFilter', ['gettextCatalog', function(gett) {
   return function(ssids) {
     if (ssids === undefined || ssids === null || ssids === '') {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       var formatted = ssids.join(',');
       return formatted;
     }
   };
-});
+}]);
 
 app.filter('kbps', function() {
   return function(bytes) {
