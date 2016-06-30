@@ -35,8 +35,9 @@
           Cancel
         </translate>
       </md-button>
-      <md-button ng-click="runUpgrade()" style="margin-right:20px;" translate>
-        upgrade <span ng-if="upgrade.now">now</span>
+      <md-button ng-click="runUpgrade()" style="margin-right:20px;">
+        <span ng-if="upgrade.now" translate>upgrade now</span>
+        <span ng-if="!upgrade.now" translate>upgrade</span>
       </md-button>
     </md-dialog-actions>
   </form>

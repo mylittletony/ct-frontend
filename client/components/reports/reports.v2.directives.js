@@ -333,7 +333,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
 
 }]);
 
-app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', '$timeout', 'Shortener', function(Report, $routeParams, $location, Location, $timeout, Shortener) {
+app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', '$timeout', 'Shortener', 'gettextCatalog', function(Report, $routeParams, $location, Location, $timeout, Shortener, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 

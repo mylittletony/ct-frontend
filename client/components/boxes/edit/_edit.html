@@ -9,7 +9,7 @@
 </md-toolbar>
 
 <section ng-cloak ng-show="!loading">
-  <md-subheader class="md-accent" translate><b>MAC Address</b>: {{ box.calledstationid }} <span hide show-gt-sm> <b>Description</b>:&nbsp;{{ box.description }}<b>&nbsp;Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
+  <md-subheader class="md-accent"><b><translate>MAC Address</translate></b>: {{ box.calledstationid }} <span hide show-gt-sm> <b><translate>Description</translate></b>:&nbsp;{{ box.description }}<b>&nbsp;<translate>Last Seen</translate></b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
 </section>
 
 <md-content class="md-padding" layout-gt-sm="column" layout="column" ng-if="box.is_polkaspots == false">

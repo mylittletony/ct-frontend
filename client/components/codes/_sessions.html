@@ -3,7 +3,9 @@
     <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Back to {{ splash_code.id ? "Splash Code" : code.username ? "Codes" : "Client" }}</p>
+    <p ng-if="splash_code.id" translate>Splash Code</p>
+    <p ng-if="!splash_code.id && code.username" translate>Codes</p>
+    <p ng-if="!splash_code.id && !code.username" translate>Client</p>
     <span flex></span>
     <clients-toolbar client="client"></clients-toolbar>
   </div>
@@ -16,7 +18,9 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">{{ _links.total_entries }} Sessions for {{ splash_code.id ? "Splash Code" : code.username ? code.username : "Client" }}</span>
+          <span ng-if="splash_code.id" class="md-headline" translate>{{ _links.total_entries }} Sessions for Splash Code</span>
+          <span ng-if="!splash_code.id && code.username" class="md-headline" translate>{{ _links.total_entries }} Sessions for {{code.username}}</span>
+          <span ng-if="splash_code.id && !code.username" class="md-headline" translate>{{ _links.total_entries }} Sessions for Client</span>
           <span class="md-subhead" translate>Between {{ query.start | humanTimeShort }} and {{ query.end | humanTimeShort }}</span>
         </md-card-title-text>
         <md-button ng-click="rangeFilter()" class="md-icon-button" hide show-gt-xs>
