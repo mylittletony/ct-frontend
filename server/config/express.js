@@ -8,7 +8,7 @@ var express = require('express');
 var passport = require('passport');
 var PolkaSpotsStrategy = require('passport-polkaspots').Strategy
 var session = require('express-session');
-var secrets = require('./local.env.js');
+var secrets = require('./local.env.sample');
 
 var favicon = require('serve-favicon');
 var URI = require('urijs');

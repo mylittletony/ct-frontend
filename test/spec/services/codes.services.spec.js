@@ -19,18 +19,7 @@ describe("Code Unit Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/codes/generate_password')
       .respond(200, {name: name, email: email, success: true});
 
-    // $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/codes/456')
-    //   .respond(200, {});
-
-    // $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/codes/456')
-    //   .respond(200, {});
-
-    // $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/codes')
-    //   .respond(200, {});
-
-    // $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/codes/546')
-    //   .respond(200, {});
-
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {
@@ -49,13 +38,6 @@ describe("Code Unit Tests", function() {
     $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/codes/generate_password')
     $httpBackend.flush();
   });
-
-
-  // it('should have sent a GET request to location show codes', function() {
-  //   var result = Code.query({id: 456})
-  //   $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/codes/456')
-  //   $httpBackend.flush();
-  // });
 
 })
 

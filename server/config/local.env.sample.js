@@ -10,14 +10,6 @@ if (process.env.NODE_ENV === 'production') {
     tokenURL: "https://api.ctapp.io/oauth/token",
     baseURL: "https://my.ctapp.io"
   }
-} else if (process.env.NODE_ENV === 'beta') {
-  module.exports = {
-    callbackURL: 'http://' + url + '/auth/login/callback',
-    authorizationURL: "http://mywifi.dev:8080/oauth/authorize",
-    profileURL: "http://mywifi.dev:8080/api/v1/me.json",
-    tokenURL: "http://127.0.0.1:8080/oauth/token",
-    baseURL: "http://my.ctapp.dev:9090/#/",
-  }
 } else {
   module.exports = {
     callbackURL: "http://my.ctapp.dev:9000/auth/login/callback",
@@ -30,5 +22,3 @@ if (process.env.NODE_ENV === 'production') {
     DEBUG: ''
   }
 }
-
-// Replace the credentials in the last block with your own ones from CT
