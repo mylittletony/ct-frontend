@@ -3,7 +3,7 @@
 var app = angular.module('myApp.forms.directives', []);
 
 app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '$rootScope', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(Form, FormListing, Location, $routeParams, $rootScope, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
-
+  //fixme @Toni translations
   var link = function(scope,element,attrs) {
 
     scope.types = [{ key: 'Email', value: 'email'}, {key: 'Password', value: 'password'}, {key: 'Text', value: 'text'}, {key: 'Checkbox', value: 'checkbox'}, {key: 'Text Area', value: 'textarea'}, {key: 'Radio', value: 'radio'}, {key: 'Dropdown', value: 'dropdown' }];

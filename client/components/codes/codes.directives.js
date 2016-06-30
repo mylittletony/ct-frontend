@@ -86,7 +86,7 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
         code: { active: code.active }
       }).$promise.then(function(results) {
         var text = code.active ? gettextCatalog.getString('activated') : gettextCatalog.getString('disabled');
-        showToast(gettextCatalog.getString('Code ') +  text + gettextCatalog.getString(' successfully.'));
+        showToast(gettextCatalog.getString('Code {{text}} successfully.', {text: text}));
       }, function(err) {
         code.active = !code.active;
         showErrors(err);

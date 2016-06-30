@@ -163,6 +163,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
       }
     };
 
+    //fixme @Toni translations: the titles are not ok like that, think of something
     var failureChart = function() {
       title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString('Transmission Failures');
       data.addColumn('number', 'TX Failed');

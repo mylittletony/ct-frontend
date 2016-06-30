@@ -502,6 +502,7 @@ app.directive('clientsRangeButtons', ['$routeParams', '$location', '$route', 'Au
       // $route.reload();
     };
 
+    //fixme @Toni translations: translate maybe
     scope.intervals = [{key:'1 MIN', value: 'min'}, {key:'60 MINS', value: 'hour'}, {key: '1 DAY', value: 'day'}];
 
     var updateDistances = function() {
@@ -963,7 +964,7 @@ app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 's
         code: { active: code.active }
       }).$promise.then(function(results) {
         var text = code.active ? gettextCatalog.getString('activated') : gettextCatalog.getString('disabled');
-        showToast(gettextCatalog.getString('Code ') +  text + gettextCatalog.getString(' successfully.'));
+        showToast(gettextCatalog.getString('Code {{text}} successfully.', {text: text}));
       }, function(err) {
         showErrors(err);
       });
