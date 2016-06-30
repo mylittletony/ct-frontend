@@ -829,7 +829,7 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
 
 }]);
 
-app.directive('showOrder', ['Order', '$routeParams', '$timeout', 'menu', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Order, $routeParams, $timeout, menu, $mdDialog, showToast, showErrors) {
+app.directive('showOrder', ['Order', '$routeParams', '$timeout', 'menu', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Order, $routeParams, $timeout, menu, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope) {
 

@@ -20,7 +20,9 @@
           <div flex-gt-sm="50">
 
             <md-input-container ng-hide="advanced">
-              <label translate>Product Name</label>
+              <label>
+                <translate>Product Name</translate>
+              </label>
               <md-select ng-model="product.template_id">
                 <md-option ng-repeat="product in templates" value="{{product.id}}">
                   {{product.name}}
@@ -47,7 +49,9 @@
             <div layout="column" layout-gt-sm="row" layout-wrap>
               <div flex-gt-xs="20">
                 <md-input-container class="md-block" flex-gt-xs>
-                  <label translate>Price</label>
+                  <label>
+                    <translate>Price</translate>
+                  </label>
                   <input name="value" ng-model="product.value" type="number" ng-min=50 required>
                   <div ng-messages="myForm.value.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a value for the product.</div>
@@ -56,7 +60,9 @@
               </div>
               <div flex-gt-xs="40">
                 <md-input-container class="md-block" ng-show="advanced">
-                  <label translate>Validity Period ({{ product.distance | titleCase }})</label>
+                  <label>
+                    <translate>Validity Period ({{ product.distance | titleCase }})</translate>
+                  </label>
                   <input name="duration" ng-model="product.duration" type="number" required>
                   <div ng-messages="myForm.duration.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a duration for the product.</div>
@@ -65,7 +71,9 @@
               </div>
               <div flex-gt-xs="40">
                 <md-input-container class="md-block" ng-show="advanced">
-                  <label translate>Validity Period</label>
+                  <label>
+                    <translate>Validity Period</translate>
+                  </label>
                   <md-select ng-model="product.distance">
                     <md-option ng-repeat="distance in distances" value="{{distance.value}}">
                       {{distance.key}}
@@ -76,7 +84,9 @@
 
               <div flex-gt-xs="30" ng-show="advanced">
                 <md-input-container class="md-block">
-                  <label translate>Session Timeout (mins)</label>
+                  <label>
+                    <translate>Session Timeout (mins)</translate>
+                  </label>
                   <input name="timeout" ng-model="product.session_timeout" ng-min=10 ng-max=50000 type="number" required>
                   <div ng-messages="myForm.timeout.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a timeout for the product.</div>
@@ -88,7 +98,9 @@
 
               <div flex-gt-xs="30" ng-show="advanced">
                 <md-input-container class="md-block">
-                  <label translate>Max Devices</label>
+                  <label>
+                    <translate>Max Devices</translate>
+                  </label>
                   <input name="devices" ng-model="product.devices" ng-min=1 ng-max=50 type="number" required>
                   <div ng-messages="myForm.devices.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a timeout for the product.</div>
@@ -117,7 +129,9 @@
 
               <div flex="100">
                 <md-input-container class="md-block">
-                  <label translate>Description</label>
+                  <label>
+                    <translate>Description</translate>
+                  </label>
                   <textarea rows=3 name="description" ng-model="product.description" md-maxlength=145 required></textarea>
                   <div ng-messages="myForm.description.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a description for the product.</div>

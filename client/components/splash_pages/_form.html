@@ -18,7 +18,9 @@
           <div flex layout="column" ng-hide='obj.loading'>
 
             <md-input-container>
-              <label translate>Access Type</label>
+              <label>
+                <translate>Access Type</translate>
+              </label>
               <md-select ng-model="splash.primary_access_id">
                 <md-option ng-repeat="a in obj.access_types" value="{{a.id}}">
                   {{a.name}}
@@ -27,7 +29,9 @@
             </md-input-container>
 
             <md-input-container>
-              <label translate>Splash Name</label>
+              <label>
+                <translate>Splash Name</translate>
+              </label>
               <input name="splash_name" ng-minlength="5" md-maxlength="100" ng-model="splash.splash_name" required>
               <div ng-messages="myForm.splash_name.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
@@ -37,7 +41,9 @@
             </md-input-container>
 
             <md-input-container ng-if="obj.networks.length" ng-hide="newSsid">
-              <label translate>Splash Network</label>
+              <label>
+                <translate>Splash Network</translate>
+              </label>
               <md-select ng-model="splash.network_id">
                 <md-option ng-repeat="network in obj.networks" value="{{network.id}}">
                   {{network.ssid}}
@@ -46,7 +52,9 @@
             </md-input-container>
 
             <md-input-container ng-if="newSsid">
-              <label translate>Splash SSID</label>
+              <label>
+                <translate>Splash SSID</translate>
+              </label>
               <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="splash.ssid" required>
               <div ng-messages="myForm.ssid.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
@@ -58,17 +66,17 @@
             <md-checkbox ng-model="newSsid" aria-label="{{ 'New SSID' | translate }}" ng-hide="obj.zones || obj.networks.length">
               <translate>Create a new SSID</translate>
             </md-checkbox>
+          </div>
         </div>
-      </div>
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button ng-click="close()">
-        <translate>Close</translate>
-      </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$invalid || myForm.$pristine" type="submit">
-        <translate>CREATE</translate>
-      </md-button>
-    </md-dialog-actions>
-  </form>
-</md-dialog>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="close()">
+          <translate>Close</translate>
+        </md-button>
+        <md-button class="md-raised" ng-disabled="myForm.$invalid || myForm.$pristine" type="submit">
+          <translate>CREATE</translate>
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>

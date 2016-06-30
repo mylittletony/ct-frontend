@@ -16,7 +16,9 @@
           </div>
           <span ng-hide="loading" layout="column">
             <md-input-container>
-              <label translate>SSID</label>
+              <label>
+                <translate>SSID</translate>
+              </label>
               <input name="ssid" md-maxlength="32" ng-model="network.ssid" required>
               <div ng-messages="myForm.ssid.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
@@ -24,7 +26,9 @@
               </div>
             </md-input-container>
             <md-input-container ng-if="network.access_type == 'password'">
-              <label translate>Password</label>
+              <label>
+                <translate>Password</translate>
+              </label>
               <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
               <div ng-messages="myForm.password.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
@@ -34,7 +38,9 @@
               </div>
             </md-input-container>
             <md-input-container ng-show="zones.length > 1">
-              <label translate>Zone</label>
+              <label>
+                <translate>Zone</translate>
+              </label>
               <md-select ng-model="network.zone_id">
                 <md-option ng-repeat="zone in zones" value="{{zone.id}}">
                   {{zone.zone_name}}
@@ -48,7 +54,7 @@
                 </translate>
               </md-radio-button>
               <md-radio-button value="open">
-                <translate> 
+                <translate>
                   Open
                 </translate>
               </md-radio-button>

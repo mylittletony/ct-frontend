@@ -385,9 +385,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'upgrade':
           if (data.status === true) {
             scope.box.state = 'upgrading';
-            showToast('Upgrade running, please wait while it completes.');
+            showToast(gettextCatalog.getString('Upgrade running, please wait while it completes.'));
           } else {
-            showToast('Upgrade failed to run. Please try again.');
+            showToast(gettextCatalog.getString('Upgrade failed to run. Please try again.'));
           }
           break;
         default:
@@ -688,7 +688,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
 
-    //fixme transltions: some of these might also have to be translated
+    //fixme @Toni transltions: some of these might also have to be translated
     var ht20_channels  = ['auto', '01','02','03','04','05','06','07','08','09','10','11'];
     var ht40m_channels = ['auto','05','06','07','08','09','10','11'];
     var ht40p_channels = ['auto','01','02','03','04','05','06','07'];

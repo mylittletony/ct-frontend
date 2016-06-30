@@ -1,7 +1,7 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+      <md-icon md-font-icon="arrow_back">arrow_back</md-icon>
     </md-button>
     <p>{{ trigger.id ? "Back to Trigger" : "Triggers" }}</p>
   </div>
@@ -25,7 +25,9 @@
           </md-card-title>
           <md-card-content>
             <md-input-container layout="column">
-              <label translate>Event</label>
+              <label>
+                <translate>Event</translate>
+              </label>
               <md-select ng-model="trigger.type">
                 <md-option ng-repeat="type in triggers" value="{{type.value}}">
                   {{type.key}}
@@ -139,7 +141,7 @@
 
               <span ng-if="trigger.type == 'location'" layout="row" layout-wrap>
                 <span flex="50">
-                  <md-radio-button value="location.create"> 
+                  <md-radio-button value="location.create">
                     <translate>
                       Created
                     </translate>
@@ -349,7 +351,9 @@
           </md-card-title>
           <md-card-content>
             <md-input-container layout="column">
-              <label translate>Channel</label>
+              <label>
+                <translate>Channel</translate>
+              </label>
               <md-select ng-model="trigger.channel" ng-change="initChannel()">
                 <md-option ng-repeat="channel in channels" value="{{channel.value}}">
                   {{channel.key}}
@@ -387,7 +391,9 @@
           </md-card-title>
           <md-card-content>
             <md-input-container layout="column">
-              <label translate>Name of trigger</label>
+              <label>
+                <translate>Name of trigger</translate>
+              </label>
               <input type="text" name="trigger_name" md-maxlength="100" ng-model="trigger.trigger_name" placeholder="{{ 'Name' | translate }}" required></input>
               <div ng-messages="myForm.trigger_name.$error" md-auto-hide="false">
                 <div ng-message="required" translate>Please enter a name for your trigger</div>
