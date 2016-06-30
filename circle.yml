@@ -10,9 +10,7 @@ dependencies:
     - npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
     - bower install --save
     - npm install
-    - npm install grunt-contrib-sass --save
-    - npm install urijs --save
-    - npm install grunt-autoprefixer --save
+    - npm install grunt-contrib-sass urijs grunt-autoprefixer --save
 
     # - npm install grunt-msg-init-merge --save
     # - npm install grunt-potomo --save
