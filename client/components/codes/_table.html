@@ -21,7 +21,7 @@
             {{ ::(session.acctstarttime | humanTimeShort) }}<br>
             <small>{{ ::session.username | truncate:30 }}</small>
           </span>
-          <md-tooltip translate>Stop: {{ ::session.acctstoptime | humanTime }}</md-tooltip>
+          <md-tooltip><translate>Stop: {{ ::session.acctstoptime | humanTime }}</translate></md-tooltip>
         </td>
         <td hide show-gt-sm md-cell>
           {{ ::(session.acctsessiontime | humanised ) || '-' }}
