@@ -1,8 +1,8 @@
 machine:
   timezone:
     'Europe/London'
-  node:
-    version: 0.12
+  # node:
+  #   version: 0.12
 
 dependencies:
   pre:
@@ -16,6 +16,7 @@ dependencies:
     # - npm install grunt-potomo --save
     # - npm install grunt-angular-gettext --save
     - curl https://js.stripe.com/v2/ -o client/bower_components/angular-payments/stripe.js
+    - mv Gruntfile.js.default Gruntfile
 
 test:
   override:

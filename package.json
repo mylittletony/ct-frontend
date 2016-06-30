@@ -100,7 +100,7 @@
     "urijs": "^1.17.1"
   },
   "engines": {
-    "node": "~0.12.0"
+    "node": "4.4.7"
   },
   "scripts": {
     "start": "node server/app.js",
