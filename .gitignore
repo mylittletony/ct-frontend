@@ -5,7 +5,6 @@ public
 client/bower_components
 client/scripts/config.js
 dist/
-/server/config/local.env.js
 /server/config/local.env.sample.js
 .sass-cache
 .tmp
