@@ -12,6 +12,8 @@ dependencies:
     - npm install
     - npm install grunt-contrib-sass --save
     - npm install urijs --save
+    - npm install grunt-autoprefixer --save
+
     # - npm install grunt-msg-init-merge --save
     # - npm install grunt-potomo --save
     # - npm install grunt-angular-gettext --save
@@ -23,6 +25,6 @@ test:
 
 deployment:
   production:
-    branch: master
+    branch: [master, beta, staging]
     commands:
       - chmod +x ./circle/deploy.sh && ./circle/deploy.sh
