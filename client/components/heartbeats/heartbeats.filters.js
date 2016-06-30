@@ -11,7 +11,7 @@ app.filter('heartbeatOnline', ['gettextCatalog', function(gettextCatalog) {
   };
 }]);
 
-app.filter('disconnectReason',['getString', function(gettextCatalog) {
+app.filter('disconnectReason',['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     input = input || '';
     if (input === '') {

@@ -16,8 +16,8 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
               <div class="checkbox">
-                <label for="shop_active" translate>
-                  Sell Online (via PayPal)
+                <label for="shop_active">
+                  <translate>Sell Online (via PayPal)</translate>
                   <i class="fa fa-star fa-sm gold"></i>
                 </label>
                 <label class="checkbox">
@@ -29,13 +29,13 @@
                 <a href="http://polkaspots.com/paid-wifi">here</a>.
               </p>
               <div ng-if="location.shop.shop_name">
-                <p>Shop: <a href="/#/shops/{{location.shop.unique_id}}">{{ location.shop.shop_name }}</a></p>
+                <p><translate>Shop:</translate> <a href="/#/shops/{{location.shop.unique_id}}">{{ location.shop.shop_name }}</a></p>
               </div>
               <p translate>If you haven't done so already, generate your vouchers <a href="/#/vouchers">here</a>.</p>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <div class="checkbox">
-                Forgot Password Link
+                <translate>Forgot Password Link</translate>
                 <input name="logins_forgot_password" type="checkbox" ng-model="location.logins_forgot_password">
                 <p class="text-muted small"></p>
               </div>
