@@ -40,7 +40,9 @@
         <div layout="column" layout-gt-xs="row" layout-wrap>
           <div flex-gt-sm="50">
             <md-input-container class="md-block" flex-gt-xs>
-              <label translate>Description</label>
+              <label>
+                <translate>Description</translate>
+              </label>
               <input ng-model="box.description" name="desc" md-maxlength="255" required>
               <div ng-messages="myForm.desc.$error">
                 <div ng-message="required" translate>This device must have a valid MAC address</div>
@@ -48,7 +50,9 @@
               </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>
-              <label translate>MAC Address</label>
+              <label>
+                <translate>MAC Address</translate>
+              </label>
               <input ng-model="box.calledstationid" name="mac" ng-pattern="/^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/" required>
               <div ng-messages="myForm.mac.$error">
                 <div ng-message="required" translate>This device must have a valid MAC address</div>
@@ -56,7 +60,9 @@
               </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>
-              <label translate>Timezone</label>
+              <label>
+                <translate>Timezone</translate>
+              </label>
               <md-select ng-model="box.timezone" required>
                 <md-option ng-repeat="zone in timezones" value="{{zone}}">
                   {{zone}}
@@ -92,7 +98,9 @@
           <div flex-gt-sm="50">
             <div layout="column" layout-gt-xs="row">
               <md-input-container flex-gt-xs="50">
-                <label translate>2.4Ghz Channel</label>
+                <label>
+                  <translate>2.4Ghz Channel</translate>
+                </label>
                 <md-select ng-model="box.channel" required>
                   <md-option ng-repeat="channel in channels" value="{{channel}}">
                     {{channel}}
@@ -100,7 +108,9 @@
                 </md-select>
               </md-input-container>
               <md-input-container flex-gt-xs="50">
-                <label translate>2.4Ghz Mode</label>
+                <label>
+                  <translate>2.4Ghz Mode</translate>
+                </label>
                 <md-select ng-model="box.ht_mode_2" ng-change="updateChannelTwo()" required>
                   <md-option ng-repeat="mode in ht_modes" value="{{mode.value}}">
                     {{mode.key}}
@@ -122,7 +132,9 @@
             <span ng-if="box.dual_band">
               <div layout="column" layout-gt-xs="row">
                 <md-input-container flex-gt-xs="50">
-                  <label translate>5Ghz Channel</label>
+                  <label>
+                    <translate>5Ghz Channel</translate>
+                  </label>
                   <md-select ng-model="box.channel" required>
                     <md-option ng-repeat="channel in channels5" value="{{channel}}">
                       {{channel}}
@@ -130,7 +142,9 @@
                   </md-select>
                 </md-input-container>
                 <md-input-container flex-gt-xs="50">
-                  <label translate>5Ghz Mode</label>
+                  <label>
+                    <translate>5Ghz Mode</translate>
+                  </label>
                   <md-select ng-model="box.ht_mode_5" ng-change="updateChannelFive()" required>
                     <md-option ng-repeat="mode in ht_modes_5" value="{{mode.value}}">
                       {{mode.key}}
@@ -203,13 +217,17 @@
       <div flex-gt-xs="50">
         <div layout="row">
           <md-input-container class="md-block" flex="80">
-            <label translate>Syslog Host</label>
+            <label>
+              <translate>Syslog Host</translate>
+            </label>
             <input ng-model="box.rsyslog_host" name="rsyslog_host" placeholder="{{ 'Remote host address' | translate }}">
           </md-input-container>
         </div>
         <div layout="row" ng-if="box.rsyslog_host">
           <md-input-container class="md-block" flex-gt-xs="40">
-            <label translate>Syslog Port</label>
+            <label>
+              <translate>Syslog Port</translate>
+            </label>
             <input ng-model="box.rsyslog_port" name="rsyslog_port" placeholder="{{ 'Remote Port' | translate }}" type="number" ng-min="1" ng-max="65535" ng-required="box.rsyslog_host">
             <div ng-messages="myForm.rsyslog_port.$error">
               <div ng-message="required" translate>This is required</div>
@@ -249,7 +267,9 @@
     <md-card-content>
       <div flex-gt-xs="30">
         <md-input-container class="md-block">
-          <label translate>WAN Protocol</label>
+          <label>
+            <translate>WAN Protocol</translate>
+          </label>
           <md-select ng-model="box.wan_proto" required>
             <md-option ng-repeat="proto in protos" value="{{proto.value}}">
               {{proto.key}}
@@ -261,7 +281,9 @@
       <div layout="column" layout-gt-xs="row" layout-wrap>
         <div flex-gt-sm="50">
           <md-input-container class="md-block">
-            <label translate>IP Address</label>
+            <label>
+              <translate>IP Address</translate>
+            </label>
             <input ng-model="box.wan_ipaddr" name="wan_ip" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
             <div ng-messages="myForm.wan_ip.$error">
               <div ng-message="required" translate>This device must have a valid WAN IP</div>
@@ -269,7 +291,9 @@
             </div>
           </md-input-container>
           <md-input-container class="md-block">
-            <label translate>Netmask</label>
+            <label>
+              <translate>Netmask</translate>
+            </label>
             <input ng-model="box.wan_netmask" name="netmask" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
             <div ng-messages="myForm.netmask.$error">
               <div ng-message="required" translate>Must have a valid subnet</div>
@@ -277,7 +301,9 @@
             </div>
           </md-input-container>
           <md-input-container class="md-block">
-            <label translate>Gateway IP</label>
+            <label>
+              <translate>Gateway IP</translate>
+            </label>
             <input ng-model="box.wan_gateway" name="gateway" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
             <div ng-messages="myForm.gateway.$error">
               <div ng-message="required" translate>This device must have a valid gateway</div>
@@ -288,7 +314,9 @@
         <div hide-xs flex-gt-xs="10"></div>
         <div flex-gt-xs="40" layout="column" layout-gt-xs="row" layout-wrap>
           <md-input-container class="md-block" flex-gt-xs="50">
-            <label translate>DNS 1</label>
+            <label>
+              <translate>DNS 1</translate>
+            </label>
             <input ng-model="box.wan_dns_1" name="wan_dns_1" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
             <div ng-messages="myForm.wan_dns_1.$error">
               <div ng-message="required" translate>A DNS value is required</div>
@@ -296,7 +324,9 @@
             </div>
           </md-input-container>
           <md-input-container class="md-block" flex-gt-xs="50">
-            <label translate>DNS 2</label>
+            <label>
+              <translate>DNS 2</translate>
+            </label>
             <input ng-model="box.wan_dns_2" name="wan_dns_2" ng-pattern="/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" ng-required="box.wan_proto === 'static'" ng-disabled="box.wan_proto === 'dhcp'">
             <div ng-messages="myForm.wan_dns_2.$error">
               <div ng-message="required" translate>A DNS value is required</div>
@@ -304,7 +334,9 @@
             </div>
           </md-input-container>
           <md-input-container class="md-block" flex-gt-xs="50">
-            <label translate>WAN MTU</label>
+            <label>
+              <translate>WAN MTU</translate>
+            </label>
             <input ng-model="box.wan_mtu" name="mtu" type="number" step="1" ng-min=100 ng-max=1500 required>
             <div ng-messages="myForm.mtu.$error">
               <div ng-message="required" translate>A valid MTU is required</div>
@@ -313,7 +345,9 @@
             </div>
           </md-input-container>
           <md-input-container class="md-block" flex-gt-xs="50">
-            <label translate>WAN Metric</label>
+            <label>
+              <translate>WAN Metric</translate>
+            </label>
             <input ng-model="box.wan_metric_1" name="wan_metric_1" type="number" ng-max=1000 ng-min=0 required>
             <div ng-messages="myForm.wan_metric_1.$error">
               <div ng-message="required" translate>A WAN metric is required</div>
@@ -335,10 +369,12 @@
     <md-card-content>
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="50" flex>
-          <label translate>Radius NAS ID</label>
+          <label>
+            <translate>Radius NAS ID</translate>
+          </label>
           <input ng-model="box.radiusnasid" name="nasid" md-maxlength="255" ng-pattern="/^[a-zA-Z0-9\-\_]*$/" required>
           <div ng-messages="myForm.nasid.$error" md-auto-hide="false">
-            <div ng-message="md-maxlength" translate>Upto 255 characters</div>
+            <div ng-message="md-maxlength" translate>Up to 255 characters</div>
             <div ng-message="required" translate>Radius NAS ID is required</div>
             <div ng-message="pattern" translate>Numbers, letters and hyphens only.</div>
           </div>
@@ -346,7 +382,9 @@
       </div>
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="50" flex>
-          <label translate>Radius Secret</label>
+          <label>
+            <translate>Radius Secret</translate>
+          </label>
           <input ng-model="box.radius_secret" name="secret" ng-disabled="true" required>
         </md-input-container>
       </div>

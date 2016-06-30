@@ -2,10 +2,11 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="splash_pages.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
+      <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{'Filter Splash' | translate }}">
     </md-input-container>
     <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
-      <md-icon md-font-icon="" >layers</md-icon>
+      <md-icon md-font-icon="">layers</md-icon>
     </md-button>
     <p ng-if="splash_pages.length === 0" translate>Splash Pages</p>
     <div flex></div>

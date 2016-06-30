@@ -31,7 +31,9 @@
           <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label translate>Location Name</label>
+                <label>
+                  <translate>Location Name</translate>
+                </label>
                 <input md-autofocus ng-model="location.location_name" name="location_name" placeholder="{{ 'Enter a name for the location' | translate }}" type="text" ng-minlength="5" md-maxlength='100' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ ]*$/" required>
                 <div ng-messages="myForm.location_name.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 100 characters</div>
@@ -40,7 +42,9 @@
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label translate>Location Address</label>
+                <label>
+                  <translate>Location Address</translate>
+                </label>
                 <input ng-model="location.location_address" name="location_address" placeholder="{{ 'Enter your address' | translate }}" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
                 <div ng-messages="myForm.location_address.$error">
                   <div ng-message="max" translate>Must be less than 200 characters</div>
@@ -49,7 +53,9 @@
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="60">
-                <label translate>City / Town</label>
+                <label>
+                  <translate>City / Town</translate>
+                </label>
                 <input ng-model="location.town" name="location_town" placeholder="{{ 'Location City' | translate }}" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
                 <div ng-messages="myForm.location_town.$error">
                   <div ng-message="max" translate>Must be less than 200 characters</div>
@@ -58,7 +64,9 @@
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="40">
-                <label translate>Postcode / Zipcode</label>
+                <label>
+                  <translate>Postcode / Zipcode</translate>
+                </label>
                 <input ng-model="location.postcode" name="location_postcode" placeholder="{{ 'Postcode' | translate }}" type="text" ng-minlength="3" md-maxlength='8' required>
                 <div ng-messages="myForm.location_postcode.$error">
                   <div ng-message="max" translate>Must be less than 8 characters</div>

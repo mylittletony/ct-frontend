@@ -31,7 +31,9 @@
               <div ng-if="setup.type == 'mac' || setup.type == 'third'">
                 <div layout="column" flex-gt-sm="50">
                   <md-input-container class="md-block" flex>
-                    <label translate>MAC Address</label>
+                    <label>
+                      <translate>MAC Address</translate>
+                    </label>
                     <input name="mac" ng-model="temp.calledstationid" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" autofocus required>
                     <div ng-messages="myForm.mac.$error">
                       <div ng-message="required" translate>MAC is required.</div>
@@ -39,7 +41,9 @@
                     </div>
                   </md-input-container>
                   <md-input-container class="md-block" flex>
-                    <label translate>Description</label>
+                    <label>
+                      <translate>Description</translate>
+                    </label>
                     <input name="description" ng-minlength="5" md-maxlength="100" ng-model="temp.description" required>
                     <div ng-messages="myForm.description.$error">
                       <div ng-message="required" translate>A description is required.</div>
@@ -49,7 +53,9 @@
                   </md-input-container>
 
                   <md-input-container flex ng-if="zones.length> 0" style="padding-bottom: 10px;">
-                    <label translate>Zone</label>
+                    <label>
+                      <translate>Zone</translate>
+                    </label>
                     <md-select ng-model="temp.zone_id">
                       <md-option value=""></md-option>
                       <md-option ng-repeat="zone in zones" value="{{zone.id}}">
@@ -87,7 +93,9 @@
 
                   <div layout="row" flex="100" flex-gt-sm="40">
                     <md-input-container flex ng-if="zones.length> 1" style="padding-bottom: 10px;" flex="50">
-                      <label translate>Choose a Zone</label>
+                      <label>
+                        <translate>Choose a Zone</translate>
+                      </label>
                       <md-select ng-model="temp.zone_id" required>
                         <md-option ng-repeat="zone in zones" value="{{zone.id}}">
                           {{zone.zone_name}}
