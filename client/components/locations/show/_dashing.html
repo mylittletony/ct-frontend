@@ -1,0 +1,50 @@
+<md-card>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline" translate>
+        Network Stats
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <md-list-item class="md-2-line">
+      <md-icon md-font-icon="">router</md-icon>
+      <div class="md-list-item-text">
+        <h3 translate>Boxes</h3>
+        <span ng-if="loading"><small translate>Loading stats</small></span>
+        <p ng-if="!loading" translate>{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline. <span ng-if="splash_only > 0" translate>{{ ::splash_only }} Splash Only</span></p>
+        <md-tooltip>
+          <translate>
+            {{ ::stats.boxes.stats.total }} Total boxes
+          </translate>
+        </md-tooltip>
+      </div>
+    </md-list-item>
+    <md-list-item class="md-2-line">
+      <md-icon md-font-icon="">devices</md-icon>
+      <div class="md-list-item-text">
+        <h3 translate>Clients Connected</h3>
+        <p translate>{{ ::stats.online }} connected</p>
+      </div>
+    </md-list-item>
+    <md-list-item class="md-2-line" href="/#/locations">
+      <md-icon md-font-icon="">business</md-icon>
+      <div class="md-list-item-text">
+        <h3 translate>Locations</h3>
+        <span ng-if="loading"><small translate>Loading stats</small></span>
+        <p ng-if="!loading" translate>{{ ::stats.locations }} location<span ng-if="stats.locations != 1">s</span></p>
+      </div>
+    </md-list-item>
+    <md-list-item class="md-2-line">
+      <md-icon md-font-icon="">web</md-icon>
+      <div class="md-list-item-text">
+        <h3 translate>Splash Views</h3>
+        <p translate>{{ ::stats.splash_views }} this period</p>
+      </div>
+    </md-list-item>
+  </md-card-content>
+  <md-divider></md-divider>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button ng-href="/#/alerts"><translate>Alerting Devices</translate></md-button>
+  </md-card-actions>
+</md-card>

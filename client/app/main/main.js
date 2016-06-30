@@ -16,8 +16,57 @@ var app = angular.module('myApp', [
   'md.data.table',
   'minicolors',
   'pusher-angular',
-  'config'
+  'config',
+  'gettext'
 ]);
+
+app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
+
+  function fixLocale(locale) {
+    if (!locale) {
+      return undefined;
+    }
+    locale = Auth.currentUser().locale.split('-');
+    var language = locale[0],
+      country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
+
+      return country === undefined ? language : [language, country].join('_');
+  }
+
+  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
+  var language, userLocale;
+
+  if (Auth.currentUser() && Auth.currentUser().locale) {
+    userLocale =  Auth.currentUser().locale;
+  }
+
+  language = fixLocale(userLocale);
+
+  for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
+    var lang = navigator.languages[i].substr(0, 5);
+    language = fixLocale(lang);
+    if (supported[lang]) {
+      language = lang;
+    }
+    if (!supported[lang]) {
+      var localeArr = lang.split('-'),
+        browserLang = localeArr[0];
+        for (var l in supported) {
+          if (l.indexOf(browserLang) !== -1) {
+            language = l;
+          }
+        }
+    }
+  }
+
+  if (!supported[language]) {
+    language = 'en_GB';
+  }
+
+  gettextCatalog.setCurrentLanguage(language);
+  gettextCatalog.loadRemote('/translations/' + language + '.json');
+
+}]);
 
 app.config(['$compileProvider', function ($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
@@ -34,24 +83,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
 
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
-  // var item = items[Math.floor(Math.random()*items.length)];
-
   var item = 'blue';
 
   $mdThemingProvider.theme('default')
     .primaryPalette(item, {
-      // 'default': '700', // by default use shade 400 from the pink palette for primary intentions
-      'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
-      // 'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
-      // 'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+      'hue-1': '100',
     }).
     accentPalette('blue', {
       'default': '500',
       'hue-1': '50'
     });
-    // .warnPalette('red');
-
-  // $mdThemingProvider.theme('red').primaryPalette('red');
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
@@ -81,7 +122,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $routeProvider.
     when('/', {
       templateUrl: 'components/locations/index/index.html',
-      // reloadOnSearch: false,
       controller: 'HomeCtrl'
     }).
     when('/hey', {
@@ -512,84 +552,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/plans', {
-    //   templateUrl: 'components/plans/index.html',
-    //   controller: 'PlansController',
-    // }).
-    // when('/plans/:id', {
-    //   templateUrl: 'components/plans/show.html',
-    //   controller: 'PlansController',
-    // }).
     when('/reports', {
       templateUrl: 'components/reports/wireless.html',
       controller: 'ReportsCtrl as rc',
-      // reloadOnSearch: false,
+      reloadOnSearch: false,
       resolve: { loginRequired: loginRequired }
     }).
     when('/reports/radius', {
       templateUrl: 'components/reports/radius.html',
       controller: 'ReportsCtrl as rc',
-      // reloadOnSearch: false,
+      reloadOnSearch: false,
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/stats', {
-    //   redirectTo: '/stats/clients'
-    // }).
-    // when('/reports/social', {
-    //   templateUrl: 'components/reports/social/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   // reloadOnSearch: false
-    // }).
-    // when('/reports/social/:id', {
-    //   templateUrl: 'components/reports/social/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/sessions', {
-    //   templateUrl: 'components/reports/sessions/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/online', {
-    //   templateUrl: 'components/reports/splash_online/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/codes', {
-    //   templateUrl: 'components/reports/codes/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   // reloadOnSearch: false
-    // }).
-    // when('/reports/codes/:id', {
-    //   templateUrl: 'components/reports/codes/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/guests', {
-    //   templateUrl: 'components/reports/guests/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: true
-    // }).
-    // when('/reports/guests/:id', {
-    //   templateUrl: 'components/reports/guests/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/emails', {
-    //   templateUrl: 'components/reports/emails/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   // reloadOnSearch: false
-    // }).
-    // when('/reports/orders', {
-    //   templateUrl: 'components/reports/orders/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
-    // when('/reports/orders/:id', {
-    //   templateUrl: 'components/reports/orders/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false
-    // }).
     when('/shop', {
       templateUrl: 'components/shop/index.html',
     }).
@@ -709,15 +683,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/vouchers', {
-      templateUrl: 'components/vouchers/delete-me.html',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/locations/:id/vouchers', {
       templateUrl: 'components/vouchers/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
-      reloadOnSearch: false
+      // reloadOnSearch: false
     }).
     when('/locations/:id/vouchers/new', {
       templateUrl: 'components/vouchers/new.html',

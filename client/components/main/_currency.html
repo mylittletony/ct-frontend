@@ -1,0 +1,8 @@
+<md-input-container layout="column">
+  <label for="currency" translate>Currency</label>
+  <md-select ng-model="model">
+    <md-option ng-repeat="name in currencies">
+      {{name}}
+    </md-option>
+  </md-select>
+</md-input-container>

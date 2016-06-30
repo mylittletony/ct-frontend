@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="pdf">picture_as_pdf</md-icon>
     </md-button>
-    <p>Invoices</p>
+    <p translate>Invoices</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -17,13 +17,13 @@
         <md-card-content>
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <span>Invoices</span>
+              <span translate>Invoices</span>
               <div flex></div>
               <span>
               <md-button ng-if="selected.length > 0" class="md-fab md-primary" ng-click="emailInvoices()">
                 <md-icon>email</md-icon>
               </md-button>
-              <md-tooltip md-direction="left">Send selected invoices to billing emails</md-tooltip>
+              <md-tooltip md-direction="left"><translate>Send selected invoices to billing emails</translate></md-tooltip>
               </span>
             </div>
           </md-toolbar>
@@ -31,10 +31,10 @@
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
               <thead md-head>
                 <tr md-row class="md-table-headers-row">
-                  <th md-column md-order-by="created_at"><span>Created</span></th>
-                  <th hide show-gt-xs md-column><span>Description</span></th>
-                  <th hide show-gt-xs md-column><span>Total</span></th>
-                  <th ng-if="menu.length" md-column>Action</th>
+                  <th md-column md-order-by="created_at"><span translate>Created</span></th>
+                  <th hide show-gt-xs md-column><span translate>Description</span></th>
+                  <th hide show-gt-xs md-column><span translate>Total</span></th>
+                  <th ng-if="menu.length" md-column><span translate>Action</span></th>
                 </tr>
               </thead>
               <tbody md-body>
@@ -55,7 +55,7 @@
                   </td>
                   <td md-cell ng-if="menu.length">
                     <md-menu>
-                      <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                         <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                       </md-button>
                       <md-menu-content width="4" >

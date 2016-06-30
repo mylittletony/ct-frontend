@@ -1,0 +1,6 @@
+<span ng-if="box.next_firmware && box.allowed_job">
+  <md-button id="main" class="md-icon-button md-warn" ng-click="runUpgrade()" aria-label="{{ 'Settings' | translate }}">
+    <md-icon>system_update_alt</md-icon>
+    <md-tooltip md-direction="left"><translate>An upgrade is available for this device</translate></md-tooltip>
+  </md-button>
+</span>

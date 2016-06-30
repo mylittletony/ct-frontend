@@ -15,7 +15,6 @@
     "json3": "~3.3.1",
     "modernizr": "~2.8.3",
     "moment": "~2.10.3",
-    "moment-timezone": "~0.4.0",
     "ngstorage": "~0.3.6",
     "pusher-angular": "~0.1.8",
     "urijs": "uri.js#~1.17.1",
@@ -25,7 +24,9 @@
     "angular-minicolors": "~0.0.7",
     "filepicker-js-bower": "filepicker-js#~2.4.5",
     "google-chart": "~1.0.4",
-    "moment-duration-format": "~1.3.0"
+    "moment-duration-format": "~1.3.0",
+    "angular-gettext": "~2.2.1",
+    "moment-timezone": "~0.5.4"
   },
   "overrides": {
     "urijs": {
@@ -43,6 +44,7 @@
   "resolutions": {
     "angular": "1.5.6",
     "jquery": ">= 2.1.0",
-    "angular-material": "^1.0.0"
+    "angular-material": "^1.0.0",
+    "moment-timezone": "~0.5.4"
   }
 }

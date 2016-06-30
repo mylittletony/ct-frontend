@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" aria-label="Users">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="{{ 'Users' | translate }}">
       <md-icon md-font-icon="" >people</md-icon>
     </md-button>
-    <p>Admin Users</p>
+    <p translate>Admin Users</p>
     <div flex></div>
     <md-card-actions layout="row" layout-align="end center" ng-if="allowed === true" >
       <md-button class="md-icon-button md-accent" ng-click="invite()">
@@ -20,10 +20,10 @@
       <md-card ng-if="users.length">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Admin Users
             </span>
-            <span class="md-subhead">
+            <span class="md-subhead" translate>
               Add users to manage and monitor your location.
             </span>
           </md-card-title-text>
@@ -33,22 +33,25 @@
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
               <thead md-head>
                 <tr md-row class="md-table-headers-row">
-                  <th hide show-gt-sm md-column><span>Username</span></th>
-                  <th md-column><span>Email</span></th>
-                  <th hide show-gt-sm md-column><span>Status</span></th>
-                  <th hide show-gt-md md-column><span>Created</span></th>
-                  <th ng-show="menu.length" md-column>Action</th>
+                  <th hide show-gt-sm md-column><span translate>Username</span></th>
+                  <th md-column><span translate>Email</span></th>
+                  <th hide show-gt-sm md-column><span translate>Status</span></th>
+                  <th hide show-gt-md md-column><span translate>Created</span></th>
+                  <th ng-show="menu.length" md-column translate>Action</th>
                 </tr>
               </thead>
               <tbody md-body>
                 <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.order)">
                   <td hide show-gt-sm md-cell>
-                    {{ ::user.username || 'N/A' }}
+                    <span ng-if="user.username"> {{ ::user.username }}</span>
+                    <span ng-if="!user.username" translate>N/A</span>
                   </td md-cell>
                   <td md-cell>
                     {{ ::user.email }}
                     <md-tooltip hide-gt-sm>
-                      State: {{ user.state | titleCase }}. Created: {{ (user.created_at || user.timestamp ) | humanTime }}
+                      <translate>
+                        State: {{ user.state | titleCase }}. Created: {{ (user.created_at || user.timestamp ) | humanTime }}
+                      </translate>
                     </md-tooltip>
                   </td md-cell>
                   <td hide show-gt-sm md-cell>
@@ -59,7 +62,7 @@
                   </td md-cell>
                   <td md-cell ng-if="menu.length">
                     <md-menu>
-                      <md-button aria-label="Open Clients Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                         <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                       </md-button>
                       <md-menu-content width="4" >

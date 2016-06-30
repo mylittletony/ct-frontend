@@ -1,28 +1,28 @@
-<md-dialog aria-label="Invite" ng-cloak>
+<md-dialog aria-label="{{'Invite' | translate }}" ng-cloak>
   <form ng-submit="invite(user)">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h2>Invite User</h2>
+        <h2 translate>Invite User</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="row" layout-wrap>
         <div flex="100">
-          <p>Invite a user to this location.</p>
+          <p translate>Invite a user to this location.</p>
         </div>
         <md-input-container flex="100">
-          <label>Username</label>
-          <input ng-model="user.name" name="name" placeholder="First and Last Name" type="text" required>
+          <label translate>Username</label>
+          <input ng-model="user.name" name="name" placeholder="{{'First and Last Name' | translate }}" type="text" required>
           <div ng-messages="myForm.name.$error">
-            <div ng-message="required">You must enter a username</div>
+            <div ng-message="required" translate>You must enter a username</div>
           </div>
         </md-input-container>
         <md-input-container flex="100">
-          <label>Email</label>
-          <input ng-model="user.email" name="email" placeholder="User Email" type="email" required>
+          <label translate>Email</label>
+          <input ng-model="user.email" name="email" placeholder="{{ 'User Email' | translate }}" type="email" required>
           <div ng-messages="myForm.email.$error">
-            <div ng-message="required">You must enter an email</div>
-            <div ng-message="email">You must enter a valid email</div>
+            <div ng-message="required" translate>You must enter an email</div>
+            <div ng-message="email" translate>You must enter a valid email</div>
           </div>
         </md-input-container>
       </div>
@@ -30,9 +30,11 @@
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-       Cancel
+        <translate>
+          Cancel
+        </translate>
       </md-button>
-      <md-button type="submit" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary">invite</md-button>
+      <md-button type="submit" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary" translate>invite</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

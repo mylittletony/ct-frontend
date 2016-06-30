@@ -1,24 +1,24 @@
-<md-dialog aria-label="Health Check"  ng-cloak>
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
   <form name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Update SSID</h2>
+        <h2 translate>Update SSID</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
         <div flex layout="column">
-          <p>Changing the SSID will resync your boxes.</p>
+          <p translate>Changing the SSID will resync your boxes.</p>
         </div>
         <div flex layout="column">
           <md-input-container>
-            <label>SSID</label>
+            <label translate>SSID</label>
             <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" ng-pattern="/^[a-zA-ZäöåÄÖÅ0-9\-\'\-\_\ \.]*$/" required>
             <div ng-messages="myForm.ssid.$error">
-              <div ng-message="md-maxlength">Max 32 characters</div>
-              <div ng-message="minlength">Min 5 characters</div>
-              <div ng-message="required">You must set an SSID</div>
-              <div ng-message="pattern">Invalid SSID</div>
+              <div ng-message="md-maxlength" translate>Max 32 characters</div>
+              <div ng-message="minlength" translate>Min 5 characters</div>
+              <div ng-message="required" translate>You must set an SSID</div>
+              <div ng-message="pattern" translate>Invalid SSID</div>
             </div>
           </md-input-container>
         </div>
@@ -27,10 +27,14 @@
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        Close
+        <translate>
+          Close
+        </translate>
       </md-button>
       <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update()">
-        UPDATE
+        <translate>
+          UPDATE
+        </translate>
       </md-button>
     </md-dialog-actions>
   </form>

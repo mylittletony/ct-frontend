@@ -1,23 +1,23 @@
-<md-dialog aria-label="Run Payload" ng-cloak>
+<md-dialog aria-label="{{ 'Run Payload' | translate }}" ng-cloak>
   <form name="myForm">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h2>Edit Device Zones</h2>
+        <h2 translate>Edit Device Zones</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
 
         <span ng-if="loading">
-          <p>Loading</p>
+          <p translate>Loading</p>
           <md-progress-linear md-mode="query"></md-progress-linear>
         </span>
 
-        <span ng-if="!loading && !zones.length">
+        <span ng-if="!loading && !zones.length" translate>
           No zones found. Create one <a href="" ng-click="createZone()">now</a>.
         </span>
 
-        <p ng-if="!loading && zones.length">
+        <p ng-if="!loading && zones.length" translate>
           Devices will sync after you alter their zone.
         </p>
 
@@ -32,9 +32,15 @@
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="cancel()">
-        Cancel
+        <translate>
+          Cancel
+        </translate>
       </md-button>
-      <md-button ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="execute(zone_id)">Update</md-button>
+      <md-button ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="execute(zone_id)">
+        <translate>
+          Update
+        </translate>
+      </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

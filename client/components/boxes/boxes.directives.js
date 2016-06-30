@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.boxes.directives', []);
 
-app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location', '$mdBottomSheet', 'Zone', 'ZoneListing', '$cookies', 'showToast', 'showErrors', '$mdDialog', '$q', 'ClientDetails', '$timeout', '$rootScope', 'Report', 'menu', function(Box, $routeParams, Auth, $pusher, $location, $mdBottomSheet, Zone, ZoneListing, $cookies, showToast, showErrors, $mdDialog, $q, ClientDetails, $timeout, $rootScope, Report, menu) {
+app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location', '$mdBottomSheet', 'Zone', 'ZoneListing', '$cookies', 'showToast', 'showErrors', '$mdDialog', '$q', 'ClientDetails', '$timeout', '$rootScope', 'Report', 'menu', 'gettextCatalog', function(Box, $routeParams, Auth, $pusher, $location, $mdBottomSheet, Zone, ZoneListing, $cookies, showToast, showErrors, $mdDialog, $q, ClientDetails, $timeout, $rootScope, Report, menu, gettextCatalog) {
 
   var link = function(scope,attrs,element,controller) {
 
@@ -41,28 +41,28 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.menuAction = function(type) {
       switch(type) {
-        case 'Edit':
+        case 'edit':
           editBox();
           break;
-        case 'Reboot':
+        case 'reboot':
           scope.rebootBox();
           break;
-        case 'Transfer':
+        case 'transfer':
           scope.transferBox();
           break;
-        case 'Payloads':
+        case 'payloads':
           scope.payloads();
           break;
-        case 'Resync':
+        case 'resync':
           scope.resyncBox();
           break;
-        case 'Changelog':
+        case 'changelog':
           viewHistory();
           break;
-        case 'Reset':
+        case 'reset':
           scope.resetBox();
           break;
-        case 'Delete':
+        case 'delete':
           scope.deleteBox();
           break;
       }
@@ -72,54 +72,57 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Edit',
+        type: 'edit',
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings'
       });
 
       if (scope.box.is_polkaspots) {
 
         scope.menu.push({
-          name: 'Reboot',
+          name: gettextCatalog.getString('Reboot'),
           icon: 'autorenew',
+          type: 'reboot',
           disabled: !scope.box.allowed_job
         });
 
         scope.menu.push({
-          name: 'Payloads',
+          type: 'payloads',
+          name: gettextCatalog.getString('Payloads'),
           icon: 'present_to_all',
         });
 
         scope.menu.push({
-          name: 'Changelog',
+          type: 'changelog',
+          name: gettextCatalog.getString('Changelog'),
           icon: 'history',
         });
-        // scope.menu.push({
-        //   name: 'Firewall',
-        //   icon: 'security',
-        // });
       }
 
       scope.menu.push({
-        name: 'Transfer',
+        name: gettextCatalog.getString('Transfer'),
         icon: 'transform',
+        type: 'transfer',
       });
 
       scope.menu.push({
-        name: 'Delete',
-        icon: 'delete_forever'
+        name: gettextCatalog.getString('Delete'),
+        icon: 'delete_forever',
+        type: 'delete'
       });
 
       if (scope.box.is_polkaspots) {
         scope.menu.push({
-          name: 'Resync',
+          name: gettextCatalog.getString('Resync'),
           icon: 'settings_backup_restore',
-          disabled: !scope.box.allowed_job
+          disabled: !scope.box.allowed_job,
+          type: 'resync',
         });
 
         scope.menu.push({
-          name: 'Reset',
-          // icon: 'undo',
+          name: gettextCatalog.getString('Reset'),
           icon: 'clear',
+          type: 'reset',
         });
       }
 
@@ -144,16 +147,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var showResetConfirm = function() {
       $mdBottomSheet.show({
-        template:
-          '<md-bottom-sheet class="md-list md-has-header" ng-cloak>'+
-          '<md-subheader>Action Required. This box has been manually reset. Please confirm this action. Or click cancel to ignore.</md-subheader>'+
-          '<md-button ng-click="cancel()" class="md-list-item-content">'+
-          '<span class="md-inline-list-icon-label">Cancel</span>'+
-          '</md-button>'+
-          '<md-button ng-click="reset()" md-autofocus="true" class="md-list-item-content md-accent" >'+
-          '<span class="md-inline-list-icon-label">CONFIRM</span>'+
-          '</md-button>'+
-          '</md-bottom-sheet>',
+        templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
         controller: Ctrl
       });
     };
@@ -169,16 +163,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var showZoneAlert = function() {
       $mdBottomSheet.show({
-        template:
-          '<md-bottom-sheet class="md-list md-has-header" ng-cloak>'+
-          '<md-subheader>Action Required. This box is not part of a zone. The box will function but will not broadcast an SSID. Add this box to a zone to complete setup.</md-subheader>'+
-          '<md-button ng-click="cancel()" class="md-list-item-content" >'+
-          '<span class="md-inline-list-icon-label">Cancel</span>'+
-          '</md-button>'+
-          '<md-button ng-click="add()" class="md-list-item-content md-accent">'+
-          '<span class="md-inline-list-icon-label">Add To Zone</span>'+
-          '</md-button>'+
-          '</md-bottom-sheet>',
+        templateUrl: 'components/boxes/show/_toast_zone.html',
         locals: {
           prefs: scope.setPrefs
         },
@@ -196,12 +181,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.resetBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Reset this Device')
-      .textContent('Resetting your box is not recommended. If you are having problems with it, please resync first. If the device is offline, it will reset next time it restarts.')
-      .ariaLabel('Reset Device')
+      .title(gettextCatalog.getString('Reset this Device'))
+      .textContent(gettextCatalog.getString('Resetting your box is not recommended. If you are having problems with it, please resync first. If the device is offline, it will reset next time it restarts.'))
+      .ariaLabel(gettextCatalog.getString('Reset Device'))
       .targetEvent(ev)
-      .ok('Reset it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Reset it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         resetBox();
       });
@@ -210,7 +195,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var resetBox = function() {
       scope.resetting = true;
       Box.reset({id: scope.box.slug}).$promise.then(function(results) {
-        showToast('Device reset in progress, please wait.');
+        showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
         scope.box.allowed_job = false;
         scope.box.state = 'resetting';
         scope.resetting = undefined;
@@ -219,7 +204,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         if (errors && errors.data && errors.data.errors && errors.data.errors.base) {
           err = errors.data.errors.base;
         } else {
-          err = 'Could not reset this device, please try again';
+          err = gettextCatalog.getString('Could not reset this device, please try again');
         }
         console.log(errors);
         showToast(err);
@@ -230,12 +215,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.resyncBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Resync this Device')
-      .textContent('This will force a complete refresh of it\'s configuration files. A resync will disconnect any wireless clients temporarily')
-      .ariaLabel('Resync Device')
+      .title(gettextCatalog.getString('Resync this Device'))
+      .textContent(gettextCatalog.getString('This will force a complete refresh of it\'s configuration files. A resync will disconnect any wireless clients temporarily'))
+      .ariaLabel(gettextCatalog.getString('Resync Device'))
       .targetEvent(ev)
-      .ok('Resync it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Resync it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         resyncBox();
       });
@@ -251,9 +236,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           resync: true
         }
       }).$promise.then(function(res) {
-        showToast('Device resync in progress. Please wait.');
+        showToast(gettextCatalog.getString('Device resync in progress. Please wait.'));
       }, function(errors) {
-        showToast('Failed to resync device, please try again.');
+        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
         console.log('Could not resync device:', errors);
         scope.box.state = 'online';
       });
@@ -261,12 +246,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.rebootBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Would you like to reboot this device?')
-      .textContent('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete')
-      .ariaLabel('Reboot Box')
+      .title(gettextCatalog.getString('Would you like to reboot this device?'))
+      .textContent(gettextCatalog.getString('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete'))
+      .ariaLabel(gettextCatalog.getString('Reboot Box'))
       .targetEvent(ev)
-      .ok('Reboot it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Reboot it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         rebootBox();
       });
@@ -277,9 +262,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.box.allowed_job = false;
       Box.reboot({id: scope.box.slug}).$promise.then(function(results) {
         scope.box.state = 'rebooting';
-        showToast('Box successfully rebooted.');
+        showToast(gettextCatalog.getString('Box successfully rebooted.'));
       }, function(errors) {
-        showToast('Failed to reboot box, please try again.');
+        showToast(gettextCatalog.getString('Failed to reboot box, please try again.'));
         console.log('Could not reboot box:', errors);
         scope.box.state = 'online';
       });
@@ -287,12 +272,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.deleteBox = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to delete this device?')
-      .textContent('This cannot be reversed, please be careful. Deleting a box is permanent.')
-      .ariaLabel('Delete Box')
+      .title(gettextCatalog.getString('Are you sure you want to delete this device?'))
+      .textContent(gettextCatalog.getString('This cannot be reversed, please be careful. Deleting a box is permanent.'))
+      .ariaLabel(gettextCatalog.getString('Delete Box'))
       .targetEvent(ev)
-      .ok('Delete it')
-      .cancel('Cancel');
+      .ok(gettextCatalog.getString('Delete it'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteBox();
       });
@@ -301,10 +286,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var deleteBox = function() {
       Box.destroy({id: scope.box.slug}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug);
-        showToast('Box successfully deleted');
+        showToast(gettextCatalog.getString('Box successfully deleted'));
       }, function(errors) {
         console.log(errors);
-        showToast('Could not delete box');
+        showToast(gettextCatalog.getString('Could not delete box'));
       });
     };
 
@@ -336,7 +321,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var transferBox = function(id) {
       Box.transfer({id: scope.box.slug, transfer_to: id}).$promise.then(function(results) {
         scope.back();
-        showToast('Box transfer was a success.');
+        showToast(gettextCatalog.getString('Box transfer was a success.'));
       }, function(errors) {
         showErrors(errors);
       });
@@ -351,8 +336,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           ignored: scope.box.ignored
         }
       }).$promise.then(function(res) {
-        var val = scope.box.ignored ? 'muted' : 'unmuted';
-        showToast('Box successfully ' + val + '.');
+        var val = scope.box.ignored ? gettextCatalog.getString('muted') : gettextCatalog.getString('unmuted');
+        showToast(gettextCatalog.getString('Box successfully ') + val + '.');
       }, function(errors) {
       });
     };
@@ -369,13 +354,48 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('general', function(data) {
-          console.log('Message recvd.', data);
-          init();
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        console.log('Binding to:', channel.name);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
+          console.log('Message received at', new Date().getTime() / 1000);
+          processNotification(data.message);
         });
       }
     }
+
+    var processNotification = function(data) {
+      switch(data.type) {
+        case 'speedtest':
+          scope.box.speedtest_running = undefined;
+          scope.box.allowed_job = true;
+          scope.box.latest_speedtest = {
+            result: data.message.val,
+            timestamp: data.message.timestamp
+          };
+          break;
+        case 'installer':
+          if (data.status === true) {
+            init();
+            showToast('Device installed successfully.');
+          } else {
+            scope.box.state = 'new';
+            showToast('Device failed to install, please wait.');
+          }
+          break;
+        case 'upgrade':
+          if (data.status === true) {
+            scope.box.state = 'upgrading';
+            showToast('Upgrade running, please wait while it completes.');
+          } else {
+            showToast('Upgrade failed to run. Please try again.');
+          }
+          break;
+        default:
+          // Replace this with the object as sent by pusher
+          // Needs to be replaced in the backend workers first
+          init();
+      }
+    };
 
     var processAlertMessages = function() {
       if (scope.box.is_polkaspots) {
@@ -413,13 +433,15 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     scope.streamingUpdater = function() {
       if (scope.streamingUpdates) {
-        loadPusher(scope.box.sockets_hash);
-        showToast('Streaming updates enabled');
+        if (scope.box.pubsub_token) {
+          loadPusher(scope.box.pubsub_token);
+        }
+        showToast(gettextCatalog.getString('Streaming updates enabled'));
       } else {
         if (channel) {
           channel.unbind();
         }
-        showToast('Streaming updates disabled');
+        showToast(gettextCatalog.getString('Streaming updates disabled'));
       }
     };
 
@@ -438,7 +460,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ClientDetails.client = { location_id: box.location_id, ap_mac: box.calledstationid };
         createMenu();
         sortSsids();
-        loadPusher(box.sockets_hash);
+        loadPusher(box.pubsub_token);
         scope.loading = undefined;
         deferred.resolve(box);
 
@@ -500,7 +522,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           }
         }
       } else {
-        scope.box.ssids = 'N/A';
+        scope.box.ssids = gettextCatalog.getString('N/A');
       }
     };
 
@@ -535,7 +557,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
 }]);
 
-app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog) {
+app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', 'gettextCatalog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -547,6 +569,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
         scope.box = box;
         scope.loading = undefined;
         loadPayloads();
+        loadPusher();
       }, function(err) {
         scope.loading = undefined;
         console.log(err);
@@ -556,36 +579,15 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     scope.deletePayload = function(index,id) {
       Payload.destroy({box_id: scope.box.slug, id: id}).$promise.then(function() {
         scope.payloads.splice(index, 1);
-        showToast('Payload deleted successfully');
+        showToast(gettextCatalog.getString('Payload deleted successfully'));
       }, function(errors) {
-        showToast('Could not delete the payload.');
+        showToast(gettextCatalog.getString('Could not delete the payload.'));
       });
     };
 
     scope.showPayload = function(index,ev) {
       $mdDialog.show({
-        template:
-        '<md-dialog aria-label="Payload Output" ng-cloak>'+
-        '<md-toolbar>'+
-        '<div class="md-toolbar-tools">'+
-        '<h2>Command Output</h2>'+
-        '<span flex></span>'+
-        '</div>'+
-        '</md-toolbar>'+
-        '<md-dialog-content>'+
-        '<div class="md-dialog-content">'+
-        '<div flex-xs flex="100" ng-hide="prefs.now">'+
-        '<pre>{{ command.body }}</pre>'+
-        '</div>'+
-        '</div>'+
-        '</md-dialog-content>'+
-        '<md-dialog-actions layout="row">'+
-        '<span flex></span>'+
-        '<md-button ng-click="cancel()">'+
-        'CLOSE'+
-        '</md-button>'+
-        '</md-dialog-actions>'+
-        '</md-dialog>',
+        templateUrl: 'components/boxes/payloads/_show_payload.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
@@ -607,19 +609,18 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     var loadPayloads = function() {
       Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
         scope.payloads = data;
-        loadPusher(scope.box.sockets_hash);
       });
     };
 
     var channel;
-    function loadPusher(key) {
+    function loadPusher() {
       if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('general', function(data) {
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
           scope.command.success = undefined;
-          showToast('Payload completed!')
+          showToast(gettextCatalog.getString('Payload completed!'));
           loadPayloads();
         });
       }
@@ -643,7 +644,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
 }]);
 
-app.directive('splashOnly', ['Box', 'showToast', 'showErrors', function(Box, showToast, showErrors) {
+app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog', function(Box, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -662,7 +663,7 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', function(Box, sho
         id: scope.box.slug,
         box: scope.box
       }).$promise.then(function(box) {
-        showToast('Settings updated successfully');
+        showToast(gettextCatalog.getString('Settings updated successfully'));
       }, function(errors) {
         showErrors(errors);
       });
@@ -680,13 +681,14 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', function(Box, sho
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', function(Box, $routeParams, showToast, showErrors, moment) {
+app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog) {
 
   var link = function(scope) {
 
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
 
+    //fixme: some of these might also have to be translated
     var ht20_channels  = ['auto', '01','02','03','04','05','06','07','08','09','10','11'];
     var ht40m_channels = ['auto','05','06','07','08','09','10','11'];
     var ht40p_channels = ['auto','01','02','03','04','05','06','07'];
@@ -756,7 +758,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         id: scope.box.slug,
         box: scope.box
       }).$promise.then(function(box) {
-        showToast('Settings updated successfully');
+        showToast(gettextCatalog.getString('Settings updated successfully'));
       }, function(errors) {
         form.$setPristine();
         showErrors(errors);
@@ -822,25 +824,7 @@ app.directive('transferBox', ['Box', '$location', '$routeParams', '$q', 'Locatio
     scope: {
       box: '='
     },
-    template:
-      '<div ng-if=\'loading\'>'+
-      '<md-progress-linear md-mode="query"></md-progress-linear>'+
-      '</div>'+
-      '<div ng-if=\'!loading\'>'+
-      '<div ng-if="!locations">'+
-      'Could not find any locations to tranfer this device to.'+
-      '</div>'+
-      '<div ng-if="locations" layout="column" layout-gt-sm="row">'+
-      '<md-input-container flex="100" flex-gt-sm="50">'+
-      '<label>Transfer device to</label>'+
-      '<md-select ng-model="box.transfer_to">'+
-      '<md-option ng-repeat="location in locations" value="{{location.id}}">'+
-      '{{ location.location_name }}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '</div>'+
-      '</div>'
+    templateUrl: 'components/boxes/show/_transfer_select.html',
   };
 }]);
 
@@ -867,32 +851,7 @@ app.directive('runPayloads', ['Command', function(Command) {
       command: '='
     },
     link: link,
-    template:
-      '<div class="container" ng-class="{\'visible\' : !vm.activated}">'+
-      '<span ng-hide="loading">'+
-      '<div layout="column" layout-gt-xs="row" layout-wrap>'+
-      '<md-input-container flex-gt-xs="50">'+
-      '<label>Run the command</label>'+
-      '<md-select ng-model="command.selected">'+
-      '<md-option ng-disabled="command.upgrade" ng-repeat="command in commands" value="{{command.unique_id}}">'+
-      '{{ command.payload_description }}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '<div flex="100">'+
-      '<md-checkbox ng-model="command.upgrade" aria-label="Upgrade Firmware">'+
-      'Upgrade Firmware'+
-      '</md-checkbox>'+
-      '</div>'+
-      '</div>'+
-      '</span>'+
-      '<span ng-show="loading == true">'+
-      '<md-progress-linear md-mode="query"></md-progress-linear>'+
-      '<div class="bottom-block">'+
-      '<span>Loading Payloads...</span>'+
-      '</span>'+
-      '</div>'+
-      '</div>'
+    templateUrl: 'components/boxes/payloads/_payloads_mass.html',
   };
 
 }]);
@@ -1125,253 +1084,6 @@ app.directive('boxesTemplate', ['Box', '$routeParams', '$location', '$modal', fu
 
 }]);
 
-app.directive('listBoxes', ['Box', '$routeParams', '$location', function(Box, $routeParams, $location) {
-
-  var link = function( scope, element, attrs, controller ) {
-
-    scope.loading   = true;
-    scope.selection = {};
-
-    if ($routeParams.machine_type) {
-      scope.machine_type = $routeParams.machine_type.split(',');
-    }
-
-    if ($routeParams.firmware_version) {
-      scope.firmware = $routeParams.firmware_version.split(',');
-    }
-
-    if ($routeParams.q) {
-      scope.query = $routeParams.q.split(':').join('-');
-    }
-
-    if ($routeParams.page) {
-      scope.page = $routeParams.page;
-    }
-
-    if ($routeParams.environment) {
-      scope.environment = $routeParams.environment;
-    }
-
-    scope.init = function() {
-      Box.query({machine_type: scope.machine_type, firmware_version: scope.firmware, state: scope.state, q: scope.query, page: scope.page, environment: scope.environment}).$promise.then(function(results) {
-        scope.boxes           = results.boxes;
-        scope.aggregations    = results.aggregations;
-        scope._links          = results._links;
-        countOnline(scope.boxes);
-        scope.searching_ct    = undefined;
-        scope.loading         = undefined;
-      }, function(err) {
-        scope.loading = undefined;
-      });
-    };
-
-    var countOnline = function(boxes) {
-      if (scope.boxes !== undefined) {
-        scope.boxes.clients_online = 0;
-        angular.forEach(boxes, function(v) {
-          scope.boxes.clients_online += parseInt(v.clients_online);
-        });
-      }
-    };
-
-    scope.state_selection = {};
-
-    scope.state_s = function() {
-      var states = [];
-      angular.forEach(scope.state_selection, function(k,v) {
-        if ( k === true ) {
-          states.push(scope.aggregations.states[v].key);
-        }
-      });
-      if ( states.length ) {
-        updateKeys('state', states);
-      } else {
-        updateKeys('state');
-      }
-    };
-
-    scope.env_selection = {};
-
-    scope.envs = function() {
-      var environments = [];
-      angular.forEach(scope.env_selection, function(k,v) {
-        if ( k === true ) {
-          environments.push(scope.aggregations.environments[v].key);
-        }
-      });
-      if ( environments.length ) {
-        updateKeys('environment', environments);
-      } else {
-        updateKeys('environment');
-      }
-    };
-
-    scope.mt_selection = {};
-
-    scope.mts = function() {
-
-      var machine_types = [];
-      angular.forEach(scope.mt_selection, function(k,v) {
-        if ( k === true ) {
-          machine_types.push(scope.aggregations.types[v].key);
-        }
-      });
-      if ( machine_types.length ) {
-        updateKeys('machine_type', machine_types);
-      } else {
-        updateKeys('machine_type');
-      }
-    };
-
-    scope.fw_selection = {};
-
-    scope.fws = function() {
-      var firmwares = [];
-      angular.forEach(scope.fw_selection, function(k,v) {
-        if ( k === true ) {
-          firmwares.push(scope.aggregations.firmwares[v].key);
-        }
-      });
-      if ( firmwares.length ) {
-        updateKeys('firmware', firmwares);
-      } else {
-        updateKeys('firmware');
-      }
-    };
-
-    var locationSearch = function() {
-      var hash = {};
-      hash.machine_type = scope.machine_type;
-      hash.firmware_version = scope.firmware;
-      hash.state = scope.state;
-      hash.q = scope.query;
-      hash.page = scope.page;
-      hash.environment = scope.environment;
-      $location.search(hash);
-      scope.init();
-    };
-
-    var updateKeys = function(key, value) {
-      if ( value !== undefined) {
-        scope[key] = value.toString();
-      } else {
-        scope[key] = undefined;
-      }
-      locationSearch();
-    };
-
-    scope.updateQ = function() {
-      scope.searching_ct = true;
-      scope.init();
-    };
-
-    scope.clearQuery = function() {
-      scope.query = undefined;
-      locationSearch();
-    };
-
-    scope.search = function(query) {
-      scope.query = scope.query.split(':').join('-');
-      $location.search({q: scope.query});
-      scope.searching_ct = true;
-      scope.init();
-    };
-
-    scope.init();
-
-  };
-
-  return {
-    scope: {},
-    link: link,
-    template:
-      '<div class="container-boxes">'+
-      '<div class="show-for-medium-up" id="sidebar">'+
-      '<div hide="loading">'+
-      '<ul class="side-nav">'+
-      '<div ng-include="\'components/boxes/index/sidebar.html\'"></div>'+
-      '</ul>'+
-      '</div>'+
-      '</div>'+
-      '<div class="row">'+
-      '<div class=\'small-12 columns\'>'+
-      '<div class="row">'+
-      '<div class="small-12 medium-8 columns">'+
-      '<loader></loader>' +
-      '<div ng-hide=\'loading\'>'+
-      '<h2>Boxes</h2>'+
-      '<p><i class="fa fa-users"></i> {{ boxes.clients_online || 0 }} people connected to {{ boxes.length || 0}} {{ onlineFilter }} boxes<span ng-show="location.location_name"> in {{ location.location_name }}</span>.</p>'+
-      '<div class="row">'+
-      '<div class="small-12 medium-10 large-6 columns">'+
-      '<form ng-submit="search(query)">'+
-      '<div class="row">'+
-      '<div class="small-12 columns">'+
-      '<div class="row collapse">'+
-      '<div class="small-9 columns">'+
-      '<input type="text" ng-model="query" placeholder="I\'m looking for..."></input>'+
-      '<p><a ng-if="query || q" ng-click="clearQuery()">Clear search...</a></p>'+
-      '</div>'+
-      '<div class="small-3 columns">'+
-      '<button ng-disabled="!query" href="" class="button secondary postfix">Go</button>'+
-      '</div>'+
-      '</div>'+
-      '</div>'+
-      '</div>'+
-      '</form>'+
-      '</div>'+
-      '<div class="medium-6 end columns show-for-medium-up">'+
-      '<span class=\'right\'>'+
-      '<span>'+
-      '</div>'+
-      '</div>'+
-      '</div>'+
-      '</div>'+
-      '</div>'+
-      '<div class="row">'+
-      '<div class="small-12 columns">'+
-      '<boxes-template selected="selection" slug="{{location.slug}}" boxes="boxes" query=\'{{query}}\' links=\'_links\'></boxes-template>'+
-      '</div>'+
-      '</div>'+
-      '</div>'+
-      '</div>'+
-      '</div>'
-  };
-
-}]);
-
-app.directive('boxAlerts', ['Box', function(Box) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.updateAlerts = function(item) {
-      scope.box.alerts = 'enabling';
-      updateCT();
-    };
-
-    var updateCT = function() {
-      Box.alerts({id: scope.box.slug, alerts: scope.box.is_monitored}).$promise.then(function(data) {
-        scope.box.alerts = 'complete';
-      }, function(errors) {
-        scope.box.errors = errors.data.errors.base;
-        scope.box.alerts = 'failed';
-      });
-    };
-  };
-
-  return {
-    link: link,
-    restrict: 'AE',
-    model: '^ngModel',
-    replace: true,
-    template:
-      '<div class=\'checkbox\'>' +
-      '<input type="checkbox" name="is_monitored" ng-model="box.is_monitored" ng-change="updateAlerts()">' +
-      '<label for="email_alerts">Enable Email Alerts</label>' +
-      '<i ng-show="box.alerts ==\'errored\'" class="fa fa-exclamation"></i>' +
-      '</div>'
-  };
-}]);
-
 app.directive('boxDataRates', ['$compile', function($compile) {
 
   var link = function(scope, element, attrs) {
@@ -1395,229 +1107,9 @@ app.directive('boxDataRates', ['$compile', function($compile) {
     scope: {
       nas: '='
     },
-    template:
-      '<div layout="column" layout-gt-xs="row" layout-wrap style=\'margin: 0px 0 20px 0;\'>'+
-      '<md-input-container class="md-block" flex="50">'+
-      '<label>Min allowed 2.4Ghz basic rate</label>'+
-      '<md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_2" required>'+
-      '<md-option ng-repeat="rate in two" value="{{rate.value}}">'+
-      '{{rate.key}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '<md-input-container class="md-block" ng-f="nas.dual_band" flex="50">'+
-      '<label>Min allowed 5Ghz basic rate</label>'+
-      '<md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_5" required>'+
-      '<md-option ng-repeat="rate in five" value="{{rate.value}}">'+
-      '{{rate.key}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '</div>'
+    templateUrl: 'components/boxes/edit/_minimum_datarates.html',
   };
 
-}]);
-
-app.directive('boxClientsGraph', ['Box', 'Report', '$routeParams', '$location', function(Box, Report, $routeParams, $location) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.chart = {};
-
-    attrs.$observe('apMac', function(val){
-      if (val !== '' && !scope.chart.length ) {
-        scope.clientsChart(attrs.apMac);
-      }
-    });
-
-    scope.chart.interval = $routeParams.interval || 'day';
-    scope.chart.distance = $routeParams.distance || 5;
-
-    scope.clientsChart = function(ap_mac) {
-      scope.chart.loading = true;
-      Report.clients({clients: true, location_id: attrs.locationId, interval: scope.chart.interval, distance: scope.chart.distance, ap_mac: ap_mac}).$promise.then(function(data) {
-        scope.stats = data._stats;
-        scope.chart = data.timeline;
-      });
-    };
-
-  };
-
-  return {
-    link: link,
-    restrict: 'E',
-    scope: {
-      ap_mac: '@',
-      location_id: '@',
-      interval: '@',
-      distance: '@',
-      chart: '='
-    },
-    template:
-      '<line-chart data="{{chart}}" legend="true" interval="{{stats.interval}}" align="right" start="{{ stats.start }}"></line-chart>'
-  };
-}]);
-
-app.directive('adjustInterval', ['$routeParams', '$location', function($routeParams, $location) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.interval = $routeParams.interval || 'day';
-    scope.distance = $routeParams.distance;
-
-    scope.adjustInterval = function(dist,int) {
-      scope.distance = dist;
-      scope.interval = int || 'day';
-      $location.search({distance: scope.distance, interval: scope.interval});
-    };
-
-  };
-
-  return {
-    link: link,
-    restrict: 'E',
-    template:
-      '<p><i class="fa fa-calendar"></i> <a ng-class="distance == \'1\' ? \'active-search\' : \'\'" href=\'\' ng-click=\'adjustInterval(1)\'>1 Day</a> | <a ng-class="distance == \'7\' ? \'active-search\' : \'\'" href=\'\' ng-click=\'adjustInterval(7)\'>1 Week</a> | <a ng-class="distance == \'30\' ? \'active-search\' : \'\'" href=\'\' ng-click=\'adjustInterval(30)\'>1 Month</a></p>'
-  };
-
-}]);
-
-app.directive('boxIntStats', ['Box', 'Report', '$routeParams', '$location', '$q', function(Box, Report, $routeParams, $location, $q) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.chart = {};
-    scope.chart.interval = $routeParams.interval || 'quarter';
-    scope.chart.distance = $routeParams.distance || '24hr';
-
-    // scope.gran = 'quarter'
-
-    attrs.$observe('apMac', function(val){
-      if (val !== '' && !scope.chart.length ) {
-        scope.dualband = (attrs.dualband === 'true');
-        fetchData();
-      }
-    });
-
-    var interfaceChart = function(ap_mac) {
-      Report.signal({dual: scope.dualband, location_id: attrs.lid, interval: scope.chart.interval, distance: scope.chart.distance, ap_mac: ap_mac}).$promise.then(function(data) {
-        scope.chart = data.stats;
-        scope.interface2 = data.stats['24'];
-        scope.interface5 = data.stats['5'];
-
-        if (scope.interface2 === null) {
-          scope.interface2 = [];
-          scope.interface2.push({key: new Date().getTime() / 1000, noise: 0, signal: 0, snr: 0});
-        }
-
-        if (scope.interface5 === null) {
-          scope.interface5 = [];
-          scope.interface5.push({key: new Date().getTime() / 1000, noise: 0, signal: 0, snr: 0});
-        }
-
-        scope.keys = JSON.stringify(['signal', 'noise']);
-      });
-    };
-
-    var qualityChart = function(ap_mac) {
-      Report.quality({dual: scope.dualband, location_id: attrs.lid, interval: scope.chart.interval, distance: scope.chart.distance, ap_mac: ap_mac}).$promise.then(function(data) {
-        scope.quality24 = data.stats['24'];
-        scope.quality5 = data.stats['5'];
-        scope.quality_keys = JSON.stringify(['quality', 'quality_max']);
-
-        if (scope.quality24 === null) {
-          scope.quality24 = [];
-          scope.quality24.push({key: new Date().getTime() / 1000, noise: 0, signal: 0, snr: 0});
-        }
-
-        if (scope.quality5 === null) {
-          scope.quality5 = [];
-          scope.quality5.push({key: new Date().getTime() / 1000, noise: 0, signal: 0, snr: 0});
-        }
-      });
-    };
-
-    var bitrateChart = function(ap_mac) {
-      Report.bitrate({dual: scope.dualband, location_id: attrs.lid, interval: scope.chart.interval, distance: scope.chart.distance, ap_mac: ap_mac}).$promise.then(function(data) {
-
-        scope.bitrate24 = data.stats['24'];
-        scope.bitrate5 = data.stats['5'];
-
-        if (scope.bitrate24 === null) {
-          scope.bitrate24 = [];
-          scope.bitrate24.push({key: new Date().getTime() / 1000, noise: 0, signal: 0, snr: 0});
-        }
-
-        if (scope.bitrate5 === null) {
-          scope.bitrate5 = [];
-          scope.bitrate5.push({key: new Date().getTime() / 1000, noise: 0, signal: 0, snr: 0});
-        }
-      });
-    };
-
-    function fetchData() {
-      var cbs = $q.all([interfaceChart(attrs.apMac), qualityChart(attrs.apMac), bitrateChart(attrs.apMac)]);
-    }
-
-  };
-
-  return {
-    link: link,
-    restrict: 'E',
-    scope: {
-      ap_mac: '@',
-      lid: '@',
-      distance: '@',
-      dualband: '@',
-      chart: '='
-    },
-    template:
-      '<div>'+
-      '<div class="row">'+
-      '<div class="small-12 columns" ng-class="dualband ? \'medium-6\' : \'\'">'+
-      '<p>2.4Ghz Avg. Signal (SNR)</p>'+
-      '<interfaces-chart key="snr" data="{{interface2}}" align="left" snr="16" start="{{ chart.start_date }}" interval="{{ chart.interval }}" renderto="interface2" ></interfaces-chart>' +
-      '</div>'+
-      '<div class="small-12 medium-6 columns" ng-if=\'dualband\'>'+
-      '<p>5Ghz Avg. Signal (SNR)</p>'+
-      '<interfaces-chart renderto="interface5" key="snr" data="{{interface5}}" align="left" snr="16" start="{{ chart.start_date }}" interval="{{ chart.interval }}" ></interfaces-chart>' +
-      '</div>'+
-      '</div>'+
-
-      '<div class="row interface_charts">'+
-      '<div class="small-12 columns" ng-class="dualband ? \'medium-6\' : \'\'">'+
-      '<p>2.4Ghz Signal & Noise</p>'+
-      '<interfaces-chart reversed="true" renderto="snr2" keys="{{ keys }}" data="{{interface2}}" legend="true" align="left" start="{{ chart.start_date }}" interval="{{ chart.interval }}" ></interfaces-chart>' +
-      '</div>' +
-      '<div class="small-12 medium-6 columns" ng-if=\'dualband\'>'+
-      '<p>5Ghz Signal & Noise</p>'+
-      '<interfaces-chart reversed="true" keys="{{ keys }}" data="{{interface5}}" legend="true" align="left" start="{{ chart.start_date }}" renderto="snr5"></interfaces-chart>' +
-      '</div>' +
-      '</div>' +
-
-      '<div class="row interface_charts">'+
-      '<div class="small-12 columns" ng-class="dualband ? \'medium-6\' : \'\'">'+
-      '<p>2.4Ghz Bitrate</p>'+
-      '<interfaces-chart key="bit_rate" data="{{bitrate24}}" align="left" renderto="bitrate2" ></interfaces-chart>' +
-      '</div>'+
-      '<div class="small-12 medium-6 columns" ng-if=\'dualband\'>'+
-      '<p>5Ghz Bitrate</p>'+
-      '<interfaces-chart key="bit_rate" data="{{bitrate5}}" align="left" renderto="bitrate5" ></interfaces-chart>' +
-      '</div>'+
-      '</div>'+
-
-      '<div class="row interface_charts">'+
-      '<div class="small-12 columns" ng-class="dualband ? \'medium-6\' : \'\'">'+
-      '<p>2.4Ghz Quality</p>'+
-      '<interfaces-chart renderto="quality2" keys="{{ quality_keys }}" data="{{quality24}}" legend="true" align="left" start="{{ chart.start_date }}" interval="{{ chart.interval }}" ></interfaces-chart>' +
-      '</div>'+
-      '<div class="small-12 medium-6 columns" ng-if=\'dualband\'>'+
-      '<p>5Ghz Quality</p>'+
-      '<interfaces-chart renderto="quality5" keys="{{ quality_keys }}" data="{{quality5}}" legend="true" align="left" start="{{ chart.start_date }}" interval="{{ chart.interval }}" ></interfaces-chart>' +
-      '</div>'+
-      '</div>'+
-      '</div>'
-  };
 }]);
 
 // Untested //
@@ -1628,7 +1120,7 @@ app.directive('interfaceButtons', ['$routeParams', '$location', function($routeP
 
     scope.formData = {};
     var a = [];
-
+    //fixme: translations
     scope.formData.interval = $routeParams.interval || 'quarter';
 
     if ( scope.formData.interval === 'quarter' ) {
@@ -1671,7 +1163,7 @@ app.directive('interfaceButtons', ['$routeParams', '$location', function($routeP
 
 }]);
 
-app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', function(Payload, $routeParams, $pusher, $rootScope, $mdDialog, showToast, Upgrade) {
+app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope', '$mdDialog', 'showToast', 'Upgrade', 'gettextCatalog', function(Payload, $routeParams, $pusher, $rootScope, $mdDialog, showToast, Upgrade, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1696,8 +1188,8 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         if (prefs.version) {
           scope.box.next_firmware = prefs.version;
         }
-        loadPusher(scope.box.sockets_hash);
-        showToast('Your upgrade has been scheduled.');
+        loadPusher(scope.box.pubsub_token);
+        showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';
         scope.box.upgrade_scheduled   = undefined;
@@ -1705,7 +1197,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         if (err && err.data && err.data.message) {
           e = err.data.message;
         } else {
-          e = 'Could not schedule upgrade, try again.';
+          e = gettextCatalog.getString('Could not schedule upgrade, try again.');
         }
         showToast(e);
       });
@@ -1751,46 +1243,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     scope.runUpgrade = function(ev) {
       $mdDialog.show({
-        template:
-        '<md-dialog aria-label="Upgrade Device" ng-cloak>'+
-        '<form>'+
-        '<md-toolbar>'+
-        '<div class="md-toolbar-tools">'+
-        '<h2>Upgrade Your Device</h2>'+
-        '</div>'+
-        '</md-toolbar>'+
-        '<md-dialog-content>'+
-        '<div class="md-dialog-content">'+
-        '<h2>Firmware Upgrade</h2>'+
-        '<p>Upgrade your firmware to the latest version. Firmware upgrades include security updates and new features.</p>'+
-        '<div flex-xs flex="50" ng-if="ps">'+
-        '<md-input-container>'+
-        '<label>Enter a Version</label>'+
-        '<input ng-model="prefs.version" placeholder="B_160201_01">'+
-        '</md-input-container>'+
-        '</div>'+
-        '<div flex-xs flex="50">'+
-        '<md-checkbox ng-model="prefs.now" aria-label="Upgrade Now">'+
-        'Upgrade Now'+
-        '</md-checkbox>'+
-        '</div>'+
-        '<div flex-xs flex="100" ng-hide="prefs.now">'+
-        '<h4>Upgrade at 2am localtime on the following date</h4>'+
-        '<md-datepicker ng-model="myDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>'+
-        '</div>'+
-        '</div>'+
-        '</md-dialog-content>'+
-        '<md-dialog-actions layout="row">'+
-        '<span flex></span>'+
-        '<md-button ng-click="cancel()">'+
-        'Cancel'+
-        '</md-button>'+
-        '<md-button ng-click="runUpgrade()" style="margin-right:20px;">'+
-        'upgrade <span ng-if="upgrade.now">now</span>'+
-        '</md-button>'+
-        '</md-dialog-actions>'+
-        '</form>'+
-        '</md-dialog>',
+        templateUrl: 'components/boxes/firmware/_upgrade_firmware_dialog.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
@@ -1804,12 +1257,12 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     scope.cancel = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to cancel?')
-      .textContent('If the upgrade has begun, you cannot stop it. Please wait until it completes.')
-      .ariaLabel('Cancel Upgrade')
+      .title(gettextCatalog.getString('Are you sure you want to cancel?'))
+      .textContent(gettextCatalog.getString('If the upgrade has begun, you cannot stop it. Please wait until it completes.'))
+      .ariaLabel(gettextCatalog.getString('Cancel Upgrade'))
       .targetEvent(ev)
-      .ok('please cancel it')
-      .cancel('exit');
+      .ok(gettextCatalog.getString('please cancel it'))
+      .cancel(gettextCatalog.getString('exit'));
       $mdDialog.show(confirm).then(function() {
         cancelUpgrade();
       });
@@ -1819,7 +1272,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
       Upgrade.destroy({box_id: scope.box.slug}).$promise.then(function(result) {
         scope.box.state = 'online';
         scope.box.upgrade_scheduled = undefined;
-        showToast('Upgrade cancelled successfully.');
+        showToast(gettextCatalog.getString('Upgrade cancelled successfully.'));
       }, function(err) {
         showToast(err);
       });
@@ -1827,12 +1280,12 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     var channel, pusherLoaded;
     var loadPusher = function(key) {
-
       if (pusherLoaded === undefined && typeof client !== 'undefined') {
         pusherLoaded = true;
         var pusher = $pusher(client);
-        channel = pusher.subscribe(key);
-        channel.bind('box_upgrade', function(data) {
+
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
           var msg;
           try{
             msg = JSON.parse(data.message);
@@ -1845,7 +1298,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
             scope.box.allowed_job = false;
             channel.unbind();
           }
-          showToast('Box upgrading. Do not unplug or restart your device.');
+          showToast(gettextCatalog.getString('Box upgrading. Do not unplug or restart your device.'));
         });
       }
     };
@@ -1864,302 +1317,8 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
       box: '=',
       ps: '@'
     },
-    template:
-      '<span ng-if="box.next_firmware && box.allowed_job">'+
-      '<md-button id="main" class="md-icon-button md-warn" ng-click="runUpgrade()" aria-label="Settings" >'+
-      '<md-icon>system_update_alt</md-icon>'+
-      '<md-tooltip md-direction="left">An upgrade is available for this device</md-tooltip>'+
-      '</md-button>'+
-      '</span>'
+    templateUrl: 'components/boxes/firmware/_upgrade_firmware.html'
   };
-}]);
-
-app.directive('speedtestChart', ['Report', '$routeParams', function(Report, $routeParams) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.chart = {};
-
-    attrs.$observe('apMac', function(val){
-      if (val !== '' && !scope.chart.length ) {
-        scope.renderto = attrs.renderto;
-        speedtestChart(attrs.apMac);
-      }
-    });
-
-    var speedtestChart = function(ap_mac) {
-      scope.chart.interval = $routeParams.interval || 'day';
-      scope.chart.distance = $routeParams.distance || '7';
-      scope.chart.loading = true;
-      Report.speedtests({interval: scope.chart.interval, distance: scope.chart.distance, ap_mac: ap_mac}).$promise.then(function(data) {
-        scope.chart = data;
-      });
-    };
-  };
-
-  return {
-    link: link,
-    scope: {
-      ap_mac: '@',
-      location_id: '@',
-      interval: '@',
-      distance: '@',
-      chart: '=',
-      renderto: '@'
-    },
-    template:
-      '<div class=\'interface_charts\'><p>Speedtests</p><line-chart data="{{chart.stats.series}}" legend="true" align="left" start="{{ chart.stats.start_date }}" interval="{{chart.interval}}" renderto="{{ renderto }}" height="250px" ></line-chart>'
-  };
-}]);
-
-app.directive('heartbeatChart', ['Box', 'Heartbeat', '$routeParams', '$compile', function(Box, Heartbeat, $routeParams, $compile) {
-
-  var link = function( scope, element, attrs ) {
-
-    scope.loading = true;
-    scope.heartbeats = {};
-
-    attrs.$observe('slug', function(val){
-      if (val !== '') {
-        getHeartbeats(attrs.slug);
-      }
-    });
-
-    var getHeartbeats = function(slug) {
-
-      scope.heartbeats.interval = $routeParams.interval || 'day';
-      scope.heartbeats.distance = $routeParams.distance || '30';
-
-      Heartbeat.query({box_id: slug, interval: scope.heartbeats.interval, distance: scope.heartbeats.distance}).$promise.then(function(results) {
-        if (results.heartbeats !== null) {
-          var length = Object.keys(results.heartbeats).length;
-          if ( length >= 5) {
-            scope.heartbeats = results.heartbeats;
-            formatData(results.heartbeats);
-          }
-        }
-      });
-
-    };
-
-    var array = [], online_series = [], offline_series = [];
-    var startonline, startoffline, endonline, endoffline, currentstate, i;
-
-    var formatData = function(data) {
-
-      var template = '<span ng-if=\'loading\'>Loading heartbeats <i class="fa fa-cog fa-spin"></i></span><div ng-hide="loading" id=\'heartbeats\' style=\'width: 100%!important; height: 90px!important;\'></div>';
-      var templateObj = $compile(template)(scope);
-      element.html(templateObj);
-
-      var start, enddate, interval = 60, times = [];
-
-      angular.forEach(data, function(v,k) {
-        times.push(parseInt(k));
-      });
-
-      start = times[0];
-      scope.start_date = start;
-      enddate = times[times.length - 1];
-
-      for (i=start; i <= enddate; i += interval) {
-        array.push(i);
-      }
-
-      createChart(data, array);
-
-    };
-
-
-    var createChart = function(data, array) {
-
-      for (var i = 0; i < array.length; ++i) {
-
-        var val = data[array[i]];
-
-        if ( currentstate === undefined ) {
-          setStartState(val,array[i]);
-        }
-
-        if (val === 1 || val === 0) {
-          if ( parseInt(val) !== parseInt(currentstate)) {
-            pushData(val, array[i]);
-          }
-        }
-
-        if ( i === array.length - 1) {
-          var factor = (new Date().getTime() / 1000);
-          finishSeries(currentstate, factor);
-        }
-
-      }
-      scope.data = { online: online_series, offline: offline_series } ;
-
-      loadChart(scope.data);
-      scope.loading = undefined;
-    };
-
-    var setStartState = function(val, time) {
-      currentstate = val;
-      if (val === 1) {
-        startonline = time * 1000;
-      } else {
-        startoffline = time * 1000;
-      }
-    };
-
-    var pushData = function(val, factor) {
-      if ( val === 1 ) {
-        updateOffline(factor);
-      } else {
-        updateOnline(factor);
-      }
-      currentstate = currentstate === 1 ? 0 : 1;
-    };
-
-    var finishSeries = function(val, factor) {
-      if ( val === 1 ) {
-        updateOnline(factor);
-      } else {
-        updateOffline(factor);
-      }
-    };
-
-    var updateOnline = function(factor) {
-      endonline = factor * 1000;
-      startoffline = factor * 1000;
-      online_series.push({x: 0, low: startonline, high: endonline});
-    };
-
-    var updateOffline = function(factor) {
-      endoffline = factor * 1000;
-      startonline = factor * 1000;
-      offline_series.push({x: 0, low: startoffline, high: endoffline});
-    };
-
-    var loadChart = function(data) {
-
-      var options = {
-
-        chart: {
-          type: 'columnrange',
-          zoomType: 'y',
-          inverted: true,
-          renderTo: 'heartbeats',
-          backgroundColor: 'transparent',
-          spacingLeft: -5,
-          spacingRight: -5,
-          marginBottom: 50,
-        },
-        title: {
-          text: ''
-        },
-        xAxis: {
-          lineColor: 'transparent',
-          labels: {
-            enabled: false
-          }
-        },
-        credits: {
-          enabled: false
-        },
-        yAxis: {
-          type: 'datetime',
-          title: {
-            text: ''
-          },
-          startOnTick: true,
-          gridLineColor: 'transparent',
-          labels: {
-            style: {
-              font: 'normal 9px \'open-sans\',\'Helvetica Neue\',sans-serif; font-weight: normal; text-transform: titlecase',
-            },
-          }
-
-        },
-        plotOptions: {
-          columnrange: {
-            grouping: false,
-          },
-          series: {
-            borderWidth: '0',
-            pointWidth: '200',
-            animation: false,
-            pointPadding: 0,
-            groupPadding: 0
-          },
-        },
-
-        legend: {
-          enabled: false
-        },
-        tooltip: {
-          formatter:function(){
-            var x = (this.point.high - this.point.low);
-            var distance = millisecondsToStr(x);
-            var text =
-              '<b>' + this.series.name + '</b><br>From: ' + Highcharts.dateFormat('%A, %b %e, %Y at %H:%M', this.point.low) +
-              '<br>Until: ' + Highcharts.dateFormat('%A, %b %e, %Y at %H:%M', this.point.high) +
-              '<br>Duration: ' + distance;
-            return text;
-          },
-          crosshairs: {
-            dashStyle: 'dot'
-          }
-        },
-
-        series: [{
-          name: 'Online',
-          data: data.online,
-          color: '#64ab35'
-        },
-        {
-          name: 'Offline',
-          data: data.offline,
-          color: '#e82d10'
-        }
-
-        ]
-
-      };
-
-      var chart = new Highcharts.Chart(options);
-
-    };
-
-    var millisecondsToStr = function(ms) {
-
-      function numberEnding (number) {
-        return (number > 1) ? 's' : '';
-      }
-
-      var temp = Math.floor(ms / 1000);
-
-      var days = Math.floor((temp %= 31536000) / 86400);
-      if (days) {
-        return days + ' day' + numberEnding(days);
-      }
-      var hours = Math.floor((temp %= 86400) / 3600);
-      if (hours) {
-        return hours + ' hour' + numberEnding(hours);
-      }
-      var minutes = Math.floor((temp %= 3600) / 60);
-      if (minutes) {
-        return minutes + ' minute' + numberEnding(minutes);
-      }
-      var seconds = temp % 60;
-      if (seconds) {
-        return seconds + ' second' + numberEnding(seconds);
-      }
-      return 'less than a second';
-    };
-
-  };
-
-  return {
-    link: link,
-    replace: true
-  };
-
 }]);
 
 app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', '$cookies', 'menu', function($routeParams, $location, Box, Firmware, $cookies, menu) {
@@ -2195,26 +1354,12 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
     scope: {
       next: '='
     },
-    template:
-      '<div>'+
-      '<p>Download the firmware for your devices. You can read about installing the firmwares in the <ct-docs name=\'firmware\' alt="documentation">documentation<ct-docs>.</p>'+
-      '<div flex flex-gt-sm="30" layout="column">'+
-      '<md-input-container>'+
-      '<label>Choose a firmware version</label>'+
-      '<md-select iiing-if=\'firmwares.length\' ng-model="firmware">'+
-      '<md-option ng-repeat="f in firmwares" value="{{f.url}}">'+
-      '{{f.type}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'+
-      '</div>'+
-      '<md-button ng-click="download()" class="md-raised" ng-disabled="!firmware" aria-label="download firmware">Download</md-button>'+
-      '</div>'
+    templateUrl: 'components/boxes/firmware/_download_firmware.html',
   };
 
 }]);
 
-app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', function(Box, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone) {
+app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'Auth', '$timeout', '$rootScope', 'showToast', 'showErrors', '$route', '$q', '$mdEditDialog', 'Zone', 'gettextCatalog', function(Box, $routeParams, $location, $pusher, Auth, $timeout, $rootScope, showToast, showErrors, $route, $q, $mdEditDialog, Zone, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -2322,7 +1467,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
           box.calledstationid = scope.selected[i].mac;
           box.is_polkaspots   = true;
           box.zone_id         = scope.temp.zone_id;
-          box.description = scope.selected[i].description || 'Automatically discovered' ;
+          box.description = scope.selected[i].description || gettextCatalog.getString('Automatically discovered');
           if (i === scope.selected.length - 1) {
             last = true;
           }
@@ -2338,10 +1483,10 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
 
         if (scope.selected.length <= 1) {
           redirect(data.slug);
-          showToast('Your device has been added.');
+          showToast(gettextCatalog.getString('Your device has been added.'));
         } else if (last) {
           redirect(data.slug);
-          showToast('Your devices have been added.');
+          showToast(gettextCatalog.getString('Your devices have been added.'));
         }
       }, function(err) {
         if (!scope.err) {
@@ -2394,12 +1539,12 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
 
       var editDialog = {
         modelValue: box.description,
-        placeholder: 'Add a comment',
+        placeholder: gettextCatalog.getString('Add a comment'),
         save: function (input) {
           box.description = input.$modelValue;
         },
         targetEvent: event,
-        title: 'Add a comment',
+        title: gettextCatalog.getString('Add a comment'),
         validators: {
           'md-maxlength': 30,
           'md-minlength': 5
@@ -2450,7 +1595,7 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', function(showErrors,showToast,Speedtest) {
+app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     scope.runSpeedtest = function() {
@@ -2461,7 +1606,7 @@ app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', fun
 
     var updateCT = function() {
       Speedtest.create({box_id: scope.box.slug}).$promise.then(function(results) {
-        showToast('Running speedtest, please wait.');
+        showToast(gettextCatalog.getString('Running speedtest, please wait.'));
       }, function(errors) {
         showErrors(errors);
       });
@@ -2473,106 +1618,7 @@ app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', fun
     scope: {
       box: '='
     },
-    template:
-      '<md-list-item class="md-2-line">'+
-      '<div class="md-list-item-text">'+
-      '<h3>Speedtest</h3>'+
-      '<md-button class=\'md-secondary md-icon-button\' ng-if=\'box.allowed_job && !box.speedtest_running\' ng-click="runSpeedtest()">'+
-      '<md-icon>replay</md-icon>'+
-      '</md-button>'+
-      '<span>'+
-      '<p>Last result: <b>{{ box.latest_speedtest.result || 0 }}Mb/s</b> <span ng-if=""box.latest_speedtest.result"> at {{ box.latest_speedtest.timestamp | humanTime }}</span></p>'+
-      '</span>'+
-      '<span ng-if="box.speedtest_running">'+
-      '<md-progress-linear md-mode="query"></md-progress-linear>'+
-      '</span>'+
-      '</div>' +
-      '</md-list-item>'
-  };
-
-}]);
-
-app.directive('boxDoctor', ['Payload', function(Payload) {
-
-  var link = function(scope, element,attrs,controller) {
-
-    scope.runCommand = function() {
-      scope.checking = true;
-      var dr = '8b3dde7e-83c2-4fad-a190-c1792c763409';
-      Payload.create({payload: {box_ids: attrs.slug, command_id: dr}}).$promise.then(function() {
-      }, function(errors) {
-        scope.error = true;
-        scope.checking = undefined;
-      });
-    };
-
-  };
-
-  return {
-    link: link,
-    scope: {
-      checking: '=',
-      slug: '@'
-    },
-    template:
-      '<div>'+
-      '<p><md-button ng-disabled=\'checking\' class=\'md-raised\' ng-click=\'runCommand()\'>Checkup</md-button></p>'+
-      '<span ng-if=\'checking == true\'>'+
-      '<md-progress-linear md-mode="query"></md-progress-linear>'+
-      '<p>A checkup is underway.</p>'+
-      '</span>'+
-      '<span ng-if=\'error == true\'>'+
-      '<p>There was a problem running the doctor, please try again.</p>'+
-      '</span>'+
-      '</div>'
-  };
-
-}]);
-
-app.directive('boxDoctorWidget', ['$mdDialog', function($mdDialog) {
-
-  var link = function(scope, element,attrs,controller) {
-
-    scope.open = function(ev) {
-      $mdDialog.show({
-        templateUrl: 'components/boxes/show/_health_modal.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        locals: {
-          items: scope.selected // not working
-        },
-        controller: DialogController
-      });
-    };
-
-    function DialogController($scope, $mdDialog, items) {
-      $scope.items = items;
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    }
-    DialogController.$inject = ['$scope', '$mdDialog', 'items'];
-
-  };
-
-  return {
-    link: link,
-    scope: {
-      box: '='
-    },
-    template:
-      '<div class="box_widget">'+
-      '<span ng-if="box.allowed_job == true">'+
-      '<box-doctor slug=\'{{box.slug}}\' checking=\'box.checking_health\'></box-doctor>'+
-      '</span>'+
-      '<p><span ng-if=\'box.healthy == true\'><a href=\'\' ng-click=\'open()\'> This box is healthy</a></span>'+
-      '<span ng-if=\'box.healthy == false\' ><b>This box needs a check-up. <a ng-click=\'open()\'>Why?</a></b></span>'+
-      '<span ng-if=\'box.healthy != true && box.healthy != false\'>No tests completed yet.</span>'+
-      '</p>'+
-      '<span ng-show="box.allowed_job == false">'+
-      '</span>'+
-      '</div>'
+    templateUrl: 'components/boxes/payloads/_speedtest_widget.html'
   };
 
 }]);
@@ -2588,4 +1634,3 @@ app.directive('boxUpgradeWidget', ['$compile', function($compile) {
   };
 
 }]);
-

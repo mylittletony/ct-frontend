@@ -6,11 +6,11 @@ app.factory('CTLogin', [function() {
   return { active: '' };
 }]);
 
-app.directive('daySelector', [function() {
+app.directive('daySelector', ['gettextCatalog', function(gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
-    scope.days_array = [{id:1, name: 'Mon'},{id:2, name: 'Tue'},{id:3, name: 'Wed'},{id:4, name: 'Thu'}, {id:5, name: 'Fri'}, {id:6, name:'Sat'}, {id:0, name:'Sun'}];
+    scope.days_array = [{id:1, name: gettextCatalog.getString('Mon')},{id:2, name: gettextCatalog.getString('Tue')},{id:3, name: gettextCatalog.getString('Wed')},{id:4, name: gettextCatalog.getString('Thu')}, {id:5, name: gettextCatalog.getString('Fri')}, {id:6, name:gettextCatalog.getString('Sat')}, {id:0, name:gettextCatalog.getString('Sun')}];
 
     scope.updateDays = function() {
       for (var day in scope.array ) {
@@ -91,15 +91,7 @@ app.directive('currency', function() {
     scope: {
       model: '='
     },
-    template:
-      '<md-input-container layout="column">'+
-      '<label for=\'currency\'>Currency</label>'+
-      '<md-select ng-model="model">'+
-      '<md-option ng-repeat="name in currencies">'+
-      '{{name}}'+
-      '</md-option>'+
-      '</md-select>'+
-      '</md-input-container>'
+    templateUrl: 'components/main/_currency.html',
   };
 
 
@@ -364,7 +356,7 @@ app.directive('countrySelect', ['$parse', function($parse) {
   };
 
   return {
-    template: 
+    template:
       '<md-select ng-model="country">'+
       '<md-option ng-repeat=\'c in countries\' value="{{ c.code }}">'+
       '{{ c.name }}'+

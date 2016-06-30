@@ -2,7 +2,8 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
       <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query.filter" md-autofocus placeholder="Filter Clients">
+      <label></label>
+      <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Clients' | translate }}">
     </md-input-container>
     <div flex></div>
     <md-menu-bar ng-if="clients.unique_aps.length > 1" style="padding: 0">
@@ -13,7 +14,9 @@
         <md-menu-content >
           <md-menu-item>
             <md-button ng-click="refresh()" ng-disabled="!ap_mac">
-              Clear Filter
+              <translate>
+                Clear Filter
+              </translate>
             </md-button>
           </md-menu-item>
           <md-menu-divider></md-menu-divider>
@@ -49,18 +52,19 @@
         <md-card-header>
           <md-card-header-text>
             <span class="md-title">
-              <span ng-if="type == 'mcs'">{{ client_mac }} MCS Value</span>
-              <span ng-if="type == 'signal'">{{ client_mac }} WiFi Signal</span>
-              <span ng-if="type == 'tx'">{{ client_mac }} WiFi Traffic</span>
-              <span ng-if="type == 'usage'">{{ client_mac }} Total WiFi Usage</span>
-              <span ng-if="type == 'failures'">{{ client_mac }} Transmission Failures</span>
+              <span ng-if="type == 'mcs'" translate>{{ client_mac }} MCS Value</span>
+              <span ng-if="type == 'signal'" translate>{{ client_mac }} WiFi Signal</span>
+              <span ng-if="type == 'tx'" translate>{{ client_mac }} WiFi Traffic</span>
+              <span ng-if="type == 'usage'" translate>{{ client_mac }} Total WiFi Usage</span>
+              <span ng-if="type == 'failures'" translate>{{ client_mac }} Transmission Failures</span>
             </span>
             <span class="md-subhead">
-              <span ng-if="type == 'mcs'">{{ (fn || 'average') | titleCase }} client MCS values</span>
-              <span ng-if="type == 'signal'">{{ (fn || 'average') | titleCase }} signal, noise and SNR values</span>
-              <span ng-if="type == 'tx'">{{ (fn || 'average') | titleCase }} network throughput</span>
-              <span ng-if="type == 'usage'">{{ (fn || 'average') | titleCase }} aggregated network usage</span>
-              <span ng-if="type == 'failures'">{{ (fn || 'average') | titleCase }} transmission packets that failed</span>
+              <!-- ZAK - TO DO -->
+              <span ng-if="type == 'mcs'" translate>{{ (fn || 'average') | titleCase }} client MCS values</span>
+              <span ng-if="type == 'signal'" translate>{{ (fn || 'average') | titleCase }} signal, noise and SNR values</span>
+              <span ng-if="type == 'tx'" translate>{{ (fn || 'average') | titleCase }} network throughput</span>
+              <span ng-if="type == 'usage'" translate>{{ (fn || 'average') | titleCase }} aggregated network usage</span>
+              <span ng-if="type == 'failures'" translate>{{ (fn || 'average') | titleCase }} transmission packets that failed</span>
             </span>
           </md-card-header-text>
           <div flex></div>
@@ -78,54 +82,74 @@
               <md-menu-content>
                 <md-menu-item>
                   <md-button ng-click="">
-                    Share
+                    <translate>
+                      Share
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
                 <md-menu-item>
                   <md-button ng-click="changeType('signal')">
-                    Signal Strength
+                    <translate>
+                      Signal Strength
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('tx')">
-                    WiFi Traffic
+                    <translate>
+                      WiFi Traffic
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('usage')">
-                    WiFi Usage
+                    <translate>
+                      WiFi Usage
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('mcs')">
-                    MCS Index
+                    <translate>
+                      MCS Index
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('failures')">
-                    TX Fails
+                    <translate>
+                      TX Fails
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
                 <md-menu-item>
                   <md-button ng-click="changeFn('mean')">
-                    Average Values
+                    <translate>
+                      Average Values
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeFn('max')">
-                    Max. Values
+                    <translate>
+                      Max. Values
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeFn('median')">
-                    Median Values
+                    <translate>
+                      Median Values
+                    </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeFn('sum')" ng-disabled="type != 'usage'">
-                    Sum
+                    <translate>
+                      Sum
+                    </translate>
                   </md-button>
                 </md-menu-item>
               </md-menu-content>
@@ -140,7 +164,7 @@
       <md-card>
         <md-card-content>
           <div class="md-toolbar-tools" ng-cloak>
-            <span class="md-subhead">
+            <span class="md-subhead" translate>
               {{ clients.info.connected || 0 }} Connected.
             </span>
           </div>
@@ -148,28 +172,28 @@
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="clients">
               <thead md-head>
                 <tr md-row class="md-table-headers-row">
-                  <th md-column><a href="" ng-click='sort("online", query.direction)'>Status</a></th>
-                  <th md-column><a href="" ng-click='sort("device_name", query.direction)'>Description</a></th>
-                  <th md-column hide show-gt-sm><a href="" ng-click='sort("client_mac", query.direction)'>Mac Address</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.ssid"><a href="" ng-click='sort("ssid", query.direction)'>SSID</a></th>
+                  <th md-column><a href="" ng-click='sort("online", query.direction)' translate>Status</a></th>
+                  <th md-column><a href="" ng-click='sort("device_name", query.direction)' translate>Description</a></th>
+                  <th md-column hide show-gt-sm><a href="" ng-click='sort("client_mac", query.direction)' translate>Mac Address</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.ssid"><a href="" ng-click='sort("ssid", query.direction)' translate>SSID</a></th>
                   <!-- <th hide show-gt-sm md-column ng-show="columns.tx"><a href="" ng-click='sort("tx", query.direction)'>Usage</a></th> -->
                   <!-- <th hide show-gt-sm md-column ng-show="columns.txbps"><a href="" ng-click='sort("txbps", query.direction)'>Txbps</a></th> -->
                   <!-- <th hide show-gt-sm md-column ng-show="columns.rxbps"><a href="" ng-click='sort("rxbps", query.direction)'>Rxbps</a></th> -->
-                  <th hide show-gt-sm md-column ng-show="columns.expected_throughput"><a href="" ng-click='sort("expected_throughput", query.direction)'>Expected Tput</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.txbitrate"><a href="" ng-click='sort("txbitrate", query.direction)'>Tx Rate</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.rxbitrate"><a href="" ng-click='sort("rxbitrate", query.direction)'>Rx Rate</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.snr"><a href="" ng-click='sort("snr", query.direction)'>SNR</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.signal"><a href="" ng-click='sort("signal", query.direction)'>Signal</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.mcs"><a href="" ng-click='sort("mcs", query.direction)'>MCS Index</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.ip"><a href="" ng-click='sort("ip", query.direction)'>IPv4</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.updated_at"><a href="" ng-click='sort("updated_at", query.direction)'>Last Seen</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.description"><a href="" ng-click='sort("description", query.direction)'>AP Name</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.channel"><a href="" ng-click='sort("channel", query.direction)'>Channel</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.capabilities"><a href="" ng-click='sort("capabilities", query.direction)'>Frequency</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.manufacturer"><a href="" ng-click='sort("manufacturer", query.direction)'>Manufacturer</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.splash_username"><a href="" ng-click='sort("splash_username", query.direction)'>Splash User</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.type"><a href="" ng-click='sort("type", query.direction)'>Type</a></th>
-                  <th md-column>Action</th>
+                  <th hide show-gt-sm md-column ng-show="columns.expected_throughput"><a href="" ng-click='sort("expected_throughput", query.direction)' translate>Expected Tput</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.txbitrate"><a href="" ng-click='sort("txbitrate", query.direction)' translate>Tx Rate</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.rxbitrate"><a href="" ng-click='sort("rxbitrate", query.direction)' translate>Rx Rate</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.snr"><a href="" ng-click='sort("snr", query.direction)' translate>SNR</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.signal"><a href="" ng-click='sort("signal", query.direction)' translate>Signal</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.mcs"><a href="" ng-click='sort("mcs", query.direction)' translate>MCS Index</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.ip"><a href="" ng-click='sort("ip", query.direction)' translate>IPv4</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.updated_at"><a href="" ng-click='sort("updated_at", query.direction)' translate>Last Seen</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.description"><a href="" ng-click='sort("description", query.direction)' translate>AP Name</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.channel"><a href="" ng-click='sort("channel", query.direction)' translate>Channel</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.capabilities"><a href="" ng-click='sort("capabilities", query.direction)' translate>Frequency</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.manufacturer"><a href="" ng-click='sort("manufacturer", query.direction)' translate>Manufacturer</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.splash_username"><a href="" ng-click='sort("splash_username", query.direction)' translate>Splash User</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.type"><a href="" ng-click='sort("type", query.direction)' translate>Type</a></th>
+                  <th md-column translate>Action</th>
                 </tr>
               </thead>
               <tbody md-body>
@@ -178,7 +202,7 @@
                     <md-icon ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
                   </td md-cell>
                   <td md-cell ng-show="columns.device_name">
-                    <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.name || client.device_name || 'No Name' | truncate:20 }}</a><br>
+                    <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.name || client.device_name || emptyFilter | truncate:20 }}</a><br>
                     <span hide show-sm>
                       <small>{{ client.client_mac }}</small>
                     </span>
@@ -188,7 +212,7 @@
                     {{ client.client_mac }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.ssid">
-                    <span class="text-muted" ng-if="client.conn_type == 'wired'">
+                    <span class="text-muted" ng-if="client.conn_type == 'wired'" translate>
                       Unknown network
                     </span>
                     <span ng-if="client.conn_type != 'wired' ">
@@ -215,7 +239,7 @@
                     {{ client.rxbitrate }}Mbps
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.snr">
-                    <span class="text-muted" ng-if="client.conn_type == 'wired'">
+                    <span class="text-muted" ng-if="client.conn_type == 'wired'" translate>
                       NA
                     </span>
                     <span ng-if="client.conn_type != 'wired'">
@@ -225,7 +249,9 @@
                       <span ng-if="client.snr_alert">
                         <b>{{ client.snr }}dB</b>
                         <md-tooltip>
-                          If the client signal drops below 16dB, they may have problems browsing.
+                          <translate>
+                            If the client signal drops below 16dB, they may have problems browsing.
+                          </translate>
                         </md-tooltip>
                       </span>
                     </span>
@@ -243,7 +269,7 @@
                     {{ client.updated_at | lastSeen }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.description">
-                    <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description || "Unknown"}}</a>
+                    <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.channel">
                     {{ client.channel }}
@@ -252,10 +278,10 @@
                     {{ client.capabilities }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.manufacturer">
-                    {{ client.manufacturer || "N/A" }}
+                    {{ client.manufacturer | emptyFilter }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.splash_username">
-                    <span ng-show="client.errors"><b>Failed</b></span>
+                    <span ng-show="client.errors"><b translate>Failed</b></span>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.type">
                     <img style="width: 16px;" class="clients_type" src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/ct-wifi.svg" ng-if="client.type != 'vsg'">
@@ -267,7 +293,7 @@
                     </span>
                     <span ng-hide="client.processing">
                       <md-menu>
-                        <md-button aria-label="Open Clients Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                           <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4" >

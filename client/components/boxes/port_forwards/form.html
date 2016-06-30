@@ -7,45 +7,45 @@
   <form ng-submit="updateRules()" name="myForm" form_submitted>
     <table class="table table-bordered">
       <tr>
-        <th>Allowed IPs</th>
-        <th>Source Port</th>
-        <th>Dest. Port</th>
-        <th>Dest. IP</th>
-        <th></th>
+        <th translate>Allowed IPs</th>
+        <th translate>Source Port</th>
+        <th translate>Dest. Port</th>
+        <th translate>Dest. IP</th>
+        <th translate></th>
       </tr>
       <tr ng-form="innerForm" ng-hide='port_forward._destroy' ng-repeat='port_forward in port_forwards'>
         <td>
-          <input type="text" class="form-control" name="source" ng-model="port_forward.source" placeholder="Source IP (0.0.0.0/24)" required ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\/)([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/"></input>
-          <p class="text text-danger small" ng-show="innerForm.source.$error.required"><b><small>Required field.</small></b></p>
-          <p class="text text-danger small" ng-show="innerForm.source.$error.pattern"><b><small>Must be a valid IP with range. <br> For example: 10.1.1.0/24</small></b></p>
+          <input type="text" class="form-control" name="source" ng-model="port_forward.source" placeholder="{{ 'Source IP (0.0.0.0/24)' | translate }}" required ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\/)([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/"></input>
+          <p class="text text-danger small" ng-show="innerForm.source.$error.required"><b><small translate>Required field.</small></b></p>
+          <p class="text text-danger small" ng-show="innerForm.source.$error.pattern"><b><small translate>Must be a valid IP with range. <br> For example: 10.1.1.0/24</small></b></p>
         </td>
         <td>
-          <input type="number" class="form-control" name="destination_port" ng-model="port_forward.destination_port" placeholder="Source Port" required ng-min="1" ng-max="64322">
-          <p class="text text-danger small" ng-show="innerForm.destination_port.$error.required"><b><small>Required.</small></b></p>
-          <p class="text text-danger small" ng-show="innerForm.destination_port.$error.number"><b><small>Should be a number.</small></b></p>
-          <p class="text text-danger small" ng-show="innerForm.destination_port.$error.min || innerForm.destination_port.$error.max"><b><small>Must be between 1 and 65322.</small></b></p>
+          <input type="number" class="form-control" name="destination_port" ng-model="port_forward.destination_port" placeholder="{{ 'Source Port' | translate }}" required ng-min="1" ng-max="64322">
+          <p class="text text-danger small" ng-show="innerForm.destination_port.$error.required"><b><small translate>Required.</small></b></p>
+          <p class="text text-danger small" ng-show="innerForm.destination_port.$error.number"><b><small translate>Should be a number.</small></b></p>
+          <p class="text text-danger small" ng-show="innerForm.destination_port.$error.min || innerForm.destination_port.$error.max"><b><small translate>Must be between 1 and 65322.</small></b></p>
         </td>
         <td>
-          <input type="number" class="form-control" name="forward_to_port" ng-model="port_forward.forward_to_port" placeholder="Port Number" required ng-min="1" ng-max='64322'>
-          <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.required"><b><small>Required.</small></b></p>
-          <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.number"><b><small>Should be a number.</small></b></p>
-          <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.min || innerForm.forward_port.$error.max"><b><small>Must be between 1 and 65322.</small></b></p>
+          <input type="number" class="form-control" name="forward_to_port" ng-model="port_forward.forward_to_port" placeholder="{{ 'Port Number' | translate }}" required ng-min="1" ng-max='64322'>
+          <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.required"><b><small translate>Required.</small></b></p>
+          <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.number"><b><small translate>Should be a number.</small></b></p>
+          <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.min || innerForm.forward_port.$error.max"><b><small translate>Must be between 1 and 65322.</small></b></p>
         </td>
         <td>
-          <input type="text" class="form-control" name="forward_to_ip" ng-model="port_forward.forward_to_ip" placeholder="Destination IP" required ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"></input>
-          <p class="text text-danger small" ng-show="innerForm.forward_to_ip.$error.required"><b><small>Required.</small></b></p>
-          <p class="text text-danger small" ng-show="innerForm.forward_to_ip.$error.pattern"><b><small>Should be a valid IP (10.1.1.1)</small></b></p>
+          <input type="text" class="form-control" name="forward_to_ip" ng-model="port_forward.forward_to_ip" placeholder="{{ 'Destination IP' | translate }}" required ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"></input>
+          <p class="text text-danger small" ng-show="innerForm.forward_to_ip.$error.required"><b><small translate>Required.</small></b></p>
+          <p class="text text-danger small" ng-show="innerForm.forward_to_ip.$error.pattern"><b><small translate>Should be a valid IP (10.1.1.1)</small></b></p>
         </td>
         <td>
           <span ng-click="removeRule($index)" class='btn btn-sm btn-danger' id="remove-rule"><i class="fa fa-trash"></i></span>
         </td>
       </tr>
     </table>
-    <p><a ng-click="addRule()" class="btn btn-sm btn-success" id="add_rule">Click here to add another rule</a></p>
-    <button ng-disabled="myForm.$invalid || myForm.$pristine || myForm.updating" class="btn btn-primary" id="update">Update</button>
-    <p ng-if="myForm.$invalid" class="small text text-muted">Some required fields are blank or have invalid values.</p>
-    <p ng-if="myForm.$pristine" class="small text text-muted">Make some changes before trying to save.</p>
-    <p ng-show="myForm.updating"><i class="fa fa-cog fa-spin"></i> Updating</p>
+    <p><a ng-click="addRule()" class="btn btn-sm btn-success" id="add_rule" translate>Click here to add another rule</a></p>
+    <button ng-disabled="myForm.$invalid || myForm.$pristine || myForm.updating" class="btn btn-primary" id="update" translate>Update</button>
+    <p ng-if="myForm.$invalid" class="small text text-muted" translate>Some required fields are blank or have invalid values.</p>
+    <p ng-if="myForm.$pristine" class="small text text-muted" translate>Make some changes before trying to save.</p>
+    <p ng-show="myForm.updating"><i class="fa fa-cog fa-spin"></i> <translate>Updating</translate></p>
     <form_success ng-show="myForm.success" ng-animate="'fade-hide'" ></form_success>
     <form_errors ng-show="myForm.errors"></form_errors>
   </form>

@@ -1,0 +1,28 @@
+<md-card>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">
+        {{ title }}
+      </span>
+      <!-- <span class="md-subhead" ng-if="subhead">
+        {{ subhead }}
+        </span> -->
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <span ng-if="loading" translate>
+        Loading.
+      </span>
+      <span ng-if="!loading">
+        <div id="{{ render }}"></div>
+        <!-- No warnings found. -->
+      </span>
+      <md-list-item class="md-2-line" ng-repeat="event in events">
+        <div class="md-list-item-text">
+          <h3 ng-class="event.event_type == 'box.online' ? 'muted' : 'offline'">{{ event.data.ap_mac }} {{ event.event_type == "box.online" ? "Reconnected" : "Disconnected" }}</h3>
+          <p>Last seen {{ event.data.last_heartbeat | mysqlTime }} <a href="/#/locations/{{ event.data.location_name}}/boxes?q={{ event.data.ap_mac}}"><md-icon md-font-icon="" style="font-size: 14px;">arrow_forward</md-icon></a></p>
+        </div>
+      </md-list-item>
+    </md-card-content>
+    <md-divider></md-divider>
+  </md-card>

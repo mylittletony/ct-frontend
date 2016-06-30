@@ -1,9 +1,10 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
-    <p>Back <span ng-if="location.id">to Location</span></p>
+    <p ng-if="!location.id" translate>Back</p>
+    <p ng-if="location.id" translate>Back to Location</p>
     <div flex></div>
     <!-- <location-settings-menu location="location"></location-settings-menu> -->
   </div>
@@ -18,10 +19,10 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Create a New Location
               </span>
-              <span class="md-subhead">
+              <span class="md-subhead" translate>
                 Create as many locations or networks as you need.
               </span>
             </md-card-title-text>
@@ -30,49 +31,52 @@
           <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label>Location Name</label>
-                <input md-autofocus ng-model="location.location_name" name="location_name" placeholder="Enter a name for the location" type="text" ng-minlength="5" md-maxlength='100' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ ]*$/" required>
+                <label translate>Location Name</label>
+                <input md-autofocus ng-model="location.location_name" name="location_name" placeholder="{{ 'Enter a name for the location' | translate }}" type="text" ng-minlength="5" md-maxlength='100' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ ]*$/" required>
                 <div ng-messages="myForm.location_name.$error" md-auto-hide="false">
-                  <div ng-message="max">Must be less than 100 characters</div>
-                  <div ng-message="min">Must be greater than 5 characters</div>
-                  <div ng-message="required">Please enter a location name.</div>
+                  <div ng-message="max" translate>Must be less than 100 characters</div>
+                  <div ng-message="min" translate>Must be greater than 5 characters</div>
+                  <div ng-message="required" translate>Please enter a location name.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label>Location Address</label>
-                <input ng-model="location.location_address" name="location_address" placeholder="Enter your address" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
+                <label translate>Location Address</label>
+                <input ng-model="location.location_address" name="location_address" placeholder="{{ 'Enter your address' | translate }}" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
                 <div ng-messages="myForm.location_address.$error">
-                  <div ng-message="max">Must be less than 200 characters</div>
-                  <div ng-message="min">Must be greater than 5 characters</div>
-                  <div ng-message="required">You must enter an address.</div>
+                  <div ng-message="max" translate>Must be less than 200 characters</div>
+                  <div ng-message="min" translate>Must be greater than 5 characters</div>
+                  <div ng-message="required" translate>You must enter an address.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="60">
-                <label>City / Town</label>
-                <input ng-model="location.town" name="location_town" placeholder="Location City" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
+                <label translate>City / Town</label>
+                <input ng-model="location.town" name="location_town" placeholder="{{ 'Location City' | translate }}" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
                 <div ng-messages="myForm.location_town.$error">
-                  <div ng-message="max">Must be less than 200 characters</div>
-                  <div ng-message="min">Must be greater than 5 characters</div>
-                  <div ng-message="required">You must enter a city.</div>
+                  <div ng-message="max" translate>Must be less than 200 characters</div>
+                  <div ng-message="min" translate>Must be greater than 5 characters</div>
+                  <div ng-message="required" translate>You must enter a city.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="40">
-                <label>Postcode / Zipcode</label>
-                <input ng-model="location.postcode" name="location_postcode" placeholder="Postcode" type="text" ng-minlength="3" md-maxlength='8' required>
+                <label translate>Postcode / Zipcode</label>
+                <input ng-model="location.postcode" name="location_postcode" placeholder="{{ 'Postcode' | translate }}" type="text" ng-minlength="3" md-maxlength='8' required>
                 <div ng-messages="myForm.location_postcode.$error">
-                  <div ng-message="max">Must be less than 8 characters</div>
-                  <div ng-message="min">Must be greater than 3 characters</div>
-                  <div ng-message="required">Postcode required.</div>
+                  <div ng-message="max" translate>Must be less than 8 characters</div>
+                  <div ng-message="min" translate>Must be greater than 3 characters</div>
+                  <div ng-message="required" translate>Postcode required.</div>
                 </div>
               </md-input-container>
-              <md-switch ng-model="location.add_to_global_map" aria-label="Public" class="md-warn" flex="100" flex-gt-sm="50">
-                This is a {{ location.add_to_global_map ? "public" : "private" }} location
+              <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public' | translate }}" class="md-warn" flex="100" flex-gt-sm="50">
+                <span ng-if="location.add_to_global_map == true" translate>This is a public location</span>
+                 <span ng-if="location.add_to_global_map == false" translate>This is a private location</span>
               </md-switch>
             </div>
           </md-card-content>
         </md-card>
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-          Save
+          <translate>
+            Save
+          </translate>
         </md-button>
 
       </div>

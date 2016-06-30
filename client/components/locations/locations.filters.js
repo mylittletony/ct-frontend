@@ -6,7 +6,6 @@ var app = angular.module('myApp.locations.filters', []);
 
 app.filter('humanData', function() {
   return function(bytes, precision) {
-
     if(bytes === 0 || bytes === '' || bytes === undefined || bytes === null) {
       return '0 Bytes';
     } else {
@@ -85,11 +84,10 @@ app.filter('bitsToBytes', function() {
 
 app.filter('humanTime', ['$window', function(window) {
   return function(input) {
-
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.utc(input*1000).format('MMMM Do YYYY, h:mm:ss a');
+      return window.moment.unix(input).format('MMMM Do YYYY, h:mm:ss a');
     }
   };
 }]);
@@ -109,7 +107,8 @@ app.filter('humanTimeShort', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.utc(input*1000).format('MMM Do, H:mm:ss');
+      var time = moment.unix(input).format('MMM Do, H:mm:ss');
+      return time;
     }
   };
 }]);
@@ -119,7 +118,7 @@ app.filter('humanTimeShortest', [function() {
     if ( input === undefined || input === null) {
       return 'N/A';
     } else {
-      return window.moment.utc(input*1000).format('MMMM D, H:mm:ss');
+      return window.moment.unix(input).format('MMMM D, H:mm:ss');
     }
   };
 }]);
@@ -145,6 +144,68 @@ app.filter('lastSeen', [function() {
       return 'N/A';
     } else {
       return window.moment.utc(input*1000).format('MMM Do h:mm:ssa');
+    }
+  };
+}]);
+
+app.filter('humanBoolean', ['$window', function(window) {
+  return function(input) {
+    if ( input === undefined || input === null) {
+      return 'N/A';
+    } else {
+      if ( input === true ) {
+        return 'Enabled';
+      } else {
+        return 'Disabled';
+      }
+    }
+  };
+}]);
+
+app.filter('booleanToggle', ['$window', function(window) {
+  return function(input) {
+    if ( input === undefined || input === null) {
+      return 'N/A';
+    } else {
+      if ( input === true ) {
+        return 'Enable';
+      } else {
+        return 'Disable';
+      }
+    }
+  };
+}]);
+
+app.filter('updateCreate', ['$window', function(window) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return 'Create';
+    } else {
+      return 'Update';
+    }
+  };
+}]);
+
+app.filter('emptyFilter', ['$window', function(window) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return 'N/A';
+    } else {
+      return input;
+    }
+  };
+}]);
+
+app.filter('splashStatus', ['$window', function(window) {
+  return function(online,status) {
+    if ( online ) {
+      if ( status == 'dnat' ) {
+        return 'Not logged in';
+      } else {
+        return 'Online';
+      }
+    } else {
+      return 'Offline';
     }
   };
 }]);

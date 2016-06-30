@@ -2,18 +2,19 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" flex style="margin-top: 50px" ng-show="networks.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query.filter" md-autofocus placeholder="Filter Networks">
+      <label></label>
+      <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Networks' | translate }}">
     </md-input-container>
-    <md-button ng-if="!networks.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
+    <md-button ng-if="!networks.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
       <md-icon md-font-icon="" >layers</md-icon>
     </md-button>
-    <p ng-if="networks.length === 0">Networks</p>
+    <p ng-if="networks.length === 0" translate>Networks</p>
     <div flex></div>
     <new-network networks="networks"></new-network>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updateBand('two')" ng-class="{ 'active': band === 'two' }">2.4Ghz</md-button>
-      <md-button ng-click="updateBand('five')" ng-class="{ 'active': band === 'five' }">5Ghz</md-button>
-      <md-button ng-click="updateBand('all')" ng-class="{ 'active': band === '' }">2.4 & 5Ghz</md-button>
+      <md-button ng-click="updateBand('two')" ng-class="{ 'active': band === 'two' }"><translate>2.4Ghz</translate></md-button>
+      <md-button ng-click="updateBand('five')" ng-class="{ 'active': band === 'five' }"><translate>5Ghz</translate></md-button>
+      <md-button ng-click="updateBand('all')" ng-class="{ 'active': band === '' }"><translate>2.4 & 5Ghz</translate></md-button>
     </md-button-group>
   </div>
   <md-divider></md-divider>
@@ -27,13 +28,13 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
             <tr md-row>
-              <th md-order-by="ssid_disabled" md-column><span>Active</span></th>
+              <th md-order-by="ssid_disabled" md-column><span translate>Active</span></th>
               <th md-column md-order-by="ssid"><span>SSID</span></th>
-              <th hide show-gt-sm md-column md-order-by="interface_ipaddr"><span>Network</span></th>
-              <th hide show-gt-sm md-column md-order-by="access_type"><span>Type</span></th>
-              <th hide show-gt-xs md-column md-order-by="captive_portal_enabled"><span>Splash</span></th>
-              <th hide show-gt-md md-column><span>Zone</span></th>
-              <th md-column ng-show="menu.length"><span>Action</span></th>
+              <th hide show-gt-sm md-column md-order-by="interface_ipaddr"><span translate>Network</span></th>
+              <th hide show-gt-sm md-column md-order-by="access_type"><span translate>Type</span></th>
+              <th hide show-gt-xs md-column md-order-by="captive_portal_enabled"><span translate>Splash</span></th>
+              <th hide show-gt-md md-column><span translate>Zone</span></th>
+              <th md-column ng-show="menu.length"><span translate>Action</span></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -72,10 +73,10 @@
                     {{ network.zones[0].name }}
                   </md-tooltip>
                 </span>
-                <span ng-if="network.zones.length > 1">
-                  {{ network.zones.length}} zones
+                <span ng-if="network.zones.length > 1"  translate translate-n="{{ network.zones.length}}" translate-plural="{{ network.zones.length}} zones">
+                  {{ network.zones.length}} zone
                   <md-tooltip>
-                    <span ng-repeat="n in network.zones">
+                    <span ng-repeat="n in network.zones" translate>
                       Name: {{ n.name }}<br>
                     </span>
                   </md-tooltip>
@@ -87,7 +88,7 @@
                 </span>
                 <span ng-if="network.state != 'processing'">
                   <md-menu>
-                    <md-button aria-label="Open Networks Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-button aria-label="{{ 'Open Networks Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                       <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                     </md-button>
                     <md-menu-content width="4" >

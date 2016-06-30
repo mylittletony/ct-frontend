@@ -8,7 +8,7 @@ app.directive('listLocationVersions', ['Location', '$routeParams', 'Version', '$
   var link = function( scope, element, attrs ) {
 
     scope.location = { slug: $routeParams.id };
-    
+
     scope.options = {
       autoSelect: true,
       boundaryLinks: false,
@@ -47,6 +47,8 @@ app.directive('listLocationVersions', ['Location', '$routeParams', 'Version', '$
       Version.query({resource_id: $routeParams.id, resource: 'locations'}, function(data) {
         scope.versions = data.versions;
         scope._links   = data._links;
+        scope.loading = undefined;
+      }, function() {
         scope.loading = undefined;
       });
     };
@@ -102,9 +104,9 @@ app.directive('deviceVersions', ['Version', '$routeParams', '$location', functio
 
     var init = function() {
       Version.query({
-        resource_id: $routeParams.box_id, 
-        resource: 'boxes', 
-        per: scope.query.limit, 
+        resource_id: $routeParams.box_id,
+        resource: 'boxes',
+        per: scope.query.limit,
         page: scope.query.page
       }).$promise.then(function(results) {
         scope.versions    = results.versions;

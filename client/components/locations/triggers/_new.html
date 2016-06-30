@@ -1,6 +1,6 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
     </md-button>
     <p>{{ trigger.id ? "Back to Trigger" : "Triggers" }}</p>
@@ -15,44 +15,44 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Choose an Event
               </span>
-              <span class="md-subhead">
+              <span class="md-subhead" translate>
                 First you need to choose an event type.
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
             <md-input-container layout="column">
-              <label>Event</label>
+              <label translate>Event</label>
               <md-select ng-model="trigger.type">
                 <md-option ng-repeat="type in triggers" value="{{type.value}}">
                   {{type.key}}
                 </md-option>
               </md-select>
             </md-input-container>
-            <p ng-if="trigger.type == 'box'">Send triggers when something happens to your boxes.</p>
-            <p ng-if="trigger.type == 'client'">Send a trigger when your wireless clients cause an event.</p>
-            <p ng-if="trigger.type == 'email'">When an email address is captured, send a trigger.</p>
-            <p ng-if="trigger.type == 'guest'">Send triggers when a guest causes an event</p>
-            <p ng-if="trigger.type == 'location'">Send triggers when one of your locations causes an event.</p>
-            <p ng-if="trigger.type == 'network'">Send triggers when your networks cause an event.</p>
-            <p ng-if="trigger.type == 'quickcode'">Send triggers when QuickCodes cause an event.</p>
-            <p ng-if="trigger.type == 'splash'">Send triggers on splash page events</p>
-            <p ng-if="trigger.type == 'social'">Send triggers when a Social login causes a trigger.</p>
-            <p ng-if="trigger.type == 'store'">Send triggers when a store creates an event.</p>
-            <p ng-if="trigger.type == 'voucher'">Send a trigger when a vouchers creates a trigger</p>
-            <p ng-if="trigger.type == 'zone'">Send triggers when changes happen to a zone.</p>
+            <p ng-if="trigger.type == 'box'" translate>Send triggers when something happens to your boxes.</p>
+            <p ng-if="trigger.type == 'client'" translate>Send a trigger when your wireless clients cause an event.</p>
+            <p ng-if="trigger.type == 'email'" translate>When an email address is captured, send a trigger.</p>
+            <p ng-if="trigger.type == 'guest'" translate>Send triggers when a guest causes an event</p>
+            <p ng-if="trigger.type == 'location'" translate>Send triggers when one of your locations causes an event.</p>
+            <p ng-if="trigger.type == 'network'" translate>Send triggers when your networks cause an event.</p>
+            <p ng-if="trigger.type == 'quickcode'" translate>Send triggers when QuickCodes cause an event.</p>
+            <p ng-if="trigger.type == 'splash'" translate>Send triggers on splash page events</p>
+            <p ng-if="trigger.type == 'social'" translate>Send triggers when a Social login causes a trigger.</p>
+            <p ng-if="trigger.type == 'store'" translate>Send triggers when a store creates an event.</p>
+            <p ng-if="trigger.type == 'voucher'" translate>Send a trigger when a vouchers creates a trigger</p>
+            <p ng-if="trigger.type == 'zone'" translate>Send triggers when changes happen to a zone.</p>
           </md-card-content>
         </md-card>
         <md-card ng-if="trigger.type && trigger.type != 'all'">
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Now set the event trigger
               </span>
-              <span class="md-subhead">
+              <span class="md-subhead" translate>
                 The trigger will fire when this event happens.
                 {{ trigger.type | humanTrigger }}...
               </span>
@@ -64,182 +64,268 @@
               <span ng-if="trigger.type == 'box'" layout="row" layout-wrap>
                 <span flex="50">
                   <md-radio-button value="box.create">
-                    Created
+                    <translate>
+                      Created
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="box.update">
-                    Updated
+                    <translate>
+                      Updated
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="box.destroy">
-                    Deleted
+                    <translate>
+                      Deleted
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="box.reset">
-                    Reset
+                    <translate>
+                      Reset
+                    </translate>
                   </md-radio-button>
                 </span>
                 <span flex="50">
                   <md-radio-button value="box.transfer">
-                    Transferred
+                    <translate>
+                      Transferred
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="box.resync">
-                    Resynced
+                    <translate>
+                      Resynced
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="box.online">
-                    Marked online
+                    <translate>
+                      Marked online
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="box.offline">
-                    Marked offline
+                    <translate>
+                      Marked offline
+                    </translate>
                   </md-radio-button>
                 </span>
               </span>
 
               <span ng-if="trigger.type == 'client'">
                 <md-radio-button value="client.create">
-                  First connects
+                  <translate>
+                    First connects
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="client.login">
-                  Logs in through splash
+                  <translate>
+                    Logs in through splash
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'email'">
                 <md-radio-button value="email.create">
-                  Captured
+                  <translate>
+                    Captured
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'guest'">
                 <md-radio-button value="guest.create">
-                  Created
+                  <translate>
+                    Created
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'location'" layout="row" layout-wrap>
                 <span flex="50">
-                  <md-radio-button value="location.create">
-                    Created
+                  <md-radio-button value="location.create"> 
+                    <translate>
+                      Created
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="location.update">
-                    Updated
+                    <translate>
+                      Updated
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="location.destroy">
-                    Deleted
+                    <translate>
+                      Deleted
+                    </translate>
                   </md-radio-button>
                 </span>
                 <span flex="50">
                   <md-radio-button value="location.unarchive">
-                    Unarchived
+                    <translate>
+                      Unarchived
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="location.transfer">
-                    Transferred
+                    <translate>
+                      Transferred
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="location.duplicate">
-                    Duplicated
+                    <translate>
+                      Duplicated
+                    </translate>
                   </md-radio-button>
                 </span>
               </span>
 
               <span ng-if="trigger.type == 'network'">
                 <md-radio-button value="network.create">
-                  Created
+                  <translate>
+                    Created
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="network.update">
-                  Updated
+                  <translate>
+                    Updated
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="network.destroy">
-                  Deleted
+                  <translate>
+                    Deleted
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'quickcode'">
                 <md-radio-button value="quickcode.create">
-                  Created
+                  <translate>
+                    Created
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="quickcode.update">
-                  Updated
+                  <translate>
+                    Updated
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="quickcode.destroy">
-                  Deleted
+                  <translate>
+                    Deleted
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="quickcode.login">
-                  Logged In
+                  <translate>
+                    Logged In
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'splash'" layout="row" layout-wrap>
                 <span flex="50">
                   <md-radio-button value="splash.create">
-                    Created
+                    <translate>
+                      Created
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="splash.update">
-                    Updated
+                    <translate>
+                      Updated
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="splash.destroy">
-                    Deleted
+                    <translate>
+                      Deleted
+                    </translate>
                   </md-radio-button>
                 </span>
                 <span flex="50">
                   <md-radio-button value="splash.duplicate">
-                    Duplicated
+                    <translate>
+                      Duplicated
+                    </translate>
                   </md-radio-button>
                   <md-radio-button value="splash.password">
-                    Password Changed
+                    <translate>
+                      Password Changed
+                    </translate>
                   </md-radio-button>
                 </span>
               </span>
 
               <span ng-if="trigger.type == 'social'">
                 <md-radio-button value="social.create">
-                  Created
+                  <translate>
+                    Created
+                  </translate>
                 </md-radio-button>
 
                 <md-radio-button value="social.login">
-                  Logged in
+                  <translate>
+                    Logged in
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'store'">
                 <md-radio-button value="store.create">
-                  Created
+                  <translate>
+                    Created
+                  </translate>
                 </md-radio-button>
 
                 <md-radio-button value="store.update">
-                  Updated
+                  <translate>
+                    Updated
+                  </translate>
                 </md-radio-button>
 
                 <md-radio-button value="store.destroy">
-                  Destroy
+                  <translate>
+                    Destroy
+                  </translate>
                 </md-radio-button>
 
                 <md-radio-button value="store.purchase">
-                  Purchase
+                  <translate>
+                    Purchase
+                  </translate>
                 </md-radio-button>
 
                 <md-radio-button value="store.refund">
-                  Refund
+                  <translate>
+                    Refund
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'voucher'">
                 <md-radio-button value="voucher.create">
-                  Created
+                  <translate>
+                    Created
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="voucher.update">
-                  Updated
+                  <translate>
+                    Updated
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="voucher.update">
-                  Completed
+                  <translate>
+                    Completed
+                  </translate>
                 </md-radio-button>
               </span>
 
               <span ng-if="trigger.type == 'zone'">
                 <md-radio-button value="zone.create">
-                  Created
+                  <translate>
+                    Created
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="zone.generate">
-                  Generated
+                  <translate>
+                    Generated
+                  </translate>
                 </md-radio-button>
                 <md-radio-button value="zone.destroy">
-                  Deleted
+                  <translate>
+                    Deleted
+                  </translate>
                 </md-radio-button>
 
               </span>
@@ -252,16 +338,18 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">
-                Select a Channel
+                <translate>
+                  Select a Channel
+                </translate>
               </span>
-              <span class="md-subhead">
+              <span class="md-subhead" translate>
                 The channel is the way you get notified.
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
             <md-input-container layout="column">
-              <label>Channel</label>
+              <label translate>Channel</label>
               <md-select ng-model="trigger.channel" ng-change="initChannel()">
                 <md-option ng-repeat="channel in channels" value="{{channel.value}}">
                   {{channel.key}}
@@ -275,11 +363,11 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">
-                <span ng-show="trigger.channel=='email'">Send an Email</span>
-                <span ng-show="trigger.channel=='slack'">Notify Slack</span>
-                <span ng-show="trigger.channel=='webhook'">Send a Webhook</span>
-                <span ng-show="trigger.channel=='mailchimp'">Add to List</span>
-                <span ng-show="trigger.channel=='sms'">Send SMS</span>
+                <span ng-show="trigger.channel=='email'" translate>Send an Email</span>
+                <span ng-show="trigger.channel=='slack'" translate>Notify Slack</span>
+                <span ng-show="trigger.channel=='webhook'" translate>Send a Webhook</span>
+                <span ng-show="trigger.channel=='mailchimp'" translate>Add to List</span>
+                <span ng-show="trigger.channel=='sms'" translate>Send SMS</span>
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -292,22 +380,22 @@
         <md-card ng-if="trigger.attr_1">
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Name your Trigger
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
             <md-input-container layout="column">
-              <label>Name of trigger</label>
-              <input type="text" name="trigger_name" md-maxlength="100" ng-model="trigger.trigger_name" placeholder="Name" required></input>
+              <label translate>Name of trigger</label>
+              <input type="text" name="trigger_name" md-maxlength="100" ng-model="trigger.trigger_name" placeholder="{{ 'Name' | translate }}" required></input>
               <div ng-messages="myForm.trigger_name.$error" md-auto-hide="false">
-                <div ng-message="required">Please enter a name for your trigger</div>
-                <div ng-message="md-maxlength">Must be less than 100 characters</div>
+                <div ng-message="required" translate>Please enter a name for your trigger</div>
+                <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
               </div>
             </md-card-content>
         </md-card>
-        <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Save</md-button>
+        <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
       </div>
     </div>
 

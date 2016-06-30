@@ -381,14 +381,18 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
           scope.splash.splash_tags = scope.splash.splash_tags.toString();
         }
 
+        if (scope.splash.walled_gardens && scope.splash.walled_gardens.length) {
+          scope.splash.walled_gardens_array = scope.splash.walled_gardens.split(',');
+        } else {
+          scope.splash.walled_gardens_array = [];
+        }
 
-        scope.splash.walled_gardens_array = [];
+        if (scope.splash.blacklisted && scope.splash.blacklisted.length) {
+          scope.splash.blacklisted_array = scope.splash.blacklisted.split(',');
+        } else {
+          scope.splash.blacklisted_array = [];
+        }
 
-        // if (scope.splash.splash_tags && scope.splash.splash_tags.length > 0) {
-        //   scope.splash.splash_tags_array = scope.splash.splash_tags.split(',');
-        // } else {
-        //   scope.splash.splash_tags_array = [];
-        // }
         scope.access_types = results.access_types;
         scope.access_name();
 
@@ -404,7 +408,17 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
     scope.update = function(form) {
       form.$setPristine();
+      formatWalledGardens();
+      formatBlacklisted();
       updateCT();
+    };
+
+    var formatWalledGardens = function() {
+      scope.splash.walled_gardens = scope.splash.walled_gardens_array.join(',');
+    };
+
+    var formatBlacklisted = function() {
+      scope.splash.blacklisted = scope.splash.blacklisted_array.join(',');
     };
 
     var updateCT = function() {
@@ -577,11 +591,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       pages: '=',
       style: '@'
     },
-    template: 
-      '<md-button class="{{ style }}" ng-click=\'open()\'>'+
-      '<md-icon ng-if="style !== \'md-raised\'">add_circle</md-icon>'+
-      '<span ng-if="style === \'md-raised\'">Create</span>'+
-      '</md-button>'
+    templateUrl: 'components/splash_pages/_splash_new.html',
   };
 
 }]);
@@ -883,12 +893,7 @@ app.directive('splashGeneratePassy', ['Code', function(Code) {
       loading: '=',
       showPass: '='
     },
-    template:
-      '<span><small>' +
-      'Generate password <a ng-hide=\'loading\' href=\'\' ng-click=\'generatePassy()\'>now</a>' +
-      '<span ng-show=\'loading\'><i class="fa fa-cog fa-spin"></i> Generating a new passy</span>' +
-      '<span ng-show=\'error\'><i class="fa fa-exclamation"></i> Error!</span>' +
-      '</small></span>'
+    templateUrl: 'components/splash_pages/_generate_password.html',
   };
 }]);
 
@@ -1133,4 +1138,3 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
   };
 
 }]);
-

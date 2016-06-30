@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.audits.directives', []);
 
-app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q', 'menu', '$cookies', function(Report, $routeParams,$location,Location, $q, menu, $cookies) {
+app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q', 'menu', '$cookies', 'gettextCatalog', function(Report, $routeParams,$location,Location, $q, menu, $cookies, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -14,7 +14,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     }
     menu.hideBurger = false;
     menu.sections = [{}];
-    menu.sectionName = 'Audit';
+    menu.sectionName = gettextCatalog.getString('Audit');
     menu.header = '';
 
     var isActive = function(path) {
@@ -26,11 +26,13 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
       }
     };
 
+    //toni: if any of the translatable str are used in the logic
+    //it will only work in Engish
     var createMenu = function() {
-      menu.header = 'Audit Reports';
+      menu.header = gettextCatalog.getString('Audit Reports');
 
       menu.sections.push({
-        name: 'Radius',
+        name: gettextCatalog.getString('Radius'),
         link: '/#/audit/',
         type: 'link',
         icon: 'donut_large',
@@ -38,7 +40,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
       });
 
       menu.sections.push({
-        name: 'Emails',
+        name: gettextCatalog.getString('Emails'),
         type: 'link',
         link: '/#/audit/emails',
         icon: 'email',
@@ -46,7 +48,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
       });
 
       menu.sections.push({
-        name: 'Social',
+        name: gettextCatalog.getString('Social'),
         type: 'link',
         link: '/#/audit/social',
         icon: 'people',
@@ -54,7 +56,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
       });
 
       menu.sections.push({
-        name: 'Guests',
+        name: gettextCatalog.getString('Guests'),
         type: 'link',
         link: '/#/audit/guests',
         icon: 'person_pin',
@@ -62,7 +64,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
       });
 
       menu.sections.push({
-        name: 'Sales',
+        name: gettextCatalog.getString('Sales'),
         type: 'link',
         link: '/#/audit/sales',
         icon: 'shopping_cart',
@@ -87,7 +89,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     };
 
     this.get = function(params) {
-      params.interval        = $routeParams.interval || 'day';
+      params.interval        = $routeParams.interval || gettextCatalog.getString('day');
       params.start           = $routeParams.start;
       params.end             = $routeParams.end;
       params.location_id     = $routeParams.location_id;
@@ -117,7 +119,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
 }]);
 
-app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'gettextCatalog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -150,7 +152,9 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
     function searchTextChange(text) {
     }
-
+    //toni: not sure if this should be translatable,
+    //if yes, again it will only work in English and
+    //needs to be changes
     var timer;
     function selectedItemChange(item) {
       timer = $timeout(function() {
@@ -232,7 +236,6 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
     // This is duplicated from the codes directive //
     // Should be consolodated in to a single dir   //
-
     scope.rangeFilter = function(ev) {
       $mdDialog.show({
         templateUrl: 'components/locations/clients/_range_filter.html',
@@ -265,7 +268,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
         scope.query.start = new Date($scope.startDate).getTime() / 1000;
         scope.query.end   = new Date($scope.endDate).getTime() / 1000;
         if (scope.query.start >= scope.query.end) {
-          $scope.error = 'The start date must be less than the end date';
+          $scope.error = gettextCatalog('The start date must be less than the end date');
         } else {
           $mdDialog.cancel();
           scope.query.page = 1;
@@ -277,7 +280,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
     DialogController.$inject = ['$scope'];
 
     // Don't like this however it's less annoying than dealing with
-    // the conversion from a numeric id to slug in the locs. controller
+    // the conversion from a numeric id to slug in the locs. controller what???
 
     scope.visitClient = function(session) {
       Client.get({location_id: session.location_id, q: session.client_mac}, function(data) {
@@ -348,8 +351,8 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
 
     scope.query = {
       order:          '-created_at',
-      start:          $routeParams.start,// || start,
-      end:            $routeParams.end,// || end,
+      start:          $routeParams.start,
+      end:            $routeParams.end,
       filter:         $routeParams.q,
       limit:          $routeParams.per || 25,
       page:           $routeParams.page || 1,
@@ -450,7 +453,7 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
 
 }]);
 
-app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', function(Social, $routeParams, $location, Client, $q, $timeout, $mdDialog) {
+app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'gettextCatalog', function(Social, $routeParams, $location, Client, $q, $timeout, $mdDialog, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -559,7 +562,7 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
         scope.social.notes  = results.social.notes;
         scope.social.state  = 'updated';
       }, function(err) {
-        scope.social.errors  = 'There was a problem updating this user.';
+        scope.social.errors  = gettextCatalog.getString('There was a problem updating this user.');
         scope.social.state  = undefined;
       });
     };
@@ -826,7 +829,7 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
 
 }]);
 
-app.directive('showOrder', ['Order', '$routeParams', '$timeout', 'menu', '$mdDialog', 'showToast', 'showErrors', function(Order, $routeParams, $timeout, menu, $mdDialog, showToast, showErrors) {
+app.directive('showOrder', ['Order', '$routeParams', '$timeout', 'menu', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Order, $routeParams, $timeout, menu, $mdDialog, showToast, showErrors) {
 
   var link = function(scope) {
 
@@ -872,7 +875,7 @@ app.directive('showOrder', ['Order', '$routeParams', '$timeout', 'menu', '$mdDia
     function refund () {
       Order.update({id: $routeParams.id, store_order: { refund: true }}).$promise.then(function(results) {
         // scope.order.state = 'refunded';
-        showToast('Order successfully refunded.');
+        showToast(gettextCatalog.getString('Order successfully refunded.'));
       }, function(err) {
         scope.order.state   = scope.initialState;
         scope.initialState  = undefined;

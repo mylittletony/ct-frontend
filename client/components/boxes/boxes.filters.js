@@ -4,34 +4,45 @@
 
 var app = angular.module('myApp.boxes.filters', []);
 
-app.filter('toString', function() {
+app.filter('toString', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null || !input.length) {
-      return 'Not available';
+      return gettextCatalog.getString('Not available');
     } else {
       return input.toString();
     }
   };
-});
+}]);
 
-app.filter('bandSelection', function() {
+app.filter('bandSelection', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null) {
-      return 'All available bands';
+      return gettextCatalog.getString('All available bands');
     } else if ( input === 'two' ) {
-      return '2.4Ghz only';
+      return gettextCatalog.getString('2.4Ghz only');
     } else if ( input === 'five' ) {
-      return '5Ghz only';
+      return gettextCatalog.getString('5Ghz only');
     }
   };
-});
+}]);
 
-app.filter('filterUptime', function() {
+app.filter('filterUptime', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       return (input.split(',')[0].split('up')[1]);
+    }
+  };
+}]);
+
+app.filter('ssidFilter', function() {
+  return function(ssids) {
+    if (ssids === undefined || ssids === null || ssids === '') {
+      return 'N/A';
+    } else {
+      var formatted = ssids.join(',');
+      return formatted;
     }
   };
 });
@@ -46,32 +57,27 @@ app.filter('kbps', function() {
   };
 });
 
-app.filter('deviceStatus', function() {
+app.filter('deviceStatus',['gettextCatalog', function(gettextCatalog) {
   return function(state) {
     if (state === '' || state === undefined || state === null || !state.length) {
-      return 'State Unavailable';
+      return gettextCatalog.getString('State Unavailable');
     } else {
       switch(state) {
         case 'online':
-          return 'Device online';
-          break;
+          return gettextCatalog.getString('Device online');
         case 'processing':
-          return 'Processing job';
-          break;
+          return gettextCatalog.getString('Waiting for configs');
         case 'offline':
-          return 'Device offline';
-          break;
+          return gettextCatalog.getString('Device offline');
         case 'upgrading':
-          return 'Device upgrading';
-          break;
+          return gettextCatalog.getString('Device upgrading');
         case 'new':
-          return 'New device';
-          break;
+          return gettextCatalog.getString('New device');
         default:
           // default
       }}
   };
-});
+}]);
 
 app.filter('statusColour', function() {
   return function(state) {
@@ -81,25 +87,14 @@ app.filter('statusColour', function() {
       switch(state) {
         case 'online':
           return '#16AC5B';
-          break;
-        // case 'processing':
-        //   return '#FF9800';
-        //   break;
         case 'rebooting':
           return 'Device rebooting';
-          break;
         case 'offline':
           return '#F44336';
-          break;
         case 'splash_only':
           return '#009688';
-          break;
-        // case 'upgrading':
-        //   return 'Device upgrading';
-        //   break;
         default:
           return '#607D8B';
-          // default
       }}
   };
 });

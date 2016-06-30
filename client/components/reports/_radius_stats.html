@@ -1,0 +1,52 @@
+<div class="md-padding" layout-gt-xs="row" layout="column">
+  <md-card flex-gt-xs="20">
+    <md-card-content>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3 translate>Unique Users</h3>
+          <p>{{ stats.splash.uniques || 0 }}</p>
+        </div>
+      </md-list-item>
+    </md-card-content>
+  </md-card>
+  <md-card flex-gt-xs="20">
+    <md-card-content>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3 translate>Average Session</h3>
+          <p translate>{{ (stats.splash.durations.avg / 60) | number:0 }} Mins</p>
+        </div>
+      </md-list-item>
+    </md-card-content>
+  </md-card>
+  <md-card flex-gt-xs="20">
+    <md-card-content>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3 translate>Total Sessions</h3>
+          <p>{{ stats.splash.total_sessions }}</p>
+        </div>
+      </md-list-item>
+    </md-card-content>
+  </md-card>
+  <md-card flex-gt-xs="20">
+    <md-card-content>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3 translate>Data Transferred</h3>
+          <p>{{ (stats.splash.usage.inbound.sum + stats.splash.usage.outbound.sum) | humanData }}</p>
+        </div>
+      </md-list-item>
+    </md-card-content>
+  </md-card>
+  <md-card flex-gt-xs="20" hide show-gt-md>
+    <md-card-content>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3 translate>Vouchers</h3>
+          <p translate>{{ stats.vouchers.created }} created, {{ stats.vouchers.activated }} used.</p>
+        </div>
+      </md-list-item>
+    </md-card-content>
+  </md-card>
+</div>

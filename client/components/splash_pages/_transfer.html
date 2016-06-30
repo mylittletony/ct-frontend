@@ -1,24 +1,24 @@
-<md-dialog aria-label="Transfer Splash"  ng-cloak>
+<md-dialog aria-label="{{ 'Transfer Splash' | translate }}"  ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Transfer Splash</h2>
+        <h2 translate>Transfer Splash</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-        <p>Transfer your splash to another location you own.</p>
-        <p>You are unable to transfer a splash to a location that isn't yours.</p>
+        <p translate>Transfer your splash to another location you own.</p>
+        <p translate>You are unable to transfer a splash to a location that isn't yours.</p>
         <div ng-if='loading'>
           <md-progress-linear md-mode="query"></md-progress-linear>
         </div>
         <div ng-hide='loading'>
-          <div ng-hide="locations">
+          <div ng-hide="locations" translate>
             Could not find any locations to tranfer this device to.
           </div>
           <div ng-show="locations" layout="column" layout-gt-sm="row">
             <md-input-container flex="100" flex-gt-sm="50">
-              <label>Transfer splash page to</label>
+              <label translate>Transfer splash page to</label>
               <md-select ng-model="obj.transfer_to">
                 <md-option ng-repeat="location in locations" value="{{location.unique_id}}">
                   {{ location.location_name }}
@@ -32,10 +32,10 @@
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        Cancel
+        <translate>Cancel</translate>
       </md-button>
       <md-button ng-disabled="!obj.transfer_to" ng-click="transfer(obj.transfer_to)" style="margin-right:20px;">
-        transfer
+        <translate>transfer</translate>
       </md-button>
     </md-dialog-actions>
   </form>

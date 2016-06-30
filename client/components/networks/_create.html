@@ -1,14 +1,14 @@
-<md-dialog aria-label="Create Network"  ng-cloak>
+<md-dialog aria-label="{{ 'Create Network' | translate }}"  ng-cloak>
   <form name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Create New Network</h2>
+        <h2 translate>Create New Network</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
         <div flex layout="column">
-          <p>Create up to 16 networks per location.</p>
+          <p translate>Create up to 16 networks per location.</p>
         </div>
         <div flex layout="column">
           <div ng-show='loading'>
@@ -16,25 +16,25 @@
           </div>
           <span ng-hide="loading" layout="column">
             <md-input-container>
-              <label>SSID</label>
+              <label translate>SSID</label>
               <input name="ssid" md-maxlength="32" ng-model="network.ssid" required>
               <div ng-messages="myForm.ssid.$error">
-                <div ng-message="md-maxlength">Max 32 characters</div>
-                <div ng-message="required">You must set an SSID</div>
+                <div ng-message="md-maxlength" translate>Max 32 characters</div>
+                <div ng-message="required" translate>You must set an SSID</div>
               </div>
             </md-input-container>
             <md-input-container ng-if="network.access_type == 'password'">
-              <label>Password</label>
+              <label translate>Password</label>
               <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ \@\!\£\$\%\^\&\*\(\)]*$/" required>
               <div ng-messages="myForm.password.$error">
-                <div ng-message="md-maxlength">Max 32 characters</div>
-                <div ng-message="minlength">Min 8 characters</div>
-                <div ng-message="required">You must set a password</div>
-                <div ng-message="pattern">Invalid characters in password</div>
+                <div ng-message="md-maxlength" translate>Max 32 characters</div>
+                <div ng-message="minlength" translate>Min 8 characters</div>
+                <div ng-message="required" translate>You must set a password</div>
+                <div ng-message="pattern" translate>Invalid characters in password</div>
               </div>
             </md-input-container>
             <md-input-container ng-show="zones.length > 1">
-              <label>Zone</label>
+              <label translate>Zone</label>
               <md-select ng-model="network.zone_id">
                 <md-option ng-repeat="zone in zones" value="{{zone.id}}">
                   {{zone.zone_name}}
@@ -42,11 +42,21 @@
               </md-select>
             </md-input-container>
             <md-radio-group ng-model="network.access_type" layout="row">
-              <md-radio-button value="password" class="md-primary">Password</md-radio-button>
-              <md-radio-button value="open"> Open </md-radio-button>
+              <md-radio-button value="password" class="md-primary">
+                <translate>
+                  Password
+                </translate>
+              </md-radio-button>
+              <md-radio-button value="open">
+                <translate> 
+                  Open
+                </translate>
+              </md-radio-button>
             </md-radio-group>
-            <md-switch class="md-warn" ng-model="network.captive_portal_enabled" aria-label="Captive Portal" style="padding-top: 20px;">
-              Captive Portal
+            <md-switch class="md-warn" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;">
+              <translate>
+                Captive Portal
+              </translate>
             </md-switch>
           </span>
         </div>
@@ -54,10 +64,10 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="close()">
+      <md-button ng-click="close()" translate>
         Close
       </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save()">
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save()" translate>
         CREATE
       </md-button>
     </md-dialog-actions>

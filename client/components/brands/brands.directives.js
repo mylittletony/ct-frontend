@@ -2,14 +2,15 @@
 
 var app = angular.module('myApp.brands.directives', []);
 
-app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', function(Brand, BrandName, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog) {
+app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', function(Brand, BrandName, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
 
     var originalUrl;
     scope.brandName       = BrandName;
     scope.user            = Auth.currentUser();
-    scope.brand           = { creating: true };
+    scope.brand           = { creating: true, network_location: 'eu-west' };
+    scope.locations       = ['eu-west', 'us-central', 'us-west', 'asia-east'];
 
     if (scope.user) {
       if (scope.user.slug === $routeParams.id) {
@@ -41,7 +42,7 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
     var create = function() {
       Brand.create({brand: { cname: scope.brand.cname, brand_image: scope.brand.brand_image, brand_name: scope.brandName.name, url: scope.brand.url}}).$promise.then(function(results) {
         scope.brand       = results;
-        showToast('Successfully updated brand');
+        showToast(gettextCatalog.getString('Successfully updated brand'));
         switchBrand();
       }, function(err) {
         showErrors(err);
@@ -50,11 +51,11 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
 
     var confirmChange = function() {
       var confirm = $mdDialog.confirm()
-      .title('Change Brand?')
-      .textContent('Please resync all your boxes after updating your brand.')
-      .ariaLabel('Change')
-      .ok('Change')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Change Brand?'))
+      .textContent(gettextCatalog.getString('Please resync all your boxes after updating your brand.'))
+      .ariaLabel(gettextCatalog.getString('Change'))
+      .ok(gettextCatalog.getString('Change'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         update();
       }, function() {
@@ -67,14 +68,15 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
           id: scope.brand.id,
           brand:
             {
-              brand_name:     scope.brandName.name,
-              url:            scope.brand.url,
-              cname:          scope.brand.cname,
-              brand_image:    scope.brand.brand_image,
-              remove_image:   scope.brand.remove_image,
-              from_email:     scope.brand.from_email,
-              website:        scope.brand.website,
-              from_name:      scope.brand.from_name
+              brand_name:         scope.brandName.name,
+              url:                scope.brand.url,
+              cname:              scope.brand.cname,
+              brand_image:        scope.brand.brand_image,
+              remove_image:       scope.brand.remove_image,
+              from_email:         scope.brand.from_email,
+              website:            scope.brand.website,
+              from_name:          scope.brand.from_name,
+              network_location:   scope.brand.network_location
             }
         }).$promise.then(function(results) {
           scope.brand       = results;
@@ -84,7 +86,7 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
           if (scope.brand.url !== originalUrl) {
             switchBrand();
           } else {
-            showToast('Successfully updated brand');
+            showToast(gettextCatalog.getString('Successfully updated brand'));
           }
         }, function(err) {
           showErrors(err);
@@ -99,7 +101,7 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
         channel.bind('general', function(data) {
           if (data.type === 'updated_cname') {
             scope.brand.cname_status = undefined;
-            showToast('Updated CNAME, please login to finalise changes.');
+            showToast(gettextCatalog.getString('Updated CNAME, please login to finalise changes.'));
           }
         });
       }

@@ -6,9 +6,10 @@
     <section>
       <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
-          <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
+          <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" >
             <md-icon md-font-icon="search">search</md-icon>
-            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="Filter Locations">
+            <label></label>
+            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{'Filter Locations' | translate}}">
           </md-input-container>
         </div>
         <md-divider></md-divider>
@@ -23,18 +24,20 @@
           <md-card>
             <md-card-title>
               <md-card-title-text>
-                <span class="md-headline">
+                <span class="md-headline" translate>
                   No Locations Found
                 </span>
               </md-card-title-text>
             </md-card-title>
-            <md-card-content>
+            <md-card-content translate>
               Please create a location and add your devices.
             </md-card-content>
             <md-divider ng-if="!$last"></md-divider>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button href="/#/locations/new" aria-label="Add Location">
-                Add Location
+              <md-button href="/#/locations/new" aria-label="{{ 'Add Location' | translate }}">
+                <translate>
+                  Add Location
+                </translate>
               </md-button>
             </md-card-actions>
           </md-card>
@@ -56,12 +59,12 @@
                 <thead md-head md-order="query.order" md-on-reorder="logOrder">
                   <tr md-row>
                     <th md-column md-order-by="state"><span>State</span></th>
-                    <th hide show-gt-sm md-column md-order-by="owner" ng-if="user_id"><span>Owner</span></th>
-                    <th md-column md-order-by="location_name" md-desc><span>Name</span></th>
-                    <th hide show-gt-md md-column md-order-by="location_address"><span>Address</span></th>
-                    <th hide show-gt-xs md-column md-order-by="boxes_count"><span>Devices</span></th>
-                    <th hide show-gt-sm md-column md-order-by="created_at"><span>Created</span></th>
-                    <th md-column><span>Action</span></th>
+                    <th hide show-gt-sm md-column md-order-by="owner" ng-if="user_id"><span translate>Owner</span></th>
+                    <th md-column md-order-by="location_name" md-desc><span translate>Name</span></th>
+                    <th hide show-gt-md md-column md-order-by="location_address"><span translate>Address</span></th>
+                    <th hide show-gt-xs md-column md-order-by="boxes_count"><span translate>Devices</span></th>
+                    <th hide show-gt-sm md-column md-order-by="created_at"><span translate>Created</span></th>
+                    <th md-column><span translate>Action</span></th>
                   </tr>
                 </thead>
                 <tbody md-body>
@@ -73,8 +76,8 @@
                     <td hide show-gt-sm md-cell ng-if="user_id">
                       <md-icon md-menu-origin>{{ ::location.owner ? 'done' : 'perm_identity' }}</md-icon>
                       <md-tooltip>
-                        <span ng-if="::location.owner">This location is owned by the user.</span>
-                        <span ng-if="::location.owner != true">The user is an admin of this location.</span>
+                        <span ng-if="::location.owner" translate>This location is owned by the user.</span>
+                        <span ng-if="::location.owner != true" translate>The user is an admin of this location.</span>
                       </md-tooltip>
                     </td>
                     <td md-cell>
@@ -93,14 +96,14 @@
                     </td>
                     <td md-cell>
                       <md-menu>
-                        <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                           <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4">
                           <md-menu-item>
                             <md-button href="/#/locations/{{ location.slug }}">
                               <md-icon>pageview</md-icon>
-                              <p flex>View Location</p>
+                              <p flex translate>View Location</p>
                             </md-button>
                           </md-menu-item>
                         </md-menu-content>

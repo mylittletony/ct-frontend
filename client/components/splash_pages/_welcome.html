@@ -1,9 +1,9 @@
 <span ng-hide="splash.welcome_text">
-  <h2>Oh hi, it's you</h3><p>Ok, so I'm a little welcome text. I'll appear after the user has logged in.</h2>
-  <p>You can put any html, images etc. in here, including links and even iFrames.</p>
-  <p>The maximum number of characters you can currently store is 1,000 and the formatting you've selected previously will apply too.</p>
-  <p>For more information, <a href="http://polkaspots.com/help/welcome_page" target="_blank"> click here.</a></p>
+  <h2 translate>Oh hi, it's you</h3><p>Ok, so I'm a little welcome text. I'll appear after the user has logged in.</h2>
+  <p translate>You can put any html, images etc. in here, including links and even iFrames.</p>
+  <p translate>The maximum number of characters you can currently store is 1,000 and the formatting you've selected previously will apply too.</p>
+  <p translate>For more information, <a href="http://polkaspots.com/help/welcome_page" target="_blank"> click here.</a></p>
 </span>
 <p ng-if="splash.welcome_text" ng-bind-html="splash.welcome_text | sanitize"></p>
 <hr>
-<p><a href="" ng-click="clearWelcomeEdit()">Click here when you're done.</a> This text won't appear on the login page.</small></p>
+<p><a href="" ng-click="clearWelcomeEdit()" translate>Click here when you're done.</a> <translate>This text won't appear on the login page.</translate></small></p>

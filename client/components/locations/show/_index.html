@@ -1,33 +1,42 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
+      <label></label>
       <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query" md-autofocus placeholder="Filter Devices">
+      <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
     </md-input-container>
     <div flex></div>
-    <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="Add Device">
+    <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
       <md-icon>add_circle</md-icon>
       <md-tooltip md-direction="bottom">
-        Add a new device.
+        <translate>
+          Add a new device.
+        </translate>
       </md-tooltip>
     </md-button>
-    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="Map">
+    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="{{ 'Map' | translate }}">
       <md-icon>map</md-icon>
       <md-tooltip md-direction="bottom">
-        View device map.
+        <translate>
+          View device map.
+        </translate>
       </md-tooltip>
     </md-button>
-    <md-button class="md-icon-button" ng-click="favourite()" aria-label="Favourte">
+    <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
       <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
       <md-tooltip md-direction="bottom">
-        Add location to favourites.
+        <translate>
+          Add location to favourites.
+        </translate>
       </md-tooltip>
     </md-button>
     <span>
-      <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="Switch 1" ng-change='streamingUpdater()'>
+      <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
       </md-switch>
       <md-tooltip md-direction="bottom">
-        Streaming updates.
+        <translate>
+          Streaming updates.
+        </translate>
       </md-tooltip>
     </span>
   </div>
@@ -36,45 +45,47 @@
 
 <md-content layout-padding>
 
-  <!-- has devices ! -->
   <div ng-show="location.has_nas == false">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">Please Add a Device</span>
-              <span class="md-subhead">Manage and monitor all your device remotely.</span>
+              <span class="md-headline" translate>Please Add a Device</span>
+              <span class="md-subhead" translate>Manage and monitor all your device remotely.</span>
             </md-card-title-text>
           </md-card-title>
 
-          <md-card-content>
+          <md-card-content translate>
             <p>You haven't added any devices yet. Please check through the list of compatible devices <a href='http://docs.cucumberwifi.io/article/78-compatible-devices-access-points' target="_blank">here</a>.</p>
-            <p>The firmware is available in the downloads section.</p>
-            <p>Once you have installed this, add your device(s) to your dashboard. They will provision automatically.</p>
+            <p translate>The firmware is available in the downloads section.</p>
+            <p translate>Once you have installed this, add your device(s) to your dashboard. They will provision automatically.</p>
           </md-card-content>
 
           <md-divider ng-if="!$last"></md-divider>
 
           <md-card-actions layout="row" layout-align="end center">
-            <md-button href="/#/downloads" aria-label="Downloads">
-              Downloads
+            <md-button href="/#/downloads" aria-label="{{ 'Downloads' | translate }}">
+              <translate>
+                Downloads
+              </translate>
             </md-button>
-            <md-button ng-click="addDevice()" aria-label="Add Device">
-              Add Device
+            <md-button ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
+              <translate>
+                Add Device
+              </translate>
             </md-button>
           </md-card-actions>
         </md-card>
       </div>
     </div>
-
   </div>
 
   <div ng-if="location.has_nas">
     <client-chart ng-if="!query">
       <location-chart ></location-chart>
     </client-chart>
-    <location-boxes filter="query" loading="loading"></location-boxes>
+    <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
   </div>
 
 </md-content>

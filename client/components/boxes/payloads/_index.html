@@ -1,16 +1,16 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
     </md-button>
-    <p>Back to Device</p>
+    <p translate>Back to Device</p>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
 
 
 <section ng-cloak ng-show="!loading">
-  <md-subheader class="md-accent"><b>MAC Address</b>: {{ box.calledstationid}}<span hide show-gt-sm> <b>Description</b>: {{ box.description }}<b> Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
+  <md-subheader class="md-accent"><b translate>MAC Address</b>: {{ box.calledstationid}}<span hide show-gt-sm> <b translate>Description</b>: {{ box.description }}<b translate> Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
 </section>
 
 
@@ -20,7 +20,7 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Device Payloads</span>
+          <span class="md-headline" translate>Device Payloads</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -40,8 +40,8 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
             <tr md-row>
-              <th md-column md-order-by="created_at"><span>Created</span></th>
-              <th md-column md-order-by="command" md-desc><span>Command</span></th>
+              <th md-column md-order-by="created_at"><span translate>Created</span></th>
+              <th md-column md-order-by="command" md-desc><span translate>Command</span></th>
               <th md-column></th>
             </tr>
           </thead>
@@ -51,7 +51,7 @@
               <td md-cell>{{ payload.command }}</td>
               <td md-cell>
                 <md-button class="md-icon-button" ng-click="deletePayload($index,payload.id)">
-                  <md-icon md-menu-origin aria-label="delete payload" md-font-icon="trash" class="s48">delete_forever</md-icon>
+                  <md-icon md-menu-origin aria-label="{{ 'delete payload' | translate }}" md-font-icon="trash" class="s48">delete_forever</md-icon>
                 </md-button>
               </td>
             </tr>
@@ -62,4 +62,3 @@
   </div>
 
 </md-content>
-

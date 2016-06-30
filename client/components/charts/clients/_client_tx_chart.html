@@ -1,0 +1,94 @@
+<md-card>
+  <md-card-header class="graph-small">
+    <md-card-header-text>
+      <span class="md-subhead">
+        {{ fn | titleCase }} {{ title }}
+      </span>
+    </md-card-header-text>
+    <!-- // <div flex></div> -->
+    <md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">
+      <md-icon>fullscreen_exit</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen('tx')">
+      <md-icon>fullscreen</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ng-click="refresh()">
+      <md-icon>refresh</md-icon>
+    </md-button>
+    <md-menu-bar style="padding: 0">
+      <md-menu>
+        <button ng-click="$mdOpenMenu()">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu-content width="3">
+          <md-menu-item>
+            <md-button ng-click="changeTxType('tx')">
+              <translate>
+                WiFi Traffic
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="changeTxType('usage')">
+              <translate>
+                WiFi Usage
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="resource != 'device'">
+            <md-button ng-click="changeTxType('txfailed')">
+              <translate>
+                TX Fails
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="resource != 'device'">
+            <md-button ng-click="changeTxType('txretries')">
+              <translate>
+                TX Retries
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-divider></md-menu-divider>
+          <md-menu-item>
+            <md-button ng-click="changeFn('mean')">
+              <translate>
+                Average Values
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="changeFn('max')">
+              <translate>
+                Max. Values
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="changeFn('median')">
+              <translate>
+                Median Values
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="changeFn('sum')" ng-disabled="type == 'tx'">
+              <translate>
+                Sum
+              </translate>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-menu-bar>
+  </md-card-header>
+  <md-card-content>
+    <div id="tx-chart"></div>
+    <div>
+      <div layout="row" ng-if="noData || loading" style="min-height: 250px;" layout-align="left end" class="muted">
+        <p><small><span ng-if="noData" translate>No graph data</span><span ng-if="loading" translate>Loading usage data</span></small></p>
+      </div>
+      <md-progress-linear ng-if="loading" md-mode="query"></md-progress-linear>
+    </div>
+  </md-card-content>
+</md-card>

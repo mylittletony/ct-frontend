@@ -1,0 +1,13 @@
+<md-menu ng-if="menu.length">
+  <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+    <md-icon>more_vert</md-icon>
+  </md-button>
+  <md-menu-content width="4">
+    <md-menu-item ng-repeat="item in menu">
+      <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+        {{item.name}}
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

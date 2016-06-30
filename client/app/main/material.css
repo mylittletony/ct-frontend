@@ -1,7 +1,12 @@
 /* Temp fixes to address */
 /* Temp fixes to address */
-.marker-action {
-  margin-left: -33px;
+
+.marker-action a {
+  color: black;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px 0;
 }
 
 .status-icon {
@@ -181,6 +186,11 @@ md-sidenav.md-sidenav-right ul {
 }
 
 .md-button.md-fab.md-fab-bottom-right {
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
 }
 
 .active {

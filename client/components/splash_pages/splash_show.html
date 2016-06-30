@@ -27,7 +27,7 @@
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
 
-  <form name="myForm" autocomplete="false" confirm-on-exit>
+  <form name="myForm" ng-submit="update(myForm)" confirm-on-exit>
 
     <div flex>
       <md-card>
@@ -52,6 +52,7 @@
             </div>
 
             <div layout="column">
+              <input style="display:none" type="password" name="splash_name"/>
               <md-input-container class="md-block">
                 <label>Splash Name</label>
                 <input ng-model="splash.splash_name" placeholder="Name your splash page" type="text" name="splash_name" md-maxlength='100'>
@@ -268,9 +269,6 @@
               <md-input-container class="md-block" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'data'">
                 <label>
                   <md-icon md-font-icon="star">stars</md-icon>
-                  <!-- <md-tooltip direction="right"> -->
-                    <!--   Paid plans only. -->
-                    <!-- </md-tooltip> -->
                   <span>Over-Usage Message</span>
                 </label>
                 <textarea rows=3 ng-model="splash.quota_message" placeholder="Message displayed when a customer goes over-limit." rows="3" ng-disabled="splash.access_restrict === 'periodic'"></textarea>
@@ -294,11 +292,11 @@
 
             </div>
 
-            <div ng-show="customSpeeds" layout="row">
+            <div ng-if="customSpeeds" layout="row">
 
               <md-input-container class="md-block">
                 <label for="splash.download_speed">Download {{ splash.download_speed | mbps }}</label>
-                <input name="download" type="number" ng-model="splash.download_speed" ng-min="0" step="56"></input>
+                <input name="download" type="number" ng-model="splash.download_speed" ng-min="0"></input>
                 <div ng-messages="myForm.download.$error">
                   <div ng-message="min">Must be greater than or equal to 0.</div>
                 </div>
@@ -306,7 +304,7 @@
 
               <md-input-container class="md-block">
                 <label for="splash.upload_speed">Upload {{ splash.upload_speed | mbps }}</label>
-                <input name="upload" type="number" ng-model="splash.upload_speed" ng-min="0" step="56"></input>
+                <input name="upload" type="number" ng-model="splash.upload_speed" ng-min="0"></input>
                 <div ng-messages="myForm.upload.$error">
                   <div ng-message="min">Must be greater than or equal to 0.</div>
                 </div>
@@ -333,18 +331,27 @@
 
         </md-card-title>
 
-        <md-card-content layout="column" layout-gt-sm="row">
-          <div flex-gt-xs="100">
-            <md-input-container class="md-block">
-              <label>Walled Gardens</label>
-              <!-- <md-chips -->
-              <!--   ng-model="splash.walled_gardens_array" -->
-              <!--   placeholder="Enter a URL" -->
-              <!--   delete-button-label="Remove URL" -->
-              <!--   delete-hint="Press delete to remove URL" -->
-              <!--   secondary-placeholder="+URL"></md-chips> -->
-            </md-input-container>
-          </div>
+        <md-card-content layout="column" layout-gt-sm="column">
+          <md-input-container class="md-block">
+            <label>Walled Gardens</label>
+            <md-chips
+              ng-model="splash.walled_gardens_array"
+              placeholder="Enter a URL"
+              delete-button-label="Remove URL"
+              delete-hint="Press delete to remove URL"
+              secondary-placeholder="+URL"></md-chips>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Blocked Mac Addresses</label>
+            <md-chips
+              ng-model="splash.blacklisted_array"
+              placeholder="Enter a Mac"
+              delete-button-label="Remove Mac"
+              delete-hint="Press delete to remove Mac"
+              secondary-placeholder="+Mac"></md-chips>
+          </md-input-container>
+
           <div flex-gt-sm="50"></div>
         </md-card-content>
       </md-card>
@@ -452,6 +459,14 @@
               Debug Mode {{ splash.display_console ? 'Enabled' : 'Disabled' }}
             </md-switch>
 
+            <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
+              Bypass iOS Popup {{ splash.bypass_popup_ios ? 'Enabled' : 'Disabled' }}
+            </md-switch>
+
+            <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
+              Bypass Android Popup {{ splash.bypass_popup_android ? 'Enabled' : 'Disabled' }}
+            </md-switch>
+
           </div>
 
         </md-card-content>
@@ -463,7 +478,7 @@
     </div>
 
     <div class="lock-size" layout="row" layout-align="center center">
-      <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" ng-click="update(myForm)" class="md-fab md-primary md-fab-bottom-right ">
+      <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" type="submit" class="md-fab md-primary md-fab-bottom-right ">
         <md-icon md-font-icon="" >save</md-icon>
       </md-button>
     </div>

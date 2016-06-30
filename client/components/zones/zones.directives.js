@@ -10,21 +10,17 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
     // User permissions //
     var createMenu = function() {
-
       scope.menu = [];
-
       scope.menu.push({
         name: 'Edit Settings',
         icon: 'settings',
         type: 'settings'
       });
-
       scope.menu.push({
         name: 'Delete Zone',
         icon: 'delete_forever',
         type: 'delete'
       });
-
     };
 
     scope.action = function(zone,type) {
@@ -463,22 +459,7 @@ app.directive('networkZones', ['Zone', 'ZoneListing', 'Location', '$routeParams'
   return {
     link: link,
     scope: {},
-    template:
-        '<div ng-if=\'loading\'>'+
-        '<md-progress-linear md-mode="query"></md-progress-linear>'+
-        '</div>'+
-        '<div ng-if=\'!loading && zones.length === 0\'>'+
-        '<p>Network not associated with a zone. </p>'+
-        '</div>'+
-        '<div ng-if=\'!loading && zones.length\'>'+
-        '<span>This network is associated with the following zone<span ng-if="zones.length != 1">s</span>.</span>'+
-        '<md-list-item class="md-3-line" ng-repeat=\'zone in zones\'>'+
-        '<div class="md-list-item-text">'+
-        '<h3><a href="/#/locations/{{location.slug}}/zones/{{ zone.id }}">{{ zone.zone_name | titleCase }} Zone</a></h3>'+
-        '<p>{{ zone.boxes.length }} box<span ng-if="zones.boxes.length != 1">es</span>. {{ zone.networks.length }} network<span ng-if="zones.networks.length != 1">s</span>.</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '</div>'
+    templateUrl: 'components/zones/_associated_zones_dialog.html',
   };
 
 }]);

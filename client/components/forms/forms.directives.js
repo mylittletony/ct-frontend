@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.forms.directives', []);
 
-app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '$rootScope', 'showToast', 'showErrors', 'menu', '$mdDialog', function(Form, FormListing, Location, $routeParams, $rootScope, showToast, showErrors, menu, $mdDialog) {
+app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '$rootScope', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(Form, FormListing, Location, $routeParams, $rootScope, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -62,7 +62,7 @@ app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '
         required: true,
         field_type: 'email',
         hidden: false,
-        label: 'Enter your Email',
+        label: gettextCatalog.getString('Enter your Email'),
         value: '',
         order: 1
       };
@@ -77,7 +77,7 @@ app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '
       };
       fields.push(field);
       fields.push(password);
-      scope.form.message = 'Please enter your details to get online';
+      scope.form.message = gettextCatalog.getString('Please enter your details to get online');
       scope.form.registration_fields = fields;
       scope.save();
     };
@@ -145,7 +145,7 @@ app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '
     var updateForm = function(params) {
       Form.update({id: scope.form.id, location_id: scope.location.slug, splash_page_id: scope.splash.id, form: params }).$promise.then(function(results) {
         scope.form = results;
-        showToast('Form successfully updated.');
+        showToast(gettextCatalog.getString('Form successfully updated.'));
         scope.newField();
       }, function(err) {
         formErrored(err);
@@ -178,11 +178,11 @@ app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '
 
     scope.deleteField = function() {
       var confirm = $mdDialog.confirm()
-      .title('Delete Field')
-      .textContent('Deleting a field will wipe all your data, please be careful.')
-      .ariaLabel('Delete Field')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Field'))
+      .textContent(gettextCatalog.getString('Deleting a field will wipe all your data, please be careful.'))
+      .ariaLabel(gettextCatalog.getString('Delete Field'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteField();
       }, function() {

@@ -1,0 +1,30 @@
+<md-card>
+  <div class="md-card-image" style="height: 5px; background-color: {{ color }};"></div>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline" translate>
+        Cucumber Status
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <div ng-if="!status" translate>
+      Loading status
+    </div>
+    <div ng-if="status">
+      <p ng-if="status.incidents.length == 0">{{ incidents }}</p>
+      <span ng-if="status.incidents.length > 0">
+        <md-list-item class="md-2-line" ng-repeat="i in status.incidents">
+          <div class="md-list-item-text">
+            <h3>{{ i.name }}</h3>
+            <p>{{ i.incident_updates[0].body }}</p>
+          </div>
+        </md-list-item>
+      </span>
+    </div>
+  </md-card-content>
+  <md-divider></md-divider>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button target="_blank" href="{{ url}}"><translate>VIEW</translate></md-button>
+  </md-card-actions>
+</md-card>

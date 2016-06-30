@@ -3,29 +3,29 @@
     <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
       <div class='panel panel-default'>
         <div class='panel-heading'>
-          <b>General information</b>
+          <b translate>General information</b>
         </div>
         <div class='panel-body'>
           <div class='form-group row'>
             <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
               <p>
-                <b>I want to offer my customers:</b>
+                <b translate>I want to offer my customers:</b>
               </p>
               <label class='radio'>
                 <input ng-model="location.timed_access" class="timed_access" type="radio" ng-value='false'/>
-                Unlimited access
+                <span translate>Unlimited access</span>
               </label>
               <label class='radio'>
                 <input ng-model="location.timed_access" class="timed_access" type="radio" ng-value='true'/>
-                Timed access
+                <span translate>Timed access</span>
               </label>
             </div>
             <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5' id=''>
               <div id='primary_access_select'>
-                <p>Access Type</p>
+                <p translate>Access Type</p>
                 <select ng-model="location.access_types.primary_access" ng-options="type.name for type in primaryAccessTypes track by type.id" class='form-control' required></select>
               </div>
-              <span class='help-block'>
+              <span class='help-block' translate>
                 Scroll down to adjust the settings
               </span>
             </div>

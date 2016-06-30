@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.triggers.directives', []);
 
-app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors) {
+app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -35,25 +35,25 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
       scope.menu = [];
 
       scope.menu.push({
-        name: 'View',
+        name: gettextCatalog.getString('View'),
         icon: 'pageview',
         type: 'view'
       });
 
       scope.menu.push({
-        name: 'Edit',
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings',
         type: 'edit'
       });
 
       scope.menu.push({
-        name: 'Logs',
+        name: gettextCatalog.getString('Logs'),
         icon: 'list',
         type: 'logs'
       });
 
       scope.menu.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
       });
@@ -79,11 +79,11 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
 
     var destroy = function(id) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Trigger')
-      .textContent('Are you sure you want to delete this trigger?')
-      .ariaLabel('Delete Trigger')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Trigger'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this trigger?'))
+      .ariaLabel(gettextCatalog.getString('Delete Trigger'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         scope.destroy(id);
       }, function() {
@@ -102,15 +102,18 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
       for (var i = 0, len = scope.triggers.length; i < len; i++) {
         if (scope.triggers[i].id === id) {
           scope.triggers.splice(i, 1);
-          showToast('Trigger successfully deleted.');
+          showToast(gettextCatalog.getString('Trigger successfully deleted.'));
           break;
         }
       }
     };
 
     scope.init = function() {
-
-      Trigger.query({q: scope.query, page: scope.page, location_id: scope.location.slug}).$promise.then(function(results) {
+      Trigger.query({
+        q: scope.query,
+        page: scope.page,
+        location_id: scope.location.slug
+      }).$promise.then(function(results) {
         scope.triggers = results.triggers;
         scope.loading = undefined;
         createMenu();
@@ -148,11 +151,12 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
 
 }]);
 
-app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', function (Trigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce) {
+app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', function (Trigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
     scope.location = { slug: $routeParams.id };
+    //frixme translations:should the key value pairs be translated?
     scope.triggers = [{ key: 'All', value: 'all'}, { key: 'Boxes', value: 'box'}, { key: 'Clients', value: 'client'}, { key: 'Email', value: 'email'}, {key: 'Guests', value: 'guest'}, {key:'Locations', value: 'location'}, {key: 'Networks', value: 'network'}, {key: 'Splash', value: 'splash'}, {key: 'Social', value: 'social'}, {key: 'Vouchers', value: 'voucher'}, {key: 'Zones', value: 'zone' }];
 
     scope.channels = [{key:'Email', value: 'email'}, {key:'Slack', value: 'slack'}, {key:'Webhook', value: 'webhook'}, {key: 'MailChimp', value: 'mailchimp'}, {key: 'SMS', value: 'sms'}];
@@ -192,7 +196,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       }).$promise.then(function(results) {
         scope.trigger = results;
         redirect(results.id);
-        showToast('Trigger successfully updated.');
+        showToast(gettextCatalog.getString('Trigger successfully updated.'));
       }, function(err) {
         showErrors(err);
       });
@@ -205,7 +209,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
 
       }).$promise.then(function(results) {
         redirect(results.id);
-        showToast('Trigger created successfully.');
+        showToast(gettextCatalog.getString('Trigger created successfully.'));
       }, function(err) {
         showErrors(err);
       });
@@ -265,8 +269,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       scope.loading_integration = true;
       checkSlackIntegrated().then(function(a) {
         slackChannels();
-        scope.trigger.attr_2 = 'A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}';
-        // scope.loading_integration = undefined;
+        scope.trigger.attr_2 = gettextCatalog.getString('A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}');
       }, function(err) {
         blank(true);
         scope.error = err;
@@ -294,8 +297,8 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       if (!scope.trigger.id) {
         scope.trigger.attr_1 = '{{ Email }}';
         scope.trigger.attr_2 = undefined;
-        scope.trigger.attr_3 = '[WELCOME] Thanks for logging in';
-        scope.trigger.attr_4 = 'Hello\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge';
+        scope.trigger.attr_3 = gettextCatalog.getString('[WELCOME] Thanks for logging in');
+        scope.trigger.attr_4 = gettextCatalog.getString('Hello\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge');
       }
     };
 
@@ -337,12 +340,12 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         if (integrations.length > 0) {
           deferred.resolve();
         } else {
-          msg = 'Slack isn\'t setup yet, or you don\'t have any active integrations. Do that now and come back.';
+          msg = gettextCatalog.getString('Slack isn\'t setup yet, or you don\'t have any active integrations. Do that now and come back.');
           scope.loading_integration = undefined;
           deferred.reject(msg);
         }
       }, function(err) {
-        msg = 'Unknown error, please try again';
+        msg = gettextCatalog.getString('Unknown error, please try again');
         deferred.reject(msg);
       });
       return deferred.promise;
@@ -355,7 +358,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         scope.slack_channels = results;
         deferred.resolve();
       }, function(err) {
-        scope.error = 'You don\'t have any active channel associated with your slack account.';
+        scope.error = gettextCatalog.getString('You don\'t have any active channel associated with your slack account.');
         deferred.reject();
       });
       scope.loading_integration = undefined;
@@ -374,7 +377,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         if (integrations.length > 0) {
           deferred.resolve();
         } else {
-          msg = 'MailChimp isn\'t setup yet. Do that first and come back.';
+          msg = gettextCatalog.getString('MailChimp isn\'t setup yet. Do that first and come back.');
           scope.loading_integration = undefined;
           deferred.reject(msg);
         }
@@ -392,7 +395,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         scope.trigger.attr_2 = '{{ Email }}';
         deferred.resolve();
       }, function(err) {
-        scope.error = 'You don\'t have any active lists associated with your account.';
+        scope.error = gettextCatalog.getString('You don\'t have any active lists associated with your account.');
         deferred.reject();
       });
       return deferred.promise;
@@ -410,12 +413,13 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         if (integrations.length > 0) {
           deferred.resolve();
         } else {
-          msg = 'Twillio isn\'t setup yet, or you don\'t have any active integrations. You can <a href=\'/#/me/integrations\'>do that here</a>.';
+          //fixme translations: the anchor might not work
+          msg = gettextCatalog.getString('Twillio isn\'t setup yet, or you don\'t have any active integrations. You can <a href=\'/#/me/integrations\'>do that here</a>.');
           scope.loading_integration = undefined;
           deferred.reject(msg);
         }
       }, function(err) {
-        msg = 'Unknown error, please try again';
+        msg = gettextCatalog.getString('Unknown error, please try again');
         deferred.reject(msg);
         scope.loading_integration = undefined;
       });
@@ -430,7 +434,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         scope.loading = undefined;
         deferred.resolve();
       }, function(err) {
-        scope.error = 'You don\'t have any active numbers associated with your Twillio account.';
+        scope.error = gettextCatalog.getString('You don\'t have any active numbers associated with your Twillio account.');
         deferred.reject();
       });
       return deferred.promise;
@@ -471,7 +475,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
 
 }]);
 
-app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$http', '$location', '$pusher', 'Auth', '$mdDialog', 'showToast', 'showErrors', function (Trigger, $q, $routeParams, $rootScope, $http, $location, $pusher, Auth, $mdDialog, showToast, showErrors) {
+app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$http', '$location', '$pusher', 'Auth', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function (Trigger, $q, $routeParams, $rootScope, $http, $location, $pusher, Auth, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -487,25 +491,25 @@ app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$h
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Edit',
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings',
         type: 'edit'
       });
 
       scope.menu.push({
-        name: 'Test',
+        name: gettextCatalog.getString('Test'),
         icon: 'compare_arrows',
         type: 'test'
       });
 
       scope.menu.push({
-        name: 'Logs',
+        name: gettextCatalog.getString('Logs'),
         icon: 'list',
         type: 'logs'
       });
 
       scope.menu.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
       });
@@ -531,11 +535,11 @@ app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$h
 
     var destroy = function(id) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Trigger')
-      .textContent('Are you sure you want to delete this trigger?')
-      .ariaLabel('Delete Trigger')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Trigger'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this trigger?'))
+      .ariaLabel(gettextCatalog.getString('Delete Trigger'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         scope.destroy(id);
       }, function() {
@@ -545,7 +549,7 @@ app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$h
     scope.destroy = function() {
       Trigger.destroy({location_id: scope.location.slug, id: scope.trigger.id}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug + '/triggers/');
-        showToast('Trigger successfully deleted.');
+        showToast(gettextCatalog.getString('Trigger successfully deleted.'));
       }, function(err) {
         showErrors(err);
       });
@@ -574,7 +578,7 @@ app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$h
       scope.trigger.test = undefined;
       scope.trigger.testing = true;
       Trigger.update({location_id: scope.location.slug, id: scope.trigger.id, trigger: { test: true }}).$promise.then(function(results) {
-        showToast('Running test, please wait.');
+        showToast(gettextCatalog.getString('Running test, please wait.'));
       }, function(err) {
         showErrors(err);
       });
@@ -591,11 +595,11 @@ app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$h
           var msg = data.message;
           if (msg.success) {
             scope.trigger.run_count++;
-            scope.trigger.test = 'Yay, it worked. The trigger completed successfully!';
+            scope.trigger.test = gettextCatalog.getString('Yay, it worked. The trigger completed successfully!');
           } else {
             // scope.trigger.fail_count++;
             // scope.trigger.total_fail_count++;
-            scope.trigger.test = 'Oh no, the trigger failed. Please check the logs';
+            scope.trigger.test = gettextCatalog.getString('Oh no, the trigger failed. Please check the logs');
           }
         }
       });
@@ -732,12 +736,12 @@ app.directive('triggerTags', ['$mdDialog',function($mdDialog) {
     scope: {
       type: '@'
     },
-    template: '<div>View the available dynamic variables <a href="" ng-click="showVars()">here</a>.</div>'
+    templateUrl: 'components/locations/triggers/_webhook_variables.html',
   };
 
 }]);
 
-app.directive('listTriggerHistory', ['TriggerHistory', '$http', '$routeParams', '$location', function(TriggerHistory, $http, $routeParams, $location) {
+app.directive('listTriggerHistory', ['TriggerHistory', '$http', '$routeParams', '$location', 'gettextCatalog', function(TriggerHistory, $http, $routeParams, $location, gettextCatalog) {
   var link = function(scope, element, attrs) {
 
     scope.location  = { slug: $routeParams.id };
@@ -782,7 +786,7 @@ app.directive('listTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
       scope.menu = [];
 
       scope.menu.push({
-        name: 'View',
+        name: gettextCatalog.getString('View'),
         icon: 'pageview',
         type: 'view'
       });
@@ -852,6 +856,7 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
         var results = JSON.stringify(res,null,2);
         var json  = window.hljs.highlight('json',results).value;
 
+        // CANT TRANSLATE YET
         var template =
           '<md-toolbar class="md-table-toolbar md-default">'+
           '<div class="md-toolbar-tools">'+
@@ -906,4 +911,3 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
   };
 
 }]);
-

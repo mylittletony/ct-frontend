@@ -1,18 +1,18 @@
 <!-- Why can't we format this properly! -->
 <!-- Why can't we format this properly! -->
 
-<md-dialog aria-label="Trigger Tags" ng-cloak>
+<md-dialog aria-label="{{ 'Trigger Tags' | translate }}" ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Dynamic Variables</h2>
+        <h2 translate>Dynamic Variables</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout-align="left left">
         <div layout="row" layout-wrap>
           <div flex="100" flex-gt-sm="40">
-            <p><b>Common tags</b></p>
+            <p><b translate>Common tags</b></p>
 
               <pre ng-non-bindable>
 {{ Created_At }}
@@ -29,7 +29,7 @@
           </div>
           <div flex></div>
           <div flex="100" flex-gt-sm="40">
-            <p><b>{{ type | titleCase }} tags</b></p>
+            <p><b translate>{{ type | titleCase }} tags</b></p>
               <span ng-show='type == "box"'>
                 <pre ng-non-bindable>
 {{ Machine_Type }}
@@ -128,7 +128,9 @@
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        CLOSE
+        <translate>
+          CLOSE
+        </translate>
       </md-button>
     </md-dialog-actions>
   </form>

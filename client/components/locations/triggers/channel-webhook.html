@@ -2,17 +2,17 @@
 
 <div layout="column">
   <md-input-container>
-    <label>URL</label>
-    <textarea rows=8 name="webhook_url" ng-model="trigger.attr_1" placeholder="Enter your URL" required></textarea>
+    <label translate>URL</label>
+    <textarea rows=8 name="webhook_url" ng-model="trigger.attr_1" placeholder="{{ 'Enter your URL' | translate }}" required></textarea>
     <div ng-messages="myForm.webhook_url.$error" md-auto-hide="false">
-      <div ng-message="required">You must enter a valid URL including http(s)</div>
+      <div ng-message="required" translate>You must enter a valid URL including http(s)</div>
     </div>
   </md-input-container>
   <md-input-container>
-    <input type="text" name="webhook-body" ng-model="trigger.attr_3" placeholder="Body"></input>
+    <input type="text" name="webhook-body" ng-model="trigger.attr_3" placeholder="{{'Body' | translate }}"></input>
   </md-input-container>
   <md-input-container>
-    <label>Type</label>
+    <label translate>Type</label>
     <md-select ng-model="trigger.attr_2">
       <md-option ng-repeat="type in webhook_types">
         {{type}}

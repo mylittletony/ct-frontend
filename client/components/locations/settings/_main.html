@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon md-font-icon="arrow_back" >settings</md-icon>
     </md-button>
-    <p>Settings</p>
+    <p translate>Settings</p>
     <div flex></div>
     <location-settings-menu location="location"></location-settings-menu>
   </div>
@@ -17,12 +17,12 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Details
             </span>
             <span class="md-subhead" ng-if="location.archived">
               <md-icon>archived</md-icon>
-              This location has been archived! Splash pages are disabled.
+              <translate translate>This location has been archived! Splash pages are disabled.</translate>
             </span>
           </md-card-title-text>
         </md-card-title>
@@ -39,20 +39,20 @@
             </md-list-item>
             <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
               <div class="md-list-item-text">
-                <h3>Unique ID</h3>
+                <h3 translate>Unique ID</h3>
                 <p>{{ ::location.unique_id }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
               <div class="md-list-item-text">
-                <h3>Created On</h3>
+                <h3 translate>Created On</h3>
                 <p>{{ location.created_at | humanTime }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
               <div class="md-list-item-text">
-                <h3>Cluster ID</h3>
-                <p>{{ ::location.lucky_dip }}</p>
+                <h3 translate>Network Location</h3>
+                <p>{{ ::location.network_location }} ({{ ::location.lucky_dip }})</p>
               </div>
             </md-list-item>
           </div>
@@ -65,7 +65,7 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">
+            <span class="md-headline" translate>
               Address
             </span>
             <span class="md-subhead">
@@ -76,36 +76,36 @@
           <form name="myForm" submit="update(myForm)">
             <div layout="row" layout-wrap>
               <md-input-container flex="100">
-                <label>Name</label>
-                <input ng-model="location.location_name" name="location_name" type="text" md-maxlength='255' placeholder='Location Name' ng-minlength="5" required></input>
+                <label translate>Name</label>
+                <input ng-model="location.location_name" name="location_name" type="text" md-maxlength='255' placeholder="{{ 'Location Name' | translate }}" ng-minlength="5" required></input>
                 <div ng-messages="myForm.location_name.$error">
-                  <div ng-message="minlength">Must be greater than 5 characters</div>
-                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
-                  <div ng-message="required">You must enter an name</div>
+                  <div ng-message="minlength" translate>Must be greater than 5 characters</div>
+                  <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
+                  <div ng-message="required" translate>You must enter an name</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>Street Address</label>
-                <input ng-model="location.location_address" name="address" type="text" md-maxlength='255' placeholder='Street Name' required></input>
+                <label translate>Street Address</label>
+                <input ng-model="location.location_address" name="address" type="text" md-maxlength='255' placeholder="{{ 'Street Name' | translate }}" required></input>
                 <div ng-messages="myForm.address.$error">
-                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
-                  <div ng-message="required">You must enter an address</div>
+                  <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
+                  <div ng-message="required" translate>You must enter an address</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>City</label>
-                <input ng-model="location.town" name="town" type="text" md-maxlength='255' placeholder='Enter a town or city.' required></input>
+                <label translate>City</label>
+                <input ng-model="location.town" name="town" type="text" md-maxlength='255' placeholder="{{ 'Enter a town or city.' | translate }}" required></input>
                 <div ng-messages="myForm.town.$error">
-                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
-                  <div ng-message="required">You must enter a town</div>
+                  <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
+                  <div ng-message="required" translate>You must enter a town</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>Postcode (Zipcode)</label>
-                <input ng-model="location.postcode" name="postcode" type="text" md-maxlength='255' placeholder="Postcode" required></input>
+                <label translate>Postcode (Zipcode)</label>
+                <input ng-model="location.postcode" name="postcode" type="text" md-maxlength='255' placeholder="{{ 'Postcode' | translate }}" required></input>
                 <div ng-messages="myForm.postcode.$error" md-auto-hide="false">
-                  <div ng-message="md-maxlength">Must be less than 255 characters</div>
-                  <div ng-message="required">You must enter a postcode</div>
+                  <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
+                  <div ng-message="required" translate>You must enter a postcode</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
@@ -113,7 +113,7 @@
                 <country-select country="location.country"></country-select>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label>Timezone</label>
+                <label translate>Timezone</label>
                 <md-select ng-model="location.timezone">
                   <md-option ng-repeat="zone in timezones">
                     {{zone}}
@@ -121,15 +121,18 @@
                 </md-select>
               </md-input-container>
               <div flex="100"></div>
-              <md-switch ng-model="location.add_to_global_map" aria-label="Public Location">
-                {{ location.add_to_global_map ? "Public" : "Private"}} Location
+              <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public Location' | translate }}">
+                <span ng-if="location.add_to_global_map == true" translate>Public Location</span>
+                <span ng-if="location.add_to_global_map == false" translate>Private Location</span>
               </md-switch>
             </div>
           </form>
         </md-card-content>
       </md-card>
       <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
-        Save
+        <translate>
+          Save
+        </translate>
       </md-button>
 
     </div>

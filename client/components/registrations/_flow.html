@@ -22,72 +22,72 @@
 
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="company_name">Network Name</label>
-                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="Enter a network name" md-maxlength=25 md-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" md-autofocus required>
+                    <label for="company_name" translate>Network Name</label>
+                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" md-maxlength=25 md-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" md-autofocus required>
                     <div ng-messages="myForm.location_name.$error">
-                      <div ng-message="required">A network name is required.</div>
-                      <div ng-message="pattern">Numbers and letters only please.</div>
-                      <div ng-message="md-maxlength">Should be between 5 and 25 characters.</div>
+                      <div ng-message="required" translate>A network name is required.</div>
+                      <div ng-message="pattern" translate>Numbers and letters only please.</div>
+                      <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
                     </div>
                   </md-input-container>
 
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="address">Network Address</label>
-                    <input type="text" name="address" ng-model="holding.address" placeholder="Where is the network" md-maxlength=255 ng-minlength=5 required>
+                    <label for="address" translate>Network Address</label>
+                    <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the network' | translate }}" md-maxlength=255 ng-minlength=5 required>
                     <div ng-messages="myForm.address.$error">
-                      <div ng-message="required">An address is required.</div>
-                      <div ng-message="md-maxlength">Should be between 5 and 255 characters.</div>
+                      <div ng-message="required" translate>An address is required.</div>
+                      <div ng-message="md-maxlength" translate>Should be between 5 and 255 characters.</div>
                     </div>
                   </md-input-container>
                 </div>
-                <md-button type="submit" ng-click="update(1)" ng-disabled="myForm.$invalid" class="md-raised md-primary">Save</md-button>
+                <md-button type="submit" ng-click="update(1)" ng-disabled="myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
               </div>
 
               <div ng-if="stage=='brand'">
 
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="urk">Web Address</label>
-                    <input type="text" name="url" ng-blur="checkBrand()" ng-model="holding.url" placeholder="Enter a URL for your dashboard" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" autofocus required>
+                    <label for="urk" translate>Web Address</label>
+                    <input type="text" name="url" ng-blur="checkBrand()" ng-model="holding.url" placeholder="{{ 'Enter a URL for your dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" autofocus required>
                     <div ng-messages="myForm.url.$error">
-                      <div ng-message="required">A web address is required.</div>
-                      <div ng-message="md-maxlength">Should be between 5 and 25 characters.</div>
-                      <div ng-message="pattern">Lowercase, letters only.</div>
+                      <div ng-message="required" translate>A web address is required.</div>
+                      <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
+                      <div ng-message="pattern" translate>Lowercase, letters only.</div>
                     </div>
-                    <p class="hint" ng-if="brandOk">Visit https://{{ holding.url }}.my-wifi.co to sign-in</p>
+                    <p class="hint" ng-if="brandOk" translate>Visit https://{{ holding.url }}.my-wifi.co to sign-in</p>
                   </md-input-container>
 
 
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="company_name">Dashboard Name</label>
-                    <input type="text" name="company_name" ng-model="holding.company_name" placeholder="Enter a name for your dashboard" ng-maxlength=25 ng-minlength=5 required>
+                    <label for="company_name" translate>Dashboard Name</label>
+                    <input type="text" name="company_name" ng-model="holding.company_name" placeholder="{{ 'Enter a name for your dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 required>
                     <div ng-messages="myForm.company_name.$error">
-                      <div ng-message="required">A dashboard name is required.</div>
-                      <div ng-message="md-maxlength">Should be between 5 and 25 characters.</div>
+                      <div ng-message="required" translate>A dashboard name is required.</div>
+                      <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
                     </div>
                   </md-input-container>
 
                 </div>
 
-                <md-button type="submit" ng-click="update(2)" ng-disabled="brandOk !== true || myForm.$invalid" class="md-raised md-primary">Save</md-button>
+                <md-button type="submit" ng-click="update(2)" ng-disabled="brandOk !== true || myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
 
               </div>
 
               <div ng-if="stage=='user'">
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="address">Username</label>
+                    <label for="address" translate>Username</label>
                     <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s]*$/" md-autofocus required>
                     <div ng-messages="myForm.url.$error">
-                      <div ng-message="required">A username is required.</div>
-                      <div ng-message="md-maxlength">Should be between 5 and 25 characters.</div>
-                      <div ng-message="pattern">Number and letters only.</div>
+                      <div ng-message="required" translate>A username is required.</div>
+                      <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
+                      <div ng-message="pattern" translate>Number and letters only.</div>
                     </div>
-                    <p class="hint">Don't worry about choosing a password, we'll email you a link to set one.</p>
+                    <p class="hint" translate>Don't worry about choosing a password, we'll email you a link to set one.</p>
                   </md-input-container>
                 </div>
 
-                <md-button type="submit" ng-click="update(3)" ng-disabled="myForm.$invalid" class="md-raised md-primary">Save</md-button>
+                <md-button type="submit" ng-click="update(3)" ng-disabled="myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
 
               </div>
 
@@ -95,32 +95,32 @@
 
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="network_name">Network Name</label>
-                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="Enter a network name" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" required>
+                    <label for="network_name" translate>Network Name</label>
+                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" required>
                   </md-input-container>
 
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="address">Network Location</label>
-                    <input type="text" name="address" ng-model="holding.address" placeholder="Where is the network" ng-maxlength=255 ng-minlength=5 required>
+                    <label for="address" translate>Network Location</label>
+                    <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the network' | translate }}" ng-maxlength=255 ng-minlength=5 required>
                   </md-input-container>
 
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="address">Web Address</label>
-                    <input type="text" name="url" ng-model="holding.url" placeholder="Enter a URL for your dashboard" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required>
+                    <label for="address" translate>Web Address</label>
+                    <input type="text" name="url" ng-model="holding.url" placeholder="{{ 'Enter a URL for your dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required>
                   </md-input-container>
 
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="company_name">Dashboard Name</label>
-                    <input type="text" name="company_name" ng-model="holding.company_name" placeholder="Enter a name for your dashboard" ng-maxlength=25 ng-minlength=5 required>
+                    <label for="company_name" translate>Dashboard Name</label>
+                    <input type="text" name="company_name" ng-model="holding.company_name" placeholder="{{ 'Enter a name for your dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 required>
                   </md-input-container>
 
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="address">Username</label>
+                    <label for="address" translate>Username</label>
                     <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s]*$/" required>
                   </md-input-container>
 
                 </div>
-                <md-button ng-click="update('fin')" type="submit" ng-disabled="myForm.$invalid" class="md-raised md-primary">Save</md-button>
+                <md-button ng-click="update('fin')" type="submit" ng-disabled="myForm.$invalid" class="md-raised md-primary"><translate>Save</translate></md-button>
 
               </div>
             </div>
@@ -130,7 +130,7 @@
           <md-divider ng-if="!$last"></md-divider>
 
           <md-card-actions layout="row" layout-align="left center" ng-if="stage && stage !== 'done'">
-            <md-button ng-click="back()">Back</md-button>
+            <md-button ng-click="back()"><translate>Back</translate></md-button>
           </md-card-actions>
 
         </md-card>

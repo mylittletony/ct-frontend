@@ -9,13 +9,13 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', '$route', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, $route) {
+app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', '$window', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, $window, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
     var id, locale;
 
-    scope.locales = [{key: 'Deutsch', value: 'de-de'}, { key: 'English', value: 'en-gb'}, { key: 'Français', value: 'fr-fr'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
@@ -41,11 +41,11 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
       form.$setPristine();
       User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
         if (locale !== results.locale) {
-          // $route.reload();
-          console.log('Hey Guido and friends, I\'ll put a reload in here when we\'re ready.');
+          console.log('Setting locale to', results.locale);
           Auth.currentUser().locale = results.locale;
+          $window.location.reload();
         }
-        showToast('User successfully updated.');
+        showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
       });
@@ -66,7 +66,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
 
 }]);
 
-app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog) {
+app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -88,7 +88,7 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
     scope.save = function(form) {
       form.$setPristine();
       User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
-        showToast('User successfully updated.');
+        showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
       });
@@ -109,7 +109,7 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
 }]);
 
-app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'showToast', 'showErrors', '$rootScope', '$route', '$mdDialog', function(User, $routeParams, $location, $pusher, showToast, showErrors, $rootScope, $route, $mdDialog) {
+app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'showToast', 'showErrors', '$rootScope', '$route', '$mdDialog', 'gettextCatalog', function(User, $routeParams, $location, $pusher, showToast, showErrors, $rootScope, $route, $mdDialog, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -168,7 +168,7 @@ app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'sh
             showErrors(msg.message);
           } else if (msg.status) {
             scope.coupons.push(msg.coupon);
-            showToast('Coupon added successfully.');
+            showToast(gettextCatalog.getString('Coupon added successfully.'));
           }
 
         });
@@ -195,37 +195,7 @@ app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'sh
       coupons: '=',
       key: '@'
     },
-    template:
-        '<form name=\'myForm\' ng-submit=\'save(myForm)\'>'+
-        '<md-card>'+
-        '<md-card-title>'+
-        '<md-card-title-text>'+
-        '<span class="md-headline">'+
-        'Coupons & Discount Codes'+
-        '</span>'+
-        '</md-card-title-text>'+
-        '</md-card-title>'+
-        '<md-card-content>'+
-        '<div layout="row" layout-wrap>'+
-        '<span ng-if="user.adding_coupon" flex=\'100\' flex-gt-sm=\'100\'>'+
-        '<p>Verifying Coupon</p>'+
-        '<md-progress-linear md-mode="query"></md-progress-linear>'+
-        '</span>'+
-        '<div flex=\'100\' flex-gt-sm=\'100\'>'+
-        '<md-list-item class="md-2-line" ng-repeat=\'coupon in coupons\' ng-if=\'coupons.length > 0\'>'+
-        '<div class="md-list-item-text">'+
-        '<p>{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | humanTime }}</p>'+
-        '</div>'+
-        '</md-list-item>'+
-        '<p ng-if=\'coupons.length < 1\'>No active coupons found.</p>'+
-        '</div>'+
-        '</div>'+
-        '</md-card-content>'+
-        '<md-card-actions layout="row" layout-align="end center">'+
-        '<md-button ng-disabled="user.adding_coupon" ng-click="addCoupon()">ADD COUPON</md-button>'+
-        '</md-card-actions>'+
-        '</md-card>'+
-        '</form>'
+    templateUrl: 'components/users/billing/_add_coupon.html',
   };
 
 }]);
@@ -309,19 +279,12 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
     scope: {
       user: '='
     },
-    template:
-        '<div ng-if=\'user.subscribing\'>'+
-        '<p>Updating, please wait.</p>'+
-        '<md-progress-linear md-mode="query"></md-progress-linear>'+
-        '</div>'+
-        '<div ng-if=\'!user.subscribing\'>'+
-        '<md-button class=\'{{ user.credit_card_last4 ? "" : "md-raised md-primary" }}\' ng-disabled="" ng-click="addCard()">{{ user.credit_card_last4 ? "update" : "add" }} CARD</md-button>'+
-        '</div>'
+    templateUrl: 'components/users/billing/_update_card.html',
   };
 
 }]);
 
-app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors', 'Invoice', '$mdDialog', '$location', function(User, $routeParams, showToast, showErrors, Invoice, $mdDialog, $location) {
+app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors', 'Invoice', '$mdDialog', '$location', 'gettextCatalog', function(User, $routeParams, showToast, showErrors, Invoice, $mdDialog, $location, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -361,12 +324,12 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
     var createMenu = function() {
       if (true) { // user permissions
         scope.menu = [{
-          name: 'View',
+          name: gettextCatalog.getString('View'),
           type: 'view',
           icon: 'picture_as_pdf'
         }];
         scope.menu.push({
-          name: 'Details',
+          name: gettextCatalog.getString('Details'),
           type: 'details',
           icon: 'details'
         });
@@ -401,11 +364,11 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
 
     scope.emailInvoices = function() {
       var confirm = $mdDialog.confirm()
-      .title('Email Selected Invoices')
-      .textContent('This will send a copy of the invoice to all billing emails.')
-      .ariaLabel('Email')
-      .ok('EMAIL')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Email Selected Invoices'))
+      .textContent(gettextCatalog.getString('This will send a copy of the invoice to all billing emails.'))
+      .ariaLabel(gettextCatalog.getString('Email'))
+      .ok(gettextCatalog.getString('EMAIL'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         emailInvoices();
       }, function() {
@@ -414,7 +377,7 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
 
     var emailInvoices = function() {
       Invoice.email({ids: scope.selected}).$promise.then(function(results) {
-        showToast('Invoices sent to all billing emails.');
+        showToast(gettextCatalog.getString('Invoices sent to all billing emails.'));
         scope.selected = [];
       }, function(err) {
         showErrors(err);
@@ -544,7 +507,7 @@ app.directive('invoiceDetails', ['User', 'InvoiceItem', '$routeParams', 'menu', 
 
 }]);
 
-app.directive('userBillingSettings', ['User', '$routeParams', 'showToast', 'showErrors', '$rootScope', '$route', 'STRIPE_KEY', '$pusher', function(User, $routeParams, showToast, showErrors, $rootScope, $route, STRIPE_KEY, $pusher) {
+app.directive('userBillingSettings', ['User', '$routeParams', 'showToast', 'showErrors', '$rootScope', '$route', 'STRIPE_KEY', '$pusher', 'gettextCatalog', function(User, $routeParams, showToast, showErrors, $rootScope, $route, STRIPE_KEY, $pusher, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -560,7 +523,7 @@ app.directive('userBillingSettings', ['User', '$routeParams', 'showToast', 'show
     scope.save = function(form) {
       form.$setPristine();
       User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
-        showToast('Successfully updated details.');
+        showToast(gettextCatalog.getString('Successfully updated details.'));
         if (results.currency !== currency) {
           $route.reload();
         }
@@ -672,17 +635,17 @@ app.directive('userSessions', ['User', '$routeParams', '$location', function(Use
 
 }]);
 
-app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog', 'locationHelper', 'AUTH_URL', function(User, $routeParams, $location, $mdDialog, locationHelper, AUTH_URL) {
+app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog', 'locationHelper', 'AUTH_URL', 'gettextCatalog', function(User, $routeParams, $location, $mdDialog, locationHelper, AUTH_URL, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
     scope.logout = function() {
       var confirm = $mdDialog.confirm()
-      .title('Logout?')
-      .textContent('This will clear all active sessions, including this one.')
-      .ariaLabel('Logout')
-      .ok('LOGOUT')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Logout?'))
+      .textContent(gettextCatalog.getString('This will clear all active sessions, including this one.'))
+      .ariaLabel(gettextCatalog.getString('Logout'))
+      .ok(gettextCatalog.getString('LOGOUT'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         logout();
       }, function() {
@@ -704,12 +667,12 @@ app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog'
     scope: {
       loading: '='
     },
-    template: '<md-button ng-click=\'logout()\'>LOGOUT ALL</md-button>'
+    templateUrl: 'components/users/sessions/_logout_all.html',
   };
 
 }]);
 
-app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'showToast', 'showErrors', function(User, Auth, $routeParams, $mdDialog, showToast, showErrors) {
+app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(User, Auth, $routeParams, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -738,7 +701,7 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
     var change = function(user) {
       scope.loading = true;
       User.password({id: $routeParams.id, user: { password: user.password, current_password: user.current_password}}).$promise.then(function(results) {
-        showToast('Password successfully updated.');
+        showToast(gettextCatalog.getString('Password successfully updated.'));
       }, function(err) {
         showErrors(err);
       });
@@ -750,10 +713,7 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
   return {
     link: link,
     scope: {},
-    template:
-        '<md-card-actions ng-click="changePassword()" layout="row" layout-align="end center">'+
-        '<md-button>Change Password</md-button>'+
-        '</md-card-actions>'
+    templateUrl: 'components/users/show/_change_password.html',
   };
 }]);
 
@@ -831,47 +791,7 @@ app.directive('userCancel', ['User', 'Subscription', '$routeParams', '$mdDialog'
   };
 }]);
 
-app.directive('uSw', ['User', '$rootScope', 'AccessToken', function(User, $rootScope, AccessToken) {
-
-  var link = function( scope, element, attrs ) {
-
-    var i = 0;
-
-    $('#usw').click(function() {
-      i++;
-      if (i === 13) {
-        i = 0;
-        var msg = 'OK clicky, let\'s do it. Are you sure?';
-        if ( window.confirm(msg) ) {
-          console.log('Switching to', attrs.id);
-          doLogin();
-        }
-      }
-    });
-
-    var doLogin = function() {
-      User.switcher({account_id: attrs.id}).$promise.then(function(data) {
-        AccessToken.set(data.token);
-        $('.hidden-boy').addClass('real-boy');
-        var loginArgs = {data: data, path: '/', rdir: data.rdir};
-        $rootScope.$broadcast('login', loginArgs);
-      }, function(err) {
-        console.log(err);
-      });
-    };
-  };
-
-  return {
-    link: link,
-    scope: {
-      id: '@'
-    },
-    template: '<div id=\'usw\' class=\'text-white\'><a href="">Stevie Wonder?</a></div>'
-  };
-
-}]);
-
-app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$location', 'SLACK_TOKEN', 'CHIMP_TOKEN', '$pusher', '$rootScope', 'Auth', '$route', function(User, Integration, $routeParams, $location, SLACK_TOKEN, CHIMP_TOKEN, $pusher, $rootScope, Auth, $route) {
+app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$location', 'SLACK_TOKEN', 'CHIMP_TOKEN', '$pusher', '$rootScope', 'Auth', '$route', 'gettextCatalog', function(User, Integration, $routeParams, $location, SLACK_TOKEN, CHIMP_TOKEN, $pusher, $rootScope, Auth, $route, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -941,7 +861,7 @@ app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$loca
 
     scope.revoke = function(t) {
       var id;
-      var msg = 'Are you sure you want to remove this Integration? Please note, this won\'t delete from Slack';
+      var msg = gettextCatalog.getString('Are you sure you want to remove this Integration? Please note, this won\'t delete from Slack');
       if ( window.confirm(msg) ) {
         id = findIntegration(t).id;
         if (id) {
@@ -1024,7 +944,7 @@ app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$loca
 
 }]);
 
-app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showToast', 'showErrors', function($routeParams, $location, User, Auth, showToast, showErrors) {
+app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, User, Auth, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1078,7 +998,7 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
       formatTonyTime();
       form.$setPristine();
       User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
-        showToast('User successfully updated.');
+        showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
       });
@@ -1157,7 +1077,7 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', function(
 
 }]);
 
-app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', function(User, $routeParams, $location, menu, $rootScope) {
+app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1193,7 +1113,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
     var createMenu = function() {
       scope.menu = [];
       scope.menu.push({
-        name: 'View',
+        name: gettextCatalog.getString('View'),
         icon: 'pageview',
         type: 'view'
       });

@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.codes.directives', []);
 
-app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', function(Code, $routeParams, $location, Client, showToast, showErrors) {
+app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', 'gettextCatalog', function(Code, $routeParams, $location, Client, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -40,13 +40,13 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
       scope.menuItems = [];
 
       scope.menuItems.push({
-        name: 'Sessions',
+        name: gettextCatalog.getString('Sessions'),
         icon: 'data_usage',
         type: 'sessions'
       });
 
       scope.menuItems.push({
-        name: 'Disable',
+        name: gettextCatalog.getString('Disable'),
         icon: 'pageview',
         type: 'disable'
       });
@@ -66,9 +66,9 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
 
     scope.itemName = function(item,code) {
       if (item.type === 'disable' && code.active ) {
-        return 'Disable';
+        return gettextCatalog.getString('Disable');
       } else if ( item.type === 'disable' && !code.active ) {
-        return 'Enable';
+        return gettextCatalog.getString('Enable');
       } else {
         return item.name;
       }
@@ -85,8 +85,8 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
         id: code.username,
         code: { active: code.active }
       }).$promise.then(function(results) {
-        var text = code.active ? 'activated' : 'disabled';
-        showToast('Code ' +  text + ' successfully.');
+        var text = code.active ? gettextCatalog.getString('activated') : gettextCatalog.getString('disabled');
+        showToast(gettextCatalog.getString('Code ') +  text + gettextCatalog.getString(' successfully.'));
       }, function(err) {
         code.active = !code.active;
         showErrors(err);
@@ -320,71 +320,7 @@ app.directive('codesShow', ['Code', '$routeParams', '$location', function(Code, 
 
 }]);
 
-// Untested naughty directive //
-
-app.directive('rangeFilter', ['Code', '$routeParams', '$location', function(Code, $routeParams, $location) {
-
-  var link = function(scope,element,attrs) {
-
-    scope.loading = true;
-
-    scope.updateRange = function(message) {
-      scope.rangeFilter = undefined;
-      var start         = new Date(scope.startT).getTime() / 1000;
-      var end           = new Date(scope.endT).getTime() / 1000;
-      scope.updateFn({message: {start: start, end: end}});
-    };
-
-    attrs.$observe('end', function(val){
-      if (val !== '' ) {
-        scope.startT      = new Date(attrs.start*1000);
-        scope.endT        = new Date(attrs.end*1000);
-        scope.loading     = undefined;
-      }
-    });
-  };
-
-  return {
-    link: link,
-    scope: {
-      updateFn: '&',
-      start: '@',
-      end: '@'
-    },
-    template:
-        '<div ng-hide=\'loading\'>'+
-        '<span ng-hide="rangeFilter">'+
-        '<p><small>Range: {{ start*1000 | amDateFormat:\'MMMM Do YYYY\'}} - {{ end*1000 | amDateFormat:\'MMMM Do YYYY\' }}. <a href="" ng-click="rangeFilter = !rangeFilter">Change</a></small></p>'+
-        '</span>'+
-        '<span ng-show="rangeFilter">'+
-        '<div class="row">'+
-        '<div class="large-12 columns">'+
-        '<div class="row collapse">'+
-        '<div class="small-12 medium-4 columns">'+
-        '<label>From</label>'+
-        '<input ng-model="startT" type="date"></input>'+
-        '</div>'+
-        '<div class="small-12 medium-4 columns">'+
-        '<label>To</label>'+
-        '<input ng-model="endT" type="date"></input>'+
-        '</div>'+
-        '<div class="small-12 medium-2 end columns">'+
-        '<label>&nbsp;</label>'+
-        '<a ng-click="updateRange()" class="button postfix">Go</a>'+
-        '</div>'+
-        '</div>'+
-        '<p><a href="" ng-click="rangeFilter = !rangeFilter">Cancel</a></p>'+
-        '</div>'+
-        '</div>'+
-        '</span>'+
-        '</div>'
-
-
-  };
-
-}]);
-
-app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', '$q', '$mdDialog', 'showErrors', function(Client, $routeParams, Session, $location, $q, $mdDialog, showErrors) {
+app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', '$q', '$mdDialog', 'showErrors', 'gettextCatalog', function(Client, $routeParams, Session, $location, $q, $mdDialog, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -508,7 +444,7 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
         scope.query.start = new Date($scope.startDate).getTime() / 1000;
         scope.query.end   = new Date($scope.endDate).getTime() / 1000;
         if (scope.query.start >= scope.query.end) {
-          $scope.error = 'The start date must be less than the end date';
+          $scope.error = gettextCatalog.getString('The start date must be less than the end date');
         } else {
           $mdDialog.cancel();
           scope.query.page = 1;
@@ -552,4 +488,3 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
     templateUrl: 'components/codes/_sessions.html'
   };
 }]);
-

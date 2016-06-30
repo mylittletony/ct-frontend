@@ -7,42 +7,42 @@
         <div ng-show="cookies">
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Thank You!
               </span>
-              <span class="md-subhead">
+              <span class="md-subhead" translate>
                 A confirmation has been sent to your email
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <p>Please click the link in the email to confirm your account.</p>
+            <p translate>Please click the link in the email to confirm your account.</p>
             <h3>
               <md-icon>email</md-icon>
               {{ cookies.u.email }}
             </h3>
-            <p><small>Didn't get the invite? <a href="" ng-click="clearCookies()">Resend it now</a>.</small></p>
+            <p><small translate>Didn't get the invite? <a href="" ng-click="clearCookies()">Resend it now</a>.</small></p>
           </md-card-content>
         </div>
         <div ng-hide="cookies">
 
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
+              <span class="md-headline" translate>
                 Sign-up for {{ ::brand_name }}.
               </span>
-              <span class="md-subhead">Getting started only takes a moment.</span>
+              <span class="md-subhead" translate>Getting started only takes a moment.</span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
             <div layout="column">
               <md-input-container class="md-block">
-                <label>Enter Your Email</label>
+                <label translate>Enter Your Email</label>
                 <input required ng-model="user.email" type="email">
-                <p class="hint">Don't worry about choosing a password, we'll email you a link to set one.</p>
+                <p class="hint" translate>Don't worry about choosing a password, we'll email you a link to set one.</p>
               </md-input-container>
             </div>
-            <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised">Create</md-button>
+            <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Create</translate></md-button>
           </md-card-content>
         </div>
       </md-card>

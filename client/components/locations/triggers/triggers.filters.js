@@ -2,38 +2,38 @@
 
 var app = angular.module('myApp.triggers.filters', []);
 
-app.filter('humanTrigger', function() {
+app.filter('humanTrigger', [ 'gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null) {
       return input;
     } else {
       switch(input) {
         case 'box':
-          return 'When a box is';
+          return gettextCatalog.getString('When a box is');
         case 'client':
-          return 'When a client';
+          return gettextCatalog.getString('When a client');
         case 'email':
-          return 'When an email is';
+          return gettextCatalog.getString('When an email is');
         case 'guest':
-          return 'When a guest is';
+          return gettextCatalog.getString('When a guest is');
         case 'location':
-          return 'When a location is';
+          return gettextCatalog.getString('When a location is');
         case 'network':
-          return 'When a network / SSID is';
+          return gettextCatalog.getString('When a network / SSID is');
         case 'splash':
-          return 'When a splash page is';
+          return gettextCatalog.getString('When a splash page is');
         case 'social':
-          return 'When a Social is';
+          return gettextCatalog.getString('When a Social is');
         case 'voucher':
-          return 'When a voucher is';
+          return gettextCatalog.getString('When a voucher is');
         case 'zone':
-          return 'When a zone is';
+          return gettextCatalog.getString('When a zone is');
       }
     }
   };
-});
+}]);
 
-app.filter('humanTriggerAction', function() {
+app.filter('humanTriggerAction', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null) {
       return input;
@@ -43,39 +43,39 @@ app.filter('humanTriggerAction', function() {
       var action = sp[1];
       switch(action) {
         case 'create':
-          return 'When a ' + object + ' is created';
+          return gettextCatalog.getString('When a {{object}} is created', {object: object});
         case 'update':
-            return 'When a ' + object + ' is updated';
+            return gettextCatalog.getString('When a {{object}} is updated', {object: object});
         case 'destroy':
-            return 'When a ' + object + ' is deleted';
+            return gettextCatalog.getString('When a {{object}} is deleted', {object: object});
         case 'online':
-            return 'When a ' + object + ' goes online';
+            return gettextCatalog.getString('When a {{object}} goes online', {object: object});
         case 'offline':
-            return 'When a '+ object + ' goes offline';
+            return gettextCatalog.getString('When a {{object}} goes offline', {object: object});
         case 'reset':
-            return 'When a ' + object + ' is reset';
+            return gettextCatalog.getString('When a {{object}} is reset', {object: object});
         case 'resync':
-            return 'When a ' + object + ' is resynced';
+            return gettextCatalog.getString('When a {{object}} is resynced', {object: object});
         case 'transfer':
-            return 'When a ' + object + ' is transferred';
+            return gettextCatalog.getString('When a {{object}} is transferred', {object: object});
         case 'archive':
-            return 'Wnen a ' + object + ' is archived';
+            return gettextCatalog.getString('Wnen a {{object}} is archived', {object: object});
         case 'unarchive':
-            return 'When a ' + object + ' is restored';
+            return gettextCatalog.getString('When a {{object}} is restored', {object: object});
         case 'login':
-            return 'When a ' + object + ' logs in';
+            return gettextCatalog.getString('When a {{object}} logs in', {object: object});
         case 'duplicate':
-            return 'When a ' + object + ' is copied';
+            return gettextCatalog.getString('When a {{object}} is copied', {object: object});
         case 'refund':
-            return 'When an order is refunded';
+            return gettextCatalog.getString('When an order is refunded');
         case 'purchase':
-            return 'When a purchase happens';
+            return gettextCatalog.getString('When a purchase happens');
         case 'generate':
-            return 'When your codes have generated';
+            return gettextCatalog.getString('When your codes have generated');
       }
     }
   };
-});
+}]);
 
 app.filter('filterChannel', function() {
   return function(input) {
@@ -84,15 +84,15 @@ app.filter('filterChannel', function() {
     } else {
       switch(input) {
         case 'sms':
-          return 'send an SMS.';
+          return gettextCatalog.getString('send an SMS.');
         case 'email':
-          return 'send an Email.';
+          return gettextCatalog.getString('send an Email.');
         case 'webhook':
-          return 'send a Webhook.';
+          return gettextCatalog.getString('send a Webhook.');
         case 'slack':
-          return 'send a Slack notification.';
+          return gettextCatalog.getString('send a Slack notification.');
         case 'mailchimp':
-          return 'subscribe an email to a MailChimp list.';
+          return gettextCatalog.getString('subscribe an email to a MailChimp list.');
       }
     }
   };

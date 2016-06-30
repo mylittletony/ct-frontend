@@ -1,0 +1,27 @@
+<md-card>
+  <md-card-header class="graph-small">
+    <md-card-header-text>
+      <span class="md-subhead" translate>
+        Signal Strength
+      </span>
+    </md-card-header-text>
+    <md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">
+      <md-icon>fullscreen_exit</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen('snr')">
+      <md-icon>fullscreen</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ng-click="refresh()">
+      <md-icon>refresh</md-icon>
+    </md-button>
+  </md-card-header>
+  <md-card-content>
+    <div id="snr-chart"></div>
+    <div>
+      <div layout="row" ng-if="noData || loading" style="min-height: 250px;" layout-align="left end" class="muted">
+        <p><small><span ng-if="noData" translate>No graph data</span><span ng-if="loading" translate>Loading usage data</span></small></p>
+      </div>
+      <md-progress-linear ng-if="loading" md-mode="query"></md-progress-linear>
+    </div>
+  </md-card-content>
+</md-card>

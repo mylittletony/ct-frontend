@@ -1,22 +1,29 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon>arrow_back</md-icon>
     </md-button>
-    <p>Back to Location</p>
+    <p translate>Back to Location</p>
     <span flex></span>
     <upgrade-box box="box"></upgrade-box>
     <span ng-if="box.state == 'offline'">
-      <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" :  "volume_up" }}</md-icon>
-      <md-tooltip md-direction="left">Box is {{ box.ignored ? "muted. Will not appear in alerts." : "not muted. Appears in alerts." }}</md-tooltip>
+      <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" : "volume_up" }}</md-icon>
+      <md-tooltip md-direction="left">
+        <!-- <span translate>Box is</span> -->
+        <!-- <span ng-if="box.ignored" translate>muted. Will not appear in alerts.</span> -->
+        <!-- <span ng-if="!box.ignored" translate>not muted. Appears in alerts.</span> -->
+      </md-tooltip>
     </span>
     <md-button hide show-gt-sm class="md-icon-button" ng-click="refresh()">
       <md-icon>zoom_out</md-icon>
-      <md-tooltip md-direction="left">Reset zoom level</md-tooltip>
+      <md-tooltip md-direction="left">
+        <translate>
+          Reset zoom level
+        </translate>
+      </md-tooltip>
 
     </md-button>
-    <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="Switch 1" ng-change='streamingUpdater()'>
-      <!-- <md-tooltip md-direction="left">Enable streaming updates for this page</md-tooltip> -->
+    <md-switch title="Streaming updates {{ streamingUpdates | humanBoolean }}" ng-model="streamingUpdates" aria-label="{{ 'Enable streaming updates' | translate }}" ng-change='streamingUpdater()'>
     </md-switch>
     <md-button-group hide show-gt-sm class="md-raised">
       <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }">5m</md-button>
@@ -28,12 +35,12 @@
       <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }">30d</md-button>
     </md-button-group>
     <md-menu ng-if="menu">
-      <md-button aria-label="Open Tools" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
         <md-icon>more_vert</md-icon>
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="item in menu">
-          <md-button ng-disabled="item.disabled" ng-click="menuAction(item.name)">
+          <md-button ng-disabled="item.disabled" ng-click="menuAction(item.type)">
             <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
             {{item.name}}
           </md-button>
@@ -43,7 +50,6 @@
   </div>
   <md-divider></md-divider>
 </md-toolbar>
-
 
 <section ng-cloak ng-if="!loading">
   <md-subheader class="md-accent">
@@ -59,12 +65,12 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">Initialising Device</span>
+            <span class="md-headline" translate>Initialising Device</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
           <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.determinateValue}}" md-buffer-value="{{vm.determinateValue2}}" ng-if="true"></md-progress-linear>
-          <p>Please wait while this device initialises.</p>
+          <p translate>Please wait while this device initialises.</p>
         </md-card-content>
       </md-card>
     </div>
@@ -78,8 +84,8 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Splash Only Device</span>
-          <span class="md-subheading">
+          <span class="md-headline" translate>Splash Only Device</span>
+          <span class="md-subheading" translate>
             This device only supports splash pages. Management is disabled.
           </span>
         </md-card-title-text>
@@ -93,46 +99,52 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Radius Configuration</span>
-          <span class="md-subheading">Settings for your splash-only device</span>
+          <span class="md-headline" translate>Radius Configuration</span>
+          <span class="md-subheading" translate>Settings for your splash-only device</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <md-divider></md-divider>
         <md-list-item class="md-2-line">
           <div class="md-list-item-text">
-            <h3>Primary Radius</h3>
+            <h3 translate>Primary Radius</h3>
             <p>radius-1.ctapp.io</p>
           </div>
         </md-list-item>
         <md-list-item class="md-2-line">
           <div class="md-list-item-text">
-            <h3>Secondary Radius</h3>
+            <h3 translate>Secondary Radius</h3>
             <p>radius-2.ctapp.io</p>
           </div>
         </md-list-item>
         <md-list-item class="md-2-line">
           <div class="md-list-item-text">
-            <h3>Authentication Port</h3>
+            <h3 translate>Authentication Port</h3>
             <p>1812</p>
           </div>
         </md-list-item>
         <md-list-item class="md-2-line">
           <div class="md-list-item-text">
-            <h3>Accounting Port</h3>
+            <h3 translate>Accounting Port</h3>
             <p>1813</p>
           </div>
         </md-list-item>
         <md-list-item class="md-2-line">
           <div class="md-list-item-text">
-            <h3>Splash URL</h3>
+            <h3 translate>Splash URL</h3>
             <p>http://app.my-wifi.co</p>
           </div>
         </md-list-item>
         <md-list-item class="md-2-line">
           <div class="md-list-item-text">
-            <h3>Walled Gardens</h3>
-            <p><ct-docs name="walled-gardens">View required URLs</ct-docs></p>
+            <h3 translate>Walled Gardens</h3>
+            <p>
+              <ct-docs name="walled-gardens">
+                <translate>
+                  View required URLs
+                </translate>
+              </ct-docs>
+            </p>
           </div>
         </md-list-item>
       </md-card-content>
@@ -146,12 +158,20 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">New Device</span>
+          <span class="md-headline" translate>New Device</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <h4>Please connect your device to an Internet connection. The device hasn't initialised.</h4>
-        <p><ct-docs name='getting-started'><md-button class="md-raised" aria-label="getting started">DOCUMENTATION</md-button></ct-docs></p>
+        <h4 translate>Please connect your device to an Internet connection. The device hasn't initialised.</h4>
+        <p>
+          <ct-docs name='getting-started'>
+            <md-button class="md-raised" aria-label="{{ 'getting started' | translate }}">
+              <translate>
+                DOCUMENTATION
+              </translate>
+            </md-button>
+          </ct-docs>
+        </p>
       </md-card-content>
     </md-card>
   </div>
@@ -169,25 +189,19 @@
         <md-list>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Status</h3>
+              <h3 translate>Status</h3>
               <p>
                 {{ box.state | deviceStatus }}
-                <span ng-if="!box.connected && box.state == 'online'">
-                  <md-icon>info_outline</md-icon>
-                  <md-tooltip>
-                    Device out of sync.
-                  </md-tooltip>
-                </span>
               </p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Last Seen</h3>
+              <h3 translate>Last Seen</h3>
               <p ng-if="box.last_heartbeat">
                 <span am-time-ago="box.last_heartbeat" am-preprocess="unix"></span>
               </p>
-              <p ng-if="!box.last_heartbeat">
+              <p ng-if="!box.last_heartbeat" translate>
                 Never
               </p>
             </div>
@@ -200,39 +214,39 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Network Details</span>
+          <span class="md-headline" translate>Network Details</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <md-list>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>WAN IP</h3>
-              <p>{{ box.wan_ip || 'No details' }}</p>
+              <h3 translate>WAN IP</h3>
+              <p>{{ box.wan_ip | emptyFilter }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Public IP</h3>
-              <p>{{ box.public_ip || "No public IP"}}</p>
+              <h3 translate>Public IP</h3>
+              <p>{{ box.public_ip | emptyFilter }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Mac Address</h3>
+              <h3 translate>Mac Address</h3>
               <p>{{ ::box.calledstationid }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Uptime</h3>
+              <h3 translate>Uptime</h3>
               <p ng-if="box.uptime_seconds">
                 {{ box.uptime_seconds | amDurationFormat : 'second' }}
                 <md-tooltip>
                   {{ box.uptime }}
                 </md-tooltip>
               </p>
-              <md-button ng-click="toggle('splash')" aria-controls="splash" class="md-secondary md-icon-button" aria-label="call">
+              <md-button ng-click="toggle('splash')" aria-controls="splash" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                 <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('splash') ? "up" : "down" }}</md-icon>
               </md-button>
               <p ng-if="!box.uptime_seconds">{{ box.uptime | filterUptime }}</p>
@@ -240,36 +254,40 @@
           </md-list-item>
 
           <span ng-if="isOpen('splash')" id="splash" class="menu-toggle-list">
-            
+
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3>Environment</h3>
+                <h3 translate>Environment</h3>
                 <p>{{ ::box.development_mode }}</p>
               </div>
             </md-list-item>
 
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3>
+                <h3 translate>
                   Firmware Version
                   <md-icon ng-if="::box.next_firmware">info_outline</md-icon>
                 </h3>
                 <p>
                   {{ ::box.firmware_version }}
                 </p>
-                <md-tooltip ng-if="::box.next_firmware">A firmware upgrade is available.</md-tooltip>
+                <md-tooltip ng-if="::box.next_firmware">
+                  <translate>
+                    A firmware upgrade is available.
+                  </translate>
+                </md-tooltip>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3>Created</h3>
+                <h3 translate>Created</h3>
                 <p>{{ box.created_at | humanTime }}</p>
               </div>
             </md-list-item>
 
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3>SSH Password</h3>
+                <h3 translate>SSH Password</h3>
                 <p>
                   <span>{{ ::box.ssh_passwd }}</span>
                 </p>
@@ -278,9 +296,18 @@
 
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3>Serial Number</h3>
+                <h3 translate>Serial Number</h3>
                 <p>
                   <span style="word-break: break-all;">{{ ::box.serial_number }}</span>
+                </p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Network Location</h3>
+                <p>
+                  <span>{{ ::box.network_location }} ({{ ::box.lucky_dip }})</span>
                 </p>
               </div>
             </md-list-item>
