@@ -13,13 +13,14 @@ describe("Connected Firmwares Unit Tests", function() {
     $httpBackend = $injector.get('$httpBackend');
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/firmwares')
-      .respond(200, [{}]);
+    .respond(200, [{}]);
 
-   }));
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+  }));
 
   afterEach(function() {
-   $httpBackend.verifyNoOutstandingExpectation();
-   $httpBackend.verifyNoOutstandingRequest();
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
   });
 
   it('should have sent a GET request to the firmware query API', function() {

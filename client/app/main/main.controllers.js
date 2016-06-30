@@ -183,6 +183,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
+      name: 'Support',
+      icon: 'get_app',
+      id: 'intercom'
+    });
+
+    vm.menuRight.push({
       name: 'Downloads',
       link: '/#/downloads',
       type: 'link',

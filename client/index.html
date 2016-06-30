@@ -123,6 +123,7 @@
                   <span translate>Downloads</span>
                 </md-button>
               </md-menu-item>
+
               <md-menu-item>
                 <md-button href="/#/apps" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">android</md-icon>
@@ -155,8 +156,18 @@
           <md-content layout-padding>
             <ul class="side-menu">
               <li ng-repeat="section in vm.menuRight" class="parent-list-item">
-                <menu-link section="section" ng-if="section.type === 'link'" side="right"></menu-link>
+                <menu-link section="section" ng-if="section.type === 'link'" side="right" id="section.id"></menu-link>
                 <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider>
+              </li>
+              <span ng-if="vm.menu.Intercom">
+                <li class="parent-list-item">
+                  <md-button>
+                    <md-icon>chat</md-icon>
+                    <translate>
+                      Support
+                    </translate>
+                  </md-button>
+                </span>
               </li>
               <li class="parent-list-item">
                 <md-button ng-click="logout()">
@@ -308,6 +319,8 @@
   <script src="components/events/events.controller.js"></script>
   <script src="components/events/events.directives.js"></script>
   <script src="components/events/events.services.js"></script>
+  <script src="components/firmwares/firmwares.directives.js"></script>
+  <script src="components/firmwares/firmwares.services.js"></script>
   <script src="components/forms/forms.directives.js"></script>
   <script src="components/forms/forms.services.js"></script>
   <script src="components/geocoder/geocoder.services.js"></script>

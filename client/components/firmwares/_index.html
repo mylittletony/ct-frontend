@@ -1,0 +1,48 @@
+<!-- {{ firmwares }} -->
+<div class="row">
+  <div class="small-12 columns">
+    <h1 translate>Firmwares</h1>
+    <div class="row">
+      <div class="small-12 medium-4 columns">
+        <input type="text" ng-model="query" autofocus placeholder="{{ 'What are you looking for?' | translate }}"></input>
+        <input type="checkbox" ng-model="active"></input>
+        <label>
+          <translate>Active</translate>
+        </label>
+        <input type="checkbox" ng-model="public"></input>
+        <label>
+          <translate>Public</translate>
+        </label>
+      </div>
+    </div>
+    <div ng-show="filtered.length">
+      <table class="table table-bordered hovering">
+        <tbody>
+          <tr>
+            <th class=""><a href="" ng-click='predicate = "unique_id"; reverse=!reverse' translate>ID</a></th>
+            <th class=""><a href="" ng-click='predicate = "description"; reverse=!reverse' translate>Description</a></th>
+            <th class=""><a href="" ng-click='predicate = "created_at"; reverse=!reverse' translate>Created</a></th>
+            <th class=""><a href="" ng-click='predicate = "active"; reverse=!reverse' translate>Active</a></th>
+            <th class=""><a href="" ng-click='predicate = "is_public"; reverse=!reverse' translate>Public</a></th>
+            <th class=""><a href="" ng-click='predicate = "machine_type"; reverse=!reverse' translate>Machine Type</a></th>
+          </tr>
+          <tr ng-repeat="firmware in filtered = (firmwares | filter:query | filter: { state: onlineFilter, active: active, is_public: public } | orderBy:predicate:reverse)">
+            <td>{{firmware.unique_id}}</td>
+            <td>{{firmware.description}}</td>
+            <td>{{firmware.created_at | humanTime }}</td>
+            <td>{{firmware.active }}</td>
+            <td>{{firmware.is_public }}</td>
+            <td>{{firmware.machine_type }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <span ng-show="_links.total_pages > 1" class="left"> -->
+      <!--   <pagination ng-click="updatePage()" total-items="_links.total_entries" page="_links.current_page" max-size="5" class="pagination-sm" boundary-links="false" rotate="false" num-pages="_links.total_pages" items-per-page="25"></pagination> -->
+      <!-- </span> -->
+    </div>
+    <div ng-hide="filtered.length">
+      <hr>
+      <p translate>Nothing to be seen here, move along please</a>
+    </div>
+  </div>
+</div>
