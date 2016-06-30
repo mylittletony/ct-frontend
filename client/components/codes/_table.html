@@ -42,7 +42,7 @@
         </td>
         <td hide show-gt-xs md-cell>
           {{::((session.download + session.upload)| humanData)}}
-          <md-tooltip hide-gt-md translate>Inbound: {{ ::session.download | humanData }}. Outbound: {{ ::session.upload | humanData }}</md-tooltip>
+          <md-tooltip hide-gt-md><translate>Inbound: {{ ::session.download | humanData }}. Outbound: {{ ::session.upload | humanData }}</translate></md-tooltip>
         </td>
         <td hide show-gt-md md-cell>{{ ::(session.manufacturer | truncate: 20) }}</td>
         <td hide show-gt-sm md-cell>
