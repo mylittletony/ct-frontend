@@ -2,18 +2,15 @@ machine:
   timezone:
     'Europe/London'
   node:
-    version: 0.12
+    version: 4.0.0
 
 dependencies:
   pre:
     - gem install sass
     - npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
     - bower install --save
-    - npm install grunt-contrib-sass --save
-    - npm install urijs --save
-    - npm install grunt-msg-init-merge --save
-    - npm install grunt-potomo --save
-    - npm install grunt-angular-gettext --save
+    - npm install
+    - npm install grunt-contrib-sass urijs grunt-autoprefixer --save
     - curl https://js.stripe.com/v2/ -o client/bower_components/angular-payments/stripe.js
 
 test:
@@ -22,6 +19,6 @@ test:
 
 deployment:
   production:
-    branch: master
+    branch: [master, beta, staging]
     commands:
       - chmod +x ./circle/deploy.sh && ./circle/deploy.sh

@@ -29,7 +29,7 @@
               <label>
                 <translate>Password</translate>
               </label>
-              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ \@\!\£\$\%\^\&\*\(\)]*$/" required>
+              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
               <div ng-messages="myForm.password.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="minlength" translate>Min 8 characters</div>

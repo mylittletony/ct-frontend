@@ -56,7 +56,7 @@
               <label>
                 <translate>Password</translate>
               </label>
-              <input type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ \@\!\£\$\%\^\&\*\(\)]*$/" required>
+              <input type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
               <div ng-messages="myForm.password.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="minlength" translate>Min 8 characters</div>

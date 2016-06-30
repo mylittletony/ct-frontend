@@ -34,7 +34,7 @@
                 <label>
                   <translate>Location Name</translate>
                 </label>
-                <input md-autofocus ng-model="location.location_name" name="location_name" placeholder="{{ 'Enter a name for the location' | translate }}" type="text" ng-minlength="5" md-maxlength='100' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ ]*$/" required>
+                <input md-autofocus ng-model="location.location_name" name="location_name" placeholder="{{ 'Enter a name for the location' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
                 <div ng-messages="myForm.location_name.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 100 characters</div>
                   <div ng-message="min" translate>Must be greater than 5 characters</div>
@@ -45,7 +45,7 @@
                 <label>
                   <translate>Location Address</translate>
                 </label>
-                <input ng-model="location.location_address" name="location_address" placeholder="{{ 'Enter your address' | translate }}" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
+                <input ng-model="location.location_address" name="location_address" placeholder="{{ 'Enter your address' | translate }}" type="text" ng-minlength="5" md-maxlength='200' required>
                 <div ng-messages="myForm.location_address.$error">
                   <div ng-message="max" translate>Must be less than 200 characters</div>
                   <div ng-message="min" translate>Must be greater than 5 characters</div>
@@ -56,7 +56,7 @@
                 <label>
                   <translate>City / Town</translate>
                 </label>
-                <input ng-model="location.town" name="location_town" placeholder="{{ 'Location City' | translate }}" type="text" ng-minlength="5" md-maxlength='200' ng-pattern="/^[a-zA-Z0-9\-\'\-\_\,\' ]*$/" required>
+                <input ng-model="location.town" name="location_town" placeholder="{{ 'Location City' | translate }}" type="text" ng-minlength="5" md-maxlength='200' required>
                 <div ng-messages="myForm.location_town.$error">
                   <div ng-message="max" translate>Must be less than 200 characters</div>
                   <div ng-message="min" translate>Must be greater than 5 characters</div>

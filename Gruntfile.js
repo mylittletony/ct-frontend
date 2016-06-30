@@ -57,10 +57,10 @@ module.exports = function (grunt) {
         constants: {
           API_END_POINT: 'http://mywifi.dev:8080/api/v1',
           API_URL: 'http://mywifi.dev:8080',
-          STRIPE_KEY: '',
+          STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
           AUTH_URL: 'http://id.mywifi.dev:8080',
-          SLACK_TOKEN: '',
-          CHIMP_TOKEN: ''
+          SLACK_TOKEN: '3540010629.12007999527',
+          CHIMP_TOKEN: '531543883634'
         }
       },
       development: {
@@ -71,11 +71,11 @@ module.exports = function (grunt) {
           API_END_POINT: 'http://mywifi.dev:8080/api/v1',
           API_URL: 'http://mywifi.dev:8080',
           AUTH_URL: 'http://id.mywifi.dev:8080',
-          STRIPE_KEY: '',
-          SLACK_TOKEN: '',
-          CHIMP_TOKEN: '',
-          INTERCOM: '',
-          PUSHER: ''
+          STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
+          SLACK_TOKEN: '3540010629.12007999527',
+          CHIMP_TOKEN: '531543883634',
+          INTERCOM: 'z0kiwroa',
+          PUSHER: 'f5c774e098156e548079'
         }
       },
       production: {
@@ -85,12 +85,12 @@ module.exports = function (grunt) {
         constants: {
           API_END_POINT: 'https://api.ctapp.io/api/v1',
           API_URL: 'https://api.ctapp.io',
-          STRIPE_KEY: '',
+          STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
           AUTH_URL: 'https://id.ctapp.io',
-          SLACK_TOKEN: '',
-          CHIMP_TOKEN: '',
-          PUSHER: '',
-          INTERCOM: ''
+          SLACK_TOKEN: '3540010629.11828901815',
+          CHIMP_TOKEN: '279197455989',
+          PUSHER: 'f5c774e098156e548079',
+          INTERCOM: 'zklfhs87'
         }
       }
     },
@@ -186,7 +186,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
     // Required for the translations //
     nggettext_extract: {
       pot: {
@@ -214,7 +214,7 @@ module.exports = function (grunt) {
                   expand: true,
                   dot: true,
                   cwd: "po",
-                  dest: "client/app/translations",
+                  dest: '<%= yeoman.dist %>/server/translations',
                   src: ["*.po"],
                   ext: ".json"
               }
@@ -236,6 +236,7 @@ module.exports = function (grunt) {
         ]
       }
     },
+
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
@@ -519,10 +520,10 @@ module.exports = function (grunt) {
           force: true
         }
       },
-      heroku: {
+      master: {
         options: {
-          remote: 'git@heroku.com:sheltered-bayou-9283.git',
-          // remote: 'git@heroku.com:ct-app-development.git',
+          remote: 'git@heroku.com:lit-thicket-88494.git',
+          // remote: 'git@heroku.com:sheltered-bayou-9283.git',
           branch: 'master'
         }
       },
@@ -707,7 +708,6 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        // 'injector:sass',
         'wiredep',
         'autoprefixer',
         'concurrent:debug'
@@ -719,7 +719,6 @@ module.exports = function (grunt) {
       'ngconstant:development',
       'env:all',
       'concurrent:server',
-      // 'injector:sass',
       'wiredep',
       'autoprefixer',
       'express:dev',
@@ -729,18 +728,39 @@ module.exports = function (grunt) {
     ]);
   });
 
+  // grunt.registerTask('test', ['karma:travis']);
+
+  grunt.registerTask('build', [
+    'clean:dist',
+    'ngconstant:production',
+    'concurrent:dist',
+    'wiredep',
+    'useminPrepare',
+    'autoprefixer',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'all-po',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'rev',
+    'usemin'
+  ]);
+
   grunt.registerTask('po/POTFILES',
                    'Collect files containing translatable strings',
                    function() {
     grunt.log.debug('Collecting files with translatable messages');
-    
+
     var output = '',
         found = grunt.file.expand(potfiles);
-    
+
     found.forEach(function(filename) {
       output += '../' + filename + '\n';
     });
-    
+
       try {
           grunt.file.write('po/POTFILES', output, {encoding: 'utf-8'});
       } catch(e) {
@@ -748,7 +768,7 @@ module.exports = function (grunt) {
           grunt.log.error(e.message);
       }
   });
-    
+
   grunt.registerTask('pot', [
     'nggettext_extract'
   ]);
@@ -772,6 +792,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-msg-init-merge');
   grunt.loadNpmTasks('grunt-potomo');
   grunt.loadNpmTasks('grunt-angular-gettext');
+
   grunt.registerTask('server', function () {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
@@ -817,27 +838,6 @@ module.exports = function (grunt) {
       'test:client'
     ]);
   });
-
-  // grunt.registerTask('test', ['karma:travis']);
-
-  grunt.registerTask('build', [
-    'clean:dist',
-    'ngconstant:production',
-    'concurrent:dist',
-    // 'injector:sass',
-    'wiredep',
-    'useminPrepare',
-    'autoprefixer',
-    'ngtemplates',
-    'concat',
-    'ngAnnotate',
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'rev',
-    'usemin'
-  ]);
 
   // grunt.loadNpmTasks('grunt-sass');
   // grunt.loadNpmTasks('grunt-contrib-watch');
