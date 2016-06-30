@@ -11,7 +11,7 @@
       <div layout="row" layout-wrap>
 
         <md-input-container flex="100" flex-gt-sm="100">
-          <label translate>Billing Name</label>
+          <label translate>Company Name</label>
           <input type="text" name="billing_name" ng-model='user.billing_name' placeholder="{{ 'Your company name' | translate }}" md-maxlength="255">
           <div ng-messages="myForm.billing_name.$error">
             <div ng-message="md-maxlength" translate>Max 255 characters</div>
@@ -19,8 +19,8 @@
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="50">
-          <label translate>Billing Name</label>
-          <input type="text" name="billing_city" ng-model='user.billing_city' placeholder="{{ 'Billing City' | translate}}"  md-maxlength="255">
+          <label translate>Billing City</label>
+          <input type="text" name="billing_city" ng-model='user.billing_city' placeholder="{{ 'Your billing city' | translate}}"  md-maxlength="255">
           <div ng-messages="myForm.billing_city.$error">
             <div ng-message="md-maxlength" translate>Max 255 characters</div>
           </div>
@@ -28,7 +28,7 @@
 
         <md-input-container flex="100" flex-gt-sm="50">
           <label translate>Billing Postcode</label>
-          <input type="text" name="billing_postcode" ng-model='user.billing_postcode' placeholder="{{ 'Billing Postcode' | translate }}" md-maxlength="10">
+          <input type="text" name="billing_postcode" ng-model='user.billing_postcode' placeholder="{{ 'Your billing postcode' | translate }}" md-maxlength="10">
           <div ng-messages="myForm.billing_postcode.$error">
             <div ng-message="md-maxlength" translate>Max 10 characters</div>
           </div>
@@ -36,7 +36,7 @@
 
         <md-input-container flex="100" flex-gt-sm="100">
           <label translate>Additional Billing Emails</label>
-          <textarea type="text" name="billing_email" ng-model='user.billing_email' placeholder="{{ 'Additional Billing Emails' | translate }}"></textarea>
+          <textarea type="text" name="billing_email" ng-model='user.billing_email' placeholder="{{ 'Add additional billing email addresses' | translate }}"></textarea>
         </md-input-container>
 
         <div flex="100">

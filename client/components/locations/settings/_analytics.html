@@ -20,7 +20,9 @@
           <form name="myForm" submit="update(myForm)">
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label translate>Meraki Validator</label>
+                <label>
+                  <translate>Meraki Validator</translate>
+                </label>
                 <input name="meraki_validator" ng-model="location.meraki_validator" ng-blur="showValidator = !showValidator" ng-focus="showValidator = !showValidator" type="{{ showValidator ? 'text' : 'password' }}" placeholder="{{ 'Your Meraki Validator' | translate }}" ng-minlength="40" md-maxlength="255"></input>
                 <div ng-messages="myForm.meraki_validator.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 255</div>
@@ -28,7 +30,9 @@
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="100" ng-show="location.meraki_secret">
-                <label translate>Meraki Secret</label>
+                <label>
+                  <translate>Meraki Secret</translate>
+                </label>
                 <input name="meraki_validator" ng-model="location.meraki_secret" type="text" ng-disabled="true"></input>
               </md-input-container>
             </div>

@@ -11,14 +11,18 @@
           <p translate>Invite a user to this location.</p>
         </div>
         <md-input-container flex="100">
-          <label translate>Username</label>
+          <label>
+            <translate>Username</translate>
+          </label>
           <input ng-model="user.name" name="name" placeholder="{{'First and Last Name' | translate }}" type="text" required>
           <div ng-messages="myForm.name.$error">
             <div ng-message="required" translate>You must enter a username</div>
           </div>
         </md-input-container>
         <md-input-container flex="100">
-          <label translate>Email</label>
+          <label>
+            <translate>Email</translate>
+          </label>
           <input ng-model="user.email" name="email" placeholder="{{ 'User Email' | translate }}" type="email" required>
           <div ng-messages="myForm.email.$error">
             <div ng-message="required" translate>You must enter an email</div>

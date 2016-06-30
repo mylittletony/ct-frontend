@@ -7,7 +7,9 @@
   </div>
   <div ng-if="locations" layout="column" layout-gt-sm="row">
     <md-input-container flex="100" flex-gt-sm="50">
-      <label translate>Transfer device to</label>
+      <label>
+        <translate>Transfer device to</translate>
+      </label>
       <md-select ng-model="box.transfer_to">
         <md-option ng-repeat="location in locations" value="{{location.id}}">
           {{ location.location_name }}
