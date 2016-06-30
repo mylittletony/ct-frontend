@@ -10,7 +10,7 @@ dependencies:
     - npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
     - bower install --save
     - npm install
-    - npm install grunt-contrib-sass urijs grunt-autoprefixer svgmin --save
+    - npm install grunt-contrib-sass urijs grunt-autoprefixer grunt-svgmin --save
     - curl https://js.stripe.com/v2/ -o client/bower_components/angular-payments/stripe.js
 
 test:
