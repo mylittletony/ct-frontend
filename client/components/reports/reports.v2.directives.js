@@ -10,7 +10,7 @@ app.directive('reportsHeader', ['Report', '$routeParams', '$location', 'Location
 
   var link = function( scope, element, attrs, controller ) {
 
-    scope.period = $routeParams.period || gettextCatalog.getString('7d');
+    scope.period = $routeParams.period || '7d';
 
     var cid = $cookies.get('_ctlid');
     if (cid) {

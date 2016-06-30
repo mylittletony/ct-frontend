@@ -36,7 +36,7 @@ app.filter('filterUptime', ['gettextCatalog', function(gettextCatalog) {
   };
 }]);
 
-app.filter('ssidFilter', ['gettextCatalog', function(gett) {
+app.filter('ssidFilter', ['gettextCatalog', function(gettextCatalog) {
   return function(ssids) {
     if (ssids === undefined || ssids === null || ssids === '') {
       return gettextCatalog.getString('N/A');
