@@ -304,6 +304,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             plan_name: Auth.currentUser().plan_name,
             paid_plan: Auth.currentUser().paid_plan,
             locs: Auth.currentUser().locs,
+            version: '2'
         };
         settings.widget = {
           activator: '#intercom'
