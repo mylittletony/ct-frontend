@@ -5,6 +5,7 @@ public
 client/bower_components
 client/scripts/config.js
 dist/
+/server/config/local.constants.js
 /server/config/local.env.js
 /server/config/local.env.sample.js
 Gruntfile.js
