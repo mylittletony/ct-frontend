@@ -20,6 +20,7 @@ describe("Code Unit Tests", function() {
       .respond(200, {name: name, email: email, success: true});
 
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
    }));
 
   afterEach(function() {

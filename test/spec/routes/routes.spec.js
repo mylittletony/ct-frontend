@@ -30,9 +30,6 @@ describe('Routing', function () {
       expect($route.routes['/downloads'].templateUrl).
                   toEqual('components/downloads/index.html');
 
-      expect($route.routes['/firmwares'].templateUrl).
-                  toEqual('components/firmwares/index.html');
-
       expect($route.routes['/locations/map'].templateUrl).
                   toEqual('components/locations/map/index.html');
 

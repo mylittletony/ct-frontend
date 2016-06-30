@@ -15,25 +15,27 @@ describe("Registration Unit Tests", function() {
     $httpBackend = $injector.get('$httpBackend');
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/registrations')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/holding_accounts')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/holding_accounts/123')
-      .respond(200, {id: 123});
+    .respond(200, {id: 123});
 
     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/holding_accounts/123')
-      .respond(200, {id: 123});
+    .respond(200, {id: 123});
 
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/holding_accounts/123')
-      .respond(200, {id: 123});
+    .respond(200, {id: 123});
 
-   }));
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
+  }));
 
   afterEach(function() {
-   $httpBackend.verifyNoOutstandingExpectation();
-   $httpBackend.verifyNoOutstandingRequest();
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
   });
 
   it('should have sent a post req to create a user', function() {

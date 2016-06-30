@@ -24,6 +24,7 @@ describe("Payload Unit Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/payloads?save=true')
       .respond(200, {});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {

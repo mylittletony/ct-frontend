@@ -17,6 +17,8 @@ describe("Events Unit Tests", function() {
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/events/123')
       .respond(200, {id: 123});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
    }));
 
   afterEach(function() {

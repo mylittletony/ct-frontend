@@ -13,7 +13,7 @@ describe("RESTful Tests", function() {
     $httpBackend = $injector.get('$httpBackend');
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/invoices')
-      .respond(200, [{}]);
+      .respond(200, {});
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/invoices/123')
       .respond(200, {});
@@ -24,6 +24,7 @@ describe("RESTful Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/invoices/123/refund')
       .respond(200, {});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {

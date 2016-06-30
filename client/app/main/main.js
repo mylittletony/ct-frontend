@@ -251,10 +251,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/events/show.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/firmwares', {
-      templateUrl: 'components/firmwares/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
     when('/locations', {
       templateUrl: 'components/locations/index/list.html',
       resolve: { loginRequired: loginRequired }

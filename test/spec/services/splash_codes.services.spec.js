@@ -27,6 +27,7 @@ describe("SplashCode Unit Tests", function() {
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/locations/123/splash_codes/546')
       .respond(200, {});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {
