@@ -72,7 +72,7 @@
           </md-radio-group>
           <md-switch ng-disabled="network.vlan_id || !network.dhcp_enabled" class="md-accent" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;">
             <span  ng-if="network.captive_portal_enabled == true" translate>Splash Page Enabled</span>
-             <span  ng-if="network.captive_portal_enabled != true" translate>Splash Page Disabled</span>
+            <span  ng-if="network.captive_portal_enabled != true" translate>Splash Page Disabled</span>
           </md-switch>
           <small ng-show="network.dhcp_enabled == false"><b translate>Turn on DHCP server to enable the splash page</b></small>
           <small ng-show="network.vlan_id"><b translate>Remove the VLAN ID to enable the splash page</b></small>
@@ -317,28 +317,28 @@
                 <span ng-hide="network.ssid_disabled" translate>SSID Enabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-disabled="network.ssid_disabled" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
-                <span ng-if="network.ssid_hidden == true" translate>SSID Hidden</span>
-                <span ng-if="network.ssid_hidden == false" translate>SSID Visible</span>
+                <span  ng-if="network.ssid_hidden" translate>SSID Hidden</span>
+                <span  ng-if="!network.ssid_hidden" translate>SSID Visible</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate" aria-label="{{ 'Isolate SSID' | translate }} ">
-                <span ng-if="network.isolate == true" translate>Client Isolation Enabled</span>
-                <span ng-if="network.isolate != true" translate>Client Isolation Disabled</span>
+                <span  ng-show="network.isolate" translate>Client Isolation Enabled</span>
+                <span  ng-hide="network.isolate" translate>Client Isolation Disabled</span>
               </md-switch>
               <md-switch ng-disabled="network.vlan_id > 0 || network.network_radio_mode === 'sta'" class="md-accent" ng-model="network.make_part_of_lan" aria-label="{{ 'Make Part of LAN' | translate }}">
-                <span ng-if="network.make_part_of_lan == true" translate>Make Part of Lan Enabled</span>
-                <span ng-if="network.make_part_of_lan == false" translate>Make Part of Lan Disabled</span>
+                <span  ng-if="network.make_part_of_lan" translate>Make Part of Lan Enabled</span>
+                <span  ng-if="!network.make_part_of_lan" translate>Make Part of Lan Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.bridge_to_switch_ports" aria-label="{{ 'Bridge To Switch' | translate }}">
-                <span ng-if="network.bridge_to_switch_ports == true" translate>Bridge with Switch Enabled</span>
-                <span ng-if="network.bridge_to_switch_ports == false" translate>Bridge with Switch Disabled</span>
+                <span  ng-if="network.bridge_to_switch_ports" translate> Bridge with Switch Enabled</span>
+                <span  ng-if="!network.bridge_to_switch_ports" translate> Bridge with Switch Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate_traffic" aria-label="{{ 'Isolate Traffic' | translate }}">
-                <span ng-if="network.isolate_traffic == true" translate>Traffic Isolation Enabled</span>
-                <span ng-if="network.isolate_traffic == false" translate>Traffic Isolation Disabled</span>
+                <span  ng-if="network.isolate_traffic" translate>Traffic Isolation Enabled</span>
+                <span  ng-if="!network.isolate_traffic" translate>Traffic Isolation Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate_icmp" aria-label="{{ 'Isolate ICMP' | translate }}">
-                <span ng-if="network.isolate_icmp == true" translate>Outbound ICMP Enabled</span>
-                <span ng-if="network.isolate_icmp == false" translate>Outbound ICMP Disabled</span>
+                <span  ng-if="network.isolate_icmp" translate> Outbound ICMP Enabled</span>
+                <span  ng-if="!network.isolate_icmp" translate> Outbound ICMP Disabled</span>
               </md-switch>
             </div>
             <div flex></div>
@@ -356,8 +356,8 @@
           </div>
           <small ng-if="network.vlan_id > 0 || network.network_radio_mode === 'sta'"><br>
             <b>
-              <span ng-if="network.vlan_id == true" translate>'Make Part of LAN' disabled because you have an active VLAN.</span>
-              <span ng-if="network.vlan_id == false" translate>'Make Part of LAN' disabled because repeater mode is activated.</span>
+              <span ng-if="network.vlan_id" translate>'Make Part of LAN' disabled because you have an active VLAN.</span>
+              <span ng-if="!network.vlan_id" translate>'Make Part of LAN' disabled because repeater mode is activated.</span>
             </b></small>
         </md-card-content>
       </md-card>
