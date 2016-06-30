@@ -226,10 +226,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/maintenance', {
-      templateUrl: 'components/upgrades/index.html',
-      controller: 'UpgradesController'
-    }).
     when('/boxes', {
       redirectTo: '/alerts'
     }).
@@ -269,7 +265,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/locations/new', {
       templateUrl: 'components/locations/new/index.html',
-      // controller: 'LocationsCtrlNew',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
@@ -282,24 +277,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/locations/show/map.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
-      // reloadOnSearch: false
-    }).
-    when('/locations/:id/access', {
-      templateUrl: 'components/locations/access/index.html',
-      controller: 'LocationsCtrlAccess',
-      resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/clients', {
       templateUrl: 'components/locations/clients/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
-      // reloadOnSearch: false,
     }).
-    // when('/locations/:location_id/boxes/firmware', {
-    //   templateUrl: 'components/boxes/firmware/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false,
-    // }).
     when('/locations/:id/clients/:client_id', {
       templateUrl: 'components/locations/clients/show.html',
       resolve: { loginRequired: loginRequired },
@@ -321,11 +304,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    // when('/locations/:id/clients/:client_id/orders', {
-    //   templateUrl: 'components/locations/clients/orders.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
     when('/locations/:id/clients/:client_id/orders/:order_id', {
       templateUrl: 'components/locations/clients/show_order.html',
       resolve: { loginRequired: loginRequired },
@@ -371,16 +349,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/locations/:id/location_events', {
-    //   templateUrl: 'components/locations/events/index.html',
-    //   controller: 'LocationsCtrlEvents',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/integrations', {
-    //   templateUrl: 'components/locations/integrations/index.html',
-    //   controller: 'LocationsCtrlIntegrations',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/locations/:id/layout', {
       templateUrl: 'components/locations/layout/index.html',
       controller: 'LocationsCtrlLayout',
@@ -503,7 +471,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/downloads', {
       templateUrl: 'components/downloads/index.html',
       resolve: { loginRequired: loginRequired },
-      // controller: 'LocationsCtrl as lc',
     }).
     when('/locations/:id/devices', {
       redirectTo: '/locations/:id'
@@ -564,21 +531,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       reloadOnSearch: false,
       resolve: { loginRequired: loginRequired }
     }).
-    when('/shop', {
-      templateUrl: 'components/shop/index.html',
-    }).
-    when('/shop/cart', {
-      templateUrl: 'components/shop/cart.html',
-    }).
-    when('/shop/finalised', {
-      templateUrl: 'components/shop/finalised.html',
-    }).
-    when('/orders', {
-      templateUrl: 'components/product_orders/index.html',
-    }).
-    when('/orders/:id', {
-      templateUrl: 'components/product_orders/show.html',
-    }).
     when('/users', {
       templateUrl: 'components/users/index/index.html',
       resolve: { loginRequired: loginRequired }
@@ -620,7 +572,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/users/:id/invoices/:invoice_id', {
       templateUrl: 'components/users/invoices/show.html',
-      // controller: 'InvoicesShowController',
       resolve: { loginRequired: loginRequired }
     }).
     when('/users/:id/invoices/:invoice_id/details', {
@@ -665,11 +616,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/users/:id/usage', {
       templateUrl: 'components/users/usage/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/orders', {
-      templateUrl: 'components/users/orders/index.html',
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).

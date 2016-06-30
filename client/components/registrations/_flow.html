@@ -23,7 +23,7 @@
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
                     <label for="company_name" translate>Network Name</label>
-                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" md-maxlength=25 md-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" md-autofocus required>
+                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" md-maxlength=25 md-minlength=5 md-autofocus required>
                     <div ng-messages="myForm.location_name.$error">
                       <div ng-message="required" translate>A network name is required.</div>
                       <div ng-message="pattern" translate>Numbers and letters only please.</div>
@@ -77,7 +77,7 @@
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
                     <label for="address" translate>Username</label>
-                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s]*$/" md-autofocus required>
+                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 md-autofocus required>
                     <div ng-messages="myForm.url.$error">
                       <div ng-message="required" translate>A username is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
@@ -96,7 +96,7 @@
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
                     <label for="network_name" translate>Network Name</label>
-                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s-]*$/" required>
+                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" ng-maxlength=25 ng-minlength=5 required>
                   </md-input-container>
 
                   <md-input-container layout="row" flex class="md-block">
@@ -116,7 +116,7 @@
 
                   <md-input-container layout="row" flex class="md-block">
                     <label for="address" translate>Username</label>
-                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\'\s]*$/" required>
+                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" ng-maxlength=25 ng-minlength=5 required>
                   </md-input-container>
 
                 </div>

@@ -17,7 +17,7 @@
           <span ng-hide="loading" layout="column">
             <md-input-container>
               <label>SSID</label>
-              <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" ng-pattern="/^[a-zA-ZäöåÄÖÅ0-9\-\'\-\_\ \.]*$/" required>
+              <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" required>
               <div ng-messages="myForm.ssid.$error">
                 <div ng-message="md-maxlength">Max 32 characters</div>
                 <div ng-message="minlength">Min 5 characters</div>
@@ -27,7 +27,7 @@
             </md-input-container>
             <md-input-container ng-if="network.access_type == 'password'">
               <label>Password</label>
-              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="/^[a-zA-Z0-9\-\'\-\_\ \@\!\£\$\%\^\&\*\(\)]*$/" required>
+              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
               <div ng-messages="myForm.password.$error">
                 <div ng-message="md-maxlength">Max 32 characters</div>
                 <div ng-message="minlength">Min 8 characters</div>

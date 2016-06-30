@@ -12,37 +12,36 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'client/bower_components/jquery/dist/jquery.js',
-      'client/bower_components/highcharts/highcharts.js',
-      'client/bower_components/mapbox.js/mapbox.js',
       'client/bower_components/angular-payments/stripe.js',
       'client/bower_components/angular/angular.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-resource/angular-resource.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
+      'client/bower_components/angular-messages/angular-messages.js',
+      'client/bower_components/angular-material/angular-material.js',
+      'client/bower_components/angular-aria/angular-aria.js',
+      'client/bower_components/angular-material-data-table/dist/md-data-table.js',
+      'client/bower_components/angular-minicolors/angular-minicolors.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
       'client/bower_components/angular-animate/angular-animate.js',
       'client/bower_components/angular-route/angular-route.js',
+      'client/bower_components/angular-gettext/dist/angular-gettext.js',
       'client/bower_components/angular-payments/lib/angular-payments.js',
       'client/bower_components/pusher-angular/pusher.min.js',
       'client/bower_components/pusher-angular/lib/pusher-angular.js',
       'client/bower_components/ngstorage/ngStorage.js',
       'client/bower_components/foundation/css/foundation.css',
       'client/bower_components/angular-foundation/template/**/*.html',
-      'client/scripts/mm-foundation-custom-0.6.0-SNAPSHOT.min.js',
       'client/bower_components/ngStorage/ngStorage.js',
       'client/bower_components/jquery-minicolors/jquery.minicolors.js',
       'client/bower_components/angular-touch/angular-touch.js',
       'client/bower_components/filepicker-ct/filepicker.min.js',
       'client/bower_components/select2/select2.js',
       'client/bower_components/nouislider/jquery.nouislider.min.js',
-      'client/bower_components/angular-nouislider/src/nouislider.min.js',
       'client/bower_components/moment/moment.js',
       'client/bower_components/urijs/src/URI.js',
       'client/bower_components/moment-timezone/moment-timezone.js',
       'client/bower_components/angular-moment/angular-moment.min.js',
-      'client/bower_components/angular-gridster/dist/angular-gridster.min.js',
-      'client/bower_components/ngDraggable/ngDraggable.js',
-      'client/bower_components/angular-ui-select/dist/select.js',
       'client/scripts/config.js',
       'client/app/app.js',
       'client/app/**/*.js',
@@ -88,7 +87,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS2'],
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: true

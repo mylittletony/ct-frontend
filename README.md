@@ -4,7 +4,7 @@ Cucumber Tony is an orchestration tool for WiFi Devices. It's like mission contr
 
 The core of the service is the Cucumber RESTFul API. This portal is currently our beta portal - soon to be production. It communicates with the API to provide a 'nice' interface for controlling your devices.
 
-It's proof that anything is possible. Just use your imagination. 
+It's proof that anything is possible. Just use your imagination.
 
 ## Getting Started
 
@@ -42,7 +42,7 @@ The tests DO NOT RUN at the moment since we've moved massive sections out. These
 
 **Make sure you have updated the Gruntfile to include the api.ctapp.io end-points.**
 
-## Using with Heroku 
+## Using with Heroku
 
 If you want to deploy yourself with Heroku, you need to do a few things.
 
@@ -82,15 +82,19 @@ For now, use the code samples etc. to figure it out.
 
 TBC
 
-## Contributing 
+## Contributing
 
-### Issues 
+### Issues
 
 Search before posting. Describe your issue in detail. **Do not raise an issue if you have a problem with the API**. Front-end only please.
 
 ### Code
 
 There's now contributing guide available which guides you through how we roll.
+
+## Code Status
+
+[![CircleCI](https://circleci.com/gh/cucumber-tony/cucumber-frontend.svg?style=svg)](https://circleci.com/gh/cucumber-tony/cucumber-frontend)
 
 ## Copyright and License
 

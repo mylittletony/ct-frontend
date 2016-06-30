@@ -13,7 +13,7 @@
         <div flex layout="column">
           <md-input-container>
             <label translate>SSID</label>
-            <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" ng-pattern="/^[a-zA-ZäöåÄÖÅ0-9\-\'\-\_\ \.]*$/" required>
+            <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" required>
             <div ng-messages="myForm.ssid.$error">
               <div ng-message="md-maxlength" translate>Max 32 characters</div>
               <div ng-message="minlength" translate>Min 5 characters</div>
