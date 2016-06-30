@@ -268,7 +268,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
         scope.query.start = new Date($scope.startDate).getTime() / 1000;
         scope.query.end   = new Date($scope.endDate).getTime() / 1000;
         if (scope.query.start >= scope.query.end) {
-          $scope.error = gettextCatalog('The start date must be less than the end date');
+          $scope.error = gettextCatalog.getString('The start date must be less than the end date');
         } else {
           $mdDialog.cancel();
           scope.query.page = 1;
