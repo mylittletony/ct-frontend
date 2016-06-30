@@ -11,7 +11,9 @@
 
   <p><b translate>Please note, you will be billed for any SMS sent from your account.</b></p>
   <md-input-container>
-    <label translate>Outbound number</label>
+    <label>
+      <translate>Outbound number</translate>
+    </label>
     <md-select ng-model="trigger.attr_1">
       <md-option ng-repeat="num in twillio_numbers" value="{{num.phone_number}}">
         {{num.friendly_name}}
@@ -20,7 +22,9 @@
   </md-input-container>
 
   <md-input-container ng-if="trigger.attr_1">
-    <label translate>To number</label>
+    <label>
+      <translate>To number</translate>
+    </label>
     <input type="text" name="twillio-to" ng-model="trigger.attr_2" md-maxlength='100' placeholder="{{ 'To number' | translate }}" required></input>
     <div ng-messages="myForm.twillio_num.$error">
       <div ng-message="required" translate>Please enter a valid number</div>
@@ -29,7 +33,9 @@
   </md-input-container>
 
   <md-input-container>
-    <label translate>Message</label>
+    <label>
+      <translate>Message</translate>
+    </label>
     <textarea name="twillio_msg" md-maxlength="1000" ng-model="trigger.attr_3" placeholder="" rows=8 required></textarea>
     <div ng-messages="myForm.twillio_msg.$error">
       <div ng-message="required" translate>Please enter a message body</div>
@@ -37,4 +43,3 @@
     </div>
   </md-input-container>
 </div>
-

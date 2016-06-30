@@ -18,7 +18,9 @@
           </div>
           <div ng-show="locations" layout="column" layout-gt-sm="row">
             <md-input-container flex="100" flex-gt-sm="50">
-              <label translate>Transfer splash page to</label>
+              <label>
+                <translate>Transfer splash page to</translate>
+              </label>
               <md-select ng-model="obj.transfer_to">
                 <md-option ng-repeat="location in locations" value="{{location.unique_id}}">
                   {{ location.location_name }}

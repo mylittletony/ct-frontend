@@ -20,7 +20,9 @@
         <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex-gt-sm="50">
-                <label translate>Location Splash Limit</label>
+                <label>
+                  <translate>Location Splash Limit</translate>
+                </label>
                 <input ng-model="location.splash_limit" name="splash_limit" type="number" ng-min=0 ng-max=1000000>
                 <div ng-messages="myForm.splash_limit.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 1,000,000</div>

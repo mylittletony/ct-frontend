@@ -1,7 +1,7 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+      <md-icon md-font-icon="arrow_back">arrow_back</md-icon>
     </md-button>
     <p translate>Triggers</p>
     <md-menu ng-if="menu.length">
@@ -45,7 +45,7 @@
           </p>
 
           <p class="text-muted"><small translate>Created {{ trigger.created_at | humanTime }}</small></p>
-          
+
           <md-switch ng-model="trigger.active" aria-label="{{ 'Active' | translate }}" ng-change="active()" class="md-warn">
             <span ng-if="trigger.active" translate>Trigger Active</span>
             <span ng-if="!trigger.active" translate>Trigger Disabled</span>

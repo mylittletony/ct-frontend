@@ -23,7 +23,9 @@
           <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label translate>Send Offline Alert After (mins)</label>
+                <label>
+                  <translate>Send Offline Alert After (mins)</translate>
+                </label>
                 <input type="number" name="alert_interval" ng-model="location.alert_interval" placeholder="10" ng-min="1" ng-max='10080' required/>
                 <div ng-messages="myForm.alert_interval.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 10,080 minutes</div>
@@ -32,7 +34,9 @@
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label translate>Automatic Reboot Interval (mins)</label>
+                <label>
+                  <translate>Automatic Reboot Interval (mins)</translate>
+                </label>
                 <input type="number" name="connect_timeout" ng-model="location.connect_timeout" placeholder="10" ng-min="0" ng-max='255' required/>
                 <div ng-messages="myForm.connect_timeout.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 255 minutes</div>
@@ -41,7 +45,9 @@
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label translate>Radius NAS ID</label>
+                <label>
+                  <translate>Radius NAS ID</translate>
+                </label>
                 <input ng-model="location.radiusnasid" name="radiusnasid" type="text" md-maxlength="255" md-minlength="10" required>
                 <div ng-messages="myForm.radiusnasid.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 255 characters</div>
@@ -73,7 +79,9 @@
         <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label translate>vSZ Host</label>
+                <label>
+                  <translate>vSZ Host</translate>
+                </label>
                 <input ng-model="location.vsg_host" type="url" name="vsg_host" placeholder="{{ 'Hostname of your VSG' | translate }}" ng-required="location.vsg_admin_user || location.vsg_pass"></input>
                 <div ng-messages="myForm.vsg_host.$error" md-auto-hide="false">
                   <div ng-message="url" translate>Must be a valid URL</div>
@@ -81,7 +89,9 @@
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="100">
-                <label translate>Northbound API Password</label>
+                <label>
+                  <translate>Northbound API Password</translate>
+                </label>
                 <input name="vsg_pass" ng-model="location.vsg_pass" type="{{ showVsg ? 'text' : 'password' }}" ng-blur="showVsg = !showVsg" ng-focus="showVsg = !showVsg" placeholder="{{ 'Northbound API Password' | translate }}" ng-required="location.vsg_host"></input>
                 <div ng-messages="myForm.vsg_pass.$error" md-auto-hide="false">
                   <div ng-message="required" translate>You must enter a Northbound API password.</div>
@@ -89,14 +99,18 @@
               </md-input-container>
 
               <md-input-container flex="100" flex-gt-sm="50">
-                <label translate>vSZ Admin User</label>
+                <label>
+                  <translate>vSZ Admin User</translate>
+                </label>
                 <input ng-model="location.vsg_admin_user" type="text" name="vsg_admin_user" md-maxlength="255" placeholder="{{ 'vSZ Admin User' | translate }}"></input>
                 <div ng-messages="myForm.vsg_admin_user.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 255 characters</div>
                 </div>
               </md-input-container>
               <md-input-container flex="100" flex-gt-sm="50">
-                <label translate>vSZ Admin Password</label>
+                <label>
+                  <translate>vSZ Admin Password</translate>
+                </label>
                 <input ng-model="location.vsg_admin_pass" type="{{ adminPass ? 'text' : 'password' }}" ng-blur="adminPass = !adminPass" ng-focus="adminPass = !adminPass" name="vsg_admin_pass" placeholder="{{ 'vSZ Admin Password' | translate }}" ng-required="location.vsg_admin_user" mg-maxlength="255"></input>
                 <div ng-messages="myForm.vsg_admin_pass.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 255 characters</div>

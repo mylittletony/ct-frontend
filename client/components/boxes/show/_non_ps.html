@@ -4,7 +4,9 @@
     <h3 class="md-title" translate>Details</h3>
     <form name="myForm">
       <md-input-container class="md-block" flex-gt-sm="50" flex="100">
-        <label translate>MAC Address</label>
+        <label>
+          <translate>MAC Address</translate>
+        </label>
         <input ng-model="box.calledstationid" name="mac" ng-pattern="/^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/" required>
         <div ng-messages="myForm.mac.$error">
           <div ng-message="required" translate>This device must have a valid MAC address</div>
@@ -13,7 +15,9 @@
       </md-input-container>
 
       <md-input-container class="md-block" flex-gt-sm="50" flex="100">
-        <label translate>Address</label>
+        <label>
+          <translate>Address</translate>
+        </label>
         <input name="address" ng-model="box.address" required>
         <div ng-messages="myForm.address.$error" md-auto-hide="false">
           <div ng-message="required" translate>Please enter an address</div>
@@ -21,7 +25,9 @@
       </md-input-container>
 
       <md-input-container class="md-block" flex-gt-sm="50" flex="100">
-        <label translate>Description</label>
+        <label>
+          <translate>Description</translate>
+        </label>
         <textarea ng-model="box.description" name="description" md-maxlength="150" md-minlength="5" rows="5" required md-select-on-focus></textarea>
         <div ng-messages="myForm.description.$error">
           <div ng-message="required" translate>A description is required</div>
@@ -29,7 +35,9 @@
       </md-input-container>
 
       <md-input-container class="md-block" flex-gt-sm="50" flex="100">
-        <label translate>Radius NAS ID</label>
+        <label>
+          <translate>Radius NAS ID</translate>
+        </label>
         <input ng-model="box.radiusnasid" name="nasid" md-maxlength="150" md-minlength="5" rows="5" required>
         <div ng-messages="myForm.nasid.$error">
           <div ng-message="required"></div>
@@ -37,12 +45,16 @@
       </md-input-container>
 
       <md-input-container class="md-block" flex-gt-sm="50" flex="100">
-        <label translate>Radius Secret</label>
+        <label>
+          <translate>Radius Secret</translate>
+        </label>
         <input disabled ng-model="box.radius_secret" required>
       </md-input-container>
 
       <md-input-container class="md-block" flex-gt-sm="50" flex>
-        <label translate>Device Type</label>
+        <label>
+          <translate>Device Type</translate>
+        </label>
         <md-select ng-model="box.machine_type">
           <md-option ng-repeat="type in machine_types" value="{{type.value}}">
             {{type.key}}
