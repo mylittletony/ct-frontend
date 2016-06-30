@@ -6,6 +6,10 @@ The core of the service is the Cucumber RESTFul API. This portal is currently ou
 
 It's proof that anything is possible. Just use your imagination.
 
+## Code Status
+
+[![CircleCI](https://circleci.com/gh/cucumber-tony/cucumber-frontend.svg?style=svg)](https://circleci.com/gh/cucumber-tony/cucumber-frontend)
+
 ## Getting Started
 
 This is a demo portal which acts as an interface to the Cucumber API. It's not production ready, the tests are currently broken.
@@ -91,10 +95,6 @@ Search before posting. Describe your issue in detail. **Do not raise an issue if
 ### Code
 
 There's now contributing guide available which guides you through how we roll.
-
-## Code Status
-
-[![CircleCI](https://circleci.com/gh/cucumber-tony/cucumber-frontend.svg?style=svg)](https://circleci.com/gh/cucumber-tony/cucumber-frontend)
 
 ## Copyright and License
 
