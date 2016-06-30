@@ -7,7 +7,6 @@ client/scripts/config.js
 dist/
 /server/config/local.env.js
 /server/config/local.env.sample.js
-circle/deploy.sh
 .sass-cache
 .tmp
 **/.DS_Store
