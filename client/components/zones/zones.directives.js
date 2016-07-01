@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.zones.directives', []);
 
-app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$mdEditDialog', '$q', function(Zone, ZoneListing, Location, $routeParams, $mdDialog, showToast, showErrors, $mdEditDialog, $q) {
+app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$mdEditDialog', '$q', 'gettextCatalog', function(Zone, ZoneListing, Location, $routeParams, $mdDialog, showToast, showErrors, $mdEditDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -12,12 +12,12 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
     var createMenu = function() {
       scope.menu = [];
       scope.menu.push({
-        name: 'Edit Settings',
+        name: gettextCatalog.getString('Edit Settings'),
         icon: 'settings',
         type: 'settings'
       });
       scope.menu.push({
-        name: 'Delete Zone',
+        name: gettextCatalog.getString('Delete Zone'),
         icon: 'delete_forever',
         type: 'delete'
       });
@@ -36,11 +36,11 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
     var destroy = function(id) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Zone')
-      .textContent('Are you sure you want to delete this zone?')
-      .ariaLabel('Delete Zone')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Zone'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this zone?'))
+      .ariaLabel(gettextCatalog.getString('Delete Zone'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         destroyZone(id);
       }, function() {
@@ -59,7 +59,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
       for (var i = 0, len = scope.zones.length; i < len; i++) {
         if (scope.zones[i].id === id) {
           scope.zones.splice(i, 1);
-          showToast('Zone successfully deleted');
+          showToast(gettextCatalog.getString('Zone successfully deleted'));
           break;
         }
       }
@@ -69,13 +69,13 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
       var editDialog = {
         modelValue: zone.zone_name,
-        placeholder: 'Edit name',
+        placeholder: gettextCatalog.getString('Edit name'),
         save: function (input) {
           zone.zone_name = input.$modelValue;
           update(zone);
         },
         targetEvent: event,
-        title: 'Edit zone name',
+        title: gettextCatalog.getString('Edit zone name'),
         validators: {
           'md-maxlength': 30,
           'md-minlength': 5
@@ -103,7 +103,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
         if (box_id) {
           incrementBoxCount(zone);
         } else {
-          showToast('Zone successfully updated');
+          showToast(gettextCatalog.getString('Zone successfully updated'));
         }
       }, function(err) {
         showErrors(err);
@@ -118,7 +118,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
             scope.zones[i].boxes = [];
           }
           scope.zones[i].boxes.push({ap_mac: $routeParams.ap_mac});
-          showToast('Box successfully added to zone.');
+          showToast(gettextCatalog.getString('Box successfully added to zone.'));
         }
       }
     };
@@ -182,7 +182,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
         }
         scope.zones.push(results);
         if (scope.zones.length > 0) {
-          showToast('Zone successfully created.');
+          showToast(gettextCatalog.getString('Zone successfully created.'));
         }
       }, function(err) {
         showErrors(err);
@@ -223,7 +223,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
 }]);
 
-app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network', '$routeParams', '$location', '$timeout', 'showToast', 'showErrors', '$mdDialog', function($compile, Zone, LocationBox, Network, $routeParams, $location, $timeout, showToast, showErrors, $mdDialog) {
+app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network', '$routeParams', '$location', '$timeout', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function($compile, Zone, LocationBox, Network, $routeParams, $location, $timeout, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -305,11 +305,11 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
 
     scope.update = function() {
       var confirm = $mdDialog.confirm()
-        .title('Confirm Update')
-        .textContent('This will resync all associated devices.')
-        .ariaLabel('Update Zone')
-        .ok('Continue')
-        .cancel('Cancel');
+        .title(gettextCatalog.getString('Confirm Update'))
+        .textContent(gettextCatalog.getString('This will resync all associated devices.'))
+        .ariaLabel(gettextCatalog.getString('Update Zone'))
+        .ok(gettextCatalog.getString('Continue'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         update();
       }, function() {
@@ -336,7 +336,7 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
         location_id: scope.location.slug,
         id: scope.zone.id, zone: opts
       }).$promise.then(function(res) {
-        showToast('Successfully updated zone.');
+        showToast(gettextCatalog.getString('Successfully updated zone.'));
       }, function(err) {
         showErrors(err);
       });
@@ -351,11 +351,11 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
 
     var confirmDestroy = function(id) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Zone')
-      .textContent('Are you sure you want to delete this zone?')
-      .ariaLabel('Delete Zone')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Zone'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this zone?'))
+      .ariaLabel(gettextCatalog.getString('Delete Zone'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteZone();
       }, function() {
@@ -365,7 +365,7 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
     var deleteZone = function() {
       return Zone.destroy({location_id: scope.location.slug, id: scope.zone.id}).$promise.then(function(res) {
         $location.path('/locations/' + scope.location.slug + '/zones');
-        showToast('Successfully deleted zone');
+        showToast(gettextCatalog.getString('Successfully deleted zone'));
       }, function(err) {
         showErrors(err);
       });

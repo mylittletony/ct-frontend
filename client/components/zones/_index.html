@@ -2,12 +2,13 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="zones.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query.filter" md-autofocus placeholder="Filter Zones">
+      <label></label>
+      <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Zones' | translate }}">
     </md-input-container>
-    <md-button ng-if="!zones.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
+    <md-button ng-if="!zones.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
       <md-icon md-font-icon="" >layers</md-icon>
     </md-button>
-    <p ng-if="zones.length === 0">Zones</p>
+    <p ng-if="zones.length === 0" translate>Zones</p>
     <div flex></div>
     <md-button class='md-icon-button md-accent' ng-click='open()'>
       <md-icon>add_circle</md-icon>
@@ -29,11 +30,13 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p>Zones let you organise and segment your networks.</p>
-        <p>Create a zone then add your boxes and networks.</p>
+        <p translate>Zones let you organise and segment your networks.</p>
+        <p translate>Create a zone then add your boxes and networks.</p>
         <md-card-actions layout="row" layout-align="end center">
           <md-button class='md-raised' ng-click='open()'>
-            Create
+            <translate>
+              Create
+            </translate>
           </md-button>
         </md-card-actions>
       </md-card-content>
@@ -51,13 +54,13 @@
               <th md-column md-order-by="zone_name">
                 <span>
                   <!-- <md-icon md-menu-origin md-font-icon="" class="s12">comment</md-icon> -->
-                  Name
+                  <translate>Name</translate>
                 </span>
               </th>
-              <th hide show-gt-sm md-column md-order-by="zone_description"><span>Description</span></th>
-              <th hide show-gt-md md-column md-order-by="created_at"><span>Created</span></th>
-              <th hide show-gt-xs md-column><span>Boxes</span></th>
-              <th hide show-gt-xs md-column md-order-by="weight"><span>Networks</span></th>
+              <th hide show-gt-sm md-column md-order-by="zone_description"><span translate>Description</span></th>
+              <th hide show-gt-md md-column md-order-by="created_at"><span translate>Created</span></th>
+              <th hide show-gt-xs md-column><span translate>Boxes</span></th>
+              <th hide show-gt-xs md-column md-order-by="weight"><span translate>Networks</span></th>
               <th md-column ng-show="menu.length"></th>
             </tr>
           </thead>
@@ -69,7 +72,8 @@
                 </a>
               </td>
               <td hide show-gt-sm md-cell>
-                {{ (zone.zone_description || 'N/A') | truncate:20 }}
+                <span ng-show="zone.zone_description" translate>{{zone.zone_description}}</span>
+                <span ng-show="!zone.zone_description" translate>{{'N/A' | truncate:20}}</span>
                 <md-tooltip ng-show="zone.zone_description.length > 20">
                   {{ zone.zone_description }}
                 </md-tooltip>
@@ -85,7 +89,7 @@
               </td>
               <td md-cell ng-show="menu.length">
                 <md-menu>
-                  <md-button aria-label="Zone Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-button aria-label="{{ 'Zone Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                   </md-button>
                   <md-menu-content width="4" >

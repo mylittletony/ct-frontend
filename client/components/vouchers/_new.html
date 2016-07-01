@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
       <md-icon>arrow_back</md-icon>
     </md-button>
-    <p>Vouchers</p>
+    <p translate>Vouchers</p>
     <div flex></div>
   </div>
   <md-divider></md-divider>
@@ -13,17 +13,17 @@
   <md-card>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">
+        <span class="md-headline" translate>
           No Splash Pages Found
         </span>
-        <span class="md-subhead">
+        <span class="md-subhead" translate>
           You'll need to create a splash page before creating any vouchers.
         </span>
       </md-card-title-text>
     </md-card-title>
     <md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button href="/#/locations/{{ location.slug }}/splash_pages?create">Create</md-button>
+        <md-button href="/#/locations/{{ location.slug }}/splash_pages?create"><translate>Create</translate></md-button>
       </md-card-actions>
     </md-card-content>
   </md-card>

@@ -2,13 +2,13 @@
   <md-progress-linear md-mode="query"></md-progress-linear>
 </div>
 <div ng-if="!loading && zones.length === 0">
-  <p>Network not associated with a zone. </p>
+  <p translate>Network not associated with a zone. </p>
 </div>
 <div ng-if="!loading && zones.length">
   <span>This network is associated with the following zone<span ng-if="zones.length != 1">s</span>.</span>
   <md-list-item class="md-3-line" ng-repeat="zone in zones">
     <div class="md-list-item-text">
-      <h3><a href="/#/locations/{{location.slug}}/zones/{{ zone.id }}">{{ zone.zone_name | titleCase }} Zone</a></h3>
+      <h3><a href="/#/locations/{{location.slug}}/zones/{{ zone.id }}" translate>{{ zone.zone_name | titleCase }} Zone</a></h3>
       <p>{{ zone.boxes.length }} box<span ng-if="zones.boxes.length != 1">es</span>. {{ zone.networks.length }} network<span ng-if="zones.networks.length != 1">s</span>.</p>
     </div>
   </md-list-item>
