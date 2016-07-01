@@ -2,10 +2,10 @@
   <md-card>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">
-          ::{{ voucher.unique_id | updateCreate }} Voucher Batch
+        <span class="md-headline" translate>
+          {{ ::voucher.unique_id | updateCreate }} Voucher Batch
         </span>
-        <span class="md-subhead" ng-show="voucher.unique_id">
+        <span class="md-subhead" ng-show="voucher.unique_id" translate>
           Some settings can't be changed after creation.
         </span>
       </md-card-title-text>
@@ -16,7 +16,7 @@
         <div flex-gt-sm="100" flex="100">
 
           <md-input-container flex="100" flex-gt-sm="100" layout="column" ng-if="splash_pages.length > 1">
-            <label>Splash Page</label>
+            <label><translate>Splash Page</translate></label>
             <md-select ng-model="voucher.splash_page_id" ng-disabled="voucher.unique_id" required>
               <md-option ng-repeat="splash in splash_pages" value="{{splash.id}}">
                 {{ splash.splash_name || splash.id }}
@@ -25,20 +25,20 @@
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Batch Name</label>
+            <label><translate>Batch Name</translate></label>
             <input name="batch_name" ng-model="voucher.batch_name" md-maxlength=100 required>
             <div ng-messages="myForm.batch_name.$error">
-              <div ng-message="md-maxlength">Max 100 characters</div>
-              <div ng-message="required">You must give the batch a name</div>
+              <div ng-message="md-maxlength" translate>Max 100 characters</div>
+              <div ng-message="required" translate>You must give the batch a name</div>
             </div>
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Batch Description</label>
+            <label><translate>Batch Description</translate></label>
             <input name="desc" ng-model="voucher.batch_description" md-maxlength=255 required>
             <div ng-messages="myForm.desc.$error">
-              <div ng-message="md-maxlength">Max 100 characters</div>
-              <div ng-message="required">You must give the batch a description</div>
+              <div ng-message="md-maxlength" translate>Max 100 characters</div>
+              <div ng-message="required" translate>You must give the batch a description</div>
             </div>
           </md-input-container>
 
@@ -49,7 +49,7 @@
         <div flex-gt-sm="100" flex="100">
           <div layout="row" layout-wrap>
             <md-input-container flex="100" flex-gt-sm="30">
-              <label>Type</label>
+              <label><translate>Type</translate></label>
               <md-select ng-model="voucher.access_type">
                 <md-option ng-repeat="type in access_types" value="{{type.value}}">
                   {{type.key}}
@@ -57,35 +57,37 @@
               </md-select>
             </md-input-container>
             <md-input-container flex="100" flex-gt-sm="40" ng-if="voucher.access_type == 1">
-              <label>Validity Minutes</label>
-              <input type="number" name="validity_minutes" ng-model="voucher.validity_minutes" placeholder="Duration" ng-min="5" ng-max="518412" ng-required="voucher.access_type == 1"></input>
+              <label><translate>Validity Minutes</translate></label>
+              <input type="number" name="validity_minutes" ng-model="voucher.validity_minutes" placeholder="{{ 'Duration' | translate }}" ng-min="5" ng-max="518412" ng-required="voucher.access_type == 1"></input>
               <div ng-messages="myForm.validity_minutes.$error">
-                <div ng-message="min">Must be greater than 5 mins</div>
-                <div ng-message="max">Must be less than 518412 mins</div>
-                <div ng-message="required">You must set the validity minutes</div>
+                <div ng-message="min" translate>Must be greater than 5 mins</div>
+                <div ng-message="max" translate>Must be less than 518412 mins</div>
+                <div ng-message="required" translate>You must set the validity minutes</div>
               </div>
             </md-input-container>
             <md-input-container flex="100" flex-gt-sm="40" ng-if="voucher.access_type == 2">
-              <label>Data Limit (MB)</label>
-              <input type="number" name="access_restrict_data" ng-model="voucher.access_restrict_data" ng-min="50" placeholder="Download MB" ng-max="1000000" ng-required="voucher.access_type == 2"></input>
+              <label><translate>Data Limit (MB)</translate></label>
+              <input type="number" name="access_restrict_data" ng-model="voucher.access_restrict_data" ng-min="50" placeholder="{{ 'Download MB' | translate }}" ng-max="1000000" ng-required="voucher.access_type == 2"></input>
               <div ng-messages="myForm.access_restrict_data.$error">
-                <div ng-message="min">Must be greater than 50Mb</div>
-                <div ng-message="max">Must be less than 1000000 Mb</div>
-                <div ng-message="required">You must set the data limit</div>
+                <div ng-message="min" translate>Must be greater than 50Mb</div>
+                <div ng-message="max" translate>Must be less than 1000000 Mb</div>
+                <div ng-message="required" translate>You must set the data limit</div>
               </div>
             </md-input-container>
             <md-input-container flex>
-              <label>Quantity</label>
-              <input type="number" name="quantity" ng-model="voucher.quantity" placeholder="Quantity" ng-max=1000 ng-min="10" required ng-disabled="voucher.unique_id"></input>
+              <label><translate>Quantity</translate></label>
+              <input type="number" name="quantity" ng-model="voucher.quantity" placeholder="{{ 'Quantity' | translate }}" ng-max=1000 ng-min="10" required ng-disabled="voucher.unique_id"></input>
               <div ng-messages="myForm.quantity.$error">
-                <div ng-message="min">Must be greater than 10</div>
-                <div ng-message="max">Must be less than 1000</div>
-                <div ng-message="required">You must set a quantity</div>
+                <div ng-message="min" translate>Must be greater than 10</div>
+                <div ng-message="max" translate>Must be less than 1000</div>
+                <div ng-message="required" translate>You must set a quantity</div>
               </div>
             </md-input-container>
 
-            <md-switch aria-label="Active switch" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
-              Voucher {{ voucher.is_active | humanBoolean }}
+            <md-switch aria-label="{{ 'Active switch' | translate }}" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
+              <translate>
+                Voucher {{ voucher.is_active | humanBoolean }}
+              </translate>
             </md-switch>
 
           </div>
@@ -99,10 +101,10 @@
   <md-card>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">
+        <span class="md-headline" translate>
           Advanced Settings
         </span>
-        <span class="md-subhead">
+        <span class="md-subhead" translate>
           Edit the advanced settings for the voucher
           <md-button ng-click="toggle('advanced')" aria-controls="advanced" class="md-secondary md-icon-button" aria-label="call">
             <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('advanced') ? "up" : "down" }}</md-icon>
@@ -116,37 +118,37 @@
       <div layout="row" layout-wrap>
 
         <md-input-container flex="100" flex-gt-sm="30">
-          <label>Session Timeout (mins)</label>
-          <input type="number" ng-model="voucher.session_timeout" name="session_timeout" placeholder="Session Timeout" ng-min="10" max="{{ voucher.validity_minutes }}" required></input>
+          <label><translate>Session Timeout (mins)</translate></label>
+          <input type="number" ng-model="voucher.session_timeout" name="session_timeout" placeholder="{{ 'Session Timeout' | translate }}" ng-min="10" max="{{ voucher.validity_minutes }}" required></input>
           <div ng-messages="myForm.session_timeout.$error">
-            <div ng-message="min">Must be greater than {{ voucher.validity_minutes }}</div>
-            <div ng-message="max">Must be less than {{ voucher.validity_minutes }}</div>
-            <div ng-message="required">Required</div>
+            <div ng-message="min" translate>Must be greater than {{ voucher.validity_minutes }}</div>
+            <div ng-message="max" translate>Must be less than {{ voucher.validity_minutes }}</div>
+            <div ng-message="required" translate>Required</div>
           </div>
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="30">
-          <label>Idle Timeout (mins)</label>
-          <input type="number" ng-model="voucher.idle_timeout" placeholder="Idle Timeout" name="idle_timeout" ng-min=10 ng-max=43201></input>
+          <label><translate>Idle Timeout (mins)</translate></label>
+          <input type="number" ng-model="voucher.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" name="idle_timeout" ng-min=10 ng-max=43201></input>
           <div ng-messages="myForm.idle_timeout.$error">
-            <div ng-message="min">Must be greater than 10</div>
-            <div ng-message="max">Must be less than 43200</div>
-            <div ng-message="required">Required</div>
+            <div ng-message="min" translate>Must be greater than 10</div>
+            <div ng-message="max" translate>Must be less than 43200</div>
+            <div ng-message="required" translate>Required</div>
           </div>
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="30">
-          <label>Max Users</label>
-          <input type="number" ng-model="voucher.simultaneous_use" placeholder="Max Users" ng-min=1 ng-max=100 name="sim_use"></input>
+          <label><translate>Max Users</translate></label>
+          <input type="number" ng-model="voucher.simultaneous_use" placeholder="{{ 'Max Users' | translate }}" ng-min=1 ng-max=100 name="sim_use"></input>
           <div ng-messages="myForm.sim_use.$error">
-            <div ng-message="min">Must be greater than 1</div>
-            <div ng-message="max">Must be less than 100</div>
-            <div ng-message="required">Required</div>
+            <div ng-message="min" translate>Must be greater than 1</div>
+            <div ng-message="max" translate>Must be less than 100</div>
+            <div ng-message="required" translate>Required</div>
           </div>
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="30">
-          <label>Access Type</label>
+          <label><translate>Access Type</translate></label>
           <md-select ng-model="voucher.access_restrict_period" ng-disabled="voucher.unique_id">
             <md-option ng-repeat="type in access_restrict_periods" value="{{type.value}}">
               {{type.key}}
@@ -155,12 +157,12 @@
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="30">
-          <label>Single-Use Limit (mins)</label>
-          <input ng-disabled="voucher.access_restrict_period != 'all'" type="number" name="access_period" ng-model="voucher.access_period" placeholder="Usage limit" ng-min={{voucher.validity_minutes}} ng-max=43201 ng-required="voucher.access_restrict_period == 'all'"></input>
+          <label><translate>Single-Use Limit (mins)</translate></label>
+          <input ng-disabled="voucher.access_restrict_period != 'all'" type="number" name="access_period" ng-model="voucher.access_period" placeholder="{{ 'Usage limit' | translate }}" ng-min={{voucher.validity_minutes}} ng-max=43201 ng-required="voucher.access_restrict_period == 'all'"></input>
           <div ng-messages="myForm.access_period.$error">
-            <div ng-message="min">Must be greater than {{ voucher.validity_minutes }}</div>
-            <div ng-message="max">Must be less than 43201</div>
-            <div ng-message="required">Required with single-use vouchers</div>
+            <div ng-message="min" translate>Must be greater than {{ voucher.validity_minutes }}</div>
+            <div ng-message="max" translate>Must be less than 43201</div>
+            <div ng-message="required" translate>Required with single-use vouchers</div>
           </div>
         </md-input-container>
 
@@ -168,7 +170,7 @@
         </div>
 
         <md-input-container flex="100" flex-gt-sm="30">
-          <label>Voucher Format</label>
+          <label><translate>Voucher Format</translate></label>
           <md-select ng-model="voucher.voucher_format" ng-disabled="voucher.unique_id">
             <md-option ng-repeat="type in voucher_formats" value="{{type.value}}">
               {{ type.key }}
@@ -179,22 +181,24 @@
       </div>
 
       <div layout="column">
-        <p>Download Speed ({{(voucher.download_speed / 1024) | number:0 }}Mbps)</p>
+        <p translate>Download Speed ({{(voucher.download_speed / 1024) | number:0 }}Mbps)</p>
 
         <md-slider-container>
           <md-slider flex ng-model="voucher.download_speed" min="56" max="102400" step="56" aria-label="down" id="down-slider" class="md-accent">
           </md-slider>
         </md-slider-container>
 
-        <p>Upload Speed ({{(voucher.upload_speed / 1024) | number:0 }}Mbps)</p>
+        <p translate>Upload Speed ({{(voucher.upload_speed / 1024) | number:0 }}Mbps)</p>
 
         <md-slider-container flex="100">
           <md-slider flex ng-model="voucher.upload_speed" min="56" max="102400" step="56" aria-label="down" id="down-slider" class="md-accent">
           </md-slider>
         </md-slider-container>
 
-        <md-switch aria-label="Disabled switch" ng-model="voucher.secure_password" ng-disabled="voucher.unique_id">
-          Secure Mode {{ voucher.secure_password | humanBoolean }}
+        <md-switch aria-label="{{ 'Disabled switch' | translate }}" ng-model="voucher.secure_password" ng-disabled="voucher.unique_id">
+          <translate>
+            Secure Mode {{ voucher.secure_password | humanBoolean }}
+          </translate>
         </md-switch>
 
       </div>

@@ -223,6 +223,10 @@ msgid ""
 "    </md-list-item>"
 msgstr ""
 
+#: client/components/vouchers/_show.html:162
+msgid "<p>You can download the codes for three months after creation.</p>"
+msgstr ""
+
 #: client/components/locations/show/_index.html:59
 msgid ""
 "<p>You haven't added any devices yet. Please check through the list of "
@@ -284,6 +288,10 @@ msgstr ""
 msgid "A network name is required."
 msgstr ""
 
+#: client/components/zones/_form.html:28
+msgid "A short description of the zone"
+msgstr ""
+
 #: client/components/registrations/_flow.html:96
 msgid "A username is required."
 msgstr ""
@@ -302,6 +310,7 @@ msgstr ""
 
 #: client/components/boxes/new/_add.html:74
 #: client/components/users/billing/_coupon.html:24
+#: client/components/zones/_add.html:36
 msgid "ADD"
 msgstr ""
 
@@ -352,6 +361,7 @@ msgstr ""
 
 #: client/components/locations/access/access-panel-top.html:25
 #: client/components/splash_pages/_form.html:22
+#: client/components/vouchers/_form.html:151
 msgid "Access Type"
 msgstr ""
 
@@ -402,6 +412,7 @@ msgstr ""
 #: client/components/splash_pages/_index.html:53
 #: client/components/users/index/_index.html:27
 #: client/components/users/invoices/_index.html:37
+#: client/components/zones/_show.html:36
 msgid "Action"
 msgstr ""
 
@@ -443,11 +454,16 @@ msgstr ""
 #: client/components/splash_codes/_show.html:114
 #: client/components/splash_pages/_index.html:48
 #: client/components/users/show/_index.html:52
+#: client/components/vouchers/_index.html:77
 msgid "Active"
 msgstr ""
 
 #: client/components/users/invoices/_details.html:111
 msgid "Active APs"
+msgstr ""
+
+#: client/components/vouchers/_form.html:87
+msgid "Active switch"
 msgstr ""
 
 #: client/components/locations/networks/blacklists.html:27
@@ -477,6 +493,7 @@ msgstr ""
 #: client/components/locations/show/_index.html:74
 #: client/components/locations/show/_index.html:9
 #: client/components/locations/show/_map.html:8
+#: client/components/zones/_show.html:8
 msgid "Add Device"
 msgstr ""
 
@@ -498,6 +515,7 @@ msgid "Add To Twillio"
 msgstr ""
 
 #: client/components/boxes/show/_toast_zone.html:7
+#: client/components/zones/_add.html:5
 msgid "Add To Zone"
 msgstr ""
 
@@ -552,8 +570,16 @@ msgstr ""
 msgid "Add support for your Ruckus VSZ."
 msgstr ""
 
+#: client/components/zones/_add.html:11
+msgid "Add the device with mac {{ ap_mac }} to a zone."
+msgstr ""
+
 #: client/components/locations/triggers/_new.html:373
 msgid "Add to List"
+msgstr ""
+
+#: client/components/zones/_add.html:1 client/components/zones/_add.html:18
+msgid "Add to Zone"
 msgstr ""
 
 #: client/components/users/billing/_show.html:26
@@ -629,6 +655,7 @@ msgstr ""
 
 #: client/components/locations/networks/_show.html:309
 #: client/components/users/branding/_form.html:130
+#: client/components/vouchers/_form.html:104
 msgid "Advanced Settings"
 msgstr ""
 
@@ -642,6 +669,14 @@ msgstr ""
 
 #: client/components/boxes/edit/_edit.html:76
 msgid "Alerts {{ box.is_monitored | humanBoolean }}"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:254
+msgid "Alice in Wonderland"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:253
+msgid "All Time, multi-use"
 msgstr ""
 
 #: client/components/boxes/boxes.filters.js:20
@@ -792,6 +827,10 @@ msgstr ""
 msgid "Are you sure you want to delete these devices?"
 msgstr ""
 
+#: client/components/vouchers/vouchers.directives.js:152
+msgid "Are you sure you want to delete these vouchers?"
+msgstr ""
+
 #: client/components/splash_codes/splash_codes.directives.js:111
 #: client/components/splash_codes/splash_codes.directives.js:356
 msgid "Are you sure you want to delete this code?"
@@ -813,6 +852,15 @@ msgstr ""
 #: client/components/locations/triggers/triggers.directives.js:539
 #: client/components/locations/triggers/triggers.directives.js:83
 msgid "Are you sure you want to delete this trigger?"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:395
+msgid "Are you sure you want to delete this voucher?"
+msgstr ""
+
+#: client/components/zones/zones.directives.js:355
+#: client/components/zones/zones.directives.js:40
+msgid "Are you sure you want to delete this zone?"
 msgstr ""
 
 #: client/components/audit/sales/_refund.html:9
@@ -983,6 +1031,7 @@ msgid "Back to Trigger"
 msgstr ""
 
 #: client/components/codes/_index.html:6
+#: client/components/vouchers/_edit.html:6
 msgid "Back to Voucher"
 msgstr ""
 
@@ -1019,12 +1068,18 @@ msgstr ""
 msgid "Basic Support"
 msgstr ""
 
+#: client/components/vouchers/_form.html:37
+msgid "Batch Description"
+msgstr ""
+
 #: client/components/locations/clients/_show_code.html:87
 #: client/components/locations/clients/_show_code.html:88
 msgid "Batch Details"
 msgstr ""
 
 #: client/components/locations/clients/_show_code.html:95
+#: client/components/vouchers/_form.html:28
+#: client/components/vouchers/_show.html:51
 msgid "Batch Name"
 msgstr ""
 
@@ -1121,6 +1176,10 @@ msgstr ""
 msgid "Box Port Forwards"
 msgstr ""
 
+#: client/components/zones/zones.directives.js:121
+msgid "Box successfully added to zone."
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:289
 msgid "Box successfully deleted"
 msgstr ""
@@ -1146,6 +1205,7 @@ msgstr ""
 #: client/components/locations/index/_favourites.html:51
 #: client/components/locations/show/_dashing.html:13
 #: client/components/users/quotas/_index.html:34
+#: client/components/zones/_index.html:62
 msgid "Boxes"
 msgstr ""
 
@@ -1263,11 +1323,17 @@ msgstr ""
 #: client/components/splash_pages/_form.html:78
 #: client/components/splash_pages/_store_product.html:157
 #: client/components/splash_pages/access-quickcodes.html:16
+#: client/components/vouchers/_copy.html:67
+#: client/components/zones/_form.html:44
 msgid "CREATE"
 msgstr ""
 
 #: client/components/splash_codes/_edit.html:27
 msgid "CREATE SPLASH"
+msgstr ""
+
+#: client/components/vouchers/_show.html:175
+msgid "CSV"
 msgstr ""
 
 #: client/components/apps/_new.html:47
@@ -1319,6 +1385,11 @@ msgstr ""
 #: client/components/users/show/_password.html:34
 #: client/components/users/users.directives.js:371
 #: client/components/users/users.directives.js:648
+#: client/components/vouchers/vouchers.directives.js:155
+#: client/components/vouchers/vouchers.directives.js:398
+#: client/components/zones/zones.directives.js:312
+#: client/components/zones/zones.directives.js:358
+#: client/components/zones/zones.directives.js:43
 msgid "Cancel"
 msgstr ""
 
@@ -1368,6 +1439,7 @@ msgstr ""
 #: client/components/locations/networks/_show.html:73
 #: client/components/networks/_create.html:62
 #: client/components/networks/_create.html:63
+#: client/components/vouchers/_copy.html:51
 msgid "Captive Portal"
 msgstr ""
 
@@ -1603,6 +1675,8 @@ msgstr ""
 #: client/components/networks/_zones.html:25
 #: client/components/splash_pages/_form.html:75
 #: client/components/users/billing/_cancel_dialog.html:23
+#: client/components/vouchers/_copy.html:62
+#: client/components/zones/_add.html:31
 msgid "Close"
 msgstr ""
 
@@ -1640,6 +1714,8 @@ msgstr ""
 
 #: client/components/codes/_sessions.html:7
 #: client/components/locations/locations.controller.js:134
+#: client/components/vouchers/vouchers.directives.js:115
+#: client/components/vouchers/vouchers.directives.js:337
 msgid "Codes"
 msgstr ""
 
@@ -1679,6 +1755,10 @@ msgstr ""
 msgid "Completed"
 msgstr "To be completed"
 
+#: client/components/zones/zones.directives.js:308
+msgid "Confirm Update"
+msgstr ""
+
 #: client/components/users/billing/_upgrade.html:5
 msgid "Confirm Upgrade"
 msgstr ""
@@ -1717,6 +1797,10 @@ msgstr ""
 
 #: client/components/locations/networks/_show.html:162
 msgid "Content Filtering"
+msgstr ""
+
+#: client/components/zones/zones.directives.js:311
+msgid "Continue"
 msgstr ""
 
 #: client/components/users/invoices/_show.html:25
@@ -1771,6 +1855,9 @@ msgstr ""
 #: client/components/splash_codes/_index.html:38
 #: client/components/splash_pages/_form_designer.html:118
 #: client/components/splash_pages/_splash_new.html:3
+#: client/components/vouchers/_index.html:60
+#: client/components/vouchers/_new.html:26
+#: client/components/zones/_index.html:37
 msgid "Create"
 msgstr ""
 
@@ -1790,12 +1877,20 @@ msgstr ""
 msgid "Create New Password"
 msgstr ""
 
+#: client/components/zones/_form.html:5
+msgid "Create New Zone"
+msgstr ""
+
 #: client/components/splash_pages/_store_product.html:5
 msgid "Create Product"
 msgstr ""
 
 #: client/components/splash_pages/_form.html:5
 msgid "Create Splash"
+msgstr ""
+
+#: client/components/zones/_form.html:1
+msgid "Create Zone"
 msgstr ""
 
 #: client/components/locations/new/_index.html:22
@@ -1810,6 +1905,10 @@ msgstr ""
 msgid "Create a new SSID"
 msgstr ""
 
+#: client/components/zones/_index.html:34
+msgid "Create a zone then add your boxes and networks."
+msgstr ""
+
 #: client/components/apps/_new.html:21
 msgid "Create an application before use the API and build some awesome."
 msgstr ""
@@ -1822,8 +1921,17 @@ msgstr ""
 msgid "Create rules and restrictions to control access."
 msgstr ""
 
+#: client/components/vouchers/_index.html:58
+msgid "Create some vouchers for your splash pages."
+msgstr ""
+
 #: client/components/networks/_create.html:11
+#: client/components/vouchers/_copy.html:11
 msgid "Create up to 16 networks per location."
+msgstr ""
+
+#: client/components/zones/_form.html:11
+msgid "Create up to 16 zones per location."
 msgstr ""
 
 #: client/components/boxes/payloads/_index.html:43
@@ -1848,6 +1956,9 @@ msgstr ""
 #: client/components/splash_codes/_show.html:95
 #: client/components/users/index/_index.html:26
 #: client/components/users/invoices/_index.html:34
+#: client/components/vouchers/_index.html:81
+#: client/components/vouchers/_show.html:93
+#: client/components/zones/_index.html:61
 msgid "Created"
 msgstr ""
 
@@ -1981,6 +2092,10 @@ msgstr ""
 msgid "Daily"
 msgstr ""
 
+#: client/components/vouchers/vouchers.directives.js:253
+msgid "Daily, multi-use"
+msgstr ""
+
 #: client/components/registrations/_flow.html:135
 #: client/components/registrations/_flow.html:71
 msgid "Dashboard Name"
@@ -1988,6 +2103,14 @@ msgstr ""
 
 #: client/components/users/branding/_form.html:46
 msgid "Dashboard URL"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:252
+msgid "Data"
+msgstr ""
+
+#: client/components/vouchers/_form.html:69
+msgid "Data Limit (MB)"
 msgstr ""
 
 #: client/components/reports/_radius_stats.html:36
@@ -2032,6 +2155,12 @@ msgstr ""
 #: client/components/splash_codes/splash_codes.directives.js:80
 #: client/components/splash_pages/_form_designer.html:114
 #: client/components/splash_pages/_menu.html:54
+#: client/components/vouchers/vouchers.directives.js:121
+#: client/components/vouchers/vouchers.directives.js:154
+#: client/components/vouchers/vouchers.directives.js:350
+#: client/components/vouchers/vouchers.directives.js:397
+#: client/components/zones/zones.directives.js:357
+#: client/components/zones/zones.directives.js:42
 msgid "Delete"
 msgstr ""
 
@@ -2075,6 +2204,24 @@ msgstr ""
 msgid "Delete Trigger"
 msgstr ""
 
+#: client/components/vouchers/vouchers.directives.js:394
+#: client/components/vouchers/vouchers.directives.js:396
+msgid "Delete Voucher"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:151
+#: client/components/vouchers/vouchers.directives.js:153
+msgid "Delete Vouchers"
+msgstr ""
+
+#: client/components/zones/zones.directives.js:20
+#: client/components/zones/zones.directives.js:354
+#: client/components/zones/zones.directives.js:356
+#: client/components/zones/zones.directives.js:39
+#: client/components/zones/zones.directives.js:41
+msgid "Delete Zone"
+msgstr ""
+
 #: client/components/boxes/boxes.directives.js:279
 #: client/components/locations/locations.directives.js:860
 msgid "Delete it"
@@ -2107,6 +2254,10 @@ msgstr ""
 #: client/components/splash_pages/_store_product.html:133
 #: client/components/users/invoices/_index.html:35
 #: client/components/users/invoices/_show.html:24
+#: client/components/vouchers/_index.html:79
+#: client/components/vouchers/_show.html:58
+#: client/components/zones/_form.html:27 client/components/zones/_index.html:60
+#: client/components/zones/_show.html:34
 msgid "Description"
 msgstr ""
 
@@ -2161,7 +2312,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: client/index.html:129
+#: client/index.html:130
 msgid "Developer"
 msgstr ""
 
@@ -2266,6 +2417,7 @@ msgid "Disable Voucher Batch"
 msgstr ""
 
 #: client/components/splash_pages/_form_designer.html:75
+#: client/components/vouchers/_form.html:198
 msgid "Disabled switch"
 msgstr ""
 
@@ -2323,12 +2475,28 @@ msgstr ""
 msgid "Download Firmware"
 msgstr ""
 
+#: client/components/vouchers/_show.html:72
+msgid "Download Limit"
+msgstr ""
+
+#: client/components/vouchers/_form.html:70
+msgid "Download MB"
+msgstr ""
+
 #: client/components/splash_codes/_edit.html:107
 msgid "Download Speed ({{(code.download_speed / 1024) | number:0 }}Mbps)"
 msgstr ""
 
+#: client/components/vouchers/_form.html:184
+msgid "Download Speed ({{(voucher.download_speed / 1024) | number:0 }}Mbps)"
+msgstr ""
+
 #: client/components/splash_pages/_store_product.html:119
 msgid "Download Speed {{ (product.download_speed / 1024) | number }}Mbps"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:443
+msgid "Download links regenerated"
 msgstr ""
 
 #: client/components/downloads/index.html:7
@@ -2342,8 +2510,13 @@ msgid ""
 "\">documentation<ct-docs>.</ct-docs></ct-docs>"
 msgstr ""
 
+#: client/components/vouchers/_show.html:169
+msgid "Download your codes using the links below."
+msgstr ""
+
 #: client/components/locations/show/_index.html:68
-#: client/components/locations/show/_index.html:69 client/index.html:123
+#: client/components/locations/show/_index.html:69
+#: client/components/vouchers/_show.html:159 client/index.html:123
 msgid "Downloads"
 msgstr ""
 
@@ -2355,12 +2528,17 @@ msgstr ""
 msgid "Dual"
 msgstr ""
 
+#: client/components/vouchers/_copy.html:5
+msgid "Duplicate Voucher"
+msgstr ""
+
 #: client/components/locations/triggers/_new.html:172
 #: client/components/locations/triggers/_new.html:240
 msgid "Duplicated"
 msgstr ""
 
 #: client/components/codes/_table.html:6
+#: client/components/vouchers/_form.html:61
 msgid "Duration"
 msgstr ""
 
@@ -2382,6 +2560,7 @@ msgstr ""
 #: client/components/locations/show/header.html:40
 #: client/components/locations/triggers/triggers.directives.js:44
 #: client/components/locations/triggers/triggers.directives.js:494
+#: client/components/vouchers/vouchers.directives.js:330
 msgid "Edit"
 msgstr ""
 
@@ -2406,6 +2585,7 @@ msgid "Edit Logo URL"
 msgstr ""
 
 #: client/components/networks/networks.directives.js:18
+#: client/components/zones/zones.directives.js:15
 msgid "Edit Settings"
 msgstr ""
 
@@ -2416,6 +2596,24 @@ msgstr ""
 
 #: client/components/locations/show/header.html:35
 msgid "Edit details"
+msgstr ""
+
+#: client/components/zones/zones.directives.js:72
+msgid "Edit name"
+msgstr ""
+
+#: client/components/vouchers/_form.html:107
+msgid ""
+"Edit the advanced settings for the voucher\n"
+"          <md-button ng-click=\"toggle('advanced')\" aria-controls=\"advanced"
+"\" class=\"md-secondary md-icon-button\" aria-label=\"call\">\n"
+"            <md-icon md-font-icon=\"keyboard_down"
+"\">keyboard_arrow_{{ isOpen('advanced') ? \"up\" : \"down\" }}</md-icon>\n"
+"          </md-button>"
+msgstr ""
+
+#: client/components/zones/zones.directives.js:78
+msgid "Edit zone name"
 msgstr ""
 
 #: client/components/audit/emails/_index.html:53
@@ -2517,6 +2715,10 @@ msgstr ""
 
 #: client/components/boxes/show/_index.html:26
 msgid "Enable streaming updates"
+msgstr ""
+
+#: client/components/zones/_show.html:48
+msgid "Enabled"
 msgstr ""
 
 #: client/components/users/alerts/_index.html:46
@@ -2891,6 +3093,10 @@ msgstr ""
 msgid "Filter Users"
 msgstr ""
 
+#: client/components/zones/_index.html:6
+msgid "Filter Zones"
+msgstr ""
+
 #: client/components/audit/sessions/_index.html:55
 msgid "Filter this client"
 msgstr ""
@@ -2978,6 +3184,10 @@ msgstr ""
 msgid "Form successfully updated."
 msgstr ""
 
+#: client/components/vouchers/_show.html:131
+msgid "Format"
+msgstr ""
+
 #: client/components/users/show/_index.html:53
 msgid "Free User"
 msgstr ""
@@ -3063,6 +3273,7 @@ msgstr ""
 #: client/components/locations/triggers/list.html:22
 #: client/components/splash_codes/_index.html:27
 #: client/components/splash_pages/_index.html:27
+#: client/components/vouchers/_index.html:52
 msgid "Get Started"
 msgstr ""
 
@@ -3259,7 +3470,13 @@ msgid "Icon URL (Optional)"
 msgstr ""
 
 #: client/components/locations/clients/_show_code.html:159
+#: client/components/vouchers/_form.html:132
+#: client/components/vouchers/_show.html:117
 msgid "Idle Timeout"
+msgstr ""
+
+#: client/components/vouchers/_form.html:131
+msgid "Idle Timeout (mins)"
 msgstr ""
 
 #: client/components/locations/clients/_index.html:252
@@ -3359,12 +3576,14 @@ msgstr ""
 
 #: client/components/networks/_edit_ssid.html:23
 #: client/components/splash_pages/_form.html:63
+#: client/components/vouchers/_copy.html:25
 msgid "Invalid SSID"
 msgstr ""
 
 #: client/components/locations/networks/_show.html:156
 #: client/components/locations/networks/_show.html:64
 #: client/components/networks/_create.html:37
+#: client/components/vouchers/_copy.html:35
 msgid "Invalid characters in password"
 msgstr ""
 
@@ -3502,6 +3721,10 @@ msgstr ""
 msgid "Legacy Mode"
 msgstr ""
 
+#: client/components/vouchers/vouchers.directives.js:254
+msgid "Letters only"
+msgstr ""
+
 #: client/components/users/quotas/_index.html:24
 msgid "Limit"
 msgstr ""
@@ -3572,6 +3795,10 @@ msgstr ""
 #: client/components/locations/access/index.html:5
 #: client/components/splash_pages/_form.html:16
 msgid "Loading..."
+msgstr ""
+
+#: client/components/zones/_form.html:20
+msgid "Lobby, Hallway, Entrance"
 msgstr ""
 
 #: client/components/users/show/_index.html:109
@@ -3698,8 +3925,8 @@ msgstr ""
 
 #: client/components/clients/clients.directives.js:46
 #: client/components/clients/clients.directives.js:789
-#: client/components/users/users.directives.js:646 client/index.html:136
-#: client/index.html:164
+#: client/components/users/users.directives.js:646 client/index.html:137
+#: client/index.html:175
 msgid "Logout"
 msgstr ""
 
@@ -3795,7 +4022,7 @@ msgstr ""
 msgid "MailChimp isn't setup yet. Do that first and come back."
 msgstr ""
 
-#: client/index.html:172
+#: client/index.html:183
 msgid "Main Menu"
 msgstr ""
 
@@ -3868,6 +4095,9 @@ msgstr ""
 #: client/components/users/show/_index.html:95
 #: client/components/users/show/_password.html:18
 #: client/components/users/show/_password.html:26
+#: client/components/vouchers/_form.html:31
+#: client/components/vouchers/_form.html:40
+#: client/components/zones/_form.html:30
 msgid "Max 100 characters"
 msgstr ""
 
@@ -3898,6 +4128,9 @@ msgstr ""
 #: client/components/networks/_edit_ssid.html:20
 #: client/components/splash_pages/_form.html:37
 #: client/components/splash_pages/_form.html:60
+#: client/components/vouchers/_copy.html:22
+#: client/components/vouchers/_copy.html:32
+#: client/components/zones/_form.html:22
 msgid "Max 32 characters"
 msgstr ""
 
@@ -3907,6 +4140,11 @@ msgstr ""
 
 #: client/components/splash_pages/_store_product.html:102
 msgid "Max Devices"
+msgstr ""
+
+#: client/components/vouchers/_form.html:141
+#: client/components/vouchers/_form.html:142
+msgid "Max Users"
 msgstr ""
 
 #: client/components/splash_codes/_edit.html:85
@@ -3964,11 +4202,13 @@ msgstr ""
 #: client/components/networks/_edit_ssid.html:21
 #: client/components/splash_pages/_form.html:38
 #: client/components/splash_pages/_form.html:61
+#: client/components/vouchers/_copy.html:23
 msgid "Min 5 characters"
 msgstr ""
 
 #: client/components/locations/networks/_show.html:62
 #: client/components/networks/_create.html:35
+#: client/components/vouchers/_copy.html:33
 msgid "Min 8 characters"
 msgstr ""
 
@@ -4007,6 +4247,14 @@ msgstr ""
 
 #: client/components/users/billing/_show.html:32
 msgid "Monthly Costs"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:253
+msgid "Monthly, multi-use"
+msgstr ""
+
+#: client/components/vouchers/_show.html:100
+msgid "More Details"
 msgstr ""
 
 #: client/components/splash_pages/_menu.html:184
@@ -4106,6 +4354,7 @@ msgstr ""
 
 #: client/components/locations/networks/_show.html:200
 #: client/components/splash_codes/_edit.html:89
+#: client/components/vouchers/_form.html:144
 msgid "Must be greater than 1"
 msgstr ""
 
@@ -4117,6 +4366,11 @@ msgstr ""
 #: client/components/locations/networks/_show.html:298
 #: client/components/splash_pages/_store_product.html:108
 msgid "Must be greater than 1."
+msgstr ""
+
+#: client/components/vouchers/_form.html:134
+#: client/components/vouchers/_form.html:81
+msgid "Must be greater than 10"
 msgstr ""
 
 #: client/components/locations/settings/_devices.html:54
@@ -4157,6 +4411,19 @@ msgstr ""
 msgid "Must be greater than 5 characters."
 msgstr ""
 
+#: client/components/vouchers/_form.html:63
+msgid "Must be greater than 5 mins"
+msgstr ""
+
+#: client/components/vouchers/_form.html:72
+msgid "Must be greater than 50Mb"
+msgstr ""
+
+#: client/components/vouchers/_form.html:124
+#: client/components/vouchers/_form.html:163
+msgid "Must be greater than {{ voucher.validity_minutes }}"
+msgstr ""
+
 #: client/components/locations/clients/_device_name.html:18
 msgid "Must be less more than 5 characters"
 msgstr ""
@@ -4167,6 +4434,10 @@ msgstr ""
 
 #: client/components/locations/settings/_devices.html:31
 msgid "Must be less than 10,080 minutes"
+msgstr ""
+
+#: client/components/vouchers/_form.html:145
+msgid "Must be less than 100"
 msgstr ""
 
 #: client/components/locations/new/_index.html:39
@@ -4183,6 +4454,7 @@ msgid "Must be less than 100 characters."
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:355
+#: client/components/vouchers/_form.html:82
 msgid "Must be less than 1000"
 msgstr ""
 
@@ -4199,6 +4471,10 @@ msgstr ""
 #: client/components/locations/networks/_show.html:181
 #: client/components/locations/networks/_show.html:191
 msgid "Must be less than 10000"
+msgstr ""
+
+#: client/components/vouchers/_form.html:73
+msgid "Must be less than 1000000 Mb"
 msgstr ""
 
 #: client/components/splash_pages/_store_product.html:138
@@ -4267,6 +4543,14 @@ msgstr ""
 msgid "Must be less than 4096"
 msgstr ""
 
+#: client/components/vouchers/_form.html:135
+msgid "Must be less than 43200"
+msgstr ""
+
+#: client/components/vouchers/_form.html:164
+msgid "Must be less than 43201"
+msgstr ""
+
 #: client/components/splash_pages/_menu.html:506
 #: client/components/splash_pages/_menu.html:516
 #: client/components/splash_pages/_menu.html:526
@@ -4285,6 +4569,10 @@ msgstr ""
 msgid "Must be less than 500 characters."
 msgstr ""
 
+#: client/components/vouchers/_form.html:64
+msgid "Must be less than 518412 mins"
+msgstr ""
+
 #: client/components/users/branding/_form.html:50
 msgid "Must be less than 55 characters"
 msgstr ""
@@ -4300,6 +4588,10 @@ msgstr ""
 
 #: client/components/locations/new/_index.html:72
 msgid "Must be less than 8 characters"
+msgstr ""
+
+#: client/components/vouchers/_form.html:125
+msgid "Must be less than {{ voucher.validity_minutes }}"
 msgstr ""
 
 #: client/components/splash_pages/access-password.html:26
@@ -4358,6 +4650,8 @@ msgstr ""
 #: client/components/locations/triggers/list.html:46
 #: client/components/splash_pages/_index.html:49
 #: client/components/users/billing/_plans.html:18
+#: client/components/vouchers/_index.html:78
+#: client/components/zones/_form.html:19 client/components/zones/_index.html:57
 msgid "Name"
 msgstr ""
 
@@ -4440,6 +4734,10 @@ msgstr ""
 msgid "Network created successfully"
 msgstr ""
 
+#: client/components/zones/_associated_zones_dialog.html:5
+msgid "Network not associated with a zone."
+msgstr ""
+
 #: client/components/networks/networks.directives.js:145
 #: client/components/networks/networks.directives.js:364
 msgid "Network successfully deleted."
@@ -4453,6 +4751,7 @@ msgstr ""
 #: client/components/locations/locations.controller.js:77
 #: client/components/locations/networks/_index.html:11
 #: client/components/locations/networks/_show.html:6
+#: client/components/zones/_index.html:63
 msgid "Networks"
 msgstr ""
 
@@ -4466,6 +4765,7 @@ msgstr ""
 
 #: client/components/apps/_index.html:73
 #: client/components/splash_codes/splash_codes.directives.js:310
+#: client/components/vouchers/vouchers.directives.js:344
 msgid "New"
 msgstr ""
 
@@ -4525,6 +4825,10 @@ msgstr ""
 msgid "No Scan Mode"
 msgstr ""
 
+#: client/components/vouchers/_new.html:16
+msgid "No Splash Pages Found"
+msgstr ""
+
 #: client/components/locations/locations.directives.js:1010
 msgid "No Zone"
 msgstr ""
@@ -4574,7 +4878,7 @@ msgstr ""
 #: client/components/locations/index/_index.html:35
 #: client/components/reports/_filter.html:33
 #: client/components/reports/_header.html:33
-#: client/components/vouchers/_index.html:32
+#: client/components/vouchers/_index.html:33
 msgid "No results found."
 msgstr ""
 
@@ -4657,12 +4961,20 @@ msgstr ""
 msgid "Number and letters only."
 msgstr ""
 
+#: client/components/vouchers/vouchers.directives.js:254
+msgid "Numbers and letters"
+msgstr ""
+
 #: client/components/locations/access/access-password.html:27
 msgid "Numbers and letters only please"
 msgstr ""
 
 #: client/components/registrations/_flow.html:31
 msgid "Numbers and letters only please."
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:254
+msgid "Numbers only"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:379
@@ -4724,6 +5036,7 @@ msgstr ""
 
 #: client/components/locations/networks/_show.html:70
 #: client/components/networks/_create.html:57
+#: client/components/vouchers/_copy.html:48
 msgid "Open"
 msgstr ""
 
@@ -4735,6 +5048,7 @@ msgstr ""
 #: client/components/codes/_index.html:74
 #: client/components/locations/boxes/_table.html:109
 #: client/components/locations/boxes/_table.html:9
+#: client/components/vouchers/_index.html:110
 msgid "Open Boxes Menu"
 msgstr ""
 
@@ -4767,6 +5081,7 @@ msgstr ""
 #: client/components/locations/triggers/_edit.html:8
 #: client/components/locations/triggers/_show.html:8
 #: client/components/splash_codes/_show.html:8
+#: client/components/vouchers/_show.html:8
 msgid "Open Tools"
 msgstr ""
 
@@ -4845,6 +5160,10 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
+#: client/components/vouchers/_show.html:174
+msgid "PDF"
+msgstr ""
+
 #: client/components/splash_pages/_menu.html:440
 #: client/components/splash_pages/_menu.html:558
 msgid "Padding"
@@ -4888,6 +5207,8 @@ msgstr ""
 #: client/components/splash_codes/_edit.html:63
 #: client/components/splash_codes/_index.html:56
 #: client/components/splash_codes/_show.html:44
+#: client/components/vouchers/_copy.html:29
+#: client/components/vouchers/_copy.html:47
 msgid "Password"
 msgstr ""
 
@@ -5162,7 +5483,7 @@ msgstr ""
 msgid "Primary Radius"
 msgstr ""
 
-#: client/index.html:206
+#: client/index.html:217
 msgid "Privacy Policy - Terms of Service"
 msgstr ""
 
@@ -5231,6 +5552,13 @@ msgstr ""
 msgid "Quality"
 msgstr ""
 
+#: client/components/vouchers/_form.html:78
+#: client/components/vouchers/_form.html:79
+#: client/components/vouchers/_index.html:80
+#: client/components/vouchers/_show.html:79
+msgid "Quantity"
+msgstr ""
+
 #: client/components/splash_pages/access-quickcodes.html:4
 msgid "QuickCode Settings"
 msgstr ""
@@ -5238,6 +5566,10 @@ msgstr ""
 #: client/components/users/layouts/sidebar.html:13
 #: client/components/users/users.controllers.js:129
 msgid "Quotas"
+msgstr ""
+
+#: client/components/vouchers/_show.html:172
+msgid "REGENERATE"
 msgstr ""
 
 #: client/components/payloads/_run_payload.html:12
@@ -5443,6 +5775,12 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
+#: client/components/vouchers/_form.html:126
+#: client/components/vouchers/_form.html:136
+#: client/components/vouchers/_form.html:146
+msgid "Required"
+msgstr ""
+
 #: client/components/splash_pages/_form_designer.html:76
 msgid "Required Field"
 msgstr ""
@@ -5453,6 +5791,10 @@ msgstr ""
 
 #: client/components/splash_pages/access-social.html:61
 msgid "Required when using your own App."
+msgstr ""
+
+#: client/components/vouchers/_form.html:165
+msgid "Required with single-use vouchers"
 msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:24
@@ -5644,6 +5986,8 @@ msgstr ""
 #: client/components/networks/_create.html:20
 #: client/components/networks/_edit_ssid.html:16
 #: client/components/splash_pages/_networks.html:19
+#: client/components/vouchers/_copy.html:19
+#: client/components/zones/_show.html:33
 msgid "SSID"
 msgstr ""
 
@@ -5701,6 +6045,7 @@ msgstr ""
 #: client/components/users/billing/_billing.html:56
 #: client/components/users/branding/_form.html:164
 #: client/components/users/show/_index.html:123
+#: client/components/zones/_show.html:74
 msgid "Save"
 msgstr ""
 
@@ -5735,6 +6080,10 @@ msgstr ""
 
 #: client/components/boxes/show/_index.html:116
 msgid "Secondary Radius"
+msgstr ""
+
+#: client/components/vouchers/_form.html:199
+msgid "Secure Mode {{ voucher.secure_password | humanBoolean }}"
 msgstr ""
 
 #: client/components/users/billing/_card.html:28
@@ -5845,7 +6194,13 @@ msgstr ""
 msgid "Serial Number"
 msgstr ""
 
+#: client/components/vouchers/_form.html:122
+#: client/components/vouchers/_show.html:110
+msgid "Session Timeout"
+msgstr ""
+
 #: client/components/splash_pages/_store_product.html:88
+#: client/components/vouchers/_form.html:121
 msgid "Session Timeout (mins)"
 msgstr ""
 
@@ -5892,7 +6247,9 @@ msgstr ""
 #: client/components/users/invoices/_details.html:3
 #: client/components/users/invoices/_index.html:3
 #: client/components/users/quotas/_index.html:3
-#: client/components/users/show/_index.html:4 client/index.html:142
+#: client/components/users/show/_index.html:4
+#: client/components/vouchers/_new.html:3
+#: client/components/vouchers/_show.html:3 client/index.html:143
 #: client/index.html:62
 msgid "Settings"
 msgstr ""
@@ -5992,10 +6349,16 @@ msgid "Signal Strength"
 msgstr ""
 
 #: client/components/locations/clients/_show_code.html:132
+#: client/components/vouchers/_show.html:124
 msgid "Simultaneous Users"
 msgstr ""
 
+#: client/components/vouchers/_form.html:160
+msgid "Single-Use Limit (mins)"
+msgstr ""
+
 #: client/components/splash_pages/_store_product.html:37
+#: client/components/vouchers/vouchers.directives.js:253
 msgid "Single-use"
 msgstr ""
 
@@ -6040,6 +6403,10 @@ msgstr ""
 msgid "Some settings aren't compatible with splash pages."
 msgstr ""
 
+#: client/components/vouchers/_form.html:8
+msgid "Some settings can't be changed after creation."
+msgstr ""
+
 #: client/components/users/billing/_cancel_dialog.html:11
 msgid "Sorry to see you want to cancel your account."
 msgstr ""
@@ -6058,6 +6425,7 @@ msgid "Source Port"
 msgstr ""
 
 #: client/components/splash_codes/_show.html:76
+#: client/components/vouchers/_show.html:138
 msgid "Speeds"
 msgstr ""
 
@@ -6072,6 +6440,7 @@ msgstr ""
 #: client/components/locations/networks/_index.html:8
 #: client/components/splash_codes/_index.html:8
 #: client/components/users/branding/_form.html:3
+#: client/components/zones/_index.html:8 client/components/zones/_show.html:35
 msgid "Splash"
 msgstr ""
 
@@ -6122,6 +6491,8 @@ msgstr ""
 
 #: client/components/splash_codes/_edit.html:53
 #: client/components/splash_codes/_show.html:88
+#: client/components/vouchers/_form.html:19
+#: client/components/vouchers/_show.html:86
 msgid "Splash Page"
 msgstr ""
 
@@ -6281,8 +6652,16 @@ msgstr ""
 msgid "Success!"
 msgstr ""
 
+#: client/components/vouchers/vouchers.directives.js:408
+msgid "Successfully delete voucher."
+msgstr ""
+
 #: client/components/locations/locations.directives.js:1555
 msgid "Successfully deleted location."
+msgstr ""
+
+#: client/components/zones/zones.directives.js:368
+msgid "Successfully deleted zone"
 msgstr ""
 
 #: client/components/clients/clients.directives.js:629
@@ -6307,6 +6686,10 @@ msgstr ""
 msgid "Successfully updated location."
 msgstr ""
 
+#: client/components/zones/zones.directives.js:339
+msgid "Successfully updated zone."
+msgstr ""
+
 #: client/components/charts/clients/_client_tx_chart.html:76
 #: client/components/charts/devices/_wireless_chart.html:76
 #: client/components/locations/clients/_index.html:150
@@ -6317,7 +6700,7 @@ msgstr ""
 msgid "Sun"
 msgstr ""
 
-#: client/index.html:87 client/index.html:92
+#: client/index.html:166 client/index.html:87 client/index.html:92
 msgid "Support"
 msgstr ""
 
@@ -6733,6 +7116,10 @@ msgstr ""
 msgid "This will prevent users from logging in."
 msgstr ""
 
+#: client/components/zones/zones.directives.js:309
+msgid "This will resync all associated devices."
+msgstr ""
+
 #: client/components/locations/locations.directives.js:309
 msgid "This will revoke your existing credentials and cannot be reversed."
 msgstr ""
@@ -6743,6 +7130,10 @@ msgstr ""
 
 #: client/components/main/main.directives.js:13
 msgid "Thu"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:252
+msgid "Time"
 msgstr ""
 
 #: client/components/locations/access/access-panel-top.html:20
@@ -6991,6 +7382,7 @@ msgstr ""
 #: client/components/locations/triggers/history/_index.html:20
 #: client/components/locations/triggers/list.html:47
 #: client/components/splash_pages/_index.html:50
+#: client/components/vouchers/_form.html:52
 msgid "Type"
 msgstr ""
 
@@ -7007,6 +7399,7 @@ msgid "Typography"
 msgstr ""
 
 #: client/components/networks/_edit_ssid.html:37
+#: client/components/zones/_form.html:43
 msgid "UPDATE"
 msgstr ""
 
@@ -7105,6 +7498,10 @@ msgstr ""
 msgid "Update SSID"
 msgstr ""
 
+#: client/components/zones/zones.directives.js:310
+msgid "Update Zone"
+msgstr ""
+
 #: client/components/users/billing/_card.html:11
 msgid "Update or add your credit card"
 msgstr ""
@@ -7179,6 +7576,10 @@ msgstr ""
 msgid "Upload Speed ({{(code.upload_speed / 1024) | number:0 }}Mbps)"
 msgstr ""
 
+#: client/components/vouchers/_form.html:191
+msgid "Upload Speed ({{(voucher.upload_speed / 1024) | number:0 }}Mbps)"
+msgstr ""
+
 #: client/components/splash_pages/_store_product.html:125
 msgid "Upload Speed {{ (product.upload_speed / 1024) | number }}Mbps"
 msgstr ""
@@ -7223,6 +7624,10 @@ msgstr ""
 msgid "Usage Statistics"
 msgstr ""
 
+#: client/components/vouchers/_form.html:161
+msgid "Usage limit"
+msgstr ""
+
 #: client/components/splash_pages/access-social.html:90
 msgid "Use Your Own Facebook App"
 msgstr ""
@@ -7245,8 +7650,7 @@ msgstr ""
 msgid "User successfully updated."
 msgstr ""
 
-#: client/components/codes/_index.html:44
-#: client/components/codes/_table.html:8
+#: client/components/codes/_index.html:44 client/components/codes/_table.html:8
 #: client/components/locations/clients/_show_code.html:27
 #: client/components/locations/clients/codes.html:31
 #: client/components/locations/triggers/show-slack.html:25
@@ -7292,6 +7696,8 @@ msgstr ""
 
 #: client/components/locations/clients/_show_code.html:151
 #: client/components/splash_codes/_edit.html:74
+#: client/components/vouchers/_form.html:60
+#: client/components/vouchers/_show.html:65
 msgid "Validity Minutes"
 msgstr ""
 
@@ -7328,6 +7734,8 @@ msgstr ""
 #: client/components/splash_codes/splash_codes.directives.js:62
 #: client/components/users/users.directives.js:1116
 #: client/components/users/users.directives.js:327
+#: client/components/vouchers/vouchers.directives.js:109
+#: client/components/zones/_show.html:60
 msgid "View"
 msgstr ""
 
@@ -7397,8 +7805,25 @@ msgstr ""
 msgid "Voucher Code"
 msgstr ""
 
+#: client/components/vouchers/_show.html:31
+msgid "Voucher Details"
+msgstr ""
+
 #: client/components/locations/clients/_show_code.html:167
+#: client/components/vouchers/_form.html:173
 msgid "Voucher Format"
+msgstr ""
+
+#: client/components/vouchers/_show.html:42
+msgid "Voucher batch disabled."
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:293
+msgid "Voucher created successfully"
+msgstr ""
+
+#: client/components/vouchers/_form.html:88
+msgid "Voucher {{ voucher.is_active | humanBoolean }}"
 msgstr ""
 
 #: client/components/clients/clients.directives.js:795
@@ -7408,7 +7833,17 @@ msgstr ""
 #: client/components/splash_pages/access-social.html:24
 #: client/components/users/history/_index.html:3
 #: client/components/users/quotas/_index.html:39
+#: client/components/vouchers/_new.html:6
+#: client/components/vouchers/_show.html:6
 msgid "Vouchers"
+msgstr ""
+
+#: client/components/vouchers/_show.html:37
+msgid "Vouchers generating, please wait."
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:174
+msgid "Vouchers successfully deleted."
 msgstr ""
 
 #: client/components/boxes/show/_index.html:224
@@ -7488,6 +7923,10 @@ msgstr ""
 #: client/components/locations/settings/_notifications.html:20
 #: client/components/users/alerts/_index.html:30
 msgid "Weekly Reports Enabled"
+msgstr ""
+
+#: client/components/vouchers/vouchers.directives.js:253
+msgid "Weekly, multi-use"
 msgstr ""
 
 #: client/components/splash_pages/_index.html:52
@@ -7878,6 +8317,18 @@ msgstr ""
 msgid "You must give it a name"
 msgstr ""
 
+#: client/components/vouchers/_form.html:41
+msgid "You must give the batch a description"
+msgstr ""
+
+#: client/components/vouchers/_form.html:32
+msgid "You must give the batch a name"
+msgstr ""
+
+#: client/components/zones/_form.html:23
+msgid "You must give the zone a name"
+msgstr ""
+
 #: client/components/locations/triggers/channel-email.html:40
 msgid "You must set a body for the message"
 msgstr ""
@@ -7914,7 +8365,12 @@ msgstr ""
 #: client/components/locations/networks/_show.html:63
 #: client/components/networks/_create.html:36
 #: client/components/splash_codes/_edit.html:69
+#: client/components/vouchers/_copy.html:34
 msgid "You must set a password"
+msgstr ""
+
+#: client/components/vouchers/_form.html:83
+msgid "You must set a quantity"
 msgstr ""
 
 #: client/components/locations/triggers/channel-email.html:29
@@ -7942,11 +8398,16 @@ msgstr ""
 #: client/components/networks/_create.html:25
 #: client/components/networks/_edit_ssid.html:22
 #: client/components/splash_pages/_form.html:62
+#: client/components/vouchers/_copy.html:24
 msgid "You must set an SSID"
 msgstr ""
 
 #: client/components/users/show/_index.html:86
 msgid "You must set an email"
+msgstr ""
+
+#: client/components/vouchers/_form.html:74
+msgid "You must set the data limit"
 msgstr ""
 
 #: client/components/locations/triggers/channel-email.html:8
@@ -7958,11 +8419,16 @@ msgid "You must set the max. users"
 msgstr ""
 
 #: client/components/splash_codes/_edit.html:79
+#: client/components/vouchers/_form.html:65
 msgid "You must set the validity minutes"
 msgstr ""
 
 #: client/components/registrations/registrations.directive.js:81
 msgid "You'll be on your way soon, please wait."
+msgstr ""
+
+#: client/components/vouchers/_new.html:19
+msgid "You'll need to create a splash page before creating any vouchers."
 msgstr ""
 
 #: client/components/locations/access/access-social.html:34
@@ -8047,6 +8513,10 @@ msgstr ""
 msgid "Your codes are still generating, please wait."
 msgstr ""
 
+#: client/components/vouchers/_show.html:168
+msgid "Your codes have not generated yet, please wait."
+msgstr ""
+
 #: client/components/users/billing/_billing.html:15
 msgid "Your company name"
 msgstr ""
@@ -8126,11 +8596,25 @@ msgstr ""
 #: client/components/locations/boxes/_table.html:49
 #: client/components/locations/networks/_index.html:36
 #: client/components/networks/_create.html:42
+#: client/components/vouchers/_copy.html:39
 msgid "Zone"
 msgstr ""
 
 #: client/components/users/index/_index.html:54
+#: client/components/zones/_index.html:92 client/components/zones/_show.html:53
 msgid "Zone Menu"
+msgstr ""
+
+#: client/components/zones/zones.directives.js:185
+msgid "Zone successfully created."
+msgstr ""
+
+#: client/components/zones/zones.directives.js:62
+msgid "Zone successfully deleted"
+msgstr ""
+
+#: client/components/zones/zones.directives.js:106
+msgid "Zone successfully updated"
 msgstr ""
 
 #: client/components/locations/show/_map.html:35
@@ -8138,7 +8622,12 @@ msgid "Zone: {{ ::box.metadata.zone_name }}"
 msgstr ""
 
 #: client/components/locations/locations.controller.js:93
+#: client/components/zones/_index.html:11
 msgid "Zones"
+msgstr ""
+
+#: client/components/zones/_index.html:33
+msgid "Zones let you organise and segment your networks."
 msgstr ""
 
 #: client/components/users/quotas/_index.html:49
@@ -8432,6 +8921,10 @@ msgid ""
 "{{ ::version.whodunnit || 'Ghost'}} on {{ version.created_at | humanTime}}"
 msgstr ""
 
+#: client/components/vouchers/_form.html:5
+msgid "{{ ::voucher.unique_id | updateCreate }} Voucher Batch"
+msgstr ""
+
 #: client/components/codes/_sessions.html:23
 msgid "{{ _links.total_entries }} Sessions for Client"
 msgstr ""
@@ -8569,10 +9062,22 @@ msgid ""
 "{{ user.credit_card_expiry }}"
 msgstr ""
 
+#: client/components/zones/_associated_zones_dialog.html:11
+msgid "{{ zone.zone_name | titleCase }} Zone"
+msgstr ""
+
+#: client/components/zones/_index.html:76
+msgid "{{'N/A' | truncate:20}}"
+msgstr ""
+
 #: client/components/splash_pages/_index.html:64
 msgid "{{'No name' | truncate:20}}"
 msgstr ""
 
 #: client/components/splash_pages/_index.html:63
 msgid "{{splash.splash_name}}"
+msgstr ""
+
+#: client/components/zones/_index.html:75
+msgid "{{zone.zone_description}}"
 msgstr ""
