@@ -515,7 +515,7 @@ module.exports = function (grunt) {
       },
       beta: {
         options: {
-          remote: 'git@heroku.com:lit-thicket-88494.git',
+          remote: 'git@heroku.com:secure-mesa-9387.git',
           branch: 'master',
           force: true
         }
