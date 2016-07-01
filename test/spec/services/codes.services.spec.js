@@ -19,6 +19,8 @@ describe("Code Unit Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/codes/generate_password')
       .respond(200, {name: name, email: email, success: true});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
    }));
 
   afterEach(function() {
@@ -27,8 +29,8 @@ describe("Code Unit Tests", function() {
   });
 
   it('should have sent a GET request to location codes', function() {
-    var result = Code.get({location_id: 123, voucher_id: 456})
-    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/locations/123/vouchers/456/codes')
+    var result = Code.get({location_id: 123, voucher_id: 456, vouchers: 'vouchers'});
+    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/locations/123/vouchers/456/codes');
     $httpBackend.flush();
   });
 
@@ -37,13 +39,6 @@ describe("Code Unit Tests", function() {
     $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/codes/generate_password')
     $httpBackend.flush();
   });
-
-
-  // it('should have sent a GET request to location show codes', function() {
-  //   var result = Code.query({id: 456})
-  //   $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/codes/456')
-  //   $httpBackend.flush();
-  // });
 
 })
 

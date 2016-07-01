@@ -5,7 +5,7 @@
       <input ng-model="query.filter" md-autofocus placeholder="Filter Networks">
     </md-input-container>
     <div flex></div>
-    <md-button class="md-icon-button md-warn" ng-if="allowed" ng-click="destroy()" aria-label="Add Device">
+    <md-button class="md-icon-button md-warn" ng-if="allowed" ng-click="destroy()" aria-label="{{ 'Add Device' | translate }}">
       <md-icon>delete_forever</md-icon>
     </md-button>
   </div>
@@ -30,10 +30,10 @@
               <table multiple md-table md-row-select="options.rowSelect" ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order">
                   <tr md-row>
-                    <th md-column><span>SSID</span></th>
-                    <th md-column><span>Description</span></th>
-                    <th md-column><span>Splash</span></th>
-                    <th md-column><span>Action</span></th>
+                    <th md-column><span translate>SSID</span></th>
+                    <th md-column><span translate>Description</span></th>
+                    <th md-column><span translate>Splash</span></th>
+                    <th md-column><span translate>Action</span></th>
                   </tr>
                 </thead>
                 <tbody md-body>
@@ -45,18 +45,19 @@
                       {{ ::network.description }}
                     </td>
                     <td hide show-gt-xs md-cell>
-                      {{ ::network.captive_portal_enabled ? "Enabled" : '-' }}
+                      <span ng-show="{{::network.captive_portal_enabled}}" translate>Enabled</span>
+                      <span ng-show="!{{::network.captive_portal_enabled}}">-</span>
                     </td>
                     <td md-cell>
                       <md-menu>
-                        <md-button aria-label="Zone Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-button aria-label="{{ 'Zone Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                           <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4" >
                           <md-menu-item>
                             <md-button ng-click="view(network.id)">
                               <md-icon>pageview</md-icon>
-                              <p flex>View</p>
+                              <p flex translate>View</p>
                             </md-button>
                           </md-menu-item>
                         </md-menu-content>
@@ -70,7 +71,9 @@
         </md-card>
 
         <md-button class="md-raised" ng-click="update()">
-          Save
+          <translate>
+            Save
+          </translate>
         </md-button>
 
       </div>

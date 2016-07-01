@@ -24,12 +24,7 @@ describe("Connected Clients Unit Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/123/clients/123123/logout')
       .respond(200, {});
 
-    $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/locations/123/clients/123123/codes')
-      .respond(200, {});
-
-    $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/locations/123/clients/123123/codes')
-      .respond(200, {});
-
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {
@@ -52,18 +47,6 @@ describe("Connected Clients Unit Tests", function() {
   it('should have sent a PATCH request to the clients query API', function() {
     var result = Client.update({location_id: 123, id: 123123});
     $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/locations/123/clients/123123');
-    $httpBackend.flush();
-  });
-
-  it('should have sent a GET request to the clients query API', function() {
-    var result = Client.codes({location_id: 123, id: 123123});
-    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/locations/123/clients/123123/codes');
-    $httpBackend.flush();
-  });
-
-  it('should have sent a PATCH request to the clients query API', function() {
-    var result = Client.update_code({location_id: 123, id: 123123});
-    $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/locations/123/clients/123123/codes');
     $httpBackend.flush();
   });
 

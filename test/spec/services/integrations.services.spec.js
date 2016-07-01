@@ -36,6 +36,8 @@ describe("Integration Unit Tests", function() {
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/integrations/123?twillio.numbers=true')
       .respond(200, [{}]);
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
    }));
 
   afterEach(function() {

@@ -13,55 +13,57 @@ describe("Box Unit Tests", function() {
     $httpBackend = $injector.get('$httpBackend');
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/boxes')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/boxes?q=derby')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/boxes/123')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/boxes/123')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/boxes/123')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/reboot')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/payloads')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/boxes/123/alerts')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/reset')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/transfer?transfer_to=456')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/detect')
-      .respond(200, [{}]);
+    .respond(200, [{}]);
 
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/boxes/123')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/boxes/123/status')
-      .respond(200, {});
+    .respond(200, {});
 
-   }));
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
+  }));
 
   afterEach(function() {
-   $httpBackend.verifyNoOutstandingExpectation();
-   $httpBackend.verifyNoOutstandingRequest();
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
   });
 
   it('should have sent a GET request to the boxes status API', function() {
@@ -156,47 +158,6 @@ describe("Box Unit Tests", function() {
 
 })
 
-// 'use strict';
-
-// describe("Client Unit Tests", function() {
-
-//   beforeEach(module('myApp'));
-
-//   var $httpBackend;
-//   var Client;
-
-//   beforeEach(inject(function($injector, _Client_) {
-
-//     Client = _Client_;
-//     $httpBackend = $injector.get('$httpBackend');
-
-//     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/boxes/456/clients')
-//       .respond(200, [{}]);
-
-//     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/456/clients/123/logout')
-//       .respond(200, {});
-
-//    }));
-
-//   afterEach(function() {
-//    $httpBackend.verifyNoOutstandingExpectation();
-//    $httpBackend.verifyNoOutstandingRequest();
-//   });
-
-//   it('should get a list of clients for a box', function() {
-//     var result = Client.get({box_id: 456})
-//     $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/boxes/456/clients')
-//     $httpBackend.flush();
-//   });
-
-//   it('should disconnect a clients from a box', function() {
-//     var result = Client.disconnect({box_id: 456, id: 123})
-//     $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/456/clients/123/logout')
-//     $httpBackend.flush();
-//   });
-
-// })
-
 describe("Location Box Unit Tests", function() {
 
   beforeEach(module('myApp'));
@@ -210,25 +171,27 @@ describe("Location Box Unit Tests", function() {
     $httpBackend = $injector.get('$httpBackend');
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/locations/123/boxes')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/locations/123/boxes/456')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/123/boxes')
-      .respond(200, {});
+    .respond(200, {});
 
     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/locations/123/boxes/456')
-      .respond(200, [{}]);
+    .respond(200, [{}]);
 
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/locations/123/boxes/456')
-      .respond(200, {});
+    .respond(200, {});
 
-   }));
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
+  }));
 
   afterEach(function() {
-   $httpBackend.verifyNoOutstandingExpectation();
-   $httpBackend.verifyNoOutstandingRequest();
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
   });
 
   it('should have sent a GET request to the boxes query API', function() {
@@ -260,6 +223,5 @@ describe("Location Box Unit Tests", function() {
     $httpBackend.expectDELETE('http://mywifi.dev:8080/api/v1/locations/123/boxes/456')
     $httpBackend.flush();
   });
-
 
 })

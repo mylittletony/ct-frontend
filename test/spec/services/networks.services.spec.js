@@ -33,6 +33,8 @@ describe("Networks Unit Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/networks/888/radtest')
       .respond(200, {});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
    }));
 
   afterEach(function() {

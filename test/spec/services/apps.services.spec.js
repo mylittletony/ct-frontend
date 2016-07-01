@@ -28,6 +28,8 @@ describe("Apps Unit Tests", function() {
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/apps/123')
       .respond(200, {id: 123});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
+
    }));
 
   afterEach(function() {

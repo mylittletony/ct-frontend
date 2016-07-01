@@ -39,6 +39,7 @@ describe("SplashPage Unit Tests", function() {
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/locations/123/splash_pages/46/stores')
       .respond(200, {});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {

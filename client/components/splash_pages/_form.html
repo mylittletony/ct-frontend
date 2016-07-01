@@ -55,7 +55,7 @@
               <label>
                 <translate>Splash SSID</translate>
               </label>
-              <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="splash.ssid" ng-pattern="/^[a-zA-ZäöåÄÖÅ0-9\-\'\-\_\ \.]*$/" required>
+              <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="splash.ssid" required>
               <div ng-messages="myForm.ssid.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="minlength" translate>Min 5 characters</div>
@@ -66,17 +66,17 @@
             <md-checkbox ng-model="newSsid" aria-label="{{ 'New SSID' | translate }}" ng-hide="obj.zones || obj.networks.length">
               <translate>Create a new SSID</translate>
             </md-checkbox>
+          </div>
         </div>
-      </div>
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button ng-click="close()">
-        <translate>Close</translate>
-      </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$invalid || myForm.$pristine" type="submit">
-        <translate>CREATE</translate>
-      </md-button>
-    </md-dialog-actions>
-  </form>
-</md-dialog>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="close()">
+          <translate>Close</translate>
+        </md-button>
+        <md-button class="md-raised" ng-disabled="myForm.$invalid || myForm.$pristine" type="submit">
+          <translate>CREATE</translate>
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>

@@ -2,8 +2,6 @@
 
 var app = angular.module('myApp.clients.directives', []);
 
-// I have not tested this at all !!! //
-
 app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', function(Client, Location, Report, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {

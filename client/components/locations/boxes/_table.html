@@ -35,7 +35,7 @@
 
     <md-table-container>
       <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
-        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+        <thead md-head md-order="query.order" md-on-reorder="logOrder">
           <tr md-row>
             <th><span></span></th>
             <th colspan="2" md-column md-order-by="description" md-desc>
@@ -53,8 +53,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <!-- <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="box in boxes | filter: filter | orderBy: query.order"> -->
-          <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="box in boxes">
+          <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="box in boxes | filter: filter | orderBy: query.order">
             <td md-cell class="box-status">
               <span ng-if="box.state == 'processing'" class="box-spinner">
                 <md-icon class="box-status processing" md-menu-origin md-font-icon="">rotate_right</md-icon>

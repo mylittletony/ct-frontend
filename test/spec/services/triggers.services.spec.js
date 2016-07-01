@@ -25,6 +25,7 @@ describe("Triggers Unit Tests", function() {
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/locations/345/triggers/123')
       .respond(200, [{}]);
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {
@@ -76,6 +77,7 @@ describe("Triggers History Unit Tests", function() {
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/locations/345/triggers/123/trigger_history/111')
       .respond(200, {});
 
+    $httpBackend.whenGET('/translations/en_GB.json').respond("");
    }));
 
   afterEach(function() {

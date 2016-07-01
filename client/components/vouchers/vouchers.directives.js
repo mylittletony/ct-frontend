@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.vouchers.directives', []);
 
-app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout) {
+app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', 'gettextCatalog', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout, gettextCatalog) {
 
 
   var link = function(scope) {
@@ -106,19 +106,19 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       scope.menuItems = [];
 
       scope.menuItems.push({
-        name: 'View',
+        name: gettextCatalog.getString('View'),
         icon: 'pageview',
         type: 'view'
       });
 
       scope.menuItems.push({
-        name: 'Codes',
+        name: gettextCatalog.getString('Codes'),
         icon: 'receipt',
         type: 'codes'
       });
 
       scope.menuItems.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
       });
@@ -148,11 +148,11 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
 
     var destroy = function(id) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Vouchers')
-      .textContent('Are you sure you want to delete these vouchers?')
-      .ariaLabel('Delete Vouchers')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Vouchers'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete these vouchers?'))
+      .ariaLabel(gettextCatalog.getString('Delete Vouchers'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         scope.destroy(id);
       }, function() {
@@ -171,7 +171,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       for (var i = 0, len = scope.vouchers.length; i < len; i++) {
         if (scope.vouchers[i].unique_id === id) {
           scope.vouchers.splice(i, 1);
-          showToast('Vouchers successfully deleted.');
+          showToast(gettextCatalog.getString('Vouchers successfully deleted.'));
           break;
         }
       }
@@ -229,7 +229,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
 
 }]);
 
-app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', 'menu', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, menu) {
+app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', 'menu', 'gettextCatalog', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, menu, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -249,9 +249,9 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
     scope.voucher.access_restrict_period  = '';
     scope.voucher.voucher_format          = 'alphanumeric';
 
-    scope.access_types                = [{ key: 'Time', value: 1}, {key: 'Data', value: 2}];
-    scope.access_restrict_periods     = [{key: 'All Time, multi-use', value: '' }, { key: 'Daily, multi-use', value: 'daily'}, {key: 'Weekly, multi-use', value: 'weekly'}, {key: 'Monthly, multi-use', value: 'monthly'}, { key: 'Single-use', value: 'all'}];
-    scope.voucher_formats             = [{key:'Numbers and letters', value: 'alphanumeric'}, {key: 'Numbers only', value: 'numeric'}, { key: 'Letters only', value: 'alpha'}, {key: 'Alice in Wonderland', value: 'words'}];
+    scope.access_types                = [{ key: gettextCatalog.getString('Time'), value: 1}, {key: gettextCatalog.getString('Data'), value: 2}];
+    scope.access_restrict_periods     = [{key: gettextCatalog.getString('All Time, multi-use'), value: '' }, { key: gettextCatalog.getString('Daily, multi-use'), value: 'daily'}, {key: gettextCatalog.getString('Weekly, multi-use'), value: 'weekly'}, {key: gettextCatalog.getString('Monthly, multi-use'), value: 'monthly'}, { key: gettextCatalog.getString('Single-use'), value: 'all'}];
+    scope.voucher_formats             = [{key:gettextCatalog.getString('Numbers and letters'), value: 'alphanumeric'}, {key: gettextCatalog.getString('Numbers only'), value: 'numeric'}, { key: gettextCatalog.getString('Letters only'), value: 'alpha'}, {key: gettextCatalog.getString('Alice in Wonderland'), value: 'words'}];
 
     scope.toggle = function(section) {
       menu.toggleSelectSection(section);
@@ -290,7 +290,7 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
     scope.save = function() {
       Voucher.create({location_id: scope.location.slug, voucher: scope.voucher}).$promise.then(function(results) {
         $location.path('/locations/'+ scope.location.slug + '/vouchers/' + results.unique_id);
-        showToast('Voucher created successfully');
+        showToast(gettextCatalog.getString('Voucher created successfully'));
       }, function(err) {
         showErrors(err);
       });
@@ -314,7 +314,7 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
 
 }]);
 
-app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher', '$rootScope', 'Auth', '$route', 'menu', 'showToast', 'showErrors', '$mdDialog', function(Voucher, $routeParams, $location, $pusher, $rootScope, Auth, $route, menu, showToast, showErrors, $mdDialog) {
+app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher', '$rootScope', 'Auth', '$route', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Voucher, $routeParams, $location, $pusher, $rootScope, Auth, $route, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
 
@@ -327,27 +327,27 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Edit',
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings',
         type: 'settings',
         disabled: !scope.voucher.completed
       });
 
       scope.menu.push({
-        name: 'Codes',
+        name: gettextCatalog.getString('Codes'),
         icon: 'receipt',
         type: 'codes',
         disabled: !scope.voucher.completed
       });
 
       scope.menu.push({
-        name: 'New',
+        name: gettextCatalog.getString('New'),
         icon: 'add_circle_outline',
         type: 'new'
       });
 
       scope.menu.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete',
         disabled: !scope.voucher.completed
@@ -391,11 +391,11 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
 
     var destroy = function(network) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Voucher')
-      .textContent('Are you sure you want to delete this voucher?')
-      .ariaLabel('Delete Voucher')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Voucher'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this voucher?'))
+      .ariaLabel(gettextCatalog.getString('Delete Voucher'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         scope.destroy(network);
       }, function() {
@@ -405,7 +405,7 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
     scope.destroy = function() {
       Voucher.destroy({id: scope.voucher.unique_id, location_id: scope.location.slug}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug + '/vouchers/');
-        showToast('Successfully delete voucher.');
+        showToast(gettextCatalog.getString('Successfully delete voucher.'));
       }, function(err) {
         showErrors(err);
       });
@@ -440,7 +440,7 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
           regenerate_link: true
         }
       }).$promise.then(function(results) {
-        showToast('Download links regenerated');
+        showToast(gettextCatalog.getString('Download links regenerated'));
         scope.voucher.csv_link  = results.csv_link;
         scope.voucher.pdf_link  = results.pdf_link;
       }, function(err) {
