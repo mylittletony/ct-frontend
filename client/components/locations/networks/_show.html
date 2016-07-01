@@ -323,8 +323,6 @@
               <md-switch class="md-accent" ng-model="network.isolate" aria-label="{{ 'Isolate SSID' | translate }} ">
                 <span  ng-show="network.isolate" translate>Client Isolation Enabled</span>
                 <span  ng-hide="network.isolate" translate>Client Isolation Disabled</span>
-                <span  ng-if="network.isolate" translate>Client Isolation Enabled</span>
-                <span  ng-if="!network.isolate" translate>Client Isolation Disabled</span>
               </md-switch>
               <md-switch ng-disabled="network.vlan_id > 0 || network.network_radio_mode === 'sta'" class="md-accent" ng-model="network.make_part_of_lan" aria-label="{{ 'Make Part of LAN' | translate }}">
                 <span  ng-if="network.make_part_of_lan" translate>Make Part of Lan Enabled</span>
