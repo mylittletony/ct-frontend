@@ -11,10 +11,18 @@
             <label></label>
             <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{'Filter Locations' | translate}}">
           </md-input-container>
+          <div flex></div>
+          <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="{{ 'Add Device' | translate }}" hide show-gt-xs>
+            <md-icon>add_circle</md-icon>
+            <md-tooltip md-direction="bottom">
+              <translate>
+              Add a new location.
+              </translate>
+            </md-tooltip>
+          </md-button>
         </div>
         <md-divider></md-divider>
       </md-toolbar>
-
     </section>
   </form>
 
