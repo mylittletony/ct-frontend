@@ -51,7 +51,7 @@
           <md-card>
             <md-toolbar class="md-table-toolbar md-default">
               <div class="md-toolbar-tools">
-                <p>{{ ::_links.total_entries }} Location<span ng-if="_links.total_entries != 1">s</span></p>
+                <p translate translate-n="{{ ::_links.total_entries }}" translate-plural="{{ ::_links.total_entries }} Locations">1 Location</p>
               </div>
             </md-toolbar>
             <md-table-container>

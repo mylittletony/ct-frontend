@@ -26,8 +26,8 @@
             <span>&nbsp;{{ item._key }}</span>
               </span>
               <span class="item-metadata">
-                <span class="item-metastat">
-                  Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span>
+                <span class="item-metastat" translate translate-n="{{ ::item._score }}" translate-plural="{{  Found {{ ::item._score }} records">
+                  Found 1 record
                 </span>
               </span>
             </a>

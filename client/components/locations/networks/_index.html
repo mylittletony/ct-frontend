@@ -59,7 +59,8 @@
                 </span>
               </td>
               <td hide show-gt-xs md-cell>
-                {{ network.captive_portal_enabled == true ? 'Enabled' : '' }}
+                <span ng-if="network.captive_portal_enabled == true" translate>Enabled</span>
+                <span ng-if="network.captive_portal_enabled != true" translate> </span>
                 <md-tooltip ng-if="network.captive_portal_enabled">
                   <span ng-repeat="s in network.splash_pages">
                     ID: {{ s }}<br>
@@ -74,7 +75,7 @@
                   </md-tooltip>
                 </span>
                 <span ng-if="network.zones.length > 1"  translate translate-n="{{ network.zones.length}}" translate-plural="{{ network.zones.length}} zones">
-                  {{ network.zones.length}} zone
+                  1 zone
                   <md-tooltip>
                     <span ng-repeat="n in network.zones" translate>
                       Name: {{ n.name }}<br>

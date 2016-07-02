@@ -32,7 +32,7 @@
       <div class="md-list-item-text">
         <h3 translate>Locations</h3>
         <span ng-if="loading"><small translate>Loading stats</small></span>
-        <p ng-if="!loading" translate>{{ ::stats.locations }} location<span ng-if="stats.locations != 1">s</span></p>
+        <p ng-if="!loading" translate translate-n="{{ ::stats.locations }}" translate-plural="{{ ::stats.locations }} locations">1 location</p>
       </div>
     </md-list-item>
     <md-list-item class="md-2-line">

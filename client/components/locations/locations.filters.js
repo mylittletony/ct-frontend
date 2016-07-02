@@ -82,30 +82,30 @@ app.filter('bitsToBytes', function() {
   };
 });
 
-app.filter('humanTime', ['$window', function(window) {
+app.filter('humanTime', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       return window.moment.unix(input).format('MMMM Do YYYY, h:mm:ss a');
     }
   };
 }]);
 
-app.filter('mysqlTime', ['$window', function(window) {
+app.filter('mysqlTime', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       return window.moment(input).format('MMM Do, HH:mm:ss');
     }
   };
 }]);
 
-app.filter('humanTimeShort', [function() {
+app.filter('humanTimeShort', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       var time = moment.unix(input).format('MMM Do, H:mm:ss');
       return time;
@@ -113,10 +113,10 @@ app.filter('humanTimeShort', [function() {
   };
 }]);
 
-app.filter('humanTimeShortest', [function() {
+app.filter('humanTimeShortest', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       return window.moment.unix(input).format('MMMM D, H:mm:ss');
     }
@@ -138,74 +138,74 @@ app.filter('humanised', ['$window', function(window) {
     };
 }]);
 
-app.filter('lastSeen', [function() {
+app.filter('lastSeen', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       return window.moment.utc(input*1000).format('MMM Do h:mm:ssa');
     }
   };
 }]);
 
-app.filter('humanBoolean', ['$window', function(window) {
+app.filter('humanBoolean', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       if ( input === true ) {
-        return 'Enabled';
+        return gettextCatalog.getString('Enabled');
       } else {
-        return 'Disabled';
+        return gettextCatalog.getString('Disabled');
       }
     }
   };
 }]);
 
-app.filter('booleanToggle', ['$window', function(window) {
+app.filter('booleanToggle', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null) {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       if ( input === true ) {
-        return 'Enable';
+        return gettextCatalog.getString('Enable');
       } else {
-        return 'Disable';
+        return gettextCatalog.getString('Disable');
       }
     }
   };
 }]);
 
-app.filter('updateCreate', ['$window', function(window) {
+app.filter('updateCreate', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null || input === '') {
-      return 'Create';
+      return gettextCatalog.getString('Create');
     } else {
-      return 'Update';
+      return gettextCatalog.getString('Update');
     }
   };
 }]);
 
-app.filter('emptyFilter', ['$window', function(window) {
+app.filter('emptyFilter', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null || input === '') {
-      return 'N/A';
+      return gettextCatalog.getString('N/A');
     } else {
       return input;
     }
   };
 }]);
 
-app.filter('splashStatus', ['$window', function(window) {
+app.filter('splashStatus', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(online,status) {
     if ( online ) {
       if ( status == 'dnat' ) {
-        return 'Not logged in';
+        return gettextCatalog.getString('Not logged in');
       } else {
-        return 'Online';
+        return gettextCatalog.getString('Online');
       }
     } else {
-      return 'Offline';
+      return gettextCatalog.getString('Offline');
     }
   };
 }]);
