@@ -5,9 +5,19 @@
       <input ng-model="query.filter" md-autofocus placeholder="Filter Networks">
     </md-input-container>
     <div flex></div>
-    <md-button class="md-icon-button md-warn" ng-if="allowed" ng-click="destroy()" aria-label="{{ 'Add Device' | translate }}">
-      <md-icon>delete_forever</md-icon>
-    </md-button>
+    <md-menu ng-if="menu">
+      <md-button aria-label="Open Tools" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon>more_vert</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in menu">
+          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+            {{item.name}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
   </div>
   <md-divider></md-divider>
 </md-toolbar>

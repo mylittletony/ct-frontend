@@ -55,6 +55,27 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
       });
     };
 
+    // var edit = function() {
+    //   alert(123)
+    //   $mdDialog.show({
+    //     templateUrl: 'components/zones/_edit.html',
+    //     clickOutsideToClose: true,
+    //     parent: angular.element(document.body),
+    //     controller: DialogController,
+    //   });
+    // };
+
+    // var DialogController = function($scope) {
+    //   $scope.close = function() {
+    //     $mdDialog.cancel();
+    //   };
+
+    //   $scope.save = function(zone) {
+    //     alert(123)
+    //   };
+    // };
+    // DialogController.$inject = ['$scope'];
+    
     var removeFromList = function(id) {
       for (var i = 0, len = scope.zones.length; i < len; i++) {
         if (scope.zones[i].id === id) {
@@ -63,34 +84,6 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
           break;
         }
       }
-    };
-
-    scope.editName = function (event, zone) {
-
-      var editDialog = {
-        modelValue: zone.zone_name,
-        placeholder: gettextCatalog.getString('Edit name'),
-        save: function (input) {
-          zone.zone_name = input.$modelValue;
-          update(zone);
-        },
-        targetEvent: event,
-        title: gettextCatalog.getString('Edit zone name'),
-        validators: {
-          'md-maxlength': 30,
-          'md-minlength': 5
-        }
-      };
-
-      var promise;
-      promise = $mdEditDialog.small(editDialog);
-      promise.then(function (ctrl) {
-        var input = ctrl.getInput();
-        input.$viewChangeListeners.push(function () {
-          input.$setValidity('test', input.$modelValue !== 'test');
-        });
-      });
-
     };
 
     var update = function(zone,box_id) {
@@ -170,12 +163,13 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
       $scope.save = function(zone) {
         $mdDialog.cancel();
-        create(zone);
+        createUpdate(zone);
       };
     }
     NewDialogController.$inject = ['$scope'];
 
-    var create = function(zone) {
+    // This also updates the zone ok //
+    var createUpdate = function(zone) {
       Zone.create({location_id: scope.location.slug, zone: zone}).$promise.then(function(results) {
         if (scope.zones && scope.zones.length === 0) {
           scope.zones = [];
@@ -193,7 +187,6 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
       var deferred = $q.defer();
       scope.promise = deferred.promise;
       Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
-        createMenu();
         scope.zones         = results.zones;
         scope._info         = results._info;
         scope.loading       = undefined;
@@ -204,9 +197,10 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
       }, function(error) {
         deferred.resolve();
       });
+      return deferred.promise;
     };
 
-    init();
+    init().then(createMenu);
 
     if ($routeParams.add) {
       scope.open();
@@ -244,6 +238,36 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
       // direction:  $routeParams.direction || 'desc'
     };
 
+    // User permissions //
+    var createMenu = function() {
+      scope.menu = [];
+      scope.menu.push({
+        name: gettextCatalog.getString('Edit'),
+        icon: 'settings',
+        type: 'settings'
+      });
+      scope.menu.push({
+        name: gettextCatalog.getString('Delete'),
+        icon: 'delete_forever',
+        type: 'delete'
+      });
+    };
+
+    scope.action = function(type) {
+      switch(type) {
+        case 'delete':
+          destroy();
+          break;
+        case 'settings':
+          edit();
+          break;
+      }
+    };
+
+    var destroy = function() {
+      confirmDestroy();
+    };
+
     var getZone = function() {
       return Zone.query({location_id: scope.location.slug, id: scope.zone.id}).$promise.then(function(res) {
         scope.zone          = res.zone;
@@ -264,15 +288,10 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
     },
     findActive = function() {
       updateCheckboxes();
-      // createMenu();
-    };
-
-    scope.logItem = function() {
-      alert(123)
+      createMenu();
     };
 
     function updateCheckboxes() {
-
       angular.forEach(scope.zone_networks, function (value, id) {
         if (value.network_id !== null) {
           angular.forEach(scope.networks, function(val, id) {
@@ -282,26 +301,7 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
           });
         }
       });
-
     }
-
-    // scope.updateBox = function(box) {
-    //   var params = {box: box};
-    //   if (box.in_the_zone === true) {
-    //     // update(params);
-    //   } else {
-    //     // destroy(params);
-    //   }
-    // };
-
-    scope.updateNetwork = function(network) {
-      var params = {network: network};
-      if (network.in_the_zone === true) {
-        // update(params);
-      } else {
-        // destroy(params);
-      }
-    };
 
     scope.update = function() {
       var confirm = $mdDialog.confirm()
@@ -344,10 +344,6 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
 
     // User permissions
     scope.allowed = true;
-
-    scope.destroy = function() {
-      confirmDestroy();
-    };
 
     var confirmDestroy = function(id) {
       var confirm = $mdDialog.confirm()
