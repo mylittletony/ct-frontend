@@ -10,11 +10,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: client/components/locations/networks/_show.html:362
+#: client/components/locations/networks/_show.html:360
 msgid "'Make Part of LAN' disabled because repeater mode is activated."
 msgstr ""
 
-#: client/components/locations/networks/_show.html:361
+#: client/components/locations/networks/_show.html:359
 msgid "'Make Part of LAN' disabled because you have an active VLAN."
 msgstr ""
 
@@ -32,6 +32,24 @@ msgstr ""
 #: client/components/reports/_wireless_stats.html:37
 msgid "0 TBC"
 msgstr ""
+
+#: client/components/locations/index/_alerts.html:47
+msgid "1 Device"
+msgid_plural "{{ ::_links.total_entries }} Devices"
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/locations/index/_favourites.html:36
+msgid "1 Favourite"
+msgid_plural "{{ ::_links.total_entries }} Favourites"
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/locations/index/_list.html:54
+msgid "1 Location"
+msgid_plural "{{ ::_links.total_entries }} Locations"
+msgstr[0] ""
+msgstr[1] ""
 
 #: client/components/users/inventories/_index.html:37
 msgid "1 active device. {{ summary.new }} added this month."
@@ -61,18 +79,48 @@ msgid_plural "{{scope.selected.length}} device zones"
 msgstr[0] ""
 msgstr[1] ""
 
+#: client/components/locations/show/_dashing.html:35
+msgid "1 location"
+msgid_plural "{{ ::stats.locations }} locations"
+msgstr[0] ""
+msgstr[1] ""
+
 #: client/components/splash_pages/_index.html:79
 msgid "1 network"
 msgid_plural "{{ splash.networks.length }} networks"
 msgstr[0] ""
 msgstr[1] ""
 
+#: client/components/locations/clients/codes.html:22
+msgid "1 voucher code in use by client."
+msgid_plural "{{ filtered.length}} voucher codes in use by client."
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/locations/networks/_index.html:77
+msgid ""
+"1 zone\n"
+"                  <md-tooltip>\n"
+"                    <span ng-repeat=\"n in network.zones\" translate=\"\">\n"
+"                      Name: {{ n.name }}<br>\n"
+"                    </span>\n"
+"                  </md-tooltip>"
+msgid_plural "{{ network.zones.length}} zones"
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/boxes/show/_index.html:33
+#: client/components/locations/clients/_index.html:39
+#: client/components/locations/clients/_show.html:16
+msgid "1d"
+msgstr ""
+
 #: client/components/locations/networks/_index.html:17
 msgid "2.4 & 5Ghz"
 msgstr ""
 
 #: client/components/locations/networks/_index.html:15
-#: client/components/locations/networks/_show.html:353
+#: client/components/locations/networks/_show.html:351
 #: client/components/networks/networks.directives.js:83
 msgid "2.4Ghz"
 msgstr ""
@@ -93,12 +141,24 @@ msgstr ""
 msgid "2.4Ghz only"
 msgstr ""
 
+#: client/components/boxes/show/_index.html:35
+#: client/components/locations/clients/_index.html:41
+#: client/components/locations/clients/_show.html:18
+msgid "30d"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:30
+#: client/components/locations/clients/_index.html:36
+#: client/components/locations/clients/_show.html:13
+msgid "30m"
+msgstr ""
+
 #: client/components/locations/access/access-password.html:25
 msgid "5 letters or more please."
 msgstr ""
 
 #: client/components/locations/networks/_index.html:16
-#: client/components/locations/networks/_show.html:354
+#: client/components/locations/networks/_show.html:352
 #: client/components/networks/networks.directives.js:86
 msgid "5Ghz"
 msgstr ""
@@ -119,10 +179,34 @@ msgstr ""
 msgid "5Ghz only"
 msgstr ""
 
+#: client/components/boxes/show/_index.html:29
+#: client/components/locations/clients/_index.html:35
+#: client/components/locations/clients/_show.html:12
+msgid "5m"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:31
+#: client/components/locations/clients/_index.html:37
+#: client/components/locations/clients/_show.html:14
+msgid "60m"
+msgstr ""
+
 #: client/components/users/invoices/_show.html:55
 msgid ""
 "62 Britton Street<br>\n"
 "              London EC1M 5UY"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:32
+#: client/components/locations/clients/_index.html:38
+#: client/components/locations/clients/_show.html:15
+msgid "6h"
+msgstr ""
+
+#: client/components/boxes/show/_index.html:34
+#: client/components/locations/clients/_index.html:40
+#: client/components/locations/clients/_show.html:17
+msgid "7d"
 msgstr ""
 
 #: client/components/locations/networks/_show.html:222
@@ -401,7 +485,7 @@ msgstr ""
 #: client/components/events/_index.html:31
 #: client/components/locations/boxes/_table.html:52
 #: client/components/locations/clients/_index.html:196
-#: client/components/locations/index/_alerts.html:60
+#: client/components/locations/index/_alerts.html:61
 #: client/components/locations/index/_favourites.html:52
 #: client/components/locations/index/_list.html:67
 #: client/components/locations/networks/_index.html:37
@@ -454,7 +538,7 @@ msgstr ""
 #: client/components/splash_codes/_show.html:114
 #: client/components/splash_pages/_index.html:48
 #: client/components/users/show/_index.html:52
-#: client/components/vouchers/_index.html:77
+#: client/components/vouchers/_index.html:80
 msgid "Active"
 msgstr ""
 
@@ -517,6 +601,10 @@ msgstr ""
 #: client/components/boxes/show/_toast_zone.html:7
 #: client/components/zones/_add.html:5
 msgid "Add To Zone"
+msgstr ""
+
+#: client/components/locations/show/tutorial.html:8
+msgid "Add Your Box"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:18
@@ -946,7 +1034,7 @@ msgstr ""
 msgid "Automatically discovered"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:356
+#: client/components/locations/networks/_show.html:354
 msgid "Available if your access points have two radios."
 msgstr ""
 
@@ -1043,7 +1131,7 @@ msgstr ""
 msgid "Background Image"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:349
+#: client/components/locations/networks/_show.html:347
 msgid "Band Selection"
 msgstr ""
 
@@ -1231,15 +1319,15 @@ msgstr ""
 msgid "Branding Details"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:333
+#: client/components/locations/networks/_show.html:331
 msgid "Bridge To Switch"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:335
+#: client/components/locations/networks/_show.html:333
 msgid "Bridge with Switch Disabled"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:334
+#: client/components/locations/networks/_show.html:332
 msgid "Bridge with Switch Enabled"
 msgstr ""
 
@@ -1515,7 +1603,7 @@ msgid "Change your account password"
 msgstr ""
 
 #: client/components/locations/access/access-password.html:34
-msgid "Change your password automatically &amp; have it emailed it to you."
+msgid "Change your password automatically &amp; have it emailed to you."
 msgstr ""
 
 #: client/components/main/_history.html:16
@@ -1629,12 +1717,10 @@ msgid ""
 msgstr ""
 
 #: client/components/locations/networks/_show.html:325
-#: client/components/locations/networks/_show.html:327
 msgid "Client Isolation Disabled"
 msgstr ""
 
 #: client/components/locations/networks/_show.html:324
-#: client/components/locations/networks/_show.html:326
 msgid "Client Isolation Enabled"
 msgstr ""
 
@@ -1774,7 +1860,7 @@ msgstr ""
 msgid "Connected to Cucumber"
 msgstr ""
 
-#: client/components/locations/show/_map.html:41
+#: client/components/locations/show/_map.html:42
 msgid "Connected:&nbsp;"
 msgstr ""
 
@@ -1849,12 +1935,13 @@ msgid "Coupons & Discount Codes"
 msgstr ""
 
 #: client/components/boxes/payloads/_bulk.html:13
+#: client/components/locations/locations.filters.js:182
 #: client/components/locations/triggers/list.html:31
 #: client/components/registrations/_create.html:47
 #: client/components/splash_codes/_index.html:38
 #: client/components/splash_pages/_form_designer.html:118
 #: client/components/splash_pages/_splash_new.html:3
-#: client/components/vouchers/_index.html:60
+#: client/components/vouchers/_index.html:63
 #: client/components/vouchers/_new.html:26
 #: client/components/zones/_index.html:37
 msgid "Create"
@@ -1920,7 +2007,7 @@ msgstr ""
 msgid "Create rules and restrictions to control access."
 msgstr ""
 
-#: client/components/vouchers/_index.html:58
+#: client/components/vouchers/_index.html:61
 msgid "Create some vouchers for your splash pages."
 msgstr ""
 
@@ -1955,7 +2042,7 @@ msgstr ""
 #: client/components/splash_codes/_show.html:95
 #: client/components/users/index/_index.html:26
 #: client/components/users/invoices/_index.html:34
-#: client/components/vouchers/_index.html:81
+#: client/components/vouchers/_index.html:84
 #: client/components/vouchers/_show.html:93
 #: client/components/zones/_index.html:61
 msgid "Created"
@@ -2248,12 +2335,12 @@ msgstr ""
 #: client/components/boxes/show/_non_ps.html:29
 #: client/components/firmwares/_index.html:23
 #: client/components/locations/clients/_index.html:176
-#: client/components/locations/index/_alerts.html:56
+#: client/components/locations/index/_alerts.html:57
 #: client/components/locations/settings/_devices.html:181
 #: client/components/splash_pages/_store_product.html:133
 #: client/components/users/invoices/_index.html:35
 #: client/components/users/invoices/_show.html:24
-#: client/components/vouchers/_index.html:79
+#: client/components/vouchers/_index.html:82
 #: client/components/vouchers/_show.html:58
 #: client/components/zones/_form.html:27 client/components/zones/_index.html:60
 #: client/components/zones/_show.html:34
@@ -2403,6 +2490,7 @@ msgstr ""
 
 #: client/components/codes/codes.directives.js:49
 #: client/components/codes/codes.directives.js:69
+#: client/components/locations/locations.filters.js:173
 #: client/components/splash_codes/splash_codes.directives.js:68
 msgid "Disable"
 msgstr ""
@@ -2413,6 +2501,10 @@ msgstr ""
 
 #: client/components/vouchers/vouchers.directives.js:556
 msgid "Disable Voucher Batch"
+msgstr ""
+
+#: client/components/locations/locations.filters.js:159
+msgid "Disabled"
 msgstr ""
 
 #: client/components/splash_pages/_form_designer.html:75
@@ -2430,6 +2522,10 @@ msgstr ""
 
 #: client/components/clients/clients.directives.js:40
 msgid "Disconnect"
+msgstr ""
+
+#: client/components/locations/show/_warnings.html:22
+msgid "Disconnected"
 msgstr ""
 
 #: client/components/boxes/new/_add.html:154
@@ -2523,7 +2619,7 @@ msgstr ""
 msgid "Dropdown Options (comma separated)"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:352
+#: client/components/locations/networks/_show.html:350
 msgid "Dual"
 msgstr ""
 
@@ -2677,6 +2773,7 @@ msgid "Emoji time!"
 msgstr ""
 
 #: client/components/codes/codes.directives.js:71
+#: client/components/locations/locations.filters.js:171
 msgid "Enable"
 msgstr ""
 
@@ -2716,6 +2813,8 @@ msgstr ""
 msgid "Enable streaming updates"
 msgstr ""
 
+#: client/components/locations/locations.filters.js:157
+#: client/components/locations/networks/_index.html:62
 #: client/components/zones/_show.html:48
 msgid "Enabled"
 msgstr ""
@@ -3187,6 +3286,12 @@ msgstr ""
 msgid "Format"
 msgstr ""
 
+#: client/components/locations/index/_index.html:29
+msgid "Found 1 record"
+msgid_plural "{{  Found {{ ::item._score }} records"
+msgstr[0] ""
+msgstr[1] ""
+
 #: client/components/users/show/_index.html:53
 msgid "Free User"
 msgstr ""
@@ -3272,7 +3377,7 @@ msgstr ""
 #: client/components/locations/triggers/list.html:22
 #: client/components/splash_codes/_index.html:27
 #: client/components/splash_pages/_index.html:27
-#: client/components/vouchers/_index.html:52
+#: client/components/vouchers/_index.html:55
 msgid "Get Started"
 msgstr ""
 
@@ -3643,7 +3748,7 @@ msgstr ""
 msgid "Is Cucumber"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:341
+#: client/components/locations/networks/_show.html:339
 msgid "Isolate ICMP"
 msgstr ""
 
@@ -3651,7 +3756,7 @@ msgstr ""
 msgid "Isolate SSID"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:337
+#: client/components/locations/networks/_show.html:335
 msgid "Isolate Traffic"
 msgstr ""
 
@@ -3690,7 +3795,7 @@ msgstr ""
 #: client/components/locations/clients/_columns_filter.html:71
 #: client/components/locations/clients/_index.html:189
 #: client/components/locations/clients/_show.html:43
-#: client/components/locations/index/_alerts.html:58
+#: client/components/locations/index/_alerts.html:59
 msgid "Last Seen"
 msgstr ""
 
@@ -3698,11 +3803,11 @@ msgstr ""
 msgid "Last name"
 msgstr ""
 
-#: client/components/locations/show/_warnings.html:21
+#: client/components/locations/show/_warnings.html:25
 msgid "Last seen {{ event.data.last_heartbeat | mysqlTime }}"
 msgstr ""
 
-#: client/components/locations/show/_map.html:38
+#: client/components/locations/show/_map.html:39
 msgid "Last seen:"
 msgstr ""
 
@@ -3813,8 +3918,8 @@ msgstr ""
 #: client/components/audit/social/_index.html:94
 #: client/components/codes/_table.html:12
 #: client/components/codes/_table.html:63
-#: client/components/locations/index/_alerts.html:109
-#: client/components/locations/index/_alerts.html:57
+#: client/components/locations/index/_alerts.html:110
+#: client/components/locations/index/_alerts.html:58
 #: client/components/locations/locations.controller.js:192
 #: client/components/reports/_radius.html:25
 #: client/components/users/inventories/_index.html:52
@@ -4004,7 +4109,7 @@ msgstr ""
 #: client/components/audit/sales/_index.html:54
 #: client/components/boxes/new/_add.html:112
 #: client/components/locations/boxes/_table.html:47
-#: client/components/locations/index/_alerts.html:59
+#: client/components/locations/index/_alerts.html:60
 msgid "Mac"
 msgstr ""
 
@@ -4029,15 +4134,15 @@ msgstr ""
 msgid "Main Theme"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:329
+#: client/components/locations/networks/_show.html:327
 msgid "Make Part of LAN"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:331
+#: client/components/locations/networks/_show.html:329
 msgid "Make Part of Lan Disabled"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:330
+#: client/components/locations/networks/_show.html:328
 msgid "Make Part of Lan Enabled"
 msgstr ""
 
@@ -4627,6 +4732,14 @@ msgstr ""
 #: client/components/boxes/boxes.directives.js:525
 #: client/components/boxes/boxes.filters.js:32
 #: client/components/boxes/boxes.filters.js:42
+#: client/components/locations/locations.filters.js:108
+#: client/components/locations/locations.filters.js:119
+#: client/components/locations/locations.filters.js:144
+#: client/components/locations/locations.filters.js:154
+#: client/components/locations/locations.filters.js:168
+#: client/components/locations/locations.filters.js:192
+#: client/components/locations/locations.filters.js:88
+#: client/components/locations/locations.filters.js:98
 #: client/components/locations/users/_index.html:47
 msgid "N/A"
 msgstr ""
@@ -4649,7 +4762,7 @@ msgstr ""
 #: client/components/locations/triggers/list.html:46
 #: client/components/splash_pages/_index.html:49
 #: client/components/users/billing/_plans.html:18
-#: client/components/vouchers/_index.html:78
+#: client/components/vouchers/_index.html:81
 #: client/components/zones/_form.html:19 client/components/zones/_index.html:57
 msgid "Name"
 msgstr ""
@@ -4674,7 +4787,7 @@ msgstr ""
 msgid "Name {{ splash.splash_name }}"
 msgstr ""
 
-#: client/components/locations/networks/_index.html:79
+#: client/components/locations/networks/_index.html:80
 msgid "Name: {{ n.name }}<br>"
 msgstr ""
 
@@ -4758,7 +4871,7 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
-#: client/components/locations/show/_map.html:39
+#: client/components/locations/show/_map.html:40
 msgid "Never checked in"
 msgstr ""
 
@@ -4889,7 +5002,7 @@ msgstr ""
 msgid "No warnings found."
 msgstr ""
 
-#: client/components/locations/show/_map.html:36
+#: client/components/locations/show/_map.html:37
 msgid "No zone"
 msgstr ""
 
@@ -4921,6 +5034,10 @@ msgstr ""
 
 #: client/components/boxes/index/sidebar.html:10
 msgid "Not enough results for a filter."
+msgstr ""
+
+#: client/components/locations/locations.filters.js:203
+msgid "Not logged in"
 msgstr ""
 
 #: client/components/firmwares/_index.html:45
@@ -4989,6 +5106,7 @@ msgid "Offer the following social logins"
 msgstr ""
 
 #: client/components/heartbeats/heartbeats.filters.js:10
+#: client/components/locations/locations.filters.js:208
 msgid "Offline"
 msgstr ""
 
@@ -5022,6 +5140,7 @@ msgstr ""
 
 #: client/components/heartbeats/heartbeats.filters.js:10
 #: client/components/locations/index/_favourites.html:50
+#: client/components/locations/locations.filters.js:205
 msgid "Online"
 msgstr ""
 
@@ -5047,7 +5166,7 @@ msgstr ""
 #: client/components/codes/_index.html:74
 #: client/components/locations/boxes/_table.html:109
 #: client/components/locations/boxes/_table.html:9
-#: client/components/vouchers/_index.html:110
+#: client/components/vouchers/_index.html:113
 msgid "Open Boxes Menu"
 msgstr ""
 
@@ -5061,7 +5180,7 @@ msgid "Open Codes Menu"
 msgstr ""
 
 #: client/components/events/_index.html:49
-#: client/components/locations/index/_alerts.html:96
+#: client/components/locations/index/_alerts.html:97
 #: client/components/locations/index/_favourites.html:77
 #: client/components/locations/index/_list.html:99
 #: client/components/locations/triggers/history/_index.html:46
@@ -5069,7 +5188,7 @@ msgstr ""
 msgid "Open Menu"
 msgstr ""
 
-#: client/components/locations/networks/_index.html:91
+#: client/components/locations/networks/_index.html:92
 msgid "Open Networks Menu"
 msgstr ""
 
@@ -5139,11 +5258,11 @@ msgid ""
 "elevio-inline=\"7108\">compatible device</span>."
 msgstr ""
 
-#: client/components/locations/networks/_show.html:343
+#: client/components/locations/networks/_show.html:341
 msgid "Outbound ICMP Disabled"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:342
+#: client/components/locations/networks/_show.html:340
 msgid "Outbound ICMP Enabled"
 msgstr ""
 
@@ -5550,7 +5669,7 @@ msgstr ""
 
 #: client/components/vouchers/_form.html:78
 #: client/components/vouchers/_form.html:79
-#: client/components/vouchers/_index.html:80
+#: client/components/vouchers/_index.html:83
 #: client/components/vouchers/_show.html:79
 msgid "Quantity"
 msgstr ""
@@ -5654,6 +5773,10 @@ msgstr ""
 msgid "Read the docs"
 msgstr ""
 
+#: client/components/locations/show/tutorial.html:7
+msgid "Read the docs!"
+msgstr ""
+
 #: client/components/locations/show/zero-sessions.html:4
 msgid "Ready for take off"
 msgstr ""
@@ -5685,6 +5808,10 @@ msgstr ""
 
 #: client/components/splash_pages/access-password.html:42
 msgid "Recipient email required when using auto change."
+msgstr ""
+
+#: client/components/locations/show/_warnings.html:21
+msgid "Reconnected"
 msgstr ""
 
 #: client/components/splash_pages/access-social.html:84
@@ -6007,7 +6134,7 @@ msgstr ""
 msgid "SSID updated, your boxes will resync"
 msgstr ""
 
-#: client/components/locations/show/_map.html:34
+#: client/components/locations/show/_map.html:35
 msgid "SSIDs: {{ ::box.metadata.ssids | ssidFilter }}"
 msgstr ""
 
@@ -6022,7 +6149,7 @@ msgstr ""
 #: client/components/boxes/edit/_edit.html:393
 #: client/components/boxes/show/_non_ps.html:73
 #: client/components/locations/clients/_device_name.html:30
-#: client/components/locations/networks/_show.html:366
+#: client/components/locations/networks/_show.html:364
 #: client/components/locations/new/_index.html:85
 #: client/components/locations/settings/_analytics.html:43
 #: client/components/locations/settings/_devices.html:234
@@ -6574,7 +6701,7 @@ msgid "Start date"
 msgstr ""
 
 #: client/components/audit/sales/_index.html:52
-#: client/components/locations/index/_alerts.html:54
+#: client/components/locations/index/_alerts.html:55
 #: client/components/users/inventories/_index.html:48
 msgid "State"
 msgstr ""
@@ -7212,11 +7339,11 @@ msgstr ""
 msgid "Town"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:339
+#: client/components/locations/networks/_show.html:337
 msgid "Traffic Isolation Disabled"
 msgstr ""
 
-#: client/components/locations/networks/_show.html:338
+#: client/components/locations/networks/_show.html:336
 msgid "Traffic Isolation Enabled"
 msgstr ""
 
@@ -7370,7 +7497,7 @@ msgstr ""
 #: client/components/locations/clients/_columns_filter.html:107
 #: client/components/locations/clients/_index.html:195
 #: client/components/locations/clients/codes.html:33
-#: client/components/locations/index/_alerts.html:55
+#: client/components/locations/index/_alerts.html:56
 #: client/components/locations/networks/_index.html:34
 #: client/components/locations/networks/firewall.html:13
 #: client/components/locations/triggers/channel-webhook.html:18
@@ -7484,6 +7611,7 @@ msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:45
 #: client/components/locations/boxes/zones.html:40
+#: client/components/locations/locations.filters.js:184
 #: client/components/locations/show/edit-modal.html:99
 #: client/components/splash_pages/_networks.html:41
 msgid "Update"
@@ -7722,7 +7850,7 @@ msgstr ""
 #: client/components/locations/boxes/_table.html:116
 #: client/components/locations/locations.directives.js:1749
 #: client/components/locations/locations.directives.js:498
-#: client/components/locations/show/_map.html:46
+#: client/components/locations/show/_map.html:47
 #: client/components/locations/triggers/triggers.directives.js:38
 #: client/components/locations/triggers/triggers.directives.js:789
 #: client/components/reports/reports.v2.directives.js:394
@@ -7738,7 +7866,7 @@ msgstr ""
 msgid "View Details"
 msgstr ""
 
-#: client/components/locations/index/_alerts.html:103
+#: client/components/locations/index/_alerts.html:104
 msgid "View Device"
 msgstr ""
 
@@ -8612,7 +8740,7 @@ msgstr ""
 msgid "Zone successfully updated"
 msgstr ""
 
-#: client/components/locations/show/_map.html:35
+#: client/components/locations/show/_map.html:36
 msgid "Zone: {{ ::box.metadata.zone_name }}"
 msgstr ""
 
@@ -8709,7 +8837,7 @@ msgstr ""
 msgid "download"
 msgstr ""
 
-#: client/components/locations/show/_warnings.html:27
+#: client/components/locations/show/_warnings.html:31
 msgid "events"
 msgstr ""
 
@@ -8730,7 +8858,7 @@ msgid "invite"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:395
-#: client/components/locations/networks/_show.html:369
+#: client/components/locations/networks/_show.html:367
 #: client/components/splash_pages/_form_designer.html:9
 msgid "menu"
 msgstr ""
@@ -8874,6 +9002,10 @@ msgstr ""
 msgid "{{ (stats.splash.durations.avg / 60) | number:0 }} Mins"
 msgstr ""
 
+#: client/components/vouchers/_form.html:5
+msgid "{{ ::(voucher.unique_id | updateCreate) }} Voucher Batch"
+msgstr ""
+
 #: client/components/users/billing/_add_coupon.html:19
 msgid ""
 "{{ ::coupon.percent_off }}% off valid until {{ coupon.redeem_by | "
@@ -8898,11 +9030,6 @@ msgstr ""
 msgid "{{ ::stats.boxes.stats.total }} Total boxes"
 msgstr ""
 
-#: client/components/locations/show/_dashing.html:35
-msgid ""
-"{{ ::stats.locations }} location<span ng-if=\"stats.locations != 1\">s</span>"
-msgstr ""
-
 #: client/components/locations/show/_dashing.html:27
 msgid "{{ ::stats.online }} connected"
 msgstr ""
@@ -8914,10 +9041,6 @@ msgstr ""
 #: client/components/main/_history.html:19
 msgid ""
 "{{ ::version.whodunnit || 'Ghost'}} on {{ version.created_at | humanTime}}"
-msgstr ""
-
-#: client/components/vouchers/_form.html:5
-msgid "{{ ::voucher.unique_id | updateCreate }} Voucher Batch"
 msgstr ""
 
 #: client/components/codes/_sessions.html:23
@@ -8975,18 +9098,6 @@ msgid ""
 "{{ location.location_name | titleCase }}. {{ location.full_address | "
 "titleCase }} {{ location.phone1 }}."
 msgstr ""
-
-#: client/components/locations/networks/_index.html:76
-msgid ""
-"{{ network.zones.length}} zone\n"
-"                  <md-tooltip>\n"
-"                    <span ng-repeat=\"n in network.zones\" translate=\"\">\n"
-"                      Name: {{ n.name }}<br>\n"
-"                    </span>\n"
-"                  </md-tooltip>"
-msgid_plural "{{ network.zones.length}} zones"
-msgstr[0] ""
-msgstr[1] ""
 
 #: client/components/locations/networks/header.html:3
 msgid "{{ network_name | titleCase }} Settings"
@@ -9063,6 +9174,10 @@ msgstr ""
 
 #: client/components/zones/_index.html:76
 msgid "{{'N/A' | truncate:20}}"
+msgstr ""
+
+#: client/components/locations/show/_map.html:29
+msgid "{{'No Description' | truncate:15}}"
 msgstr ""
 
 #: client/components/splash_pages/_index.html:64

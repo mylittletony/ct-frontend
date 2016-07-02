@@ -25,7 +25,8 @@
     <google-marker lat="{{ ::box.latlng[1] }}" lng="{{ ::box.latlng[0]}}" color="{{ ::box.colour }}" state="{{ ::box.state }}" alerting="true" symbol="grocery" draggable="true" slug="{{ ::box.slug }}" style="display: none" icon="{{ ::box.device_icon }}">
       <h4>
         <img ng-if="box.is_polkaspots || box.last_heartbeat" class="status-icon" title='This box is {{box.state}}.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/{{box.is_online || box.state == 'processing' ? box.state == 'rebooting' ? 'amber' : 'online' : 'offline' }}.png"></span>
-    {{ box.description || 'No Description' | truncate:15 }}
+        <span ng-if="box.description">{{box.description}}</span>
+         <span ng-if="!box.description" translate>{{'No Description' | truncate:15}}</span>
       </h4>
       <p class="text-muted"><small>{{ box.mac }}</small></p>
       <md-divider ng-if="!$last"></md-divider>
