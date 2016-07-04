@@ -15,7 +15,7 @@
           <md-menu-item>
             <md-button ng-click="refresh()" ng-disabled="!ap_mac">
               <translate>
-                Clear Filter
+              Clear Filter
               </translate>
             </md-button>
           </md-menu-item>
@@ -83,7 +83,7 @@
                 <md-menu-item>
                   <md-button ng-click="">
                     <translate>
-                      Share
+                    Share
                     </translate>
                   </md-button>
                 </md-menu-item>
@@ -91,35 +91,35 @@
                 <md-menu-item>
                   <md-button ng-click="changeType('signal')">
                     <translate>
-                      Signal Strength
+                    Signal Strength
                     </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('tx')">
                     <translate>
-                      WiFi Traffic
+                    WiFi Traffic
                     </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('usage')">
                     <translate>
-                      WiFi Usage
+                    WiFi Usage
                     </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('mcs')">
                     <translate>
-                      MCS Index
+                    MCS Index
                     </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeType('failures')">
                     <translate>
-                      TX Fails
+                    TX Fails
                     </translate>
                   </md-button>
                 </md-menu-item>
@@ -127,28 +127,28 @@
                 <md-menu-item>
                   <md-button ng-click="changeFn('mean')">
                     <translate>
-                      Average Values
+                    Average Values
                     </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeFn('max')">
                     <translate>
-                      Max. Values
+                    Max. Values
                     </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeFn('median')">
                     <translate>
-                      Median Values
+                    Median Values
                     </translate>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="changeFn('sum')" ng-disabled="type != 'usage'">
                     <translate>
-                      Sum
+                    Sum
                     </translate>
                   </md-button>
                 </md-menu-item>
@@ -223,12 +223,6 @@
                       {{ client.ap_mac }}
                     </md-tooltip>
                   </td md-cell>
-                  <!-- <td hide show-gt-sm md-cell ng-show="columns.txbps"> -->
-                  <!--   {{ client.txbps | bitsToBytes }} -->
-                  <!-- </td md-cell> -->
-                  <!-- <td hide show-gt-sm md-cell ng-show="columns.rxbps"> -->
-                  <!--   {{ client.rxbps | bitsToBytes }} -->
-                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.expected_throughput">
                     {{ client.expected_throughput }}Mbps
                   </td md-cell>
@@ -250,7 +244,7 @@
                         <b>{{ client.snr }}dB</b>
                         <md-tooltip>
                           <translate>
-                            If the client signal drops below 16dB, they may have problems browsing.
+                          If the client signal drops below 16dB, they may have problems browsing.
                           </translate>
                         </md-tooltip>
                       </span>
@@ -312,6 +306,8 @@
             </table>
           </md-table-container>
           <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        </md-card-content>
+      </md-card>
     </div>
   </div>
-        </md-content>
+</md-content>
