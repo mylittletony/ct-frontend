@@ -79,7 +79,7 @@ app.filter('deviceStatus',['gettextCatalog', function(gettextCatalog) {
   };
 }]);
 
-app.filter('statusColour', function() {
+app.filter('statusColour',['gettextCatalog', function(gett) {
   return function(state) {
     if (state === '' || state === undefined || state === null || !state.length) {
       return '#607D8B';
@@ -88,7 +88,7 @@ app.filter('statusColour', function() {
         case 'online':
           return '#16AC5B';
         case 'rebooting':
-          return 'Device rebooting';
+          return gettextCatalog.getString('Device rebooting');
         case 'offline':
           return '#F44336';
         case 'splash_only':
@@ -97,5 +97,5 @@ app.filter('statusColour', function() {
           return '#607D8B';
       }}
   };
-});
+}]);
 
