@@ -5,7 +5,7 @@
       <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{'Filter Splash' | translate }}">
     </md-input-container>
-    <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
+    <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
       <md-icon md-font-icon="">layers</md-icon>
     </md-button>
     <p ng-if="splash_pages.length === 0" translate>Splash Pages</p>
@@ -88,7 +88,7 @@
                 </span>
                 <span ng-if="splash.state != 'processing'">
                   <md-menu>
-                    <md-button aria-label="Open Splash Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-button aria-label="{{ 'Open Splash Menu' | translate}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                       <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                     </md-button>
                     <md-menu-content width="4" >
