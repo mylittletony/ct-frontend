@@ -38,6 +38,10 @@ msgid_plural "({{ trigger.fail_count}} times since the last reset)"
 msgstr[0] "(1 time since the last reset)"
 msgstr[1] "({{ trigger.fail_count}} times since the last reset)"
 
+#: client/components/users/billing/_show.html:55
+msgid "(No SLA)"
+msgstr ""
+
 #: client/components/locations/boxes/_table.html:101
 msgid ". Static IP: {{ ::box.wan_ipaddr }}"
 msgstr ". Static IP: {{ ::box.wan_ipaddr }}"
@@ -80,6 +84,28 @@ msgstr[0] "1 active device. {{ summary.new }} added this month."
 msgstr[1] ""
 "{{ summary.total }} active devices. {{ summary.new }} added this month."
 
+#: client/components/zones/_show.html:34
+#, fuzzy
+msgid "1 box"
+msgid_plural "{{ zone.boxes.length || 0}} boxes"
+msgstr[0] "add box"
+msgstr[1] "add box"
+
+#: client/components/zones/_associated_zones_dialog.html:13
+#, fuzzy
+msgid ""
+"1 box. \n"
+"        <span translate=\"\" translate-n=\"{{ zone.networks.length }}\" "
+"translate-plural=\"{{ zone.networks.length }} networks\" translate-context="
+"\"in zones componenet\">1 network.\n"
+"        </span>"
+msgid_plural "{{ zone.boxes.length }} boxes"
+msgstr[0] ""
+"1 box. <span translate=\"\" translate-n=\"{{ ::item.clients_online }}\" "
+"translate-plural=\"{{ ::item.clients_online }} clients online.\"> 1 client "
+"online.</span>"
+msgstr[1] "{{ ::item.boxes_count }} boxes"
+
 #: client/components/locations/show/_favourites.html:24
 msgid ""
 "1 box. <span translate=\"\" translate-n=\"{{ ::item.clients_online }}\" "
@@ -110,9 +136,27 @@ msgid_plural "{{ ::stats.locations }} locations"
 msgstr[0] "1 location"
 msgstr[1] "{{ ::stats.locations }} locations"
 
-#: client/components/splash_pages/_index.html:79
+#: client/components/splash_pages/_index.html:80
+#, fuzzy
+msgctxt "in splash pages"
 msgid "1 network"
 msgid_plural "{{ splash.networks.length }} networks"
+msgstr[0] "1 network"
+msgstr[1] "{{ splash.networks.length }} networks"
+
+#: client/components/zones/_show.html:35
+#, fuzzy
+msgctxt "in zones index componenet"
+msgid "1 network"
+msgid_plural "{{ selected.length || 0 }} networks"
+msgstr[0] "1 network"
+msgstr[1] "{{ splash.networks.length }} networks"
+
+#: client/components/zones/_associated_zones_dialog.html:14
+#, fuzzy
+msgctxt "in zones componenet"
+msgid "1 network."
+msgid_plural "{{ zone.networks.length }} networks"
 msgstr[0] "1 network"
 msgstr[1] "{{ splash.networks.length }} networks"
 
@@ -405,10 +449,6 @@ msgid ""
 "also create the policies which limit speed, time etc.</p>"
 msgstr ""
 
-#: client/components/vouchers/_show.html:162
-msgid "<p>You can download the codes for three months after creation.</p>"
-msgstr "<p>You can download the codes for three months after creation.</p>"
-
 #: client/components/locations/show/_index.html:59
 msgid ""
 "<p>You haven't added any devices yet. Please check through the list of "
@@ -632,7 +672,7 @@ msgstr "Accounting Port"
 #: client/components/splash_pages/_index.html:53
 #: client/components/users/index/_index.html:28
 #: client/components/users/invoices/_index.html:37
-#: client/components/zones/_show.html:46
+#: client/components/zones/_show.html:50
 msgid "Action"
 msgstr "Action"
 
@@ -1716,7 +1756,7 @@ msgid ""
 msgstr ""
 "Cancelling is immediate. No futher charges will be applied to your account."
 
-#: client/components/users/billing/_cancel.html:7
+#: client/components/users/billing/_cancel.html:8
 msgid ""
 "Cancelling will take affect immediately. No futher charges will be "
 "applied. \n"
@@ -1732,7 +1772,7 @@ msgstr ""
 "month's additions in <a href=\"/#/users/{{ user.slug }}/inventory\">your "
 "inventory</a>.</b></p>"
 
-#: client/components/users/billing/_cancel.html:15
+#: client/components/users/billing/_cancel.html:16
 msgid "Cancelling, please wait."
 msgstr "Cancelling, please wait."
 
@@ -1747,6 +1787,7 @@ msgstr "Capabilities"
 #: client/components/locations/networks/_show.html:73
 #: client/components/networks/_create.html:62
 #: client/components/networks/_create.html:63
+#: client/components/vouchers/_copy.html:50
 #: client/components/vouchers/_copy.html:51
 msgid "Captive Portal"
 msgstr "Captive Portal"
@@ -1754,6 +1795,11 @@ msgstr "Captive Portal"
 #: client/components/locations/triggers/_new.html:128
 msgid "Captured"
 msgstr "Captured"
+
+#: client/components/users/billing/_index.html:28
+#, fuzzy
+msgid "Card Details"
+msgstr "Code Details"
 
 #: client/components/users/billing/_card.html:14
 #: client/components/users/billing/_card.html:15
@@ -2650,7 +2696,7 @@ msgstr "Deleting a field will wipe all your data, please be careful."
 #: client/components/vouchers/_index.html:82
 #: client/components/vouchers/_show.html:58
 #: client/components/zones/_form.html:27 client/components/zones/_index.html:60
-#: client/components/zones/_show.html:44
+#: client/components/zones/_show.html:48
 msgid "Description"
 msgstr "Description"
 
@@ -2756,6 +2802,16 @@ msgstr "Device Usage"
 msgid "Device description updated."
 msgstr "Device description updated."
 
+#: client/components/boxes/boxes.directives.js:382
+#, fuzzy
+msgid "Device failed to install, please wait."
+msgstr "Device reset in progress, please wait."
+
+#: client/components/boxes/boxes.directives.js:379
+#, fuzzy
+msgid "Device installed successfully."
+msgstr "Upgrade cancelled successfully."
+
 #: client/components/boxes/boxes.filters.js:71
 msgid "Device offline"
 msgstr "Device offline"
@@ -2763,6 +2819,11 @@ msgstr "Device offline"
 #: client/components/boxes/boxes.filters.js:67
 msgid "Device online"
 msgstr "Device online"
+
+#: client/components/boxes/boxes.filters.js:91
+#, fuzzy
+msgid "Device rebooting"
+msgstr "Device Settings"
 
 #: client/components/boxes/boxes.directives.js:198
 msgid "Device reset in progress, please wait."
@@ -3172,7 +3233,7 @@ msgstr "Enable streaming updates"
 
 #: client/components/locations/locations.filters.js:157
 #: client/components/locations/networks/_index.html:62
-#: client/components/zones/_show.html:58
+#: client/components/zones/_show.html:62
 msgid "Enabled"
 msgstr "Enabled"
 
@@ -5858,6 +5919,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: client/components/locations/layouts/location-banner.html:6
+#: client/components/users/layouts/location-banner.html:5
 msgid "On The {{ location.plan_name | titleCase }} Plan."
 msgstr "On The {{ location.plan_name | titleCase }} Plan."
 
@@ -5933,7 +5995,7 @@ msgstr "Open Menu"
 msgid "Open Networks Menu"
 msgstr "Open Networks Menu"
 
-#: client/components/splash_pages/_index.html:91
+#: client/components/splash_pages/_index.html:92
 #, fuzzy
 msgid "Open Splash Menu"
 msgstr "Open Apps Menu"
@@ -5946,7 +6008,7 @@ msgstr "Open Apps Menu"
 #: client/components/locations/triggers/_show.html:8
 #: client/components/splash_codes/_show.html:8
 #: client/components/splash_pages/splash_show.html:14
-#: client/components/vouchers/_show.html:8
+#: client/components/vouchers/_show.html:8 client/components/zones/_show.html:9
 msgid "Open Tools"
 msgstr "Open Tools"
 
@@ -6962,7 +7024,7 @@ msgstr "SSH Password"
 #: client/components/networks/_edit_ssid.html:16
 #: client/components/splash_pages/_networks.html:19
 #: client/components/vouchers/_copy.html:19
-#: client/components/zones/_show.html:43
+#: client/components/zones/_show.html:47
 msgid "SSID"
 msgstr "SSID"
 
@@ -7032,7 +7094,7 @@ msgstr "Sat"
 #: client/components/users/billing/_billing.html:56
 #: client/components/users/branding/_form.html:164
 #: client/components/users/show/_index.html:123
-#: client/components/zones/_show.html:84
+#: client/components/zones/_show.html:88
 msgid "Save"
 msgstr "Save"
 
@@ -7256,6 +7318,7 @@ msgstr ""
 #: client/components/users/invoices/_index.html:3
 #: client/components/users/quotas/_index.html:3
 #: client/components/users/show/_index.html:4
+#: client/components/vouchers/_edit.html:3
 #: client/components/vouchers/_new.html:3
 #: client/components/vouchers/_show.html:3 client/index.html:143
 #: client/index.html:62
@@ -7496,7 +7559,7 @@ msgstr "Speeds Restrictions"
 #: client/components/splash_codes/_index.html:8
 #: client/components/splash_pages/_index.html:8
 #: client/components/users/branding/_form.html:3
-#: client/components/zones/_index.html:8 client/components/zones/_show.html:45
+#: client/components/zones/_index.html:8 client/components/zones/_show.html:49
 msgid "Splash"
 msgstr "Splash"
 
@@ -7919,6 +7982,10 @@ msgstr "Tagged Logins Disabled"
 msgid "Tagged Logins Enabled"
 msgstr "Tagged Logins Enabled"
 
+#: client/components/users/invoices/_show.html:41
+msgid "Tax at {{ invoice.tax_percent }}%"
+msgstr ""
+
 #: client/components/locations/show/edit-modal.html:25
 msgid "Telephone number"
 msgstr "Telephone number"
@@ -8218,6 +8285,11 @@ msgstr "This location has been archived! Splash pages are disabled."
 msgid "This location is owned by the user."
 msgstr "This location is owned by the user."
 
+#: client/components/zones/_associated_zones_dialog.html:8
+#, fuzzy
+msgid "This network is associated with the following zones."
+msgstr "This splash is associated with the following networks."
+
 #: client/components/audit/sales/_index.html:67
 msgid "This order is pending and hasn't completed"
 msgstr "This order is pending and hasn't completed"
@@ -8403,6 +8475,7 @@ msgstr "Top aps by session count"
 
 #: client/components/audit/sales/_index.html:56
 #: client/components/users/invoices/_index.html:36
+#: client/components/users/invoices/_show.html:45
 msgid "Total"
 msgstr "Total"
 
@@ -8991,7 +9064,7 @@ msgstr "Version"
 #: client/components/users/users.directives.js:1116
 #: client/components/users/users.directives.js:327
 #: client/components/vouchers/vouchers.directives.js:109
-#: client/components/zones/_show.html:70
+#: client/components/zones/_show.html:74
 msgid "View"
 msgstr "View"
 
@@ -9475,6 +9548,11 @@ msgstr "You can change all these later if you need."
 #: client/components/splash_pages/_form.html:11
 msgid "You can design the splash pages to match your style."
 msgstr "You can design the splash pages to match your style."
+
+#: client/components/vouchers/_show.html:163
+#, fuzzy
+msgid "You can download the codes for three months after creation."
+msgstr "<p>You can download the codes for three months after creation.</p>"
 
 #: client/components/splash_pages/_welcome.html:4
 msgid ""
@@ -9991,7 +10069,7 @@ msgid "Zone"
 msgstr "Zone"
 
 #: client/components/users/index/_index.html:55
-#: client/components/zones/_index.html:92 client/components/zones/_show.html:63
+#: client/components/zones/_index.html:92 client/components/zones/_show.html:67
 msgid "Zone Menu"
 msgstr "Zone Menu"
 
@@ -10050,6 +10128,10 @@ msgstr "add box"
 msgid "added to"
 msgstr "added to"
 
+#: client/components/boxes/boxes.directives.js:692
+msgid "auto"
+msgstr ""
+
 #: client/components/boxes/show/_index.html:251
 #: client/components/locations/clients/_show.html:62
 #: client/components/locations/clients/_show.html:90
@@ -10058,7 +10140,7 @@ msgstr "added to"
 msgid "call"
 msgstr "call"
 
-#: client/components/users/billing/_cancel.html:18
+#: client/components/users/billing/_cancel.html:19
 msgid "cancel"
 msgstr "cancel"
 
@@ -10464,6 +10546,12 @@ msgstr "{{splash.splash_name}}"
 #: client/components/zones/_index.html:75
 msgid "{{zone.zone_description}}"
 msgstr "{{zone.zone_description}}"
+
+#, fuzzy
+#~ msgid "1  network."
+#~ msgid_plural "{{ zone.networks.length }} networks."
+#~ msgstr[0] "1 network"
+#~ msgstr[1] "{{ splash.networks.length }} networks"
 
 #~ msgid "Edit zone name"
 #~ msgstr "Edit zone name"

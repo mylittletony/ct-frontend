@@ -32,7 +32,7 @@
             <md-card-title-text>
               <span class="md-header">{{ zone.zone_name | titleCase }}. 
                 <span translate translate-n="{{zone.boxes.length}}" translate-plural="{{ zone.boxes.length || 0}} boxes">1 box</span>, 
-                <span translate translate-n="{{ selected.length }} " translate-plural="{{ selected.length || 0 }} networks">1 network</span>.
+                <span translate translate-n="{{ selected.length }} " translate-plural="{{ selected.length || 0 }} networks" translate-context="in zones index componenet">1 network</span>.
                 {{ zone.zone_description }}
               </span>
             </md-card-title-text>
