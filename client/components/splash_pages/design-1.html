@@ -14,7 +14,7 @@
     <h2><div ng-bind-html="splash.info | sanitize"></div></h2>
     <p ng-bind-html="splash.info_two | sanitize"></p>
     <splash-designer-form access="{{splash.primary_access_id}}" btntext="{{ splash.btn_text }}"></splash-designer-form>
-    <p class="small" ng-hide="splash.hide_terms">By logging in, you agree to our <a href="{{ splash.terms_url }}">terms of use</a></p>
+    <p class="small" ng-hide="splash.hide_terms" translate>By logging in, you agree to our <a href="{{ splash.terms_url }}">terms of use</a></p>
     <div class="location_address">
       <p>{{splash.address}}</p>
     </div>

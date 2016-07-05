@@ -1,6 +1,6 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" aria-label="Vouchers">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="{{ 'Vouchers' | translate }}">
       <md-icon md-font-icon="" >notifications_active</md-icon>
     </md-button>
     <p translate>Triggers</p>
@@ -87,7 +87,7 @@
                 </td md-cell>
                 <td md-cell>
                   <md-menu>
-                    <md-button aria-label="Open Clients Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                       <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                     </md-button>
                     <md-menu-content width="4" >

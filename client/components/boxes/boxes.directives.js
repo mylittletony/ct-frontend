@@ -376,10 +376,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'installer':
           if (data.status === true) {
             init();
-            showToast('Device installed successfully.');
+            showToast(gettextCatalog.getString('Device installed successfully.'));
           } else {
             scope.box.state = 'new';
-            showToast('Device failed to install, please wait.');
+            showToast(gettextCatalog.getString('Device failed to install, please wait.'));
           }
           break;
         case 'upgrade':

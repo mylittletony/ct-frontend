@@ -38,11 +38,11 @@
               <td md-cell>{{ results.invoice.subtotal / 100 | currency : results.invoice.currency_f }}</td>
             </tr>
             <tr md-row>
-              <td md-cell style="text-align: right;">Tax at {{ invoice.tax_percent }}%</td>
+              <td md-cell style="text-align: right;"><translate>Tax at {{ invoice.tax_percent }}%</translate></td>
               <td md-cell>{{ results.invoice.tax / 100 | currency : results.invoice.currency_f }}</td>
             </tr>
             <tr md-row>
-              <td md-cell style="text-align: right;"><b>Total</b></td>
+              <td md-cell style="text-align: right;"><b><translate>Total</translate></b></td>
               <td md-cell><b>{{ results.invoice.total / 100 | currency : results.invoice.currency_f }}</b></td>
             </tr>
         </table>

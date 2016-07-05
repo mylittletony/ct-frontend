@@ -5,9 +5,19 @@
       <input ng-model="query.filter" md-autofocus placeholder="Filter Networks">
     </md-input-container>
     <div flex></div>
-    <md-button class="md-icon-button md-warn" ng-if="allowed" ng-click="destroy()" aria-label="{{ 'Add Device' | translate }}">
-      <md-icon>delete_forever</md-icon>
-    </md-button>
+    <md-menu ng-if="menu">
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon>more_vert</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in menu">
+          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+            {{item.name}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -20,7 +30,11 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-header">{{ zone.zone_name | titleCase }}. {{ zone.boxes.length || 0 }} box<span ng-if="zone.boxes.length != 1">es</span>, {{ selected.length || 0 }} network<span ng-if="selected.length != 1">s</span>. {{ zone.zone_description }}</span>
+              <span class="md-header">{{ zone.zone_name | titleCase }}. 
+                <span translate translate-n="{{zone.boxes.length}}" translate-plural="{{ zone.boxes.length || 0}} boxes">1 box</span>, 
+                <span translate translate-n="{{ selected.length }} " translate-plural="{{ selected.length || 0 }} networks" translate-context="in zones index componenet">1 network</span>.
+                {{ zone.zone_description }}
+              </span>
             </md-card-title-text>
           </md-card-title>
           <md-divider ng-if="!$last"></md-divider>

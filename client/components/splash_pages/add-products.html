@@ -1,6 +1,6 @@
 <div class="row" ng-if="adding">
   <div class="small-12 columns">
-    <label for="value">How much should the voucher cost?</label>
+    <label for="value" translate>How much should the voucher cost?</label>
     <form name="myForm" ng-submit="saveProduct(product)">
       <div class="row">
         <div class="medium-2 columns">
@@ -16,7 +16,7 @@
       </div>
       <div class="row">
         <div class="medium-4 columns">
-          <label for="value">How long do you want it to last for?</label>
+          <label for="value"><translate>How long do you want it to last for?</translate></label>
           <div class="row collapse prefix-radius">
             <div class="small-3 columns">
               <input type="number" ng-model="product.duration" placeholder="60"></input>
@@ -30,7 +30,7 @@
       <div class="row">
         <div class="medium-5 columns">
           <div class="row collapse">
-            <label>Download Speed</label>
+            <label><translate>Download Speed</translate></label>
             <div class="small-4 columns">
               <input type="number" ng-model="product.download_speed" placeholder="512"></input>
             </div>
@@ -43,7 +43,7 @@
       <div class="row">
         <div class="medium-5 end columns">
           <div class="row collapse">
-            <label>Upload Speed</label>
+            <label><translate>Upload Speed</translate></label>
             <div class="small-4 columns">
               <input type="number" ng-model="product.upload_speed" placeholder="512"></input>
             </div>
@@ -56,17 +56,17 @@
       <div class="row">
         <div class="medium-5 columns">
           <div class="row collapse">
-            <label>Max Devices</label>
+            <label><translate>Max Devices</translate></label>
             <div class="small-3 columns">
               <input type="number" ng-model="product.devices" placeholder="3"></input>
             </div>
             <div class="small-4 end columns">
-              <span class="postfix">Devices</span>
+              <span class="postfix" translate>Devices</span>
             </div>
           </div>
         </div>
       </div>
-      <button ng-disabled="submitting == true || iimyForm.$invalid || asdfmyForm.$pristine" class="button" id="update">Update</button>
+      <button ng-disabled="submitting == true || iimyForm.$invalid || asdfmyForm.$pristine" class="button" id="update"><translate>Update</translate></button>
     </form>
   </div>
 </div>
