@@ -10,7 +10,7 @@
 
         <div class="alert-box warning" ng-if="product.distance == 'minutes' && product.session_timeout > product.duration" translate>Your session timeout is longer than the duration of your voucher. Users may not get logged off before their voucher expires.</div>
         <h2 translate>Add a product to the store.</h2>
-
+        <!--Toni, think of something about this cases-->
         <p translate>Choose from a selection of the most popular products. Or, use the <a href="" ng-click="advanced = !advanced">{{ advanced ? "simple" : "advanced"}} method</a>.</p>
 
         <p><small translate>Enter the price in the smallest common currency unit for your store. For example, if your store is in USD, this is the amount in cents. In GBP, it would be pence. To create a charge for €1.00, you would set amount=100 (100 cents).</small></p>
@@ -117,13 +117,13 @@
 
               <div flex="50" ng-show="advanced">
                 <translate>Download Speed {{ (product.download_speed / 1024) | number }}Mbps</translate>
-                <md-slider flex md-discrete ng-model="product.download_speed" step="256" min="0" max="49134" aria-label="{{'download' | translate }}">
+                <md-slider flex md-discrete ng-model="product.download_speed" step="256" min="0" max="49134" aria-label="download">
                 </md-slider>
               </div>
 
               <div flex="50" ng-show="advanced">
                 <translate>Upload Speed {{ (product.upload_speed / 1024) | number }}Mbps</translate>
-                <md-slider flex md-discrete ng-model="product.upload_speed" step="256" min="0" max="49134" aria-label="{{'upload' | translate }}">
+                <md-slider flex md-discrete ng-model="product.upload_speed" step="256" min="0" max="49134" aria-label="upload">
                 </md-slider>
               </div>
 

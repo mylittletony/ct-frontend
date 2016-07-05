@@ -19,7 +19,13 @@
       </span>
       <md-list-item class="md-2-line" ng-repeat="event in events">
         <div class="md-list-item-text">
-          <h3 ng-class="event.event_type == 'box.online' ? 'muted' : 'offline'">{{ event.data.ap_mac }} {{ event.event_type == "box.online" ? "Reconnected" : "Disconnected" }}</h3>
+          <h3 ng-class="event.event_type == 'box.online' ? 'muted' : 'offline'">
+            {{ event.data.ap_mac }} 
+            <!-- Putting this in comments, cannot test it -->
+            <!-- <span ng-if="{{ event.event_type == 'box.online'}}" translate>Reconnected</span>
+            <span ng-if="{{ event.event_type != 'box.online'}}" translate>Disconnected</span> -->
+            {{ event.event_type == "box.online" ? "Reconnected" : "Disconnected" }}
+          </h3>
           <p>Last seen {{ event.data.last_heartbeat | mysqlTime }} <a href="/#/locations/{{ event.data.location_name}}/boxes?q={{ event.data.ap_mac}}"><md-icon md-font-icon="" style="font-size: 14px;">arrow_forward</md-icon></a></p>
         </div>
       </md-list-item>
