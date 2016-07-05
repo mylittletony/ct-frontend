@@ -1,10 +1,10 @@
 <md-card>
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">
+      <span class="md-headline" translate>
         Voucher Settings
       </span>
-      <span class="md-subhead">
+      <span class="md-subhead" translate>
         <p>Vouchers have their own rules. When you create a batch of vouchers, you also create the policies which limit speed, time etc.</p>
       </span>
     </md-card-title-text>
@@ -15,6 +15,7 @@
     <div layout="column" flex="100" flex-gt-xs="55">
 
         <md-switch class="md-accent" ng-model="splash.shop_active" aria-label="Enable Shop">
+        <!--Toni, fixme-->
           <translate>Shop {{ splash.shop_active ? 'Enabled' : 'Disabled' }}</translate>
         </md-switch>
 

@@ -5,7 +5,7 @@
       <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{'Filter Splash' | translate }}">
     </md-input-container>
-    <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="Splash">
+    <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
       <md-icon md-font-icon="">layers</md-icon>
     </md-button>
     <p ng-if="splash_pages.length === 0" translate>Splash Pages</p>
@@ -74,9 +74,10 @@
                 </md-tooltip>
               </td>
               <td hide show-gt-sm md-cell>
+                <!--Toni, fixme, remove some of these-->
                 <span ng-if="splash.networks.length < 1"></span>
                 <span ng-if="splash.networks.length == 1">{{ splash.networks[0] }}</span>
-                <span ng-if="splash.networks.length > 1" translate translate-n="{{ splash.networks.length }}" translate-plural="{{ splash.networks.length }} networks">1 network</span>
+                <span ng-if="splash.networks.length > 1" translate translate-n="splash.networks.length" translate-plural="{{ splash.networks.length }} networks" translate-context="in splash pages">1 network</span>
 
               </td>
               <td hide show-gt-sm md-cell>
@@ -88,7 +89,7 @@
                 </span>
                 <span ng-if="splash.state != 'processing'">
                   <md-menu>
-                    <md-button aria-label="Open Splash Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-button aria-label="{{ 'Open Splash Menu' | translate}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                       <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                     </md-button>
                     <md-menu-content width="4" >

@@ -80,7 +80,8 @@
 
     <div flex="40">
       <div layout="column">
-        <md-switch class="md-accent" ng-model="splash.fb_redirect_to_page" aria-label="Redirect To Page">
+        <md-switch class="md-accent" ng-model="splash.fb_redirect_to_page" aria-label="Redirect To Page"> 
+        <!--Toni, fixme-->
           <translate>Redirect To Facebook Page {{ splash.fb_redirect_to_page ? 'Enabled' : 'Disabled' }}</translate>
         </md-switch>
         <md-switch class="md-accent" ng-model="splash.fb_checkin" aria-label="FB Checkin">
@@ -99,7 +100,7 @@
 <md-card ng-show="splash.g_login_on">
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">
+      <span class="md-headline" translate>
         Google+ Settings
       </span>
     </md-card-title-text>
@@ -110,14 +111,14 @@
       <div layout="column">
         <md-input-container class="md-block">
           <label>Google Page ID</label>
-          <input ng-model="splash.g_page_id" name="g_page_id" ng-class="{ 'input-error' : myForm.g_page_id.$error.required }" placeholder="Enter your Google Page ID" type="text" ng-required="splash.g_redirect_to_page" ng-disabled="!splash.g_redirect_to_page">
+          <input ng-model="splash.g_page_id" name="g_page_id" ng-class="{ 'input-error' : myForm.g_page_id.$error.required }" placeholder="{{ 'Enter your Google Page ID' | translate }}" type="text" ng-required="splash.g_redirect_to_page" ng-disabled="!splash.g_redirect_to_page">
           <div ng-messages="myForm.g_page_id.$error" md-auto-hide="false">
             <div ng-message="md-maxlength">Page ID required.</div>
           </div>
         </md-input-container>
         <md-input-container class="md-block">
           <label>Google Client ID</label>
-          <input ng-model="splash.g_api_key" ng-focus="gKey = !gKey" ng-blur="gKey = !gKey" name="g_api_key" ng-class="{ 'input-error' : myForm.g_api_key.$error.required }" placeholder="Enter your Google API Key" type='{{ gKey ? "text" : "password" }}' ng-required="!splash.g_use_ps" ng-disabled="splash.g_use_ps">
+          <input ng-model="splash.g_api_key" ng-focus="gKey = !gKey" ng-blur="gKey = !gKey" name="g_api_key" ng-class="{ 'input-error' : myForm.g_api_key.$error.required }" placeholder="{{ 'Enter your Google API Key' | translate }}" type='{{ gKey ? "text" : "password" }}' ng-required="!splash.g_use_ps" ng-disabled="splash.g_use_ps">
           <div ng-messages="myForm.g_api_key.$error">
             <div ng-message="md-maxlength">Google Client ID required when using your own App.</div>
           </div>
@@ -133,7 +134,7 @@
         <md-switch class="md-accent" ng-model="splash.g_redirect_to_page" aria-label="Redirect To Page">
           <translate>Redirect To Google Page {{ splash.g_redirect_to_page ? 'Enabled' : 'Disabled' }}</translate>
         </md-switch>
-        <md-switch class="md-accent" ng-model="splash.g_use_ps" aria-label="Google Use CT" ng-true-value="0" ng-false-value="1">
+        <md-switch class="md-accent" ng-model="splash.g_use_ps" aria-label="{{ 'Google Use CT' | translate }}" ng-true-value="0" ng-false-value="1">
           <translate>Use Your Own Google App</translate>
         </md-switch>
       </div>
@@ -145,10 +146,10 @@
 <md-card ng-show="splash.li_login_on">
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">
+      <span class="md-headline" translate>
         LinkedIn+ Settings
       </span>
-      <span class="md-subhead">
+      <span class="md-subhead" translate>
         For LinkedIn, you must enable secure captive portal in your network settings otherwise the icon won't appear.
       </span>
 
@@ -159,17 +160,17 @@
     <div flex="40">
       <div layout="column">
         <md-input-container class="md-block">
-          <label>LinkedIn Api Key</label>
-          <input ng-model="splash.li_api_key" ng-focus="liKey = !liKey" ng-blur="liKey = !liKey" name="li_api_key" placeholder="Enter your LinkedIn API Key" type='{{ liKey ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
+          <label translate>LinkedIn Api Key</label>
+          <input ng-model="splash.li_api_key" ng-focus="liKey = !liKey" ng-blur="liKey = !liKey" name="li_api_key" placeholder="{{ 'Enter your LinkedIn API Key' | translate }}" type='{{ liKey ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
           <div ng-messages="myForm.li_api_key.$error" md-auto-hide="false">
             <div ng-message="md-maxlength">LinkedIn API key required.</div>
           </div>
         </md-input-container>
         <md-input-container class="md-block">
-          <label>LinkedIn Api Key</label>
-          <input ng-model="splash.li_api_secret" ng-focus="liSecret = !liSecret" ng-blur="liSecret = !liSecret" name="li_api_secret" placeholder="Enter your LinkedIn Secret" type='{{ liSecret ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
+          <label translate>LinkedIn Api Key</label>
+          <input ng-model="splash.li_api_secret" ng-focus="liSecret = !liSecret" ng-blur="liSecret = !liSecret" name="li_api_secret" placeholder="{{ 'Enter your LinkedIn Secret' | translate }}" type='{{ liSecret ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
           <div ng-messages="myForm.li_api_secret.$error" md-auto-hide="false">
-            <div ng-message="md-maxlength">API secret required when using your own App.</div>
+            <div ng-message="md-maxlength" translate>API secret required when using your own App.</div>
           </div>
         </md-input-container>
       </div>
@@ -180,8 +181,8 @@
 
     <div flex="40">
       <div layout="column">
-        <md-switch class="md-accent" ng-model="splash.li_use_ps" aria-label="LinkedIn Use CT" ng-true-value="0" ng-false-value="1">
-          Use Your Own LinkedIn App
+        <md-switch class="md-accent" ng-model="splash.li_use_ps" aria-label="{{ 'LinkedIn Use CT' | translate }}" ng-true-value="0" ng-false-value="1">
+          <translate>Use Your Own LinkedIn App</translate>
         </md-switch>
       </div>
     </div>

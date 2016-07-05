@@ -107,13 +107,13 @@
                   <p translate>Download Speed ({{(code.download_speed / 1024) | number:0 }}Mbps)</p>
 
                   <md-slider-container>
-                    <md-slider flex ng-model="code.download_speed" min="56" max="51200" step="56" aria-label="{{ 'down' | translate }}" id="down-slider" class="md-accent">
+                    <md-slider flex ng-model="code.download_speed" min="56" max="51200" step="56" aria-label="down" id="down-slider" class="md-accent">
                     </md-slider>
                   </md-slider-container>
                   <p translate>Upload Speed ({{(code.upload_speed / 1024) | number:0 }}Mbps)</p>
 
                   <md-slider-container flex="50">
-                    <md-slider flex ng-model="code.upload_speed" min="56" max="51200" step="56" aria-label="{{ 'down' | translate }}" id="down-slider" class="md-accent">
+                    <md-slider flex ng-model="code.upload_speed" min="56" max="51200" step="56" aria-label="down" id="down-slider" class="md-accent">
                     </md-slider>
                   </md-slider-container>
 
