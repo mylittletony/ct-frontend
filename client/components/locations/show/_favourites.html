@@ -21,7 +21,10 @@
           <div class="md-list-item-text">
             <h3>{{ ::item.location_name }}</h3>
             <h4>{{ ::item.location_address | truncate:20 }}.</h4>
-            <p><span translate translate-n="{{ ::item.boxes_count }}" translate-plural="{{ ::item.boxes_count }} boxes"> 1 box. <span translate translate-n="{{ ::item.clients_online }}" translate-plural="{{ ::item.clients_online }} clients online."> 1 client online.</span></p>
+            <p> 
+              <span translate translate-n="{{ ::item.boxes_count }}" translate-plural="{{ ::item.boxes_count }} boxes." translate-context="in locations component"> 1 box.</span> 
+              <span translate translate-n="{{ ::item.clients_online }}" translate-plural="{{ ::item.clients_online}} clients online."> 1 client online.</span>
+            </p>
           </div>
         </md-list-item>
       </md-list>
