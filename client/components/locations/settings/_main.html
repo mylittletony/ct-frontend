@@ -11,69 +11,68 @@
 </md-toolbar>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+  <form name="myForm" submit="update(myForm)">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Details
+              </span>
+              <span class="md-subhead" ng-if="location.archived">
+                <md-icon>archived</md-icon>
+                <translate>This location has been archived! Splash pages are disabled.</translate>
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-list-item class="md-3-line" flex="100" flex-gt-sm="{{ showToken ? '100' : '50' }}">
+                <div class="md-list-item-text">
+                  <h3>API Token (<span ng-click="showToken = !showToken">{{ showToken ? "Hide" : "Show" }}</span>)</h3>
+                  <p>
+                    <span ng-if="showToken">{{ location.api_token }}</span>
+                    <span ng-if="!showToken">●●●●●●●●●●●●●●●●●●</span>
+                  </p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3 translate>Unique ID</h3>
+                  <p>{{ ::location.unique_id }}</p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3 translate>Created On</h3>
+                  <p>{{ location.created_at | humanTime }}</p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3 translate>Network Location</h3>
+                  <p>{{ ::location.network_location }} ({{ ::location.lucky_dip }})</p>
+                </div>
+              </md-list-item>
+            </div>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <change-location-token token="location.api_token"></change-location-token>
+          </md-card-actions>
+        </md-card>
 
-  <div layout="row" layout-align="center center">
-    <div flex="100" flex-gt-sm="75">
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Details
-            </span>
-            <span class="md-subhead" ng-if="location.archived">
-              <md-icon>archived</md-icon>
-              <translate>This location has been archived! Splash pages are disabled.</translate>
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          <div layout="row" layout-wrap>
-            <md-list-item class="md-3-line" flex="100" flex-gt-sm="{{ showToken ? '100' : '50' }}">
-              <div class="md-list-item-text">
-                <h3>API Token (<span ng-click="showToken = !showToken">{{ showToken ? "Hide" : "Show" }}</span>)</h3>
-                <p>
-                  <span ng-if="showToken">{{ location.api_token }}</span>
-                  <span ng-if="!showToken">●●●●●●●●●●●●●●●●●●</span>
-                </p>
-              </div>
-            </md-list-item>
-            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
-              <div class="md-list-item-text">
-                <h3 translate>Unique ID</h3>
-                <p>{{ ::location.unique_id }}</p>
-              </div>
-            </md-list-item>
-            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
-              <div class="md-list-item-text">
-                <h3 translate>Created On</h3>
-                <p>{{ location.created_at | humanTime }}</p>
-              </div>
-            </md-list-item>
-            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
-              <div class="md-list-item-text">
-                <h3 translate>Network Location</h3>
-                <p>{{ ::location.network_location }} ({{ ::location.lucky_dip }})</p>
-              </div>
-            </md-list-item>
-          </div>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-          <change-location-token token="location.api_token"></change-location-token>
-        </md-card-actions>
-      </md-card>
-
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Address
-            </span>
-            <span class="md-subhead">
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          <form name="myForm" submit="update(myForm)">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Address
+              </span>
+              <span class="md-subhead">
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
             <div layout="row" layout-wrap>
               <md-input-container flex="100">
                 <label>
@@ -138,15 +137,15 @@
                 <span ng-if="location.add_to_global_map == false" translate>Private Location</span>
               </md-switch>
             </div>
-          </form>
-        </md-card-content>
-      </md-card>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
-        <translate>
-          Save
-        </translate>
-      </md-button>
+          </md-card-content>
+        </md-card>
+        <md-button ng-click="update(myForm)" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          <translate>
+            Save
+          </translate>
+        </md-button>
 
+      </div>
     </div>
-
+  </form>
 </md-content>
