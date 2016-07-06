@@ -2,6 +2,7 @@
   <div class="md-toolbar-tools">
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
       <md-icon md-font-icon="search">search</md-icon>
+      <label></label>
       <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
     </md-input-container>
     <div flex></div>
@@ -31,8 +32,7 @@
       <p class="text-muted"><small>{{ box.mac }}</small></p>
       <md-divider ng-if="!$last"></md-divider>
       <p>
-        <!-- toni the translator this was breaking -->
-        <span translate toni-translate-n="{{ ::box.metadata.ssids }}" toni-translate-plural="SSIDs: {{ ::box.metadata.ssids }}">SSIDs: {{ ::box.metadata.ssids | ssidFilter }}</span><br>
+        <span translate translate-n="{{::box.metadata.ssids.length}}" translate-plural="SSIDs: {{ ::box.metadata.ssids | ssidFilter }}">SSID: {{ ::box.metadata.ssids | ssidFilter }}</span><br>
         <span translate>Zone: {{ ::box.metadata.zone_name }}</span>
         <span ng-if="!box.metadata.zone_name" translate>No zone</span><br>
 
@@ -40,7 +40,7 @@
         <span ng-hide="::box.heartbeat" translate>Never checked in</span>
         <br>
         <translate>Connected:&nbsp;</translate> {{ box.metadata.online || 0 }}<br>
-        <span>{{ (box.throughput || 0) | mbps }} avg. throughput.</span>
+        <span translate>{{ (box.throughput || 0) | mbps }} avg. throughput.</span>
       </p>
       <md-divider></md-divider>
       <span layout="row" class="marker-action">
