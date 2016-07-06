@@ -82,7 +82,9 @@
                 {{ zone.created_at | humanTime }}
               </td>
               <td hide show-gt-xs md-cell>
-                {{ zone.boxes.length || 0 }}
+                <!-- Simon, change this back to boxes when moved off old CT -->
+                {{ zone.boxes_count }}
+                <!-- Simon, change this back to boxes when moved off old CT -->
               </td>
               <td hide show-gt-xs md-cell>
                 {{ zone.networks.length || 0 }}
