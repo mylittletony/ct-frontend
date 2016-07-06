@@ -126,13 +126,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       icon: 'business'
     });
 
-    // vm.menuRight.push({
-    //   name: 'Boxes',
-    //   link: '/#/boxes',
-    //   type: 'link',
-    //   icon: 'router'
-    // });
-
     vm.menuRight.push({
       name: 'Reports',
       link: '/#/reports',
@@ -326,9 +319,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
 
       $scope.brandName = BrandName;
-
-      // var channel;
-
       function getSubdomain () {
         var sub   = locationHelper.subdomain();
         var host  = locationHelper.domain();
@@ -345,7 +335,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             setDefaultImages();
           }
         } else {
-          console.log('Defo a problem with your domain');
+          console.log('Domain error occured');
         }
       }
 
@@ -353,9 +343,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         Brand.query({
           id: domain, cname: cname
         }).$promise.then(function(results) {
-          $scope.brandName.name   = results.brand_name || 'Cucumber';
-          // $scope.brandName.image  = results.brand_image || default_image;
-          // $scope.brandName.icon   = results.brand_icon || default_icon;
+          // Can we turn Cucumber into a variable so we don't just set
+          // Maybe use the config files - Simon TBD //
+          $scope.brandName.name = results.brand_name || 'Cucumber';
         }, function() {
           setDefaultImages(domain);
         });
@@ -372,12 +362,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
       var setDefaultImages = function(sub) {
         $scope.brandName.name = 'Cucumber';
-        // $scope.brandName.image = default_image;
-        // $scope.brandName.icon = default_icon;
-        // var a = AccessToken.get();
-        // if ( (!Auth.currentUser() && a ) || Auth.currentUser() && (Auth.currentUser().url !== 'default' )) {
-        //   getMe();
-        // }
       };
 
       var firstName = function() {
@@ -392,8 +376,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       firstName();
       getSubdomain();
-      // getAlerts();
-      // subAlerts();
 
       var domain = 'ctapp.io';
       var addDistro = function() {
