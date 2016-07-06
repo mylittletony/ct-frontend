@@ -5,11 +5,15 @@
   <p translate>Network not associated with a zone. </p>
 </div>
 <div ng-if="!loading && zones.length">
-  <span>This network is associated with the following zone<span ng-if="zones.length != 1">s</span>.</span>
+  <span translate>This network is associated with the following zones.</span>
   <md-list-item class="md-3-line" ng-repeat="zone in zones">
     <div class="md-list-item-text">
       <h3><a href="/#/locations/{{location.slug}}/zones/{{ zone.id }}" translate>{{ zone.zone_name | titleCase }} Zone</a></h3>
-      <p>{{ zone.boxes.length }} box<span ng-if="zones.boxes.length != 1">es</span>. {{ zone.networks.length }} network<span ng-if="zones.networks.length != 1">s</span>.</p>
+      <p>
+        <span translate translate-n="{{zone.boxes.length}}" translate-plural="{{ zone.boxes.length }} boxes">1 box. 
+        <span translate translate-n="{{ zone.networks.length }}" translate-plural="{{ zone.networks.length }} networks" translate-context="in zones componenet">1 network.
+        </span>
+      </p>
     </div>
   </md-list-item>
 </div>
