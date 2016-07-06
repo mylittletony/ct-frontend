@@ -74,11 +74,11 @@
                     {{ network.zones[0].name }}
                   </md-tooltip>
                 </span>
-                <span ng-if="network.zones.length > 1"  translate translate-n="{{ network.zones.length}}" translate-plural="{{ network.zones.length}} zones">
-                  1 zone
+                <span ng-if="network.zones.length > 1">
+                  <translate>{{ network.zones.length}} zones</translate>
                   <md-tooltip>
-                    <span ng-repeat="n in network.zones" translate>
-                      Name: {{ n.name }}<br>
+                    <span ng-repeat="n in network.zones">
+                      <translate>Name: {{ n.name }}</translate><br />
                     </span>
                   </md-tooltip>
                 </span>

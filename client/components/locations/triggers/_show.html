@@ -39,9 +39,9 @@
         </md-card-title>
         <md-card-content>
           <p>
-            <span translate translate-n="{{ trigger.run_count }}" translate-plural="This trigger has run {{ trigger.run_count }} times."> This trigger has run 1 time.</span>
-            <span translate translate-n="{{ trigger.total_fail_count }}" translate-plural="It has failed {{ trigger.total_fail_count }} times">It has failed 1 time</span>
-            <span ng-if="trigger.fail_count > 0" translate translate-n="{{ trigger.fail_count}}" translate-plural="({{ trigger.fail_count}} times since the last reset)">(1 time since the last reset)</span>
+            <span translate translate-n="{{trigger.run_count}}" translate-plural="This trigger has run {{ trigger.run_count || 0}} times."> This trigger has run 1 time.</span>
+            <span translate translate-n="{{trigger.total_fail_count}}" translate-plural="It has failed {{ trigger.total_fail_count || 0 }} times">It has failed 1 time</span>
+            <span ng-if="trigger.fail_count > 0" translate translate-n="{{trigger.fail_count}}" translate-plural="({{ trigger.fail_count}} times since the last reset)">(1 time since the last reset)</span>
           </p>
 
           <p class="text-muted"><small translate>Created {{ trigger.created_at | humanTime }}</small></p>

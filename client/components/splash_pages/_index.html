@@ -74,10 +74,9 @@
                 </md-tooltip>
               </td>
               <td hide show-gt-sm md-cell>
-                <!--Toni, fixme, remove some of these-->
                 <span ng-if="splash.networks.length < 1"></span>
                 <span ng-if="splash.networks.length == 1">{{ splash.networks[0] }}</span>
-                <span ng-if="splash.networks.length > 1" translate translate-n="splash.networks.length" translate-plural="{{ splash.networks.length }} networks" translate-context="in splash pages">1 network</span>
+                <span ng-if="splash.networks.length > 1" span>{{ splash.networks.length }} networks</span>
 
               </td>
               <td hide show-gt-sm md-cell>
