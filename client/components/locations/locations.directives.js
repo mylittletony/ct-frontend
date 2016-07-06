@@ -1551,7 +1551,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
 
     var destroyLocation = function(id) {
       Location.destroy({id: scope.location.id}).$promise.then(function(results) {
-        $location.path('/locations');
+        $location.path('/');
         showToast(gettextCatalog.getString('Successfully deleted location.'));
       }, function(err) {
         showErrors(err);
