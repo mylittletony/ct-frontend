@@ -345,7 +345,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }).$promise.then(function(results) {
           // Can we turn Cucumber into a variable so we don't just set
           // Maybe use the config files - Simon TBD //
-          $scope.brandName.name = results.brand_name || 'Cucumber';
+          $scope.brandName.name  = results.brand_name || 'Cucumber';
+          $scope.brandName.admin = results.admin;
+          $scope.brandName.id    = results.id;
         }, function() {
           setDefaultImages(domain);
         });

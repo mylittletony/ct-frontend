@@ -127,7 +127,6 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
   var link = function(scope,element,attrs) {
 
     var load = function() {
-
       scope.querySearch        = querySearch;
       scope.selectedItemChange = selectedItemChange;
       scope.searchTextChange   = searchTextChange;
@@ -141,7 +140,6 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       }
 
       scope.loading = undefined;
-
     };
 
     function querySearch (query) {
@@ -376,10 +374,6 @@ app.directive('dashing', ['Report', function (Report) {
 
     init();
 
-    // $timeout(function() {
-    //   scope.init();
-    // }, 500);
-
   };
 
   return {
@@ -398,13 +392,24 @@ app.directive('locationShortlist', function() {
   };
 });
 
-app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog) {
+app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', 'BrandName', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog, BrandName) {
 
   var link = function( scope, element, attrs ) {
 
-    menu.isOpen = false;
+    menu.isOpen     = false;
     menu.hideBurger = true;
-    scope.location = { add_to_global_map: false, location_name: $routeParams.name };
+    scope.brand     = {};
+    scope.location  = {
+      add_to_global_map: false,
+      location_name: $routeParams.name
+    };
+
+    var init = function() {
+      if (BrandName && BrandName.admin !== true) {
+        console.log
+        scope.brand = BrandName;
+      }
+    };
 
     scope.save = function(form) {
       form.$setPristine();
@@ -414,7 +419,10 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
 
     var updateCT = function(location) {
       location.account_id = attrs.accountId;
-      Location.save({location: scope.location}).$promise.then(function(results) {
+      Location.save({
+        location: scope.location,
+        brand_id: scope.brand.id
+      }).$promise.then(function(results) {
         $location.path('/locations/' + results.slug);
         $location.search({gs: true});
         menu.isOpen = true;
@@ -434,6 +442,7 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       }
     };
 
+    init();
   };
 
   return {
@@ -850,7 +859,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         console.log('Could not resync box:', errors);
       });
     };
-    //fixme @Toni translations: see the showToast 
+    //fixme @Toni translations: see the showToast
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete This Device Permanently?'))
