@@ -42,7 +42,7 @@
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="item in menu">
-          <md-button ng-disabled="item.disabled" ng-click="menuAction(item.type)">
+          <md-button ng-disabled="item.disabled" ng-click="menuAction(item.type)" style="display: inline;">
             <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
             {{item.name}}
           </md-button>
