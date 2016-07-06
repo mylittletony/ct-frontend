@@ -10,8 +10,8 @@
     <div class="md-list-item-text">
       <h3><a href="/#/locations/{{location.slug}}/zones/{{ zone.id }}" translate>{{ zone.zone_name | titleCase }} Zone</a></h3>
       <p>
-        <span translate translate-n="{{zone.boxes.length}}" translate-plural="{{ zone.boxes.length }} boxes">1 box. 
-        <span translate translate-n="{{ zone.networks.length }}" translate-plural="{{ zone.networks.length }} networks" translate-context="in zones componenet">1 network.
+        <span translate translate-n="{{zone.boxes.length}}" translate-plural="{{ zone.boxes.length || 0}} boxes">1 box.</span>
+        <span translate translate-n="{{zone.networks.length}}" translate-plural="{{ zone.networks.length }} networks" translate-context="in zones componenet">1 network.
         </span>
       </p>
     </div>

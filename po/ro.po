@@ -76,7 +76,7 @@ msgstr[2] ""
 
 #: client/components/splash_pages/view-store.html:74
 msgid "1 Product"
-msgid_plural "{{ products.length }} Products"
+msgid_plural "{{ products.length || 0 }} Products"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -90,37 +90,31 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: client/components/zones/_show.html:34
+msgctxt "in zones index component"
 msgid "1 box"
 msgid_plural "{{ zone.boxes.length || 0}} boxes"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
+#: client/components/locations/show/_favourites.html:25
+msgctxt "in locations component"
+msgid "1 box."
+msgid_plural "{{ ::item.boxes_count }} boxes."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
 #: client/components/zones/_associated_zones_dialog.html:13
-msgid ""
-"1 box. \n"
-"        <span translate=\"\" translate-n=\"{{ zone.networks.length }}\" "
-"translate-plural=\"{{ zone.networks.length }} networks\" translate-context="
-"\"in zones componenet\">1 network.\n"
-"        </span>"
-msgid_plural "{{ zone.boxes.length }} boxes"
+msgid "1 box."
+msgid_plural "{{ zone.boxes.length || 0}} boxes"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: client/components/locations/show/_favourites.html:24
-msgid ""
-"1 box. <span translate=\"\" translate-n=\"{{ ::item.clients_online }}\" "
-"translate-plural=\"{{ ::item.clients_online }} clients online.\"> 1 client "
-"online.</span>"
-msgid_plural "{{ ::item.boxes_count }} boxes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: client/components/locations/show/_favourites.html:24
+#: client/components/locations/show/_favourites.html:26
 msgid "1 client online."
-msgid_plural "{{ ::item.clients_online }} clients online."
+msgid_plural "{{ ::item.clients_online}} clients online."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -135,14 +129,6 @@ msgstr[2] ""
 #: client/components/locations/show/_dashing.html:35
 msgid "1 location"
 msgid_plural "{{ ::stats.locations }} locations"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: client/components/splash_pages/_index.html:80
-msgctxt "in splash pages"
-msgid "1 network"
-msgid_plural "{{ splash.networks.length }} networks"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -165,20 +151,7 @@ msgstr[2] ""
 
 #: client/components/locations/clients/codes.html:22
 msgid "1 voucher code in use by client."
-msgid_plural "{{ filtered.length}} voucher codes in use by client."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: client/components/locations/networks/_index.html:77
-msgid ""
-"1 zone\n"
-"                  <md-tooltip>\n"
-"                    <span ng-repeat=\"n in network.zones\" translate=\"\">\n"
-"                      Name: {{ n.name }}<br>\n"
-"                    </span>\n"
-"                  </md-tooltip>"
-msgid_plural "{{ network.zones.length}} zones"
+msgid_plural "{{ filtered.length || 0}} voucher codes in use by client."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -662,12 +635,12 @@ msgstr ""
 msgid "Add Credit Card"
 msgstr ""
 
-#: client/components/locations/index/_index.html:44
+#: client/components/locations/index/_index.html:42
 #: client/components/locations/index/_list.html:15
 #: client/components/locations/show/_index.html:73
 #: client/components/locations/show/_index.html:74
 #: client/components/locations/show/_index.html:9
-#: client/components/locations/show/_map.html:8
+#: client/components/locations/show/_map.html:9
 msgid "Add Device"
 msgstr ""
 
@@ -728,7 +701,7 @@ msgstr ""
 msgid "Add a new device."
 msgstr ""
 
-#: client/components/locations/index/_index.html:47
+#: client/components/locations/index/_index.html:45
 #: client/components/locations/index/_list.html:18
 msgid "Add a new location."
 msgstr ""
@@ -3461,7 +3434,7 @@ msgid "Fails: {{ trigger.total_fail_count || 0}}"
 msgstr ""
 
 #: client/components/locations/show/_index.html:25
-#: client/components/locations/show/_map.html:14
+#: client/components/locations/show/_map.html:15
 msgid "Favourite"
 msgstr ""
 
@@ -3491,7 +3464,7 @@ msgstr ""
 
 #: client/components/locations/index/_alerts.html:11
 #: client/components/locations/show/_index.html:6
-#: client/components/locations/show/_map.html:5
+#: client/components/locations/show/_map.html:6
 msgid "Filter Devices"
 msgstr ""
 
@@ -3618,9 +3591,9 @@ msgstr ""
 msgid "Format"
 msgstr ""
 
-#: client/components/locations/index/_index.html:31
+#: client/components/locations/index/_index.html:29
 msgid "Found 1 record"
-msgid_plural "records"
+msgid_plural "{{ ::item._score || 0}} records"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -4149,7 +4122,7 @@ msgstr ""
 
 #: client/components/locations/triggers/_show.html:43
 msgid "It has failed 1 time"
-msgid_plural "It has failed {{ trigger.total_fail_count }} times"
+msgid_plural "It has failed {{ trigger.total_fail_count || 0 }} times"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -4598,9 +4571,9 @@ msgstr ""
 msgid "Manufacturers"
 msgstr ""
 
-#: client/components/locations/index/_index.html:52
+#: client/components/locations/index/_index.html:50
 #: client/components/locations/show/_index.html:17
-#: client/components/locations/show/_map.html:11
+#: client/components/locations/show/_map.html:12
 msgid "Map"
 msgstr ""
 
@@ -5301,8 +5274,8 @@ msgstr ""
 msgid "Name {{ splash.splash_name }}"
 msgstr ""
 
-#: client/components/locations/networks/_index.html:80
-msgid "Name: {{ n.name }}<br>"
+#: client/components/locations/networks/_index.html:81
+msgid "Name: {{ n.name }}"
 msgstr ""
 
 #: client/components/boxes/edit/_edit.html:295
@@ -5514,7 +5487,7 @@ msgstr ""
 #: client/components/audit/sales/_index.html:32
 #: client/components/audit/sessions/_index.html:31
 #: client/components/audit/social/_index.html:32
-#: client/components/locations/index/_index.html:37
+#: client/components/locations/index/_index.html:35
 #: client/components/reports/_filter.html:33
 #: client/components/reports/_header.html:33
 #: client/components/vouchers/_index.html:33
@@ -5730,7 +5703,7 @@ msgstr ""
 msgid "Open Networks Menu"
 msgstr ""
 
-#: client/components/splash_pages/_index.html:92
+#: client/components/splash_pages/_index.html:91
 msgid "Open Splash Menu"
 msgstr ""
 
@@ -6748,8 +6721,11 @@ msgid "SSID updated, your boxes will resync"
 msgstr ""
 
 #: client/components/locations/show/_map.html:35
-msgid "SSIDs: {{ ::box.metadata.ssids | ssidFilter }}"
-msgstr ""
+msgid "SSID: {{ ::box.metadata.ssids | ssidFilter }}"
+msgid_plural "SSIDs: {{ ::box.metadata.ssids | ssidFilter }}"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: client/components/splash_pages/view-store.html:196
 msgid "SagePay Encryption Key"
@@ -7464,7 +7440,7 @@ msgstr ""
 msgid "Streaming updates enabled"
 msgstr ""
 
-#: client/components/locations/index/_index.html:64
+#: client/components/locations/index/_index.html:62
 #: client/components/locations/show/_index.html:37
 msgid "Streaming updates."
 msgstr ""
@@ -7599,9 +7575,9 @@ msgstr ""
 #: client/components/locations/clients/_columns_filter.html:82
 #: client/components/locations/clients/_columns_filter.html:88
 #: client/components/locations/clients/_columns_filter.html:94
-#: client/components/locations/index/_index.html:61
+#: client/components/locations/index/_index.html:59
 #: client/components/locations/show/_index.html:34
-#: client/components/locations/show/_map.html:17
+#: client/components/locations/show/_map.html:18
 #: client/components/splash_pages/_menu.html:116
 #: client/components/splash_pages/_menu.html:640
 #: client/components/users/alerts/_index.html:29
@@ -7985,7 +7961,7 @@ msgstr ""
 
 #: client/components/locations/triggers/_show.html:42
 msgid "This trigger has run 1 time."
-msgid_plural "This trigger has run {{ trigger.run_count }} times."
+msgid_plural "This trigger has run {{ trigger.run_count || 0}} times."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -8623,7 +8599,7 @@ msgstr ""
 msgid "VIEW"
 msgstr ""
 
-#: client/components/locations/show/_favourites.html:32
+#: client/components/locations/show/_favourites.html:35
 msgid "VIEW ALL"
 msgstr ""
 
@@ -8717,7 +8693,7 @@ msgstr ""
 msgid "View Zones"
 msgstr ""
 
-#: client/components/locations/index/_index.html:55
+#: client/components/locations/index/_index.html:53
 #: client/components/locations/show/_index.html:20
 msgid "View device map."
 msgstr ""
@@ -9698,10 +9674,6 @@ msgstr ""
 msgid "added to"
 msgstr ""
 
-#: client/components/boxes/boxes.directives.js:692
-msgid "auto"
-msgstr ""
-
 #: client/components/boxes/show/_index.html:251
 #: client/components/locations/clients/_show.html:62
 #: client/components/locations/clients/_show.html:90
@@ -9879,6 +9851,10 @@ msgstr ""
 msgid "vouchers"
 msgstr ""
 
+#: client/components/locations/show/_map.html:43
+msgid "{{ (box.throughput || 0) | mbps }} avg. throughput."
+msgstr ""
+
 #: client/components/locations/clients/_index.html:66
 msgid "{{ (fn || 'average') | titleCase }} aggregated network usage"
 msgstr ""
@@ -10004,6 +9980,10 @@ msgid ""
 "titleCase }} {{ location.phone1 }}."
 msgstr ""
 
+#: client/components/locations/networks/_index.html:78
+msgid "{{ network.zones.length}} zones"
+msgstr ""
+
 #: client/components/locations/networks/header.html:3
 msgid "{{ network_name | titleCase }} Settings"
 msgstr ""
@@ -10081,7 +10061,7 @@ msgstr ""
 msgid "{{'N/A' | truncate:20}}"
 msgstr ""
 
-#: client/components/locations/show/_map.html:29
+#: client/components/locations/show/_map.html:30
 msgid "{{'No Description' | truncate:15}}"
 msgstr ""
 

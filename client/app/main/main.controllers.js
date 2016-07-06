@@ -75,13 +75,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       icon: 'home'
     }];
 
-    // vm.menu.main.push({
-    //   title: 'Boxes',
-    //   type: 'link',
-    //   link: '/#/boxes',
-    //   icon: 'router'
-    // });
-
     vm.menu.main.push({
       title: 'Locations',
       type: 'link',

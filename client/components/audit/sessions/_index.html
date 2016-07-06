@@ -47,7 +47,7 @@
 
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <span translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries}} Radius Sessions">1 Radius Session</span>
+              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Radius Sessions">1 Radius Session</span>
               <div flex></div>
               <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="selected.length" ng-click="filterClient()">
                 <md-icon>filter_list</md-icon>
