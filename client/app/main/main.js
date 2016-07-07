@@ -185,6 +185,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/audit/sales/show.html',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/brands/:brand_id/users/:id', {
+      templateUrl: 'components/views/brand_users/show.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/brands/:brand_id/users', {
+      templateUrl: 'components/views/brand_users/index.html',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/login', {
       controller: 'AuthenticationsController',
       templateUrl: 'components/home/hello.html',
