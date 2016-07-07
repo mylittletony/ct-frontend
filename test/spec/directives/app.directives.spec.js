@@ -47,9 +47,7 @@ describe('lists location apps', function () {
     }));
 
     it("should display the apps", function() {
-
       spyOn(appFactory, 'get').and.callThrough()
-
       expect(element.isolateScope().loading).toBe(true)
 
       var app = { simon: "smorley" }
@@ -64,89 +62,91 @@ describe('lists location apps', function () {
 
   });
 
-  // describe('show app tests', function() {
+  describe('show app tests', function() {
 
-  //   beforeEach(inject(function($compile, $rootScope, $q, _$location_, $injector) {
-  //     $scope = $rootScope;
-  //     $location = _$location_;
-  //     q = $q;
-  //     element = angular.element('<show-app></show-app>');
-  //     $compile(element)($rootScope)
-  //     element.scope().$apply();
-  //   }));
+    beforeEach(inject(function($compile, $rootScope, $q, _$location_, $injector) {
+      $httpBackend = $injector.get('$httpBackend');
+      $httpBackend.whenGET('/translations/en_GB.json').respond("");
+      $scope = $rootScope;
+      $location = _$location_;
+      q = $q;
+      element = angular.element('<show-app></show-app>');
+      $compile(element)($rootScope)
+      element.scope().$apply();
+    }));
 
-  //   it("should display the app", function() {
-  //     spyOn(appFactory, 'query').andCallThrough()
-  //     expect(element.isolateScope().loading).toBe(true)
+    it("should display the app", function() {
+      spyOn(appFactory, 'query').and.callThrough()
+      expect(element.isolateScope().loading).toBe(true)
 
-  //     var app = { simon: "smorley" }
+      var app = { simon: "smorley" }
 
-  //     deferred.resolve(app);
-  //     $scope.$apply()
+      deferred.resolve(app);
+      $scope.$apply()
 
-  //     expect(element.isolateScope().app).toBe(app);
-  //     expect(element.isolateScope().loading).toBe(undefined)
-  //   });
+      expect(element.isolateScope().app).toBe(app);
+      expect(element.isolateScope().loading).toBe(undefined)
+    });
 
-  // });
+  });
 
-  // describe('create edit app tests', function() {
+  describe('create edit app tests', function() {
 
-  //   beforeEach(inject(function($compile, $rootScope, $q, _$location_, $injector) {
-  //     $scope = $rootScope;
-  //     $location = _$location_;
-  //     q = $q;
-  //     $scope.app = {}
-  //     element = angular.element('<edit-app></edit-app>');
-  //     $compile(element)($rootScope)
-  //     element.scope().$apply();
-  //   }));
+    beforeEach(inject(function($compile, $rootScope, $q, _$location_, $injector) {
+      $httpBackend = $injector.get('$httpBackend');
+      $httpBackend.whenGET('/translations/en_GB.json').respond("");
+      $scope = $rootScope;
+      $location = _$location_;
+      q = $q;
+      $scope.app = {}
+      element = angular.element('<edit-app></edit-app>');
+      $compile(element)($rootScope)
+      element.scope().$apply();
+    }));
 
-  //   it("should create the app", function() {
-  //     spyOn(appFactory, 'create').andCallThrough()
-  //     expect(element.isolateScope().loading).toBe(true)
+    it("should create the app", function() {
+      spyOn(appFactory, 'create').and.callThrough()
+      expect(element.isolateScope().loading).toBe(true)
 
-  //     var app = { id: 123 }
+      var app = { id: 123 }
 
-  //     element.isolateScope().save();
-  //     deferred.resolve(app);
-  //     $scope.$apply()
+      element.isolateScope().save();
+      deferred.resolve(app);
+      $scope.$apply()
 
-  //     expect($location.path()).toBe('/apps/123')
-  //     // expect(element.isolateScope().app).toBe(app);
-  //     // expect(element.isolateScope().loading).toBe(undefined)
-  //   });
+      expect($location.path()).toBe('/apps/123')
+    });
 
-  // });
+  });
 
-  // describe('updated app tests', function() {
+  describe('updated app tests', function() {
 
-  //   beforeEach(inject(function($compile, $rootScope, $q, _$location_, $injector) {
-  //     $scope = $rootScope;
-  //     $location = _$location_;
-  //     q = $q;
-  //     $scope.app = {id: 123}
-  //     element = angular.element('<edit-app></edit-app>');
-  //     $compile(element)($rootScope)
-  //     element.scope().$apply();
-  //   }));
+    beforeEach(inject(function($compile, $rootScope, $q, _$location_, $injector) {
+      $httpBackend = $injector.get('$httpBackend');
+      $httpBackend.whenGET('/translations/en_GB.json').respond("");
+      $scope = $rootScope;
+      $location = _$location_;
+      q = $q;
+      $scope.app = {id: 123}
+      element = angular.element('<edit-app></edit-app>');
+      $compile(element)($rootScope)
+      element.scope().$apply();
+    }));
 
-  //   it("should create the app", function() {
-  //     spyOn(appFactory, 'create').andCallThrough()
-  //     expect(element.isolateScope().loading).toBe(true)
+    it("should create the app", function() {
+      spyOn(appFactory, 'create').and.callThrough()
+      expect(element.isolateScope().loading).toBe(true)
 
-  //     var app = { id: 123 }
+      var app = { id: 123 }
 
-  //     element.isolateScope().save();
-  //     deferred.resolve(app);
-  //     $scope.$apply()
+      element.isolateScope().save();
+      deferred.resolve(app);
+      $scope.$apply()
 
-  //     expect($location.path()).toBe('/apps/123')
-  //     // expect(element.isolateScope().app).toBe(app);
-  //     // expect(element.isolateScope().loading).toBe(undefined)
-  //   });
+      expect($location.path()).toBe('/apps/123')
+    });
 
-  // });
+  });
 
 });
 
