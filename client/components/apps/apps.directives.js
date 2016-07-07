@@ -12,7 +12,7 @@ app.directive('listApps', ['App', '$routeParams', 'menu', function(App, $routePa
 
     scope.loading   = true;
 
-    scope.init = function() {
+    var init = function() {
       App.get({}).$promise.then(function(results) {
         scope.apps        = results;
         scope.loading     = undefined;
@@ -22,7 +22,7 @@ app.directive('listApps', ['App', '$routeParams', 'menu', function(App, $routePa
       });
     };
 
-    scope.init();
+    init();
 
   };
 
