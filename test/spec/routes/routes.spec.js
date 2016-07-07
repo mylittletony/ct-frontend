@@ -230,9 +230,9 @@ describe('Routing', function () {
       expect($route.routes['/me/integrations/:id'].templateUrl).
                   toEqual('components/users/integrations/setup.html');
 
-      // expect($route.routes['/users/:id/alerts'].controller).toBe('UsersShowController');
-      // expect($route.routes['/users/:id/alerts'].templateUrl).
-      //             toEqual('components/users/alerts/index.html');
+      // expect($route.routes['/brands/:id/users'].controller).toBe('UsersShowController');
+      expect($route.routes['/brands/:id/users'].templateUrl).
+                  toEqual('components/views/brand_users/index.html');
 
       expect($route.routes['/users/:id/branding'].controller).toBe('UsersShowController');
       expect($route.routes['/users/:id/branding'].templateUrl).
