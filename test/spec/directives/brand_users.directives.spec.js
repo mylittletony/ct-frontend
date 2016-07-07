@@ -48,15 +48,16 @@ describe('brand users', function () {
 
     it("should display the users for the brand", function() {
       spyOn(brandUserFactory, 'get').and.callThrough()
-      expect(element.isolateScope().loading).toBe(true)
       expect(element.isolateScope().brand.id).toBe('xxx')
 
-      var brand_users = { id: 123 };
-      deferred.resolve(brand_users);
+      var brand_users = { id: 123, role_id: 200 };
+      deferred.resolve([brand_users]);
       $scope.$apply()
 
-      expect(element.isolateScope().brand_users[0]).toBe(brand_users[0]);
-      expect(element.isolateScope().loading).toBe(undefined)
+      expect(element.isolateScope().brand_users[0].role_id).toBe(200);
+      expect(element.isolateScope().menu.length).toBe(2);
+      expect(element.isolateScope().menu[0].type).toBe('edit');
+      expect(element.isolateScope().menu[1].type).toBe('revoke');
     });
 
   });

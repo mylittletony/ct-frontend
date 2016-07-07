@@ -227,8 +227,6 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
 
     var chart = function(results) {
 
-      // window.google.charts.load('44', {'packages':['corechart']});
-
       function drawChart() {
 
         var data = new window.google.visualization.DataTable();
@@ -477,7 +475,8 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
   var link = function( scope, element, attrs ) {
 
-    scope.location = { slug: $routeParams.id };
+    scope.users    = [];
+    // scope.location = { slug: $routeParams.id };
 
     var channel;
     function loadPusher(key) {
@@ -575,7 +574,10 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     var inviteUser = function(invite) {
       if (allowedEmail(invite.email)) {
-        Invite.create({location_id: scope.location.slug, invite: invite}).$promise.then(function(results) {
+        Invite.create({
+          location_id: scope.location.slug,
+          invite: invite
+        }).$promise.then(function(results) {
           scope.users.push(results);
         }, function(err) {
           showErrors(err);
@@ -620,7 +622,9 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         scope.users = results;
         createMenu();
         scope.loading = undefined;
-        scope.location.api_token = attrs.locationToken;
+      }, function(err) {
+        scope.loading = undefined;
+        console.log(err);
       });
     };
 
@@ -631,9 +635,10 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     init();
 
     var timer = $timeout(function() {
-      loadPusher(scope.location.api_token);
+      loadPusher(scope.location.pubsub_token);
       $timeout.cancel(timer);
     }, 500);
+
 
   };
 
@@ -642,7 +647,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     scope: {
       id: '@',
       loading: '=',
-      locationToken: '@'
+      location: '='
     },
     templateUrl: 'components/locations/users/_index.html'
   };

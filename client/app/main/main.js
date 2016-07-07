@@ -353,16 +353,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/layout', {
-      templateUrl: 'components/locations/layout/index.html',
-      controller: 'LocationsCtrlLayout',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/content', {
-      templateUrl: 'components/locations/content/index.html',
-      controller: 'LocationsCtrlLayout',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/locations/:id/users', {
       templateUrl: 'components/locations/users/index.html',
       controller: 'LocationsCtrl as lc',

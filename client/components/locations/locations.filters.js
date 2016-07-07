@@ -209,3 +209,21 @@ app.filter('splashStatus', ['$window', 'gettextCatalog', function(window, gettex
     }
   };
 }]);
+
+app.filter('roleFilter', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return gettextCatalog.getString('N/A');
+    } else {
+      switch(input) {
+        case 200:
+          return 'Brand Admin';
+        case 201:
+          return 'Location User';
+        default:
+          return 'N/A';
+      }
+    }
+  };
+}]);
+
