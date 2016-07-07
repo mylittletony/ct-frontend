@@ -5,20 +5,20 @@ var app = angular.module('myApp.apps.directives', []);
 app.directive('listApps', ['App', '$routeParams', 'menu', function(App, $routeParams, menu) {
 
   var link = function(scope) {
+
     menu.isOpen = false;
     menu.hideBurger = true;
     menu.sectionName = 'Developer';
 
     scope.loading   = true;
-    scope.xxx = 1111111111111111111111111111111111111111111111
 
     scope.init = function() {
       App.get({}).$promise.then(function(results) {
-        // scope.apps        = results;
-        // scope.loading     = undefined;
-        // scope.predicate   = '-created_at';
-      // }, function(err) {
-        // scope.loading = undefined;
+        scope.apps        = results;
+        scope.loading     = undefined;
+        scope.predicate   = '-created_at';
+      }, function(err) {
+        scope.loading = undefined;
       });
     };
 

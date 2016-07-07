@@ -68,8 +68,10 @@ app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
 
 }]);
 
-app.config(['$compileProvider', function ($compileProvider) {
-  $compileProvider.debugInfoEnabled(false);
+app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
+  if (DEBUG !== true) {
+    $compileProvider.debugInfoEnabled(false);
+  }
 }]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider', '$mdIconProvider', function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {

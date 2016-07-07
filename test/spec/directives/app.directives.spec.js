@@ -3,7 +3,7 @@
 describe('lists location apps', function () {
 
   var $scope;
-  var el;
+  var element;
   var $location;
   var appFactory;
   var locationFactory;
@@ -39,25 +39,18 @@ describe('lists location apps', function () {
       $httpBackend.whenGET('/translations/en_GB.json').respond("");
 
       $scope = $rootScope;
-      // $location = _$location_;
       q = $q;
       var elem = angular.element('<list-apps></list-apps>');
-      el = $compile(elem)($rootScope);
-      // el.scope().$apply();
-
-      $scope.$digest();
-      
-      // el.scope().$apply();
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
 
     }));
 
     it("should display the apps", function() {
 
       spyOn(appFactory, 'get').and.callThrough()
-      console.log($scope.xxx)
-      // console.log($scope)
 
-      expect(el.isolateScope()).toBe(true)
+      expect(element.isolateScope().loading).toBe(true)
 
       var app = { simon: "smorley" }
       var apps =  [app]
@@ -65,30 +58,8 @@ describe('lists location apps', function () {
       deferred.resolve(apps);
       $scope.$apply()
 
-      // expect(element.isolateScope().apps[0]).toBe(apps[0]);
-      // expect(element.isolateScope().loading).toBe(undefined)
-
-      // var el = angular.element('<list-apps></list-apps>');
-      // compile(el)($scope); // compile the html
-
-      // expect(1).toEqual(1)
-
-      // // expect(foo.setBar).toHaveBeenCalled();
-      // spyOn(appFactory, 'get').and.callThrough();
-
-      // $scope.$apply()
-
-      // console.log($scope.loading)
-      // expect(element.isolateScope().loading).toBe(true);
-
-      // var app = { simon: "smorley" };
-      // var apps = [app];
-
-      // deferred.resolve(apps);
-      // $scope.$apply();
-
-      // expect(element.isolateScope().apps[0]).toBe(apps[0]);
-      // expect(element.isolateScope().loading).toBe(undefined);
+      expect(element.isolateScope().apps[0]).toBe(apps[0]);
+      expect(element.isolateScope().loading).toBe(undefined)
     });
 
   });

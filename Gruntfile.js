@@ -60,7 +60,8 @@ module.exports = function (grunt) {
           STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
           AUTH_URL: 'http://id.mywifi.dev:8080',
           SLACK_TOKEN: '3540010629.12007999527',
-          CHIMP_TOKEN: '531543883634'
+          CHIMP_TOKEN: '531543883634',
+          DEBUG: true
         }
       },
       development: {
@@ -75,7 +76,8 @@ module.exports = function (grunt) {
           SLACK_TOKEN: '3540010629.12007999527',
           CHIMP_TOKEN: '531543883634',
           INTERCOM: 'z0kiwroa',
-          PUSHER: 'f5c774e098156e548079'
+          PUSHER: 'f5c774e098156e548079',
+          DEBUG: true
         }
       },
       production: {
@@ -90,7 +92,8 @@ module.exports = function (grunt) {
           SLACK_TOKEN: '3540010629.11828901815',
           CHIMP_TOKEN: '279197455989',
           PUSHER: 'f5c774e098156e548079',
-          INTERCOM: 'zklfhs87'
+          INTERCOM: 'zklfhs87',
+          DEBUG: true
         }
       }
     },
