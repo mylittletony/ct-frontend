@@ -1016,7 +1016,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
         if (results.zones.length) {
           // Must be called remove !! //
-          var z = {id: 'remove', zone_name: gettextCatalog.getString('No Zone')};
+          var z = { id: 'remove', zone_name: gettextCatalog.getString('No Zone') };
 
           results.zones.unshift(z);
 
@@ -1108,6 +1108,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     };
 
     var updateZone = function(box) {
+      if (box.zone_id === 'remove') {
+        box.zone_id = ''; // Must not be undefined
+      }
       Box.update({
         location_id: scope.location.slug,
         id: box.slug,
