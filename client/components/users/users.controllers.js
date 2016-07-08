@@ -72,13 +72,6 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       active: isActive('integrations')
     });
 
-    // menu.sections.push({
-    //   name: 'Plan',
-    //   type: 'link',
-    //   // link: '/#/users/' + id + '/branding',
-    //   icon: 'account_circle'
-    // });
-
     menu.sections.push({
       name: gettextCatalog.getString('Notifications'),
       type: 'link',

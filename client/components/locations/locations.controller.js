@@ -150,13 +150,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         active: isActive('versions')
       });
 
-      // menu.sections.push({
-      //   name: 'Reports',
-      //   type: 'link',
-      //   link: '/#/reports?location_id=' + $scope.location.id + '&location_name=' + $scope.location.location_name,
-      //   icon: 'timeline'
-      // });
-
       menu.sections.push({
         name: gettextCatalog.getString('Users'),
         type: 'link',

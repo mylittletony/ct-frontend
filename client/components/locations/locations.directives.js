@@ -127,7 +127,6 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
   var link = function(scope,element,attrs) {
 
     var load = function() {
-
       scope.querySearch        = querySearch;
       scope.selectedItemChange = selectedItemChange;
       scope.searchTextChange   = searchTextChange;
@@ -141,7 +140,6 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       }
 
       scope.loading = undefined;
-
     };
 
     function querySearch (query) {
@@ -228,8 +226,6 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
   var link = function(scope,element,attrs) {
 
     var chart = function(results) {
-
-      // window.google.charts.load('44', {'packages':['corechart']});
 
       function drawChart() {
 
@@ -371,14 +367,9 @@ app.directive('dashing', ['Report', function (Report) {
           scope.splash_only = b.total;
         }
       });
-
     }
 
     init();
-
-    // $timeout(function() {
-    //   scope.init();
-    // }, 500);
 
   };
 
@@ -398,13 +389,17 @@ app.directive('locationShortlist', function() {
   };
 });
 
-app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog) {
+app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', 'BrandName', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog, BrandName) {
 
   var link = function( scope, element, attrs ) {
 
-    menu.isOpen = false;
+    menu.isOpen     = false;
     menu.hideBurger = true;
-    scope.location = { add_to_global_map: false, location_name: $routeParams.name };
+    scope.brand = BrandName;
+    scope.location  = {
+      add_to_global_map: false,
+      location_name: $routeParams.name
+    };
 
     scope.save = function(form) {
       form.$setPristine();
@@ -414,7 +409,10 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
 
     var updateCT = function(location) {
       location.account_id = attrs.accountId;
-      Location.save({location: scope.location}).$promise.then(function(results) {
+      Location.save({
+        location: scope.location,
+        brand_id: scope.brand.id
+      }).$promise.then(function(results) {
         $location.path('/locations/' + results.slug);
         $location.search({gs: true});
         menu.isOpen = true;
@@ -468,7 +466,8 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
   var link = function( scope, element, attrs ) {
 
-    scope.location = { slug: $routeParams.id };
+    scope.users = [];
+    scope.roles = [{ role_id: 100, name: 'Location Admin' }];
 
     var channel;
     function loadPusher(key) {
@@ -529,8 +528,8 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     scope.query = {
       order: 'state',
-      limit: 50,
-      page: 1
+      limit: $routeParams.per || 50,
+      page: $routeParams.page || 1
     };
 
     function allowedEmail(email) {
@@ -550,10 +549,15 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         clickOutsideToClose: true,
         parent: angular.element(document.body),
         controller: DialogController,
+        locals: {
+          roles: scope.roles
+        }
       });
     };
 
-    function DialogController ($scope) {
+    function DialogController ($scope, roles) {
+      $scope.roles = roles;
+      $scope.user = { role_id: roles[0].role_id };
       $scope.close = function() {
         $mdDialog.cancel();
       };
@@ -562,11 +566,14 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         inviteUser(user);
       };
     }
-    DialogController.$inject = ['$scope'];
+    DialogController.$inject = ['$scope', 'roles'];
 
     var inviteUser = function(invite) {
       if (allowedEmail(invite.email)) {
-        Invite.create({location_id: scope.location.slug, invite: invite}).$promise.then(function(results) {
+        Invite.create({
+          location_id: scope.location.slug,
+          invite: invite
+        }).$promise.then(function(results) {
           scope.users.push(results);
         }, function(err) {
           showErrors(err);
@@ -611,7 +618,9 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         scope.users = results;
         createMenu();
         scope.loading = undefined;
-        scope.location.api_token = attrs.locationToken;
+      }, function(err) {
+        scope.loading = undefined;
+        console.log(err);
       });
     };
 
@@ -622,7 +631,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     init();
 
     var timer = $timeout(function() {
-      loadPusher(scope.location.api_token);
+      loadPusher(scope.location.pubsub_token);
       $timeout.cancel(timer);
     }, 500);
 
@@ -633,7 +642,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     scope: {
       id: '@',
       loading: '=',
-      locationToken: '@'
+      location: '='
     },
     templateUrl: 'components/locations/users/_index.html'
   };
@@ -850,7 +859,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         console.log('Could not resync box:', errors);
       });
     };
-    //fixme @Toni translations: see the showToast 
+    //fixme @Toni translations: see the showToast
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete This Device Permanently?'))
@@ -1007,7 +1016,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
         if (results.zones.length) {
           // Must be called remove !! //
-          var z = {id: 'remove', zone_name: gettextCatalog.getString('No Zone')};
+          var z = { id: 'remove', zone_name: gettextCatalog.getString('No Zone') };
 
           results.zones.unshift(z);
 
@@ -1099,6 +1108,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     };
 
     var updateZone = function(box) {
+      if (box.zone_id === 'remove') {
+        box.zone_id = ''; // Must not be undefined
+      }
       Box.update({
         location_id: scope.location.slug,
         id: box.slug,
