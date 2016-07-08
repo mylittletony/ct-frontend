@@ -6,14 +6,12 @@
     <p ng-if="!location.id" translate>Back</p>
     <p ng-if="location.id" translate>Back to Location</p>
     <div flex></div>
-    <!-- <location-settings-menu location="location"></location-settings-menu> -->
   </div>
   <md-divider></md-divider>
 </md-toolbar>
 
 <form name="myForm" ng-submit="save(myForm)">
   <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-padding>
-
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="50">
         <md-card>
@@ -23,7 +21,7 @@
                 Create a New Location
               </span>
               <span class="md-subhead" translate>
-                Create as many locations or networks as you need.
+                Create as many locations or networks as you need. <span ng-if="brand.name">This location will be created under the <b>{{ brand.name | titleCase }}</b> brand.</span>
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -86,11 +84,7 @@
             Save
           </translate>
         </md-button>
-
       </div>
-
     </div>
-
   </md-content>
-
 </form>

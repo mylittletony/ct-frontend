@@ -5,7 +5,7 @@
     </md-button>
     <p translate>Admin Users</p>
     <div flex></div>
-    <md-card-actions layout="row" layout-align="end center" ng-if="allowed === true" >
+    <md-card-actions layout="row" layout-align="end center" simon-ng-if="allowed === true" >
       <md-button class="md-icon-button md-accent" ng-click="invite()">
         <md-icon>add_circle</md-icon>
       </md-button>
@@ -17,7 +17,7 @@
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="100">
-      <md-card ng-if="users.length">
+      <md-card>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>

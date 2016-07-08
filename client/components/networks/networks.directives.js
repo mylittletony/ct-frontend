@@ -335,9 +335,6 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         if (scope.ssid_hidden !== true) {
           scope.network.ssid_hidden = false;
         }
-        if (!scope.network_radio_mode) {
-          scope.network.network_radio_mode = 'ap';
-        }
         displaySync();
         createMenu();
         scope.loading = undefined;

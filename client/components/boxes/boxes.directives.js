@@ -129,7 +129,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var notInZone = function(results) {
-      scope.not_in_zone = ((results._info && results._info.total > 0)  && (results.zones && results.zones.length === 0));
+      scope.not_in_zone = (results._info && results._info.total > 0);
       return scope.not_in_zone;
     };
 
@@ -471,17 +471,21 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var getZones = function() {
+        alert(scope.box.zone_id)
       var deferred = $q.defer();
-      Zone.get({location_id: scope.location.slug, box_id: scope.box.slug}).$promise.then(function(results) {
-        scope.zone.zones    = results.zones;
-        scope._info         = results._info;
-        if (notInZone(results) && !ignoreZone) {
-          zoneAlert = true;
-        }
-        deferred.resolve(results);
-      }, function(error) {
-        deferred.reject(error);
-      });
+      if (scope.box.zone_id || ignoreZone) {
+      } else {
+        Zone.get({location_id: scope.location.slug, box_id: scope.box.slug}).$promise.then(function(results) {
+          scope.zone.zones    = results.zones;
+          scope._info         = results._info;
+          if (notInZone(results)) {
+            zoneAlert = true;
+          }
+          deferred.resolve(results);
+        }, function(error) {
+          deferred.reject(error);
+        });
+      } 
       return deferred.promise;
     };
 

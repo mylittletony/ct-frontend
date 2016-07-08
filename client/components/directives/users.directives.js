@@ -9,7 +9,7 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', '$window', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, $window, gettextCatalog) {
+app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $window, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -53,7 +53,6 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
 
     init();
 
-
   };
 
   return {
@@ -66,7 +65,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
 
 }]);
 
-app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -314,15 +313,16 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
     };
 
     var updatePage = function(page) {
-      var hash            = {};
-      hash.page           = scope.query.page;
-      hash.per            = scope.query.limit;
+      var hash  = {};
+      hash.page = scope.query.page;
+      hash.per  = scope.query.limit;
       $location.search(hash);
       init();
     };
 
+    // user permissions
     var createMenu = function() {
-      if (true) { // user permissions
+      if (true) { 
         scope.menu = [{
           name: gettextCatalog.getString('View'),
           type: 'view',
@@ -1077,12 +1077,14 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', function(
 
 }]);
 
-app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog) {
+app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast) {
 
   var link = function( scope, element, attrs ) {
 
     menu.isOpen = false;
     menu.hideBurger = true;
+    scope.brand = { id: $routeParams.brand_id };
+    scope.roles = [{ role_id: 200, name: 'Brand Admin' }, { role_id: 201, name: 'Location Admin' }];
 
     scope.selected = [];
 
@@ -1106,29 +1108,127 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
     scope.onPaginate = function (page, limit) {
       scope.query.page = page;
       scope.query.limit = limit;
-      scope.updatePage();
+      
+      var hash  = {};
+      hash.page = page;
+      hash.per  = limit;
+      $location.search(hash);
     };
 
     // user permissions
     var createMenu = function() {
       scope.menu = [];
       scope.menu.push({
-        name: gettextCatalog.getString('View'),
-        icon: 'pageview',
-        type: 'view'
+        type: 'edit',
+        name: gettextCatalog.getString('Edit'),
+        icon: 'settings'
+      });
+      scope.menu.push({
+        type: 'revoke',
+        name: gettextCatalog.getString('Delete'),
+        icon: 'delete_forever'
       });
     };
 
-    scope.action = function(id,type) {
+    scope.menuAction = function(type,user) {
       switch(type) {
-        case 'view':
-          view(id);
+        case 'edit':
+          edit(user);
+          break;
+        case 'revoke':
+          destroy(user);
           break;
       }
     };
 
+    var edit = function(user) {
+      $mdDialog.show({
+        templateUrl: 'components/users/brand_users/_edit.html',
+        parent: angular.element(document.body),
+        controller: DialogController,
+        clickOutsideToClose: true,
+        locals: {
+          user: user,
+          roles: scope.roles
+        }
+      });
+    };
+
+    function DialogController ($scope, user, roles) {
+      $scope.user = user;
+      $scope.roles = roles;
+      $scope.update = function() {
+        $mdDialog.cancel();
+        updateRole(user);
+      };
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    DialogController.$inject = ['$scope', 'user', 'roles'];
+
+    var destroy = function(user) {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Remove this user?'))
+      .textContent(gettextCatalog.getString('This will revoke the user from all your locations'))
+      .ariaLabel(gettextCatalog.getString('Remove'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        removeUser(user);
+      });
+    };
+
+    var updateRole = function(user) {
+      BrandUser.update({
+        id: user.id,
+        brand_id: scope.brand.id,
+        role_id: user.role_id
+      }).$promise.then(function(results) {
+        showToast('User successfully updated.');
+      }, function(err) {
+        showErrors(err);
+        scope.loading = undefined;
+      });
+    };
+
+    var removeUser = function(user) {
+      BrandUser.destroy({
+        id: user.id, 
+        brand_id: scope.brand.id
+      }).$promise.then(function(results) {
+        removeFromList(user.id);
+        showToast('User successfully updated.');
+      }, function(err) {
+        showErrors(err);
+        scope.loading = undefined;
+      });
+    };
+
+    var removeFromList = function(id) {
+      for (var i = 0, len = scope.users.length; i < len; i++) {
+        if (scope.users[i].id === id) {
+          scope.users.splice(i, 1);
+          break;
+        }
+      }
+    };
+
+    var fetchBrand = function() {
+      if (!scope.brand.id && BrandName && BrandName.admin === true) {
+        scope.brand = BrandName;
+      }
+    };
+
     var init = function() {
-      var params = {page: scope.query.page, q: scope.query.filter};
+      fetchBrand();
+    
+      var params = {
+        page: scope.query.page,
+        brand_id: scope.brand.id,
+        per: scope.query.limit
+      };
+
       User.query(params).$promise.then(function(results) {
         scope.users       = results.users;
         scope._links      = results._links;
@@ -1139,29 +1239,6 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       });
 
     };
-
-    scope.search = function() {
-      var hash        = {};
-      hash.q          = scope.query.filter;
-
-      $location.search(hash);
-      init();
-    };
-
-    scope.clearSearch = function() {
-      var hash      = {};
-      scope.query   = undefined;
-      $location.search(hash);
-      init();
-    };
-
-    var view = function(id) {
-      window.location.href = '/#/users/' + id;
-    };
-
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      menu.isOpen = true;
-    });
 
     init();
 
