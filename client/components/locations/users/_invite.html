@@ -11,6 +11,14 @@
           <p translate>Invite a user to manage this location.</p>
         </div>
         <md-input-container flex="100">
+          <label>Role</label>
+          <md-select ng-model="user.role_id">
+            <md-option ng-repeat="role in roles" value="{{role.role_id}}">
+              {{role.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex="100">
           <label>
             <translate>Username</translate>
           </label>
@@ -28,14 +36,6 @@
             <div ng-message="required" translate>You must enter an email</div>
             <div ng-message="email" translate>You must enter a valid email</div>
           </div>
-        </md-input-container>
-        <md-input-container flex="100">
-          <label>Role</label>
-          <md-select ng-model="user.role_id">
-            <md-option ng-repeat="role in roles" value="{{role.role_id}}">
-              {{role.name}}
-            </md-option>
-          </md-select>
         </md-input-container>
       </div>
     </md-dialog-content>
