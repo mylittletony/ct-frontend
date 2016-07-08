@@ -20,23 +20,18 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
             <tr md-row>
-              <th md-column><span hide show-gt-sm translate>Verified</span></th>
               <th md-column md-order-by="username"><translate>Username</translate></th>
               <th hide show-gt-sm md-column md-order-by="email"><translate>Email</translate></th>
               <th hide show-gt-sm md-column md-order-by="plan"><translate>Plan</translate></th>
               <th hide show-gt-sm md-column><translate>Created</translate></th>
+              <th hide show-gt-sm md-column><translate>Last Seen</translate></th>
               <th md-column ng-show="menu.length"><translate>Action</translate></th>
             </tr>
           </thead>
           <tbody md-body>
           <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.direction)">
               <td md-cell>
-                <md-icon md-menu-origin md-font-icon="">{{ ::user.verified ? "verifed" : '' }}</md-icon>
-              </td>
-              <td md-cell>
-                <a href="/#/users/{{ user.slug }}">
-                  {{ ::user.username | truncate:15 }}
-                </a>
+                {{ ::user.username | truncate:15 }}
                 <md-tooltip hide-gt-sm>
                   {{ ::user.email }}
                 </md-tooltip>
@@ -45,21 +40,24 @@
                 {{ ::user.email }}
               </td>
               <td hide show-gt-sm md-cell>
-                {{ ::user.company }}
+                {{ ::user.role_id | roleFilter }}
               </td>
               <td hide show-gt-sm md-cell>
-                {{ user.created_at | humanTime }}
+                {{ ::(user.created_at | humanTime) }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ ::(user.last_sign_in_at | humanTime) }}
               </td>
               <td md-cell ng-show="menu.length">
                 <md-menu>
-                  <md-button aria-label="{{ 'Zone Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                   </md-button>
-                  <md-menu-content width="4" >
+                  <md-menu-content width="4">
                     <md-menu-item ng-repeat="item in menu">
-                      <md-button ng-click="action(user.slug,item.type)">
-                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-                        <p flex>{{ item.name }}</p>
+                      <md-button ng-click="menuAction(item.type, user)">
+                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
+                        <p flex>{{ ::item.name }}</p>
                       </md-button>
                     </md-menu-item>
                   </md-menu-content>

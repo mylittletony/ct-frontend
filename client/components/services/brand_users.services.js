@@ -10,26 +10,8 @@ app.factory('BrandUser', ['$resource', 'API_END_POINT',
         id: '@id'
       },
       {
-      get: {
-        method: 'GET',
-        isArray: true,
-        dataType: 'json',
-        params: {
-          q: '@q',
-          brand_id: '@brand_id'
-        }
-      },
       update: {
         method: 'PATCH',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          id: '@id',
-          brand_id: '@brand_id'
-        }
-      },
-      query: {
-        method: 'GET',
         isArray: false,
         dataType: 'json',
         params: {

@@ -33,18 +33,6 @@ describe("Brand Users Unit Tests", function() {
    $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should have sent a GET request to location codes', function() {
-    var result = BrandUser.get({brand_id: 'xxx'})
-    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/brands/xxx/brand_users')
-    $httpBackend.flush();
-  });
-
-  it('should have sent a PATCH request to location show codes', function() {
-    var result = BrandUser.update({brand_id: 'xxx', id: 123})
-    $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/brands/xxx/brand_users/123')
-    $httpBackend.flush();
-  });
-
   it('should have sent a GET request to location show codes', function() {
     var result = BrandUser.query({brand_id: 'xxx', id: 123})
     $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/brands/xxx/brand_users/123')

@@ -404,7 +404,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
 
     var init = function() {
       if (BrandName && BrandName.admin !== true) {
-        console.log
         scope.brand = BrandName;
       }
     };

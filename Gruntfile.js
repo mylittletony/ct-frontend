@@ -61,6 +61,8 @@ module.exports = function (grunt) {
           AUTH_URL: 'http://id.mywifi.dev:8080',
           SLACK_TOKEN: '3540010629.12007999527',
           CHIMP_TOKEN: '531543883634',
+          INTERCOM: 'xxx',
+          PUSHER: 'xxx',
           DEBUG: true
         }
       },

@@ -25,11 +25,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     $scope.ct_login = CTLogin;
 
+    // Zak Moonman - bonjour move these into something separate
     docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
     docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/72-getting-started';
     docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/72-getting-started';
     docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
     docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
+    // Zak Moonman - bonjour move these into something separate
 
     function isOpen(section) {
       return (menu.isSectionSelected(section) && menu.isOpen());
@@ -346,7 +348,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           // Can we turn Cucumber into a variable so we don't just set
           // Maybe use the config files - Simon TBD //
           $scope.brandName.name  = results.brand_name || 'Cucumber';
+          // Maybe use the config files - Simon TBD //
           $scope.brandName.admin = results.admin;
+          $scope.brandName.url   = results.url;
           $scope.brandName.id    = results.id;
         }, function() {
           setDefaultImages(domain);
