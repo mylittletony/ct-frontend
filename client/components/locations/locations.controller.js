@@ -185,6 +185,8 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         menu.sectionName = gettextCatalog.getString('Location');
         if (data.archived) {
           menu.archived = data.archived;
+        } else {
+          menu.archived = undefined;
         }
         $scope.location = data;
         window.moment.tz.setDefault($scope.location.timezone);

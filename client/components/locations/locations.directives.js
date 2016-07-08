@@ -1425,7 +1425,7 @@ app.directive('locationSettingsSplash', [function() {
 
 }]);
 
-app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'moment', '$pusher', '$rootScope', 'gettextCatalog', function(Location, $location, $routeParams, $mdDialog, showToast, showErrors, moment, $pusher, $rootScope, gettextCatalog) {
+app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'moment', '$pusher', '$rootScope', 'gettextCatalog', 'menu', function(Location, $location, $routeParams, $mdDialog, showToast, showErrors, moment, $pusher, $rootScope, gettextCatalog, menu) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1533,6 +1533,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     var archiveLocation = function() {
       Location.archive({id: scope.location.slug}).$promise.then(function(results) {
         scope.location.archived = true;
+        menu.archived = true;
         showToast(gettextCatalog.getString('Location successfully archived.'));
       }, function(err) {
         showErrors(err);
@@ -1542,6 +1543,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     var unArchiveLocation = function() {
       Location.unarchive({id: scope.location.slug}).$promise.then(function(results) {
         scope.location.archived = false;
+        menu.archived = undefined;
         showToast(gettextCatalog.getString('Location successfully restored.'));
       }, function(err) {
         showErrors(err);
