@@ -471,7 +471,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var getZones = function() {
-        alert(scope.box.zone_id)
       var deferred = $q.defer();
       if (scope.box.zone_id || ignoreZone) {
       } else {
