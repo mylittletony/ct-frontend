@@ -38,6 +38,7 @@ describe('users', function () {
       q = $q;
       $routeParams = _$routeParams_;
       $routeParams.brand_id = 'xxx';
+      $routeParams.q = 'my-search';
       var elem = angular.element('<list-users></list-users>');
       element = $compile(elem)($rootScope);
       element.scope().$digest();
@@ -58,6 +59,7 @@ describe('users', function () {
 
       // Tests other scopes are set
       expect(element.isolateScope().query.order).toBe('created_at');
+      expect(element.isolateScope().query.filter).toBe('my-search');
       expect(element.isolateScope().roles.length).toBe(2);
       expect(element.isolateScope().roles[0].role_id).toBe(200);
       expect(element.isolateScope().roles[0].name).toBe('Brand Admin');

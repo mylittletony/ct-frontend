@@ -322,7 +322,7 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
 
     // user permissions
     var createMenu = function() {
-      if (true) { 
+      if (true) {
         scope.menu = [{
           name: gettextCatalog.getString('View'),
           type: 'view',
@@ -1108,7 +1108,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
     scope.onPaginate = function (page, limit) {
       scope.query.page = page;
       scope.query.limit = limit;
-      
+
       var hash  = {};
       hash.page = page;
       hash.per  = limit;
@@ -1194,7 +1194,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var removeUser = function(user) {
       BrandUser.destroy({
-        id: user.id, 
+        id: user.id,
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
         removeFromList(user.id);
@@ -1222,11 +1222,12 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var init = function() {
       fetchBrand();
-    
+
       var params = {
         page: scope.query.page,
         brand_id: scope.brand.id,
-        per: scope.query.limit
+        per: scope.query.limit,
+        q: scope.query.filter
       };
 
       User.query(params).$promise.then(function(results) {
