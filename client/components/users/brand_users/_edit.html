@@ -1,5 +1,5 @@
 <md-dialog aria-label="{{'Invite' | translate }}" ng-cloak>
-  <form ng-submit="invite(user)">
+  <form ng-submit="update(user)">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
         <h2 translate>Edit User Role</h2>
@@ -8,15 +8,16 @@
     <md-dialog-content>
       <div class="md-dialog-content" layout="row" layout-wrap>
         <div flex="100">
-          <p translate>Change the user's default role.</p>
+          <!-- Zak - needs docs -->
+          <p translate>Change the user's default role. Read more about roles in the documentation.</p>
         </div>
         <md-input-container flex="100">
-        <label>Role</label>
-        <md-select ng-model="user.role_id">
-          <md-option ng-repeat="role in roles" value="{{role.role_id}}">
-            {{role.name}}
-          </md-option>
-        </md-select>
+          <label>Role</label>
+          <md-select ng-model="user.role_id">
+            <md-option ng-repeat="role in roles" value="{{role.role_id}}">
+              {{role.name}}
+            </md-option>
+          </md-select>
         </md-input-container>
       </div>
     </md-dialog-content>
@@ -24,7 +25,7 @@
       <span flex></span>
       <md-button ng-click="close()">
         <translate>
-          Cancel
+        Cancel
         </translate>
       </md-button>
       <md-button type="submit" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary" translate>Update</md-button>

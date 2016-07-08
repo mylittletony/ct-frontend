@@ -215,11 +215,12 @@ app.filter('roleFilter', ['gettextCatalog', function(gettextCatalog) {
     if ( input === undefined || input === null || input === '') {
       return gettextCatalog.getString('N/A');
     } else {
+      input = input.toString();
       switch(input) {
-        case 200:
+        case '200':
           return 'Brand Admin';
-        case 201:
-          return 'Location User';
+        case '201':
+          return 'Location Admin';
         default:
           return 'N/A';
       }

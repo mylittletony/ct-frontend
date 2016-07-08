@@ -40,7 +40,7 @@
                 {{ ::user.email }}
               </td>
               <td hide show-gt-sm md-cell>
-                {{ ::user.role_id | roleFilter }}
+                {{ user.role_id | roleFilter }}
               </td>
               <td hide show-gt-sm md-cell>
                 {{ ::(user.created_at | humanTime) }}

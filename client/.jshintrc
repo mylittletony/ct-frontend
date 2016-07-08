@@ -45,7 +45,7 @@
     "module": true,
     "inject": true,
     "it": true,
-    "expect": true,
+    "expect": false,
     "browser": true,
     "element": true,
     "by": true

@@ -12,9 +12,6 @@ describe("Brand Users Unit Tests", function() {
     BrandUser = _BrandUser_;
     $httpBackend = $injector.get('$httpBackend');
 
-    $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/brands/xxx/brand_users')
-      .respond(200, [{}]);
-
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/brands/xxx/brand_users/123')
       .respond(200, {id: 123});
 
@@ -34,7 +31,7 @@ describe("Brand Users Unit Tests", function() {
   });
 
   it('should have sent a GET request to location show codes', function() {
-    var result = BrandUser.query({brand_id: 'xxx', id: 123})
+    var result = BrandUser.get({brand_id: 'xxx', id: 123})
     $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/brands/xxx/brand_users/123')
     $httpBackend.flush();
   });

@@ -367,7 +367,6 @@ app.directive('dashing', ['Report', function (Report) {
           scope.splash_only = b.total;
         }
       });
-
     }
 
     init();
@@ -396,16 +395,10 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
 
     menu.isOpen     = false;
     menu.hideBurger = true;
-    scope.brand     = {};
+    scope.brand = BrandName;
     scope.location  = {
       add_to_global_map: false,
       location_name: $routeParams.name
-    };
-
-    var init = function() {
-      if (BrandName && BrandName.admin !== true) {
-        scope.brand = BrandName;
-      }
     };
 
     scope.save = function(form) {
@@ -439,7 +432,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       }
     };
 
-    init();
   };
 
   return {
@@ -474,8 +466,8 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
   var link = function( scope, element, attrs ) {
 
-    scope.users    = [];
-    // scope.location = { slug: $routeParams.id };
+    scope.users = [];
+    scope.roles = [{ role_id: 100, name: 'Location Admin' }];
 
     var channel;
     function loadPusher(key) {
@@ -536,8 +528,8 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     scope.query = {
       order: 'state',
-      limit: 50,
-      page: 1
+      limit: $routeParams.per || 50,
+      page: $routeParams.page || 1
     };
 
     function allowedEmail(email) {
@@ -557,10 +549,15 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         clickOutsideToClose: true,
         parent: angular.element(document.body),
         controller: DialogController,
+        locals: {
+          roles: scope.roles
+        }
       });
     };
 
-    function DialogController ($scope) {
+    function DialogController ($scope, roles) {
+      $scope.roles = roles;
+      $scope.user = { role_id: roles[0].role_id };
       $scope.close = function() {
         $mdDialog.cancel();
       };
@@ -569,7 +566,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         inviteUser(user);
       };
     }
-    DialogController.$inject = ['$scope'];
+    DialogController.$inject = ['$scope', 'roles'];
 
     var inviteUser = function(invite) {
       if (allowedEmail(invite.email)) {
@@ -637,7 +634,6 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       loadPusher(scope.location.pubsub_token);
       $timeout.cancel(timer);
     }, 500);
-
 
   };
 
