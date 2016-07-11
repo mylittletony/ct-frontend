@@ -95,7 +95,7 @@ module.exports = function(app) {
 
     var url = process.env.CT_URL || 'my.ctapp.io'
     var proto;
-    if ( process.env.NODE_ENV === 'production' ) {
+    if ( process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'beta' ) {
       proto = 'https';
     } else {
       proto = 'http';
@@ -117,7 +117,7 @@ module.exports = function(app) {
     return next();
   };
 
-  if ('production' === env) {
+  if (env === 'production' || env === 'beta') {
     app.use(forceSsl);
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
