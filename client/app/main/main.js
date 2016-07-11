@@ -68,8 +68,8 @@ app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
 
 }]);
 
-app.config(['$compileProvider', function ($compileProvider) {
-  $compileProvider.debugInfoEnabled(false);
+app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
+  $compileProvider.debugInfoEnabled(DEBUG);
 }]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider', '$mdIconProvider', function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {
@@ -185,6 +185,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/audit/sales/show.html',
       resolve: { loginRequired: loginRequired }
     }).
+    // when('/brands/:brand_id/users/:id', {
+    //   templateUrl: 'components/views/brand_users/show.html',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/brands/:brand_id/users', {
+    //   templateUrl: 'components/views/brand_users/index.html',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/login', {
       controller: 'AuthenticationsController',
       templateUrl: 'components/home/hello.html',
@@ -343,16 +351,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/locations/:id/triggers/:trigger_id/trigger_history/:trigger_history_id', {
       templateUrl: 'components/locations/triggers/history/show.html',
       controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/layout', {
-      templateUrl: 'components/locations/layout/index.html',
-      controller: 'LocationsCtrlLayout',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/content', {
-      templateUrl: 'components/locations/content/index.html',
-      controller: 'LocationsCtrlLayout',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/users', {

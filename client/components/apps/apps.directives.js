@@ -12,7 +12,7 @@ app.directive('listApps', ['App', '$routeParams', 'menu', function(App, $routePa
 
     scope.loading   = true;
 
-    scope.init = function() {
+    var init = function() {
       App.get({}).$promise.then(function(results) {
         scope.apps        = results;
         scope.loading     = undefined;
@@ -22,15 +22,13 @@ app.directive('listApps', ['App', '$routeParams', 'menu', function(App, $routePa
       });
     };
 
-
-    scope.init();
+    init();
 
   };
 
   return {
     link: link,
-    scope: {
-    },
+    scope: {},
     templateUrl: 'components/apps/_index.html'
   };
 
@@ -68,6 +66,7 @@ app.directive('showApp', ['App', '$routeParams', 'menu', function(App, $routePar
   return {
     link: link,
     scope: {},
+    restrict: 'E',
     templateUrl: 'components/apps/_show.html'
   };
 

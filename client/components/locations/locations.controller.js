@@ -150,13 +150,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         active: isActive('versions')
       });
 
-      // menu.sections.push({
-      //   name: 'Reports',
-      //   type: 'link',
-      //   link: '/#/reports?location_id=' + $scope.location.id + '&location_name=' + $scope.location.location_name,
-      //   icon: 'timeline'
-      // });
-
       menu.sections.push({
         name: gettextCatalog.getString('Users'),
         type: 'link',
@@ -192,6 +185,8 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         menu.sectionName = gettextCatalog.getString('Location');
         if (data.archived) {
           menu.archived = data.archived;
+        } else {
+          menu.archived = undefined;
         }
         $scope.location = data;
         window.moment.tz.setDefault($scope.location.timezone);

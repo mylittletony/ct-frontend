@@ -8,8 +8,16 @@
     <md-dialog-content>
       <div class="md-dialog-content" layout="row" layout-wrap>
         <div flex="100">
-          <p translate>Invite a user to this location.</p>
+          <p translate>Invite a user to manage this location.</p>
         </div>
+        <md-input-container flex="100">
+          <label>Role</label>
+          <md-select ng-model="user.role_id">
+            <md-option ng-repeat="role in roles" value="{{role.role_id}}">
+              {{role.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
         <md-input-container flex="100">
           <label>
             <translate>Username</translate>

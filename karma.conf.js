@@ -49,34 +49,28 @@ module.exports = function(config) {
       'client/app/**/*.html',
       'client/components/**/*.html',
       'test/spec/**/*.js',
-      'test/ec2/**/*.js'
+      'test/ec2/**/*.js',
     ],
 
     preprocessors: {
-      '**/*.jade': 'ng-jade2js',
-      '**/*.html': 'html2js',
+      'client/components/**/*.html': ['ng-html2js'],
     },
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: 'client/'
+      stripPrefix: 'client/',
+      moduleName: "templates"
     },
 
-    ngJade2JsPreprocessor: {
-      stripPrefix: 'client/'
+    cacheIdFromPath: function(filepath) {
+      return filepath.match(/client\/components\/*\*\/.*/)[0];
     },
 
-    // list of files / patterns to exclude
     exclude: [],
 
-    // web server port
     port: 9090,
 
-    // level of logging
-    // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
-    // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
 
     // Start these browsers, currently available:
