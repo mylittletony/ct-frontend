@@ -62,9 +62,9 @@ describe('location tests', function () {
       expect(element.isolateScope().query.page).toBe(10);
       expect(element.isolateScope().loading).toBe(undefined);
 
-      expect(element.isolateScope().roles.length).toBe(1);
-      expect(element.isolateScope().roles[0].role_id).toBe(100);
-      expect(element.isolateScope().roles[0].name).toBe('Location Admin');
+      expect(element.isolateScope().roles.length).toBe(3);
+      expect(element.isolateScope().roles[0].role_id).toBe(101);
+      expect(element.isolateScope().roles[0].name).toBe('Administrator');
     });
 
   });
