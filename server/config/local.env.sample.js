@@ -10,6 +10,14 @@ if (process.env.NODE_ENV === 'production') {
     tokenURL: "https://api.ctapp.io/oauth/token",
     baseURL: "https://my.ctapp.io"
   }
+} else if (process.env.NODE_ENV === 'beta') {
+  module.exports = {
+    callbackURL: 'https://' + url + '/auth/login/callback',
+    authorizationURL: "https://id.ctapp.io/oauth/authorize",
+    profileURL: "https://beta.ctapp.io/api/v1/me.json",
+    tokenURL: "https://beta.ctapp.io/oauth/token",
+    baseURL: "https://my.ctapp.io"
+  }
 } else {
   module.exports = {
     callbackURL: "http://my.ctapp.dev:9000/auth/login/callback",
