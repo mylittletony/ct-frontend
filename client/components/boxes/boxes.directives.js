@@ -194,7 +194,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var resetBox = function() {
       scope.resetting = true;
-      Box.reset({id: scope.box.slug}).$promise.then(function(results) {
+      Box.update({
+        id: scope.box.slug,
+        box: { action: 'reset' }
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
         scope.box.allowed_job = false;
         scope.box.state = 'resetting';
@@ -233,7 +236,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         location_id: scope.location.slug,
         id: scope.box.slug,
         box: {
-          resync: true
+          action: 'resync'
         }
       }).$promise.then(function(res) {
         showToast(gettextCatalog.getString('Device resync in progress. Please wait.'));
@@ -260,7 +263,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var rebootBox = function() {
       scope.box.state = 'processing';
       scope.box.allowed_job = false;
-      Box.reboot({id: scope.box.slug}).$promise.then(function(results) {
+      Box.update({
+        id: scope.box.slug,
+        box: { action: 'reboot' }
+      }).$promise.then(function(results) {
         scope.box.state = 'rebooting';
         showToast(gettextCatalog.getString('Box successfully rebooted.'));
       }, function(errors) {
@@ -319,9 +325,14 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     transferCtrl.$inject = ['$scope', 'transfer'];
 
     var transferBox = function(id) {
-      Box.transfer({id: scope.box.slug, transfer_to: id}).$promise.then(function(results) {
+      Box.update({
+        id: scope.box.slug, 
+        box: { 
+          transfer_to: id
+        }
+      }).$promise.then(function(results) {
         scope.back();
-        showToast(gettextCatalog.getString('Box transfer was a success.'));
+        showToast(gettextCatalog.getString('Box transferred successfully.'));
       }, function(errors) {
         showErrors(errors);
       });

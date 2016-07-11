@@ -489,7 +489,6 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     // User Permissions //
     var createMenu = function() {
-
       scope.allowed = true;
       scope.menu = [];
 
@@ -1522,33 +1521,40 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       .ok(gettextCatalog.getString('CONFIRM'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        if (scope.location.archived) {
-          unArchiveLocation();
-        } else {
-          archiveLocation();
-        }
+        updateLocation(scope.location.archived);
       });
     };
 
-    var archiveLocation = function() {
-      Location.archive({id: scope.location.slug}).$promise.then(function(results) {
+    var updateLocation = function(state) {
+      var s = 'active';
+      if (state === false) {
+        s = 'archived';
+      }
+      Location.update({id: scope.location.slug, location: { state: s }}).$promise.then(function(results) {
         scope.location.archived = true;
-        menu.archived = true;
-        showToast(gettextCatalog.getString('Location successfully archived.'));
+        var msg;
+        if (s === 'active') {
+          menu.archived = false;
+          msg = gettextCatalog.getString('Location successfully restored.');
+        } else {
+          menu.archived = true;
+          msg = gettextCatalog.getString('Location successfully archived.');
+        }
+        showToast(msg);
       }, function(err) {
         showErrors(err);
       });
     };
 
-    var unArchiveLocation = function() {
-      Location.unarchive({id: scope.location.slug}).$promise.then(function(results) {
-        scope.location.archived = false;
-        menu.archived = undefined;
-        showToast(gettextCatalog.getString('Location successfully restored.'));
-      }, function(err) {
-        showErrors(err);
-      });
-    };
+    // var unArchiveLocation = function() {
+    //   Location.unarchive({id: scope.location.slug}).$promise.then(function(results) {
+    //     scope.location.archived = false;
+    //     menu.archived = undefined;
+    //     showToast(gettextCatalog.getString('Location successfully restored.'));
+    //   }, function(err) {
+    //     showErrors(err);
+    //   });
+    // };
 
     var destroy = function(ev) {
       var confirm = $mdDialog.confirm()

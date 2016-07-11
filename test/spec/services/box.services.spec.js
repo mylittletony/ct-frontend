@@ -30,19 +30,7 @@ describe("Box Unit Tests", function() {
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/boxes/123')
     .respond(200, {});
 
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/reboot')
-    .respond(200, {});
-
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/payloads')
-    .respond(200, {});
-
-    $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/boxes/123/alerts')
-    .respond(200, {});
-
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/reset')
-    .respond(200, {});
-
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/transfer?transfer_to=456')
     .respond(200, {});
 
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes')
@@ -108,39 +96,15 @@ describe("Box Unit Tests", function() {
     $httpBackend.flush();
   });
 
-  it('should have sent a POST request boxes api for a reboot', function() {
-    var result = Box.reboot({id: 123})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/123/reboot')
-    $httpBackend.flush();
-  });
-
   it('should have sent a POST request boxes api for a payload', function() {
     var result = Box.payload({id: 123})
     $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/123/payloads')
     $httpBackend.flush();
   });
 
-  it('should have sent a PATCH request boxes api TO Enable alerts', function() {
-    var result = Box.alerts({id: 123})
-    $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/boxes/123/alerts')
-    $httpBackend.flush();
-  });
-
-  it('should have sent a POST request boxes api TO reset', function() {
-    var result = Box.reset({id: 123})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/123/reset')
-    $httpBackend.flush();
-  });
-
   it('should have sent a DELETE request boxes api TO delete', function() {
     var result = Box.destroy({id: 123})
     $httpBackend.expectDELETE('http://mywifi.dev:8080/api/v1/boxes/123')
-    $httpBackend.flush();
-  });
-
-  it('should have sent a POST request boxes api TO TRANSFER', function() {
-    var result = Box.transfer({id: 123, transfer_to: 456})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/123/transfer?transfer_to=456')
     $httpBackend.flush();
   });
 
