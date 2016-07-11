@@ -132,22 +132,6 @@ app.factory('Location', ['$resource', '$localStorage', 'API_END_POINT',
           action: 'duplicate'
         }
       },
-      archive: {
-        method: 'POST',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          action: 'archive'
-        }
-      },
-      unarchive: {
-        method: 'POST',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          action: 'unarchive'
-        }
-      },
       update: {
         method: 'PATCH',
         isArray: false,
