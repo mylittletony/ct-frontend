@@ -55,7 +55,7 @@
                     </md-tooltip>
                   </td md-cell>
                   <td hide show-gt-sm md-cell>
-                    {{ ::user.primary ? "Owner" : "Admin" }}
+                    {{ ::user.primary ? "Owner" : (user.role_id | roleFilter) }}
                   </td md-cell>
                   <td hide show-gt-md md-cell>
                     {{ (user.created_at || user.timestamp ) | humanTime }}
