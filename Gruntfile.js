@@ -751,6 +751,25 @@ module.exports = function (grunt) {
 
   // grunt.registerTask('test', ['karma:travis']);
 
+  grunt.registerTask('build-beta', [
+    'clean:dist',
+    'ngconstant:beta',
+    'concurrent:dist',
+    'wiredep',
+    'useminPrepare',
+    'autoprefixer',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'all-po',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'rev',
+    'usemin'
+  ]);
+
   grunt.registerTask('build', [
     'clean:dist',
     'ngconstant:production',
