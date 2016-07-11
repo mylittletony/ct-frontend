@@ -5,7 +5,13 @@ git config --global user.name "Simon Morley"
 
 echo yes | heroku keys:add
 
-grunt build
+if [ "$CIRCLE_BRANCH" == "master" ]
+then
+  grunt build
+else
+  grunt build-beta
+fi
+
 yes | grunt buildcontrol:$CIRCLE_BRANCH
 
 echo "...done."
