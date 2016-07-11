@@ -467,7 +467,11 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
   var link = function( scope, element, attrs ) {
 
     scope.users = [];
-    scope.roles = [{ role_id: 100, name: 'Location Admin' }];
+    scope.roles = [
+      { role_id: 101, name: 'Administrator' },
+      { role_id: 102, name: 'Supporter' },
+      { role_id: 103, name: 'Observer' }
+    ];
 
     var channel;
     function loadPusher(key) {
@@ -568,6 +572,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     DialogController.$inject = ['$scope', 'roles'];
 
     var inviteUser = function(invite) {
+      console.log(invite)
       if (allowedEmail(invite.email)) {
         Invite.create({
           location_id: scope.location.slug,
