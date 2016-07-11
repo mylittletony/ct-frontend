@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-06-29 16:17+0200\n"
+"PO-Revision-Date: 2016-07-08 21:30+0200\n"
 "Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: client/components/splash_pages/splash_show.html:154
 msgid ""
@@ -42,7 +42,7 @@ msgstr[1] ""
 
 #: client/components/users/billing/_show.html:55
 msgid "(No SLA)"
-msgstr ""
+msgstr "(Keine Dienstleistungsvereinbarung) "
 
 #: client/components/locations/boxes/_table.html:101
 msgid ". Static IP: {{ ::box.wan_ipaddr }}"
@@ -51,202 +51,198 @@ msgstr ". Statische IPv4-Adresse: {{ ::box.wan_ipaddr }}"
 #: client/components/reports/_wireless_stats.html:27
 #: client/components/reports/_wireless_stats.html:37
 msgid "0 TBC"
-msgstr ""
+msgstr "0 zu bestätigen"
 
 #: client/components/locations/index/_alerts.html:47
-#, fuzzy
 msgid "1 Device"
 msgid_plural "{{ ::_links.total_entries }} Devices"
 msgstr[0] "Gerät"
-msgstr[1] "Gerät"
+msgstr[1] "Geräte"
 
 #: client/components/locations/index/_favourites.html:36
 msgid "1 Favourite"
 msgid_plural "{{ ::_links.total_entries }} Favourites"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 Favorit"
+msgstr[1] "{{ ::_links.total_entries }} Favoriten"
 
 #: client/components/locations/index/_list.html:62
-#, fuzzy
 msgid "1 Location"
 msgid_plural "{{ ::_links.total_entries }} Locations"
-msgstr[0] "Standort"
-msgstr[1] "Standort"
+msgstr[0] "1 Standort"
+msgstr[1] "{{ ::_links.total_entries }} Standorte"
 
 #: client/components/splash_pages/view-store.html:74
-#, fuzzy
 msgid "1 Product"
 msgid_plural "{{ products.length || 0 }} Products"
-msgstr[0] "Dokumentation"
-msgstr[1] "Dokumentation"
+msgstr[0] "1 Artikel"
+msgstr[1] "{{ products.length || 0 }} Artikel"
 
 #: client/components/users/inventories/_index.html:37
 msgid "1 active device. {{ summary.new }} added this month."
 msgid_plural ""
 "{{ summary.total }} active devices. {{ summary.new }} added this month."
-msgstr[0] ""
+msgstr[0] "1 aktives Gerät. {{ summary.new }} in diesem Monat hinzugefügt."
 msgstr[1] ""
+"{{ summary.total }} aktive Geräte. {{ summary.new }} in diesem Monat "
+"hinzugefügt."
 
 #: client/components/zones/_show.html:34
 msgctxt "in zones index component"
 msgid "1 box"
 msgid_plural "{{ zone.boxes.length || 0}} boxes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 Gerät"
+msgstr[1] "{{ zone.boxes.length || 0}} Geräte"
 
 #: client/components/locations/show/_favourites.html:25
 msgctxt "in locations component"
 msgid "1 box."
 msgid_plural "{{ ::item.boxes_count }} boxes."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 Gerät."
+msgstr[1] "{{ ::item.boxes_count }} Geräte."
 
 #: client/components/zones/_associated_zones_dialog.html:13
 msgid "1 box."
 msgid_plural "{{ zone.boxes.length || 0}} boxes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 Gerät."
+msgstr[1] "{{ zone.boxes.length || 0}} Geräte."
 
 #: client/components/locations/show/_favourites.html:26
-#, fuzzy
 msgid "1 client online."
 msgid_plural "{{ ::item.clients_online}} clients online."
-msgstr[0] "Einstellungen"
-msgstr[1] "Einstellungen"
+msgstr[0] "1 Station online."
+msgstr[1] "{{ ::item.clients_online}} Stationen online."
 
 #: client/components/locations/locations.directives.js:1089
-#, fuzzy
 msgid "1 device zone"
 msgid_plural "{{scope.selected.length}} device zones"
-msgstr[0] "Einstellungen"
-msgstr[1] "Einstellungen"
+msgstr[0] "1 Geräte-Zone"
+msgstr[1] "{{scope.selected.length}} Geräte-Zonen"
 
 #: client/components/locations/show/_dashing.html:35
-#, fuzzy
 msgid "1 location"
 msgid_plural "{{ ::stats.locations }} locations"
-msgstr[0] "Standort"
-msgstr[1] "Standort"
+msgstr[0] "1 Standort"
+msgstr[1] "{{ ::stats.locations }} Standorte"
 
 #: client/components/zones/_show.html:35
-#, fuzzy
 msgctxt "in zones index componenet"
 msgid "1 network"
 msgid_plural "{{ selected.length || 0 }} networks"
-msgstr[0] "Einstellungen"
-msgstr[1] "Einstellungen"
+msgstr[0] "1 Netzwerk"
+msgstr[1] "{{ selected.length || 0 }} Netzwerke"
 
 #: client/components/zones/_associated_zones_dialog.html:14
-#, fuzzy
 msgctxt "in zones componenet"
 msgid "1 network."
 msgid_plural "{{ zone.networks.length }} networks"
-msgstr[0] "Einstellungen"
-msgstr[1] "Einstellungen"
+msgstr[0] "1 Netzwerk."
+msgstr[1] "{{ zone.networks.length }} Netzwerke."
 
 #: client/components/locations/clients/codes.html:22
 msgid "1 voucher code in use by client."
 msgid_plural "{{ filtered.length || 0}} voucher codes in use by client."
-msgstr[0] ""
+msgstr[0] "1 Gutschein-Code wird vom Kunden verwendet."
 msgstr[1] ""
+"{{ filtered.length || 0}} Gutschein-Codes werden vom Kunden verwendet."
 
 #: client/components/locations/clients/_index.html:39
 #: client/components/locations/clients/_show.html:16
 msgid "1d"
-msgstr ""
+msgstr "1 Tag"
 
 #: client/components/locations/networks/_index.html:17
 msgid "2.4 & 5Ghz"
-msgstr ""
+msgstr "2,4 & 5 GHz"
 
 #: client/components/locations/networks/_index.html:15
 #: client/components/locations/networks/_show.html:351
 #: client/components/networks/networks.directives.js:83
 msgid "2.4Ghz"
-msgstr ""
+msgstr "2,4 GHz"
 
 #: client/components/boxes/edit/_edit.html:102
 msgid "2.4Ghz Channel"
-msgstr ""
+msgstr "2,4 GHz Kanal"
 
 #: client/components/boxes/edit/_edit.html:112
 msgid "2.4Ghz Mode"
-msgstr ""
+msgstr "2,4 GHz Modus"
 
 #: client/components/boxes/edit/_edit.html:122
 msgid "2.4Ghz Power ({{box.tx_power_2}}dBm)"
-msgstr ""
+msgstr "2,4 GHz Sendeleistung  ({{box.tx_power_2}} dBm)"
 
 #: client/components/boxes/boxes.filters.js:22
 msgid "2.4Ghz only"
-msgstr ""
+msgstr "Nur 2,4 GHz"
 
 #: client/components/locations/clients/_index.html:41
 #: client/components/locations/clients/_show.html:18
 msgid "30d"
-msgstr ""
+msgstr "30 Tage"
 
 #: client/components/locations/clients/_index.html:36
 #: client/components/locations/clients/_show.html:13
 msgid "30m"
-msgstr ""
+msgstr "30 Min."
 
 #: client/components/locations/access/access-password.html:25
 msgid "5 letters or more please."
-msgstr ""
+msgstr "Mindestens 5 Zeichen."
 
 #: client/components/locations/networks/_index.html:16
 #: client/components/locations/networks/_show.html:352
 #: client/components/networks/networks.directives.js:86
 msgid "5Ghz"
-msgstr ""
+msgstr "5 GHz"
 
 #: client/components/boxes/edit/_edit.html:136
 msgid "5Ghz Channel"
-msgstr ""
+msgstr "5 GHz Kanal"
 
 #: client/components/boxes/edit/_edit.html:146
 msgid "5Ghz Mode"
-msgstr ""
+msgstr "5 GHz Modus"
 
 #: client/components/boxes/edit/_edit.html:156
 msgid "5Ghz Power ({{box.tx_power_5}}dBm)"
-msgstr ""
+msgstr "5 GHz Sendeleistung ({{box.tx_power_5}} dBm)"
 
 #: client/components/boxes/boxes.filters.js:24
 msgid "5Ghz only"
-msgstr ""
+msgstr "Nur 5 GHz"
 
 #: client/components/locations/clients/_index.html:35
 #: client/components/locations/clients/_show.html:12
 msgid "5m"
-msgstr ""
+msgstr "5 Min."
 
 #: client/components/locations/clients/_index.html:37
 #: client/components/locations/clients/_show.html:14
 msgid "60m"
-msgstr ""
+msgstr "60 Min."
 
 #: client/components/users/invoices/_show.html:55
 msgid ""
 "62 Britton Street<br>\n"
 "              London EC1M 5UY"
 msgstr ""
+"Charlottenburger Allee 60\n"
+"D-52068 Aachen"
 
 #: client/components/locations/clients/_index.html:38
 #: client/components/locations/clients/_show.html:15
 msgid "6h"
-msgstr ""
+msgstr "6 Std."
 
 #: client/components/locations/clients/_index.html:40
 #: client/components/locations/clients/_show.html:17
 msgid "7d"
-msgstr ""
+msgstr "7 Tage"
 
 #: client/components/locations/networks/_show.html:222
-#, fuzzy
 msgid "802.1x Radius Settings"
-msgstr "Einstellungen"
+msgstr "802.1x RADIUS-Einstellungen"
 
 #: client/components/locations/show/_favourites.html:5
 msgid ""
@@ -379,27 +375,27 @@ msgstr ""
 #: client/components/locations/networks/_show.html:121
 #: client/components/locations/networks/_show.html:132
 msgid "A DNS value is required"
-msgstr ""
+msgstr "DNS-Wert muss eingegeben werden."
 
 #: client/components/boxes/edit/_edit.html:353
 msgid "A WAN metric is required"
-msgstr ""
+msgstr "Eine WAN-Metrik ist erforderlich"
 
 #: client/components/registrations/_create.html:13
 msgid "A confirmation has been sent to your email"
-msgstr ""
+msgstr "Eine Bestätigung wurde an Ihre e-Mail-Adresse gesendet"
 
 #: client/components/registrations/_flow.html:75
 msgid "A dashboard name is required."
-msgstr ""
+msgstr "Eine Bezeichnung für den Startbildschirm ist erforderlich."
 
 #: client/components/boxes/show/_non_ps.html:33
 msgid "A description is required"
-msgstr ""
+msgstr "Bitte eine Beschreibung eingeben"
 
 #: client/components/boxes/new/_add.html:49
 msgid "A description is required."
-msgstr ""
+msgstr "Bitte eine Beschreibung eingeben."
 
 #: client/components/splash_pages/design-sidebar.html:20
 msgid "A double column layout for the man about town"
@@ -407,15 +403,15 @@ msgstr ""
 
 #: client/components/boxes/show/_index.html:277
 msgid "A firmware upgrade is available."
-msgstr ""
+msgstr "Eine Firmware-Upgrade steht zur Verfügung."
 
 #: client/components/registrations/_flow.html:30
 msgid "A network name is required."
-msgstr ""
+msgstr "Ein Netzwerkname ist erforderlich."
 
 #: client/components/zones/_form.html:28
 msgid "A short description of the zone"
-msgstr ""
+msgstr "Eine kurze Beschreibung der Zone"
 
 #: client/components/splash_pages/design-sidebar.html:19
 msgid "A single column layout for a sleek look"
@@ -423,128 +419,119 @@ msgstr ""
 
 #: client/components/registrations/_flow.html:96
 msgid "A username is required."
-msgstr ""
+msgstr "Ein Benutzername ist erforderlich."
 
 #: client/components/boxes/edit/_edit.html:342
 msgid "A valid MTU is required"
-msgstr ""
+msgstr "Eine gültige MTU ist erforderlich"
 
 #: client/components/splash_pages/access-password.html:27
 msgid "A valid password is required"
-msgstr ""
+msgstr "Ein gültiges Kennwort ist erforderlich"
 
 #: client/components/registrations/_flow.html:61
 msgid "A web address is required."
-msgstr ""
+msgstr "Eine Web-Adresse ist erforderlich."
 
 #: client/components/boxes/new/_add.html:74
 #: client/components/users/billing/_coupon.html:24
 #: client/components/zones/_add.html:36
 msgid "ADD"
-msgstr ""
+msgstr "HINZUFÜGEN"
 
 #: client/components/users/billing/_add_coupon.html:27
 msgid "ADD COUPON"
-msgstr ""
+msgstr "COUPON HINZUFÜGEN"
 
 #: client/components/boxes/new/_add.html:134
 msgid "ADD DEVICES"
-msgstr ""
+msgstr "GERÄTE HINZUFÜGEN"
 
 #: client/components/locations/clients/_columns.html:81
 #: client/components/locations/clients/_columns_filter.html:77
 msgid "AP Description"
-msgstr ""
+msgstr "AP-Beschreibung"
 
 #: client/components/locations/clients/_index.html:190
 msgid "AP Name"
-msgstr ""
+msgstr "AP-Name"
 
 #: client/components/splash_pages/access-social.html:173
 msgid "API secret required when using your own App."
-msgstr ""
+msgstr "API-Geheimnis erforderlich, wenn Sie Ihre eigene App zu verwenden."
 
 #: client/components/users/invoices/_details.html:105
 msgid "APs Added Since Last Invoice"
-msgstr ""
+msgstr "APs, die seit der letzten Rechnung hinzugefügt wurden"
 
 #: client/components/locations/triggers/channel-slack.html:3
 msgid "AUTHORISE"
-msgstr ""
+msgstr "ERMÄCHTIGEN"
 
 #: client/components/users/users.controllers.js:114
-#, fuzzy
 msgid "Access"
-msgstr "Einstellungen"
+msgstr "Zugriff"
 
 #: client/components/users/layouts/sidebar.html:12
-#, fuzzy
 msgid "Access Log"
-msgstr "Einstellungen"
+msgstr "Zugriffsprotokoll"
 
 #: client/components/users/sessions/_index.html:6
-#, fuzzy
 msgid "Access Logs"
-msgstr "Einstellungen"
+msgstr "Zugriffsprotokolle"
 
 #: client/components/users/invoices/_details.html:82
 msgid "Access Point Cost"
-msgstr ""
+msgstr "Kosten pro Gerät"
 
 #: client/components/splash_codes/_show.html:66
-#, fuzzy
 msgid "Access Restriction"
-msgstr "Einstellungen"
+msgstr "Zugriffsbeschränkung"
 
 #: client/components/splash_pages/splash_show.html:189
-#, fuzzy
 msgid "Access Restrictions"
-msgstr "Einstellungen"
+msgstr "Zugriffsbeschränkungen"
 
 #: client/components/splash_pages/splash_show.html:337
-#, fuzzy
 msgid "Access Settings"
-msgstr "Einstellungen für öffentlichen Zugriff"
+msgstr "Zugriffseinstellungen"
 
 #: client/components/locations/access/access-panel-top.html:25
 #: client/components/splash_pages/_form.html:22
 #: client/components/splash_pages/splash_show.html:47
 #: client/components/vouchers/_form.html:151
-#, fuzzy
 msgid "Access Type"
-msgstr "Einstellungen"
+msgstr "Zugriffsart"
 
 #: client/components/reports/_radius.html:21
-#, fuzzy
 msgid "Access Types"
-msgstr "Einstellungen"
+msgstr "Zugriffsarten"
 
 #: client/components/users/integrations/_integrations.html:20
 msgid "Access denied. If you cancelled the request, please try again."
 msgstr ""
+"Zugriff verweigert. Wenn Sie die Anfrage abgebrochen haben, versuchen Sie es "
+"erneut."
 
 #: client/components/locations/locations.directives.js:846
 msgid "Access point resynced successfully."
-msgstr ""
+msgstr "Gerät erfolgreich synchronisiert."
 
 #: client/components/users/layouts/sidebar.html:1 client/index.html:103
 msgid "Account"
 msgstr "Konto"
 
 #: client/components/users/show/_index.html:45
-#, fuzzy
 msgid "Account Created"
-msgstr "Konto"
+msgstr "Konto erstellt"
 
 #: client/components/users/show/_index.html:30
-#, fuzzy
 msgid "Account ID"
-msgstr "Konto"
+msgstr "Konto-ID"
 
 #: client/components/boxes/show/_index.html:130
-#, fuzzy
 msgid "Accounting Port"
-msgstr "Konto"
+msgstr "Accounting-Server-Port"
 
 #: client/components/audit/emails/_index.html:57
 #: client/components/audit/sales/_index.html:59
@@ -567,23 +554,28 @@ msgstr "Konto"
 #: client/components/users/invoices/_index.html:37
 #: client/components/zones/_show.html:50
 msgid "Action"
-msgstr ""
+msgstr "Aktion "
 
 #: client/components/boxes/show/_toast_reset_confirm.html:2
 msgid ""
 "Action Required. This box has been manually reset. Please confirm this "
 "action. Or click cancel to ignore."
 msgstr ""
+"Aktion erforderlich. Dieses Gerät wurde manuell zurückgesetzt. Bitte "
+"bestätigen Sie diese Aktion oder klicken Sie auf Abbrechen."
 
 #: client/components/boxes/show/_toast_zone.html:2
 msgid ""
 "Action Required. This box is not part of a zone. The box will function but "
 "will not broadcast an SSID. Add this box to a zone to complete setup."
 msgstr ""
+"Aktion erforderlich. Dieses Gerät ist nicht Teil einer Zone. Das Gerät "
+"funktioniert, aber wird keine SSID ausstrahlen. Fügen Sie dieses Gerät einer "
+"Zone hinzu, um die Installation abzuschließen."
 
 #: client/components/locations/clients/codes.html:35
 msgid "Action<span></span>"
-msgstr ""
+msgstr "Aktion<span></span>"
 
 #: client/components/codes/_index.html:46
 #: client/components/locations/clients/_show_code.html:39
