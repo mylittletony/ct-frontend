@@ -13,8 +13,8 @@
           <md-progress-linear md-mode="query"></md-progress-linear>
         </span>
 
-        <span ng-if="!loading && !zones.length" translate>
-          No zones found. Create one <a href="" ng-click="createZone()">now</a>.
+        <span ng-if="!loading && !zones.length">
+          <translate>No zones found.</translate> <a href="" ng-click="createZone()" translate>Create one now</a>.
         </span>
 
         <p ng-if="!loading && zones.length" translate>

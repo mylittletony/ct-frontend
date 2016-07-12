@@ -220,9 +220,9 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>802.1x Radius Settings</span>
-            <span class="md-subhead" translate>
-              Enable 802.1x on your network
-              <md-button ng-click="toggle('radius')" aria-controls="{{ 'radius' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}" ng-hide="network.access_type === 'radius'">
+            <span class="md-subhead">
+              <translate>Enable 802.1x on your network</translate>
+              <md-button ng-click="toggle('radius')" aria-controls="radius" class="md-secondary md-icon-button" aria-label="call" ng-hide="network.access_type === 'radius'">
                 <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('radius') ? "up" : "down" }}</md-icon>
               </md-button>
             </span>

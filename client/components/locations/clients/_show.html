@@ -28,8 +28,8 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline" translate>
-           Client {{ client.online | splashStatus:client.splash_status }}
+          <span class="md-headline">
+            <translate>Client {{ client.online | splashStatus:client.splash_status }}</translate>
             <!-- Client {{ client.online ? (client.splash_status == 'dnat' ? 'Not Logged In' : 'Online' ) : 'Offline' }} -->
           </span>
         </md-card-title-text>

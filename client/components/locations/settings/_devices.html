@@ -130,10 +130,16 @@
               <translate>Unable to communicate with your Ruckus Virtual SmartZone. Check your credentials.</translate>
               <br>
               <br>
-              <span ng-if="location.vsg_controller.Reason == 'auth_failed'" translate>
-
-                <b>We were able to reach the server but your username or password was rejected.</span> <span ng-if="location.vsg_controller.Reason != 'auth_failed'" translate>We were unable to reach your server at {{ location.vsg_host }}.</b>
-                <p translate>Please ensure it has a public IP and your firewall ports are open. You must use https for security reasons. If your ports are open, please check your user credentials has the correct permissions.</p>
+              <span ng-if="location.vsg_controller.Reason == 'auth_failed'">
+                <b>
+                  <translate>We were able to reach the server but your username or password was rejected.</translate>
+              </span> 
+              <span ng-if="location.vsg_controller.Reason != 'auth_failed'">
+                  <translate>We were unable to reach your  server at {{ location.vsg_host }}.</translate>
+              </b>
+                <p translate-comment="it is server" translate>
+                  Please ensure it has a public IP and your firewall ports are open. You must use https for security reasons. If your ports are open, please check your user credentials has the correct permissions.
+                </p>
               </span>
             </span>
 
@@ -141,7 +147,7 @@
 
               <p><b translate>vSZ Connection Success!</b></p>
               <p>
-                {{ isOpen('tests') ? "Hide" : "Show" }} Test Results
+                <translate>{{ isOpen('tests') ? "Hide" : "Show" }} Test Results</translate>
                 <md-button ng-click="toggle('tests')" aria-controls="tests" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                   <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('tests') ? "up" : "down" }}</md-icon>
                 </md-button>

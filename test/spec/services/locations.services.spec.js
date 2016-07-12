@@ -34,12 +34,6 @@ describe("Location Service Unit Tests", function() {
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/locations/123/users')
       .respond(200, {name: name, email: email, success: true});
 
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/123/archive')
-      .respond(200, {name: name, email: email, success: true});
-
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/123/unarchive')
-      .respond(200, {name: name, email: email, success: true});
-
     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/locations/123')
       .respond(200, {name: name, email: email, success: true});
 
@@ -96,18 +90,6 @@ describe("Location Service Unit Tests", function() {
   it('should have sent a DELETE request to delete a lcoation users API', function() {
     var result = Location.del_user({id: 123})
     $httpBackend.expectDELETE('http://mywifi.dev:8080/api/v1/locations/123/users')
-    $httpBackend.flush();
-  });
-
-  it('should have sent a POST request to archive a location', function() {
-    var result = Location.archive({id: 123})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/locations/123/archive')
-    $httpBackend.flush();
-  });
-
-  it('should have sent a POST request to enable sense at a location', function() {
-    var result = Location.unarchive({id: 123})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/locations/123/unarchive')
     $httpBackend.flush();
   });
 
