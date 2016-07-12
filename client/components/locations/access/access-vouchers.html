@@ -24,8 +24,8 @@
                   <input ng-model="location.shop_active" type="checkbox" ng-disabled="{{ location.shop_allowed != true}}">
                 </label>
               </div>
-              <p ng-if="location.shop_allowed != true" class="small muted" translate>
-                Paid Wi-Fi is only available on non-free plans. You can read more
+              <p ng-if="location.shop_allowed != true" class="small muted">
+                <translate>Paid Wi-Fi is only available on non-free plans.</translate> You can read more
                 <a href="http://polkaspots.com/paid-wifi">here</a>.
               </p>
               <div ng-if="location.shop.shop_name">
@@ -39,9 +39,9 @@
                 <input name="logins_forgot_password" type="checkbox" ng-model="location.logins_forgot_password">
                 <p class="text-muted small"></p>
               </div>
-              <p class="help-block" translate>
-                This allows the end-user to request their password by email. We recommend you turn this on.
-                <a href="http://polkaspots.com/forgot-password-link">Read more<i class="fa fa-question"></i></a>
+              <p class="help-block">
+                <translate>This allows the end-user to request their password by email. We recommend you turn this on.</translate>
+                <a href="http://polkaspots.com/forgot-password-link"><translate>Read more</translate><i class="fa fa-question"></i></a>
               </p>
             </div>
           </div>

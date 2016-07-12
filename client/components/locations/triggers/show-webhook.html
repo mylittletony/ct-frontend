@@ -12,8 +12,9 @@
       <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/webhook.png" class="integrations-icon-show">
     </md-card-title-media>
   </md-card-title>
-  <md-card-content translate>
-    <p>{{ trigger.human }}</b>, send a <b>{{ trigger.attr_2 }}</b> request to:<br> <b>{{ trigger.attr_1 }}</b>.</p>
+  <md-card-content>
+    <!--fixme: Toni, move the whole sentence to the js, see the other show-files-->
+    <p><b>{{ trigger.human }}</b>, <translate>send a <b>{{ trigger.attr_2 }}</b> request to: </translate><br> <b>{{ trigger.attr_1 }}</b>.</p>
     <p>Request body: {{ trigger.attr_3 }}</p>
   </md-card-content>
 </md-card>
