@@ -468,9 +468,10 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     scope.users = [];
     scope.roles = [
-      { role_id: 101, name: 'Administrator' },
-      { role_id: 102, name: 'Supporter' },
-      { role_id: 103, name: 'Observer' }
+      { role_id: 110, name: 'Administrator' },
+      { role_id: 120, name: 'Editor' },
+      { role_id: 130, name: 'Supporter' },
+      { role_id: 140, name: 'Observer' }
     ];
 
     var channel;
