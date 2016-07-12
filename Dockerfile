@@ -12,3 +12,5 @@ RUN \
     bower install --config.interactive=false --allow-root
  
 EXPOSE 9000
+
+CMD ["node", "server/app.js"]
