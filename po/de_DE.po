@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-07-08 21:30+0200\n"
+"PO-Revision-Date: 2016-07-12 12:07+0200\n"
 "Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -1068,7 +1068,7 @@ msgstr "Dokumentation"
 #: client/components/boxes/payloads/_index.html:6
 #: client/components/boxes/versions/_index.html:6
 msgid "Back to Device"
-msgstr ""
+msgstr "Zurück zum Gerät"
 
 #: client/components/audit/guests/_show.html:7
 msgid "Back to Guests"
