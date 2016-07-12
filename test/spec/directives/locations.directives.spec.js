@@ -62,9 +62,15 @@ describe('location tests', function () {
       expect(element.isolateScope().query.page).toBe(10);
       expect(element.isolateScope().loading).toBe(undefined);
 
-      expect(element.isolateScope().roles.length).toBe(3);
-      expect(element.isolateScope().roles[0].role_id).toBe(101);
+      expect(element.isolateScope().roles.length).toBe(4);
+      expect(element.isolateScope().roles[0].role_id).toBe(110);
       expect(element.isolateScope().roles[0].name).toBe('Administrator');
+      expect(element.isolateScope().roles[1].role_id).toBe(120);
+      expect(element.isolateScope().roles[1].name).toBe('Editor');
+      expect(element.isolateScope().roles[2].role_id).toBe(130);
+      expect(element.isolateScope().roles[2].name).toBe('Supporter');
+      expect(element.isolateScope().roles[3].role_id).toBe(140);
+      expect(element.isolateScope().roles[3].name).toBe('Observer');
     });
 
   });
