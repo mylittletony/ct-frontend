@@ -31,16 +31,6 @@
               </md-card-title>
               <md-card-content>
                 <div layout="column" layout-gt-xs="row" layout-wrap>
-<<<<<<< fdf379035b8e9f2c22df2f5161edef04f7ed33b9
-                  <md-input-container class="md-block" flex-gt-xs="50">
-                    <label><translate>Brand Name</translate></label>
-                    <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="{{ 'Enter a brand name' | translate }}" ng-model="brandName.name" ng-pattern="/^[^-\s][A-Za-z0-9\\'\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
-                    <div ng-messages="myForm.brand_name.$error" md-auto-hide="false">
-                      <div ng-message="required" translate>Please enter a name for your brand</div>
-                      <div ng-message="md-maxlength" translate>Must be less than 25 characters</div>
-                      <div ng-message="minlength" translate>Minimum 5 characters</div>
-                      <div ng-message="pattern" translate>Number & letters only</div>
-=======
                   <!-- <div flex="100" flex-gt-sm="100"> -->
                     <md-input-container class="md-block" flex-gt-xs="50">
                       <label><translate>Brand Name</translate></label>
@@ -66,7 +56,6 @@
                     <p><translate>Your dashboard address is</translate> <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
                     <div ng-if="brand.cname">
                       <small translate>Brand URL not compatible with a CNAME</small>
->>>>>>> remove html markup from the po files - wip (anchors left)
                     </div>
                   </md-input-container>
                   <md-input-container class="md-block" flex-gt-xs="50">
