@@ -37,7 +37,7 @@
 
   <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-show="triggers.length > 0 || searching || query.filter" layout-wrap>
     <md-card>
-     
+      <md-card-content>
         <md-table-container>
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head>
@@ -104,10 +104,8 @@
             </tbody>
           </table>
         </md-table-container>
-        <!-- <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination> -->
-
         </div>
-      
+      </md-card-content>
     </md-card>
   </md-content>
 </form>
