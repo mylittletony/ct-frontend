@@ -13,7 +13,7 @@
             <md-menu-item>
               <md-button ng-click="showZonesDialog()">
                 <md-icon>layers</md-icon>
-                <p flex translate>Edit Zones</p>
+            <p flex translate>Edit Zones</p>
               </md-button>
             </md-menu-item>
             <md-menu-item>
@@ -32,6 +32,7 @@
         </md-menu>
       </div>
     </md-toolbar>
+
     <md-card-content>
       <md-table-container>
         <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
@@ -39,8 +40,8 @@
             <tr md-row>
               <th><span></span></th>
               <th colspan="2" md-column md-order-by="description" md-desc>
+                <!-- <md-icon>comments</md-icon> -->
                 <span translate>
-                  <!-- <md-icon>comments</md-icon> -->
                   &nbsp; Name
                 </span>
               </th>
@@ -76,10 +77,10 @@
               </td>
               <td md-cell ing-click="editDescription($event, box)">
                 <span>
-                <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
-                  <span hide-gt-xs>{{ box.description | emptyFilter | truncate:10 }}</span>
-                  <span hide show-gt-xs>{{ box.description | emptyFilter | truncate:20 }}</span>
-                </a>
+                  <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
+                    <span hide-gt-xs>{{ box.description | emptyFilter | truncate:10 }}</span>
+                    <span hide show-gt-xs>{{ box.description | emptyFilter | truncate:20 }}</span>
+                  </a>
               </td>
               <td hide show-gt-lg md-cell>
                 {{ box.calledstationid }}
@@ -96,7 +97,7 @@
                 {{ box.wan_ip }}
                 <md-tooltip>
                   <translate>
-                    WAN Protocol: {{ ::box.wan_proto }}
+                  WAN Protocol: {{ ::box.wan_proto }}
                   </translate>
                   <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
                 </md-tooltip>
@@ -113,7 +114,7 @@
                     <md-menu-item>
                       <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
                         <md-icon>pageview</md-icon>
-                        <p flex translate>View</p>
+                    <p flex translate>View</p>
                       </md-button>
                     </md-menu-item>
                     <md-menu-item ng-repeat="item in menuItems">
@@ -129,10 +130,10 @@
           </tbody>
         </table>
       </md-table-container>
-
-      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-
-      <!-- <md-table-pagination md-limit="options.limit" md-page="options.page" md-limit-options="options.options" md-total="{{::_links.total_entries}}" md-on-paginate="onpaginate" md-page-select></md-table-pagination> -->
     </md-card-content>
+
+    <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
+    <!-- <md-table-pagination md-limit="options.limit" md-page="options.page" md-limit-options="options.options" md-total="{{::_links.total_entries}}" md-on-paginate="onpaginate" md-page-select></md-table-pagination> -->
   </md-card>
 </div>
