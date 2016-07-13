@@ -1,0 +1,6 @@
+version: '2'
+services:
+  cucumber:
+    build: .
+    ports:
+     - "9091:9000"

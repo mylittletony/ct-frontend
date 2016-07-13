@@ -12,12 +12,15 @@ It's proof that anything is possible. Just use your imagination.
 
 ## Getting Started
 
-This is a demo portal which acts as an interface to the Cucumber API. It's not production ready, the tests are currently broken.
+This is a demo portal which acts as an interface to the Cucumber API. It's not production ready and many tests were temporarily removed.
 
-To run the project:
+There's two ways to run the application:
 
-- Move Gruntfile.js.default to Gruntfile.js
-- Move local.env.sample.js.default to local.env.sample.js
+- Using Docker
+- Using plain NodeJS / npm
+
+### Running with NodeJS
+
 - Create an Application in the current Tony and obtain your APP ID and Secret
 - Enter these in the local.enc.sample.js.default. Or use some ENV variables.
 
@@ -42,10 +45,19 @@ Then, open a new terminal and run:
 grunt serve
 ```
 
-The tests DO NOT RUN at the moment since we've moved massive sections out. These will be back in action shortly.
-
 **Make sure you have updated the Gruntfile to include the api.ctapp.io end-points.**
 
+### Using With Docker
+
+Make sure you have Docker and Docker Compose installed. Full instructions on the Docker site.
+
+In the project directory run:
+
+```
+docker-compose up
+ ```
+
+Make sure there were no build errors.
 ## Using with Heroku
 
 If you want to deploy yourself with Heroku, you need to do a few things.

@@ -70,6 +70,9 @@ module.exports = function(app) {
     }
   ));
 
+  console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
+  console.log(process.env)
+
   app.get('/login', passport.authenticate('polkaspots', { failureRedirect: '/login', authType: 'reauthenticate' }));
 
   app.get('/auth/login', function(req, res) {
