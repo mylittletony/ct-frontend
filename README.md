@@ -49,7 +49,7 @@ grunt serve
 
 ### Using With Docker
 
-Make sure you have Docker and Docker Compose installed. Full instructions on the Docker site.
+Make sure you have Docker and Docker Compose installed. Full instructions on the Docker site. If you want to use docker-compose, please ensure you're using the version > 1.7 otherwise you will get an error.
 
 You can either use docker compose or plain docker build. It's up to you. With docker compose, you can create a .env file that will pull all your ENV vars in. In the project directory run:
 
