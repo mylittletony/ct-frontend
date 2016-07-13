@@ -91,6 +91,8 @@ We have not implemented TLS yet. This will come soon - basically don't use this 
 
 ## Using with Heroku
 
+These instructions assume you're not using the Docker image, we will explain that later.
+
 If you want to deploy yourself with Heroku, you need to do a few things.
 
 **Create a Heroku repository and add to the Gruntfile**
