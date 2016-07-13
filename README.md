@@ -51,13 +51,43 @@ grunt serve
 
 Make sure you have Docker and Docker Compose installed. Full instructions on the Docker site.
 
-In the project directory run:
+You can either use docker compose or plain docker build. It's up to you. With docker compose, you can create a .env file that will pull all your ENV vars in. In the project directory run:
+
+Make sure to edit it the cucumber.env file first accordingly.
 
 ```
 docker-compose up
  ```
 
-Make sure there were no build errors.
+Then you should be able to access your container on your Docker IP:
+
+```
+192.168.1.1:9090
+```
+
+If you don't want to use docker compose, just run the following in your project root:
+
+```
+docker build -t cucumber .
+```
+
+Followed by:
+
+```
+docker run \
+  -e APP_ID=YOUR-ID \
+  -e APP_SECRET=YOUR-SECRET \
+  -e API_URL=https://api.ctapp.io \
+  -e AUTH_URL=https://id.ctapp.io \
+  -e BASE_URL=my.ctapp.dev:9090 \
+  -p 9090:9000 cucumber
+
+Replacing all the vars as you see fit.
+
+#### Still to sort
+
+We have not implemented TLS yet. This will come soon.
+
 ## Using with Heroku
 
 If you want to deploy yourself with Heroku, you need to do a few things.

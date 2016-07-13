@@ -1,6 +1,8 @@
 version: '2'
 services:
   cucumber:
+    env_file:
+      - cucumber.env
     build: .
     ports:
-     - "9091:9000"
+     - "${PORT}:9000"
