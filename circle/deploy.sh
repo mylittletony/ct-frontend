@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash
 
 git config --global user.email "simon@polkaspots.com"
 git config --global user.name "Simon Morley"
@@ -9,7 +9,7 @@ echo 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 echo $CIRCLE_BRANCH
 echo 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
-if [ "$CIRCLE_BRANCH" == "master" ]
+if [ "${CIRCLE_BRANCH}" == "master" ]
 then
   echo 'Building master.'
   grunt build
