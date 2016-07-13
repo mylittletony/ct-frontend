@@ -5,7 +5,7 @@
       <md-icon>replay</md-icon>
     </md-button>
     <span>
-      <p translate>{{ box.latest_speedtest.result || 0 }}Mb/s
+      <p>{{ box.latest_speedtest.result || 0 }}Mb/s
         <md-tooltip ng-if="box.latest_speedtest.result">
           <translate>
             Tested at {{ box.latest_speedtest.timestamp | humanTime }}

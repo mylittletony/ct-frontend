@@ -261,6 +261,7 @@
 ../client/components/users/billing/_update_card.html
 ../client/components/users/billing/_upgrade.html
 ../client/components/users/billing/index.html
+../client/components/users/brand_users/_edit.html
 ../client/components/users/branding/_form.html
 ../client/components/users/branding/index.html
 ../client/components/users/history/_index.html
@@ -291,6 +292,8 @@
 ../client/components/users/show/_index.html
 ../client/components/users/show/_password.html
 ../client/components/users/show/index.html
+../client/components/views/brand_users/_index.html
+../client/components/views/brand_users/index.html
 ../client/components/vouchers/_copy.html
 ../client/components/vouchers/_edit.html
 ../client/components/vouchers/_form.html
@@ -328,6 +331,10 @@
 ../client/components/codes/codes.services.js
 ../client/components/commands/commands.directives.js
 ../client/components/commands/commands.services.js
+../client/components/directives/brand_users.js
+../client/components/directives/invites.directives.js
+../client/components/directives/invites.services.js
+../client/components/directives/users.directives.js
 ../client/components/distros/distros.directives.js
 ../client/components/distros/distros.services.js
 ../client/components/docs/docs.directive.js
@@ -349,8 +356,6 @@
 ../client/components/heartbeats/heartbeats.filters.js
 ../client/components/heartbeats/heartbeats.services.js
 ../client/components/integrations/integrations.services.js
-../client/components/invites/invites.directives.js
-../client/components/invites/invites.services.js
 ../client/components/invoices/invoices.controllers.js
 ../client/components/invoices/invoices.directives.js
 ../client/components/invoices/invoices.services.js
@@ -387,6 +392,8 @@
 ../client/components/reports/reports.controller.js
 ../client/components/reports/reports.services.js
 ../client/components/reports/reports.v2.directives.js
+../client/components/services/brand_users.services.js
+../client/components/services/users.services.js
 ../client/components/social/social.directives.js
 ../client/components/social/social.services.js
 ../client/components/speedtests/speedtests.controller.js
@@ -402,8 +409,6 @@
 ../client/components/upgrades/upgrades.directives.js
 ../client/components/upgrades/upgrades.services.js
 ../client/components/users/users.controllers.js
-../client/components/users/users.directives.js
-../client/components/users/users.services.js
 ../client/components/versions/versions.directives.js
 ../client/components/versions/versions.services.js
 ../client/components/vouchers/vouchers.controller.js
