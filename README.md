@@ -81,6 +81,7 @@ docker run \
   -e AUTH_URL=https://id.ctapp.io \
   -e BASE_URL=my.ctapp.dev:9090 \
   -p 9090:9000 cucumber
+```
 
 Replacing all the vars as you see fit.
 
