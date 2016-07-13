@@ -87,7 +87,7 @@ Replacing all the vars as you see fit.
 
 #### Still to sort
 
-We have not implemented TLS yet. This will come soon.
+We have not implemented TLS yet. This will come soon - basically don't use this in production yet.
 
 ## Using with Heroku
 
