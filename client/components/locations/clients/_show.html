@@ -84,7 +84,7 @@
           <span class="md-headline" translate>Splash</span>
           <span class="md-subhead" translate>
             Client
-            {{client.splash_status | splashStatus }}</p>
+            {{client.splash_status | splashStatus }}
           </span>
         </md-card-title-text>
         <md-button ng-click="toggle('splash')" aria-controls="{{ 'splash' | translate}}" class="md-secondary md-icon-button" ng-if="client.splash_status == 'pass' || client.splash.status === 'dnat'" aria-label="{{ 'call' | translate }}">
