@@ -31,6 +31,14 @@ app.factory('Invite', ['$resource', 'API_END_POINT',
           invite: '@invite'
         }
       },
+      update: {
+        method: 'PATCH',
+        isArray: false,
+        params: {
+          user_id: '@user_id',
+          invite: '@invite'
+        }
+      },
       destroy: {
         method: 'DELETE',
         isArray: false,

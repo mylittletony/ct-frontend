@@ -54,9 +54,9 @@ describe('location tests', function () {
 
       expect(element.isolateScope().users[0].email).toBe(email);
       expect(element.isolateScope().allowed).toBe(true);
-      expect(element.isolateScope().menu.length).toBe(2);
+      expect(element.isolateScope().menu.length).toBe(3);
       expect(element.isolateScope().menu[0].type).toBe('view');
-      // expect(element.isolateScope().menu[1].type).toBe('edit');
+      expect(element.isolateScope().menu[1].type).toBe('edit');
       expect(element.isolateScope().menu[2].type).toBe('revoke');
       expect(element.isolateScope().query.order).toBe('state');
       expect(element.isolateScope().query.limit).toBe(5);
