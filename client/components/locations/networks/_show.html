@@ -26,7 +26,7 @@
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
 
-  <form ng-submit="saveNetwork(network.id)" name="myForm" form_submitted autocomplete="false">
+  <form ng-submit="saveNetwork(network.id)" name="myForm" form_submitted autocomplete="off">
     <div flex>
       <md-card>
         <md-card-title>
@@ -43,7 +43,7 @@
               <label>
                 <translate>Network SSID</translate>
               </label>
-              <input name="ssid" md-maxlength="32" ng-model="network.ssid" required>
+              <input autocomplete="off" name="ssid" md-maxlength="32" ng-model="network.ssid" required>
               <div ng-messages="myForm.ssid.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>

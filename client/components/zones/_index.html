@@ -71,7 +71,7 @@
                 </a>
               </td>
               <td hide show-gt-sm md-cell>
-                <span ng-show="zone.zone_description" translate>{{zone.zone_description}}</span>
+                <span ng-show="zone.zone_description">{{zone.zone_description}}</span>
                 <span ng-show="!zone.zone_description" translate>{{'N/A' | truncate:20}}</span>
                 <md-tooltip ng-show="zone.zone_description.length > 20">
                   {{ zone.zone_description }}
