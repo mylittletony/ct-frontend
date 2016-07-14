@@ -51,6 +51,11 @@ md-menu-item > .md-button {
   display: inline;
 }
 
+a.no-anchor-style {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* Temp fixes to address */
 /* Temp fixes to address */
 

@@ -467,7 +467,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         var data = new window.google.visualization.DataTable();
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
-
+        // Simon, are any of the strings below displayed anywhere (the data.addColum ones)?
         if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
           len = json.inbound.length;
           data.addColumn('number', 'Inbound');

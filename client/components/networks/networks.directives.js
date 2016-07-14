@@ -186,7 +186,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
     function buildNetwork () {
       var sub = Math.floor(Math.random() * 254) + 1;
       scope.network = {
-        ssid: 'My Wi-Fi Network',
+        ssid: gettextCatalog.getString('My Wi-Fi Network'),
         access_type: 'password',
         encryption_type: 'psk2',
         band_steering: true,

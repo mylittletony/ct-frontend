@@ -2,13 +2,13 @@
 
 var app = angular.module('myApp.apps.directives', []);
 
-app.directive('listApps', ['App', '$routeParams', 'menu', function(App, $routeParams, menu) {
+app.directive('listApps', ['App', '$routeParams', 'menu', 'gettextCatalog', function(App, $routeParams, menu, gettextCatalog) {
 
   var link = function(scope) {
 
     menu.isOpen = false;
     menu.hideBurger = true;
-    menu.sectionName = 'Developer';
+    menu.sectionName = gettextCatalog.getString('Developer');
 
     scope.loading   = true;
 
