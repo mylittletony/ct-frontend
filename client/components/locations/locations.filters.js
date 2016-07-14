@@ -143,7 +143,8 @@ app.filter('lastSeen', ['gettextCatalog', function(gettextCatalog) {
     if ( input === undefined || input === null) {
       return gettextCatalog.getString('N/A');
     } else {
-      return window.moment.utc(input*1000).format('MMM Do h:mm:ssa');
+      return window.moment.unix(input).format('MMM Do h:mm:ssa');
+      // return window.moment.utc(input*1000).format('MMM Do h:mm:ssa');
     }
   };
 }]);

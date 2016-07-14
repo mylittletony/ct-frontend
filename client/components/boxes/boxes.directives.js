@@ -560,7 +560,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       $timeout.cancel(timeout);
     });
 
-
   };
 
   return {
