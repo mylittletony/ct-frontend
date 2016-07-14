@@ -39,7 +39,7 @@
                     </label>
                     <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the location' | translate }}" md-maxlength=255 ng-minlength=5 required>
                     <div ng-messages="myForm.address.$error">
-                      <div ng-message="required" translate>A location is required.</div>
+                      <div ng-message="required" translate>A location address is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 255 characters.</div>
                     </div>
                   </md-input-container>
