@@ -19,9 +19,9 @@ var app = angular.module('myApp.controllers', [
   'myApp.vouchers.controller'
 ]);
 
-app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER',
+app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog',
 
-  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER) {
+  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog) {
 
     $scope.ct_login = CTLogin;
 
@@ -71,35 +71,35 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     vm.menu.main = [{
-      title: 'Home',
+      title: gettextCatalog.getString('Home'),
       link: '/#/',
       type: 'link',
       icon: 'home'
     }];
 
     vm.menu.main.push({
-      title: 'Locations',
+      title: gettextCatalog.getString('Locations'),
       type: 'link',
       link: '/#/locations',
       icon: 'business'
     });
 
     vm.menu.main.push({
-      title: 'Reports',
+      title: gettextCatalog.getString('Reports'),
       type: 'link',
       link: '/#/reports',
       icon: 'timeline'
     });
 
     vm.menu.main.push({
-      title: 'Audit',
+      title: gettextCatalog.getString('Audit'),
       type: 'link',
       link: '/#/audit',
       icon: 'assignment'
     });
 
     vm.menu.main.push({
-      title: 'Events',
+      title: gettextCatalog.getString('Events'),
       type: 'link',
       link: '/#/events',
       icon: 'warning'
@@ -115,28 +115,28 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     vm.menuRight = [];
 
     vm.menuRight.push({
-      name: 'Home',
+      name: gettextCatalog.getString('Home'),
       link: '/#/',
       type: 'link',
       icon: 'home'
     });
 
     vm.menuRight.push({
-      name: 'Locations',
+      name: gettextCatalog.getString('Locations'),
       link: '/#/locations',
       type: 'link',
       icon: 'business'
     });
 
     vm.menuRight.push({
-      name: 'Reports',
+      name: gettextCatalog.getString('Reports'),
       link: '/#/reports',
       type: 'link',
       icon: 'timeline'
     });
 
     vm.menuRight.push({
-      name: 'Audit',
+      name: gettextCatalog.getString('Audit'),
       link: '/#/audit',
       type: 'link',
       icon: 'assignment'
@@ -147,7 +147,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
-      name: 'Developer',
+      name: gettextCatalog.getString('Developer'),
       link: '/#/apps',
       type: 'link',
       icon: 'android'
@@ -155,7 +155,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     // Permissions //
     vm.menuRight.push({
-      name: 'Documentation',
+      name: gettextCatalog.getString('Documentation'),
       link: 'http://docs.cucumberwifi.io',
       type: 'link',
       target: '_blank',
@@ -163,7 +163,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
-      name: 'Discussions',
+      name: gettextCatalog.getString('Discussions'),
       link: 'https://discuss.cucumberwifi.io',
       target: '_blank',
       type: 'link',
@@ -171,13 +171,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
-      name: 'Support',
+      name: gettextCatalog.getString('Support'),
       icon: 'get_app',
       id: 'intercom'
     });
 
     vm.menuRight.push({
-      name: 'Downloads',
+      name: gettextCatalog.getString('Downloads'),
       link: '/#/downloads',
       type: 'link',
       icon: 'get_app'
@@ -188,7 +188,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
-      name: 'Profile',
+      name: gettextCatalog.getString('Profile'),
       link: '/#/me',
       type: 'link',
       icon: 'face'
@@ -199,7 +199,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     // vm.menuRight.push({
-    //   name: 'Logout',
+    //   name: gettextCatalog.getString('Logout'),
     //   type: 'link',
     //   icon: 'exit_to_app'
     // });

@@ -1335,14 +1335,14 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
   };
 }]);
 
-app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', '$cookies', 'menu', function($routeParams, $location, Box, Firmware, $cookies, menu) {
+app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', '$cookies', 'menu', 'gettextCatalog', function($routeParams, $location, Box, Firmware, $cookies, menu, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
     scope.firmwares = [];
     menu.isOpen = false;
     menu.hideBurger = true;
-    menu.sectionName = 'Downloads';
+    menu.sectionName = gettextCatalog.getString('Downloads');
 
     var init = function() {
       Firmware.query({public: true}).$promise.then(function(res) {

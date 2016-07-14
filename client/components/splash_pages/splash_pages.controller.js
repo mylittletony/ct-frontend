@@ -4,9 +4,9 @@
 
 var app = angular.module('myApp.splash_pages.controller', []);
 
-app.controller('SplashPagesDesignCtrl', ['$scope', '$routeParams', 'menu', '$rootScope',
+app.controller('SplashPagesDesignCtrl', ['$scope', '$routeParams', 'menu', '$rootScope', 'gettextCatalog',
 
-  function($scope, $routeParams, menu, $rootScope) {
+  function($scope, $routeParams, menu, $rootScope, gettextCatalog) {
 
     $scope.loading = true;
     $scope.location = { slug: $routeParams.id };
@@ -14,14 +14,14 @@ app.controller('SplashPagesDesignCtrl', ['$scope', '$routeParams', 'menu', '$roo
     var vm = this;
 
     menu.sections = [{
-      name: 'Dashboard',
+      name: gettextCatalog.getString('Dashboard'),
       link: '/#/locations/' + $scope.location.slug,
       type: 'link',
       icon: 'dashboard'
     }];
 
     menu.sections.push({
-      name: 'Clients',
+      name: gettextCatalog.getString('Clients'),
       type: 'link',
       link: '/#/locations/' + $scope.location.slug + '/clients',
       icon: 'devices'
