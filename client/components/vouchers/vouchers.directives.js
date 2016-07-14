@@ -520,9 +520,9 @@ app.directive('editVoucher', ['Voucher', '$routeParams', '$location', 'menu', 's
 
     scope.location  = { slug: $routeParams.id };
 
-    scope.access_types                = [{ key: 'Time', value: 1}, {key: 'Data', value: 2}];
-    scope.access_restrict_periods     = [{key: 'All Time, multi-use', value: '' }, { key: 'Daily, multi-use', value: 'daily'}, {key: 'Weekly, multi-use', value: 'weekly'}, {key: 'Monthly, multi-use', value: 'monthly'}, { key: 'Single-use', value: 'all'}];
-    scope.voucher_formats             = [{key:'Numbers and letters', value: 'alphanumeric'}, {key: 'Numbers only', value: 'numeric'}, { key: 'Letters only', value: 'alpha'}, {key: 'Alice in Wonderland', value: 'words'}];
+    scope.access_types                = [{ key: gettextCatalog.getString('Time'), value: 1}, {key: gettextCatalog.getString('Data'), value: 2}];
+    scope.access_restrict_periods     = [{key: gettextCatalog.getString('All Time, multi-use'), value: '' }, { key: gettextCatalog.getString('Daily, multi-use'), value: 'daily'}, {key: gettextCatalog.getString('Weekly, multi-use'), value: 'weekly'}, {key: gettextCatalog.getString('Monthly, multi-use'), value: 'monthly'}, { key: gettextCatalog.getString('Single-use'), value: 'all'}];
+    scope.voucher_formats             = [{key: gettextCatalog.getString('Numbers and letters'), value: 'alphanumeric'}, {key: gettextCatalog.getString('Numbers only'), value: 'numeric'}, { key: gettextCatalog.getString('Letters only'), value: 'alpha'}, {key: gettextCatalog.getString('Alice in Wonderland'), value: 'words'}];
 
     scope.toggle = function(section) {
       menu.toggleSelectSection(section);

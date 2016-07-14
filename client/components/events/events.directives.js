@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.events.directives', []);
 
-app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', function(Event, $location, $routeParams, menu) {
+app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gettextCatalog', function(Event, $location, $routeParams, menu, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -41,7 +41,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', funct
       init();
     };
 
-    scope.triggers = [{ name: 'All', value: 'all'}, {name: 'Boxes', value: 'box'}, {name: 'Clients', value: 'client'}, {name: 'Email', value: 'email'}, {name: 'Guests', value: 'guest'}, {name: 'Locations', value: 'location'}, {name: 'Networks', value: 'network'}, {name: 'Splash', value: 'splash'}, {name: 'Social', value: 'social'}, {name: 'Vouchers', value: 'voucher'}, {name: 'Zones', value: 'zone' }];
+    scope.triggers = [{ name: gettextCatalog.getString('All'), value: 'all'}, {name: gettextCatalog.getString('Boxes'), value: 'box'}, {name: gettextCatalog.getString('Clients'), value: 'client'}, {name: gettextCatalog.getString('Email'), value: 'email'}, {name: gettextCatalog.getString('Guests'), value: 'guest'}, {name: gettextCatalog.getString('Locations'), value: 'location'}, {name: gettextCatalog.getString('Networks'), value: 'network'}, {name: gettextCatalog.getString('Splash'), value: 'splash'}, {name: gettextCatalog.getString('Social'), value: 'social'}, {name: gettextCatalog.getString('Vouchers'), value: 'voucher'}, {name: gettextCatalog.getString('Zones'), value: 'zone' }];
 
     scope.search = function() {
       var hash  = $location.search();
