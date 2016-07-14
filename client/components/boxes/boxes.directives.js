@@ -409,7 +409,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var processAlertMessages = function() {
-      if (scope.box.is_polkaspots) {
+      if (scope.box.cucumber) {
         if (scope.box.reset_confirmation) {
           showResetConfirm();
         } else if ( zoneAlert ) {
