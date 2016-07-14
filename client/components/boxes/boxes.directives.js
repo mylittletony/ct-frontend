@@ -695,7 +695,7 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog) {
+app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone) {
 
   var link = function(scope) {
 
@@ -779,6 +779,15 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
       });
     };
 
+    var getZones = function() {
+      Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        scope.zones = results.zones;
+        // if (results.zones && results.zones.length === 1) {
+        //   scope.temp.zone_id = results.zones[0].id;
+        // }
+      });
+    };
+
     var init = function() {
       return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
         scope.box = box;
@@ -789,6 +798,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         scope.box.tx_power_5 = parseInt(scope.box.tx_power_5,0);
         scope.box.tony       = scope.box.is_polkaspots;
         scope.loading = undefined;
+        getZones();
       });
     };
 
