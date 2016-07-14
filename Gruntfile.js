@@ -82,6 +82,22 @@ module.exports = function (grunt) {
           DEBUG: true
         }
       },
+      beta: {
+        options: {
+          dest: '<%= yeoman.client %>/scripts/config.js',
+        },
+        constants: {
+          API_END_POINT: 'https://beta.ctapp.io/api/v1',
+          API_URL: 'https://beta.ctapp.io',
+          STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
+          AUTH_URL: 'https://id.ctapp.io',
+          SLACK_TOKEN: '3540010629.11828901815',
+          CHIMP_TOKEN: '279197455989',
+          PUSHER: 'f5c774e098156e548079',
+          INTERCOM: 'zklfhs87',
+          DEBUG: true
+        }
+      },
       production: {
         options: {
           dest: '<%= yeoman.client %>/scripts/config.js',
@@ -734,6 +750,25 @@ module.exports = function (grunt) {
   });
 
   // grunt.registerTask('test', ['karma:travis']);
+
+  grunt.registerTask('build-beta', [
+    'clean:dist',
+    'ngconstant:beta',
+    'concurrent:dist',
+    'wiredep',
+    'useminPrepare',
+    'autoprefixer',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'all-po',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'rev',
+    'usemin'
+  ]);
 
   grunt.registerTask('build', [
     'clean:dist',

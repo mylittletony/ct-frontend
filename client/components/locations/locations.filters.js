@@ -217,6 +217,16 @@ app.filter('roleFilter', ['gettextCatalog', function(gettextCatalog) {
     } else {
       input = input.toString();
       switch(input) {
+        case '100':
+          return 'Owner';
+        case '110':
+          return 'Administrator';
+        case '120':
+          return 'Editor';
+        case '130':
+          return 'Supporter';
+        case '140':
+          return 'Observer';
         case '200':
           return 'Brand Admin';
         case '201':

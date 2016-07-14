@@ -67,47 +67,6 @@ app.factory('Box', ['$resource', 'API_END_POINT',
         params: {
         }
       },
-      alerts: {
-        method: 'PATCH',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          q: '@q',
-          id: '@id',
-          alerts: '@alerts',
-          action: 'alerts'
-        }
-      },
-      reset: {
-        method: 'POST',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          q: '@q',
-          id: '@id',
-          action: 'reset'
-        }
-      },
-      reboot: {
-        method: 'POST',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          q: '@q',
-          id: '@id',
-          action: 'reboot'
-        }
-      },
-      transfer: {
-        method: 'POST',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          q: '@q',
-          transfer_to: '@transfer_to',
-          action: 'transfer'
-        }
-      },
       payload: {
         method: 'POST',
         isArray: false,

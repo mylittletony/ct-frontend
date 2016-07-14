@@ -59,8 +59,8 @@
                 <md-icon md-menu-origin md-font-icon="">{{ splash.active ? "check_circle" : 'cancel' }}</md-icon>
               </td>
               <td hide show-gt-sm md-cell>
-                <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}" translate>
-                  <span ng-if="splash.splash_name" translate>{{splash.splash_name}}</span>
+                <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}">
+                  <span ng-if="splash.splash_name">{{splash.splash_name}}</span>
                   <span ng-if="!splash.splash_name" translate>{{'No name' | truncate:20}}</span>
                 </a>
                 <md-tooltip>
@@ -76,7 +76,7 @@
               <td hide show-gt-sm md-cell>
                 <span ng-if="splash.networks.length < 1"></span>
                 <span ng-if="splash.networks.length == 1">{{ splash.networks[0] }}</span>
-                <span ng-if="splash.networks.length > 1" span>{{ splash.networks.length }} networks</span>
+                <span ng-if="splash.networks.length > 1" translate>{{ splash.networks.length }} networks</span>
 
               </td>
               <td hide show-gt-sm md-cell>
