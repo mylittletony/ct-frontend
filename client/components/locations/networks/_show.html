@@ -6,10 +6,8 @@
     <p translate>Networks</p>
     <span flex></span>
     <md-menu ng-if="menu">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-raised xmd-icon-button" ng-click="$mdOpenMenu($event)">
-        <translate>
-          TOOLS
-        </translate>
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon>more_vert</md-icon>
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="item in menu">
@@ -51,13 +49,13 @@
             </md-input-container>
           </div>
           <div layout-gt-sm="row" ng-if="network.access_type == 'password'">
-            <input style="display:none" type="password" name="password"/>
+            <input style="display:none" type="password" name="xxxn"/>
             <md-input-container class="md-block" flex-gt-sm="50">
               <label>
                 <translate>Password</translate>
               </label>
-              <input type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
-              <div ng-messages="myForm.password.$error" md-auto-hide="false">
+              <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
+              <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="minlength" translate>Min 8 characters</div>
                 <div ng-message="required" translate>You must set a password</div>

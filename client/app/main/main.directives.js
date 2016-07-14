@@ -201,7 +201,7 @@ app.directive('filepicker', ['$compile', function ($compile) {
   };
 }]);
 
-app.directive('confirmOnExit', ['$mdDialog', '$location', function($mdDialog,$location) {
+app.directive('confirmOnExit', ['$mdDialog', '$location','gettextCatalog', function($mdDialog,$location, gettextCatalog) {
   return {
     link: function($scope, elem, attrs) {
 
@@ -210,11 +210,11 @@ app.directive('confirmOnExit', ['$mdDialog', '$location', function($mdDialog,$lo
         if ($scope.myForm.$dirty && n) {
           event.preventDefault();
           var confirm = $mdDialog.confirm()
-          .title('Unsaved Changes')
-          .textContent('You have unsaved changes. Are you sure you want to leave the page?')
-          .ariaLabel('Unsaved')
-          .ok('Continue')
-          .cancel('Cancel');
+          .title(gettextCatalog.getString('Unsaved Changes'))
+          .textContent(gettextCatalog.getString('You have unsaved changes. Are you sure you want to leave the page?'))
+          .ariaLabel(gettextCatalog.getString('Unsaved'))
+          .ok(gettextCatalog.getString('Continue'))
+          .cancel(gettextCatalog.getString('Cancel'));
           $mdDialog.show(confirm).then(function() {
             n = undefined;
             window.location.href = next;

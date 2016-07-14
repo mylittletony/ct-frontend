@@ -3,10 +3,10 @@
 var app = angular.module('myApp.forms.directives', []);
 
 app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '$rootScope', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(Form, FormListing, Location, $routeParams, $rootScope, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
-  //fixme @Toni translations
+
   var link = function(scope,element,attrs) {
 
-    scope.types = [{ key: 'Email', value: 'email'}, {key: 'Password', value: 'password'}, {key: 'Text', value: 'text'}, {key: 'Checkbox', value: 'checkbox'}, {key: 'Text Area', value: 'textarea'}, {key: 'Radio', value: 'radio'}, {key: 'Dropdown', value: 'dropdown' }];
+    scope.types = [{ key: gettextCatalog.getString('Email'), value: 'email'}, {key: gettextCatalog.getString('Password'), value: 'password'}, {key: gettextCatalog.getString('Text'), value: 'text'}, {key: gettextCatalog.getString('Checkbox'), value: 'checkbox'}, {key: gettextCatalog.getString('Text Area'), value: 'textarea'}, {key: gettextCatalog.getString('Radio'), value: 'radio'}, {key: gettextCatalog.getString('Dropdown'), value: 'dropdown' }];
 
     scope.location  = { slug: $routeParams.id };
     scope.splash    = { id: $routeParams.splash_page_id, location_id: $routeParams.id };
@@ -71,7 +71,7 @@ app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '
         required: true,
         field_type: 'password',
         hidden: false,
-        label: 'Choose a Password',
+        label: gettextCatalog.getString('Choose a Password'),
         value: '',
         order: 2
       };

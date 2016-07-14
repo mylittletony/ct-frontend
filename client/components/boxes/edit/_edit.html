@@ -69,6 +69,17 @@
                 </md-option>
               </md-select>
             </md-input-container>
+            <md-input-container class="md-block" style="margin-top: 40px" flex-gt-xs ng-if="zones.length">
+              <label>
+                <translate>Zone</translate>
+              </label>
+              <md-select ng-model="box.zone_id">
+                <md-option value=""></md-option>
+                <md-option ng-repeat="zone in zones" value="{{zone.id}}">
+                  {{zone.zone_name}}
+                </md-option>
+              </md-select>
+            </md-input-container>
           </div>
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">

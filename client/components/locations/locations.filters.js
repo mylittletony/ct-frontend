@@ -218,21 +218,21 @@ app.filter('roleFilter', ['gettextCatalog', function(gettextCatalog) {
       input = input.toString();
       switch(input) {
         case '100':
-          return 'Owner';
+          return gettextCatalog.getString('Owner');
         case '110':
-          return 'Administrator';
+          return gettextCatalog.getString('Administrator');
         case '120':
-          return 'Editor';
+          return gettextCatalog.getString('Editor');
         case '130':
-          return 'Supporter';
+          return gettextCatalog.getString('Supporter');
         case '140':
-          return 'Observer';
+          return gettextCatalog.getString('Observer');
         case '200':
-          return 'Brand Admin';
+          return gettextCatalog.getString('Brand Admin');
         case '201':
-          return 'Location Admin';
+          return gettextCatalog.getString('Location Admin');
         default:
-          return 'N/A';
+          return gettextCatalog.getString('N/A');
       }
     }
   };
