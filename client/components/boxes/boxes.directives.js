@@ -404,7 +404,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         default:
           // Replace this with the object as sent by pusher
           // Needs to be replaced in the backend workers first
-          init();
+          // init();
+          // Removed temporarily while we sort workers
       }
     };
 
