@@ -773,6 +773,10 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
       scope.loading = undefined;
     }
 
+    // The resize event triggers the graphs to load
+    // Not ideal, but good for responsive layouts atm
+    $(window).trigger('resize');
+
   };
 
   return {
