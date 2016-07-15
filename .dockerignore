@@ -1,0 +1,6 @@
+node_modules
+.git
+.sass*
+.tmp
+circle
+test
