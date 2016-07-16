@@ -543,20 +543,8 @@ module.exports = function (grunt) {
       },
       master: {
         options: {
-          remote: 'git@heroku.com:lit-thicket-88494.git',
-          // remote: 'git@heroku.com:sheltered-bayou-9283.git',
-          branch: 'master'
-        }
-      },
-      staging: {
-        options: {
-          remote: 'git@heroku.com:secure-mesa-9387.git',
-          branch: 'staging'
-        }
-      },
-      openshift: {
-        options: {
-          remote: 'openshift',
+          // remote: 'git@heroku.com:lit-thicket-88494.git',
+          remote: 'git@heroku.com:sheltered-bayou-9283.git',
           branch: 'master'
         }
       }

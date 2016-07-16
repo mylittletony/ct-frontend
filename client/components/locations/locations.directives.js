@@ -508,11 +508,11 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         icon: 'pageview'
       });
 
-      // scope.menu.push({
-      //   name: gettextCatalog.getString('Edit'),
-      //   type: 'edit',
-      //   icon: 'settings'
-      // });
+      scope.menu.push({
+        name: gettextCatalog.getString('Edit'),
+        type: 'edit',
+        icon: 'settings'
+      });
 
       scope.menu.push({
         name: gettextCatalog.getString('Revoke'),
@@ -646,26 +646,25 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       $scope.roles = roles;
       $scope.update = function() {
         $mdDialog.cancel();
-        // updateRole(user);
+        updateRole(user);
       };
       $scope.close = function() {
         $mdDialog.cancel();
       };
     }
-    DialogController.$inject = ['$scope', 'user', 'roles'];
+    EditRoleController.$inject = ['$scope', 'user', 'roles'];
 
-    // Not implemented, no backend yet
     var updateRole = function(user) {
-      // User.update({
-      //   id: user.id,
-      //   brand_id: scope.brand.id,
-      //   role_id: user.role_id
-      // }).$promise.then(function(results) {
-      //   showToast('User successfully updated.');
-      // }, function(err) {
-      //   showErrors(err);
-      //   scope.loading = undefined;
-      // });
+      Invite.update({
+        location_id: scope.location.slug,
+        username: user.username,
+        role_id: user.role_id
+      }).$promise.then(function(results) {
+        showToast('User successfully updated.');
+      }, function(err) {
+        showErrors(err);
+        scope.loading = undefined;
+      });
     };
 
     var init = function() {

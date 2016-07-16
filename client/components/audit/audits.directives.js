@@ -6,6 +6,10 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
   var link = function( scope, element, attrs ) {
 
+    var tz = window.moment.tz.guess();
+    console.log('Setting TZ to', tz);
+    window.moment.tz.setDefault(tz);
+
     if ($cookies.get('_ctm') === 'true') {
       menu.isOpenLeft = false;
       menu.isOpen = false;
