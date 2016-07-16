@@ -82,6 +82,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $httpProvider.defaults.headers.patch['Accept'] = 'application/json';
   $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
 
+  // $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
   var item = 'blue';
 
