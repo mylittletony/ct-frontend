@@ -34,9 +34,7 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
     };
 
     if ($routeParams.token) {
-      if ($localStorage.user) {
-        $localStorage.user.refresh = undefined;
-      }
+      $localStorage.$reset();
       console.log(domain, $routeParams.token);
       $cookies.put('_cta', $routeParams.token);
       // $cookies.put('_cta', $routeParams.token, { domain: domain });

@@ -17,12 +17,10 @@ RUN \
 
 RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app
 
-WORKDIR /opt/app
+WORKDIR /opt/app/dist
 
 ADD . /opt/app
 
 RUN grunt build
-
-EXPOSE 9000
 
 CMD ["node", "server/app.js"]
