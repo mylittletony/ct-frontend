@@ -567,7 +567,7 @@ module.exports = function (grunt) {
         }
       },
       dist: [
-        'sass',
+        // 'sass',
         'imagemin',
         'svgmin'
       ]

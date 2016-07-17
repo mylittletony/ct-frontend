@@ -56,6 +56,10 @@ a.no-anchor-style {
   text-decoration: none;
 }
 
+md-menu-content {
+  max-height: 504px;
+}
+
 /* Temp fixes to address */
 /* Temp fixes to address */
 
