@@ -469,6 +469,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
         // Simon, are any of the strings below displayed anywhere (the data.addColum ones)?
+        // Toni - the types can be left, however you need to translate the Inbound,
+        // Outbound, TX ones since they're on the legend. Think you also need to do that
+        // Date one above.
         if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
           len = json.inbound.length;
           data.addColumn('number', 'Inbound');
