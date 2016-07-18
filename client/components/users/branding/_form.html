@@ -53,26 +53,7 @@
                         <div ng-message="url" translate>Must be a valid URL</div>
                       </div>
                     </md-input-container>
-                    <p><translate>Your dashboard address is</translate> <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
-                    <div ng-if="brand.cname">
-                      <small translate>Brand URL not compatible with a CNAME</small>
-                    </div>
-                  </md-input-container>
-                  <md-input-container class="md-block" flex-gt-xs="50">
-                    <label translate>Dashboard URL</label>
-                    <input ng-disabled="brand.cname || user.ps" type="text" name="url" placeholder="{{ 'Enter a brand URL' | translate }}" ng-model="brand.url" md-maxlength=55 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" required></input>
-                    <div ng-messages="myForm.url.$error" md-auto-hide="false">
-                      <div ng-message="required" translate>Please enter a brand URL</div>
-                      <div ng-message="md-maxlength" translate>Must be less than 55 characters</div>
-                      <div ng-message="minlength" translate>Minimum 5 characters</div>
-                      <div ng-message="pattern" translate>Lowercase only, no numbers or special characters</div>
-                      <div ng-message="url" translate>Must be a valid URL</div>
-                    </div>
-                  </md-input-container>
-                  <p><translate>Your dashboard address is</translate><b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
-                  <div ng-if="brand.cname">
-                    <small translate>Brand URL not compatible with a CNAME</small>
-                  </div>
+                    <p><translate>Your dashboard address is </translate> <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
                 </div>
               </md-card-content>
             </md-card>
