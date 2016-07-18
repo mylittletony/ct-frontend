@@ -344,14 +344,20 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
     var drawChart = function() {
 
       var options = {};
+
       $timeout.cancel(timer);
+
+      options.colors = ['#FFC107', '#009688', '#FF5722', '#03A9F4', '#FF5722', '#607D8B', '#F44336', '#E91E63', '#3F51B5', '#2196F3', '#4CAF50', '#FFC107'];
+      options.chartArea = { width: '90%;', left: 10, right: 10 };
+      options.legend = { position: attrs.legend || 'none' };
+      options.height = '255';
+      options.sliceVisibilityThreshold = 0;
 
       var len = json.length;
       var data = new window.google.visualization.DataTable();
 
       data.addColumn('string', 'Column');
       data.addColumn('number', 'Populartiy');
-      // data.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
 
       var empty = 0;
       var term;
@@ -369,6 +375,10 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         data.addRow([term, 0.000001]);
       }
 
+      if (empty === 2 || len === 1) {
+        options.colors = ['#009688'];
+      }
+
       if (scope.type === 'popular' ) {
         options.pieSliceText = 'value';
       }
@@ -376,14 +386,6 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       if (attrs.hole) {
         options.pieHole = attrs.hole;
       }
-
-      // options.height = 155;
-      // options.chartArea = { left: 20, top: 20, width:'79%', height:'69%' };
-      options.chartArea = { width: '90%;', left: 10, right: 10 };
-      options.legend = { position: attrs.legend || 'none' };
-      options.height = '255';
-      options.sliceVisibilityThreshold = 0;
-      options.colors = ['#FFC107', '#009688', '#FF5722', '#03A9F4', '#FF5722', '#607D8B', '#F44336', '#E91E63', '#3F51B5', '#2196F3', '#4CAF50', '#FFC107'];
 
       var chart = new window.google.visualization.PieChart(document.getElementById(scope.render));
 
@@ -396,7 +398,6 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
           action: function() {
             var selection = chart.getSelection();
             shortener(json[selection[0].row].short);
-            // window.location.href = ('/#/?xtr=' + json[selection[0].row].short);
           }
         });
 
@@ -422,19 +423,25 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         period: period
       };
 
+      var data;
       controller.get(params).then(function(results) {
+        data = results;
         if (scope.type === 'splash_data') {
           var a = [];
-          a.push({ count: results.stats.inbound.total / (1000*1000) , term: 'inbound'});
-          a.push({ count: results.stats.outbound.total / (1000*1000) , term: 'outbound'});
-          results.stats = a;
+          a.push({ count: data.stats.inbound.total / (1000*1000), term: 'Inbound'});
+          a.push({ count: data.stats.outbound.total / (1000*1000), term: 'Outbound'});
+          data.stats = a;
         }
-        timer = $timeout(function() {
-          json = results.stats;
-          drawChart();
-        },500);
-        scope.loading       = undefined;
+      }, function() {
+        var a = [];
+        a.push({ count: 0.00001, term: 'No data' });
+        data = { stats: a };
       });
+      timer = $timeout(function() {
+        json = data.stats;
+        drawChart();
+      },500);
+      scope.loading       = undefined;
     };
 
     attrs.$observe('render', function(val){
