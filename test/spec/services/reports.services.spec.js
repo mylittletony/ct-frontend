@@ -45,7 +45,7 @@ describe("Report Unit Tests", function() {
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/reports?periscope=true')
       .respond(200, {});
 
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/reports?type=email')
+    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/reports?interval=day&type=email')
       .respond(200, {});
 
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
@@ -119,7 +119,7 @@ describe("Report Unit Tests", function() {
 
   it('should have sent a POST request to the reports get API to create a download', function() {
     var result = Report.create({type: 'email'})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/reports?type=email');
+    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/reports?interval=day&type=email');
     $httpBackend.flush();
   });
 

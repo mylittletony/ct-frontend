@@ -51,9 +51,7 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <md-button ng-click="rangeFilter()" class="md-icon-button" hide show-gt-xs>
-      <md-icon md-font-icon="date_range">date_range</md-icon>
-    </md-button>
+    <range-filter></range-filter>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -65,7 +63,7 @@
         <md-card-content>
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Radius Sessions">1 Radius Session</span><span ng-if="start">&nbsp;between {{ start | humanDate }} and {{ end | humanDate }}</span>
+              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Radius Sessions">1 Radius Session</span><span hide show-gt-sm ng-if="query.start">&nbsp;between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
               <div flex></div>
             </div>
           </md-toolbar>
