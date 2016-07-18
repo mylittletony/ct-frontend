@@ -547,18 +547,6 @@ module.exports = function (grunt) {
           remote: 'git@heroku.com:sheltered-bayou-9283.git',
           branch: 'master'
         }
-      },
-      staging: {
-        options: {
-          remote: 'git@heroku.com:secure-mesa-9387.git',
-          branch: 'staging'
-        }
-      },
-      openshift: {
-        options: {
-          remote: 'openshift',
-          branch: 'master'
-        }
       }
     },
 
@@ -579,7 +567,7 @@ module.exports = function (grunt) {
         }
       },
       dist: [
-        'sass',
+        // 'sass',
         'imagemin',
         'svgmin'
       ]

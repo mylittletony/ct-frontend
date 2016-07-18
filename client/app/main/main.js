@@ -82,6 +82,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $httpProvider.defaults.headers.patch['Accept'] = 'application/json';
   $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
 
+  // $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
   var item = 'blue';
 
@@ -185,14 +188,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/audit/sales/show.html',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/brands/:brand_id/users/:id', {
-    //   templateUrl: 'components/views/brand_users/show.html',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/brands/:brand_id/users', {
-    //   templateUrl: 'components/views/brand_users/index.html',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/login', {
       controller: 'AuthenticationsController',
       templateUrl: 'components/home/hello.html',

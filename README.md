@@ -31,15 +31,7 @@ npm install
 bower install
 ```
 
-To run, you need to start two services. The NodeJS server which handles the auth and the application using Grunt.
-
-```
-CT_URL=my.ctapp.dev:9090 npm start
-```
-
-Where CT_URL is the URL your local server.
-
-Then, open a new terminal and run:
+To run in development, you can use the following:
 
 ```
 grunt serve
@@ -62,7 +54,7 @@ docker-compose up
 Then you should be able to access your container on your Docker IP:
 
 ```
-192.168.1.1:9090
+curl http://192.168.1.1:8080
 ```
 
 If you don't want to use docker compose, just run the following in your project root:
@@ -80,7 +72,8 @@ docker run \
   -e API_URL=https://api.ctapp.io \
   -e AUTH_URL=https://id.ctapp.io \
   -e BASE_URL=my.ctapp.dev:9090 \
-  -p 9090:9000 cucumber
+  -e PORT=80
+  -p 8080:80 cucumber
 ```
 
 Replacing all the vars as you see fit.

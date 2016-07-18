@@ -2,7 +2,7 @@
   "name": "ct-angular",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.5.7",
+    "angular": ">=1.5.*",
     "angular-cookies": ">=1.5.*",
     "angular-moment": "~0.10.0",
     "angular-payments": "*",
@@ -42,6 +42,6 @@
     "grunt-karma": "~0.9.0"
   },
   "resolutions": {
-    "angular": "1.5.7"
+    "angular": ">=1.5.*"
   }
 }
