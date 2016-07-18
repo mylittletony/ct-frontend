@@ -591,8 +591,8 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       chart();
     };
 
+    var data = { usage: { inbound: 1 } };
     function chart() {
-      var data = { usage: { inbound: 1 } };
       var params = {
         type:     scope.type,
         resource: scope.resource
@@ -602,11 +602,17 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
         if (data.usage.inbound === 0 && data.usage.outbound === 0) {
           data.usage.inbound = 1;
         }
+        renderChart();
+      }, function() {
+        renderChart();
       });
+    }
+
+    var renderChart = function() {
       timer = $timeout(function() {
         drawChart(data.usage);
       },100);
-    }
+    };
 
     var clearChart = function() {
       if (c) {
@@ -1140,8 +1146,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
 
       var dd = [];
       var first = json[ifaces[0]];
-
-      console.log(controller.options)
 
       if (first && first.values && first.values.length) {
         var len = first.values.length;
