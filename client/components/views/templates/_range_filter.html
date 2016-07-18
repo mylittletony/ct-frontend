@@ -1,0 +1,34 @@
+<md-dialog aria-label="{{ 'Range Filter' | translate }}"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Range Filter</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Filter search results.</p>
+        </div>
+        <div flex layout="column">
+          <md-datepicker ng-change="setPresence()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+          <md-datepicker ng-change="setPresence()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+        </div>
+        <p ng-if='error'>{{error}}</p>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised" ng-disabled="!startDate || !endDate" ng-click="search()">
+        <translate>
+          Search
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
