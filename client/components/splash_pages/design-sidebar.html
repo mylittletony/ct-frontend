@@ -7,7 +7,7 @@
     <p translate>Make your login pages pretty. Add your copy and location information.</p>
     <h4>
       <a href="/#/locations/{{ location.slug}}/splash_pages/{{splash.id}}" class="button tiny" translate>Back</a>
-      <button ng-disabled="myForm.$invalid || splash.updating" class="button tiny" id="" translate>Save <span ng-show="splash.updating"> <i class="fa fa-spinner fa-spin"></i></span></button>
+      <button ng-disabled="myForm.$invalid || splash.updating" class="button tiny" id=""><translate>Save</translate><span ng-show="splash.updating"> <i class="fa fa-spinner fa-spin"></i></span></button>
       <p ng-if="myForm.$invalid" class="small text text-muted" translate>Something's wrong, check you've entered valid details.</p>
     </h4>
     <span ng-show="splash.updating == true"><i class="fa fa-cog fa-spin"></i> <translate>Saving Splash. Please Wait...</translate></span>

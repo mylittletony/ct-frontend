@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.splash_pages.directives', []);
 
-app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToast', 'showErrors', '$mdDialog', '$q', function(SplashPage,$routeParams,$location,showToast,showErrors,$mdDialog,$q) {
+app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage,$routeParams,$location,showToast,showErrors,$mdDialog,$q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -29,19 +29,19 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Edit',
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings',
         type: 'settings'
       });
 
       scope.menu.push({
-        name: 'Design',
+        name: gettextCatalog.getString('Design'),
         icon: 'format_paint',
         type: 'design'
       });
 
       scope.menu.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
       });
@@ -64,11 +64,11 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
 
     var destroy = function(id) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Splash')
-      .textContent('Are you sure you want to delete this splash page?')
-      .ariaLabel('Delete Splash')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Splash'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this splash page?'))
+      .ariaLabel(gettextCatalog.getString('Delete Splash'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         destroySplash(id);
       }, function() {
@@ -87,7 +87,7 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
       for (var i = 0, len = scope.splash_pages.length; i < len; i++) {
         if (scope.splash_pages[i].id === id) {
           scope.splash_pages.splice(i, 1);
-          showToast('Splash successfully deleted');
+          showToast(gettextCatalog.getString('Splash successfully deleted'));
           break;
         }
       }
@@ -132,14 +132,14 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParams', '$filter', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', function(SplashPage, Location, $routeParams, $filter, moment, showToast, showErrors, $mdDialog, $q) {
+app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParams', '$filter', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, $routeParams, $filter, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
     scope.timezones = moment.tz.names();
 
-    scope.access_restrict = [{ key: 'Off', value: 'none'}, {key: 'Periodic', value: 'periodic'}, {key: 'Data Downloaded', value: 'data' }, {key: 'Timed Access', value: 'timed'}];
-    scope.newsletter_types = [{ key: 'Off', value: 0 }, { key: 'MailChimp', value: 1}, {key: 'CampaignMonitor', value: 2}, {key: 'SendGrid', value: 4}, {key: 'Internal only', value: 3 }];
+    scope.access_restrict = [{ key: gettextCatalog.getString('Off'), value: 'none'}, {key: gettextCatalog.getString('Periodic'), value: 'periodic'}, {key: gettextCatalog.getString('Data Downloaded'), value: 'data' }, {key: gettextCatalog.getString('Timed Access'), value: 'timed'}];
+    scope.newsletter_types = [{ key: gettextCatalog.getString('Off'), value: 0 }, { key: 'MailChimp', value: 1}, {key: 'CampaignMonitor', value: 2}, {key: 'SendGrid', value: 4}, {key: gettextCatalog.getString('Internal only'), value: 3 }];
 
     scope.slider = {};
     scope.slider.download_speed = 1024;
@@ -153,45 +153,45 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
       scope.menu = [];
 
       scope.menu.push({
-        name: 'Design',
+        name: gettextCatalog.getString('Design'),
         icon: 'format_paint',
         type: 'design'
       });
 
       scope.menu.push({
-        name: 'Networks',
+        name: gettextCatalog.getString('Networks'),
         icon: 'wifi',
         type: 'networks'
       });
 
       scope.menu.push({
-        name: 'Shop',
+        name: gettextCatalog.getString('Shop'),
         icon: 'shopping_basket',
         type: 'shop',
         disabled: (parseInt(scope.splash.primary_access_id) !== 2)// && !scope.splash.shop_active
       });
 
       scope.menu.push({
-        name: 'Forms',
+        name: gettextCatalog.getString('Forms'),
         icon: 'assignment',
         type: 'register',
         disabled: parseInt(scope.splash.primary_access_id) !== 8
       });
 
       scope.menu.push({
-        name: 'Duplicate',
+        name: gettextCatalog.getString('Duplicate'),
         icon: 'content_copy',
         type: 'copy'
       });
 
       scope.menu.push({
-        name: 'Transfer',
+        name: gettextCatalog.getString('Transfer'),
         icon: 'transform',
         type: 'transfer'
       });
 
       scope.menu.push({
-        name: 'Delete',
+        name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
       });
@@ -226,11 +226,11 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
     var destroy = function() {
       var confirm = $mdDialog.confirm()
-      .title('Delete Splash')
-      .textContent('Are you sure you want to delete this splash page?')
-      .ariaLabel('Delete Splash')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Splash'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this splash page?'))
+      .ariaLabel(gettextCatalog.getString('Delete Splash'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         destroySplash();
       }, function() {
@@ -240,7 +240,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
     var destroySplash = function() {
       SplashPage.destroy({location_id: scope.location.slug, id: scope.splash.id}).$promise.then(function(results) {
         scope.back();
-        showToast('Splash Page successfully deleted');
+        showToast(gettextCatalog.getString('Splash Page successfully deleted'));
       }, function(err) {
         showErrors(err);
       });
@@ -248,11 +248,11 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
     var duplicate = function() {
       var confirm = $mdDialog.confirm()
-      .title('Duplicate Splash')
-      .textContent('Are you sure you want to duplicate this splash page?')
-      .ariaLabel('Duplicate Splash')
-      .ok('Duplicate')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Duplicate Splash'))
+      .textContent(gettextCatalog.getString('Are you sure you want to duplicate this splash page?'))
+      .ariaLabel(gettextCatalog.getString('Duplicate Splash'))
+      .ok(gettextCatalog.getString('Duplicate'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         dupSplash();
       }, function() {
@@ -266,7 +266,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
         copy_to: copy_to,
         destroy: destroy
       }).$promise.then(function(results) {
-        showToast(msg || 'Splash Page Duplicated.');
+        showToast(msg || gettextCatalog.getString('Splash Page Duplicated.'));
         if (msg) {
           scope.back();
         }
@@ -306,7 +306,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
       $scope.transfer = function(id) {
         $mdDialog.cancel();
-        dupSplash(id, 'Splash Page Successfully Transferred.', true);
+        dupSplash(id, gettextCatalog.getString('Splash Page Successfully Transferred.'), true);
       };
     };
 
@@ -423,7 +423,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
     var updateCT = function() {
       SplashPage.update({location_id: scope.location.slug, id: scope.splash.id, splash_page: scope.splash}).$promise.then(function(results) {
-        showToast('Splash page successfully updated.');
+        showToast(gettextCatalog.getString('Splash page successfully updated.'));
         scope.splash.network_ids = [];
         createMenu();
       }, function(err) {
@@ -491,7 +491,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
 }]);
 
-app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams', '$rootScope', '$mdDialog', 'showToast', 'showErrors', function(Network,SplashPage,$location,$routeParams,$rootScope,$mdDialog,showToast,showErrors) {
+app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams', '$rootScope', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,$location,$routeParams,$rootScope,$mdDialog,showToast,showErrors,gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -541,7 +541,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
         $mdDialog.cancel();
         results.highlight = true;
         scope.pages.push(results);
-        showToast('Splash created successfully');
+        showToast(gettextCatalog.getString('Splash created successfully'));
       }, function(err) {
         $mdDialog.cancel();
         showErrors(err);
@@ -665,7 +665,7 @@ app.directive('splashDesignerForm', ['$compile', function($compile) {
 
 }]);
 
-app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$routeParams', '$q', 'menu', 'designer', '$timeout', 'showToast', 'showErrors', '$rootScope', function(Location, SplashPage, SplashPageForm, $routeParams, $q, menu, designer, $timeout, showToast, showErrors, $rootScope) {
+app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$routeParams', '$q', 'menu', 'designer', '$timeout', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', function(Location, SplashPage, SplashPageForm, $routeParams, $q, menu, designer, $timeout, showToast, showErrors, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -702,7 +702,7 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
       }).$promise.then(function(res) {
         scope.splash.updating = undefined;
         form.$setPristine();
-        showToast('Layout successfully updated.');
+        showToast(gettextCatalog.getString('Layout successfully updated.'));
       }, function(err) {
         showErrors(err);
         scope.splash.updating = undefined;
@@ -897,7 +897,7 @@ app.directive('splashGeneratePassy', ['Code', function(Code) {
   };
 }]);
 
-app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location', 'showToast', 'showErrors', '$mdDialog', function(SplashPage,$routeParams,$http,$location,showToast,showErrors,$mdDialog) {
+app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(SplashPage,$routeParams,$http,$location,showToast,showErrors,$mdDialog, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -935,7 +935,7 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
     //   scope.products.push(product);
     // }
 
-    scope.environments = [{key: 'Test', value: 'test'}, {key: 'Production', value: 'production'}];
+    scope.environments = [{key: gettextCatalog.getString('Test'), value: 'test'}, {key: gettextCatalog.getString('Production'), value: 'production'}];
 
     scope.addProduct = function() {
       add();
@@ -958,9 +958,9 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
         date.getDate()) + 1;
 
       $scope.templates = scope.templates;
-      $scope.distances = [{key: 'Minutes', value: 'minutes'}, {key: 'Hours', value: 'hours'}, {key: 'Days', value: 'days'}, {key: 'Weeks', value: 'weeks'}, {key: 'Months', value: 'months'}];
+      $scope.distances = [{key: gettextCatalog.getString('Minutes'), value: 'minutes'}, {key: gettextCatalog.getString('Hours'), value: 'hours'}, {key: gettextCatalog.getString('Days'), value: 'days'}, {key: gettextCatalog.getString('Weeks'), value: 'weeks'}, {key:gettextCatalog.getString('Months'), value: 'months'}];
       $scope.product = {
-        description: 'A product for immediate purchase, enjoy.',
+        description: gettextCatalog.getString('A product for immediate purchase, enjoy.'),
         template_id: 1,
         duration: 60,
         session_timeout: 60,
@@ -986,19 +986,19 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
     scope.saveProduct = function(product) {
       scope.products = scope.products || [];
       scope.products.push(product);
-      scope.update('Product added to store');
+      scope.update(gettextCatalog.getString('Product added to store'));
     };
 
     scope.removeProduct = function(index) {
       var confirm = $mdDialog.confirm()
-      .title('Delete Product')
-      .textContent('Are you sure you want to delete this product?')
-      .ariaLabel('Delete')
-      .ok('Delete')
-      .cancel('Cancel');
+      .title(gettextCatalog.getString('Delete Product'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this product?'))
+      .ariaLabel(gettextCatalog.getString('Delete'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         scope.products[index]._destroy = 1;
-        scope.update('Product removed from store');
+        scope.update(gettextCatalog.getString('Product removed from store'));
       }, function() {
       });
     };
@@ -1036,10 +1036,10 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
       download_speed: 2048,
       upload_speed: 1024,
       devices: 1,
-      description: 'A single-use voucher valid for 20 minutes from the time you login',
+      description: gettextCatalog.getString('A single-use voucher valid for 20 minutes from the time you login'),
       value: 100
     };
-    scope.templates.push({name: '20 minute, quickcode',  val: twentymins, id: 1 });
+    scope.templates.push({name: gettextCatalog.getString('20 minute, quickcode'),  val: twentymins, id: 1 });
 
     var sixtymins = {
       duration: 60,
@@ -1049,10 +1049,10 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
       download_speed: 2048,
       upload_speed: 1024,
       devices: 1,
-      description: 'A 60 minute, multi-use voucher. Use me until my minutes have expired.',
+      description: gettextCatalog.getString('A 60 minute, multi-use voucher. Use me until my minutes have expired.'),
       value: 100
     };
-    scope.templates.push({name: '60 minute, multi-use voucher', val: sixtymins, id: 2 });
+    scope.templates.push({name: gettextCatalog.getString('60 minute, multi-use voucher'), val: sixtymins, id: 2 });
 
     var twenty4 = {
       duration: 24,
@@ -1062,10 +1062,10 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
       download_speed: 2048,
       upload_speed: 1024,
       devices: 3,
-      description: 'A 24 hour voucher, for up to 3 devices. Valid for one 24 hour period.',
+      description: gettextCatalog.getString('A 24 hour voucher, for up to 3 devices. Valid for one 24 hour period.'),
       value: 500
     };
-    scope.templates.push({name: '24 hour, single-use voucher', val: twenty4, id: 3 });
+    scope.templates.push({name: gettextCatalog.getString('24 hour, single-use voucher'), val: twenty4, id: 3 });
 
     var sevendays = {
       duration: 7,
@@ -1075,10 +1075,10 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
       download_speed: 2048,
       upload_speed: 1024,
       devices: 3,
-      description: 'A 7 day voucher, for up to 3 devices. Valid for 7 consecutive days.',
+      description: gettextCatalog.getString('A 7 day voucher, for up to 3 devices. Valid for 7 consecutive days.'),
       value: 500
     };
-    scope.templates.push({name: '7 day, unlimited voucher', val: sevendays, id: 4 });
+    scope.templates.push({name: gettextCatalog.getString('7 day, unlimited voucher'), val: sevendays, id: 4 });
 
     var month = {
       duration: 30,
@@ -1087,7 +1087,7 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
       distance: 'days',
       download_speed: 2048,
       upload_speed: 1024,
-      description: 'A monthly voucher for 5 up to devices. Valid for 30 consecutive days.',
+      description: gettextCatalog.getString('A monthly voucher for 5 up to devices. Valid for 30 consecutive days.'),
       devices: 5,
     };
     scope.templates.push({name: '30 day, unlimited voucher', val: month, id: 5 });
@@ -1111,7 +1111,7 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
         splash_id: scope.splash.id,
         store: scope.store
       }).$promise.then(function(results) {
-        showToast('Store created successfully.');
+        showToast(gettextCatalog.getString('Store created successfully.'));
         scope.store = results;
         scope.creating = undefined;
       }, function(err) {

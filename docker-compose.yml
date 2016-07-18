@@ -1,0 +1,8 @@
+version: '2'
+services:
+  cucumber:
+    build: .
+    ports:
+     - "9090:9000"
+    env_file:
+      - cucumber.env

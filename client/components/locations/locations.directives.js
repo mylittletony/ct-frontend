@@ -97,7 +97,12 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
     };
 
     var init = function() {
-      Location.query({q: scope.query.filter, page: scope.query.page, user_id: scope.user_id}).$promise.then(function(results) {
+      Location.query({
+        q: scope.query.filter,
+        page: scope.query.page,
+        per: scope.query.limit,
+        user_id: scope.user_id
+      }).$promise.then(function(results) {
         scope.total_locs  = results._links.total_entries;
         scope.locations   = results.locations;
         scope._links      = results._links;
@@ -468,10 +473,10 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
 
     scope.users = [];
     scope.roles = [
-      { role_id: 110, name: 'Administrator' },
-      { role_id: 120, name: 'Editor' },
-      { role_id: 130, name: 'Supporter' },
-      { role_id: 140, name: 'Observer' }
+      { role_id: 110, name: gettextCatalog.getString('Administrator') },
+      { role_id: 120, name: gettextCatalog.getString('Editor') },
+      { role_id: 130, name: gettextCatalog.getString('Supporter') },
+      { role_id: 140, name: gettextCatalog.getString('Observer') }
     ];
 
     var channel;
@@ -504,6 +509,12 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       });
 
       scope.menu.push({
+        name: gettextCatalog.getString('Edit'),
+        type: 'edit',
+        icon: 'settings'
+      });
+
+      scope.menu.push({
         name: gettextCatalog.getString('Revoke'),
         type: 'revoke',
         icon: 'delete_forever'
@@ -518,8 +529,8 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
         case 'revoke':
           revoke(user);
           break;
-        case 'delete':
-          revoke(user);
+        case 'edit':
+          edit(user);
           break;
       }
     };
@@ -573,7 +584,6 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     DialogController.$inject = ['$scope', 'roles'];
 
     var inviteUser = function(invite) {
-      console.log(invite)
       if (allowedEmail(invite.email)) {
         Invite.create({
           location_id: scope.location.slug,
@@ -616,6 +626,45 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
           break;
         }
       }
+    };
+
+    var edit = function(user) {
+      $mdDialog.show({
+        templateUrl: 'components/locations/users/_edit.html',
+        parent: angular.element(document.body),
+        controller: EditRoleController,
+        clickOutsideToClose: true,
+        locals: {
+          user: user,
+          roles: scope.roles
+        }
+      });
+    };
+
+    function EditRoleController ($scope, user, roles) {
+      $scope.user = user;
+      $scope.roles = roles;
+      $scope.update = function() {
+        $mdDialog.cancel();
+        updateRole(user);
+      };
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    EditRoleController.$inject = ['$scope', 'user', 'roles'];
+
+    var updateRole = function(user) {
+      Invite.update({
+        location_id: scope.location.slug,
+        username: user.username,
+        role_id: user.role_id
+      }).$promise.then(function(results) {
+        showToast('User successfully updated.');
+      }, function(err) {
+        showErrors(err);
+        scope.loading = undefined;
+      });
     };
 
     var init = function() {

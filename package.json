@@ -69,6 +69,8 @@
     "grunt-open": "~0.2.3",
     "grunt-postcss": "~0.8.0",
     "grunt-protractor-runner": "^3.1.0",
+    "grunt-rev": "^0.1.0", 
+    "grunt-svgmin": "^0.4.0",
     "grunt-ts": "^5.3.2",
     "grunt-tslint": "~3.1.0",
     "grunt-typings": "~0.1.4",

@@ -21,6 +21,9 @@ describe("RESTful Tests", function() {
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/invites')
       .respond(200, {});
 
+    $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/invites')
+      .respond(200, {});
+
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/invites')
       .respond(200, {});
 
@@ -47,6 +50,12 @@ describe("RESTful Tests", function() {
   it('should have sent a post request to create an invite', function() {
     var result = Invite.create()
     $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/invites')
+    $httpBackend.flush();
+  });
+
+  it('should have sent a post request to create an invite', function() {
+    var result = Invite.update()
+    $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/invites')
     $httpBackend.flush();
   });
 
