@@ -143,7 +143,8 @@ app.factory('Report', ['$resource', '$localStorage', 'API_END_POINT',
           location_id: '@location_id',
           start: '@start',
           end: '@end',
-          type: '@type'
+          type: '@type',
+          interval: 'day'
         }
       },
     });
