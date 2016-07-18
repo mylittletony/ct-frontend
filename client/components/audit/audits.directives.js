@@ -30,8 +30,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
       }
     };
 
-    //toni: if any of the translatable str are used in the logic
-    //it will only work in Engish
+    // Anyone know how to test the menu service?
     var createMenu = function() {
       menu.header = gettextCatalog.getString('Audit Reports');
 
@@ -242,7 +241,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
     // Should be consolodated in to a single dir   //
     scope.rangeFilter = function(ev) {
       $mdDialog.show({
-        templateUrl: 'components/locations/clients/_range_filter.html',
+        templateUrl: 'components/views/templates/_range_filter.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
@@ -312,7 +311,8 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
         scope._stats      = results._stats;
         scope.predicate   = '-starttime';
         scope._links      = results._links;
-        scope.promise = deferred.promise;
+        scope.promise     = deferred.promise;
+        scope.loading     = undefined;
         deferred.resolve();
       }, function(err) {
         scope.loading = undefined;

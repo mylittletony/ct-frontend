@@ -9,13 +9,6 @@ app.factory('Report', ['$resource', '$localStorage', 'API_END_POINT',
         id: '@id'
       },
       {
-      create: {
-        method:'POST',
-        isArray: false,
-        params: {
-          report: '@reports',
-        }
-      },
       inventory: {
         method:'GET',
         isArray: false,
@@ -141,6 +134,16 @@ app.factory('Report', ['$resource', '$localStorage', 'API_END_POINT',
           interval: '@interval',
           distance: '@distance',
           ap_mac: '@ap_mac'
+        }
+      },
+      create: {
+        method:'POST',
+        isArray: false,
+        params: {
+          location_id: '@location_id',
+          start: '@start',
+          end: '@end',
+          type: '@type'
         }
       },
     });
