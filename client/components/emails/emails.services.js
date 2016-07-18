@@ -16,9 +16,12 @@ app.factory('Email', ['$resource', 'API_END_POINT',
         dataType: 'json',
         params: {
           q: '@q',
-          location_id: '@location_id'
+          location_id: '@location_id',
+          start: '@start',
+          end: '@end',
+          per: '@per',
+          page: '@page'
         }
       },
     });
   }]);
-
