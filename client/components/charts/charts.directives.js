@@ -74,7 +74,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           height: '84%',
           width: '94%'
         },
-        colors: ['#009688', '#009688', '#FF5722', '#03A9F4', '#FF5722', '#607D8B'],
         series: {
           0: {
             targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
@@ -267,7 +266,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
 
 }]);
 
-app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', function(Report, $routeParams, $q, ClientDetails) {
+app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, $routeParams, $q, ClientDetails, COLOURS) {
 
   return {
     scope: {
@@ -275,6 +274,8 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', f
       mac: '@'
     },
     controller: function($scope,$element,$attrs) {
+
+      var colours = COLOURS.split(' ');
 
       $(window).resize(function() {
         if (this.resizeTO) {
@@ -308,7 +309,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', f
           width: '90%'
         },
         interpolateNulls: true,
-        colors: ['#009688', '#009688', '#FF5722', '#03A9F4', '#FF5722', '#607D8B']
+        colors: colours
       };
 
       this.setInterval = function() {
@@ -572,13 +573,14 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
 }]);
 
-app.directive('usageChart', ['$timeout', 'Report', '$routeParams', function($timeout, Report, $routeParams) {
+app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', function($timeout, Report, $routeParams, COLOURS) {
 
   var link = function(scope,element,attrs,controller) {
 
     var c, timer;
     scope.type = 'data';
     scope.loading = true;
+    var colours = COLOURS.split(' ');
 
     controller.$scope.$on('loadClientChart', function (evt,type){
       scope.resource = type;
@@ -589,27 +591,28 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', function($tim
       chart();
     };
 
+    var data = { usage: { inbound: 1 } };
     function chart() {
       var params = {
         type:     scope.type,
         resource: scope.resource
       };
-      controller.getStats(params).then(function(data) {
-        if (data.usage.inbound) {
-          timer = $timeout(function() {
-            drawChart(data.usage);
-          },100);
-        } else {
-          scope.loading = undefined;
-          scope.noData = true;
-          clearChart();
+      controller.getStats(params).then(function(resp) {
+        data = resp;
+        if (data.usage.inbound === 0 && data.usage.outbound === 0) {
+          data.usage.inbound = 1;
         }
+        renderChart();
       }, function() {
-        scope.loading = undefined;
-        scope.noData = true;
-        clearChart();
+        renderChart();
       });
     }
+
+    var renderChart = function() {
+      timer = $timeout(function() {
+        drawChart(data.usage);
+      },100);
+    };
 
     var clearChart = function() {
       if (c) {
@@ -618,7 +621,6 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', function($tim
     };
 
     function drawChart(json) {
-
       $timeout.cancel(timer);
       var data = new window.google.visualization.DataTable();
       data.addColumn('string', 'Inbound');
@@ -638,8 +640,6 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', function($tim
       opts.pieHole = 0.6;
       opts.legend = { position: 'right' };
       opts.height = '255';
-      opts.colors = ['#009688', '#FF5722'];
-
 
       formatter.format(data,1);
       c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
@@ -1041,7 +1041,6 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
       } else {
         opts.height = 250;
       }
-      opts.colors = ['#009688', '#FF5722', '#03A9F4', '#009688', '#607D8B'];
       c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
       c.draw(data, opts);
       scope.noData = undefined;
@@ -1165,7 +1164,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
               temp.push(t, null);
             }
 
-            var val = (json[iface].values[i].value);
+            var val;
+            if (json[iface].values[i]) {
+              val = (json[iface].values[i].value);
+            }
             temp.push(val);
           }
           data.addRow(temp);
@@ -1179,8 +1181,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
           suffix = 'dBm';
         } else if (scope.type === 'quality') {
           suffix = '%';
-        // } else {
-        //   suffix = '';
         }
 
         var formatter = new window.google.visualization.NumberFormat(
@@ -1255,7 +1255,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     scope.type = $routeParams.type || 'clients';
     var c, timer, data, json;
     var opts = controller.options;
-    opts.colors = ['#FF5722', '#FF5722', '#009688', '#03A9F4', '#FF5722', '#607D8B'];
 
     var resource = 'location';
     scope.loading = true;

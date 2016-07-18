@@ -519,7 +519,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var loadCharts = function() {
-      controller.$scope.$broadcast('loadClientChart', 'device');
+      timeout = $timeout(function() {
+        controller.$scope.$broadcast('loadClientChart', 'device');
+      }, 250);
     };
 
     var loadTput = function() {
@@ -565,8 +567,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     init().then(function() {
       loadTput();
+      loadCharts(); // seems to need to wait for something....
       getZones().then(function() {
-        loadCharts(); // seems to need to wait for something....
         processAlertMessages();
       });
     });
