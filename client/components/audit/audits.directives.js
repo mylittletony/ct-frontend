@@ -559,8 +559,8 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
 
   var link = function( scope, element, attrs ) {
 
+    var interval        = 'day';
     scope.loading       = true;
-
     scope.email         = $routeParams.email;
     scope.location_name = $routeParams.location_name;
 
@@ -648,7 +648,8 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
         email: scope.email,
         start: scope.query.start,
         end: scope.query.end,
-        location_name: scope.location_name
+        location_name: scope.location_name,
+        interval: interval
       }).$promise.then(function(results) {
         scope.guests        = results.guests;
         scope._links        = results._links;
