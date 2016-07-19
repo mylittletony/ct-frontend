@@ -653,8 +653,8 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
       }).$promise.then(function(results) {
         scope.guests        = results.guests;
         scope._links        = results._links;
-        if (results.locations && results.locations.length > 0) {
-          scope.location = { id: results.locations[0].id };
+        if (scope.location_name) {
+          scope.location = { id: results.guests[0].location_id };
         }
         if ($routeParams.start === undefined) {
           scope.query.start = results._links.start;
