@@ -320,6 +320,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/locations/:id/client_filters', {
       templateUrl: 'components/views/client_filters/index.html',
+      controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/client_filters/:client_filter_id', {
