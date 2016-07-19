@@ -114,7 +114,8 @@ module.exports = function (grunt) {
           CHIMP_TOKEN: '279197455989',
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
-          DEBUG: true
+          DEBUG: true,
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
         }
       }
     },
