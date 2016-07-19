@@ -47,9 +47,9 @@ td a:hover, td a:focus {
   background-image: linear-gradient(transparent 94%,#3b78e7 94%);
 }
 
-/* md-menu-item > .md-button { */
-/*   display: inline; */
-/* } */
+md-menu-item > button.md-button {
+  display: inline;
+}
 
 a.no-anchor-style {
   color: inherit;
