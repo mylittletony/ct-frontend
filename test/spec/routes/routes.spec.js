@@ -64,6 +64,12 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/clients/:client_id/orders/:order_id'].templateUrl).
                   toEqual('components/locations/clients/show_order.html');
 
+      expect($route.routes['/locations/:id/client_filters'].templateUrl).
+                  toEqual('components/views/client_filters/index.html');
+
+      expect($route.routes['/locations/:id/client_filters/:client_filter_id'].templateUrl).
+                  toEqual('components/views/client_filters/show.html');
+
       expect($route.routes['/events'].templateUrl).
                   toEqual('components/events/index.html');
 
