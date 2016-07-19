@@ -1,0 +1,42 @@
+<md-dialog aria-label="{{ 'Add to Zone' | translate }}"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Add To Zone</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Add the device with mac {{ ap_mac }} to a zone.</p>
+        </div>
+        <div flex layout="column">
+          <div ng-show='loading'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+          <md-input-container>
+            <label><translate>Add to Zone</translate></label>
+            <md-select ng-model="zone.id">
+              <md-option ng-repeat="zone in zones" value="{{zone.id}}">
+                {{zone.zone_name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save(zone)">
+        <translate>
+          ADD
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
