@@ -154,9 +154,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
     function searchTextChange(text) {
     }
-    //toni: not sure if this should be translatable,
-    //if yes, again it will only work in English and
-    //needs to be changes
+    
     var timer;
     function selectedItemChange(item) {
       timer = $timeout(function() {
@@ -1003,7 +1001,7 @@ app.directive('auditDownloads', ['Report', '$routeParams', '$mdDialog', '$locati
         type: scope.type
       };
       Report.create(params).$promise.then(function(results) {
-        showToast('Your report will be emailed to you soon');
+        showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
       }, function(err) {
         showErrors(err);
       });
