@@ -39,7 +39,7 @@
 
   </md-content>
 
-  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="client_filters.length && !query.filter" ng-cloak>
+  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="client_filters.length || query.filter" ng-cloak>
     <div layout="row" layout-align="center center">
       <div flex="100">
         <md-card>
