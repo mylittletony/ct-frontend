@@ -1,8 +1,9 @@
 <md-dialog aria-label="{{ 'Add Filter' | translate }}"  ng-cloak>
-  <form name="myForm">
+  <form ng-submit="save(cf)" name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2 translate>Add Filter</h2>
+        <h2 ng-if="cf.id" translate>Edit Filter</h2>
+        <h2 ng-if="!cf.id" translate>Add Filter</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
@@ -22,9 +23,10 @@
           <div ng-show='loadingLevels'>
             <md-progress-linear md-mode="query"></md-progress-linear>
           </div>
-          <md-input-container ng-show="networks.length">
+
+          <md-input-container ng-if="cf.level === 'network'">
             <label><translate>Network / SSID</translate></label>
-            <md-select ng-model="network">
+            <md-select ng-model="network" required>
               <md-option ng-repeat="network in networks" value="{{network}}">
                 {{ network.ssid }}
               </md-option>
@@ -40,10 +42,10 @@
             </translate>
           </p>
 
-          <md-input-container ng-show="zones.length">
-            <label><translate>Zone</translate></label>
+          <md-input-container ng-if="cf.level === 'zone'">
+            <label><translate>Zone Name</translate></label>
             <md-select ng-model="zone">
-              <md-option ng-repeat="zone in zones" value="{{zone}}">
+              <md-option ng-repeat="zone in zones" value="{{zone}}" required>
                 {{ zone.zone_name }}
               </md-option>
             </md-select>
@@ -58,28 +60,33 @@
             </translate>
           </p>
 
-          <!-- <md-input-container> -->
-          <!--   <label><translate>Add to Zone</translate></label> -->
-          <!--   <md-select ng-model="zone.id"> -->
-          <!--     <md-option ng-repeat="zone in zones" value="{{zone.id}}"> -->
-          <!--       {{zone.zone_name}} -->
-          <!--     </md-option> -->
-          <!--   </md-select> -->
-          <!-- </md-input-container> -->
-          <!--   <label><translate>Add to Zone</translate></label> -->
-          <!--   <md-select ng-model="zone.id"> -->
-          <!--     <md-option ng-repeat="zone in zones" value="{{zone.id}}"> -->
-          <!--       {{zone.zone_name}} -->
-          <!--     </md-option> -->
-          <!--   </md-select> -->
-          <!-- </md-input-container> -->
-          <!--   <label><translate>Add to Zone</translate></label> -->
-          <!--   <md-select ng-model="zone.id"> -->
-          <!--     <md-option ng-repeat="zone in zones" value="{{zone.id}}"> -->
-          <!--       {{zone.zone_name}} -->
-          <!--     </md-option> -->
-          <!--   </md-select> -->
-          <!-- </md-input-container> -->
+          <p ng-if="errors">
+            <translate ng-show="cf.level == 'zone'">
+              You have no zones.
+            </translate>
+            <translate ng-show="cf.level == 'network'">
+              You have no networks.
+            </translate>
+          </p>
+
+          <md-input-container>
+            <label>Client Mac</label>
+            <input name="mac" ng-model="cf.client_mac" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" required>
+            <div ng-messages="myForm.mac.$error">
+              <div ng-message="required" translate>MAC is required.</div>
+              <div ng-message="pattern" translate>Must be a valid mac, including dashes or colons.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Description</label>
+            <input name="description" ng-model="cf.description" md-maxlength='100' required>
+            <div ng-messages="myForm.description.$error">
+              <div ng-message="max" translate>Must be less than 100 characters</div>
+              <div ng-message="required" translate>Please enter a description name.</div>
+            </div>
+          </md-input-container>
+
         </div>
       </div>
     </md-dialog-content>
@@ -90,10 +97,9 @@
           Close
         </translate>
       </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save(zone)">
-        <translate>
-          ADD
-        </translate>
+      <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        <translate ng-if="cf.id">UPDATE</translate>
+        <translate ng-if="!cf.id">ADD</translate>
       </md-button>
     </md-dialog-actions>
   </form>

@@ -58,6 +58,9 @@ describe('client_filters', function () {
       q = $q;
       $routeParams = _$routeParams_;
       $routeParams.id = 'xxx';
+      $routeParams.q = 'my-filter';
+      $routeParams.page = '10';
+      $routeParams.per = '100';
       $scope.loading = true;
       var elem = angular.element('<list-client-filters loading="loading"></list-client-filters>');
       element = $compile(elem)($rootScope);
@@ -65,11 +68,24 @@ describe('client_filters', function () {
     }));
 
     it("should set the default scopes vals", function() {
-      spyOn(clientFilterFactory, 'get').and.callThrough()
-      expect(element.isolateScope().location.slug).toBe('xxx')
+      spyOn(clientFilterFactory, 'get').and.callThrough();
+      expect(element.isolateScope().location.slug).toBe('xxx');
 
-      var levels = [{key: 'All', value: 'all'}, {key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}]
+      var results = { client_filters: [{ id: 123 }], _links: {} };
+      deferred.resolve(results);
+      $scope.$apply();
+
+      var levels = [{key: 'All', value: 'all'}, {key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
       expect(element.isolateScope().levels).toEqual(levels);
+      expect(element.isolateScope().menu.length).toEqual(2);
+      expect(element.isolateScope().menu[0].name).toEqual('Edit');
+      expect(element.isolateScope().menu[0].type).toEqual('edit');
+      expect(element.isolateScope().menu[1].name).toEqual('Delete');
+      expect(element.isolateScope().menu[1].type).toEqual('delete');
+
+      expect(element.isolateScope().query.page).toEqual('10');
+      expect(element.isolateScope().query.limit).toEqual('100');
+      expect(element.isolateScope().query.filter).toEqual('my-filter');
     });
 
     it("should display the filters for the index table", function() {
@@ -109,16 +125,49 @@ describe('client_filters', function () {
       // expect(element.isolateScope().zones[0].id).toBe(123);
     });
 
-    it("should create the new filter", function() {
+    it("should create the new filter and add to set", function() {
       spyOn(clientFilterFactory, 'create').and.callThrough()
 
+      element.isolateScope().client_filters = [];
       var cf = { description: 'foo' };
-      element.isolateScope().create(cf);
+      element.isolateScope().createUpdate(cf);
       expect(element.isolateScope().creating).toEqual(true);
-      
+
       var results = [{ description: 'foo' }];
       deferred.resolve(results);
       $scope.$apply()
+
+      expect(element.isolateScope().client_filters.length).toEqual(1);
+    });
+
+    it("should update the filter since it has an id", function() {
+      spyOn(clientFilterFactory, 'update').and.callThrough()
+
+      var cf = { description: 'foo', id: 123 };
+      element.isolateScope().client_filters = [cf];
+      element.isolateScope().createUpdate(cf);
+
+      var results = [{ description: 'foo' }];
+      deferred.resolve(results);
+      $scope.$apply()
+
+      expect(element.isolateScope().client_filters.length).toEqual(1);
+    });
+
+    it("should destroy the filter and remove from set", function() {
+      spyOn(clientFilterFactory, 'destroy').and.callThrough()
+
+      var cf = { id: 123 };
+      element.isolateScope().client_filters = [cf];
+      expect(element.isolateScope().client_filters.length).toEqual(1);
+
+      element.isolateScope().destroy(cf.id);
+
+      var results = [{ description: 'foo' }];
+      deferred.resolve(results);
+      $scope.$apply()
+
+      expect(element.isolateScope().client_filters.length).toEqual(0);
     });
 
   });
