@@ -414,7 +414,7 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
 
     scope.rangeFilter = function(ev) {
       $mdDialog.show({
-        templateUrl: 'components/locations/clients/_range_filter.html',
+        templateUrl: 'components/views/templates/_range_filter.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
@@ -423,7 +423,6 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
     };
 
     function DialogController($scope) {
-
       $scope.myDate = new Date();
       $scope.minDate = new Date(
         $scope.myDate.getFullYear(),

@@ -12,12 +12,15 @@ It's proof that anything is possible. Just use your imagination.
 
 ## Getting Started
 
-This is a demo portal which acts as an interface to the Cucumber API. It's not production ready, the tests are currently broken.
+This is a demo portal which acts as an interface to the Cucumber API. It's not production ready and many tests were temporarily removed.
 
-To run the project:
+There's two ways to run the application:
 
-- Move Gruntfile.js.default to Gruntfile.js
-- Move local.env.sample.js.default to local.env.sample.js
+- Using Docker
+- Using plain NodeJS / npm
+
+### Running with NodeJS
+
 - Create an Application in the current Tony and obtain your APP ID and Secret
 - Enter these in the local.enc.sample.js.default. Or use some ENV variables.
 
@@ -28,25 +31,60 @@ npm install
 bower install
 ```
 
-To run, you need to start two services. The NodeJS server which handles the auth and the application using Grunt.
-
-```
-CT_URL=my.ctapp.dev:9090 npm start
-```
-
-Where CT_URL is the URL your local server.
-
-Then, open a new terminal and run:
+To run in development, you can use the following:
 
 ```
 grunt serve
 ```
 
-The tests DO NOT RUN at the moment since we've moved massive sections out. These will be back in action shortly.
-
 **Make sure you have updated the Gruntfile to include the api.ctapp.io end-points.**
 
+### Using With Docker
+
+Make sure you have Docker and Docker Compose installed. Full instructions on the Docker site. If you want to use docker-compose, please ensure you're using the version > 1.7 otherwise you will get an error.
+
+You can either use docker compose or plain docker build. It's up to you. With docker compose, you can create a .env file that will pull all your ENV vars in. In the project directory run:
+
+Make sure to edit it the cucumber.env file first accordingly.
+
+```
+docker-compose up
+ ```
+
+Then you should be able to access your container on your Docker IP:
+
+```
+curl http://192.168.1.1:8080
+```
+
+If you don't want to use docker compose, just run the following in your project root:
+
+```
+docker build -t cucumber .
+```
+
+Followed by:
+
+```
+docker run \
+  -e APP_ID=YOUR-ID \
+  -e APP_SECRET=YOUR-SECRET \
+  -e API_URL=https://api.ctapp.io \
+  -e AUTH_URL=https://id.ctapp.io \
+  -e BASE_URL=my.ctapp.dev:9090 \
+  -e PORT=80
+  -p 8080:80 cucumber
+```
+
+Replacing all the vars as you see fit.
+
+#### Still to sort
+
+We have not implemented TLS yet. This will come soon - basically don't use this in production yet.
+
 ## Using with Heroku
+
+These instructions assume you're not using the Docker image, we will explain that later.
 
 If you want to deploy yourself with Heroku, you need to do a few things.
 

@@ -189,6 +189,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
           menu.archived = undefined;
         }
         $scope.location = data;
+        console.log('Setting TZ to', $scope.location.timezone);
         window.moment.tz.setDefault($scope.location.timezone);
 
         var params = {id: data.id, location_name: data.location_name};
@@ -202,6 +203,10 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         $scope.$broadcast('locationLoaded');
       });
     };
+
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+      menu.archived = undefined;
+    });
 
     init();
     createMenu();

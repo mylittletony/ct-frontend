@@ -37,6 +37,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       var hash   = {};
       hash.page  = scope.query.page;
       hash.per   = scope.query.limit;
+      hash.q     = scope.query.filter;
       $location.search(hash);
       init();
     };

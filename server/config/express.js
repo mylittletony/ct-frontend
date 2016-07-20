@@ -35,6 +35,11 @@ module.exports = function(app) {
 
   process.env.APP_ID = process.env.APP_ID || secrets.APP_ID;
   process.env.APP_SECRET = process.env.APP_SECRET || secrets.APP_SECRET;
+  process.env.callbackURL = process.env.callbackURL || secrets.callbackURL;
+  process.env.authorizationURL = process.env.authorizationURL || secrets.authorizationURL;
+  process.env.tokenURL = process.env.tokenURL || secrets.tokenURL;
+  process.env.profileURL = process.env.profileURL || secrets.profileURL;
+  process.env.baseURL = secrets.baseURL;
 
   passport.serializeUser(function(options, done) {
     done(null, options);
@@ -54,10 +59,10 @@ module.exports = function(app) {
   passport.use(new PolkaSpotsStrategy({
     clientID: process.env.APP_ID,
     clientSecret: process.env.APP_SECRET,
-    callbackURL: secrets.callbackURL,
-    authorizationURL: secrets.authorizationURL,
-    profileURL: secrets.profileURL,
-    tokenURL: secrets.tokenURL,
+    callbackURL: process.env.callbackURL,
+    authorizationURL: process.env.authorizationURL,
+    profileURL: process.env.profileURL,
+    tokenURL: process.env.tokenURL,
     enableProof: false,
     passReqToCallback: true
   },
@@ -90,18 +95,10 @@ module.exports = function(app) {
     }
     catch(e) {}
 
-    var url = process.env.CT_URL || 'my.ctapp.io'
-    var proto;
-    if ( process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'beta' ) {
-      proto = 'https';
-    } else {
-      proto = 'http';
-    }
-
     if (raw.cname) {
       res.redirect('https://'+ raw.cname +'/#/login?token=' + req.session.accessToken);
     } else {
-      res.redirect(proto + '://' + url + '/#/login?token=' + req.session.accessToken);
+      res.redirect(process.env.baseURL + '/#/login?token=' + req.session.accessToken);
     }
 
   }, function() {

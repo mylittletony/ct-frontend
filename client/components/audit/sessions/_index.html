@@ -35,6 +35,23 @@
       <br/>
     </form>
     <div flex></div>
+    <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="selected.length" ng-click="filterClient()">
+      <md-icon>filter_list</md-icon>
+      <md-tooltip>
+        <translate>
+        Filter this client
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="query.filter || query.start" ng-click="clearFilter()">
+      <md-icon>clear_all</md-icon>
+      <md-tooltip>
+        <translate>
+        Clear filters
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <range-filter></range-filter>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -44,30 +61,10 @@
     <div flex-gt-sm="100">
       <md-card>
         <md-card-content>
-
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Radius Sessions">1 Radius Session</span>
+              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Radius Sessions">1 Radius Session</span><span hide show-gt-sm ng-if="query.start">&nbsp;between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
               <div flex></div>
-              <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="selected.length" ng-click="filterClient()">
-                <md-icon>filter_list</md-icon>
-                <md-tooltip>
-                  <translate>
-                    Filter this client
-                  </translate>
-                </md-tooltip>
-              </md-button>
-              <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="query.filter || query.start" ng-click="clearFilter()">
-                <md-icon>clear_all</md-icon>
-                <md-tooltip>
-                  <translate>
-                    Clear filters
-                  </translate>
-                </md-tooltip>
-              </md-button>
-              <md-button ng-click="rangeFilter()" class="md-icon-button" hide show-gt-xs>
-                <md-icon md-font-icon="date_range">date_range</md-icon>
-              </md-button>
             </div>
           </md-toolbar>
           <div ng-include="'components/codes/_table.html'"></div>
