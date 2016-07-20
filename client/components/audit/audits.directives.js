@@ -986,8 +986,8 @@ app.directive('auditDownloads', ['Report', '$routeParams', '$mdDialog', '$locati
     scope.downloadReport = function() {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Download Report'))
-      .textContent(gettextCatalog.getString('You report will be emailed to you.'))
-      .ariaLabel(gettextCatalog.getString('Download Report'))
+      .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
+      .ariaLabel(gettextCatalog.getString('Email Report'))
       .ok(gettextCatalog.getString('Download'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
