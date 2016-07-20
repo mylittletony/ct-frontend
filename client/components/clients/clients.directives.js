@@ -36,17 +36,18 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
           icon: 'pageview'
         });
 
-        scope.clientsMenu.push({
-          name: gettextCatalog.getString('Disconnect'),
-          type: 'disconnect',
-          icon: 'block'
-        });
+        // Removed short-term while testing
+        // scope.clientsMenu.push({
+        //   name: gettextCatalog.getString('Disconnect'),
+        //   type: 'disconnect',
+        //   icon: 'block'
+        // });
 
-        scope.clientsMenu.push({
-          name: gettextCatalog.getString('Logout'),
-          type: 'logout',
-          icon: 'exit_to_app'
-        });
+        // scope.clientsMenu.push({
+        //   name: gettextCatalog.getString('Logout'),
+        //   type: 'logout',
+        //   icon: 'exit_to_app'
+        // });
 
       }
     };
