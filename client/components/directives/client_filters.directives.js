@@ -2,11 +2,12 @@
 
 var app = angular.module('myApp.client_filters.directives', []);
 
-app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', function(ClientFilter, $routeParams, $mdDialog, showToast, showErrors, $q, gettextCatalog) {
+app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', 'Network', 'Zone', function(ClientFilter, $routeParams, $mdDialog, showToast, showErrors, $q, gettextCatalog, Network, Zone) {
 
   var link = function(scope,element,attrs) {
-    
+
     scope.location  = { slug: $routeParams.id };
+    scope.levels = [{key: 'All', value: 'all'}, {key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
 
     // User permissions //
     // var createMenu = function() {
@@ -34,66 +35,46 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     //   }
     // };
 
-    // var destroy = function(id) {
-    //   var confirm = $mdDialog.confirm()
-    //   .title(gettextCatalog.getString('Delete Zone'))
-    //   .textContent(gettextCatalog.getString('Are you sure you want to delete this zone?'))
-    //   .ariaLabel(gettextCatalog.getString('Delete Zone'))
-    //   .ok(gettextCatalog.getString('Delete'))
-    //   .cancel(gettextCatalog.getString('Cancel'));
-    //   $mdDialog.show(confirm).then(function() {
-    //     destroyZone(id);
-    //   }, function() {
-    //   });
-    // };
+    scope.create = function(data) {
+      scope.creating = true;
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      ClientFilter.create({location_id: scope.location.slug, client_filter: data}).$promise.then(function(results) {
+        showToast('Client filter successfully created.');
+        scope.creating = undefined;
+        deferred.resolve();
+      }, function(error) {
+        scope.creating = undefined;
+        showErrors(error);
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
 
-    // var destroyZone = function(id) {
-    //   Zone.destroy({location_id: scope.location.slug, id: id}).$promise.then(function(res) {
-    //     removeFromList(id);
-    //   }, function(err) {
-    //     showErrors(err);
-    //   });
-    // };
+    scope.getZones = function() {
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        scope.zones = results;
+        scope.loadingLevels = undefined;
+        deferred.resolve();
+      }, function(error) {
+        scope.loadingLevels = undefined;
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
 
-    // var removeFromList = function(id) {
-    //   for (var i = 0, len = scope.zones.length; i < len; i++) {
-    //     if (scope.zones[i].id === id) {
-    //       scope.zones.splice(i, 1);
-    //       showToast(gettextCatalog.getString('Zone successfully deleted'));
-    //       break;
-    //     }
-    //   }
-    // };
-
-    // var update = function(zone,box_id) {
-
-    //   var params = {
-    //     zone_name: zone.zone_name,
-    //     boxes: box_id,
-    //   };
-    //   Zone.update({location_id: scope.location.slug, id: zone.id, zone: params }).$promise.then(function(res) {
-    //     if (box_id) {
-    //       incrementBoxCount(zone);
-    //     } else {
-    //       showToast(gettextCatalog.getString('Zone successfully updated'));
-    //     }
-    //   }, function(err) {
-    //     showErrors(err);
-    //   });
-
-    // };
-
-    // var incrementBoxCount = function(zone) {
-    //   for (var i = 0, len = scope.zones.length; i < len; i++) {
-    //     if (scope.zones[i].id === zone.id) {
-    //       if (!scope.zones[i].boxes || scope.zones[i].boxes.length === 0) {
-    //         scope.zones[i].boxes = [];
-    //       }
-    //       scope.zones[i].boxes.push({ap_mac: $routeParams.ap_mac});
-    //       showToast(gettextCatalog.getString('Box successfully added to zone.'));
-    //     }
-    //   }
-    // };
+    scope.getNetworks = function() {
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      Network.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        deferred.resolve(results);
+      }, function(err) {
+        deferred.reject(err);
+      });
+      return deferred.promise;
+    };
 
     scope.addFilter = function(id) {
       $mdDialog.show({
@@ -102,69 +83,49 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
         parent: angular.element(document.body),
         controller: DialogController,
         locals: {
+          levels: scope.levels,
+          networks: scope.networks,
+          loadingLevels: scope.loadingLevels
         }
       });
     };
 
-    function DialogController ($scope) {
+    function DialogController ($scope, levels, networks, loadingLevels) {
+      $scope.cf = { level: 'all' };
+      $scope.levels = levels;
+      $scope.loadingLevels = loadingLevels;
+      $scope.selectLevel = function(level) {
+        $scope.loadingLevels = true;
+        if (level === 'network') {
+          scope.getNetworks().then(function(networks) {
+            $scope.networks = networks;
+            $scope.loadingLevels = undefined;
+          }, function() {
+            console.log('You have no networks');
+            $scope.loadingLevels = undefined;
+          });
+        } else {
+          scope.getZones();
+        }
+      };
       $scope.close = function() {
         $mdDialog.cancel();
       };
       $scope.save = function(zone) {
         // $location.search({});
-        // $mdDialog.cancel();
+        $mdDialog.cancel();
         // update(zone,$routeParams.box_id);
       };
     }
-    DialogController.$inject = ['$scope'];
-
-    // var edit = function(id) {
-    //   window.location.href = '/#/locations/' + scope.location.slug + '/zones/' + id;
-    // };
-
-    // scope.open = function(network) {
-    //   $mdDialog.show({
-    //     clickOutsideToClose: true,
-    //     templateUrl: 'components/zones/_form.html',
-    //     parent: angular.element(document.body),
-    //     controller: NewDialogController
-    //   });
-    // };
-
-    // function NewDialogController ($scope) {
-    //   $scope.close = function() {
-    //     $mdDialog.cancel();
-    //   };
-
-    //   $scope.save = function(zone) {
-    //     $mdDialog.cancel();
-    //     createUpdate(zone);
-    //   };
-    // }
-    // NewDialogController.$inject = ['$scope'];
-
-    // // This also updates the zone ok //
-    // var createUpdate = function(zone) {
-    //   Zone.create({location_id: scope.location.slug, zone: zone}).$promise.then(function(results) {
-    //     if (scope.zones && scope.zones.length === 0) {
-    //       scope.zones = [];
-    //     }
-    //     scope.zones.push(results);
-    //     if (scope.zones.length > 0) {
-    //       showToast(gettextCatalog.getString('Zone successfully created.'));
-    //     }
-    //   }, function(err) {
-    //     showErrors(err);
-    //   });
-    // };
+    DialogController.$inject = ['$scope', 'levels', 'networks', 'loadingLevels'];
 
     var init = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
       ClientFilter.get({location_id: scope.location.slug}).$promise.then(function(results) {
         scope.client_filters  = results.client_filters;
-        scope._info           = results._info;
-        scope.loading         = undefined;
+        scope._info = results._info;
+        scope.loading = undefined;
       }, function(error) {
       });
     };

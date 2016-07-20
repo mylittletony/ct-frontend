@@ -11,31 +11,75 @@
           <p translate>Add the device with mac {{ ap_mac }} to a policy list.</p>
         </div>
         <div flex layout="column">
-          <div ng-show='loading'>
+          <md-input-container>
+            <label>Level</label>
+            <md-select ng-model="cf.level" ng-change="selectLevel(cf.level)">
+              <md-option ng-repeat="level in levels" value="{{level.value}}">
+                {{level.key}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <div ng-show='loadingLevels'>
             <md-progress-linear md-mode="query"></md-progress-linear>
           </div>
-          <md-input-container>
-            <label><translate>Add to Zone</translate></label>
-            <md-select ng-model="zone.id">
-              <md-option ng-repeat="zone in zones" value="{{zone.id}}">
-                {{zone.zone_name}}
+          <md-input-container ng-show="networks.length">
+            <label><translate>Network / SSID</translate></label>
+            <md-select ng-model="network">
+              <md-option ng-repeat="network in networks" value="{{network}}">
+                {{ network.ssid }}
               </md-option>
             </md-select>
           </md-input-container>
-            <label><translate>Add to Zone</translate></label>
-            <md-select ng-model="zone.id">
-              <md-option ng-repeat="zone in zones" value="{{zone.id}}">
-                {{zone.zone_name}}
+
+          <p ng-if="network">
+            <translate ng-hide="network.client_filter == true">
+              This network's MAC filter is disabled, this client will be blocked
+            </translate>
+            <translate ng-show="network.client_filter == true">
+              This network's MAC filter is enabled, this client will be whitelisted
+            </translate>
+          </p>
+
+          <md-input-container ng-show="zones.length">
+            <label><translate>Zone</translate></label>
+            <md-select ng-model="zone">
+              <md-option ng-repeat="zone in zones" value="{{zone}}">
+                {{ zone.zone_name }}
               </md-option>
             </md-select>
           </md-input-container>
-            <label><translate>Add to Zone</translate></label>
-            <md-select ng-model="zone.id">
-              <md-option ng-repeat="zone in zones" value="{{zone.id}}">
-                {{zone.zone_name}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+
+          <p ng-if="zone">
+            <translate ng-hide="network.client_filter == true">
+              This zone's MAC filter is disabled, this client will be blocked
+            </translate>
+            <translate ng-show="network.client_filter == true">
+              This zone's MAC filter is enabled, this client will be whitelisted
+            </translate>
+          </p>
+
+          <!-- <md-input-container> -->
+          <!--   <label><translate>Add to Zone</translate></label> -->
+          <!--   <md-select ng-model="zone.id"> -->
+          <!--     <md-option ng-repeat="zone in zones" value="{{zone.id}}"> -->
+          <!--       {{zone.zone_name}} -->
+          <!--     </md-option> -->
+          <!--   </md-select> -->
+          <!-- </md-input-container> -->
+          <!--   <label><translate>Add to Zone</translate></label> -->
+          <!--   <md-select ng-model="zone.id"> -->
+          <!--     <md-option ng-repeat="zone in zones" value="{{zone.id}}"> -->
+          <!--       {{zone.zone_name}} -->
+          <!--     </md-option> -->
+          <!--   </md-select> -->
+          <!-- </md-input-container> -->
+          <!--   <label><translate>Add to Zone</translate></label> -->
+          <!--   <md-select ng-model="zone.id"> -->
+          <!--     <md-option ng-repeat="zone in zones" value="{{zone.id}}"> -->
+          <!--       {{zone.zone_name}} -->
+          <!--     </md-option> -->
+          <!--   </md-select> -->
+          <!-- </md-input-container> -->
         </div>
       </div>
     </md-dialog-content>

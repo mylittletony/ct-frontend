@@ -2,7 +2,8 @@
 
 describe('client_filters', function () {
 
-  var $scope, element, $routeParams, clientFilterFactory, q, deferred, $httpBackend;
+  var $scope, element, $routeParams, clientFilterFactory, q,
+  deferred, $httpBackend, networkFactory, zoneFactory;
 
   beforeEach(module('templates'));
 
@@ -29,6 +30,20 @@ describe('client_filters', function () {
         return {$promise: deferred.promise};
       },
     };
+    networkFactory = {
+      get: function () {
+        deferred = q.defer();
+        return {$promise: deferred.promise};
+      },
+    };
+    zoneFactory = {
+      get: function () {
+        deferred = q.defer();
+        return {$promise: deferred.promise};
+      },
+    };
+    $provide.value("Zone", zoneFactory);
+    $provide.value("Network", networkFactory);
     $provide.value("ClientFilter", clientFilterFactory);
   }));
 
@@ -49,7 +64,15 @@ describe('client_filters', function () {
       element.scope().$digest();
     }));
 
-    it("should display the filters", function() {
+    it("should set the default scopes vals", function() {
+      spyOn(clientFilterFactory, 'get').and.callThrough()
+      expect(element.isolateScope().location.slug).toBe('xxx')
+
+      var levels = [{key: 'All', value: 'all'}, {key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}]
+      expect(element.isolateScope().levels).toEqual(levels);
+    });
+
+    it("should display the filters for the index table", function() {
       spyOn(clientFilterFactory, 'get').and.callThrough()
       expect(element.isolateScope().location.slug).toBe('xxx')
 
@@ -59,18 +82,43 @@ describe('client_filters', function () {
 
       expect(element.isolateScope().client_filters[0].id).toBe(123);
       expect(element.isolateScope().loading).toBe(undefined);
-      // expect(element.isolateScope().menu.length).toBe(2);
-      // expect(element.isolateScope().menu[0].type).toBe('edit');
-      // expect(element.isolateScope().menu[1].type).toBe('revoke');
+    });
 
-      // // Tests other scopes are set
-      // expect(element.isolateScope().query.order).toBe('created_at');
-      // expect(element.isolateScope().query.filter).toBe('my-search');
-      // expect(element.isolateScope().roles.length).toBe(2);
-      // expect(element.isolateScope().roles[0].role_id).toBe(200);
-      // expect(element.isolateScope().roles[0].name).toBe('Brand Admin');
-      // expect(element.isolateScope().roles[1].role_id).toBe(201);
-      // expect(element.isolateScope().roles[1].name).toBe('Location Admin');
+    it("should set the level to network and fetch the networks", function() {
+      spyOn(networkFactory, 'get').and.callThrough()
+
+      element.isolateScope().getNetworks();
+      // expect(element.isolateScope().loadingLevels).toBe(true);
+      var results = [{ id: 123 }];
+      deferred.resolve(results);
+      $scope.$apply()
+
+      // we dont need since we only use within the dialogCtrl
+      // expect(element.isolateScope().networks[0].id).toBe(123);
+    });
+
+    it("should set the level to network and fetch the zones", function() {
+      spyOn(zoneFactory, 'get').and.callThrough()
+
+      element.isolateScope().getZones();
+      var results = [{ id: 123 }];
+      deferred.resolve(results);
+      $scope.$apply()
+
+      // we dont need since we only use within the dialogCtrl
+      // expect(element.isolateScope().zones[0].id).toBe(123);
+    });
+
+    it("should create the new filter", function() {
+      spyOn(clientFilterFactory, 'create').and.callThrough()
+
+      var cf = { description: 'foo' };
+      element.isolateScope().create(cf);
+      expect(element.isolateScope().creating).toEqual(true);
+      
+      var results = [{ description: 'foo' }];
+      deferred.resolve(results);
+      $scope.$apply()
     });
 
   });
