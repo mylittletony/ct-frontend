@@ -275,6 +275,11 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
   var link = function(scope, element, attrs) {
 
     scope.location = { slug: $routeParams.id };
+    scope.client_filters = [
+      { key: 'Off', value: 'off' },
+      { key: 'Allow White-listed Clients', value: 'allow'},
+      { key: 'Block Banned Clients', value: 'deny'}
+    ];
 
     var displaySync = function() {
       // if (scope.network.job_id) {

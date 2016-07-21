@@ -209,6 +209,8 @@ describe('networks', function () {
       deferred.resolve(network);
       $scope.$apply();
 
+      var cf = [{ key: 'Off', value: 'off' }, { key: 'Allow', value: 'allow'}, { key: 'Block', value: 'deny'}];
+      expect(element.isolateScope().client_filters).toEqual(cf);
       expect(element.isolateScope().menu.length).toEqual(3);
       expect(element.isolateScope().menu[0].name).toEqual('Delete Network');
       expect(element.isolateScope().menu[0].type).toEqual('delete');
