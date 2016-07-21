@@ -326,8 +326,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var transferBox = function(id) {
       Box.update({
-        id: scope.box.slug, 
-        box: { 
+        id: scope.box.slug,
+        box: {
           transfer_to: id
         }
       }).$promise.then(function(results) {
@@ -375,7 +375,17 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     }
 
     var processNotification = function(data) {
+      if (data){
+        try{
+          data = JSON.parse(data);
+        }catch(e){
+          console.log(e);
+        }
+      }
       switch(data.type) {
+        case 'heartbeat':
+          heartbeat(data);
+          break;
         case 'speedtest':
           scope.box.speedtest_running = undefined;
           scope.box.allowed_job = true;
@@ -402,9 +412,18 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           }
           break;
         default:
-          // Replace this with the object as sent by pusher
-          // Needs to be replaced in the backend workers first
-          init();
+          console.log(data, 'Unknown Event');
+      }
+    };
+
+    var heartbeat = function(data) {
+      scope.box.last_heartbeat = data.last_heartbeat;
+      scope.box.state          = data.state;
+      scope.box.wan_ip         = data.wan_ip;
+      if (scope.box.state === 'offline') {
+        scope.box.allowed_job = false;
+      } else {
+        scope.box.allowed_job = true;
       }
     };
 
@@ -495,12 +514,14 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         }, function(error) {
           deferred.reject(error);
         });
-      } 
+      }
       return deferred.promise;
     };
 
     var loadCharts = function() {
-      controller.$scope.$broadcast('loadClientChart', 'device');
+      timeout = $timeout(function() {
+        controller.$scope.$broadcast('loadClientChart', 'device');
+      }, 250);
     };
 
     var loadTput = function() {
@@ -546,8 +567,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     init().then(function() {
       loadTput();
+      loadCharts(); // seems to need to wait for something....
       getZones().then(function() {
-        loadCharts(); // seems to need to wait for something....
         processAlertMessages();
       });
     });

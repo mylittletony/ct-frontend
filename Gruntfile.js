@@ -63,7 +63,8 @@ module.exports = function (grunt) {
           CHIMP_TOKEN: '531543883634',
           INTERCOM: 'xxx',
           PUSHER: 'xxx',
-          DEBUG: true
+          DEBUG: true,
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
         }
       },
       development: {
@@ -79,7 +80,8 @@ module.exports = function (grunt) {
           CHIMP_TOKEN: '531543883634',
           INTERCOM: 'z0kiwroa',
           PUSHER: 'f5c774e098156e548079',
-          DEBUG: true
+          DEBUG: true,
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
         }
       },
       beta: {
@@ -95,7 +97,8 @@ module.exports = function (grunt) {
           CHIMP_TOKEN: '279197455989',
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
-          DEBUG: true
+          DEBUG: true,
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
         }
       },
       production: {
@@ -111,7 +114,8 @@ module.exports = function (grunt) {
           CHIMP_TOKEN: '279197455989',
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
-          DEBUG: true
+          DEBUG: true,
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
         }
       }
     },
@@ -547,18 +551,6 @@ module.exports = function (grunt) {
           remote: 'git@heroku.com:sheltered-bayou-9283.git',
           branch: 'master'
         }
-      },
-      staging: {
-        options: {
-          remote: 'git@heroku.com:secure-mesa-9387.git',
-          branch: 'staging'
-        }
-      },
-      openshift: {
-        options: {
-          remote: 'openshift',
-          branch: 'master'
-        }
       }
     },
 
@@ -579,7 +571,7 @@ module.exports = function (grunt) {
         }
       },
       dist: [
-        'sass',
+        // 'sass',
         'imagemin',
         'svgmin'
       ]

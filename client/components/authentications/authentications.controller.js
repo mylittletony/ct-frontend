@@ -25,7 +25,7 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
       }, function(err) {
         console.log('CTME Auth 401');
         $cookies.remove('_cta' );
-        $cookies.remove('_cta', { domain: domain } );
+        // $cookies.remove('_cta', { domain: domain } );
         if ($localStorage.user) {
           $localStorage.user.refresh = undefined;
         }
@@ -34,13 +34,11 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
     };
 
     if ($routeParams.token) {
-      if ($localStorage.user) {
-        $localStorage.user.refresh = undefined;
-      }
+      $localStorage.$reset();
+      console.log(domain, $routeParams.token);
+      $cookies.put('_cta', $routeParams.token);
+      // $cookies.put('_cta', $routeParams.token, { domain: domain });
       $timeout(function() {
-        console.log(domain, $routeParams.token);
-        $cookies.put('_cta', $routeParams.token);
-        $cookies.put('_cta', $routeParams.token, { domain: domain });
         getMe();
       }, 500);
     } else {
@@ -49,4 +47,3 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
     }
 
 }]);
-

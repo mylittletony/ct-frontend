@@ -58,8 +58,8 @@
               </th>
               <th hide show-gt-sm md-column md-order-by="zone_description"><span translate>Description</span></th>
               <th hide show-gt-md md-column md-order-by="created_at"><span translate>Created</span></th>
-              <th hide show-gt-xs md-column><span translate>Boxes</span></th>
-              <th hide show-gt-xs md-column md-order-by="weight"><span translate>Networks</span></th>
+              <th hide show-gt-xs md-column md-order-by="boxes"><span translate>Boxes</span></th>
+              <th hide show-gt-xs md-column md-order-by="networks"><span translate>Networks</span></th>
               <th md-column ng-show="menu.length"></th>
             </tr>
           </thead>
@@ -82,11 +82,11 @@
               </td>
               <td hide show-gt-xs md-cell>
                 <!-- Simon, change this back to boxes when moved off old CT -->
-                {{ zone.boxes_count }}
+                {{ zone.boxes }}
                 <!-- Simon, change this back to boxes when moved off old CT -->
               </td>
               <td hide show-gt-xs md-cell>
-                {{ zone.networks.length || 0 }}
+                {{ zone.networks }}
               </td>
               <td md-cell ng-show="menu.length">
                 <md-menu>

@@ -182,6 +182,7 @@
 ../client/components/locations/triggers/show-sms.html
 ../client/components/locations/triggers/show-webhook.html
 ../client/components/locations/triggers/show.html
+../client/components/locations/users/_edit.html
 ../client/components/locations/users/_index.html
 ../client/components/locations/users/_invite.html
 ../client/components/locations/users/index.html

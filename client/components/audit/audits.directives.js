@@ -30,8 +30,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
       }
     };
 
-    //toni: if any of the translatable str are used in the logic
-    //it will only work in Engish
+    // Anyone know how to test the menu service?
     var createMenu = function() {
       menu.header = gettextCatalog.getString('Audit Reports');
 
@@ -82,7 +81,6 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
   };
 
   var controller = function($scope) {
-
     this.locationSearch = function(val) {
       return Location.query({q: val, size: 10}).$promise.then(function (res) {
       });
@@ -123,7 +121,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
 }]);
 
-app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'gettextCatalog', function(Session, $routeParams, $location, Client, $q, $timeout, $mdDialog, gettextCatalog) {
+app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', 'gettextCatalog', function(Session, $routeParams, $location, Client, $q, $timeout, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -238,51 +236,6 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
       $location.search({});
     };
 
-    // This is duplicated from the codes directive //
-    // Should be consolodated in to a single dir   //
-    scope.rangeFilter = function(ev) {
-      $mdDialog.show({
-        templateUrl: 'components/locations/clients/_range_filter.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        controller: DialogController
-      });
-    };
-
-    function DialogController($scope) {
-
-      $scope.myDate = new Date();
-      $scope.minDate = new Date(
-        $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth() - 2,
-        $scope.myDate.getDate()
-      );
-      $scope.maxDate = new Date(
-        $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth(),
-        $scope.myDate.getDate()
-      );
-
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-
-      $scope.search = function() {
-        scope.query.start = new Date($scope.startDate).getTime() / 1000;
-        scope.query.end   = new Date($scope.endDate).getTime() / 1000;
-        if (scope.query.start >= scope.query.end) {
-          $scope.error = gettextCatalog.getString('The start date must be less than the end date');
-        } else {
-          $mdDialog.cancel();
-          scope.query.page = 1;
-          scope.query.limit = 50;
-          search();
-        }
-      };
-    }
-    DialogController.$inject = ['$scope'];
-
     // Don't like this however it's less annoying than dealing with
     // the conversion from a numeric id to slug in the locs. controller what???
 
@@ -312,7 +265,12 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
         scope._stats      = results._stats;
         scope.predicate   = '-starttime';
         scope._links      = results._links;
-        scope.promise = deferred.promise;
+        scope.promise     = deferred.promise;
+        if ($routeParams.start === undefined) {
+          scope.query.start = results._links.start;
+          scope.query.end = results._links.end;
+        }
+        scope.loading     = undefined;
         deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
@@ -334,7 +292,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
 }]);
 
-app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'Location', function(Email, $routeParams, $location, Client, $q, $timeout, $mdDialog, Location) {
+app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$q', '$timeout', 'Location', function(Email, $routeParams, $location, Client, $q, $timeout, Location) {
 
   var link = function( scope, element, attrs ) {
 
@@ -378,11 +336,10 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
       $location.search(hash);
     };
 
-
     function querySearch (query) {
       var deferred = $q.defer();
       Email.get({
-        q: query,
+        q: query
       }).$promise.then(function(results) {
         deferred.resolve(results.results);
       }, function(err) {
@@ -432,12 +389,21 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
         page: scope.query.page,
         per: scope.query.limit,
         location_name: scope.location_name,
-        email: scope.email
+        email: scope.email,
+        start: scope.query.start,
+        end: scope.query.end
       };
       Email.get(params).$promise.then(function(results) {
         scope.emails      = results.emails;
         scope.predicate   = '-created_at';
         scope._links      = results._links;
+        if (results.locations.length > 0) {
+          scope.location = { id: results.locations[0].id };
+        }
+        if ($routeParams.start === undefined) {
+          scope.query.start = results._links.start;
+          scope.query.end = results._links.end;
+        }
         scope.loading     = undefined;
       }, function(err) {
         scope.loading = undefined;
@@ -678,10 +644,19 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
         page: scope.query.page,
         per:  scope.query.limit,
         email: scope.email,
+        start: scope.query.start,
+        end: scope.query.end,
         location_name: scope.location_name
       }).$promise.then(function(results) {
         scope.guests        = results.guests;
         scope._links        = results._links;
+        if (results.locations && results.locations.length > 0) {
+          scope.location = { id: results.locations[0].id };
+        }
+        if ($routeParams.start === undefined) {
+          scope.query.start = results._links.start;
+          scope.query.end = results._links.end;
+        }
         scope.loading       = undefined;
       }, function(err) {
         scope.loading = undefined;
@@ -936,6 +911,119 @@ app.directive('showGuest', ['Guest', '$routeParams', '$timeout', 'menu', '$mdDia
     link: link,
     scope: {},
     templateUrl: 'components/audit/guests/_show.html'
+  };
+
+}]);
+
+app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettextCatalog', function($routeParams, $mdDialog, $location, gettextCatalog) {
+
+  var link = function(scope) {
+
+    scope.rangeFilter = function(ev) {
+      $mdDialog.show({
+        templateUrl: 'components/views/templates/_range_filter.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        controller: DialogController
+      });
+    };
+
+    function DialogController($scope) {
+      $scope.myDate = new Date();
+      $scope.minDate = new Date(
+        $scope.myDate.getFullYear(),
+        $scope.myDate.getMonth() - 2,
+        $scope.myDate.getDate()
+      );
+      $scope.maxDate = new Date(
+        $scope.myDate.getFullYear(),
+        $scope.myDate.getMonth(),
+        $scope.myDate.getDate()
+      );
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.search = function() {
+        var hash = $location.search();
+        hash.start = new Date($scope.startDate).getTime() / 1000;
+        hash.end   = new Date($scope.endDate).getTime() / 1000;
+
+        if (hash.start >= hash.end) {
+          $scope.error = gettextCatalog.getString('The start date must be less than the end date');
+        } else {
+          $mdDialog.cancel();
+          $location.search(hash);
+          scope.search();
+        }
+      };
+    }
+    DialogController.$inject = ['$scope'];
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      search: '&'
+    },
+    template: 
+      '<div>'+
+      '<md-button ng-click="rangeFilter()" class="md-icon-button" hide show-gt-xs>'+
+      '<md-icon md-font-icon="date_range">date_range</md-icon>'+
+      '</md-button>'+
+      '</div>'
+  };
+
+}]);
+
+app.directive('auditDownloads', ['Report', '$routeParams', '$mdDialog', '$location', 'showToast', 'showErrors', 'gettextCatalog', function(Report, $routeParams, $mdDialog, $location, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope,el,attrs) {
+
+    scope.downloadReport = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Download Report'))
+      .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
+      .ariaLabel(gettextCatalog.getString('Email Report'))
+      .ok(gettextCatalog.getString('Download'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        downloadReport();
+      });
+    };
+
+    var downloadReport = function() {
+      var params = {
+        start: $routeParams.start,
+        end: $routeParams.end,
+        location_id: scope.lid,
+        type: scope.type
+      };
+      Report.create(params).$promise.then(function(results) {
+        showToast('Your report will be emailed to you soon');
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      search: '&',
+      lid: '@',
+      type: '@'
+    },
+    template: 
+      '<div>'+
+      '<md-button ng-click="downloadReport()" class="md-icon-button" hide show-gt-xs>'+
+      '<md-icon>file_download</md-icon>'+
+      '</md-button>'+
+      '</div>'
   };
 
 }]);

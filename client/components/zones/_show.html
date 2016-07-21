@@ -31,9 +31,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-header">{{ zone.zone_name | titleCase }}.
-                <!-- Simon, change this back to boxes when moved off old CT -->
-                <span translate translate-n="{{zone.boxes_count}}" translate-plural="{{ zone.boxes_count || 0}} boxes" translate-context="in zones index component">1 box</span>,
-                <!-- Simon, change this back to boxes when moved off old CT -->
+                <span translate translate-n="{{zone.boxes}}" translate-plural="{{ zone.boxes }} boxes" translate-context="in zones index component">1 box</span>,
                 <span translate translate-n="{{ selected.length }} " translate-plural="{{ selected.length || 0 }} networks" translate-context="in zones index componenet">1 network</span>.
                 {{ zone.zone_description }}
               </span>

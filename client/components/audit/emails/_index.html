@@ -37,6 +37,16 @@
       <br/>
     </form>
     <div flex></div>
+    <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="selected.length" ng-click="filterClient()">
+      <md-icon>filter_list</md-icon>
+      <md-tooltip>
+        <translate>
+        Filter this client
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <range-filter search="test()" ing-if="query.filter || query.start" ></range-filter>
+    <audit-downloads ng-if="query.start && location.id && location_name && emails.length" lid="{{location.id}}" type="email"></audit-downloads>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -45,6 +55,12 @@
     <div flex="100" flex-gt-sm="100">
       <md-card>
         <md-card-content>
+          <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Emails">1 Email</span><span hide show-gt-sm ng-if="query.start">&nbsp;created between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
+              <div flex></div>
+            </div>
+          </md-toolbar>
           <md-table-container>
             <table ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
               <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
@@ -53,7 +69,7 @@
                   <th md-column><span translate>Email</span></th>
                   <th hide show-gt-sm md-column><span translate>Type</span></th>
                   <th hide show-gt-md md-column><span translate>Location</span></th>
-                  <th hide show-gt-sm md-column><span translate>Location</span></th>
+                  <th hide show-gt-sm md-column><span translate>Created</span></th>
                   <th md-column><span translate>Action</span></th>
                 </tr>
               </thead>

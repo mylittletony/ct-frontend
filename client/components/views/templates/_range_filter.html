@@ -1,4 +1,4 @@
-<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
+<md-dialog aria-label="{{ 'Range Filter' | translate }}"  ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -8,7 +8,7 @@
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
         <div flex layout="column">
-          <p translate>Search for clients online at a certain point in time.</p>
+          <p translate>Filter search results.</p>
         </div>
         <div flex layout="column">
           <md-datepicker ng-change="setPresence()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
