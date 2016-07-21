@@ -26,26 +26,26 @@
 
           <md-input-container ng-if="cf.level === 'network'">
             <label><translate>Network / SSID</translate></label>
-            <md-select ng-model="network" required>
-              <md-option ng-repeat="network in networks" value="{{network}}">
+            <md-select ng-model="cf.network_id" required>
+              <md-option ng-repeat="network in networks" value="{{network.id}}">
                 {{ network.ssid }}
               </md-option>
             </md-select>
           </md-input-container>
 
-          <p ng-if="network">
-            <translate ng-hide="network.client_filter == true">
-              This network's MAC filter is disabled, this client will be blocked
-            </translate>
-            <translate ng-show="network.client_filter == true">
-              This network's MAC filter is enabled, this client will be whitelisted
-            </translate>
-          </p>
+          <!-- <p ng-if="network"> -->
+          <!--   <translate ng-hide="network.client_filter == true"> -->
+          <!--     This network's MAC filter is disabled, this client will be blocked -->
+          <!--   </translate> -->
+          <!--   <translate ng-show="network.client_filter == true"> -->
+          <!--     This network's MAC filter is enabled, this client will be whitelisted -->
+          <!--   </translate> -->
+          <!-- </p> -->
 
           <md-input-container ng-if="cf.level === 'zone'">
             <label><translate>Zone Name</translate></label>
-            <md-select ng-model="zone">
-              <md-option ng-repeat="zone in zones" value="{{zone}}" required>
+            <md-select ng-model="cf.zone_id">
+              <md-option ng-repeat="zone in zones" value="{{zone.id}}" required>
                 {{ zone.zone_name }}
               </md-option>
             </md-select>

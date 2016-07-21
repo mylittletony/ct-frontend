@@ -7,7 +7,7 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
   var link = function(scope,element,attrs) {
 
     scope.location  = { slug: $routeParams.id };
-    scope.levels = [{key: 'All', value: 'all'}, {key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
+    scope.levels = [{key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
 
     // User permissions //
     var createMenu = function() {
@@ -56,17 +56,19 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
         scope.client_filters = [];
       }
       scope.client_filters.push(cf);
-      // scope._links.total_entries++;
     };
 
     var create = function(data) {
+      console.log(data)
+
       ClientFilter.create({
         location_id: scope.location.slug,
         client_filter: data
       }).$promise.then(function(results) {
         addToSet(results);
-        // SM translate
+        // Simon Toni translate
         showToast('Client filter successfully created.');
+        // Simon Toni translate
         scope.creating = undefined;
       }, function(error) {
         scope.creating = undefined;
@@ -80,8 +82,9 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
         id: data.id,
         client_filter: data
       }).$promise.then(function(results) {
-        // SM translate
+        // Simon Toni translate
         showToast('Client filter successfully updated.');
+        // Simon Toni translate
         scope.creating = undefined;
       }, function(error) {
         scope.creating = undefined;
@@ -91,21 +94,12 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
 
     scope.createUpdate = function(data) {
       scope.creating = true;
-      if (data.network) {
-        data.network_id = data.network.id;
-        data.network = undefined;
-      } else if (data.zone) {
-        data.zone_id = data.zone.id;
-        data.zone = undefined;
-      }
-
       if (data.id) {
         update(data);
       } else {
         create(data);
       }
     };
-
 
     var removeFromList = function(id) {
       for (var i = 0, len = scope.client_filters.length; i < len; i++) {
@@ -189,10 +183,8 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     };
 
     function DialogController ($scope, levels, networks, loadingLevels, cf) {
-      if (cf.id) {
+      if (cf && cf.id) {
         $scope.cf = cf;
-      } else {
-        $scope.cf = { level: 'all' };
       }
       $scope.levels = levels;
       $scope.loadingLevels = loadingLevels;

@@ -30,7 +30,10 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p translate>Client Filters let you control access to your networks.</p>
+        <translate>
+        <p>Client filters let you control access to your networks.</p>
+        <p>Create a zone before applying a filter.</p>
+        </translate>
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-click="addFilter()"><translate>Create</translate></md-button>
         </md-card-actions>
@@ -58,7 +61,6 @@
                   <tr md-row>
                     <th md-column hide show-gt-md md-order-by="client_mac"><span translate>Client MAC</span></th>
                     <th md-column hide show-gt-sm md-order-by="description"><span translate>Description</span></th>
-                    <th md-column hide show-gt-sm md-order-by="level"><span translate>Level</span></th>
                     <th md-column hide show-gt-sm md-order-by="zone_id"><span translate>Zone</span></th>
                     <th md-column hide show-gt-sm md-order-by="network_id"><span translate>Network</span></th>
                     <th md-column hide show-gt-md md-order-by="created_at"><span translate>Created</span></th>
@@ -74,15 +76,12 @@
                       {{ cf.description }}
                     </td>
                     <td md-cell>
-                      {{ cf.level }}
-                    </td>
-                    <td md-cell>
                       {{ cf.zone_name || '-' }}
                     </td>
                     <td md-cell>
                       {{ cf.network_name || '-' }}
                     </td>
-                    <td md-cell>
+                    <td md-cell hide show-gt-md>
                       {{ cf.created_at | humanTime }}
                     </td>
                     <td md-cell>
