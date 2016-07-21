@@ -595,30 +595,22 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
   var link = function( scope, element, attrs, controller ) {
 
     scope.location = { slug: $routeParams.id };
-    scope.ap_mac          = $routeParams.ap_mac;
-    scope.fn              = $routeParams.fn;
-    scope.period          = $routeParams.period || '30m';
+    scope.ap_mac   = $routeParams.ap_mac;
+    scope.fn       = $routeParams.fn;
+    scope.period   = $routeParams.period || '30m';
 
-    Client.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
-      ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
-      scope.client    = results;
-      scope.loading   = undefined;
-      loadPusher(results.location_token);
-      controller.$scope.$broadcast('loadClientChart');
-    });
-
-    scope.updateClient = function(id,logout) {
-      scope.client.updating = true;
-      scope.submitting = true;
-      Client.update({location_id: scope.location.slug, id: $routeParams.client_id, client: { name: scope.client.name, notes: scope.client.notes }}).$promise.then(function(results) {
-        scope.client.updating = undefined;
-        scope.client.editing = undefined;
-        scope.submitting = undefined;
-      }, function(err) {
-        scope.client.errors = err.data.message;
-        scope.submitting = undefined;
-      });
-    };
+    // scope.updateClient = function(id,logout) {
+    //   scope.client.updating = true;
+    //   scope.submitting = true;
+    //   Client.update({location_id: scope.location.slug, id: $routeParams.client_id, client: { name: scope.client.name, notes: scope.client.notes }}).$promise.then(function(results) {
+    //     scope.client.updating = undefined;
+    //     scope.client.editing = undefined;
+    //     scope.submitting = undefined;
+    //   }, function(err) {
+    //     scope.client.errors = err.data.message;
+    //     scope.submitting = undefined;
+    //   });
+    // };
 
     var logout = function() {
       scope.client.splash_status = 'dnat';
@@ -739,8 +731,21 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     };
 
     scope.update = function() {
-      Client.update({location_id: scope.location.slug, id: scope.client.id, client: { name: scope.client.name }}).$promise.then(function(results) {
+      scope.client.updating = true;
+      var client = {};
+      client.name = scope.client.name;
+      client.network_id = scope.client.network_id;
+      client.zone_id = scope.client.zone_id;
+      client.blocked = scope.client.blocked;
+      client.description = scope.client.description;
+      Client.update({
+        location_id: scope.location.slug,
+        id: scope.client.id,
+        client: client
+      }).$promise.then(function(results) {
+        showToast('Client updated successfully.');
       }, function(err) {
+        showErrors(err);
       });
     };
 
@@ -759,11 +764,97 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     }
     DialogController.$inject = ['$scope', '$mdDialog', 'client'];
 
+    scope.clientFilter = function() {
+      $mdDialog.show({
+        clickOutsideToClose: true,
+        templateUrl: 'components/views/client_filters/_add.html',
+        parent: angular.element(document.body),
+        controller: FilterController,
+        locals: {
+          levels: scope.levels,
+          networks: scope.networks,
+          loadingLevels: scope.loadingLevels,
+          cf: 'cf'
+        }
+      });
+    };
+
+    function FilterController ($scope, levels, networks, loadingLevels, cf) {
+      if (cf && cf.id) {
+        $scope.cf = cf;
+      }
+      $scope.levels = levels;
+      $scope.loadingLevels = loadingLevels;
+      $scope.selectLevel = function(level) {
+        $scope.errors = undefined;
+        getLevels(level);
+      };
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function(zone) {
+        $mdDialog.cancel();
+        scope.createUpdate($scope.cf);
+      };
+
+      var getNetworks = function() {
+        $scope.zones = undefined;
+        if (!$scope.networks) {
+          scope.getNetworks().then(function(networks) {
+            $scope.networks = networks;
+            $scope.loadingLevels = undefined;
+          }, function() {
+            $scope.errors = true;
+            $scope.loadingLevels = undefined;
+          });
+        } else {
+          $scope.loadingLevels = undefined;
+        }
+      };
+
+      var getZones = function() {
+        $scope.networks = undefined;
+        if (!$scope.zones) {
+          scope.getZones().then(function(zones) {
+            $scope.zones = zones;
+            $scope.loadingLevels = undefined;
+          }, function() {
+            $scope.errors = true;
+            $scope.loadingLevels = undefined;
+          });
+        } else {
+          $scope.loadingLevels = undefined;
+        }
+      };
+
+      var getLevels = function(level) {
+        $scope.loadingLevels = true;
+        if (level === 'network') {
+          getNetworks();
+        } else {
+          getZones();
+        }
+      };
+    }
+    FilterController.$inject = ['$scope', 'levels', 'networks', 'loadingLevels', 'cf'];
+
+    var init = function() {
+      Client.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
+        ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
+        scope.client    = results;
+        scope.loading   = undefined;
+        loadPusher(results.location_token);
+        controller.$scope.$broadcast('loadClientChart');
+      });
+    };
+
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
         channel.unbind();
       }
     });
+
+    init();
 
   };
 

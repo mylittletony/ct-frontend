@@ -75,7 +75,8 @@ describe('client_filters', function () {
       deferred.resolve(results);
       $scope.$apply();
 
-      var levels = [{key: 'All', value: 'all'}, {key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
+      var levels = [{key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
+      expect(element.isolateScope().levels).toEqual(levels);
       expect(element.isolateScope().menu.length).toEqual(2);
       expect(element.isolateScope().menu[0].name).toEqual('Edit');
       expect(element.isolateScope().menu[0].type).toEqual('edit');

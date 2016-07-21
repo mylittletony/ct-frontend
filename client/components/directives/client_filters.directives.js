@@ -59,8 +59,6 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     };
 
     var create = function(data) {
-      console.log(data)
-
       ClientFilter.create({
         location_id: scope.location.slug,
         client_filter: data

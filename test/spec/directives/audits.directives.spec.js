@@ -2,7 +2,7 @@
 
 describe('audit', function () {
 
-  var $scope, element, $routeParams, sessionFactory, q, deferred, $httpBackend, 
+  var $scope, element, $routeParams, sessionFactory, q, deferred, $httpBackend,
   $location, emailFactory, reportsFactory, guestFactory;
 
   beforeEach(module('templates'));
@@ -69,12 +69,12 @@ describe('audit', function () {
       expect(auditScope.client_mac).toEqual('my-mac');
       expect(auditScope.username).toEqual('my-user');
       expect(auditScope.location_name).toEqual('my-location');
-      
+
       expect(auditScope.selectedItem).toEqual('my-location');
 
       // Because we send a q param //
       expect(auditScope.options.rowSelection).toEqual(false);
-      
+
       expect(auditScope.query.order).toEqual('-acctstarttime');
       expect(auditScope.query.start).toEqual('111');
       expect(auditScope.query.end).toEqual('222');
@@ -126,10 +126,10 @@ describe('audit', function () {
 
       expect(auditScope.email).toEqual('my-email');
       expect(auditScope.location_name).toEqual('my-location');
-      
+
       // Because we send an email in
       expect(auditScope.selectedItem).toEqual('my-email');
-      
+
       expect(auditScope.query.order).toEqual('-created_at');
       expect(auditScope.query.start).toEqual('111');
       expect(auditScope.query.end).toEqual('222');
@@ -180,10 +180,10 @@ describe('audit', function () {
 
       expect(auditScope.email).toEqual('my-email');
       expect(auditScope.location_name).toEqual('my-location');
-      
+
       // Because we send an email in
       expect(auditScope.selectedItem).toEqual('my-email');
-      
+
       expect(auditScope.query.order).toEqual('-created_at');
       expect(auditScope.query.start).toEqual('111');
       expect(auditScope.query.end).toEqual('222');

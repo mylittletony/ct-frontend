@@ -76,6 +76,14 @@
             </div>
           </md-list-item>
         </md-list>
+        <div class="md-list-item-text" layout="column">
+          <!-- <h4 translate> -->
+          <!--   <md-icon>lock_open</md-icon> -->
+          <!--   Client Filters -->
+          <!-- </h4> -->
+          <md-switch ng-model="client.blocked" aria-label="Switch 2" class="md-warn" ng-change="clientFilter()">
+            Status: {{ client.blocked ? 'Blocked' : 'Allowed' }}
+        </md-switch></div>
       </md-card-content>
     </md-card>
     <md-card>
