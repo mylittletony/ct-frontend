@@ -209,8 +209,19 @@ describe('networks', function () {
       deferred.resolve(network);
       $scope.$apply();
 
-      var cf = [{ key: 'Off', value: 'off' }, { key: 'Allow', value: 'allow'}, { key: 'Block', value: 'deny'}];
-      expect(element.isolateScope().client_filters).toEqual(cf);
+      var cf = [
+        { key: 'Off', value: 'off' },
+        { key: 'Allow White-listed Clients', value: 'allow'},
+        { key: 'Block Banned Clients', value: 'deny'}
+      ];
+
+      expect(element.isolateScope().client_filters[0].key).toEqual('Off');
+      expect(element.isolateScope().client_filters[0].value).toEqual('off');
+      expect(element.isolateScope().client_filters[1].key).toEqual('Allow White-listed Clients');
+      expect(element.isolateScope().client_filters[1].value).toEqual('allow');
+      expect(element.isolateScope().client_filters[2].key).toEqual('Block Banned Clients');
+      expect(element.isolateScope().client_filters[2].value).toEqual('deny');
+
       expect(element.isolateScope().menu.length).toEqual(3);
       expect(element.isolateScope().menu[0].name).toEqual('Delete Network');
       expect(element.isolateScope().menu[0].type).toEqual('delete');
