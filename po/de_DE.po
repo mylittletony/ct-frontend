@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-07-21 00:26+0200\n"
+"PO-Revision-Date: 2016-07-21 12:15+0200\n"
 "Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -742,7 +742,7 @@ msgstr "Administratoren"
 #: client/components/locations/locations.directives.js:476
 #: client/components/locations/locations.filters.js:224
 msgid "Administrator"
-msgstr ""
+msgstr "Administrator"
 
 #: client/components/users/layouts/sidebar.html:8
 msgid "Admins"
@@ -5013,32 +5013,31 @@ msgstr "Ungültige MAC-Adresse"
 #: client/components/users/branding/_form.html:53
 #: client/components/users/branding/_form.html:69
 msgid "Must be a valid URL"
-msgstr ""
+msgstr "Ungültige URL"
 
 #: client/components/splash_pages/_menu.html:637
 msgid "Must be a valid URL including http(s)."
-msgstr ""
+msgstr "Muss eine gültige URL inklusive http(s) sein."
 
 #: client/components/splash_pages/splash_show.html:408
 msgid "Must be a valid URL, including http(s)."
-msgstr ""
+msgstr "Muss eine gültige URL inklusive http(s) sein ."
 
 #: client/components/users/branding/_form.html:123
 msgid "Must be a valid email"
-msgstr ""
+msgstr "Muss eine gültige Email-Adresse sein"
 
 #: client/components/splash_pages/access-password.html:43
 msgid "Must be a valid email address"
-msgstr ""
+msgstr "Muss eine gültige Email-Adresse sein"
 
 #: client/components/splash_pages/view-store.html:208
-#, fuzzy
 msgid "Must be a valid email address."
-msgstr "Email-Adresse"
+msgstr "Muss eine gültige Email-Adresse sein."
 
 #: client/components/boxes/edit/_edit.html:321
 msgid "Must be a valid gateway address"
-msgstr ""
+msgstr "Muss eine gültige Gatewayl-Adresse sein."
 
 #: client/components/boxes/new/_add.html:40
 msgid "Must be a valid mac, including dashes or colons."
@@ -5050,86 +5049,88 @@ msgstr ""
 
 #: client/components/apps/_new.html:52
 msgid "Must be a valid, https URL"
-msgstr ""
+msgstr "Muss eine gültige https URL sein."
 
 #: client/components/boxes/port_forwards/form.html:26
 #: client/components/boxes/port_forwards/form.html:32
 msgid "Must be between 1 and 65322."
-msgstr ""
+msgstr "Muss zwischen  1 and 65322 liegen"
 
 #: client/components/boxes/edit/_edit.html:245
+#, fuzzy
 msgid "Must be greated than 1"
-msgstr ""
+msgstr "Muss größer 1 sein"
 
 #: client/components/boxes/edit/_edit.html:354
+#, fuzzy
 msgid "Must be greated than 100"
-msgstr ""
+msgstr "Muss größer 100 sein"
 
 #: client/components/locations/networks/_show.html:178
 #: client/components/locations/networks/_show.html:188
 #: client/components/locations/settings/_splash.html:29
 msgid "Must be greater than 0"
-msgstr ""
+msgstr "Muss größer als 0 sein"
 
 #: client/components/locations/settings/_devices.html:43
 msgid "Must be greater than 0 minutes"
-msgstr ""
+msgstr "Muss größer als 0 Minuten sein"
 
 #: client/components/splash_pages/_menu.html:610
 msgid "Must be greater than 0 seconds."
-msgstr ""
+msgstr "Muss größer als 0 Sekunden sein"
 
 #: client/components/locations/networks/_show.html:198
 #: client/components/splash_codes/_edit.html:89
 #: client/components/vouchers/_form.html:144
 msgid "Must be greater than 1"
-msgstr ""
+msgstr "Muss größer als 1 sein"
 
 #: client/components/locations/settings/_devices.html:32
 msgid "Must be greater than 1 minutes"
-msgstr ""
+msgstr "Muss größer als 1 Minute sein"
 
 #: client/components/locations/networks/_show.html:263
 #: client/components/locations/networks/_show.html:296
 #: client/components/splash_pages/_store_product.html:108
 msgid "Must be greater than 1."
-msgstr ""
+msgstr "Muss größer als 1 sein"
 
 #: client/components/vouchers/_form.html:134
 #: client/components/vouchers/_form.html:81
 msgid "Must be greater than 10"
-msgstr ""
+msgstr "Muss größer als 10 sein"
 
 #: client/components/locations/settings/_devices.html:54
 msgid "Must be greater than 10 characters"
-msgstr ""
+msgstr "Muss größer als 10 Zeichen sein"
 
 #: client/components/splash_codes/_edit.html:78
 msgid "Must be greater than 10 minutes"
-msgstr ""
+msgstr "Muss größer als 10 Minuten sein"
 
 #: client/components/splash_pages/_store_product.html:94
 #: client/components/splash_pages/splash_show.html:387
 #: client/components/splash_pages/splash_show.html:397
 msgid "Must be greater than 10 minutes."
-msgstr ""
+msgstr "Muss größer als 10 Minuten sein"
 
 #: client/components/splash_pages/splash_show.html:225
 msgid "Must be greater than 10."
-msgstr ""
+msgstr "Muss größer als 10 sein"
 
 #: client/components/splash_pages/splash_show.html:236
 msgid "Must be greater than 10Mb."
-msgstr ""
+msgstr "Muss größer als 10 Mb sein"
 
 #: client/components/locations/new/_index.html:71
 #: client/components/splash_codes/_edit.html:67
 msgid "Must be greater than 3 characters"
-msgstr ""
+msgstr "Muss größer als 3 Zeichen sein"
 
 #: client/components/locations/settings/_analytics.html:29
 msgid "Must be greater than 30 characters"
-msgstr ""
+msgstr "Muss größer als 30 Zeichen sein"
 
 #: client/components/locations/new/_index.html:38
 #: client/components/locations/new/_index.html:49
@@ -5142,46 +5143,47 @@ msgstr ""
 #: client/components/users/show/_password.html:17
 #: client/components/users/show/_password.html:25
 msgid "Must be greater than 5 characters"
-msgstr ""
+msgstr "Muss größer als 5 Zeichen sein"
 
 #: client/components/boxes/new/_add.html:51
 msgid "Must be greater than 5 characters."
-msgstr ""
+msgstr "Muss größer als 5 Zeichen sein"
 
 #: client/components/vouchers/_form.html:63
 msgid "Must be greater than 5 mins"
-msgstr ""
+msgstr "Muss größer als 5 Minuten sein"
 
 #: client/components/vouchers/_form.html:72
 msgid "Must be greater than 50Mb"
-msgstr ""
+msgstr "Muss größer als 50 Mb sein"
 
 #: client/components/splash_pages/splash_show.html:247
 #: client/components/splash_pages/splash_show.html:311
 #: client/components/splash_pages/splash_show.html:319
 msgid "Must be greater than or equal to 0."
-msgstr ""
+msgstr "Muss größer oder gleich 0 sein"
 
 #: client/components/vouchers/_form.html:124
 #: client/components/vouchers/_form.html:163
 msgid "Must be greater than {{ voucher.validity_minutes }}"
-msgstr ""
+msgstr "Muss größer als {{ voucher.validity_minutes }} sein"
 
 #: client/components/locations/clients/_device_name.html:18
+#, fuzzy
 msgid "Must be less more than 5 characters"
-msgstr ""
+msgstr "Muss kleiner als 5 Zeichen sein"
 
 #: client/components/locations/settings/_splash.html:28
 msgid "Must be less than 1,000,000"
-msgstr ""
+msgstr "Muss kleiner als  1.000.000 sein"
 
 #: client/components/locations/settings/_devices.html:31
 msgid "Must be less than 10,080 minutes"
-msgstr ""
+msgstr "Muss kleiner als  10.080 Minuten sein"
 
 #: client/components/vouchers/_form.html:145
 msgid "Must be less than 100"
-msgstr ""
+msgstr "Muss kleiner als  100 sein"
 
 #: client/components/locations/new/_index.html:37
 #: client/components/locations/triggers/_new.html:400
@@ -5434,7 +5436,7 @@ msgstr ""
 #: client/components/vouchers/_index.html:81
 #: client/components/zones/_form.html:19 client/components/zones/_index.html:56
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: client/components/locations/triggers/_new.html:395
 msgid "Name of trigger"
@@ -5442,11 +5444,11 @@ msgstr ""
 
 #: client/components/apps/_new.html:38
 msgid "Name should be less than 32 characters"
-msgstr ""
+msgstr "Name sollte mehr als 32 Zeichen enthalten"
 
 #: client/components/apps/_new.html:37
 msgid "Name should be more than 5 characters"
-msgstr ""
+msgstr "Name sollte mehr als 5 Zeichen enthalten"
 
 #: client/components/locations/triggers/_new.html:387
 msgid "Name your Trigger"
@@ -5459,11 +5461,11 @@ msgstr "Dokumentation"
 
 #: client/components/splash_pages/_index.html:73
 msgid "Name {{ splash.splash_name }}"
-msgstr ""
+msgstr "Name {{ splash.splash_name }}"
 
 #: client/components/locations/networks/_index.html:81
 msgid "Name: {{ n.name }}"
-msgstr ""
+msgstr "Name: {{ n.name }}"
 
 #: client/components/boxes/edit/_edit.html:306
 #: client/components/locations/networks/_show.html:104
@@ -5519,11 +5521,11 @@ msgstr "Netzwerk-Statistiken"
 
 #: client/components/networks/networks.directives.js:211
 msgid "Network created successfully"
-msgstr ""
+msgstr "Netzwerkg erfolgreich erstellt"
 
 #: client/components/zones/_associated_zones_dialog.html:5
 msgid "Network not associated with a zone."
-msgstr ""
+msgstr "Netzwerk mit keiner Zone verbunden"
 
 #: client/components/networks/networks.directives.js:145
 #: client/components/networks/networks.directives.js:361
@@ -5547,26 +5549,26 @@ msgstr "Netzwerke"
 
 #: client/components/boxes/show/_index.html:206
 msgid "Never"
-msgstr ""
+msgstr "Niemals"
 
 #: client/components/locations/show/_map.html:40
 msgid "Never checked in"
-msgstr ""
+msgstr "Nie eingecheckt"
 
 #: client/components/apps/_index.html:73
 #: client/components/splash_codes/splash_codes.directives.js:310
 #: client/components/splash_pages/view-store.html:77
 #: client/components/vouchers/vouchers.directives.js:344
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
 #: client/components/apps/_index.html:40
 msgid "New App"
-msgstr ""
+msgstr "Neue App"
 
 #: client/components/locations/show/_inventory.html:18
 msgid "New Boxes"
-msgstr ""
+msgstr "Neue Geräte"
 
 #: client/components/reports/_wireless_stats.html:16
 msgid "New Clients"
@@ -5574,21 +5576,19 @@ msgstr "Neue Stationen"
 
 #: client/components/boxes/show/_index.html:163
 msgid "New Device"
-msgstr ""
+msgstr "Neues Gerät"
 
 #: client/components/users/show/_password.html:22
-#, fuzzy
 msgid "New Password"
 msgstr "Neues Kennwort"
 
 #: client/components/splash_pages/_form.html:66
-#, fuzzy
 msgid "New SSID"
-msgstr "Einstellungen"
+msgstr "neue SSID"
 
 #: client/components/boxes/boxes.filters.js:75
 msgid "New device"
-msgstr ""
+msgstr "Neues Gerät"
 
 #: client/components/splash_pages/splash_show.html:134
 msgid "Newsletter API Token"
@@ -5604,15 +5604,15 @@ msgstr ""
 
 #: client/components/boxes/new/_add.html:144
 msgid "No Devices Discovered"
-msgstr ""
+msgstr "Keine Geräte gefunden"
 
 #: client/components/locations/index/_favourites.html:13
 msgid "No Favourites"
-msgstr ""
+msgstr "Keine Favoriten"
 
 #: client/components/layouts/offline-modal.html:2
 msgid "No Internet."
-msgstr ""
+msgstr "Kein Internet"
 
 #: client/components/locations/index/_list.html:35
 msgid "No Locations Found"
@@ -5637,7 +5637,7 @@ msgstr "Einstellungen"
 
 #: client/components/locations/locations.directives.js:1073
 msgid "No Zone"
-msgstr ""
+msgstr "Keine Zone"
 
 #: client/components/users/billing/_add_coupon.html:22
 msgid "No active coupons found."
@@ -5758,48 +5758,48 @@ msgstr ""
 
 #: client/components/users/branding/_form.html:42
 msgid "Number & letters only"
-msgstr ""
+msgstr "nur Zahlen & Buchstaben"
 
 #: client/components/splash_pages/_form_designer.html:37
 #: client/components/splash_pages/_form_designer.html:50
 #: client/components/splash_pages/_form_designer.html:95
 msgid "Number and letters only please."
-msgstr ""
+msgstr "Nur Zahlen und Buchstaben erlaubt"
 
 #: client/components/registrations/_flow.html:98
 msgid "Number and letters only."
-msgstr ""
+msgstr "Nur Zahlen und Buchstaben erlaubt"
 
 #: client/components/vouchers/vouchers.directives.js:254
 #: client/components/vouchers/vouchers.directives.js:525
 msgid "Numbers and letters"
-msgstr ""
+msgstr "Zahlen und Buchstaben"
 
 #: client/components/locations/access/access-password.html:27
 msgid "Numbers and letters only please"
-msgstr ""
+msgstr "Nur Zahlen und Buchstaben erlaubt"
 
 #: client/components/registrations/_flow.html:31
 msgid "Numbers and letters only please."
-msgstr ""
+msgstr "Nur Zahlen und Buchstaben erlaubt."
 
 #: client/components/vouchers/vouchers.directives.js:254
 #: client/components/vouchers/vouchers.directives.js:525
 msgid "Numbers only"
-msgstr ""
+msgstr "Nur Zahlen erlaubt"
 
 #: client/components/boxes/edit/_edit.html:390
 msgid "Numbers, letters and hyphens only."
-msgstr ""
+msgstr "Nur Zahlen, Buchstaben und Bindestriche erlaubt."
 
 #: client/components/vouchers/vouchers.directives.js:559
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: client/components/locations/locations.directives.js:479
 #: client/components/locations/locations.filters.js:230
 msgid "Observer"
-msgstr ""
+msgstr "Beobachter"
 
 #: client/components/splash_pages/splash_pages.directives.js:141
 #: client/components/splash_pages/splash_pages.directives.js:142
@@ -5816,8 +5816,9 @@ msgid "Offline"
 msgstr "Offline"
 
 #: client/components/splash_pages/_welcome.html:3
+#, fuzzy
 msgid "Oh hi, it's you"
-msgstr ""
+msgstr "Oh hallo, Sie sind's"
 
 #: client/components/locations/triggers/triggers.directives.js:602
 msgid "Oh no, the trigger failed. Please check the logs"
@@ -5829,12 +5830,15 @@ msgstr ""
 
 #: client/components/locations/locations.directives.js:1878
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: client/components/splash_pages/_welcome.html:4
+#, fuzzy
 msgid ""
 "Ok, so I'm a little welcome text. I'll appear after the user has logged in."
 msgstr ""
+"Ok, so bin ein kleiner Begrüßungstext . Ich werde angezeigt, nachdem sich "
+"der Benutzer angemeldet hat."
 
 #: client/components/locations/layouts/location-banner.html:6
 #: client/components/users/layouts/location-banner.html:5
@@ -5946,32 +5950,33 @@ msgstr ""
 
 #: client/components/audit/sales/_show.html:48
 msgid "Order Date"
-msgstr ""
+msgstr "Auftragsdatum"
 
 #: client/components/audit/sales/_show.html:20
 msgid "Order Details"
-msgstr ""
+msgstr "Auftragsdetails"
 
 #: client/components/audit/sales/_show.html:30
 msgid "Order Status"
-msgstr ""
+msgstr "Auftragsstatus"
 
 #: client/components/audit/sales/_show.html:36
 msgid "Order Total"
-msgstr ""
+msgstr "Gesamtbestellung"
 
 #: client/components/audit/sales/_index.html:89
 msgid "Order Total: {{ order.total / 100 | currency:order.currency }}"
-msgstr ""
+msgstr "Gesamtbestellungl: {{ order.total / 100 | currency:order.currency }}"
 
 #: client/components/audit/audits.directives.js:882
+#, fuzzy
 msgid "Order successfully refunded."
-msgstr ""
+msgstr "Auftrag erfolgreich zurückerstattet."
 
 #: client/components/clients/clients.directives.js:805
 #: client/components/users/layouts/sidebar.html:10
 msgid "Orders"
-msgstr ""
+msgstr "Aufträge"
 
 #: client/components/locations/clients/_show.html:66
 msgid "Original name: {{ client.device_name }}"
@@ -6014,7 +6019,7 @@ msgstr ""
 
 #: client/components/vouchers/_show.html:174
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: client/components/splash_pages/_menu.html:440
 #: client/components/splash_pages/_menu.html:558
@@ -6028,19 +6033,19 @@ msgstr ""
 
 #: client/components/splash_pages/access-social.html:52
 msgid "Page ID required"
-msgstr ""
+msgstr "Seiten ID notwendig"
 
 #: client/components/splash_pages/design-sidebar.html:66
 msgid "Page Title"
-msgstr ""
+msgstr "Titel der Seite"
 
 #: client/components/locations/access/access-social.html:71
 msgid "Page invalid, it might not exist."
-msgstr ""
+msgstr "Seite ist ungültig,vielleicht existiert sie nicht."
 
 #: client/components/locations/access/access-social.html:74
 msgid "Page valid"
-msgstr ""
+msgstr "Seite gültig"
 
 #: client/components/locations/access/access-vouchers.html:28
 msgid "Paid Wi-Fi is only available on non-free plans."
@@ -6070,7 +6075,7 @@ msgstr ""
 #: client/components/vouchers/_copy.html:29
 #: client/components/vouchers/_copy.html:47
 msgid "Password"
-msgstr ""
+msgstr "Kennwort"
 
 #: client/components/splash_pages/access-password.html:31
 msgid "Password Auto Gen"
@@ -6078,7 +6083,7 @@ msgstr ""
 
 #: client/components/locations/triggers/_new.html:245
 msgid "Password Changed"
-msgstr ""
+msgstr "Kennwort geändert"
 
 #: client/components/splash_pages/access-password.html:38
 msgid "Password Changed Email Recipient"
@@ -6143,25 +6148,25 @@ msgstr ""
 
 #: client/components/splash_codes/_edit.html:97
 msgid "Per day"
-msgstr ""
+msgstr "pro Tag"
 
 #: client/components/splash_pages/splash_pages.directives.js:141
 msgid "Periodic"
-msgstr ""
+msgstr "periodisch"
 
 #: client/components/locations/show/edit-modal.html:23
 #: client/components/users/show/_index.html:100
 msgid "Phone Number"
-msgstr ""
+msgstr "Telefonnummer"
 
 #: client/components/users/billing/_index.html:41
 #: client/components/users/show/_index.html:37
 msgid "Plan"
-msgstr ""
+msgstr "Tarif"
 
 #: client/components/users/billing/_show.html:17
 msgid "Plan Description"
-msgstr ""
+msgstr "Tarifbeschreibung"
 
 #: client/components/users/billing/_show.html:5
 msgid "Plan Details"
@@ -6169,11 +6174,11 @@ msgstr "Tarif-Details"
 
 #: client/components/users/billing/_index.html:42
 msgid "Plan."
-msgstr ""
+msgstr "Tarif"
 
 #: client/components/users/billing/_plans.html:4
 msgid "Plans"
-msgstr ""
+msgstr "Tarife"
 
 #: client/components/locations/show/_index.html:54
 msgid "Please Add a Device"
@@ -6185,11 +6190,11 @@ msgstr "Bitte eine Anwendung erstellen"
 
 #: client/components/locations/locations.directives.js:920
 msgid "Please becareful, this cannot be reversed."
-msgstr ""
+msgstr "Achtung, das kann nicht rückgängig gemacht werden."
 
 #: client/components/registrations/_create.html:19
 msgid "Please click the link in the email to confirm your account."
-msgstr ""
+msgstr "Bitte klicken Sie auf den Link in der E-Mail-Konto zu bestätigen."
 
 #: client/components/boxes/show/_index.html:167
 msgid ""
@@ -6199,7 +6204,7 @@ msgstr ""
 
 #: client/components/locations/index/_list.html:40
 msgid "Please create a location and add your devices."
-msgstr ""
+msgstr "Bitte erstellen Sie einen Standort und fügen Sie Ihr Gerät hinzu."
 
 #: client/components/splash_codes/_edit.html:20
 msgid "Please create a splash page before generating some splash codes."
@@ -6212,6 +6217,10 @@ msgid ""
 "use https for security reasons. If your ports are open, please check your "
 "user credentials has the correct permissions."
 msgstr ""
+"Stellen Sie sicher, dass es eine öffentliche IP ist und Ihre Firewall-"
+"Einstellung passen. Sie müssen aus Sicherheitsgründen https verwenden. Wenn "
+"die Ports geöffnet sind, überprüfen Sie bitte, ob Ihr Benutzer über die "
+"entsprechenden Berechtigungen verfügt."
 
 #: client/components/users/branding/_form.html:115
 #: client/components/users/branding/_form.html:49
@@ -6221,15 +6230,15 @@ msgstr ""
 
 #: client/components/apps/_new.html:78
 msgid "Please enter a description"
-msgstr ""
+msgstr "Geben Sie eine Beschreibung ein."
 
 #: client/components/locations/new/_index.html:39
 msgid "Please enter a location name."
-msgstr ""
+msgstr "Geben Sie einen Standort ein."
 
 #: client/components/locations/triggers/channel-slack.html:33
 msgid "Please enter a message"
-msgstr ""
+msgstr "Geben Sie bitte eine Nachricht ein."
 
 #: client/components/locations/triggers/channel-sms.html:41
 msgid "Please enter a message body"
@@ -6237,7 +6246,7 @@ msgstr ""
 
 #: client/components/locations/clients/_device_name.html:16
 msgid "Please enter a name"
-msgstr ""
+msgstr "Geben Sie einen Namen ein."
 
 #: client/components/users/branding/_form.html:39
 msgid "Please enter a name for your brand"
@@ -6249,7 +6258,7 @@ msgstr ""
 
 #: client/components/users/branding/_form.html:165
 msgid "Please enter a valid URL"
-msgstr ""
+msgstr "Geben Sie eine gültige URL ein."
 
 #: client/components/locations/triggers/channel-sms.html:30
 msgid "Please enter a valid number"
@@ -6303,13 +6312,13 @@ msgstr ""
 
 #: client/components/clients/clients.directives.js:818
 msgid "Policies"
-msgstr ""
+msgstr "Regeln"
 
 #: client/components/locations/networks/_show.html:147
 #: client/components/locations/networks/_show.html:257
 #: client/components/locations/networks/_show.html:290
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: client/components/boxes/port_forwards/header.html:6
 msgid "Port Forwarding Action"
@@ -6317,25 +6326,25 @@ msgstr ""
 
 #: client/components/boxes/port_forwards/form.html:29
 msgid "Port Number"
-msgstr ""
+msgstr "Port Nummer"
 
 #: client/components/locations/new/_index.html:68
 #: client/components/locations/settings/_main.html:112
 #: client/components/locations/show/edit-modal.html:51
 msgid "Postcode"
-msgstr ""
+msgstr "Postleitzahl"
 
 #: client/components/locations/settings/_main.html:110
 msgid "Postcode (Zipcode)"
-msgstr ""
+msgstr "Postleitzahl"
 
 #: client/components/locations/new/_index.html:66
 msgid "Postcode / Zipcode"
-msgstr ""
+msgstr "Postleitzahl"
 
 #: client/components/locations/new/_index.html:72
 msgid "Postcode required."
-msgstr ""
+msgstr "Postleitzahl erforderlich."
 
 #: client/components/locations/triggers/list.html:76
 msgid "Posting to {{ trigger.custom_1 || 'unknown'}}"
@@ -6384,7 +6393,7 @@ msgstr ""
 
 #: client/components/audit/sales/_show.html:80
 msgid "Product"
-msgstr ""
+msgstr "Produkt"
 
 #: client/components/splash_pages/_store_product.html:24
 #, fuzzy
@@ -6393,7 +6402,7 @@ msgstr "Dokumentation"
 
 #: client/components/splash_pages/_store_product.html:34
 msgid "Product Type"
-msgstr ""
+msgstr "Produkttyp"
 
 #: client/components/splash_pages/splash_pages.directives.js:989
 msgid "Product added to store"
@@ -6411,7 +6420,7 @@ msgstr ""
 #: client/components/users/show/_index.html:7
 #: client/components/users/users.controllers.js:40
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: client/components/users/show/_index.html:63
 msgid "Profile Settings"
@@ -6446,18 +6455,18 @@ msgstr "Öffentlicher Standort"
 
 #: client/components/locations/triggers/_new.html:286
 msgid "Purchase"
-msgstr ""
+msgstr "Kauf"
 
 #: client/components/charts/devices/_snr_chart.html:46
 msgid "Quality"
-msgstr ""
+msgstr "Qualität"
 
 #: client/components/vouchers/_form.html:78
 #: client/components/vouchers/_form.html:79
 #: client/components/vouchers/_index.html:83
 #: client/components/vouchers/_show.html:79
 msgid "Quantity"
-msgstr ""
+msgstr "Menge"
 
 #: client/components/splash_pages/access-quickcodes.html:4
 #, fuzzy
@@ -6467,7 +6476,7 @@ msgstr "Einstellungen"
 #: client/components/users/layouts/sidebar.html:13
 #: client/components/users/users.controllers.js:122
 msgid "Quotas"
-msgstr ""
+msgstr "Anteile"
 
 #: client/components/vouchers/_show.html:172
 msgid "REGENERATE"
@@ -6479,7 +6488,7 @@ msgstr ""
 
 #: client/components/forms/forms.directives.js:9
 msgid "Radio"
-msgstr ""
+msgstr "Funk"
 
 #: client/components/splash_pages/_form_designer.html:69
 msgid "Radio Values (comma separated)"
@@ -6550,7 +6559,7 @@ msgstr "RADIUS-Verwendung"
 
 #: client/components/locations/clients/_show_code.html:64
 msgid "Randomly Generated"
-msgstr ""
+msgstr "zufallsgeneriert"
 
 #: client/components/locations/clients/_range_filter.html:5
 msgid "Range Filter"
@@ -6562,33 +6571,35 @@ msgstr ""
 
 #: client/components/locations/access/access-vouchers.html:44
 msgid "Read more"
-msgstr ""
+msgstr "weiterlesen"
 
 #: client/components/users/branding/_form.html:135
 msgid "Read the docs"
-msgstr ""
+msgstr "Lesen Sie die Dokumentation"
 
 #: client/components/locations/show/tutorial.html:7
+#, fuzzy
 msgid "Read the docs!"
-msgstr ""
+msgstr "Lesen Sie die Dokumentation!"
 
 #: client/components/locations/show/zero-sessions.html:4
+#, fuzzy
 msgid "Ready for take off"
-msgstr ""
+msgstr "Bereit zum Abheben"
 
 #: client/components/boxes/boxes.directives.js:83
 #: client/components/locations/locations.directives.js:767
 msgid "Reboot"
-msgstr ""
+msgstr "Neustarten"
 
 #: client/components/boxes/boxes.directives.js:254
 msgid "Reboot Box"
-msgstr ""
+msgstr "Gerät neustarten"
 
 #: client/components/boxes/boxes.directives.js:256
 #: client/components/locations/locations.directives.js:871
 msgid "Reboot it"
-msgstr ""
+msgstr "Neustarten"
 
 #: client/components/boxes/boxes.directives.js:253
 #: client/components/locations/locations.directives.js:868
@@ -6627,7 +6638,7 @@ msgstr ""
 
 #: client/components/splash_pages/design-sidebar.html:381
 msgid "Redirect to website"
-msgstr ""
+msgstr "Umleiten zu Webseite"
 
 #: client/components/users/layouts/sidebar.html:14
 msgid "Referrals"
@@ -6644,9 +6655,8 @@ msgid "Refund Transaction"
 msgstr ""
 
 #: client/components/splash_pages/access-registration.html:6
-#, fuzzy
 msgid "Registration Settings"
-msgstr "Einstellungen"
+msgstr "Registrieungs- Einstellungen"
 
 #: client/components/boxes/edit/_edit.html:242
 msgid "Remote Port"
@@ -6659,34 +6669,31 @@ msgstr ""
 #: client/components/directives/users.directives.js:1174
 #: client/components/locations/locations.directives.js:605
 msgid "Remove"
-msgstr ""
+msgstr "Löschen"
 
 #: client/components/locations/settings/_notifications.html:26
-#, fuzzy
 msgid "Remove Email"
-msgstr "Dokumentation"
+msgstr "Email löschen"
 
 #: client/components/locations/locations.directives.js:1875
 msgid "Remove From Favourites?"
-msgstr ""
+msgstr "Aus Favoriten löschen?"
 
 #: client/components/locations/locations.directives.js:1877
 msgid "Remove Location"
 msgstr "Standort löschen"
 
 #: client/components/splash_pages/splash_show.html:360
-#, fuzzy
 msgid "Remove Mac"
-msgstr "Dokumentation"
+msgstr "MAC-Adresse löschen"
 
 #: client/components/splash_pages/splash_show.html:350
-#, fuzzy
 msgid "Remove URL"
-msgstr "Standort löschen"
+msgstr "URL löschen"
 
 #: client/components/locations/locations.directives.js:603
 msgid "Remove User"
-msgstr ""
+msgstr "Benutzer löschen"
 
 #: client/components/locations/networks/_show.html:76
 msgid "Remove the VLAN ID to enable the splash page"
@@ -6694,11 +6701,11 @@ msgstr ""
 
 #: client/components/directives/users.directives.js:1172
 msgid "Remove this user?"
-msgstr ""
+msgstr "Diesen Benutzer löschen?"
 
 #: client/components/users/inventories/_index.html:59
 msgid "Removed {{ ::i.removed_at | humanTime }}"
-msgstr ""
+msgstr "entfernt  {{ ::i.removed_at | humanTime }}"
 
 #: client/components/locations/locations.directives.js:604
 msgid "Removing a user will prevent them from accessing this location."
@@ -6717,25 +6724,25 @@ msgstr ""
 #: client/components/locations/show/_periscope.html:15
 #: client/components/reports/reports.v2.directives.js:169
 msgid "Reports"
-msgstr ""
+msgstr "Berichte"
 
 #: client/components/vouchers/_form.html:126
 #: client/components/vouchers/_form.html:136
 #: client/components/vouchers/_form.html:146
 msgid "Required"
-msgstr ""
+msgstr "erforderlich"
 
 #: client/components/splash_pages/_form_designer.html:76
 msgid "Required Field"
-msgstr ""
+msgstr "Pflichtfeld"
 
 #: client/components/boxes/port_forwards/form.html:19
 msgid "Required field."
-msgstr ""
+msgstr "Pflichtfeld."
 
 #: client/components/splash_pages/access-social.html:61
 msgid "Required when using your own App."
-msgstr ""
+msgstr "Erforderlich, wenn Sie Ihre eigene App verwenden."
 
 #: client/components/vouchers/_form.html:165
 msgid "Required with single-use vouchers"
@@ -6745,32 +6752,32 @@ msgstr ""
 #: client/components/boxes/port_forwards/form.html:30
 #: client/components/boxes/port_forwards/form.html:36
 msgid "Required."
-msgstr ""
+msgstr "Benötigt."
 
 #: client/components/registrations/_create.html:24
 msgid "Resend it now"
-msgstr ""
+msgstr "Jetzt erneut senden"
 
 #: client/components/boxes/boxes.directives.js:123
 #: client/components/locations/triggers/_new.html:84
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: client/components/boxes/boxes.directives.js:186
 msgid "Reset Device"
-msgstr ""
+msgstr "Gerät zurücksetzen"
 
 #: client/components/boxes/boxes.directives.js:188
 msgid "Reset it"
-msgstr ""
+msgstr "zurücksetzen"
 
 #: client/components/boxes/boxes.directives.js:184
 msgid "Reset this Device"
-msgstr ""
+msgstr "Dieses Gerät zurücksetzen"
 
 #: client/components/boxes/show/_index.html:20
 msgid "Reset zoom level"
-msgstr ""
+msgstr "Zoom-Ebene zurücksetzen"
 
 #: client/components/boxes/boxes.directives.js:185
 msgid ""
@@ -6781,7 +6788,7 @@ msgstr ""
 
 #: client/components/users/quotas/_index.html:22
 msgid "Resource"
-msgstr ""
+msgstr "Resource"
 
 #: client/components/users/quotas/_index.html:6
 msgid "Resource Quotas"
@@ -6789,11 +6796,11 @@ msgstr ""
 
 #: client/components/locations/triggers/history/_index.html:20
 msgid "Response"
-msgstr ""
+msgstr "Antwort"
 
 #: client/components/splash_codes/_index.html:57
 msgid "Restriction"
-msgstr ""
+msgstr "Zugriffsbeschränkung"
 
 #: client/components/splash_pages/splash_show.html:201
 #, fuzzy
@@ -6803,11 +6810,11 @@ msgstr "Einstellungen"
 #: client/components/boxes/boxes.directives.js:116
 #: client/components/locations/locations.directives.js:785
 msgid "Resync"
-msgstr ""
+msgstr "Resynchronisierung"
 
 #: client/components/boxes/boxes.directives.js:223
 msgid "Resync Device"
-msgstr ""
+msgstr "Gerät resynchronisieren"
 
 #: client/components/locations/locations.directives.js:895
 msgid "Resync The Configs for this Device?"
@@ -6816,20 +6823,20 @@ msgstr ""
 #: client/components/boxes/boxes.directives.js:225
 #: client/components/locations/locations.directives.js:899
 msgid "Resync it"
-msgstr ""
+msgstr "Resynchronisierung"
 
 #: client/components/boxes/boxes.directives.js:221
 msgid "Resync this Device"
-msgstr ""
+msgstr "Dieses Gerät resynchronisieren"
 
 #: client/components/locations/triggers/_new.html:96
 msgid "Resynced"
-msgstr ""
+msgstr "synchronisiert"
 
 #: client/components/locations/locations.directives.js:311
 #: client/components/locations/locations.directives.js:518
 msgid "Revoke"
-msgstr ""
+msgstr "Rückgängig"
 
 #: client/components/users/integrations/_integrations.html:61
 msgid "Revoke MailChim"
@@ -6845,7 +6852,7 @@ msgstr ""
 
 #: client/components/locations/locations.directives.js:313
 msgid "Revoke it"
-msgstr ""
+msgstr "Rückgängig"
 
 #: client/components/splash_pages/_menu.html:112
 #: client/components/splash_pages/_menu.html:568
@@ -6899,11 +6906,11 @@ msgstr ""
 
 #: client/components/locations/boxes/dialog.html:10
 msgid "Run commands on your access points"
-msgstr ""
+msgstr "Befehle auf Ihren Access Points durchführen"
 
 #: client/components/boxes/payloads/_payloads_mass.html:6
 msgid "Run the command"
-msgstr ""
+msgstr "Befehl ausführen"
 
 #: client/components/boxes/payloads/_bulk.html:14
 msgid "Running payload, please be patient."
@@ -6911,11 +6918,11 @@ msgstr ""
 
 #: client/components/boxes/boxes.directives.js:1633
 msgid "Running speedtest, please wait."
-msgstr ""
+msgstr "Geschwindigkeitstest läuft, bitte warten."
 
 #: client/components/locations/triggers/triggers.directives.js:581
 msgid "Running test, please wait."
-msgstr ""
+msgstr "Test läuft, bitte warten."
 
 #: client/components/locations/triggers/list.html:50
 msgid "Runs"
@@ -7045,7 +7052,7 @@ msgstr "Speichere..."
 
 #: client/components/locations/access/access-panel-top.html:28
 msgid "Scroll down to adjust the settings"
-msgstr ""
+msgstr "Zum Anpassen der Einstellungen herunterblättern"
 
 #: client/components/audit/emails/_index.html:17
 #: client/components/audit/guests/_index.html:17
@@ -7078,7 +7085,7 @@ msgstr ""
 
 #: client/components/users/billing/_card.html:28
 msgid "Security Code"
-msgstr ""
+msgstr "Sicherheitscode"
 
 #: client/components/splash_pages/access-registration.html:21
 msgid "See a clickthrough login page"
@@ -7098,7 +7105,7 @@ msgstr "Geräte zum Hinzufügen auswählen."
 
 #: client/components/locations/access/access-vouchers.html:20
 msgid "Sell Online (via PayPal)"
-msgstr ""
+msgstr "Online verkaufen (via PayPal)"
 
 #: client/components/locations/settings/_devices.html:27
 msgid "Send Offline Alert After (mins)"
@@ -7177,24 +7184,24 @@ msgid "Serial"
 msgstr ""
 
 #: client/components/locations/settings/_devices.html:218
+#, fuzzy
 msgid "Serial Numbe"
-msgstr ""
+msgstr "Seriennummer"
 
 #: client/components/boxes/show/_index.html:301
 msgid "Serial Number"
-msgstr ""
+msgstr "Seriennummer"
 
 #: client/components/splash_pages/splash_show.html:385
 #: client/components/vouchers/_form.html:122
 #: client/components/vouchers/_show.html:110
-#, fuzzy
 msgid "Session Timeout"
-msgstr "Sitzungen"
+msgstr "Timeout der Sitzung"
 
 #: client/components/splash_pages/_store_product.html:88
 #: client/components/vouchers/_form.html:121
 msgid "Session Timeout (mins)"
-msgstr ""
+msgstr "Sitzungs Timeout (in Minuten)"
 
 #: client/components/clients/clients.directives.js:800
 #: client/components/codes/codes.directives.js:43
@@ -7211,6 +7218,8 @@ msgstr ""
 #: client/components/splash_pages/splash_show.html:274
 msgid "Set the start and end times to 00:00 to allow access all day"
 msgstr ""
+"Stellen Sie die Start- und Endzeiten auf  00:00 Uhr um einen dauernden "
+"Zugang zu ermöglichen"
 
 #: client/components/apps/_index.html:3 client/components/apps/_new.html:3
 #: client/components/apps/_show.html:3
@@ -7263,7 +7272,7 @@ msgstr ""
 #: client/components/boxes/boxes.directives.js:680
 #: client/components/boxes/boxes.directives.js:775
 msgid "Settings updated successfully"
-msgstr ""
+msgstr "Einstellungen erfolgreich aktualisiert"
 
 #: client/components/locations/clients/_index.html:85
 msgid "Share"
@@ -7272,61 +7281,60 @@ msgstr ""
 #: client/components/splash_pages/_menu.html:651
 #: client/components/splash_pages/splash_pages.directives.js:168
 msgid "Shop"
-msgstr ""
+msgstr "Shop"
 
 #: client/components/splash_pages/_menu.html:659
-#, fuzzy
 msgid "Shop Settings"
-msgstr "Einstellungen"
+msgstr "Shop Einstellungen"
 
 #: client/components/splash_pages/access-vouchers.html:19
 msgid "Shop {{ splash.shop_active ? 'Enabled' : 'Disabled' }}"
-msgstr ""
+msgstr "Shop {{ splash.shop_active ? 'Enabled' : 'Disabled' }}"
 
 #: client/components/locations/access/access-vouchers.html:32
 msgid "Shop:"
-msgstr ""
+msgstr "Shop:"
 
 #: client/components/boxes/port_forwards/form.html:25
 #: client/components/boxes/port_forwards/form.html:31
 msgid "Should be a number."
-msgstr ""
+msgstr "Muss numerisch sein"
 
 #: client/components/boxes/port_forwards/form.html:37
 msgid "Should be a valid IP (10.1.1.1)"
-msgstr ""
+msgstr "Muss eine gültige IP sein (10.1.1.1)"
 
 #: client/components/splash_pages/_networks.html:31
 msgid "Should be associated with at least one network."
-msgstr ""
+msgstr "Sollte mit mindestens einem Netzwerk verknüpft sein"
 
 #: client/components/locations/networks/firewall.html:30
 msgid "Should be between 1 and 65322."
-msgstr ""
+msgstr "Muss zwischen  1 and 65322 liegen"
 
 #: client/components/registrations/_flow.html:32
 #: client/components/registrations/_flow.html:62
 #: client/components/registrations/_flow.html:76
 #: client/components/registrations/_flow.html:97
 msgid "Should be between 5 and 25 characters."
-msgstr ""
+msgstr "Sollte zwischen 5 und 25 Zeichen haben."
 
 #: client/components/registrations/_flow.html:43
 msgid "Should be between 5 and 255 characters."
-msgstr ""
+msgstr "Sollte zwischen 5 und 255 Zeichen haben."
 
 #: client/components/splash_pages/design-sidebar.html:383
 #: client/components/splash_pages/design-sidebar.html:80
 msgid "Should look like a URL inc. http."
-msgstr ""
+msgstr "Sollte wie eine URL aussehen."
 
 #: client/components/locations/networks/firewall.html:26
 msgid "Should look like an IP."
-msgstr ""
+msgstr "Sollte wie eine IP aussehen"
 
 #: client/components/locations/clients/_columns_filter.html:5
 msgid "Show / Hide Columns"
-msgstr ""
+msgstr "Spalten ein-/ausblenden"
 
 #: client/components/splash_pages/splash_show.html:384
 msgid "Show After (mins)"
@@ -7334,7 +7342,7 @@ msgstr ""
 
 #: client/components/locations/networks/_show.html:317
 msgid "Show Hide SSID"
-msgstr ""
+msgstr "SSID zeigen/ausblenden"
 
 #: client/components/locations/clients/_show_code.html:124
 msgid "Show Splash After"
@@ -7349,31 +7357,30 @@ msgid "Showing the last 7 days activity"
 msgstr ""
 
 #: client/components/splash_pages/design-sidebar.html:59
-#, fuzzy
 msgid "Sidebar Image"
-msgstr "Einstellungen"
+msgstr ""
 
 #: client/components/registrations/_create.html:31
 msgid "Sign-up for {{ ::brand_name }}."
-msgstr ""
+msgstr "Für {{ ::brand_name }} anmelden."
 
 #: client/components/charts/devices/_snr_chart.html:32
 #: client/components/locations/clients/_columns.html:57
 #: client/components/locations/clients/_columns_filter.html:53
 #: client/components/locations/clients/_index.html:186
 msgid "Signal"
-msgstr ""
+msgstr "Signal"
 
 #: client/components/charts/charts.directives.js:117
 #: client/components/charts/clients/_signal_chart.html:4
 #: client/components/locations/clients/_index.html:93
 msgid "Signal Strength"
-msgstr ""
+msgstr "Signalstärke"
 
 #: client/components/locations/clients/_show_code.html:132
 #: client/components/vouchers/_show.html:124
 msgid "Simultaneous Users"
-msgstr ""
+msgstr "gleichzeitige Benutzer"
 
 #: client/components/vouchers/_form.html:160
 msgid "Single-Use Limit (mins)"
@@ -7395,19 +7402,20 @@ msgstr ""
 #: client/components/splash_pages/design-sidebar.html:156
 #: client/components/splash_pages/design-sidebar.html:190
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: client/components/splash_pages/design-sidebar.html:16
+#, fuzzy
 msgid "Skinny Jeans"
-msgstr ""
+msgstr "enge Jeans"
 
 #: client/components/users/integrations/_integrations.html:34
 msgid "Slack"
-msgstr ""
+msgstr "Slack"
 
 #: client/components/locations/triggers/channel-slack.html:42
 msgid "Slack Username"
-msgstr ""
+msgstr "Slack Benutzername"
 
 #: client/components/locations/triggers/triggers.directives.js:343
 msgid ""
@@ -7416,8 +7424,11 @@ msgid ""
 msgstr ""
 
 #: client/components/registrations/success.html:5
+#, fuzzy
 msgid "So glad you could make it. We hope your journey's been ok so far?"
 msgstr ""
+"Schön dass Sie es geschafft haben. Wir hoffen, dass Sie Ihre Reise so weit "
+"OK gewesen ist?"
 
 #: client/components/audit/audits.directives.js:55
 #: client/components/clients/clients.directives.js:810
@@ -7433,7 +7444,7 @@ msgstr "Einstellungen"
 
 #: client/components/boxes/port_forwards/form.html:46
 msgid "Some required fields are blank or have invalid values."
-msgstr ""
+msgstr "Pflichtfelder sind leer oder haben ungültige Werte."
 
 #: client/components/locations/networks/_show.html:77
 msgid "Some settings aren't compatible with splash pages."
@@ -7442,22 +7453,25 @@ msgstr ""
 #: client/components/vouchers/_form.html:8
 msgid "Some settings can't be changed after creation."
 msgstr ""
+"Einige Einstellungen können nach der Erstellung nicht mehr geändert werden."
 
 #: client/components/splash_pages/design-sidebar.html:11
 msgid "Something's wrong, check you've entered valid details."
 msgstr ""
+"Ein Fehler ist aufgetreten. Bitte prüfen Sie, ob gültige Werte eingegeben "
+"wurden."
 
 #: client/components/users/billing/_cancel_dialog.html:11
 msgid "Sorry to see you want to cancel your account."
-msgstr ""
+msgstr "Schade, dass Sie Ihren Account löschen möchten"
 
 #: client/components/users/sessions/_index.html:30
 msgid "Source IP"
-msgstr ""
+msgstr "Quelle IP"
 
 #: client/components/boxes/port_forwards/form.html:18
 msgid "Source IP (0.0.0.0/24)"
-msgstr ""
+msgstr "Source IP (0.0.0.0/24)"
 
 #: client/components/boxes/port_forwards/form.html:11
 #: client/components/boxes/port_forwards/form.html:23
@@ -7474,11 +7488,11 @@ msgstr ""
 #: client/components/splash_pages/view-store.html:89
 #: client/components/vouchers/_show.html:138
 msgid "Speeds"
-msgstr ""
+msgstr "Geschwindigkeiten"
 
 #: client/components/locations/clients/_show_code.html:140
 msgid "Speeds Restrictions"
-msgstr ""
+msgstr "Beschränkungen der Geschwindigkeiten"
 
 #: client/components/events/events.directives.js:44
 #: client/components/locations/clients/_show.html:84
@@ -7679,16 +7693,16 @@ msgstr "Standard-Support"
 #: client/components/codes/_table.html:5
 #: client/components/splash_pages/splash_show.html:258
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: client/components/splash_pages/splash_show.html:257
 #: client/components/users/alerts/_index.html:42
 msgid "Start Time"
-msgstr ""
+msgstr "Startzeit"
 
 #: client/components/locations/clients/_range_filter.html:14
 msgid "Start date"
-msgstr ""
+msgstr "Startdatum"
 
 #: client/components/audit/sales/_index.html:52
 #: client/components/locations/index/_alerts.html:55
@@ -7716,7 +7730,7 @@ msgstr ""
 #: client/components/locations/clients/_show_code.html:72
 #: client/components/locations/users/_index.html:38
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: client/components/codes/_table.html:24
 msgid "Stop: {{ ::session.acctstoptime | humanTime }}"
@@ -7757,7 +7771,7 @@ msgstr ""
 
 #: client/components/locations/show/edit-modal.html:37
 msgid "Street"
-msgstr ""
+msgstr "Straße"
 
 #: client/components/locations/settings/_main.html:90
 msgid "Street Address"
@@ -7780,16 +7794,17 @@ msgid "Subject"
 msgstr ""
 
 #: client/components/users/show/_index.html:51
+#, fuzzy
 msgid "Subscription Status"
-msgstr ""
+msgstr "Abonnement Status"
 
 #: client/components/users/invoices/_show.html:37
 msgid "Subtotal"
-msgstr ""
+msgstr "Zwischensumme"
 
 #: client/components/registrations/success.html:4
 msgid "Success!"
-msgstr ""
+msgstr "Erfolg!"
 
 #: client/components/vouchers/vouchers.directives.js:408
 msgid "Successfully delete voucher."
@@ -7797,7 +7812,7 @@ msgstr "Gutschein erfolgreich gelöscht."
 
 #: client/components/locations/locations.directives.js:1630
 msgid "Successfully deleted location."
-msgstr ""
+msgstr "Standort erfolgreich gelöscht."
 
 #: client/components/zones/zones.directives.js:364
 msgid "Successfully deleted zone"
@@ -7806,11 +7821,11 @@ msgstr "Zone erfolgreich gelöscht."
 #: client/components/clients/clients.directives.js:629
 #: client/components/clients/clients.directives.js:85
 msgid "Successfully disconnected client."
-msgstr ""
+msgstr "Client erfolgreich getrennt."
 
 #: client/components/splash_codes/splash_codes.directives.js:249
 msgid "Successfully generated password"
-msgstr ""
+msgstr "Passwort erfolgreich generiert."
 
 #: client/components/brands/brands.directives.js:45
 #: client/components/brands/brands.directives.js:89
@@ -7823,12 +7838,11 @@ msgstr "Details erfolgreich geändert."
 
 #: client/components/locations/locations.directives.js:1311
 msgid "Successfully updated location."
-msgstr ""
+msgstr "Standort erfolgreich geändert."
 
 #: client/components/zones/zones.directives.js:339
-#, fuzzy
 msgid "Successfully updated zone."
-msgstr "Details erfolgreich geändert."
+msgstr "Zone erfolgreich geändert."
 
 #: client/components/charts/clients/_client_tx_chart.html:76
 #: client/components/charts/devices/_wireless_chart.html:76
@@ -8821,36 +8835,41 @@ msgstr ""
 #: client/components/splash_codes/_edit.html:113
 msgid "Upload Speed ({{(code.upload_speed / 1024) | number:0 }}Mbps)"
 msgstr ""
+"Upload Geschwindigkeit ({{(code.upload_speed / 1024) | number:0 }}Mbps)"
 
 #: client/components/vouchers/_form.html:191
 msgid "Upload Speed ({{(voucher.upload_speed / 1024) | number:0 }}Mbps)"
 msgstr ""
+"Upload Geschwindigkeit ({{(code.upload_speed / 1024) | number:0 }}Mbps)"
 
 #: client/components/splash_pages/_store_product.html:125
 msgid "Upload Speed {{ (product.upload_speed / 1024) | number }}Mbps"
 msgstr ""
+"Upload Geschwindigkeit {{ (product.upload_speed / 1024) | number }}Mbps"
 
 #: client/components/splash_pages/splash_show.html:299
 msgid "Upload Speed {{ (splash.upload_speed / 1024) | number }}Mbps"
-msgstr ""
+msgstr "Upload Geschwindigkeit {{ (splash.upload_speed / 1024) | number }}Mbps"
 
 #: client/components/splash_pages/_menu.html:48
 msgid ""
 "Upload a background image. Please note, large images will delay page load "
 "times."
 msgstr ""
+"Hochladen eines Hintergrundbildes. Bitte beachten Sie, dass große Bilder das "
+"Laden der Seite verlangsamen."
 
 #: client/components/splash_pages/_menu.html:84
 msgid "Upload your banner image which must be 851px by 315px."
-msgstr ""
+msgstr "Hochladen Ihres Banners. Die erforderliche Größe ist  851x315 Pixel."
 
 #: client/components/splash_pages/_menu.html:81
 msgid "Upload your logo which must be 200px by 106px."
-msgstr ""
+msgstr "Hochladen Ihres Logos. Die erforderliche Größe ist 200x106 Pixel."
 
 #: client/components/splash_pages/splash_show.html:316
 msgid "Upload {{ splash.upload_speed | mbps }}"
-msgstr ""
+msgstr "Upload {{ splash.upload_speed | mbps }}"
 
 #: client/components/boxes/show/_index.html:244
 #: client/components/locations/settings/_devices.html:197
@@ -8944,16 +8963,17 @@ msgid "Using external stylesheets"
 msgstr ""
 
 #: client/components/users/invoices/_show.html:61
+#, fuzzy
 msgid "VAT Number: 207491904"
-msgstr ""
+msgstr "VAT Number: 207491904"
 
 #: client/components/locations/show/_app_status.html:28
 msgid "VIEW"
-msgstr ""
+msgstr "ZEIGE"
 
 #: client/components/locations/show/_favourites.html:35
 msgid "VIEW ALL"
-msgstr ""
+msgstr "ZEIGE ALLE"
 
 #: client/components/locations/networks/_show.html:194
 #: client/components/locations/networks/_show.html:196
@@ -8989,7 +9009,7 @@ msgstr "Wert"
 
 #: client/components/users/billing/_add_coupon.html:13
 msgid "Verifying Coupon"
-msgstr ""
+msgstr "Prüfe Gutschein"
 
 #: client/components/locations/settings/_devices.html:204
 msgid "Version"
@@ -9047,7 +9067,7 @@ msgstr "Geräte-Karte zeigen."
 
 #: client/components/boxes/show/_index.html:145
 msgid "View required URLs"
-msgstr ""
+msgstr "Zeige benötigte URLs"
 
 #: client/components/locations/triggers/_webhook_variables.html:1
 msgid ""
@@ -9190,12 +9210,12 @@ msgstr ""
 #: client/components/registrations/_flow.html:128
 #: client/components/registrations/_flow.html:57
 msgid "Web Address"
-msgstr ""
+msgstr "Web-Adresse"
 
 #: client/components/splash_pages/_menu.html:482
 #: client/components/splash_pages/_menu.html:484
 msgid "Website"
-msgstr ""
+msgstr "Webseite"
 
 #: client/components/main/main.directives.js:13
 msgid "Wed"
@@ -9203,17 +9223,17 @@ msgstr "Mi."
 
 #: client/components/splash_pages/splash_show.html:211
 msgid "Weekly"
-msgstr ""
+msgstr "Wöchentlich"
 
 #: client/components/locations/settings/_notifications.html:21
 #: client/components/users/alerts/_index.html:31
 msgid "Weekly Reports Disabled"
-msgstr ""
+msgstr "Wöchentliche Berichte deaktiviert"
 
 #: client/components/locations/settings/_notifications.html:20
 #: client/components/users/alerts/_index.html:30
 msgid "Weekly Reports Enabled"
-msgstr ""
+msgstr "Wöchentliche Berichte aktiviert"
 
 #: client/components/vouchers/vouchers.directives.js:253
 #: client/components/vouchers/vouchers.directives.js:524
@@ -9222,33 +9242,33 @@ msgstr "1 Woche gültig, gleichzeitge Nutzung"
 
 #: client/components/splash_pages/splash_pages.directives.js:961
 msgid "Weeks"
-msgstr ""
+msgstr "Wochen"
 
 #: client/components/splash_pages/_index.html:52
 msgid "Weight"
-msgstr ""
+msgstr "Gewicht"
 
 #: client/components/home/404.html:4
+#, fuzzy
 msgid "Weird"
-msgstr ""
+msgstr "Seltsam"
 
 #: client/components/splash_pages/_menu.html:575
 #: client/components/splash_pages/_menu.html:583
 msgid "Welcome Page"
-msgstr ""
+msgstr "Startseite"
 
 #: client/components/splash_pages/_menu.html:590
-#, fuzzy
 msgid "Welcome Page Disabled"
-msgstr "Einstellungen"
+msgstr "Startseite deaktiviert"
 
 #: client/components/splash_pages/_menu.html:589
 msgid "Welcome Page Enabled"
-msgstr ""
+msgstr "Startseite aktiviert"
 
 #: client/components/splash_pages/_menu.html:595
 msgid "Welcome Text"
-msgstr ""
+msgstr "Begrüßungstext"
 
 #: client/components/splash_pages/_menu.html:597
 msgid "Welcome text (Max 1000 chars)"
@@ -9316,47 +9336,47 @@ msgstr ""
 
 #: client/components/locations/triggers/triggers.filters.js:54
 msgid "When a {{object}} goes offline"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  offline gestellt wird"
 
 #: client/components/locations/triggers/triggers.filters.js:52
 msgid "When a {{object}} goes online"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  online gestellt wird"
 
 #: client/components/locations/triggers/triggers.filters.js:68
 msgid "When a {{object}} is copied"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  kopiert wird"
 
 #: client/components/locations/triggers/triggers.filters.js:46
 msgid "When a {{object}} is created"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  erstellt wird"
 
 #: client/components/locations/triggers/triggers.filters.js:50
 msgid "When a {{object}} is deleted"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  gelöscht wird"
 
 #: client/components/locations/triggers/triggers.filters.js:56
 msgid "When a {{object}} is reset"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  zurückgesetzt wird"
 
 #: client/components/locations/triggers/triggers.filters.js:64
 msgid "When a {{object}} is restored"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  wiederhergestellt wird"
 
 #: client/components/locations/triggers/triggers.filters.js:58
 msgid "When a {{object}} is resynced"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  erneut synchronisiert wird"
 
 #: client/components/locations/triggers/triggers.filters.js:60
 msgid "When a {{object}} is transferred"
-msgstr ""
+msgstr "Wenn ein(e) {{object}} übertragen wird"
 
 #: client/components/locations/triggers/triggers.filters.js:48
 msgid "When a {{object}} is updated"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  aktualisiert wird"
 
 #: client/components/locations/triggers/triggers.filters.js:66
 msgid "When a {{object}} logs in"
-msgstr ""
+msgstr "Wenn ein(e) {{object}}  angemeldet wird"
 
 #: client/components/locations/triggers/_new.html:39
 msgid "When an email address is captured, send a trigger."
@@ -9368,24 +9388,24 @@ msgstr ""
 
 #: client/components/locations/triggers/triggers.filters.js:70
 msgid "When an order is refunded"
-msgstr ""
+msgstr "Wenn eine Bestellung zurückerstattet wird"
 
 #: client/components/locations/networks/blacklists.html:20
 msgid "When should this expire"
-msgstr ""
+msgstr "Wann s"
 
 #: client/components/locations/triggers/triggers.filters.js:74
 msgid "When your codes have generated"
-msgstr ""
+msgstr "Wenn Ihre Codes generiert wird"
 
 #: client/components/boxes/new/_add.html:75
 msgid "Where is my mac address?"
-msgstr ""
+msgstr "Wo ist meine MAC-Adresse?"
 
 #: client/components/registrations/_flow.html:123
 #: client/components/registrations/_flow.html:40
 msgid "Where is the network"
-msgstr ""
+msgstr "Wo ist das Netzwerk"
 
 #: client/components/locations/triggers/channel-email.html:16
 msgid "Who's the email from"
@@ -9445,7 +9465,7 @@ msgstr ""
 #: client/components/boxes/boxes.directives.js:252
 #: client/components/locations/locations.directives.js:867
 msgid "Would you like to reboot this device?"
-msgstr ""
+msgstr "Möchten Sie dieses Gerät neustarten?"
 
 #: client/components/users/billing/_plans.html:40
 msgid "YOUR PLAN"
@@ -9566,29 +9586,28 @@ msgid "You must enter a Northbound API password."
 msgstr ""
 
 #: client/components/splash_pages/view-store.html:151
-#, fuzzy
 msgid "You must enter a PayPal Password."
-msgstr "Bisheriges Kennwort"
+msgstr "Geben Sie ein PayPal Passwort ein."
 
 #: client/components/splash_pages/view-store.html:161
 msgid "You must enter a PayPal Signature."
-msgstr ""
+msgstr "Geben Sie eine PayPal Signatur ein."
 
 #: client/components/locations/new/_index.html:61
 msgid "You must enter a city."
-msgstr ""
+msgstr "Geben Sie eine Stadt ein."
 
 #: client/components/splash_pages/view-store.html:226
 msgid "You must enter a currency symbol."
-msgstr ""
+msgstr "Geben Sie ein Währungssymbol ein."
 
 #: client/components/locations/settings/_main.html:115
 msgid "You must enter a postcode"
-msgstr ""
+msgstr "Geben Sie eine Postleitzahl ein."
 
 #: client/components/locations/settings/_devices.html:44
 msgid "You must enter a reboot interval."
-msgstr ""
+msgstr "Geben Sie ein Intervall für den Neustart an."
 
 #: client/components/locations/settings/_splash.html:30
 msgid "You must enter a splash limit."
@@ -9600,47 +9619,47 @@ msgstr ""
 
 #: client/components/locations/settings/_main.html:105
 msgid "You must enter a town"
-msgstr ""
+msgstr "Geben Sie eine Stadt ein."
 
 #: client/components/locations/users/_invite.html:27
 msgid "You must enter a username"
-msgstr ""
+msgstr "Geben Sie einen Benutzernamen ein."
 
 #: client/components/locations/triggers/channel-webhook.html:10
 msgid "You must enter a valid URL including http(s)"
-msgstr ""
+msgstr "Geben Sie eine gültige URL inklusive http(s) ein "
 
 #: client/components/locations/settings/_devices.html:88
 msgid "You must enter a valid URL."
-msgstr ""
+msgstr "Geben Sie eine gültige URL ein."
 
 #: client/components/locations/users/_invite.html:37
 msgid "You must enter a valid email"
-msgstr ""
+msgstr "Geben Sie eine gültige Email-Adresse ein."
 
 #: client/components/locations/settings/_main.html:95
 msgid "You must enter an address"
-msgstr ""
+msgstr "Geben Sie eine Adresse ein"
 
 #: client/components/locations/new/_index.html:50
 msgid "You must enter an address."
-msgstr ""
+msgstr "Geben Sie eine Adresse ein."
 
 #: client/components/locations/settings/_devices.html:33
 msgid "You must enter an alert interval."
-msgstr ""
+msgstr "Geben Sie ein Intervall für Warnungen an."
 
 #: client/components/locations/users/_invite.html:36
 msgid "You must enter an email"
-msgstr ""
+msgstr "Geben Sie eine Email-Adresse ein."
 
 #: client/components/locations/settings/_main.html:85
 msgid "You must enter an name"
-msgstr ""
+msgstr "Geben Sie einen Namen ein."
 
 #: client/components/splash_pages/_form.html:39
 msgid "You must give it a name"
-msgstr ""
+msgstr "Geben Sie einen Namen an"
 
 #: client/components/vouchers/_form.html:41
 msgid "You must give the batch a description"
@@ -9652,7 +9671,7 @@ msgstr ""
 
 #: client/components/zones/_form.html:23
 msgid "You must give the zone a name"
-msgstr ""
+msgstr "Benennen Sie die Zone"
 
 #: client/components/locations/triggers/channel-email.html:40
 msgid "You must set a body for the message"
@@ -9660,7 +9679,7 @@ msgstr ""
 
 #: client/components/apps/_new.html:53
 msgid "You must set a callback URI"
-msgstr ""
+msgstr "Geben Sie eine Rückruf-URL an"
 
 #: client/components/splash_pages/_store_product.html:137
 msgid "You must set a description for the product."
@@ -9668,7 +9687,7 @@ msgstr ""
 
 #: client/components/splash_pages/_store_product.html:68
 msgid "You must set a duration for the product."
-msgstr ""
+msgstr "Legen Sie eine Dauer für die Produkte fest"
 
 #: client/components/locations/triggers/channel-email.html:18
 msgid "You must set a from address"
@@ -9684,11 +9703,11 @@ msgstr ""
 
 #: client/components/apps/_new.html:39
 msgid "You must set a name"
-msgstr ""
+msgstr "Legen Sie einen Namen fest"
 
 #: client/components/splash_pages/_form_designer.html:36
 msgid "You must set a name for the field."
-msgstr ""
+msgstr "Definieren Sie einen Namen für das Feld"
 
 #: client/components/locations/networks/_show.html:153
 #: client/components/locations/networks/_show.html:61
@@ -9696,11 +9715,11 @@ msgstr ""
 #: client/components/splash_codes/_edit.html:69
 #: client/components/vouchers/_copy.html:34
 msgid "You must set a password"
-msgstr ""
+msgstr "Legen Sie ein Passwort fest"
 
 #: client/components/vouchers/_form.html:83
 msgid "You must set a quantity"
-msgstr ""
+msgstr "Legen Sie eine Menge fest"
 
 #: client/components/locations/triggers/channel-email.html:29
 msgid "You must set a subject"
@@ -9713,24 +9732,23 @@ msgstr ""
 
 #: client/components/users/show/_index.html:76
 msgid "You must set a username"
-msgstr ""
+msgstr "Legen Sie einen Beutzernamen fest"
 
 #: client/components/splash_pages/splash_show.html:140
-#, fuzzy
 msgid "You must set a username and password."
-msgstr "Dokumentation"
+msgstr "Definieren Sie einen Benutzernamen und ein Passwort."
 
 #: client/components/splash_pages/_store_product.html:57
 msgid "You must set a value for the product."
-msgstr ""
+msgstr "Definieren Sie einen Wert für das Produkt."
 
 #: client/components/apps/_new.html:65
 msgid "You must set a webite"
-msgstr ""
+msgstr "Definieren Sie eine Webseite"
 
 #: client/components/splash_pages/splash_show.html:141
 msgid "You must set an API token."
-msgstr ""
+msgstr "Definieren Sie ein API-Token"
 
 #: client/components/locations/networks/_show.html:47
 #: client/components/networks/_create.html:25
@@ -9738,11 +9756,11 @@ msgstr ""
 #: client/components/splash_pages/_form.html:62
 #: client/components/vouchers/_copy.html:24
 msgid "You must set an SSID"
-msgstr ""
+msgstr "Definieren Sie eine SSID"
 
 #: client/components/users/show/_index.html:86
 msgid "You must set an email"
-msgstr ""
+msgstr "Definieren Sie eine Email-Adresse"
 
 #: client/components/splash_pages/splash_show.html:433
 msgid "You must set some tags when using tagged logins."
@@ -9750,7 +9768,7 @@ msgstr ""
 
 #: client/components/splash_pages/view-store.html:141
 msgid "You must set the PayPal Login."
-msgstr ""
+msgstr "Definieren Sie den PayPal Login"
 
 #: client/components/splash_pages/view-store.html:199
 msgid "You must set the SagePay password."
@@ -9778,11 +9796,11 @@ msgstr ""
 
 #: client/components/locations/triggers/channel-email.html:8
 msgid "You must set the email"
-msgstr ""
+msgstr "Definieren Sie die Email-Adresse"
 
 #: client/components/splash_codes/_edit.html:90
 msgid "You must set the max. users"
-msgstr ""
+msgstr "Definieren Sie die maximale Benutzerzahl"
 
 #: client/components/splash_pages/splash_show.html:223
 msgid "You must set the restrict mins."
@@ -9803,7 +9821,7 @@ msgstr ""
 
 #: client/components/locations/access/access-social.html:34
 msgid "You're logged in. We're just getting your pages. One moment, please..."
-msgstr ""
+msgstr "Sie sind angemeldet. Wir laden Ihre Seiten. Einen Moment bitte...."
 
 #: client/components/users/show/_index.html:40
 msgid ""
@@ -9818,7 +9836,7 @@ msgstr ""
 
 #: client/components/locations/show/new-location.html:3
 msgid "You've Created Your Location"
-msgstr ""
+msgstr "Sie haben Ihren Standort angelegt."
 
 #: client/components/home/brand-not-found.html:5
 msgid ""
@@ -9828,7 +9846,7 @@ msgstr ""
 
 #: client/components/home/404.html:5
 msgid "You've stumbled upon a page that doesn't exist yet."
-msgstr ""
+msgstr "Sie wurden auf eine Seite geleitet, die (noch) nicht existiert."
 
 #: client/components/splash_pages/design-sidebar.html:76
 #, fuzzy
@@ -9837,7 +9855,7 @@ msgstr "Netzwerk-IPv4-Adresse"
 
 #: client/components/apps/_index.html:54
 msgid "Your Cucumber Applications"
-msgstr ""
+msgstr "Ihre Cucumber-Anwendungen"
 
 #: client/components/users/show/_password.html:15
 msgid "Your Current Password"
@@ -9865,37 +9883,36 @@ msgstr ""
 
 #: client/components/users/branding/_form.html:112
 msgid "Your Website"
-msgstr ""
+msgstr "Ihre Webseite"
 
 #: client/components/locations/show/edit-modal.html:33
 #: client/components/locations/show/edit-modal.html:39
 msgid "Your address"
-msgstr ""
+msgstr "Ihre Adresse"
 
 #: client/components/apps/_new.html:34
 msgid "Your application name"
-msgstr ""
+msgstr "Ihr Anwendungsname"
 
 #: client/components/users/billing/_billing.html:23
-#, fuzzy
 msgid "Your billing city"
-msgstr "Einstellungen"
+msgstr "Ihre Rechnungsstadt"
 
 #: client/components/users/billing/_billing.html:31
 msgid "Your billing postcode"
-msgstr ""
+msgstr "Rechnungspostleitzahl"
 
 #: client/components/apps/_new.html:49
 msgid "Your callback URL"
-msgstr ""
+msgstr "Ihre Rückruf URL"
 
 #: client/components/codes/_index.html:24
 msgid "Your codes are still generating, please wait."
-msgstr ""
+msgstr "Ihre Codes werden erstellt, bitte warten Sie."
 
 #: client/components/vouchers/_show.html:168
 msgid "Your codes have not generated yet, please wait."
-msgstr ""
+msgstr "Ihre Codes wurden noch nicht erstellt, bitte warten Sie."
 
 #: client/components/users/billing/_billing.html:15
 msgid "Your company name"
@@ -9903,24 +9920,24 @@ msgstr "Firma"
 
 #: client/components/locations/access/access-password.html:21
 msgid "Your customers enter this on the login pages."
-msgstr ""
+msgstr "Ihre Kunden  geben das auf den Login-Seiten an."
 
 #: client/components/users/branding/_form.html:56
 #: client/components/users/branding/_form.html:72
 msgid "Your dashboard address is"
-msgstr ""
+msgstr "Ihre Dashboard-Adresse ist "
 
 #: client/components/registrations/registrations.directive.js:80
 msgid "Your dashboard is being created."
-msgstr ""
+msgstr "Ihr Dashboard wird erstellt."
 
 #: client/components/boxes/boxes.directives.js:1510
 msgid "Your device has been added."
-msgstr ""
+msgstr "Ihr Gerät wurde hinzugefügt."
 
 #: client/components/boxes/boxes.directives.js:1513
 msgid "Your devices have been added."
-msgstr ""
+msgstr "Ihre Geräte wurden hinzugefügt."
 
 #: client/components/locations/show/edit-modal.html:19
 #, fuzzy
@@ -9939,7 +9956,7 @@ msgstr ""
 
 #: client/components/locations/show/edit-modal.html:53
 msgid "Your postcode"
-msgstr ""
+msgstr "Ihre Postleitzahl"
 
 #: client/components/splash_pages/_store_product.html:11
 msgid ""
@@ -9964,15 +9981,15 @@ msgstr ""
 
 #: client/components/locations/show/edit-modal.html:47
 msgid "Your town"
-msgstr ""
+msgstr "Ihre Stadt"
 
 #: client/components/boxes/boxes.directives.js:1216
 msgid "Your upgrade has been scheduled."
-msgstr ""
+msgstr "Ihr Upgrade wurde planmäßig durchgeführt."
 
 #: client/components/apps/_new.html:62
 msgid "Your website"
-msgstr ""
+msgstr "Ihre Webseite"
 
 #: client/components/networks/_zones.html:20
 msgid "ZONES"
@@ -10016,7 +10033,7 @@ msgstr "Zonen"
 
 #: client/components/zones/_index.html:33
 msgid "Zones let you organise and segment your networks."
-msgstr ""
+msgstr "Mit Zonen organisieren und segmentieren Sie ihre Netzwerke."
 
 #: client/components/users/quotas/_index.html:49
 msgid "Zones per location"
@@ -10024,7 +10041,7 @@ msgstr "Zonen pro Standort"
 
 #: client/components/locations/triggers/triggers.directives.js:300
 msgid "[WELCOME] Thanks for logging in"
-msgstr ""
+msgstr "[WELCOME] Danke für Ihre Anmeldung"
 
 #: client/components/users/sessions/_index.html:3
 msgid "access"
@@ -10270,7 +10287,7 @@ msgstr ""
 
 #: client/components/users/billing/_show.html:33
 msgid "{{ (plan.plan_price || 0) | currency : curr }} per month."
-msgstr ""
+msgstr "{{ (plan.plan_price || 0) | currency : curr }} pro Monat."
 
 #: client/components/reports/_radius_stats.html:17
 msgid "{{ (stats.splash.durations.avg / 60) | number:0 }} Mins"
@@ -10288,7 +10305,7 @@ msgstr ""
 
 #: client/components/locations/show/_dashing.html:15
 msgid "{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline."
-msgstr ""
+msgstr "{{ ::online || 0 }} Online, {{ ::offline || 0 }} Offline."
 
 #: client/components/users/billing/_show.html:14
 msgid "{{ ::plan.plan_name }} Plan"
@@ -10304,7 +10321,7 @@ msgstr ""
 
 #: client/components/locations/show/_dashing.html:27
 msgid "{{ ::stats.online }} connected"
-msgstr ""
+msgstr "{{ ::stats.online }} verbunden"
 
 #: client/components/locations/show/_dashing.html:42
 msgid "{{ ::stats.splash_views }} this period"
@@ -10341,11 +10358,11 @@ msgstr ""
 
 #: client/components/locations/clients/_index.html:59
 msgid "{{ client_mac }} Transmission Failures"
-msgstr ""
+msgstr "{{ client_mac }} Übertragungsfehler"
 
 #: client/components/locations/clients/_index.html:56
 msgid "{{ client_mac }} WiFi Signal"
-msgstr ""
+msgstr "{{ client_mac }} WiFi Signal"
 
 #: client/components/locations/clients/_index.html:57
 msgid "{{ client_mac }} WiFi Traffic"
@@ -10441,22 +10458,24 @@ msgid ""
 "{{ user.credit_card_type }} ending {{ user.credit_card_last4 }}. Expires "
 "{{ user.credit_card_expiry }}"
 msgstr ""
+"{{ user.credit_card_type }} Endnummer {{ user.credit_card_last4 }}. "
+"Ablaufdatum {{ user.credit_card_expiry }}"
 
 #: client/components/zones/_associated_zones_dialog.html:11
 msgid "{{ zone.zone_name | titleCase }} Zone"
-msgstr ""
+msgstr "{{ zone.zone_name | titleCase }} Zone"
 
 #: client/components/zones/_index.html:75
 msgid "{{'N/A' | truncate:20}}"
-msgstr ""
+msgstr "{{'N/A' | truncate:20}}"
 
 #: client/components/locations/show/_map.html:30
 msgid "{{'No Description' | truncate:15}}"
-msgstr ""
+msgstr "{{'No Description' | truncate:15}}"
 
 #: client/components/splash_pages/_index.html:64
 msgid "{{'No name' | truncate:20}}"
-msgstr ""
+msgstr "{{'No name' | truncate:20}}"
 
 #~ msgid "Action<span></span>"
 #~ msgstr "Aktion<span></span>"
