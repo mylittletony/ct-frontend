@@ -3,13 +3,23 @@
 
 module.exports = function (grunt) {
   var _ = require('lodash');
+  var fs = require('fs');
 
   var defaultConfig = require('./default-config.js');
+
   var localConfig;
+  var stat;
   try {
-    localConfig = require('./local-config.js');
+      stat = fs.statSync('./local-config.js');
   } catch(e) {
-    localConfig = {};
+      localConfig = {};
+  }
+  if (stat) {
+      try {
+          localConfig = require('./local-config.js');
+      } catch(e) {
+          throw("error reading './local-config.js': " + e); 
+      }
   }
 
   var config = _.merge(defaultConfig, localConfig);
@@ -709,6 +719,10 @@ module.exports = function (grunt) {
         'concurrent:debug'
       ]);
     }
+
+    // Write server configuration.
+    var serverConfig = config.server.env;
+    console.log(serverConfig);
 
     grunt.task.run([
       'clean:server',
