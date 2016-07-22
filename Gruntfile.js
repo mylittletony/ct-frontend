@@ -704,6 +704,16 @@ module.exports = function (grunt) {
     this.async();
   });
 
+  grunt.registerTask('configServer', function(target) {
+      var output = "// Generated! Do not edit!\n"
+                   + "'use strict';module.exports = ";
+      output += JSON.stringify(config.server.env);
+      output += ';';
+
+      grunt.file.write('./server/config/local-config.js', output,
+                       { encoding: 'utf-8' });
+  });
+
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
@@ -720,12 +730,9 @@ module.exports = function (grunt) {
       ]);
     }
 
-    // Write server configuration.
-    var serverConfig = config.server.env;
-    console.log(serverConfig);
-
     grunt.task.run([
       'clean:server',
+      'configServer',
       'ngconstant:development',
       'env:all',
       'concurrent:server',

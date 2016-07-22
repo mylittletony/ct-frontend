@@ -10,6 +10,8 @@ module.exports = {
         //
         constants: {
             CONFIG: {
+                // Everything here is injected as $rootScope.CONFIG into
+                // the application.
             },
             // FIXME! These constants are outside of 'CONFIG' for historical
             // reasons.  They should be moved inside 'CONFIG' at some time.
