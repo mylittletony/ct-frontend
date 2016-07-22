@@ -24,7 +24,6 @@
             </span>
             <span class="item-metadata">
               <span class="item-metastat">
-                <!-- Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span> -->
               </span>
             </span>
           </a>
@@ -49,7 +48,7 @@
         <md-card-content>
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Guests">1 Guest</span><span hide show-gt-sm ng-if="query.start">&nbsp;created between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
+              <span translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries || 0}} Guests">1 Guest</span><span hide show-gt-sm ng-if="query.start" translate>&nbsp;created between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
               <div flex></div>
             </div>
           </md-toolbar>
@@ -58,7 +57,8 @@
               <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
                   <th md-column><span translate>Email</span></th>
-                  <th hide show-gt-xs md-column><span translate>Added</span></th>
+                  <th hide show-gt-xs md-column><span translate>Location</span></th>
+                  <th hide show-gt-xs md-column><span translate>Created</span></th>
                   <th md-column>Action</th>
                 </tr>
               </thead>
@@ -66,6 +66,9 @@
                 <tr md-row md-select="guest" ng-repeat="guest in guests | filter: filter.search | orderBy: query.order">
                   <td md-cell>
                     {{ guest.username }}
+                  </td>
+                  <td hide show-gt-xs md-cell>
+                    {{ guest.location_name }}
                   </td>
                   <td hide show-gt-xs md-cell>
                     {{ guest.created_at | humanTime }}
