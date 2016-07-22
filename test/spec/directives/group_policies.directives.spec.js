@@ -75,8 +75,10 @@ describe('group_policies', function () {
       deferred.resolve(results);
       $scope.$apply();
 
-      var levels = [{key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
-      expect(element.isolateScope().levels).toEqual(levels);
+      var layers = [{key: 'WiFi', value: 'layer2'}, {key: 'Firewall', value: 'layer3'}, {key: 'Splash', value: 'splash' }];
+      var policies = [{key: 'Whitelist', value: 'allow'}, {key: 'Blacklist', value: 'block'}, {key: 'Filter', value: 'filter' }];
+      expect(element.isolateScope().policies).toEqual(policies);
+      expect(element.isolateScope().layers).toEqual(layers);
       expect(element.isolateScope().menu.length).toEqual(2);
       expect(element.isolateScope().menu[0].name).toEqual('Edit');
       expect(element.isolateScope().menu[0].type).toEqual('edit');

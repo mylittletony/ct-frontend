@@ -1,9 +1,9 @@
 <md-dialog aria-label="{{ 'Add Filter' | translate }}"  ng-cloak>
-  <form ng-submit="save(cf)" name="myForm">
+  <form ng-submit="save(gp)" name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2 ng-if="cf.id" translate>Edit Filter</h2>
-        <h2 ng-if="!cf.id" translate>Add Filter</h2>
+        <h2 ng-if="gp.id" translate>Edit Filter</h2>
+        <h2 ng-if="!gp.id" translate>Add Filter</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
@@ -12,80 +12,36 @@
           <p translate>Add the device with mac {{ ap_mac }} to a policy list.</p>
         </div>
         <div flex layout="column">
+
           <md-input-container>
-            <label>Level</label>
-            <md-select ng-model="cf.level" ng-change="selectLevel(cf.level)">
-              <md-option ng-repeat="level in levels" value="{{level.value}}">
-                {{level.key}}
+            <label>Name</label>
+            <input name="policy_name" ng-model="gp.name" md-maxlength='100' required>
+            <div ng-messages="myForm.name.$error">
+              <div ng-message="max" translate>Must be less than 100 characters</div>
+              <div ng-message="required" translate>Please enter a name.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Layer</label>
+            <md-select ng-model="gp.group_type">
+              <md-option ng-repeat="layer in layers" value="{{layer.value}}">
+                {{layer.key}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Policy</label>
+            <md-select ng-model="gp.policy">
+              <md-option ng-repeat="policy in policies" value="{{policy.value}}" ng-disabled="(gp.group_type == 'layer2' && policy.value != 'block') || (gp.group_type == 'splash' && policy.value == 'filter')">
+                {{policy.key}}
               </md-option>
             </md-select>
           </md-input-container>
           <div ng-show='loadingLevels'>
             <md-progress-linear md-mode="query"></md-progress-linear>
           </div>
-
-          <md-input-container ng-if="cf.level === 'network'">
-            <label><translate>Network / SSID</translate></label>
-            <md-select ng-model="cf.network_id" required>
-              <md-option ng-repeat="network in networks" value="{{network.id}}">
-                {{ network.ssid }}
-              </md-option>
-            </md-select>
-          </md-input-container>
-
-          <!-- <p ng-if="network"> -->
-          <!--   <translate ng-hide="network.client_filter == true"> -->
-          <!--     This network's MAC filter is disabled, this client will be blocked -->
-          <!--   </translate> -->
-          <!--   <translate ng-show="network.client_filter == true"> -->
-          <!--     This network's MAC filter is enabled, this client will be whitelisted -->
-          <!--   </translate> -->
-          <!-- </p> -->
-
-          <md-input-container ng-if="cf.level === 'zone'">
-            <label><translate>Zone Name</translate></label>
-            <md-select ng-model="cf.zone_id">
-              <md-option ng-repeat="zone in zones" value="{{zone.id}}" required>
-                {{ zone.zone_name }}
-              </md-option>
-            </md-select>
-          </md-input-container>
-
-          <p ng-if="zone">
-            <translate ng-hide="network.client_filter == true">
-              This zone's MAC filter is disabled, this client will be blocked
-            </translate>
-            <translate ng-show="network.client_filter == true">
-              This zone's MAC filter is enabled, this client will be whitelisted
-            </translate>
-          </p>
-
-          <p ng-if="errors">
-            <translate ng-show="cf.level == 'zone'">
-              You have no zones.
-            </translate>
-            <translate ng-show="cf.level == 'network'">
-              You have no networks.
-            </translate>
-          </p>
-
-          <md-input-container>
-            <label>Client Mac</label>
-            <input name="mac" ng-model="cf.client_mac" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" required>
-            <div ng-messages="myForm.mac.$error">
-              <div ng-message="required" translate>MAC is required.</div>
-              <div ng-message="pattern" translate>Must be a valid mac, including dashes or colons.</div>
-            </div>
-          </md-input-container>
-
-          <md-input-container>
-            <label>Description</label>
-            <input name="description" ng-model="cf.description" md-maxlength='100' required>
-            <div ng-messages="myForm.description.$error">
-              <div ng-message="max" translate>Must be less than 100 characters</div>
-              <div ng-message="required" translate>Please enter a description name.</div>
-            </div>
-          </md-input-container>
 
         </div>
       </div>
@@ -97,9 +53,9 @@
           Close
         </translate>
       </md-button>
-      <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-        <translate ng-if="cf.id">UPDATE</translate>
-        <translate ng-if="!cf.id">ADD</translate>
+      <md-button aria-label="Submit" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        <translate ng-if="gp.id">UPDATE</translate>
+        <translate ng-if="!gp.id">ADD</translate>
       </md-button>
     </md-dialog-actions>
   </form>

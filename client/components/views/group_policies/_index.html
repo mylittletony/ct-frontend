@@ -3,15 +3,15 @@
 
   <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-      <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="client_filters.length > 0">
+      <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="group_policies.length > 0">
         <md-icon md-font-icon="search">search</md-icon>
         <label></label>
         <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Results' | translate }}">
       </md-input-container>
-      <md-button ng-if="!client_filters.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Filters' | translate }}">
-        <md-icon md-font-icon="" >lock_open</md-icon>
+      <md-button ng-if="!group_policies.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Filters' | translate }}">
+        <md-icon md-font-icon="" >group_work</md-icon>
       </md-button>
-      <p ng-if="client_filters.length === 0" translate>Client Filters</p>
+      <p ng-if="!group_policies" translate>Group Policies</p>
       <div flex></div>
       <md-button class='md-icon-button md-accent' ng-click='addFilter()'>
         <md-icon>add_circle</md-icon>
@@ -20,7 +20,7 @@
     <md-divider></md-divider>
   </md-toolbar>
 
-  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="client_filters.length == 0">
+  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-hide="group_policies">
     <md-card>
       <md-card-title>
         <md-card-title-text>
@@ -31,8 +31,8 @@
       </md-card-title>
       <md-card-content>
         <translate>
-        <p>Client filters let you control access to your networks.</p>
-        <p>Create a zone before applying a filter.</p>
+        <p>Group policies let you control access to your networks.</p>
+        <!-- <p>Create a zone before applying a filter.</p> -->
         </translate>
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-click="addFilter()"><translate>Create</translate></md-button>
@@ -42,7 +42,7 @@
 
   </md-content>
 
-  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="client_filters.length || query.filter" ng-cloak>
+  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="group_policies.length || query.filter" ng-cloak>
     <div layout="row" layout-align="center center">
       <div flex="100">
         <md-card>
@@ -68,21 +68,21 @@
                   </tr>
                 </thead>
                 <tbody md-body>
-                  <tr md-row ng-repeat="cf in filtered = (client_filters | filter: query.filter | orderBy: query.order)">
+                  <tr md-row ng-repeat="policy in filtered = (group_policies | filter: query.filter | orderBy: query.order)">
                     <td md-cell>
-                      {{ cf.client_mac }}
+                      {{ policy.client_mac }}
                     </td>
                     <td md-cell>
-                      {{ cf.description }}
+                      {{ policy.description }}
                     </td>
                     <td md-cell>
-                      {{ cf.zone_name || '-' }}
+                      {{ policy.zone_name || '-' }}
                     </td>
                     <td md-cell>
-                      {{ cf.network_name || '-' }}
+                      {{ policy.network_name || '-' }}
                     </td>
                     <td md-cell hide show-gt-md>
-                      {{ cf.created_at | humanTime }}
+                      {{ policy.created_at | humanTime }}
                     </td>
                     <td md-cell>
                       <md-menu>
@@ -91,7 +91,7 @@
                         </md-button>
                         <md-menu-content width="4" >
                           <md-menu-item ng-repeat="item in menu">
-                            <md-button ng-click="action(cf, item.type)">
+                            <md-button ng-click="action(policy, item.type)">
                               <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
                               <p flex>{{ ::item.name }}</p>
                             </md-button>

@@ -7,7 +7,17 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
   var link = function(scope,element,attrs) {
 
     scope.location  = { slug: $routeParams.id };
-    scope.levels = [{key: 'Network', value: 'network'}, {key: 'Zone', value: 'zone'}];
+    scope.layers = [
+      {key: 'WiFi', value: 'layer2'},
+      {key: 'Firewall', value: 'layer3'},
+      {key: 'Splash', value: 'splash'}
+    ];
+
+    scope.policies = [
+      {key: 'Whitelist', value: 'allow'},
+      {key: 'Blacklist', value: 'block'},
+      {key: 'Filter', value: 'filter'}
+    ];
 
     // User permissions //
     var createMenu = function() {
@@ -24,24 +34,24 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       });
     };
 
-    scope.action = function(cf,type) {
+    scope.action = function(gp,type) {
       switch(type) {
         case 'delete':
-          destroy(cf.id);
+          destroy(gp.id);
           break;
         case 'edit':
-          scope.addFilter(cf);
+          scope.addFilter(gp);
           break;
       }
     };
 
     scope.query = {
-      order:          '-created_at',
-      filter:         $routeParams.q,
-      limit:          $routeParams.per || 25,
-      page:           $routeParams.page || 1,
-      options:        [5,10,25,50,100],
-      direction:      $routeParams.direction || 'desc'
+      order:      '-created_at',
+      filter:     $routeParams.q,
+      limit:      $routeParams.per || 25,
+      page:       $routeParams.page || 1,
+      options:    [5,10,25,50,100],
+      direction:  $routeParams.direction || 'desc'
     };
 
     scope.onPaginate = function (page, limit) {
@@ -51,21 +61,21 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       $location.search(hash);
     };
 
-    var addToSet = function(cf) {
+    var addToSet = function(gp) {
       if (!scope.group_policies) {
         scope.group_policies = [];
       }
-      scope.group_policies.push(cf);
+      scope.group_policies.push(gp);
     };
 
     var create = function(data) {
       GroupPolicy.create({
         location_id: scope.location.slug,
-        client_filter: data
+        group_policy: data
       }).$promise.then(function(results) {
         addToSet(results);
         // Simon Toni translate
-        showToast('Client filter successfully created.');
+        showToast('Policy successfully created.');
         // Simon Toni translate
         scope.creating = undefined;
       }, function(error) {
@@ -78,7 +88,7 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       GroupPolicy.update({
         location_id: scope.location.slug,
         id: data.id,
-        client_filter: data
+        group_policy: data
       }).$promise.then(function(results) {
         // Simon Toni translate
         showToast('Client filter successfully updated.');
@@ -134,110 +144,66 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       });
     };
 
-    scope.getZones = function() {
-      var deferred = $q.defer();
-      scope.promise = deferred.promise;
-      Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
-        if (results.length > 0) {
-          deferred.resolve(results);
-        } else {
-          deferred.reject();
-        }
-      }, function(error) {
-        scope.loadingLevels = undefined;
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
+    // scope.getZones = function() {
+    //   var deferred = $q.defer();
+    //   scope.promise = deferred.promise;
+    //   Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
+    //     if (results.length > 0) {
+    //       deferred.resolve(results);
+    //     } else {
+    //       deferred.reject();
+    //     }
+    //   }, function(error) {
+    //     scope.loadingLevels = undefined;
+    //     deferred.reject();
+    //   });
+    //   return deferred.promise;
+    // };
 
-    scope.getNetworks = function() {
-      var deferred = $q.defer();
-      scope.promise = deferred.promise;
-      Network.get({location_id: scope.location.slug}).$promise.then(function(results) {
-        if (results.length > 0) {
-          deferred.resolve(results);
-        } else {
-          deferred.reject();
-        }
-      }, function(err) {
-        deferred.reject(err);
-      });
-      return deferred.promise;
-    };
+    // scope.getNetworks = function() {
+    //   var deferred = $q.defer();
+    //   scope.promise = deferred.promise;
+    //   Network.get({location_id: scope.location.slug}).$promise.then(function(results) {
+    //     if (results.length > 0) {
+    //       deferred.resolve(results);
+    //     } else {
+    //       deferred.reject();
+    //     }
+    //   }, function(err) {
+    //     deferred.reject(err);
+    //   });
+    //   return deferred.promise;
+    // };
 
-    scope.addFilter = function(cf) {
+    scope.addFilter = function(gp) {
       $mdDialog.show({
         clickOutsideToClose: true,
         templateUrl: 'components/views/group_policies/_add.html',
         parent: angular.element(document.body),
         controller: DialogController,
         locals: {
-          levels: scope.levels,
-          networks: scope.networks,
-          loadingLevels: scope.loadingLevels,
-          cf: cf
+          layers: scope.layers,
+          policies: scope.policies,
+          gp: gp
         }
       });
     };
 
-    function DialogController ($scope, levels, networks, loadingLevels, cf) {
-      if (cf && cf.id) {
-        $scope.cf = cf;
+    function DialogController ($scope, layers, policies, gp) {
+      if (gp && gp.id) {
+        $scope.gp = gp;
       }
-      $scope.levels = levels;
-      $scope.loadingLevels = loadingLevels;
-      $scope.selectLevel = function(level) {
-        $scope.errors = undefined;
-        getLevels(level);
-      };
+      $scope.layers = layers;
+      $scope.policies = policies;
       $scope.close = function() {
         $mdDialog.cancel();
       };
       $scope.save = function(zone) {
         $mdDialog.cancel();
-        scope.createUpdate($scope.cf);
-      };
-
-      var getNetworks = function() {
-        $scope.zones = undefined;
-        if (!$scope.networks) {
-          scope.getNetworks().then(function(networks) {
-            $scope.networks = networks;
-            $scope.loadingLevels = undefined;
-          }, function() {
-            $scope.errors = true;
-            $scope.loadingLevels = undefined;
-          });
-        } else {
-          $scope.loadingLevels = undefined;
-        }
-      };
-
-      var getZones = function() {
-        $scope.networks = undefined;
-        if (!$scope.zones) {
-          scope.getZones().then(function(zones) {
-            $scope.zones = zones;
-            $scope.loadingLevels = undefined;
-          }, function() {
-            $scope.errors = true;
-            $scope.loadingLevels = undefined;
-          });
-        } else {
-          $scope.loadingLevels = undefined;
-        }
-      };
-
-      var getLevels = function(level) {
-        $scope.loadingLevels = true;
-        if (level === 'network') {
-          getNetworks();
-        } else {
-          getZones();
-        }
+        scope.createUpdate($scope.gp);
       };
     }
-    DialogController.$inject = ['$scope', 'levels', 'networks', 'loadingLevels', 'cf'];
+    DialogController.$inject = ['$scope', 'layers', 'policies', 'gp'];
 
     var init = function() {
       var params = {
@@ -265,7 +231,6 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
     scope: {
       loading: '='
     },
-    // templateUrl: 'components/boxes/show/_index.html'
     templateUrl: 'components/views/group_policies/_index.html'
   };
 
