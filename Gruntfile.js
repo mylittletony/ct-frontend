@@ -2,12 +2,17 @@
 'use strict';
 
 module.exports = function (grunt) {
+  var _ = require('lodash');
+
+  var defaultConfig = require('./default-config.js');
   var localConfig;
   try {
-    localConfig = require('./server/config/local.env');
+    localConfig = require('./local-config.js');
   } catch(e) {
     localConfig = {};
   }
+
+  var config = _.merge(defaultConfig, localConfig);
 
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ng-constant');
@@ -48,12 +53,10 @@ module.exports = function (grunt) {
       options: {
         space: '  ',
         wrap: '"use strict";\n\n {%= __ngModule %}',
-        name: 'config'
+        name: 'config',
+        dest: '<%= yeoman.client %>/scripts/config.js',
       },
       test: {
-        options: {
-          dest: '<%= yeoman.client %>/scripts/config.js',
-        },
         constants: {
           API_END_POINT: 'http://mywifi.dev:8080/api/v1',
           API_URL: 'http://mywifi.dev:8080',
@@ -68,26 +71,9 @@ module.exports = function (grunt) {
         }
       },
       development: {
-        options: {
-          dest: '<%= yeoman.client %>/scripts/config.js',
-        },
-        constants: {
-          API_END_POINT: 'http://mywifi.dev:8080/api/v1',
-          API_URL: 'http://mywifi.dev:8080',
-          AUTH_URL: 'http://id.mywifi.dev:8080',
-          STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
-          SLACK_TOKEN: '3540010629.12007999527',
-          CHIMP_TOKEN: '531543883634',
-          INTERCOM: 'z0kiwroa',
-          PUSHER: 'f5c774e098156e548079',
-          DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
-        }
+        constants: config.frontend.constants
       },
       beta: {
-        options: {
-          dest: '<%= yeoman.client %>/scripts/config.js',
-        },
         constants: {
           API_END_POINT: 'https://beta.ctapp.io/api/v1',
           API_URL: 'https://beta.ctapp.io',
@@ -102,9 +88,6 @@ module.exports = function (grunt) {
         }
       },
       production: {
-        options: {
-          dest: '<%= yeoman.client %>/scripts/config.js',
-        },
         constants: {
           API_END_POINT: 'https://api.ctapp.io/api/v1',
           API_URL: 'https://api.ctapp.io',
