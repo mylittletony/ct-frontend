@@ -730,25 +730,6 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
       });
     };
 
-    scope.update = function() {
-      scope.client.updating = true;
-      var client = {};
-      client.name = scope.client.name;
-      client.network_id = scope.client.network_id;
-      client.zone_id = scope.client.zone_id;
-      client.blocked = scope.client.blocked;
-      client.description = scope.client.description;
-      Client.update({
-        location_id: scope.location.slug,
-        id: scope.client.id,
-        client: client
-      }).$promise.then(function(results) {
-        showToast('Client updated successfully.');
-      }, function(err) {
-        showErrors(err);
-      });
-    };
-
     function DialogController($scope, $mdDialog, client) {
       $scope.client = client;
       if ($scope.client.name === undefined || $scope.client.name === '') {
@@ -767,22 +748,18 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     scope.clientFilter = function() {
       $mdDialog.show({
         clickOutsideToClose: true,
-        templateUrl: 'components/views/client_filters/_add.html',
+        templateUrl: 'components/views/clients/_client_filters.html',
         parent: angular.element(document.body),
         controller: FilterController,
         locals: {
           levels: scope.levels,
           networks: scope.networks,
-          loadingLevels: scope.loadingLevels,
-          cf: 'cf'
+          loadingLevels: scope.loadingLevels
         }
       });
     };
 
-    function FilterController ($scope, levels, networks, loadingLevels, cf) {
-      if (cf && cf.id) {
-        $scope.cf = cf;
-      }
+    function FilterController ($scope, levels, networks, loadingLevels) {
       $scope.levels = levels;
       $scope.loadingLevels = loadingLevels;
       $scope.selectLevel = function(level) {
@@ -794,7 +771,7 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
       };
       $scope.save = function(zone) {
         $mdDialog.cancel();
-        scope.createUpdate($scope.cf);
+        // scope.createUpdate($scope.cf);
       };
 
       var getNetworks = function() {
@@ -836,7 +813,26 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
         }
       };
     }
-    FilterController.$inject = ['$scope', 'levels', 'networks', 'loadingLevels', 'cf'];
+    FilterController.$inject = ['$scope', 'levels', 'networks', 'loadingLevels'];
+
+    scope.update = function() {
+      scope.client.updating = true;
+      var client = {};
+      client.name = scope.client.name;
+      client.network_id = scope.client.network_id;
+      client.zone_id = scope.client.zone_id;
+      client.blocked = scope.client.blocked;
+      client.description = scope.client.description;
+      Client.update({
+        location_id: scope.location.slug,
+        id: scope.client.id,
+        client: client
+      }).$promise.then(function(results) {
+        showToast('Client updated successfully.');
+      }, function(err) {
+        showErrors(err);
+      });
+    };
 
     var init = function() {
       Client.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {

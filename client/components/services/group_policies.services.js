@@ -1,14 +1,14 @@
 'use strict';
 
-var app = angular.module('myApp.client_filters.services', ['ngResource',]);
+var app = angular.module('myApp.group_policies.services', ['ngResource',]);
 
-app.factory('ClientFilterListing', [function() {
-  return { client_filters: [] };
+app.factory('GroupPolicyListing', [function() {
+  return { group_policies: [] };
 }]);
 
-app.factory('ClientFilter', ['$resource', '$localStorage', 'API_END_POINT',
+app.factory('GroupPolicy', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
-    return $resource(API_END_POINT + '/locations/:location_id/client_filters/:id',
+    return $resource(API_END_POINT + '/locations/:location_id/group_policies/:id',
       {
         q: '@q',
         location_id: '@location_id',

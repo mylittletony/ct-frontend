@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('myApp.client_filters.directives', []);
+var app = angular.module('myApp.group_policies.directives', []);
 
-app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', 'Network', 'Zone', '$location', function(ClientFilter, $routeParams, $mdDialog, showToast, showErrors, $q, gettextCatalog, Network, Zone, $location) {
+app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', 'Network', 'Zone', '$location', function(GroupPolicy, $routeParams, $mdDialog, showToast, showErrors, $q, gettextCatalog, Network, Zone, $location) {
 
   var link = function(scope,element,attrs) {
 
@@ -52,14 +52,14 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     };
 
     var addToSet = function(cf) {
-      if (!scope.client_filters) {
-        scope.client_filters = [];
+      if (!scope.group_policies) {
+        scope.group_policies = [];
       }
-      scope.client_filters.push(cf);
+      scope.group_policies.push(cf);
     };
 
     var create = function(data) {
-      ClientFilter.create({
+      GroupPolicy.create({
         location_id: scope.location.slug,
         client_filter: data
       }).$promise.then(function(results) {
@@ -75,7 +75,7 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     };
 
     var update = function(data) {
-      ClientFilter.update({
+      GroupPolicy.update({
         location_id: scope.location.slug,
         id: data.id,
         client_filter: data
@@ -100,9 +100,9 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     };
 
     var removeFromList = function(id) {
-      for (var i = 0, len = scope.client_filters.length; i < len; i++) {
-        if (scope.client_filters[i].id === id) {
-          scope.client_filters.splice(i, 1);
+      for (var i = 0, len = scope.group_policies.length; i < len; i++) {
+        if (scope.group_policies[i].id === id) {
+          scope.group_policies.splice(i, 1);
           break;
         }
       }
@@ -122,7 +122,7 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     };
 
     scope.destroy = function(id) {
-      ClientFilter.destroy({
+      GroupPolicy.destroy({
         location_id: scope.location.slug,
         id: id
       }).$promise.then(function(results) {
@@ -168,7 +168,7 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
     scope.addFilter = function(cf) {
       $mdDialog.show({
         clickOutsideToClose: true,
-        templateUrl: 'components/views/client_filters/_add.html',
+        templateUrl: 'components/views/group_policies/_add.html',
         parent: angular.element(document.body),
         controller: DialogController,
         locals: {
@@ -247,8 +247,8 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
       };
       var deferred = $q.defer();
       scope.promise = deferred.promise;
-      ClientFilter.get(params).$promise.then(function(results) {
-        scope.client_filters  = results.client_filters;
+      GroupPolicy.get(params).$promise.then(function(results) {
+        scope.group_policies  = results.group_policies;
         scope._links = results._links;
         scope.loading = undefined;
         createMenu();
@@ -266,7 +266,7 @@ app.directive('listClientFilters', ['ClientFilter', '$routeParams', '$mdDialog',
       loading: '='
     },
     // templateUrl: 'components/boxes/show/_index.html'
-    templateUrl: 'components/views/client_filters/_index.html'
+    templateUrl: 'components/views/group_policies/_index.html'
   };
 
 }]);

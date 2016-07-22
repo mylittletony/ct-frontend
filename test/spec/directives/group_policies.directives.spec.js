@@ -1,14 +1,14 @@
 'use strict';
 
-describe('client_filters', function () {
+describe('group_policies', function () {
 
-  var $scope, element, $routeParams, clientFilterFactory, q,
+  var $scope, element, $routeParams, groupPolicyFactory, q,
   deferred, $httpBackend, networkFactory, zoneFactory;
 
   beforeEach(module('templates'));
 
   beforeEach(module('myApp', function($provide) {
-    clientFilterFactory = {
+    groupPolicyFactory = {
       get: function () {
         deferred = q.defer();
         return {$promise: deferred.promise};
@@ -44,7 +44,7 @@ describe('client_filters', function () {
     };
     $provide.value("Zone", zoneFactory);
     $provide.value("Network", networkFactory);
-    $provide.value("ClientFilter", clientFilterFactory);
+    $provide.value("GroupPolicy", groupPolicyFactory);
   }));
 
   beforeEach(inject(function($injector) {
@@ -62,16 +62,16 @@ describe('client_filters', function () {
       $routeParams.page = '10';
       $routeParams.per = '100';
       $scope.loading = true;
-      var elem = angular.element('<list-client-filters loading="loading"></list-client-filters>');
+      var elem = angular.element('<list-group-policies loading="loading"></list-group-policies>');
       element = $compile(elem)($rootScope);
       element.scope().$digest();
     }));
 
     it("should set the default scopes vals", function() {
-      spyOn(clientFilterFactory, 'get').and.callThrough();
+      spyOn(groupPolicyFactory, 'get').and.callThrough();
       expect(element.isolateScope().location.slug).toBe('xxx');
 
-      var results = { client_filters: [{ id: 123 }], _links: {} };
+      var results = { group_policies: [{ id: 123 }], _links: {} };
       deferred.resolve(results);
       $scope.$apply();
 
@@ -89,14 +89,14 @@ describe('client_filters', function () {
     });
 
     it("should display the filters for the index table", function() {
-      spyOn(clientFilterFactory, 'get').and.callThrough()
+      spyOn(groupPolicyFactory, 'get').and.callThrough()
       expect(element.isolateScope().location.slug).toBe('xxx')
 
-      var results = { client_filters: [{ id: 123 }], _links: {} };
+      var results = { group_policies: [{ id: 123 }], _links: {} };
       deferred.resolve(results);
       $scope.$apply()
 
-      expect(element.isolateScope().client_filters[0].id).toBe(123);
+      expect(element.isolateScope().group_policies[0].id).toBe(123);
       expect(element.isolateScope().loading).toBe(undefined);
     });
 
@@ -126,9 +126,9 @@ describe('client_filters', function () {
     });
 
     it("should create the new filter and add to set", function() {
-      spyOn(clientFilterFactory, 'create').and.callThrough()
+      spyOn(groupPolicyFactory, 'create').and.callThrough()
 
-      element.isolateScope().client_filters = [];
+      element.isolateScope().group_policies = [];
       var cf = { description: 'foo' };
       element.isolateScope().createUpdate(cf);
       expect(element.isolateScope().creating).toEqual(true);
@@ -137,29 +137,29 @@ describe('client_filters', function () {
       deferred.resolve(results);
       $scope.$apply()
 
-      expect(element.isolateScope().client_filters.length).toEqual(1);
+      expect(element.isolateScope().group_policies.length).toEqual(1);
     });
 
     it("should update the filter since it has an id", function() {
-      spyOn(clientFilterFactory, 'update').and.callThrough()
+      spyOn(groupPolicyFactory, 'update').and.callThrough()
 
       var cf = { description: 'foo', id: 123 };
-      element.isolateScope().client_filters = [cf];
+      element.isolateScope().group_policies = [cf];
       element.isolateScope().createUpdate(cf);
 
       var results = [{ description: 'foo' }];
       deferred.resolve(results);
       $scope.$apply()
 
-      expect(element.isolateScope().client_filters.length).toEqual(1);
+      expect(element.isolateScope().group_policies.length).toEqual(1);
     });
 
     it("should destroy the filter and remove from set", function() {
-      spyOn(clientFilterFactory, 'destroy').and.callThrough()
+      spyOn(groupPolicyFactory, 'destroy').and.callThrough()
 
       var cf = { id: 123 };
-      element.isolateScope().client_filters = [cf];
-      expect(element.isolateScope().client_filters.length).toEqual(1);
+      element.isolateScope().group_policies = [cf];
+      expect(element.isolateScope().group_policies.length).toEqual(1);
 
       element.isolateScope().destroy(cf.id);
 
@@ -167,7 +167,7 @@ describe('client_filters', function () {
       deferred.resolve(results);
       $scope.$apply()
 
-      expect(element.isolateScope().client_filters.length).toEqual(0);
+      expect(element.isolateScope().group_policies.length).toEqual(0);
     });
 
   });

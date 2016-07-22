@@ -23,7 +23,7 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
     };
 
     var saveUser = function(userToSave) {
-      $localStorage.user = (userToSave);
+      $localStorage.user = userToSave;
     };
 
     var refresh = function(data) {

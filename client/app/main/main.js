@@ -318,13 +318,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    when('/locations/:id/client_filters', {
-      templateUrl: 'components/views/client_filters/index.html',
+    when('/locations/:id/group_policies', {
+      templateUrl: 'components/views/group_policies/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/client_filters/:client_filter_id', {
-      templateUrl: 'components/views/client_filters/show.html',
+    when('/locations/:id/group_policies/:group_policy_id', {
+      templateUrl: 'components/views/group_policies/show.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers', {
