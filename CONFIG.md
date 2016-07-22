@@ -79,3 +79,55 @@ Gruntfile
 ---------
 
 In `Gruntfile.js` you can access the variables directly as `config`.
+
+The tricky part is to extend existing constants, for example list of
+files.  Say you have something like this somewhere in `Gruntfile.js`.
+
+    grunt: {
+        paths: {
+            sassFiles: [
+                'this.scss',
+                'that.scss'
+            ]
+        }
+    }
+
+In order to make this list extendable, introduce a new default variable in
+`default-config.js`:
+
+    grunt: {
+        paths: {
+           sassFiles: []
+        }
+    }
+
+In other words: the extension is the empty array by default. Then change 
+`Gruntfile.js` so that it reads:
+
+    grunt: {
+        paths: {
+            sassFiles: _.concat([
+                'this.scss',
+                'that.scss'
+            ], config.grunt.paths.sassFiles)
+        }
+    }
+
+This will unfold the corresponding array from the default resp. local
+configuration (if you override it), and push it on top of the values
+from `Gruntfile.js`.  See [the documentation for `_.concat()`](https://lodash.com/docs#concat) for details.
+
+Extending the list is now easy.  In `local-config.js` you write:
+
+    grunt: {
+        paths: {
+            sassFiles: [
+                'more.scss',
+                'other.scss'
+            ]
+        }
+    }
+
+At the end of the day, the variable `grunt.paths.sassFiles` will now 
+contain the array `['this.scss', 'that.scss', 'more.scss', 'other.scss']`.
+
