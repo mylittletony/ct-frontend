@@ -1,13 +1,13 @@
 'use strict';
 
+// Important! This configuration file is currently only used in the 
+// development.  It is ignored for test, beta, and production!
 module.exports = {
     frontend: {
         // All these constants are exposed as is in the angular application.  
         // Therefore you should never put any sensitive information like 
         // passwords or secrets in here.
         //
-        // Important! These variables are only used in the development
-        // environment.  They are ignored for test, beta, and production!
         constants: {
             CONFIG: {
             },
@@ -27,5 +27,17 @@ module.exports = {
     },
     // Server configuration.
     server: {
+        env: {
+            // Required!
+            //APP_ID: 'put your app id here!',
+            // Required!
+            //APP_SECRET: 'put your app secret here!',
+            // Required!
+            //BASE_URL: 'https://url.of.your.server',
+            // Required!
+            callbackURL: 'https://url.of.your.server/auth/login/callback',
+            // Debugging?
+            DEBUG: false,
+        }
     }
 };
