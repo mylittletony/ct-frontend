@@ -25,7 +25,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     $scope.ct_login = CTLogin;
     $rootScope.CONFIG = CONFIG;
-    console.log(CONFIG);
 
     // Zak Moonman - bonjour move these into something separate
     docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
