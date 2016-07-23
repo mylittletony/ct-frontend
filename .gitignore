@@ -10,3 +10,4 @@ dist/
 .tmp
 **/.DS_Store
 *.mo
+npm-debug.log
