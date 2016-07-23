@@ -24,8 +24,9 @@ module.exports = {
         authorizationURL: auth_url + '/oauth/authorize',
         profileURL: api_url + "/me.json",
         tokenURL: auth_url + "/oauth/token",
-        baseURL: baseURL,
+        baseURL: base_url,
         // Set to true to enable debugging.
         DEBUG: ''
     }
 };
+

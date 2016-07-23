@@ -37,7 +37,7 @@ module.exports = {
             // Required!
             //BASE_URL: 'https://url.of.your.server',
             // Required!
-            callbackURL: 'https://url.of.your.server/auth/login/callback',
+            // callbackURL: 'https://url.of.your.server/auth/login/callback',
             // Debugging?
             DEBUG: false,
         }
