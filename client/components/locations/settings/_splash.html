@@ -30,17 +30,9 @@
                   <div ng-message="required" translate>You must enter a splash limit.</div>
                 </div>
               </md-input-container>
-              <md-switch ng-model="location.tagged_logins" aria-label="{{ 'Tagged Logins' | translate }}" flex="100" flex-gt-sm="50">
+              <md-switch ng-model="location.tagged_logins" aria-label="{{ 'Tagged Logins' | translate }}" flex="100" flex-gt-sm="100">
                 <span ng-if="location.tagged_logins == true" translate>Tagged Logins Enabled</span>
                 <span ng-if="location.tagged_logins == false" translate>Tagged Logins Disabled</span>
-              </md-switch>
-              <md-switch ng-model="location.bypass_popup_android" aria-label="bypass_popup_android" flex-gt-sm="80">
-                <span ng-if="location.bypass_popup_android == true" translate>Bypass Android Popup Enabled</span>
-                <span ng-if="location.bypass_popup_android == false" translate>Bypass Android Popup Disabled</span>
-              </md-switch>
-              <md-switch ng-model="location.bypass_popup_ios" aria-label="bypass_popup_ios" flex="100" flex-gt-sm="50">
-                <span ng-if="location.bypass_popup_ios == true" translate>Bypass iOS Popup Enabled</span>
-                <span ng-if="location.bypass_popup_ios == false" translate>Bypass iOS Popup Disabled</span>
               </md-switch>
             </div>
         </md-card-content>

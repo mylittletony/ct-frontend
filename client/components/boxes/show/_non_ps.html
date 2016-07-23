@@ -3,7 +3,7 @@
   <div>
     <h3 class="md-title" translate>Details</h3>
     <form name="myForm">
-      <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
         <label>
           <translate>MAC Address</translate>
         </label>
@@ -14,7 +14,7 @@
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
         <label>
           <translate>Address</translate>
         </label>
@@ -24,17 +24,17 @@
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
         <label>
           <translate>Description</translate>
         </label>
-        <textarea ng-model="box.description" name="description" md-maxlength="150" md-minlength="5" rows="5" required md-select-on-focus></textarea>
+        <textarea ng-model="box.description" name="description" md-maxlength="180" md-minlength="5" rows="5" required md-select-on-focus></textarea>
         <div ng-messages="myForm.description.$error">
           <div ng-message="required" translate>A description is required</div>
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
         <label>
           <translate>Radius NAS ID</translate>
         </label>
@@ -44,14 +44,14 @@
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
         <label>
           <translate>Radius Secret</translate>
         </label>
         <input disabled ng-model="box.radius_secret" required>
       </md-input-container>
 
-      <md-input-container class="md-block" flex-gt-sm="50" flex>
+      <md-input-container class="md-block" flex-gt-sm="80" flex>
         <label>
           <translate>Device Type</translate>
         </label>
@@ -62,7 +62,7 @@
         </md-select>
       </md-input-container>
 
-      <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
         <md-checkbox ng-model="box.tony" aria-label="{{ 'Checkbox 2' | translate }}" class="md-warn md-align-top-left">
           <translate>
             Cucumber Box
