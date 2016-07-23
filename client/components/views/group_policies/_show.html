@@ -23,17 +23,15 @@
 </md-toolbar>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
-
+  {{ group_policy.networks }}
   <form name="myForm">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-header">{{ zone.zone_name | titleCase }}.
-                <span translate translate-n="{{zone.boxes}}" translate-plural="{{ zone.boxes }} boxes" translate-context="in zones index component">1 box</span>,
+              <span class="md-header">{{ group_policy.policy_name | titleCase }}.
                 <span translate translate-n="{{ selected.length }} " translate-plural="{{ selected.length || 0 }} networks" translate-context="in zones index componenet">1 network</span>.
-                {{ zone.zone_description }}
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -64,7 +62,7 @@
                     </td>
                     <td md-cell>
                       <md-menu>
-                        <md-button aria-label="{{ 'Zone Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-button aria-label="{{ 'Policy Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                           <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4" >

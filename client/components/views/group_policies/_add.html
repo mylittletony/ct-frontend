@@ -15,7 +15,7 @@
 
           <md-input-container>
             <label>Name</label>
-            <input name="policy_name" ng-model="gp.name" md-maxlength='100' required>
+            <input name="name" ng-model="gp.policy_name" md-maxlength='100' required>
             <div ng-messages="myForm.name.$error">
               <div ng-message="max" translate>Must be less than 100 characters</div>
               <div ng-message="required" translate>Please enter a name.</div>

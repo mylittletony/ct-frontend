@@ -325,6 +325,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/locations/:id/group_policies/:group_policy_id', {
       templateUrl: 'components/views/group_policies/show.html',
+      controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers', {

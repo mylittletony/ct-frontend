@@ -11,7 +11,7 @@
       <md-button ng-if="!group_policies.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Filters' | translate }}">
         <md-icon md-font-icon="" >group_work</md-icon>
       </md-button>
-      <p ng-if="!group_policies" translate>Group Policies</p>
+      <p ng-if="group_policies.length == 0" translate>Group Policies</p>
       <div flex></div>
       <md-button class='md-icon-button md-accent' ng-click='addFilter()'>
         <md-icon>add_circle</md-icon>
@@ -20,7 +20,7 @@
     <md-divider></md-divider>
   </md-toolbar>
 
-  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-hide="group_policies">
+  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-if="group_policies.length == 0">
     <md-card>
       <md-card-title>
         <md-card-title-text>
@@ -49,7 +49,7 @@
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
               <!-- // TONI Sorry, not sure what to do :| // -->
-              <p>{{ query.filter ? filtered.length : _links.total_entries }} Client Filter</p>
+              <p>{{ query.filter ? filtered.length : _links.total_entries }} Group Policy</p>
               <div flex></div>
             </div>
           </md-toolbar>
@@ -59,30 +59,28 @@
               <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="logOrder">
                   <tr md-row>
-                    <th md-column hide show-gt-md md-order-by="client_mac"><span translate>Client MAC</span></th>
-                    <th md-column hide show-gt-sm md-order-by="description"><span translate>Description</span></th>
-                    <th md-column hide show-gt-sm md-order-by="zone_id"><span translate>Zone</span></th>
-                    <th md-column hide show-gt-sm md-order-by="network_id"><span translate>Network</span></th>
-                    <th md-column hide show-gt-md md-order-by="created_at"><span translate>Created</span></th>
+                    <th md-column md-order-by="policy_name"><span translate>Name</span></th>
+                    <th md-column hide show-gt-sm md-order-by="group_type"><span translate>Type</span></th>
+                    <th md-column hide show-gt-sm md-order-by="policy"><span translate>Policy</span></th>
+                    <th md-column hide show-gt-sm md-order-by="created_at"><span translate>Created</span></th>
                     <th md-column><span translate>Action</span></th>
                   </tr>
                 </thead>
                 <tbody md-body>
                   <tr md-row ng-repeat="policy in filtered = (group_policies | filter: query.filter | orderBy: query.order)">
                     <td md-cell>
-                      {{ policy.client_mac }}
+                      <a href="/#/locations/{{location.slug}}/group_policies/{{policy.id}}">
+                        {{ (policy.policy_name | titleCase) }}
+                      </a>
                     </td>
                     <td md-cell>
-                      {{ policy.description }}
+                      {{ ::(policy.group_type | policyType) }}
                     </td>
                     <td md-cell>
-                      {{ policy.zone_name || '-' }}
+                      {{ ::policy.policy }}
                     </td>
-                    <td md-cell>
-                      {{ policy.network_name || '-' }}
-                    </td>
-                    <td md-cell hide show-gt-md>
-                      {{ policy.created_at | humanTime }}
+                    <td md-cell hide show-gt-sm>
+                      {{ ::(policy.created_at | humanTime) }}
                     </td>
                     <td md-cell>
                       <md-menu>

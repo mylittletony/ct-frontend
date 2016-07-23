@@ -249,3 +249,19 @@ app.filter('roleFilter', ['gettextCatalog', function(gettextCatalog) {
   };
 }]);
 
+app.filter('policyType', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if ( input !== '' ) {
+      switch(input) {
+        case 'layer2':
+          return gettextCatalog.getString('WiFi');
+        case 'layer3':
+          return gettextCatalog.getString('Firewall');
+        case 'splash':
+          return gettextCatalog.getString('Splash');
+      }
+    } else {
+      return input;
+    }
+  };
+}]);

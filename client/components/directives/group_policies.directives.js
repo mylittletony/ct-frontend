@@ -144,37 +144,6 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       });
     };
 
-    // scope.getZones = function() {
-    //   var deferred = $q.defer();
-    //   scope.promise = deferred.promise;
-    //   Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
-    //     if (results.length > 0) {
-    //       deferred.resolve(results);
-    //     } else {
-    //       deferred.reject();
-    //     }
-    //   }, function(error) {
-    //     scope.loadingLevels = undefined;
-    //     deferred.reject();
-    //   });
-    //   return deferred.promise;
-    // };
-
-    // scope.getNetworks = function() {
-    //   var deferred = $q.defer();
-    //   scope.promise = deferred.promise;
-    //   Network.get({location_id: scope.location.slug}).$promise.then(function(results) {
-    //     if (results.length > 0) {
-    //       deferred.resolve(results);
-    //     } else {
-    //       deferred.reject();
-    //     }
-    //   }, function(err) {
-    //     deferred.reject(err);
-    //   });
-    //   return deferred.promise;
-    // };
-
     scope.addFilter = function(gp) {
       $mdDialog.show({
         clickOutsideToClose: true,
@@ -232,6 +201,77 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       loading: '='
     },
     templateUrl: 'components/views/group_policies/_index.html'
+  };
+
+}]);
+
+app.directive('groupPolicy', ['GroupPolicy', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', 'Network', 'Zone', '$location', function(GroupPolicy, $routeParams, $mdDialog, showToast, showErrors, $q, gettextCatalog, Network, Zone, $location) {
+
+  var link = function(scope,element,attrs) {
+
+    scope.selected = [];
+    scope.location = { slug: $routeParams.id };
+
+    scope.options = {
+      rowSelect:  true,
+    };
+
+    scope.query = {
+      order:      'ssid',
+      limit:      $routeParams.per || 25,
+      page:       $routeParams.page || 1,
+      options:    [5,10,25,50,100],
+    };
+
+    var updateSelected = function() {
+      angular.forEach(scope.group_policy.networks, function (value, id) {
+        if (value.network_id !== null) {
+          angular.forEach(scope.networks, function(val, id) {
+            if (val.id === value.network_id) {
+              scope.selected.push(scope.networks[id]);
+            }
+          });
+        }
+      });
+    };
+
+    var init = function() {
+      var deferred = $q.defer();
+      var params = {
+        location_id: scope.location.slug,
+        id: $routeParams.group_policy_id
+      };
+      GroupPolicy.query(params).$promise.then(function(results) {
+        scope.group_policy = results.group_policy;
+        scope.policy_networks = results.networks;
+        deferred.resolve();
+      }, function(error) {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var getNetworks = function() {
+      var deferred = $q.defer();
+      Network.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        scope.networks = results;
+        scope.loading = undefined;
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    init().then(getNetworks, function() {
+      updateSelected();
+    });
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '=' 
+    },
+    templateUrl: 'components/views/group_policies/_show.html'
   };
 
 }]);

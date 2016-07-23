@@ -1013,7 +1013,11 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
         scope.store.store_products_attributes = scope.products;
       }
 
-      SplashPage.update_store({location_id: scope.location.slug, splash_id: scope.splash.id, store: scope.store}).$promise.then(function(results) {
+      SplashPage.update_store({
+        location_id: scope.location.slug,
+        splash_id: scope.splash.id,
+        store: scope.store
+      }).$promise.then(function(results) {
         if (results && results.products ) {
           scope.products = results.products;
         } else {

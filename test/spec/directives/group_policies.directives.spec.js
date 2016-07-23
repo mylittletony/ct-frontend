@@ -52,7 +52,7 @@ describe('group_policies', function () {
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
   }));
 
-  describe('lists the client filters for a location', function() {
+  describe('lists the group policies for a location', function() {
     beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
       $scope = $rootScope;
       q = $q;
@@ -69,7 +69,7 @@ describe('group_policies', function () {
 
     it("should set the default scopes vals", function() {
       spyOn(groupPolicyFactory, 'get').and.callThrough();
-      expect(element.isolateScope().location.slug).toBe('xxx');
+      expect(element.isolateScope().location.slug).toEqual('xxx');
 
       var results = { group_policies: [{ id: 123 }], _links: {} };
       deferred.resolve(results);
@@ -92,39 +92,14 @@ describe('group_policies', function () {
 
     it("should display the filters for the index table", function() {
       spyOn(groupPolicyFactory, 'get').and.callThrough()
-      expect(element.isolateScope().location.slug).toBe('xxx')
+      expect(element.isolateScope().location.slug).toEqual('xxx')
 
       var results = { group_policies: [{ id: 123 }], _links: {} };
       deferred.resolve(results);
       $scope.$apply()
 
-      expect(element.isolateScope().group_policies[0].id).toBe(123);
-      expect(element.isolateScope().loading).toBe(undefined);
-    });
-
-    it("should set the level to network and fetch the networks", function() {
-      spyOn(networkFactory, 'get').and.callThrough()
-
-      element.isolateScope().getNetworks();
-      // expect(element.isolateScope().loadingLevels).toBe(true);
-      var results = [{ id: 123 }];
-      deferred.resolve(results);
-      $scope.$apply()
-
-      // we dont need since we only use within the dialogCtrl
-      // expect(element.isolateScope().networks[0].id).toBe(123);
-    });
-
-    it("should set the level to network and fetch the zones", function() {
-      spyOn(zoneFactory, 'get').and.callThrough()
-
-      element.isolateScope().getZones();
-      var results = [{ id: 123 }];
-      deferred.resolve(results);
-      $scope.$apply()
-
-      // we dont need since we only use within the dialogCtrl
-      // expect(element.isolateScope().zones[0].id).toBe(123);
+      expect(element.isolateScope().group_policies[0].id).toEqual(123);
+      expect(element.isolateScope().loading).toEqual(undefined);
     });
 
     it("should create the new filter and add to set", function() {
@@ -174,5 +149,69 @@ describe('group_policies', function () {
 
   });
 
-});
+  describe('displays the group filter for a location', function() {
+    beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
+      $scope = $rootScope;
+      q = $q;
+      $routeParams = _$routeParams_;
+      $routeParams.id = 'xxx';
+      $routeParams.q = 'my-filter';
+      $routeParams.page = '10';
+      $routeParams.per = '100';
+      $scope.loading = true;
+      var elem = angular.element('<group-policy loading="loading"></group-policy>');
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
+    }));
 
+    it("should set the default scopes vals", function() {
+      spyOn(groupPolicyFactory, 'get').and.callThrough();
+      expect(element.isolateScope().location.slug).toEqual('xxx');
+
+      var results = { group_policies: [{ id: 123 }], _links: {} };
+      deferred.resolve(results);
+      $scope.$apply();
+
+      expect(element.isolateScope().selected.length).toEqual(0);
+      expect(element.isolateScope().query.order).toEqual('ssid');
+      expect(element.isolateScope().options.rowSelect).toEqual(true);
+    });
+
+    it("should retrieve the group policy and networks", function() {
+      spyOn(groupPolicyFactory, 'query').and.callThrough();
+      spyOn(networkFactory, 'get').and.callThrough();
+      expect(element.isolateScope().location.slug).toEqual('xxx');
+
+      var results = { group_policy: { id: 123 } };
+      deferred.resolve(results);
+      $scope.$apply();
+
+      expect(element.isolateScope().group_policy.id).toEqual(123);
+      expect(element.isolateScope().loading).toEqual(true);
+
+      var network = { id: 456 };
+      deferred.resolve([network]);
+      $scope.$apply();
+      expect(element.isolateScope().networks[0].id).toEqual(456);
+      expect(element.isolateScope().loading).toEqual(undefined);
+    });
+
+    it("should mark selected the current networks in group", function() {
+      spyOn(groupPolicyFactory, 'query').and.callThrough();
+      spyOn(networkFactory, 'get').and.callThrough();
+
+      var results = { group_policy: { id: 123 }, networks: [{id: 456}] };
+      deferred.resolve(results);
+      $scope.$apply();
+
+      var networks = [{ id: 456 }, {id: 111}];
+      deferred.resolve(networks);
+      $scope.$apply();
+      
+      expect(element.isolateScope().policy_networks[0].id).toEqual(456);
+      expect(element.isolateScope().networks[0].id).toEqual(456);
+      // expect(element.isolateScope().selected[0]).toEqual(456);
+      // expect(element.isolateScope().networks[0].selected).toEqual(true);
+    });
+  });
+});
