@@ -1,0 +1,43 @@
+<md-dialog aria-label="{{ 'Add Filter' | translate }}"  ng-cloak>
+  <form ng-submit="save()" name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 ng-if="gp.id" translate>Edit Filter</h2>
+        <h2 ng-if="!gp.id" translate>Add Filter</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Add the device with mac {{ ap_mac }} to a policy list.</p>
+        </div>
+        <div flex layout="column">
+          {{ selected }}
+
+          <md-input-container>
+            <label>Group Policies</label>
+            <md-select ng-model="client.policy_ids" multiple>
+              <md-option ng-repeat="policy in group_policies" value="{{policy.id}}">
+                {{ policy.policy_name }} ({{ policy.group_type | policyType }}, {{ policy.policy }})
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <div ng-show='loadingLevels'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button aria-label="Submit" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        <translate>UPDATE</translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

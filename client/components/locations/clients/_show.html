@@ -75,15 +75,26 @@
               <p>{{client.manufacturer | emptyFilter }}</p>
             </div>
           </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3 translate>Group Policy</h3>
+              <p>
+                <translate ng-if="client.policies.length == 0">
+                  {{ client.policies }}
+                </translate>
+                <translate ng-if="client.policies.length == 1">
+                <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name }}</a>
+                </translate>
+                <translate ng-if="client.policies.length > 1">
+                  {{ client.policies.length }} policies
+                </translate>
+                <md-button ng-click="editPolicy()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
+                  <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+                </md-button>
+              </p>
+            </div>
+          </md-list-item>
         </md-list>
-        <div class="md-list-item-text" layout="column">
-          <!-- <h4 translate> -->
-          <!--   <md-icon>group_work</md-icon> -->
-          <!--   Client Filters -->
-          <!-- </h4> -->
-          <md-switch ng-model="client.blocked" aria-label="Switch 2" class="md-warn" ng-change="clientFilter()">
-            Status: {{ client.blocked ? 'Blocked' : 'Allowed' }}
-        </md-switch></div>
       </md-card-content>
     </md-card>
     <md-card>

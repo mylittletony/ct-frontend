@@ -210,6 +210,7 @@ app.directive('groupPolicy', ['GroupPolicy', '$routeParams', '$mdDialog', 'showT
   var link = function(scope,element,attrs) {
 
     scope.selected = [];
+    scope.currentNetworks = [];
     scope.location = { slug: $routeParams.id };
 
     scope.options = {
@@ -223,9 +224,42 @@ app.directive('groupPolicy', ['GroupPolicy', '$routeParams', '$mdDialog', 'showT
       options:    [5,10,25,50,100],
     };
 
+    var i, j;
+    scope.update = function() {
+      scope.networkAttributes = [];
+      for (i = 0; i < scope.currentNetworks.length; i++) {
+        scope.networkAttributes.push({id: scope.currentNetworks[i], _destroy: true});
+        for (j = 0; j < scope.selected.length; j++) {
+          if (scope.selected[j].id === scope.currentNetworks[i]) {
+            scope.networkAttributes[i]._destroy = undefined;
+          }
+        }
+      }
+
+      for (j = 0; j < scope.selected.length; j++) {
+        scope.networkAttributes.push({id: scope.selected[j].id});
+      }
+
+      scope.group_policy.networks_attributes = scope.networkAttributes;
+      var params = {
+        id: $routeParams.group_policy_id,
+        location_id: scope.location.slug,
+        group_policy: scope.group_policy
+      };
+
+      GroupPolicy.update(params).$promise.then(function(results) {
+        scope.group_policy = results.group_policy;
+        scope.policy_networks = results.networks;
+        showToast('Successfully updated networks');
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
     var updateSelected = function() {
-      angular.forEach(scope.group_policy.networks, function (value, id) {
+      angular.forEach(scope.policy_networks, function (value, id) {
         if (value.network_id !== null) {
+          scope.currentNetworks.push(value.network_id);
           angular.forEach(scope.networks, function(val, id) {
             if (val.id === value.network_id) {
               scope.selected.push(scope.networks[id]);
@@ -256,12 +290,12 @@ app.directive('groupPolicy', ['GroupPolicy', '$routeParams', '$mdDialog', 'showT
       Network.get({location_id: scope.location.slug}).$promise.then(function(results) {
         scope.networks = results;
         scope.loading = undefined;
-        deferred.reject();
+        deferred.resolve();
       });
       return deferred.promise;
     };
 
-    init().then(getNetworks, function() {
+    init().then(getNetworks).then(function() {
       updateSelected();
     });
   };
@@ -269,7 +303,7 @@ app.directive('groupPolicy', ['GroupPolicy', '$routeParams', '$mdDialog', 'showT
   return {
     link: link,
     scope: {
-      loading: '=' 
+      loading: '='
     },
     templateUrl: 'components/views/group_policies/_show.html'
   };

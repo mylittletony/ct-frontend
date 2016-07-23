@@ -89,6 +89,19 @@ describe('client', function () {
       expect(clientScope.client.id).toEqual(123);
     });
 
+    it("should fetch the group policies", function() {
+      // var clientScope = element.find('client-detail').isolateScope()
+      // spyOn(clientFactory, 'update').and.callThrough();
+
+      // clientScope.update();
+      // expect(clientScope.client.updating).toEqual(true);
+      // var client = { id: 123 };
+      // deferred.resolve(client);
+      // $scope.$apply();
+
+      // expect(clientScope.client.updating).toEqual(undefined);
+    });
+
     it("should update a client", function() {
       // var clientScope = element.find('client-detail').isolateScope()
       // spyOn(clientFactory, 'update').and.callThrough();

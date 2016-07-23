@@ -328,6 +328,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/group_policies/:group_policy_id/clients', {
+      templateUrl: 'components/views/group_policies/clients.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/triggers', {
       templateUrl: 'components/locations/triggers/index.html',
       controller: 'LocationsCtrl as lc',

@@ -590,7 +590,7 @@ app.directive('clientsRangeButtons', ['$routeParams', '$location', '$route', 'Au
 
 }]);
 
-app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', 'gettextCatalog', function(Client,ClientDetails,Report,$routeParams,menu,$pusher, $rootScope,showToast,showErrors,$mdDialog, $timeout, $location, gettextCatalog) {
+app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', 'gettextCatalog', '$q', 'GroupPolicy', function(Client,ClientDetails,Report,$routeParams,menu,$pusher, $rootScope,showToast,showErrors,$mdDialog, $timeout, $location, gettextCatalog, $q, GroupPolicy) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -598,19 +598,6 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     scope.ap_mac   = $routeParams.ap_mac;
     scope.fn       = $routeParams.fn;
     scope.period   = $routeParams.period || '30m';
-
-    // scope.updateClient = function(id,logout) {
-    //   scope.client.updating = true;
-    //   scope.submitting = true;
-    //   Client.update({location_id: scope.location.slug, id: $routeParams.client_id, client: { name: scope.client.name, notes: scope.client.notes }}).$promise.then(function(results) {
-    //     scope.client.updating = undefined;
-    //     scope.client.editing = undefined;
-    //     scope.submitting = undefined;
-    //   }, function(err) {
-    //     scope.client.errors = err.data.message;
-    //     scope.submitting = undefined;
-    //   });
-    // };
 
     var logout = function() {
       scope.client.splash_status = 'dnat';
@@ -716,6 +703,79 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
         });
       }
     };
+
+    var loadPolicies = function() {
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      GroupPolicy.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        scope.loading = undefined;
+        deferred.resolve(results.group_policies);
+      }, function(err) {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    scope.editPolicy = function(ev) {
+      $mdDialog.show({
+        templateUrl: 'components/views/clients/_policy.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        locals: {
+          client: scope.client,
+        },
+        controller: PolicyController
+      });
+    };
+
+    function PolicyController($scope, $mdDialog, client) {
+      $scope.client = client;
+      loadPolicies().then(function(results) {
+        $scope.group_policies = results;
+        updateSelected();
+      });
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function() {
+        $mdDialog.cancel();
+        updatePolicies();
+      };
+
+      var updateSelected = function() {
+        $scope.client.policy_ids = [];
+        angular.forEach(scope.client.policies, function (value, id) {
+          if (value.id !== null) {
+            angular.forEach($scope.group_policies, function(val, id) {
+              if (val.id === value.id) {
+                $scope.client.policy_ids.push(val.id);
+              }
+            });
+          }
+        });
+      };
+
+      var updatePolicies = function() {
+        var params = {};
+        if ($scope.client.policy_ids.length > 0) {
+          params.policy_ids = $scope.client.policy_ids;
+        } else {
+          params.destroy_policies = true;
+        }
+        Client.update({
+          location_id: scope.location.slug,
+          id: scope.client.id,
+          client: params
+        }).$promise.then(function(results) {
+          showToast('Client updated successfully.');
+        }, function(err) {
+          showErrors(err);
+        });
+      };
+
+    }
+    PolicyController.$inject = ['$scope', '$mdDialog', 'client'];
 
     scope.editName = function(ev) {
       $mdDialog.show({

@@ -168,13 +168,19 @@ describe('group_policies', function () {
       spyOn(groupPolicyFactory, 'get').and.callThrough();
       expect(element.isolateScope().location.slug).toEqual('xxx');
 
-      var results = { group_policies: [{ id: 123 }], _links: {} };
+      var results = { group_policy: { id: 123 }, networks: [{ network_id: 456 }] };
       deferred.resolve(results);
       $scope.$apply();
 
       expect(element.isolateScope().selected.length).toEqual(0);
       expect(element.isolateScope().query.order).toEqual('ssid');
       expect(element.isolateScope().options.rowSelect).toEqual(true);
+      
+      var network = { id: 456 };
+      deferred.resolve([network]);
+      $scope.$apply();
+
+      expect(element.isolateScope().currentNetworks).toEqual([456]);
     });
 
     it("should retrieve the group policy and networks", function() {
@@ -200,7 +206,7 @@ describe('group_policies', function () {
       spyOn(groupPolicyFactory, 'query').and.callThrough();
       spyOn(networkFactory, 'get').and.callThrough();
 
-      var results = { group_policy: { id: 123 }, networks: [{id: 456}] };
+      var results = { group_policy: { id: 123 }, networks: [{network_id: 456}] };
       deferred.resolve(results);
       $scope.$apply();
 
@@ -208,10 +214,48 @@ describe('group_policies', function () {
       deferred.resolve(networks);
       $scope.$apply();
       
-      expect(element.isolateScope().policy_networks[0].id).toEqual(456);
-      expect(element.isolateScope().networks[0].id).toEqual(456);
-      // expect(element.isolateScope().selected[0]).toEqual(456);
-      // expect(element.isolateScope().networks[0].selected).toEqual(true);
+      deferred.resolve();
+      $scope.$apply();
+      
+      expect(element.isolateScope().policy_networks[0].network_id).toEqual(456);
+      expect(element.isolateScope().selected[0].id).toEqual(456);
+    });
+    
+    it("should update the networks and mark the _destroy for those removed", function() {
+      spyOn(groupPolicyFactory, 'query').and.callThrough();
+      spyOn(groupPolicyFactory, 'update').and.callThrough();
+      spyOn(networkFactory, 'get').and.callThrough();
+
+      var results = { group_policy: { id: 123 }, networks: [{network_id: 456}] };
+      deferred.resolve(results);
+      $scope.$apply();
+
+      var networks = [{ id: 456 }, {id: 111}];
+      deferred.resolve(networks);
+      $scope.$apply();
+      
+      deferred.resolve();
+      $scope.$apply();
+      
+      expect(element.isolateScope().policy_networks[0].network_id).toEqual(456);
+      expect(element.isolateScope().selected[0].id).toEqual(456);
+
+      // Remove a network
+      element.isolateScope().selected = [];
+
+      // Push new one one
+      var network = { id: 999 };
+      element.isolateScope().selected.push(network);
+      element.isolateScope().update();
+
+      expect(element.isolateScope().networkAttributes[0].id).toEqual(456);
+      expect(element.isolateScope().networkAttributes[0]._destroy).toEqual(true);
+      expect(element.isolateScope().networkAttributes[1].id).toEqual(999);
+      expect(element.isolateScope().networkAttributes[1]._destroy === undefined).toEqual(true);
+      
+      deferred.resolve(results);
+      $scope.$apply();
+      // expect(element.isolateScope().currentNetworks).toEqual([999]);
     });
   });
 });

@@ -62,6 +62,7 @@
                     <th md-column md-order-by="policy_name"><span translate>Name</span></th>
                     <th md-column hide show-gt-sm md-order-by="group_type"><span translate>Type</span></th>
                     <th md-column hide show-gt-sm md-order-by="policy"><span translate>Policy</span></th>
+                    <th md-column hide show-gt-sm md-order-by="networks"><span translate>Networks</span></th>
                     <th md-column hide show-gt-sm md-order-by="created_at"><span translate>Created</span></th>
                     <th md-column><span translate>Action</span></th>
                   </tr>
@@ -78,6 +79,9 @@
                     </td>
                     <td md-cell>
                       {{ ::policy.policy }}
+                    </td>
+                    <td md-cell>
+                      {{ ::policy.networks }}
                     </td>
                     <td md-cell hide show-gt-sm>
                       {{ ::(policy.created_at | humanTime) }}
