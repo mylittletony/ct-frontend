@@ -15,8 +15,8 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
 
     scope.policies = [
       {key: 'Whitelist', value: 'allow'},
-      {key: 'Blacklist', value: 'block'},
-      {key: 'Filter', value: 'filter'}
+      {key: 'Blacklist', value: 'block'}
+      // {key: 'Filter', value: 'filter'}
     ];
 
     // User permissions //
@@ -73,7 +73,6 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
         location_id: scope.location.slug,
         group_policy: data
       }).$promise.then(function(results) {
-        results.group_policy.networks = 0;
         addToSet(results.group_policy);
         // Simon Toni translate
         showToast('Policy successfully created.');
@@ -184,7 +183,7 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       var deferred = $q.defer();
       scope.promise = deferred.promise;
       GroupPolicy.get(params).$promise.then(function(results) {
-        scope.group_policies  = results.group_policies;
+        scope.group_policies = results.group_policies;
         scope._links = results._links;
         scope.loading = undefined;
         createMenu();
@@ -251,7 +250,7 @@ app.directive('groupPolicy', ['GroupPolicy', '$routeParams', '$mdDialog', 'showT
       GroupPolicy.update(params).$promise.then(function(results) {
         scope.group_policy = results.group_policy;
         scope.policy_networks = results.networks;
-        showToast('Successfully updated networks');
+        showToast('Successfully updated policy');
       }, function(err) {
         showErrors(err);
       });

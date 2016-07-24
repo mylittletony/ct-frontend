@@ -9,7 +9,7 @@
         <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Results' | translate }}">
       </md-input-container>
       <md-button ng-if="!group_policies.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Filters' | translate }}">
-        <md-icon md-font-icon="" >group_work</md-icon>
+        <md-icon>group_work</md-icon>
       </md-button>
       <p ng-if="group_policies.length == 0" translate>Group Policies</p>
       <div flex></div>
@@ -32,7 +32,6 @@
       <md-card-content>
         <translate>
         <p>Group policies let you control access to your networks.</p>
-        <!-- <p>Create a zone before applying a filter.</p> -->
         </translate>
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-click="addFilter()"><translate>Create</translate></md-button>
@@ -63,7 +62,7 @@
                     <th md-column hide show-gt-sm md-order-by="group_type"><span translate>Type</span></th>
                     <th md-column hide show-gt-sm md-order-by="policy"><span translate>Policy</span></th>
                     <th md-column hide show-gt-sm md-order-by="networks"><span translate>Networks</span></th>
-                    <th md-column hide show-gt-sm md-order-by="created_at"><span translate>Created</span></th>
+                    <th md-column hide show-gt-md md-order-by="created_at"><span translate>Created</span></th>
                     <th md-column><span translate>Action</span></th>
                   </tr>
                 </thead>
@@ -71,19 +70,19 @@
                   <tr md-row ng-repeat="policy in filtered = (group_policies | filter: query.filter | orderBy: query.order)">
                     <td md-cell>
                       <a href="/#/locations/{{location.slug}}/group_policies/{{policy.id}}">
-                        {{ (policy.policy_name | titleCase) }}
+                        {{ ::(policy.policy_name | titleCase | truncate:20) }}
                       </a>
                     </td>
                     <td md-cell>
                       {{ ::(policy.group_type | policyType) }}
                     </td>
-                    <td md-cell>
+                    <td md-cell hide show-gt-sm>
                       {{ ::policy.policy }}
                     </td>
-                    <td md-cell>
-                      {{ ::policy.networks }}
-                    </td>
                     <td md-cell hide show-gt-sm>
+                      {{ ::(policy.networks || 0)}}
+                    </td>
+                    <td md-cell hide show-gt-md>
                       {{ ::(policy.created_at | humanTime) }}
                     </td>
                     <td md-cell>

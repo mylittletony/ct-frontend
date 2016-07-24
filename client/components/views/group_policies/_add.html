@@ -9,11 +9,11 @@
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
         <div flex layout="column">
-          <p translate>Add the device with mac {{ ap_mac }} to a policy list.</p>
+          <p translate>Create a group policy.</p>
         </div>
         <div flex layout="column">
 
-          <md-input-container>
+          <md-input-container class="block" style="margin-bottom: 0px;">
             <label>Name</label>
             <input name="name" ng-model="gp.policy_name" md-maxlength='100' required>
             <div ng-messages="myForm.name.$error">
@@ -22,8 +22,8 @@
             </div>
           </md-input-container>
 
-          <md-input-container>
-            <label>Layer</label>
+          <md-input-container class="block">
+            <label>Apply To</label>
             <md-select ng-model="gp.group_type">
               <md-option ng-repeat="layer in layers" value="{{layer.value}}">
                 {{layer.key}}
@@ -31,7 +31,7 @@
             </md-select>
           </md-input-container>
 
-          <md-input-container>
+          <md-input-container class="block">
             <label>Policy</label>
             <md-select ng-model="gp.policy">
               <md-option ng-repeat="policy in policies" value="{{policy.value}}" ng-disabled="(gp.group_type == 'layer2' && policy.value != 'block') || (gp.group_type == 'splash' && policy.value == 'filter')">
