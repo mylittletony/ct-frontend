@@ -310,11 +310,11 @@
         <md-card-content>
           <div layout="column" layout-gt-sm="row">
             <div flex-gt-sm="40">
-              <md-switch class="md-accent" ng-model="network.ssid_disabled" aria-label="{{ 'Enable Radio' | translate }}" ng-false-value=true ng-true-value=false>
-                <span ng-show="network.ssid_disabled" translate>SSID Disabled</span>
-                <span ng-hide="network.ssid_disabled" translate>SSID Enabled</span>
+              <md-switch class="md-accent" ng-model="network.active" aria-label="{{ 'Enable Radio' | translate }}" ng-false-value=true ng-true-value=false>
+                <span ng-hide="network.active" translate>SSID Disabled</span>
+                <span ng-show="network.active" translate>SSID Enabled</span>
               </md-switch>
-              <md-switch class="md-accent" ng-disabled="network.ssid_disabled" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
+              <md-switch class="md-accent" ng-disabled="!network.active" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
                 <span ng-show="network.ssid_hidden" translate>SSID Hidden</span>
                 <span ng-show="!network.ssid_hidden" translate>SSID Visible</span>
               </md-switch>
