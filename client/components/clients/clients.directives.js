@@ -276,7 +276,7 @@ app.directive('clients', ['Client', 'Location', 'Report', '$location', '$routePa
         snr: true,
         signal: false,
         ip: true,
-        updated_at: true,
+        lastseen: true,
         capabilities: false,
         manufacturer: false,
         splash_username: false,
@@ -730,10 +730,12 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     };
 
     function PolicyController($scope, $mdDialog, client) {
+      $scope.loadingPolicies = true;
       $scope.client = client;
       loadPolicies().then(function(results) {
         $scope.group_policies = results;
         updateSelected();
+        $scope.loadingPolicies = undefined;
       });
       $scope.close = function() {
         $mdDialog.cancel();
@@ -757,7 +759,10 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
       };
 
       var updatePolicies = function() {
-        var params = {};
+        var params = {
+          blacklist: $scope.client.blacklist,
+          whitelist: $scope.client.whitelist,
+        };
         if ($scope.client.policy_ids.length > 0) {
           params.policy_ids = $scope.client.policy_ids;
         } else {
@@ -768,12 +773,29 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
           id: scope.client.id,
           client: params
         }).$promise.then(function(results) {
+          refreshPolicies();
           showToast('Client updated successfully.');
         }, function(err) {
           showErrors(err);
         });
       };
 
+      var refreshPolicies = function() {
+        scope.client.policies = [];
+        for (var i = 0, len = $scope.client.policy_ids.length; i < len; i++) {
+          for (var j = 0, l = $scope.group_policies.length; j < l; j++) {
+            if (parseInt($scope.client.policy_ids[i]) === $scope.group_policies[j].id) {
+              scope.client.policies.push($scope.group_policies[j]);
+            }
+          }
+        }
+        if ($scope.client.blacklist) {
+          scope.client.policies.push({policy_name: scope.client.ssid + ' Blacklist'});
+        }
+        if ($scope.client.whitelist) {
+          scope.client.policies.push({policy_name: scope.client.ssid + ' Splash Whitelist'});
+        }
+      };
     }
     PolicyController.$inject = ['$scope', '$mdDialog', 'client'];
 

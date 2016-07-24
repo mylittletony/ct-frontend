@@ -265,3 +265,13 @@ app.filter('policyType', ['gettextCatalog', function(gettextCatalog) {
     }
   };
 }]);
+
+app.filter('toString', [function() {
+  return function(input) {
+    if ( input !== '' ) {
+      return input.join(', ');
+    } else {
+      return input;
+    }
+  };
+}]);

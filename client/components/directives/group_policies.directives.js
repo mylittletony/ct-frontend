@@ -73,7 +73,8 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
         location_id: scope.location.slug,
         group_policy: data
       }).$promise.then(function(results) {
-        addToSet(results);
+        results.group_policy.networks = 0;
+        addToSet(results.group_policy);
         // Simon Toni translate
         showToast('Policy successfully created.');
         // Simon Toni translate
@@ -138,7 +139,7 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       }).$promise.then(function(results) {
         removeFromList(id);
         // SM translate
-        showToast('Successfully deleted filter');
+        showToast('Successfully deleted policy');
       }, function(err) {
         showErrors(err);
       });

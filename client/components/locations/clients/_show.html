@@ -80,10 +80,10 @@
               <h3 translate>Group Policy</h3>
               <p>
                 <translate ng-if="client.policies.length == 0">
-                  {{ client.policies }}
+                  No policy
                 </translate>
                 <translate ng-if="client.policies.length == 1">
-                <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name }}</a>
+                <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name | titleCase }}</a>
                 </translate>
                 <translate ng-if="client.policies.length > 1">
                   {{ client.policies.length }} policies

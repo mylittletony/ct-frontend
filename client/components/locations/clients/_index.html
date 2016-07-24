@@ -186,12 +186,13 @@
                   <th hide show-gt-sm md-column ng-show="columns.signal"><a href="" ng-click='sort("signal", query.direction)' translate>Signal</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.mcs"><a href="" ng-click='sort("mcs", query.direction)' translate>MCS Index</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.ip"><a href="" ng-click='sort("ip", query.direction)' translate>IPv4</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.updated_at"><a href="" ng-click='sort("updated_at", query.direction)' translate>Last Seen</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.lastseen"><a href="" ng-click='sort("lastseen", query.direction)' translate>Last Seen</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.description"><a href="" ng-click='sort("description", query.direction)' translate>AP Name</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.channel"><a href="" ng-click='sort("channel", query.direction)' translate>Channel</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.capabilities"><a href="" ng-click='sort("capabilities", query.direction)' translate>Frequency</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.manufacturer"><a href="" ng-click='sort("manufacturer", query.direction)' translate>Manufacturer</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.splash_username"><a href="" ng-click='sort("splash_username", query.direction)' translate>Splash User</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.policies"><a href="" ng-click='sort("policies", query.direction)' translate>Policies</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.type"><a href="" ng-click='sort("type", query.direction)' translate>Type</a></th>
                   <th md-column translate>Action</th>
                 </tr>
@@ -259,8 +260,8 @@
                   <td hide show-gt-sm md-cell ng-show="columns.ip">
                     {{ client.ip }}
                   </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.updated_at">
-                    {{ client.updated_at | lastSeen }}
+                  <td hide show-gt-sm md-cell ng-show="columns.lastseen">
+                    {{ client.lastseen | lastSeen }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.description">
                     <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a>
@@ -277,6 +278,18 @@
                   <td hide show-gt-sm md-cell ng-show="columns.splash_username">
                     <span ng-show="client.errors"><b translate>Failed</b></span>
                   </td md-cell>
+                  <td hide show-gt-sm md-cell ng-show="columns.policies">
+                    <span ng-if="client.policies.length == 0">-</span>
+                    <translate ng-if="client.policies.length == 1">
+                    <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name | titleCase }}</a>
+                    </translate>
+                    <span ng-if="client.policies.length > 1">
+                      <translate>{{ client.policies.length }} Policies</translate>
+                      <md-tooltip>
+                        {{ client.policies | toString }}
+                      </md-tooltip>
+                    </span>
+                  </td>
                   <td hide show-gt-sm md-cell ng-show="columns.type">
                     <img style="width: 16px;" class="clients_type" src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/ct-wifi.svg" ng-if="client.type != 'vsg'">
                     <img style="width: 16px;" class="clients_type center" src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/ruckus-wireless.png" ng-if="client.type=='vsg'"/>
