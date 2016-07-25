@@ -46,7 +46,7 @@
       </md-tooltip>
     </md-button>
     <range-filter search="test()" ing-if="query.filter || query.start" ></range-filter>
-    <audit-downloads ng-if="query.start && location.id" lid="{{location.id}}" type="email"></audit-downloads>
+    <audit-downloads ng-if="query.start && location.id && location_name && emails.length" lid="{{location.id}}" type="email"></audit-downloads>
   </div>
   <md-divider></md-divider>
 </md-toolbar>

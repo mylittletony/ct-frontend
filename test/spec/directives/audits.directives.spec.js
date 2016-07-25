@@ -196,13 +196,13 @@ describe('audit', function () {
       spyOn(guestFactory, 'get').and.callThrough()
       var auditScope = element.find('audit-guests').isolateScope()
 
-      var results = { _links: {start: 111, end: 222}, guests: [123], locations: [ { id: 1 }] };
+      var results = { _links: {start: 111, end: 222}, guests: [{id: 123, location_id: 1}], locations: [ { id: 1 }] };
       deferred.resolve(results);
-      $scope.$apply()
+      $scope.$apply();
 
       expect(auditScope.loading).toEqual(undefined);
 
-      expect(auditScope.guests).toEqual([123]);
+      expect(auditScope.guests[0].id).toEqual(123);
       expect(auditScope._links.start).toEqual(111);
       // expect(auditScope.location.id).toEqual(1);
       expect(auditScope.query.start).toEqual('111');
