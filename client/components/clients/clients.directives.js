@@ -840,6 +840,7 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
         } else {
           params.destroy_policies = true;
         }
+
         Client.update({
           location_id: scope.location.slug,
           id: scope.client.id,
