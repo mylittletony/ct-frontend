@@ -153,7 +153,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
         if (scope.zones && scope.zones.length === 0) {
           scope.zones = [];
         }
-        scope.zones.push(results);
+        scope.zones.push(results.zone);
         if (scope.zones.length > 0) {
           showToast(gettextCatalog.getString('Zone successfully created.'));
         }

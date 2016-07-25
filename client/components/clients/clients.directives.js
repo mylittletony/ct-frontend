@@ -92,6 +92,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     // };
 
     scope.refresh = function() {
+      scope.policy_id = undefined;
       scope.query.filter = undefined;
       scope.client_mac = undefined;
       scope.ap_mac = undefined;
@@ -271,11 +272,13 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
 
     scope.updatePolicy = function(id) {
       scope.policy_id = id;
+      scope.ap_mac = undefined;
       scope.updatePage();
     };
 
     scope.updateAp = function(ap_mac) {
       scope.ap_mac = ap_mac;
+      scope.policy_id = undefined;
       scope.updatePage();
     };
 
@@ -338,9 +341,65 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       }
     };
 
-    // scope.clientOnline = function(client) {
-    //   return 'online';
-    // };
+    var loadPolicies = function() {
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      GroupPolicy.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        scope.loading = undefined;
+        deferred.resolve(results.group_policies);
+      }, function(err) {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    scope.createClient = function(ev) {
+      $mdDialog.show({
+        templateUrl: 'components/views/clients/_create.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        locals: {
+          // columns: scope.columns
+        },
+        controller: clientsCtrl
+      });
+    };
+
+    function clientsCtrl ($scope) {
+      $scope.client = {};
+      $scope.client.policy_ids = [];
+
+      $scope.save = function() {
+        $mdDialog.cancel();
+        createClient();
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      
+      loadPolicies().then(function(results) {
+        $scope.group_policies = results;
+        $scope.loadingPolicies = undefined;
+      });
+      
+      var createClient = function() {
+        Client.create({
+          location_id: scope.location.slug,
+          client: $scope.client
+        }).$promise.then(function(results) {
+          if (!scope.clients) {
+            scope.clients = [];
+          }
+          scope.clients.push(results);
+          showToast('Client updated successfully.');
+        }, function(err) {
+          showErrors(err);
+        });
+      };
+    }
+    clientsCtrl.$inject = ['$scope'];
 
     var init = function() {
       var deferred = $q.defer();
@@ -410,7 +469,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     createMenu();
 
     init().then(clientsChart).then(groupPolicies).then(function() {
-      // groupPolicies();
       scope.loading = undefined;
     });
 
@@ -651,7 +709,6 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     scope.refresh = function() {
       scope.period = '30m';
       scope.ap_mac = undefined;
-      scope.policy_id = undefined;
       scope.updatePage();
     };
 

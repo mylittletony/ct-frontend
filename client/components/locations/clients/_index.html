@@ -62,6 +62,9 @@
       <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }" translate>7d</md-button>
       <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" translate>30d</md-button>
     </md-button-group>
+    <md-button class='md-icon-button md-accent' ng-click='createClient()'>
+      <md-icon>add_circle</md-icon>
+    </md-button>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
