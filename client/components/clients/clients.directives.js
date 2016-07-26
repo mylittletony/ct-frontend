@@ -17,8 +17,11 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       rowSelection: true
     };
 
+    // Updated at should be changed to lastseen
+    // However the query takes too long so we're
+    // replacing for the short-term
     scope.query = {
-      order:      '-lastseen',
+      order:      'updated_at',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
@@ -41,7 +44,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
     // scope.location        = { slug: $routeParams.id };
-    // scope.predicate       = $routeParams.predicate;
+    scope.predicate       = $routeParams.predicate;
 
     var view = function(id) {
       $location.path('/locations/' + scope.location.slug + '/clients/' + id);
@@ -239,7 +242,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       } else {
         scope.query.direction = 'asc';
       }
-      scope.predicate = val;
+      scope.predicate = 'updated_at';
+      // scope.predicate = val;
       scope.updatePage(val);
     };
 
@@ -378,12 +382,12 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       $scope.close = function() {
         $mdDialog.cancel();
       };
-      
+
       loadPolicies().then(function(results) {
         $scope.group_policies = results;
         $scope.loadingPolicies = undefined;
       });
-      
+
       var createClient = function() {
         Client.create({
           location_id: scope.location.slug,
