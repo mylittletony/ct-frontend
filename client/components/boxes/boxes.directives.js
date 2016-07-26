@@ -7,7 +7,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
   var link = function(scope,attrs,element,controller) {
 
     var prefs = {};
-    var zoneAlert, timeout;
+    var timeout;
     var j = 0;
     var counter = 0;
 
@@ -70,7 +70,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var createMenu = function() {
       scope.menu = [];
-
       scope.menu.push({
         type: 'edit',
         name: gettextCatalog.getString('Edit'),
@@ -128,9 +127,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
     };
 
-    var notInZone = function(results) {
+    var checkZones = function(results) {
       scope.not_in_zone = (results._info && results._info.total > 0);
-      return scope.not_in_zone;
     };
 
     function ZoneAlertCtrl($scope, $mdBottomSheet, prefs) {
@@ -427,7 +425,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       if (scope.box.cucumber) {
         if (scope.box.reset_confirmation) {
           showResetConfirm();
-        } else if ( zoneAlert ) {
+        } else if (scope.not_in_zone) {
           showZoneAlert();
         }
       }
@@ -483,13 +481,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       var deferred = $q.defer();
       Box.get({id: $routeParams.box_id, metadata: true}).$promise.then(function(box) {
         scope.box = box;
-        ClientDetails.client = { location_id: box.location_id, ap_mac: box.calledstationid };
-        createMenu();
-        sortSsids();
-        loadPusher(box.pubsub_token);
+        ClientDetails.client = {
+          location_id: box.location_id,
+          ap_mac: box.calledstationid
+        };
         scope.loading = undefined;
-        deferred.resolve(box);
-
+        deferred.resolve();
       }, function() {
         deferred.reject();
       });
@@ -499,14 +496,16 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var getZones = function() {
       var deferred = $q.defer();
       if (scope.box.zone_id || ignoreZone) {
+        var msg = 'Ignoring zid: ' + scope.box.zone_id + '. Ignore: ' + ignoreZone;
+        console.log(msg);
+        deferred.resolve();
       } else {
-        Zone.get({location_id: scope.location.slug, box_id: scope.box.slug}).$promise.then(function(results) {
-          scope.zone.zones    = results.zones;
-          scope._info         = results._info;
-          if (notInZone(results)) {
-            zoneAlert = true;
-          }
-          deferred.resolve(results);
+        Zone.get({
+          location_id: scope.location.slug,
+          box_id: scope.box.slug
+        }).$promise.then(function(results) {
+          scope.not_in_zone = (results.zones.length > 0);
+          deferred.resolve();
         }, function(error) {
           deferred.reject(error);
         });
@@ -528,10 +527,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         location_id:  scope.box.location_id,
         resource:     'device',
         interval:     '60s',
-        period:       '60m' // $routeParams.period,
+        period:       '60m'
       }).$promise.then(function(data) {
         scope.box.throughput = data.throughput;
-        deferred.resolve(data);
+        deferred.resolve();
       }, function() {
         deferred.reject();
       });
@@ -563,7 +562,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     init().then(function() {
       loadTput();
-      loadCharts(); // seems to need to wait for something....
+      loadCharts();
+      createMenu();
+      sortSsids();
       getZones().then(function() {
         processAlertMessages();
       });
