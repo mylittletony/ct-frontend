@@ -557,7 +557,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var viewHistory = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions';
+      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
     };
 
     init().then(function() {
