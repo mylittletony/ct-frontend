@@ -7,14 +7,14 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
   var link = function(scope,attrs,element,controller) {
 
     var prefs = {};
-    var zoneAlert;
-    var timeout;
-    scope.streamingUpdates = true;
+    var zoneAlert, timeout;
+    var j = 0;
+    var counter = 0;
 
-    scope.zone     = ZoneListing;
-    scope.staff    = Auth.currentUser().pss;
-    scope.location = { slug: $routeParams.id };
-    scope.period   = $routeParams.period || '6h';
+    scope.zone             = ZoneListing;
+    scope.location         = { slug: $routeParams.id };
+    scope.period           = $routeParams.period || '6h';
+    scope.streamingUpdates = true;
 
     scope.setPrefs = function(a) {
       if (prefs[scope.box.slug] === undefined) {
@@ -77,7 +77,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         icon: 'settings'
       });
 
-      if (scope.box.is_polkaspots) {
+      if (scope.box.cucumber) {
 
         scope.menu.push({
           name: gettextCatalog.getString('Reboot'),
@@ -99,11 +99,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         });
       }
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Transfer'),
-        icon: 'transform',
-        type: 'transfer',
-      });
+      // Removed temporarily while we sort the API permissions
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Transfer'),
+      //   icon: 'transform',
+      //   type: 'transfer',
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Delete'),
@@ -111,7 +112,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'delete'
       });
 
-      if (scope.box.is_polkaspots) {
+      if (scope.box.cucumber) {
         scope.menu.push({
           name: gettextCatalog.getString('Resync'),
           icon: 'settings_backup_restore',
@@ -125,7 +126,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           type: 'reset',
         });
       }
-
     };
 
     var notInZone = function(results) {
@@ -158,7 +158,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         resetBox();
       };
     }
-
     Ctrl.$inject = ['$scope'];
 
     var showZoneAlert = function() {
@@ -172,11 +171,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var editBox = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit';
+      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
     };
 
     scope.payloads = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads';
+      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads');
     };
 
     scope.resetBox = function(ev) {
@@ -299,44 +298,44 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
     };
 
-    scope.transferBox = function(ev) {
-      $mdDialog.show({
-        controller: transferCtrl,
-        locals: {
-          transfer: transferBox
-        },
-        templateUrl: 'components/boxes/show/_transfer.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      });
-    };
+    // scope.transferBox = function(ev) {
+    //   $mdDialog.show({
+    //     controller: transferCtrl,
+    //     locals: {
+    //       transfer: transferBox
+    //     },
+    //     templateUrl: 'components/boxes/show/_transfer.html',
+    //     parent: angular.element(document.body),
+    //     targetEvent: ev,
+    //     clickOutsideToClose:true
+    //   });
+    // };
 
-    function transferCtrl($scope, transfer) {
-      $scope.obj = {};
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-      $scope.transfer = function(id) {
-        $mdDialog.cancel();
-        transfer(id);
-      };
-    }
-    transferCtrl.$inject = ['$scope', 'transfer'];
+    // function transferCtrl($scope, transfer) {
+    //   $scope.obj = {};
+    //   $scope.cancel = function() {
+    //     $mdDialog.cancel();
+    //   };
+    //   $scope.transfer = function(id) {
+    //     $mdDialog.cancel();
+    //     transfer(id);
+    //   };
+    // }
+    // transferCtrl.$inject = ['$scope', 'transfer'];
 
-    var transferBox = function(id) {
-      Box.update({
-        id: scope.box.slug,
-        box: {
-          transfer_to: id
-        }
-      }).$promise.then(function(results) {
-        scope.back();
-        showToast(gettextCatalog.getString('Box transferred successfully.'));
-      }, function(errors) {
-        showErrors(errors);
-      });
-    };
+    // var transferBox = function(id) {
+    //   Box.update({
+    //     id: scope.box.slug,
+    //     box: {
+    //       transfer_to: id
+    //     }
+    //   }).$promise.then(function(results) {
+    //     scope.back();
+    //     showToast(gettextCatalog.getString('Box transferred successfully.'));
+    //   }, function(errors) {
+    //     showErrors(errors);
+    //   });
+    // };
 
     scope.muteBox = function() {
       scope.box.ignored = !scope.box.ignored;
@@ -356,9 +355,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     scope.back = function() {
       window.location.href = '/#/locations/' + scope.location.slug;
     };
-
-    var j = 0;
-    var counter = 0;
 
     var channel;
     function loadPusher(key) {
@@ -586,6 +582,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
   return {
     link: link,
     require: '^clientChart',
+    scope: {
+      loading: '='
+    },
     templateUrl: 'components/boxes/show/_index.html'
   };
 

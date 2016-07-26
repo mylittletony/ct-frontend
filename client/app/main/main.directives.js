@@ -12,6 +12,7 @@ var app = angular.module('myApp.directives', [
   'myApp.charts.directives',
   'myApp.commands.directives',
   'myApp.clients.directives',
+  'myApp.group_policies.directives',
   'myApp.distros.directives',
   'myApp.docs.directives',
   'myApp.emails.directives',

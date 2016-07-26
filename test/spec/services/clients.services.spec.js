@@ -21,6 +21,9 @@ describe("Connected Clients Unit Tests", function() {
     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/locations/123/clients/123123')
       .respond(200, {});
 
+    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/123/clients')
+      .respond(200, {});
+
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/123/clients/123123/logout')
       .respond(200, {});
 
@@ -56,5 +59,10 @@ describe("Connected Clients Unit Tests", function() {
     $httpBackend.flush();
   });
 
+  it('should have sent a POST request to create the client', function() {
+    var result = Client.create({location_id: 123});
+    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/locations/123/clients');
+    $httpBackend.flush();
+  });
 
 });

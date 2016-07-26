@@ -23,11 +23,11 @@
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
                     <label for="company_name">
-                      <translate>Network Name</translate>
+                      <translate>Location Name</translate>
                     </label>
-                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" md-maxlength=25 md-minlength=5 md-autofocus required>
+                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a location name' | translate }}" md-maxlength=25 md-minlength=5 md-autofocus required>
                     <div ng-messages="myForm.location_name.$error">
-                      <div ng-message="required" translate>A network name is required.</div>
+                      <div ng-message="required" translate>A location name is required.</div>
                       <div ng-message="pattern" translate>Numbers and letters only please.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
                     </div>
@@ -35,11 +35,11 @@
 
                   <md-input-container layout="row" flex class="md-block">
                     <label for="address">
-                      <translate>Network Address</translate>
+                      <translate>Location Address</translate>
                     </label>
-                    <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the network' | translate }}" md-maxlength=255 ng-minlength=5 required>
+                    <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the location' | translate }}" md-maxlength=255 ng-minlength=5 required>
                     <div ng-messages="myForm.address.$error">
-                      <div ng-message="required" translate>An address is required.</div>
+                      <div ng-message="required" translate>A location address is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 255 characters.</div>
                     </div>
                   </md-input-container>

@@ -91,8 +91,6 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       }
     };
 
-    // scope.bands = [{key: 'All', value: ''}, {key: '2.4Ghz', value: 'two'}, { key: '5Ghz', value: 'five'}];
-
     var editSsid = function(network) {
       $mdDialog.show({
         templateUrl: 'components/networks/_edit_ssid.html',
@@ -186,7 +184,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
     function buildNetwork () {
       var sub = Math.floor(Math.random() * 254) + 1;
       scope.network = {
-        ssid: gettextCatalog.getString('My Wi-Fi Network'),
+        ssid: gettextCatalog.getString('My WiFi Network'),
         access_type: 'password',
         encryption_type: 'psk2',
         band_steering: true,
@@ -277,6 +275,11 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
   var link = function(scope, element, attrs) {
 
     scope.location = { slug: $routeParams.id };
+    scope.client_filters = [
+      { key: 'Off', value: 'off' },
+      { key: 'Allow White-listed Clients', value: 'allow'},
+      { key: 'Block Banned Clients', value: 'deny'}
+    ];
 
     var displaySync = function() {
       // if (scope.network.job_id) {
@@ -376,22 +379,6 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         scope.network.job_id    = undefined;
         scope.network.errors    = err.base.message;
       });
-    };
-
-    scope.sync = function() {
-      scope.network.state = 'syncing';
-      var msg = gettextCatalog.getString('This will cause a full re-sync of all your boxes, nothing bad will happen. Just sayin. \n\nYour users will be disconnected and the earth will stop spinning temporarily.\n\nBe safe, be seen.');
-      if ( window.confirm(msg) ) {
-        Network.update({location_id: $routeParams.location_id, id: scope.network.id, network: { sync: true }}).$promise.then(function(results) {
-          scope.network.state     = undefined;
-          scope.network.job_id    = results.job_id;
-          displaySync();
-        }, function(err) {
-          scope.network.state     = 'failed';
-          scope.network.job_id    = undefined;
-          scope.network.errors    = err.base.message;
-        });
-      }
     };
 
     scope.update = function(form) {

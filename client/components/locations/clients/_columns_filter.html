@@ -67,7 +67,7 @@
           </translate>
         </md-switch>
 
-        <md-switch ng-change="saveCols()"ng-model="columns.updated_at" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="20">
+        <md-switch ng-change="saveCols()"ng-model="columns.lastseen" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="20">
           <translate> 
             Last Seen
           </translates>
@@ -103,11 +103,18 @@
           </translate>
         </md-switch>
 
-        <md-switch ng-change="saveCols()"ng-model="columns.type" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="20">
+        <md-switch ng-change="saveCols()"ng-model="columns.policies" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="20">
+          <translate>
+            Policies
+          </translate>
+        </md-switch>
+
+        <md-switch ng-change="saveCols()"ng-model="columns.type" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="70">
           <translate>
             Type
           </translate>
         </md-switch>
+
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">

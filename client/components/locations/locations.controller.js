@@ -98,6 +98,14 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
+        name: gettextCatalog.getString('Policies'),
+        type: 'link',
+        link: '/#/locations/' + $scope.location.slug + '/group_policies',
+        icon: 'group_work',
+        active: isActive('group_policies')
+      });
+
+      menu.sections.push({
         name: gettextCatalog.getString('Triggers'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/triggers',
