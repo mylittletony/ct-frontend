@@ -98,7 +98,8 @@ describe('client', function () {
       expect(clientScope.options.largeEditDialog).toEqual(false);
       expect(clientScope.options.pageSelector).toEqual(false);
       expect(clientScope.options.rowSelection).toEqual(true);
-      expect(clientScope.query.order).toEqual('-lastseen');
+      // expect(clientScope.query.order).toEqual('-lastseen');
+      expect(clientScope.query.order).toEqual('updated_at');
       expect(clientScope.query.limit).toEqual(100);
       expect(clientScope.query.page).toEqual(10);
       expect(clientScope.toggleSearch).toEqual(false);
