@@ -131,32 +131,23 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.not_in_zone = (results._info && results._info.total > 0);
     };
 
-    function ZoneAlertCtrl($scope, $mdBottomSheet, prefs) {
-      $scope.add = function() {
-        $mdBottomSheet.hide();
-        $location.path('/locations/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
-      };
-      $scope.cancel = function() {
-        prefs();
-        $mdBottomSheet.hide();
-      };
-    }
-    ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
-
     var showResetConfirm = function() {
       $mdBottomSheet.show({
         templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
-        controller: Ctrl
+        controller: ResetCtrl
       });
     };
 
-    function Ctrl($scope) {
+    function ResetCtrl($scope) {
       $scope.reset = function() {
         $mdBottomSheet.hide();
         resetBox();
       };
+      $scope.cancel = function() {
+        $mdBottomSheet.hide();
+      };
     }
-    Ctrl.$inject = ['$scope'];
+    ResetCtrl.$inject = ['$scope'];
 
     var showZoneAlert = function() {
       $mdBottomSheet.show({
@@ -167,6 +158,18 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         controller: ZoneAlertCtrl
       });
     };
+
+    var ZoneAlertCtrl = function($scope, $mdBottomSheet, prefs) {
+      $scope.add = function() {
+        $mdBottomSheet.hide();
+        $location.path('/locations/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
+      };
+      $scope.cancel = function() {
+        prefs();
+        $mdBottomSheet.hide();
+      };
+    }
+    ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
       $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
