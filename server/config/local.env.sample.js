@@ -1,6 +1,6 @@
 'use strict';
 
-var url = process.env.CT_URL || 'my.ctapp.io'
+var url = process.env.CT_URL || 'dashboard.ctapp.io'
 var base_url, api_url, auth_url;
 
 var exports;
@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
 
   api_url = process.env.API_URL || 'https://api.ctapp.io/api/v1'
   auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
-  base_url = process.env.CT_URL || 'my.ctapp.io'
+  base_url = process.env.CT_URL || 'dashboard.ctapp.io'
 
   exports = {
     callbackURL: 'https://' + base_url + '/auth/login/callback',
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 
   api_url = process.env.API_URL || 'https://beta.ctapp.io/api/v1'
   auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
-  base_url = process.env.CT_URL || 'my.ctapp.io'
+  base_url = process.env.CT_URL || 'dashboard.ctapp.io'
 
   exports = {
     callbackURL: 'https://' + base_url + '/auth/login/callback',
