@@ -294,6 +294,7 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
 
   var link = function( scope, element, attrs ) {
 
+    var interval        = 'day';
     scope.email         = $routeParams.email;
     scope.location_name = $routeParams.location_name;
 
@@ -389,7 +390,8 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
         location_name: scope.location_name,
         email: scope.email,
         start: scope.query.start,
-        end: scope.query.end
+        end: scope.query.end,
+        interval: interval
       };
       Email.get(params).$promise.then(function(results) {
         scope.emails      = results.emails;
@@ -555,8 +557,8 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
 
   var link = function( scope, element, attrs ) {
 
+    var interval        = 'day';
     scope.loading       = true;
-
     scope.email         = $routeParams.email;
     scope.location_name = $routeParams.location_name;
 
@@ -644,12 +646,13 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
         email: scope.email,
         start: scope.query.start,
         end: scope.query.end,
-        location_name: scope.location_name
+        location_name: scope.location_name,
+        interval: interval
       }).$promise.then(function(results) {
         scope.guests        = results.guests;
         scope._links        = results._links;
-        if (results.locations && results.locations.length > 0) {
-          scope.location = { id: results.locations[0].id };
+        if (scope.location_name) {
+          scope.location = { id: results.guests[0].location_id };
         }
         if ($routeParams.start === undefined) {
           scope.query.start = results._links.start;
@@ -931,7 +934,7 @@ app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettext
       $scope.myDate = new Date();
       $scope.minDate = new Date(
         $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth() - 2,
+        $scope.myDate.getMonth() - 3,
         $scope.myDate.getDate()
       );
       $scope.maxDate = new Date(
@@ -947,8 +950,8 @@ app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettext
       $scope.search = function() {
         var hash = $location.search();
         hash.start = new Date($scope.startDate).getTime() / 1000;
-        hash.end   = new Date($scope.endDate).getTime() / 1000;
-
+        var end = new Date($scope.endDate);
+        hash.end = end.setDate(end.getDate() + 1) / 1000;
         if (hash.start >= hash.end) {
           $scope.error = gettextCatalog.getString('The start date must be less than the end date');
         } else {
