@@ -16,17 +16,19 @@ module.exports = {
         }
     },
     server: {
-        // Required!
-        //APP_ID: 'your app id',
-        // Required!
-        //APP_SECRET: 'your app secret',
-        callbackURL: base_url + '/auth/login/callback',
-        authorizationURL: auth_url + '/oauth/authorize',
-        profileURL: api_url + "/me.json",
-        tokenURL: auth_url + "/oauth/token",
-        baseURL: base_url,
-        // Set to true to enable debugging.
-        DEBUG: ''
+        env: {
+            // Required!
+            //APP_ID: 'your app id',
+            // Required!
+            //APP_SECRET: 'your app secret',
+            callbackURL: base_url + '/auth/login/callback',
+            authorizationURL: auth_url + '/oauth/authorize',
+            profileURL: api_url + "/me.json",
+            tokenURL: auth_url + "/oauth/token",
+            baseURL: base_url,
+            // Set to true to enable debugging.
+            DEBUG: ''
+        }
     }
 };
 
