@@ -768,6 +768,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'configServer',
     'ngconstant:production',
     'concurrent:dist',
     'wiredep',
