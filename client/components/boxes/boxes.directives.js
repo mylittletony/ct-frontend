@@ -168,7 +168,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         prefs();
         $mdBottomSheet.hide();
       };
-    }
+    };
     ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
