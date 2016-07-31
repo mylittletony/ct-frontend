@@ -1,0 +1,50 @@
+<md-dialog aria-label="{{ 'Add Filter' | translate }}"  ng-cloak>
+  <form ng-submit="save()" name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Edit Client Policies</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+        </div>
+        <div flex layout="column">
+          <div flex>
+            <md-checkbox ng-model="client.blacklist" aria-label="Blacklist" smng-disabled="client.policies.length" flex>
+              SSID Blacklist
+          </div>
+          <small>Blocks the client on {{client.ssid}}</small><br>
+          <div flex>
+            <md-checkbox ng-model="client.whitelist" aria-label="Whitelist" smng-disabled="client.policies.length" flex>
+              Splash Whitelist
+          </div>
+          <small>Bypasses the captive portal for all splash networks.</small><br><br>
+          <p ng-if="!group_policies.length"><small>No policies available.</small></p>
+          <md-input-container ng-if="group_policies.length">
+            <label>Group Policies</label>
+            <md-select ng-model="client.policy_ids" multiple>
+              <md-option ng-repeat="policy in group_policies" value="{{policy.id}}">
+                {{ policy.policy_name }} ({{ policy.group_type | policyType }}, {{ policy.policy }})
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <div ng-show='loadingPolicies'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+        Close
+        </translate>
+      </md-button>
+      <md-button aria-label="Submit" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid || (client.whitelist && client.blacklist)">
+        <translate>UPDATE</translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

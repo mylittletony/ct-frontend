@@ -74,6 +74,14 @@ app.factory('Client', ['$resource', 'API_END_POINT',
           client: '@client',
           action: 'logout'
         }
+      },
+      create: {
+        method:'POST',
+        isArray: false,
+        params: {
+          location_id: '@location_id',
+          client: '@client',
+        }
       }
     });
   }]);

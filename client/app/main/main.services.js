@@ -11,6 +11,7 @@ var app = angular.module('myApp.services', [
   'myApp.boxes.services',
   'myApp.codes.services',
   'myApp.clients.services',
+  'myApp.group_policies.services',
   'myApp.commands.services',
   'myApp.distros.services',
   'myApp.docs.services',

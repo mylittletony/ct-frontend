@@ -4,8 +4,10 @@ public
 .idea
 client/bower_components
 client/scripts/config.js
+local-config.js
 dist/
 .sass-cache
 .tmp
 **/.DS_Store
 *.mo
+npm-debug.log
