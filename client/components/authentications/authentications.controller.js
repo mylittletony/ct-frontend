@@ -25,7 +25,6 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
       }, function(err) {
         console.log('CTME Auth 401');
         $cookies.remove('_cta' );
-        // $cookies.remove('_cta', { domain: domain } );
         if ($localStorage.user) {
           $localStorage.user.refresh = undefined;
         }
