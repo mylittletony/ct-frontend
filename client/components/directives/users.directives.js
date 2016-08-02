@@ -1077,13 +1077,17 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', function(
 
 }]);
 
-app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast) {
+app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', 'Auth', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast, Auth) {
 
   var link = function( scope, element, attrs ) {
 
     menu.isOpen = false;
     menu.hideBurger = true;
     scope.brand = { id: $routeParams.brand_id };
+
+    if (Auth.currentUser()) {
+      scope.super = Auth.currentUser().super;
+    }
     scope.roles = [{ role_id: 205, name: 'Brand Ambassador' }, { role_id: 201, name: 'Member' }];
 
     scope.selected = [];
