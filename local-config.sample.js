@@ -1,34 +1,21 @@
-// Example for a local configuration.  Rename the file to 'local-config.js'.
-// Whatever you configure here overrides the default variables set in
-// 'default-config.js' (using lodash's merge function).
+// devolo-specific configuration goes here.  You also need a 
+// 'custom-config.js' for your local installation.
+
 'use strict';
 
-var api_url = 'http://api.ctapp.io';
-var auth_url = 'http://id.ctapp.io';
-var base_url = 'https://your.app.server';
+var _ = require('lodash');
+var customConfig = require('./custom-config.js');
 
-module.exports = {
+module.exports = _.merge({
     frontend: {
         constants: {
-            API_END_POINT: api_url + '/api/v1',
-            API_URL: api_url,
-            AUTH_URL: auth_url,
         }
     },
-    server: {
-        env: {
-            // Required!
-            //APP_ID: 'your app id',
-            // Required!
-            //APP_SECRET: 'your app secret',
-            callbackURL: base_url + '/auth/login/callback',
-            authorizationURL: auth_url + '/oauth/authorize',
-            profileURL: api_url + "/me.json",
-            tokenURL: auth_url + "/oauth/token",
-            baseURL: base_url,
-            // Set to true to enable debugging.
-            DEBUG: ''
+    sass: {
+        server: {
+            files: {
+                '.tmp/app/custom.css': '<%= yeoman.client %>/app/custom.scss'
+            },
         }
     }
-};
-
+}, customConfig);
