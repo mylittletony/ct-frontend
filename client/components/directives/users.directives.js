@@ -1220,6 +1220,14 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       }
     };
 
+    scope.search = function() {
+      var hash = {};
+      hash.q = scope.query.filter;
+
+      $location.search(hash);
+      init();
+    };
+
     var init = function() {
       fetchBrand();
 

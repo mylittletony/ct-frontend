@@ -77,7 +77,7 @@
                   </tr>
                 </thead>
                 <tbody md-body>
-                  <tr md-row md-select="location" ng-repeat="location in filtered = (locations | orderBy: query.order )">
+                  <tr md-row md-select="location" ng-repeat="location in filtered = (locations | filter: query.filter | orderBy: query.order )">
                     <td md-cell>
                       <md-icon md-menu-origin ng-if="location.state != 'archived'" class="s48">check_circle</md-icon>
                       <md-icon md-menu-origin ng-if="location.state == 'archived'" class="s48">archived</md-icon>
