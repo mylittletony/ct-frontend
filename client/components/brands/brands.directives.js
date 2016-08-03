@@ -9,18 +9,17 @@ app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$loca
     var brand_id;
     scope.brandName = BrandName;
     scope.user      = {};
-    // scope.user      = Auth.currentUser();
     scope.brand     = { creating: true, network_location: 'eu-west' };
     scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
 
-    var getUser = function() {
+    var init = function() {
       User.query({id: $routeParams.id}).$promise.then(function (res) {
         scope.user = res;
-        init();
+        getBrand();
       });
     };
 
-    var init = function() {
+    var getBrand = function() {
       Brand.get(
         {
           id: scope.user.brand_id
@@ -131,13 +130,7 @@ app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$loca
       $rootScope.$broadcast(loginEvent, loginArgs);
     };
 
-    // scope.deleteImage = function() {
-    //   scope.brand.brand_image = null;
-    //   scope.brand.remove_image = true;
-    // };
-
-    getUser();
-
+    init();
   };
 
   return {
