@@ -30,9 +30,7 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <translate>
-        <p>Group policies let you control access to your networks.</p>
-        </translate>
+        <p translate>Group policies let you control access to your networks.</p>
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-click="addFilter()"><translate>Create</translate></md-button>
         </md-card-actions>
@@ -47,8 +45,7 @@
         <md-card>
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <!-- // TONI Sorry, not sure what to do :| // -->
-              <p>{{ query.filter ? filtered.length : _links.total_entries }} Group Policy</p>
+              <p translate translate-n="{{ query.filter ? filtered.length : _links.total_entries }}" translate-plural="{{ query.filter ? filtered.length : _links.total_entries }} Group Policies">1 Group Policy</p>
               <div flex></div>
             </div>
           </md-toolbar>

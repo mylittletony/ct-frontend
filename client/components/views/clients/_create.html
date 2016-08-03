@@ -10,7 +10,7 @@
         <div flex layout="column">
         </div>
         <div flex layout="column">
-          <p>Assign a group policy to a client. Pre-authorize before they connect by adding them to a policy group.</p>
+          <p translate>Assign a group policy to a client. Pre-authorize before they connect by adding them to a policy group.</p>
           <md-input-container class="md-block" flex>
             <label>
               <translate>Client Description</translate>
@@ -31,7 +31,7 @@
             </div>
           </md-input-container>
           <md-input-container ng-if="group_policies.length">
-            <label>Group Policies</label>
+            <label><translate>Group Policies</translate></label>
             <md-select ng-model="client.policy_ids" multiple>
               <md-option ng-repeat="policy in group_policies" value="{{policy.id}}">
                 {{ policy.policy_name }} ({{ policy.group_type | policyType }}, {{ policy.policy }})
