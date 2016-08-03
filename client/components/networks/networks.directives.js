@@ -91,8 +91,6 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       }
     };
 
-    // scope.bands = [{key: 'All', value: ''}, {key: '2.4Ghz', value: 'two'}, { key: '5Ghz', value: 'five'}];
-
     var editSsid = function(network) {
       $mdDialog.show({
         templateUrl: 'components/networks/_edit_ssid.html',
@@ -180,13 +178,13 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
 
   var link = function(scope, element, attrs) {
 
-    scope.content_filters = ['Danger', 'Adult', 'Security', 'Family', 'Off'];
+    scope.content_filters = [gettextCatalog.getString('Danger'), gettextCatalog.getString('Adult'), gettextCatalog.getString('Security'), gettextCatalog.getString('Family'), gettextCatalog.getString('Off')];
     scope.location = { slug: $routeParams.id };
 
     function buildNetwork () {
       var sub = Math.floor(Math.random() * 254) + 1;
       scope.network = {
-        ssid: gettextCatalog.getString('My Wi-Fi Network'),
+        ssid: gettextCatalog.getString('My WiFi Network'),
         access_type: 'password',
         encryption_type: 'psk2',
         band_steering: true,
@@ -198,7 +196,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         interface_netmask: 24,
         use_ps_radius: true,
         captive_portal_ps: true,
-        content_filter: 'Security',
+        content_filter: gettextCatalog.getString('Security'),
         highlight: true,
         captive_portal_enabled: false
       };
@@ -277,6 +275,11 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
   var link = function(scope, element, attrs) {
 
     scope.location = { slug: $routeParams.id };
+    scope.client_filters = [
+      { key: gettextCatalog.getString('Off'), value: 'off' },
+      { key: gettextCatalog.getString('Allow White-listed Clients'), value: 'allow'},
+      { key: gettextCatalog.getString('Block Banned Clients'), value: 'deny'}
+    ];
 
     var displaySync = function() {
       // if (scope.network.job_id) {
@@ -288,8 +291,8 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
     };
 
     scope.encryptions = {'None': 'none', 'WPA2': 'psk2'};
-    scope.content_filters = ['Danger', 'Adult', 'Security', 'Family', 'Off'];
-    scope.netmasks = [8,12,16,24,32];
+    scope.content_filters = [gettextCatalog.getString('Danger'), gettextCatalog.getString('Adult'), gettextCatalog.getString('Security'), gettextCatalog.getString('Family'), gettextCatalog.getString('Off')];
+    scope.netmasks = [8,12,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,32];
 
     // User Permissions //
     var createMenu = function() {
@@ -376,22 +379,6 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         scope.network.job_id    = undefined;
         scope.network.errors    = err.base.message;
       });
-    };
-
-    scope.sync = function() {
-      scope.network.state = 'syncing';
-      var msg = gettextCatalog.getString('This will cause a full re-sync of all your boxes, nothing bad will happen. Just sayin. \n\nYour users will be disconnected and the earth will stop spinning temporarily.\n\nBe safe, be seen.');
-      if ( window.confirm(msg) ) {
-        Network.update({location_id: $routeParams.location_id, id: scope.network.id, network: { sync: true }}).$promise.then(function(results) {
-          scope.network.state     = undefined;
-          scope.network.job_id    = results.job_id;
-          displaySync();
-        }, function(err) {
-          scope.network.state     = 'failed';
-          scope.network.job_id    = undefined;
-          scope.network.errors    = err.base.message;
-        });
-      }
     };
 
     scope.update = function(form) {

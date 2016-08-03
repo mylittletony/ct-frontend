@@ -1,0 +1,31 @@
+<md-dialog aria-label="{{'Revoke' | translate }}" flex=50 ng-cloak>
+  <form ng-submit="update(user)">
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2 translate>Revoke User</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="row" layout-wrap>
+        <div flex="100">
+          <!-- Zak - needs docs -->
+          <p translate>Removes the user from the location. They will be emailed to confirm the change</p>
+          <p translate>Brand ambassadors won't be deleted automatically. If you want to remove this user from all locations, please revoke their brand permissions too.</p>
+        </div>
+        <md-checkbox ng-model="user.revoke_brand" aria-label="Delete Brand">
+          Revoke from brand
+        </md-checkbox>
+        <p ng-if="user.revoke_brand" translate>This will remove the user from all your locations!</p>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+        Cancel
+        </translate>
+      </md-button>
+      <md-button type="submit" ng-disabled="myForm.$pristine || myForm.$invalid" class="md-raised md-primary" translate>Update</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

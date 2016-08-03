@@ -6,6 +6,28 @@
       <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Clients' | translate }}">
     </md-input-container>
     <div flex></div>
+    <md-menu-bar ng-if="group_policies.length > 0" style="padding: 0">
+      <md-menu>
+        <button ng-click="$mdOpenMenu()">
+          <md-icon>group_work</md-icon>
+        </button>
+        <md-menu-content >
+          <md-menu-item>
+            <md-button ng-click="refresh()" ng-disabled="!policy_id">
+              <translate>
+              Clear Filter
+              </translate>
+            </md-button>
+          </md-menu-item>
+          <md-menu-divider></md-menu-divider>
+          <md-menu-item ng-repeat="policy in group_policies">
+            <md-button ng-class="{ 'active': policy.id == policy_id }" ng-click="updatePolicy(policy.id)">
+              {{ policy.policy_name }}
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-menu-bar>
     <md-menu-bar ng-if="clients.unique_aps.length > 1" style="padding: 0">
       <md-menu>
         <button ng-click="$mdOpenMenu()">
@@ -40,6 +62,9 @@
       <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }" translate>7d</md-button>
       <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" translate>30d</md-button>
     </md-button-group>
+    <md-button class='md-icon-button md-accent' ng-click='createClient()'>
+      <md-icon>add_circle</md-icon>
+    </md-button>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -186,18 +211,19 @@
                   <th hide show-gt-sm md-column ng-show="columns.signal"><a href="" ng-click='sort("signal", query.direction)' translate>Signal</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.mcs"><a href="" ng-click='sort("mcs", query.direction)' translate>MCS Index</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.ip"><a href="" ng-click='sort("ip", query.direction)' translate>IPv4</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.updated_at"><a href="" ng-click='sort("updated_at", query.direction)' translate>Last Seen</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.lastseen"><a href="" ng-click='sort("lastseen", query.direction)' translate>Last Seen</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.description"><a href="" ng-click='sort("description", query.direction)' translate>AP Name</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.channel"><a href="" ng-click='sort("channel", query.direction)' translate>Channel</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.capabilities"><a href="" ng-click='sort("capabilities", query.direction)' translate>Frequency</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.manufacturer"><a href="" ng-click='sort("manufacturer", query.direction)' translate>Manufacturer</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.splash_username"><a href="" ng-click='sort("splash_username", query.direction)' translate>Splash User</a></th>
+                  <th hide show-gt-sm md-column ng-show="columns.policies"><a href="" ng-click='sort("policies", query.direction)' translate>Policies</a></th>
                   <th hide show-gt-sm md-column ng-show="columns.type"><a href="" ng-click='sort("type", query.direction)' translate>Type</a></th>
                   <th md-column translate>Action</th>
                 </tr>
               </thead>
               <tbody md-body>
-                <tr md-row md-auto-select="false" md-on-select="updateChart" md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients.clients | filter: query.filter | orderBy: query.direction)">
+                <tr md-row md-auto-select="false" md-on-select="updateChart" md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients | filter: query.filter | orderBy: query.direction)">
                   <td md-cell class="with-padding">
                     <md-icon ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
                   </td md-cell>
@@ -259,8 +285,8 @@
                   <td hide show-gt-sm md-cell ng-show="columns.ip">
                     {{ client.ip }}
                   </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.updated_at">
-                    {{ client.updated_at | lastSeen }}
+                  <td hide show-gt-sm md-cell ng-show="columns.lastseen">
+                    {{ client.lastseen | lastSeen }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.description">
                     <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a>
@@ -277,11 +303,23 @@
                   <td hide show-gt-sm md-cell ng-show="columns.splash_username">
                     <span ng-show="client.errors"><b translate>Failed</b></span>
                   </td md-cell>
+                  <td hide show-gt-sm md-cell ng-show="columns.policies">
+                    <span ng-if="client.policies.length == 0">-</span>
+                    <translate ng-if="client.policies.length == 1">
+                    <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name | titleCase }}</a>
+                    </translate>
+                    <span ng-if="client.policies.length > 1">
+                      <translate>{{ client.policies.length }} Policies</translate>
+                      <md-tooltip>
+                        {{ client.policies | toString }}
+                      </md-tooltip>
+                    </span>
+                  </td>
                   <td hide show-gt-sm md-cell ng-show="columns.type">
                     <img style="width: 16px;" class="clients_type" src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/ct-wifi.svg" ng-if="client.type != 'vsg'">
                     <img style="width: 16px;" class="clients_type center" src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/ruckus-wireless.png" ng-if="client.type=='vsg'"/>
                   </td md-cell>
-                  <td md-cell ng-show="clientsMenu.length">
+                  <td md-cell ng-show="menu.length">
                     <span ng-show="client.processing">
                       <md-progress-circular class="md-warn" md-diameter="40"></md-progress-circular>
                     </span>
@@ -291,7 +329,7 @@
                           <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4" >
-                          <md-menu-item ng-repeat="item in clientsMenu">
+                          <md-menu-item ng-repeat="item in menu">
                             <md-button ng-click="menuAction(item.type,client)" ng-disabled="{{ menuDisabled(item.type, client) }}">
                               <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
                           <p flex>{{ item.name }}</p>

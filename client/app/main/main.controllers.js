@@ -24,11 +24,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
   function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog) {
 
     $scope.ct_login = CTLogin;
+    // $rootScope.CONFIG = CONFIG;
 
     // Zak Moonman - bonjour move these into something separate
     docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
-    docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/72-getting-started';
-    docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/72-getting-started';
+    docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
+    docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
     docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
     docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
     // Zak Moonman - bonjour move these into something separate
@@ -331,7 +332,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         else if (parts.length === 3) {
           sub = parts[0];
-          if (sub !== 'my' && sub !== 'dev') {
+          if (sub !== 'my' && sub !== 'dev' && sub !== 'dashboard') {
             getBrand(sub);
           } else {
             setDefaultImages();
@@ -459,4 +460,3 @@ app.controller( 'ParentCtrl', function ParentCtrl($scope, onlineStatus) {
   // };
 
 });
-

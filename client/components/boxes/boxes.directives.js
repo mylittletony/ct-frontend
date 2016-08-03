@@ -7,14 +7,14 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
   var link = function(scope,attrs,element,controller) {
 
     var prefs = {};
-    var zoneAlert;
     var timeout;
-    scope.streamingUpdates = true;
+    var j = 0;
+    var counter = 0;
 
-    scope.zone     = ZoneListing;
-    scope.staff    = Auth.currentUser().pss;
-    scope.location = { slug: $routeParams.id };
-    scope.period   = $routeParams.period || '6h';
+    scope.zone             = ZoneListing;
+    scope.location         = { slug: $routeParams.id };
+    scope.period           = $routeParams.period || '6h';
+    scope.streamingUpdates = true;
 
     scope.setPrefs = function(a) {
       if (prefs[scope.box.slug] === undefined) {
@@ -70,14 +70,13 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     var createMenu = function() {
       scope.menu = [];
-
       scope.menu.push({
         type: 'edit',
         name: gettextCatalog.getString('Edit'),
         icon: 'settings'
       });
 
-      if (scope.box.is_polkaspots) {
+      if (scope.box.cucumber) {
 
         scope.menu.push({
           name: gettextCatalog.getString('Reboot'),
@@ -99,11 +98,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         });
       }
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Transfer'),
-        icon: 'transform',
-        type: 'transfer',
-      });
+      // Removed temporarily while we sort the API permissions
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Transfer'),
+      //   icon: 'transform',
+      //   type: 'transfer',
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Delete'),
@@ -111,7 +111,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'delete'
       });
 
-      if (scope.box.is_polkaspots) {
+      if (scope.box.cucumber) {
         scope.menu.push({
           name: gettextCatalog.getString('Resync'),
           icon: 'settings_backup_restore',
@@ -125,41 +125,29 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           type: 'reset',
         });
       }
-
     };
 
-    var notInZone = function(results) {
+    var checkZones = function(results) {
       scope.not_in_zone = (results._info && results._info.total > 0);
-      return scope.not_in_zone;
     };
-
-    function ZoneAlertCtrl($scope, $mdBottomSheet, prefs) {
-      $scope.add = function() {
-        $mdBottomSheet.hide();
-        $location.path('/locations/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
-      };
-      $scope.cancel = function() {
-        prefs();
-        $mdBottomSheet.hide();
-      };
-    }
-    ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var showResetConfirm = function() {
       $mdBottomSheet.show({
         templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
-        controller: Ctrl
+        controller: ResetCtrl
       });
     };
 
-    function Ctrl($scope) {
+    function ResetCtrl($scope) {
       $scope.reset = function() {
         $mdBottomSheet.hide();
         resetBox();
       };
+      $scope.cancel = function() {
+        $mdBottomSheet.hide();
+      };
     }
-
-    Ctrl.$inject = ['$scope'];
+    ResetCtrl.$inject = ['$scope'];
 
     var showZoneAlert = function() {
       $mdBottomSheet.show({
@@ -171,12 +159,24 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
     };
 
+    var ZoneAlertCtrl = function($scope, $mdBottomSheet, prefs) {
+      $scope.add = function() {
+        $mdBottomSheet.hide();
+        $location.path('/locations/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
+      };
+      $scope.cancel = function() {
+        prefs();
+        $mdBottomSheet.hide();
+      };
+    };
+    ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
+
     var editBox = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit';
+      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
     };
 
     scope.payloads = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads';
+      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads');
     };
 
     scope.resetBox = function(ev) {
@@ -299,44 +299,44 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
     };
 
-    scope.transferBox = function(ev) {
-      $mdDialog.show({
-        controller: transferCtrl,
-        locals: {
-          transfer: transferBox
-        },
-        templateUrl: 'components/boxes/show/_transfer.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      });
-    };
+    // scope.transferBox = function(ev) {
+    //   $mdDialog.show({
+    //     controller: transferCtrl,
+    //     locals: {
+    //       transfer: transferBox
+    //     },
+    //     templateUrl: 'components/boxes/show/_transfer.html',
+    //     parent: angular.element(document.body),
+    //     targetEvent: ev,
+    //     clickOutsideToClose:true
+    //   });
+    // };
 
-    function transferCtrl($scope, transfer) {
-      $scope.obj = {};
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-      $scope.transfer = function(id) {
-        $mdDialog.cancel();
-        transfer(id);
-      };
-    }
-    transferCtrl.$inject = ['$scope', 'transfer'];
+    // function transferCtrl($scope, transfer) {
+    //   $scope.obj = {};
+    //   $scope.cancel = function() {
+    //     $mdDialog.cancel();
+    //   };
+    //   $scope.transfer = function(id) {
+    //     $mdDialog.cancel();
+    //     transfer(id);
+    //   };
+    // }
+    // transferCtrl.$inject = ['$scope', 'transfer'];
 
-    var transferBox = function(id) {
-      Box.update({
-        id: scope.box.slug,
-        box: {
-          transfer_to: id
-        }
-      }).$promise.then(function(results) {
-        scope.back();
-        showToast(gettextCatalog.getString('Box transferred successfully.'));
-      }, function(errors) {
-        showErrors(errors);
-      });
-    };
+    // var transferBox = function(id) {
+    //   Box.update({
+    //     id: scope.box.slug,
+    //     box: {
+    //       transfer_to: id
+    //     }
+    //   }).$promise.then(function(results) {
+    //     scope.back();
+    //     showToast(gettextCatalog.getString('Box transferred successfully.'));
+    //   }, function(errors) {
+    //     showErrors(errors);
+    //   });
+    // };
 
     scope.muteBox = function() {
       scope.box.ignored = !scope.box.ignored;
@@ -356,9 +356,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     scope.back = function() {
       window.location.href = '/#/locations/' + scope.location.slug;
     };
-
-    var j = 0;
-    var counter = 0;
 
     var channel;
     function loadPusher(key) {
@@ -431,7 +428,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       if (scope.box.cucumber) {
         if (scope.box.reset_confirmation) {
           showResetConfirm();
-        } else if ( zoneAlert ) {
+        } else if (scope.not_in_zone) {
           showZoneAlert();
         }
       }
@@ -487,13 +484,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       var deferred = $q.defer();
       Box.get({id: $routeParams.box_id, metadata: true}).$promise.then(function(box) {
         scope.box = box;
-        ClientDetails.client = { location_id: box.location_id, ap_mac: box.calledstationid };
-        createMenu();
-        sortSsids();
-        loadPusher(box.pubsub_token);
+        ClientDetails.client = {
+          location_id: box.location_id,
+          ap_mac: box.calledstationid
+        };
         scope.loading = undefined;
-        deferred.resolve(box);
-
+        deferred.resolve();
       }, function() {
         deferred.reject();
       });
@@ -503,14 +499,16 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     var getZones = function() {
       var deferred = $q.defer();
       if (scope.box.zone_id || ignoreZone) {
+        var msg = 'Ignoring zid: ' + scope.box.zone_id + '. Ignore: ' + ignoreZone;
+        console.log(msg);
+        deferred.resolve();
       } else {
-        Zone.get({location_id: scope.location.slug, box_id: scope.box.slug}).$promise.then(function(results) {
-          scope.zone.zones    = results.zones;
-          scope._info         = results._info;
-          if (notInZone(results)) {
-            zoneAlert = true;
-          }
-          deferred.resolve(results);
+        Zone.get({
+          location_id: scope.location.slug,
+          box_id: scope.box.slug
+        }).$promise.then(function(results) {
+          scope.not_in_zone = (results.zones.length > 0);
+          deferred.resolve();
         }, function(error) {
           deferred.reject(error);
         });
@@ -532,10 +530,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         location_id:  scope.box.location_id,
         resource:     'device',
         interval:     '60s',
-        period:       '60m' // $routeParams.period,
+        period:       '60m'
       }).$promise.then(function(data) {
         scope.box.throughput = data.throughput;
-        deferred.resolve(data);
+        deferred.resolve();
       }, function() {
         deferred.reject();
       });
@@ -562,12 +560,15 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var viewHistory = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions';
+      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
     };
 
     init().then(function() {
       loadTput();
-      loadCharts(); // seems to need to wait for something....
+      loadCharts();
+      createMenu();
+      sortSsids();
+      loadPusher();
       getZones().then(function() {
         processAlertMessages();
       });
@@ -586,6 +587,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
   return {
     link: link,
     require: '^clientChart',
+    scope: {
+      loading: '='
+    },
     templateUrl: 'components/boxes/show/_index.html'
   };
 
@@ -1520,11 +1524,16 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       }
     };
 
-    scope.create = function(box) {
+    scope.create = function(box, form) {
+      if (form !== undefined) {
+        form.$setPristine();
+      }
       scope.creating = true;
       var type = $routeParams.type || scope.setup.type;
-      Box.save({location_id: scope.location.slug, box: box}).$promise.then(function(data) {
-
+      Box.save({
+        location_id: scope.location.slug,
+        box: box
+      }).$promise.then(function(data) {
         if (scope.selected.length <= 1) {
           redirect(data.slug);
           showToast(gettextCatalog.getString('Your device has been added.'));
@@ -1543,9 +1552,6 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     var getZones = function() {
       Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
         scope.zones = results.zones;
-        // if (results.zones && results.zones.length === 1) {
-        //   scope.temp.zone_id = results.zones[0].id;
-        // }
       });
     };
 

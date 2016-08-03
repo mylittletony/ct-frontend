@@ -387,11 +387,11 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
           scope.splash.walled_gardens_array = [];
         }
 
-        if (scope.splash.blacklisted && scope.splash.blacklisted.length) {
-          scope.splash.blacklisted_array = scope.splash.blacklisted.split(',');
-        } else {
-          scope.splash.blacklisted_array = [];
-        }
+        // if (scope.splash.blacklisted && scope.splash.blacklisted.length) {
+        //   scope.splash.blacklisted_array = scope.splash.blacklisted.split(',');
+        // } else {
+        //   scope.splash.blacklisted_array = [];
+        // }
 
         scope.access_types = results.access_types;
         scope.access_name();
@@ -409,7 +409,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
     scope.update = function(form) {
       form.$setPristine();
       formatWalledGardens();
-      formatBlacklisted();
+      // formatBlacklisted();
       updateCT();
     };
 
@@ -417,12 +417,16 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
       scope.splash.walled_gardens = scope.splash.walled_gardens_array.join(',');
     };
 
-    var formatBlacklisted = function() {
-      scope.splash.blacklisted = scope.splash.blacklisted_array.join(',');
-    };
+    // var formatBlacklisted = function() {
+    //   scope.splash.blacklisted = scope.splash.blacklisted_array.join(',');
+    // };
 
     var updateCT = function() {
-      SplashPage.update({location_id: scope.location.slug, id: scope.splash.id, splash_page: scope.splash}).$promise.then(function(results) {
+      SplashPage.update({
+        location_id: scope.location.slug,
+        id: scope.splash.id,
+        splash_page: scope.splash
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Splash page successfully updated.'));
         scope.splash.network_ids = [];
         createMenu();
@@ -1013,7 +1017,11 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
         scope.store.store_products_attributes = scope.products;
       }
 
-      SplashPage.update_store({location_id: scope.location.slug, splash_id: scope.splash.id, store: scope.store}).$promise.then(function(results) {
+      SplashPage.update_store({
+        location_id: scope.location.slug,
+        splash_id: scope.splash.id,
+        store: scope.store
+      }).$promise.then(function(results) {
         if (results && results.products ) {
           scope.products = results.products;
         } else {

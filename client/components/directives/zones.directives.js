@@ -54,27 +54,6 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
         showErrors(err);
       });
     };
-
-    // var edit = function() {
-    //   alert(123)
-    //   $mdDialog.show({
-    //     templateUrl: 'components/zones/_edit.html',
-    //     clickOutsideToClose: true,
-    //     parent: angular.element(document.body),
-    //     controller: DialogController,
-    //   });
-    // };
-
-    // var DialogController = function($scope) {
-    //   $scope.close = function() {
-    //     $mdDialog.cancel();
-    //   };
-
-    //   $scope.save = function(zone) {
-    //     alert(123)
-    //   };
-    // };
-    // DialogController.$inject = ['$scope'];
     
     var removeFromList = function(id) {
       for (var i = 0, len = scope.zones.length; i < len; i++) {
@@ -174,7 +153,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
         if (scope.zones && scope.zones.length === 0) {
           scope.zones = [];
         }
-        scope.zones.push(results);
+        scope.zones.push(results.zone);
         if (scope.zones.length > 0) {
           showToast(gettextCatalog.getString('Zone successfully created.'));
         }

@@ -310,11 +310,11 @@
         <md-card-content>
           <div layout="column" layout-gt-sm="row">
             <div flex-gt-sm="40">
-              <md-switch class="md-accent" ng-model="network.ssid_disabled" aria-label="{{ 'Enable Radio' | translate }}" ng-false-value=true ng-true-value=false>
-                <span ng-show="network.ssid_disabled" translate>SSID Disabled</span>
-                <span ng-hide="network.ssid_disabled" translate>SSID Enabled</span>
+              <md-switch class="md-accent" ng-model="network.active" aria-label="{{ 'Enable Radio' | translate }}">
+                <span ng-hide="network.active" translate>SSID Disabled</span>
+                <span ng-show="network.active" translate>SSID Enabled</span>
               </md-switch>
-              <md-switch class="md-accent" ng-disabled="network.ssid_disabled" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
+              <md-switch class="md-accent" ng-disabled="!network.active" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
                 <span ng-show="network.ssid_hidden" translate>SSID Hidden</span>
                 <span ng-show="!network.ssid_hidden" translate>SSID Visible</span>
               </md-switch>
@@ -341,6 +341,23 @@
             </div>
             <div flex></div>
             <div flex-gt-sm="40">
+              <md-input-container class="md-block" flex="100">
+                <label>
+                  <translate>Client Filtering</translate>
+                </label>
+                <md-select ng-model="network.client_filter">
+                  <md-option ng-repeat="f in client_filters" value="{{ f.value }}">
+                    {{ f.key }}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <p>
+                <small class="muted">
+                  <translate ng-if="network.client_filter == 'off'">Any authorised client can join the network.</translate>
+                  <translate ng-if="network.client_filter == 'allow'">Only white-listed clients can join the network.</translate>
+                  <translate ng-if="network.client_filter == 'deny'">Any authorised client can join, if they're not blocked.</translate>
+                </small>
+              </p>
               <label>
                 <translate>Band Selection</translate>
               </label>

@@ -2,7 +2,7 @@
   <div class="md-toolbar-tools">
     <md-input-container flex style="margin-top: 50px">
       <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query.filter" md-autofocus placeholder="Filter Zones">
+      <input ng-model="query.filter" md-autofocus placeholder="Filter Networks">
     </md-input-container>
     <div flex></div>
     <md-menu ng-if="menu">
@@ -37,7 +37,7 @@
               </span>
             </md-card-title-text>
           </md-card-title>
-          <md-divider ng-if="!$last"></md-divider>
+          <md-divider></md-divider>
           <md-card-content>
 
             <md-table-container>
@@ -60,7 +60,7 @@
                     </td>
                     <td hide show-gt-xs md-cell>
                       <span ng-show="{{::network.captive_portal_enabled}}" translate>Enabled</span>
-                      <span ng-show="!{{::network.captive_portal_enabled}}">-</span>
+                      <span ng-hide="{{::network.captive_portal_enabled}}">-</span>
                     </td>
                     <td md-cell>
                       <md-menu>

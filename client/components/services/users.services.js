@@ -23,7 +23,7 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
     };
 
     var saveUser = function(userToSave) {
-      $localStorage.user = (userToSave);
+      $localStorage.user = userToSave;
     };
 
     var refresh = function(data) {
@@ -54,7 +54,7 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       var deferred = $q.defer();
       AccessToken.del();
       delete $localStorage.user;
-      $('.hidden-boy').removeClass('real-boy');
+      $localStorage.reset();
       var sub = locationHelper.subdomain();
       window.location.href = AUTH_URL + '/logout?brand=' + sub;
     };
@@ -154,17 +154,6 @@ app.factory('User', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
           action: 'logout_all',
           id: '@id'
-        }
-      },
-      password: {
-        method: 'PATCH',
-        isArray: false,
-        params: {
-          password: '@password',
-          action: 'password',
-          id: '@id',
-          password_confirmation: '@password_confirmation',
-          user: '@user'
         }
       }
     }

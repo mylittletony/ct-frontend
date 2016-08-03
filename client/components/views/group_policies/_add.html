@@ -1,0 +1,62 @@
+<md-dialog aria-label="{{ 'Add Filter' | translate }}"  ng-cloak>
+  <form ng-submit="save(gp)" name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 ng-if="gp.id" translate>Edit Filter</h2>
+        <h2 ng-if="!gp.id" translate>Add Filter</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Create a group policy.</p>
+        </div>
+        <div flex layout="column">
+
+          <md-input-container class="block" style="margin-bottom: 0px;">
+            <label><translate>Name</translate></label>
+            <input name="name" ng-model="gp.policy_name" md-maxlength='100' required>
+            <div ng-messages="myForm.name.$error">
+              <div ng-message="max" translate>Must be less than 100 characters</div>
+              <div ng-message="required" translate>Please enter a name.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="block">
+            <label><translate>Apply To</translate></label>
+            <md-select ng-model="gp.group_type">
+              <md-option ng-repeat="layer in layers" value="{{layer.value}}">
+                {{layer.key}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="block">
+            <label><translate>Policy</translate></label>
+            <md-select ng-model="gp.policy">
+              <md-option ng-repeat="policy in policies" value="{{policy.value}}" ng-disabled="(gp.group_type == 'layer2' && policy.value != 'block') || (gp.group_type == 'splash' && policy.value == 'filter')">
+                {{policy.key}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <div ng-show='loadingLevels'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button aria-label="Submit" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        <translate ng-if="gp.id">UPDATE</translate>
+        <translate ng-if="!gp.id">ADD</translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

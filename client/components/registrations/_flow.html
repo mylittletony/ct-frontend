@@ -23,11 +23,11 @@
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
                     <label for="company_name">
-                      <translate>Network Name</translate>
+                      <translate>Location Name</translate>
                     </label>
-                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a network name' | translate }}" md-maxlength=25 md-minlength=5 md-autofocus required>
+                    <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Enter a location name' | translate }}" md-maxlength=25 md-minlength=5 md-autofocus required>
                     <div ng-messages="myForm.location_name.$error">
-                      <div ng-message="required" translate>A network name is required.</div>
+                      <div ng-message="required" translate>A location name is required.</div>
                       <div ng-message="pattern" translate>Numbers and letters only please.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
                     </div>
@@ -35,11 +35,11 @@
 
                   <md-input-container layout="row" flex class="md-block">
                     <label for="address">
-                      <translate>Network Address</translate>
+                      <translate>Location Address</translate>
                     </label>
-                    <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the network' | translate }}" md-maxlength=255 ng-minlength=5 required>
+                    <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the location' | translate }}" md-maxlength=255 ng-minlength=5 required>
                     <div ng-messages="myForm.address.$error">
-                      <div ng-message="required" translate>An address is required.</div>
+                      <div ng-message="required" translate>A location address is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 255 characters.</div>
                     </div>
                   </md-input-container>
@@ -62,7 +62,7 @@
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
                       <div ng-message="pattern" translate>Lowercase, letters only.</div>
                     </div>
-                    <p class="hint" ng-if="brandOk" translate>Visit https://{{ holding.url }}.my-wifi.co to sign-in</p>
+                    <p class="hint" translate>Visit <b>https://{{ holding.url || 'dashboard' }}.ctapp.io</b> to sign-in</p>
                   </md-input-container>
 
 
@@ -75,6 +75,7 @@
                       <div ng-message="required" translate>A dashboard name is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
                     </div>
+                    <p class="hint" translate>Display your company name on the dashboard</p>
                   </md-input-container>
 
                 </div>
@@ -91,7 +92,7 @@
                     <label for="address">
                       <translate>Username</translate>
                     </label>
-                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\\'\\s]*$/" md-autofocus required>
+                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
                     <div ng-messages="myForm.url.$error">
                       <div ng-message="required" translate>A username is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>

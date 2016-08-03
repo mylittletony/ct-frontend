@@ -28,7 +28,7 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
             <tr md-row>
-              <th md-order-by="ssid_disabled" md-column><span translate>Active</span></th>
+              <th md-order-by="active" md-column><span translate>Active</span></th>
               <th md-column md-order-by="ssid"><span>SSID</span></th>
               <th hide show-gt-sm md-column md-order-by="interface_ipaddr"><span translate>Network</span></th>
               <th hide show-gt-sm md-column md-order-by="access_type"><span translate>Type</span></th>

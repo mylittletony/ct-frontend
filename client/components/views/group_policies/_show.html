@@ -1,0 +1,94 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-input-container flex style="margin-top: 50px">
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Networks' | translate }}">
+    </md-input-container>
+    <div flex></div>
+    <md-menu ng-if="menu">
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon>more_vert</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in menu">
+          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
+            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+            {{item.name}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+  {{ group_policy.networks }}
+  <form name="myForm">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-header">{{ group_policy.policy_name | titleCase }}.
+                <span translate translate-n="{{ selected.length }} " translate-plural="{{ selected.length || 0 }} networks" translate-context="in zones index componenet">1 network</span>.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-divider></md-divider>
+          <md-card-content>
+
+            <md-table-container>
+              <table multiple md-table md-row-select="options.rowSelect" ng-model="selected" md-progress="promise">
+                <thead md-head md-order="query.order">
+                  <tr md-row>
+                    <th md-column><span translate>SSID</span></th>
+                    <th md-column><span translate>Description</span></th>
+                    <th md-column><span translate>Splash</span></th>
+                    <th md-column><span translate>Action</span></th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row md-select="network" md-on-change="logItem" md-auto-select="options.autoSelect" ng-repeat="network in filtered = (networks | filter: query.filter | orderBy: options.order)">
+                    <td md-cell>
+                      {{::network.ssid }}
+                    </td>
+                    <td md-cell>
+                      {{ ::network.description }}
+                    </td>
+                    <td hide show-gt-xs md-cell>
+                      <span ng-show="{{::network.captive_portal_enabled}}" translate>Enabled</span>
+                      <span ng-hide="{{::network.captive_portal_enabled}}">-</span>
+                    </td>
+                    <td md-cell>
+                      <md-menu>
+                        <md-button aria-label="{{ 'Policy Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                        </md-button>
+                        <md-menu-content width="4" >
+                          <md-menu-item>
+                            <md-button ng-click="view(network.id)">
+                              <md-icon>pageview</md-icon>
+                              <p flex translate>View</p>
+                            </md-button>
+                          </md-menu-item>
+                        </md-menu-content>
+                      </md-menu>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </md-card-content>
+        </md-card>
+
+        <md-button class="md-raised" ng-click="update()">
+          <translate>
+            Save
+          </translate>
+        </md-button>
+
+      </div>
+    </div>
+  </form>
+</md-content>

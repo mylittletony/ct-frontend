@@ -1,0 +1,59 @@
+<md-dialog aria-label="{{ 'Add Filter' | translate }}"  flex=30 ng-cloak>
+  <form ng-submit="save()" name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Add Client</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+        </div>
+        <div flex layout="column">
+          <p translate>Assign a group policy to a client. Pre-authorize before they connect by adding them to a policy group.</p>
+          <md-input-container class="md-block" flex>
+            <label>
+              <translate>Client Description</translate>
+            </label>
+            <input name="name" ng-model="client.name" autofocus md-maxlength=100 required>
+            <div ng-messages="myForm.name.$error">
+              <div ng-message="required" translate>A description is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block" flex>
+            <label>
+              <translate>Client MAC Address</translate>
+            </label>
+            <input name="mac" ng-model="client.client_mac" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" required>
+            <div ng-messages="myForm.mac.$error">
+              <div ng-message="required" translate>MAC is required.</div>
+              <div ng-message="pattern" translate>Must be a valid mac, including dashes or colons.</div>
+            </div>
+          </md-input-container>
+          <md-input-container ng-if="group_policies.length">
+            <label><translate>Group Policies</translate></label>
+            <md-select ng-model="client.policy_ids" multiple>
+              <md-option ng-repeat="policy in group_policies" value="{{policy.id}}">
+                {{ policy.policy_name }} ({{ policy.group_type | policyType }}, {{ policy.policy }})
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <div ng-show='loadingPolicies'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+        Close
+        </translate>
+      </md-button>
+      <md-button aria-label="Submit" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        <translate>UPDATE</translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
