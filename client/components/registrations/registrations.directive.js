@@ -47,7 +47,7 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
 
 }]);
 
-app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'BrandName', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'Brand', 'gettextCatalog', function(Holding, $routeParams, $location, $rootScope, BrandName, locationHelper, $cookies, menu, Me, showErrors, showToast, Brand, gettextCatalog) {
+app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'BrandName', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'Brand', 'gettextCatalog','$timeout', function(Holding, $routeParams, $location, $rootScope, BrandName, locationHelper, $cookies, menu, Me, showErrors, showToast, Brand, gettextCatalog, $timeout) {
 
   var link = function( scope, element, attrs ) {
 
@@ -146,7 +146,13 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       scope.creatingAccount = true;
       Holding.update({id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
         scope.errors = undefined;
-        scope.switchBrand(data);
+
+        var timer = $timeout(function() {
+          // loadPusher(scope.location.pubsub_token);
+          $timeout.cancel(timer);
+          scope.switchBrand(data);
+        }, 5000);
+
       }, function(err) {
         showErrors(err);
         scope.updating = undefined;
