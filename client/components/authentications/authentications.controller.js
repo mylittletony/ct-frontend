@@ -33,7 +33,7 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
     };
 
     if ($routeParams.token) {
-      $localStorage.$reset();
+      delete $localStorage.user;
       $cookies.put('_cta', $routeParams.token, { domain: domain });
       $timeout(function() {
         getMe();

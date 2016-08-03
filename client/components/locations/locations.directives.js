@@ -678,7 +678,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     var updateRole = function(user) {
       Invite.update({
         location_id: scope.location.slug,
-        username: user.username,
+        email: user.email,
         role_id: user.role_id
       }).$promise.then(function(results) {
         showToast('User successfully updated.');

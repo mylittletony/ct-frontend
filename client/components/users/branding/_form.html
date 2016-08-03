@@ -8,8 +8,47 @@
   <md-divider></md-divider>
 </md-toolbar>
 
-<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-  <div flex layout="column" ng-if="brand">
+<md-content class="md-padding" ng-if="brand && brand.admin != true">
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>
+              Brand Membership
+            </span>
+            <span class="md-subhead" translate>
+              You are a member of <b>{{ ::brand.brand_name }}</b>. Only brand admins can edit the brand details.
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>URL</h3>
+              <h4>https://{{ ::brand.url }}.ctapp.io</h4>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line" ng-if="brand.cname">
+            <div class="md-list-item-text" layout="column">
+              <h3>CNAME</h3>
+              <h4>{{ ::brand.cname }}</h4>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>Location</h3>
+              <h4>{{ ::brand.network_location }}</h4>
+            </div>
+          </md-list-item>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</md-content>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap ng-if="brand && brand.admin == true">
+  <div flex layout="column">
     <form name="myForm" ng-submit="save(brand)">
       <div class="md-padding" layout="column" layout-gt-sm='column'>
         <div layout="column" layout-gt-xs="row" layout-align="center center">
@@ -29,7 +68,7 @@
                 <div layout="column" layout-gt-xs="row" layout-wrap>
                   <md-input-container class="md-block" flex-gt-xs="50">
                     <label><translate>Brand Name</translate></label>
-                    <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="{{ 'Enter a brand name' | translate }}" ng-model="brandName.name" ng-pattern="/^[^-\\s][A-Za-z0-9\\'\\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
+                    <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="{{ 'Enter a brand name' | translate }}" ng-model="brandName.name" ng-pattern="/^[^-\s][A-Za-z0-9\\'\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
                     <div ng-messages="myForm.brand_name.$error" md-auto-hide="false">
                       <div ng-message="required" translate>Please enter a name for your brand</div>
                       <div ng-message="md-maxlength" translate>Must be less than 25 characters</div>
@@ -48,7 +87,7 @@
                       <div ng-message="url" translate>Must be a valid URL</div>
                     </div>
                   </md-input-container>
-                  <p><translate>Your dashboard address is </translate> <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
+                  <p><translate>Your dashboard address is&nbsp;</translate> <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
                 </div>
               </md-card-content>
             </md-card>

@@ -54,7 +54,6 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       var deferred = $q.defer();
       AccessToken.del();
       delete $localStorage.user;
-      $localStorage.reset();
       var sub = locationHelper.subdomain();
       window.location.href = AUTH_URL + '/logout?brand=' + sub;
     };
