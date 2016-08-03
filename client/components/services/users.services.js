@@ -155,17 +155,6 @@ app.factory('User', ['$resource', '$localStorage', 'API_END_POINT',
           action: 'logout_all',
           id: '@id'
         }
-      },
-      password: {
-        method: 'PATCH',
-        isArray: false,
-        params: {
-          password: '@password',
-          action: 'password',
-          id: '@id',
-          password_confirmation: '@password_confirmation',
-          user: '@user'
-        }
       }
     }
   );
