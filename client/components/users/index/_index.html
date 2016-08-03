@@ -31,7 +31,12 @@
           <tbody md-body>
           <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.direction)">
               <td md-cell>
-                {{ ::user.username | truncate:15 }}
+                <a ng-if="super" href="/#/users/{{ ::user.slug }}">
+                  {{ ::user.username | truncate:15 }}
+                </a>
+                <span ng-if="!super">
+                  {{ ::user.username | truncate:15 }}
+                </span>
                 <md-tooltip hide-gt-sm>
                   {{ ::user.email }}
                 </md-tooltip>

@@ -87,8 +87,8 @@ module.exports = function(app) {
   });
 
   app.get('/auth/login/callback', passport.authenticate('polkaspots', { failureRedirect: '/login' }), function(req, res) {
-    var host = req.get('host');
     var raw = {};
+    var url;
 
     try {
       raw = JSON.parse(req.session.passport.user._raw)
@@ -97,6 +97,17 @@ module.exports = function(app) {
 
     if (raw.cname) {
       res.redirect('https://'+ raw.cname +'/#/login?token=' + req.session.accessToken);
+    // } else if (raw.url !== 'default') {
+    //   // We need to adjust the config file so we just use a domain
+    //   // Right now, this is dumb
+    //   if (env === 'production') {
+    //     url = 'https://'+ raw.url +'.ctapp.io';
+    //   } else {
+    //     url = 'http://'+ raw.url +'.ctapp.dev:9090';
+    //   }
+    //   res.redirect(url + '/#/login?token=' + req.session.accessToken);
+    // } else if (raw.url !== 'default' && env === 'production') {
+    //   res.redirect('https://'+ raw.url +'.ctapp.io/#/login?token=' + req.session.accessToken);
     } else {
       res.redirect(process.env.baseURL + '/#/login?token=' + req.session.accessToken);
     }
