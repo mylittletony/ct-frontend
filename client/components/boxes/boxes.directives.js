@@ -1524,7 +1524,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       }
     };
 
-    scope.create = function(form, box) {
+    scope.create = function(box, form) {
       form.$setPristine();
       scope.creating = true;
       var type = $routeParams.type || scope.setup.type;
