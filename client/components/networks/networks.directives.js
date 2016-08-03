@@ -292,7 +292,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.encryptions = {'None': 'none', 'WPA2': 'psk2'};
     scope.content_filters = ['Danger', 'Adult', 'Security', 'Family', 'Off'];
-    scope.netmasks = [8,12,16,24,32];
+    scope.netmasks = [8,12,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,32];
 
     // User Permissions //
     var createMenu = function() {
