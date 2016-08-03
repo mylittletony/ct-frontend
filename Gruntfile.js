@@ -622,9 +622,9 @@ module.exports = function (grunt) {
           ],
           compass: false
         },
-        files: {
+        files: _.merge({
           '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.scss'
-        }
+        }, config.sass.server.files)
       }
     },
 
