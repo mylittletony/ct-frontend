@@ -91,7 +91,7 @@
                     <label for="address">
                       <translate>Username</translate>
                     </label>
-                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\\'\\s]*$/" md-autofocus required>
+                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
                     <div ng-messages="myForm.url.$error">
                       <div ng-message="required" translate>A username is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
