@@ -239,9 +239,13 @@ app.filter('roleFilter', ['gettextCatalog', function(gettextCatalog) {
         case '140':
           return gettextCatalog.getString('Observer');
         case '200':
-          return gettextCatalog.getString('Brand Admin');
+          return gettextCatalog.getString('Brand Owner');
         case '201':
-          return gettextCatalog.getString('Location Admin');
+          return gettextCatalog.getString('Member');
+        case '205':
+          return gettextCatalog.getString('Brand Ambassador');
+        case '210':
+          return gettextCatalog.getString('Brand Super');
         default:
           return gettextCatalog.getString('N/A');
       }
