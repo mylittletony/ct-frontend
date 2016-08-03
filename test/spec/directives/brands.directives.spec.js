@@ -16,6 +16,10 @@ describe('brands', function () {
         deferred = q.defer();
         return {$promise: deferred.promise};
       },
+      create: function () {
+        deferred = q.defer();
+        return {$promise: deferred.promise};
+      },
       update: function () {
         deferred = q.defer();
         return {$promise: deferred.promise};
@@ -27,8 +31,8 @@ describe('brands', function () {
     };
     userFactory = {
       query: function () {
-        deferred = q.defer();
-        return {$promise: deferred.promise};
+        dd = q.defer();
+        return {$promise: dd.promise};
       },
     };
     $provide.value("User", userFactory);
@@ -39,10 +43,6 @@ describe('brands', function () {
     $httpBackend = $injector.get('$httpBackend');
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
   }));
-
-  // afterEach(function(){
-  //   $scope.$apply();
-  // });
 
   describe('displays a brand to a user', function() {
     beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
@@ -55,9 +55,23 @@ describe('brands', function () {
       element.scope().$digest();
     }));
 
-    fit("should set the default scope vars", function() {
+    it("should set the default scope vars", function() {
       spyOn(brandFactory, 'get').and.callThrough();
-      var brand= { url: 'cucumber', brand_name: 'simon' };
+      
+      expect(element.isolateScope().brand.creating).toEqual(true);
+      expect(element.isolateScope().brand.network_location).toEqual('eu-west');
+      expect(element.isolateScope().locations.length).toEqual(4);
+      expect(element.isolateScope().locations[0]).toEqual('eu-west');
+      expect(element.isolateScope().locations[1]).toEqual('us-central');
+      expect(element.isolateScope().locations[2]).toEqual('us-west');
+      expect(element.isolateScope().locations[3]).toEqual('asia-east');
+
+      var user = { id: 123 };
+      dd.resolve(user);
+      $scope.$digest();
+      expect(element.isolateScope().user).toEqual(user);
+
+      var brand = { url: 'cucumber', brand_name: 'simon' };
       deferred.resolve(brand);
       $scope.$digest();
 
@@ -66,16 +80,38 @@ describe('brands', function () {
       expect(element.isolateScope().brandName.name).toEqual(brand.brand_name);
     });
 
-    fit("should create a brand if Cucumber", function() {
+    it("should create a brand", function() {
+      spyOn(brandFactory, 'create').and.callThrough();
+      var form = {
+        $valid: true,
+        $setPristine: function() {}
+      };
 
+      element.isolateScope().save(form)
+
+      var brand = { url: 'cucumber', brand_name: 'simon' };
+      deferred.resolve(brand);
+      $scope.$digest();
+
+      expect(element.isolateScope().brand).toEqual(brand);
     });
 
-    fit("should update a brand if theirs", function() {
+    // Not sure how to confirm the mdialog
+    xit("should update a brand", function() {
+      element.isolateScope().brand.id = 123;
+      spyOn(brandFactory, 'update').and.callThrough();
+      var form = {
+        $valid: true,
+        $setPristine: function() {}
+      };
 
-    });
+      element.isolateScope().save(form)
 
-    fit("should not show a brand if not theirs", function() {
+      var brand = { url: 'cucumber', brand_name: 'simon' };
+      deferred.resolve(brand);
+      $scope.$digest();
 
+      expect(element.isolateScope().brand).toEqual(brand);
     });
 
   });

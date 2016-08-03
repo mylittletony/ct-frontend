@@ -46,13 +46,20 @@ app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$loca
     };
 
     var create = function() {
-      // Brand.create({brand: { cname: scope.brand.cname, brand_image: scope.brand.brand_image, brand_name: scope.brandName.name, url: scope.brand.url}}).$promise.then(function(results) {
-      //   scope.brand       = results;
-      //   showToast(gettextCatalog.getString('Successfully updated brand'));
-      //   switchBrand();
-      // }, function(err) {
-      //   showErrors(err);
-      // });
+      Brand.create({
+        brand: { 
+          cname: scope.brand.cname,
+          brand_image: scope.brand.brand_image,
+          brand_name: scope.brandName.name, 
+          url: scope.brand.url
+        }
+      }).$promise.then(function(results) {
+        scope.brand = results;
+        showToast(gettextCatalog.getString('Successfully updated brand'));
+        switchBrand();
+      }, function(err) {
+        showErrors(err);
+      });
     };
 
     var confirmChange = function() {
@@ -124,10 +131,10 @@ app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$loca
       $rootScope.$broadcast(loginEvent, loginArgs);
     };
 
-    scope.deleteImage = function() {
-      scope.brand.brand_image = null;
-      scope.brand.remove_image = true;
-    };
+    // scope.deleteImage = function() {
+    //   scope.brand.brand_image = null;
+    //   scope.brand.remove_image = true;
+    // };
 
     getUser();
 

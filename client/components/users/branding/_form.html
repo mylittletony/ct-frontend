@@ -68,7 +68,7 @@
                 <div layout="column" layout-gt-xs="row" layout-wrap>
                   <md-input-container class="md-block" flex-gt-xs="50">
                     <label><translate>Brand Name</translate></label>
-                    <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="{{ 'Enter a brand name' | translate }}" ng-model="brandName.name" ng-pattern="/^[^-\\s][A-Za-z0-9\\'\\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
+                    <input ng-disabled="user.ps" type="text" name="brand_name" placeholder="{{ 'Enter a brand name' | translate }}" ng-model="brandName.name" ng-pattern="/^[^-\s][A-Za-z0-9\\'\s-]*$/" md-maxlength="25" ng-minlength="5" required></input>
                     <div ng-messages="myForm.brand_name.$error" md-auto-hide="false">
                       <div ng-message="required" translate>Please enter a name for your brand</div>
                       <div ng-message="md-maxlength" translate>Must be less than 25 characters</div>
