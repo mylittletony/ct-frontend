@@ -672,9 +672,16 @@ app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog'
 
 }]);
 
-app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(User, Auth, $routeParams, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', '$location', function(User, Auth, $routeParams, $mdDialog, showToast, showErrors, gettextCatalog, $location) {
 
   var link = function( scope, element, attrs ) {
+
+    var id;
+    if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
+      id = Auth.currentUser().slug;
+    } else {
+      id = $routeParams.id;
+    }
 
     scope.changePassword = function() {
       $mdDialog.show({
@@ -700,7 +707,13 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
 
     var change = function(user) {
       scope.loading = true;
-      User.password({id: $routeParams.id, user: { password: user.password, current_password: user.current_password}}).$promise.then(function(results) {
+      User.update({
+        id: id,
+        user: {
+          password: user.password,
+          current_password: user.current_password
+        }
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Password successfully updated.'));
       }, function(err) {
         showErrors(err);

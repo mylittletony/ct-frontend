@@ -568,6 +568,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       loadCharts();
       createMenu();
       sortSsids();
+      loadPusher();
       getZones().then(function() {
         processAlertMessages();
       });
@@ -1523,8 +1524,10 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       }
     };
 
-    scope.create = function(form, box) {
-      form.$setPristine();
+    scope.create = function(box, form) {
+      if (form !== undefined) {
+        form.$setPristine();
+      }
       scope.creating = true;
       var type = $routeParams.type || scope.setup.type;
       Box.save({

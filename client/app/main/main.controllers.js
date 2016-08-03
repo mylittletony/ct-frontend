@@ -332,7 +332,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         else if (parts.length === 3) {
           sub = parts[0];
-          if (sub !== 'my' && sub !== 'dev') {
+          if (sub !== 'my' && sub !== 'dev' && sub !== 'dashboard') {
             getBrand(sub);
           } else {
             setDefaultImages();
