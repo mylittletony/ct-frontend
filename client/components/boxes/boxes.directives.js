@@ -568,6 +568,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       loadCharts();
       createMenu();
       sortSsids();
+      loadPusher();
       getZones().then(function() {
         processAlertMessages();
       });
