@@ -54,8 +54,8 @@
         </translate>
       </md-button>
       <md-button aria-label="Submit" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-        <translate ng-if="gp.id" translate>UPDATE</translate>
-        <translate ng-if="!gp.id" translate>ADD</translate>
+        <translate ng-if="gp.id">UPDATE</translate>
+        <translate ng-if="!gp.id">ADD</translate>
       </md-button>
     </md-dialog-actions>
   </form>
