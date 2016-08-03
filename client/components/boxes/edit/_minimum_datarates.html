@@ -3,7 +3,7 @@
     <label>
       <translate>Min allowed 2.4Ghz basic rate</translate>
     </label>
-    <md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_2" required>
+    <md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_2">
       <md-option ng-repeat="rate in two" value="{{rate.value}}">
         {{rate.key}}
       </md-option>
@@ -13,7 +13,7 @@
     <label>
       <translate>Min allowed 5Ghz basic rate</translate>
     </label>
-    <md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_5" required>
+    <md-select ng-disabled="nas.legacy_mode_b" ng-model="nas.basic_rate_5">
       <md-option ng-repeat="rate in five" value="{{rate.value}}">
         {{rate.key}}
       </md-option>

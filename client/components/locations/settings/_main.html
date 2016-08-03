@@ -133,8 +133,8 @@
               </md-input-container>
               <div flex="100"></div>
               <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public Location' | translate }}">
-                <span ng-if="location.add_to_global_map == true" translate>Public Location</span>
-                <span ng-if="location.add_to_global_map == false" translate>Private Location</span>
+                <span ng-show="location.add_to_global_map" translate>Public Location</span>
+                <span ng-hide="location.add_to_global_map" translate>Private Location</span>
               </md-switch>
             </div>
           </md-card-content>
