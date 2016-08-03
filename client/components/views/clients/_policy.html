@@ -12,17 +12,17 @@
         <div flex layout="column">
           <div flex>
             <md-checkbox ng-model="client.blacklist" aria-label="Blacklist" smng-disabled="client.policies.length" flex>
-              SSID Blacklist
+              <translate>SSID Blacklist</translate>
           </div>
-          <small>Blocks the client on {{client.ssid}}</small><br>
+          <small><translate>Blocks the client on {{client.ssid}}</translate></small><br>
           <div flex>
             <md-checkbox ng-model="client.whitelist" aria-label="Whitelist" smng-disabled="client.policies.length" flex>
-              Splash Whitelist
+              <translate>Splash Whitelist</translate>
           </div>
-          <small>Bypasses the captive portal for all splash networks.</small><br><br>
-          <p ng-if="!group_policies.length"><small>No policies available.</small></p>
+          <small><translate>Bypasses the captive portal for all splash networks.</translate></small><br><br>
+          <p ng-if="!group_policies.length"><small><translate>No policies available.</<translate>></small></p>
           <md-input-container ng-if="group_policies.length">
-            <label>Group Policies</label>
+            <label><translate>Group Policies</<translate>></label>
             <md-select ng-model="client.policy_ids" multiple>
               <md-option ng-repeat="policy in group_policies" value="{{policy.id}}">
                 {{ policy.policy_name }} ({{ policy.group_type | policyType }}, {{ policy.policy }})
