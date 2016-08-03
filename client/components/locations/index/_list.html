@@ -122,7 +122,8 @@
                 </tbody>
               </table>
             </md-table-container>
-            <md-table-pagination ng-if="_links.total_entries > query.limit" md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+            md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"
+            <md-table-pagination ng-if="_links.total_entries > query.limit" md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-label="{page: 'Page: | translate', rowsPerPage: 'Rows per page: | translate', of: 'of | translate'}" md-page-select></md-table-pagination>
           </md-card-content>
         </md-card>
 
