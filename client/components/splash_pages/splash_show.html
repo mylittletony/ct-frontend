@@ -133,8 +133,7 @@
                   <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span> 
                   <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span> 
                 </label>
-                  <!--Toni, fixme-->
-                <input ng-model="splash.newsletter_api_token" placeholder='{{ splash.newsletter_type == 4 ? "Username and Password" : "Enter your API token" }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
                 <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
                   <div ng-message="required">
                     <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span> 
