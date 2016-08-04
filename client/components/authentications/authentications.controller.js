@@ -38,6 +38,9 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
       $timeout(function() {
         getMe();
       }, 500);
+    } else if ($routeParams.brand) {
+      sub = $routeParams.brand;
+      login();
     } else {
       login();
     }
