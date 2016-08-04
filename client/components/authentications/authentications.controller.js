@@ -13,6 +13,9 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
     var sub    = locationHelper.subdomain();
 
     var login = function(token, search) {
+      if (sub === 'my' || sub === 'dashboard') {
+        sub = undefined;
+      }
       window.location.href = '/auth/login?brand=' + sub + '&return_to=' + search;
     };
 
@@ -38,6 +41,9 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
       $timeout(function() {
         getMe();
       }, 500);
+    } else if ($routeParams.brand) {
+      sub = $routeParams.brand;
+      login();
     } else {
       login();
     }

@@ -45,8 +45,8 @@
         <md-card>
           <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-              <p  ng-if="query.filter" translate translate-n="filtered.length" translate-plural="{{filtered.length}} Group Policies">1 Group Policy</p>
-              <p  ng-if="!query.filter" translate translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries}} Group Policies">1 Group Policy</p>
+              <p  ng-if="query.filter" translate translate-context="filtered number, groups" translate-n="filtered.length" translate-plural="{{filtered.length}} Group Policies">1 Group Policy</p>
+              <p  ng-if="!query.filter" translate translate-context="total number, groups"  translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries}} Group Policies">1 Group Policy</p>
               <div flex></div>
             </div>
           </md-toolbar>

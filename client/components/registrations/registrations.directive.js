@@ -110,7 +110,8 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     scope.checkBrand = function(form) {
       if (scope.holding.url) {
         Brand.query({
-          id: scope.holding.url
+          id: scope.holding.url,
+          type: 'showcase'
         }).$promise.then(function(results) {
           showToast(gettextCatalog.getString('This URL has already been take, try another.'));
         }, function() {
