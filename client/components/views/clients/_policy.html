@@ -20,9 +20,9 @@
               <translate>Splash Whitelist</translate>
           </div>
           <small><translate>Bypasses the captive portal for all splash networks.</translate></small><br><br>
-          <p ng-if="!group_policies.length"><small><translate>No policies available.</<translate>></small></p>
+          <p ng-if="!group_policies.length"><small><translate>No policies available.</translate></small></p>
           <md-input-container ng-if="group_policies.length">
-            <label><translate>Group Policies</<translate>></label>
+            <label><translate>Group Policies</<translate></label>
             <md-select ng-model="client.policy_ids" multiple>
               <md-option ng-repeat="policy in group_policies" value="{{policy.id}}">
                 {{ policy.policy_name }} ({{ policy.group_type | policyType }}, {{ policy.policy }})
