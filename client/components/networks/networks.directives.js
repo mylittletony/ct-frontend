@@ -178,7 +178,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
 
   var link = function(scope, element, attrs) {
 
-    scope.content_filters = ['Danger', 'Adult', 'Security', 'Family', 'Off'];
+    scope.content_filters = [gettextCatalog.getString('Danger'), gettextCatalog.getString('Adult'), gettextCatalog.getString('Security'), gettextCatalog.getString('Family'), gettextCatalog.getString('Off')];
     scope.location = { slug: $routeParams.id };
 
     function buildNetwork () {
@@ -196,7 +196,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         interface_netmask: 24,
         use_ps_radius: true,
         captive_portal_ps: true,
-        content_filter: 'Security',
+        content_filter: gettextCatalog.getString('Security'),
         highlight: true,
         captive_portal_enabled: false
       };
@@ -276,9 +276,9 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.location = { slug: $routeParams.id };
     scope.client_filters = [
-      { key: 'Off', value: 'off' },
-      { key: 'Allow White-listed Clients', value: 'allow'},
-      { key: 'Block Banned Clients', value: 'deny'}
+      { key: gettextCatalog.getString('Off'), value: 'off' },
+      { key: gettextCatalog.getString('Allow White-listed Clients'), value: 'allow'},
+      { key: gettextCatalog.getString('Block Banned Clients'), value: 'deny'}
     ];
 
     var displaySync = function() {
@@ -291,8 +291,8 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
     };
 
     scope.encryptions = {'None': 'none', 'WPA2': 'psk2'};
-    scope.content_filters = ['Danger', 'Adult', 'Security', 'Family', 'Off'];
-    scope.netmasks = [8,12,16,24,32];
+    scope.content_filters = [gettextCatalog.getString('Danger'), gettextCatalog.getString('Adult'), gettextCatalog.getString('Security'), gettextCatalog.getString('Family'), gettextCatalog.getString('Off')];
+    scope.netmasks = [8,12,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,32];
 
     // User Permissions //
     var createMenu = function() {

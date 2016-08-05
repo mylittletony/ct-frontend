@@ -133,9 +133,6 @@ describe("RESTful Tests", function() {
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/users/123/user_sessions')
     .respond(200, {});
 
-    $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/users/123/password')
-    .respond(200, {});
-
     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/users/123')
     .respond(200, {});
 
@@ -171,12 +168,6 @@ describe("RESTful Tests", function() {
   it('should have sent a GET request to get the user sessions', function() {
     var result = User.sessions({id: 123})
     $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/users/123/user_sessions')
-    $httpBackend.flush();
-  });
-
-  it('should have sent a patch req. to update the password', function() {
-    var result = User.password({id: 123})
-    $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/users/123/password')
     $httpBackend.flush();
   });
 

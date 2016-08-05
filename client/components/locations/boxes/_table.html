@@ -3,7 +3,10 @@
   <md-card>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
-        <p>{{ filter ? filtered.length : _links.total_entries }} Devices. {{ online }} Clients Online.</p>
+        <p>
+          <span ng-if="query.filter" translate translate-context="filtered number, devices" translate-n="filtered.length" translate-plural="{{filtered.length}} Devices.">1 Device.</span>
+          <span ng-if="!query.filter" translate translate-context="total number, devices" translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries}} Devices.">1 Device.</span>
+          <span translate translate-n="{{ online }}" translate-plural="{{ online }} Clients Online.">1 Client Online.</span></p>
         <div flex></div>
         <md-menu ng-if="selected.length">
           <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-fab md-mini md-warn" ng-click="$mdOpenMenu($event)">

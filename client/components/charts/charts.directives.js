@@ -114,9 +114,9 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
     var signalChart = function() {
 
       title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString(' Signal Strength');
-      data.addColumn('number', 'SNR');
-      data.addColumn('number', 'Signal');
-      data.addColumn('number', 'Noise');
+      data.addColumn('number', gettextCatalog.getString('SNR'));
+      data.addColumn('number', gettextCatalog.getString('Signal'));
+      data.addColumn('number', gettextCatalog.getString('Noise'));
 
       if (json.signal && json.signal.length) {
 
@@ -165,7 +165,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
     //fixme @Toni translations: the titles are not ok like that, think of something
     var failureChart = function() {
       title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString('Transmission Failures');
-      data.addColumn('number', 'TX Failed');
+      data.addColumn('number', gettextCatalog.getString('TX Failed'));
 
       if (json && json.txfailed && json.txfailed.length) {
         len = json.txfailed.length;
@@ -218,8 +218,8 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
 
       title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + ' ' + type + ' (' + suffix + ')';
 
-      data.addColumn('number', 'Inbound');
-      data.addColumn('number', 'Outbound');
+      data.addColumn('number', gettextCatalog.getString('Inbound'));
+      data.addColumn('number', gettextCatalog.getString('Outbound'));
 
       if (json && json.inbound && json.inbound.length) {
         len = json.inbound.length;
@@ -466,22 +466,18 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         }
 
         var data = new window.google.visualization.DataTable();
-        data.addColumn('datetime', 'Date');
+        data.addColumn('datetime', gettextCatalog.getString('Date'));
         data.addColumn('number', 'dummySeries');
-        // Simon, are any of the strings below displayed anywhere (the data.addColum ones)?
-        // Toni - the types can be left, however you need to translate the Inbound,
-        // Outbound, TX ones since they're on the legend. Think you also need to do that
-        // Date one above.
         if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
           len = json.inbound.length;
-          data.addColumn('number', 'Inbound');
-          data.addColumn('number', 'Outbound');
+          data.addColumn('number', gettextCatalog.getString('Inbound'));
+          data.addColumn('number', gettextCatalog.getString('Outbound'));
         } else if (scope.type === 'txfailed') {
           len = json.txfailed.length;
-          data.addColumn('number', 'Tx Failed');
+          data.addColumn('number', gettextCatalog.getString('Tx Failed'));
         } else if (scope.type === 'txretries') {
           len = json.txretries.length;
-          data.addColumn('number', 'Tx Retries');
+          data.addColumn('number', gettextCatalog.getString('Tx Retries'));
         }
 
         for(var i = 0; i < len; i++) {

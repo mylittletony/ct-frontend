@@ -20,7 +20,7 @@
         </md-card-title>
         <md-card-content>
 
-          <form name="myForm" ng-submit="create(temp)">
+          <form name="myForm" ng-submit="create(temp,myForm)">
             <div ng-show="setup.stage == 1" class="text-left">
               <div layout-gt-xs="row" layout="column" flex layout-wrap>
                 <md-radio-group ng-model="setup.type">

@@ -168,7 +168,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         prefs();
         $mdBottomSheet.hide();
       };
-    }
+    };
     ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
@@ -568,6 +568,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       loadCharts();
       createMenu();
       sortSsids();
+      loadPusher();
       getZones().then(function() {
         processAlertMessages();
       });
@@ -1523,11 +1524,16 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       }
     };
 
-    scope.create = function(box) {
+    scope.create = function(box, form) {
+      if (form !== undefined) {
+        form.$setPristine();
+      }
       scope.creating = true;
       var type = $routeParams.type || scope.setup.type;
-      Box.save({location_id: scope.location.slug, box: box}).$promise.then(function(data) {
-
+      Box.save({
+        location_id: scope.location.slug,
+        box: box
+      }).$promise.then(function(data) {
         if (scope.selected.length <= 1) {
           redirect(data.slug);
           showToast(gettextCatalog.getString('Your device has been added.'));
@@ -1546,9 +1552,6 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     var getZones = function() {
       Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
         scope.zones = results.zones;
-        // if (results.zones && results.zones.length === 1) {
-        //   scope.temp.zone_id = results.zones[0].id;
-        // }
       });
     };
 
