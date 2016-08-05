@@ -402,6 +402,7 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
         scope.emails      = results.emails;
         scope.predicate   = '-created_at';
         scope._links      = results._links;
+        console.log(results._links);
         if (results.locations.length > 0) {
           scope.location = { id: results.locations[0].id };
         }
