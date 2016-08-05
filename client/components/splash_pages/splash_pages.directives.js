@@ -136,6 +136,9 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
   var link = function(scope,element,attrs) {
 
+    var placeholderNewsletterPass =  gettextCatalog.getString('Username and Password'),
+        placeholderNewsletterToken = gettextCatalog.getString('Enter your API token');
+        
     scope.timezones = moment.tz.names();
 
     scope.access_restrict = [{ key: gettextCatalog.getString('Off'), value: 'none'}, {key: gettextCatalog.getString('Periodic'), value: 'periodic'}, {key: gettextCatalog.getString('Data Downloaded'), value: 'data' }, {key: gettextCatalog.getString('Timed Access'), value: 'timed'}];
@@ -387,6 +390,8 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
           scope.splash.walled_gardens_array = [];
         }
 
+        scope.newsletter_placeholder = scope.splash.newsletter_type === 4 ? placeholderNewsletterPass : placeholderNewsletterToken;
+
         // if (scope.splash.blacklisted && scope.splash.blacklisted.length) {
         //   scope.splash.blacklisted_array = scope.splash.blacklisted.split(',');
         // } else {
@@ -441,6 +446,11 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
         scope.splash.newsletter_active = false;
       } else if ((scope.splash.newsletter_type !== '0' && scope.splash.newsletter_type !== 0) && scope.splash.newsletter_active === false) {
         scope.splash.newsletter_active = true;
+      }
+      if (scope.splash.newsletter_type === '4') {
+        scope.newsletter_placeholder = placeholderNewsletterPass;
+      } else {
+        scope.newsletter_placeholder =  placeholderNewsletterToken;
       }
     };
 
