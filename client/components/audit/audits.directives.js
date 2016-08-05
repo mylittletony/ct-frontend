@@ -327,11 +327,14 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
       search();
     };
 
-    var search = function() {
+    var search = function(key,value) {
       var hash        = $location.search();
       hash.q          = scope.query.filter;
       hash.page       = scope.query.page;
       hash.per        = scope.query.limit;
+      hash.start      = scope.query.start;
+      hash.end        = scope.query.end;
+      hash[key]       = value;
       $location.search(hash);
     };
 
@@ -354,20 +357,22 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
     var timer;
     function selectedItemChange(item) {
       timer = $timeout(function() {
-        var hash = {};
+        var key, value;
         if (item && item._index) {
           switch(item._index) {
             case 'locations':
-              hash.location_name = item._key;
+              key = 'location_name';
+              value = item._key;
               break;
             case 'emails':
-              hash.email = item._key;
+              key = 'email';
+              value = item._key;
               break;
             default:
               console.log(item._index);
           }
         }
-        $location.search(hash);
+        search(key,value);
       }, 250);
     }
 
