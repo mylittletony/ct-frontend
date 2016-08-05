@@ -934,7 +934,7 @@ app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettext
       $scope.myDate = new Date();
       $scope.minDate = new Date(
         $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth() - 3,
+        $scope.myDate.getMonth() - 12,
         $scope.myDate.getDate()
       );
       $scope.maxDate = new Date(
