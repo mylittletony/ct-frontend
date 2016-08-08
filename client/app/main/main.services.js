@@ -30,6 +30,7 @@ var app = angular.module('myApp.services', [
   'myApp.main.services',
   'myApp.menu.services',
   'myApp.networks.services',
+  'myApp.paginationLabels.services',
   'myApp.payloads.services',
   'myApp.plans.services',
   'myApp.port_forwards.services',

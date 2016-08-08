@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.group_policies.directives', []);
 
-app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', 'Network', 'Zone', '$location', function(GroupPolicy, $routeParams, $mdDialog, showToast, showErrors, $q, gettextCatalog, Network, Zone, $location) {
+app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', 'Network', 'Zone', '$location', 'paginationLabels', function(GroupPolicy, $routeParams, $mdDialog, showToast, showErrors, $q, gettextCatalog, Network, Zone, $location, paginationLabels) {
 
   var link = function(scope,element,attrs) {
 
@@ -18,6 +18,7 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
       {key: gettextCatalog.getString('Blacklist'), value: 'block'}
       // {key: gettextCatalog.getString('Filter'), value: 'filter'}
     ];
+    scope.paginationLabels = paginationLabels;
 
     // User permissions //
     var createMenu = function() {

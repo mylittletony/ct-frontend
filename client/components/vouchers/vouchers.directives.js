@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.vouchers.directives', []);
 
-app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', 'gettextCatalog', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout, gettextCatalog) {
+app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', 'gettextCatalog', 'paginationLabels', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout, gettextCatalog, paginationLabels) {
 
 
   var link = function(scope) {
@@ -13,6 +13,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
 
     scope.batch_name = $routeParams.batch_name;
     scope.username      = $routeParams.username;
+    scope.paginationLabels = paginationLabels;
 
     if (scope.batch_name) {
       scope.selectedItem  = scope.batch_name;

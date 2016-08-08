@@ -147,7 +147,7 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
 
 }]);
 
-app.directive('codesList', ['Code', '$routeParams', '$location', 'Location', function(Code, $routeParams, $location, Location) {
+app.directive('codesList', ['Code', '$routeParams', '$location', 'Location', 'paginationLabels', function(Code, $routeParams, $location, Location, paginationLabels) {
 
   var link = function(scope,el,attrs,controller) {
 
@@ -159,6 +159,7 @@ app.directive('codesList', ['Code', '$routeParams', '$location', 'Location', fun
     scope.end           = $routeParams.end;
     scope.location_id   = $routeParams.location_id;
     scope.location_name = $routeParams.location_name;
+    scope.paginationLabels = paginationLabels;
 
     scope.init = function() {
       var params = {q: scope.query, voucher_id: $routeParams.voucher_id, page: scope.page, activated: scope.activated, start: scope.start, end: scope.end, location_id: scope.location_id};

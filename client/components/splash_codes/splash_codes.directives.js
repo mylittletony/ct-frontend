@@ -2,11 +2,12 @@
 
 var app = angular.module('myApp.splash_codes.directives', []);
 
-app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(SplashCode,$routeParams,$location,$q,$mdDialog,showToast,showErrors, gettextCatalog) {
+app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'paginationLabels', function(SplashCode,$routeParams,$location,$q,$mdDialog,showToast,showErrors, gettextCatalog, paginationLabels) {
 
   var link = function(scope,element,attrs) {
 
     scope.location = { slug: $routeParams.id };
+    scope.paginationLabels = paginationLabels;
 
     scope.options = {
       autoSelect: true,
