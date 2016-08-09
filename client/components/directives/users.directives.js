@@ -9,7 +9,7 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $window, gettextCatalog) {
+app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', function(User, $routeParams, $location, Auth, showToast, showErrors, $window, gettextCatalog, Translate) {
 
   var link = function( scope, element, attrs ) {
 
@@ -43,6 +43,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
         if (locale !== results.locale) {
           console.log('Setting locale to', results.locale);
           Auth.currentUser().locale = results.locale;
+          // Translate.setLocale(results.locale);
           $window.location.reload();
         }
         showToast(gettextCatalog.getString('User successfully updated.'));
