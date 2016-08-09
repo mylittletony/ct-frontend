@@ -327,11 +327,14 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
       search();
     };
 
-    var search = function() {
+    var search = function(key,value) {
       var hash        = $location.search();
       hash.q          = scope.query.filter;
       hash.page       = scope.query.page;
       hash.per        = scope.query.limit;
+      hash.start      = scope.query.start;
+      hash.end        = scope.query.end;
+      hash[key]       = value;
       $location.search(hash);
     };
 
@@ -354,20 +357,22 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
     var timer;
     function selectedItemChange(item) {
       timer = $timeout(function() {
-        var hash = {};
+        var key, value;
         if (item && item._index) {
           switch(item._index) {
             case 'locations':
-              hash.location_name = item._key;
+              key = 'location_name';
+              value = item._key;
               break;
             case 'emails':
-              hash.email = item._key;
+              key = 'email';
+              value = item._key;
               break;
             default:
               console.log(item._index);
           }
         }
-        $location.search(hash);
+        search(key,value);
       }, 250);
     }
 
@@ -397,6 +402,7 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
         scope.emails      = results.emails;
         scope.predicate   = '-created_at';
         scope._links      = results._links;
+        console.log(results._links);
         if (results.locations.length > 0) {
           scope.location = { id: results.locations[0].id };
         }
@@ -934,7 +940,7 @@ app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettext
       $scope.myDate = new Date();
       $scope.minDate = new Date(
         $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth() - 3,
+        $scope.myDate.getMonth() - 12,
         $scope.myDate.getDate()
       );
       $scope.maxDate = new Date(
