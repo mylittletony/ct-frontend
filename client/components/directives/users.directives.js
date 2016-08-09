@@ -15,7 +15,8 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
 
     var id, locale;
 
-    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    // scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
@@ -43,7 +44,6 @@ app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToa
         if (locale !== results.locale) {
           console.log('Setting locale to', results.locale);
           Auth.currentUser().locale = results.locale;
-          // Translate.setLocale(results.locale);
           $window.location.reload();
         }
         showToast(gettextCatalog.getString('User successfully updated.'));
