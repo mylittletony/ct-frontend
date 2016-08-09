@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-08-09 12:01+0200\n"
+"PO-Revision-Date: 2016-08-09 12:27+0200\n"
 "Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -1332,7 +1332,7 @@ msgid ""
 "Between {{ query.start | humanTimeShort }} and {{ query.end | "
 "humanTimeShort }}"
 msgstr ""
-"Zwischen {{query.start | HumanTimeShort}} und {{query.end | HumanTimeShort}}"
+"Zwischen {{query.start | humanTimeShort}} und {{query.end | humanTimeShort}}"
 
 #: client/components/users/invoices/_details.html:76
 msgid "Billable Access Points"
@@ -2325,15 +2325,15 @@ msgstr "Erstellt am"
 
 #: client/components/locations/clients/_show_code.html:42
 msgid "Created {{ results.code.created_at | humanTime }}"
-msgstr "Erstellt am {{results.code.created_at | HumanTime}}"
+msgstr "Erstellt am {{results.code.created_at | humanTime}}"
 
 #: client/components/splash_pages/_index.html:79
 msgid "Created {{ splash.created_at | humanTime }}"
-msgstr "Erstellt am {{splash.created_at | HumanTime}}"
+msgstr "Erstellt am {{splash.created_at | humanTime}}"
 
 #: client/components/locations/triggers/_show.html:47
 msgid "Created {{ trigger.created_at | humanTime }}"
-msgstr "Erstellt am {{trigger.created_at | HumanTime}}"
+msgstr "Erstellt am {{trigger.created_at | humanTime}}"
 
 #: client/components/apps/_show.html:47
 msgid "Credentials"
@@ -2975,7 +2975,7 @@ msgstr "Zum Herunterladen der Codes den Link unten verwenden. "
 
 #: client/components/splash_pages/splash_show.html:307
 msgid "Download {{ splash.download_speed | mbps }}"
-msgstr "Download-Geschwindigkeit {{ splash.download_speed |  MBit/s }}"
+msgstr "Download-Geschwindigkeit {{ splash.download_speed |  mbps }}"
 
 #: client/components/boxes/boxes.directives.js:1379
 #: client/components/locations/show/_index.html:72
@@ -8107,7 +8107,7 @@ msgid ""
 "                {{ trigger.type | humanTrigger }}..."
 msgstr ""
 "Der Trigger wird ausgelöst, wenn dieses Ereignis eintritt.\n"
-"                {{trigger.type | HumanTrigger}}..."
+"                {{trigger.type | humanTrigger}}..."
 
 #: client/components/locations/index/_list.html:105
 msgid "The user is an admin of this location."
