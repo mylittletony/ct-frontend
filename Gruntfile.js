@@ -47,6 +47,7 @@ module.exports = function (grunt) {
       'client/index.html',
       'client/components/**/*.html',
       'client/components/**/*.js',
+      'client/app/main/*.js',
   ];
 
   var languages = [
