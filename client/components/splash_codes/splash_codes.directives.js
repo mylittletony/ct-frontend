@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.splash_codes.directives', []);
 
-app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(SplashCode,$routeParams,$location,$q,$mdDialog,showToast,showErrors, gettextCatalog) {
+app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function(SplashCode,$routeParams,$location,$q,$mdDialog,showToast,showErrors, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
 
@@ -15,7 +15,8 @@ app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q
       pageSelector: true,
       rowSelection: false
     };
-
+    
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
       order:      '-expires',

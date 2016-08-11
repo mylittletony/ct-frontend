@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.events.directives', []);
 
-app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gettextCatalog', function(Event, $location, $routeParams, menu, gettextCatalog) {
+app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gettextCatalog', 'pagination_labels', function(Event, $location, $routeParams, menu, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
 
@@ -20,6 +20,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-created_at',
       type:       $routeParams.type,
