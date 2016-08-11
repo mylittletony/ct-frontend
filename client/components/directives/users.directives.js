@@ -9,13 +9,14 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $window, gettextCatalog) {
+app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', function(User, $routeParams, $location, Auth, showToast, showErrors, $window, gettextCatalog, Translate) {
 
   var link = function( scope, element, attrs ) {
 
     var id, locale;
 
-    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    // scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;

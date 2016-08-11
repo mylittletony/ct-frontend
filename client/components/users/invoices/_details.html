@@ -91,35 +91,97 @@
       </md-card>
 
       <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Inventory
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          <div layout="column" layout-gt-xs="row" layout-wrap>
-            <md-list-item class="md-3-line" flex="100">
-              <div class="md-list-item-text">
-                <h3 translate>APs Added Since Last Invoice</h3>
-                <p>{{ item.new_aps.join(", ") }}</p>
-              </div>
-            </md-list-item>
-            <md-list-item class="md-3-line" flex="100">
-              <div class="md-list-item-text">
-                <h3 translate>Active APs</h3>
-                <p>{{ item.active_aps.join(", ") }}</p>
-              </div>
-            </md-list-item>
+        <md-toolbar class="md-table-toolbar md-default">
+          <div class="md-toolbar-tools">
           </div>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button href="/#/users/{{ user.slug }}/inventory"><translate>INVENTORY</translate></md-button>
-        </md-card-actions>
-      </md-card>
+        </md-toolbar>
 
+        <md-card-content>
+          <md-table-container>
+            <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+              <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th><span></span></th>
+                  <th colspan="2" md-column md-order-by="description" md-desc>
+                    <span translate>
+                      &nbsp; Name
+                    </span>
+                  </th>
+                  <th md-column hide show-gt-lg md-order-by="calledstationid"><span translate>Mac</span></th>
+                  <th md-column hide show-gt-md md-order-by="metadata.online"><span translate>Clients</span></th>
+                  <th md-column hide show-gt-sm md-order-by="zone_id"><span translate>Zone</span></th>
+                  <th md-column hide show-gt-md md-order-by="wan_ip"><span translate>IP</span></th>
+                  <th hide show-gt-xs md-column md-order-by="last_heartbeat"><span translate>Last Seen</span></th>
+                  <th md-column><span translate>Action</span></th>
+                </tr>
+              </thead>
+
+              <tbody md-body>
+                <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="ap in filtered = ( item.active_aps | filter: filter | orderBy: query.order)">
+                    <td md-cell>
+                      {{ ap }}
+                    </td>
+                    <td md-cell>
+                      <md-menu>
+                        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                        </md-button>
+                        <md-menu-content width="4" >
+                          <md-menu-item>
+                            <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
+                              <md-icon>pageview</md-icon>
+                              <p flex translate>View</p>
+                            </md-button>
+                          </md-menu-item>
+                          <md-menu-item ng-repeat="item in menuItems">
+                            <md-button ng-click="action(box,item.type)" ng-disabled="{{ disabled(box,item.type) }}">
+                              <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
+                              <p flex>{{ ::item.name }}</p>
+                            </md-button>
+                          </md-menu-item>
+                        </md-menu-content>
+                      </md-menu>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </md-card-content>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+
+        </md-card>
+      </div>
     </div>
+    <!-- <md-card> -->
+      <!--   <md-card-title> -->
+        <!--     <md-card-title-text> -->
+          <!--       <span class="md-headline" translate> -->
+            <!--         Inventory -->
+            <!--       </span> -->
+          <!--     </md-card-title-text> -->
+        <!--   </md-card-title> -->
+      <!--   <md-card-content> -->
+        <!--     <div layout="column" layout-gt-xs="row" layout-wrap> -->
+          <!--       <md-list-item class="md-3-line" flex="100"> -->
+            <!--         <div class="md-list-item-text"> -->
+              <!--           <h3 translate>APs Added Since Last Invoice</h3> -->
+              <!--           <p>{{ item.new_aps.join(", ") }}</p> -->
+              <!--         </div> -->
+            <!--       </md-list-item> -->
+          <!--       <md-list-item class="md-3-line" flex="100"> -->
+            <!--         <div class="md-list-item-text"> -->
+              <!--           <h3 translate>Active APs</h3> -->
+              <!--           <p>{{ item.active_aps.join(", ") }}</p> -->
+              <!--         </div> -->
+            <!--       </md-list-item> -->
+          <!--     </div> -->
+        <!--   </md-card-content> -->
+      <!--   <md-card-actions layout="row" layout-align="end center"> -->
+        <!--     <md-button href="/#/users/{{ user.slug }}/inventory"><translate>INVENTORY</translate></md-button> -->
+        <!--   </md-card-actions> -->
+      <!-- </md-card> -->
+
+  </div>
 
 </md-content>
 

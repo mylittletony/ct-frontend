@@ -411,6 +411,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       var params = getParams();
       Client.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
+        scope.info    = results.info;
         scope._links  = results._links;
         loadPusher(scope.location.api_token);
         deferred.resolve();
