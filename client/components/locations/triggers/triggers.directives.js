@@ -741,13 +741,13 @@ app.directive('triggerTags', ['$mdDialog',function($mdDialog) {
 
 }]);
 
-app.directive('listTriggerHistory', ['TriggerHistory', '$http', '$routeParams', '$location', 'gettextCatalog', 'paginationLabels', function(TriggerHistory, $http, $routeParams, $location, gettextCatalog, paginationLabels) {
+app.directive('listTriggerHistory', ['TriggerHistory', '$http', '$routeParams', '$location', 'gettextCatalog', 'pagination_labels', function(TriggerHistory, $http, $routeParams, $location, gettextCatalog, pagination_labels) {
   var link = function(scope, element, attrs) {
 
     scope.location  = { slug: $routeParams.id };
     scope.trigger   = { id: $routeParams.trigger_id };
-    scope.paginationLabels = paginationLabels;
-
+    
+    scope.pagination_labels = pagination_labels;
     scope.options = {
       autoSelect: true,
       boundaryLinks: false,

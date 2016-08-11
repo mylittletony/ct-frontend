@@ -284,7 +284,7 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
 
 }]);
 
-app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors', 'Invoice', '$mdDialog', '$location', 'gettextCatalog', function(User, $routeParams, showToast, showErrors, Invoice, $mdDialog, $location, gettextCatalog) {
+app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors', 'Invoice', '$mdDialog', '$location', 'gettextCatalog', 'pagination_labels', function(User, $routeParams, showToast, showErrors, Invoice, $mdDialog, $location, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -299,6 +299,7 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
       rowSelection: true
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       limit:      $routeParams.per || 25,
@@ -576,7 +577,7 @@ app.directive('userBillingSettings', ['User', '$routeParams', 'showToast', 'show
 
 }]);
 
-app.directive('userSessions', ['User', '$routeParams', '$location', function(User, $routeParams, $location) {
+app.directive('userSessions', ['User', '$routeParams', '$location', 'pagination_labels', function(User, $routeParams, $location, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -588,6 +589,7 @@ app.directive('userSessions', ['User', '$routeParams', '$location', function(Use
       rowSelection: true
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       limit:      $routeParams.per || 25,
@@ -1032,7 +1034,7 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
 
 }]);
 
-app.directive('userVersions', ['Version', '$routeParams', '$location', function(Version, $routeParams, $location) {
+app.directive('userVersions', ['Version', '$routeParams', '$location', 'pagination_labels', function(Version, $routeParams, $location, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1044,6 +1046,7 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', function(
       rowSelection: true
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       limit:      $routeParams.per || 25,
@@ -1091,7 +1094,7 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', function(
 
 }]);
 
-app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', 'Auth', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast, Auth) {
+app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', 'Auth', 'pagination_labels', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast, Auth, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1114,6 +1117,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
       order:      'created_at',
@@ -1288,7 +1292,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
 }]);
 
-app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$rootScope', function(Inventory, $routeParams, $location, menu, $rootScope) {
+app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$rootScope', 'pagination_labels', function(Inventory, $routeParams, $location, menu, $rootScope, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1302,6 +1306,7 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
       order:      'created_at',

@@ -3,7 +3,7 @@
 var app = angular.module('myApp.versions.directives', []);
 
 
-app.directive('listLocationVersions', ['Location', '$routeParams', 'Version', '$location', function(Location, $routeParams, Version, $location) {
+app.directive('listLocationVersions', ['Location', '$routeParams', 'Version', '$location', 'pagination_labels', function(Location, $routeParams, Version, $location, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -17,6 +17,7 @@ app.directive('listLocationVersions', ['Location', '$routeParams', 'Version', '$
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
       order:      '-created_at',
@@ -68,7 +69,7 @@ app.directive('listLocationVersions', ['Location', '$routeParams', 'Version', '$
 }]);
 
 
-app.directive('deviceVersions', ['Version', '$routeParams', '$location', function(Version, $routeParams, $location) {
+app.directive('deviceVersions', ['Version', '$routeParams', '$location', 'pagination_labels', function(Version, $routeParams, $location, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -80,6 +81,7 @@ app.directive('deviceVersions', ['Version', '$routeParams', '$location', functio
       rowSelection: true
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       limit:      $routeParams.per || 25,

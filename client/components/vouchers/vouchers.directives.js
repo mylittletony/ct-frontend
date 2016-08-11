@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.vouchers.directives', []);
 
-app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', 'gettextCatalog', 'paginationLabels', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout, gettextCatalog, paginationLabels) {
+app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', 'gettextCatalog', 'pagination_labels', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout, gettextCatalog, pagination_labels) {
 
 
   var link = function(scope) {
@@ -13,7 +13,6 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
 
     scope.batch_name = $routeParams.batch_name;
     scope.username      = $routeParams.username;
-    scope.paginationLabels = paginationLabels;
 
     if (scope.batch_name) {
       scope.selectedItem  = scope.batch_name;
@@ -66,6 +65,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
       order:      '-created_at',

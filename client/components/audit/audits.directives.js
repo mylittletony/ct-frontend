@@ -121,11 +121,10 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
 }]);
 
-app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', 'gettextCatalog', 'paginationLabels', function(Session, $routeParams, $location, Client, $q, $timeout, gettextCatalog, paginationLabels) {
+app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', 'gettextCatalog', 'pagination_labels', function(Session, $routeParams, $location, Client, $q, $timeout, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
-    scope.paginationLabels = paginationLabels;
     scope.loading       = true;
     scope.selected      = [];
     scope.client_mac    = $routeParams.client_mac;
@@ -198,6 +197,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
       rowSelection: rowSelect
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:          '-acctstarttime',
       start:          $routeParams.start,// || start,
@@ -291,11 +291,11 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
 }]);
 
-app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$q', '$timeout', 'Location', 'paginationLabels', function(Email, $routeParams, $location, Client, $q, $timeout, Location, paginationLabels) {
+app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$q', '$timeout', 'Location', 'pagination_labels', function(Email, $routeParams, $location, Client, $q, $timeout, Location, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
-    scope.paginationLabels = paginationLabels;
+   
 
     var interval        = 'day';
     scope.email         = $routeParams.email;
@@ -313,6 +313,7 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
       pageSelector: false,
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:          '-created_at',
       start:          $routeParams.start,
@@ -432,13 +433,12 @@ app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$
 
 }]);
 
-app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'gettextCatalog', 'paginationLabels', function(Social, $routeParams, $location, Client, $q, $timeout, $mdDialog, gettextCatalog, paginationLabels) {
+app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'gettextCatalog', 'pagination_labels', function(Social, $routeParams, $location, Client, $q, $timeout, $mdDialog, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
     scope.loading   = true;
 
-    scope.paginationLabels = paginationLabels;
     scope.email         = $routeParams.email;
     scope.location_name = $routeParams.location_name;
 
@@ -454,6 +454,7 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
       pageSelector: false,
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:          '-created_at',
       start:          $routeParams.start,// || start,
@@ -563,7 +564,7 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
 }]);
 
 
-app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'paginationLabels', function(Guest, $routeParams, $location, Client, $q, $timeout, $mdDialog, paginationLabels) {
+app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'pagination_labels', function(Guest, $routeParams, $location, Client, $q, $timeout, $mdDialog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -571,7 +572,6 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
     scope.loading       = true;
     scope.email         = $routeParams.email;
     scope.location_name = $routeParams.location_name;
-    scope.paginationLabels = paginationLabels;
 
     if (scope.email) {
       scope.selectedItem  = scope.email;
@@ -585,6 +585,7 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
       pageSelector: false,
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:          '-created_at',
       start:          $routeParams.start,
@@ -689,14 +690,13 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
 
 }]);
 
-app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'paginationLabels', function(Order, $routeParams, $location, Client, $q, $timeout, $mdDialog, paginationLabels) {
+app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q', '$timeout', '$mdDialog', 'pagination_labels', function(Order, $routeParams, $location, Client, $q, $timeout, $mdDialog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
     scope.email         = $routeParams.email;
     scope.voucher       = $routeParams.voucher;
     scope.authorization = $routeParams.authorization;
-    scope.paginationLabels = paginationLabels;
 
     if (scope.email) {
       scope.selectedItem  = scope.email;
@@ -712,6 +712,7 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
       pageSelector: false,
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:          '-created_at',
       start:          $routeParams.start,// || start,

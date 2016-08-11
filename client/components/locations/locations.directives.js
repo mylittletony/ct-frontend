@@ -42,7 +42,7 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog) {
+app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', 'pagination_labels', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
 
@@ -61,6 +61,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       filter:     $routeParams.q,
@@ -764,11 +765,9 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'paginationLabels', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, paginationLabels) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels',  function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
-
-    scope.paginationLabels = paginationLabels;
     
     scope.selected = [];
     scope.location = {
@@ -825,6 +824,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       rowSelection: true
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:          '-last_heartbeat',
       limit:          $routeParams.per || 25,
@@ -1828,7 +1828,7 @@ app.directive('favourites', ['Location', '$location', function(Location, $locati
 
 }]);
 
-app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', 'pagination_labels', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, gettextCatalog, pagination_labels) {
 
   var link = function(scope) {
 
@@ -1857,6 +1857,7 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       limit:      $routeParams.per || 25,
@@ -1949,7 +1950,7 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
 }]);
 
-app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog) {
+app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', 'pagination_labels', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog, pagination_labels) {
 
   var link = function(scope) {
 
@@ -1965,6 +1966,7 @@ app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showTo
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       filter:     $routeParams.q,
