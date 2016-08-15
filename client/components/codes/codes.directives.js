@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.codes.directives', []);
 
-app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', 'gettextCatalog', function(Code, $routeParams, $location, Client, showToast, showErrors, gettextCatalog) {
+app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function(Code, $routeParams, $location, Client, showToast, showErrors, gettextCatalog, pagination_labels) {
 
   var link = function(scope) {
 
@@ -18,6 +18,7 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
       order:      'serial',
@@ -147,18 +148,19 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
 
 }]);
 
-app.directive('codesList', ['Code', '$routeParams', '$location', 'Location', function(Code, $routeParams, $location, Location) {
+app.directive('codesList', ['Code', '$routeParams', '$location', 'Location', 'pagination_labels', function(Code, $routeParams, $location, Location, pagination_labels) {
 
   var link = function(scope,el,attrs,controller) {
 
-    scope.loading       = true;
-    scope.page          = $routeParams.page;
-    scope.activated     = $routeParams.activated;
-    scope.query         = $routeParams.q;
-    scope.start         = $routeParams.start;
-    scope.end           = $routeParams.end;
-    scope.location_id   = $routeParams.location_id;
-    scope.location_name = $routeParams.location_name;
+    scope.loading           = true;
+    scope.page              = $routeParams.page;
+    scope.activated         = $routeParams.activated;
+    scope.query             = $routeParams.q;
+    scope.start             = $routeParams.start;
+    scope.end               = $routeParams.end;
+    scope.location_id       = $routeParams.location_id;
+    scope.location_name     = $routeParams.location_name;
+    scope.pagination_labels = pagination_labels;
 
     scope.init = function() {
       var params = {q: scope.query, voucher_id: $routeParams.voucher_id, page: scope.page, activated: scope.activated, start: scope.start, end: scope.end, location_id: scope.location_id};

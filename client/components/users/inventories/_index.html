@@ -57,14 +57,18 @@
                 <tr md-row ng-repeat="i in filtered = (inventories | filter: query.filter)" ng-class="{'muted': i.staff, 'muted': i.state == 'cancelled'}">
                   <td md-cell>
                     {{ (i.staff ? 'staff' : i.state) | titleCase }}
-                    <md-tooltip ng-if="i.state == 'removed'" translate>
-                      Removed {{ ::i.removed_at | humanTime }}
+                    <md-tooltip ng-if="i.state == 'removed'">
+                      <translate>
+                        Removed {{ ::i.removed_at | humanTime }}
+                      </translate>
                     </md-tooltip>
                   </td>
                   <td md-cell>
                     {{ ::i.ap_mac }}
-                    <md-tooltip hide-gt-xs translate>
-                      Added {{ ::i.created_at | humanTime }} to {{ ::i.location_name }}
+                    <md-tooltip hide-gt-xs>
+                      <translate>
+                        Added {{ ::i.created_at | humanTime }} to {{ ::i.location_name }}
+                      </translate>
                     </md-tooltip>
                   </td>
                   <td hide show-gt-xs md-cell>
@@ -83,7 +87,7 @@
               </tbody>
             </table>
           </md-table-container>
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
         </md-card-content>
       </md-card>
 
