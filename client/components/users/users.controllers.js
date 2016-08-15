@@ -44,25 +44,23 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       active: isActive('dashboard')
     }];
 
-    // User permissions remove if non account //
-    menu.sections.push({
-      name: gettextCatalog.getString('Billing'),
-      type: 'link',
-      link: '/#/users/' + id + '/billing',
-      icon: 'credit_card',
-      active: isActive('billing')
-    });
+    if (Auth.currentUser() && !Auth.currentUser().guest) {
+      menu.sections.push({
+        name: gettextCatalog.getString('Billing'),
+        type: 'link',
+        link: '/#/users/' + id + '/billing',
+        icon: 'credit_card',
+        active: isActive('billing')
+      });
 
-    // User permissions remove if non account //
-    menu.sections.push({
-      name: gettextCatalog.getString('Invoices'),
-      type: 'link',
-      link: '/#/users/' + id + '/invoices',
-      icon: 'picture_as_pdf',
-      active: isActive('invoices')
-    });
-
-    // User permissions remove if non account //
+      menu.sections.push({
+        name: gettextCatalog.getString('Invoices'),
+        type: 'link',
+        link: '/#/users/' + id + '/invoices',
+        icon: 'picture_as_pdf',
+        active: isActive('invoices')
+      });
+    }
 
     menu.sections.push({
       name: gettextCatalog.getString('Integrations'),

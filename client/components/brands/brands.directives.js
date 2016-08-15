@@ -46,10 +46,10 @@ app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$loca
 
     var create = function() {
       Brand.create({
-        brand: { 
+        brand: {
           cname: scope.brand.cname,
           brand_image: scope.brand.brand_image,
-          brand_name: scope.brandName.name, 
+          brand_name: scope.brandName.name,
           url: scope.brand.url
         }
       }).$promise.then(function(results) {

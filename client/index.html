@@ -54,6 +54,15 @@
 
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
 
+  <!-- This should be a template so it's not just CT -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KQ7WSH"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KQ7WSH');</script>
+
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
@@ -240,16 +249,6 @@
     </md-content>
   </md-sidenav>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-57956777-1', 'auto');
-    ga('send', 'pageview');
-  </script>
-
   <!--[if lt IE 9]>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -383,6 +382,7 @@
   <script src="components/reports/reports.v2.directives.js"></script>
   <script src="components/services/brand_users.services.js"></script>
   <script src="components/services/group_policies.services.js"></script>
+  <script src="components/services/pagination_labels.services.js"></script>
   <script src="components/services/users.services.js"></script>
   <script src="components/services/zones.services.js"></script>
   <script src="components/social/social.directives.js"></script>
