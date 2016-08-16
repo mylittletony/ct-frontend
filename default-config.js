@@ -2,6 +2,9 @@
 
 // Important! This configuration file is currently only used in the 
 // development.  It is ignored for test, beta, and production!
+var exec = require('sync-exec');
+var commitHash = exec('git log --pretty=format:"%h" -n 1');
+var commitDate = exec('git log --pretty=format:"%ci" -n 1');
 module.exports = {
     frontend: {
         // All these constants are exposed as is in the angular application.  
@@ -24,7 +27,9 @@ module.exports = {
             INTERCOM: 'xxx',
             PUSHER: 'xxx',
             DEBUG: true,
-            COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
+            COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+            COMMITHASH: commitHash.stdout,
+            COMMITDATE: commitDate.stdout
         }
     },
     // Server configuration.
