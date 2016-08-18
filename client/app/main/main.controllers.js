@@ -24,7 +24,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
   function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, COMMITDATE) {
 
     $scope.commit = COMMITHASH;
-    console.log($scope.commit);
+    console.log('COMMIT: #', $scope.commit);
     $scope.ct_login = CTLogin;
 
     // Zak Moonman - bonjour move these into something separate
