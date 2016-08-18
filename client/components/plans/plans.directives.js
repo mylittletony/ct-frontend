@@ -140,7 +140,10 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     };
 
     var init = function() {
-      Plan.query({period: 'monthly'}).$promise.then(function(data) {
+      Plan.query({
+        period: 'monthly',
+        user_id: $routeParams.id
+      }).$promise.then(function(data) {
         scope.plans = data.plans;
         subscribe(scope.user.key);
       });
