@@ -955,7 +955,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       box.allowed_job = false;
       Box.destroy({id: box.slug}).$promise.then(function(results) {
         removeFromList(box);
-        scope.selected = [];
       }, function(errors) {
         box.processing  = undefined;
         showToast(gettextCatalog.getString('Failed to delete this box, please try again.'));
@@ -1053,6 +1052,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     };
 
     var removeFromList = function(box) {
+      scope.selected = [];
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
         if (scope.boxes[i].id === box.id) {
           if (!scope.selected.length) {
