@@ -768,7 +768,6 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
 app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels',  function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
-    
     scope.selected = [];
     scope.location = {
       slug: $routeParams.id
@@ -1053,6 +1052,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     };
 
     var removeFromList = function(box) {
+      scope.selected = [];
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
         if (scope.boxes[i].id === box.id) {
           if (!scope.selected.length) {
