@@ -594,7 +594,7 @@
           <label>
             <translate>Welcome Text</translate>
           </label>
-          <textarea ng-click="swapToWelcome()" ng-model="splash.welcome_text" placeholder="{{'Welcome text (Max 1000 chars)' | translate }}" type='text' name="welcome" ng-maxlength='1000' rows=10></textarea>
+          <textarea ng-click="swapToWelcome()" ng-model="splash.splash.welcome_text" placeholder="{{'Welcome text (Max 1000 chars)' | translate }}" type='text' name="welcome" ng-maxlength='1000' rows=10></textarea>
           <div ng-messages="myForm.welcome.$error">
             <div ng-message="md-maxlength" translate>Must be less than 1000 characters.</div>
           </div>
@@ -604,7 +604,7 @@
           <label>
             <translate>Display Welcome For (seconds)</translate>
           </label>
-          <input ng-model="splash.welcome_timeout" placeholder="0" type='number' name="welcome_timeout" ng-max='30' ng-min='0'>
+          <input ng-model="splash.splash.welcome_timeout" placeholder="0" type='number' name="welcome_timeout" ng-max='30' ng-min='0'>
           <div ng-messages="myForm.welcome_timeout.$error">
             <div ng-message="max" translate>Must be less than 30 seconds.</div>
             <div ng-message="min" translate>Must be greater than 0 seconds.</div>
@@ -665,7 +665,7 @@
             <translate>Buy Voucher Text</translate>
           </label>
           <input ng-model="splash.store_buy_link_text" placeholder="{{'Buy Voucher Now' | translate }}" type='text' name="buy_voucher_text" ng-maximum='255'></input>
-          <div ng-messages="myForm.welcome_timeout.$error">
+          <div ng-messages="myForm.buy_voucher_text.$error">
             <div ng-message="md-maxlength" translate>Must be less than 255 characters.</div>
           </div>
         </md-input-container>
@@ -692,7 +692,7 @@
             <translate>External CSS</translate>
           </label>
           <input ng-model="splash.external_css" placeholder="{{'External CSS' | translate }}" type='text' name="external_css" md-maxlength='255'></input>
-          <div ng-messages="myForm.welcome_timeout.$error">
+          <div ng-messages="myForm.external_css.$error">
             <div ng-message="md-maxlength" translate>Must be less than 255 characters.</div>
           </div>
         </md-input-container>
