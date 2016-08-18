@@ -1,6 +1,8 @@
 /* Temp fixes to address */
 /* Temp fixes to address */
 
+.hidden { display: none };
+
 .marker-action a {
   color: black;
   text-transform: uppercase;
