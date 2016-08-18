@@ -18,7 +18,7 @@ module.exports = function (grunt) {
       try {
           localConfig = require('./local-config.js');
       } catch(e) {
-          throw("error reading './local-config.js': " + e); 
+          throw("error reading './local-config.js': " + e);
       }
   }
 
@@ -623,9 +623,9 @@ module.exports = function (grunt) {
           ],
           compass: false
         },
-        files: {
+        files: _.merge({
           '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.scss'
-        }
+        }, _.isEmpty(localConfig) ? {} : config.sass.server.files)
       }
     },
 
@@ -769,6 +769,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'configServer',
     'ngconstant:production',
     'concurrent:dist',
     'wiredep',
