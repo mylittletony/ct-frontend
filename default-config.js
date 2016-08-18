@@ -1,14 +1,14 @@
 'use strict';
 
-// Important! This configuration file is currently only used in the 
+// Important! This configuration file is currently only used in the
 // development.  It is ignored for test, beta, and production!
 var exec = require('sync-exec');
 var commitHash = exec('git log --pretty=format:"%h" -n 1');
 var commitDate = exec('git log --pretty=format:"%ci" -n 1');
 module.exports = {
     frontend: {
-        // All these constants are exposed as is in the angular application.  
-        // Therefore you should never put any sensitive information like 
+        // All these constants are exposed as is in the angular application.
+        // Therefore you should never put any sensitive information like
         // passwords or secrets in here.
         //
         constants: {

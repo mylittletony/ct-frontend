@@ -22,6 +22,9 @@ module.exports = function (grunt) {
       }
   }
 
+  var exec = require('sync-exec');
+  var commitHash = exec('git log --pretty=format:"%h" -n 1');
+  // var commitDate = exec('git log --pretty=format:"%ci" -n 1');
   var config = _.merge(defaultConfig, localConfig);
 
   grunt.loadNpmTasks('grunt-karma');
@@ -95,7 +98,8 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COMMITHASH: commitHash.stdout,
         }
       },
       production: {
@@ -109,7 +113,7 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
         }
       }
     },
