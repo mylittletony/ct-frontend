@@ -935,7 +935,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         console.log('Could not resync box:', errors);
       });
     };
-    //fixme @Toni translations: see the showToast
+
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete This Device Permanently?'))
@@ -946,7 +946,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteBox(box);
-        showToast('Deleted device with mac ' + box.calledstationid);
+        showToast(gettextCatalog.getString('Deleted device with mac {{address}}', {address: box.calledstationid}));
       });
     };
 
@@ -1047,7 +1047,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         if (scope.selected.length === 1) {
           devices = 'device';
         }
-        showToast('Deleted '+ scope.selected.length + ' ' + devices);
+        showToast(gettextCatalog.getPlural(scope.selected.length,'Deleted 1 device', 'Deleted {{$count}} devices', {}));
       }
     };
 
@@ -1172,7 +1172,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       if (scope.selected.length === 1) {
         devices = gettextCatalog.getString('device zone');
       }
-      showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{scope.selected.length}} device zones'));
+      showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{$count}} device zones'));
       scope.selected = [];
     };
 
@@ -1538,7 +1538,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       });
 
       scope.menu.push({
-        name: 'Transfer',
+        name: gettextCatalog.getString('Transfer'),
         type: 'transfer',
         icon: 'transform'
       });
