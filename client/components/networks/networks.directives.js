@@ -335,7 +335,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         var ip = scope.network.interface_ipaddr || '10.168.210.1';
         scope.short_ip = ip.split('.').slice(0,3).join('.') + '.';
         scope.secondary_host = scope.network.radius_8021x_host_2 !== null;
-        if (scope.ssid_hidden !== true) {
+        if (scope.network.ssid_hidden !== true) {
           scope.network.ssid_hidden = false;
         }
         displaySync();
