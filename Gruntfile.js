@@ -2,27 +2,12 @@
 'use strict';
 
 module.exports = function (grunt) {
-  var _ = require('lodash');
-  var fs = require('fs');
-
-  var defaultConfig = require('./default-config.js');
-
   var localConfig;
-  var stat;
   try {
-      stat = fs.statSync('./local-config.js');
+    localConfig = require('./server/config/local.env');
   } catch(e) {
-      localConfig = {};
+    localConfig = {};
   }
-  if (stat) {
-      try {
-          localConfig = require('./local-config.js');
-      } catch(e) {
-          throw("error reading './local-config.js': " + e); 
-      }
-  }
-
-  var config = _.merge(defaultConfig, localConfig);
 
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ng-constant');
@@ -63,15 +48,17 @@ module.exports = function (grunt) {
       options: {
         space: '  ',
         wrap: '"use strict";\n\n {%= __ngModule %}',
-        name: 'config',
-        dest: '<%= yeoman.client %>/scripts/config.js',
+        name: 'config'
       },
       test: {
+        options: {
+          dest: '<%= yeoman.client %>/scripts/config.js',
+        },
         constants: {
-          API_END_POINT: 'http://mywifi.dev:8080/api/v1',
-          API_URL: 'http://mywifi.dev:8080',
+          API_END_POINT: 'http://api.ctapp.io/api/v1',
+          API_URL: 'http://api.ctapp.io',
           STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
-          AUTH_URL: 'http://id.mywifi.dev:8080',
+          AUTH_URL: 'http://api.ctapp.io',
           SLACK_TOKEN: '3540010629.12007999527',
           CHIMP_TOKEN: '531543883634',
           INTERCOM: 'xxx',
@@ -81,9 +68,26 @@ module.exports = function (grunt) {
         }
       },
       development: {
-        constants: config.frontend.constants
+        options: {
+          dest: '<%= yeoman.client %>/scripts/config.js',
+        },
+        constants: {
+          API_END_POINT: 'https://api.ctapp.io/api/v1',
+          API_URL: 'https://api.ctapp.io',
+          AUTH_URL: 'https://api.ctapp.io',
+          STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
+          SLACK_TOKEN: '3540010629.12007999527',
+          CHIMP_TOKEN: '531543883634',
+          INTERCOM: 'z0kiwroa',
+          PUSHER: 'f5c774e098156e548079',
+          DEBUG: true,
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
+        }
       },
       beta: {
+        options: {
+          dest: '<%= yeoman.client %>/scripts/config.js',
+        },
         constants: {
           API_END_POINT: 'https://beta.ctapp.io/api/v1',
           API_URL: 'https://beta.ctapp.io',
@@ -98,6 +102,9 @@ module.exports = function (grunt) {
         }
       },
       production: {
+        options: {
+          dest: '<%= yeoman.client %>/scripts/config.js',
+        },
         constants: {
           API_END_POINT: 'https://api.ctapp.io/api/v1',
           API_URL: 'https://api.ctapp.io',
@@ -348,7 +355,7 @@ module.exports = function (grunt) {
             // opens browser on initial server start
             nodemon.on('config:update', function () {
               setTimeout(function () {
-                require('open')('http://localhost:8080/debug?port=5858');
+                require('open')('http://localhost/debug?port=5858');
               }, 500);
             });
           }
@@ -704,16 +711,6 @@ module.exports = function (grunt) {
     this.async();
   });
 
-  grunt.registerTask('configServer', function(target) {
-      var output = "// Generated! Do not edit!\n"
-                   + "'use strict';module.exports = ";
-      output += JSON.stringify(config.server.env);
-      output += ';';
-
-      grunt.file.write('./server/config/local-config.js', output,
-                       { encoding: 'utf-8' });
-  });
-
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
@@ -732,7 +729,6 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'configServer',
       'ngconstant:development',
       'env:all',
       'concurrent:server',
