@@ -131,32 +131,23 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.not_in_zone = (results._info && results._info.total > 0);
     };
 
-    function ZoneAlertCtrl($scope, $mdBottomSheet, prefs) {
-      $scope.add = function() {
-        $mdBottomSheet.hide();
-        $location.path('/locations/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
-      };
-      $scope.cancel = function() {
-        prefs();
-        $mdBottomSheet.hide();
-      };
-    }
-    ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
-
     var showResetConfirm = function() {
       $mdBottomSheet.show({
         templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
-        controller: Ctrl
+        controller: ResetCtrl
       });
     };
 
-    function Ctrl($scope) {
+    function ResetCtrl($scope) {
       $scope.reset = function() {
         $mdBottomSheet.hide();
         resetBox();
       };
+      $scope.cancel = function() {
+        $mdBottomSheet.hide();
+      };
     }
-    Ctrl.$inject = ['$scope'];
+    ResetCtrl.$inject = ['$scope'];
 
     var showZoneAlert = function() {
       $mdBottomSheet.show({
@@ -167,6 +158,18 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         controller: ZoneAlertCtrl
       });
     };
+
+    var ZoneAlertCtrl = function($scope, $mdBottomSheet, prefs) {
+      $scope.add = function() {
+        $mdBottomSheet.hide();
+        $location.path('/locations/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
+      };
+      $scope.cancel = function() {
+        prefs();
+        $mdBottomSheet.hide();
+      };
+    };
+    ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
       $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
@@ -565,6 +568,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       loadCharts();
       createMenu();
       sortSsids();
+      loadPusher();
       getZones().then(function() {
         processAlertMessages();
       });
@@ -1520,8 +1524,10 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       }
     };
 
-    scope.create = function(form, box) {
-      form.$setPristine();
+    scope.create = function(box, form) {
+      if (form !== undefined) {
+        form.$setPristine();
+      }
       scope.creating = true;
       var type = $routeParams.type || scope.setup.type;
       Box.save({

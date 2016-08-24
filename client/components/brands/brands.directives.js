@@ -2,27 +2,32 @@
 
 var app = angular.module('myApp.brands.directives', []);
 
-app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', function(Brand, BrandName, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog) {
+app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', function(Brand, BrandName, User, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
 
-    var originalUrl;
-    scope.brandName       = BrandName;
-    scope.user            = Auth.currentUser();
-    scope.brand           = { creating: true, network_location: 'eu-west' };
-    scope.locations       = ['eu-west', 'us-central', 'us-west', 'asia-east'];
-
-    if (scope.user) {
-      if (scope.user.slug === $routeParams.id) {
-        scope.user.allowed = true;
-      }
-    }
+    var brand_id;
+    scope.brandName = BrandName;
+    scope.user      = {};
+    scope.brand     = { creating: true, network_location: 'eu-west' };
+    scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
 
     var init = function() {
-      Brand.get({user_id: $routeParams.id}).$promise.then(function(results) {
-        scope.brand         = results;
-        scope.loading       = undefined;
-        originalUrl         = scope.brand.url;
+      User.query({id: $routeParams.id}).$promise.then(function (res) {
+        scope.user = res;
+        getBrand();
+      });
+    };
+
+    var getBrand = function() {
+      Brand.get(
+        {
+          id: scope.user.brand_id
+        }
+      ).$promise.then(function(results) {
+        scope.brand           = results;
+        scope.loading         = undefined;
+        scope.originalUrl     = scope.brand.url;
         scope.brandName.name  = scope.brand.brand_name;
         subscribe();
       }, function(err) {
@@ -40,8 +45,15 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
     };
 
     var create = function() {
-      Brand.create({brand: { cname: scope.brand.cname, brand_image: scope.brand.brand_image, brand_name: scope.brandName.name, url: scope.brand.url}}).$promise.then(function(results) {
-        scope.brand       = results;
+      Brand.create({
+        brand: {
+          cname: scope.brand.cname,
+          brand_image: scope.brand.brand_image,
+          brand_name: scope.brandName.name,
+          url: scope.brand.url
+        }
+      }).$promise.then(function(results) {
+        scope.brand = results;
         showToast(gettextCatalog.getString('Successfully updated brand'));
         switchBrand();
       }, function(err) {
@@ -57,12 +69,12 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
       .ok(gettextCatalog.getString('Change'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        update();
+        scope.update();
       }, function() {
       });
     };
 
-    var update = function() {
+    scope.update = function() {
       Brand.update(
         {
           id: scope.brand.id,
@@ -83,7 +95,7 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
           scope.errors      = undefined;
           scope.updating    = undefined;
           scope.updateBrand = undefined;
-          if (scope.brand.url !== originalUrl) {
+          if (scope.brand.url !== scope.originalUrl) {
             switchBrand();
           } else {
             showToast(gettextCatalog.getString('Successfully updated brand'));
@@ -118,13 +130,7 @@ app.directive('userBrand', ['Brand', 'BrandName', '$routeParams', '$location', '
       $rootScope.$broadcast(loginEvent, loginArgs);
     };
 
-    scope.deleteImage = function() {
-      scope.brand.brand_image = null;
-      scope.brand.remove_image = true;
-    };
-
     init();
-
   };
 
   return {

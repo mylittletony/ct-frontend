@@ -34,8 +34,8 @@
     <div flex="100" flex-gt-sm="100">
       <md-card>
         <md-card-title ng-if="summary.total">
-          <span class="md-subhead" translate translate-n="{{ summary.total }}" translate-plural="{{ summary.total }} active devices. {{ summary.new }} added this month.">
-            1 active device. {{ summary.new }} added this month.
+          <span class="md-subhead" translate translate-n="{{ summary.total }}" translate-plural="{{ summary.total }} active devices.">
+            1 active device.
           </span>
         </md-card-title>
 
@@ -48,6 +48,7 @@
                   <th md-column md-order-by="state"><span translate>State</span></th>
                   <th md-column md-order-by="ap_mac"><span translate>Ap Mac</span></th>
                   <th hide show-gt-xs md-column md-order-by="created_at"><span translate>Added</span></th>
+                  <th hide show-gt-md md-column md-order-by="removed_at"><span translate>Removed</span></th>
                   <th hide show-gt-md md-column md-order-by="username"><span translate>Created By</span></th>
                   <th hide show-gt-sm md-column md-order-by="location"><span translate>Location</span></th>
                 </tr>
@@ -68,6 +69,9 @@
                   </td>
                   <td hide show-gt-xs md-cell>
                     {{ ::i.created_at | humanTime }}
+                  </td>
+                  <td hide show-gt-md md-cell>
+                    {{ ::i.removed_at | humanTime }}
                   </td>
                   <td hide show-gt-md md-cell>
                     {{ ::i.username }}

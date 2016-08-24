@@ -53,7 +53,7 @@
 <section ng-cloak ng-if="!loading">
   <md-subheader class="md-accent">
     <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" class='box-image'/>
-    <b>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput. <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name">{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</md-tooltip></span></span>
+    <b><translate>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip><translate>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</translate></md-tooltip></span></span>
   </md-subheader>
 </section>
 

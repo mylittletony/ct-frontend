@@ -61,10 +61,10 @@ describe('users', function () {
       expect(element.isolateScope().query.order).toBe('created_at');
       expect(element.isolateScope().query.filter).toBe('my-search');
       expect(element.isolateScope().roles.length).toBe(2);
-      expect(element.isolateScope().roles[0].role_id).toBe(200);
-      expect(element.isolateScope().roles[0].name).toBe('Brand Admin');
+      expect(element.isolateScope().roles[0].role_id).toBe(205);
+      expect(element.isolateScope().roles[0].name).toBe('Brand Ambassador');
       expect(element.isolateScope().roles[1].role_id).toBe(201);
-      expect(element.isolateScope().roles[1].name).toBe('Location Admin');
+      expect(element.isolateScope().roles[1].name).toBe('Member');
     });
 
   });

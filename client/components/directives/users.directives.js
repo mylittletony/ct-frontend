@@ -9,13 +9,14 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, $window, gettextCatalog) {
+app.directive('showUser', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', function(User, $routeParams, $location, Auth, showToast, showErrors, $window, gettextCatalog, Translate) {
 
   var link = function( scope, element, attrs ) {
 
     var id, locale;
 
-    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    // scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
@@ -672,9 +673,16 @@ app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog'
 
 }]);
 
-app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(User, Auth, $routeParams, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', '$location', function(User, Auth, $routeParams, $mdDialog, showToast, showErrors, gettextCatalog, $location) {
 
   var link = function( scope, element, attrs ) {
+
+    var id;
+    if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
+      id = Auth.currentUser().slug;
+    } else {
+      id = $routeParams.id;
+    }
 
     scope.changePassword = function() {
       $mdDialog.show({
@@ -700,7 +708,13 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
 
     var change = function(user) {
       scope.loading = true;
-      User.password({id: $routeParams.id, user: { password: user.password, current_password: user.current_password}}).$promise.then(function(results) {
+      User.update({
+        id: id,
+        user: {
+          password: user.password,
+          current_password: user.current_password
+        }
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Password successfully updated.'));
       }, function(err) {
         showErrors(err);
@@ -1077,14 +1091,18 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', function(
 
 }]);
 
-app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast) {
+app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', 'Auth', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast, Auth) {
 
   var link = function( scope, element, attrs ) {
 
     menu.isOpen = false;
     menu.hideBurger = true;
     scope.brand = { id: $routeParams.brand_id };
-    scope.roles = [{ role_id: 200, name: 'Brand Admin' }, { role_id: 201, name: 'Location Admin' }];
+
+    if (Auth.currentUser()) {
+      scope.super = Auth.currentUser().super;
+    }
+    scope.roles = [{ role_id: 205, name: 'Brand Ambassador' }, { role_id: 201, name: 'Member' }];
 
     scope.selected = [];
 
@@ -1181,9 +1199,11 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var updateRole = function(user) {
       BrandUser.update({
-        id: user.id,
-        brand_id: scope.brand.id,
-        role_id: user.role_id
+        brand_user: {
+          user_id: user.id,
+          role_id: user.role_id
+        },
+        brand_id: scope.brand.id
       }).$promise.then(function(results) {
         showToast('User successfully updated.');
       }, function(err) {
@@ -1194,7 +1214,10 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var removeUser = function(user) {
       BrandUser.destroy({
-        id: user.id,
+        brand_user: {
+          user_id: user.id,
+          role_id: user.role_id
+        },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
         removeFromList(user.id);
@@ -1242,7 +1265,9 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
         scope.users       = results.users;
         scope._links      = results._links;
         scope.loading     = undefined;
-        createMenu();
+        if (scope.brand && scope.brand.id) {
+          createMenu();
+        }
       }, function(err) {
         scope.loading = undefined;
       });

@@ -54,7 +54,6 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       var deferred = $q.defer();
       AccessToken.del();
       delete $localStorage.user;
-      $('.hidden-boy').removeClass('real-boy');
       var sub = locationHelper.subdomain();
       window.location.href = AUTH_URL + '/logout?brand=' + sub;
     };
@@ -155,17 +154,6 @@ app.factory('User', ['$resource', '$localStorage', 'API_END_POINT',
           action: 'logout_all',
           id: '@id'
         }
-      },
-      password: {
-        method: 'PATCH',
-        isArray: false,
-        params: {
-          password: '@password',
-          action: 'password',
-          id: '@id',
-          password_confirmation: '@password_confirmation',
-          user: '@user'
-        }
       }
     }
   );
@@ -214,4 +202,70 @@ app.factory('Inventory', ['$resource', 'API_END_POINT',
       },
     }
   );
+}]);
+
+app.factory('Translate', ['Auth', 'gettextCatalog', function(Auth, gettextCatalog) {
+  
+  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
+  var language, userLocale;
+
+  function fixLocale(locale) {
+    if (!locale) {
+      return undefined;
+    }
+    locale = Auth.currentUser().locale.split('-');
+    var language = locale[0],
+      country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
+
+    return country === undefined ? language : [language, country].join('_');
+  }
+
+  function setLanguage() {
+    for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
+      var lang = navigator.languages[i].substr(0, 5);
+      language = fixLocale(lang);
+      if (supported[lang]) {
+        language = lang;
+      }
+      if (!supported[lang]) {
+        var localeArr = lang.split('-'),
+          browserLang = localeArr[0];
+        for (var l in supported) {
+          if (l.indexOf(browserLang) !== -1) {
+            language = l;
+          }
+        }
+      }
+    }
+  }
+
+  function setLocale(val) {
+    if (val) {
+      userLocale = val;
+    } else if (Auth.currentUser() && Auth.currentUser().locale) {
+      userLocale =  Auth.currentUser().locale;
+    }
+  }
+
+  var _load = function() {
+
+    setLocale();
+
+    language = fixLocale(userLocale);
+
+    setLanguage();
+
+    if (!supported[language]) {
+      language = 'en_GB';
+    }
+
+    gettextCatalog.setCurrentLanguage(language);
+    gettextCatalog.loadRemote('/translations/' + language + '.json');
+  };
+
+  return {
+    load: _load,
+    setLocale: setLocale
+  };
+
 }]);

@@ -19,9 +19,9 @@ var app = angular.module('myApp.controllers', [
   'myApp.vouchers.controller'
 ]);
 
-app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog',
+app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate',
 
-  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog) {
+  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate) {
 
     $scope.ct_login = CTLogin;
     // $rootScope.CONFIG = CONFIG;
@@ -280,6 +280,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         $cookies.remove('_ctp');
         $scope.ct_login = undefined;
+        Translate.load();
       });
     }
 
@@ -316,9 +317,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           authEndpoint: API + '/pusherAuth?token=' + Auth.currentUser().key
         });
         pusher = $pusher(client);
-        if (Auth.currentUser().fake) {
-          $('.hidden-boy').addClass('real-boy');
-        }
       }
 
       $scope.brandName = BrandName;
@@ -332,20 +330,22 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         else if (parts.length === 3) {
           sub = parts[0];
-          if (sub !== 'my' && sub !== 'dev') {
-            getBrand(sub);
-          } else {
-            setDefaultImages();
-          }
+          getBrand(sub);
         } else {
           console.log('Domain error occured');
         }
       }
 
-      function getBrand(domain, cname) {
+      function getBrand(sub, cname) {
+        if (Auth.currentUser() && Auth.currentUser().url !== null) {
+          sub = Auth.currentUser().url;
+        }
         Brand.query({
-          id: domain, cname: cname
+          id: sub,
+          cname: cname,
+          type: 'showcase'
         }).$promise.then(function(results) {
+          // Decide to switch the brand here
           // Can we turn Cucumber into a variable so we don't just set
           // Maybe use the config files - Simon TBD //
           $scope.brandName.name  = results.brand_name || 'Cucumber';
@@ -354,7 +354,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           $scope.brandName.url   = results.url;
           $scope.brandName.id    = results.id;
         }, function() {
-          setDefaultImages(domain);
+          setDefaultImages(sub);
         });
       }
 
@@ -406,6 +406,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           removeCtCookie();
         });
       }
+      Translate.load();
     });
 
     var setLoggedIn = function(isLoggedIn) {

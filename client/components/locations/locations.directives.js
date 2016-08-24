@@ -406,7 +406,7 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       location_name: $routeParams.name
     };
 
-    scope.save = function(form) {
+    scope.save = function(form, location) {
       form.$setPristine();
       scope.location.creating = true;
       updateCT(location);
@@ -414,9 +414,9 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
 
     var updateCT = function(location) {
       location.account_id = attrs.accountId;
+      location.brand_id = scope.brand.id;
       Location.save({
-        location: scope.location,
-        brand_id: scope.brand.id
+        location: location,
       }).$promise.then(function(results) {
         $location.path('/locations/' + results.slug);
         $location.search({gs: true});
@@ -599,16 +599,37 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     };
 
     var revoke = function(user) {
-      var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Remove User'))
-      .textContent(gettextCatalog.getString('Removing a user will prevent them from accessing this location.'))
-      .ariaLabel(gettextCatalog.getString('Remove'))
-      .ok(gettextCatalog.getString('remove'))
-      .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        revokeAdmin(user);
+      $mdDialog.show({
+        templateUrl: 'components/locations/users/_revoke.html',
+        parent: angular.element(document.body),
+        controller: RevokeController,
+        clickOutsideToClose: true,
+        locals: {
+          user: user,
+        }
       });
+      // var confirm = $mdDialog.confirm()
+      // .title(gettextCatalog.getString('Remove User'))
+      // .textContent(gettextCatalog.getString('Removing a user will prevent them from accessing this location.'))
+      // .ariaLabel(gettextCatalog.getString('Remove'))
+      // .ok(gettextCatalog.getString('remove'))
+      // .cancel(gettextCatalog.getString('Cancel'));
+      // $mdDialog.show(confirm).then(function() {
+      //   revokeAdmin(user);
+      // });
     };
+
+    function RevokeController ($scope, user) {
+      $scope.user = user;
+      $scope.update = function() {
+        $mdDialog.cancel();
+        revokeAdmin($scope.user);
+      };
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    RevokeController.$inject = ['$scope', 'user'];
 
     var revokeAdmin = function(invite) {
       invite.state = 'revoking';
@@ -657,7 +678,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     var updateRole = function(user) {
       Invite.update({
         location_id: scope.location.slug,
-        username: user.username,
+        email: user.email,
         role_id: user.role_id
       }).$promise.then(function(results) {
         showToast('User successfully updated.');

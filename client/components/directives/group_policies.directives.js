@@ -8,15 +8,15 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
 
     scope.location  = { slug: $routeParams.id };
     scope.layers = [
-      {key: 'WiFi', value: 'layer2'},
-      {key: 'Firewall', value: 'layer3'},
-      {key: 'Splash', value: 'splash'}
+      {key: gettextCatalog.getString('WiFi'), value: 'layer2'},
+      {key: gettextCatalog.getString('Firewall'), value: 'layer3'},
+      {key: gettextCatalog.getString('Splash'), value: 'splash'}
     ];
 
     scope.policies = [
-      {key: 'Whitelist', value: 'allow'},
-      {key: 'Blacklist', value: 'block'}
-      // {key: 'Filter', value: 'filter'}
+      {key: gettextCatalog.getString('Whitelist'), value: 'allow'},
+      {key: gettextCatalog.getString('Blacklist'), value: 'block'}
+      // {key: gettextCatalog.getString('Filter'), value: 'filter'}
     ];
 
     // User permissions //
@@ -74,9 +74,7 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
         group_policy: data
       }).$promise.then(function(results) {
         addToSet(results.group_policy);
-        // Simon Toni translate
-        showToast('Policy successfully created.');
-        // Simon Toni translate
+        showToast(gettextCatalog.getString('Policy successfully created.'));
         scope.creating = undefined;
       }, function(error) {
         scope.creating = undefined;
@@ -90,9 +88,7 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
         id: data.id,
         group_policy: data
       }).$promise.then(function(results) {
-        // Simon Toni translate
-        showToast('Client filter successfully updated.');
-        // Simon Toni translate
+        showToast(gettextCatalog.getString('Client filter successfully updated.'));
         scope.creating = undefined;
       }, function(error) {
         scope.creating = undefined;
@@ -137,8 +133,7 @@ app.directive('listGroupPolicies', ['GroupPolicy', '$routeParams', '$mdDialog', 
         id: id
       }).$promise.then(function(results) {
         removeFromList(id);
-        // SM translate
-        showToast('Successfully deleted policy');
+        showToast(gettextCatalog.getString('Successfully deleted policy'));
       }, function(err) {
         showErrors(err);
       });
@@ -250,7 +245,7 @@ app.directive('groupPolicy', ['GroupPolicy', '$routeParams', '$mdDialog', 'showT
       GroupPolicy.update(params).$promise.then(function(results) {
         scope.group_policy = results.group_policy;
         scope.policy_networks = results.networks;
-        showToast('Successfully updated policy');
+        showToast(gettextCatalog.getString('Successfully updated policy'));
       }, function(err) {
         showErrors(err);
       });

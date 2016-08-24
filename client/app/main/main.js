@@ -20,54 +20,6 @@ var app = angular.module('myApp', [
   'gettext'
 ]);
 
-app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
-
-  function fixLocale(locale) {
-    if (!locale) {
-      return undefined;
-    }
-    locale = Auth.currentUser().locale.split('-');
-    var language = locale[0],
-      country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
-
-      return country === undefined ? language : [language, country].join('_');
-  }
-
-  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
-  var language, userLocale;
-
-  if (Auth.currentUser() && Auth.currentUser().locale) {
-    userLocale =  Auth.currentUser().locale;
-  }
-
-  language = fixLocale(userLocale);
-
-  for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
-    var lang = navigator.languages[i].substr(0, 5);
-    language = fixLocale(lang);
-    if (supported[lang]) {
-      language = lang;
-    }
-    if (!supported[lang]) {
-      var localeArr = lang.split('-'),
-        browserLang = localeArr[0];
-        for (var l in supported) {
-          if (l.indexOf(browserLang) !== -1) {
-            language = l;
-          }
-        }
-    }
-  }
-
-  if (!supported[language]) {
-    language = 'en_GB';
-  }
-
-  gettextCatalog.setCurrentLanguage(language);
-  gettextCatalog.loadRemote('/translations/' + language + '.json');
-
-}]);
-
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
   $compileProvider.debugInfoEnabled(DEBUG);
 }]);
@@ -81,9 +33,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
   $httpProvider.defaults.headers.patch['Accept'] = 'application/json';
   $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
-
-  // $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
   var item = 'blue';
