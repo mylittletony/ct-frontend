@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.zones.directives', []);
 
-app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '$route', '$mdDialog', 'showToast', 'showErrors', '$mdEditDialog', '$q', 'gettextCatalog', function(Zone, ZoneListing, Location, $routeParams, $route, $mdDialog, showToast, showErrors, $mdEditDialog, $q, gettextCatalog) {
+app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$mdEditDialog', '$q', 'gettextCatalog', function(Zone, ZoneListing, Location, $routeParams, $mdDialog, showToast, showErrors, $mdEditDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -73,8 +73,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
       };
       Zone.update({location_id: scope.location.slug, id: zone.id, zone: params }).$promise.then(function(res) {
         if (box_id) {
-          $route.reload();
-          showToast(gettextCatalog.getString('Box successfully added to zone.'));
+          incrementBoxCount(zone);
         } else {
           showToast(gettextCatalog.getString('Zone successfully updated'));
         }
@@ -84,18 +83,14 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
     };
 
-    //used to be called by the update funct when there is a new box
-    // var incrementBoxCount = function(zone) {
-    //   for (var i = 0, len = scope.zones.length; i < len; i++) {
-    //     if (scope.zones[i].id === zone.id) {
-    //       if (!scope.zones[i].boxes || scope.zones[i].boxes.length === 0) {
-    //         scope.zones[i].boxes = [];
-    //       }
-    //       scope.zones[i].boxes.push({ap_mac: $routeParams.ap_mac});
-    //       showToast(gettextCatalog.getString('Box successfully added to zone.'));
-    //     }
-    //   }
-    // };
+    var incrementBoxCount = function(zone) {
+      for (var i = 0, len = scope.zones.length; i < len; i++) {
+        if (scope.zones[i].id === zone.id) {
+          scope.zones[i].boxes++;
+          showToast(gettextCatalog.getString('Box successfully added to zone.'));
+        }
+      }
+    };
 
     var addBox = function(id) {
       $mdDialog.show({
