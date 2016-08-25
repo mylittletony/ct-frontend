@@ -23,7 +23,7 @@
               </label>
               <md-select ng-model="splash.primary_access_id">
                 <md-option ng-repeat="a in obj.access_types" value="{{a.id}}">
-                  {{a.name}}
+                  {{a.id | translateAccessTypeName}}
                 </md-option>
               </md-select>
             </md-input-container>
