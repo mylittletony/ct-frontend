@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.splash_pages.directives', []);
 
-app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage,$routeParams,$location,showToast,showErrors,$mdDialog,$q, gettextCatalog) {
+app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', 'pagination_labels', function(SplashPage,$routeParams,$location,showToast,showErrors,$mdDialog,$q, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
 
@@ -16,12 +16,24 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-created_at',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
+      // direction:  $routeParams.direction || 'desc'
     };
+
+    // scope.onPaginate = function (page, limit) {
+    //   scope.query.page = page;
+    //   scope.query.limit = limit;
+    //   scope.updatePage();
+    // };
+
+    // scope.updatePage = function(item) {
+      
+    // };
 
     var createMenu = function() {
 

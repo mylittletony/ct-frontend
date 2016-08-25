@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.networks.directives', []);
 
-app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q', 'gettextCatalog', function(Network,$routeParams,$mdDialog,showToast,showErrors,$q, gettextCatalog) {
+app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(Network,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
@@ -56,12 +56,24 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-created_at',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
+      // direction:  $routeParams.direction || 'desc'
     };
+
+    // scope.onPaginate = function (page, limit) {
+    //   scope.query.page = page;
+    //   scope.query.limit = limit;
+    //   scope.updatePage();
+    // };
+
+    // scope.updatePage = function(item) {
+      
+    // };
 
     var init = function() {
       var deferred = $q.defer();

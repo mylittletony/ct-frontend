@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.triggers.directives', []);
 
-app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
 
@@ -17,6 +17,7 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
       order:      '-created_at',
@@ -25,6 +26,16 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
       options:    [5,10,25,50,100],
       direction:  $routeParams.direction || 'desc'
     };
+
+    // scope.onPaginate = function (page, limit) {
+    //   scope.query.page = page;
+    //   scope.query.limit = limit;
+    //   scope.updatePage();
+    // };
+
+    // scope.updatePage = function(item) {
+      
+    // };
 
     // user permissions //
     var createMenu = function() {
