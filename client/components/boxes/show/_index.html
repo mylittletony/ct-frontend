@@ -1,9 +1,9 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
       <md-icon>arrow_back</md-icon>
     </md-button>
-    <p translate>Back to Location</p>
+    <p translate>Back to Devices</p>
     <span flex></span>
     <upgrade-box box="box"></upgrade-box>
     <span ng-if="box.state == 'offline'">
@@ -297,7 +297,7 @@
               <div class="md-list-item-text">
                 <h3 translate>Serial Number</h3>
                 <p>
-                  <span style="word-break: break-all;">{{ ::box.serial_number }}</span>
+                  <span class="hard-break">{{ ::box.serial_number }}</span>
                 </p>
               </div>
             </md-list-item>

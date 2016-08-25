@@ -1,4 +1,4 @@
-<form name="myForm" ng-submit="save()">
+<form name="myForm" ng-submit="save(myForm)">
   <md-card>
     <md-card-title>
       <md-card-title-text>
@@ -91,6 +91,9 @@
             </md-switch>
 
           </div>
+          <span ng-messages="myForm.session_timeout.$error" md-auto-hide="false">
+            <p ng-message="max" translate><small>Please adjust the session timeout so it is less than your validity minutes.</small></p>
+          </span>
         </div>
       </div>
 
@@ -119,10 +122,10 @@
 
         <md-input-container flex="100" flex-gt-sm="30">
           <label><translate>Session Timeout (mins)</translate></label>
-          <input type="number" ng-model="voucher.session_timeout" name="session_timeout" placeholder="{{ 'Session Timeout' | translate }}" ng-min="10" max="{{ voucher.validity_minutes }}" required></input>
-          <div ng-messages="myForm.session_timeout.$error">
+          <input type="number" ng-model="voucher.session_timeout" name="session_timeout" placeholder="{{ 'Session Timeout' | translate }}" max="{{ voucher.validity_minutes }}" required></input>
+          <div ng-messages="myForm.session_timeout.$error" md-auto-hide="false">
             <div ng-message="min" translate>Must be greater than {{ voucher.validity_minutes }}</div>
-            <div ng-message="max" translate>Must be less than {{ voucher.validity_minutes }}</div>
+            <div ng-message="max" translate>Must be less than or equal to {{ voucher.validity_minutes }}</div>
             <div ng-message="required" translate>Required</div>
           </div>
         </md-input-container>

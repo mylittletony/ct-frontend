@@ -4,8 +4,8 @@
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
         <p>
-          <span ng-if="query.filter" translate translate-context="filtered number, devices" translate-n="filtered.length" translate-plural="{{filtered.length}} Devices.">1 Device.</span>
-          <span ng-if="!query.filter" translate translate-context="total number, devices" translate-n="{{_links.total_entries}}" translate-plural="{{_links.total_entries}} Devices.">1 Device.</span>
+          <span ng-if="filter" translate translate-context="filtered number, devices" translate-n="filtered.length" translate-plural="{{filtered.length}} Devices.">1 Device.</span>
+          <span ng-if="!filter" translate translate-context="total number, devices" translate-n="_links.total_entries" translate-plural="{{_links.total_entries}} Devices.">1 Device.</span>
           <span translate translate-n="{{ online }}" translate-plural="{{ online }} Clients Online.">1 Client Online.</span></p>
         <div flex></div>
         <md-menu ng-if="selected.length">
@@ -133,7 +133,7 @@
           </table>
         </md-table-container>
       </md-card-content>
-      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
 
     </md-card>
   </div>

@@ -2,6 +2,7 @@
   <div class="md-toolbar-tools">
     <md-input-container flex style="margin-top: 50px">
       <md-icon md-font-icon="search">search</md-icon>
+      <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Networks' | translate }}">
     </md-input-container>
     <div flex></div>
@@ -31,7 +32,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-header">{{ group_policy.policy_name | titleCase }}.
-                <span translate translate-n="{{ selected.length }} " translate-plural="{{ selected.length || 0 }} networks" translate-context="in zones index componenet">1 network</span>.
+                <span translate translate-n="selected.length" translate-plural="{{ selected.length || 0 }} networks" translate-context="in group policy componenet">1 network</span>.
               </span>
             </md-card-title-text>
           </md-card-title>

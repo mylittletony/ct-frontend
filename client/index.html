@@ -231,12 +231,15 @@
             <div layout="row" layout-align="end" class="copy" hide show-gt-md>
               <small>
                 <translate>Privacy Policy - Terms of Service</translate><br>
-                ©2016 Cucumber Tony</small>
+                ©2016 Cucumber Tony.<br>Build #{{ commit }}</small>
             </div>
           </md-content>
         </md-sidenav>
         <md-content flex>
-          <div ng-view autoscroll="true"></div>
+          <div ng-view autoscroll="true" ng-class="{'hidden': notFound}"></div>
+          <div style="margin: 30px 40px;" ng-class="{'hidden': !notFound}">
+            <h3>Weird, the resource was not found. Please try again.</h3>
+          </div>
         </md-content>
       </section>
     </md-content>
@@ -382,6 +385,7 @@
   <script src="components/reports/reports.v2.directives.js"></script>
   <script src="components/services/brand_users.services.js"></script>
   <script src="components/services/group_policies.services.js"></script>
+  <script src="components/services/pagination_labels.services.js"></script>
   <script src="components/services/users.services.js"></script>
   <script src="components/services/zones.services.js"></script>
   <script src="components/social/social.directives.js"></script>

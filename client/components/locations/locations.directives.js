@@ -42,7 +42,7 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog) {
+app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', 'pagination_labels', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
 
@@ -61,6 +61,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       filter:     $routeParams.q,
@@ -764,10 +765,9 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels',  function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
-
     scope.selected = [];
     scope.location = {
       slug: $routeParams.id
@@ -823,6 +823,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       rowSelection: true
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:          '-last_heartbeat',
       limit:          $routeParams.per || 25,
@@ -934,7 +935,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         console.log('Could not resync box:', errors);
       });
     };
-    //fixme @Toni translations: see the showToast
+
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete This Device Permanently?'))
@@ -945,7 +946,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteBox(box);
-        showToast('Deleted device with mac ' + box.calledstationid);
+        showToast(gettextCatalog.getString('Deleted device with mac {{address}}', {address: box.calledstationid}));
       });
     };
 
@@ -1046,11 +1047,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         if (scope.selected.length === 1) {
           devices = 'device';
         }
-        showToast('Deleted '+ scope.selected.length + ' ' + devices);
+        showToast(gettextCatalog.getPlural(scope.selected.length,'Deleted 1 device', 'Deleted {{$count}} devices', {}));
       }
     };
 
     var removeFromList = function(box) {
+      scope.selected = [];
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
         if (scope.boxes[i].id === box.id) {
           if (!scope.selected.length) {
@@ -1170,7 +1172,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       if (scope.selected.length === 1) {
         devices = gettextCatalog.getString('device zone');
       }
-      showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{scope.selected.length}} device zones'));
+      showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{$count}} device zones'));
       scope.selected = [];
     };
 
@@ -1536,7 +1538,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       });
 
       scope.menu.push({
-        name: 'Transfer',
+        name: gettextCatalog.getString('Transfer'),
         type: 'transfer',
         icon: 'transform'
       });
@@ -1826,7 +1828,7 @@ app.directive('favourites', ['Location', '$location', function(Location, $locati
 
 }]);
 
-app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', 'pagination_labels', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, gettextCatalog, pagination_labels) {
 
   var link = function(scope) {
 
@@ -1855,6 +1857,7 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       limit:      $routeParams.per || 25,
@@ -1947,7 +1950,7 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
 }]);
 
-app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog) {
+app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', 'pagination_labels', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog, pagination_labels) {
 
   var link = function(scope) {
 
@@ -1963,6 +1966,7 @@ app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showTo
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       filter:     $routeParams.q,

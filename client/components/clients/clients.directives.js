@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.clients.directives', []);
 
-app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', function(Client, Location, Report, GroupPolicy, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog) {
+app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', function(Client, Location, Report, GroupPolicy, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -20,6 +20,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     // Updated at should be changed to lastseen
     // However the query takes too long so we're
     // replacing for the short-term
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      'updated_at',
       limit:      $routeParams.per || 25,
@@ -1141,7 +1142,7 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
 
 }]);
 
-app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 'showErrors', 'gettextCatalog', function(Client, $routeParams, $q, showToast, showErrors, gettextCatalog) {
+app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function(Client, $routeParams, $q, showToast, showErrors, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1155,6 +1156,7 @@ app.directive('clientVouchers', ['Client', '$routeParams', '$q', 'showToast', 's
       rowSelection: false
     };
 
+    scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-date_activated',
       limit:      $routeParams.per || 25,
