@@ -47,7 +47,7 @@
                 <label><translate>Access Type</translate></label>
                 <md-select ng-model="splash.primary_access_id" ng-change="access_name()">
                   <md-option ng-repeat="type in access_types" value="{{type.id}}">
-                    {{type.name}}
+                    {{type.id | translateAccessTypeName}}
                   </md-option>
                 </md-select>
               </md-input-container>
