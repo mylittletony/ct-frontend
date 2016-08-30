@@ -86,10 +86,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
     var incrementBoxCount = function(zone) {
       for (var i = 0, len = scope.zones.length; i < len; i++) {
         if (scope.zones[i].id === zone.id) {
-          if (!scope.zones[i].boxes || scope.zones[i].boxes.length === 0) {
-            scope.zones[i].boxes = [];
-          }
-          scope.zones[i].boxes.push({ap_mac: $routeParams.ap_mac});
+          scope.zones[i].boxes++;
           showToast(gettextCatalog.getString('Box successfully added to zone.'));
         }
       }
