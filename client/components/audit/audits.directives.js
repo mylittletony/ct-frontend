@@ -154,7 +154,7 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 
     function searchTextChange(text) {
     }
-    
+
     var timer;
     function selectedItemChange(item) {
       timer = $timeout(function() {
@@ -294,8 +294,6 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
 app.directive('auditEmails', ['Email', '$routeParams', '$location', 'Client', '$q', '$timeout', 'Location', 'pagination_labels', function(Email, $routeParams, $location, Client, $q, $timeout, Location, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
-
-   
 
     var interval        = 'day';
     scope.email         = $routeParams.email;
@@ -983,7 +981,7 @@ app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettext
     scope: {
       search: '&'
     },
-    template: 
+    template:
       '<div>'+
       '<md-button ng-click="rangeFilter()" class="md-icon-button" hide show-gt-xs>'+
       '<md-icon md-font-icon="date_range">date_range</md-icon>'+
@@ -1032,7 +1030,7 @@ app.directive('auditDownloads', ['Report', '$routeParams', '$mdDialog', '$locati
       lid: '@',
       type: '@'
     },
-    template: 
+    template:
       '<div>'+
       '<md-button ng-click="downloadReport()" class="md-icon-button" hide show-gt-xs>'+
       '<md-icon>file_download</md-icon>'+

@@ -26,7 +26,7 @@ app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider', '$mdIconProvider', function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {
 
-  $httpProvider.interceptors.push('myHttpInterceptor');
+  $httpProvider.interceptors.push('httpRequestInterceptor');
 
   $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
@@ -144,7 +144,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/switch', {
       templateUrl: 'components/home/switching.html',
       controller: function($location, $rootScope, $cookies, locationHelper, CTLogin) {
-
         var event = $cookies.get('event');
         if (event) {
           event = JSON.parse($cookies.get('event'));
@@ -615,13 +614,17 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     otherwise({
       templateUrl: 'components/home/404.html',
+      controller: function(menu) {
+        menu.isOpenLeft = false;
+        menu.isOpen = false;
+      }
       // redirectTo: '/404'
     });
     $locationProvider.html5Mode(false);
 }]);
 
-app.factory('myHttpInterceptor', ['$q', '$location', '$localStorage', '$rootScope', 'AccessToken',
-  function($q, $location, $localStorage, $rootScope, AccessToken) {
+app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope',
+  function($q, AccessToken, $rootScope) {
     return {
       request: function(config){
         var token = AccessToken.get();
@@ -631,22 +634,24 @@ app.factory('myHttpInterceptor', ['$q', '$location', '$localStorage', '$rootScop
         return config;
       },
       response: function(response){
+        // Not sure, don't like rootScope!
+        $rootScope.notFound = undefined;
+
         if (response.status === 401) {
-        //   var logoutEvent = 'logout';
-        //   var logoutArgs = ['arg'];
-        //   $rootScope.$broadcast(logoutEvent, logoutArgs);
         }
         else if (response.status === 500) {
-          // alert(500, 'Error');
-          // $location.path('/404.html');
         }
         return response || $q.when(response);
       },
       responseError: function(rejection) {
+
         if (rejection.status === 401) {
           var logoutEvent = 'logout';
           var logoutArgs = ['arg'];
           $rootScope.$broadcast(logoutEvent, logoutArgs);
+        }
+        else if (rejection.status === 404) {
+          $rootScope.notFound = true;
         }
         // else if (rejection.status === 404) {
         //   $location.path('/404').search({ct: 'does-not-compute'});

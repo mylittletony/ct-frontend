@@ -468,7 +468,7 @@ app.directive('newLocationCreating', ['Location', '$location', function(Location
 
 }]);
 
-app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$pusher', '$rootScope', '$timeout', 'gettextCatalog', function(Location, Invite, $routeParams, $mdDialog, showToast, showErrors, $pusher, $rootScope, $timeout, gettextCatalog) {
+app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$pusher', '$rootScope', '$timeout', 'gettextCatalog', 'pagination_labels', function(Location, Invite, $routeParams, $mdDialog, showToast, showErrors, $pusher, $rootScope, $timeout, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -479,6 +479,25 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       { role_id: 130, name: gettextCatalog.getString('Supporter') },
       { role_id: 140, name: gettextCatalog.getString('Observer') }
     ];
+
+    scope.pagination_labels = pagination_labels;
+    scope.query = {
+      order:      'username',
+      limit:      $routeParams.per || 25,
+      page:       $routeParams.page || 1,
+      options:    [5,10,25,50,100],
+      // direction:  $routeParams.direction || 'desc'
+    };
+
+    // scope.onPaginate = function (page, limit) {
+    //   scope.query.page = page;
+    //   scope.query.limit = limit;
+    //   scope.updatePage();
+    // };
+
+    // scope.updatePage = function(item) {
+      
+    // };
 
     var channel;
     function loadPusher(key) {
@@ -768,7 +787,6 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
 app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels',  function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
-    
     scope.selected = [];
     scope.location = {
       slug: $routeParams.id
@@ -936,7 +954,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         console.log('Could not resync box:', errors);
       });
     };
-    //fixme @Toni translations: see the showToast
+
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete This Device Permanently?'))
@@ -947,7 +965,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteBox(box);
-        showToast('Deleted device with mac ' + box.calledstationid);
+        showToast(gettextCatalog.getString('Deleted device with mac {{address}}', {address: box.calledstationid}));
       });
     };
 
@@ -1048,11 +1066,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         if (scope.selected.length === 1) {
           devices = 'device';
         }
-        showToast('Deleted '+ scope.selected.length + ' ' + devices);
+        showToast(gettextCatalog.getPlural(scope.selected.length,'Deleted 1 device', 'Deleted {{$count}} devices', {}));
       }
     };
 
     var removeFromList = function(box) {
+      scope.selected = [];
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
         if (scope.boxes[i].id === box.id) {
           if (!scope.selected.length) {
@@ -1172,7 +1191,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       if (scope.selected.length === 1) {
         devices = gettextCatalog.getString('device zone');
       }
-      showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{scope.selected.length}} device zones'));
+      showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{$count}} device zones'));
       scope.selected = [];
     };
 
@@ -1538,7 +1557,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       });
 
       scope.menu.push({
-        name: 'Transfer',
+        name: gettextCatalog.getString('Transfer'),
         type: 'transfer',
         icon: 'transform'
       });

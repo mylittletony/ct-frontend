@@ -18,10 +18,13 @@ module.exports = function (grunt) {
       try {
           localConfig = require('./local-config.js');
       } catch(e) {
-          throw("error reading './local-config.js': " + e); 
+          throw("error reading './local-config.js': " + e);
       }
   }
 
+  var exec = require('sync-exec');
+  var commitHash = exec('git log --pretty=format:"%h" -n 1');
+  // var commitDate = exec('git log --pretty=format:"%ci" -n 1');
   var config = _.merge(defaultConfig, localConfig);
 
   grunt.loadNpmTasks('grunt-karma');
@@ -95,7 +98,8 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COMMITHASH: commitHash.stdout
         }
       },
       production: {
@@ -109,7 +113,8 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4'
+          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COMMITHASH: commitHash.stdout
         }
       }
     },
@@ -623,9 +628,9 @@ module.exports = function (grunt) {
           ],
           compass: false
         },
-        files: {
+        files: _.merge({
           '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.scss'
-        }
+        }, _.isEmpty(localConfig) ? {} : config.sass.server.files)
       }
     },
 
@@ -769,6 +774,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'configServer',
     'ngconstant:production',
     'concurrent:dist',
     'wiredep',

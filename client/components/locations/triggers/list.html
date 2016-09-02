@@ -26,7 +26,7 @@
       </md-card-title>
       <md-card-content>
         <p translate>Triggers run automatically in the background.</p>
-        <p>They monitor things that happen and notify you automatically.</p>
+        <p translate>They monitor things that happen and notify you automatically.</p>
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-show="allowed == true" ng-click="create()"><translate>Create</translate></md-button>
         </md-card-actions>
@@ -104,6 +104,7 @@
             </tbody>
           </table>
         </md-table-container>
+        <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
         </div>
       </md-card-content>
     </md-card>
