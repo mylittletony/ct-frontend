@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-09-02 10:00+0200\n"
+"PO-Revision-Date: 2016-09-02 12:07+0200\n"
 "Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -41,7 +41,7 @@ msgid ""
 "'Internal Only' saves email in dashboard but doesn't subscribe to external "
 "service like MailChimp."
 msgstr ""
-"'Nur Intern' speichert E-Mail-Adresesn im Dashboard, nutzt aber keine "
+"'Nur Intern' speichert E-Mail-Adressen im Dashboard, nutzt aber keine "
 "externen Dienstleister wie z.B. MailChimp."
 
 #: client/components/locations/networks/_show.html:375
@@ -922,7 +922,8 @@ msgstr "Eine genaue Standortkategorie führt zu besseren Analysen."
 #: client/components/locations/triggers/_show.html:60
 msgid "An email will be sent to the recipient and owner of the location"
 msgstr ""
-"Eine E-Mail wird an die Empfänger und an den Besitzer des Standortes gesendet"
+"Eine E-Mail wird an die Empfänger und an den Eigentümer des Standortes "
+"gesendet"
 
 #: client/components/material/menu.services.js:76
 msgid "An unknown error occurred, please try again."
@@ -1006,7 +1007,7 @@ msgstr "Im Tarif enthaltene APs"
 #: client/components/locations/locations.directives.js:1601
 #: client/components/locations/locations.directives.js:1645
 msgid "Archive"
-msgstr "Archiv"
+msgstr "Archivieren"
 
 #: client/components/locations/locations.directives.js:1595
 msgid "Are you sure you want to archive this location"
@@ -1469,7 +1470,7 @@ msgstr "Brand-Name"
 
 #: client/components/locations/locations.filters.js:242
 msgid "Brand Owner"
-msgstr "Besitzer des Brands"
+msgstr "Eigentümer des Brands"
 
 #: client/components/locations/locations.filters.js:248
 msgid "Brand Super"
@@ -2160,7 +2161,7 @@ msgstr "Aufgabe kann nicht gelöscht werden."
 #: client/components/boxes/show/_transfer_select.html:5
 #: client/components/splash_pages/_transfer.html:16
 msgid "Could not find any locations to tranfer this device to."
-msgstr "Keine Standorte zum Transfer dieses Gerät gefunden."
+msgstr "Keine Standorte zum Transferieren dieses Gerät gefunden."
 
 #: client/components/boxes/boxes.directives.js:210
 msgid "Could not reset this device, please try again"
@@ -6082,7 +6083,7 @@ msgstr "Übersicht "
 #: client/components/locations/locations.filters.js:232
 #: client/components/views/brand_users/_index.html:43
 msgid "Owner"
-msgstr "Besitzer"
+msgstr "Eigentümer"
 
 #: client/components/vouchers/_show.html:174
 msgid "PDF"
@@ -9192,7 +9193,7 @@ msgstr "Walled Gardens"
 
 #: client/components/locations/networks/walledgardens.html:3
 msgid "Walled Gardens ({{ walledgardens.length || 0 }} of 25 allowed)"
-msgstr "Walled Gardens ({{ walledgardens.length || 0 }} of 25 allowed)"
+msgstr "Walled Gardens ({{ walledgardens.length || 0 }} von 25 zugelassenen)"
 
 #: client/components/locations/show/_warnings.html:5
 msgid "Warnings"
@@ -10452,7 +10453,7 @@ msgid ""
 "inventories.length }} Devices."
 msgstr ""
 "{{ query.filter ? filtered.length + ' von ' + inventories.length : "
-"inventories.length }} Geräten."
+"inventories.length }} Geräte."
 
 #: client/components/locations/networks/_index.html:31
 msgid ""
@@ -10460,7 +10461,7 @@ msgid ""
 "length }} Networks."
 msgstr ""
 "{{ query.filter ? filtered.length + ' von ' + networks.length : networks."
-"length }} Netzwerken."
+"length }} Netzwerke."
 
 #: client/components/splash_codes/_index.html:56
 msgid ""
@@ -10484,7 +10485,7 @@ msgid ""
 "length }} Triggers."
 msgstr ""
 "{{ query.filter ? filtered.length + ' von ' + triggers.length : triggers."
-"length }} Triggern."
+"length }} Trigger."
 
 #: client/components/locations/users/_index.html:28
 msgid ""
@@ -10492,7 +10493,7 @@ msgid ""
 "Users."
 msgstr ""
 "{{ query.filter ? filtered.length + ' von ' + users.length : users.length }} "
-"Benutzern."
+"Benutzer."
 
 #: client/components/vouchers/_index.html:83
 msgid ""
@@ -10500,7 +10501,7 @@ msgid ""
 "length }} Vouchers."
 msgstr ""
 "{{ query.filter ? filtered.length + ' von ' + vouchers.length : vouchers."
-"length }} Gutscheinen."
+"length }} Gutscheine."
 
 #: client/components/zones/_index.html:56
 msgid ""
@@ -10568,7 +10569,7 @@ msgstr ""
 
 #: client/components/locations/users/_index.html:75
 msgid "{{ user.primary ? \"Owner\" : (user.role_id | roleFilter) }}"
-msgstr "{{ user.primary ? \"Besitzer\" : (user.role_id | roleFilter) }}"
+msgstr "{{ user.primary ? \"Eigentümer\" : (user.role_id | roleFilter) }}"
 
 #: client/components/zones/_associated_zones_dialog.html:11
 msgid "{{ zone.zone_name | titleCase }} Zone"
