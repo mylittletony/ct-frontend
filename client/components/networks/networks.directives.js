@@ -528,6 +528,17 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
       }
     });
 
+    // Duplicated Find a way to create as directive / filter //
+    scope.FilterPattern = (function() {
+      // var regexp = /^[^\'\"\\]*$/; // includes "
+      var regexp = /^[^\'\\]*$/;
+      return {
+        test: function(value) {
+          return regexp.test(value);
+        }
+      };
+    })();
+
     init();
   };
 
