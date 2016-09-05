@@ -586,8 +586,8 @@
       </md-card-title>
       <md-card-content>
         <md-switch ng-model="splash.splash.show_welcome" aria-label="show_welcome" style="margin: 0px 0 20px 0">
-          <span ng-if="splash.splash.hide_terms == true" translate>Welcome Page Enabled</span>
-          <span ng-if="splash.splash.hide_terms == false" translate>Welcome Page Disabled</span>
+          <span ng-show="splash.splash.show_welcome == true" translate>Welcome Page Enabled</span>
+          <span ng-show="splash.splash.show_welcome == false" translate>Welcome Page Disabled</span>
         </md-switch>
 
         <md-input-container class="md-block">
