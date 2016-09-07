@@ -387,6 +387,9 @@ table tr td, table.print-friendly tr th {
 /* } */
 
 .copy {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
   color: #ccc;
   font-size: 90%;
 }
