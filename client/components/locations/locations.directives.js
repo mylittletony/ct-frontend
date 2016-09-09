@@ -958,7 +958,7 @@ break;
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
         .title(gettextCatalog.getString('Delete This Device Permanently?'))
-        .textContent(gettextCatalog.getString('Please becareful, this cannot be reversed.'))
+        .textContent(gettextCatalog.getString('Please be careful, this cannot be reversed.'))
         .ariaLabel(gettextCatalog.getString('Lucky day'))
         .targetEvent(ev)
         .ok(gettextCatalog.getString('Delete it'))
