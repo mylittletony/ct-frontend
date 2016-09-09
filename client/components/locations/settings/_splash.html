@@ -1,8 +1,5 @@
 <div ng-include="'components/locations/settings/_settings_header.html'"></div>
-
-          <!-- <form name="myForm" submit="update(myForm)"> -->
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
-
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
       <md-card>
@@ -16,36 +13,20 @@
             </span>
           </md-card-title-text>
         </md-card-title>
-
         <md-card-content>
-            <div layout="row" layout-wrap>
-              <md-input-container flex-gt-sm="50">
-                <label>
-                  <translate>Location Splash Limit</translate>
-                </label>
-                <input ng-model="location.splash_limit" name="splash_limit" type="number" ng-min=0 ng-max=1000000>
-                <div ng-messages="myForm.splash_limit.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 1,000,000</div>
-                  <div ng-message="min" translate>Must be greater than 0</div>
-                  <div ng-message="required" translate>You must enter a splash limit.</div>
-                </div>
-              </md-input-container>
-              <md-switch ng-model="location.tagged_logins" aria-label="{{ 'Tagged Logins' | translate }}" flex="100" flex-gt-sm="100">
-                <span ng-if="location.tagged_logins == true" translate>Tagged Logins Enabled</span>
-                <span ng-if="location.tagged_logins == false" translate>Tagged Logins Disabled</span>
-              </md-switch>
-            </div>
+          <div layout="row" layout-wrap>
+            <md-switch ng-model="location.tagged_logins" aria-label="{{ 'Tagged Logins' | translate }}" flex="100" flex-gt-sm="100">
+              <span ng-if="location.tagged_logins == true" translate>Tagged Logins Enabled</span>
+              <span ng-if="location.tagged_logins == false" translate>Tagged Logins Disabled</span>
+            </md-switch>
+          </div>
         </md-card-content>
       </md-card>
       <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
         <translate>
-          Save
+        Save
         </translate>
       </md-button>
-
     </div>
-
   </div>
-
 </md-content>
-          <!-- </form> -->
