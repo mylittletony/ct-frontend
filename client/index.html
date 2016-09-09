@@ -86,7 +86,7 @@
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item ng-repeat="item in vm.menu.main">
-                <md-button href='{{item.link}}'>
+                <md-button href='{{item.link}}' ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
                   {{ item.title }}
                 </md-button>
@@ -107,14 +107,14 @@
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item>
-                <md-button ng-href="/#/me" >
+                <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
                   <span translate>Account</span>
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
               <md-menu-item>
-                <md-button ng-href="/#/users" >
+                <md-button ng-href="/#/users" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">people</md-icon>
                   <span translate>Manage Users</span>
                 </md-button>
@@ -134,14 +134,14 @@
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
               <md-menu-item>
-                <md-button href="/#/downloads" >
+                <md-button href="/#/downloads" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">get_app</md-icon>
                   <span translate>Downloads</span>
                 </md-button>
               </md-menu-item>
 
               <md-menu-item>
-                <md-button href="/#/apps" >
+                <md-button href="/#/apps" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">build</md-icon>
                   <span translate>Developer</span>
                 </md-button>
