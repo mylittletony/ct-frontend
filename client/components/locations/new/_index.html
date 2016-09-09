@@ -72,6 +72,12 @@
                   <div ng-message="required" translate>Postcode required.</div>
                 </div>
               </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="60">
+                <label>
+                  <translate>Country</translate>
+                </label>
+                <country-select country="location.country"></country-select>
+              </md-input-container>
               <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public' | translate }}" class="md-warn" flex="100" flex-gt-sm="50">
                 <span ng-if="location.add_to_global_map == true" translate>This is a public location</span>
                 <span ng-if="location.add_to_global_map == false" translate>This is a private location</span>

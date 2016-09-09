@@ -227,13 +227,13 @@
                 </h2>
               </li>
             </ul>
-
-            <div layout="row" layout-align="end" class="copy" hide show-gt-md>
-              <small>
-                <translate>Privacy Policy - Terms of Service</translate><br>
-                ©2016 Cucumber Tony.<br>Build #{{ commit }}</small>
-            </div>
+            
           </md-content>
+          <div layout="row" layout-padding layout-align="start end" class="copy" hide show-gt-md>
+            <small>
+              <translate>Privacy Policy - Terms of Service</translate><br>
+              ©2016 Cucumber Tony.<br>Build #{{ commit }}</small>
+          </div>
         </md-sidenav>
         <md-content flex>
           <div ng-view autoscroll="true" ng-class="{'hidden': notFound}"></div>
