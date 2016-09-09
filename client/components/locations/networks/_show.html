@@ -90,7 +90,7 @@
           <div flex-gt-sm="40">
             <div layout="row" layout-wrap>
 
-              <md-input-container class="md-block" flex="80">
+              <md-input-container class="md-block" flex="60">
                 <label>
                   <translate>IP Address</translate>
                 </label>
@@ -101,13 +101,13 @@
                 </div>
               </md-input-container>
 
-              <md-input-container class="md-block" flex="20">
+              <md-input-container class="md-block" flex="40">
                 <label>
                   <translate>Netmask</translate>
                 </label>
                 <md-select ng-disabled="network.make_part_of_lan || network.network_radio_mode == 'sta'" ng-model="network.interface_netmask">
-                  <md-option ng-repeat="val in netmasks">
-                    {{val}}
+                  <md-option ng-repeat="netmask in netmasks" ng-value="netmask.abbrev">
+                    {{netmask.abbrev}}
                   </md-option>
                 </md-select>
               </md-input-container>
@@ -162,7 +162,7 @@
                   <translate>Content Filtering</translate>
                 </label>
                 <md-select ng-disabled="network.make_part_of_lan == true || network.network_radio_mode == 'sta'" ng-model="network.content_filter">
-                  <md-option ng-repeat="val in content_filters">
+                  <md-option ng-repeat="val in content_filters" ng-value="val">
                     {{val}}
                   </md-option>
                 </md-select>

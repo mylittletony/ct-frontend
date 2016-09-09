@@ -304,7 +304,9 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.encryptions = {'None': 'none', 'WPA2': 'psk2'};
     scope.content_filters = [gettextCatalog.getString('Danger'), gettextCatalog.getString('Adult'), gettextCatalog.getString('Security'), gettextCatalog.getString('Family'), gettextCatalog.getString('Off')];
-    scope.netmasks = [8,12,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,32];
+    scope.netmasks = ('8 12 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 32').split(' ').map(function (netmask) { 
+      return { abbrev: netmask }; 
+    });
 
     // User Permissions //
     var createMenu = function() {
