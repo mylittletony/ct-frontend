@@ -22,25 +22,27 @@
             </div>
           </md-input-container>
 
-          <md-input-container class="block">
-            <label><translate>Apply To</translate></label>
-            <md-select ng-model="gp.group_type">
-              <md-option ng-repeat="layer in layers" value="{{layer.value}}">
-                {{layer.key}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+          <div ng-hide="gp.id">
+            <md-input-container class="block">
+              <label><translate>Apply To</translate></label>
+              <md-select ng-model="gp.group_type">
+                <md-option ng-repeat="layer in layers" value="{{layer.value}}">
+                  {{layer.key}}
+                </md-option>
+              </md-select>
+            </md-input-container>
 
-          <md-input-container class="block">
-            <label><translate>Policy</translate></label>
-            <md-select ng-model="gp.policy">
-              <md-option ng-repeat="policy in policies" value="{{policy.value}}" ng-disabled="(gp.group_type == 'layer2' && policy.value != 'block') || (gp.group_type == 'splash' && policy.value == 'filter')">
-                {{policy.key}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <div ng-show='loadingLevels'>
-            <md-progress-linear md-mode="query"></md-progress-linear>
+            <md-input-container class="block">
+              <label><translate>Policy</translate></label>
+              <md-select ng-model="gp.policy">
+                <md-option ng-repeat="policy in policies" value="{{policy.value}}" ng-disabled="(gp.group_type == 'layer2' && policy.value != 'block') || (gp.group_type == 'splash' && policy.value == 'filter')">
+                  {{policy.key}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <div ng-show='loadingLevels'>
+              <md-progress-linear md-mode="query"></md-progress-linear>
+            </div>
           </div>
 
         </div>

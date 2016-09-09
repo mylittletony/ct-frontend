@@ -73,9 +73,10 @@
                 <label>
                   <translate>Validity Minutes</translate>
                 </label>
-                <input type="number" ng-model="code.volume" placeholder="" name="volume" ng-min="10" required>
+                <input type="number" ng-model="code.volume" placeholder="" name="volume" ng-min="10" ng-max="43200" required>
                 <div ng-messages="myForm.volume.$error">
                   <div ng-message="minlength" translate>Must be greater than 10 minutes</div>
+                  <div ng-message="max" translate>Must be less than 43200 minutes</div>
                   <div ng-message="required" translate>You must set the validity minutes</div>
                 </div>
               </md-input-container>
