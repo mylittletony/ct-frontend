@@ -16,4 +16,9 @@ fi
 
 yes | grunt buildcontrol:$CIRCLE_BRANCH
 
+if [ "${CIRCLE_BRANCH}" == "master" ]
+then
+  yes | grunt buildcontrol:usa
+fi
+
 echo "...done."
