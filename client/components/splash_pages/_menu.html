@@ -623,7 +623,7 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline" translate>Terms & Conditions</span>
+          <span class="md-headline"><translate>Terms &amp; Conditions</translate></span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -638,8 +638,8 @@
           </div>
         </md-input-container>
         <md-switch ng-model="splash.splash.hide_terms" aria-label="{{'Switch 1' | translate }}" ng-false-value="true" ng-true-value="false" style="margin-top: -30px">
-          <span ng-if="splash.splash.hide_terms == true" translate>Terms & Conditions Hidden</span>
-          <span ng-if="splash.splash.hide_terms == false" translate>Terms & Conditions Visible</span>
+          <span ng-if="splash.splash.hide_terms == true" translate>Terms &amp; Conditions Hidden</span>
+          <span ng-if="splash.splash.hide_terms == false" translate>Terms &amp; Conditions Visible</span>
 
         </md-switch>
         <md-divider ng-if="!$last"></md-divider>
@@ -691,7 +691,7 @@
           <label>
             <translate>External CSS</translate>
           </label>
-          <input ng-model="splash.external_css" placeholder="{{'External CSS' | translate }}" type='text' name="external_css" md-maxlength='255'></input>
+          <input ng-model="splash.splash.external_css" placeholder="{{'External CSS' | translate }}" type='text' name="external_css" md-maxlength='255'></input>
           <div ng-messages="myForm.external_css.$error">
             <div ng-message="md-maxlength" translate>Must be less than 255 characters.</div>
           </div>

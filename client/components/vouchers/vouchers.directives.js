@@ -288,7 +288,8 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
       });
     }
 
-    scope.save = function() {
+    scope.save = function(form) {
+      form.$setPristine();
       Voucher.create({location_id: scope.location.slug, voucher: scope.voucher}).$promise.then(function(results) {
         $location.path('/locations/'+ scope.location.slug + '/vouchers/' + results.unique_id);
         showToast(gettextCatalog.getString('Voucher created successfully'));

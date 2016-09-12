@@ -26,10 +26,10 @@
                 <label>
                   <translate>Send Offline Alert After (mins)</translate>
                 </label>
-                <input type="number" name="alert_interval" ng-model="location.alert_interval" placeholder="10" ng-min="1" ng-max='10080' required/>
+                <input type="number" name="alert_interval" ng-model="location.alert_interval" placeholder="10" ng-min="0" ng-max='10080' required/>
                 <div ng-messages="myForm.alert_interval.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 10,080 minutes</div>
-                  <div ng-message="min" translate>Must be greater than 1 minutes</div>
+                  <div ng-message="min" translate>Must be greater than 5 minutes</div>
                   <div ng-message="required" translate>You must enter an alert interval.</div>
                 </div>
               </md-input-container>
