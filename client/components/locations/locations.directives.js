@@ -438,22 +438,28 @@ app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 's
       }
     };
 
-    var setProject = function() {
-      if ($routeParams.project) {
-        var name = $routeParams.project;
-        for (var i = 0, len = scope.projects.length; i < len; i++) {
-          if (scope.projects[i].project_name === name) {
-            scope.location.project_id = scope.projects[i].id;
-            break;
+    var setProject = function(projects) {
+      var project = $routeParams.project;
+      if (projects.length > 0) {
+        scope.projects = [];
+        for (var i = 0, len = projects.length; i < len; i++) {
+          if (projects[i].type === 'rw' ) {
+            scope.projects.push(projects[i]);
+            if (project && projects[i].project_name === project) {
+              scope.location.project_id = projects[i].id;
+            }
           }
+        }
+        if ((scope.projects.length === 1) ||
+            (scope.projects.length > 1 && !scope.location.project_id)) {
+          scope.location.project_id = scope.projects[0].id;
         }
       }
     };
 
     var init = function() {
       Project.get({}).$promise.then(function(results) {
-        scope.projects = results.projects;
-        setProject();
+        setProject(results.projects);
         scope.loading = undefined;
       }, function(err) {
         scope.loading = undefined;
@@ -519,7 +525,7 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
     // };
 
     // scope.updatePage = function(item) {
-      
+
     // };
 
     var channel;

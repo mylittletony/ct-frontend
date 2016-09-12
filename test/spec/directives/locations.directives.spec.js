@@ -62,16 +62,75 @@ describe('location tests', function () {
       spyOn(locationFactory, 'users').and.callThrough();
     });
 
-    it("should create a location and redirect", function() {
+    fit("should load the correct projects", function() {
       expect(element.isolateScope().loading).toEqual(true);
       spyOn(projectFactory, 'get').and.callThrough();
 
-      var results = {projects: [{project_name: 'cheesy-balls', id: 1}]};
+      var results = {
+        projects:
+          [
+            {
+              project_name: 'cheesy-puffs', id: 1, type: 'ro'
+            },
+            {
+              project_name: 'cheesy-balls', id: 2, type: 'rw'
+            }
+          ]
+      };
       deferred.resolve(results);
       $scope.$digest();
 
       expect(element.isolateScope().loading).toEqual(undefined);
       expect(element.isolateScope().projects[0].project_name).toEqual('cheesy-balls');
+      expect(element.isolateScope().projects.length).toEqual(1);
+      expect(element.isolateScope().location.project_id).toEqual(2);
+    });
+
+    fit("should set the project_id to the only project available", function() {
+      expect(element.isolateScope().loading).toEqual(true);
+      spyOn(projectFactory, 'get').and.callThrough();
+
+      var results = {
+        projects:
+          [
+            {
+              project_name: 'cheesy-sticks', id: 1, type: 'ro'
+            },
+            {
+              project_name: 'cheesy-biscuits', id: 2, type: 'rw'
+            }
+          ]
+      };
+      deferred.resolve(results);
+      $scope.$digest();
+
+      expect(element.isolateScope().loading).toEqual(undefined);
+      expect(element.isolateScope().projects[0].project_name).toEqual('cheesy-biscuits');
+      expect(element.isolateScope().projects.length).toEqual(1);
+      expect(element.isolateScope().location.project_id).toEqual(2);
+    });
+
+    fit("should set the project id to the first one if none selected", function() {
+      expect(element.isolateScope().loading).toEqual(true);
+      spyOn(projectFactory, 'get').and.callThrough();
+
+      var results = {
+        projects:
+          [
+            {
+              project_name: 'cheesy-sticks', id: 1, type: 'rw'
+            },
+            {
+              project_name: 'cheesy-biscuits', id: 2, type: 'rw'
+            }
+          ]
+      };
+      deferred.resolve(results);
+      $scope.$digest();
+
+      expect(element.isolateScope().loading).toEqual(undefined);
+      expect(element.isolateScope().projects[0].project_name).toEqual('cheesy-sticks');
+      expect(element.isolateScope().projects.length).toEqual(2);
       expect(element.isolateScope().location.project_id).toEqual(1);
     });
 
