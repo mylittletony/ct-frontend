@@ -36,7 +36,7 @@ describe('location tests', function () {
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
   }));
 
-  fdescribe('creation of a location', function() {
+  describe('creation of a location', function() {
     beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector, _$location_) {
       $location = _$location_;
       $scope = $rootScope;
@@ -62,7 +62,7 @@ describe('location tests', function () {
       spyOn(locationFactory, 'users').and.callThrough();
     });
 
-    fit("should load the correct projects", function() {
+    it("should load the correct projects", function() {
       expect(element.isolateScope().loading).toEqual(true);
       spyOn(projectFactory, 'get').and.callThrough();
 
@@ -86,7 +86,7 @@ describe('location tests', function () {
       expect(element.isolateScope().location.project_id).toEqual(2);
     });
 
-    fit("should set the project_id to the only project available", function() {
+    it("should set the project_id to the only project available", function() {
       expect(element.isolateScope().loading).toEqual(true);
       spyOn(projectFactory, 'get').and.callThrough();
 
@@ -110,7 +110,7 @@ describe('location tests', function () {
       expect(element.isolateScope().location.project_id).toEqual(2);
     });
 
-    fit("should set the project id to the first one if none selected", function() {
+    it("should set the project id to the first one if none selected", function() {
       expect(element.isolateScope().loading).toEqual(true);
       spyOn(projectFactory, 'get').and.callThrough();
 

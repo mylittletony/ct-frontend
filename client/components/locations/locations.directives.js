@@ -438,18 +438,23 @@ app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 's
       }
     };
 
-    var setProject = function(projects) {
-      var project = $routeParams.project;
-      if (projects.length > 0) {
-        scope.projects = [];
-        for (var i = 0, len = projects.length; i < len; i++) {
-          if (projects[i].type === 'rw' ) {
-            scope.projects.push(projects[i]);
-            if (project && projects[i].project_name === project) {
-              scope.location.project_id = projects[i].id;
-            }
+    var project;
+    var setProjects = function(projects) {
+      for (var i = 0, len = projects.length; i < len; i++) {
+        if (projects[i].type === 'rw' ) {
+          scope.projects.push(projects[i]);
+          if (project && projects[i].project_name === project) {
+            scope.location.project_id = projects[i].id;
           }
         }
+      }
+    };
+
+    var setProject = function(projects) {
+      project = $routeParams.project;
+      if (projects.length > 0) {
+        scope.projects = [];
+        setProjects(projects);
         if ((scope.projects.length === 1) ||
             (scope.projects.length > 1 && !scope.location.project_id)) {
           scope.location.project_id = scope.projects[0].id;
@@ -1367,7 +1372,6 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
     var id = $routeParams.id;
     var init = function() {
-
       $scope.loading  = undefined;
       slug = $scope.location.slug; // used to check for location name change
       allowedUser();
@@ -1406,7 +1410,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
 }]);
 
-app.directive('locationSettingsMain', ['moment', function(moment) {
+app.directive('locationSettingsMain', ['moment', 'Project', function(moment, Project) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -1420,6 +1424,26 @@ app.directive('locationSettingsMain', ['moment', function(moment) {
       controller.back();
     };
 
+    // var setProjectName = function() {
+    //   if (scope.projects.length > 0 && scope.location.project_id) {
+    //     for (var i = 0, len = scope.projects.length; i < len; i++) {
+    //       if (scope.location.project_id === scope.projects[i].id) {
+    //         scope.location.project_name = scope.projects[i].project_name;
+    //         break;
+    //       }
+    //     }
+    //   }
+    // };
+
+    // Needs test
+    var init = function() {
+      Project.get({}).$promise.then(function(results) {
+        scope.projects = results.projects;
+        // setProjectName();
+      });
+    };
+
+    init();
   };
 
   return {
