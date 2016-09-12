@@ -395,11 +395,12 @@ app.directive('locationShortlist', function() {
   };
 });
 
-app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', 'BrandName', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog, BrandName) {
+app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', 'BrandName', function(Location, Project, $location, menu, showErrors, showToast, $routeParams, gettextCatalog, BrandName) {
 
   var link = function( scope, element, attrs ) {
 
-    menu.isOpen     = false;
+    scope.loading = true;
+    menu.isOpen = false;
     menu.hideBurger = true;
     scope.brand = BrandName;
     scope.location  = {
@@ -414,7 +415,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
     };
 
     var updateCT = function(location) {
-      location.account_id = attrs.accountId;
       location.brand_id = scope.brand.id;
       Location.save({
         location: location,
@@ -438,13 +438,36 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       }
     };
 
+    var setProject = function() {
+      if ($routeParams.project) {
+        var name = $routeParams.project;
+        for (var i = 0, len = scope.projects.length; i < len; i++) {
+          if (scope.projects[i].project_name === name) {
+            scope.location.project_id = scope.projects[i].id;
+            break;
+          }
+        }
+      }
+    };
+
+    var init = function() {
+      Project.get({}).$promise.then(function(results) {
+        scope.projects = results.projects;
+        setProject();
+        scope.loading = undefined;
+      }, function(err) {
+        scope.loading = undefined;
+      });
+    };
+
+    init();
   };
 
   return {
     link: link,
     restrict: 'E',
     scope: {
-      accountId: '@'
+      // accountId: '@'
     },
     templateUrl: 'components/locations/new/_index.html'
   };

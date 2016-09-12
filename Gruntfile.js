@@ -24,7 +24,6 @@ module.exports = function (grunt) {
 
   var exec = require('sync-exec');
   var commitHash = exec('git log --pretty=format:"%h" -n 1');
-  // var commitDate = exec('git log --pretty=format:"%ci" -n 1');
   var config = _.merge(defaultConfig, localConfig);
 
   grunt.loadNpmTasks('grunt-karma');

@@ -29,7 +29,6 @@ module.exports = {
             DEBUG: true,
             COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
             COMMITHASH: commitHash.stdout,
-            COMMITDATE: commitDate.stdout
         }
     },
     // Server configuration.

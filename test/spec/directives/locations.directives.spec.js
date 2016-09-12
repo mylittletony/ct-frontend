@@ -2,12 +2,22 @@
 
 describe('location tests', function () {
 
-  var $scope, element, $routeParams, locationFactory, q, deferred, $httpBackend;
+  var $scope, element, $routeParams, projectFactory, locationFactory, q, deferred, $httpBackend, $location;
 
   beforeEach(module('templates'));
 
   beforeEach(module('myApp', function($provide) {
+    projectFactory = {
+      get: function () {
+        deferred = q.defer();
+        return {$promise: deferred.promise};
+      },
+    };
     locationFactory = {
+      save: function () {
+        deferred = q.defer();
+        return {$promise: deferred.promise};
+      },
       query: function () {
         deferred = q.defer();
         return {$promise: deferred.promise};
@@ -18,12 +28,54 @@ describe('location tests', function () {
       }
     };
     $provide.value("Location", locationFactory);
+    $provide.value("Project", projectFactory);
   }));
 
   beforeEach(inject(function($injector) {
     $httpBackend = $injector.get('$httpBackend');
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
   }));
+
+  fdescribe('creation of a location', function() {
+    beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector, _$location_) {
+      $location = _$location_;
+      $scope = $rootScope;
+      q = $q;
+
+      $routeParams = _$routeParams_;
+      $routeParams.name    = 'cheese balls';
+      $routeParams.project = 'cheesy-balls';
+
+      $scope.location = {}
+      var elem = angular.element('<new-location-form></new-location-form>');
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
+    }));
+
+    it("should set up a default location", function() {
+      expect(element.isolateScope().loading).toEqual(true);
+      expect(element.isolateScope().location.add_to_global_map).toEqual(false);
+      expect(element.isolateScope().location.location_name).toEqual('cheese balls');
+    });
+
+    it("should fetch the user's projects yeah", function() {
+      spyOn(locationFactory, 'users').and.callThrough();
+    });
+
+    it("should create a location and redirect", function() {
+      expect(element.isolateScope().loading).toEqual(true);
+      spyOn(projectFactory, 'get').and.callThrough();
+
+      var results = {projects: [{project_name: 'cheesy-balls', id: 1}]};
+      deferred.resolve(results);
+      $scope.$digest();
+
+      expect(element.isolateScope().loading).toEqual(undefined);
+      expect(element.isolateScope().projects[0].project_name).toEqual('cheesy-balls');
+      expect(element.isolateScope().location.project_id).toEqual(1);
+    });
+
+  });
 
   describe('creation of users for a location', function() {
     beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {

@@ -57,8 +57,6 @@ describe("Project Unit Tests", function() {
     $httpBackend.expectDELETE('http://mywifi.dev:8080/api/v1/projects/123')
     $httpBackend.flush();
   });
-
-
 })
 
 describe("Project User Unit Tests", function() {
