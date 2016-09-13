@@ -57,7 +57,7 @@ describe('brands', function () {
 
     it("should set the default scope vars", function() {
       spyOn(brandFactory, 'get').and.callThrough();
-      
+
       expect(element.isolateScope().brand.creating).toEqual(true);
       expect(element.isolateScope().brand.network_location).toEqual('eu-west');
       expect(element.isolateScope().locations.length).toEqual(4);
