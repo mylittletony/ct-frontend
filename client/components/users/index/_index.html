@@ -12,9 +12,7 @@
 </form>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-
   <div flex layout="column">
-
     <md-card>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
@@ -30,13 +28,13 @@
             </tr>
           </thead>
           <tbody md-body>
-          <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.direction)">
+            <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.direction)">
               <td md-cell>
                 <a ng-if="super" href="/#/users/{{ ::user.slug }}">
-                  {{ ::user.username | truncate:15 }}
+                  {{ ::user.username | truncate:20 }}
                 </a>
                 <span ng-if="!super">
-                  {{ ::user.username | truncate:15 }}
+                  {{ ::user.username | truncate:20 }}
                 </span>
                 <md-tooltip hide-gt-sm>
                   {{ ::user.email }}

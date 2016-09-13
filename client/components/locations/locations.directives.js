@@ -183,12 +183,12 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
           switch(item._index) {
             case 'locations':
               goLocation(item._key);
-              break;
-            case 'devices':
-              goDevice(item._key);
-              break;
-            default:
-              console.log(item._index);
+            break;
+          case 'devices':
+            goDevice(item._key);
+          break;
+        default:
+          console.log(item._index);
           }
         }
       }, 250);
@@ -307,12 +307,12 @@ app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', '
 
     scope.changeToken = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Are you sure you want to change the API Token?'))
-      .textContent(gettextCatalog.getString('This will revoke your existing credentials and cannot be reversed.'))
-      .ariaLabel(gettextCatalog.getString('Revoke'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('Revoke it'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(gettextCatalog.getString('Are you sure you want to change the API Token?'))
+        .textContent(gettextCatalog.getString('This will revoke your existing credentials and cannot be reversed.'))
+        .ariaLabel(gettextCatalog.getString('Revoke'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Revoke it'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         changeToken();
       });
@@ -579,13 +579,13 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
       switch(type) {
         case 'view':
           view(user);
-          break;
-        case 'revoke':
-          revoke(user);
-          break;
-        case 'edit':
-          edit(user);
-          break;
+        break;
+      case 'revoke':
+        revoke(user);
+      break;
+    case 'edit':
+      edit(user);
+    break;
       }
     };
 
@@ -913,23 +913,23 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       switch(type) {
         case 'reboot':
           reboot(box, 1);
-          break;
-        case 'payload':
-          payload(box);
-          break;
-        case 'zones':
-          zones(box);
-          break;
-        case 'resync':
-          resync(box);
-          break;
-        case 'delete':
-          destroy(box);
-          break;
+        break;
+      case 'payload':
+        payload(box);
+      break;
+    case 'zones':
+      zones(box);
+    break;
+  case 'resync':
+    resync(box);
+  break;
+case 'delete':
+  destroy(box);
+break;
         case 'edit':
           edit(box.slug);
-          break;
-        default:
+        break;
+      default:
       }
     };
 
@@ -939,12 +939,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var reboot = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Would you like to reboot this device?'))
-      .textContent(gettextCatalog.getString('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete'))
-      .ariaLabel(gettextCatalog.getString('Lucky day'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('Reboot it'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(gettextCatalog.getString('Would you like to reboot this device?'))
+        .textContent(gettextCatalog.getString('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete'))
+        .ariaLabel(gettextCatalog.getString('Lucky day'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Reboot it'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         rebootBox(box);
       });
@@ -967,12 +967,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var resync = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Resync The Configs for this Device?'))
-      .textContent(gettextCatalog.getString('This will disconnect your clients temporarily.'))
-      .ariaLabel(gettextCatalog.getString('Lucky day'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('Resync it'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(gettextCatalog.getString('Resync The Configs for this Device?'))
+        .textContent(gettextCatalog.getString('This will disconnect your clients temporarily.'))
+        .ariaLabel(gettextCatalog.getString('Lucky day'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Resync it'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         resyncBox(box);
       });
@@ -991,12 +991,12 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var destroy = function(box,ev) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Delete This Device Permanently?'))
-      .textContent(gettextCatalog.getString('Please becareful, this cannot be reversed.'))
-      .ariaLabel(gettextCatalog.getString('Lucky day'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('Delete it'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(gettextCatalog.getString('Delete This Device Permanently?'))
+        .textContent(gettextCatalog.getString('Please be careful, this cannot be reversed.'))
+        .ariaLabel(gettextCatalog.getString('Lucky day'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Delete it'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteBox(box);
         showToast(gettextCatalog.getString('Deleted device with mac {{address}}', {address: box.calledstationid}));
@@ -1082,11 +1082,11 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     scope.deleteDevices = function() {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Are you sure you want to delete these devices?'))
-      .textContent(gettextCatalog.getString('This cannot be undone.'))
-      .ariaLabel(gettextCatalog.getString('Delete'))
-      .ok(gettextCatalog.getString('delete'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(gettextCatalog.getString('Are you sure you want to delete these devices?'))
+        .textContent(gettextCatalog.getString('This cannot be undone.'))
+        .ariaLabel(gettextCatalog.getString('Delete'))
+        .ok(gettextCatalog.getString('delete'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         deleteDevices();
       });
@@ -1221,7 +1221,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
       // Write a message to the screen, yeah //
       var devices = gettextCatalog.getString('device zones'),
-          selectedLength = scope.selected.length;
+        selectedLength = scope.selected.length;
       if (scope.selected.length === 1) {
         devices = gettextCatalog.getString('device zone');
       }
@@ -1378,7 +1378,8 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
     };
 
     this.update = function (myform) {
-      myform.$setPristine();
+      // Doesn't work since we display the form via a template
+      // myform.$setPristine();
       Location.update({id: $scope.location.slug, location: $scope.location}, function(data) {
         if (slug !== data.slug) {
           $location.path('/locations/' + data.slug + '/settings');
@@ -1454,14 +1455,21 @@ app.directive('locationSettingsMain', ['moment', 'Project', function(moment, Pro
 
 }]);
 
-app.directive('locationSettingsNotifications', [function() {
+app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 
   var link = function( scope, element, attrs, controller ) {
+
+    function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
 
     scope.update = function (form) {
       var emails = [];
       for (var i = 0, len = scope.ctrl.emails.length; i < len; i++) {
-        emails.push(scope.ctrl.emails[i]);
+        if (validateEmail(scope.ctrl.emails[i])) {
+          emails.push(scope.ctrl.emails[i]);
+        }
       }
       scope.location.reports_emails = emails.join(',');
       controller.update(form);
@@ -1478,6 +1486,12 @@ app.directive('locationSettingsNotifications', [function() {
         }
       }
     };
+
+    // Prefer to watch atm //
+    var timer = $timeout(function() {
+      populateEmails();
+      $timeout.cancel(timer);
+    }, 250);
 
     scope.back = function() {
       controller.back();
@@ -1632,25 +1646,25 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       switch(type) {
         case 'delete':
           destroy();
-          break;
-        case 'transfer':
-          transfer();
-          break;
-        case 'archive':
-          archive();
-          break;
-        case 'notifications':
-          notifications();
-          break;
-        case 'devices':
-          devices();
-          break;
+        break;
+      case 'transfer':
+        transfer();
+      break;
+    case 'archive':
+      archive();
+    break;
+  case 'notifications':
+    notifications();
+  break;
+case 'devices':
+  devices();
+break;
         case 'splash':
           splash();
-          break;
-        case 'analytics':
-          analytics();
-          break;
+        break;
+      case 'analytics':
+        analytics();
+      break;
       }
     };
 
@@ -1664,12 +1678,12 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
         msg2 = gettextCatalog.getString('This will prevent users from logging in.');
       }
       var confirm = $mdDialog.confirm()
-      .title(msg)
-      .textContent(msg2)
-      .ariaLabel(gettextCatalog.getString('Archive'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('CONFIRM'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(msg)
+        .textContent(msg2)
+        .ariaLabel(gettextCatalog.getString('Archive'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('CONFIRM'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         updateLocation(scope.location.archived);
       });
@@ -1708,12 +1722,12 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
 
     var destroy = function(ev) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Are you sure you want to delete this location?'))
-      .textContent(gettextCatalog.getString('You cannot delete a location with session data.'))
-      .ariaLabel(gettextCatalog.getString('Archive'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('delete'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(gettextCatalog.getString('Are you sure you want to delete this location?'))
+        .textContent(gettextCatalog.getString('You cannot delete a location with session data.'))
+        .ariaLabel(gettextCatalog.getString('Archive'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('delete'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         destroyLocation();
       });
@@ -1942,10 +1956,10 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
       switch(type) {
         case 'view':
           view(location.slug);
-          break;
-        case 'remove':
-          remove(location.slug);
-          break;
+        break;
+      case 'remove':
+        remove(location.slug);
+      break;
       }
     };
 
@@ -1968,11 +1982,11 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
     var remove = function(id) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Remove From Favourites?'))
-      .textContent(gettextCatalog.getString('Are you sure you want to remove this location?'))
-      .ariaLabel(gettextCatalog.getString('Remove Location'))
-      .ok(gettextCatalog.getString('Ok'))
-      .cancel(gettextCatalog.getString('Cancel'));
+        .title(gettextCatalog.getString('Remove From Favourites?'))
+        .textContent(gettextCatalog.getString('Are you sure you want to remove this location?'))
+        .ariaLabel(gettextCatalog.getString('Remove Location'))
+        .ok(gettextCatalog.getString('Ok'))
+        .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
         removeFav(id);
       });
