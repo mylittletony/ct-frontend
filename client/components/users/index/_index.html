@@ -24,7 +24,7 @@
               <th hide show-gt-sm md-column md-order-by="email"><translate>Email</translate></th>
               <th hide show-gt-sm md-column md-order-by="role_id"><translate>Role</translate></th>
               <th hide show-gt-sm md-column><translate>Created</translate></th>
-              <th hide show-gt-sm md-column><translate>Last Seen</translate></th>
+              <th hide show-gt-md md-column><translate>Last Seen</translate></th>
               <th md-column ng-show="menu.length"><translate>Action</translate></th>
             </tr>
           </thead>
@@ -45,12 +45,12 @@
                 {{ ::user.email }}
               </td>
               <td hide show-gt-sm md-cell>
-                {{ user.role_id | roleFilter }}
+                {{ user.brand_user.role_id | roleFilter }}
               </td>
               <td hide show-gt-sm md-cell>
                 {{ ::(user.created_at | humanTime) }}
               </td>
-              <td hide show-gt-sm md-cell>
+              <td hide show-gt-md md-cell>
                 {{ ::(user.last_sign_in_at | humanTime) }}
               </td>
               <td md-cell ng-show="menu.length">
