@@ -138,7 +138,7 @@
                   <translate>Timezone</translate>
                 </label>
                 <md-select ng-model="location.timezone">
-                  <md-option ng-repeat="zone in timezones">
+                  <md-option ng-repeat="zone in timezones" ng-value="zone">
                     {{zone}}
                   </md-option>
                 </md-select>
