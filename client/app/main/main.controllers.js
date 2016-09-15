@@ -341,6 +341,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         if (Auth.currentUser() && Auth.currentUser().url !== null) {
           sub = Auth.currentUser().url;
         }
+
         Brand.query({
           id: sub,
           cname: cname,
