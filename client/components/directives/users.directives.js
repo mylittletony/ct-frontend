@@ -1165,7 +1165,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       });
       scope.menu.push({
         type: 'revoke',
-        name: gettextCatalog.getString('Delete'),
+        name: gettextCatalog.getString('Revoke'),
         icon: 'delete_forever'
       });
     };
@@ -1209,8 +1209,8 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var destroy = function(user) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Remove this user?'))
-      .textContent(gettextCatalog.getString('This will revoke the user from all your locations'))
+      .title(gettextCatalog.getString('Revoke this user?'))
+      .textContent(gettextCatalog.getString('This will revoke the user\'s permissions. It does not remove the user completely'))
       .ariaLabel(gettextCatalog.getString('Remove'))
       .ok(gettextCatalog.getString('Delete'))
       .cancel(gettextCatalog.getString('Cancel'));
@@ -1221,13 +1221,13 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var updateRole = function(user) {
       BrandUser.update({
+        id: user.brand_user.id,
         brand_user: {
-          user_id: user.id,
-          role_id: user.role_id
+          role_id: user.brand_user.role_id
         },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
-        showToast('User successfully updated.');
+        showToast('User successfully revoked.');
       }, function(err) {
         showErrors(err);
         scope.loading = undefined;
@@ -1236,13 +1236,14 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var removeUser = function(user) {
       BrandUser.destroy({
+        id: user.brand_user.id,
         brand_user: {
-          user_id: user.id,
-          role_id: user.role_id
+          role_id: user.brand_user.role_id
         },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
-        removeFromList(user.id);
+        user.brand_user = undefined;
+        // removeFromList(user.id);
         showToast('User successfully updated.');
       }, function(err) {
         showErrors(err);

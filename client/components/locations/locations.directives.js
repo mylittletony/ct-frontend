@@ -395,11 +395,12 @@ app.directive('locationShortlist', function() {
   };
 });
 
-app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', 'BrandName', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog, BrandName) {
+app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', 'BrandName', function(Location, Project, $location, menu, showErrors, showToast, $routeParams, gettextCatalog, BrandName) {
 
   var link = function( scope, element, attrs ) {
 
-    menu.isOpen     = false;
+    scope.loading = true;
+    menu.isOpen = false;
     menu.hideBurger = true;
     scope.brand = BrandName;
     scope.location  = {
@@ -414,7 +415,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
     };
 
     var updateCT = function(location) {
-      location.account_id = attrs.accountId;
       location.brand_id = scope.brand.id;
       Location.save({
         location: location,
@@ -438,13 +438,47 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       }
     };
 
+    var project;
+    var setProjects = function(projects) {
+      for (var i = 0, len = projects.length; i < len; i++) {
+        if (projects[i].type === 'rw' ) {
+          scope.projects.push(projects[i]);
+          if (project && projects[i].project_name === project) {
+            scope.location.project_id = projects[i].id;
+          }
+        }
+      }
+    };
+
+    var setProject = function(projects) {
+      project = $routeParams.project;
+      if (projects.length > 0) {
+        scope.projects = [];
+        setProjects(projects);
+        if ((scope.projects.length === 1) ||
+            (scope.projects.length > 1 && !scope.location.project_id)) {
+          scope.location.project_id = scope.projects[0].id;
+        }
+      }
+    };
+
+    var init = function() {
+      Project.get({}).$promise.then(function(results) {
+        setProject(results.projects);
+        scope.loading = undefined;
+      }, function(err) {
+        scope.loading = undefined;
+      });
+    };
+
+    init();
   };
 
   return {
     link: link,
     restrict: 'E',
     scope: {
-      accountId: '@'
+      // accountId: '@'
     },
     templateUrl: 'components/locations/new/_index.html'
   };
@@ -1338,7 +1372,6 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
     var id = $routeParams.id;
     var init = function() {
-
       $scope.loading  = undefined;
       slug = $scope.location.slug; // used to check for location name change
       allowedUser();
@@ -1378,7 +1411,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
 }]);
 
-app.directive('locationSettingsMain', ['moment', function(moment) {
+app.directive('locationSettingsMain', ['moment', 'Project', function(moment, Project) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -1392,6 +1425,26 @@ app.directive('locationSettingsMain', ['moment', function(moment) {
       controller.back();
     };
 
+    // var setProjectName = function() {
+    //   if (scope.projects.length > 0 && scope.location.project_id) {
+    //     for (var i = 0, len = scope.projects.length; i < len; i++) {
+    //       if (scope.location.project_id === scope.projects[i].id) {
+    //         scope.location.project_name = scope.projects[i].project_name;
+    //         break;
+    //       }
+    //     }
+    //   }
+    // };
+
+    // Needs test
+    var init = function() {
+      Project.get({}).$promise.then(function(results) {
+        scope.projects = results.projects;
+        // setProjectName();
+      });
+    };
+
+    init();
   };
 
   return {

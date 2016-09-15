@@ -34,6 +34,7 @@ var app = angular.module('myApp.services', [
   'myApp.payloads.services',
   'myApp.plans.services',
   'myApp.port_forwards.services',
+  'myApp.projects.services',
   'myApp.social.services',
   'myApp.quotas.services',
   'myApp.reports.services',
