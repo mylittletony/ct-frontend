@@ -204,68 +204,73 @@ app.factory('Inventory', ['$resource', 'API_END_POINT',
   );
 }]);
 
-app.factory('Translate', ['Auth', 'gettextCatalog', function(Auth, gettextCatalog) {
+app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($cookies, gettextCatalog, amMoment) {
   
-  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
-  var language, userLocale;
+  //var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
+  var supported = {'en_GB': true, 'de_DE': true};
+  var language, userLocale, amLocale;
 
   function fixLocale(locale) {
     if (!locale) {
       return undefined;
     }
-    locale = Auth.currentUser().locale.split('-');
-    var language = locale[0],
-      country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
 
-    return country === undefined ? language : [language, country].join('_');
+    var intermediate = locale.split('-');
+    locale = intermediate[0];
+
+    if (locale === 'en') {
+      return 'en_GB';
+    } else if (locale === 'de') {
+      return 'de_DE';
+    } else {
+      return undefined;
+    }
   }
 
   function setLanguage() {
-    for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
-      var lang = navigator.languages[i].substr(0, 5);
+    for (var i = 0;  language === undefined && navigator.languages !== null && i < navigator.languages.length; ++i) {
+      var lang = navigator.languages[i].substr(0, 2);
       language = fixLocale(lang);
       if (supported[lang]) {
         language = lang;
       }
-      if (!supported[lang]) {
-        var localeArr = lang.split('-'),
-          browserLang = localeArr[0];
-        for (var l in supported) {
-          if (l.indexOf(browserLang) !== -1) {
-            language = l;
-          }
-        }
-      }
-    }
-  }
-
-  function setLocale(val) {
-    if (val) {
-      userLocale = val;
-    } else if (Auth.currentUser() && Auth.currentUser().locale) {
-      userLocale =  Auth.currentUser().locale;
     }
   }
 
   var _load = function() {
 
-    setLocale();
+    userLocale =  $cookies.get('locale');
 
     language = fixLocale(userLocale);
 
-    setLanguage();
+    //if the cookie is empty try if one of
+    //the user's browser language preferences
+    //is supperted
+    if (language === undefined) {
+      setLanguage();
+    }
 
+    //if the user's browser language preferences
+    //are not supported languages
+    //fall back to english
     if (!supported[language]) {
       language = 'en_GB';
     }
 
+    //don't forget to add angular moment's 
+    //language.json files to index.html
+    //when more language are supported 
+    //(for now it's just en and de)
+    var intermediate = language.split('_');
+    amLocale = intermediate[0];
+
     gettextCatalog.setCurrentLanguage(language);
     gettextCatalog.loadRemote('/translations/' + language + '.json');
+    amMoment.changeLocale(amLocale);
   };
 
   return {
-    load: _load,
-    setLocale: setLocale
+    load: _load
   };
 
 }]);
