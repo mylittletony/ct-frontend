@@ -256,7 +256,7 @@ app.factory('Translate', ['Auth', 'gettextCatalog', 'amMoment', function(Auth, g
     if (!supported[language]) {
       language = 'en_GB';
     }
-console.log(language)
+
     var intermediate = language.split('_');
     amLocale = intermediate[0];
 
