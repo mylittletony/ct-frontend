@@ -113,8 +113,6 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
     };
 
     init();
-
-
   };
 
   return {
