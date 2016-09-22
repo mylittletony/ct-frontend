@@ -259,7 +259,6 @@ app.factory('Translate', ['Auth', 'gettextCatalog', function(Auth, gettextCatalo
       language = 'en_GB';
     }
 
-
     gettextCatalog.setCurrentLanguage(language);
     gettextCatalog.loadRemote('/translations/' + language + '.json');
   };
