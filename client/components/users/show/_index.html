@@ -121,7 +121,7 @@
               <md-input-container class="md-block" flex="100" flex-gt-sm="50">
                 <label translate>Locale</label>
                 <md-select ng-model="user.locale">
-                  <md-option ng-repeat="locale in locales" ng-value="locale.value">
+                  <md-option ng-repeat="locale in locales" value="{{locale.value}}">
                     {{locale.key}}
                   </md-option>
                 </md-select>
