@@ -205,7 +205,7 @@ app.factory('Inventory', ['$resource', 'API_END_POINT',
 }]);
 
 app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($cookies, gettextCatalog, amMoment) {
-  
+
   //var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
   var supported = {'en_GB': true, 'de_DE': true};
   var language, userLocale, amLocale;
@@ -218,10 +218,17 @@ app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($co
     var intermediate = locale.split('-');
     locale = intermediate[0];
 
+    // To add support for more languages, make sure they're added here
     if (locale === 'en') {
       return 'en_GB';
     } else if (locale === 'de') {
       return 'de_DE';
+    // } else if (locale === 'fr') {
+    //   return 'fr_FR';
+    // } else if (locale === 'it') {
+    //   return 'it';
+    // } else if (locale === 'ro') {
+    //   return 'ro';
     } else {
       return undefined;
     }
@@ -245,7 +252,7 @@ app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($co
 
     //if the cookie is empty try if one of
     //the user's browser language preferences
-    //is supperted
+    //is supported
     if (language === undefined) {
       setLanguage();
     }
@@ -257,9 +264,9 @@ app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($co
       language = 'en_GB';
     }
 
-    //don't forget to add angular moment's 
+    //don't forget to add angular moment's
     //language.json files to index.html
-    //when more language are supported 
+    //when more language are supported
     //(for now it's just en and de)
     var intermediate = language.split('_');
     amLocale = intermediate[0];
