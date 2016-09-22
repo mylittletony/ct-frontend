@@ -73,6 +73,22 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
     scope.currencies = { 'US Dollars' : 'USD', 'UK Pounds': 'GBP', 'EUR': 'Euros' };
 
+    var formatCurrency = function() {
+      if (scope.user && scope.user.plan) {
+        switch(scope.user.plan.currency) {
+          case 'GBP':
+            scope.user.plan.currency_symbol = '$';
+            break;
+          case 'EUR':
+            scope.user.plan.currency_symbol = '€';
+            break;
+          default:
+            scope.user.plan.currency_symbol = '$';
+            break;
+        }
+      }
+    };
+
     var init = function() {
       User.query({id: $routeParams.id}).$promise.then(function (res) {
         scope.user = res;
@@ -82,6 +98,7 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
         if (scope.user.role_id === 1 || scope.user.role_id === 2 || scope.user.role_id === 3) {
           scope.user.admin = true;
         }
+        formatCurrency();
         scope.loading = undefined;
       });
     };
@@ -96,8 +113,6 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
     };
 
     init();
-
-
   };
 
   return {
@@ -1148,7 +1163,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       });
       scope.menu.push({
         type: 'revoke',
-        name: gettextCatalog.getString('Delete'),
+        name: gettextCatalog.getString('Revoke'),
         icon: 'delete_forever'
       });
     };
@@ -1192,8 +1207,8 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var destroy = function(user) {
       var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Remove this user?'))
-      .textContent(gettextCatalog.getString('This will revoke the user from all your locations'))
+      .title(gettextCatalog.getString('Revoke this user?'))
+      .textContent(gettextCatalog.getString('This will revoke the user\'s permissions. It does not remove the user completely'))
       .ariaLabel(gettextCatalog.getString('Remove'))
       .ok(gettextCatalog.getString('Delete'))
       .cancel(gettextCatalog.getString('Cancel'));
@@ -1204,13 +1219,13 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var updateRole = function(user) {
       BrandUser.update({
+        id: user.brand_user.id,
         brand_user: {
-          user_id: user.id,
-          role_id: user.role_id
+          role_id: user.brand_user.role_id
         },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
-        showToast('User successfully updated.');
+        showToast('User successfully revoked.');
       }, function(err) {
         showErrors(err);
         scope.loading = undefined;
@@ -1219,13 +1234,14 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var removeUser = function(user) {
       BrandUser.destroy({
+        id: user.brand_user.id,
         brand_user: {
-          user_id: user.id,
-          role_id: user.role_id
+          role_id: user.brand_user.role_id
         },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
-        removeFromList(user.id);
+        user.brand_user = undefined;
+        // removeFromList(user.id);
         showToast('User successfully updated.');
       }, function(err) {
         showErrors(err);

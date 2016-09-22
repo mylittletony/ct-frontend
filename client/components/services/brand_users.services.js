@@ -15,6 +15,7 @@ app.factory('BrandUser', ['$resource', 'API_END_POINT',
         isArray: false,
         dataType: 'json',
         params: {
+          id: '@id',
           brand_id: '@brand_id',
           brand_user: '@brand_user'
         }
@@ -24,6 +25,7 @@ app.factory('BrandUser', ['$resource', 'API_END_POINT',
         isArray: false,
         dataType: 'json',
         params: {
+          id: '@id',
           brand_user: '@brand_user',
           brand_id: '@brand_id'
         }

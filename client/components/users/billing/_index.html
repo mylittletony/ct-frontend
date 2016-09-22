@@ -10,7 +10,6 @@
 </md-toolbar>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
-
   <div layout="row" layout-align="center center">
     <div flex-gt-sm="100">
       <md-card>
@@ -39,7 +38,16 @@
             <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
               <div class="md-list-item-text">
                 <h3 translate>Plan</h3>
-                <p>{{ ::user.plan.plan_name }} <translate>Plan.</translate> <span ng-show="user.plan.plan_price > 0">{{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} {{ ::user.plan.billing_period }}</span></p>
+                <p>{{ ::user.plan.plan_name }}&nbsp;<translate>Plan.</translate> <span ng-show="user.plan.plan_price > 0">{{ ::user.plan.plan_price | number:2 | currency:user.plan.currency_symbol }} {{ ::user.plan.billing_period }}</span></p>
+                <p>Tax Rate: {{ ::user.tax_rate | number :1 }}%</span></p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3 translate>Subscription Created</h3>
+                <p>
+                  {{ user.period_started | humanTime }}
+                </p>
               </div>
             </md-list-item>
           </div>
@@ -48,15 +56,10 @@
           <user-credit-card user="user"></user-credit-card>
         </md-card-actions>
       </md-card>
-
       <user-plans user="user"></user-plans>
-
       <user-coupon key="{{user.key}}" coupons="user.active_coupons"></user-coupon>
-
       <user-cancel user="user" ng-if="user.subscription_active"></user-cancel>
-
       <user-billing-settings user="user"></user-billing-settings>
-
     </div>
-
+  </div>
 </md-content>
