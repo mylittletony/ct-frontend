@@ -204,37 +204,33 @@ app.factory('Inventory', ['$resource', 'API_END_POINT',
   );
 }]);
 
-app.factory('Translate', ['Auth', 'gettextCatalog', function(Auth, gettextCatalog) {
+app.factory('Translate', ['Auth', 'gettextCatalog', 'amMoment', function(Auth, gettextCatalog, amMoment) {
   
   var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
-  var language, userLocale;
+  var language, userLocale, amLocale;
 
   function fixLocale(locale) {
     if (!locale) {
       return undefined;
     }
-    locale = Auth.currentUser().locale.split('-');
-    var language = locale[0],
-      country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
+    var intermediate = locale.split('-');
+    locale = intermediate[0];
 
-    return country === undefined ? language : [language, country].join('_');
+    if (locale === 'en') {
+      return 'en_GB';
+    } else if (locale === 'de') {
+      return 'de_DE';
+    } else {
+      return undefined;
+    }
   }
 
   function setLanguage() {
-    for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
-      var lang = navigator.languages[i].substr(0, 5);
+    for (var i = 0;  language === undefined && navigator.languages !== null && i < navigator.languages.length; ++i) {
+      var lang = navigator.languages[i].substr(0, 2);
       language = fixLocale(lang);
       if (supported[lang]) {
         language = lang;
-      }
-      if (!supported[lang]) {
-        var localeArr = lang.split('-'),
-          browserLang = localeArr[0];
-        for (var l in supported) {
-          if (l.indexOf(browserLang) !== -1) {
-            language = l;
-          }
-        }
       }
     }
   }
@@ -253,14 +249,20 @@ app.factory('Translate', ['Auth', 'gettextCatalog', function(Auth, gettextCatalo
 
     language = fixLocale(userLocale);
 
-    setLanguage();
+    if (language === undefined) {
+      setLanguage();
+    }
 
     if (!supported[language]) {
       language = 'en_GB';
     }
 
+    var intermediate = language.split('_');
+    amLocale = intermediate[0];
+
     gettextCatalog.setCurrentLanguage(language);
     gettextCatalog.loadRemote('/translations/' + language + '.json');
+    amMoment.changeLocale(amLocale);
   };
 
   return {
