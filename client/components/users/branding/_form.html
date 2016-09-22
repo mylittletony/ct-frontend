@@ -73,7 +73,7 @@
                       <div ng-message="required" translate>Please enter a name for your brand</div>
                       <div ng-message="md-maxlength" translate>Must be less than 25 characters</div>
                       <div ng-message="minlength" translate>Minimum 5 characters</div>
-                      <div ng-message="pattern" translate>Number & letters only</div>
+                      <div ng-message="pattern" translate>Number &amp; letters only</div>
                     </div>
                   </md-input-container>
                   <md-input-container class="md-block" flex-gt-xs="50">
@@ -183,7 +183,7 @@
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label><translate>Network Location</translate></label>
                   <md-select ng-model="brand.network_location">
-                    <md-option ng-repeat="loc in locations">
+                    <md-option ng-repeat="loc in locations" ng-value="loc">
                       {{loc}}
                     </md-option>
                   </md-select>

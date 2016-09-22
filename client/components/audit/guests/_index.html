@@ -59,7 +59,7 @@
                   <th md-column><span translate>Email</span></th>
                   <th hide show-gt-xs md-column><span translate>Location</span></th>
                   <th hide show-gt-xs md-column><span translate>Created</span></th>
-                  <th md-column>Action</th>
+                  <th md-column><span translate>Action</span></th>
                 </tr>
               </thead>
               <tbody md-body>
@@ -93,7 +93,7 @@
             </table>
           </md-table-container>
 
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
 
         </md-card-content>
       </md-card>

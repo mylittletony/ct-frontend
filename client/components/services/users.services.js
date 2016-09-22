@@ -203,3 +203,71 @@ app.factory('Inventory', ['$resource', 'API_END_POINT',
     }
   );
 }]);
+
+app.factory('Translate', ['Auth', 'gettextCatalog', 'amMoment', function(Auth, gettextCatalog, amMoment) {
+  
+  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
+  var language, userLocale, amLocale;
+
+  function fixLocale(locale) {
+    if (!locale) {
+      return undefined;
+    }
+    var intermediate = locale.split('-');
+    locale = intermediate[0];
+
+    if (locale === 'en') {
+      return 'en_GB';
+    } else if (locale === 'de') {
+      return 'de_DE';
+    } else {
+      return undefined;
+    }
+  }
+
+  function setLanguage() {
+    for (var i = 0;  language === undefined && navigator.languages !== null && i < navigator.languages.length; ++i) {
+      var lang = navigator.languages[i].substr(0, 2);
+      language = fixLocale(lang);
+      if (supported[lang]) {
+        language = lang;
+      }
+    }
+  }
+
+  function setLocale(val) {
+    if (val) {
+      userLocale = val;
+    } else if (Auth.currentUser() && Auth.currentUser().locale) {
+      userLocale =  Auth.currentUser().locale;
+    }
+  }
+
+  var _load = function() {
+
+    setLocale();
+
+    language = fixLocale(userLocale);
+
+    if (language === undefined) {
+      setLanguage();
+    }
+
+    if (!supported[language]) {
+      language = 'en_GB';
+    }
+
+    var intermediate = language.split('_');
+    amLocale = intermediate[0];
+
+    gettextCatalog.setCurrentLanguage(language);
+    gettextCatalog.loadRemote('/translations/' + language + '.json');
+    amMoment.changeLocale(amLocale);
+  };
+
+  return {
+    load: _load,
+    setLocale: setLocale
+  };
+
+}]);

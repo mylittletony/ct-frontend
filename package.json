@@ -44,6 +44,7 @@
     "request": "~2.51.0",
     "serve-favicon": "*",
     "static-favicon": "~1.0.0",
+    "sync-exec": "^0.6.2",
     "time-grunt": "^1.2.1",
     "urijs": "^1.17.1"
   },
@@ -100,6 +101,7 @@
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0",
     "supertest": "^1.1.0",
+    "sync-exec": "^0.6.2",
     "tslint": "^3.5.0",
     "typings": "^0.8.1"
   },

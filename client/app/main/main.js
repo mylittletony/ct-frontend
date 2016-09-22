@@ -20,70 +20,19 @@ var app = angular.module('myApp', [
   'gettext'
 ]);
 
-app.run(['gettextCatalog', 'Auth', function(gettextCatalog, Auth) {
-
-  function fixLocale(locale) {
-    if (!locale) {
-      return undefined;
-    }
-    locale = Auth.currentUser().locale.split('-');
-    var language = locale[0],
-      country = locale[1] === undefined ?  undefined : locale[1].toUpperCase();
-
-      return country === undefined ? language : [language, country].join('_');
-  }
-
-  var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
-  var language, userLocale;
-
-  if (Auth.currentUser() && Auth.currentUser().locale) {
-    userLocale =  Auth.currentUser().locale;
-  }
-
-  language = fixLocale(userLocale);
-
-  for (var i = 0;  language === null && navigator.languages !== null && i < navigator.languages.length; ++i) {
-    var lang = navigator.languages[i].substr(0, 5);
-    language = fixLocale(lang);
-    if (supported[lang]) {
-      language = lang;
-    }
-    if (!supported[lang]) {
-      var localeArr = lang.split('-'),
-        browserLang = localeArr[0];
-        for (var l in supported) {
-          if (l.indexOf(browserLang) !== -1) {
-            language = l;
-          }
-        }
-    }
-  }
-
-  if (!supported[language]) {
-    language = 'en_GB';
-  }
-
-  gettextCatalog.setCurrentLanguage(language);
-  gettextCatalog.loadRemote('/translations/' + language + '.json');
-
-}]);
-
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
   $compileProvider.debugInfoEnabled(DEBUG);
 }]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider', '$mdIconProvider', function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {
 
-  $httpProvider.interceptors.push('myHttpInterceptor');
+  $httpProvider.interceptors.push('httpRequestInterceptor');
 
   $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
   $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
   $httpProvider.defaults.headers.patch['Accept'] = 'application/json';
   $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
-
-  // $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
   var item = 'blue';
@@ -195,7 +144,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/switch', {
       templateUrl: 'components/home/switching.html',
       controller: function($location, $rootScope, $cookies, locationHelper, CTLogin) {
-
         var event = $cookies.get('event');
         if (event) {
           event = JSON.parse($cookies.get('event'));
@@ -666,13 +614,17 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     otherwise({
       templateUrl: 'components/home/404.html',
+      controller: function(menu) {
+        menu.isOpenLeft = false;
+        menu.isOpen = false;
+      }
       // redirectTo: '/404'
     });
     $locationProvider.html5Mode(false);
 }]);
 
-app.factory('myHttpInterceptor', ['$q', '$location', '$localStorage', '$rootScope', 'AccessToken',
-  function($q, $location, $localStorage, $rootScope, AccessToken) {
+app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope',
+  function($q, AccessToken, $rootScope) {
     return {
       request: function(config){
         var token = AccessToken.get();
@@ -682,22 +634,24 @@ app.factory('myHttpInterceptor', ['$q', '$location', '$localStorage', '$rootScop
         return config;
       },
       response: function(response){
+        // Not sure, don't like rootScope!
+        $rootScope.notFound = undefined;
+
         if (response.status === 401) {
-        //   var logoutEvent = 'logout';
-        //   var logoutArgs = ['arg'];
-        //   $rootScope.$broadcast(logoutEvent, logoutArgs);
         }
         else if (response.status === 500) {
-          // alert(500, 'Error');
-          // $location.path('/404.html');
         }
         return response || $q.when(response);
       },
       responseError: function(rejection) {
+
         if (rejection.status === 401) {
           var logoutEvent = 'logout';
           var logoutArgs = ['arg'];
           $rootScope.$broadcast(logoutEvent, logoutArgs);
+        }
+        else if (rejection.status === 404) {
+          $rootScope.notFound = true;
         }
         // else if (rejection.status === 404) {
         //   $location.path('/404').search({ct: 'does-not-compute'});

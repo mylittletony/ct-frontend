@@ -68,7 +68,7 @@
                 </md-tooltip>
               </td>
               <td md-cell>
-                {{ splash.primary_access }}
+                {{ splash.primary_access | translatablePrimaryAccess}}
                 <md-tooltip hide-gt-sm>
                   <translate>Name {{ splash.splash_name }}</translate>
                 </md-tooltip>
@@ -106,7 +106,7 @@
           </tbody>
         </table>
       </md-table-container>
-      <!-- <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination> -->
+      <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
     </md-card>
   </div>
 </md-content>

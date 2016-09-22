@@ -2,11 +2,30 @@
 
 var app = angular.module('myApp.zones.directives', []);
 
-app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$mdEditDialog', '$q', 'gettextCatalog', function(Zone, ZoneListing, Location, $routeParams, $mdDialog, showToast, showErrors, $mdEditDialog, $q, gettextCatalog) {
+app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$mdEditDialog', '$q', 'gettextCatalog', 'pagination_labels', function(Zone, ZoneListing, Location, $routeParams, $mdDialog, showToast, showErrors, $mdEditDialog, $q, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
 
     scope.location  = { slug: $routeParams.id };
+
+    scope.pagination_labels = pagination_labels;
+    scope.query = {
+      order:      'zone_name',
+      limit:      $routeParams.per || 25,
+      page:       $routeParams.page || 1,
+      options:    [5,10,25,50,100],
+      // direction:  $routeParams.direction || 'desc'
+    };
+
+    // scope.onPaginate = function (page, limit) {
+    //   scope.query.page = page;
+    //   scope.query.limit = limit;
+    //   scope.updatePage();
+    // };
+
+    // scope.updatePage = function(item) {
+      
+    // };
 
     // User permissions //
     var createMenu = function() {
@@ -86,10 +105,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
     var incrementBoxCount = function(zone) {
       for (var i = 0, len = scope.zones.length; i < len; i++) {
         if (scope.zones[i].id === zone.id) {
-          if (!scope.zones[i].boxes || scope.zones[i].boxes.length === 0) {
-            scope.zones[i].boxes = [];
-          }
-          scope.zones[i].boxes.push({ap_mac: $routeParams.ap_mac});
+          scope.zones[i].boxes++;
           showToast(gettextCatalog.getString('Box successfully added to zone.'));
         }
       }

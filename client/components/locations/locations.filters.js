@@ -279,3 +279,20 @@ app.filter('toString', [function() {
     }
   };
 }]);
+
+app.filter('translatablePolicy', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return gettextCatalog.getString('N/A');
+    } else {
+      switch(input) {
+        case 'allow':
+          return gettextCatalog.getString('allow');
+        case 'block':
+          return gettextCatalog.getString('block');
+        case 'filter':
+          return gettextCatalog.getString('filter');
+      }
+    }
+  };
+}]);

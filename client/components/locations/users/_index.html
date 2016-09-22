@@ -55,7 +55,9 @@
                     </md-tooltip>
                   </td md-cell>
                   <td hide show-gt-sm md-cell>
+                    <translate>
                     {{ user.primary ? "Owner" : (user.role_id | roleFilter) }}
+                  </translate>
                   </td md-cell>
                   <td hide show-gt-md md-cell>
                     {{ (user.created_at || user.timestamp ) | humanTime }}
@@ -79,6 +81,7 @@
               </tbody>
             </table>
           </md-table-container>
+          <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
         </md-card-content>
       </md-card>
     </div>

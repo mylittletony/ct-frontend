@@ -34,8 +34,8 @@
     <div flex="100" flex-gt-sm="100">
       <md-card>
         <md-card-title ng-if="summary.total">
-          <span class="md-subhead" translate translate-n="{{ summary.total }}" translate-plural="{{ summary.total }} active devices. {{ summary.new }} added this month.">
-            1 active device. {{ summary.new }} added this month.
+          <span class="md-subhead" translate translate-n="{{ summary.total }}" translate-plural="{{ summary.total }} active devices.">
+            1 active device.
           </span>
         </md-card-title>
 
@@ -48,6 +48,7 @@
                   <th md-column md-order-by="state"><span translate>State</span></th>
                   <th md-column md-order-by="ap_mac"><span translate>Ap Mac</span></th>
                   <th hide show-gt-xs md-column md-order-by="created_at"><span translate>Added</span></th>
+                  <th hide show-gt-md md-column md-order-by="removed_at"><span translate>Removed</span></th>
                   <th hide show-gt-md md-column md-order-by="username"><span translate>Created By</span></th>
                   <th hide show-gt-sm md-column md-order-by="location"><span translate>Location</span></th>
                 </tr>
@@ -56,18 +57,25 @@
                 <tr md-row ng-repeat="i in filtered = (inventories | filter: query.filter)" ng-class="{'muted': i.staff, 'muted': i.state == 'cancelled'}">
                   <td md-cell>
                     {{ (i.staff ? 'staff' : i.state) | titleCase }}
-                    <md-tooltip ng-if="i.state == 'removed'" translate>
-                      Removed {{ ::i.removed_at | humanTime }}
+                    <md-tooltip ng-if="i.state == 'removed'">
+                      <translate>
+                        Removed {{ ::i.removed_at | humanTime }}
+                      </translate>
                     </md-tooltip>
                   </td>
                   <td md-cell>
                     {{ ::i.ap_mac }}
-                    <md-tooltip hide-gt-xs translate>
-                      Added {{ ::i.created_at | humanTime }} to {{ ::i.location_name }}
+                    <md-tooltip hide-gt-xs>
+                      <translate>
+                        Added {{ ::i.created_at | humanTime }} to {{ ::i.location_name }}
+                      </translate>
                     </md-tooltip>
                   </td>
                   <td hide show-gt-xs md-cell>
                     {{ ::i.created_at | humanTime }}
+                  </td>
+                  <td hide show-gt-md md-cell>
+                    {{ ::i.removed_at | humanTime }}
                   </td>
                   <td hide show-gt-md md-cell>
                     {{ ::i.username }}
@@ -79,7 +87,7 @@
               </tbody>
             </table>
           </md-table-container>
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
         </md-card-content>
       </md-card>
 

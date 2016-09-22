@@ -75,7 +75,7 @@
                       {{ ::(policy.group_type | policyType) }}
                     </td>
                     <td md-cell hide show-gt-sm>
-                      {{ ::policy.policy }}
+                      {{ ::policy.policy | translatablePolicy}}
                     </td>
                     <td md-cell hide show-gt-sm>
                       {{ ::(policy.networks || 0)}}
@@ -103,7 +103,7 @@
               </table>
             </md-table-container>
           </md-card-content>
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
         </md-card>
       </div>
     </div>
