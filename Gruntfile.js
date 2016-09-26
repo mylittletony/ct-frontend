@@ -186,17 +186,17 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-          '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
-          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
-          '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.client %>/assets/js/{,*//*}*.{js}',
-          '<%= yeoman.client %>/assets/css/{,*//*}*.{js}'
+          // '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
+          // '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
+          // '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+          // '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
+          // '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
+          // '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+          // '<%= yeoman.client %>/assets/js/{,*//*}*.{js}',
+          // '<%= yeoman.client %>/assets/css/{,*//*}*.{js}'
         ],
         options: {
-          livereload: true
+          livereload: false
         }
       },
       express: {
@@ -205,7 +205,7 @@ module.exports = function (grunt) {
         ],
         tasks: ['express:dev', 'wait'],
         options: {
-          livereload: true,
+          livereload: false,
           nospawn: true //Without this option specified express won't be reloaded
         }
       }
