@@ -26,8 +26,7 @@
     "google-chart": "~1.0.4",
     "moment-duration-format": "~1.3.0",
     "angular-gettext": "~2.2.1",
-    "moment-timezone": "~0.5.4",
-    "webcomponentsjs": "git@github.com:simonmorley/webcomponentsjs.git#^0.7.22"
+    "moment-timezone": "~0.5.4"
   },
   "overrides": {
     "urijs": {

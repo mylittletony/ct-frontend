@@ -1,0 +1,27 @@
+{
+  "name": "angular-payments",
+  "version": "0.1.1",
+  "homepage": "https://github.com/laurihy/angular-payments",
+  "authors": [
+    "Lauri Hynynen <@laurihy>"
+  ],
+  "main": "lib/angular-payments.js",
+  "description": "Directive for formatting and validating credit card forms",
+  "keywords": [
+    "stripe",
+    "stripe.js",
+    "stripejs",
+    "stripe-angular",
+    "stripeAngular",
+    "angular-payments",
+    "angularPayments"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

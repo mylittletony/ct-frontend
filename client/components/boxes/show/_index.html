@@ -77,7 +77,7 @@
 
 </md-content>
 
-<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="box.is_polkaspots == false && !box.last_heartbeat">
+<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="box.is_cucumber == false && !box.last_heartbeat">
 
   <div flex-gt-sm="60">
     <md-card>
@@ -151,9 +151,9 @@
   </div>
 </md-content>
 
-<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(!box.initialising && box.is_polkaspots) || (!box.is_polkaspots && box.last_heartbeat)">
+<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(!box.initialising && box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
 
-  <div flex flex-gt-sm="100" layout="column" ng-if="box.is_polkaspots && box.state === 'new'">
+  <div flex flex-gt-sm="100" layout="column" ng-if="box.is_cucumber && box.state === 'new'">
     <md-card>
       <md-card-title>
         <md-card-title-text>
