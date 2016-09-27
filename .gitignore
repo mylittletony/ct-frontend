@@ -2,6 +2,7 @@ node_modules
 public
 .tmp
 .idea
+client/bower_components/*
 client/scripts/config.js
 server/config/local-config.js
 local-config.js
