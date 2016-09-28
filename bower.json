@@ -35,6 +35,9 @@
         "src/URI.js"
       ]
     },
+    "moment": {
+      "main": ["min/moment-with-locales.js"]
+    },
     "webcomponentsjs": {
       "main": [
         "webcomponents-lite.min.js"
