@@ -36,3 +36,24 @@ app.filter('translateAccessTypeName', ['gettextCatalog', function(gettextCatalog
     }
   };
 }]);
+
+app.filter('translatablePrimaryAccess', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    switch(input) {
+      case 'Password':
+        return gettextCatalog.getString('Password');
+      case 'Vouchers':
+        return gettextCatalog.getString('Vouchers');
+      case 'Clickthrough':
+        return gettextCatalog.getString('Clickthrough');
+      case 'Social':
+        return gettextCatalog.getString('Social');
+      case 'Registration':
+        return gettextCatalog.getString('Registration');
+      case 'QuickCodes':
+        return gettextCatalog.getString('QuickCodes');
+      default:
+        return gettextCatalog.getString('N/A');
+    }
+  };
+}]);

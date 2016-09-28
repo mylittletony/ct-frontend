@@ -75,7 +75,7 @@
                       {{ ::(policy.group_type | policyType) }}
                     </td>
                     <td md-cell hide show-gt-sm>
-                      {{ ::policy.policy }}
+                      {{ ::policy.policy | translatablePolicy}}
                     </td>
                     <td md-cell hide show-gt-sm>
                       {{ ::(policy.networks || 0)}}
