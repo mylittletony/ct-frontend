@@ -74,6 +74,22 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
     scope.currencies = { 'US Dollars' : 'USD', 'UK Pounds': 'GBP', 'EUR': 'Euros' };
 
+    var formatCurrency = function() {
+      if (scope.user && scope.user.plan) {
+        switch(scope.user.plan.currency) {
+          case 'GBP':
+            scope.user.plan.currency_symbol = '$';
+            break;
+          case 'EUR':
+            scope.user.plan.currency_symbol = '€';
+            break;
+          default:
+            scope.user.plan.currency_symbol = '$';
+            break;
+        }
+      }
+    };
+
     var init = function() {
       User.query({id: $routeParams.id}).$promise.then(function (res) {
         scope.user = res;
@@ -83,6 +99,7 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
         if (scope.user.role_id === 1 || scope.user.role_id === 2 || scope.user.role_id === 3) {
           scope.user.admin = true;
         }
+        formatCurrency();
         scope.loading = undefined;
       });
     };
@@ -97,8 +114,6 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
     };
 
     init();
-
-
   };
 
   return {

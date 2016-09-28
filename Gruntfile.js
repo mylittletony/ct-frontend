@@ -546,14 +546,12 @@ module.exports = function (grunt) {
       },
       master: {
         options: {
-          // remote: 'git@heroku.com:lit-thicket-88494.git',
           remote: 'git@heroku.com:sheltered-bayou-9283.git',
           branch: 'master'
         }
       },
       usa: {
         options: {
-          // remote: 'git@heroku.com:lit-thicket-88494.git',
           remote: 'git@heroku.com:limitless-brook-11104.git',
           branch: 'master'
         }

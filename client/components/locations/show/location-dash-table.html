@@ -7,8 +7,8 @@
   </tr>
   <tr ng-repeat="box in filtered = ( boxes | filter:query | limitTo:quantity | orderBy:predicate)">
     <td>
-      <img ng-if="box.is_polkaspots || box.last_heartbeat" class="status-icon" title='This box is {{box.state}}.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/{{box.is_online || box.state == 'processing' ? box.state == 'rebooting' ? 'amber' : 'online' : 'offline' }}.png"></span>
-      <img ng-hide="box.is_polkaspots" class="status-icon" title='This box is not a CT box.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/other.png"></span>
+      <img ng-if="box.is_cucumber || box.last_heartbeat" class="status-icon" title='This box is {{box.state}}.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/{{box.is_online || box.state == 'processing' ? box.state == 'rebooting' ? 'amber' : 'online' : 'offline' }}.png"></span>
+      <img ng-hide="box.is_cucumber" class="status-icon" title='This box is not a CT box.' src="https://d3e9l1phmgx8f2.cloudfront.net/images/icons/other.png"></span>
     </td>
     <td>{{ box.clients }}</td>
     <td>

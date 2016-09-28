@@ -690,13 +690,13 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
     scope.$watch('box',function(nv){
       if (nv !== undefined) {
-        scope.box.tony = scope.box.is_polkaspots;
+        scope.box.tony = scope.box.is_cucumber;
       }
     });
 
     scope.update = function(form) {
       form.$setPristine();
-      scope.box.is_polkaspots = scope.box.tony;
+      scope.box.is_cucumber = scope.box.tony;
       return Box.update({
         id: scope.box.slug,
         box: scope.box
@@ -791,7 +791,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
 
     scope.update = function(form) {
       form.$setPristine();
-      scope.box.is_polkaspots = scope.box.tony;
+      scope.box.is_cucumber = scope.box.tony;
       return Box.update({
         id: scope.box.slug,
         box: scope.box
@@ -820,7 +820,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         scope.updateChannels();
         scope.box.tx_power_2 = parseInt(scope.box.tx_power_2,0);
         scope.box.tx_power_5 = parseInt(scope.box.tx_power_5,0);
-        scope.box.tony       = scope.box.is_polkaspots;
+        scope.box.tony       = scope.box.is_cucumber;
         scope.loading = undefined;
         getZones();
       });
@@ -1414,7 +1414,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     var timer;
     scope.selected  = [];
     // scope.created   = $routeParams.created;
-    scope.temp      = { is_polkaspots: true };
+    scope.temp      = { is_cucumber: true };
     scope.location  = { slug: $routeParams.id };
 
     scope.setup = {
@@ -1513,8 +1513,8 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
         } else {
           var box = {};
           box.calledstationid = scope.selected[i].mac;
-          box.is_polkaspots   = true;
-          box.zone_id         = scope.temp.zone_id;
+          box.is_cucumber   = true;
+          box.zone_id       = scope.temp.zone_id;
           box.description = scope.selected[i].description || gettextCatalog.getString('Automatically discovered');
           if (i === scope.selected.length - 1) {
             last = true;
