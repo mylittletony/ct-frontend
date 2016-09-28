@@ -145,6 +145,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       };
       $scope.cancel = function() {
         $mdBottomSheet.hide();
+        resetBox(true);
       };
     }
     ResetCtrl.$inject = ['$scope'];
@@ -192,16 +193,24 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
     };
 
-    var resetBox = function() {
-      scope.resetting = true;
+    var resetBox = function(cancel) {
+      var action = 'reset';
+      if (cancel === true) {
+        scope.resetting = true;
+      } else {
+        action = 'cancel';
+      }
+
       Box.update({
         id: scope.box.slug,
-        box: { action: 'reset' }
+        box: { action: action }
       }).$promise.then(function(results) {
-        showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
-        scope.box.allowed_job = false;
-        scope.box.state = 'resetting';
-        scope.resetting = undefined;
+        if (!cancel) {
+          showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
+          scope.box.allowed_job = false;
+          scope.box.state = 'resetting';
+          scope.resetting = undefined;
+        }
       }, function(errors) {
         var err;
         if (errors && errors.data && errors.data.errors && errors.data.errors.base) {
