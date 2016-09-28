@@ -34,6 +34,9 @@
         "src/SecondLevelDomains.js",
         "src/URI.js"
       ]
+    },
+    "moment": {
+      "main": ["min/moment-with-locales.js"]
     }
   },
   "devDependencies": {
