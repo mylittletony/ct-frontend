@@ -76,7 +76,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         icon: 'settings'
       });
 
-      if (scope.box.cucumber) {
+      if (scope.box.is_cucumber) {
 
         scope.menu.push({
           name: gettextCatalog.getString('Reboot'),
@@ -111,7 +111,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'delete'
       });
 
-      if (scope.box.cucumber) {
+      if (scope.box.is_cucumber) {
         scope.menu.push({
           name: gettextCatalog.getString('Resync'),
           icon: 'settings_backup_restore',
@@ -425,7 +425,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var processAlertMessages = function() {
-      if (scope.box.cucumber) {
+      if (scope.box.is_cucumber) {
         if (scope.box.reset_confirmation) {
           showResetConfirm();
         } else if (scope.not_in_zone) {
