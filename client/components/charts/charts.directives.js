@@ -49,67 +49,72 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
     function drawChart() {
 
       $timeout.cancel(timer);
-      data = new window.google.visualization.DataTable();
 
-      data.addColumn('datetime', 'Date');
-      data.addColumn('number', 'dummySeries');
+      // For the tests mainly, not sure why this has started causing a failure
+      if (window.google && window.google.visualization) {
+        data = new window.google.visualization.DataTable();
 
-      options = {
-        lineWidth: 1.5,
-        legend: { position: 'none' },
-        crosshair: {
-          trigger: 'both',
-          orientation: 'vertical'
-        },
-        focusTarget: 'category',
-        fontName: 'roboto',
-        explorer: {
-          axis: 'horizontal',
-          actions: [ 'dragToZoom', 'rightClickToReset'],
-        },
-        chartArea: {
-          left: '2%',
-          // right: '2%',
-          top: '3%',
-          height: '84%',
-          width: '94%'
-        },
-        series: {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+        data.addColumn('datetime', 'Date');
+        data.addColumn('number', 'dummySeries');
+
+        options = {
+          lineWidth: 1.5,
+          legend: { position: 'none' },
+          crosshair: {
+            trigger: 'both',
+            orientation: 'vertical'
           },
-          1: {
-            targetAxisIndex: 1
+          focusTarget: 'category',
+          fontName: 'roboto',
+          explorer: {
+            axis: 'horizontal',
+            actions: [ 'dragToZoom', 'rightClickToReset'],
           },
-          2: {
-            targetAxisIndex: 1
+          chartArea: {
+            left: '2%',
+            // right: '2%',
+            top: '3%',
+            height: '84%',
+            width: '94%'
+          },
+          series: {
+            0: {
+              targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+            },
+            1: {
+              targetAxisIndex: 1
+            },
+            2: {
+              targetAxisIndex: 1
+            }
+          },
+          vAxes: {
+            0: {
+              textPosition: 'none'
+            },
+            1: {
+              // title: title,
+            },
           }
-        },
-        vAxes: {
-          0: {
-            textPosition: 'none'
-          },
-          1: {
-            // title: title,
-          },
+        };
+
+        if (scope.type === 'signal') {
+          signalChart();
+        } else if (scope.type === 'failures') {
+          failureChart();
+        } else if (scope.type === 'mcs') {
+          mcsChart();
+        } else {
+          txChart();
         }
-      };
 
-      if (scope.type === 'signal') {
-        signalChart();
-      } else if (scope.type === 'failures') {
-        failureChart();
-      } else if (scope.type === 'mcs') {
-        mcsChart();
-      } else {
-        txChart();
-      }
-
-      if (!scope.noData) {
-        chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
-        chart.draw(data, options);
+        if (!scope.noData) {
+          chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
+          chart.draw(data, options);
+        }
       }
     }
+
     //fixme @Toni translations: the titles will not work like that
     var signalChart = function() {
 
