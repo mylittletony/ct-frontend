@@ -410,7 +410,7 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
 
 }]);
 
-app.directive('networkZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', function(Zone, ZoneListing, Location, $routeParams) {
+app.directive('networkZones', ['Zone', 'Network', 'ZoneListing', 'Location', '$routeParams', function(Zone, Network, ZoneListing, Location, $routeParams) {
   var link = function(scope, element, attrs) {
 
     scope.loading     = true;
@@ -419,19 +419,20 @@ app.directive('networkZones', ['Zone', 'ZoneListing', 'Location', '$routeParams'
     scope.in_the_zone = {};
 
     var updateActiveZones = function(zones) {
-      scope.zones = [];
-      angular.forEach(zones, function(z,i) {
-        if (z.networks && z.networks.length) {
-          angular.forEach(z.networks, function(id) {
-            if (id === network.id) {
-              scope.zones.push(z);
-              // scope.zones[i].active = true;
-              // scope.in_the_zone[scope.zones[i].id] = 1;
+      Network.query({location_id: scope.location.slug, id: network.id}).$promise.then(function(res) {
+        var network_zones = res.zone_ids;
+        scope.zones = [];
+        if (network_zones.length) {
+          for (var i = 0; i < zones.length; i++) {
+            for (var j = 0; j < network_zones.length; j++) {
+              if (zones[i].id === network_zones[j]) {
+                scope.zones.push(zones[i]);
+              }
             }
-          });
+          }
         }
+        scope.loading       = undefined;
       });
-      scope.loading       = undefined;
     };
 
     var init = function() {
@@ -439,6 +440,9 @@ app.directive('networkZones', ['Zone', 'ZoneListing', 'Location', '$routeParams'
         var zones = results.zones;
         if (zones.length) {
           updateActiveZones(zones);
+        } else {
+          scope.zones = [];
+          scope.loading       = undefined;
         }
       });
     };
