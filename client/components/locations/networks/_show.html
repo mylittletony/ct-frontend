@@ -282,7 +282,7 @@
                   <translate>Radius Secret</translate>
                 </label>
                 <input ng-focus="showRadPassy8022 = !showRadPassy8022" ng-blur="showRadPassy8022 = !showRadPassy8022" ng-model="network.radius_8021x_secret_2" name="radius_8021x_secret_2" placeholder="{{ 'Radius Secret' | translate }}" type="{{ showRadPassy8022 ? 'text' : 'password' }}">
-                <div ng-messages="myForm.radius_8022x_secret_1.$error">
+                <div ng-messages="myForm.radius_8021x_secret_2.$error">
                   <div ng-message="required" translate>Must have a valid password.</div>
                 </div>
               </md-input-container>
@@ -291,8 +291,8 @@
                 <label>
                   <translate>Port</translate>
                 </label>
-                <input ng-model="network.radius_8022x_port_2" name="radius_8022x_port_2" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433'>
-                <div ng-messages="myForm.radius_8022x_port_2.$error">
+                <input ng-model="network.radius_8021x_port_2" name="radius_8021x_port_2" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433'>
+                <div ng-messages="myForm.radius_8021x_port_2.$error">
                   <div ng-message="required" translate>Must have a valid port.</div>
                   <div ng-message="max" translate>Must be less than 65433.</div>
                   <div ng-message="min" translate>Must be greater than 1.</div>
