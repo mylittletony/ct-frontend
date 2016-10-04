@@ -222,13 +222,11 @@ describe('networks', function () {
       expect(element.isolateScope().client_filters[2].key).toEqual('Block Banned Clients');
       expect(element.isolateScope().client_filters[2].value).toEqual('deny');
 
-      expect(element.isolateScope().menu.length).toEqual(3);
+      expect(element.isolateScope().menu.length).toEqual(2);
       expect(element.isolateScope().menu[0].name).toEqual('Delete Network');
       expect(element.isolateScope().menu[0].type).toEqual('delete');
-      expect(element.isolateScope().menu[1].name).toEqual('View Zones');
-      expect(element.isolateScope().menu[1].type).toEqual('zones');
-      expect(element.isolateScope().menu[2].name).toEqual('Test Radius');
-      expect(element.isolateScope().menu[2].type).toEqual('radius');
+      expect(element.isolateScope().menu[1].name).toEqual('Test Radius');
+      expect(element.isolateScope().menu[1].type).toEqual('radius');
     });
 
     it("should show the network", function() {

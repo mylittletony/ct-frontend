@@ -212,7 +212,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
 }]);
 
-app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network', '$routeParams', '$location', '$timeout', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function($compile, Zone, LocationBox, Network, $routeParams, $location, $timeout, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('locationZoneShow', ['$compile', 'Zone', 'Box', 'Network', '$routeParams', '$location', '$timeout', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function($compile, Zone, Box, Network, $routeParams, $location, $timeout, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -271,7 +271,7 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
       });
     },
     getBoxes = function() {
-      return LocationBox.get({location_id: scope.location.slug, short: true, per: 100}).$promise.then(function(results) {
+      return Box.get({location_id: scope.location.slug, short: true, per: 100}).$promise.then(function(results) {
         scope.boxes = results.boxes;
       });
     },
