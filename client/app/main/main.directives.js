@@ -192,7 +192,7 @@ app.directive('filepicker', ['$compile', function ($compile) {
 
   return {
     link: link,
-    template: 'components/views/templates/_upload_button.html',
+    templateUrl: 'components/views/templates/_upload_button.html',
     scope: {
       attribute: '=',
       uploading: '=',
