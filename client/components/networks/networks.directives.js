@@ -317,11 +317,6 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         type: 'delete'
       });
       scope.menu.push({
-        name: gettextCatalog.getString('View Zones'),
-        icon: 'layers',
-        type: 'zones',
-      });
-      scope.menu.push({
         name: gettextCatalog.getString('Test Radius'),
         icon: 'network_check',
         type: 'radius',

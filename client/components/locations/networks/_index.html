@@ -52,7 +52,7 @@
               </td>
               <td hide show-gt-sm md-cell>
                 <span>
-                  {{ network.access_type | titleCase }}
+                  {{ network.access_type | translatableNetworkAccess | titleCase }}
                   <md-tooltip ng-if="network.access_type != 'open'" >
                     {{ network.encryption_type }}
                   </md-tooltip>

@@ -352,13 +352,19 @@ app.directive('countrySelect', ['$parse', 'gettextCatalog', function($parse, get
   ];
 
   var link = function(scope, elem, attrs) {
-    scope.countries = countries;
+    scope.countries = [];
+    countries.sort(function (a,b) {
+      return a.name.localeCompare(b.name, { sensitivity: 'accent' });
+    });
+    for (var c in countries) {
+      scope.countries.push(countries[c]);
+    }
   };
 
   return {
     template:
       '<md-select ng-model="country">'+
-      '<md-option ng-repeat=\'c in countries\' value="{{ c.code }}">'+
+      '<md-option ng-repeat=\'c in countries\' ng-value="c.code">'+
       '{{ c.name }}'+
       '</md-option>'+
       '</md-select>',

@@ -24,7 +24,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
     // };
 
     // scope.updatePage = function(item) {
-      
+
     // };
 
     // User permissions //
@@ -73,7 +73,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
         showErrors(err);
       });
     };
-    
+
     var removeFromList = function(id) {
       for (var i = 0, len = scope.zones.length; i < len; i++) {
         if (scope.zones[i].id === id) {
@@ -212,7 +212,7 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
 
 }]);
 
-app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network', '$routeParams', '$location', '$timeout', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function($compile, Zone, LocationBox, Network, $routeParams, $location, $timeout, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('locationZoneShow', ['$compile', 'Zone', 'Box', 'Network', '$routeParams', '$location', '$timeout', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function($compile, Zone, Box, Network, $routeParams, $location, $timeout, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -271,7 +271,7 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
       });
     },
     getBoxes = function() {
-      return LocationBox.get({location_id: scope.location.slug, short: true, per: 100}).$promise.then(function(results) {
+      return Box.get({location_id: scope.location.slug, short: true, per: 100}).$promise.then(function(results) {
         scope.boxes = results.boxes;
       });
     },
@@ -406,51 +406,6 @@ app.directive('locationZoneShow', ['$compile', 'Zone', 'LocationBox', 'Network',
       slug: '@'
     },
     templateUrl: 'components/zones/_show.html'
-  };
-
-}]);
-
-app.directive('networkZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', function(Zone, ZoneListing, Location, $routeParams) {
-  var link = function(scope, element, attrs) {
-
-    scope.loading     = true;
-    var network       = { id: $routeParams.network_id };
-    scope.location    = { slug: $routeParams.id };
-    scope.in_the_zone = {};
-
-    var updateActiveZones = function(zones) {
-      scope.zones = [];
-      angular.forEach(zones, function(z,i) {
-        if (z.networks && z.networks.length) {
-          angular.forEach(z.networks, function(id) {
-            if (id === network.id) {
-              scope.zones.push(z);
-              // scope.zones[i].active = true;
-              // scope.in_the_zone[scope.zones[i].id] = 1;
-            }
-          });
-        }
-      });
-      scope.loading       = undefined;
-    };
-
-    var init = function() {
-      Zone.get({location_id: scope.location.slug, network_id: network.id}).$promise.then(function(results) {
-        var zones = results.zones;
-        if (zones.length) {
-          updateActiveZones(zones);
-        }
-      });
-    };
-
-    init();
-
-  };
-
-  return {
-    link: link,
-    scope: {},
-    templateUrl: 'components/zones/_associated_zones_dialog.html',
   };
 
 }]);
