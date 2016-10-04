@@ -111,7 +111,7 @@ app.factory('Box', ['$resource', 'API_END_POINT',
 
 app.factory('LocationBox', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
-    return $resource(API_END_POINT + '/locations/:location_id/boxes/:id',
+    return $resource(API_END_POINT + '/boxes/:id',
       {
         q: '@q',
         id: '@id',
