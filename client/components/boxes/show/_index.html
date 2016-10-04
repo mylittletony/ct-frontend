@@ -53,7 +53,7 @@
 <section ng-cloak ng-if="!loading">
   <md-subheader class="md-accent">
     <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" class='box-image'/>
-    <b><translate>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip><translate>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</translate></md-tooltip></span></span>
+    <b><translate>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip><translate>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</translate></b></md-tooltip></span></span>
   </md-subheader>
 </section>
 
@@ -153,7 +153,7 @@
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(!box.initialising && box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
 
-  <div flex flex-gt-sm="100" layout="column" ng-if="box.is_cucumber && box.state === 'new'">
+  <div flex flex-gt-sm="70" layout="column" ng-if="box.is_cucumber && box.state === 'new'">
     <md-card>
       <md-card-title>
         <md-card-title-text>
@@ -161,7 +161,25 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <h4 translate>Please connect your device to an Internet connection. The device hasn't initialised.</h4>
+        <h4 translate>Please connect your device to an Internet connection. The device hasn't initialised yet.</h4>
+        <p>
+          If the box has not initialised after a few minutes, check the following:
+          <ul>
+            <li>Does it have a working Internet connection? </li>
+            <li>Is it plugged in to the power? Are the lights on?</li>
+            <li>Is the MAC Address correct? Check and double check.</li>
+            <li>Do you have a firewall? Could it be blocking the connection?</li>
+          </ul>
+        </p>
+        <p>
+          <span ng-if="box.last_heartbeat">
+            The box was last see at
+          </span>
+          <span am-time-ago="box.last_heartbeat" am-preprocess="unix"></span>
+        </p>
+        <p ng-if="!box.last_heartbeat" translate>
+         The box has never checked in.
+        </p>
         <p>
           <ct-docs name='getting-started'>
             <md-button class="md-raised" aria-label="{{ 'getting started' | translate }}">
@@ -176,7 +194,7 @@
   </div>
 
   <div flex flex-gt-sm="30" layout="column">
-    <md-card>
+    <md-card ng-if="box.state != 'new'">
       <div ng-if="box.state != 'rebooting' && box.state != 'processing' && box.state != 'upgrading'" class="md-card-image" style='height: 5px; background-color: {{box.state | statusColour}}'></div>
       <md-progress-linear ng-if="box.state == 'rebooting' || box.state == 'processing' || box.state == 'upgrading'" class="md-{{ box.state == 'rebooting' ? 'warn' : box.state == 'upgrading' ? 'accent' : 'warn' }}" md-mode="query"></md-progress-linear>
       <md-card-title>
@@ -318,7 +336,7 @@
     </md-card>
   </div>
 
-  <div flex flex-gt-sm="70" layout="column">
+  <div flex flex-gt-sm="70" layout="column" ng-if="box.state != 'new'">
     <div flex flex-gt-sm="70" layout="column" class="clients-charts">
       <div layout="" layout-wrap>
         <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ing-hide="fs && fs.panel != 'usage'">
