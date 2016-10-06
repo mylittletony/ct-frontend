@@ -370,8 +370,10 @@ table tr td, table.print-friendly tr th {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: .010em;
-  padding: 0 0 0 20px;
+  padding: 0 16px 0 20px;
   color: rgba(0,0,0,0.54);
+  max-width: 250px;
+  word-break: break-word;
 }
 
 /* .avatar { */
