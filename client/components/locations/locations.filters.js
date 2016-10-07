@@ -308,7 +308,7 @@ app.filter('translatableNetworkAccess', ['gettextCatalog', function(gettextCatal
         case 'open':
           return gettextCatalog.getString('open');
         case 'radius':
-          return gettextCatalog.getString('radius');
+          return gettextCatalog.getString('802.1x');
       }
     }
   };
