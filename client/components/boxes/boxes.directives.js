@@ -578,7 +578,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       poller = $timeout(function() {
         console.log('Refreshing device');
         init();
-      }, 5000);
+      }, 15000);
     };
 
     init().then(function() {

@@ -1336,7 +1336,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       poller = $timeout(function() {
         console.log('Refreshing devices');
         init();
-      }, 5000);
+      }, 30000);
     };
 
     $rootScope.$on('streaming', function(args,res) {
