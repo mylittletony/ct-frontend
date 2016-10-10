@@ -162,8 +162,8 @@
                   <translate>Content Filtering</translate>
                 </label>
                 <md-select ng-disabled="network.make_part_of_lan == true || network.network_radio_mode == 'sta'" ng-model="network.content_filter">
-                  <md-option ng-repeat="val in content_filters" ng-value="val">
-                    {{val}}
+                  <md-option ng-repeat="val in content_filters" ng-value="val.value">
+                    {{val.key}}
                   </md-option>
                 </md-select>
               </md-input-container>
