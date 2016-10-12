@@ -32,7 +32,7 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
     // };
 
     // scope.updatePage = function(item) {
-      
+
     // };
 
     var createMenu = function() {
@@ -150,7 +150,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
     var placeholderNewsletterPass =  gettextCatalog.getString('Username and Password'),
         placeholderNewsletterToken = gettextCatalog.getString('Enter your API token');
-        
+
     scope.timezones = moment.tz.names();
 
     scope.access_restrict = [{ key: gettextCatalog.getString('Off'), value: 'none'}, {key: gettextCatalog.getString('Periodic'), value: 'periodic'}, {key: gettextCatalog.getString('Data Downloaded'), value: 'data' }, {key: gettextCatalog.getString('Timed Access'), value: 'timed'}];
@@ -325,6 +325,10 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
       };
     };
 
+    scope.displayNetworks = function() {
+      networks();
+    };
+
     var networks = function() {
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_networks.html',
@@ -402,6 +406,8 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
           scope.splash.walled_gardens_array = [];
         }
 
+        validate();
+
         scope.newsletter_placeholder = scope.splash.newsletter_type === 4 ? placeholderNewsletterPass : placeholderNewsletterToken;
 
         // if (scope.splash.blacklisted && scope.splash.blacklisted.length) {
@@ -438,6 +444,18 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
     //   scope.splash.blacklisted = scope.splash.blacklisted_array.join(',');
     // };
 
+    var validate = function() {
+      scope.errors = undefined;
+      if (scope.splash.networks.length < 1) {
+        scope.color = 'rgb(244,67,54)';
+        scope.errors = true;
+      } else if (scope.splash.active) {
+        scope.color = 'rgb(76,175,80);';
+      } else {
+        scope.color = 'rgb(255,152,0)';
+      }
+    };
+
     var updateCT = function() {
       SplashPage.update({
         location_id: scope.location.slug,
@@ -446,7 +464,9 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
       }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Splash page successfully updated.'));
         scope.splash.network_ids = [];
+        scope.splash.networks = results;
         createMenu();
+        validate();
       }, function(err) {
         scope.splash.network_ids = [];
         showErrors(err);

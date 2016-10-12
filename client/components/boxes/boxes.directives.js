@@ -98,12 +98,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         });
       }
 
-      // Removed temporarily while we sort the API permissions
-      // scope.menu.push({
-      //   name: gettextCatalog.getString('Transfer'),
-      //   icon: 'transform',
-      //   type: 'transfer',
-      // });
+      scope.menu.push({
+        name: gettextCatalog.getString('Transfer'),
+        icon: 'transform',
+        type: 'transfer',
+      });
 
       scope.menu.push({
         name: gettextCatalog.getString('Delete'),
@@ -308,44 +307,44 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
     };
 
-    // scope.transferBox = function(ev) {
-    //   $mdDialog.show({
-    //     controller: transferCtrl,
-    //     locals: {
-    //       transfer: transferBox
-    //     },
-    //     templateUrl: 'components/boxes/show/_transfer.html',
-    //     parent: angular.element(document.body),
-    //     targetEvent: ev,
-    //     clickOutsideToClose:true
-    //   });
-    // };
+    scope.transferBox = function(ev) {
+      $mdDialog.show({
+        controller: transferCtrl,
+        locals: {
+          transfer: transferBox
+        },
+        templateUrl: 'components/boxes/show/_transfer.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      });
+    };
 
-    // function transferCtrl($scope, transfer) {
-    //   $scope.obj = {};
-    //   $scope.cancel = function() {
-    //     $mdDialog.cancel();
-    //   };
-    //   $scope.transfer = function(id) {
-    //     $mdDialog.cancel();
-    //     transfer(id);
-    //   };
-    // }
-    // transferCtrl.$inject = ['$scope', 'transfer'];
+    function transferCtrl($scope, transfer) {
+      $scope.obj = {};
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.transfer = function(id) {
+        $mdDialog.cancel();
+        transfer(id);
+      };
+    }
+    transferCtrl.$inject = ['$scope', 'transfer'];
 
-    // var transferBox = function(id) {
-    //   Box.update({
-    //     id: scope.box.slug,
-    //     box: {
-    //       transfer_to: id
-    //     }
-    //   }).$promise.then(function(results) {
-    //     scope.back();
-    //     showToast(gettextCatalog.getString('Box transferred successfully.'));
-    //   }, function(errors) {
-    //     showErrors(errors);
-    //   });
-    // };
+    var transferBox = function(id) {
+      Box.update({
+        id: scope.box.slug,
+        box: {
+          transfer_to: id
+        }
+      }).$promise.then(function(results) {
+        scope.back();
+        showToast(gettextCatalog.getString('Box transferred successfully.'));
+      }, function(errors) {
+        showErrors(errors);
+      });
+    };
 
     scope.muteBox = function() {
       scope.box.ignored = !scope.box.ignored;
@@ -498,6 +497,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           ap_mac: box.calledstationid
         };
         scope.loading = undefined;
+        poll();
         deferred.resolve();
       }, function() {
         deferred.reject();
@@ -572,6 +572,15 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
     };
 
+    // We've remove the pusher notifications since the volume was getting too high
+    var poller;
+    var poll = function() {
+      poller = $timeout(function() {
+        console.log('Refreshing device');
+        init();
+      }, 15000);
+    };
+
     init().then(function() {
       loadTput();
       loadCharts();
@@ -589,6 +598,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
       $mdBottomSheet.hide();
       $timeout.cancel(timeout);
+      $timeout.cancel(poller);
     });
 
   };

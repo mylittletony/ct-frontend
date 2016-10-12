@@ -78,7 +78,7 @@ describe('boxes', function () {
       deferred.resolve(box);
       $scope.$digest()
 
-      expect(boxScope.menu.length).toBe(7);
+      expect(boxScope.menu.length).toBe(8);
       expect(boxScope.menu[0].type).toBe('edit');
       expect(boxScope.menu[0].name).toBe('Edit');
       expect(boxScope.menu[1].type).toBe('reboot');
@@ -87,12 +87,14 @@ describe('boxes', function () {
       expect(boxScope.menu[2].name).toBe('Payloads');
       expect(boxScope.menu[3].type).toBe('changelog');
       expect(boxScope.menu[3].name).toBe('Changelog');
-      expect(boxScope.menu[4].type).toBe('delete');
-      expect(boxScope.menu[4].name).toBe('Delete');
-      expect(boxScope.menu[5].type).toBe('resync');
-      expect(boxScope.menu[5].name).toBe('Resync');
-      expect(boxScope.menu[6].type).toBe('reset');
-      expect(boxScope.menu[6].name).toBe('Reset');
+      expect(boxScope.menu[4].type).toBe('transfer');
+      expect(boxScope.menu[4].name).toBe('Transfer');
+      expect(boxScope.menu[5].type).toBe('delete');
+      expect(boxScope.menu[5].name).toBe('Delete');
+      expect(boxScope.menu[6].type).toBe('resync');
+      expect(boxScope.menu[6].name).toBe('Resync');
+      expect(boxScope.menu[7].type).toBe('reset');
+      expect(boxScope.menu[7].name).toBe('Reset');
     });
 
     it("should load the box and set the throughput", function() {
