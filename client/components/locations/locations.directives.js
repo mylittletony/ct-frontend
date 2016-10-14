@@ -954,7 +954,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       box.state = 'processing';
       box.allowed_job = false;
 
-      Box.reboot({id: box.slug}).$promise.then(function(results) {
+      Box.update({id: box.slug, box: {action: 'reboot'}}).$promise.then(function(results) {
         box.state = 'rebooting';
         showToast(gettextCatalog.getString('Box successfully rebooted.'));
       }, function(errors) {
