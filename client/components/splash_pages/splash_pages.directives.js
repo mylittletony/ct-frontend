@@ -440,13 +440,9 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
       scope.splash.walled_gardens = scope.splash.walled_gardens_array.join(',');
     };
 
-    // var formatBlacklisted = function() {
-    //   scope.splash.blacklisted = scope.splash.blacklisted_array.join(',');
-    // };
-
     var validate = function() {
       scope.errors = undefined;
-      if (scope.splash.networks.length < 1) {
+      if (scope.splash.networks && scope.splash.networks.length < 1) {
         scope.color = 'rgb(244,67,54)';
         scope.errors = true;
       } else if (scope.splash.active) {
@@ -549,6 +545,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       return Network.get({location_id: scope.location.slug, splash: true}).$promise.then(function(results) {
         scope.obj.networks = results;
         if (scope.obj.networks.length) {
+          console.log(results)
           scope.splash.network_id = scope.obj.networks[0].id;
           for (var i = 0; i < scope.obj.networks.length; i++) {
             if (scope.obj.networks[i].zones.length) {
@@ -612,6 +609,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       $scope.obj = obj;
       $scope.obj.loading = true;
       $scope.splash = splash;
+      // $scope.newSsid = true;
 
       getNetworks().then(getSplashPages);
 
