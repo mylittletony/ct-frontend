@@ -56,7 +56,7 @@
           <tbody md-body>
             <tr ng-class="splash.highlight ? 'highlight' : ''" md-row ng-repeat="splash in filtered = (splash_pages | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
               <td md-cell>
-                <md-icon md-menu-origin md-font-icon="">{{ splash.active ? "check_circle" : 'cancel' }}</md-icon>
+                <md-icon md-menu-origin md-font-icon="">{{ splash.networks.length < 1 ? "error" : splash.active ? "check_circle" : 'cancel' }}</md-icon>
               </td>
               <td hide show-gt-sm md-cell>
                 <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}">
@@ -74,10 +74,12 @@
                 </md-tooltip>
               </td>
               <td hide show-gt-sm md-cell>
-                <span ng-if="splash.networks.length < 1"></span>
+                <span ng-if="splash.networks.length < 1">
+                  <b>No Network</b>
+                  <md-tooltip>Splash must be assigned to a network</md-tooltip>
+                </span>
                 <span ng-if="splash.networks.length == 1">{{ splash.networks[0] }}</span>
                 <span ng-if="splash.networks.length > 1" translate>{{ splash.networks.length }} networks</span>
-
               </td>
               <td hide show-gt-sm md-cell>
                 {{ splash.weight }}

@@ -818,7 +818,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels',  function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -913,23 +913,23 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       switch(type) {
         case 'reboot':
           reboot(box, 1);
-        break;
-      case 'payload':
-        payload(box);
-      break;
-    case 'zones':
-      zones(box);
-    break;
-  case 'resync':
-    resync(box);
-  break;
-case 'delete':
-  destroy(box);
-break;
+          break;
+        case 'payload':
+          payload(box);
+          break;
+        case 'zones':
+          zones(box);
+          break;
+        case 'resync':
+          resync(box);
+          break;
+        case 'delete':
+          destroy(box);
+          break;
         case 'edit':
           edit(box.slug);
-        break;
-      default:
+          break;
+        default:
       }
     };
 
@@ -954,7 +954,7 @@ break;
       box.state = 'processing';
       box.allowed_job = false;
 
-      Box.reboot({id: box.slug}).$promise.then(function(results) {
+      Box.update({id: box.slug, box: {action: 'reboot'}}).$promise.then(function(results) {
         box.state = 'rebooting';
         showToast(gettextCatalog.getString('Box successfully rebooted.'));
       }, function(errors) {
@@ -1322,11 +1322,21 @@ break;
         scope._links          = results._links;
         scope.loading         = undefined;
         countOnline();
+        poll();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
       });
       return scope.deferred.promise;
+    };
+
+    // We've remove the pusher notifications since the volume was getting too high
+    var poller;
+    var poll = function() {
+      poller = $timeout(function() {
+        console.log('Refreshing devices');
+        init();
+      }, 30000);
     };
 
     $rootScope.$on('streaming', function(args,res) {
@@ -1343,6 +1353,13 @@ break;
     });
 
     init().then(loadPusher);
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      if (channel) {
+        channel.unbind();
+      }
+      $timeout.cancel(poller);
+    });
 
   };
   return {

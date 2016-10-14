@@ -74,11 +74,11 @@ describe('boxes', function () {
       expect(boxScope.location.slug).toEqual(111)
       expect(boxScope.period).toEqual('11h')
 
-      var box = { cucumber: true, id: 123 };
+      var box = { is_cucumber: true, id: 123 };
       deferred.resolve(box);
       $scope.$digest()
 
-      expect(boxScope.menu.length).toBe(7);
+      expect(boxScope.menu.length).toBe(8);
       expect(boxScope.menu[0].type).toBe('edit');
       expect(boxScope.menu[0].name).toBe('Edit');
       expect(boxScope.menu[1].type).toBe('reboot');
@@ -87,12 +87,14 @@ describe('boxes', function () {
       expect(boxScope.menu[2].name).toBe('Payloads');
       expect(boxScope.menu[3].type).toBe('changelog');
       expect(boxScope.menu[3].name).toBe('Changelog');
-      expect(boxScope.menu[4].type).toBe('delete');
-      expect(boxScope.menu[4].name).toBe('Delete');
-      expect(boxScope.menu[5].type).toBe('resync');
-      expect(boxScope.menu[5].name).toBe('Resync');
-      expect(boxScope.menu[6].type).toBe('reset');
-      expect(boxScope.menu[6].name).toBe('Reset');
+      expect(boxScope.menu[4].type).toBe('transfer');
+      expect(boxScope.menu[4].name).toBe('Transfer');
+      expect(boxScope.menu[5].type).toBe('delete');
+      expect(boxScope.menu[5].name).toBe('Delete');
+      expect(boxScope.menu[6].type).toBe('resync');
+      expect(boxScope.menu[6].name).toBe('Resync');
+      expect(boxScope.menu[7].type).toBe('reset');
+      expect(boxScope.menu[7].name).toBe('Reset');
     });
 
     it("should load the box and set the throughput", function() {
@@ -105,7 +107,7 @@ describe('boxes', function () {
       expect(boxScope.location.slug).toEqual(111);
       expect(boxScope.period).toEqual('11h');
 
-      var box = { cucumber: true, id: 123 };
+      var box = { is_cucumber: true, id: 123 };
       deferred.resolve(box);
       $scope.$digest()
 
@@ -144,7 +146,7 @@ describe('boxes', function () {
     it("should reformat all the ssids", function() {
       var boxScope = element.find('show-box').isolateScope()
       spyOn(boxFactory, 'get').and.callThrough()
-      var box = { cucumber: true, id: 123 };
+      var box = { is_cucumber: true, id: 123 };
       deferred.resolve(box);
       $scope.$digest();
       expect(boxScope.box.ssids).toEqual('N/A');
@@ -153,7 +155,7 @@ describe('boxes', function () {
     it("should reformat 1 ssid", function() {
       var boxScope = element.find('show-box').isolateScope();
       spyOn(boxFactory, 'get').and.callThrough();
-      var box = { cucumber: true, id: 123, metadata: { ssids: ['my-ssid'] } };
+      var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid'] } };
       deferred.resolve(box);
       $scope.$digest();
       expect(boxScope.box.ssids).toEqual('my-ssid');
@@ -162,7 +164,7 @@ describe('boxes', function () {
     it("should reformat 2 ssids", function() {
       var boxScope = element.find('show-box').isolateScope();
       spyOn(boxFactory, 'get').and.callThrough();
-      var box = { cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid'] } };
+      var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid'] } };
       deferred.resolve(box);
       $scope.$digest();
       expect(boxScope.box.ssids).toEqual('my-ssid & other-ssid');
@@ -171,7 +173,7 @@ describe('boxes', function () {
     it("should reformat 3 ssids", function() {
       var boxScope = element.find('show-box').isolateScope();
       spyOn(boxFactory, 'get').and.callThrough();
-      var box = { cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid', 'hidden-ssid'] } };
+      var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid', 'hidden-ssid'] } };
       deferred.resolve(box);
       $scope.$digest();
       expect(boxScope.box.ssids).toEqual('my-ssid, other-ssid and 1 more.');

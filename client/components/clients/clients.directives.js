@@ -334,17 +334,17 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     }
     colsCtrl.$inject = ['$scope', 'columns'];
 
-    var channel, pusherLoaded;
-    var loadPusher = function(key) {
-      if (pusherLoaded === undefined && typeof client !== 'undefined') {
-        pusherLoaded = true;
-        var pusher = $pusher(client);
-        channel = pusher.subscribe('private-'+key);
-        channel.bind('clients_update', function(data) {
-          updateClients(data.client);
-        });
-      }
-    };
+    // var channel, pusherLoaded;
+    // var loadPusher = function(key) {
+    //   if (pusherLoaded === undefined && typeof client !== 'undefined') {
+    //     pusherLoaded = true;
+    //     var pusher = $pusher(client);
+    //     channel = pusher.subscribe('private-'+key);
+    //     channel.bind('clients_update', function(data) {
+    //       updateClients(data.client);
+    //     });
+    //   }
+    // };
 
     var loadPolicies = function() {
       var deferred = $q.defer();
@@ -406,6 +406,16 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     }
     clientsCtrl.$inject = ['$scope'];
 
+    // We've remove the pusher notifications since the volume was getting too high
+    // Not implemented yet until we fix #331
+    // var poller;
+    // var poll = function() {
+    //   poller = $timeout(function() {
+    //     console.log('Refreshing device');
+    //     init();
+    //   }, 10000);
+    // };
+
     var init = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
@@ -414,7 +424,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
         scope.clients = results.clients;
         scope.info    = results.info;
         scope._links  = results._links;
-        loadPusher(scope.location.api_token);
+        // loadPusher(scope.location.api_token);
+        // poll();
         deferred.resolve();
       }, function() {
         scope.loading_table = undefined;
@@ -479,9 +490,10 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     });
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      if (channel) {
-        channel.unbind();
-      }
+      // if (channel) {
+      //   channel.unbind();
+      // }
+      // $timeout.cancel(poller);
     });
 
   };
