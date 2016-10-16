@@ -12,7 +12,6 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     scope.$watch('user',function(nv){
       if (nv !== undefined && scope.curr === undefined) {
         currency(scope.user.currency);
-        console.log(scope.user)
         init();
       }
     });
