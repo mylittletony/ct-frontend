@@ -6,7 +6,8 @@ app.factory('Plan', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
     return $resource(API_END_POINT + '/plans/:id',
       {
-        id: '@id'
+        id: '@id',
+        enterprise: '@enterprise'
       },
       {
       get: {
@@ -16,7 +17,7 @@ app.factory('Plan', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
           q: '@q',
           period: '@period',
-          v: 2
+          enterprise: '@enterprise'
         }
       },
       query: {
@@ -25,7 +26,7 @@ app.factory('Plan', ['$resource', '$localStorage', 'API_END_POINT',
         dataType: 'json',
         params: {
           id: '@id',
-          v: 2
+          enterprise: '@enterprise'
         }
       },
     });

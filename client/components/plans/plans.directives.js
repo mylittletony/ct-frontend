@@ -12,6 +12,7 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     scope.$watch('user',function(nv){
       if (nv !== undefined && scope.curr === undefined) {
         currency(scope.user.currency);
+        console.log(scope.user)
         init();
       }
     });
@@ -142,7 +143,8 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     var init = function() {
       Plan.query({
         period: 'monthly',
-        user_id: $routeParams.id
+        user_id: $routeParams.id,
+        enterprise: scope.user.enterprise
       }).$promise.then(function(data) {
         scope.plans = data.plans;
         subscribe(scope.user.key);
