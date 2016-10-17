@@ -46,7 +46,17 @@ app.factory('AccessToken', ['$cookies', '$q', function($cookies, $q) {
   };
 
   var get = function() {
-    var ls = $cookies.get('_cta', { domain: domain() });
+    var ls;
+    
+    //prefere url token to cookie
+    var params = document.location.href.match(/[?&]token=([0-9a-f]+)/);
+    if (params) {
+      ls = params[1];
+      set(ls);
+    } else {
+      ls = $cookies.get('_cta', { domain: domain() });
+    }
+
     return ls;
   };
 
