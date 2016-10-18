@@ -28,11 +28,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
 
   $httpProvider.interceptors.push('httpRequestInterceptor');
 
-  $httpProvider.defaults.useXDomain = true;
+  // $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
-  $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
-  $httpProvider.defaults.headers.patch['Accept'] = 'application/json';
-  $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
+  // $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
+  // $httpProvider.defaults.headers.patch['Content-Type'] = 'text/plain';
+  // $httpProvider.defaults.headers.post['Content-Type'] = 'text/plain';
+  // $httpProvider.defaults.headers.patch['Accept'] = 'application/json';
+  // $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
 
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
   var item = 'blue';
