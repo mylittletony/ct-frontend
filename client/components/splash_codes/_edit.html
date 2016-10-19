@@ -8,7 +8,7 @@
   <md-divider></md-divider>
 </md-toolbar>
 
-<md-content class="md-padding" layout="column" layout-gt-sm='row'>
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
 
   <div layout="row" ng-show="splash_pages.length === 0">
     <md-card>
@@ -113,7 +113,7 @@
                   </md-slider-container>
                   <p translate>Upload Speed ({{(code.upload_speed / 1024) | number:0 }}Mbps)</p>
 
-                  <md-slider-container flex="50">
+                  <md-slider-container>
                     <md-slider flex ng-model="code.upload_speed" min="56" max="51200" step="56" aria-label="down" id="down-slider" class="md-accent">
                     </md-slider>
                   </md-slider-container>
