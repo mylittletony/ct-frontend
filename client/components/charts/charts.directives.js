@@ -1191,7 +1191,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
           {suffix: suffix, pattern: '0'}
         );
 
-        for (i = 0; i < data.Kf.length; i++){
+        for (i = 0; i < data.getNumberOfColumns(); i++){
           formatter.format(data,i);
         }
 
