@@ -250,13 +250,13 @@
                     </md-tooltip>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.expected_throughput">
-                    {{ client.expected_throughput }}Mbps
+                    <translate>{{ client.expected_throughput }}Mbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.txbitrate">
-                    {{ client.txbitrate }}Mbps
+                    <translate>{{ client.txbitrate }}Mbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.rxbitrate">
-                    {{ client.rxbitrate }}Mbps
+                    <translate>{{ client.rxbitrate }}Mbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.snr">
                     <span class="text-muted" ng-if="client.conn_type == 'wired'" translate>
