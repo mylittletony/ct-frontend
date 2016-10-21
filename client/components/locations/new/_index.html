@@ -13,7 +13,7 @@
 <form name="myForm" ng-submit="save(myForm,location)">
   <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-padding>
     <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="50">
+      <div flex="100" flex-gt-md="30" flex-gt-sm="40">
         <md-card>
           <md-card-title>
             <md-card-title-text>
@@ -28,6 +28,15 @@
 
           <md-card-content>
             <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="100" style="margin-bottom: 30px" ng-if="projects.length > 1">
+                <label>Project Name</label>
+                <md-select ng-model="location.project_id">
+                  <!-- <md-option><em>Select a project</em></md-option> -->
+                  <md-option ng-repeat="project in projects" ng-value="project.id">
+                    {{project.project_name}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
               <md-input-container flex="100" flex-gt-sm="100">
                 <label>
                   <translate>Location Name</translate>
@@ -50,7 +59,7 @@
                   <div ng-message="required" translate>You must enter an address.</div>
                 </div>
               </md-input-container>
-              <md-input-container flex="100" flex-gt-sm="60">
+              <md-input-container flex="100" flex-gt-sm="50">
                 <label>
                   <translate>City / Town</translate>
                 </label>
@@ -61,7 +70,7 @@
                   <div ng-message="required" translate>You must enter a city.</div>
                 </div>
               </md-input-container>
-              <md-input-container flex="100" flex-gt-sm="40">
+              <md-input-container flex="100" flex-gt-sm="50">
                 <label>
                   <translate>Postcode / Zipcode</translate>
                 </label>
@@ -72,7 +81,13 @@
                   <div ng-message="required" translate>Postcode required.</div>
                 </div>
               </md-input-container>
-              <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public' | translate }}" class="md-warn" flex="100" flex-gt-sm="50">
+              <md-input-container flex="100">
+                <label>
+                  <translate>Country</translate>
+                </label>
+                <country-select country="location.country"></country-select>
+              </md-input-container>
+              <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public' | translate }}" class="md-warn" flex="100">
                 <span ng-if="location.add_to_global_map == true" translate>This is a public location</span>
                 <span ng-if="location.add_to_global_map == false" translate>This is a private location</span>
               </md-switch>

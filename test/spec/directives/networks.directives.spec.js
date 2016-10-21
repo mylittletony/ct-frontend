@@ -164,8 +164,25 @@ describe('networks', function () {
       // Would prefer to not use a scope //
       element.isolateScope().init();
 
-      var cf = ['Danger', 'Adult', 'Security', 'Family', 'Off'];
-      expect(element.isolateScope().content_filters).toEqual(cf);
+      var cf = [
+        {key: 'Danger', value:'Danger'},
+        {key: 'Adult', value: 'Adult'},
+        {key: 'Security', value: 'Security'},
+        {key: 'Family', value: 'Family'},
+        {key: 'Off', value: 'Off'}
+      ];
+
+      expect(element.isolateScope().content_filters[0].key).toEqual(cf[0].key);
+      expect(element.isolateScope().content_filters[0].value).toEqual(cf[0].value);
+      expect(element.isolateScope().content_filters[1].key).toEqual(cf[1].key);
+      expect(element.isolateScope().content_filters[1].value).toEqual(cf[1].value);
+      expect(element.isolateScope().content_filters[2].key).toEqual(cf[2].key);
+      expect(element.isolateScope().content_filters[2].value).toEqual(cf[2].value);
+      expect(element.isolateScope().content_filters[3].key).toEqual(cf[3].key);
+      expect(element.isolateScope().content_filters[3].value).toEqual(cf[3].value);
+      expect(element.isolateScope().content_filters[4].key).toEqual(cf[4].key);
+      expect(element.isolateScope().content_filters[4].value).toEqual(cf[4].value);
+
       var network = element.isolateScope().network
       expect(network.ssid).toEqual('My WiFi Network')
       expect(network.access_type).toEqual('password')
@@ -222,13 +239,11 @@ describe('networks', function () {
       expect(element.isolateScope().client_filters[2].key).toEqual('Block Banned Clients');
       expect(element.isolateScope().client_filters[2].value).toEqual('deny');
 
-      expect(element.isolateScope().menu.length).toEqual(3);
+      expect(element.isolateScope().menu.length).toEqual(2);
       expect(element.isolateScope().menu[0].name).toEqual('Delete Network');
       expect(element.isolateScope().menu[0].type).toEqual('delete');
-      expect(element.isolateScope().menu[1].name).toEqual('View Zones');
-      expect(element.isolateScope().menu[1].type).toEqual('zones');
-      expect(element.isolateScope().menu[2].name).toEqual('Test Radius');
-      expect(element.isolateScope().menu[2].type).toEqual('radius');
+      expect(element.isolateScope().menu[1].name).toEqual('Test Radius');
+      expect(element.isolateScope().menu[1].type).toEqual('radius');
     });
 
     it("should show the network", function() {

@@ -21,6 +21,7 @@
   <meta name="description" content="">
   <!-- <meta name="viewport" content="width=device-width"> -->
   <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' >
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'self' data: blob: 'unsafe-inline' 'unsafe-eval' wss://*.pusher.com"> -->
   <!-- <meta name='viewport' content='width=device-width, initial-scale=1.0' > -->
 
   <meta name="mobile-web-app-capable" content="yes">
@@ -86,7 +87,7 @@
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item ng-repeat="item in vm.menu.main">
-                <md-button href='{{item.link}}'>
+                <md-button href='{{item.link}}' ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
                   {{ item.title }}
                 </md-button>
@@ -101,20 +102,25 @@
           <md-button class="md-icon-button" aria-label="'Support' | translate" id="intercom" ng-if="vm.menu.Intercom">
             <md-icon>chat</md-icon>
           </md-button>
+          <!-- <md-button class="md-icon-button" aria-label="'Support' | translate"> -->
+          <!--   <a target="_blank" href="http://discuss.cucumberwifi.io"> -->
+          <!--     <md-icon>forum</md-icon> -->
+          <!--   </a> -->
+          <!-- </md-button> -->
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <user-avatar></user-avatar>
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item>
-                <md-button ng-href="/#/me" >
+                <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
                   <span translate>Account</span>
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
               <md-menu-item>
-                <md-button ng-href="/#/users" >
+                <md-button ng-href="/#/users" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">people</md-icon>
                   <span translate>Manage Users</span>
                 </md-button>
@@ -134,14 +140,14 @@
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
               <md-menu-item>
-                <md-button href="/#/downloads" >
+                <md-button href="/#/downloads" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">get_app</md-icon>
                   <span translate>Downloads</span>
                 </md-button>
               </md-menu-item>
 
               <md-menu-item>
-                <md-button href="/#/apps" >
+                <md-button href="/#/apps" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">build</md-icon>
                   <span translate>Developer</span>
                 </md-button>
@@ -183,8 +189,8 @@
                       Support
                     </translate>
                   </md-button>
-                </span>
-              </li>
+                </li>
+              </span>
               <li class="parent-list-item">
                 <md-button ng-click="logout()">
                   <md-icon md-menu-align-target>exit_to_app</md-icon>
@@ -228,7 +234,7 @@
               </li>
             </ul>
 
-            <div layout="row" layout-align="end" class="copy" hide show-gt-md>
+            <div layout="row" layout-align="end" class="copy" hide show-gt-sm>
               <small>
                 <translate>Privacy Policy - Terms of Service</translate><br>
                 ©2016 Cucumber Tony.<br>Build #{{ commit }}</small>
@@ -264,7 +270,7 @@
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/moment/min/moment-with-locales.js"></script>
   <script src="bower_components/angular-moment/angular-moment.js"></script>
   <script src="bower_components/angular-payments/lib/angular-payments.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -283,7 +289,7 @@
   <script src="bower_components/jquery-minicolors/jquery.minicolors.js"></script>
   <script src="bower_components/angular-minicolors/angular-minicolors.js"></script>
   <script src="bower_components/filepicker-js-bower/filepicker.min.js"></script>
-  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <script src="bower_components/promise-polyfill/Promise.js"></script>
   <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
   <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
@@ -386,6 +392,7 @@
   <script src="components/services/brand_users.services.js"></script>
   <script src="components/services/group_policies.services.js"></script>
   <script src="components/services/pagination_labels.services.js"></script>
+  <script src="components/services/projects.services.js"></script>
   <script src="components/services/users.services.js"></script>
   <script src="components/services/zones.services.js"></script>
   <script src="components/social/social.directives.js"></script>

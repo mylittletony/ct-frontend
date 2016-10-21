@@ -18,7 +18,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Details
+                Overview
               </span>
               <span class="md-subhead" ng-if="location.archived">
                 <md-icon>archived</md-icon>
@@ -55,6 +55,18 @@
                   <p>{{ ::location.network_location }} ({{ ::location.lucky_dip }})</p>
                 </div>
               </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3 translate>Environment</h3>
+                  <p>{{ ::location.development_mode | titleCase }}</p>
+                </div>
+              </md-list-item>
+              <!-- <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="location.project_name"> -->
+              <!--   <div class="md-list-item-text"> -->
+              <!--     <h3 translate>Project Name</h3> -->
+              <!--     <p>{{ ::location.project_name }}</p> -->
+              <!--   </div> -->
+              <!-- </md-list-item> -->
             </div>
           </md-card-content>
           <md-card-actions layout="row" layout-align="end center">
@@ -66,7 +78,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Address
+                Details
               </span>
               <span class="md-subhead">
               </span>
@@ -126,8 +138,16 @@
                   <translate>Timezone</translate>
                 </label>
                 <md-select ng-model="location.timezone">
-                  <md-option ng-repeat="zone in timezones">
+                  <md-option ng-repeat="zone in timezones" ng-value="zone">
                     {{zone}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50" ng-if="projects.length > 0">
+                <label>Project Name</label>
+                <md-select ng-model="location.project_id">
+                  <md-option ng-repeat="project in projects" ng-value="project.id">
+                    {{project.project_name}}
                   </md-option>
                 </md-select>
               </md-input-container>

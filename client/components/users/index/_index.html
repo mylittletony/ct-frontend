@@ -12,45 +12,47 @@
 </form>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-
   <div flex layout="column">
-
     <md-card>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
             <tr md-row>
               <th md-column md-order-by="username"><translate>Username</translate></th>
-              <th hide show-gt-sm md-column md-order-by="email"><translate>Email</translate></th>
-              <th hide show-gt-sm md-column md-order-by="role_id"><translate>Role</translate></th>
+              <th hide show-gt-xs md-column md-order-by="email"><translate>Email</translate></th>
+              <th hide show-gt-sm md-column md-order-by="role_id"><translate>Brand Role</translate></th>
+              <th hide show-gt-sm md-column md-order-by="role_id"><translate>Project Role</translate></th>
               <th hide show-gt-sm md-column><translate>Created</translate></th>
-              <th hide show-gt-sm md-column><translate>Last Seen</translate></th>
+              <th hide show-gt-md md-column><translate>Last Seen</translate></th>
               <th md-column ng-show="menu.length"><translate>Action</translate></th>
             </tr>
           </thead>
           <tbody md-body>
-          <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.direction)">
+            <tr md-row md-select="user" md-auto-select="options.autoSelect" ng-repeat="user in filtered = (users | filter: query.filter | orderBy: query.direction)">
               <td md-cell>
                 <a ng-if="super" href="/#/users/{{ ::user.slug }}">
-                  {{ ::user.username | truncate:15 }}
+                  {{ ::user.username | truncate:20 }}
                 </a>
                 <span ng-if="!super">
-                  {{ ::user.username | truncate:15 }}
+                  {{ ::user.username | truncate:20 }}
                 </span>
                 <md-tooltip hide-gt-sm>
                   {{ ::user.email }}
                 </md-tooltip>
               </td>
-              <td hide show-gt-sm md-cell>
+              <td hide show-gt-xs md-cell>
                 {{ ::user.email }}
               </td>
               <td hide show-gt-sm md-cell>
-                {{ user.role_id | roleFilter }}
+                {{ user.brand_user.role_id | roleFilter }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ user.project_user.role_id | roleFilter }}
               </td>
               <td hide show-gt-sm md-cell>
                 {{ ::(user.created_at | humanTime) }}
               </td>
-              <td hide show-gt-sm md-cell>
+              <td hide show-gt-md md-cell>
                 {{ ::(user.last_sign_in_at | humanTime) }}
               </td>
               <td md-cell ng-show="menu.length">

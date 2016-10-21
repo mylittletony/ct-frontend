@@ -183,7 +183,7 @@
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label><translate>Network Location</translate></label>
                   <md-select ng-model="brand.network_location">
-                    <md-option ng-repeat="loc in locations">
+                    <md-option ng-repeat="loc in locations" ng-value="loc">
                       {{loc}}
                     </md-option>
                   </md-select>

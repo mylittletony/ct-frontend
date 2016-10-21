@@ -6,7 +6,7 @@
     <p translate>Splash Pages</p>
     <span flex></span>
 
-    <!-- Zak, here's an example of the help icon --> 
+    <!-- Zak, here's an example of the help icon -->
     <md-button aria-label="menu" class="md-icon-button">
       <md-icon md-font-icon="help" >help</md-icon>
     </md-button>
@@ -33,10 +33,15 @@
 
     <div flex>
       <md-card>
+        <div class="md-card-image" style="height: 5px; background-color: {{ color }}"></div>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
               Splash Settings
+            </span>
+            <span class="md-subhead" ng-if="errors">
+              <md-icon>error</md-icon>
+              Splash not associated with a network. <a href="" ng-click="displayNetworks()">Associate now.</a>
             </span>
           </md-card-title-text>
         </md-card-title>
@@ -130,13 +135,13 @@
             <div>
               <md-input-container class="md-block">
                 <label>
-                  <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span> 
-                  <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span> 
+                  <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
+                  <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
                 </label>
                 <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
                 <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
                   <div ng-message="required">
-                    <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span> 
+                    <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
                     <span ng-if="splash.newsletter_type != 4" translate>You must set an API token.</span>
                   </div>
                 </div>
@@ -368,7 +373,7 @@
 
           <div flex-gt-sm="40">
             <div layout="column" layout-gt-xs="row" layout-wrap>
-              <div flex-gt-sm="50" ng-hide="splash.primary_access_id == 2">
+              <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
                 <md-input-container class="md-block">
                   <label for="available_start"><translate>Show After (mins)</translate></label>
                   <input ng-model="splash.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" type='number' name="session_timeout" ng-max='43200' ng-min='10'></input>
@@ -378,13 +383,22 @@
                   </div>
                 </md-input-container>
               </div>
-              <div flex-gt-sm="50" ng-hide="splash.primary_access_id == 2">
+              <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
                 <md-input-container class="md-block">
                   <label for="available_start"><translate>Idle Timeout (mins)</translate></label>
                   <input ng-model="splash.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" type='number' name="idle_timeout" ng-max='43200' ng-min='10'></input>
                   <div ng-messages="myForm.idle_timeout.$error">
                     <div ng-message="min" translate>Must be greater than 10 minutes.</div>
                     <div ng-message="max" translate>Must be less than 43200 minutes.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div flex-gt-sm="30">
+                <md-input-container class="md-block">
+                  <label for="weight"><translate>Weight</translate></label>
+                  <input ng-model="splash.weight" placeholder="{{ 'Weight' | translate }}" type='number' name="weight" ng-min='0'></input>
+                  <div ng-messages="myForm.weight.$error">
+                    <div ng-message="min" translate>Must be greater than 0.</div>
                   </div>
                 </md-input-container>
               </div>

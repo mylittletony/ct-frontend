@@ -11,7 +11,7 @@
         <translate>Transfer device to</translate>
       </label>
       <md-select ng-model="box.transfer_to">
-        <md-option ng-repeat="location in locations" value="{{location.id}}">
+        <md-option ng-repeat="location in locations" value="{{location.unique_id}}">
           {{ location.location_name }}
         </md-option>
       </md-select>

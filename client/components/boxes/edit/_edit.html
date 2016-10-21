@@ -12,7 +12,7 @@
   <md-subheader class="md-accent"><b><translate>MAC Address</translate></b>: {{ box.calledstationid }} <span hide show-gt-sm> <b><translate>Description</translate></b>:&nbsp;{{ box.description }}<b>&nbsp;<translate>Last Seen</translate></b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
 </section>
 
-<md-content class="md-padding" layout-gt-sm="column" layout="column" ng-if="box.is_polkaspots == false">
+<md-content class="md-padding" layout-gt-sm="column" layout="column" ng-if="box.is_cucumber == false">
   <div flex layout="column">
     <md-card>
       <md-card-title>
@@ -28,7 +28,7 @@
   </div>
 </md-content>
 
-<md-content class="md-padding" layout="column" ng-if="box.is_polkaspots === true">
+<md-content class="md-padding" layout="column" ng-if="box.is_cucumber === true">
   <form ng-submit="update(myForm)" name="myForm">
     <md-card>
       <md-card-title>
@@ -43,10 +43,11 @@
               <label>
                 <translate>Description</translate>
               </label>
-              <input ng-model="box.description" name="desc" md-maxlength="255" required>
+              <input ng-model="box.description" name="desc" minlength="5" md-maxlength="255" required>
               <div ng-messages="myForm.desc.$error">
-                <div ng-message="required" translate>This device must have a valid MAC address</div>
+                <div ng-message="required" translate>A description is required</div>
                 <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
+                <div ng-message="minlength" translate>Must be more than 5 characters</div>
               </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>

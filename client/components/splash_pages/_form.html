@@ -7,7 +7,7 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
-        <div flex layout="column">
+        <div flex="auto" layout="column">
           <p translate>You can design the splash pages to match your style.</p>
         </div>
         <div>
@@ -15,8 +15,7 @@
             <md-progress-linear md-mode="query"></md-progress-linear>
             <p translate>Loading...</p>
           </div>
-          <div flex layout="column" ng-hide='obj.loading'>
-
+          <div flex="auto" layout="column" ng-hide='obj.loading'>
             <md-input-container>
               <label>
                 <translate>Access Type</translate>
@@ -40,9 +39,9 @@
               </div>
             </md-input-container>
 
-            <md-input-container ng-if="obj.networks.length" ng-hide="newSsid">
+            <md-input-container ng-show="obj.networks.length" ng-hide="newSsid">
               <label>
-                <translate>Splash Network</translate>
+                <translate>Splash SSID (Network)</translate>
               </label>
               <md-select ng-model="splash.network_id">
                 <md-option ng-repeat="network in obj.networks" value="{{network.id}}">
@@ -53,7 +52,7 @@
 
             <md-input-container ng-if="newSsid">
               <label>
-                <translate>Splash SSID</translate>
+                <translate>SSID Name</translate>
               </label>
               <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="splash.ssid" required>
               <div ng-messages="myForm.ssid.$error">
@@ -63,14 +62,14 @@
                 <div ng-message="pattern" translate>Invalid SSID</div>
               </div>
             </md-input-container>
-            <md-checkbox ng-model="newSsid" aria-label="{{ 'New SSID' | translate }}" ng-hide="obj.zones || obj.networks.length">
+            <md-checkbox ng-model="newSsid" aria-label="{{ 'New SSID' | translate }}" ng-hide="obj.zones">
               <translate>Create a new SSID</translate>
             </md-checkbox>
           </div>
         </div>
       </md-dialog-content>
       <md-dialog-actions layout="row">
-        <span flex></span>
+        <span flex="auto"></span>
         <md-button ng-click="close()">
           <translate>Close</translate>
         </md-button>

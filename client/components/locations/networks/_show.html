@@ -41,10 +41,11 @@
               <label>
                 <translate>Network SSID</translate>
               </label>
-              <input autocomplete="off" name="ssid" md-maxlength="32" ng-model="network.ssid" required>
+              <input autocomplete="off" name="ssid" md-maxlength="32" ng-model="network.ssid" ng-pattern="FilterPattern" required>
               <div ng-messages="myForm.ssid.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>
+                <div ng-message="pattern" translate>Invalid characters in SSID</div>
               </div>
             </md-input-container>
           </div>
@@ -54,7 +55,8 @@
               <label>
                 <translate>Password</translate>
               </label>
-              <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
+              <!-- Please leave with this name since it fixes the issue with onepass etc -->
+              <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="FilterPattern" required>
               <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="minlength" translate>Min 8 characters</div>
@@ -88,7 +90,7 @@
           <div flex-gt-sm="40">
             <div layout="row" layout-wrap>
 
-              <md-input-container class="md-block" flex="80">
+              <md-input-container class="md-block" flex="60">
                 <label>
                   <translate>IP Address</translate>
                 </label>
@@ -99,13 +101,13 @@
                 </div>
               </md-input-container>
 
-              <md-input-container class="md-block" flex="20">
+              <md-input-container class="md-block" flex="40">
                 <label>
                   <translate>Netmask</translate>
                 </label>
                 <md-select ng-disabled="network.make_part_of_lan || network.network_radio_mode == 'sta'" ng-model="network.interface_netmask">
-                  <md-option ng-repeat="val in netmasks">
-                    {{val}}
+                  <md-option ng-repeat="netmask in netmasks" ng-value="netmask.abbrev">
+                    {{netmask.abbrev}}
                   </md-option>
                 </md-select>
               </md-input-container>
@@ -160,8 +162,8 @@
                   <translate>Content Filtering</translate>
                 </label>
                 <md-select ng-disabled="network.make_part_of_lan == true || network.network_radio_mode == 'sta'" ng-model="network.content_filter">
-                  <md-option ng-repeat="val in content_filters">
-                    {{val}}
+                  <md-option ng-repeat="val in content_filters" ng-value="val.value">
+                    {{val.key}}
                   </md-option>
                 </md-select>
               </md-input-container>
@@ -280,7 +282,7 @@
                   <translate>Radius Secret</translate>
                 </label>
                 <input ng-focus="showRadPassy8022 = !showRadPassy8022" ng-blur="showRadPassy8022 = !showRadPassy8022" ng-model="network.radius_8021x_secret_2" name="radius_8021x_secret_2" placeholder="{{ 'Radius Secret' | translate }}" type="{{ showRadPassy8022 ? 'text' : 'password' }}">
-                <div ng-messages="myForm.radius_8022x_secret_1.$error">
+                <div ng-messages="myForm.radius_8021x_secret_2.$error">
                   <div ng-message="required" translate>Must have a valid password.</div>
                 </div>
               </md-input-container>
@@ -289,8 +291,8 @@
                 <label>
                   <translate>Port</translate>
                 </label>
-                <input ng-model="network.radius_8022x_port_2" name="radius_8022x_port_2" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433'>
-                <div ng-messages="myForm.radius_8022x_port_2.$error">
+                <input ng-model="network.radius_8021x_port_2" name="radius_8021x_port_2" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433'>
+                <div ng-messages="myForm.radius_8021x_port_2.$error">
                   <div ng-message="required" translate>Must have a valid port.</div>
                   <div ng-message="max" translate>Must be less than 65433.</div>
                   <div ng-message="min" translate>Must be greater than 1.</div>
@@ -341,23 +343,6 @@
             </div>
             <div flex></div>
             <div flex-gt-sm="40">
-              <md-input-container class="md-block" flex="100">
-                <label>
-                  <translate>Client Filtering</translate>
-                </label>
-                <md-select ng-model="network.client_filter">
-                  <md-option ng-repeat="f in client_filters" value="{{ f.value }}">
-                    {{ f.key }}
-                  </md-option>
-                </md-select>
-              </md-input-container>
-              <p>
-                <small class="muted">
-                  <translate ng-if="network.client_filter == 'off'">Any authorised client can join the network.</translate>
-                  <translate ng-if="network.client_filter == 'allow'">Only white-listed clients can join the network.</translate>
-                  <translate ng-if="network.client_filter == 'deny'">Any authorised client can join, if they're not blocked.</translate>
-                </small>
-              </p>
               <label>
                 <translate>Band Selection</translate>
               </label>

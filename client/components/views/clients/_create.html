@@ -1,4 +1,4 @@
-<md-dialog aria-label="{{ 'Add Filter' | translate }}"  flex=30 ng-cloak>
+<md-dialog aria-label="{{ 'Add Filter' | translate }}"  flex="30" ng-cloak>
   <form ng-submit="save()" name="myForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -7,11 +7,11 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
-        <div flex layout="column">
+        <div flex="auto" layout="column">
         </div>
         <div flex layout="column">
           <p translate>Assign a group policy to a client. Pre-authorize before they connect by adding them to a policy group.</p>
-          <md-input-container class="md-block" flex>
+          <md-input-container class="md-block" flex="auto">
             <label>
               <translate>Client Description</translate>
             </label>
@@ -20,7 +20,7 @@
               <div ng-message="required" translate>A description is required.</div>
             </div>
           </md-input-container>
-          <md-input-container class="md-block" flex>
+          <md-input-container class="md-block" flex="auto">
             <label>
               <translate>Client MAC Address</translate>
             </label>
@@ -45,7 +45,7 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <span flex></span>
+      <span flex="auto"></span>
       <md-button ng-click="close()">
         <translate>
         Close

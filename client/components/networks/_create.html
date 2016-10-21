@@ -7,10 +7,10 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
-        <div flex layout="column">
+        <div flex="auto" layout="column">
           <p translate>Create up to 16 networks per location.</p>
         </div>
-        <div flex layout="column">
+        <div flex="auto" layout="column">
           <div ng-show='loading'>
             <md-progress-linear md-mode="query"></md-progress-linear>
           </div>
@@ -19,17 +19,18 @@
               <label>
                 <translate>SSID</translate>
               </label>
-              <input name="ssid" md-maxlength="32" ng-model="network.ssid" required>
+              <input name="ssid" md-maxlength="32" ng-model="network.ssid" ng-pattern="/^[^[\]\'\\]+$/" required>
               <div ng-messages="myForm.ssid.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>
+                <div ng-message="pattern" translate>Invalid characters in SSID</div>
               </div>
             </md-input-container>
             <md-input-container ng-if="network.access_type == 'password'">
               <label>
                 <translate>Password</translate>
               </label>
-              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" required>
+              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="/^[^[\]\'\\]+$/" required>
               <div ng-messages="myForm.password.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="minlength" translate>Min 8 characters</div>
@@ -69,7 +70,7 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <span flex></span>
+      <span flex="auto"></span>
       <md-button ng-click="close()" translate>
         Close
       </md-button>

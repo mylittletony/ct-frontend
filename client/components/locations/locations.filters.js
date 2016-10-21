@@ -279,3 +279,37 @@ app.filter('toString', [function() {
     }
   };
 }]);
+
+app.filter('translatablePolicy', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return gettextCatalog.getString('N/A');
+    } else {
+      switch(input) {
+        case 'allow':
+          return gettextCatalog.getString('allow');
+        case 'block':
+          return gettextCatalog.getString('block');
+        case 'filter':
+          return gettextCatalog.getString('filter');
+      }
+    }
+  };
+}]);
+
+app.filter('translatableNetworkAccess', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return gettextCatalog.getString('N/A');
+    } else {
+      switch(input) {
+        case 'password':
+          return gettextCatalog.getString('password');
+        case 'open':
+          return gettextCatalog.getString('open');
+        case 'radius':
+          return gettextCatalog.getString('802.1x');
+      }
+    }
+  };
+}]);

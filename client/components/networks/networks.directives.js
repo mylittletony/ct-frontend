@@ -190,7 +190,13 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
 
   var link = function(scope, element, attrs) {
 
-    scope.content_filters = [gettextCatalog.getString('Danger'), gettextCatalog.getString('Adult'), gettextCatalog.getString('Security'), gettextCatalog.getString('Family'), gettextCatalog.getString('Off')];
+    scope.content_filters = [
+      {key: gettextCatalog.getString('Danger'), value:'Danger'},
+      {key: gettextCatalog.getString('Adult'), value: 'Adult'},
+      {key: gettextCatalog.getString('Security'), value: 'Security'},
+      {key: gettextCatalog.getString('Family'), value: 'Family'},
+      {key: gettextCatalog.getString('Off'), value: 'Off'}
+    ];
     scope.location = { slug: $routeParams.id };
 
     function buildNetwork () {
@@ -208,7 +214,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         interface_netmask: 24,
         use_ps_radius: true,
         captive_portal_ps: true,
-        content_filter: gettextCatalog.getString('Security'),
+        content_filter: 'Security',
         highlight: true,
         captive_portal_enabled: false
       };
@@ -303,8 +309,16 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
     };
 
     scope.encryptions = {'None': 'none', 'WPA2': 'psk2'};
-    scope.content_filters = [gettextCatalog.getString('Danger'), gettextCatalog.getString('Adult'), gettextCatalog.getString('Security'), gettextCatalog.getString('Family'), gettextCatalog.getString('Off')];
-    scope.netmasks = [8,12,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,32];
+    scope.content_filters = [
+      {key: gettextCatalog.getString('Danger'), value:'Danger'},
+      {key: gettextCatalog.getString('Adult'), value: 'Adult'},
+      {key: gettextCatalog.getString('Security'), value: 'Security'},
+      {key: gettextCatalog.getString('Family'), value: 'Family'},
+      {key: gettextCatalog.getString('Off'), value: 'Off'}
+    ];
+    scope.netmasks = ('8 12 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 32').split(' ').map(function (netmask) {
+      return { abbrev: netmask }; 
+    });
 
     // User Permissions //
     var createMenu = function() {
@@ -313,11 +327,6 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         name: gettextCatalog.getString('Delete Network'),
         icon: 'delete_forever',
         type: 'delete'
-      });
-      scope.menu.push({
-        name: gettextCatalog.getString('View Zones'),
-        icon: 'layers',
-        type: 'zones',
       });
       scope.menu.push({
         name: gettextCatalog.getString('Test Radius'),
@@ -527,6 +536,17 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         channel.unbind();
       }
     });
+
+    // Duplicated Find a way to create as directive / filter //
+    scope.FilterPattern = (function() {
+      // var regexp = /^[^\'\"\\]*$/; // includes "
+      var regexp = /^[^\'\\]*$/;
+      return {
+        test: function(value) {
+          return regexp.test(value);
+        }
+      };
+    })();
 
     init();
   };

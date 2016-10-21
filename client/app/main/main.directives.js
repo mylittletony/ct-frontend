@@ -192,7 +192,7 @@ app.directive('filepicker', ['$compile', function ($compile) {
 
   return {
     link: link,
-    template: '<md-button class=\'md-primary\' ng-click=upload()>Upload</md-button>',
+    templateUrl: 'components/views/templates/_upload_button.html',
     scope: {
       attribute: '=',
       uploading: '=',
