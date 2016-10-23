@@ -115,7 +115,7 @@ app.directive('editApp', ['App', '$routeParams', '$location', 'menu', 'showError
         create();
       }
     };
-    
+
     if ($routeParams.id) {
       init();
     }
