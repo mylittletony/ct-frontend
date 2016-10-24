@@ -951,6 +951,9 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
       scope.location = { slug: $routeParams.id };
       scope.splash = { id: $routeParams.splash_page_id };
 
+      scope.product_tab_label = gettextCatalog.getString('Products');
+      scope.merchant_tab_label = gettextCatalog.getString('Merchant Settings');
+
       SplashPage.store({location_id: scope.location.slug, id: scope.splash.id}).$promise.then(function(results) {
         scope.store = results ? results.store : undefined;
         if (results && results.products === undefined) {
