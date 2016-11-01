@@ -1268,11 +1268,28 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     };
 
     scope.online = 0;
+    var boxes = {};
     var countOnline = function() {
       if (scope.boxes.length) {
         for (var i = 0, len = scope.boxes.length; i < len; i++) {
           if (scope.boxes[i].metadata) {
-            scope.online += scope.boxes[i].metadata.online;
+            var box_id = scope.boxes[i].id;
+            var online_boxes = scope.boxes[i].metadata.online;
+            if (!boxes.hasOwnProperty(scope.boxes[i].id)) {
+              if (online_boxes !== null) {
+                scope.online += online_boxes;
+              }
+              boxes[box_id] = online_boxes;
+            } else if (boxes.hasOwnProperty(scope.boxes[i].id) && boxes[scope.boxes[i].id] !== online_boxes){
+              if (boxes[scope.boxes[i].id] > online_boxes) {
+                scope.online -= (boxes[scope.boxes[i].id] - online_boxes);
+              } else if (boxes[scope.boxes[i].id] < online_boxes) {
+                scope.online +=  (online_boxes - boxes[scope.boxes[i].id]);
+              }
+              boxes[box_id] = online_boxes;
+            } else {
+              boxes[box_id] = online_boxes;
+            }
           }
         }
       }

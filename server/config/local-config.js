@@ -1,2 +1,2 @@
 // Generated! Do not edit!
-'use strict';module.exports = {"DEBUG":false};
+'use strict';module.exports = {"DEBUG":"true","APP_ID":"da6cecf72e2500716afc8385d4276db7636774acb66c7f83e234c44ec8fbb261","APP_SECRET":"73e76c87c80c063c633350c953111791eb09127de7262b6324cc104e5fe8a94b","profileURL":"https://api.ctapp.io/api/v1/me.json","authorizationURL":"https://id.ctapp.io/oauth/authorize","tokenURL":"https://id.ctapp.io/oauth/token","callbackURL":"https://dcc-dev.devolo.net/auth/login/callback","baseURL":"https://dcc-dev.devolo.net"};
