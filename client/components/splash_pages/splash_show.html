@@ -124,7 +124,7 @@
             <div layout="column">
               <md-input-container class="md-block">
                 <label><translate>Newsletter Capture Type</translate></label>
-                <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
+                <md-select ng-disabled="splash.primary_access_id == 8" ng-model="splash.newsletter_type" ng-change="updateNews()">
                   <md-option ng-repeat="type in newsletter_types" value="{{ type.value }}">
                     {{type.key}}
                   </md-option>
@@ -138,7 +138,7 @@
                   <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
                   <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
                 </label>
-                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
                 <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
                   <div ng-message="required">
                     <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
@@ -149,13 +149,14 @@
 
               <md-input-container class="md-block">
                 <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
-                <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
                 <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
                   <div ng-message="required" translate>You must set a list ID.</div>
                 </div>
               </md-input-container>
 
-              <small hide show-gt-sm ng-show="splash.newsletter_type == 3"><translate>'Internal Only' saves email in dashboard but doesn't subscribe to external service like MailChimp.</translate></small>
+              <small hide show-gt-sm ng-show="splash.newsletter_type == 3"><translate>'Internal Only' saves email in dashboard but doesn't subscribe to external service like MailChimp.</translate></small><br>
+              <small hide show-gt-sm ng-show="splash.primary_access_id == 8"><b><translate>Email Capture is disabled because Guest Registration is in use. Details stored internally.</translate></b></small>
             </div>
 
           </div>
