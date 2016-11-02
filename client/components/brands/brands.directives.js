@@ -15,7 +15,11 @@ app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$loca
     var init = function() {
       User.query({id: $routeParams.id}).$promise.then(function (res) {
         scope.user = res;
-        getBrand();
+        if (scope.user.invited_by) {
+          scope.loading = undefined;
+        } else {
+          getBrand();
+        }
       });
     };
 
