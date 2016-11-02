@@ -235,6 +235,7 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
 
       function drawChart() {
 
+        // devices throws an error, check what the backend is sending and imp a fix SM
         var data = new window.google.visualization.DataTable();
         var devices = JSON.parse(results.periscope.devices);
         var uniques = JSON.parse(results.periscope.splash_uniques);
