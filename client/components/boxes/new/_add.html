@@ -30,7 +30,7 @@
               </div>
               <div ng-if="setup.type == 'mac' || setup.type == 'third'">
                 <div layout="column" flex-gt-sm="50">
-                  <md-input-container class="md-block" flex>
+                  <md-input-container class="md-block" flex="auto">
                     <label>
                       <translate>MAC Address</translate>
                     </label>
@@ -40,7 +40,7 @@
                       <div ng-message="pattern" translate>Must be a valid mac, including dashes or colons.</div>
                     </div>
                   </md-input-container>
-                  <md-input-container class="md-block" flex>
+                  <md-input-container class="md-block" flex="auto">
                     <label>
                       <translate>Description</translate>
                     </label>
@@ -52,7 +52,7 @@
                     </div>
                   </md-input-container>
 
-                  <md-input-container flex ng-if="zones.length> 0" style="padding-bottom: 10px;">
+                  <md-input-container flex="auto" ng-if="zones.length> 0" style="padding-bottom: 10px;">
                     <label>
                       <translate>Zone</translate>
                     </label>

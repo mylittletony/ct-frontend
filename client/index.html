@@ -94,11 +94,19 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-          <md-button class="md-icon-button" aria-label="'Support' | translate">
+          <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="!vm.menu.Intercom">
             <a target="_blank" href="http://discuss.cucumberwifi.io">
               <md-icon>forum</md-icon>
             </a>
           </md-button>
+          <md-button class="md-icon-button" aria-label="'Support' | translate" id="intercom" ng-if="vm.menu.Intercom">
+            <md-icon>chat</md-icon>
+          </md-button>
+          <!-- <md-button class="md-icon-button" aria-label="'Support' | translate"> -->
+          <!--   <a target="_blank" href="http://discuss.cucumberwifi.io"> -->
+          <!--     <md-icon>forum</md-icon> -->
+          <!--   </a> -->
+          <!-- </md-button> -->
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <user-avatar></user-avatar>
@@ -225,13 +233,12 @@
                 </h2>
               </li>
             </ul>
-
-            <div layout="row" layout-align="end" class="copy" hide show-gt-sm>
-              <small>
-                <translate>Privacy Policy - Terms of Service</translate><br>
-                ©2016 Cucumber Tony.<br>Build #{{ commit }}</small>
-            </div>
           </md-content>
+          <div layout="row" layout-padding layout-align="start end" class="copy" hide show-gt-md>
+            <small>
+              <translate>Privacy Policy - Terms of Service</translate><br>
+              ©2016 Cucumber Tony.<br>Build #{{ commit }}</small>
+          </div>
         </md-sidenav>
         <md-content flex>
           <div ng-view autoscroll="true" ng-class="{'hidden': notFound}"></div>

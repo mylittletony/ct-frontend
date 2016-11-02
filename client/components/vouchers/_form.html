@@ -67,7 +67,7 @@
             </md-input-container>
             <md-input-container flex="100" flex-gt-sm="40" ng-if="voucher.access_type == 2">
               <label><translate>Data Limit (MB)</translate></label>
-              <input type="number" name="access_restrict_data" ng-model="voucher.access_restrict_data" ng-min="50" placeholder="{{ 'Download MB' | translate }}" ng-max="1000000" ng-required="voucher.access_type == 2"></input>
+              <input type="number" name="access_restrict_data" ng-model="voucher.access_restrict_data" ng-min="50" placeholder="{{ 'Data Usage MB' | translate }}" ng-max="1000000" ng-required="voucher.access_type == 2"></input>
               <div ng-messages="myForm.access_restrict_data.$error">
                 <div ng-message="min" translate>Must be greater than 50Mb</div>
                 <div ng-message="max" translate>Must be less than 1000000 Mb</div>

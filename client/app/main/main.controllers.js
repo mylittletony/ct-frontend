@@ -287,6 +287,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     $scope.$on('intercom', function(args,event) {
       if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
+        vm.menu.Intercom = true;
         var settings = {
             app_id: INTERCOM,
             user_id: Auth.currentUser().accountId,
@@ -301,6 +302,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             paid_plan: Auth.currentUser().paid_plan,
             locs: Auth.currentUser().locs,
             version: '2'
+        };
+        settings.widget = {
+          activator: '#intercom'
         };
         window.Intercom('boot', settings);
       }
