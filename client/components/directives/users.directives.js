@@ -1151,6 +1151,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       var hash  = {};
       hash.page = page;
       hash.per  = limit;
+      hash.q    = $routeParams.q;
       $location.search(hash);
     };
 
