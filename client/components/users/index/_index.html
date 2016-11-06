@@ -22,7 +22,7 @@
               <th hide show-gt-xs md-column md-order-by="email"><translate>Email</translate></th>
               <th hide show-gt-sm md-column md-order-by="role_id"><translate>Brand Role</translate></th>
               <th hide show-gt-sm md-column md-order-by="role_id"><translate>Project Role</translate></th>
-              <th hide show-gt-sm md-column><translate>Created</translate></th>
+              <th hide show-gt-md md-column><translate>Created</translate></th>
               <th hide show-gt-md md-column><translate>Last Seen</translate></th>
               <th md-column ng-show="menu.length"><translate>Action</translate></th>
             </tr>
@@ -49,7 +49,7 @@
               <td hide show-gt-sm md-cell>
                 {{ user.project_user.role_id | roleFilter }}
               </td>
-              <td hide show-gt-sm md-cell>
+              <td hide show-gt-md md-cell>
                 {{ ::(user.created_at | humanTime) }}
               </td>
               <td hide show-gt-md md-cell>
