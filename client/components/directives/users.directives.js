@@ -1151,6 +1151,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       var hash  = {};
       hash.page = page;
       hash.per  = limit;
+      hash.q    = $routeParams.q;
       $location.search(hash);
     };
 
@@ -1220,13 +1221,13 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var updateRole = function(user) {
       BrandUser.update({
-        id: user.brand_user.id,
+        id: user.id,
         brand_user: {
           role_id: user.brand_user.role_id
         },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
-        showToast('User successfully revoked.');
+        showToast('User successfully updated.');
       }, function(err) {
         showErrors(err);
         scope.loading = undefined;
