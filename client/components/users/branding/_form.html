@@ -8,7 +8,7 @@
   <md-divider></md-divider>
 </md-toolbar>
 
-<md-content class="md-padding" ng-if="brand && brand.admin != true">
+<md-content class="md-padding" ng-if="brand && brand.id && brand.admin != true">
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
       <md-card>
@@ -88,6 +88,7 @@
                     </div>
                   </md-input-container>
                   <p><translate>Your dashboard address is&nbsp;</translate> <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
+                  <small class="muted">You may need to logout for the URL change to apply.</small>
                 </div>
               </md-card-content>
             </md-card>

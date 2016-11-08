@@ -31,6 +31,8 @@ app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$loca
         scope.brandName.name  = scope.brand.brand_name;
         subscribe();
       }, function(err) {
+        scope.brandName.name = 'Acme Inc';
+        scope.brand.admin = true;
         scope.loading = undefined;
       });
     };

@@ -88,11 +88,11 @@
                   {{ box.calledstationid }}
                 </td>
                 <td hide show-gt-md md-cell>
-                  {{::box.metadata.online || '-' }}
+                  {{ ::box.metadata.online || '-' }}
                 </td>
                 <td hide show-gt-sm md-cell>
-                  <a href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}">
-                    {{ box.metadata.zone_name | truncate:20 | titleCase }}
+                  <a href="/#/locations/{{ location.slug }}/zones/{{ box.zone_id }}">
+                    {{ box.zone_name | truncate:20 | titleCase }}
                   </a>
                 </td>
                 <td hide show-gt-md md-cell>
