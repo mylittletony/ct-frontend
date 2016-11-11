@@ -835,7 +835,7 @@ app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$loca
     if (chimp_token === '531543883634') {
       chimp_url = encodeURIComponent('http://my.ctapp.dev:9090/#/me/integrations/mailchimp');
     } else {
-      chimp_url = encodeURIComponent('https://dashboard.ctapp.io/#/me/integrations/mailchimp');
+      chimp_url = encodeURIComponent('https://my.ctapp.io/#/me/integrations/mailchimp');
     }
 
     scope.user = Auth.currentUser();
@@ -1221,13 +1221,13 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
     var updateRole = function(user) {
       BrandUser.update({
-        id: user.brand_user.id,
+        id: user.id,
         brand_user: {
           role_id: user.brand_user.role_id
         },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
-        showToast('User successfully revoked.');
+        showToast('User successfully updated.');
       }, function(err) {
         showErrors(err);
         scope.loading = undefined;
