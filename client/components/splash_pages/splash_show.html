@@ -5,11 +5,6 @@
     </md-button>
     <p translate>Splash Pages</p>
     <span flex></span>
-
-    <!-- Zak, here's an example of the help icon -->
-    <md-button aria-label="menu" class="md-icon-button">
-      <md-icon md-font-icon="help" >help</md-icon>
-    </md-button>
     <md-menu ng-if="menu">
       <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
         <md-icon>more_vert</md-icon>
@@ -222,7 +217,7 @@
               <div flex-gt-sm="50" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'none'">
                 <md-input-container class="md-block">
                   <label><translate>Minutes {{ splash.access_restrict_period | titleCase }}</translate></label>
-                  <input ng-model="splash.access_restrict_mins" placeholder="" type='number' name="access_restrict_mins" ng-min=10 ng-max=43200 ng-disabled="splash.access_restrict === 'none'">
+                  <input ng-model="splash.access_restrict_mins" placeholder="" type='number' name="access_restrict_mins" ng-min="10" ng-max='43200' ng-disabled="splash.access_restrict === 'none'">
                   <div ng-messages="myForm.access_restrict_mins.$error">
                     <div ng-message="required" translate>You must set the restrict mins.</div>
                     <div ng-message="max" translate>Must be less than 43200.</div>
@@ -234,7 +229,7 @@
               <div flex-gt-sm="50" ng-if="splash.access_restrict === 'data'">
                 <md-input-container class="md-block">
                   <label>MB {{ splash.access_restrict_period | titleCase }} </label>
-                  <input ng-model="splash.access_restrict_down" placeholder="{{ 'MB Limit' | translate }}" type='text' name="access_restrict_down" ng-max='' ng-min=10 required>
+                  <input ng-model="splash.access_restrict_down" placeholder="{{ 'MB Limit' | translate }}" type='text' name="access_restrict_down" ng-max='' ng-min="10" required>
                   <div ng-messages="myForm.access_restrict_down.$error">
                     <div ng-message="required" translate>You must set the download restriction.</div>
                     <div ng-message="min" translate>Must be greater than 10Mb.</div>
@@ -245,7 +240,7 @@
               <div flex-gt-sm="50">
                 <md-input-container class="md-block">
                   <label><translate>Timeout Days</translate></label>
-                  <input ng-model="splash.timeout" placeholder="" type='number' name="timeout" ng-max=90 ng-min=0 ng-disabled="splash.access_restrict === 'none'">
+                  <input ng-model="splash.timeout" placeholder="" type='number' name="timeout" ng-max='90' ng-min="0" ng-disabled="splash.access_restrict === 'none'">
                   <div ng-messages="myForm.timeout.$error">
                     <div ng-message="max" translate>Must be less than 90.</div>
                     <div ng-message="min" translate>Must be greater than or equal to 0.</div>
@@ -310,7 +305,7 @@
 
               <md-input-container class="md-block">
                 <label for="splash.download_speed"><translate>Download {{ splash.download_speed | mbps }}</translate></label>
-                <input name="download" type="number" ng-model="splash.download_speed" ng-min=0></input>
+                <input name="download" type="number" ng-model="splash.download_speed" ng-min="0"></input>
                 <div ng-messages="myForm.download.$error">
                   <div ng-message="min" translate>Must be greater than or equal to 0.</div>
                 </div>
@@ -318,7 +313,7 @@
 
               <md-input-container class="md-block">
                 <label for="splash.upload_speed"><translate>Upload {{ splash.upload_speed | mbps }}</translate></label>
-                <input name="upload" type="number" ng-model="splash.upload_speed" ng-min=0></input>
+                <input name="upload" type="number" ng-model="splash.upload_speed" ng-min="0"></input>
                 <div ng-messages="myForm.upload.$error">
                   <div ng-message="min" translate>Must be greater than or equal to 0.</div>
                 </div>
@@ -373,20 +368,20 @@
 
           <div flex-gt-sm="40">
             <div layout="column" layout-gt-xs="row" layout-wrap>
-              <div flex-gt-sm="30" ng-if="splash.primary_access_id != 2">
+              <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
                 <md-input-container class="md-block">
                   <label for="available_start"><translate>Show After (mins)</translate></label>
-                  <input ng-model="splash.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" type='number' name="session_timeout" ng-max=43200 ng-min=10></input>
+                  <input ng-model="splash.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" type='number' name="session_timeout" ng-max='43200' ng-min='10'></input>
                   <div ng-messages="myForm.session_timeout.$error">
                     <div ng-message="min" translate>Must be greater than 10 minutes.</div>
                     <div ng-message="max" translate>Must be less than 43200 minutes.</div>
                   </div>
                 </md-input-container>
               </div>
-              <div flex-gt-sm="30" ng-if="splash.primary_access_id != 2">
+              <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
                 <md-input-container class="md-block">
                   <label for="available_start"><translate>Idle Timeout (mins)</translate></label>
-                  <input ng-model="splash.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" type='number' name="idle_timeout" ng-max=43200 ng-min=10></input>
+                  <input ng-model="splash.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" type='number' name="idle_timeout" ng-max='43200' ng-min='10'></input>
                   <div ng-messages="myForm.idle_timeout.$error">
                     <div ng-message="min" translate>Must be greater than 10 minutes.</div>
                     <div ng-message="max" translate>Must be less than 43200 minutes.</div>
@@ -396,7 +391,7 @@
               <div flex-gt-sm="30">
                 <md-input-container class="md-block">
                   <label for="weight"><translate>Weight</translate></label>
-                  <input ng-model="splash.weight" placeholder="{{ 'Weight' | translate }}" type='number' name="weight" ng-min=0></input>
+                  <input ng-model="splash.weight" placeholder="{{ 'Weight' | translate }}" type='number' name="weight" ng-min='0'></input>
                   <div ng-messages="myForm.weight.$error">
                     <div ng-message="min" translate>Must be greater than 0.</div>
                   </div>
