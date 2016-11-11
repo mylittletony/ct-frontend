@@ -1154,9 +1154,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
           // Loop through the zones so we can set the zone_id for display //
           for(var i = 0, l = $scope.selected.length; i < l; ++i){
             var n, id;
-            if ($scope.selected[i].metadata && $scope.selected[i].metadata.zone_name) {
+            if ($scope.selected[i].zone_name) {
               n  = $scope.selected[i].metadata.zone_name;
-              id = $scope.selected[i].metadata.zone_id;
+              id = $scope.selected[i].zone_id;
             } else {
               n = 'null';
               id = 'remove';
@@ -1212,10 +1212,10 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       // Loop through the selected boxes and update //
       for (i = 0, len = scope.selected.length; i < len; i++) {
         var box = scope.selected[i];
-        if (box.metadata === undefined) {
-          box.metadata = {};
-        }
-        box.metadata.zone_name = zone_name;
+        // if (box.metadata === undefined) {
+        //   box.metadata = {};
+        // }
+        box.zone_name = zone_name;
         box.zone_id = zone_id;
         updateZone(box);
       }
@@ -1287,12 +1287,16 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         channel = pusher.subscribe('private-' + attrs.token);
         console.log('Binding to:', channel.name);
         for( var i = 0; i < scope.boxes.length; ++i ) {
-          channel.bind('boxes_' + scope.boxes[i].pubsub_token, function(data) {
-            updateBox(data.message);
-          });
+          channelBind(i);
         }
       }
     }
+
+    var channelBind = function(i) {
+      channel.bind('boxes_' + scope.boxes[i].pubsub_token, function(data) {
+        updateBox(data.message);
+      });
+    };
 
     var updateBox = function(data) {
       data = JSON.parse(data);
