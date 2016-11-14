@@ -320,6 +320,10 @@
                 <span ng-show="network.ssid_hidden" translate>SSID Hidden</span>
                 <span ng-show="!network.ssid_hidden" translate>SSID Visible</span>
               </md-switch>
+              <md-switch ng-disabled="!network.captive_portal_enabled" class="md-accent" ng-model="network.captive_portal_roaming" aria-label="{{ 'Splash Roaming' | translate }}">
+                <span  ng-if="network.captive_portal_roaming == true" translate>Splash Roaming Enabled</span>
+                <span  ng-if="network.captive_portal_roaming != true" translate>Splash Roaming Disabled</span>
+              </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate" aria-label="{{ 'Isolate SSID' | translate }} ">
                 <span ng-show="network.isolate" translate>Client Isolation Enabled</span>
                 <span ng-hide="network.isolate" translate>Client Isolation Disabled</span>

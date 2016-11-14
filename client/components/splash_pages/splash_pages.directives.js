@@ -570,7 +570,6 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       if (scope.splash.ssid) {
         scope.splash.network_id = undefined;
       }
-
       SplashPage.create({
         location_id: scope.location.slug,
         splash_page: {
@@ -589,7 +588,6 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
         $mdDialog.cancel();
         showErrors(err);
       });
-
     };
 
     scope.open = function(network) {
