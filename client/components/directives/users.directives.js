@@ -14,8 +14,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
   var link = function( scope, element, attrs ) {
 
     var id, locale;
-
-    // scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    // Check git history to more vars;
     scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
@@ -40,12 +39,12 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
 
     scope.update = function(form) {
       form.$setPristine();
+      scope.user.plan = undefined;
       User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
         if (locale !== results.locale) {
           console.log('Setting locale to', results.locale);
           Auth.currentUser().locale = results.locale;
-          $cookies.put('locale', results.locale)
-          //$route.reload();
+          $cookies.put('locale', results.locale);
           $window.location.reload();
         }
         showToast(gettextCatalog.getString('User successfully updated.'));
@@ -53,9 +52,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
         showErrors(err);
       });
     };
-
     init();
-
   };
 
   return {
