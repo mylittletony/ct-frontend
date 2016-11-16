@@ -388,6 +388,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         }
       }
       switch(data.type) {
+        case 'resync':
+          console.log('Device resynced');
+          break;
         case 'heartbeat':
           heartbeat(data);
           break;
@@ -738,9 +741,11 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone) {
+app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout) {
 
   var link = function(scope) {
+
+    var channel, timer;
 
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
@@ -808,6 +813,25 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
       }
     };
 
+    function loadPusher(key) {
+      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+        scope.pusherLoaded = true;
+        var pusher = $pusher(client);
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        console.log('Binding to:', channel.name);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
+          console.log('Message received at', new Date().getTime() / 1000);
+          processNotification(data.message);
+        });
+      }
+    }
+
+    var processNotification = function(msg) {
+      timer = $timeout(function() {
+        showToast(gettextCatalog.getString('This device is being resynced'));
+      }, 5000);
+    };
+
     scope.update = function(form) {
       form.$setPristine();
       scope.box.is_cucumber = scope.box.tony;
@@ -842,12 +866,21 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         scope.box.tony       = scope.box.is_cucumber;
         scope.loading = undefined;
         getZones();
+        loadPusher();
       });
     };
 
     scope.back = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug;
     };
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      if (channel) {
+        channel.unbind();
+      }
+      // $mdBottomSheet.hide();
+      $timeout.cancel(timer);
+    });
 
     init();
   };
