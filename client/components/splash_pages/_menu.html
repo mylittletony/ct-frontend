@@ -152,10 +152,10 @@
       </md-card-title>
       <md-card-content>
 
-        <md-radio-group ng-model="splash.splash.design_id" layout="row" style="padding: 0 0 20px 0">
-          <md-radio-button value="2" class="md-primary"><translate>Enabled</translate></md-radio-button>
-          <md-radio-button value="1"><translate>Disabled</translate></md-radio-button>
-        </md-radio-group>
+        <md-switch ng-model="splash.splash.design_id" ng-true-value="2" ng-false-value="1" aria-label="show_side_image" style="margin: 0px 0 20px 0">
+          <span ng-show="splash.splash.design_id == 2" translate>Side Image Enabled</span>
+          <span ng-show="splash.splash.design_id == 1" translate>Side Image Disabled</span>
+        </md-switch>
 
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
