@@ -88,7 +88,7 @@
                     </div>
                   </md-input-container>
                   <p><translate>Your dashboard address is&nbsp;</translate> <b> https://{{ brand.url || 'my' }}.ctapp.io</b></p>
-                  <small class="muted">You may need to logout for the URL change to apply.</small>
+                  <p><small class="muted">&nbsp;You may need to logout for the URL change to apply.</small></p>
                 </div>
               </md-card-content>
             </md-card>
@@ -118,7 +118,7 @@
                     <translate>Email Settings</translate>
                   </span>
                   <span class="md-subhead" translate>
-                    Customise your outbound emails. Enterprise plans only.
+                    Customise your outbound emails. Premium plans only.
                   </span>
                 </md-card-title-text>
               </md-card-title>
@@ -145,10 +145,6 @@
                     <div ng-message="md-maxlength" translate>Max 100 characters</div>
                   </div>
                 </md-input-container>
-                <div layout-align="left left">
-                  <span translate>Enterprise plans only.</span>
-                  <ct-docs name='branding' alt="documentation"><translate>Read the docs</translate><ct-docs>.
-                </div>
               </md-card-content>
             </md-card>
 
