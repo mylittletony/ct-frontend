@@ -197,13 +197,7 @@
           <md-slider flex ng-model="voucher.upload_speed" min="56" max="102400" step="56" aria-label="down" id="down-slider" class="md-accent">
           </md-slider>
         </md-slider-container>
-
-        <md-switch aria-label="{{ 'Disabled switch' | translate }}" ng-model="voucher.secure_password" ng-disabled="voucher.unique_id">
-          <translate>
-            Secure Mode {{ voucher.secure_password | humanBoolean }}
-          </translate>
-        </md-switch>
-
+        
       </div>
 
     </md-card-content>
