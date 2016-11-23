@@ -223,8 +223,8 @@ md-sidenav.md-sidenav-right ul {
 
 .bottom-right {
   top: auto;
-  right: 20px;
-  bottom: 20px;
+  right: 90px;
+  bottom: 16px;
   left: auto;
   position: fixed;
 }
