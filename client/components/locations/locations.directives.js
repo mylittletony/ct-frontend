@@ -1268,8 +1268,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       });
     };
 
-    scope.online = 0;
     var countOnline = function() {
+      scope.online = 0;
       if (scope.boxes.length) {
         for (var i = 0, len = scope.boxes.length; i < len; i++) {
           if (scope.boxes[i].metadata) {

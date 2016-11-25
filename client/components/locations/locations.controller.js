@@ -214,6 +214,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
       menu.archived = undefined;
+      menu.header = undefined;
     });
 
     init();
