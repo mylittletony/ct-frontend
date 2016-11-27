@@ -402,6 +402,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
             timestamp: data.message.timestamp
           };
           break;
+        case 'not-connected':
+          timeout = $timeout(function() {
+            showToast(gettextCatalog.getString('Device lost connection, jobs may fail.'));
+            $timeout.cancel(timeout);
+          }, 2000);
+          break;
         case 'installer':
           if (data.status === true) {
             init();
@@ -1702,7 +1708,7 @@ app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'ge
   var link = function(scope, element,attrs) {
     scope.runSpeedtest = function() {
       scope.box.speedtest_running = true;
-      scope.box.allowed_job = false;
+      // scope.box.allowed_job = false;
       updateCT();
     };
 
