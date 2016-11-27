@@ -74,6 +74,9 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
         case '30d':
           interval = '1h';
           break;
+        case '1yr':
+          interval = '1yr';
+          break;
         default:
           interval = '60s';
       }

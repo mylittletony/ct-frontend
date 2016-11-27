@@ -275,5 +275,4 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
     };
 
     createMenu();
-
 }]);

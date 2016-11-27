@@ -340,6 +340,9 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
           case '30d':
             this.interval = '1h';
             break;
+          case '1yr':
+            this.interval = '1yr';
+            break;
           default:
             this.interval = '60s';
         }
