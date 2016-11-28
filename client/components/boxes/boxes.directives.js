@@ -623,23 +623,44 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
 }]);
 
+app.directive('fetchBox', ['Box', '$routeParams', function(Box, $routeParams, $pusher) {
+
+  var link = function( scope, element, attrs ) {
+
+  };
+
+  var controller = function($scope) {
+
+    var init = function() {
+      return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
+        $scope.box = box;
+        $scope.loading = undefined;
+      }, function(err) {
+        $scope.loading = undefined;
+        console.log(err);
+      });
+    };
+    init();
+    this.$scope = $scope;
+  };
+
+  return {
+    link: link,
+    controller: controller,
+  };
+}]);
+
 app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', 'gettextCatalog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog, gettextCatalog) {
 
-  var link = function(scope,element,attrs) {
+  var link = function(scope,element,attrs,controller) {
 
     scope.location = { slug: $routeParams.id };
     scope.command = { save: true };
 
     var init = function() {
-      return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
-        scope.box = box;
-        scope.loading = undefined;
-        loadPayloads();
-        loadPusher();
-      }, function(err) {
-        scope.loading = undefined;
-        console.log(err);
-      });
+      scope.box = controller.$scope.box;
+      loadPayloads();
+      loadPusher();
     };
 
     scope.deletePayload = function(index,id) {
@@ -702,6 +723,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
   return {
     link: link,
+    require: '^fetchBox',
     scope: {
       loading: '=',
     },

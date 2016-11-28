@@ -14,7 +14,6 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
-      // direction:  $routeParams.direction || 'desc'
     };
 
     // scope.onPaginate = function (page, limit) {
