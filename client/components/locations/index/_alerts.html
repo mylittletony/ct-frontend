@@ -76,7 +76,7 @@
                       </span>
                     </td>
                     <td md-cell>
-                      <a href="/#/locations/{{ location.slug}}/devices/{{ box.slug }}">
+                      <a href="/#/locations/{{ box.location_slug }}/devices/{{ box.slug }}">
                         {{ ::box.description | truncate:20 }}
                       </a>
                       <md-tooltip hide-gt-sm ng-if="box.machine_type">
