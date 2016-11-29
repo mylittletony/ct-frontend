@@ -626,9 +626,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $routeParams, $compile) {
 
   var link = function( scope, element, attrs ) {
-    alert(123)
     var template = $compile('<div><ilist-messages>iiiiiiii</ilist-messages></div>')(scope);
-
+    element.html(template);
   };
 
   var controller = function($scope) {
