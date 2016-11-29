@@ -4,10 +4,11 @@ var app = angular.module('myApp.messages.directives', []);
 
 app.directive('listMessages', ['Message', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$mdEditDialog', '$q', 'gettextCatalog', 'pagination_labels', function(Message, Location, $routeParams, $mdDialog, showToast, showErrors, $mdEditDialog, $q, gettextCatalog, pagination_labels) {
 
-  var link = function(scope,element,attrs) {
+  var link = function(scope,element,attrs,controller) {
 
     scope.loading = true;
-    scope.box = { slug: $routeParams.box_id };
+    // scope.box = controller.$scope.box;
+    scope.box = {};
     scope.location = { slug: $routeParams.id };
 
     scope.pagination_labels = pagination_labels;
@@ -19,7 +20,7 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', '$mdDialog
     };
 
     var init = function() {
-      Message.query({box_id: scope.box.slug }).$promise.then(function(res) {
+      Message.query({box_id: scope.box.id }).$promise.then(function(res) {
         scope.messages = res.messages;
         scope._links = res._links;
         scope.loading = undefined;

@@ -623,9 +623,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
 }]);
 
-app.directive('fetchBox', ['Box', '$routeParams', function(Box, $routeParams, $pusher) {
+app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $routeParams, $compile) {
 
   var link = function( scope, element, attrs ) {
+    alert(123)
+    var template = $compile('<div><ilist-messages>iiiiiiii</ilist-messages></div>')(scope);
 
   };
 
@@ -641,12 +643,13 @@ app.directive('fetchBox', ['Box', '$routeParams', function(Box, $routeParams, $p
       });
     };
     init();
+
     this.$scope = $scope;
   };
 
   return {
     link: link,
-    controller: controller,
+
   };
 }]);
 
