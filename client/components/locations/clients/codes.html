@@ -62,7 +62,7 @@
                       <md-menu-content width="4" >
                         <md-menu-item ng-repeat="item in codesMenu">
                           <md-button ng-click="updateCode(code)" ng-if="item.name === 'activate'">
-                            <p flex>{{ code.active | booleanToggle }}</p>
+                            <p flex>{{ code.active | booleanInverse }}</p>
                           </md-button>
                           <md-button ng-click="viewUsage(code)" ng-if="item.name === 'Usage'" ng-disabled="!code.date_activated">
                             <p flex translate>View Usage</p>

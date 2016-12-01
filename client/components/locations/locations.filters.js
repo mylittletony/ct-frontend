@@ -187,6 +187,20 @@ app.filter('booleanToggle', ['$window', 'gettextCatalog', function(window, gette
   };
 }]);
 
+app.filter('booleanInverse', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
+  return function(input) {
+    if ( input === undefined || input === null) {
+      return gettextCatalog.getString('N/A');
+    } else {
+      if ( input === true ) {
+        return gettextCatalog.getString('Disable');
+      } else {
+        return gettextCatalog.getString('Enable');
+      }
+    }
+  };
+}]);
+
 app.filter('updateCreate', ['$window', 'gettextCatalog', function(window, gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null || input === '') {
