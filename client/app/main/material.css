@@ -467,3 +467,24 @@ table tr td, table.print-friendly tr th {
   margin: 0 20px;
   opacity: 0.5;
 }
+
+.message-input {
+  position: absolute;
+  bottom: 0;
+  width: 94%;
+}
+
+.message-input input {
+  font-size: 16px;
+  height: 20px;
+  outline-width: 1px;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 10px 0 10px 14px;
+  width: 99%;
+}
+
+.message-input input:focus {
+  outline-color: transparent;
+  outline-style: none;
+}

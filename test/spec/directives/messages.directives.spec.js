@@ -45,59 +45,57 @@ describe('message', function () {
       $routeParams = _$routeParams_;
       $routeParams.id = 'xxx';
       $routeParams.box_id = 'yyy';
-      var elem = angular.element('<fetch-box><list-messages></list-messages></fetch-box>');
+      var elem = angular.element('<list-messages></list-messages>');
       element = $compile(elem)($rootScope);
       element.scope().$digest();
     }));
 
-    fit("should set the variable", function() {
-      // expect(element.isolateScope().loading).toBe(true);
+    fit("should set the variables", function() {
       spyOn(boxFactory, 'get').and.callThrough();
-      var scope = element.find('list-messages').isolateScope()
       var box = { id: 123 };
       deferred.resolve(box);
       $scope.$digest()
 
       spyOn(messageFactory, 'query').and.callThrough();
-      expect(scope.query.order).toBe('-created_at');
-      expect(scope.box.slug).toBe('yyy');
-      expect(scope.location.slug).toBe('xxx');
+      expect(element.isolateScope().query.order).toBe('-created_at');
+      expect(element.isolateScope().box.slug).toBe('yyy');
+      expect(element.isolateScope().location.slug).toBe('xxx');
     });
 
-    // fit("should list the messages", function() {
-    //   spyOn(messageFactory, 'query').and.callThrough();
-    //   expect(element.isolateScope().loading).toBe(true);
+    fit("should list the messages", function() {
+      spyOn(messageFactory, 'query').and.callThrough();
+      expect(element.isolateScope().loading).toBe(true);
 
-    //   var links = { total: 999 };
-    //   var vals = { _links: links, messages: [{a: 123}] }
-    //   deferred.resolve(vals);
-    //   $scope.$digest()
+      var links = { total: 999 };
+      var vals = { _links: links, messages: [{a: 123}] }
+      deferred.resolve(vals);
+      $scope.$digest()
 
-    //   expect(element.isolateScope().loading).toBe(undefined);
-    //   expect(element.isolateScope().messages.length).toBe(1);
-    //   expect(element.isolateScope()._links).toBe(links);
-    // });
+      expect(element.isolateScope().loading).toBe(undefined);
+      expect(element.isolateScope().messages.length).toBe(1);
+      expect(element.isolateScope()._links).toBe(links);
+    });
   });
 
-  // describe('shows the messages', function() {
-  //   beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector, _$location_) {
-  //     $scope = $rootScope;
-  //     q = $q;
-  //     $location = _$location_;
-  //     $routeParams = _$routeParams_;
-  //     $routeParams.id = 'xxx';
-  //     $routeParams.box_id = 'yyy';
-  //     var elem = angular.element('<list-messages></list-messages>');
-  //     element = $compile(elem)($rootScope);
-  //     element.scope().$digest();
-  //   }));
+  describe('creates the messages', function() {
+    beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector, _$location_) {
+      $scope = $rootScope;
+      q = $q;
+      $location = _$location_;
+      $routeParams = _$routeParams_;
+      $routeParams.id = 'xxx';
+      $routeParams.box_id = 'yyy';
+      var elem = angular.element('<create-message></create-message>');
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
+    }));
 
-  //   fit("should set the variable", function() {
-  //     // expect(element.isolateScope().loading).toBe(true);
-  //     spyOn(messageFactory, 'query').and.callThrough();
-  //     expect(element.isolateScope().query.order).toBe('-created_at');
-  //     expect(element.isolateScope().box.slug).toBe('yyy');
-  //     expect(element.isolateScope().location.slug).toBe('xxx');
-  //   });
-
+    fit("should add the messages to the list", function() {
+      // expect(element.isolateScope().loading).toBe(true);
+      // spyOn(messageFactory, 'create').and.callThrough();
+      // expect(element.isolateScope().query.order).toBe('-created_at');
+      // expect(element.isolateScope().box.slug).toBe('yyy');
+      // expect(element.isolateScope().location.slug).toBe('xxx');
+    });
+  });
 });

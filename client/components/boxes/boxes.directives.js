@@ -626,24 +626,27 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $routeParams, $compile) {
 
   var link = function( scope, element, attrs ) {
-    var template = $compile('<div><ilist-messages>iiiiiiii</ilist-messages></div>')(scope);
-    element.html(template);
-  };
-
-  var controller = function($scope) {
-
     var init = function() {
       return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
-        $scope.box = box;
-        $scope.loading = undefined;
+        compileTemplate(box.gubbins_version);
       }, function(err) {
-        $scope.loading = undefined;
+        scope.loading = undefined;
         console.log(err);
       });
     };
-    init();
 
-    this.$scope = $scope;
+    var compileTemplate = function(version) {
+      var template;
+      if (parseInt(version) === 4) {
+        template = $compile('<list-messages></list-messages>')(scope);
+      } else {
+        template = $compile('<box-payloads loading="loading"></box-payloads>')(scope);
+      }
+      element.html(template);
+      scope.loading = undefined;
+    };
+
+    init();
   };
 
   return {

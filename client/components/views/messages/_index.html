@@ -14,10 +14,13 @@
 </section>
 
 
-<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
+<md-content class="md-padding">
 
-  <div ng-repeat="msg in messages">
-    {{ msg }}
-  </div>
+  <ul ng-repeat="msg in messages">
+    <li>{{ msg.created_at | humanTime }} {{ msg.msg }}</li>
+  </ul>
 </md-content>
 
+<div class="message-input">
+  <create-message messages="messages"></create-message>
+</div>

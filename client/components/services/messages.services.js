@@ -35,6 +35,7 @@ app.factory('Message', ['$resource', '$localStorage', 'API_END_POINT',
       create: {
         method: 'POST',
         isArray: false,
+        dataType: 'json',
         params: {
           box_id: '@box_id',
           message: '@message'
