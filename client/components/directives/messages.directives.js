@@ -37,17 +37,20 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
 
 }]);
 
-app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', 'showToast', function(Message, Location, $routeParams, gettextCatalog, pagination_labels, showToast) {
+app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', 'showToast', '$timeout', function(Message, Location, $routeParams, gettextCatalog, pagination_labels, showToast, $timeout) {
 
   var link = function(scope,element,attrs,controller) {
 
+    var timeout;
     scope.msg     = {};
     scope.loading  = true;
     scope.box      = { slug: $routeParams.box_id };
 
     scope.create = function(msg) {
-      save(msg);
-      scope.msg = {};
+      if (scope.disabled === undefined) {
+        save(msg);
+        scope.msg = {};
+      }
     };
 
     scope.alert = function() {
@@ -60,8 +63,13 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
       Message.create({box_id: scope.box.slug, message: { msg: msg.msg } }).$promise.then(function(res) {
         scope.messages.push(res);
       }, function(err) {
+        scope.disabled = true;
         console.log(err);
         showToast(gettextCatalog.getString('Could not publish message, try again'));
+        timeout = $timeout(function() {
+          scope.disabled = undefined;
+          $timeout.cancel(timeout);
+        }, 1000);
       });
     };
   };
