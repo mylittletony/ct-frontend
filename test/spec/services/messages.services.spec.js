@@ -18,6 +18,9 @@ describe("Message Unit Tests", function() {
     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/boxes/123/messages/456')
     .respond(200, {});
 
+    $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/boxes/123/messages/456')
+    .respond(200, {});
+
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/messages')
     .respond(200, {});
 
@@ -38,6 +41,12 @@ describe("Message Unit Tests", function() {
   it('should have sent a GET request to location show messages', function() {
     var result = Message.query({box_id: 123, id: 456})
     $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/boxes/123/messages/456')
+    $httpBackend.flush();
+  });
+
+  fit('should have sent a DELETE request to location show messages', function() {
+    var result = Message.destroy({box_id: 123, id: 456})
+    $httpBackend.expectDELETE('http://mywifi.dev:8080/api/v1/boxes/123/messages/456')
     $httpBackend.flush();
   });
 

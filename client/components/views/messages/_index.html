@@ -17,7 +17,7 @@
 <md-content class="md-padding">
 
   <ul ng-repeat="msg in messages">
-    <li>{{ msg.created_at | humanTime }} {{ msg.msg }}</li>
+    <li>{{ msg.created_at | humanTime }} {{ msg.msg }} <a href="" ng-click="destroy(msg.id, $index)">X</a></li>
   </ul>
 </md-content>
 

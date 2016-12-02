@@ -15,6 +15,13 @@ app.factory('Message', ['$resource', '$localStorage', 'API_END_POINT',
         id: '@id'
       },
       {
+      destroy: {
+        method: 'DELETE',
+        params: {
+          id: '@id',
+          box_id: '@box_id'
+        }
+      },
       get: {
         method: 'GET',
         isArray: false,

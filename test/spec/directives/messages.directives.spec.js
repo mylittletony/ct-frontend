@@ -50,7 +50,7 @@ describe('message', function () {
       element.scope().$digest();
     }));
 
-    fit("should set the variables", function() {
+    it("should set the variables", function() {
       spyOn(boxFactory, 'get').and.callThrough();
       var box = { id: 123 };
       deferred.resolve(box);
@@ -59,10 +59,9 @@ describe('message', function () {
       spyOn(messageFactory, 'query').and.callThrough();
       expect(element.isolateScope().query.order).toBe('-created_at');
       expect(element.isolateScope().box.slug).toBe('yyy');
-      expect(element.isolateScope().location.slug).toBe('xxx');
     });
 
-    fit("should list the messages", function() {
+    it("should list the messages", function() {
       spyOn(messageFactory, 'query').and.callThrough();
       expect(element.isolateScope().loading).toBe(true);
 
@@ -90,7 +89,7 @@ describe('message', function () {
       element.scope().$digest();
     }));
 
-    fit("should add the messages to the list", function() {
+    it("should add the messages to the list", function() {
       // expect(element.isolateScope().loading).toBe(true);
       // spyOn(messageFactory, 'create').and.callThrough();
       // expect(element.isolateScope().query.order).toBe('-created_at');

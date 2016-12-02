@@ -26,6 +26,20 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
         scope.loading = undefined;
       });
     };
+
+    var removeFromList = function(index) {
+      scope.messages.splice(index, 1);
+    };
+
+    scope.destroy = function(id, index) {
+      Message.destroy({box_id: scope.box.slug, id: id }).$promise.then(function(res) {
+        removeFromList(index);
+      }, function(err) {
+        console.log(err);
+        // scope.loading = undefined;
+      });
+    };
+
     init();
   };
 
@@ -48,7 +62,6 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
 
     scope.create = function(msg) {
       if (scope.disabled === undefined) {
-        scope.disabled = true;
         save(msg);
         scope.msg = {};
       }

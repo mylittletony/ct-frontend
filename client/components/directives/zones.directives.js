@@ -22,10 +22,6 @@ app.directive('listZones', ['Zone', 'ZoneListing', 'Location', '$routeParams', '
     //   scope.updatePage();
     // };
 
-    // scope.updatePage = function(item) {
-
-    // };
-
     // User permissions //
     var createMenu = function() {
       scope.menu = [];
