@@ -48,6 +48,7 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
 
     scope.create = function(msg) {
       if (scope.disabled === undefined) {
+        scope.disabled = true;
         save(msg);
         scope.msg = {};
       }
@@ -55,15 +56,15 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
 
     scope.alert = function() {
       if (scope.msg.msg && scope.msg.msg.length === 1 && scope.msg.msg[0] === '/') {
-        console.log('Slash command dialog..........')
+        console.log('Slash command dialog..........');
       }
     };
 
     var save = function(msg) {
       Message.create({box_id: scope.box.slug, message: { msg: msg.msg } }).$promise.then(function(res) {
         scope.messages.push(res);
+        scope.disabled = undefined;
       }, function(err) {
-        scope.disabled = true;
         console.log(err);
         showToast(gettextCatalog.getString('Could not publish message, try again'));
         timeout = $timeout(function() {
