@@ -37,7 +37,7 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
 
 }]);
 
-app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', function(Message, Location, $routeParams, gettextCatalog, pagination_labels) {
+app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', 'showToast', function(Message, Location, $routeParams, gettextCatalog, pagination_labels, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -59,11 +59,9 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
     var save = function(msg) {
       Message.create({box_id: scope.box.slug, message: { msg: msg.msg } }).$promise.then(function(res) {
         scope.messages.push(res);
-        // scope.messages = res.messages;
-        // scope._links = res._links;
-        // scope.loading = undefined;
-      }, function() {
-        // scope.loading = undefined;
+      }, function(err) {
+        console.log(err);
+        showToast(gettextCatalog.getString('Could not publish message, try again'));
       });
     };
   };
