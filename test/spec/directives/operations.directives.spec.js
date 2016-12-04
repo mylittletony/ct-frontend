@@ -37,11 +37,12 @@ describe('operation', function () {
     beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector, _$location_) {
       $scope = $rootScope;
       q = $q;
+      $scope.loading = true;
       $location = _$location_;
       $routeParams = _$routeParams_;
       $routeParams.id = 'xxx';
       $routeParams.box_id = 'yyy';
-      var elem = angular.element('<operations></operations>');
+      var elem = angular.element('<operations loading="loading"></operations>');
       element = $compile(elem)($rootScope);
       element.scope().$digest();
     }));
