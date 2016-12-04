@@ -130,6 +130,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.not_in_zone = (results._info && results._info.total > 0);
     };
 
+    // showResetConfirm confirms or cancels a manual reset from a box.
+    // Sending true to resetBox will reset.
+    // Sending null to resetBox will cancel any actions on box.
     var showResetConfirm = function() {
       $mdBottomSheet.show({
         templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
@@ -140,11 +143,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     function ResetCtrl($scope) {
       $scope.reset = function() {
         $mdBottomSheet.hide();
-        resetBox();
+        resetBox(true);
       };
       $scope.cancel = function() {
         $mdBottomSheet.hide();
-        resetBox(true);
+        resetBox();
       };
     }
     ResetCtrl.$inject = ['$scope'];
@@ -188,13 +191,13 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       .ok(gettextCatalog.getString('Reset it'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        resetBox();
+        resetBox(true);
       });
     };
 
-    var resetBox = function(cancel) {
+    var resetBox = function(reset) {
       var action = 'reset';
-      if (cancel === true) {
+      if (reset === true) {
         scope.resetting = true;
       } else {
         action = 'cancel';
