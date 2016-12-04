@@ -460,6 +460,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/devices/:box_id/operations', {
+      templateUrl: 'components/views/operations/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/boxes/:box_id/versions', {
       redirectTo: '/locations/:id/devices/:box_id/versions',
     }).

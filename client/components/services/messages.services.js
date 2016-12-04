@@ -2,10 +2,6 @@
 
 var app = angular.module('myApp.messages.services', ['ngResource',]);
 
-app.factory('MessageListing', [function() {
-  return { messages: [] };
-}]);
-
 app.factory('Message', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
     return $resource(API_END_POINT + '/boxes/:box_id/messages/:id',

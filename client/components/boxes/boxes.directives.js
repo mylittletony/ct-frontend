@@ -175,11 +175,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/edit');
     };
 
     scope.payloads = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/payloads');
     };
 
     scope.resetBox = function(ev) {

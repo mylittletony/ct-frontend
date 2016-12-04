@@ -1,0 +1,69 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
+      <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
+    </md-button>
+    <p translate>Back to Device</p>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+
+<section ng-cloak ng-show="!loading">
+  <md-subheader class="md-accent"><b translate>MAC Address</b>: {{ box.calledstationid}}<span hide show-gt-sm> <b translate>Description</b>: {{ box.description }}<b translate> Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
+</section>
+
+
+<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
+
+  <div flex flex-gt-sm="100" layout="column">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>Device Operations</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div flex flex-gt-sm="100" layout="column" ng-if="operations.length">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline"></span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-column><span translate>Type</span></th>
+              <th md-column><span translate>User</span></th>
+              <th md-column><span translate>Time</span></th>
+              <th md-column><span translate>Status</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat="op in filtered = (operations | filter: filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+              <td md-cell>Updated {{ op.operation_type }}</td>
+              <td md-cell>{{ op.user || 'Unknown' }}</td>
+              <td md-cell>
+                Start: {{ op.created_at | humanTime }}<br>
+                End: {{ op.completed_at | humanTime }}<br>
+              </td>
+              <td md-cell>{{ op.status }}</td>
+              <!-- <td md-cell> -->
+              <!--   <md-button class="md-icon-button" ng-click="deletePayload($index,payload.id)"> -->
+              <!--     <md-icon md-menu-origin aria-label="{{ 'delete payload' | translate }}" md-font-icon="trash" class="s48">delete_forever</md-icon> -->
+              <!--   </md-button> -->
+              <!-- </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </md-card-content>
+    </md-card>
+  </div>
+
+</md-content>
