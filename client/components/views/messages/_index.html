@@ -12,7 +12,7 @@
   <div id="msg.id" class="message-inner" ng-repeat="msg in messages">
     <span><pre>{{ nas.hostname }}% {{ msg.msg }}</pre></span>
     <span ng-bind-html="msg.replies[0].msg | formatter:msg.msg"></span>
-    <span class="message-small">Sent: {{ msg.created_at | humanTime }}. Delivered: {{ msg.replies[0].created_at | humanTime }}. Delivery time: {{ msg.created_at - msg.replies[0].created_at }}s. <a href="" ng-click="destroy(msg.id, $index)"><md-icon >delete</md-icon></a><md-icon>save</md-icon></span>
+    <span class="message-small">Sent: {{ msg.created_at | humanTime }}. Delivered: {{ msg.replies[0].created_at | humanTime }}. Delivery time: {{ msg.replies[0].created_at - msg.created_at }}s. <a href="" ng-click="destroy(msg.id, $index)"><md-icon >delete</md-icon></a><md-icon>save</md-icon></span>
 
   </div>
 </div>
