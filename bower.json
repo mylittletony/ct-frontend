@@ -26,7 +26,8 @@
     "google-chart": "~1.0.4",
     "moment-duration-format": "~1.3.0",
     "angular-gettext": "~2.2.1",
-    "moment-timezone": "~0.5.4"
+    "moment-timezone": "~0.5.4",
+    "angular-scroll-glue": "^2.1.0"
   },
   "overrides": {
     "urijs": {
@@ -36,7 +37,9 @@
       ]
     },
     "moment": {
-      "main": ["min/moment-with-locales.js"]
+      "main": [
+        "min/moment-with-locales.js"
+      ]
     },
     "webcomponentsjs": {
       "main": [

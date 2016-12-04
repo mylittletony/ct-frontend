@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.messages.directives', []);
 
-app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', function(Message, Location, $routeParams, gettextCatalog, pagination_labels) {
+app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', function(Message, Location, $routeParams, gettextCatalog, pagination_labels, $pusher) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -18,7 +18,7 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
     };
 
     var init = function() {
-      Message.query({box_id: scope.box.slug }).$promise.then(function(res) {
+      Message.query({box_id: scope.box.slug, page: scope.query.page, per: scope.query.limit }).$promise.then(function(res) {
         scope.messages = res.messages;
         scope._links = res._links;
         scope.loading = undefined;
@@ -40,7 +40,45 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
       });
     };
 
+    var channel;
+    function loadPusher(key) {
+      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+        scope.pusherLoaded = true;
+        var pusher = $pusher(client);
+        channel = pusher.subscribe('test-');
+        // channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        console.log('Binding to:', channel.name);
+        channel.bind('event', function(data) {
+        // channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
+          console.log('Message received at', new Date().getTime() / 1000);
+          processNotification(data);
+        });
+      }
+    }
+
+    var processNotification = function(data) {
+      var msg;
+      try{
+        msg = JSON.parse(data.message);
+      } catch(e) {
+        msg = data.message;
+      }
+
+      console.log(msg)
+
+      angular.forEach(scope.messages, function(v) {
+        if (msg.id === v.id) {
+          alert(123)
+          var m = { msg: msg.msg };
+          console.log(v)
+          v.replies = []
+          v.replies.push(m);
+        }
+      });
+    };
+
     init();
+    loadPusher();
   };
 
   return {

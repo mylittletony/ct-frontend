@@ -8,19 +8,19 @@
   <md-divider></md-divider>
 </md-toolbar>
 
+<!-- <section ng-cloak ng-show="!loading"> -->
+<!--   <md-subheader class="md-accent"><b translate>MAC Address</b>: {{ box.calledstationid}}<span hide show-gt-sm> <b translate>Description</b>: {{ box.description }}<b translate> Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader> -->
+<!-- </section> -->
 
-<section ng-cloak ng-show="!loading">
-  <md-subheader class="md-accent"><b translate>MAC Address</b>: {{ box.calledstationid}}<span hide show-gt-sm> <b translate>Description</b>: {{ box.description }}<b translate> Last Seen</b>: {{ box.last_heartbeat | humanTime }}</span></md-subheader>
-</section>
+<div scroll-glue>
+  <div ng-repeat="msg in messages">
+    <span>{{ msg.created_at | humanTime }} {{ msg.msg }}</span>
+    <!-- <span ng-bind-html="msg.replies[0].msg | formatter"></span> -->
+    <span ng-bind-html="msg.replies[0].msg | formatter"></span>
+    <span><a href="" ng-click="destroy(msg.id, $index)">X</a></span>
+  </div>
+</div>
 
-
-<md-content class="md-padding">
-
-  <ul ng-repeat="msg in messages">
-    <li>{{ msg.created_at | humanTime }} {{ msg.msg }} <a href="" ng-click="destroy(msg.id, $index)">X</a></li>
-  </ul>
-</md-content>
-
-<div class="message-input">
+<div id="message-footer">
   <create-message messages="messages"></create-message>
 </div>

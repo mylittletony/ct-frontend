@@ -468,13 +468,39 @@ table tr td, table.print-friendly tr th {
   opacity: 0.5;
 }
 
-.message-input {
+[scroll-glue] {
+  overflow-x: hidden;
+  overflow-y: scroll;
   position: absolute;
-  bottom: 0;
-  width: 94%;
+  max-height: 90%;
+  top: 80px;
+  bottom: 80px;
+  left: 20px;
+  right: 0;
 }
 
-.message-input input {
+#messages-outer {
+
+}
+
+#message-list {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border-right: .25rem solid transparent;
+  padding: 20px 20px 80px 20px;
+}
+
+#message-footer {
+  position: fixed;
+  bottom: 0;
+  width: 75%;
+  background: #fff;
+}
+
+.message-input {
+}
+
+#message-footer input {
   font-size: 16px;
   height: 20px;
   outline-width: 1px;

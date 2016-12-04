@@ -35,8 +35,9 @@ app.factory('Message', ['$resource', '$localStorage', 'API_END_POINT',
         isArray: false,
         dataType: 'json',
         params: {
-          q: '@q'
-
+          q: '@q',
+          page: '@page',
+          per: '@per'
         }
       },
       create: {
