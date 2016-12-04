@@ -25,6 +25,7 @@ var app = angular.module('myApp.directives', [
   'myApp.invites.directives',
   'myApp.locations.directives',
   'myApp.main.directives',
+  'myApp.messages.directives',
   'myApp.menu.directives',
   'myApp.networks.directives',
   'myApp.payloads.directives',
