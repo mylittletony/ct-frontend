@@ -2,12 +2,13 @@
 
 var app = angular.module('myApp.messages.directives', []);
 
-app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', function(Message, Location, $routeParams, gettextCatalog, pagination_labels, $pusher) {
+app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', function(Message, Location, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope) {
 
   var link = function(scope,element,attrs,controller) {
 
     scope.loading  = true;
     scope.box      = { slug: $routeParams.box_id };
+    scope.location = { slug: $routeParams.id };
 
     scope.pagination_labels = pagination_labels;
     scope.query = {
@@ -40,16 +41,18 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
       });
     };
 
+    scope.back = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug;
+    };
+
     var channel;
     function loadPusher(key) {
       if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
-        channel = pusher.subscribe('test-');
-        // channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        channel = pusher.subscribe('private-' + scope.box.slug);
         console.log('Binding to:', channel.name);
-        channel.bind('event', function(data) {
-        // channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
+        channel.bind('messages', function(data) {
           console.log('Message received at', new Date().getTime() / 1000);
           processNotification(data);
         });
@@ -64,18 +67,24 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
         msg = data.message;
       }
 
-      console.log(msg)
-
       angular.forEach(scope.messages, function(v) {
         if (msg.id === v.id) {
-          alert(123)
-          var m = { msg: msg.msg };
-          console.log(v)
-          v.replies = []
-          v.replies.push(m);
+          if (msg.msg === 'LLD') {
+            init();
+          } else {
+            var m = { msg: decodeURI(msg.msg), created_at: msg.created_at };
+            v.replies = [];
+            v.replies.push(m);
+          }
         }
       });
     };
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      if (channel) {
+        channel.unbind();
+      }
+    });
 
     init();
     loadPusher();
@@ -98,8 +107,16 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
     scope.loading  = true;
     scope.box      = { slug: $routeParams.box_id };
 
+    var banned = ['ping', 'traceroute', 'top'];
+
     scope.create = function(msg) {
-      if (scope.disabled === undefined) {
+      var first = msg.msg.split(' ')[0];
+      if (banned.indexOf(first) !== -1) {
+        alert('Banned for the time being..');
+        return;
+      }
+      if (scope.disabled === undefined && (msg.msg !== '' && msg.msg !== null && msg.msg !== undefined)) {
+        scope.lastMsg = scope.msg.msg;
         save(msg);
         scope.msg = {};
       }
@@ -108,6 +125,15 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
     scope.alert = function() {
       if (scope.msg.msg && scope.msg.msg.length === 1 && scope.msg.msg[0] === '/') {
         console.log('Slash command dialog..........');
+      }
+    };
+
+    scope.keypress = function(evnt) {
+      if (evnt.keyCode === 38) {
+        scope.thisMsg = scope.msg.msg;
+        scope.msg.msg = scope.lastMsg;
+      } else if (evnt.keyCode === 40) {
+        scope.msg.msg = scope.thisMsg;
       }
     };
 

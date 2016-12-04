@@ -474,9 +474,24 @@ table tr td, table.print-friendly tr th {
   position: absolute;
   max-height: 90%;
   top: 80px;
-  bottom: 80px;
+  bottom: 100px;
   left: 20px;
   right: 0;
+}
+
+.message-small {
+  color: #c5c5c5;
+  font-size: 10px;
+}
+
+.message-small a {
+  color: #c5c5c5;
+  text-decoration: none;
+}
+
+.message-small .material-icons {
+  font-size: 18px;
+  color: #c5c5c5;
 }
 
 #messages-outer {
@@ -497,7 +512,9 @@ table tr td, table.print-friendly tr th {
   background: #fff;
 }
 
-.message-input {
+.message-inner {
+  border-bottom: 1px solid #f5f3f3;
+  padding: 10px 0;
 }
 
 #message-footer input {

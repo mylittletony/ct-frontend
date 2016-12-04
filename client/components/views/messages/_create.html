@@ -1,14 +1,3 @@
 <form name="myForm" ng-submit="create(msg)">
-  <!-- <div flex="auto" layout="column"> -->
-  <!--   <p translate>Create up to 16 zones per location.</p> -->
-  <!-- </div> -->
-  <!-- <div ng-show='loading'> -->
-  <!--   <md-progress-linear md-mode="query"></md-progress-linear> -->
-  <!-- </div> -->
-    <!-- <label><translate>Name</translate></label> -->
-    <!-- <textarea ng-model="msg.msg" md-maxlength="255" rows="1" md-select-on-focus></textarea> -->
-    <input ng-keyup="alert()" ng-model="msg.msg" type='text' name="msg" placeholder="Type / to view quick commands" autocomplete="off" ng-disabled="disabled" md-autofocus>
-    <!-- <div ng-messages="myForm.msg.$error"> -->
-    <!--   <div ng-message="md-maxlength" translate>Max 255 characters</div> -->
-    <!-- </div> -->
+  <input ng-keydown="keypress($event)" ng-keyup="alert()" ng-model="msg.msg" type='text' name="msg" placeholder="Type / to view quick commands" autocomplete="off" ng-disabled="disabled" md-autofocus autofocus>
 </form>
