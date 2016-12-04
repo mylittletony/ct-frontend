@@ -44,11 +44,11 @@ describe("Message Unit Tests", function() {
     $httpBackend.flush();
   });
 
-  fit('should have sent a DELETE request to location show messages', function() {
-    var result = Message.destroy({box_id: 123, id: 456})
-    $httpBackend.expectDELETE('http://mywifi.dev:8080/api/v1/boxes/123/messages/456')
-    $httpBackend.flush();
-  });
+  // fit('should have sent a DELETE request to location show messages', function() {
+  //   var result = Message.destroy({box_id: 123, id: 456})
+  //   $httpBackend.expectDELETE('http://mywifi.dev:8080/api/v1/boxes/123/messages/456')
+  //   $httpBackend.flush();
+  // });
 
   it('should have sent a POST request to location messages', function() {
     var result = Message.create({box_id: 123})
