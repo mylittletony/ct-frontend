@@ -56,6 +56,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'resync':
           scope.resyncBox();
           break;
+        case 'operations':
+          viewOperations();
+          break;
         case 'changelog':
           viewHistory();
           break;
@@ -109,6 +112,20 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         icon: 'delete_forever',
         type: 'delete'
       });
+
+      if (scope.box.gubbins_version === '4') {
+        scope.menu.push({
+          name: gettextCatalog.getString('Operations'),
+          icon: 'access_time',
+          type: 'operations',
+        });
+
+        scope.menu.push({
+          name: gettextCatalog.getString('Reset'),
+          icon: 'clear',
+          type: 'reset',
+        });
+      }
 
       if (scope.box.is_cucumber) {
         scope.menu.push({
@@ -578,6 +595,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       } else {
         scope.box.ssids = gettextCatalog.getString('N/A');
       }
+    };
+
+    var viewOperations = function() {
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
     };
 
     var viewHistory = function() {

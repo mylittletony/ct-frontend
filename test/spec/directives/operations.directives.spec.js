@@ -53,40 +53,39 @@ describe('operation', function () {
       expect(element.isolateScope().box.slug).toBe('yyy');
     });
 
-    // it("should list the operations", function() {
-    //   spyOn(operationFactory, 'query').and.callThrough();
-    //   expect(element.isolateScope().loading).toBe(true);
+    it("should list the operations", function() {
+      spyOn(operationFactory, 'query').and.callThrough();
+      expect(element.isolateScope().loading).toBe(true);
 
-    //   var links = { total: 999 };
-    //   var vals = { _links: links, operations: [{a: 123}] }
-    //   deferred.resolve(vals);
-    //   $scope.$digest()
+      var links = { total: 999 };
+      var vals = { _links: links, operations: [{a: 123}] }
+      deferred.resolve(vals);
+      $scope.$digest()
 
-    //   expect(element.isolateScope().loading).toBe(undefined);
-    //   expect(element.isolateScope().operations.length).toBe(1);
-    //   expect(element.isolateScope()._links).toBe(links);
-    // });
+      expect(element.isolateScope().loading).toBe(undefined);
+      expect(element.isolateScope().operations.length).toBe(1);
+      expect(element.isolateScope()._links).toBe(links);
+    });
   });
 
-  // describe('creates the operations', function() {
-  //   beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector, _$location_) {
-  //     $scope = $rootScope;
-  //     q = $q;
-  //     $location = _$location_;
-  //     $routeParams = _$routeParams_;
-  //     $routeParams.id = 'xxx';
-  //     $routeParams.box_id = 'yyy';
-  //     var elem = angular.element('<create-operation></create-operation>');
-  //     element = $compile(elem)($rootScope);
-  //     element.scope().$digest();
-  //   }));
+  describe('displays the operations', function() {
+    beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector, _$location_) {
+      $scope = $rootScope;
+      q = $q;
+      $location = _$location_;
+      $routeParams = _$routeParams_;
+      $routeParams.id = 'xxx';
+      $routeParams.box_id = 'yyy';
+      var elem = angular.element('<show-operation></show-operation>');
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
+    }));
 
-  //   it("should add the operations to the list", function() {
-  //     // expect(element.isolateScope().loading).toBe(true);
-  //     // spyOn(operationFactory, 'create').and.callThrough();
-  //     // expect(element.isolateScope().query.order).toBe('-created_at');
-  //     // expect(element.isolateScope().box.slug).toBe('yyy');
-  //     // expect(element.isolateScope().location.slug).toBe('xxx');
-  //   });
-  // });
+    it("should display the operation", function() {
+      expect(element.isolateScope().loading).toBe(true);
+      spyOn(operationFactory, 'get').and.callThrough();
+      expect(element.isolateScope().box.slug).toBe('yyy');
+      expect(element.isolateScope().location.slug).toBe('xxx');
+    });
+  });
 });

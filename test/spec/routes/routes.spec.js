@@ -203,6 +203,10 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/devices/:box_id/operations'].templateUrl).
                   toEqual('components/views/operations/index.html');
 
+      expect($route.routes['/locations/:id/devices/:box_id/operations/:operation_id'].controller).toBe('LocationsCtrl as lc');
+      expect($route.routes['/locations/:id/devices/:box_id/operations/:operation_id'].templateUrl).
+                  toEqual('components/views/operations/show.html');
+
       expect($route.routes['/register'].templateUrl).
                   toEqual('components/registrations/index.html');
 

@@ -21,7 +21,6 @@ app.directive('operations', ['Operation', 'Location', '$routeParams', 'gettextCa
     var init = function() {
       Operation.query({box_id: scope.box.slug, page: scope.query.page, per: scope.query.limit }).$promise.then(function(res) {
         scope.operations = res.operations;
-        console.log(scope.operations)
         scope._links = res._links;
         scope.loading = undefined;
       }, function() {
@@ -29,66 +28,11 @@ app.directive('operations', ['Operation', 'Location', '$routeParams', 'gettextCa
       });
     };
 
-    // var removeFromList = function(index) {
-    //   scope.operations.splice(index, 1);
-    // };
-
-    // scope.destroy = function(id, index) {
-    //   Operation.destroy({box_id: scope.box.slug, id: id }).$promise.then(function(res) {
-    //     removeFromList(index);
-    //   }, function(err) {
-    //     console.log(err);
-    //     // scope.loading = undefined;
-    //   });
-    // };
-
-    // scope.back = function() {
-    //   window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug;
-    // };
-
-    // var channel;
-    // function loadPusher(key) {
-    //   if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
-    //     scope.pusherLoaded = true;
-    //     var pusher = $pusher(client);
-    //     channel = pusher.subscribe('private-' + scope.box.slug);
-    //     console.log('Binding to:', channel.name);
-    //     channel.bind('operations', function(data) {
-    //       console.log('Operation received at', new Date().getTime() / 1000);
-    //       processNotification(data);
-    //     });
-    //   }
-    // }
-
-    // var processNotification = function(data) {
-    //   var msg;
-    //   try{
-    //     msg = JSON.parse(data.operation);
-    //   } catch(e) {
-    //     msg = data.operation;
-    //   }
-
-    //   angular.forEach(scope.operations, function(v) {
-    //     if (msg.id === v.id) {
-    //       if (msg.msg === 'LLD') {
-    //         init();
-    //       } else {
-    //         var m = { msg: decodeURI(msg.msg), created_at: msg.created_at };
-    //         v.replies = [];
-    //         v.replies.push(m);
-    //       }
-    //     }
-    //   });
-    // };
-
-    // $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    //   if (channel) {
-    //     channel.unbind();
-    //   }
-    // });
+    scope.back = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug;
+    };
 
     init();
-    // loadPusher();
   };
 
   return {
@@ -97,6 +41,59 @@ app.directive('operations', ['Operation', 'Location', '$routeParams', 'gettextCa
       loading: '='
     },
     templateUrl: 'components/views/operations/_index.html'
+  };
+
+}]);
+
+app.directive('showOperation', ['Operation', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', function(Operation, Location, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope) {
+
+  var link = function(scope, element, attrs, controller) {
+
+    scope.loading   = true;
+    scope.box       = { slug: $routeParams.box_id };
+    scope.location  = { slug: $routeParams.id };
+    scope.operation = { id: $routeParams.operation_id };
+
+    var statusIcon = function() {
+      switch(scope.operation.status) {
+        case 'NEW':
+          scope.operation.statusIcon = 'cached';
+          break;
+        case 'COMPLETE':
+          scope.operation.statusIcon = 'check_circle';
+          break;
+        case 'FAILED':
+          scope.operation.statusIcon = 'error';
+          break;
+        case 'PENDING':
+          scope.operation.statusIcon = 'query_builder';
+          break;
+        default:
+          break;
+      }
+    };
+
+    var init = function() {
+      Operation.get({box_id: scope.box.slug, id: scope.operation.id }).$promise.then(function(res) {
+        scope.operation = res;
+        statusIcon();
+        scope.loading = undefined;
+      }, function() {
+        scope.loading = undefined;
+      });
+    };
+
+    scope.back = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations';
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+    scope: {},
+    templateUrl: 'components/views/operations/_show.html'
   };
 
 }]);

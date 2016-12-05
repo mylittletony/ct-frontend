@@ -532,3 +532,7 @@ table tr td, table.print-friendly tr th {
   outline-style: none;
   text-transform: lowercase;
 }
+
+.message-notifier {
+  padding: 0 20px;
+}

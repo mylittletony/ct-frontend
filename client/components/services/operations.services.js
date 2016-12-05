@@ -16,7 +16,8 @@ app.factory('Operation', ['$resource', '$localStorage', 'API_END_POINT',
         isArray: false,
         dataType: 'json',
         params: {
-          box_id: '@box_id'
+          box_id: '@box_id',
+          id: '@id'
         }
       },
       query: {
