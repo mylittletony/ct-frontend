@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.operations.directives', []);
 
-app.directive('operations', ['Operation', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', function(Operation, Location, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope) {
+app.directive('operations', ['Operation', 'Location', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', '$location', function(Operation, Location, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope, $location) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -18,10 +18,25 @@ app.directive('operations', ['Operation', 'Location', '$routeParams', 'gettextCa
       options: [5,10,25,50,100],
     };
 
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      updatePage();
+    };
+
+    var updatePage = function(page) {
+      var hash  = {};
+      hash.page = scope.query.page;
+      hash.per  = scope.query.limit;
+      $location.search(hash);
+      // init();
+    };
+
     var init = function() {
       Operation.query({box_id: scope.box.slug, page: scope.query.page, per: scope.query.limit }).$promise.then(function(res) {
         scope.operations = res.operations;
         scope._links = res._links;
+        console.log(res._links);
         scope.loading = undefined;
       }, function() {
         scope.loading = undefined;

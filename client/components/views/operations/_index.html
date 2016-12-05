@@ -32,7 +32,7 @@
               </tr>
             </thead>
             <tbody md-body>
-              <tr md-row ng-repeat="op in filtered = (operations | filter: filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+              <tr md-row ng-repeat="op in filtered = (operations | filter: filter)">
                 <td md-cell><a href="/#/locations/{{location.slug}}/devices/{{box.slug}}/operations/{{op.id}}">Updated {{ op.operation_type }}</a></td>
                 <td md-cell>{{ op.user || 'System' }}</td>
                 <td md-cell>
@@ -45,6 +45,7 @@
           </table>
         </div>
       </md-card-content>
+      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
     </md-card>
   </div>
 </md-content>
