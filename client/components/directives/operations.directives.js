@@ -59,10 +59,10 @@ app.directive('showOperation', ['Operation', 'Location', '$routeParams', 'gettex
         case 'NEW':
           scope.operation.statusIcon = 'cached';
           break;
-        case 'DONE':
+        case 'SUCCESS':
           scope.operation.statusIcon = 'check_circle';
           break;
-        case 'FAILED':
+        case 'FAIL':
           scope.operation.statusIcon = 'error';
           break;
         case 'PENDING':
