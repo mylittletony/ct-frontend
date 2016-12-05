@@ -530,4 +530,5 @@ table tr td, table.print-friendly tr th {
 .message-input input:focus {
   outline-color: transparent;
   outline-style: none;
+  text-transform: lowercase;
 }
