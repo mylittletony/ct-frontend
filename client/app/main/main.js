@@ -14,6 +14,7 @@ var app = angular.module('myApp', [
   'angularMoment',
   'ngMaterial',
   'md.data.table',
+  'luegg.directives',
   'minicolors',
   'pusher-angular',
   'config',
@@ -456,6 +457,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/locations/:id/devices/:box_id/payloads', {
       templateUrl: 'components/boxes/payloads/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/devices/:box_id/operations', {
+      templateUrl: 'components/views/operations/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/devices/:box_id/operations/:operation_id', {
+      templateUrl: 'components/views/operations/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).

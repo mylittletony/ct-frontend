@@ -56,6 +56,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'resync':
           scope.resyncBox();
           break;
+        case 'operations':
+          viewOperations();
+          break;
         case 'changelog':
           viewHistory();
           break;
@@ -109,6 +112,20 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         icon: 'delete_forever',
         type: 'delete'
       });
+
+      if (scope.box.gubbins_version === '4') {
+        scope.menu.push({
+          name: gettextCatalog.getString('Operations'),
+          icon: 'access_time',
+          type: 'operations',
+        });
+
+        scope.menu.push({
+          name: gettextCatalog.getString('Reset'),
+          icon: 'clear',
+          type: 'reset',
+        });
+      }
 
       if (scope.box.is_cucumber) {
         scope.menu.push({
@@ -175,11 +192,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/edit');
     };
 
     scope.payloads = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/payloads');
     };
 
     scope.resetBox = function(ev) {
@@ -580,6 +597,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
     };
 
+    var viewOperations = function() {
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
+    };
+
     var viewHistory = function() {
       $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
     };
@@ -626,23 +647,49 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
 }]);
 
+app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $routeParams, $compile) {
+
+  var link = function( scope, element, attrs ) {
+    var init = function() {
+      return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
+        compileTemplate(box.gubbins_version);
+      }, function(err) {
+        scope.loading = undefined;
+        console.log(err);
+      });
+    };
+
+    var compileTemplate = function(version) {
+      var template;
+      if (parseInt(version) === 4) {
+        template = $compile('<list-messages></list-messages>')(scope);
+      } else {
+        template = $compile('<box-payloads loading="loading"></box-payloads>')(scope);
+      }
+      element.html(template);
+      scope.loading = undefined;
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+
+  };
+}]);
+
 app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', 'gettextCatalog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog, gettextCatalog) {
 
-  var link = function(scope,element,attrs) {
+  var link = function(scope,element,attrs,controller) {
 
     scope.location = { slug: $routeParams.id };
     scope.command = { save: true };
 
     var init = function() {
-      return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
-        scope.box = box;
-        scope.loading = undefined;
-        loadPayloads();
-        loadPusher();
-      }, function(err) {
-        scope.loading = undefined;
-        console.log(err);
-      });
+      scope.box = controller.$scope.box;
+      loadPayloads();
+      loadPusher();
     };
 
     scope.deletePayload = function(index,id) {
@@ -705,6 +752,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
   return {
     link: link,
+    require: '^fetchBox',
     scope: {
       loading: '=',
     },
