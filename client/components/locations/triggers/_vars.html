@@ -14,35 +14,38 @@
           <div flex="100" flex-gt-sm="40">
             <p><b translate>Common tags</b></p>
 
-              <pre ng-non-bindable>
+            <pre ng-non-bindable>
 {{ Created_At }}
 {{ Location_Id }}
 {{ Location_Name }}
 {{ Object }}
-{{ Resource_Id }}
+{{ Resource_ID }}
 {{ Slug }}
 {{ Trigger_Type }}
 <!-- {{ User_Id }} -->
 <!-- {{ Username }} -->
-              </pre>
+            </pre>
             </ul>
           </div>
           <div flex></div>
           <div flex="100" flex-gt-sm="40">
             <p><b translate>{{ type | titleCase }} tags</b></p>
-              <span ng-show='type == "box"'>
-                <pre ng-non-bindable>
+            <span ng-show='type == "box"'>
+              <pre ng-non-bindable>
 {{ Machine_Type }}
 {{ Description }}
 {{ Ap_Mac }}
 {{ State }}
 {{ Last_Heartbeat }}
-{{ Wan_Ip }}
-{{ Public_Ip }}
-                </pre>
-              </span>
-              <span ng-show='type == "client"'>
-                <pre ng-non-bindable>
+{{ Wan_IP }}
+{{ Public_IP }}
+{{ Load }}
+{{ Connected }}
+{{ Short_URL }}
+              </pre>
+            </span>
+            <span ng-show='type == "client"'>
+              <pre ng-non-bindable>
 {{ Manufacturer }}
 {{ Client_Mac }}
 {{ Ap_Mac }}
@@ -50,39 +53,39 @@
 {{ Wireless }}
 {{ Splash }}
 {{ Ssid }}
-{{ Srn }}
-                </pre>
-              </span>
-              <span ng-if='type == "email"'>
-                <pre ng-non-bindable>
-{{ Splash_Id }}
+{{ Snr }}
+              </pre>
+            </span>
+            <span ng-if='type == "email"'>
+              <pre ng-non-bindable>
+{{ Splash_ID }}
 {{ Email }}
-                </pre>
-              </span>
-              <span ng-if='type == "guest"'>
-                <pre ng-non-bindable>
-{{ Splash_Id }}
+              </pre>
+            </span>
+            <span ng-if='type == "guest"'>
+              <pre ng-non-bindable>
+{{ Splash_ID }}
 {{ Metadata }}
 {{ Email }}
 {{ Username }}
-                </pre>
-              </span>
-              <span ng-if='type == "location"'>
-                <pre ng-non-bindable>
+              </pre>
+            </span>
+            <span ng-if='type == "location"'>
+              <pre ng-non-bindable>
 {{ Location_Name }}
-                </pre>
-              </span>
-              <span ng-if='type == "network"'>
-                <pre ng-non-bindable>
+              </pre>
+            </span>
+            <span ng-if='type == "network"'>
+              <pre ng-non-bindable>
 {{ Location_Name }}
 {{ Ssid }}
 {{ Encryption }}
 {{ Access_Type }}
 {{ Captive_Portal }}
-                </pre>
-              </span>
-              <span ng-if='type == "splash"'>
-                <pre ng-non-bindable>
+              </pre>
+            </span>
+            <span ng-if='type == "splash"'>
+              <pre ng-non-bindable>
 {{ Splash_Username }}
 {{ Manufacturer }}
 {{ Description }}
@@ -95,10 +98,10 @@
 {{ Email }}
 {{ Ssid }}
 {{ Snr }}
-                </pre>
-              </span>
-              <span ng-if='type == "social"'>
-                <pre ng-non-bindable>
+              </pre>
+            </span>
+            <span ng-if='type == "social"'>
+              <pre ng-non-bindable>
 {{ Email }}
 {{ First_Name }}
 {{ Last_Name }}
@@ -106,21 +109,21 @@
 {{ Facebook_Id }}
 {{ Linkedin_Id }}
 {{ Google_Id }}
-                </pre>
-              </span>
-              <span ng-if='type == "voucher"'>
-                <pre ng-non-bindable>
+              </pre>
+            </span>
+            <span ng-if='type == "voucher"'>
+              <pre ng-non-bindable>
 {{ Description }}
 {{ Batch_Name }}
 {{ Active }}
 {{ Quantity }}
-                </pre>
-              </span>
-              <span ng-if='type == "zone"'>
-                <pre ng-non-bindable>
+              </pre>
+            </span>
+            <span ng-if='type == "zone"'>
+              <pre ng-non-bindable>
 {{ Zone_Name }}
-                </pre>
-              </span>
+              </pre>
+            </span>
           </div>
         </div>
       </div>
@@ -129,7 +132,7 @@
       <span flex></span>
       <md-button ng-click="close()">
         <translate>
-          CLOSE
+        CLOSE
         </translate>
       </md-button>
     </md-dialog-actions>
