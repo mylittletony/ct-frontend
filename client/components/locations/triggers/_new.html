@@ -62,7 +62,6 @@
           </md-card-title>
           <md-card-content>
             <md-radio-group ng-model="trigger.trigger_type" layout="column">
-
               <span ng-if="trigger.type == 'box'" layout="row" layout-wrap>
                 <span flex="50">
                   <md-radio-button value="box.create">
@@ -329,9 +328,7 @@
                     Deleted
                   </translate>
                 </md-radio-button>
-
               </span>
-
             </md-radio-group>
           </md-card-content>
         </md-card>
@@ -381,6 +378,40 @@
           </md-card-content>
         </md-card>
 
+        <md-card ng-if="trigger.type && trigger.type != 'all'">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Tune It
+              </span>
+              <span class="md-subhead" translate>
+                Deferring the trigger will queue it and send it after the event has occurred. 
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content layout-gt-sm="column">
+            <md-input-container>
+              <label>
+                <translate>Defer For</translate>
+              </label>
+              <input type="text" name="ttl" md-maxlength="100" ng-model="trigger.ttl" placeholder="{{ 'Defer for minutes' | translate }}" required></input>
+              <div ng-messages="myForm.ttl.$error" md-auto-hide="false">
+                <div ng-message="md-max" translate>Must be less than 100 chars</div>
+              </div>
+            </md-input-container>
+            <md-input-container>
+              <label>
+                <translate>Match</translate>
+              </label>
+              <input type="text" name="match" md-max="43200" ng-model="trigger.match" placeholder="{{ 'Expression match' | translate }}" required></input>
+              <div ng-messages="myForm.match.$error" md-auto-hide="false">
+                <div ng-message="md-maxlength" translate>Must be less than 43,200 mins</div>
+              </div>
+            </md-input-container>
+          </md-card-content>
+        </md-card>
+
         <md-card ng-if="trigger.attr_1">
           <md-card-title>
             <md-card-title-text>
@@ -399,12 +430,11 @@
                 <div ng-message="required" translate>Please enter a name for your trigger</div>
                 <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
               </div>
-            </md-card-content>
+            </md-input-container>
+          </md-card-content>
         </md-card>
         <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
       </div>
     </div>
-
   </md-content>
-
 </form>
