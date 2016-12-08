@@ -13,10 +13,9 @@
         <div layout="row" layout-wrap>
           <div flex="100" flex-gt-sm="40">
             <p><b translate>Common tags</b></p>
-
             <pre ng-non-bindable>
 {{ Created_At }}
-{{ Location_Id }}
+{{ Location_ID }}
 {{ Location_Name }}
 {{ Object }}
 {{ Resource_ID }}
@@ -25,7 +24,15 @@
 <!-- {{ User_Id }} -->
 <!-- {{ Username }} -->
             </pre>
-            </ul>
+            <!-- </ul> -->
+            <p><b translate>Email tags</b></p>
+            <pre ng-non-bindable>
+{{ Owner_Email }}
+{{ Admin_Email }}
+{{ Editor_Email }}
+{{ Supporter_Email }}
+{{ Observer_Email }}
+            </pre>
           </div>
           <div flex></div>
           <div flex="100" flex-gt-sm="40">
@@ -42,6 +49,7 @@
 {{ Load }}
 {{ Connected }}
 {{ Short_URL }}
+{{ Tags }}
               </pre>
             </span>
             <span ng-show='type == "client"'>
@@ -132,7 +140,7 @@
       <span flex></span>
       <md-button ng-click="close()">
         <translate>
-        CLOSE
+          CLOSE
         </translate>
       </md-button>
     </md-dialog-actions>

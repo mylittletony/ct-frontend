@@ -393,22 +393,32 @@
           <md-card-content layout-gt-sm="column">
             <md-input-container>
               <label>
-                <translate>Defer For</translate>
+                <translate>Defer Minutes</translate>
               </label>
-              <input type="text" name="ttl" md-maxlength="100" ng-model="trigger.ttl" placeholder="{{ 'Defer for minutes' | translate }}" required></input>
+              <input type="text" name="ttl" md-maxlength="100" ng-model="trigger.ttl" placeholder="{{ 'Defer for minutes' | translate }}"></input>
               <div ng-messages="myForm.ttl.$error" md-auto-hide="false">
                 <div ng-message="md-max" translate>Must be less than 100 chars</div>
               </div>
             </md-input-container>
-            <md-input-container>
+            <md-input-container style="margin: 0 0 -20px -3px;">
               <label>
                 <translate>Match</translate>
               </label>
-              <input type="text" name="match" md-max="43200" ng-model="trigger.match" placeholder="{{ 'Expression match' | translate }}" required></input>
+              <input type="text" name="match" md-max="43200" ng-model="trigger.match" placeholder="{{ 'Expression match' | translate }}"></input>
               <div ng-messages="myForm.match.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Must be less than 43,200 mins</div>
               </div>
             </md-input-container>
+            <small class="muted" style="font-size: 75%;">Regex match on description, AP Mac or Zone ID.</small>
+            <md-input-container style="margin: 40px 0 -20px -3px;">
+              <label>
+                <translate>Tags</translate>
+              </label>
+              <input type="text" name="tags" ng-model="trigger.tags" placeholder="{{ 'Tags' | translate }}"></input>
+              <div ng-messages="myForm.tags.$error" md-auto-hide="false">
+              </div>
+            </md-input-container>
+            <small class="muted" style="font-size: 75%;">Match any object tags.</small>
           </md-card-content>
         </md-card>
 
