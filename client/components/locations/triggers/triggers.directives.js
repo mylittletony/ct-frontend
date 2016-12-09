@@ -721,28 +721,32 @@ app.directive('triggerTags', ['$mdDialog',function($mdDialog) {
         parent: angular.element(document.body),
         controller: DialogController,
         locals: {
-          type: attrs.type
+          type: attrs.type,
+          channel: attrs.channel
         }
       });
     };
 
-    function DialogController($scope,type) {
+    function DialogController($scope,type,channel) {
       $scope.type = type;
+      $scope.channel = channel;
       $scope.close = function() {
         $mdDialog.cancel();
       };
     }
-    DialogController.$inject = ['$scope', 'type'];
+    DialogController.$inject = ['$scope', 'type', 'channel'];
 
-    attrs.$observe('type', function(start) {
+    attrs.$observe('channel', function(start) {
       scope.type = attrs.type;
+      scope.channel = attrs.channel;
     });
   };
 
   return {
     link: link,
     scope: {
-      type: '@'
+      type: '@',
+      channel: '@',
     },
     templateUrl: 'components/locations/triggers/_webhook_variables.html',
   };

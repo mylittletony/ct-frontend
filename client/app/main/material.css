@@ -537,6 +537,10 @@ table tr td, table.print-friendly tr th {
   padding: 0 20px;
 }
 
+.triggers pre {
+  margin-top: -30px;
+}
+
 pre .list-unstyled {
     list-style: none;
     margin: 0px 0 -40px -40px;
