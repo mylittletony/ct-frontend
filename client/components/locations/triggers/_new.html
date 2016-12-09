@@ -52,7 +52,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Now set the event trigger
+                Set the event trigger
               </span>
               <span class="md-subhead" translate>
                 The trigger will fire when this event happens.
@@ -364,11 +364,11 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">
-                <span ng-show="trigger.channel=='email'" translate>Send an Email</span>
-                <span ng-show="trigger.channel=='slack'" translate>Notify Slack</span>
-                <span ng-show="trigger.channel=='webhook'" translate>Send a Webhook</span>
-                <span ng-show="trigger.channel=='mailchimp'" translate>Add to List</span>
-                <span ng-show="trigger.channel=='sms'" translate>Send SMS</span>
+                <span ng-show="trigger.channel == 'email'" translate>Send an Email</span>
+                <span ng-show="trigger.channel == 'slack'" translate>Notify Slack</span>
+                <span ng-show="trigger.channel == 'webhook'" translate>Send a Webhook</span>
+                <span ng-show="trigger.channel == 'mailchimp'" translate>Add to List</span>
+                <span ng-show="trigger.channel == 'sms'" translate>Send SMS</span>
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -385,7 +385,7 @@
                 Tune It
               </span>
               <span class="md-subhead" translate>
-                Deferring the trigger will queue it and send it after the event has occurred. 
+                Deferring the trigger will queue it and send it after the event has occurred.
               </span>
             </md-card-title-text>
           </md-card-title>

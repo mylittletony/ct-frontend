@@ -34,7 +34,7 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
     // };
 
     // scope.updatePage = function(item) {
-      
+
     // };
 
     // user permissions //
@@ -289,7 +289,9 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     };
 
     var initWebhook = function() {
-      scope.trigger.attr_2 = 'POST';
+      if (scope.trigger.attr_2 !== 'POST' || scope.trigger.attr_2 !== 'GET') {
+        scope.trigger.attr_2 = 'POST';
+      }
     };
 
     var initMc = function() {
@@ -459,11 +461,6 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
 
     scope.back = function() {
       window.history.back();
-      // if (scope.trigger.id) {
-      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id;
-      // } else {
-      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers';
-      // }
     };
 
     if ($routeParams.id) {
@@ -757,7 +754,7 @@ app.directive('listTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
 
     scope.location  = { slug: $routeParams.id };
     scope.trigger   = { id: $routeParams.trigger_id };
-    
+
     scope.pagination_labels = pagination_labels;
     scope.options = {
       autoSelect: true,

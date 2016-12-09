@@ -21,8 +21,8 @@
       <translate>Type</translate>
     </label>
     <md-select ng-model="trigger.attr_2">
-      <md-option ng-repeat="type in webhook_types">
-        {{type}}
+      <md-option ng-repeat="type in webhook_types" value="{{ type }}">
+        {{ type }}
       </md-option>
     </md-select>
   </md-input-container>
