@@ -70,20 +70,65 @@
               <span ng-show='type == "client"'>
                 <pre>
                 <ul class="list-unstyled">
-                 <li>Manufacturer</li>
-                 <li>Client_Mac</li>
-                 <li>Ap_Mac</li>
-                 <li>State</li>
-                 <li>Wireless</li>
-                 <li>Splash</li>
-                 <li>Ssid</li>
-                 <li>Snr</li>
+                <li>ID</li>
+                <li>Manufacturer</li>
+                <li>Object</li>
+                <li>Resource_ID</li>
+                <li>Client_Mac</li>
+                <li>Ap_Mac</li>
+                <li>Slug</li>
+                <li>Description</li>
+                <li>Location_ID</li>
+                <li>Timestamp</li>
+                <li>Lastseen</li>
+                <li>Interface</li>
+                <li>Ssid</li>
+                <li>Inactive_Time</li>
+                <li>Signal</li>
+                <li>Signal_Avg</li>
+                <li>Noise</li>
+                <li>Snr</li>
+                <li>Authenticated</li>
+                <li>Associated</li>
+                <li>Authorized</li>
+                <li>Tx_Bitrate</li>
+                <li>Rx_Bitrate</li>
+                <li>Tx_Failed</li>
+                <li>Wmm</li>
+                <li>Mfp</li>
+                <li>Tdls</li>
+                <li>Preamble</li>
+                <li>ConnTime</li>
+                <li>Expected_Tput</li>
+                <li>Device_Name</li>
+                <li>IP</li>
+                <li>Capabilities</li>
+                <li>Channel</li>
+                <li>Bitrate</li>
+                <li>Quality</li>
+                <li>Quality_Max</li>
+                <li>Splash_Connected</li>
+                <li>Splash_Username</li>
+                <li>Splash_Session</li>
+                <li>Splash_Status</li>
+                <li>First_Seen</li>
+                <li>Created_At</li>
+                <li>Updated_At</li>
+                <li>Conn_Type</li>
+                <li>Online</li>
+                <li>Mcs</li>
+                <li>Tx_Retries</li>
+                <li>Rx_Retries</li>
+                <li>Tx_Bytes</li>
+                <li>Rx_Bytes</li>
+                <li>Distance</li>
+                </ul>
                 </pre>
               </span>
               <span ng-if='type == "email"'>
                 <pre>
                 <ul class="list-unstyled">
-                 <li>Splash_ID</li>
+                 <li>Location_Name</li>
                  <li>Email</li>
                 </pre>
               </span>
@@ -99,7 +144,34 @@
               <span ng-if='type == "location"'>
                 <pre>
                 <ul class="list-unstyled">
-                 <li>Location_Name</li>
+                  <li>ID</li>
+                  <li>Object</li>
+                  <li>Resource_ID</li>
+                  <li>Location_Name</li>
+                  <li>Unique_ID</li>
+                  <li>Created_At</li>
+                  <li>Updated_At</li>
+                  <li>Location_Address</li>
+                  <li>Street</li>
+                  <li>Postcode</li>
+                  <li>Town</li>
+                  <li>Country</li>
+                  <li>Website</li>
+                  <li>State</li>
+                  <li>Archived</li>
+                  <li>Slug</li>
+                  <li>Development_Mode</li>
+                  <li>Public_Location</li>
+                  <li>Description</li>
+                  <li>Timezone</li></li>
+                  <li>Brand_ID</li>
+                  <li>Short</li>
+                  <li>Network_Location</li>
+                  <li>Project_ID</li>
+                  <li>Security_Level</li>
+                  <li>Authorized_IPs</li>
+                  <li>Network_Country</li>
+                </ul>
                 </pre>
               </span>
               <span ng-if='type == "network"'>
@@ -115,18 +187,10 @@
               <span ng-if='type == "splash"'>
                 <pre>
                 <ul class="list-unstyled">
-                 <li>Splash_Username</li>
-                 <li>Manufacturer</li>
-                 <li>Description</li>
+                 <li>ID</li>
                  <li>Splash_Name</li>
-                 <li>Access_Type</li>
-                 <li>Client_Mac</li>
-                 <li>Password</li>
-                 <li>Wireless</li>
-                 <li>Ap_Mac</li>
-                 <li>Email</li>
-                 <li>Ssid</li>
-                 <li>Snr</li>
+                 <li>Unique_ID</li>
+                 </ul>
                 </pre>
               </span>
               <span ng-if='type == "social"'>
@@ -139,21 +203,44 @@
                  <li>Facebook_Id</li>
                  <li>Linkedin_Id</li>
                  <li>Google_Id</li>
+                 </ul>
                 </pre>
               </span>
               <span ng-if='type == "voucher"'>
                 <pre>
                 <ul class="list-unstyled">
-                 <li>Description</li>
-                 <li>Batch_Name</li>
-                 <li>Active</li>
-                 <li>Quantity</li>
+                <li>ID</li>
+                <li>Created_At</li>
+                <li>Updated_At</li>
+                <li>Active</li>
+                <li>Quantity</li>
+                <li>Length</li>
+                <li>Location_ID</li>
+                <li>Unique_ID</li>
+                <li>Batch_Name</li>
+                <li>Batch_Description</li>
+                <li>Limit_Type</li>
+                <li>Splash_Page_ID</li>
+                <li>Validity_Minutes</li>
+                <li>Session_Timeout</li>
+                <li>Idle_Timeout</li>
+                <li>Download_Speed</li>
+                <li>Upload_Speed</li>
+                <li>Simultaneous_Use</li>
+                <li>Voucher_Format</li>
+                <li>Location_Name</li>
+                <li>Private_Key</li>
+                <li>Download_PDF</li>
+                <li>Download_CSV</li>
+                </ul>
                 </pre>
               </span>
               <span ng-if='type == "zone"'>
                 <pre>
                 <ul class="list-unstyled">
+                  <li>Location_Name</li>
                   <li>Zone_Name</li>
+                  <li>Networks</li>
                  </ul>
                 </pre>
               </span>

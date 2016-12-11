@@ -43,7 +43,19 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       init();
     };
 
-    scope.triggers = [{ name: gettextCatalog.getString('All'), value: 'all'}, {name: gettextCatalog.getString('Boxes'), value: 'box'}, {name: gettextCatalog.getString('Clients'), value: 'client'}, {name: gettextCatalog.getString('Email'), value: 'email'}, {name: gettextCatalog.getString('Guests'), value: 'guest'}, {name: gettextCatalog.getString('Locations'), value: 'location'}, {name: gettextCatalog.getString('Networks'), value: 'network'}, {name: gettextCatalog.getString('Splash'), value: 'splash'}, {name: gettextCatalog.getString('Social'), value: 'social'}, {name: gettextCatalog.getString('Vouchers'), value: 'voucher'}, {name: gettextCatalog.getString('Zones'), value: 'zone' }];
+    scope.triggers = [
+      { name: gettextCatalog.getString('All'), value: 'all' },
+      { name: gettextCatalog.getString('Boxes'), value: 'box' },
+      { name: gettextCatalog.getString('Clients'), value: 'client' },
+      { name: gettextCatalog.getString('Email'), value: 'email' },
+      { name: gettextCatalog.getString('Guests'), value: 'guest' },
+      { name: gettextCatalog.getString('Locations'), value: 'location' },
+      { name: gettextCatalog.getString('Networks'), value: 'network' },
+      { name: gettextCatalog.getString('Splash'), value: 'splash' },
+      { name: gettextCatalog.getString('Social'), value: 'social' },
+      { name: gettextCatalog.getString('Vouchers'), value: 'voucher'},
+      { name: gettextCatalog.getString('Zones'), value: 'zone' }
+    ];
 
     scope.search = function() {
       var hash  = $location.search();
@@ -65,7 +77,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       }
       Event.query({
         page: scope.query.page,
-        per: scope.query.limit, 
+        per: scope.query.limit,
         object: scope.query.filter,
         type: scope.query.type
       }).$promise.then(function(results) {
@@ -97,7 +109,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
 
 }]);
 
-app.directive('showEvent', ['Event', '$location', '$routeParams', '$compile', 'menu', 'Shortener', function(Event, $location, $routeParams, $compile, menu, Shortener) {
+app.directive('showEvent', ['Event', '$location', '$routeParams', 'menu', 'Shortener', function(Event, $location, $routeParams, menu, Shortener) {
 
   var link = function(scope,element,attrs) {
 
@@ -109,32 +121,24 @@ app.directive('showEvent', ['Event', '$location', '$routeParams', '$compile', 'm
 
     var shorten = function(s) {
       Shortener.get({short: s}).$promise.then(function(results) {
-        scope.event.url = '/#' + results.url;
+        scope.event.url = results.url;
       });
     };
-
-    // scope.viewDevice = function(p) {
-    //   $location.path(p);
-    //   $location.search({});
-    // };
 
     var init = function() {
       Event.get({id: $routeParams.id}).$promise.then(function(results) {
         scope.event = results;
-        results = JSON.stringify(scope.event,null,2);
-        scope.test  = window.hljs.highlight('json',results).value;
-        var test = '<pre>' + scope.test + '</pre>';
-
-        var template = test;
-        var templateObj = $compile(template)(scope);
-        element.html(templateObj);
-
-        if (scope.event.short_url) {
-          shorten(scope.event.short_url);
+        if (scope.event.short) {
+          shorten(scope.event.short);
         }
         scope.loading           = undefined;
       }, function(error) {
       });
+    };
+
+    scope.createTrigger = function() {
+      $location.path(scope.event.url + '/triggers/new');
+      $location.search({ action: scope.event.event_type, object: scope.event.object });
     };
 
     init();
@@ -145,7 +149,8 @@ app.directive('showEvent', ['Event', '$location', '$routeParams', '$compile', 'm
     link: link,
     scope: {
       event: '='
-    }
+    },
+    templateUrl: 'components/events/_show.html'
   };
 
 }]);

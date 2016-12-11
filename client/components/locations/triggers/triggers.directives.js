@@ -167,8 +167,21 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
   var link = function(scope,element,attrs) {
 
     scope.location = { slug: $routeParams.id };
+    scope.trigger = { id: $routeParams.trigger_id };
 
-    scope.triggers = [{ key: gettextCatalog.getString('All'), value: 'all'}, { key: gettextCatalog.getString('Boxes'), value: 'box'}, { key: gettextCatalog.getString('Clients'), value: 'client'}, { key: gettextCatalog.getString('Email'), value: 'email'}, {key: gettextCatalog.getString('Guests'), value: 'guest'}, {key:gettextCatalog.getString('Locations'), value: 'location'}, {key: gettextCatalog.getString('Networks'), value: 'network'}, {key: gettextCatalog.getString('Splash'), value: 'splash'}, {key: gettextCatalog.getString('Social'), value: 'social'}, {key: gettextCatalog.getString('Vouchers'), value: 'voucher'}, {key: gettextCatalog.getString('Zones'), value: 'zone' }];
+    scope.triggers = [
+      { key: gettextCatalog.getString('All'), value: 'all' },
+      { key: gettextCatalog.getString('Boxes'), value: 'box' },
+      { key: gettextCatalog.getString('Clients'), value: 'client' },
+      { key: gettextCatalog.getString('Email'), value: 'email' },
+      { key: gettextCatalog.getString('Guests'), value: 'guest' },
+      { key: gettextCatalog.getString('Locations'), value: 'location' },
+      { key: gettextCatalog.getString('Networks'), value: 'network' },
+      { key: gettextCatalog.getString('Splash'), value: 'splash' },
+      { key: gettextCatalog.getString('Social'), value: 'social' },
+      { key: gettextCatalog.getString('Vouchers'), value: 'voucher' },
+      { key: gettextCatalog.getString('Zones'), value: 'zone' }
+    ];
 
     scope.channels = [{key:'Email', value: 'email'}, {key:'Slack', value: 'slack'}, {key:'Webhook', value: 'webhook'}, {key: 'MailChimp', value: 'mailchimp'}, {key: 'SMS', value: 'sms'}];
     scope.webhook_types = ['POST', 'GET'];
@@ -231,14 +244,14 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     };
 
     var setCustomName = function() {
-      if (scope.trigger.channel === 'slack') {
-        for (var i = 0; i < scope.slack_channels.length; i++) {
-          if (scope.slack_channels[i].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.slack_channels[i].name;
-          }
-        }
-      }
-      else if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
+      // if (scope.trigger.channel === 'slack') {
+      //   for (var i = 0; i < scope.slack_channels.length; i++) {
+      //     if (scope.slack_channels[i].id === scope.trigger.attr_1) {
+      //       scope.trigger.custom_1 = scope.slack_channels[i].name;
+      //     }
+      //   }
+      // }
+      if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
         for (var j = 0; j < scope.chimp_lists.length; j++) {
           if (scope.chimp_lists[j].id === scope.trigger.attr_1) {
             scope.trigger.custom_1 = scope.chimp_lists[j].name;
@@ -277,15 +290,16 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     };
 
     var initSlack = function() {
-      scope.loading_integration = true;
-      checkSlackIntegrated().then(function(a) {
-        slackChannels();
-        scope.trigger.attr_2 = gettextCatalog.getString('A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}');
-      }, function(err) {
-        blank(true);
-        scope.error = err;
-        scope.loading_integration = undefined;
-      });
+      // scope.loading_integration = true;
+      // checkSlackIntegrated().then(function(a) {
+      //   slackChannels();
+        // scope.trigger.attr_2 = gettextCatalog.getString('A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}');
+        // scope.loading_integration = undefined;
+      // }, function(err) {
+      //   blank(true);
+      //   scope.error = err;
+      //   scope.loading_integration = undefined;
+      // });
     };
 
     var initWebhook = function() {
@@ -463,12 +477,18 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       window.history.back();
     };
 
-    if ($routeParams.id) {
+    if (scope.trigger.id) {
       scope.init();
     } else {
-      scope.trigger = {
-        type: 'all'
-      };
+      scope.trigger.type = 'all';
+      if ($routeParams.object) {
+        scope.trigger.type = $routeParams.object;
+      }
+      if ($routeParams.action) {
+        scope.trigger.trigger_type = $routeParams.action;
+      }
+
+      scope.loading = undefined;
     }
 
   };

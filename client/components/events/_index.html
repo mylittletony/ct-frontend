@@ -26,21 +26,27 @@
               <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="logOrder">
                   <tr md-row>
-                    <th md-column md-order-by="message" md-desc><span translate>Message</span></th>
-                    <th hide show-gt-xs md-column md-order-by="event_type"><span translate>Type</span></th>
+                    <th md-column md-desc><span translate>Level</span></th>
+                    <th md-column md-desc><span translate>Summary</span></th>
+                    <th md-column md-desc><span translate>Resource</span></th>
+                    <th md-column md-desc><span translate>User</span></th>
                     <th hide show-gt-sm md-column md-order-by="created_at"><span translate>Created</span></th>
                     <th md-column><span translate>Action</span></th>
                   </tr>
                 </thead>
                 <tbody md-body>
                   <tr md-row md-select="event" ng-repeat="event in filtered = (events | filter: filter | orderBy: query.order)">
-                    <td md-cell>
-                      <span hide-gt-xs>{{ ::event.message | truncate:30 }}</span>
-                      <md-tooltip hide-gt-xs>{{ event.message }}</md-tooltip>
-                      <span hide show-gt-xs>{{ ::event.message }}</span>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.level | eventLevel }}
                     </td>
-                    <td hide show-gt-xs md-cell>
-                      <a href="" ng-click="setType(event.event_type,event.object)">{{ ::event.event_type }}</a>
+                    <td md-cell>
+                      <a href="/#/events/{{ event.id }}">{{ event.description | eventSummary:event.event_type | truncate:50 }}</a>
+                    </td>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.object | titleCase }}
+                    </td>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.username }}
                     </td>
                     <td hide show-gt-sm md-cell>
                       {{ ::event.created_at | humanTime }}
@@ -57,6 +63,18 @@
                               <p flex translate>View Event</p>
                             </md-button>
                           </md-menu-item>
+                          <md-menu-item>
+                            <md-button ng-disabled="!event.short" ng-href="/#/?xtr={{ event.short }}">
+                              <md-icon>pageview</md-icon>
+                              <p flex translate>View Resource</p>
+                            </md-button>
+                          </md-menu-item>
+                          <!-- <md-menu-item> -->
+                          <!--   <md-button ng-disabled="!event.location_id" ng-href="" ng-click="createTrigger(event)"> -->
+                          <!--     <md-icon>pageview</md-icon> -->
+                          <!--     <p flex translate>Create Trigger</p> -->
+                          <!--   </md-button> -->
+                          <!-- </md-menu-item> -->
                         </md-menu-content>
                       </md-menu>
                     </td>

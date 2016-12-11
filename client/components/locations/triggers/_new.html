@@ -30,7 +30,7 @@
               </label>
               <md-select ng-model="trigger.type">
                 <md-option ng-repeat="type in triggers" value="{{type.value}}">
-                  {{type.key}}
+                  {{ type.key }}
                 </md-option>
               </md-select>
             </md-input-container>
@@ -234,18 +234,6 @@
                     </translate>
                   </md-radio-button>
                 </span>
-                <span flex="50">
-                  <md-radio-button value="splash.duplicate">
-                    <translate>
-                      Duplicated
-                    </translate>
-                  </md-radio-button>
-                  <md-radio-button value="splash.password">
-                    <translate>
-                      Password Changed
-                    </translate>
-                  </md-radio-button>
-                </span>
               </span>
 
               <span ng-if="trigger.type == 'social'">
@@ -303,11 +291,6 @@
                 <md-radio-button value="voucher.update">
                   <translate>
                     Updated
-                  </translate>
-                </md-radio-button>
-                <md-radio-button value="voucher.update">
-                  <translate>
-                    Completed
                   </translate>
                 </md-radio-button>
               </span>
@@ -382,7 +365,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Tune It
+                Trigger Settings
               </span>
               <span class="md-subhead" translate>
                 Deferring the trigger will queue it and send it after the event has occurred.

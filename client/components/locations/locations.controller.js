@@ -213,8 +213,8 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     };
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-      menu.archived = undefined;
-      menu.header = undefined;
+      // menu.archived = undefined;
+      // menu.header = '';
     });
 
     init();
@@ -226,6 +226,8 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
   function($scope, menu, $mdSidenav, gettextCatalog) {
 
     $scope.loading = true;
+    menu.archived = undefined;
+    menu.header = '';
 
     function isOpen(section) {
       return menu.isSectionSelected(section);

@@ -1,0 +1,52 @@
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>Event Details</span>
+            <!-- <span class="md-subhead">Large</span> -->
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Summary</h3>
+              <p>{{ event.description | eventSummary:event.event_type }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Type</h3>
+              <p>{{ event.event_type }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Object</h3>
+              <p>{{ event.object }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Username</h3>
+              <p>{{ event.username }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Level</h3>
+              <p>{{ event.level | eventLevel }} ({{ event.level }})</p>
+            </div>
+          </md-list-item>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button href="/#/events"><translate>Back</translate></md-button>
+          <md-button href="" ng-click="createTrigger()"><translate>Create Trigger</translate></md-button>
+          <md-button ng-if="event.url" href="/#{{event.url}}"><translate>View Resource</translate></md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </div>
+</md-content>
