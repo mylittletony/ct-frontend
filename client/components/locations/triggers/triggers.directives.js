@@ -888,44 +888,8 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
         trigger_id:   $routeParams.trigger_id,
         id:           $routeParams.trigger_history_id
       }).$promise.then(function(res) {
-
-        var results = JSON.stringify(res,null,2);
-        var json  = window.hljs.highlight('json',results).value;
-
-        // CANT TRANSLATE YET
-        var template =
-          '<md-toolbar class="md-table-toolbar md-default">'+
-          '<div class="md-toolbar-tools">'+
-          '<md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">'+
-          '<md-icon md-font-icon="arrow_back" >arrow_back</md-icon>'+
-          '</md-button>'+
-          '<p>Trigger Logs</p>'+
-          '</div>'+
-          '<md-divider></md-divider>'+
-          '</md-toolbar>'+
-          '<md-content class="md-padding" layout="column" layout-gt-sm=\'row\' layout-align="center center">'+
-          '<md-card>'+
-          '<md-card-title>'+
-          '<md-card-title-text>'+
-          '<span class="md-headline">'+
-          'Details'+
-          '</span>'+
-          '</md-card-title-text>'+
-          '<md-card-title-media>'+
-          '<img src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/slack.png" class="integrations-icon-show">'+
-          '</md-card-title-media>'+
-          '</md-card-title>'+
-          '<md-card-content><pre>'+
-          json +
-          '</pre></md-card-content>'+
-          '</md-card>'+
-          '</md-content>';
-
-        var templateObj = $compile(template)(scope);
-        element.html(templateObj);
-
-        // scope.history   = results;
-        scope.loading   = undefined;
+        scope.loading = undefined;
+        scope.history = res;
       }, function(err) {
         scope.errors = err;
       });
@@ -943,7 +907,8 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
     link: link,
     scope: {
       loading: '='
-    }
+    },
+    templateUrl: 'components/locations/triggers/history/_show.html'
   };
 
 }]);
