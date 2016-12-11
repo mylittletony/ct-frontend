@@ -8,16 +8,28 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <md-input-container layout="row" flex="30">
-                <label>
-                  <translate>Event Type</translate>
-                </label>
-                <md-select ng-model="query.filter" ng-change="search()">
-                  <md-option ng-repeat="trigger in triggers" value="{{trigger.value}}">
-                    {{trigger.name}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
+              <div layout-gt-sm="row" layout-padding>
+                <md-input-container>
+                  <label>
+                    <translate>Event Type</translate>
+                  </label>
+                  <md-select ng-model="query.object" ng-change="search()">
+                    <md-option ng-repeat="trigger in triggers" value="{{trigger.value}}">
+                      {{ trigger.name }}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container>
+                  <label>
+                    <translate>Level</translate>
+                  </label>
+                  <md-select ng-model="query.level" ng-change="search()">
+                    <md-option ng-repeat="level in levels" value="{{ level.value }}">
+                      {{ level.name }}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
               <div flex></div>
             </md-card-title-text>
           </md-card-title>

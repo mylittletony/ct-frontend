@@ -14,7 +14,7 @@
     <span ng-if="!events.length && !loading" translate>
       No warnings found.
     </span>
-    <md-list-item class="md-2-line" href="" ng-click="visitBox(event.short_url)" ng-repeat="event in events">
+    <md-list-item class="md-2-line" href="/#/events/{{ event.id }}" ng-repeat="event in events">
       <div class="md-list-item-text">
         <h3 ng-class="event.event_type == 'box.online' ? 'muted' : 'offline'">
           {{ event.data.description }}

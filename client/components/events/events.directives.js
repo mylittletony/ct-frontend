@@ -23,9 +23,10 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
     scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-created_at',
-      type:       $routeParams.type,
       filter:     $routeParams.q,
-      limit:      $routeParams.per || 25,
+      object:     $routeParams.object,
+      level:      $routeParams.level,
+      limit:      $routeParams.per || 10,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
       direction:  $routeParams.direction || 'desc'
@@ -39,12 +40,14 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       hash.page  = scope.query.page;
       hash.per   = scope.query.limit;
       hash.q     = scope.query.filter;
+      hash.level = scope.query.level;
+      hash.object  = scope.query.object;
       $location.search(hash);
       init();
     };
 
     scope.triggers = [
-      { name: gettextCatalog.getString('All'), value: 'all' },
+      { name: gettextCatalog.getString('All'), value: '' },
       { name: gettextCatalog.getString('Boxes'), value: 'box' },
       { name: gettextCatalog.getString('Clients'), value: 'client' },
       { name: gettextCatalog.getString('Email'), value: 'email' },
@@ -57,19 +60,27 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       { name: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
 
+    scope.levels = [
+      { name: gettextCatalog.getString('All'), value: '' },
+      { name: gettextCatalog.getString('Alert'), value: 2 },
+      { name: gettextCatalog.getString('Info'), value: 1 },
+      { name: gettextCatalog.getString('Debug'), value: 0 }
+    ];
+
     scope.search = function() {
-      var hash  = $location.search();
-      hash.q    = scope.query.filter;
-      hash.type = undefined;
+      var hash     = $location.search();
+      hash.q       = scope.query.filter;
+      hash.level   = scope.query.level;
+      hash.object  = scope.query.object;
       $location.search(hash);
     };
 
-    scope.setType = function(type, obj) {
-      var hash  = $location.search();
-      hash.q      = obj;
-      hash.type   = type;
-      $location.search(hash);
-    };
+    // scope.setType = function(type, obj) {
+    //   var hash  = $location.search();
+    //   hash.q      = obj;
+    //   hash.type   = type;
+    //   $location.search(hash);
+    // };
 
     var init = function() {
       if (scope.query.filter === 'all') {
@@ -78,8 +89,8 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       Event.query({
         page: scope.query.page,
         per: scope.query.limit,
-        object: scope.query.filter,
-        type: scope.query.type
+        object: scope.query.object || undefined,
+        level: scope.query.level || undefined,
       }).$promise.then(function(results) {
         scope.events            = results.events;
         scope._links            = results._links;
