@@ -183,7 +183,13 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       { key: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
 
-    scope.channels = [{key:'Email', value: 'email'}, {key:'Slack', value: 'slack'}, {key:'Webhook', value: 'webhook'}, {key: 'MailChimp', value: 'mailchimp'}, {key: 'SMS', value: 'sms'}];
+    scope.channels = [
+      { key: 'Email', value: 'email' },
+      { key: 'Slack', value: 'slack' },
+      { key: 'Webhook', value: 'webhook' },
+      // { key: 'MailChimp', value: 'mailchimp' },
+      // { key: 'SMS', value: 'sms' }
+    ];
     scope.webhook_types = ['POST', 'GET'];
     scope.user = Auth.currentUser();
 
@@ -484,10 +490,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       if ($routeParams.object) {
         scope.trigger.type = $routeParams.object;
       }
-      if ($routeParams.action) {
-        scope.trigger.trigger_type = $routeParams.action;
-      }
-
+      scope.trigger.trigger_type = $routeParams.action;
       scope.loading = undefined;
     }
 
