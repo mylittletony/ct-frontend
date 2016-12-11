@@ -26,7 +26,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       filter:     $routeParams.q,
       object:     $routeParams.object,
       level:      $routeParams.level,
-      limit:      $routeParams.per || 10,
+      limit:      $routeParams.per  || 100,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
       direction:  $routeParams.direction || 'desc'
@@ -56,6 +56,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       { name: gettextCatalog.getString('Networks'), value: 'network' },
       { name: gettextCatalog.getString('Splash'), value: 'splash' },
       { name: gettextCatalog.getString('Social'), value: 'social' },
+      { name: gettextCatalog.getString('Triggers'), value: 'trigger' },
       { name: gettextCatalog.getString('Vouchers'), value: 'voucher'},
       { name: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
@@ -74,13 +75,6 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       hash.object  = scope.query.object;
       $location.search(hash);
     };
-
-    // scope.setType = function(type, obj) {
-    //   var hash  = $location.search();
-    //   hash.q      = obj;
-    //   hash.type   = type;
-    //   $location.search(hash);
-    // };
 
     var init = function() {
       if (scope.query.filter === 'all') {
@@ -132,7 +126,8 @@ app.directive('showEvent', ['Event', '$location', '$routeParams', 'menu', 'Short
 
     var shorten = function(s) {
       Shortener.get({short: s}).$promise.then(function(results) {
-        scope.event.url = results.url;
+        scope.event.url           = results.url;
+        scope.event.location_slug  = results.slug;
       });
     };
 
@@ -148,7 +143,7 @@ app.directive('showEvent', ['Event', '$location', '$routeParams', 'menu', 'Short
     };
 
     scope.createTrigger = function() {
-      $location.path(scope.event.url + '/triggers/new');
+      $location.path('/locations/' + scope.event.location_slug + '/triggers/new');
       $location.search({ action: scope.event.event_type, object: scope.event.object });
     };
 

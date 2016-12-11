@@ -12,7 +12,7 @@ app.filter('eventLevel', [function() {
       case 1:
         return 'Info';
       case 2:
-        return 'Alarm';
+        return 'Alert';
     }
   };
 }]);
@@ -38,7 +38,7 @@ app.filter('eventSummary', [function() {
       case 'create':
         action = 'Created';
         break;
-      case 'delete':
+      case 'destroy':
         action = 'Deleted';
         break;
     }
