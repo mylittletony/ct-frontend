@@ -41,6 +41,24 @@ app.filter('eventSummary', [function() {
       case 'destroy':
         action = 'Deleted';
         break;
+      case 'resync':
+        action = 'Re-synced';
+        break;
+      case 'reboot':
+        action = 'Rebooted';
+        break;
+      case 'password':
+        action = 'Password changed for';
+        break;
+      case 'reset':
+        action = 'Reset';
+        break;
+      case 'enable':
+        action = 'Enabled';
+        break;
+      case 'disable':
+        action = 'Disabled';
+        break;
     }
 
     var msg = action + ' ' + input;
