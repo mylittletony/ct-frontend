@@ -32,6 +32,9 @@ app.filter('eventSummary', [function() {
     }
 
     switch(action) {
+      case 'upgrade':
+        action = 'Upgraded';
+        break;
       case 'update':
         action = 'Updated';
         break;
