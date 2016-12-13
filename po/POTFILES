@@ -225,6 +225,7 @@
 ../client/components/splash_pages/access-social.html
 ../client/components/splash_pages/access-vouchers.html
 ../client/components/splash_pages/design-1.html
+../client/components/splash_pages/design-2.html
 ../client/components/splash_pages/design.html
 ../client/components/splash_pages/forms.html
 ../client/components/splash_pages/index.html
@@ -287,6 +288,12 @@
 ../client/components/views/group_policies/_show.html
 ../client/components/views/group_policies/index.html
 ../client/components/views/group_policies/show.html
+../client/components/views/messages/_create.html
+../client/components/views/messages/_index.html
+../client/components/views/operations/_index.html
+../client/components/views/operations/_show.html
+../client/components/views/operations/index.html
+../client/components/views/operations/show.html
 ../client/components/views/templates/_range_filter.html
 ../client/components/views/templates/_upload_button.html
 ../client/components/vouchers/_copy.html
@@ -331,6 +338,8 @@
 ../client/components/directives/group_policies.directives.js
 ../client/components/directives/invites.directives.js
 ../client/components/directives/invites.services.js
+../client/components/directives/messages.directives.js
+../client/components/directives/operations.directives.js
 ../client/components/directives/users.directives.js
 ../client/components/directives/zones.directives.js
 ../client/components/distros/distros.directives.js
@@ -342,6 +351,7 @@
 ../client/components/events/events.controller.js
 ../client/components/events/events.directives.js
 ../client/components/events/events.services.js
+../client/components/filters/messages.filters.js
 ../client/components/firmwares/firmwares.directives.js
 ../client/components/firmwares/firmwares.services.js
 ../client/components/forms/forms.directives.js
@@ -392,6 +402,8 @@
 ../client/components/reports/reports.v2.directives.js
 ../client/components/services/brand_users.services.js
 ../client/components/services/group_policies.services.js
+../client/components/services/messages.services.js
+../client/components/services/operations.services.js
 ../client/components/services/pagination_labels.services.js
 ../client/components/services/projects.services.js
 ../client/components/services/users.services.js
