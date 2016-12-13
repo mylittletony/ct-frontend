@@ -57,7 +57,6 @@
 </section>
 
 <md-content class="md-padding" ng-if="box.initialising">
-
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
       <md-card>
@@ -73,11 +72,9 @@
       </md-card>
     </div>
   </div>
-
 </md-content>
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="box.is_cucumber == false && !box.last_heartbeat">
-
   <div flex-gt-sm="60">
     <md-card>
       <md-card-title>
@@ -223,6 +220,14 @@
             </div>
           </md-list-item>
           <box-speedtest-widget box="box"></box-speedtest-widget>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3 translate>Tags</h3>
+              <p translate>
+                {{ box.tags || "No tags" }}
+              </p>
+            </div>
+          </md-list-item>
         </md-list>
       </md-card-content>
     </md-card>

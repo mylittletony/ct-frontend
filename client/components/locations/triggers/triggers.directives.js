@@ -34,7 +34,7 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
     // };
 
     // scope.updatePage = function(item) {
-      
+
     // };
 
     // user permissions //
@@ -167,10 +167,31 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
   var link = function(scope,element,attrs) {
 
     scope.location = { slug: $routeParams.id };
+    scope.trigger = { id: $routeParams.trigger_id };
 
-    scope.triggers = [{ key: gettextCatalog.getString('All'), value: 'all'}, { key: gettextCatalog.getString('Boxes'), value: 'box'}, { key: gettextCatalog.getString('Clients'), value: 'client'}, { key: gettextCatalog.getString('Email'), value: 'email'}, {key: gettextCatalog.getString('Guests'), value: 'guest'}, {key:gettextCatalog.getString('Locations'), value: 'location'}, {key: gettextCatalog.getString('Networks'), value: 'network'}, {key: gettextCatalog.getString('Splash'), value: 'splash'}, {key: gettextCatalog.getString('Social'), value: 'social'}, {key: gettextCatalog.getString('Vouchers'), value: 'voucher'}, {key: gettextCatalog.getString('Zones'), value: 'zone' }];
+    scope.triggers = [
+      { key: gettextCatalog.getString('All'), value: 'all' },
+      { key: gettextCatalog.getString('Boxes'), value: 'box' },
+      { key: gettextCatalog.getString('Clients'), value: 'client' },
+      { key: gettextCatalog.getString('Email'), value: 'email' },
+      { key: gettextCatalog.getString('Guests'), value: 'guest' },
+      { key: gettextCatalog.getString('Locations'), value: 'location' },
+      { key: gettextCatalog.getString('Networks'), value: 'network' },
+      { key: gettextCatalog.getString('Splash'), value: 'splash' },
+      { key: gettextCatalog.getString('Social'), value: 'social' },
+      { key: gettextCatalog.getString('Store'), value: 'store' },
+      { key: gettextCatalog.getString('Vouchers'), value: 'voucher' },
+      { key: gettextCatalog.getString('Users'), value: 'user' },
+      { key: gettextCatalog.getString('Zones'), value: 'zone' }
+    ];
 
-    scope.channels = [{key:'Email', value: 'email'}, {key:'Slack', value: 'slack'}, {key:'Webhook', value: 'webhook'}, {key: 'MailChimp', value: 'mailchimp'}, {key: 'SMS', value: 'sms'}];
+    scope.channels = [
+      { key: 'Email', value: 'email' },
+      { key: 'Slack', value: 'slack' },
+      { key: 'Webhook', value: 'webhook' },
+      // { key: 'MailChimp', value: 'mailchimp' },
+      // { key: 'SMS', value: 'sms' }
+    ];
     scope.webhook_types = ['POST', 'GET'];
     scope.user = Auth.currentUser();
 
@@ -231,14 +252,14 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     };
 
     var setCustomName = function() {
-      if (scope.trigger.channel === 'slack') {
-        for (var i = 0; i < scope.slack_channels.length; i++) {
-          if (scope.slack_channels[i].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.slack_channels[i].name;
-          }
-        }
-      }
-      else if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
+      // if (scope.trigger.channel === 'slack') {
+      //   for (var i = 0; i < scope.slack_channels.length; i++) {
+      //     if (scope.slack_channels[i].id === scope.trigger.attr_1) {
+      //       scope.trigger.custom_1 = scope.slack_channels[i].name;
+      //     }
+      //   }
+      // }
+      if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
         for (var j = 0; j < scope.chimp_lists.length; j++) {
           if (scope.chimp_lists[j].id === scope.trigger.attr_1) {
             scope.trigger.custom_1 = scope.chimp_lists[j].name;
@@ -277,19 +298,22 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     };
 
     var initSlack = function() {
-      scope.loading_integration = true;
-      checkSlackIntegrated().then(function(a) {
-        slackChannels();
-        scope.trigger.attr_2 = gettextCatalog.getString('A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}');
-      }, function(err) {
-        blank(true);
-        scope.error = err;
-        scope.loading_integration = undefined;
-      });
+      // scope.loading_integration = true;
+      // checkSlackIntegrated().then(function(a) {
+      //   slackChannels();
+        // scope.trigger.attr_2 = gettextCatalog.getString('A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}');
+        // scope.loading_integration = undefined;
+      // }, function(err) {
+      //   blank(true);
+      //   scope.error = err;
+      //   scope.loading_integration = undefined;
+      // });
     };
 
     var initWebhook = function() {
-      scope.trigger.attr_2 = 'POST';
+      if (scope.trigger.attr_2 !== 'POST' || scope.trigger.attr_2 !== 'GET') {
+        scope.trigger.attr_2 = 'POST';
+      }
     };
 
     var initMc = function() {
@@ -459,19 +483,17 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
 
     scope.back = function() {
       window.history.back();
-      // if (scope.trigger.id) {
-      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id;
-      // } else {
-      //   window.location.href = '/#/locations/' + scope.location.slug + '/triggers';
-      // }
     };
 
-    if ($routeParams.id) {
+    if (scope.trigger.id) {
       scope.init();
     } else {
-      scope.trigger = {
-        type: 'all'
-      };
+      scope.trigger.type = 'all';
+      if ($routeParams.object) {
+        scope.trigger.type = $routeParams.object;
+      }
+      scope.trigger.trigger_type = $routeParams.action;
+      scope.loading = undefined;
     }
 
   };
@@ -507,11 +529,12 @@ app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$h
         type: 'edit'
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Test'),
-        icon: 'compare_arrows',
-        type: 'test'
-      });
+      // Removed until we re-wire backend
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Test'),
+      //   icon: 'compare_arrows',
+      //   type: 'test'
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Logs'),
@@ -724,28 +747,32 @@ app.directive('triggerTags', ['$mdDialog',function($mdDialog) {
         parent: angular.element(document.body),
         controller: DialogController,
         locals: {
-          type: attrs.type
+          type: attrs.type,
+          channel: attrs.channel
         }
       });
     };
 
-    function DialogController($scope,type) {
+    function DialogController($scope,type,channel) {
       $scope.type = type;
+      $scope.channel = channel;
       $scope.close = function() {
         $mdDialog.cancel();
       };
     }
-    DialogController.$inject = ['$scope', 'type'];
+    DialogController.$inject = ['$scope', 'type', 'channel'];
 
-    attrs.$observe('type', function(start) {
+    attrs.$observe('channel', function(start) {
       scope.type = attrs.type;
+      scope.channel = attrs.channel;
     });
   };
 
   return {
     link: link,
     scope: {
-      type: '@'
+      type: '@',
+      channel: '@',
     },
     templateUrl: 'components/locations/triggers/_webhook_variables.html',
   };
@@ -757,7 +784,7 @@ app.directive('listTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
 
     scope.location  = { slug: $routeParams.id };
     scope.trigger   = { id: $routeParams.trigger_id };
-    
+
     scope.pagination_labels = pagination_labels;
     scope.options = {
       autoSelect: true,
@@ -864,44 +891,8 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
         trigger_id:   $routeParams.trigger_id,
         id:           $routeParams.trigger_history_id
       }).$promise.then(function(res) {
-
-        var results = JSON.stringify(res,null,2);
-        var json  = window.hljs.highlight('json',results).value;
-
-        // CANT TRANSLATE YET
-        var template =
-          '<md-toolbar class="md-table-toolbar md-default">'+
-          '<div class="md-toolbar-tools">'+
-          '<md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">'+
-          '<md-icon md-font-icon="arrow_back" >arrow_back</md-icon>'+
-          '</md-button>'+
-          '<p>Trigger Logs</p>'+
-          '</div>'+
-          '<md-divider></md-divider>'+
-          '</md-toolbar>'+
-          '<md-content class="md-padding" layout="column" layout-gt-sm=\'row\' layout-align="center center">'+
-          '<md-card>'+
-          '<md-card-title>'+
-          '<md-card-title-text>'+
-          '<span class="md-headline">'+
-          'Details'+
-          '</span>'+
-          '</md-card-title-text>'+
-          '<md-card-title-media>'+
-          '<img src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/slack.png" class="integrations-icon-show">'+
-          '</md-card-title-media>'+
-          '</md-card-title>'+
-          '<md-card-content><pre>'+
-          json +
-          '</pre></md-card-content>'+
-          '</md-card>'+
-          '</md-content>';
-
-        var templateObj = $compile(template)(scope);
-        element.html(templateObj);
-
-        // scope.history   = results;
-        scope.loading   = undefined;
+        scope.loading = undefined;
+        scope.history = res;
       }, function(err) {
         scope.errors = err;
       });
@@ -919,7 +910,8 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
     link: link,
     scope: {
       loading: '='
-    }
+    },
+    templateUrl: 'components/locations/triggers/history/_show.html'
   };
 
 }]);

@@ -1,23 +1,33 @@
 <loader></loader>
-
 <div ng-hide="loading" ng-cloak>
-
   <md-content class="md-padding" layout="column" layout-gt-xs='column'>
     <div layout="row" layout-align="center center">
       <div flex="100">
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <md-input-container layout="row" flex="30">
-                <label>
-                  <translate>Event Type</translate>
-                </label>
-                <md-select ng-model="query.filter" ng-change="search()">
-                  <md-option ng-repeat="trigger in triggers" value="{{trigger.value}}">
-                    {{trigger.name}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
+              <div layout-gt-sm="row" layout-padding>
+                <md-input-container>
+                  <label>
+                    <translate>Event Type</translate>
+                  </label>
+                  <md-select ng-model="query.object" ng-change="search()">
+                    <md-option ng-repeat="trigger in triggers" value="{{trigger.value}}">
+                      {{ trigger.name }}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container>
+                  <label>
+                    <translate>Level</translate>
+                  </label>
+                  <md-select ng-model="query.level" ng-change="search()">
+                    <md-option ng-repeat="level in levels" value="{{ level.value }}">
+                      {{ level.name }}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
               <div flex></div>
             </md-card-title-text>
           </md-card-title>
@@ -26,21 +36,31 @@
               <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="logOrder">
                   <tr md-row>
-                    <th md-column md-order-by="message" md-desc><span translate>Message</span></th>
-                    <th hide show-gt-xs md-column md-order-by="event_type"><span translate>Type</span></th>
+                    <th md-column md-desc><span translate>Level</span></th>
+                    <th md-column md-desc><span translate>Summary</span></th>
+                    <th md-column md-desc><span translate>Resource</span></th>
+                    <th hide show-gt-sm md-column md-desc><span translate>Location</span></th>
+                    <th md-column md-desc><span translate>User</span></th>
                     <th hide show-gt-sm md-column md-order-by="created_at"><span translate>Created</span></th>
                     <th md-column><span translate>Action</span></th>
                   </tr>
                 </thead>
                 <tbody md-body>
                   <tr md-row md-select="event" ng-repeat="event in filtered = (events | filter: filter | orderBy: query.order)">
-                    <td md-cell>
-                      <span hide-gt-xs>{{ ::event.message | truncate:30 }}</span>
-                      <md-tooltip hide-gt-xs>{{ event.message }}</md-tooltip>
-                      <span hide show-gt-xs>{{ ::event.message }}</span>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.level | eventLevel }}
                     </td>
-                    <td hide show-gt-xs md-cell>
-                      <a href="" ng-click="setType(event.event_type,event.object)">{{ ::event.event_type }}</a>
+                    <td md-cell>
+                      <a href="/#/events/{{ event.id }}">{{ event.description | eventSummary:event.event_type | truncate:50 }}</a>
+                    </td>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.object | titleCase }}
+                    </td>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.location_name }}
+                    </td>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.username }}
                     </td>
                     <td hide show-gt-sm md-cell>
                       {{ ::event.created_at | humanTime }}
@@ -57,6 +77,12 @@
                               <p flex translate>View Event</p>
                             </md-button>
                           </md-menu-item>
+                          <md-menu-item>
+                            <md-button ng-disabled="!event.short" ng-href="/#/?xtr={{ event.short }}">
+                              <md-icon>pageview</md-icon>
+                              <p flex translate>View Resource</p>
+                            </md-button>
+                          </md-menu-item>
                         </md-menu-content>
                       </md-menu>
                     </td>
@@ -67,7 +93,6 @@
             <md-table-pagination ng-if="_links.total_entries > query.limit" md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
           </md-card-content>
         </md-card>
-
       </div>
     </div>
   </md-content>

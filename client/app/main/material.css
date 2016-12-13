@@ -536,3 +536,17 @@ table tr td, table.print-friendly tr th {
 .message-notifier {
   padding: 0 20px;
 }
+
+.triggers pre {
+  margin-top: -30px;
+}
+
+pre .list-unstyled {
+    list-style: none;
+    margin: 0px 0 -40px -40px;
+    line-height: 8px;
+}
+
+/* pre { */
+/*   text-space-collapse: trim-inner; */
+/* } */

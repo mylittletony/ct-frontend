@@ -1,0 +1,57 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="Settings">
+      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    </md-button>
+    <p>Trigger Logs</p>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>Trigger Details</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Summary</h3>
+              <p>{{ history.attr_1 }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Created</h3>
+              <p>{{ history.created_at | humanTime }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Success</h3>
+              <p>{{ history.success }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Response</h3>
+              <p>{{ history.response || '-' }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Status Code</h3>
+              <p>{{ history.status }}</p>
+            </div>
+          </md-list-item>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button href="" ng-click="back()"><translate>Back</translate></md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </div>
+</md-content>

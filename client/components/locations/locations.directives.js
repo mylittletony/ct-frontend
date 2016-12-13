@@ -1874,11 +1874,11 @@ app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Sho
     scope.loading = true;
 
     var init = function() {
-      Event.query({warning: true, per: 5}).$promise.then(function(results) {
-        scope.events            = results.events;
-        scope.loading           = undefined;
+      Event.query({object: 'box', level: 2, per: 5}).$promise.then(function(results) {
+        scope.events = results.events;
+        scope.loading = undefined;
       }, function(error) {
-        scope.loading           = undefined;
+        scope.loading = undefined;
       });
     };
 

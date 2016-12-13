@@ -30,7 +30,7 @@
               </label>
               <md-select ng-model="trigger.type">
                 <md-option ng-repeat="type in triggers" value="{{type.value}}">
-                  {{type.key}}
+                  {{ type.key }}
                 </md-option>
               </md-select>
             </md-input-container>
@@ -52,17 +52,16 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Now set the event trigger
+                Set the event trigger
               </span>
               <span class="md-subhead" translate>
                 The trigger will fire when this event happens.
-                {{ trigger.type | humanTrigger }}...
+                <!-- {{ trigger.type | humanTrigger }} -->
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
             <md-radio-group ng-model="trigger.trigger_type" layout="column">
-
               <span ng-if="trigger.type == 'box'" layout="row" layout-wrap>
                 <span flex="50">
                   <md-radio-button value="box.create">
@@ -236,14 +235,9 @@
                   </md-radio-button>
                 </span>
                 <span flex="50">
-                  <md-radio-button value="splash.duplicate">
-                    <translate>
-                      Duplicated
-                    </translate>
-                  </md-radio-button>
                   <md-radio-button value="splash.password">
                     <translate>
-                      Password Changed
+                      Password changed
                     </translate>
                   </md-radio-button>
                 </span>
@@ -263,36 +257,40 @@
                 </md-radio-button>
               </span>
 
-              <span ng-if="trigger.type == 'store'">
-                <md-radio-button value="store.create">
-                  <translate>
+              <span ng-if="trigger.type == 'store'" layout="row" layout-wrap>
+                <span flex="50">
+                  <md-radio-button value="store.create">
+                    <translate>
                     Created
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
 
-                <md-radio-button value="store.update">
-                  <translate>
+                  <md-radio-button value="store.update">
+                    <translate>
                     Updated
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
 
-                <md-radio-button value="store.destroy">
-                  <translate>
+                  <md-radio-button value="store.destroy">
+                    <translate>
                     Destroy
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
+                </span>
 
-                <md-radio-button value="store.purchase">
-                  <translate>
+                <span flex="50">
+                  <md-radio-button value="store.purchase">
+                    <translate>
                     Purchase
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
 
-                <md-radio-button value="store.refund">
-                  <translate>
+                  <md-radio-button value="store.refund">
+                    <translate>
                     Refund
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
+                </span>
               </span>
 
               <span ng-if="trigger.type == 'voucher'">
@@ -306,9 +304,17 @@
                     Updated
                   </translate>
                 </md-radio-button>
-                <md-radio-button value="voucher.update">
+              </span>
+
+              <span ng-if="trigger.type == 'user'">
+                <md-radio-button value="user.invite">
                   <translate>
-                    Completed
+                    Invited
+                  </translate>
+                </md-radio-button>
+                <md-radio-button value="user.revoke">
+                  <translate>
+                    Revoked
                   </translate>
                 </md-radio-button>
               </span>
@@ -329,9 +335,7 @@
                     Deleted
                   </translate>
                 </md-radio-button>
-
               </span>
-
             </md-radio-group>
           </md-card-content>
         </md-card>
@@ -367,17 +371,61 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">
-                <span ng-show="trigger.channel=='email'" translate>Send an Email</span>
-                <span ng-show="trigger.channel=='slack'" translate>Notify Slack</span>
-                <span ng-show="trigger.channel=='webhook'" translate>Send a Webhook</span>
-                <span ng-show="trigger.channel=='mailchimp'" translate>Add to List</span>
-                <span ng-show="trigger.channel=='sms'" translate>Send SMS</span>
+                <span ng-show="trigger.channel == 'email'" translate>Send an Email</span>
+                <span ng-show="trigger.channel == 'slack'" translate>Notify Slack</span>
+                <span ng-show="trigger.channel == 'webhook'" translate>Send a Webhook</span>
+                <!-- <span ng-show="trigger.channel == 'mailchimp'" translate>Add to List</span> -->
+                <!-- <span ng-show="trigger.channel == 'sms'" translate>Send SMS</span> -->
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <trigger-tags type="{{trigger.type}}"></trigger-tags>
+            <trigger-tags type="{{trigger.type}}" channel="{{trigger.channel}}"></trigger-tags>
             <span channel-types ver='{{ trigger.channel }}'></span>
+          </md-card-content>
+        </md-card>
+
+        <md-card ng-if="trigger.type && trigger.type != 'all'">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Trigger Settings
+              </span>
+              <span class="md-subhead" translate>
+                Deferring the trigger will queue it and send it after the event has occurred.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content layout-gt-sm="column">
+            <md-input-container>
+              <label>
+                <translate>Defer Minutes</translate>
+              </label>
+              <input type="text" name="ttl" md-maxlength="100" ng-model="trigger.ttl" placeholder="{{ 'Defer for minutes' | translate }}"></input>
+              <div ng-messages="myForm.ttl.$error" md-auto-hide="false">
+                <div ng-message="md-max" translate>Must be less than 100 chars</div>
+              </div>
+            </md-input-container>
+            <md-input-container style="margin: 0 0 -20px -3px;">
+              <label>
+                <translate>Match</translate>
+              </label>
+              <input type="text" name="match" md-max="43200" ng-model="trigger.match" placeholder="{{ 'Expression match' | translate }}"></input>
+              <div ng-messages="myForm.match.$error" md-auto-hide="false">
+                <div ng-message="md-maxlength" translate>Must be less than 43,200 mins</div>
+              </div>
+            </md-input-container>
+            <small class="muted" style="font-size: 75%;">Regex match on description, AP Mac or Zone ID.</small>
+            <md-input-container style="margin: 40px 0 -20px -3px;">
+              <label>
+                <translate>Tags</translate>
+              </label>
+              <input type="text" name="tags" ng-model="trigger.tags" placeholder="{{ 'Tags' | translate }}"></input>
+              <div ng-messages="myForm.tags.$error" md-auto-hide="false">
+              </div>
+            </md-input-container>
+            <small class="muted" style="font-size: 75%;">Match any object tags.</small>
           </md-card-content>
         </md-card>
 
@@ -399,12 +447,11 @@
                 <div ng-message="required" translate>Please enter a name for your trigger</div>
                 <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
               </div>
-            </md-card-content>
+            </md-input-container>
+          </md-card-content>
         </md-card>
         <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
       </div>
     </div>
-
   </md-content>
-
 </form>
