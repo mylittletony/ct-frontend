@@ -41,6 +41,7 @@
             <p ng-if="trigger.type == 'location'" translate>Send triggers when one of your locations causes an event.</p>
             <p ng-if="trigger.type == 'network'" translate>Send triggers when your networks cause an event.</p>
             <p ng-if="trigger.type == 'quickcode'" translate>Send triggers when QuickCodes cause an event.</p>
+            <p ng-if="trigger.type == 'rogue'" translate>Send triggers when rogue devices checkin</p>
             <p ng-if="trigger.type == 'splash'" translate>Send triggers on splash page events</p>
             <p ng-if="trigger.type == 'social'" translate>Send triggers when a Social login causes a trigger.</p>
             <p ng-if="trigger.type == 'store'" translate>Send triggers when a store creates an event.</p>
@@ -212,6 +213,14 @@
                 <md-radio-button value="quickcode.login">
                   <translate>
                     Logged In
+                  </translate>
+                </md-radio-button>
+              </span>
+
+              <span ng-if="trigger.type == 'rogue'">
+                <md-radio-button value="rogue.detected">
+                  <translate>
+                    Detected
                   </translate>
                 </md-radio-button>
               </span>
