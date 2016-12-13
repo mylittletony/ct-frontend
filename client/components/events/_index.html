@@ -1,7 +1,5 @@
 <loader></loader>
-
 <div ng-hide="loading" ng-cloak>
-
   <md-content class="md-padding" layout="column" layout-gt-xs='column'>
     <div layout="row" layout-align="center center">
       <div flex="100">
@@ -41,6 +39,7 @@
                     <th md-column md-desc><span translate>Level</span></th>
                     <th md-column md-desc><span translate>Summary</span></th>
                     <th md-column md-desc><span translate>Resource</span></th>
+                    <th hide show-gt-sm md-column md-desc><span translate>Location</span></th>
                     <th md-column md-desc><span translate>User</span></th>
                     <th hide show-gt-sm md-column md-order-by="created_at"><span translate>Created</span></th>
                     <th md-column><span translate>Action</span></th>
@@ -56,6 +55,9 @@
                     </td>
                     <td hide show-gt-sm md-cell>
                       {{ ::event.object | titleCase }}
+                    </td>
+                    <td hide show-gt-sm md-cell>
+                      {{ ::event.location_name }}
                     </td>
                     <td hide show-gt-sm md-cell>
                       {{ ::event.username }}
@@ -91,7 +93,6 @@
             <md-table-pagination ng-if="_links.total_entries > query.limit" md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
           </md-card-content>
         </md-card>
-
       </div>
     </div>
   </md-content>

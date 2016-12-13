@@ -32,6 +32,15 @@ app.filter('eventSummary', [function() {
     }
 
     switch(action) {
+      case 'upgrade_failed':
+        action = 'Failed upgrade for';
+        break;
+      case 'purchase':
+        action = 'Purchased voucher at';
+        break;
+      case 'upgrade_success':
+        action = 'Completed upgrade for';
+        break;
       case 'upgrade':
         action = 'Upgraded';
         break;
@@ -55,6 +64,12 @@ app.filter('eventSummary', [function() {
         break;
       case 'reset':
         action = 'Reset';
+        break;
+      case 'invite':
+        action = 'Invited';
+        break;
+      case 'revoke':
+        action = 'Revoked';
         break;
       case 'enable':
         action = 'Enabled';

@@ -55,9 +55,11 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       { name: gettextCatalog.getString('Locations'), value: 'location' },
       { name: gettextCatalog.getString('Networks'), value: 'network' },
       { name: gettextCatalog.getString('Splash'), value: 'splash' },
+      { name: gettextCatalog.getString('Store'), value: 'store' },
       { name: gettextCatalog.getString('Social'), value: 'social' },
       { name: gettextCatalog.getString('Triggers'), value: 'trigger' },
       { name: gettextCatalog.getString('Vouchers'), value: 'voucher'},
+      { name: gettextCatalog.getString('Users'), value: 'user'},
       { name: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
 

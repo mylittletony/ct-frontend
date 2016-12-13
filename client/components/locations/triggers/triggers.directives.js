@@ -179,7 +179,9 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       { key: gettextCatalog.getString('Networks'), value: 'network' },
       { key: gettextCatalog.getString('Splash'), value: 'splash' },
       { key: gettextCatalog.getString('Social'), value: 'social' },
+      { key: gettextCatalog.getString('Store'), value: 'store' },
       { key: gettextCatalog.getString('Vouchers'), value: 'voucher' },
+      { key: gettextCatalog.getString('Users'), value: 'user' },
       { key: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
 
@@ -527,11 +529,12 @@ app.directive('showTrigger', ['Trigger', '$q', '$routeParams', '$rootScope', '$h
         type: 'edit'
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Test'),
-        icon: 'compare_arrows',
-        type: 'test'
-      });
+      // Removed until we re-wire backend
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Test'),
+      //   icon: 'compare_arrows',
+      //   type: 'test'
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Logs'),

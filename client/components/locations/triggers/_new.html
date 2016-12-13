@@ -56,7 +56,7 @@
               </span>
               <span class="md-subhead" translate>
                 The trigger will fire when this event happens.
-                {{ trigger.type | humanTrigger }}...
+                <!-- {{ trigger.type | humanTrigger }} -->
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -257,36 +257,40 @@
                 </md-radio-button>
               </span>
 
-              <span ng-if="trigger.type == 'store'">
-                <md-radio-button value="store.create">
-                  <translate>
+              <span ng-if="trigger.type == 'store'" layout="row" layout-wrap>
+                <span flex="50">
+                  <md-radio-button value="store.create">
+                    <translate>
                     Created
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
 
-                <md-radio-button value="store.update">
-                  <translate>
+                  <md-radio-button value="store.update">
+                    <translate>
                     Updated
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
 
-                <md-radio-button value="store.destroy">
-                  <translate>
+                  <md-radio-button value="store.destroy">
+                    <translate>
                     Destroy
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
+                </span>
 
-                <md-radio-button value="store.purchase">
-                  <translate>
+                <span flex="50">
+                  <md-radio-button value="store.purchase">
+                    <translate>
                     Purchase
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
 
-                <md-radio-button value="store.refund">
-                  <translate>
+                  <md-radio-button value="store.refund">
+                    <translate>
                     Refund
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
+                </span>
               </span>
 
               <span ng-if="trigger.type == 'voucher'">
@@ -298,6 +302,19 @@
                 <md-radio-button value="voucher.update">
                   <translate>
                     Updated
+                  </translate>
+                </md-radio-button>
+              </span>
+
+              <span ng-if="trigger.type == 'user'">
+                <md-radio-button value="user.invite">
+                  <translate>
+                    Invited
+                  </translate>
+                </md-radio-button>
+                <md-radio-button value="user.revoke">
+                  <translate>
+                    Revoked
                   </translate>
                 </md-radio-button>
               </span>
