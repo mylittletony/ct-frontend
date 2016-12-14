@@ -2,12 +2,21 @@
 
 var app = angular.module('myApp.triggers.directives', []);
 
-app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog, pagination_labels) {
+app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', '$cookies', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog, pagination_labels, $cookies) {
 
   var link = function(scope,element,attrs) {
 
     scope.loading = true;
     scope.location = { slug: $routeParams.id };
+
+    if ($cookies.get('xct-trggrs') === '1') {
+      scope.xctTrggrs = true;
+    }
+
+    scope.dismissTrigger = function() {
+      $cookies.put('xct-trggrs', '1');
+      scope.xctTrggrs = true;
+    };
 
     scope.options = {
       autoSelect: true,
