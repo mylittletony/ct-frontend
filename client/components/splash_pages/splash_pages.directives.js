@@ -453,7 +453,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
     };
 
     var updateCT = function() {
-      SplashPage.update({
+      SplashPage.update({}, {
         location_id: scope.location.slug,
         id: scope.splash.id,
         splash_page: scope.splash
