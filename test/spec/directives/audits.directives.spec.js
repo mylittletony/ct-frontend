@@ -151,8 +151,8 @@ describe('audit', function () {
       expect(auditScope.emails).toEqual([123]);
       expect(auditScope._links.start).toEqual(111);
       expect(auditScope.location.id).toEqual(1);
-      expect(auditScope.query.start).toEqual('111');
-      expect(auditScope.query.end).toEqual('222');
+      expect(auditScope.query.start).toEqual(111);
+      expect(auditScope.query.end).toEqual(222);
     });
   });
 
@@ -205,8 +205,8 @@ describe('audit', function () {
       expect(auditScope.guests[0].id).toEqual(123);
       expect(auditScope._links.start).toEqual(111);
       // expect(auditScope.location.id).toEqual(1);
-      expect(auditScope.query.start).toEqual('111');
-      expect(auditScope.query.end).toEqual('222');
+      expect(auditScope.query.start).toEqual(111);
+      expect(auditScope.query.end).toEqual(222);
     });
   });
 
