@@ -302,6 +302,14 @@
                 </span>
               </span>
 
+              <span ng-if="trigger.type == 'trigger'">
+                <md-radio-button value="trigger.fail">
+                  <translate>
+                    Failed
+                  </translate>
+                </md-radio-button>
+              </span>
+
               <span ng-if="trigger.type == 'voucher'">
                 <md-radio-button value="voucher.create">
                   <translate>

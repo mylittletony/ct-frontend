@@ -174,6 +174,7 @@
                 </ul>
                 </pre>
               </span>
+
               <span ng-if='type == "network"'>
                 <pre>
                 <ul class="list-unstyled">
@@ -184,6 +185,20 @@
                  <li>Captive_Portal</li>
                 </pre>
               </span>
+
+              <span ng-if='type == "rogue"'>
+                <pre>
+                <ul class="list-unstyled">
+                   <li>Request_IP</li>
+                   <li>Mac</li>
+                   <li>Type</li>
+                   <li>Version</li>
+                   <li>Message</li>
+                   <li>Firmware</li>
+                 </ul>
+                </pre>
+              </span>
+
               <span ng-if='type == "splash"'>
                 <pre>
                 <ul class="list-unstyled">
@@ -194,6 +209,7 @@
                  </ul>
                 </pre>
               </span>
+
               <span ng-if='type == "social"'>
                 <pre>
                 <ul class="list-unstyled">
@@ -207,6 +223,18 @@
                  </ul>
                 </pre>
               </span>
+
+              <span ng-if='type == "trigger"'>
+                <pre>
+                <ul class="list-unstyled">
+                 <li>Trigger_Name</li>
+                 <li>Location_Name</li>
+                 <li>Resource_ID</li>
+                 <li>Fail_Count</li>
+                 </ul>
+                </pre>
+              </span>
+
               <span ng-if='type == "voucher"'>
                 <pre>
                 <ul class="list-unstyled">

@@ -181,6 +181,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       { key: gettextCatalog.getString('Splash'), value: 'splash' },
       { key: gettextCatalog.getString('Social'), value: 'social' },
       { key: gettextCatalog.getString('Store'), value: 'store' },
+      { key: gettextCatalog.getString('Triggers'), value: 'trigger' },
       { key: gettextCatalog.getString('Vouchers'), value: 'voucher' },
       { key: gettextCatalog.getString('Users'), value: 'user' },
       { key: gettextCatalog.getString('Zones'), value: 'zone' }
