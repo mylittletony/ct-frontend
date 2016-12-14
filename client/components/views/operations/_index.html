@@ -26,16 +26,16 @@
             <thead md-head md-order="query.order" md-on-reorder="logOrder">
               <tr md-row>
                 <th md-column><span translate>Summary</span></th>
-                <th md-column><span translate>User</span></th>
-                <th md-column><span translate>Time</span></th>
+                <th hide show-gt-sm md-column><span translate>User</span></th>
+                <th hide show-gt-sm md-column><span translate>Time</span></th>
                 <th md-column><span translate>Status</span></th>
               </tr>
             </thead>
             <tbody md-body>
               <tr md-row ng-repeat="op in filtered = (operations | filter: filter)">
-                <td md-cell><a href="/#/locations/{{location.slug}}/devices/{{box.slug}}/operations/{{op.id}}">Updated {{ op.operation_type }}</a></td>
-                <td md-cell>{{ op.user || 'System' }}</td>
-                <td md-cell>
+                <td md-cell><a href="/#/locations/{{location.slug}}/devices/{{box.slug}}/operations/{{op.id}}">Updated {{ op.operation_type | truncate:25 }}</a></td>
+                <td hide show-gt-sm md-cell>{{ op.user || 'System' }}</td>
+                <td hide show-gt-sm md-cell>
                   Start: {{ op.created_at | humanTime }}<br>
                   End: {{ op.completed_at | humanTime }}<br>
                 </td>
