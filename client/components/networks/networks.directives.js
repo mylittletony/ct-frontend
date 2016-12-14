@@ -159,7 +159,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     scope.update = function(network) {
-      Network.update({
+      Network.update({}, {
         location_id: scope.location.slug,
         id: network.id,
         network: {
@@ -396,7 +396,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.cancelJob = function() {
       scope.network.state = 'cancelling';
-      Network.update({
+      Network.update({}, {
           location_id: scope.locations.slug,
           id: scope.network.id,
           network: {
@@ -416,7 +416,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.update = function(form) {
       form.$setPristine();
-      Network.update({
+      Network.update({}, {
         location_id: scope.location.slug,
         id: scope.network.id,
         network: scope.network
