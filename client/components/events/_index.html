@@ -6,7 +6,7 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <div layout-gt-sm="row" layout-padding>
+              <div layout="row" flex="50">
                 <md-input-container>
                   <label>
                     <translate>Event Type</translate>
@@ -36,11 +36,11 @@
               <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="logOrder">
                   <tr md-row>
-                    <th md-column md-desc><span translate>Level</span></th>
+                    <th hide show-gt-sm md-column md-desc><span translate>Level</span></th>
                     <th md-column md-desc><span translate>Summary</span></th>
-                    <th md-column md-desc><span translate>Resource</span></th>
+                    <th hide show-gt-sm md-column md-desc><span translate>Resource</span></th>
                     <th hide show-gt-sm md-column md-desc><span translate>Location</span></th>
-                    <th md-column md-desc><span translate>User</span></th>
+                    <th hide show-gt-sm md-column md-desc><span translate>User</span></th>
                     <th hide show-gt-sm md-column md-order-by="created_at"><span translate>Created</span></th>
                     <th md-column><span translate>Action</span></th>
                   </tr>
