@@ -25,9 +25,9 @@ app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
   $compileProvider.debugInfoEnabled(DEBUG);
 }]);
 
-app.config(['$locationProvider', function($locationProvider) {
-  $locationProvider.hashPrefix('');
-}]);
+// app.config(['$locationProvider', function($locationProvider) {
+//   $locationProvider.hashPrefix('');
+// }]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider', '$mdIconProvider', function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {
 
