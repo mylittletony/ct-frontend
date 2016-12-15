@@ -446,6 +446,24 @@
               </div>
             </md-input-container>
             <small class="muted" style="font-size: 75%;">Match any object tags.</small>
+
+            <div style="margin-top: 1px;">
+              <p><small translate>Allowed Days</small></p>
+              <day-selector active="true" days="trigger.allowed_days" array="trigger.periodic_days"></day-selector>
+            </div>
+
+            <div layout-gt-sm="row" flex-gt-sm="40" style="margin: 20px 0 -20px 0">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Start Hour</label>
+                <input type="time" ng-model="trigger.starttime">
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label translate>End Hour</label>
+                <input type="time" ng-model="trigger.endtime">
+              </md-input-container>
+            </div>
+            <small class="muted" style="font-size: 75%;">Set the start and end hours to zero to get alerts all day.</small>
+
           </md-card-content>
         </md-card>
 

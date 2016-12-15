@@ -30,7 +30,7 @@
               <span ng-if="user.receive_alerts === true" translate>Weekly Reports Enabled</span>
               <span ng-if="user.receive_alerts === false" translate>Weekly Reports Disabled</span>
             </md-switch>
-            
+
             <md-switch ng-model="user.box_alerts" aria-label="{{ 'Switch 1' | translate }}">
               <span ng-if="user.box_alerts === true" translate>Device Alerts Enabled</span>
               <span ng-if="user.box_alerts === false" translate>Device Alerts Disabled</span>
@@ -55,13 +55,11 @@
           </md-card-content>
         </md-card>
 
-        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">  
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
           <translate>
             Save
           </translate>
         </md-button>
-
       </div>
-
   </md-content>
 </form>
