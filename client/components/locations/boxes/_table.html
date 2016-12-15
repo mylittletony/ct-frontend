@@ -51,7 +51,7 @@
               <th md-column hide show-gt-md md-order-by="metadata.online"><span translate>Clients</span></th>
               <th md-column hide show-gt-sm md-order-by="zone_id"><span translate>Zone</span></th>
               <th md-column hide show-gt-sm><span translate>Tags</span></th>
-              <th md-column hide show-gt-sm><span translate>Channel</span></th>
+              <th md-column hide show-gt-xs><span translate>Channel</span></th>
               <th md-column hide show-gt-md md-order-by="wan_ip"><span translate>IP</span></th>
               <th md-column><span translate>Action</span></th>
             </tr>
@@ -107,7 +107,7 @@
                     {{ ::box.tags || '-' }}
                   </span>
                 </td>
-                <td hide show-gt-sm md-cell>
+                <td md-cell hide show-gt-xs>
                   {{ ::box.channel }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
                 </td>
                 <td hide show-gt-md md-cell>

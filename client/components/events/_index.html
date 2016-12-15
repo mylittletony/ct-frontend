@@ -51,7 +51,7 @@
                       {{ ::event.level | eventLevel }}
                     </td>
                     <td md-cell>
-                      <a href="/#/events/{{ event.id }}">{{ event.description | eventSummary:event.event_type | truncate:25 }}</a>
+                      <a href="/#/events/{{ event.id }}">{{ event.description | eventSummary:event.event_type | truncate:50 }}</a>
                     </td>
                     <td hide show-gt-sm md-cell>
                       {{ ::event.object | titleCase }}
