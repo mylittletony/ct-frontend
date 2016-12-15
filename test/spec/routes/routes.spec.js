@@ -4,7 +4,7 @@ describe('Routing', function () {
 
   beforeEach(module('myApp'));
 
-  it('should map routes to controllers', function() {
+  fit('should map routes to controllers', function() {
 
     inject(function($route) {
 
@@ -29,6 +29,16 @@ describe('Routing', function () {
 
       expect($route.routes['/downloads'].templateUrl).
                   toEqual('components/downloads/index.html');
+
+      // expect($route.routes['/brands/:id/triggers'].controller).toBe('BrandsCtrl as lc');
+      expect($route.routes['/brands'].templateUrl).
+                  toEqual('components/views/brands/index.html');
+
+      expect($route.routes['/brands/:id/triggers'].templateUrl).
+                  toEqual('components/views/brands/triggers/index.html');
+
+      expect($route.routes['/brands/:id'].templateUrl).
+                  toEqual('components/views/brands/show.html');
 
       expect($route.routes['/locations/map'].templateUrl).
                   toEqual('components/locations/map/index.html');

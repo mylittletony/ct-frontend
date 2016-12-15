@@ -86,12 +86,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/404', {
       templateUrl: 'components/home/404.html',
     }).
-    when('/aes', {
-      templateUrl: 'components/app_events/index.html',
+    when('/brands', {
+      templateUrl: 'components/views/brands/index.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/aes/:id', {
-      templateUrl: 'components/app_events/show.html',
+    when('/brands/:id', {
+      templateUrl: 'components/views/brands/show.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:id/triggers', {
+      templateUrl: 'components/views/brands/triggers/index.html',
       resolve: { loginRequired: loginRequired },
     }).
     when('/apps', {
