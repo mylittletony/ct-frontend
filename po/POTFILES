@@ -65,6 +65,7 @@
 ../client/components/distros/referrals.html
 ../client/components/downloads/index.html
 ../client/components/events/_index.html
+../client/components/events/_show.html
 ../client/components/events/index.html
 ../client/components/events/show.html
 ../client/components/firmwares/_index.html
@@ -106,7 +107,6 @@
 ../client/components/locations/index/list.html
 ../client/components/locations/layouts/location-banner.html
 ../client/components/locations/layouts/short-list.html
-../client/components/locations/layouts/sidebar-v2.html---.html
 ../client/components/locations/networks/_index.html
 ../client/components/locations/networks/_show.html
 ../client/components/locations/networks/blacklists.html
@@ -158,6 +158,7 @@
 ../client/components/locations/triggers/channel-webhook.html
 ../client/components/locations/triggers/edit.html
 ../client/components/locations/triggers/history/_index.html
+../client/components/locations/triggers/history/_show.html
 ../client/components/locations/triggers/history/index.html
 ../client/components/locations/triggers/history/show.html
 ../client/components/locations/triggers/index.html
@@ -351,6 +352,7 @@
 ../client/components/events/events.controller.js
 ../client/components/events/events.directives.js
 ../client/components/events/events.services.js
+../client/components/filters/events.filters.js
 ../client/components/filters/messages.filters.js
 ../client/components/firmwares/firmwares.directives.js
 ../client/components/firmwares/firmwares.services.js

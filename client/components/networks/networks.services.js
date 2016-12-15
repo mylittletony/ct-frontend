@@ -4,7 +4,7 @@ var app = angular.module('myApp.networks.services', ['ngResource',]);
 
 app.factory('Network', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
-    return $resource(API_END_POINT + '/:locations/:location_id/networks/:id/:action',
+    return $resource(API_END_POINT + '/locations/:location_id/networks/:id/:action',
       {
         q: '@q',
         location_id: '@location_id',
@@ -20,7 +20,6 @@ app.factory('Network', ['$resource', '$localStorage', 'API_END_POINT',
           q: '@q',
           location_id: '@location_id',
           splash: '@splash',
-          locations: 'locations'
         }
       },
       query: {
@@ -29,17 +28,11 @@ app.factory('Network', ['$resource', '$localStorage', 'API_END_POINT',
         dataType: 'json',
         params: {
           q: '@q',
-          locations: 'locations'
         }
       },
       update: {
         method: 'PATCH',
-        isArray: false,
-        params: {
-          location_id: '@location_id',
-          network: '@network',
-          locations: 'locations'
-        }
+        isArray: false
       },
       create: {
         method: 'POST',
@@ -47,7 +40,6 @@ app.factory('Network', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
           location_id: '@location_id',
           network: '@network',
-          locations: 'locations'
         }
       },
       destroy: {
@@ -55,7 +47,6 @@ app.factory('Network', ['$resource', '$localStorage', 'API_END_POINT',
         isArray: false,
         params: {
           location_id: '@location_id',
-          locations: 'locations'
         }
       },
       reset: {
@@ -64,7 +55,6 @@ app.factory('Network', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
           location_id: '@location_id',
           id: 'reset',
-          locations: 'locations'
         }
       },
       radtest: {

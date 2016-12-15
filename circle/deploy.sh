@@ -5,6 +5,8 @@ git config --global user.name "Simon Morley"
 
 echo yes | heroku keys:add
 
+rm -rf dist
+
 if [ "${CIRCLE_BRANCH}" == "master" ]
 then
   echo 'Building master.'

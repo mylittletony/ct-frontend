@@ -62,13 +62,13 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       });
     }
 
-    menu.sections.push({
-      name: gettextCatalog.getString('Integrations'),
-      type: 'link',
-      link: '/#/users/' + id + '/integrations',
-      icon: 'widgets',
-      active: isActive('integrations')
-    });
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('Integrations'),
+    //   type: 'link',
+    //   link: '/#/users/' + id + '/integrations',
+    //   icon: 'widgets',
+    //   active: isActive('integrations')
+    // });
 
     menu.sections.push({
       name: gettextCatalog.getString('Notifications'),

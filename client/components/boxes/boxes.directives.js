@@ -896,6 +896,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         id: scope.box.slug,
         box: scope.box
       }).$promise.then(function(box) {
+        scope.box.tags = box.tags;
         showToast(gettextCatalog.getString('Settings updated successfully'));
       }, function(errors) {
         form.$setPristine();

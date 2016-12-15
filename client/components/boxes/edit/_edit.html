@@ -60,6 +60,13 @@
                 </md-option>
               </md-select>
             </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs style="margin: 40px 0 0 0">
+              <label>
+                <translate>Tags</translate>
+              </label>
+              <input ng-model="box.tags" name="tags" placeholder="{{ 'Box tags' | translate }}">
+            </md-input-container>
+            <small class="muted">Enter a comma, separated, list, of, tags.</small>
             <md-input-container class="md-block" style="margin-top: 40px" flex-gt-xs ng-if="zones.length">
               <label>
                 <translate>Zone</translate>
@@ -95,7 +102,6 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-
         <div layout="column" layout-gt-xs="row" layout-wrap>
           <div flex-gt-sm="50">
             <div layout="column" layout-gt-xs="row">

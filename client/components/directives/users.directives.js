@@ -998,7 +998,6 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
     };
 
     function formatAlertTime() {
-
       var start, end;
 
       start = ('0' + scope.user.alerts_window_start).slice(-4);
@@ -1009,7 +1008,6 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
 
       scope.user.starttime = new Date(start);
       scope.user.endtime = new Date(end);
-
     }
 
     var formatDays = function() {

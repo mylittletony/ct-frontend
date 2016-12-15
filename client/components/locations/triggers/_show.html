@@ -29,20 +29,23 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
-              Details
+              <md-icon ng-if="trigger.locked">lock</md-icon>
+              <span ng-show="trigger.active" translate>Details</span>
+              <span ng-hide="trigger.active" translate><b>Trigger disabled!</b></span>
             </span>
             <span class="md-subhead">
-              <span ng-hide="trigger.active" translate>This trigger has been disabled!</span>
               <span ng-show="trigger.active" translate>Trigger active.</span>
             </span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
           <p>
-            <span translate translate-n="{{trigger.run_count}}" translate-plural="This trigger has run {{ trigger.run_count || 0}} times."> This trigger has run 1 time.</span>
+            <span translate translate-n="{{trigger.run_count}}" translate-plural="This trigger has run {{ trigger.run_count || 0 }} times."> This trigger has run 1 time.</span>
             <span translate translate-n="{{trigger.total_fail_count}}" translate-plural="It has failed {{ trigger.total_fail_count || 0 }} times">It has failed 1 time</span>
-            <span ng-if="trigger.fail_count > 0" translate translate-n="{{trigger.fail_count}}" translate-plural="({{ trigger.fail_count}} times since the last reset)">(1 time since the last reset)</span>
           </p>
+          <p><b><span translate translate-n="{{trigger.fail_count}}" translate-plural="It's failed {{ trigger.fail_count || 0 }} times since the last reset">It's failed 1 time since the last reset.</span></b></p>
+
+          <!-- <p>Runs between {{ trigger.start_hour }} and {{ trigger.end_hour }}</p> -->
 
           <p class="text-muted"><small translate>Created {{ trigger.created_at | humanTime }}</small></p>
 
@@ -51,7 +54,7 @@
             <span ng-if="!trigger.active" translate>Trigger Disabled</span>
           </md-switch>
 
-          <small><span ng-if="trigger.active" class="text-muted" translate>Disabling this will stop the alerts.</span> <translate>Triggers are automatically disabled if they fail 3 times.</translate></small>
+          <small><span ng-if="trigger.active" class="text-muted" translate>Disabling this will stop the alerts.</span> <translate>Triggers are automatically disabled if they fail 5 times.</translate></small>
 
           <span ng-show="trigger.testing == true">
             <p translate>Testing Trigger</p>
@@ -65,6 +68,9 @@
             <p><b>{{ trigger.test }}</b></p>
           </span>
         </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button href="/#/locations/{{ location.slug }}/triggers/{{ trigger.id }}/edit"><translate>Edit</translate></md-button>
+        </md-card-actions>
       </md-card>
     </div>
     <div flex="100" flex-gt-sm="50">
