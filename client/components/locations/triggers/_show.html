@@ -29,6 +29,7 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
+              <md-icon ng-if="trigger.locked">lock</md-icon>
               <span ng-show="trigger.active" translate>Details</span>
               <span ng-hide="trigger.active" translate><b>Trigger disabled!</b></span>
             </span>
@@ -42,7 +43,7 @@
             <span translate translate-n="{{trigger.run_count}}" translate-plural="This trigger has run {{ trigger.run_count || 0 }} times."> This trigger has run 1 time.</span>
             <span translate translate-n="{{trigger.total_fail_count}}" translate-plural="It has failed {{ trigger.total_fail_count || 0 }} times">It has failed 1 time</span>
           </p>
-          <p><b><span translate translate-n="{{trigger.fail_count}}" translate-plural="It's failed {{ trigger.fail_count}} times since the last reset">It's failed 1 time since the last reset.</span></b></p>
+          <p><b><span translate translate-n="{{trigger.fail_count}}" translate-plural="It's failed {{ trigger.fail_count || 0 }} times since the last reset">It's failed 1 time since the last reset.</span></b></p>
 
           <p class="text-muted"><small translate>Created {{ trigger.created_at | humanTime }}</small></p>
 

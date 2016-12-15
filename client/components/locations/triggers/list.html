@@ -36,7 +36,7 @@
   <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-show="triggers.length > 0 || searching || query.filter" layout-wrap>
     <md-card>
       <md-card-content>
-        <md-card-title ng-show="!xctTrggrs && triggers.length == 4">
+        <md-card-title ng-show="!xctTrggrs">
           <md-card-title-text>
             <span class="md-headline">Understanding Triggers</span>
             <span class="md-subhead">We've created some default triggers so you can get a feel how they work. You can delete these and start again but we recommend keeping them. Triggers notify you when things happen. From security notifications to when a customer logs in, they'll help you run your networks effeciently.<br><br>Set them up to email your guests, admin users or just yourself. Or, use them with Slack or setup a webhook! <a href="" ng-click="dismissTrigger()">Dismiss</a>.</span>
@@ -50,7 +50,7 @@
                 <th md-column md-order-by="name"><span translate>Name</span></th>
                 <th hide show-gt-sm md-column md-order-by="type"><span translate>Type</span></th>
                 <th hide show-gt-sm md-column md-order-by="channel"><span translate>Channel</span></th>
-                <th hide show-gt-sm md-column md-order-by="info"><span translate>Info</span></th>
+                <!-- <th hide show-gt-sm md-column md-order-by="info"><span translate>Info</span></th> -->
                 <th hide show-gt-sm md-column md-order-by="runs"><span translate>Runs</span></th>
                 <th md-column translate>Action</th>
               </tr>
@@ -76,18 +76,20 @@
                 <td hide show-gt-sm md-cell>
                   {{ trigger.channel }}
                 </td md-cell>
+                <!-- <td hide show-gt-sm md-cell> -->
+                <!--   <span ng-if="trigger.channel == 'slack'" translate> -->
+                <!--     Posting to {{ trigger.custom_1 || 'unknown'}} -->
+                <!--   </span> -->
+                <!-- </td md-cell> -->
                 <td hide show-gt-sm md-cell>
-                  <span ng-if="trigger.channel == 'slack'" translate>
-                    Posting to {{ trigger.custom_1 || 'unknown'}}
+                  <span>
+                    {{ trigger.run_count }}
+                    <md-tooltip>
+                      <translate>
+                        Fails: {{ trigger.total_fail_count || 0}}
+                      </translate>
+                    </md-tooltip>
                   </span>
-                </td md-cell>
-                <td hide show-gt-sm md-cell>
-                  {{ trigger.run_count }}
-                  <md-tooltip>
-                    <translate>
-                      Fails: {{ trigger.total_fail_count || 0}}
-                    </translate>
-                  </md-tooltip>
                 </td md-cell>
                 <td md-cell>
                   <md-menu>
@@ -96,7 +98,7 @@
                     </md-button>
                     <md-menu-content width="4" >
                       <md-menu-item ng-repeat="item in menu">
-                        <md-button ng-click="action(item.type,trigger)" ng-disabled="{{ menuDisabled(item.type, client) }}">
+                        <md-button ng-click="action(item.type,trigger)" ng-disabled="{{ menuDisabled(item.type, client) || (trigger.locked && item.type == 'delete' ) }}">
                           <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
                       <p flex>{{ item.name }}</p>
                         </md-button>

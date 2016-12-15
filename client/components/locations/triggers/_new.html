@@ -18,8 +18,11 @@
               <span class="md-headline" translate>
                 Choose an Event
               </span>
-              <span class="md-subhead" translate>
+              <span class="md-subhead" ng-hide="locked" translate>
                 First you need to choose an event type.
+              </span>
+              <span class="md-subhead" ng-show="locked" translate>
+                This is a system trigger and is locked, you can't adjust some settings.
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -28,7 +31,7 @@
               <label>
                 <translate>Event</translate>
               </label>
-              <md-select ng-model="trigger.type">
+              <md-select ng-model="trigger.type" ng-disabled="trigger.locked">
                 <md-option ng-repeat="type in triggers" value="{{type.value}}">
                   {{ type.key }}
                 </md-option>
@@ -62,7 +65,7 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <md-radio-group ng-model="trigger.trigger_type" layout="column">
+            <md-radio-group ng-model="trigger.trigger_type" layout="column" ng-disabled="trigger.locked">
               <span ng-if="trigger.type == 'box'" layout="row" layout-wrap>
                 <span flex="50">
                   <md-radio-button value="box.create">
