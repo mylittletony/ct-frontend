@@ -2,12 +2,21 @@
 
 var app = angular.module('myApp.triggers.directives', []);
 
-app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog, pagination_labels) {
+app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', '$cookies', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog, pagination_labels, $cookies) {
 
   var link = function(scope,element,attrs) {
 
     scope.loading = true;
     scope.location = { slug: $routeParams.id };
+
+    if ($cookies.get('xct-trggrs') === '1') {
+      scope.xctTrggrs = true;
+    }
+
+    scope.dismissTrigger = function() {
+      $cookies.put('xct-trggrs', '1');
+      scope.xctTrggrs = true;
+    };
 
     scope.options = {
       autoSelect: true,
@@ -197,24 +206,19 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
     scope.webhook_types = ['POST', 'GET'];
     scope.user = Auth.currentUser();
 
-    scope.init = function() {
-      Trigger.get({location_id: scope.location.slug, id: $routeParams.trigger_id}).$promise.then(function(results) {
-        scope.trigger = results;
-        scope.initChannel();
-        setTriggerType(results.trigger_type);
-        scope.loading = undefined;
-      }, function(err) {
-        scope.errors = err;
-      });
-    };
-
     scope.resetTypes = function() {
       scope.trigger.trigger_type = undefined;
+    };
+
+    var formatTonyTime = function() {
+      scope.trigger.start_hour = scope.trigger.starttime.getHours() + '' + ('0' + scope.trigger.starttime.getMinutes()).slice(-2);
+      scope.trigger.end_hour = scope.trigger.endtime.getHours() + '' + ('0' + scope.trigger.endtime.getMinutes()).slice(-2);
     };
 
     scope.save = function(form) {
       form.$setPristine();
       setCustomName();
+      formatTonyTime();
       if (scope.trigger.id) {
         update();
       } else {
@@ -487,9 +491,44 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       window.history.back();
     };
 
+    var formatAlertTime = function() {
+      var start, end;
+      start = ('0' + scope.trigger.start_hour).slice(-4);
+      end   = ('0' + scope.trigger.end_hour).slice(-4);
+      start = moment(start, 'hh:mm:ss');
+      end = moment(end, 'hh:mm:ss');
+      scope.trigger.starttime = new Date(start);
+      scope.trigger.endtime = new Date(end);
+    };
+
+    var formatDays = function() {
+      scope.trigger.periodic_days = [];
+      if (scope.trigger.allowed_days === null) {
+        scope.trigger.allowed_days = [];
+      }
+    };
+
+    var init = function() {
+      Trigger.get({
+        location_id: scope.location.slug,
+        id: $routeParams.trigger_id
+      }).$promise.then(function(results) {
+        scope.trigger = results;
+        scope.initChannel();
+        setTriggerType(results.trigger_type);
+        formatAlertTime();
+        formatDays();
+        scope.loading = undefined;
+      }, function(err) {
+        scope.errors = err;
+      });
+    };
+
     if (scope.trigger.id) {
-      scope.init();
+      init();
     } else {
+      formatAlertTime();
+      formatDays();
       scope.trigger.type = 'all';
       if ($routeParams.object) {
         scope.trigger.type = $routeParams.object;
