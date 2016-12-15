@@ -211,7 +211,7 @@
 
           <md-content role="navigation" class="flex" ng-cloak>
 
-            <md-toolbar class="md-table-toolbar md-default" ng-if='vm.menu.header'>
+            <md-toolbar class="md-table-toolbar md-default">
               <div class="sidenav md-toolbar-tools">
                 <h2 class="menu-heading menu-subhead" iing-if="section.type === 'header'">
                   <span ng-if="vm.menu.archived">
@@ -240,7 +240,7 @@
               ©2016 Cucumber Tony.<br>Build #{{ commit }}</small>
           </div>
         </md-sidenav>
-        <md-content flex>
+        <md-content class="intercom-foot-pad" flex>
           <div ng-view autoscroll="true" ng-class="{'hidden': notFound}"></div>
           <div style="margin: 30px 40px;" ng-class="{'hidden': !notFound}">
             <h3>Weird, the resource was not found. Please try again.</h3>
@@ -275,11 +275,11 @@
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/ngstorage/ngStorage.js"></script>
   <script src="bower_components/pusher-angular/lib/pusher-angular.js"></script>
   <script src="bower_components/urijs/src/SecondLevelDomains.js"></script>
   <script src="bower_components/urijs/src/URI.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/angular-aria/angular-aria.js"></script>
   <script src="bower_components/angular-messages/angular-messages.js"></script>
   <script src="bower_components/angular-material/angular-material.js"></script>
@@ -293,6 +293,7 @@
   <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
   <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
   <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+  <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -329,6 +330,8 @@
   <script src="components/directives/group_policies.directives.js"></script>
   <script src="components/directives/invites.directives.js"></script>
   <script src="components/directives/invites.services.js"></script>
+  <script src="components/directives/messages.directives.js"></script>
+  <script src="components/directives/operations.directives.js"></script>
   <script src="components/directives/users.directives.js"></script>
   <script src="components/directives/zones.directives.js"></script>
   <script src="components/distros/distros.directives.js"></script>
@@ -340,6 +343,8 @@
   <script src="components/events/events.controller.js"></script>
   <script src="components/events/events.directives.js"></script>
   <script src="components/events/events.services.js"></script>
+  <script src="components/filters/events.filters.js"></script>
+  <script src="components/filters/messages.filters.js"></script>
   <script src="components/firmwares/firmwares.directives.js"></script>
   <script src="components/firmwares/firmwares.services.js"></script>
   <script src="components/forms/forms.directives.js"></script>
@@ -390,6 +395,8 @@
   <script src="components/reports/reports.v2.directives.js"></script>
   <script src="components/services/brand_users.services.js"></script>
   <script src="components/services/group_policies.services.js"></script>
+  <script src="components/services/messages.services.js"></script>
+  <script src="components/services/operations.services.js"></script>
   <script src="components/services/pagination_labels.services.js"></script>
   <script src="components/services/projects.services.js"></script>
   <script src="components/services/users.services.js"></script>

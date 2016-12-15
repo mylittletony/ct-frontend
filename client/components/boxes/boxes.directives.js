@@ -56,6 +56,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'resync':
           scope.resyncBox();
           break;
+        case 'operations':
+          viewOperations();
+          break;
         case 'changelog':
           viewHistory();
           break;
@@ -110,6 +113,20 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'delete'
       });
 
+      if (scope.box.gubbins_version === '4') {
+        scope.menu.push({
+          name: gettextCatalog.getString('Operations'),
+          icon: 'access_time',
+          type: 'operations',
+        });
+
+        scope.menu.push({
+          name: gettextCatalog.getString('Reset'),
+          icon: 'clear',
+          type: 'reset',
+        });
+      }
+
       if (scope.box.is_cucumber) {
         scope.menu.push({
           name: gettextCatalog.getString('Resync'),
@@ -130,6 +147,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.not_in_zone = (results._info && results._info.total > 0);
     };
 
+    // showResetConfirm confirms or cancels a manual reset from a box.
+    // Sending true to resetBox will reset.
+    // Sending null to resetBox will cancel any actions on box.
     var showResetConfirm = function() {
       $mdBottomSheet.show({
         templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
@@ -140,11 +160,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     function ResetCtrl($scope) {
       $scope.reset = function() {
         $mdBottomSheet.hide();
-        resetBox();
+        resetBox(true);
       };
       $scope.cancel = function() {
         $mdBottomSheet.hide();
-        resetBox(true);
+        resetBox();
       };
     }
     ResetCtrl.$inject = ['$scope'];
@@ -172,11 +192,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/edit');
     };
 
     scope.payloads = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/payloads');
     };
 
     scope.resetBox = function(ev) {
@@ -188,13 +208,13 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       .ok(gettextCatalog.getString('Reset it'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        resetBox();
+        resetBox(true);
       });
     };
 
-    var resetBox = function(cancel) {
+    var resetBox = function(reset) {
       var action = 'reset';
-      if (cancel === true) {
+      if (reset === true) {
         scope.resetting = true;
       } else {
         action = 'cancel';
@@ -402,6 +422,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
             timestamp: data.message.timestamp
           };
           break;
+        case 'not-connected':
+          timeout = $timeout(function() {
+            showToast(gettextCatalog.getString('Device lost connection, jobs may fail.'));
+            $timeout.cancel(timeout);
+          }, 2000);
+          break;
         case 'installer':
           if (data.status === true) {
             init();
@@ -571,6 +597,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
     };
 
+    var viewOperations = function() {
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
+    };
+
     var viewHistory = function() {
       $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
     };
@@ -617,23 +647,49 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
 }]);
 
+app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $routeParams, $compile) {
+
+  var link = function( scope, element, attrs ) {
+    var init = function() {
+      return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
+        compileTemplate(box.gubbins_version);
+      }, function(err) {
+        scope.loading = undefined;
+        console.log(err);
+      });
+    };
+
+    var compileTemplate = function(version) {
+      var template;
+      if (parseInt(version) === 4) {
+        template = $compile('<list-messages></list-messages>')(scope);
+      } else {
+        template = $compile('<box-payloads loading="loading"></box-payloads>')(scope);
+      }
+      element.html(template);
+      scope.loading = undefined;
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+
+  };
+}]);
+
 app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', 'gettextCatalog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog, gettextCatalog) {
 
-  var link = function(scope,element,attrs) {
+  var link = function(scope,element,attrs,controller) {
 
     scope.location = { slug: $routeParams.id };
     scope.command = { save: true };
 
     var init = function() {
-      return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
-        scope.box = box;
-        scope.loading = undefined;
-        loadPayloads();
-        loadPusher();
-      }, function(err) {
-        scope.loading = undefined;
-        console.log(err);
-      });
+      scope.box = controller.$scope.box;
+      loadPayloads();
+      loadPusher();
     };
 
     scope.deletePayload = function(index,id) {
@@ -696,6 +752,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
   return {
     link: link,
+    require: '^fetchBox',
     scope: {
       loading: '=',
     },
@@ -839,6 +896,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         id: scope.box.slug,
         box: scope.box
       }).$promise.then(function(box) {
+        scope.box.tags = box.tags;
         showToast(gettextCatalog.getString('Settings updated successfully'));
       }, function(errors) {
         form.$setPristine();
@@ -1702,7 +1760,7 @@ app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'ge
   var link = function(scope, element,attrs) {
     scope.runSpeedtest = function() {
       scope.box.speedtest_running = true;
-      scope.box.allowed_job = false;
+      // scope.box.allowed_job = false;
       updateCT();
     };
 

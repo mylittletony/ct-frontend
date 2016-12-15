@@ -1,0 +1,55 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
+      <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
+    </md-button>
+    <p translate>Back to Operations</p>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+  <form name="myForm">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-header">
+                <md-icon>{{ operation.statusIcon }}</md-icon>
+                Operation {{ operation.id }}
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-divider></md-divider>
+          <md-card-content>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3>Type</h3>
+                <p>Updated {{ operation.operation_type }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3>Status</h3>
+                <p>{{ operation.status }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3>Started</h3>
+                <p>{{ operation.created_at | humanTime }}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3>Completed</h3>
+                <p>{{ operation.completed_at | humanTime }}</p>
+              </div>
+            </md-list-item>
+          </md-card-content>
+        </md-card>
+      </div>
+    </div>
+  </form>
+</md-content>

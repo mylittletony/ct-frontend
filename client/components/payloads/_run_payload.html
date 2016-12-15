@@ -9,11 +9,9 @@
       </md-option>
     </md-select>
   </md-input-container>
-  <md-button ng-disabled="!command.selected || !allowed" class="md-raised" ng-click="runCommand()"><translate>RUN</translate></md-button>
+  <md-button ng-disabled="!command.selected" class="md-raised" ng-click="runCommand()"><translate>RUN</translate></md-button>
 </div>
-<p ng-hide="allowed" translate>You can't run a payload on this box since it's not connected or is already processing a job.</p>
-<div ng-if="command.success">
-  // <p translate>Payload running, please wait.</p>
-  // <md-progress-linear md-mode="query"></md-progress-linear>
-</div>
-</div>
+<!-- <div ng-if="command.success"> -->
+<!--   <p translate>Payload running, please wait.</p> -->
+<!--   <md-progress-linear md-mode="query"></md-progress-linear> -->
+<!-- </div> -->

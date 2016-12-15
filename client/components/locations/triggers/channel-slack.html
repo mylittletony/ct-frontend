@@ -1,28 +1,43 @@
 <p ng-bind-html="error"></p>
 
-<md-button href="/#/users/{{ user.slug }}/integrations" ng-if="error"><translate>AUTHORISE</translate></md-button>
-
 <div layout="column">
 
-  <span ng-if="loading_integration">
-    <p translate>Loading</p>
-    <md-progress-linear md-mode="query"></md-progress-linear>
-  </span>
+  <!-- <span ng-if="loading_integration"> -->
+  <!--   <p translate>Loading</p> -->
+  <!--   <md-progress-linear md-mode="query"></md-progress-linear> -->
+  <!-- </span> -->
 
-  <div ng-if="slack_channels.length && !loading_integration" layout="column">
+  <div layout="column">
 
-    <md-input-container>
-      <label>
-        <translate>Choose a Slack Channel</translate>
-      </label>
-      <md-select ng-model="trigger.attr_1">
-        <md-option ng-repeat="channel in slack_channels" value="{{channel.id}}">
-          {{channel.name}}
-        </md-option>
-      </md-select>
-    </md-input-container>
+    <!-- <md-input-container> -->
+    <!--   <label> -->
+    <!--     <translate>Choose a Slack Channel</translate> -->
+    <!--   </label> -->
+    <!--   <md-select ng-model="trigger.attr_1"> -->
+    <!--     <md-option ng-repeat="channel in slack_channels" value="{{channel.id}}"> -->
+    <!--       {{channel.name}} -->
+    <!--     </md-option> -->
+    <!--   </md-select> -->
+    <!-- </md-input-container> -->
 
-    <span ng-if="trigger.attr_1 != undefined" layout="column">
+    <!-- <span ng-if="trigger.attr_1 != undefined" layout="column"> -->
+
+      <!-- <md-input-container> -->
+      <!--   <label> -->
+      <!--     <translate>Username (Optional)</translate> -->
+      <!--   </label> -->
+      <!--   <input type="text" name="slack-username" ng-model="trigger.attr_3" placeholder="{{ 'Slack Username' | translate }}"></input> -->
+      <!-- </md-input-container> -->
+
+      <md-input-container>
+        <label>
+          <translate>Slack URL</translate>
+        </label>
+        <input type="text" name="slack_url" ng-model="trigger.attr_1" placeholder="{{ 'Enter your Slack Webhook' | translate }}"></input>
+        <!-- <div ng-messages="myForm.slack_url.$error" md-auto-hide="false"> -->
+        <!--   <div ng-message="url" translate>Must be a valid URL</div> -->
+        <!-- </div> -->
+      </md-input-container>
 
       <md-input-container>
         <label>
@@ -35,30 +50,41 @@
         </div>
       </md-input-container>
 
-      <md-input-container>
-        <label>
-          <translate>Username (Optional)</translate>
-        </label>
-        <input type="text" name="slack-username" ng-model="trigger.attr_3" placeholder="{{ 'Slack Username' | translate }}"></input>
-      </md-input-container>
 
       <md-input-container>
         <label>
-          <translate>Icon URL (Optional)</translate>
+          <translate>Channel Override (Optional)</translate>
         </label>
-        <input type="url" name="slack_url" ng-model="trigger.attr_4" placeholder="{{ 'Enter a url for the Icon' | translate }}"></input>
-        <div ng-messages="myForm.slack_url.$error" md-auto-hide="false">
-          <div ng-message="url" translate>Must be a valid URL</div>
-        </div>
+        <input name="icon" ng-model="trigger.attr_3" placeholder="{{ 'Enter a channel' | translate }}"></input>
+        <!-- <div ng-messages="myForm..$error" md-auto-hide="false"> -->
+        <!--   <div ng-message="url" translate>Must be a valid URL</div> -->
+        <!-- </div> -->
       </md-input-container>
+
+      <!-- <md-input-container> -->
+      <!--   <label> -->
+      <!--     <translate>Icon URL (Optional)</translate> -->
+      <!--   </label> -->
+      <!--   <input name="icon" ng-model="trigger.attr_4" placeholder="{{ 'Enter a name for the Icon' | translate }}"></input> -->
+      <!--   <1!-- <div ng-messages="myForm..$error" md-auto-hide="false"> --1> -->
+      <!--   <1!--   <div ng-message="url" translate>Must be a valid URL</div> --1> -->
+      <!--   <1!-- </div> --1> -->
+      <!-- </md-input-container> -->
 
       <md-input-container>
         <label>
           <translate>Emoji (Optional)</translate>
         </label>
-        <input type="text" name="slack-icon" ng-model="trigger.attr_5" placeholder="{{ 'Emoji time!' | translate }}"></input>
+        <input type="text" name="slack-icon" ng-model="trigger.attr_4" placeholder="{{ 'Emoji time!' | translate }}"></input>
       </md-input-container>
 
-    </span>
+      <md-input-container>
+        <label>
+          <translate>Username (Optional)</translate>
+        </label>
+        <input type="text" name="slack-username" ng-model="trigger.attr_5" placeholder="{{ 'Username' | translate }}"></input>
+      </md-input-container>
+
+    <!-- </span> -->
   </div>
 </div>

@@ -59,7 +59,7 @@ describe("SplashPage Unit Tests", function() {
     $httpBackend.flush();
   });
 
-  it('should have sent a PATCH request to location splash_pages', function() {
+  fit('should have sent a PATCH request to location splash_pages', function() {
     var result = SplashPage.update({location_id: 123, id: 456})
     $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/locations/123/splash_pages/456')
     $httpBackend.flush();

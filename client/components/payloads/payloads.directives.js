@@ -32,12 +32,7 @@ app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 
       });
     };
 
-    scope.$watch('allowed',function(nv){
-      if (nv !== undefined) {
-        scope.allowed = attrs.allowed === 'true';
-        loadCommands();
-      }
-    });
+    loadCommands();
 
   };
 

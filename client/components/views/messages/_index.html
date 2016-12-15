@@ -1,0 +1,28 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
+      <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
+    </md-button>
+    <p translate>Back to Device</p>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<div ng-hide="messages.length > 0" class="message-notifier">
+  <h2>No messages yet</h2>
+  <p>Send messages and commands to your devices. Run payloads remotely, your devices will reply and print the reply here.</p>
+  <p>Read more in the docs.</p>
+</div>
+
+<div scroll-glue>
+  <div id="msg.id" class="message-inner" ng-repeat="msg in messages">
+    <span><pre>{{ nas.hostname }}% {{ msg.msg }}</pre></span>
+    <span ng-bind-html="msg.replies[0].msg | formatter:msg.msg"></span>
+    <span class="message-small">Sent: {{ msg.created_at | humanTime }}. Delivered: {{ msg.replies[0].created_at | humanTime }}. Delivery time: {{ msg.replies[0].created_at - msg.created_at }}s. <a href="" ng-click="destroy(msg.id, $index)"><md-icon >delete</md-icon></a><md-icon>save</md-icon></span>
+
+  </div>
+</div>
+
+<div id="message-footer">
+  <create-message messages="messages"></create-message>
+</div>

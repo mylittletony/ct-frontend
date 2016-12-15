@@ -1,5 +1,4 @@
 <p ng-bind-html="error"></p>
-
 <div layout="column">
   <md-input-container>
     <label>
@@ -12,17 +11,11 @@
   </md-input-container>
   <md-input-container>
     <label>
-      <translate>Body</translate>
-    </label>
-    <input type="text" name="webhook-body" ng-model="trigger.attr_3" placeholder="{{'Body' | translate }}"></input>
-  </md-input-container>
-  <md-input-container>
-    <label>
       <translate>Type</translate>
     </label>
     <md-select ng-model="trigger.attr_2">
-      <md-option ng-repeat="type in webhook_types">
-        {{type}}
+      <md-option ng-repeat="type in webhook_types" value="{{ type }}">
+        {{ type }}
       </md-option>
     </md-select>
   </md-input-container>
