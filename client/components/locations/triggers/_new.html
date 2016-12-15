@@ -443,6 +443,19 @@
               </div>
             </md-input-container>
             <small class="muted" style="font-size: 75%;">Match any object tags.</small>
+
+            <div layout-gt-sm="row" flex-gt-sm="40" style="margin: 20px 0 -20px 0">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Start Hour</label>
+                <input type="time" ng-model="trigger.starttime">
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label translate>End Hour</label>
+                <input type="time" ng-model="trigger.endtime">
+              </md-input-container>
+            </div>
+            <small class="muted" style="font-size: 75%;">Set the start and end hours to zero to get alerts all day.</small>
+
           </md-card-content>
         </md-card>
 
