@@ -501,6 +501,13 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       scope.trigger.endtime = new Date(end);
     };
 
+    var formatDays = function() {
+      scope.trigger.periodic_days = [];
+      if (scope.trigger.allowed_days === null) {
+        scope.trigger.allowed_days = [];
+      }
+    };
+
     var init = function() {
       Trigger.get({
         location_id: scope.location.slug,
@@ -510,6 +517,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
         scope.initChannel();
         setTriggerType(results.trigger_type);
         formatAlertTime();
+        formatDays();
         scope.loading = undefined;
       }, function(err) {
         scope.errors = err;
@@ -520,6 +528,7 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       init();
     } else {
       formatAlertTime();
+      formatDays();
       scope.trigger.type = 'all';
       if ($routeParams.object) {
         scope.trigger.type = $routeParams.object;

@@ -44,6 +44,8 @@
           </p>
           <p><b><span translate translate-n="{{trigger.fail_count}}" translate-plural="It's failed {{ trigger.fail_count}} times since the last reset">It's failed 1 time since the last reset.</span></b></p>
 
+          <!-- <p>Runs between {{ trigger.start_hour }} and {{ trigger.end_hour }}</p> -->
+
           <p class="text-muted"><small translate>Created {{ trigger.created_at | humanTime }}</small></p>
 
           <md-switch ng-model="trigger.active" aria-label="{{ 'Active' | translate }}" ng-change="active()" class="md-warn">
