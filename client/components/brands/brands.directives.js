@@ -29,17 +29,11 @@ app.directive('listBrands', ['Brand', '$routeParams', '$location', '$rootScope',
 
     var init = function() {
       Brand.query({}).$promise.then(function(results) {
-
         scope.brands  = results.brands;
         scope._links  = results._links;
         scope.loading = undefined;
-
-        // scope.originalUrl     = scope.brand.url;
-        // scope.brandName.name  = scope.brand.brand_name;
-        // subscribe();
       }, function(err) {
-        // scope.brandName.name = 'Acme Inc';
-        // scope.brand.admin = true;
+        console.log(err);
         // scope.loading = undefined;
       });
     };
@@ -62,24 +56,18 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
 
   var link = function(scope) {
 
-    // menu.isOpen = false;
-    // menu.hideBurger = true;
-    // menu.sectionName = gettextCatalog.getString('Brands');
-
     var init = function() {
       Brand.get({id: $routeParams.id}).$promise.then(function(results) {
-
         scope.brand = results;
+        menu.header = results.brand_name;
         scope.loading = undefined;
       }, function(err) {
-        // scope.brandName.name = 'Acme Inc';
-        // scope.brand.admin = true;
+        console.log(err);
         // scope.loading = undefined;
       });
     };
 
     init();
-
   };
 
   return {
@@ -87,12 +75,41 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
     scope: {
       loading: '='
     },
-    templateUrl: 'components/views/brands/_index.html'
+    templateUrl: 'components/views/brands/_show.html'
   };
 
 }]);
 
+app.directive('brandSettings', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
 
+  var link = function(scope) {
+
+    scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
+    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
+
+    var init = function() {
+      Brand.get({id: $routeParams.id}).$promise.then(function(results) {
+        scope.brand = results;
+        menu.header = results.brand_name;
+        scope.loading = undefined;
+      }, function(err) {
+        console.log(err);
+        // scope.loading = undefined;
+      });
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/brands/settings/_index.html'
+  };
+
+}]);
 
 app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', function(Brand, BrandName, User, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog) {
 

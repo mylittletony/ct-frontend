@@ -30,12 +30,17 @@ describe('Routing', function () {
       expect($route.routes['/downloads'].templateUrl).
                   toEqual('components/downloads/index.html');
 
-      // expect($route.routes['/brands/:id/triggers'].controller).toBe('BrandsCtrl as lc');
       expect($route.routes['/brands'].templateUrl).
                   toEqual('components/views/brands/index.html');
 
       expect($route.routes['/brands/:id/triggers'].templateUrl).
                   toEqual('components/views/brands/triggers/index.html');
+
+      expect($route.routes['/brands/:id/settings'].templateUrl).
+                  toEqual('components/views/brands/settings/index.html');
+
+      expect($route.routes['/brands/:id/theme'].templateUrl).
+                  toEqual('components/views/brands/theme/index.html');
 
       expect($route.routes['/brands/:id'].templateUrl).
                   toEqual('components/views/brands/show.html');
@@ -257,9 +262,9 @@ describe('Routing', function () {
       expect($route.routes['/me/integrations/:id'].templateUrl).
                   toEqual('components/users/integrations/setup.html');
 
-      expect($route.routes['/users/:id/branding'].controller).toBe('UsersShowController');
-      expect($route.routes['/users/:id/branding'].templateUrl).
-                  toEqual('components/users/branding/index.html');
+      // expect($route.routes['/users/:id/branding'].controller).toBe('BrandsController');
+      // expect($route.routes['/users/:id/branding'].templateUrl).
+      //             toEqual('components/users/branding/index.html');
 
       expect($route.routes['/users/:id/locations'].controller).toBe('UsersShowController');
       expect($route.routes['/users/:id/locations'].templateUrl).

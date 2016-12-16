@@ -87,13 +87,48 @@
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item ng-repeat="item in vm.menu.main">
-                <md-button href='{{item.link}}' ng-click="$mdMenu.hide()">
+                <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider>
+                <md-button ing-if="section.type === 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
                   {{ item.title }}
                 </md-button>
               </md-menu-item>
             </md-menu-content>
           </md-menu>
+
+          <md-menu>
+            <md-button aria-label="'Open Apps Menu' | translate" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+              <md-icon>assessment</md-icon>
+            </md-button>
+            <md-menu-content width="4" >
+              <md-menu-item ng-repeat="item in vm.menu.reports">
+                <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider>
+                <md-button ing-if="section.type === 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
+                  <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
+                  {{ item.title }}
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+          <!-- <md-menu> -->
+          <!--   <md-button aria-label="'Open Apps Menu' | translate" href="/#/audit" class="md-icon-button" iiing-click="$mdOpenMenu($event)"> -->
+          <!--     <md-icon>assessment</md-icon> -->
+          <!--   </md-button> -->
+          <!-- </md-menu> -->
+          <!-- <md-menu> -->
+          <!--   <md-button aria-label="'Open Apps Menu' | translate" href="/#/audit" class="md-icon-button" iiing-click="$mdOpenMenu($event)"> -->
+          <!--     <md-icon>assessment</md-icon> -->
+          <!--   </md-button> -->
+          <!--   <1!-- <md-menu-content width="4" > --1> -->
+          <!--   <1!--   <md-menu-item ng-repeat="item in vm.menu.reports"> --1> -->
+          <!--   <1!--     <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider> --1> -->
+          <!--   <1!--     <md-button ing-if="section.type === 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()"> --1> -->
+          <!--   <1!--       <md-icon md-menu-align-target>{{ item.icon }}</md-icon> --1> -->
+          <!--   <1!--       {{ item.title }} --1> -->
+          <!--   <1!--     </md-button> --1> -->
+          <!--   <1!--   </md-menu-item> --1> -->
+          <!--   <1!-- </md-menu-content> --1> -->
+          <!-- </md-menu> -->
           <!-- <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="!vm.menu.Intercom"> -->
           <!--   <a target="_blank" href="http://discuss.cucumberwifi.io"> -->
           <!--     <md-icon>forum</md-icon> -->
@@ -119,26 +154,30 @@
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
-              <md-menu-item>
-                <md-button ng-href="/#/users" ng-click="$mdMenu.hide()">
-                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">people</md-icon>
-                  <span translate>Manage Users</span>
-                </md-button>
-              </md-menu-item>
-              <md-menu-divider></md-menu-divider>
+
+              <!-- <md-menu-item> -->
+              <!--   <md-button ng-href="/#/users" ng-click="$mdMenu.hide()"> -->
+              <!--     <md-icon md-menu-align-target style="margin: auto 3px auto 0;">people</md-icon> -->
+              <!--     <span translate>Manage Users</span> -->
+              <!--   </md-button> -->
+              <!-- </md-menu-item> -->
+
+              <!-- <md-menu-divider></md-menu-divider> -->
               <md-menu-item>
                 <md-button target="_blank" ng-href="http://docs.cucumberwifi.io" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">account_balance</md-icon>
                   <span translate>Documentation</span>
                 </md-button>
               </md-menu-item>
+
               <md-menu-item>
                 <md-button target="_blank" ng-href="https://discuss.cucumberwifi.io/" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">forum</md-icon>
                   <span translate>Discussions</span>
                 </md-button>
               </md-menu-item>
-              <md-menu-divider></md-menu-divider>
+
+              <!-- <md-menu-divider></md-menu-divider> -->
               <md-menu-item>
                 <md-button href="/#/downloads" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">get_app</md-icon>
@@ -152,7 +191,9 @@
                   <span translate>Developer</span>
                 </md-button>
               </md-menu-item>
+
               <md-menu-divider></md-menu-divider>
+
               <md-menu-item>
                 <md-button ng-click="logout()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">exit_to_app</md-icon>
@@ -169,9 +210,7 @@
     </md-toolbar>
 
     <md-content layout="row" flex id="content">
-
       <section layout="row" flex>
-
         <md-sidenav flex-xs flex-gt-sm="20" class="site-sidenav md-sidenav-right md-whiteframe-z2"
                                             md-is-open="vm.menu.isOpenRight"
                                             md-component-id="right" ng-click="toggle('right')">
@@ -325,6 +364,7 @@
   <script src="components/codes/codes.services.js"></script>
   <script src="components/commands/commands.directives.js"></script>
   <script src="components/commands/commands.services.js"></script>
+  <script src="components/controllers/brands.controller.js"></script>
   <script src="components/controllers/zones.controller.js"></script>
   <script src="components/directives/brand_users.js"></script>
   <script src="components/directives/group_policies.directives.js"></script>

@@ -3,6 +3,7 @@
 var app = angular.module('myApp.controllers', [
 
   'myApp.authentications.controller',
+  'myApp.brands.controller',
   'myApp.boxes.controller',
   'myApp.events.controller',
   'myApp.heartbeats.controller',
@@ -72,56 +73,91 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       vm.menu.isOpen = false;
     }
 
-    vm.menu.main = [{
-      title: gettextCatalog.getString('Home'),
-      link: '/#/',
-      type: 'link',
-      icon: 'home'
-    }];
+    // vm.menu.main = [];
 
-    vm.menu.main.push({
-      title: gettextCatalog.getString('Locations'),
-      type: 'link',
-      link: '/#/locations',
-      icon: 'business'
-    });
+    // vm.menu.main = [{
+    //   title: gettextCatalog.getString('Home'),
+    //   link: '/#/',
+    //   type: 'link',
+    //   icon: 'home'
+    // }];
 
-    vm.menu.main.push({
-      title: gettextCatalog.getString('Brands'),
-      type: 'link',
-      link: '/#/brands',
-      icon: 'branding_watermark'
-    });
+    // vm.menu.main.push({
+    //   title: gettextCatalog.getString('Locations'),
+    //   type: 'link',
+    //   link: '/#/locations',
+    //   icon: 'business'
+    // });
 
-    vm.menu.main.push({
+    // vm.menu.main.push({
+    //   type: 'divider',
+    // });
+
+    // vm.menu.main.push({
+    //   title: gettextCatalog.getString('Events'),
+    //   type: 'link',
+    //   link: '/#/events',
+    //   icon: 'warning'
+    // });
+
+    // vm.menu.main.push({
+    //   title: gettextCatalog.getString('Reports'),
+    //   type: 'link',
+    //   link: '/#/reports',
+    //   icon: 'timeline'
+    // });
+
+    // vm.menu.main.push({
+    //   title: gettextCatalog.getString('Audit'),
+    //   type: 'link',
+    //   link: '/#/audit',
+    //   icon: 'assignment'
+    // });
+
+    vm.menu.main = [];
+
+    vm.menu.reports = [];
+
+    vm.settingsMenu = [];
+
+    vm.menuRight = [];
+
+    // vm.menu.main.push({
+    //   type: 'divider',
+    // });
+
+    // vm.menu.main.push({
+    //   title: gettextCatalog.getString('Brands'),
+    //   type: 'link',
+    //   link: '/#/brands',
+    //   icon: 'branding_watermark'
+    // });
+
+    vm.menu.reports.push({
       title: gettextCatalog.getString('Reports'),
       type: 'link',
       link: '/#/reports',
       icon: 'timeline'
     });
 
-    vm.menu.main.push({
+    vm.menu.reports.push({
       title: gettextCatalog.getString('Audit'),
       type: 'link',
       link: '/#/audit',
       icon: 'assignment'
     });
 
-    vm.menu.main.push({
-      title: gettextCatalog.getString('Events'),
-      type: 'link',
-      link: '/#/events',
-      icon: 'warning'
-    });
+    // vm.menu.main.push({
+    //   title: gettextCatalog.getString('Events'),
+    //   type: 'link',
+    //   link: '/#/events',
+    //   icon: 'warning'
+    // });
 
     vm.status = {
       isFirstOpen: true,
       isFirstDisabled: false
     };
-
-    vm.settingsMenu = [];
-
-    vm.menuRight = [];
 
     vm.menuRight.push({
       name: gettextCatalog.getString('Home'),
@@ -136,6 +172,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       type: 'link',
       icon: 'business'
     });
+
+    // vm.menuRight.push({
+    //   name: gettextCatalog.getString('Brands'),
+    //   link: '/#/brands',
+    //   type: 'link',
+    //   icon: 'timeline'
+    // });
 
     vm.menuRight.push({
       name: gettextCatalog.getString('Reports'),
@@ -320,7 +363,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       var pusher;
       if (Auth.currentUser() && Auth.currentUser().key !== null) {
-        $scope.$broadcast('intercom', {hi: 'simon'});
+        $scope.$broadcast('intercom', {hi: 'user'});
         window.client = new Pusher(PUSHER, {
           authEndpoint: API + '/pusherAuth?token=' + Auth.currentUser().key
         });
@@ -380,18 +423,44 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.name = 'Cucumber';
       };
 
-      var firstName = function() {
-        if (Auth.currentUser() && Auth.currentUser().username) {
-          $scope.user = { gravatar: Auth.currentUser().gravatar, lucky_dip: Auth.currentUser().lucky_dip };
-        }
-      };
-
       var a = AccessToken.get();
       if ( (!Auth.currentUser() && a ) || Auth.currentUser() && (Auth.currentUser().url !== 'default' )) {
         getMe();
       }
-      firstName();
       getSubdomain();
+
+      if (vm.menu.main.length === 0) {
+        vm.menu.main.push({
+          title: gettextCatalog.getString('Locations'),
+          type: 'link',
+          link: '/#/locations',
+          icon: 'business'
+        });
+
+        vm.menu.main.push({
+          title: gettextCatalog.getString('Events'),
+          type: 'link',
+          link: '/#/events',
+          icon: 'warning'
+        });
+
+        if (Auth.currentUser() && Auth.currentUser().guest === false) {
+
+          vm.menu.main.push({
+            title: gettextCatalog.getString('Brands'),
+            type: 'link',
+            link: '/#/brands',
+            icon: 'branding_watermark'
+          });
+
+          vm.menu.main.push({
+            title: gettextCatalog.getString('Users'),
+            type: 'link',
+            link: '/#/users',
+            icon: 'face'
+          });
+        }
+      }
 
       var domain = 'ctapp.io';
       var addDistro = function() {
@@ -404,10 +473,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
 
       var removeCtCookie = function() {
-        $cookies.remove('_ct', { domain: domain } );
+        $cookies.remove('_ct', { domain: domain });
       };
 
-      var cookie = $cookies.get('_ct', {'domain': domain});
+      var cookie = $cookies.get('_ct', { 'domain': domain });
       if (cookie && Auth.currentUser() && Auth.currentUser().id) {
         User.distro({dst: cookie}).$promise.then(function(result) {
           removeCtCookie();
@@ -452,21 +521,4 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 }]);
 
 app.controller( 'ParentCtrl', function ParentCtrl($scope, onlineStatus) {
-
-  // $scope.items = [];
-  // $scope.linkItems = {
-  // };
-
-  // $scope.onlineStatus = onlineStatus;
-  // $scope.$watch('onlineStatus.isOnline()', function(online) {
-  //   $scope.online_status_string = online ? 'online' : 'offline';
-  //   if ($scope.online_status_string === 'offline') {
-  //     $scope.open('md');
-  //   } else if ($scope.online_status_string === 'online' ){
-  //   }
-  // });
-
-  // $scope.open = function (size) {
-  // };
-
 });

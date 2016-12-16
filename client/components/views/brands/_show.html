@@ -1,0 +1,54 @@
+<md-content class="md-padding" layout="column" layout-gt-sm='column'>
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>Brand Details</span>
+            <!-- <span class="md-subhead">Large</span> -->
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Owner</h3>
+              <p>
+                <a href="/#/users/{{ ::brand.user.slug }}">
+                  {{ ::brand.user.username }}
+                </a>
+              </p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Default Country</h3>
+              <p>
+                {{ ::brand.country }}
+              </p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Network Location</h3>
+              <p>
+                {{ ::brand.network_location }}
+              </p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Brand URL</h3>
+              <p>https://{{ ::brand.url }}.ctapp.io</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Custom URL</h3>
+              <p>{{ ::brand.cname || '-' }}</p>
+            </div>
+          </md-list-item>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</md-content>

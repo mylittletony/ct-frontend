@@ -21,7 +21,6 @@ app.filter('eventSummary', [function() {
   return function(input,type) {
 
     if (input === undefined || input === '') {
-      console.log(input, type);
       return 'Unknown';
     }
 

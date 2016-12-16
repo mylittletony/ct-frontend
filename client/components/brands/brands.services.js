@@ -16,7 +16,7 @@ app.factory('Brand', ['$resource', 'API_END_POINT',
       query: {
         method: 'GET',
         isArray: false,
-        cache: true,
+        // cache: true,
         dataType: 'json',
         params: {
           id: '@id',
