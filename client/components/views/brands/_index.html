@@ -1,0 +1,106 @@
+<section>
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <div flex></div>
+      <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="{{ 'Add Device' | translate }}" hide show-gt-xs>
+        <md-icon>add_circle</md-icon>
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Add a new location.
+          </translate>
+        </md-tooltip>
+      </md-button>
+      <md-button class="md-icon-button" href="" aria-label="{{ 'Map' | translate }}" hide show-gt-xs>
+        <md-icon>map</md-icon>
+        <!-- <md-tooltip md-direction="bottom"> -->
+          <!--   <translate> -->
+            <!--     View device map. -->
+            <!--   </translate> -->
+          <!-- </md-tooltip> -->
+      </md-button>
+      <span hide show-gt-xs>
+        <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
+        </md-switch>
+        <!-- <md-tooltip md-direction="bottom"> -->
+          <!--   <translate> -->
+            <!--     Streaming updates. -->
+            <!--   </translate> -->
+          <!-- </md-tooltip> -->
+      </span>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+</section>
+
+<md-content class="md-padding" layout="column" layout-gt-xs='column'>
+  <div layout="row" layout-align="center center">
+    <div flex="100">
+      <md-card>
+        <md-toolbar class="md-table-toolbar md-default">
+          <div class="md-toolbar-tools">
+            <p translate translate-n="{{ ::_links.total_entries }}" translate-plural="{{ ::_links.total_entries }} Brands">1 Brand</p>
+          </div>
+        </md-toolbar>
+        <md-card-content>
+          Put intro in here...
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+              <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th md-column md-order-by="state"><span translate>State</span></th>
+                  <th hide show-gt-sm md-column md-order-by="owner" ng-if="user_id"><span translate>Owner</span></th>
+                  <th md-column md-order-by="location_name" md-desc><span translate>Name</span></th>
+                  <th hide show-gt-md md-column md-order-by="location_address"><span translate>Address</span></th>
+                  <th hide show-gt-xs md-column md-order-by="boxes_count"><span translate>Devices</span></th>
+                  <th hide show-gt-sm md-column md-order-by="created_at"><span translate>Created</span></th>
+                  <th md-column><span translate>Action</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="location" ng-repeat="brand in filtered = (brands | filter: query.filter | orderBy: query.order )">
+                  <td md-cell>
+                    <a href="/#/brands/{{ brand.id }}">{{ brand.brand_name }}</a>
+                  </td>
+                  <td md-cell>
+                  </td>
+                  <td hide show-gt-md md-cell>
+                    {{ ::brand.cname || '-' }}
+                  </td>
+                  <td hide show-gt-xs md-cell>
+                    {{ ::brand.website }}
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ ::brand.network_location }}
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ ::brand.country }}
+                  </td>
+                  <td hide show-gt-sm md-cell>
+                    {{ ::brand.timezone }}
+                  </td>
+                  <td md-cell>
+                    <md-menu>
+                      <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                      </md-button>
+                      <md-menu-content width="4">
+                        <md-menu-item>
+                          <md-button href="/#/locations/{{ location.slug }}">
+                            <md-icon>pageview</md-icon>
+                            <p flex translate>View Location</p>
+                          </md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+        </md-card-content>
+      </md-card>
+
+    </div>
+  </div>
+</md-content>
