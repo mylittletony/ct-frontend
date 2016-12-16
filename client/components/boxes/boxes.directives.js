@@ -664,7 +664,7 @@ app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $rou
       if (parseInt(version) === 4) {
         template = $compile('<list-messages></list-messages>')(scope);
       } else {
-        template = $compile('<box-payloads loading="loading"></box-payloads>')(scope);
+        template = $compile('<box-payloads></box-payloads>')(scope);
       }
       element.html(template);
       scope.loading = undefined;
@@ -683,11 +683,11 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
   var link = function(scope,element,attrs,controller) {
 
-    scope.location = { slug: $routeParams.id };
     scope.command = { save: true };
+    scope.location = { slug: $routeParams.id };
+    scope.box = { slug: $routeParams.box_id };
 
     var init = function() {
-      scope.box = controller.$scope.box;
       loadPayloads();
       loadPusher();
     };
@@ -724,6 +724,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
     var loadPayloads = function() {
       Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
+        console.log(data);
         scope.payloads = data;
       });
     };
@@ -752,7 +753,6 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
   return {
     link: link,
-    require: '^fetchBox',
     scope: {
       loading: '=',
     },

@@ -1,5 +1,5 @@
-This only appears as non-admin
-<md-content class="md-padding" g-if="brand && brand.id && brand.admin != true">
+{{ brand.admin }}
+<md-content class="md-padding" ng-if="brand && brand.id && brand.admin != true">
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
       <md-card>
@@ -30,6 +30,16 @@ This only appears as non-admin
             <div class="md-list-item-text" layout="column">
               <h3>Location</h3>
               <h4>{{ ::brand.network_location }}</h4>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Owner</h3>
+              <p>
+                <a href="/#/users/{{ ::brand.user.slug }}">
+                  {{ ::brand.user.username }}
+                </a>
+              </p>
             </div>
           </md-list-item>
         </md-card-content>
