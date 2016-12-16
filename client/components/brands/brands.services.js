@@ -32,11 +32,7 @@ app.factory('Brand', ['$resource', 'API_END_POINT',
         }
       },
       update: {
-        method: 'PATCH',
-        params: {
-          id: '@id',
-          brand: '@brand'
-        }
+        method: 'PATCH'
       },
       create: {
         method: 'POST',
@@ -46,4 +42,3 @@ app.factory('Brand', ['$resource', 'API_END_POINT',
       }
     });
   }]);
-

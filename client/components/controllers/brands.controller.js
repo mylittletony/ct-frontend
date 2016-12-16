@@ -55,13 +55,13 @@ app.controller('BrandsController', ['$rootScope', '$window', '$scope', '$routePa
     //   active: isActive('integrations')
     // });
 
-    menu.sections.push({
-      name: gettextCatalog.getString('Settings'),
-      type: 'link',
-      link: '/#/brands/' + id + '/settings',
-      icon: 'settings',
-      // active: isActive('sessions')
-    });
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('Settings'),
+    //   type: 'link',
+    //   link: '/#/brands/' + id + '/settings',
+    //   icon: 'settings',
+    //   // active: isActive('sessions')
+    // });
 
     menu.sections.push({
       name: gettextCatalog.getString('Triggers'),

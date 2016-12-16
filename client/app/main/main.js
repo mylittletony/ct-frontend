@@ -100,11 +100,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/views/brands/triggers/index.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/brands/:id/settings', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/brands/settings/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
+    // when('/brands/:id/settings', {
+    //   controller: 'BrandsController',
+    //   templateUrl: 'components/views/brands/settings/index.html',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
     when('/brands/:id/theme', {
       controller: 'BrandsController',
       templateUrl: 'components/views/brands/theme/index.html',

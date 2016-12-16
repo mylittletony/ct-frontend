@@ -56,6 +56,9 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
 
   var link = function(scope) {
 
+    scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
+    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
+
     var init = function() {
       Brand.get({id: $routeParams.id}).$promise.then(function(results) {
         scope.brand = results;
@@ -65,6 +68,40 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
         console.log(err);
         // scope.loading = undefined;
       });
+    };
+
+    var update = function() {
+      Brand.update({},
+        {
+          id: scope.brand.id,
+          brand: scope.brand
+        }).$promise.then(function(results) {
+          scope.brand       = results;
+          // scope.errors      = undefined;
+          // scope.updating    = undefined;
+          // scope.updateBrand = undefined;
+          showToast(gettextCatalog.getString('Successfully updated brand'));
+        }, function(err) {
+          showErrors(err);
+        });
+    };
+
+    var confirmChange = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Confirm Update'))
+      .textContent(gettextCatalog.getString('You may need to resync your boxes after updating your brand.'))
+      .ariaLabel(gettextCatalog.getString('Change'))
+      .ok(gettextCatalog.getString('Change'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        update();
+      }, function() {
+      });
+    };
+
+    scope.save = function(form) {
+      form.$setPristine();
+      confirmChange();
     };
 
     init();
@@ -80,180 +117,149 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
 
 }]);
 
-app.directive('brandSettings', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
+// app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', function(Brand, BrandName, User, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog) {
 
-  var link = function(scope) {
+//   var link = function(scope) {
 
-    scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
-    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
+//     var brand_id;
+//     scope.brandName = BrandName;
+//     scope.user      = {};
+//     scope.brand     = { creating: true, network_location: 'eu-west' };
+//     scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
 
-    var init = function() {
-      Brand.get({id: $routeParams.id}).$promise.then(function(results) {
-        scope.brand = results;
-        menu.header = results.brand_name;
-        scope.loading = undefined;
-      }, function(err) {
-        console.log(err);
-        // scope.loading = undefined;
-      });
-    };
+//     var init = function() {
+//       User.query({id: $routeParams.id}).$promise.then(function (res) {
+//         scope.user = res;
+//         if (scope.user.invited_by) {
+//           scope.loading = undefined;
+//         } else {
+//           getBrand();
+//         }
+//       });
+//     };
 
-    init();
-  };
+//     var getBrand = function() {
+//       Brand.get(
+//         {
+//           id: scope.user.brand_id
+//         }
+//       ).$promise.then(function(results) {
+//         scope.brand           = results;
+//         scope.loading         = undefined;
+//         scope.originalUrl     = scope.brand.url;
+//         scope.brandName.name  = scope.brand.brand_name;
+//         subscribe();
+//       }, function(err) {
+//         scope.brandName.name = 'Acme Inc';
+//         scope.brand.admin = true;
+//         scope.loading = undefined;
+//       });
+//     };
 
-  return {
-    link: link,
-    scope: {
-      loading: '='
-    },
-    templateUrl: 'components/views/brands/settings/_index.html'
-  };
+//     scope.save = function(form) {
+//       form.$setPristine();
+//       if (scope.brand.id) {
+//         confirmChange();
+//       } else {
+//         create();
+//       }
+//     };
 
-}]);
+//     var create = function() {
+//       Brand.create({
+//         brand: {
+//           cname: scope.brand.cname,
+//           brand_image: scope.brand.brand_image,
+//           brand_name: scope.brandName.name,
+//           url: scope.brand.url
+//         }
+//       }).$promise.then(function(results) {
+//         scope.brand = results;
+//         showToast(gettextCatalog.getString('Successfully updated brand'));
+//         switchBrand();
+//       }, function(err) {
+//         showErrors(err);
+//       });
+//     };
 
-app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', function(Brand, BrandName, User, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog) {
+//     var confirmChange = function() {
+//       var confirm = $mdDialog.confirm()
+//       .title(gettextCatalog.getString('Change Brand?'))
+//       .textContent(gettextCatalog.getString('Please resync all your boxes after updating your brand.'))
+//       .ariaLabel(gettextCatalog.getString('Change'))
+//       .ok(gettextCatalog.getString('Change'))
+//       .cancel(gettextCatalog.getString('Cancel'));
+//       $mdDialog.show(confirm).then(function() {
+//         scope.update();
+//       }, function() {
+//       });
+//     };
 
-  var link = function(scope) {
+//     scope.update = function() {
+//       Brand.update(
+//         {
+//           id: scope.brand.id,
+//           brand:
+//             {
+//               brand_name:         scope.brandName.name,
+//               url:                scope.brand.url,
+//               cname:              scope.brand.cname,
+//               brand_image:        scope.brand.brand_image,
+//               remove_image:       scope.brand.remove_image,
+//               from_email:         scope.brand.from_email,
+//               website:            scope.brand.website,
+//               from_name:          scope.brand.from_name,
+//               network_location:   scope.brand.network_location
+//             }
+//         }).$promise.then(function(results) {
+//           scope.brand       = results;
+//           scope.errors      = undefined;
+//           scope.updating    = undefined;
+//           scope.updateBrand = undefined;
+//           if (scope.brand.url !== scope.originalUrl) {
+//             switchBrand();
+//           } else {
+//             showToast(gettextCatalog.getString('Successfully updated brand'));
+//           }
+//         }, function(err) {
+//           showErrors(err);
+//         });
+//     };
 
-    var brand_id;
-    scope.brandName = BrandName;
-    scope.user      = {};
-    scope.brand     = { creating: true, network_location: 'eu-west' };
-    scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
+//     function subscribe() {
+//       if (typeof client !== 'undefined' && scope.subscribed === undefined) {
+//         scope.subscribe   = true;
+//         var pusher        = $pusher(client);
+//         var channel       = pusher.subscribe(scope.user.key);
+//         channel.bind('general', function(data) {
+//           if (data.type === 'updated_cname') {
+//             scope.brand.cname_status = undefined;
+//             showToast(gettextCatalog.getString('Updated CNAME, please login to finalise changes.'));
+//           }
+//         });
+//       }
+//     }
 
-    var init = function() {
-      User.query({id: $routeParams.id}).$promise.then(function (res) {
-        scope.user = res;
-        if (scope.user.invited_by) {
-          scope.loading = undefined;
-        } else {
-          getBrand();
-        }
-      });
-    };
+//     var switchBrand = function() {
+//       var search;
+//       var path        = $location.path();
+//       if (scope.user) {
+//         scope.user.url = scope.brand.url;
+//       }
+//       var loginEvent  = 'login';
+//       var loginArgs   = {data: scope.user, path: path, search: search};
+//       $rootScope.$broadcast(loginEvent, loginArgs);
+//     };
 
-    var getBrand = function() {
-      Brand.get(
-        {
-          id: scope.user.brand_id
-        }
-      ).$promise.then(function(results) {
-        scope.brand           = results;
-        scope.loading         = undefined;
-        scope.originalUrl     = scope.brand.url;
-        scope.brandName.name  = scope.brand.brand_name;
-        subscribe();
-      }, function(err) {
-        scope.brandName.name = 'Acme Inc';
-        scope.brand.admin = true;
-        scope.loading = undefined;
-      });
-    };
+//     init();
+//   };
 
-    scope.save = function(form) {
-      form.$setPristine();
-      if (scope.brand.id) {
-        confirmChange();
-      } else {
-        create();
-      }
-    };
+//   return {
+//     link: link,
+//     scope: {
+//       loading: '='
+//     },
+//     templateUrl: 'components/users/branding/_form.html'
+//   };
 
-    var create = function() {
-      Brand.create({
-        brand: {
-          cname: scope.brand.cname,
-          brand_image: scope.brand.brand_image,
-          brand_name: scope.brandName.name,
-          url: scope.brand.url
-        }
-      }).$promise.then(function(results) {
-        scope.brand = results;
-        showToast(gettextCatalog.getString('Successfully updated brand'));
-        switchBrand();
-      }, function(err) {
-        showErrors(err);
-      });
-    };
-
-    var confirmChange = function() {
-      var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Change Brand?'))
-      .textContent(gettextCatalog.getString('Please resync all your boxes after updating your brand.'))
-      .ariaLabel(gettextCatalog.getString('Change'))
-      .ok(gettextCatalog.getString('Change'))
-      .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        scope.update();
-      }, function() {
-      });
-    };
-
-    scope.update = function() {
-      Brand.update(
-        {
-          id: scope.brand.id,
-          brand:
-            {
-              brand_name:         scope.brandName.name,
-              url:                scope.brand.url,
-              cname:              scope.brand.cname,
-              brand_image:        scope.brand.brand_image,
-              remove_image:       scope.brand.remove_image,
-              from_email:         scope.brand.from_email,
-              website:            scope.brand.website,
-              from_name:          scope.brand.from_name,
-              network_location:   scope.brand.network_location
-            }
-        }).$promise.then(function(results) {
-          scope.brand       = results;
-          scope.errors      = undefined;
-          scope.updating    = undefined;
-          scope.updateBrand = undefined;
-          if (scope.brand.url !== scope.originalUrl) {
-            switchBrand();
-          } else {
-            showToast(gettextCatalog.getString('Successfully updated brand'));
-          }
-        }, function(err) {
-          showErrors(err);
-        });
-    };
-
-    function subscribe() {
-      if (typeof client !== 'undefined' && scope.subscribed === undefined) {
-        scope.subscribe   = true;
-        var pusher        = $pusher(client);
-        var channel       = pusher.subscribe(scope.user.key);
-        channel.bind('general', function(data) {
-          if (data.type === 'updated_cname') {
-            scope.brand.cname_status = undefined;
-            showToast(gettextCatalog.getString('Updated CNAME, please login to finalise changes.'));
-          }
-        });
-      }
-    }
-
-    var switchBrand = function() {
-      var search;
-      var path        = $location.path();
-      if (scope.user) {
-        scope.user.url = scope.brand.url;
-      }
-      var loginEvent  = 'login';
-      var loginArgs   = {data: scope.user, path: path, search: search};
-      $rootScope.$broadcast(loginEvent, loginArgs);
-    };
-
-    init();
-  };
-
-  return {
-    link: link,
-    scope: {
-      loading: '='
-    },
-    templateUrl: 'components/users/branding/_form.html'
-  };
-
-}]);
+// }]);

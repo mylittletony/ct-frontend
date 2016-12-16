@@ -36,9 +36,6 @@ describe('Routing', function () {
       expect($route.routes['/brands/:id/triggers'].templateUrl).
                   toEqual('components/views/brands/triggers/index.html');
 
-      expect($route.routes['/brands/:id/settings'].templateUrl).
-                  toEqual('components/views/brands/settings/index.html');
-
       expect($route.routes['/brands/:id/theme'].templateUrl).
                   toEqual('components/views/brands/theme/index.html');
 
