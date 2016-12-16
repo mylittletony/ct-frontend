@@ -566,11 +566,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/users/:id/branding', {
-      templateUrl: 'components/users/branding/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
+    // when('/users/:id/branding', {
+    //   templateUrl: 'components/users/branding/index.html',
+    //   controller: 'UsersShowController',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/users/:id/locations', {
       templateUrl: 'components/users/locations/index.html',
       controller: 'UsersShowController',

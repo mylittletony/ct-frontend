@@ -282,6 +282,9 @@
 ../client/components/users/show/index.html
 ../client/components/views/brand_users/_index.html
 ../client/components/views/brand_users/index.html
+../client/components/views/brands/index.html
+../client/components/views/brands/triggers/index.html
+../client/components/views/brands/triggers/show.html
 ../client/components/views/clients/_create.html
 ../client/components/views/clients/_policy.html
 ../client/components/views/group_policies/_add.html

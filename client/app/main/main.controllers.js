@@ -87,6 +87,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menu.main.push({
+      title: gettextCatalog.getString('Brands'),
+      type: 'link',
+      link: '/#/brands',
+      icon: 'branding_watermark'
+    });
+
+    vm.menu.main.push({
       title: gettextCatalog.getString('Reports'),
       type: 'link',
       link: '/#/reports',

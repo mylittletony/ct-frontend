@@ -2,6 +2,98 @@
 
 var app = angular.module('myApp.brands.directives', []);
 
+app.directive('listBrands', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
+
+  var link = function(scope) {
+
+    menu.isOpen = false;
+    menu.hideBurger = true;
+    menu.sectionName = gettextCatalog.getString('Brands');
+
+    scope.options = {
+      boundaryLinks: false,
+      largeEditDialog: false,
+      pageSelector: false,
+      rowSelection: false
+    };
+
+    scope.pagination_labels = pagination_labels;
+    scope.query = {
+      order:      'updated_at',
+      filter:     $routeParams.q,
+      limit:      $routeParams.per || 25,
+      page:       $routeParams.page || 1,
+      options:    [5,10,25,50,100],
+      direction:  $routeParams.direction || 'desc'
+    };
+
+    var init = function() {
+      Brand.query({}).$promise.then(function(results) {
+
+        scope.brands  = results.brands;
+        scope._links  = results._links;
+        scope.loading = undefined;
+
+        // scope.originalUrl     = scope.brand.url;
+        // scope.brandName.name  = scope.brand.brand_name;
+        // subscribe();
+      }, function(err) {
+        // scope.brandName.name = 'Acme Inc';
+        // scope.brand.admin = true;
+        // scope.loading = undefined;
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/brands/_index.html'
+  };
+
+}]);
+
+app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
+
+  var link = function(scope) {
+
+    // menu.isOpen = false;
+    // menu.hideBurger = true;
+    // menu.sectionName = gettextCatalog.getString('Brands');
+
+    var init = function() {
+      Brand.get({id: $routeParams.id}).$promise.then(function(results) {
+
+        scope.brand = results;
+        scope.loading = undefined;
+      }, function(err) {
+        // scope.brandName.name = 'Acme Inc';
+        // scope.brand.admin = true;
+        // scope.loading = undefined;
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/brands/_index.html'
+  };
+
+}]);
+
+
+
 app.directive('userBrand', ['Brand', 'BrandName', 'User', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', function(Brand, BrandName, User, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {

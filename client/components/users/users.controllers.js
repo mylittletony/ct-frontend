@@ -78,15 +78,15 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       active: isActive('alerts')
     });
 
-    if (Auth.currentUser() && !Auth.currentUser().guest) {
-      menu.sections.push({
-        name: gettextCatalog.getString('Branding'),
-        type: 'link',
-        link: '/#/users/' + id + '/branding',
-        icon: 'perm_identity',
-        active: isActive('branding')
-      });
-    }
+    // if (Auth.currentUser() && !Auth.currentUser().guest) {
+    //   menu.sections.push({
+    //     name: gettextCatalog.getString('Branding'),
+    //     type: 'link',
+    //     link: '/#/users/' + id + '/branding',
+    //     icon: 'perm_identity',
+    //     active: isActive('branding')
+    //   });
+    // }
 
     // menu.sections.push({
     //   name: gettextCatalog.getString('Locations'),
