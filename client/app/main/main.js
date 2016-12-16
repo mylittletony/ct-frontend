@@ -90,14 +90,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       templateUrl: 'components/views/brands/index.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/brands/:id', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/brands/show.html',
-      resolve: { loginRequired: loginRequired },
-    }).
     when('/brands/new', {
       controller: 'BrandsController',
       templateUrl: 'components/views/brands/new.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:id', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/brands/show.html',
       resolve: { loginRequired: loginRequired },
     }).
     when('/brands/:id/triggers', {

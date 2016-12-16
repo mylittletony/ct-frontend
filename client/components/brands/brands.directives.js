@@ -52,6 +52,39 @@ app.directive('listBrands', ['Brand', '$routeParams', '$location', '$rootScope',
 
 }]);
 
+app.directive('newBrand', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
+
+  var link = function(scope) {
+
+    menu.isOpen = false;
+    menu.hideBurger = true;
+    menu.sectionName = gettextCatalog.getString('Brands');
+
+    // var init = function() {
+    //   Brand.query({}).$promise.then(function(results) {
+    //     scope.brands  = results.brands;
+    //     scope._links  = results._links;
+    //     scope.loading = undefined;
+    //   }, function(err) {
+    //     console.log(err);
+    //     // scope.loading = undefined;
+    //   });
+    // };
+
+    // init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/brands/_new.html'
+  };
+
+}]);
+
 app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
 
   var link = function(scope) {
