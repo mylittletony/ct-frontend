@@ -36,7 +36,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
 
   var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
-  var item = 'blue';
+  var item = 'blue-grey';
 
   $mdThemingProvider.theme('default')
     .primaryPalette(item, {
