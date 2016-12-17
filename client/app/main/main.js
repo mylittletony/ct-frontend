@@ -29,23 +29,63 @@ app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
-app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider', '$mdIconProvider', function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {
+app.config(['$mdThemingProvider', function($mdThemingProvider) {
+  var $cookies;
+  angular.injector(['ngCookies']).invoke(['$cookies', function(_$cookies_) {
+    $cookies = _$cookies_;
+  }]);
+
+  var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
+  var theme = $cookies.get('_ctt');
+  var primary, accent;
+
+  if (theme !== undefined && theme !== null && theme !== '') {
+    var p = theme.split('.');
+    primary = p[0];
+    accent = p[1];
+  }
+
+  if (items.indexOf(primary) === -1) {
+    primary = 'blue';
+  }
+
+  if (items.indexOf(accent) === -1) {
+    accent = 'blue';
+  }
+
+  console.log(primary, accent);
+
+  $mdThemingProvider.theme('default')
+    .primaryPalette(primary)
+    .accentPalette(accent, {
+      'default': '500',
+      'hue-1': '50'
+    });
+  console.log($cookies.get('_ctt'));
+}]);
+
+app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
   $httpProvider.interceptors.push('httpRequestInterceptor');
 
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
 
-  var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
-  var item = 'blue-grey';
+  // var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
+  // var item = 'blue-grey';
 
-  $mdThemingProvider.theme('default')
-    .primaryPalette(item, {
-      'hue-1': '100',
-    }).
-    accentPalette('blue', {
-      'default': '500',
-      'hue-1': '50'
-    });
+  // $mdThemingProvider.theme('default')
+  //   .primaryPalette(item, {
+  //     'hue-1': '100',
+  //   }).
+  //   accentPalette('blue', {
+  //     'default': '500',
+  //     'hue-1': '50'
+  //   });
+
+  // function setTheme (Theme) {
+  //   console.log(Theme);
+  // }
+  // setTheme();
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
