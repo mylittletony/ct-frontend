@@ -72,20 +72,48 @@ describe('brands', function () {
     });
   });
 
-  describe('displays a brand', function() {
+  describe('displays the brands', function() {
     beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
       $scope = $rootScope;
       q = $q;
       $routeParams = _$routeParams_;
       $routeParams.id = 1;
       $scope.loading = true;
-      var elem = angular.element('<brand loading="loading"></brand>');
+      var elem = angular.element('<list-brands loading="loading"></list-brands>');
       element = $compile(elem)($rootScope);
       element.scope().$digest();
     }));
 
     it("should set the default scope vars", function() {
-      spyOn(brandFactory, 'get').and.callThrough();
+      spyOn(brandFactory, 'query').and.callThrough();
+      expect(element.isolateScope().loading).toEqual(true);
+
+      var params = {};
+      var brand = { url: 'cucumber', brand_name: 'simon' };
+      params.brands = [brand];
+
+      deferred.resolve(params);
+      $scope.$digest();
+
+      expect(element.isolateScope().brands[0]).toEqual(brand);
+      expect(element.isolateScope().loading).toEqual(undefined);
+    });
+  });
+
+  describe('creates a new brand', function() {
+    beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
+      $scope = $rootScope;
+      q = $q;
+      $routeParams = _$routeParams_;
+      $routeParams.id = 1;
+      $scope.loading = true;
+      var elem = angular.element('<new-brand loading="loading"></new-brand>');
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
+    }));
+
+    fit("should set the default scope vars", function() {
+      spyOn(brandFactory, 'create').and.callThrough();
       expect(element.isolateScope().loading).toEqual(true);
 
       var brand = { url: 'cucumber', brand_name: 'simon' };
