@@ -26,91 +26,21 @@ app.controller('BrandsController', ['$rootScope', '$window', '$scope', '$routePa
       type: 'link',
       link: '/#/brands/' + id,
       icon: 'face',
-      // active: isActive('dashboard')
     }];
 
-    // if (Auth.currentUser() && !Auth.currentUser().guest) {
-    //   menu.sections.push({
-    //     name: gettextCatalog.getString('Billing'),
-    //     type: 'link',
-    //     link: '/#/users/' + id + '/billing',
-    //     icon: 'credit_card',
-    //     active: isActive('billing')
-    //   });
-
-    //   menu.sections.push({
-    //     name: gettextCatalog.getString('Invoices'),
-    //     type: 'link',
-    //     link: '/#/users/' + id + '/invoices',
-    //     icon: 'picture_as_pdf',
-    //     active: isActive('invoices')
-    //   });
-    // }
-
     // menu.sections.push({
-    //   name: gettextCatalog.getString('Integrations'),
+    //   name: gettextCatalog.getString('Triggers'),
     //   type: 'link',
-    //   link: '/#/users/' + id + '/integrations',
-    //   icon: 'widgets',
-    //   active: isActive('integrations')
+    //   link: '/#/brands/' + id + '/alerts',
+    //   icon: 'email',
     // });
 
     // menu.sections.push({
-    //   name: gettextCatalog.getString('Settings'),
+    //   name: gettextCatalog.getString('Theme'),
     //   type: 'link',
-    //   link: '/#/brands/' + id + '/settings',
-    //   icon: 'settings',
-    //   // active: isActive('sessions')
+    //   link: '/#/brands/' + id + '/history',
+    //   icon: 'change_history',
     // });
-
-    menu.sections.push({
-      name: gettextCatalog.getString('Triggers'),
-      type: 'link',
-      link: '/#/brands/' + id + '/alerts',
-      icon: 'email',
-      // active: isActive('alerts')
-    });
-
-    // if (Auth.currentUser() && !Auth.currentUser().guest) {
-    //   menu.sections.push({
-    //     name: gettextCatalog.getString('Branding'),
-    //     type: 'link',
-    //     link: '/#/users/' + id + '/branding',
-    //     icon: 'perm_identity',
-    //     active: isActive('branding')
-    //   });
-    // }
-
-    // menu.sections.push({
-    //   name: gettextCatalog.getString('Locations'),
-    //   type: 'link',
-    //   link: '/#/users/' + id + '/locations',
-    //   icon: 'business'
-    // });
-
-    menu.sections.push({
-      name: gettextCatalog.getString('Theme'),
-      type: 'link',
-      link: '/#/brands/' + id + '/history',
-      icon: 'change_history',
-      // active: isActive('history')
-    });
-
-    // menu.sections.push({
-    //   name: gettextCatalog.getString('Inventory'),
-    //   type: 'link',
-    //   link: '/#/brands/' + id + '/inventory',
-    //   icon: 'track_changes',
-    //   // active: isActive('inventory')
-    // });
-    // menu.sections.push({
-    //   name: gettextCatalog.getString('Quotas'),
-    //   type: 'link',
-    //   link: '/#/brands/' + id + '/quotas',
-    //   icon: 'book',
-    //   // active: isActive('quotas')
-    // });
-
   }
 ]);
 

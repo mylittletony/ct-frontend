@@ -34,7 +34,8 @@ app.directive('listBrands', ['Brand', '$routeParams', '$location', '$rootScope',
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        // scope.loading = undefined;
+        scope.brands = [];
+        scope.loading = undefined;
       });
     };
 
@@ -85,19 +86,6 @@ app.directive('newBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$
         showErrors(err);
       });
     };
-
-    // var init = function() {
-    //   Brand.query({}).$promise.then(function(results) {
-    //     scope.brands  = results.brands;
-    //     scope._links  = results._links;
-    //     scope.loading = undefined;
-    //   }, function(err) {
-    //     console.log(err);
-    //     // scope.loading = undefined;
-    //   });
-    // };
-
-    // init();
 
   };
 
