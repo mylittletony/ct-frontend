@@ -52,13 +52,39 @@ app.directive('listBrands', ['Brand', '$routeParams', '$location', '$rootScope',
 
 }]);
 
-app.directive('newBrand', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
+app.directive('newBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', function(Brand, BrandName, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels) {
 
   var link = function(scope) {
 
     menu.isOpen = false;
     menu.hideBurger = true;
     menu.sectionName = gettextCatalog.getString('Brands');
+
+    scope.brandName = BrandName;
+    scope.brandName.name = 'Acme Inc';
+
+    scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
+    scope.locales = [
+      { key: 'Deutsch', value: 'de-DE' },
+      { key: 'English', value: 'en-GB' }
+    ];
+
+    scope.brand     = {
+      locale: 'en-GB',
+      network_location: 'eu-west',
+    };
+
+    scope.save = function(form) {
+      form.$setPristine();
+      scope.brand.brand_name = scope.brandName.name;
+      Brand.create({}, scope.brand
+      ).$promise.then(function(results) {
+        $location.path('/brands/'+results.id);
+        showToast(gettextCatalog.getString('Successfully created brand'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
 
     // var init = function() {
     //   Brand.query({}).$promise.then(function(results) {
@@ -90,7 +116,10 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
   var link = function(scope) {
 
     scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
-    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
+    scope.locales = [
+      { key: 'Deutsch', value: 'de-DE' },
+      { key: 'English', value: 'en-GB' }
+    ];
 
     var init = function() {
       Brand.get({id: $routeParams.id}).$promise.then(function(results) {

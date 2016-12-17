@@ -15,7 +15,34 @@
   </md-toolbar>
 </section>
 
-<md-content class="md-padding" layout="column" layout-gt-xs='column'>
+<md-content class="md-padding" ng-if="!brands">
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Get Started
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p translate>Your brand is logical container for all your locations, users and projects.</p>
+          <p translate>Adjust the default settings, colours and more.</p>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class='md-raised' href="/#/brands/new">
+              <translate>
+                Create
+              </translate>
+            </md-button>
+          </md-card-actions>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</md-content>
+
+<md-content class="md-padding" layout="column" layout-gt-xs='column' ng-show="brands.length > 0">
   <div layout="row" layout-align="center center">
     <div flex="100">
       <md-card>

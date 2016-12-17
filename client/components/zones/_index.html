@@ -18,9 +18,7 @@
 </md-toolbar>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-
   <div ng-show="zones.length == 0">
-
     <md-card>
       <md-card-title>
         <md-card-title-text>
@@ -41,11 +39,8 @@
         </md-card-actions>
       </md-card-content>
     </md-card>
-
   </div>
-
   <div flex layout="column" ng-show="zones.length > 0">
-
     <md-card>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
@@ -81,9 +76,7 @@
                 {{ zone.created_at | humanTime }}
               </td>
               <td hide show-gt-xs md-cell>
-                <!-- Simon, change this back to boxes when moved off old CT -->
                 {{ zone.boxes }}
-                <!-- Simon, change this back to boxes when moved off old CT -->
               </td>
               <td hide show-gt-xs md-cell>
                 {{ zone.networks }}
