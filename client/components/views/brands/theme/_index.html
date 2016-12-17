@@ -1,0 +1,52 @@
+<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="75">
+      <form name="myForm" ng-submit="save(brand)">
+        <div class="md-padding" layout="column" layout-gt-sm='column'>
+          <div layout="column" layout-gt-xs="row" layout-align="center center">
+            <div>
+              <md-card>
+                <md-card-title>
+                  <md-card-title-text>
+                    <span class="md-headline" translate>
+                      Dashboard Theme
+                    </span>
+                    <span class="md-subhead" translate>
+                      Customise the primary and accent colours for your dashboard.
+                    </span>
+                  </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                  <div layout="column" layout-gt-xs="row" layout-wrap flex="100" flex-gt-sm="100">
+                    <md-input-container class="md-block" flex-gt-sm="50">
+                      <label><translate>Primary Colour</translate></label>
+                      <md-select ng-model="brand.theme_primary" ng-change="swatchPrimary()" required>
+                        <md-option ng-repeat="theme in themes" ng-value="theme.key">
+                          {{ theme.val }}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="50">
+                      <label><translate>Accent Colour</translate></label>
+                      <md-select ng-model="brand.theme_accent" required>
+                        <md-option ng-repeat="theme in themes" ng-value="theme.key">
+                          {{ theme.val }}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <p style="margin-top: 0px;">
+                    <translate><small>The accent colour applies to some text and buttons. The primary colour updates your dashboard header and important text.</small></p>
+                  </p>
+                </md-card-content>
+              </md-card>
+
+              <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</md-content>

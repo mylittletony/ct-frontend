@@ -99,7 +99,30 @@ module.exports = function (grunt) {
           INTERCOM: 'zklfhs87',
           DEBUG: true,
           COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
-          COMMITHASH: commitHash.stdout
+          COMMITHASH: commitHash.stdout,
+          THEMES: [
+            "pink",
+            "orange",
+            "deep-orange",
+            "blue",
+            "blue-grey",
+            "light-blue",
+            "red",
+            "green",
+            "light-green",
+            "lime",
+            "yellow",
+            "teal",
+            "brown",
+            "purple",
+            "deep-purple",
+            "cyan",
+            "yellow",
+            "amber",
+            "indigo",
+            "brown",
+            "grey",
+          ]
         }
       },
       production: {
@@ -114,7 +137,30 @@ module.exports = function (grunt) {
           INTERCOM: 'zklfhs87',
           DEBUG: true,
           COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
-          COMMITHASH: commitHash.stdout
+          COMMITHASH: commitHash.stdout,
+          THEMES: [
+            "pink",
+            "orange",
+            "deep-orange",
+            "blue",
+            "blue-grey",
+            "light-blue",
+            "red",
+            "green",
+            "light-green",
+            "lime",
+            "yellow",
+            "teal",
+            "brown",
+            "purple",
+            "deep-purple",
+            "cyan",
+            "yellow",
+            "amber",
+            "indigo",
+            "brown",
+            "grey",
+          ]
         }
       }
     },
@@ -715,6 +761,7 @@ module.exports = function (grunt) {
     this.async();
   });
 
+  // This is not being used, if dormant, we should remove completely
   grunt.registerTask('configServer', function(target) {
       var output = "// Generated! Do not edit!\n"
                    + "'use strict';module.exports = ";

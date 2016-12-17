@@ -67,7 +67,7 @@
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
-    <md-toolbar ng-hide="vm.menu.hideToolbar">
+    <md-toolbar ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
       <div class="md-toolbar-tools">
         <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
@@ -110,33 +110,6 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-          <!-- <md-menu> -->
-          <!--   <md-button aria-label="'Open Apps Menu' | translate" href="/#/audit" class="md-icon-button" iiing-click="$mdOpenMenu($event)"> -->
-          <!--     <md-icon>assessment</md-icon> -->
-          <!--   </md-button> -->
-          <!-- </md-menu> -->
-          <!-- <md-menu> -->
-          <!--   <md-button aria-label="'Open Apps Menu' | translate" href="/#/audit" class="md-icon-button" iiing-click="$mdOpenMenu($event)"> -->
-          <!--     <md-icon>assessment</md-icon> -->
-          <!--   </md-button> -->
-          <!--   <1!-- <md-menu-content width="4" > --1> -->
-          <!--   <1!--   <md-menu-item ng-repeat="item in vm.menu.reports"> --1> -->
-          <!--   <1!--     <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider> --1> -->
-          <!--   <1!--     <md-button ing-if="section.type === 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()"> --1> -->
-          <!--   <1!--       <md-icon md-menu-align-target>{{ item.icon }}</md-icon> --1> -->
-          <!--   <1!--       {{ item.title }} --1> -->
-          <!--   <1!--     </md-button> --1> -->
-          <!--   <1!--   </md-menu-item> --1> -->
-          <!--   <1!-- </md-menu-content> --1> -->
-          <!-- </md-menu> -->
-          <!-- <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="!vm.menu.Intercom"> -->
-          <!--   <a target="_blank" href="http://discuss.cucumberwifi.io"> -->
-          <!--     <md-icon>forum</md-icon> -->
-          <!--   </a> -->
-          <!-- </md-button> -->
-          <!-- <md-button class="md-icon-button" aria-label="'Support' | translate" id="intercom" ng-if="vm.menu.Intercom"> -->
-          <!--   <md-icon>chat</md-icon> -->
-          <!-- </md-button> -->
           <md-button class="md-icon-button" aria-label="'Support' | translate">
             <a target="_blank" href="http://discuss.cucumberwifi.io">
               <md-icon>forum</md-icon>
@@ -155,14 +128,6 @@
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
 
-              <!-- <md-menu-item> -->
-              <!--   <md-button ng-href="/#/users" ng-click="$mdMenu.hide()"> -->
-              <!--     <md-icon md-menu-align-target style="margin: auto 3px auto 0;">people</md-icon> -->
-              <!--     <span translate>Manage Users</span> -->
-              <!--   </md-button> -->
-              <!-- </md-menu-item> -->
-
-              <!-- <md-menu-divider></md-menu-divider> -->
               <md-menu-item>
                 <md-button target="_blank" ng-href="http://docs.cucumberwifi.io" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">account_balance</md-icon>

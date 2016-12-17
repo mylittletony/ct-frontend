@@ -20,12 +20,11 @@ var app = angular.module('myApp.controllers', [
   'myApp.vouchers.controller'
 ]);
 
-app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate', 'COMMITHASH', 'Theme',
+app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate', 'COMMITHASH',
 
-  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, Theme) {
+  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH) {
 
     $scope.commit = COMMITHASH;
-    console.log('COMMIT: #', $scope.commit);
     $scope.ct_login = CTLogin;
 
     // Zak Moonman - bonjour move these into something separate
@@ -35,6 +34,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
     docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
     // Zak Moonman - bonjour move these into something separate
+
+    // greeting.theme('default')
+    //   .primaryPalette('pink')
+    //   .accentPalette('orange')
+    //   .backgroundPalette('yellow');
+
+    // $mdTheming.generateTheme('default');
 
     function isOpen(section) {
       return (menu.isSectionSelected(section) && menu.isOpen());
@@ -188,6 +194,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     // });
 
     $scope.toggleOpen = toggleOpen;
+
+    // $scope.$on('themeChange', function(args) {
+    //   alert(123);
+    // });
 
     $scope.$on('logout', function(args) {
       logout().then(function(response) {

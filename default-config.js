@@ -29,6 +29,29 @@ module.exports = {
             DEBUG: true,
             COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
             COMMITHASH: commitHash.stdout,
+            THEMES: [
+                "pink",
+                "orange",
+                "deep-orange",
+                "blue",
+                "blue-grey",
+                "light-blue",
+                "red",
+                "green",
+                "light-green",
+                "lime",
+                "yellow",
+                "teal",
+                "brown",
+                "purple",
+                "deep-purple",
+                "cyan",
+                "yellow",
+                "amber",
+                "indigo",
+                "brown",
+                "grey"
+            ]
         }
     },
     // Server configuration.

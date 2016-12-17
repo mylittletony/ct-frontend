@@ -35,12 +35,12 @@ app.controller('BrandsController', ['$rootScope', '$window', '$scope', '$routePa
     //   icon: 'email',
     // });
 
-    // menu.sections.push({
-    //   name: gettextCatalog.getString('Theme'),
-    //   type: 'link',
-    //   link: '/#/brands/' + id + '/history',
-    //   icon: 'change_history',
-    // });
+    menu.sections.push({
+      name: gettextCatalog.getString('Theme'),
+      type: 'link',
+      link: '/#/brands/' + id + '/theme',
+      icon: 'format_paint',
+    });
   }
 ]);
 

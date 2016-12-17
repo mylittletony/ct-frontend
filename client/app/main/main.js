@@ -29,13 +29,36 @@ app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
-app.config(['$mdThemingProvider', function($mdThemingProvider) {
+// app.config(['$mdThemingProvider', '$provide', function($mdThemingProvider, $provide) {
+//   $mdThemingProvider.generateThemesOnDemand(true);
+//   $provide.value('greeting', $mdThemingProvider);
+// }]);
+
+// app.config(['$provide', '$mdThemingProvider', function($provide, $mdThemingProvider) {
+//   $provide.provider('greeting', function() {
+//     this.$get = function() {
+//       return function(name) {
+//         alert(123)
+//         $mdThemingProvider.theme('lime')
+//           .primaryPalette('blue')
+//           .accentPalette('blue', {
+//             'default': '500',
+//             'hue-1': '50'
+//           });
+//         // $mdThemingProvider.alwaysWatchTheme(true);
+//       };
+//     };
+//   });
+// }]);
+
+app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES) {
+
   var $cookies;
   angular.injector(['ngCookies']).invoke(['$cookies', function(_$cookies_) {
     $cookies = _$cookies_;
   }]);
 
-  var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
+  // var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
   var theme = $cookies.get('_ctt');
   var primary, accent;
 
@@ -45,15 +68,13 @@ app.config(['$mdThemingProvider', function($mdThemingProvider) {
     accent = p[1];
   }
 
-  if (items.indexOf(primary) === -1) {
-    primary = 'blue';
-  }
+  // if (THEMES.indexOf(primary) === -1) {
+  //   primary = 'blue';
+  // }
 
-  if (items.indexOf(accent) === -1) {
-    accent = 'blue';
-  }
-
-  console.log(primary, accent);
+  // if (THEMES.indexOf(accent) === -1) {
+  //   accent = 'blue';
+  // }
 
   $mdThemingProvider.theme('default')
     .primaryPalette(primary)
@@ -61,7 +82,16 @@ app.config(['$mdThemingProvider', function($mdThemingProvider) {
       'default': '500',
       'hue-1': '50'
     });
-  console.log($cookies.get('_ctt'));
+
+  for (var i = 0; i < THEMES.length; i++) {
+    $mdThemingProvider.theme(THEMES[i])
+      .primaryPalette(THEMES[i]);
+    // .accentPalette('orange')
+    // .warnPalette('blue');
+  }
+
+  $mdThemingProvider.alwaysWatchTheme(true);
+
 }]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
@@ -70,22 +100,23 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
 
-  // var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
-  // var item = 'blue-grey';
-
-  // $mdThemingProvider.theme('default')
-  //   .primaryPalette(item, {
-  //     'hue-1': '100',
-  //   }).
-  //   accentPalette('blue', {
-  //     'default': '500',
-  //     'hue-1': '50'
-  //   });
-
-  // function setTheme (Theme) {
-  //   console.log(Theme);
+  // function test ($rootScope) {
+  //   $rootScope.$broadcast('', '');
+  //   // $rootScope.$on('themeChange', function(args) {
+  //   //   alert(123);
+  //   // });
   // }
-  // setTheme();
+  // loginRequired.$inject = ['$rootScope' ];
+
+  // test();
+
+  // function test ($location, $q, AccessToken, $rootScope) {
+  //   $rootScope.$on('themeChange', function() {
+  //     alert(123)
+  //   });
+  // }
+  // test.$inject = ['$location', '$q', 'AccessToken', '$rootScope' ];
+  // test();
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
