@@ -1,5 +1,4 @@
-This only appears as non-admin
-<md-content class="md-padding" g-if="brand && brand.id && brand.admin != true">
+<md-content class="md-padding" ng-if="brand && brand.id && brand.admin != true">
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
       <md-card>
@@ -170,7 +169,7 @@ This only appears as non-admin
 
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label><translate>Network Location</translate></label>
-                  <md-select ng-model="brand.network_location">
+                  <md-select ng-model="brand.network_location" required>
                     <md-option ng-repeat="loc in locations" ng-value="loc">
                       {{ loc }}
                     </md-option>
@@ -178,7 +177,7 @@ This only appears as non-admin
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label><translate>Default Locale</translate></label>
-                  <md-select ng-model="brand.locale">
+                  <md-select ng-model="brand.locale" required>
                     <md-option ng-repeat="locale in locales" ng-value="locale.value">
                       {{ locale.key }}
                     </md-option>
@@ -196,14 +195,14 @@ This only appears as non-admin
                     <translate>Enterprise Features</translate>
                   </span>
                   <span class="md-subhead">
-                    <!-- Use your own URL for the dashboard. Premium plans only. -->
+                    Adjust the default quotas for your users, only available on Enterprise plans.
                   </span>
                 </md-card-title-text>
               </md-card-title>
 
               <md-card-content layout-gt-xs="row" layout="column" layout-gt-sm="row" flex="50" layout-wrap>
 
-                <md-input-container class="md-block" flex-gt-xs="100">
+                <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Location Quota</translate></label>
                   <input  type="number" name="quota_locations" ng-model="brand.quota_locations" ng-max=1000 required></input>
                   <div ng-messages="myForm.quota_locations.$error" md-auto-hide="false">
@@ -212,7 +211,7 @@ This only appears as non-admin
                   </div>
                 </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-xs="100">
+                <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Box Quota</translate></label>
                   <input  type="number" name="quota_boxes" ng-model="brand.quota_boxes" ng-max=1000 required></input>
                   <div ng-messages="myForm.quota_boxes.$error" md-auto-hide="false">
@@ -221,7 +220,7 @@ This only appears as non-admin
                   </div>
                 </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-xs="100">
+                <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Admin Quota</translate></label>
                   <input  type="number" name="quota_admins" ng-model="brand.quota_admins" ng-max=100 required></input>
                   <div ng-messages="myForm.quota_admins.$error" md-auto-hide="false">
@@ -230,7 +229,7 @@ This only appears as non-admin
                   </div>
                 </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-xs="100">
+                <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Projects Quota</translate></label>
                   <input  type="number" name="quota_projects" ng-model="brand.quota_projects" ng-max=100 ng-disabled="!brand.quota_project_users" required></input>
                   <div ng-messages="myForm.quota_projects.$error" md-auto-hide="false">
