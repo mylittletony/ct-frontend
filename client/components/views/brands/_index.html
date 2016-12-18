@@ -15,7 +15,7 @@
   </md-toolbar>
 </section>
 
-<md-content class="md-padding" ng-if="!brands">
+<md-content class="md-padding" ng-show="brands.length == 0">
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
       <md-card>
@@ -58,8 +58,8 @@
                 <tr md-row>
                   <th md-column md-order-by="brand_name"><span translate>Name</span></th>
                   <th hide show-gt-sm md-column md-order-by="owner" ng-if="user_id"><span translate>Owner</span></th>
-                  <th md-column md-order-by="url" md-desc><span translate>URL</span></th>
-                  <th md-column md-order-by="cname" md-desc><span translate>CNAME</span></th>
+                  <th hide show-gt-md md-column md-order-by="url" md-desc><span translate>URL</span></th>
+                  <th hide show-gt-md md-column md-order-by="cname" md-desc><span translate>CNAME</span></th>
                   <th hide show-gt-md md-column md-order-by="region"><span translate>Region</span></th>
                   <th hide show-gt-xs md-column md-order-by="country"><span translate>Country</span></th>
                   <th hide show-gt-sm md-column md-order-by="timezone"><span translate>Timezone</span></th>
@@ -71,21 +71,22 @@
                   <td md-cell>
                     <a href="/#/brands/{{ brand.id }}">{{ brand.brand_name }}</a>
                   </td>
-                  <td hide show-gt-xs md-cell>
+                  <td hide show-gt-md md-cell>
                     {{ ::brand.url }}
                   </td>
                   <td hide show-gt-md md-cell>
                     {{ ::brand.cname || '-' }}
                   </td>
-                  <td hide show-gt-sm md-cell>
+                  <td hide show-gt-md md-cell>
                     {{ ::brand.network_location }}
                   </td>
-                  <td hide show-gt-sm md-cell>
-                    {{ ::brand.country }}
+                  <td hide show-gt-md md-cell>
+                    {{ ::brand.country || '-' }}
                   </td>
                   <td hide show-gt-sm md-cell>
-                    {{ ::brand.timezone }}
+                    {{ ::brand.timezone || '-' }}
                   </td>
+                  <td md-cell>
                   <td md-cell>
                     <md-menu>
                       <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -94,8 +95,14 @@
                       <md-menu-content width="4">
                         <md-menu-item>
                           <md-button href="/#/brands/{{ brand.id }}">
-                            <md-icon>pageview</md-icon>
-                            <p flex translate>View Brand</p>
+                            <md-icon>settings</md-icon>
+                            <p flex translate>Settings</p>
+                          </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                          <md-button href="/#/brands/{{ brand.id }}/theme">
+                            <md-icon>format_paint</md-icon>
+                            <p flex translate>Theme</p>
                           </md-button>
                         </md-menu-item>
                       </md-menu-content>

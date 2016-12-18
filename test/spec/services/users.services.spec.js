@@ -142,8 +142,8 @@ describe("RESTful Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/users/switch')
     .respond(200, {});
 
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/users/distro?dst=123')
-    .respond(200, {});
+    // $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/users/distro?dst=123')
+    // .respond(200, {});
 
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
   }));
@@ -184,56 +184,56 @@ describe("RESTful Tests", function() {
   });
 
   it('should have sent a post req. to switch sessions', function() {
-    var result = User.switcher({id: 123})
+    var result = User.switcher({})
     $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/users/switch')
     $httpBackend.flush();
   });
 
-  it('should have sent a post req. to create the distro link', function() {
-    var result = User.distro({id: 123})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/users/distro?dst=123')
-    $httpBackend.flush();
-  });
+  // it('should have sent a post req. to create the distro link', function() {
+  //   var result = User.distro({id: 123})
+  //   $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/users/distro?dst=123')
+  //   $httpBackend.flush();
+  // });
 
 });
 
-describe("User Settings Tests", function() {
+// describe("User Settings Tests", function() {
 
-  beforeEach(module('myApp'));
+//   beforeEach(module('myApp'));
 
-  var $httpBackend;
-  var UserSettings;
+//   var $httpBackend;
+//   var UserSettings;
 
-  beforeEach(inject(function($injector, _UserSettings_) {
+//   beforeEach(inject(function($injector, _UserSettings_) {
 
-    UserSettings = _UserSettings_;
-    $httpBackend = $injector.get('$httpBackend');
+//     UserSettings = _UserSettings_;
+//     $httpBackend = $injector.get('$httpBackend');
 
-    $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/user_settings')
-    .respond(200, {});
+//     $httpBackend.when('GET', 'http://mywifi.dev:8080/api/v1/user_settings')
+//     .respond(200, {});
 
-    $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/user_settings')
-    .respond(200, {});
+//     $httpBackend.when('PATCH', 'http://mywifi.dev:8080/api/v1/user_settings')
+//     .respond(200, {});
 
-    $httpBackend.whenGET('/translations/en_GB.json').respond("");
-  }));
+//     $httpBackend.whenGET('/translations/en_GB.json').respond("");
+//   }));
 
-  afterEach(function() {
-    $httpBackend.verifyNoOutstandingExpectation();
-    $httpBackend.verifyNoOutstandingRequest();
-  });
+//   afterEach(function() {
+//     $httpBackend.verifyNoOutstandingExpectation();
+//     $httpBackend.verifyNoOutstandingRequest();
+//   });
 
-  it('should have sent a GET request to get the users', function() {
-    var result = UserSettings.get()
-    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/user_settings')
-    $httpBackend.flush();
-  });
+//   it('should have sent a GET request to get the users', function() {
+//     var result = UserSettings.get()
+//     $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/user_settings')
+//     $httpBackend.flush();
+//   });
 
-  it('should have sent a GET request to get the users', function() {
-    var result = UserSettings.update()
-    $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/user_settings')
-    $httpBackend.flush();
-  });
+//   it('should have sent a GET request to get the users', function() {
+//     var result = UserSettings.update()
+//     $httpBackend.expectPATCH('http://mywifi.dev:8080/api/v1/user_settings')
+//     $httpBackend.flush();
+//   });
 
-});
+// });
 

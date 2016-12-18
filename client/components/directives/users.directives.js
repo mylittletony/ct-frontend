@@ -40,7 +40,10 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
     scope.update = function(form) {
       form.$setPristine();
       scope.user.plan = undefined;
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         if (locale !== results.locale) {
           console.log('Setting locale to', results.locale);
           Auth.currentUser().locale = results.locale;
@@ -103,7 +106,10 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
     scope.save = function(form) {
       form.$setPristine();
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
@@ -154,7 +160,10 @@ app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'sh
     DialogController.$inject = ['$scope', 'user'];
 
     var save = function(user) {
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         scope.user.coupon_code = undefined;
         scope.user.adding_coupon = results.adding_coupon;
       }, function(err) {
@@ -245,7 +254,10 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
     DialogController.$inject = ['$scope'];
 
     var save = function() {
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         scope.user.subscribing = true;
       }, function(err) {
         showErrors(err);
@@ -538,7 +550,10 @@ app.directive('userBillingSettings', ['User', '$routeParams', 'showToast', 'show
 
     scope.save = function(form) {
       form.$setPristine();
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Successfully updated details.'));
         if (results.currency !== currency) {
           $route.reload();
@@ -1025,7 +1040,10 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
     scope.update = function(form) {
       formatTonyTime();
       form.$setPristine();
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
@@ -1215,7 +1233,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
     };
 
     var updateRole = function(user) {
-      BrandUser.update({
+      BrandUser.update({}, {
         id: user.id,
         brand_user: {
           role_id: user.brand_user.role_id

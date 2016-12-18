@@ -1,7 +1,6 @@
 'use strict';
 
 var app = angular.module('myApp.controllers', [
-
   'myApp.authentications.controller',
   'myApp.brands.controller',
   'myApp.boxes.controller',
@@ -25,15 +24,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
   function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH) {
 
     $scope.commit = COMMITHASH;
-    console.log('COMMIT: #', $scope.commit);
     $scope.ct_login = CTLogin;
 
     // Zak Moonman - bonjour move these into something separate
-    docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
-    docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
-    docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
-    docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
-    docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
+    // docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
+    // docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
+    // docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
+    // docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
+    // docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
     // Zak Moonman - bonjour move these into something separate
 
     function isOpen(section) {
@@ -73,65 +71,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       vm.menu.isOpen = false;
     }
 
-    // vm.menu.main = [];
-
-    // vm.menu.main = [{
-    //   title: gettextCatalog.getString('Home'),
-    //   link: '/#/',
-    //   type: 'link',
-    //   icon: 'home'
-    // }];
-
-    // vm.menu.main.push({
-    //   title: gettextCatalog.getString('Locations'),
-    //   type: 'link',
-    //   link: '/#/locations',
-    //   icon: 'business'
-    // });
-
-    // vm.menu.main.push({
-    //   type: 'divider',
-    // });
-
-    // vm.menu.main.push({
-    //   title: gettextCatalog.getString('Events'),
-    //   type: 'link',
-    //   link: '/#/events',
-    //   icon: 'warning'
-    // });
-
-    // vm.menu.main.push({
-    //   title: gettextCatalog.getString('Reports'),
-    //   type: 'link',
-    //   link: '/#/reports',
-    //   icon: 'timeline'
-    // });
-
-    // vm.menu.main.push({
-    //   title: gettextCatalog.getString('Audit'),
-    //   type: 'link',
-    //   link: '/#/audit',
-    //   icon: 'assignment'
-    // });
-
     vm.menu.main = [];
-
     vm.menu.reports = [];
-
     vm.settingsMenu = [];
-
     vm.menuRight = [];
-
-    // vm.menu.main.push({
-    //   type: 'divider',
-    // });
-
-    // vm.menu.main.push({
-    //   title: gettextCatalog.getString('Brands'),
-    //   type: 'link',
-    //   link: '/#/brands',
-    //   icon: 'branding_watermark'
-    // });
 
     vm.menu.reports.push({
       title: gettextCatalog.getString('Reports'),
@@ -146,13 +89,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       link: '/#/audit',
       icon: 'assignment'
     });
-
-    // vm.menu.main.push({
-    //   title: gettextCatalog.getString('Events'),
-    //   type: 'link',
-    //   link: '/#/events',
-    //   icon: 'warning'
-    // });
 
     vm.status = {
       isFirstOpen: true,
@@ -172,13 +108,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       type: 'link',
       icon: 'business'
     });
-
-    // vm.menuRight.push({
-    //   name: gettextCatalog.getString('Brands'),
-    //   link: '/#/brands',
-    //   type: 'link',
-    //   icon: 'timeline'
-    // });
 
     vm.menuRight.push({
       name: gettextCatalog.getString('Reports'),
@@ -400,6 +329,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           // Decide to switch the brand here
           // Can we turn Cucumber into a variable so we don't just set
           // Maybe use the config files - Simon TBD //
+
+          var t = $cookies.get('_ctt');
+          // if (t !== results.theme_primary) {
+          $cookies.put('_ctt', results.theme_primary + '.' + results.theme_accent);
+          // }
           $scope.brandName.name  = results.brand_name || 'Cucumber';
           // Maybe use the config files - Simon TBD //
           $scope.brandName.admin = results.admin;

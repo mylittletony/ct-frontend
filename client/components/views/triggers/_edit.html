@@ -12,7 +12,7 @@
         <md-menu-item ng-repeat="item in menu">
           <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
             <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-            {{item.name}}
+            {{ item.name }}
           </md-button>
         </md-menu-item>
       </md-menu-content>

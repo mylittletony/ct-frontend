@@ -220,11 +220,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         action = 'cancel';
       }
 
-      Box.update({
+      Box.update({}, {
         id: scope.box.slug,
         box: { action: action }
       }).$promise.then(function(results) {
-        if (!cancel) {
+        if (action === 'reset') {
           showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
           scope.box.allowed_job = false;
           scope.box.state = 'resetting';
@@ -538,7 +538,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       var deferred = $q.defer();
       if (scope.box.zone_id || ignoreZone) {
         var msg = 'Ignoring zid: ' + scope.box.zone_id + '. Ignore: ' + ignoreZone;
-        console.log(msg);
         deferred.resolve();
       } else {
         Zone.get({
@@ -1548,7 +1547,6 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     };
 
     function fetchDiscovered() {
-
       Box.detect({location_id: scope.location.slug}).$promise.then(function(data) {
         sortRogues(data);
       }, function(err) {
@@ -1640,7 +1638,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       }
       scope.creating = true;
       var type = $routeParams.type || scope.setup.type;
-      Box.save({
+      Box.save({}, {
         location_id: scope.location.slug,
         box: box
       }).$promise.then(function(data) {

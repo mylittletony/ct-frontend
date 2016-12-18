@@ -1,10 +1,4 @@
 /* Temp fixes to address */
-.intercom-foot-pad {
-  padding-bottom: 70px;
-}
-
-/* Temp fixes to address */
-
 .hidden { display: none; }
 
 .hard-break {
@@ -75,7 +69,10 @@ md-menu-content {
   max-height: 504px;
 }
 
-/* Temp fixes to address */
+.intercom-foot-pad {
+  padding-bottom: 70px;
+}
+
 /* Temp fixes to address */
 
 .ng-hide.ng-hide-animate{

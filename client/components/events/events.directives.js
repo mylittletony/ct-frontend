@@ -61,7 +61,9 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
       { name: gettextCatalog.getString('Triggers'), value: 'trigger' },
       { name: gettextCatalog.getString('Vouchers'), value: 'voucher'},
       { name: gettextCatalog.getString('Users'), value: 'user'},
-      { name: gettextCatalog.getString('Zones'), value: 'zone' }
+      { name: gettextCatalog.getString('Zones'), value: 'zone' },
+      { name: gettextCatalog.getString('Projects'), value: 'projects' },
+      { name: gettextCatalog.getString('Project Users'), value: 'project_user' },
     ];
 
     scope.levels = [
