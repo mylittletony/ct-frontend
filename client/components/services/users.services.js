@@ -102,21 +102,17 @@ app.factory('User', ['$resource', 'API_END_POINT',
     return $resource(API + '/users/:id/:action',
       {
         token: '@token',
-        id: '@id'
+        id: '@id',
       },
       {
       get: {
         method: 'GET',
         isArray: true
       },
-      distro: {
-        method: 'POST',
-        isArray: false,
-        params: {
-          action: 'distro',
-          dst: '@id'
-        }
-      },
+      // distro: {
+      //   method: 'POST',
+      //   isArray: false,
+      // },
       switcher: {
         method: 'POST',
         isArray: false,
