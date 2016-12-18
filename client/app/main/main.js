@@ -53,6 +53,14 @@ app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES)
     accent = 'blue';
   }
 
+  if (THEMES.indexOf(primary) === -1) {
+    primary = 'blue';
+  }
+
+  if (THEMES.indexOf(accent) === -1) {
+    primary = 'blue';
+  }
+
   $mdThemingProvider.theme('default')
     .primaryPalette(primary)
     .accentPalette(accent, {
