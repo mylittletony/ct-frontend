@@ -74,6 +74,13 @@ msgstr ". Statische IP-Adresse: {{ ::box.wan_ipaddr }}"
 msgid "0 TBC"
 msgstr "0 zu bestätigen"
 
+#: client/components/views/brands/_index.html:51
+#, fuzzy
+msgid "1 Brand"
+msgid_plural "{{ ::_links.total_entries }} Brands"
+msgstr[0] "Branding"
+msgstr[1] "Branding"
+
 #: client/components/locations/boxes/_table.html:9
 msgid "1 Client Online."
 msgid_plural "{{ online }} Clients Online."
@@ -86,19 +93,19 @@ msgid_plural "{{ ::_links.total_entries }} Devices"
 msgstr[0] "1 Gerät"
 msgstr[1] "{{ ::_links.total_entries }} Geräte"
 
-#: client/components/locations/boxes/_table.html:8
-msgctxt "total number, devices"
-msgid "1 Device."
-msgid_plural "{{_links.total_entries}} Devices."
-msgstr[0] "1 Gerät."
-msgstr[1] "{{_links.total_entries}} Geräte."
-
 #: client/components/locations/boxes/_table.html:7
 msgctxt "filtered number, devices"
 msgid "1 Device."
 msgid_plural "{{filtered.length}} Devices."
 msgstr[0] "1 Gerät."
 msgstr[1] "{{filtered.length}} Geräte."
+
+#: client/components/locations/boxes/_table.html:8
+msgctxt "total number, devices"
+msgid "1 Device."
+msgid_plural "{{_links.total_entries}} Devices."
+msgstr[0] "1 Gerät."
+msgstr[1] "{{_links.total_entries}} Geräte."
 
 #: client/components/locations/index/_favourites.html:36
 msgid "1 Favourite"
@@ -377,10 +384,17 @@ msgstr ""
 "<a href=\"/#/locations/{{ location.slug }}/group_policies/{{ client."
 "policies[0].id}}\">{{ client.policies[0].policy_name | titleCase }}</a>"
 
-#: client/components/locations/triggers/_show.html:34
+#: client/components/views/triggers/_show.html:34
 #, fuzzy
 msgid "<b>Trigger disabled!</b>"
 msgstr "Trigger ist ausgeschaltet"
+
+#: client/components/views/brands/_show.html:158
+msgid ""
+"<md-icon md-font-icon=\"android\" aria-label=\"android\">star</md-icon>\n"
+"                    Disable all outbound email alerts! Brand and location "
+"triggers will continue to send. Premium only."
+msgstr ""
 
 #: client/components/users/billing/_index.html:55
 msgid ""
@@ -390,7 +404,7 @@ msgstr ""
 "<md-icon md-font-icon=\"arrow_back\">star</md-icon>\n"
 "                  Enterprise-Kunde"
 
-#: client/components/locations/triggers/_show.html:31
+#: client/components/views/triggers/_show.html:31
 msgid ""
 "<md-icon ng-if=\"trigger.locked\">lock</md-icon>\n"
 "              <span ng-show=\"trigger.active\" translate=\"\">Details</"
@@ -412,6 +426,18 @@ msgid ""
 msgstr ""
 "<small>Bitte wählen Sie die Anmeldezeit so, dass der Zeitraum kleiner ist "
 "als die Gültigkeit in Minuten.</small>"
+
+#: client/components/views/brands/theme/_index.html:40
+msgid ""
+"<small>The accent colour applies to some text and buttons. The primary "
+"colour updates your dashboard header and important text.</small>"
+msgstr ""
+
+#: client/components/views/triggers/list.html:75
+msgid ""
+"<span ng-if=\"trigger.active\">Trigger is active</span>\n"
+"                      <span ng-if=\"!trigger.active\">Trigger disabled</span>"
+msgstr ""
 
 #: client/components/splash_pages/splash_pages.directives.js:1114
 msgid "A 24 hour voucher, for up to 3 devices. Valid for one 24 hour period."
@@ -531,6 +557,11 @@ msgstr "AP-Name"
 msgid "API secret required when using your own App."
 msgstr "API-Geheimnis erforderlich, wenn Sie Ihre eigene App zu verwenden."
 
+#: client/components/views/brands/theme/_index.html:31
+#, fuzzy
+msgid "Accent Colour"
+msgstr "Schriftfarbe"
+
 #: client/components/users/users.controllers.js:107
 msgid "Access"
 msgstr "Zugriff"
@@ -580,7 +611,7 @@ msgstr ""
 msgid "Access point resynced successfully."
 msgstr "Gerät erfolgreich synchronisiert."
 
-#: client/components/users/layouts/sidebar.html:1 client/index.html:118
+#: client/components/users/layouts/sidebar.html:1 client/index.html:126
 msgid "Account"
 msgstr "Konto"
 
@@ -610,8 +641,6 @@ msgstr "Accounting-Server-Port"
 #: client/components/locations/index/_favourites.html:52
 #: client/components/locations/index/_list.html:76
 #: client/components/locations/networks/_index.html:37
-#: client/components/locations/triggers/history/_index.html:22
-#: client/components/locations/triggers/list.html:55
 #: client/components/locations/users/_index.html:40
 #: client/components/splash_codes/_index.html:59
 #: client/components/splash_pages/_index.html:53
@@ -619,10 +648,13 @@ msgstr "Accounting-Server-Port"
 #: client/components/users/invoices/_details.html:115
 #: client/components/users/invoices/_index.html:37
 #: client/components/views/brand_users/_index.html:46
+#: client/components/views/brands/_index.html:66
 #: client/components/views/group_policies/_index.html:64
 #: client/components/views/group_policies/_show.html:49
-#: client/components/vouchers/_index.html:86
-#: client/components/zones/_index.html:63 client/components/zones/_show.html:50
+#: client/components/views/triggers/history/_index.html:22
+#: client/components/views/triggers/list.html:67
+#: client/components/vouchers/_index.html:81
+#: client/components/zones/_index.html:58 client/components/zones/_show.html:50
 msgid "Action"
 msgstr "Aktion "
 
@@ -659,13 +691,13 @@ msgstr "Aktiviert: {{ ::(code.date_activated | humanTime) }}"
 #: client/components/locations/clients/codes.html:30
 #: client/components/locations/index/_favourites.html:46
 #: client/components/locations/networks/_index.html:31
-#: client/components/locations/triggers/_show.html:52
-#: client/components/locations/triggers/list.html:49
 #: client/components/splash_codes/_index.html:55
 #: client/components/splash_codes/_show.html:114
 #: client/components/splash_pages/_index.html:48
 #: client/components/users/show/_index.html:59
-#: client/components/vouchers/_index.html:80
+#: client/components/views/triggers/_show.html:52
+#: client/components/views/triggers/list.html:61
+#: client/components/vouchers/_index.html:75
 msgid "Active"
 msgstr "Aktiv"
 
@@ -685,6 +717,11 @@ msgstr "App hinzufügen"
 
 #: client/components/boxes/new/_add.html:161
 msgid "Add Box"
+msgstr "Gerät hinzufügen"
+
+#: client/components/views/brands/_index.html:5
+#, fuzzy
+msgid "Add Brand"
 msgstr "Gerät hinzufügen"
 
 #: client/components/views/clients/_create.html:5
@@ -748,8 +785,8 @@ msgstr ""
 "Fügen Sie ein Zahlungsmittel zu Ihrem Konto hinzu, bevor Sie einen Tarif aus "
 "der Liste auswählen."
 
-#: client/components/boxes/boxes.directives.js:1702
-#: client/components/boxes/boxes.directives.js:1707
+#: client/components/boxes/boxes.directives.js:1700
+#: client/components/boxes/boxes.directives.js:1705
 #: client/components/boxes/new/_add.html:123
 msgid "Add a comment"
 msgstr "Einen Kommentar hinzufügen"
@@ -767,6 +804,11 @@ msgstr ""
 
 #: client/components/apps/_index.html:11 client/components/apps/_show.html:11
 msgid "Add a new app."
+msgstr "Eine neue App hinzufügen."
+
+#: client/components/views/brands/_index.html:8
+#, fuzzy
+msgid "Add a new brand."
 msgstr "Eine neue App hinzufügen."
 
 #: client/components/locations/show/_index.html:13
@@ -847,6 +889,11 @@ msgstr "Keine weiteren Informationen verfügbar"
 msgid "Address"
 msgstr "Adresse"
 
+#: client/components/views/brands/_index.html:31
+#, fuzzy
+msgid "Adjust the default settings, colours and more."
+msgstr "Globale Einstellungen für Ihre Geräte anpassen."
+
 #: client/components/locations/settings/_splash.html:11
 msgid "Adjust the general settings for your splash pages."
 msgstr "Allgemeine Einstellungen Ihrer Startseite anpassen."
@@ -858,6 +905,10 @@ msgstr "Globale Einstellungen für Ihre Geräte anpassen."
 #: client/components/users/alerts/_index.html:23
 msgid "Adjust your email settings and notification preferences."
 msgstr "E-Mail und Benachrichtigungs-Einstellungen anpassen."
+
+#: client/components/views/brands/_show.html:255
+msgid "Admin Quota"
+msgstr ""
 
 #: client/components/locations/users/_index.html:23
 #: client/components/locations/users/_index.html:6
@@ -890,7 +941,8 @@ msgstr "Erweiterte Radio-Einstellungen"
 
 #: client/components/locations/networks/_show.html:309
 #: client/components/splash_pages/splash_show.html:361
-#: client/components/users/branding/_form.html:156
+#: client/components/views/brands/_new.html:58
+#: client/components/views/brands/_show.html:171
 #: client/components/vouchers/_form.html:107
 msgid "Advanced Settings"
 msgstr "Erweiterte Einstellungen"
@@ -903,7 +955,7 @@ msgstr "Afghanistan"
 msgid "Albania"
 msgstr "Albanien"
 
-#: client/components/events/events.directives.js:69
+#: client/components/events/events.directives.js:71
 #, fuzzy
 msgid "Alert"
 msgstr "Warnungen"
@@ -929,9 +981,9 @@ msgstr "Algerien"
 msgid "Alice in Wonderland"
 msgstr "Alice im Wunderland"
 
+#: client/components/directives/triggers.directives.js:251
 #: client/components/events/events.directives.js:50
-#: client/components/events/events.directives.js:68
-#: client/components/locations/triggers/triggers.directives.js:182
+#: client/components/events/events.directives.js:70
 msgid "All"
 msgstr "Alle"
 
@@ -971,9 +1023,9 @@ msgstr "Erlaubt für Stationen auf der Whitelist"
 msgid "Allow checkin"
 msgstr "Anmelden erlauben"
 
-#: client/components/locations/triggers/_new.html:451
 #: client/components/splash_pages/splash_show.html:269
 #: client/components/users/alerts/_index.html:51
+#: client/components/views/triggers/_new.html:519
 msgid "Allowed Days"
 msgstr "Zulässige Tage"
 
@@ -993,7 +1045,7 @@ msgstr "Amerikanisch-Samoa"
 msgid "An accurate location category == better analytics :)"
 msgstr "Eine genaue Standortkategorie führt zu besseren Analysen."
 
-#: client/components/locations/triggers/_show.html:63
+#: client/components/views/triggers/_show.html:63
 msgid "An email will be sent to the recipient and owner of the location"
 msgstr ""
 "Eine E-Mail wird an die Empfänger und an den Eigentümer des Standortes "
@@ -1055,7 +1107,7 @@ msgstr "Anwendungs-Kennwort"
 msgid "Appears after a user logs in."
 msgstr "Erscheint, nachdem ein Gast sich angemeldet hat."
 
-#: client/components/users/branding/_form.html:105
+#: client/components/views/brands/_show.html:106
 msgid "Appears on your dashboard login page (not your login screens)."
 msgstr "Erscheint auf Ihrer Dashboard-Anmeldung (nicht Ihre Anmeldeseite)."
 
@@ -1101,7 +1153,7 @@ msgstr "Archivieren"
 msgid "Are you sure you want to archive this location"
 msgstr "Möchten Sie diesen Standort wirklich archivieren?"
 
-#: client/components/boxes/boxes.directives.js:1418
+#: client/components/boxes/boxes.directives.js:1417
 msgid "Are you sure you want to cancel?"
 msgstr "Möchten Sie wirklich abbrechen?"
 
@@ -1148,8 +1200,8 @@ msgstr "Möchten Sie diesen Artikel wirklich löschen?"
 msgid "Are you sure you want to delete this splash page?"
 msgstr "Möchen Sie diese Startseite wirklich löschen?"
 
-#: client/components/locations/triggers/triggers.directives.js:103
-#: client/components/locations/triggers/triggers.directives.js:614
+#: client/components/directives/triggers.directives.js:111
+#: client/components/directives/triggers.directives.js:760
 msgid "Are you sure you want to delete this trigger?"
 msgstr "Möchten Sie diesen Trigger wirklich löschen?"
 
@@ -1170,7 +1222,7 @@ msgstr "Möchten Sie diese Startseite wirklich kopieren?"
 msgid "Are you sure you want to refund this transaction?"
 msgstr "Möchten Sie die Gebühren für diese Transaktion zurückerstatten?"
 
-#: client/components/directives/users.directives.js:894
+#: client/components/directives/users.directives.js:909
 msgid ""
 "Are you sure you want to remove this Integration? Please note, this won't "
 "delete from Slack"
@@ -1214,8 +1266,8 @@ msgstr "Zugehörige Codes"
 msgid "Attribute: {{ name | titleCase }}"
 msgstr "Attribut: {{ name | titleCase }}"
 
-#: client/app/main/main.controllers.js:141
-#: client/app/main/main.controllers.js:97
+#: client/app/main/main.controllers.js:120
+#: client/app/main/main.controllers.js:87
 #: client/components/audit/audits.directives.js:21
 #: client/components/audit/index.html:6
 #: client/components/locations/locations.controller.js:264
@@ -1246,8 +1298,8 @@ msgstr "Authentifizierungs-Port"
 msgid "Authorisation Code"
 msgstr "Bevollmächtigungs-Code"
 
-#: client/components/locations/triggers/channel-mailchimp.html:3
-#: client/components/locations/triggers/channel-sms.html:3
+#: client/components/views/triggers/channel-mailchimp.html:3
+#: client/components/views/triggers/channel-sms.html:3
 msgid "Authorise"
 msgstr "Bevollmächtigen"
 
@@ -1271,7 +1323,7 @@ msgstr "Intervall für automatischen Neustart (Min.)"
 msgid "Automatically change?"
 msgstr "Automastisch ändern?"
 
-#: client/components/boxes/boxes.directives.js:1628
+#: client/components/boxes/boxes.directives.js:1626
 msgid "Automatically discovered"
 msgstr "Automatisch erkannt"
 
@@ -1305,10 +1357,10 @@ msgstr "Aserbaidschan"
 #: client/components/locations/index/_alerts.html:33
 #: client/components/locations/index/_favourites.html:22
 #: client/components/locations/new/_index.html:6
-#: client/components/locations/triggers/history/_show.html:52
 #: client/components/registrations/_flow.html:165
 #: client/components/splash_pages/_menu.html:735
 #: client/components/users/invoices/_details.html:29
+#: client/components/views/triggers/history/_show.html:52
 msgid "Back"
 msgstr "Zurück"
 
@@ -1376,7 +1428,7 @@ msgstr "Zurück zur Startseite"
 msgid "Back to Splash Page"
 msgstr "Zurück zur Startseite"
 
-#: client/components/locations/triggers/history/_index.html:6
+#: client/components/views/triggers/history/_index.html:6
 msgid "Back to Trigger"
 msgstr "Zurück zu Trigger"
 
@@ -1598,6 +1650,11 @@ msgstr "Bouvetinsel"
 msgid "Box Port Forwards"
 msgstr "Geräte-Port-Weiterleitungen"
 
+#: client/components/views/brands/_show.html:246
+#, fuzzy
+msgid "Box Quota"
+msgstr "Gemeinsame Schlagwörter"
+
 #: client/components/directives/zones.directives.js:104
 msgid "Box successfully added to zone."
 msgstr "Gerät erfolgreich zur Zone hinzugefügt."
@@ -1625,16 +1682,16 @@ msgstr "Gemeinsame Schlagwörter"
 msgid "Box transferred successfully."
 msgstr "Gerät wurde erfolgreich transferiert!"
 
-#: client/components/boxes/boxes.directives.js:1459
+#: client/components/boxes/boxes.directives.js:1458
 msgid "Box upgrading. Do not unplug or restart your device."
 msgstr "Gerät wird aktualisiert. Nicht vom Strom trennen oder ausschalten."
 
+#: client/components/directives/triggers.directives.js:252
 #: client/components/events/events.directives.js:51
 #: client/components/locations/index/_favourites.html:51
 #: client/components/locations/show/_dashing.html:13
-#: client/components/locations/triggers/triggers.directives.js:183
 #: client/components/users/quotas/_index.html:34
-#: client/components/zones/_index.html:61
+#: client/components/zones/_index.html:56
 msgid "Boxes"
 msgstr "Geräte"
 
@@ -1642,11 +1699,12 @@ msgstr "Geräte"
 msgid "Brand Ambassador"
 msgstr "Ein Vertreter des Brands"
 
-#: client/components/users/branding/_form.html:17
+#: client/components/views/brands/_show.html:7
 msgid "Brand Membership"
 msgstr "Mitglied des Brands"
 
-#: client/components/users/branding/_form.html:70
+#: client/components/views/brands/_new.html:19
+#: client/components/views/brands/_show.html:70
 msgid "Brand Name"
 msgstr "Brand-Name"
 
@@ -1657,6 +1715,11 @@ msgstr "Eigentümer des Brands"
 #: client/components/users/index/_index.html:23
 msgid "Brand Role"
 msgstr "Brand-Rolle"
+
+#: client/components/views/brands/_show.html:59
+#, fuzzy
+msgid "Brand Settings"
+msgstr "Erweiterte Einstellungen"
 
 #: client/components/locations/locations.filters.js:262
 msgid "Brand Super"
@@ -1671,15 +1734,16 @@ msgstr ""
 "Benutzer aus allen Standorten löschen möchten, dann entziehen Sie ihm die "
 "Brand-Berechtigungen."
 
-#: client/components/users/branding/_form.html:6
 #: client/components/users/layouts/sidebar.html:6
-#: client/components/users/users.controllers.js:83
 msgid "Branding"
 msgstr "Branding"
 
-#: client/components/users/branding/_form.html:59
-msgid "Branding Details"
-msgstr "Brand-Details"
+#: client/app/main/main.controllers.js:384
+#: client/components/brands/brands.directives.js:11
+#: client/components/brands/brands.directives.js:62
+#, fuzzy
+msgid "Brands"
+msgstr "Branding"
 
 #: client/components/main/main.directives.js:142
 msgid "Brazil"
@@ -1786,7 +1850,7 @@ msgstr "Umgehung der Weiterleitung bei Android ist ausgeschaltet"
 msgid "Bypass Android Popup Enabled"
 msgstr "Umgehung der Weiterleitung bei Android ist eingeschaltet"
 
-#: client/components/locations/triggers/channel-mailchimp.html:50
+#: client/components/views/triggers/channel-mailchimp.html:50
 msgid "Bypass double opt-in"
 msgstr "Double-opt-in umgehen"
 
@@ -1811,9 +1875,13 @@ msgid "CHANGE"
 msgstr "ÄNDERN"
 
 #: client/components/boxes/payloads/_show_payload.html:18
-#: client/components/locations/triggers/_vars.html:294
+#: client/components/views/triggers/_vars.html:294
 msgid "CLOSE"
 msgstr "ABBRUCH"
+
+#: client/components/views/brands/_index.html:62
+msgid "CNAME"
+msgstr ""
 
 #: client/components/boxes/show/_toast_reset_confirm.html:7
 #: client/components/locations/locations.directives.js:1707
@@ -1868,11 +1936,13 @@ msgstr "Kanada"
 #: client/components/boxes/show/_toast_reset_confirm.html:4
 #: client/components/boxes/show/_toast_zone.html:4
 #: client/components/boxes/show/_transfer.html:18
-#: client/components/brands/brands.directives.js:76
+#: client/components/brands/brands.directives.js:146
 #: client/components/directives/group_policies.directives.js:124
-#: client/components/directives/users.directives.js:1211
-#: client/components/directives/users.directives.js:387
-#: client/components/directives/users.directives.js:665
+#: client/components/directives/triggers.directives.js:114
+#: client/components/directives/triggers.directives.js:763
+#: client/components/directives/users.directives.js:1229
+#: client/components/directives/users.directives.js:399
+#: client/components/directives/users.directives.js:680
 #: client/components/directives/zones.directives.js:302
 #: client/components/directives/zones.directives.js:344
 #: client/components/directives/zones.directives.js:57
@@ -1889,8 +1959,6 @@ msgstr "Kanada"
 #: client/components/locations/locations.directives.js:976
 #: client/components/locations/settings/_transfer.html:25
 #: client/components/locations/show/edit-modal.html:105
-#: client/components/locations/triggers/triggers.directives.js:106
-#: client/components/locations/triggers/triggers.directives.js:617
 #: client/components/locations/users/_edit.html:27
 #: client/components/locations/users/_invite.html:45
 #: client/components/locations/users/_revoke.html:24
@@ -1920,7 +1988,7 @@ msgstr "Abbruch"
 msgid "Cancel Subscription"
 msgstr "Abonnement kündigen"
 
-#: client/components/boxes/boxes.directives.js:1420
+#: client/components/boxes/boxes.directives.js:1419
 msgid "Cancel Upgrade"
 msgstr "Aktualisierung abbrechen"
 
@@ -1959,7 +2027,7 @@ msgstr "Cape Verde"
 msgid "Captive Portal"
 msgstr "Startseite"
 
-#: client/components/locations/triggers/_new.html:131
+#: client/components/views/triggers/_new.html:136
 msgid "Captured"
 msgstr "Erfasst"
 
@@ -2004,14 +2072,10 @@ msgstr "Zentralafrikanische Republik"
 msgid "Chad"
 msgstr "Tschad"
 
-#: client/components/brands/brands.directives.js:74
-#: client/components/brands/brands.directives.js:75
+#: client/components/brands/brands.directives.js:144
+#: client/components/brands/brands.directives.js:145
 msgid "Change"
 msgstr "Ändern"
-
-#: client/components/brands/brands.directives.js:72
-msgid "Change Brand?"
-msgstr "Brand ändern?"
 
 #: client/components/locations/clients/_device_name.html:5
 msgid "Change Client Name"
@@ -2075,12 +2139,12 @@ msgstr "Ändern der SSID führt zum Resynchronisieren der Geräte."
 #: client/components/locations/clients/_columns.html:89
 #: client/components/locations/clients/_columns_filter.html:83
 #: client/components/locations/clients/_index.html:207
-#: client/components/locations/triggers/_new.html:379
-#: client/components/locations/triggers/list.html:52
+#: client/components/views/triggers/_new.html:447
+#: client/components/views/triggers/list.html:65
 msgid "Channel"
 msgstr "Kanal"
 
-#: client/components/locations/triggers/channel-slack.html:56
+#: client/components/views/triggers/channel-slack.html:28
 #, fuzzy
 msgid "Channel Override (Optional)"
 msgstr "Benutzername (optional)"
@@ -2133,11 +2197,11 @@ msgstr "Zone wählen"
 msgid "Choose a firmware version"
 msgstr "Firmware-Version wählen"
 
-#: client/components/locations/triggers/channel-mailchimp.html:15
+#: client/components/views/triggers/channel-mailchimp.html:15
 msgid "Choose a list"
 msgstr "Liste wählen"
 
-#: client/components/locations/triggers/_new.html:18
+#: client/components/views/triggers/_new.html:18
 msgid "Choose an Event"
 msgstr "Ereignis wählen"
 
@@ -2150,6 +2214,10 @@ msgstr ""
 "Wählen Sie aus einer Auswahl der beliebtesten Artikel. Oder klicken Sie <a "
 "href=\"\" ng-click=\"advanced = !advanced\">{{advanced? \"einfache\": "
 "\"fortschrittliche\"}} Methode</a>."
+
+#: client/components/views/brands/_new.html:74
+msgid "Choose the closest location to improve performance and job processing."
+msgstr ""
 
 #: client/components/main/main.directives.js:157
 msgid "Christmas Island"
@@ -2239,10 +2307,10 @@ msgstr "Regel für Station wurde erfolgreich geändert."
 msgid "Client {{ client.online | splashStatus:client.splash_status }}"
 msgstr "Station {{ client.online | splashStatus:client.splash_status }}"
 
+#: client/components/directives/triggers.directives.js:253
 #: client/components/events/events.directives.js:52
 #: client/components/locations/boxes/_table.html:51
 #: client/components/locations/locations.controller.js:85
-#: client/components/locations/triggers/triggers.directives.js:184
 #: client/components/splash_pages/splash_pages.controller.js:24
 #: client/components/users/invoices/_details.html:111
 msgid "Clients"
@@ -2329,7 +2397,7 @@ msgstr "Befehls-Ergebnis"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: client/components/locations/triggers/_vars.html:17
+#: client/components/views/triggers/_vars.html:17
 msgid "Common tags"
 msgstr "Gemeinsame Schlagwörter"
 
@@ -2349,6 +2417,7 @@ msgstr "Firmenname"
 msgid "Company Number: 09332205"
 msgstr "Firmennummer: 09332205"
 
+#: client/components/brands/brands.directives.js:142
 #: client/components/directives/zones.directives.js:298
 msgid "Confirm Update"
 msgstr "Aktualisierung bestätigen"
@@ -2426,7 +2495,7 @@ msgstr "Costa Rica"
 msgid "Could not delete box"
 msgstr "Gerät kann nicht gelöscht werden"
 
-#: client/components/boxes/boxes.directives.js:700
+#: client/components/boxes/boxes.directives.js:699
 msgid "Could not delete the payload."
 msgstr "Aufgabe kann nicht gelöscht werden."
 
@@ -2444,13 +2513,14 @@ msgstr "Aktualisierung kann nicht geplant werden, bitte nochmal versuchen."
 msgid "Could not reset this device, please try again"
 msgstr "Geräte-Neustart fehlgeschlagen, bitte nochmal versuchen"
 
-#: client/components/boxes/boxes.directives.js:1358
+#: client/components/boxes/boxes.directives.js:1357
 msgid "Could not schedule upgrade, try again."
 msgstr "Aktualisierung kann nicht geplant werden, bitte nochmal versuchen."
 
 #: client/components/locations/new/_index.html:86
 #: client/components/locations/settings/_main.html:132
 #: client/components/locations/show/edit-modal.html:60
+#: client/components/views/brands/_index.html:64
 msgid "Country"
 msgstr "Land"
 
@@ -2458,7 +2528,7 @@ msgstr "Land"
 msgid "Coupon Code"
 msgstr "Gutschein-Code"
 
-#: client/components/directives/users.directives.js:185
+#: client/components/directives/users.directives.js:194
 msgid "Coupon added successfully."
 msgstr "Gutschein erfolgreich hinzugefügt."
 
@@ -2467,15 +2537,17 @@ msgid "Coupons &amp; Discount Codes"
 msgstr "Gutscheine &amp; Rabatt-Codes"
 
 #: client/components/locations/locations.filters.js:207
-#: client/components/locations/triggers/list.html:29
 #: client/components/registrations/_create.html:47
 #: client/components/splash_codes/_index.html:38
 #: client/components/splash_pages/_form_designer.html:113
 #: client/components/splash_pages/_splash_new.html:3
+#: client/components/views/brands/_index.html:34
+#: client/components/views/brands/_new.html:88
 #: client/components/views/group_policies/_index.html:35
-#: client/components/vouchers/_index.html:63
+#: client/components/views/triggers/list.html:29
+#: client/components/vouchers/_index.html:61
 #: client/components/vouchers/_new.html:26
-#: client/components/zones/_index.html:37
+#: client/components/zones/_index.html:35
 msgid "Create"
 msgstr "Hinzufügen"
 
@@ -2486,6 +2558,11 @@ msgstr "Erstelle Anwendung"
 #: client/components/networks/_create.html:1
 msgid "Create Network"
 msgstr "Erstelle Netzwerk"
+
+#: client/components/views/brands/_new.html:8
+#, fuzzy
+msgid "Create New Brand"
+msgstr "Erstelle neue Zone"
 
 #: client/components/networks/_create.html:5
 msgid "Create New Network"
@@ -2541,7 +2618,7 @@ msgid "Create a store and sell vouchers online via your splash pages."
 msgstr ""
 "Erstellen Sie einen Shop und verkaufen Sie Gutscheine über Ihre Startseite."
 
-#: client/components/zones/_index.html:34
+#: client/components/zones/_index.html:32
 msgid "Create a zone then add your boxes and networks."
 msgstr "Erstellen Sie eine Zone und fügen dann Geräte und Netzwerke hinzu."
 
@@ -2563,7 +2640,7 @@ msgstr "Erstellen Sie jetzt eines"
 msgid "Create rules and restrictions to control access."
 msgstr "Erstellen Sie Regeln und Einschränkungen für die Zugriffssteuerung."
 
-#: client/components/vouchers/_index.html:61
+#: client/components/vouchers/_index.html:59
 msgid "Create some vouchers for your splash pages."
 msgstr "Erstellen Sie Gutscheine für Ihre Startseite."
 
@@ -2585,26 +2662,26 @@ msgstr "Erstellen Sie bis zu 16 Zonen pro Standort."
 #: client/components/locations/clients/_show_code.html:108
 #: client/components/locations/index/_favourites.html:49
 #: client/components/locations/index/_list.html:75
-#: client/components/locations/triggers/_new.html:139
-#: client/components/locations/triggers/_new.html:148
-#: client/components/locations/triggers/_new.html:184
-#: client/components/locations/triggers/_new.html:202
-#: client/components/locations/triggers/_new.html:234
-#: client/components/locations/triggers/_new.html:260
-#: client/components/locations/triggers/_new.html:275
-#: client/components/locations/triggers/_new.html:318
-#: client/components/locations/triggers/_new.html:344
-#: client/components/locations/triggers/_new.html:72
-#: client/components/locations/triggers/history/_index.html:21
 #: client/components/locations/users/_index.html:39
 #: client/components/splash_codes/_show.html:95
 #: client/components/splash_pages/splash_show.html:81
 #: client/components/users/index/_index.html:25
 #: client/components/users/invoices/_index.html:34
 #: client/components/views/group_policies/_index.html:63
-#: client/components/vouchers/_index.html:84
+#: client/components/views/triggers/_new.html:144
+#: client/components/views/triggers/_new.html:153
+#: client/components/views/triggers/_new.html:189
+#: client/components/views/triggers/_new.html:207
+#: client/components/views/triggers/_new.html:239
+#: client/components/views/triggers/_new.html:265
+#: client/components/views/triggers/_new.html:280
+#: client/components/views/triggers/_new.html:323
+#: client/components/views/triggers/_new.html:412
+#: client/components/views/triggers/_new.html:77
+#: client/components/views/triggers/history/_index.html:21
+#: client/components/vouchers/_index.html:79
 #: client/components/vouchers/_show.html:93
-#: client/components/zones/_index.html:60
+#: client/components/zones/_index.html:55
 msgid "Created"
 msgstr "Erstellt "
 
@@ -2626,9 +2703,16 @@ msgstr "Erstellt am {{results.code.created_at | humanTime}}"
 msgid "Created {{ splash.created_at | humanTime }}"
 msgstr "Erstellt am {{splash.created_at | humanTime}}"
 
-#: client/components/locations/triggers/_show.html:50
+#: client/components/views/triggers/_show.html:50
 msgid "Created {{ trigger.created_at | humanTime }}"
 msgstr "Erstellt am {{trigger.created_at | humanTime}}"
+
+#: client/components/views/triggers/_new.html:337
+#: client/components/views/triggers/_new.html:376
+#: client/components/views/triggers/_new.html:397
+#, fuzzy
+msgid "Created*"
+msgstr "Erstellt "
 
 #: client/components/apps/_show.html:47
 msgid "Credentials"
@@ -2695,7 +2779,7 @@ msgstr "Derzeitig { primarySelected.name }} Logins angeboten"
 msgid "Custom CSS"
 msgstr "Benutzerdefinierte CSS"
 
-#: client/components/users/branding/_form.html:173
+#: client/components/views/brands/_show.html:189
 msgid "Custom Domain URL"
 msgstr "Benutzerdefinierte URL"
 
@@ -2703,11 +2787,17 @@ msgstr "Benutzerdefinierte URL"
 msgid "Customer Email"
 msgstr "Kunden-E-Mail-Adresse"
 
-#: client/components/users/branding/_form.html:62
-msgid "Customise the look and feel of your dashboard."
+#: client/components/views/brands/theme/_index.html:14
+#, fuzzy
+msgid "Customise the primary and accent colours for your dashboard."
 msgstr "Passen Sie das Erscheinungsbild Ihres Dashboards an."
 
-#: client/components/users/branding/_form.html:120
+#: client/components/views/brands/_show.html:62
+#, fuzzy
+msgid "Customise the settings for your brand"
+msgstr "Passen Sie das Erscheinungsbild Ihres Dashboards an."
+
+#: client/components/views/brands/_show.html:121
 #, fuzzy
 msgid "Customise your outbound emails. Premium plans only."
 msgstr "Personalisieren Sie Ihre ausgehenden E-Mails. Nur im Enterprise-Tarif."
@@ -2789,13 +2879,23 @@ msgstr "Dashboard"
 msgid "Dashboard Name"
 msgstr "Dashboard-Name"
 
-#: client/components/users/branding/_form.html:80
+#: client/components/views/brands/theme/_index.html:11
+#, fuzzy
+msgid "Dashboard Theme"
+msgstr "Dashboard-Name"
+
+#: client/components/views/brands/_show.html:80
 msgid "Dashboard URL"
 msgstr "Dashboard-URL"
 
 #: client/components/registrations/_flow.html:57
 #, fuzzy
 msgid "Dashboard URL (Web Address)"
+msgstr "Dashboard-URL"
+
+#: client/components/views/brands/_new.html:31
+#, fuzzy
+msgid "Dashboard URL Prefix"
 msgstr "Dashboard-URL"
 
 #: client/components/vouchers/vouchers.directives.js:253
@@ -2835,7 +2935,7 @@ msgstr "Datum "
 msgid "Days"
 msgstr "Tage"
 
-#: client/components/events/events.directives.js:71
+#: client/components/events/events.directives.js:73
 #, fuzzy
 msgid "Debug"
 msgstr "Debug-Modus"
@@ -2856,6 +2956,12 @@ msgstr "Debug-Modus ist eingeschaltet"
 msgid "Default Behaviour After Initial Registration"
 msgstr "Standardverhalten nach erstmaliger Registrierung"
 
+#: client/components/views/brands/_new.html:77
+#: client/components/views/brands/_show.html:205
+#, fuzzy
+msgid "Default Locale"
+msgstr "Standardwert"
+
 #: client/components/splash_pages/_form_designer.html:86
 msgid "Default Value"
 msgstr "Standardwert"
@@ -2864,16 +2970,16 @@ msgstr "Standardwert"
 msgid "Default field value"
 msgstr "Standardwert"
 
-#: client/components/locations/triggers/_new.html:423
+#: client/components/views/triggers/_new.html:491
 #, fuzzy
 msgid "Defer Minutes"
 msgstr "Minuten"
 
-#: client/components/locations/triggers/_new.html:425
+#: client/components/views/triggers/_new.html:493
 msgid "Defer for minutes"
 msgstr ""
 
-#: client/components/locations/triggers/_new.html:414
+#: client/components/views/triggers/_new.html:482
 msgid ""
 "Deferring the trigger will queue it and send it after the event has occurred."
 msgstr ""
@@ -2881,7 +2987,11 @@ msgstr ""
 #: client/components/boxes/boxes.directives.js:111
 #: client/components/directives/group_policies.directives.js:123
 #: client/components/directives/group_policies.directives.js:32
-#: client/components/directives/users.directives.js:1210
+#: client/components/directives/triggers.directives.js:113
+#: client/components/directives/triggers.directives.js:733
+#: client/components/directives/triggers.directives.js:762
+#: client/components/directives/triggers.directives.js:84
+#: client/components/directives/users.directives.js:1228
 #: client/components/directives/zones.directives.js:240
 #: client/components/directives/zones.directives.js:343
 #: client/components/directives/zones.directives.js:56
@@ -2889,10 +2999,6 @@ msgstr ""
 #: client/components/locations/locations.directives.js:1088
 #: client/components/locations/locations.directives.js:1661
 #: client/components/locations/locations.directives.js:866
-#: client/components/locations/triggers/triggers.directives.js:105
-#: client/components/locations/triggers/triggers.directives.js:587
-#: client/components/locations/triggers/triggers.directives.js:616
-#: client/components/locations/triggers/triggers.directives.js:76
 #: client/components/networks/networks.directives.js:135
 #: client/components/networks/networks.directives.js:380
 #: client/components/splash_codes/splash_codes.directives.js:114
@@ -2963,10 +3069,10 @@ msgstr "Startseite löschen"
 msgid "Delete This Device Permanently?"
 msgstr "Dieses Gerät dauerhaft löschen?"
 
-#: client/components/locations/triggers/triggers.directives.js:102
-#: client/components/locations/triggers/triggers.directives.js:104
-#: client/components/locations/triggers/triggers.directives.js:613
-#: client/components/locations/triggers/triggers.directives.js:615
+#: client/components/directives/triggers.directives.js:110
+#: client/components/directives/triggers.directives.js:112
+#: client/components/directives/triggers.directives.js:759
+#: client/components/directives/triggers.directives.js:761
 msgid "Delete Trigger"
 msgstr "Trigger löschen"
 
@@ -2993,12 +3099,12 @@ msgstr "Zone löschen"
 msgid "Delete it"
 msgstr "Löschen"
 
-#: client/components/locations/triggers/_new.html:158
-#: client/components/locations/triggers/_new.html:194
-#: client/components/locations/triggers/_new.html:212
-#: client/components/locations/triggers/_new.html:244
-#: client/components/locations/triggers/_new.html:354
-#: client/components/locations/triggers/_new.html:82
+#: client/components/views/triggers/_new.html:163
+#: client/components/views/triggers/_new.html:199
+#: client/components/views/triggers/_new.html:217
+#: client/components/views/triggers/_new.html:249
+#: client/components/views/triggers/_new.html:422
+#: client/components/views/triggers/_new.html:87
 msgid "Deleted"
 msgstr "Gelöscht"
 
@@ -3011,6 +3117,13 @@ msgstr[1] "{{$count}} Geräte gelöscht"
 #: client/components/locations/locations.directives.js:1003
 msgid "Deleted device with mac {{address}}"
 msgstr "Gelöschtes Gerät mit MAC-Adresse {{address}}"
+
+#: client/components/views/triggers/_new.html:347
+#: client/components/views/triggers/_new.html:386
+#: client/components/views/triggers/_new.html:402
+#, fuzzy
+msgid "Deleted*"
+msgstr "Gelöscht"
 
 #: client/components/forms/forms.directives.js:182
 msgid "Deleting a field will wipe all your data, please be careful."
@@ -3037,9 +3150,9 @@ msgstr "Dänemark"
 #: client/components/users/invoices/_index.html:35
 #: client/components/users/invoices/_show.html:24
 #: client/components/views/group_policies/_show.html:47
-#: client/components/vouchers/_index.html:82
+#: client/components/vouchers/_index.html:77
 #: client/components/vouchers/_show.html:58
-#: client/components/zones/_form.html:27 client/components/zones/_index.html:59
+#: client/components/zones/_form.html:27 client/components/zones/_index.html:54
 #: client/components/zones/_show.html:48
 msgid "Description"
 msgstr "Beschreibung"
@@ -3082,7 +3195,7 @@ msgstr "Zielport"
 msgid "Destination IP"
 msgstr "Ziel-IP"
 
-#: client/components/locations/triggers/_new.html:287
+#: client/components/views/triggers/_new.html:292
 msgid "Destroy"
 msgstr "Löschen"
 
@@ -3095,20 +3208,21 @@ msgstr ""
 #: client/components/boxes/show/_non_ps.html:4
 #: client/components/clients/clients.directives.js:1190
 #: client/components/codes/_index.html:44
-#: client/components/directives/users.directives.js:348
+#: client/components/controllers/brands.controller.js:25
+#: client/components/directives/users.directives.js:360
 #: client/components/locations/settings/_main.html:80
-#: client/components/locations/triggers/_show.html:33
-#: client/components/locations/triggers/history/_index.html:19
+#: client/components/views/triggers/_show.html:33
+#: client/components/views/triggers/history/_index.html:19
 msgid "Details"
 msgstr "Details"
 
-#: client/components/locations/triggers/_new.html:225
+#: client/components/views/triggers/_new.html:230
 #, fuzzy
 msgid "Detected"
 msgstr "Verbindung wiederhergestellt"
 
-#: client/app/main/main.controllers.js:152
-#: client/components/apps/apps.directives.js:11 client/index.html:152
+#: client/app/main/main.controllers.js:131
+#: client/components/apps/apps.directives.js:11 client/index.html:156
 msgid "Developer"
 msgstr "Entwickler"
 
@@ -3251,7 +3365,7 @@ msgstr "Schalter ist ausgeschaltet"
 msgid "Disabling the batch will disable all the associated codes."
 msgstr "Beim Sperren der Liste werden alle zugehörigen Codes gesperrt."
 
-#: client/components/locations/triggers/_show.html:57
+#: client/components/views/triggers/_show.html:57
 msgid "Disabling this will stop the alerts."
 msgstr "Nach dem Ausschalten werden keine Warnungen mehr versendet."
 
@@ -3267,7 +3381,7 @@ msgstr "Erkennen"
 msgid "Discover my Devices"
 msgstr "Erkennen meiner Geräte"
 
-#: client/app/main/main.controllers.js:168 client/index.html:138
+#: client/app/main/main.controllers.js:147 client/index.html:141
 msgid "Discussions"
 msgstr "Diskussionen"
 
@@ -3293,7 +3407,7 @@ msgstr ""
 "Verwenden Sie eine Firewall? Kann es sein, dass Ihre Firewall die Verbindung "
 "zum Internet blockiert?"
 
-#: client/app/main/main.controllers.js:160 client/index.html:132
+#: client/app/main/main.controllers.js:139 client/index.html:134
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -3379,11 +3493,11 @@ msgstr "Zum Herunterladen der Codes den Link unten verwenden. "
 msgid "Download {{ splash.download_speed | mbps }}"
 msgstr "Download-Geschwindigkeit {{ splash.download_speed |  mbps }}"
 
-#: client/app/main/main.controllers.js:182
-#: client/components/boxes/boxes.directives.js:1489
+#: client/app/main/main.controllers.js:161
+#: client/components/boxes/boxes.directives.js:1488
 #: client/components/locations/show/_index.html:70
 #: client/components/locations/show/_index.html:71
-#: client/components/vouchers/_show.html:159 client/index.html:145
+#: client/components/vouchers/_show.html:159 client/index.html:149
 msgid "Downloads"
 msgstr "Downloads"
 
@@ -3413,7 +3527,7 @@ msgstr "Startseite kopieren"
 msgid "Duplicate Voucher"
 msgstr "Gutschein kopieren"
 
-#: client/components/locations/triggers/_new.html:175
+#: client/components/views/triggers/_new.html:180
 msgid "Duplicated"
 msgstr "Kopiert"
 
@@ -3422,11 +3536,11 @@ msgstr "Kopiert"
 msgid "Duration"
 msgstr "Dauer"
 
-#: client/components/locations/triggers/_vars.html:8
+#: client/components/views/triggers/_vars.html:8
 msgid "Dynamic Variables"
 msgstr "Dynamische Variablen"
 
-#: client/components/directives/users.directives.js:386
+#: client/components/directives/users.directives.js:398
 msgid "EMAIL"
 msgstr "E-MAIL"
 
@@ -3441,15 +3555,16 @@ msgstr "Ecuador"
 #: client/components/apps/_show.html:63
 #: client/components/boxes/boxes.directives.js:78
 #: client/components/directives/group_policies.directives.js:27
-#: client/components/directives/users.directives.js:1158
+#: client/components/directives/triggers.directives.js:710
+#: client/components/directives/triggers.directives.js:72
+#: client/components/directives/users.directives.js:1176
 #: client/components/directives/zones.directives.js:235
 #: client/components/locations/locations.directives.js:567
 #: client/components/locations/locations.directives.js:836
 #: client/components/locations/show/header.html:40
-#: client/components/locations/triggers/_show.html:72
-#: client/components/locations/triggers/triggers.directives.js:568
-#: client/components/locations/triggers/triggers.directives.js:64
 #: client/components/splash_pages/splash_pages.directives.js:44
+#: client/components/views/triggers/_show.html:72
+#: client/components/views/triggers/_show.html:73
 #: client/components/vouchers/vouchers.directives.js:332
 msgid "Edit"
 msgstr "﻿Bearbeiten"
@@ -3526,15 +3641,15 @@ msgstr "El Salvador"
 #: client/components/audit/guests/_index.html:59
 #: client/components/audit/sales/_index.html:53
 #: client/components/audit/social/_index.html:53
-#: client/components/directives/users.directives.js:385
+#: client/components/directives/triggers.directives.js:254
+#: client/components/directives/users.directives.js:397
 #: client/components/events/events.directives.js:53
 #: client/components/forms/forms.directives.js:9
-#: client/components/locations/triggers/channel-mailchimp.html:26
-#: client/components/locations/triggers/channel-mailchimp.html:28
-#: client/components/locations/triggers/triggers.directives.js:185
 #: client/components/locations/users/_index.html:37
 #: client/components/locations/users/_invite.html:32
 #: client/components/users/index/_index.html:22
+#: client/components/views/triggers/channel-mailchimp.html:26
+#: client/components/views/triggers/channel-mailchimp.html:28
 msgid "Email"
 msgstr "E-Mail"
 
@@ -3542,11 +3657,16 @@ msgstr "E-Mail"
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
+#: client/components/views/brands/_show.html:154
+#, fuzzy
+msgid "Email Alerts {{ brand.email_active | humanBoolean }}"
+msgstr "Warnungen {{ box.is_monitored | humanBoolean }}"
+
 #: client/components/splash_pages/access-social.html:27
 msgid "Email Backup"
 msgstr "E-Mail-Backup"
 
-#: client/components/locations/triggers/show-email.html:37
+#: client/components/views/triggers/show-email.html:37
 msgid "Email Body"
 msgstr "E-Mail-Text"
 
@@ -3554,7 +3674,7 @@ msgstr "E-Mail-Text"
 msgid "Email Capture"
 msgstr "E-Mail-Adresse erfassen"
 
-#: client/components/locations/triggers/show-email.html:25
+#: client/components/views/triggers/show-email.html:25
 msgid "Email From"
 msgstr "Absender-E-Mail"
 
@@ -3562,19 +3682,19 @@ msgstr "Absender-E-Mail"
 msgid "Email Report"
 msgstr "E-Mail-Bericht"
 
-#: client/components/directives/users.directives.js:383
+#: client/components/directives/users.directives.js:395
 msgid "Email Selected Invoices"
 msgstr "Ausgewählte Rechnungen per E-Mail versenden"
 
-#: client/components/users/branding/_form.html:118
+#: client/components/views/brands/_show.html:119
 msgid "Email Settings"
 msgstr "E-Mail-Einstellungen"
 
-#: client/components/locations/triggers/show-email.html:31
+#: client/components/views/triggers/show-email.html:31
 msgid "Email Subject"
 msgstr "E-Mail-Betreff"
 
-#: client/components/locations/triggers/show-email.html:19
+#: client/components/views/triggers/show-email.html:19
 #, fuzzy
 msgid "Email To"
 msgstr "E-Mail-Text"
@@ -3583,7 +3703,7 @@ msgstr "E-Mail-Text"
 msgid "Email it to the following address"
 msgstr "Per E-Mail an folgende Adresse versenden"
 
-#: client/components/locations/triggers/_vars.html:30
+#: client/components/views/triggers/_vars.html:30
 #, fuzzy
 msgid "Email tags"
 msgstr "E-Mail-Einstellungen"
@@ -3596,15 +3716,15 @@ msgstr "E-Mail: hello@cucumberwifi.io"
 msgid "Emails"
 msgstr "E-Mails"
 
-#: client/components/locations/triggers/show-slack.html:37
+#: client/components/views/triggers/show-slack.html:37
 msgid "Emoji"
 msgstr "Emoji"
 
-#: client/components/locations/triggers/channel-slack.html:76
+#: client/components/views/triggers/channel-slack.html:35
 msgid "Emoji (Optional)"
 msgstr "Emoji (Optional)"
 
-#: client/components/locations/triggers/channel-slack.html:78
+#: client/components/views/triggers/channel-slack.html:37
 msgid "Emoji time!"
 msgstr "Emoji-Zeit!"
 
@@ -3662,7 +3782,7 @@ msgstr "E-Mail Opt Out ist eingeschaltet"
 msgid "End"
 msgstr "Ende"
 
-#: client/components/locations/triggers/_new.html:461
+#: client/components/views/triggers/_new.html:529
 #, fuzzy
 msgid "End Hour"
 msgstr "Stunden"
@@ -3714,15 +3834,17 @@ msgstr "Geben Sie eine URL für das Dashboard an"
 msgid "Enter a Version"
 msgstr "Geben Sie eine Version ein"
 
-#: client/components/users/branding/_form.html:81
+#: client/components/views/brands/_new.html:32
+#: client/components/views/brands/_show.html:81
 msgid "Enter a brand URL"
 msgstr "Geben Sie eine Brand-URL ein"
 
-#: client/components/users/branding/_form.html:71
+#: client/components/views/brands/_new.html:20
+#: client/components/views/brands/_show.html:71
 msgid "Enter a brand name"
 msgstr "Geben Sie einen Brand-Namen ein"
 
-#: client/components/locations/triggers/channel-slack.html:58
+#: client/components/views/triggers/channel-slack.html:30
 #, fuzzy
 msgid "Enter a channel"
 msgstr "Geben Sie einen Brand-Namen ein"
@@ -3738,11 +3860,6 @@ msgstr "Bitte geben Sie dem Standort einen Namen"
 #: client/components/locations/networks/blacklists.html:16
 msgid "Enter a mac to block"
 msgstr "Geben Sie eine zu blockierende MAC-Adresse ein"
-
-#: client/components/locations/triggers/channel-slack.html:68
-#, fuzzy
-msgid "Enter a name for the Icon"
-msgstr "Geben Sie einen Namen für den Standort ein"
 
 #: client/components/locations/new/_index.html:44
 msgid "Enter a name for the location"
@@ -3761,7 +3878,7 @@ msgstr "Geben Sie einen Namen für das Netzwerk ein"
 msgid "Enter a password"
 msgstr "Geben Sie ein Kennwort ein"
 
-#: client/components/locations/triggers/channel-email.html:27
+#: client/components/views/triggers/channel-email.html:27
 #, fuzzy
 msgid "Enter a subject"
 msgstr "Geben Sie einen Betreff an"
@@ -3774,7 +3891,7 @@ msgstr "Geben Sie einen Ort oder eine Stadt ein."
 msgid "Enter a username"
 msgstr "Geben Sie einen Benutzernamen ein"
 
-#: client/components/locations/triggers/channel-email.html:19
+#: client/components/views/triggers/channel-email.html:19
 msgid "Enter a valid email"
 msgstr "Geben Sie eine gültige E-Mail-Adresse ein"
 
@@ -3787,7 +3904,7 @@ msgstr "Geben Sie eine zulässige URL ein"
 msgid "Enter an email"
 msgstr "Geben Sie eine E-Mail-Adresse ein"
 
-#: client/components/locations/triggers/channel-email.html:6
+#: client/components/views/triggers/channel-email.html:6
 msgid "Enter an email to send the notification"
 msgstr "Geben Sie eine E-Mail-Adresse für das Senden von Warnungen ein"
 
@@ -3806,7 +3923,7 @@ msgstr ""
 "Geben Sie die Kontonummer des Benutzers ein, welche Sie in seinen "
 "Einstellungen finden"
 
-#: client/components/users/branding/_form.html:174
+#: client/components/views/brands/_show.html:190
 msgid "Enter the URL of your custom domain"
 msgstr "Geben Sie die URL Ihrer benutzerdefinierten Domäne ein"
 
@@ -3878,7 +3995,7 @@ msgstr "Geben Sie Ihre SagePay Login Details ein"
 msgid "Enter your SagePay password"
 msgstr "Geben Sie Ihr SagePay Password ein"
 
-#: client/components/locations/triggers/channel-slack.html:36
+#: client/components/views/triggers/channel-slack.html:8
 #, fuzzy
 msgid "Enter your Slack Webhook"
 msgstr "Geben Sie Ihr API-Token ein"
@@ -3888,7 +4005,7 @@ msgstr "Geben Sie Ihr API-Token ein"
 msgid "Enter your Stripe secret key"
 msgstr "Geben Sie Ihr Stripe Secret Key ein"
 
-#: client/components/locations/triggers/channel-webhook.html:7
+#: client/components/views/triggers/channel-webhook.html:7
 msgid "Enter your URL"
 msgstr "Geben Sie Ihre URL ein"
 
@@ -3904,7 +4021,7 @@ msgstr "Geben Sie Ihren Firmennamen ein"
 msgid "Enter your email address"
 msgstr "Geben Sie Ihre E-Mail-Adresse ein"
 
-#: client/components/users/branding/_form.html:136
+#: client/components/views/brands/_show.html:138
 msgid "Enter your from email address"
 msgstr "Geben Sie Ihre Absender-E-Mail-Adresse ein"
 
@@ -3912,7 +4029,7 @@ msgstr "Geben Sie Ihre Absender-E-Mail-Adresse ein"
 msgid "Enter your phone number"
 msgstr "Geben Sie Ihre Telefonnummer ein"
 
-#: client/components/users/branding/_form.html:143
+#: client/components/views/brands/_show.html:145
 msgid "Enter your sender name"
 msgstr "Geben Sie Ihren Absendernamen ein"
 
@@ -3920,9 +4037,14 @@ msgstr "Geben Sie Ihren Absendernamen ein"
 msgid "Enter your username"
 msgstr "Geben Sie Ihren Benutzernamen ein"
 
-#: client/components/users/branding/_form.html:128
+#: client/components/views/brands/_show.html:130
 msgid "Enter your website URL"
 msgstr "Tragen Sie Ihre Webseiten-URL ein."
+
+#: client/components/views/brands/_show.html:226
+#, fuzzy
+msgid "Enterprise Features"
+msgstr "Nur Enterprise-Tarif"
 
 #: client/components/boxes/show/_index.html:281
 #: client/components/locations/settings/_main.html:60
@@ -3963,7 +4085,7 @@ msgstr ""
 "europäische Umsatzsteuer-ID haben, dann kontaktieren Sie unseren Support, um "
 "die Rechnung mit Netto-Beträgen zu bekommen."
 
-#: client/components/locations/triggers/_new.html:32
+#: client/components/views/triggers/_new.html:32
 msgid "Event"
 msgstr "Ereignisse"
 
@@ -3975,7 +4097,7 @@ msgstr "Ereignis-Details"
 msgid "Event Type"
 msgstr "Ereignis-Typ"
 
-#: client/app/main/main.controllers.js:104
+#: client/app/main/main.controllers.js:375
 #: client/components/locations/locations.controller.js:271
 msgid "Events"
 msgstr "Ereignisse"
@@ -4014,7 +4136,7 @@ msgstr "Ablauf am"
 msgid "Expiry Date"
 msgstr "Ablaufdatum"
 
-#: client/components/locations/triggers/_new.html:434
+#: client/components/views/triggers/_new.html:502
 #, fuzzy
 msgid "Expression match"
 msgstr "Ablaufdatum"
@@ -4054,7 +4176,7 @@ msgid "Facebook Settings"
 msgstr "Facebook-Einstellungen"
 
 #: client/components/locations/clients/_index.html:295
-#: client/components/locations/triggers/_new.html:310
+#: client/components/views/triggers/_new.html:315
 msgid "Failed"
 msgstr "Fehlgeschlagen"
 
@@ -4079,7 +4201,7 @@ msgstr "Gerät konnte nicht neu synchronisiert werden, bitte nochmal versuchen."
 msgid "Failed to resync device, please try again."
 msgstr "Gerät konnte nicht neu synchronisiert werden, bitte nochmal versuchen."
 
-#: client/components/locations/triggers/list.html:88
+#: client/components/views/triggers/list.html:107
 msgid "Fails: {{ trigger.total_fail_count || 0}}"
 msgstr "Fehlerhaft: {{ trigger.total_fail_count || 0}}"
 
@@ -4204,7 +4326,7 @@ msgstr "Firmware-Version"
 msgid "Firmwares"
 msgstr "Firmwares"
 
-#: client/components/locations/triggers/channel-mailchimp.html:37
+#: client/components/views/triggers/channel-mailchimp.html:37
 msgid "First Name"
 msgstr "Vorname"
 
@@ -4212,11 +4334,11 @@ msgstr "Vorname"
 msgid "First and Last Name"
 msgstr "Vor- und Nachnahme"
 
-#: client/components/locations/triggers/_new.html:118
+#: client/components/views/triggers/_new.html:123
 msgid "First connects"
 msgstr "Erstmals verbunden"
 
-#: client/components/locations/triggers/channel-mailchimp.html:39
+#: client/components/views/triggers/channel-mailchimp.html:39
 msgid "First name"
 msgstr "Vorname"
 
@@ -4224,7 +4346,7 @@ msgstr "Vorname"
 msgid "First seen {{ client.created_at | humanTime }}"
 msgstr "Zum ersten Mal gesehen {{ client.created_at | humanTime }}"
 
-#: client/components/locations/triggers/_new.html:21
+#: client/components/views/triggers/_new.html:21
 msgid "First you need to choose an event type."
 msgstr "Zuerst müssen Sie einen Ereignis-Typ zu wählen."
 
@@ -4323,15 +4445,15 @@ msgstr "Frequenz"
 msgid "Fri"
 msgstr "Fr."
 
-#: client/components/locations/triggers/show-sms.html:25
+#: client/components/views/triggers/show-sms.html:25
 msgid "From"
 msgstr "Von"
 
-#: client/components/locations/triggers/channel-email.html:14
+#: client/components/views/triggers/channel-email.html:14
 msgid "From Address"
 msgstr "Absender-Adresse"
 
-#: client/components/users/branding/_form.html:135
+#: client/components/views/brands/_show.html:137
 msgid "From Email"
 msgstr "Absender E-Mail"
 
@@ -4387,7 +4509,7 @@ msgstr "Kennwort jetzt erstellen"
 msgid "Generate random password"
 msgstr "Zufälliges Kennwort erstellen"
 
-#: client/components/locations/triggers/_new.html:349
+#: client/components/views/triggers/_new.html:417
 msgid "Generated"
 msgstr "Generiert"
 
@@ -4403,12 +4525,12 @@ msgstr "Georgien"
 msgid "Germany"
 msgstr "Deutschland"
 
-#: client/components/locations/triggers/list.html:20
 #: client/components/splash_codes/_index.html:27
 #: client/components/splash_pages/_index.html:27
 #: client/components/splash_pages/view-store.html:36
 #: client/components/views/group_policies/_index.html:27
-#: client/components/vouchers/_index.html:55
+#: client/components/views/triggers/list.html:20
+#: client/components/vouchers/_index.html:53
 msgid "Get Started"
 msgstr "Los geht's"
 
@@ -4498,8 +4620,8 @@ msgid "Guest Email"
 msgstr "Gast-E-Mail"
 
 #: client/components/audit/audits.directives.js:62
+#: client/components/directives/triggers.directives.js:255
 #: client/components/events/events.directives.js:54
-#: client/components/locations/triggers/triggers.directives.js:186
 msgid "Guests"
 msgstr "Gäste "
 
@@ -4571,7 +4693,7 @@ msgstr "Heard- und McDonaldinseln"
 msgid "Height"
 msgstr "Höhe "
 
-#: client/components/locations/triggers/triggers.directives.js:342
+#: client/components/directives/triggers.directives.js:454
 msgid ""
 "Hello\n"
 "\n"
@@ -4613,8 +4735,7 @@ msgstr "Historie"
 msgid "Holy See (Vatican City State)"
 msgstr "Holy See (Vatikan)"
 
-#: client/app/main/main.controllers.js:120
-#: client/app/main/main.controllers.js:76
+#: client/app/main/main.controllers.js:99
 #: client/components/locations/locations.controller.js:245
 msgid "Home"
 msgstr "Startseite "
@@ -4708,7 +4829,7 @@ msgstr "IPv4"
 msgid "Iceland"
 msgstr "Island"
 
-#: client/components/locations/triggers/show-slack.html:31
+#: client/components/views/triggers/show-slack.html:31
 msgid "Icon"
 msgstr "Icon"
 
@@ -4737,7 +4858,7 @@ msgstr ""
 "Wenn die Signalstärke der Station 16 dB unterschreitet, können sie Probleme "
 "beim Surfen im Internet haben."
 
-#: client/components/boxes/boxes.directives.js:1419
+#: client/components/boxes/boxes.directives.js:1418
 msgid ""
 "If the upgrade has begun, you cannot stop it. Please wait until it completes."
 msgstr ""
@@ -4776,7 +4897,7 @@ msgstr ""
 msgid "Image URL"
 msgstr "Bild-URL"
 
-#: client/components/users/branding/_form.html:106
+#: client/components/views/brands/_show.html:107
 msgid ""
 "Image should be <b>300px wide and 70px tall</b> otherwise they will be "
 "blurry."
@@ -4814,7 +4935,7 @@ msgstr "Indien"
 msgid "Indonesia"
 msgstr "Indonesien"
 
-#: client/components/events/events.directives.js:70
+#: client/components/events/events.directives.js:72
 msgid "Info"
 msgstr "Info"
 
@@ -4905,7 +5026,7 @@ msgstr "Benutzer einladen"
 msgid "Invite a user to manage this location."
 msgstr "Laden Sie einen Benutzer ein, diesen Standort zu verwalten."
 
-#: client/components/locations/triggers/_new.html:331
+#: client/components/views/triggers/_new.html:360
 #, fuzzy
 msgid "Invited"
 msgstr "Einladen"
@@ -4933,7 +5054,7 @@ msgstr "Rechnungsdetails"
 msgid "Invoices"
 msgstr "Rechnungen"
 
-#: client/components/directives/users.directives.js:396
+#: client/components/directives/users.directives.js:408
 msgid "Invoices sent to all billing emails."
 msgstr "Rechnungen werden an alle Abrechnungs-E-Mail-Adressen gesendet."
 
@@ -4981,13 +5102,13 @@ msgstr "Datenverkehr isolieren"
 msgid "Israel"
 msgstr "Israel"
 
-#: client/components/locations/triggers/_show.html:44
+#: client/components/views/triggers/_show.html:44
 msgid "It has failed 1 time"
 msgid_plural "It has failed {{ trigger.total_fail_count || 0 }} times"
 msgstr[0] "Es gab einen Fehler"
 msgstr[1] "Es gab {{ trigger.total_fail_count || 0 }} Fehler"
 
-#: client/components/locations/triggers/_show.html:46
+#: client/components/views/triggers/_show.html:46
 #, fuzzy
 msgid "It's failed 1 time since the last reset."
 msgid_plural ""
@@ -5049,7 +5170,7 @@ msgstr "Kuwait"
 msgid "Kyrgyzstan"
 msgstr "Kirgisistan"
 
-#: client/components/directives/users.directives.js:664
+#: client/components/directives/users.directives.js:679
 msgid "LOGOUT"
 msgstr "ABMELDEN"
 
@@ -5065,7 +5186,7 @@ msgstr "Beschriftung"
 msgid "Lao People's Democratic Republic"
 msgstr "Laos"
 
-#: client/components/locations/triggers/channel-mailchimp.html:44
+#: client/components/views/triggers/channel-mailchimp.html:44
 msgid "Last Name"
 msgstr "Nachname"
 
@@ -5083,7 +5204,7 @@ msgstr "Nachname"
 msgid "Last Seen"
 msgstr "Zuletzt online"
 
-#: client/components/locations/triggers/channel-mailchimp.html:46
+#: client/components/views/triggers/channel-mailchimp.html:46
 msgid "Last name"
 msgstr "Nachname "
 
@@ -5186,8 +5307,8 @@ msgstr "Durchschnittslast"
 
 #: client/components/locations/boxes/zones.html:12
 #: client/components/locations/show/_inventory.html:11
-#: client/components/locations/triggers/channel-mailchimp.html:7
-#: client/components/locations/triggers/channel-sms.html:6
+#: client/components/views/triggers/channel-mailchimp.html:7
+#: client/components/views/triggers/channel-sms.html:6
 msgid "Loading"
 msgstr "Lade"
 
@@ -5289,6 +5410,11 @@ msgstr "Standortinformation 2"
 msgid "Location Name"
 msgstr "Standortname"
 
+#: client/components/views/brands/_show.html:237
+#, fuzzy
+msgid "Location Quota"
+msgstr "Standort-Ort"
+
 #: client/components/locations/show/edit-modal.html:17
 msgid "Location name"
 msgstr "Standortname"
@@ -5317,25 +5443,25 @@ msgstr "Standort erfolgreich übertragen."
 msgid "Location {{val}} favourites."
 msgstr "Standort {{val}} Favoriten."
 
-#: client/app/main/main.controllers.js:127
-#: client/app/main/main.controllers.js:83
+#: client/app/main/main.controllers.js:106
+#: client/app/main/main.controllers.js:368
+#: client/components/directives/triggers.directives.js:256
 #: client/components/events/events.directives.js:55
 #: client/components/locations/locations.controller.js:250
 #: client/components/locations/locations.directives.js:51
 #: client/components/locations/show/_dashing.html:33
-#: client/components/locations/triggers/triggers.directives.js:187
 #: client/components/users/layouts/sidebar.html:7
 #: client/components/users/locations/index.html:15
 #: client/components/users/quotas/_index.html:29
 msgid "Locations"
 msgstr "Standorte"
 
-#: client/components/locations/triggers/_new.html:217
 #: client/components/users/sessions/_index.html:29
+#: client/components/views/triggers/_new.html:222
 msgid "Logged In"
 msgstr "Angemeldet"
 
-#: client/components/locations/triggers/_new.html:266
+#: client/components/views/triggers/_new.html:271
 msgid "Logged in"
 msgstr "Angemeldet"
 
@@ -5348,7 +5474,7 @@ msgstr "Protokollierung"
 msgid "Login Button"
 msgstr "Anmelde-Schaltfläche"
 
-#: client/components/users/branding/_form.html:99
+#: client/components/views/brands/_show.html:100
 msgid "Login Image"
 msgstr "Anmelde-Bild"
 
@@ -5357,21 +5483,21 @@ msgid "Logo"
 msgstr "Logo"
 
 #: client/components/clients/clients.directives.js:1053
-#: client/components/directives/users.directives.js:663 client/index.html:159
-#: client/index.html:197
+#: client/components/directives/users.directives.js:678 client/index.html:165
+#: client/index.html:201
 msgid "Logout"
 msgstr "Abmelden"
 
-#: client/components/directives/users.directives.js:661
+#: client/components/directives/users.directives.js:676
 msgid "Logout?"
 msgstr "Abmelden?"
 
-#: client/components/locations/triggers/triggers.directives.js:581
-#: client/components/locations/triggers/triggers.directives.js:70
+#: client/components/directives/triggers.directives.js:725
+#: client/components/directives/triggers.directives.js:78
 msgid "Logs"
 msgstr "Protokolle"
 
-#: client/components/locations/triggers/_new.html:123
+#: client/components/views/triggers/_new.html:128
 msgid "Logs in through splash"
 msgstr "Anmeldungen über Startseite"
 
@@ -5392,7 +5518,8 @@ msgstr "Verbindung verloren"
 msgid "Lost Power"
 msgstr "Verbindung verloren"
 
-#: client/components/users/branding/_form.html:86
+#: client/components/views/brands/_new.html:37
+#: client/components/views/brands/_show.html:86
 msgid "Lowercase only, no numbers or special characters"
 msgstr "Nur Kleinbuchstaben, keine Zahlen oder Sonderzeichen"
 
@@ -5478,13 +5605,7 @@ msgstr "Madagascar"
 msgid "MailChimp Single Opt-In"
 msgstr "MailChimp Single-Opt-In"
 
-#: client/components/locations/triggers/triggers.directives.js:421
-msgid "MailChimp isn't setup yet. Do that first and come back."
-msgstr ""
-"MailChimp ist noch nicht eingerichtet. Erledigen Sie das zuerst und kommen "
-"dann zurück."
-
-#: client/index.html:205
+#: client/index.html:209
 msgid "Main Menu"
 msgstr "Hauptmenü"
 
@@ -5532,10 +5653,6 @@ msgstr "Mali"
 msgid "Malta"
 msgstr "Malta"
 
-#: client/index.html:125
-msgid "Manage Users"
-msgstr "Benutzer verwalten"
-
 #: client/components/locations/show/_index.html:57
 msgid "Manage and monitor all your device remotely."
 msgstr "Verwalte und Überwache alle Geräte aus der Ferne."
@@ -5563,11 +5680,11 @@ msgstr "Hersteller"
 msgid "Map"
 msgstr "Karte"
 
-#: client/components/locations/triggers/_new.html:109
+#: client/components/views/triggers/_new.html:114
 msgid "Marked offline"
 msgstr "Offline markiert"
 
-#: client/components/locations/triggers/_new.html:104
+#: client/components/views/triggers/_new.html:109
 msgid "Marked online"
 msgstr "Online markiert"
 
@@ -5579,7 +5696,7 @@ msgstr "Marshallinseln"
 msgid "Martinique"
 msgstr "Martinique"
 
-#: client/components/locations/triggers/_new.html:432
+#: client/components/views/triggers/_new.html:500
 msgid "Match"
 msgstr ""
 
@@ -5595,12 +5712,12 @@ msgstr "Mauritius"
 msgid "Max 10 characters"
 msgstr "Max. 10 Zeichen"
 
-#: client/components/users/branding/_form.html:145
 #: client/components/users/show/_index.html:108
 #: client/components/users/show/_index.html:117
 #: client/components/users/show/_index.html:98
 #: client/components/users/show/_password.html:18
 #: client/components/users/show/_password.html:26
+#: client/components/views/brands/_show.html:147
 #: client/components/vouchers/_form.html:31
 #: client/components/vouchers/_form.html:40
 #: client/components/zones/_form.html:30
@@ -5714,14 +5831,14 @@ msgstr "Felder zusammenführen"
 msgid "Merge Registration Fields"
 msgstr "Registrierung-Felder zusammenführen"
 
-#: client/components/locations/triggers/channel-slack.html:44
-#: client/components/locations/triggers/channel-sms.html:37
-#: client/components/locations/triggers/show-slack.html:19
-#: client/components/locations/triggers/show-sms.html:19
+#: client/components/views/triggers/channel-slack.html:16
+#: client/components/views/triggers/channel-sms.html:37
+#: client/components/views/triggers/show-slack.html:19
+#: client/components/views/triggers/show-sms.html:19
 msgid "Message"
 msgstr "Nachricht"
 
-#: client/components/locations/triggers/channel-email.html:36
+#: client/components/views/triggers/channel-email.html:36
 msgid "Message Body"
 msgstr "Nachrichtentext"
 
@@ -5762,8 +5879,10 @@ msgstr "Kleinste erlaubte Basisrate für 5 GHz"
 msgid "Minimum 1"
 msgstr "Mindestens 1"
 
-#: client/components/users/branding/_form.html:75
-#: client/components/users/branding/_form.html:85
+#: client/components/views/brands/_new.html:24
+#: client/components/views/brands/_new.html:36
+#: client/components/views/brands/_show.html:75
+#: client/components/views/brands/_show.html:85
 msgid "Minimum 5 characters"
 msgstr "Min. 5 Zeichen"
 
@@ -5877,8 +5996,10 @@ msgstr "Ungültige MAC-Adresse"
 
 #: client/components/apps/_new.html:66
 #: client/components/locations/settings/_devices.html:87
-#: client/components/users/branding/_form.html:131
-#: client/components/users/branding/_form.html:87
+#: client/components/views/brands/_new.html:38
+#: client/components/views/brands/_show.html:133
+#: client/components/views/brands/_show.html:87
+#: client/components/views/triggers/channel-slack.html:10
 msgid "Must be a valid URL"
 msgstr "Ungültige URL"
 
@@ -5890,7 +6011,7 @@ msgstr "Muss eine gültige URL inklusive http(s) sein."
 msgid "Must be a valid URL, including http(s)."
 msgstr "Muss eine gültige URL inklusive http(s) sein ."
 
-#: client/components/users/branding/_form.html:138
+#: client/components/views/brands/_show.html:140
 msgid "Must be a valid email"
 msgstr "Muss eine gültige E-Mail-Adresse sein"
 
@@ -6047,17 +6168,19 @@ msgstr "Müssen weniger als 5 Zeichen sein"
 msgid "Must be less than 10,080 minutes"
 msgstr "Müssen weniger  als  10.080 Minuten sein"
 
+#: client/components/views/brands/_show.html:259
+#: client/components/views/brands/_show.html:268
 #: client/components/vouchers/_form.html:148
 msgid "Must be less than 100"
 msgstr "Muss kleiner als  100 sein"
 
 #: client/components/locations/new/_index.html:46
-#: client/components/locations/triggers/_new.html:486
-#: client/components/locations/triggers/channel-email.html:30
-#: client/components/locations/triggers/channel-sms.html:31
 #: client/components/splash_pages/_form_designer.html:136
 #: client/components/splash_pages/splash_show.html:62
 #: client/components/views/group_policies/_add.html:20
+#: client/components/views/triggers/_new.html:561
+#: client/components/views/triggers/channel-email.html:30
+#: client/components/views/triggers/channel-sms.html:31
 msgid "Must be less than 100 characters"
 msgstr "Müssen weniger als 100 Zeichen sein"
 
@@ -6066,19 +6189,21 @@ msgstr "Müssen weniger als 100 Zeichen sein"
 msgid "Must be less than 100 characters."
 msgstr "Müssen weniger als 100 Zeichen sein."
 
-#: client/components/locations/triggers/_new.html:427
+#: client/components/views/triggers/_new.html:495
 #, fuzzy
 msgid "Must be less than 100 chars"
 msgstr "Müssen weniger als 15 Zeichen sein."
 
 #: client/components/boxes/edit/_edit.html:357
+#: client/components/views/brands/_show.html:241
+#: client/components/views/brands/_show.html:250
 #: client/components/vouchers/_form.html:82
 msgid "Must be less than 1000"
 msgstr "Muss kleiner als 1000 sein"
 
-#: client/components/locations/triggers/channel-email.html:41
-#: client/components/locations/triggers/channel-slack.html:49
-#: client/components/locations/triggers/channel-sms.html:42
+#: client/components/views/triggers/channel-email.html:41
+#: client/components/views/triggers/channel-slack.html:21
+#: client/components/views/triggers/channel-sms.html:42
 msgid "Must be less than 1000 characters"
 msgstr "Müssen weniger als 1000 Zeichen sein"
 
@@ -6118,7 +6243,8 @@ msgid "Must be less than 200 characters"
 msgstr "Müssen weniger als 200 Zeichen sein"
 
 #: client/components/splash_pages/access-password.html:25
-#: client/components/users/branding/_form.html:74
+#: client/components/views/brands/_new.html:23
+#: client/components/views/brands/_show.html:74
 msgid "Must be less than 25 characters"
 msgstr "Müssen weniger als 25 Zeichen sein"
 
@@ -6169,7 +6295,7 @@ msgstr "Müssen weniger als 30 Sekunen sein."
 msgid "Must be less than 4096"
 msgstr "Muss kleiner als 4096 sein"
 
-#: client/components/locations/triggers/_new.html:436
+#: client/components/views/triggers/_new.html:504
 #, fuzzy
 msgid "Must be less than 43,200 mins"
 msgstr "Müssen weniger als 43200 Minuten sein"
@@ -6217,7 +6343,8 @@ msgstr "Müssen weniger als 500 Zeichen sein."
 msgid "Must be less than 518412 mins"
 msgstr "Müssen weniger als 51812 Minuten sein."
 
-#: client/components/users/branding/_form.html:84
+#: client/components/views/brands/_new.html:35
+#: client/components/views/brands/_show.html:84
 msgid "Must be less than 55 characters"
 msgstr "Müssen weniger als 55 Zeichen sein"
 
@@ -6285,7 +6412,7 @@ msgstr "Mein WiFi-Netzwerk"
 msgid "Myanmar"
 msgstr "Myanmar"
 
-#: client/components/boxes/boxes.directives.js:596
+#: client/components/boxes/boxes.directives.js:595
 #: client/components/boxes/boxes.filters.js:32
 #: client/components/boxes/boxes.filters.js:42
 #: client/components/locations/locations.filters.js:108
@@ -6322,19 +6449,20 @@ msgstr "NEUER STANDORT"
 #: client/components/locations/index/_list.html:72
 #: client/components/locations/settings/_devices.html:159
 #: client/components/locations/settings/_main.html:91
-#: client/components/locations/triggers/_new.html:483
-#: client/components/locations/triggers/list.html:50
 #: client/components/splash_pages/_index.html:49
 #: client/components/users/billing/_plans.html:18
 #: client/components/views/brand_users/_index.html:44
+#: client/components/views/brands/_index.html:59
 #: client/components/views/group_policies/_add.html:17
 #: client/components/views/group_policies/_index.html:59
-#: client/components/vouchers/_index.html:81
-#: client/components/zones/_form.html:19 client/components/zones/_index.html:56
+#: client/components/views/triggers/_new.html:558
+#: client/components/views/triggers/list.html:63
+#: client/components/vouchers/_index.html:76
+#: client/components/zones/_form.html:19 client/components/zones/_index.html:51
 msgid "Name"
 msgstr "Name"
 
-#: client/components/locations/triggers/_new.html:481
+#: client/components/views/triggers/_new.html:556
 msgid "Name of trigger"
 msgstr "Name des Triggers"
 
@@ -6346,7 +6474,7 @@ msgstr "Name sollte weniger als 32 Zeichen enthalten"
 msgid "Name should be more than 5 characters"
 msgstr "Name sollte mehr als 5 Zeichen enthalten"
 
-#: client/components/locations/triggers/_new.html:473
+#: client/components/views/triggers/_new.html:548
 msgid "Name your Trigger"
 msgstr "Benennen Sie Ihren Trigger"
 
@@ -6399,7 +6527,8 @@ msgstr "Netzwerk-ID"
 #: client/components/boxes/show/_index.html:329
 #: client/components/locations/settings/_main.html:54
 #: client/components/registrations/_flow.html:126
-#: client/components/users/branding/_form.html:181
+#: client/components/views/brands/_new.html:68
+#: client/components/views/brands/_show.html:197
 msgid "Network Location"
 msgstr "Netzwerk-Standort"
 
@@ -6442,14 +6571,14 @@ msgid "Network successfully updated."
 msgstr "Netzwerk erfolgreich geändert."
 
 #: client/components/audit/social/_index.html:56
+#: client/components/directives/triggers.directives.js:257
 #: client/components/events/events.directives.js:56
 #: client/components/locations/locations.controller.js:77
 #: client/components/locations/networks/_index.html:11
 #: client/components/locations/networks/_show.html:6
-#: client/components/locations/triggers/triggers.directives.js:188
 #: client/components/splash_pages/splash_pages.directives.js:177
 #: client/components/views/group_policies/_index.html:62
-#: client/components/zones/_index.html:62
+#: client/components/zones/_index.html:57
 msgid "Networks"
 msgstr "Netzwerke"
 
@@ -6503,6 +6632,12 @@ msgstr "Neuseeland"
 #: client/components/boxes/boxes.filters.js:75
 msgid "New device"
 msgstr "Neues Gerät"
+
+#: client/components/views/brands/_new.html:84
+msgid ""
+"New users will be created with this locale, translating the dashboard "
+"automagically."
+msgstr ""
 
 #: client/components/splash_pages/splash_show.html:134
 msgid "Newsletter API Token"
@@ -6698,11 +6833,12 @@ msgstr "Benachrichtigungs-Einstellungen"
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: client/components/locations/triggers/_new.html:395
+#: client/components/views/triggers/_new.html:463
 msgid "Notify Slack"
 msgstr "Slack benachrichtigen"
 
-#: client/components/users/branding/_form.html:76
+#: client/components/views/brands/_new.html:25
+#: client/components/views/brands/_show.html:76
 msgid "Number &amp; letters only"
 msgstr "nur Zahlen &amp;  Buchstaben"
 
@@ -6768,11 +6904,6 @@ msgstr "Offline"
 msgid "Oh hi, it's you"
 msgstr "Oh hallo, Sie sind es"
 
-#: client/components/locations/triggers/triggers.directives.js:677
-msgid "Oh no, the trigger failed. Please check the logs"
-msgstr ""
-"Der Trigger hat nicht funktioniert. Bitte überprüfen Sie die Protokolle"
-
 #: client/components/locations/access/access-social.html:32
 msgid "Oh, there's been a problem logging you in"
 msgstr "Bei Ihrer Anmeldung gab es ein Problem."
@@ -6820,7 +6951,7 @@ msgstr "Transparenz  {{splash.splash.container_transparency * 100}}%"
 msgid "Open"
 msgstr "Offen"
 
-#: client/index.html:85
+#: client/index.html:100 client/index.html:85
 msgid "Open Apps Menu"
 msgstr "Öffne Anwendungs-Menü"
 
@@ -6830,13 +6961,13 @@ msgstr "Öffne Anwendungs-Menü"
 #: client/components/locations/boxes/_table.html:124
 #: client/components/splash_codes/_index.html:85
 #: client/components/users/invoices/_details.html:126
-#: client/components/vouchers/_index.html:113
+#: client/components/vouchers/_index.html:108
 msgid "Open Boxes Menu"
 msgstr "Öffne Geräte-Menü"
 
 #: client/components/locations/clients/_index.html:319
-#: client/components/locations/triggers/list.html:96
 #: client/components/locations/users/_index.html:67
+#: client/components/views/triggers/list.html:115
 msgid "Open Clients Menu"
 msgstr "Öffne Stations-Menü"
 
@@ -6852,10 +6983,11 @@ msgstr "Öffne Regel-Menü"
 #: client/components/locations/index/_alerts.html:97
 #: client/components/locations/index/_favourites.html:77
 #: client/components/locations/index/_list.html:108
-#: client/components/locations/triggers/history/_index.html:44
 #: client/components/users/index/_index.html:60
 #: client/components/users/invoices/_index.html:58
 #: client/components/views/brand_users/_index.html:62
+#: client/components/views/brands/_index.html:92
+#: client/components/views/triggers/history/_index.html:44
 msgid "Open Menu"
 msgstr "Öffne Menü"
 
@@ -6871,11 +7003,11 @@ msgstr "Öffne Startseiten-Menü"
 #: client/components/locations/clients/_toolbar.html:2
 #: client/components/locations/networks/_show.html:9
 #: client/components/locations/settings/_settings_menu.html:2
-#: client/components/locations/triggers/_edit.html:8
-#: client/components/locations/triggers/_show.html:8
 #: client/components/splash_codes/_show.html:8
 #: client/components/splash_pages/splash_show.html:9
 #: client/components/views/group_policies/_show.html:10
+#: client/components/views/triggers/_edit.html:8
+#: client/components/views/triggers/_show.html:8
 #: client/components/vouchers/_show.html:8 client/components/zones/_show.html:9
 msgid "Open Tools"
 msgstr "Öffne Tools"
@@ -6950,7 +7082,7 @@ msgstr "Ausgehende ICMP-Pakete sind ausgeschaltet"
 msgid "Outbound ICMP Enabled"
 msgstr "Ausgehende ICMP-Pakete sind eingeschaltet"
 
-#: client/components/locations/triggers/channel-sms.html:15
+#: client/components/views/triggers/channel-sms.html:15
 msgid "Outbound number"
 msgstr "Ausgehende Nummer"
 
@@ -6966,6 +7098,7 @@ msgstr "Übersicht "
 #: client/components/locations/index/_list.html:71
 #: client/components/locations/locations.filters.js:246
 #: client/components/views/brand_users/_index.html:43
+#: client/components/views/brands/_index.html:60
 msgid "Owner"
 msgstr "Eigentümer"
 
@@ -7058,16 +7191,21 @@ msgstr "Autom. gen. Kennwort"
 msgid "Password Changed Email Recipient"
 msgstr "Empfänger der E-Mail für geändertes Kennwort"
 
+#: client/components/views/triggers/_new.html:352
+#, fuzzy
+msgid "Password Changed*"
+msgstr "Kennwort geändert"
+
 #: client/components/splash_pages/access-password.html:4
 msgid "Password Settings"
 msgstr "Kennworteinstellungen"
 
-#: client/components/locations/triggers/_new.html:251
+#: client/components/views/triggers/_new.html:256
 #, fuzzy
 msgid "Password changed"
 msgstr "Kennwort geändert"
 
-#: client/components/directives/users.directives.js:734
+#: client/components/directives/users.directives.js:749
 msgid "Password successfully updated."
 msgstr "Kennwort erfolgreich geändert."
 
@@ -7095,7 +7233,7 @@ msgstr "Aufgabe abgeschlossen!"
 msgid "Payload could not be sent."
 msgstr "Aufgabe konnte nicht gesendet werden."
 
-#: client/components/boxes/boxes.directives.js:698
+#: client/components/boxes/boxes.directives.js:697
 msgid "Payload deleted successfully"
 msgstr "Aufgabe erfolgreich gelöscht"
 
@@ -7202,8 +7340,9 @@ msgstr ""
 "die Ports geöffnet sind, überprüfen Sie bitte, ob Ihr Benutzer über die "
 "entsprechenden Berechtigungen verfügt."
 
-#: client/components/users/branding/_form.html:130
-#: client/components/users/branding/_form.html:83
+#: client/components/views/brands/_new.html:34
+#: client/components/views/brands/_show.html:132
+#: client/components/views/brands/_show.html:83
 msgid "Please enter a brand URL"
 msgstr "Geben Sie eine Brand-URL ein"
 
@@ -7215,11 +7354,11 @@ msgstr "Geben Sie eine Beschreibung ein"
 msgid "Please enter a location name."
 msgstr "Geben Sie einen Standort ein."
 
-#: client/components/locations/triggers/channel-slack.html:48
+#: client/components/views/triggers/channel-slack.html:20
 msgid "Please enter a message"
 msgstr "Geben Sie eine Nachricht ein"
 
-#: client/components/locations/triggers/channel-sms.html:41
+#: client/components/views/triggers/channel-sms.html:41
 msgid "Please enter a message body"
 msgstr "Geben Sie einen Nachrichten-Text ein"
 
@@ -7227,11 +7366,12 @@ msgstr "Geben Sie einen Nachrichten-Text ein"
 msgid "Please enter a name"
 msgstr "Geben Sie einen Namen ein"
 
-#: client/components/users/branding/_form.html:73
+#: client/components/views/brands/_new.html:22
+#: client/components/views/brands/_show.html:73
 msgid "Please enter a name for your brand"
 msgstr "Geben Sie einen Namen für Ihren Brand ein"
 
-#: client/components/locations/triggers/_new.html:485
+#: client/components/views/triggers/_new.html:560
 msgid "Please enter a name for your trigger"
 msgstr "Geben Sie einen Namen für Ihren Trigger ein"
 
@@ -7239,11 +7379,31 @@ msgstr "Geben Sie einen Namen für Ihren Trigger ein"
 msgid "Please enter a name."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: client/components/users/branding/_form.html:176
+#: client/components/views/brands/_show.html:258
+#, fuzzy
+msgid "Please enter a number of admins"
+msgstr "Geben Sie einen Namen für Ihren Brand ein"
+
+#: client/components/views/brands/_show.html:249
+#, fuzzy
+msgid "Please enter a number of boxes"
+msgstr "Geben Sie eine gültige Nummer ein"
+
+#: client/components/views/brands/_show.html:240
+#, fuzzy
+msgid "Please enter a number of locations"
+msgstr "Geben Sie einen Standort ein."
+
+#: client/components/views/brands/_show.html:267
+#, fuzzy
+msgid "Please enter a number of projects"
+msgstr "Geben Sie eine gültige Nummer ein"
+
+#: client/components/views/brands/_show.html:192
 msgid "Please enter a valid URL"
 msgstr "Geben Sie eine gültige URL ein."
 
-#: client/components/locations/triggers/channel-sms.html:30
+#: client/components/views/triggers/channel-sms.html:30
 msgid "Please enter a valid number"
 msgstr "Geben Sie eine gültige Nummer ein"
 
@@ -7252,7 +7412,7 @@ msgid "Please enter an address"
 msgstr "Geben Sie eine Adresse ein"
 
 #: client/components/locations/access/access-password.html:46
-#: client/components/locations/triggers/channel-mailchimp.html:30
+#: client/components/views/triggers/channel-mailchimp.html:30
 msgid "Please enter an email"
 msgstr "Geben Sie eine E-Mail-Adresse ein"
 
@@ -7273,16 +7433,11 @@ msgstr ""
 "Bitte berücksichtigen Sie, dass dies ein Beta-Feature ist. Berichte werden "
 "per E-Mail gesendet."
 
-#: client/components/locations/triggers/channel-sms.html:12
+#: client/components/views/triggers/channel-sms.html:12
 msgid "Please note, you will be billed for any SMS sent from your account."
 msgstr "Beachten Sie, dass das Versenden von SMS kostenpflichtig ist."
 
-#: client/components/brands/brands.directives.js:73
-msgid "Please resync all your boxes after updating your brand."
-msgstr ""
-"Bitte alle Ihre Geräte nach der Änderung Ihres Brands neu synchronisieren."
-
-#: client/components/users/branding/_form.html:169
+#: client/components/views/brands/_show.html:185
 msgid "Please wait for the update to complete."
 msgstr "Bitte warten Sie, bis die Aktualisierung abgeschlossen ist."
 
@@ -7374,11 +7529,16 @@ msgstr "Vorschau"
 msgid "Price"
 msgstr "Preis"
 
+#: client/components/views/brands/theme/_index.html:22
+#, fuzzy
+msgid "Primary Colour"
+msgstr "Rahmenfarbe"
+
 #: client/components/boxes/show/_index.html:105
 msgid "Primary Radius"
 msgstr "Primärer RADIUS"
 
-#: client/index.html:239
+#: client/index.html:243
 msgid "Privacy Policy - Terms of Service"
 msgstr "Datenschutzerklärung - Nutzungsbedingungen"
 
@@ -7386,7 +7546,7 @@ msgstr "Datenschutzerklärung - Nutzungsbedingungen"
 msgid "Private Location"
 msgstr "Privater Standort"
 
-#: client/components/users/branding/_form.html:167
+#: client/components/views/brands/_show.html:183
 msgid "Processing domain change"
 msgstr "Domain-Änderung wird durchgeführt"
 
@@ -7418,7 +7578,7 @@ msgstr "Produktion"
 msgid "Products"
 msgstr "Artikel"
 
-#: client/app/main/main.controllers.js:193
+#: client/app/main/main.controllers.js:172
 #: client/components/users/layouts/sidebar.html:2
 #: client/components/users/show/_index.html:7
 #: client/components/users/users.controllers.js:40
@@ -7431,6 +7591,23 @@ msgstr "Profil-Einstellungen"
 
 #: client/components/users/index/_index.html:24
 msgid "Project Role"
+msgstr "Projektrolle"
+
+#: client/components/directives/triggers.directives.js:270
+#: client/components/events/events.directives.js:66
+#, fuzzy
+msgid "Project Users"
+msgstr "Projektrolle"
+
+#: client/components/directives/triggers.directives.js:269
+#: client/components/events/events.directives.js:65
+#, fuzzy
+msgid "Projects"
+msgstr "Projektrolle"
+
+#: client/components/views/brands/_show.html:264
+#, fuzzy
+msgid "Projects Quota"
 msgstr "Projektrolle"
 
 #: client/components/boxes/edit/_edit.html:247
@@ -7464,7 +7641,7 @@ msgstr "Öffentlicher Standort"
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: client/components/locations/triggers/_new.html:295
+#: client/components/views/triggers/_new.html:300
 msgid "Purchase"
 msgstr "Kauf"
 
@@ -7484,7 +7661,7 @@ msgstr "Qualität"
 
 #: client/components/vouchers/_form.html:78
 #: client/components/vouchers/_form.html:79
-#: client/components/vouchers/_index.html:83
+#: client/components/vouchers/_index.html:78
 #: client/components/vouchers/_show.html:79
 msgid "Quantity"
 msgstr "Menge"
@@ -7661,13 +7838,18 @@ msgstr "Empfehlungen"
 
 #: client/components/audit/sales/_refund.html:22
 #: client/components/audit/sales/_show.html:90
-#: client/components/locations/triggers/_new.html:301
+#: client/components/views/triggers/_new.html:306
 msgid "Refund"
 msgstr "Rückzahlung"
 
 #: client/components/audit/sales/_refund.html:5
 msgid "Refund Transaction"
 msgstr "Rückzahlungstransaktion"
+
+#: client/components/views/brands/_index.html:63
+#, fuzzy
+msgid "Region"
+msgstr "Registrierung"
 
 #: client/components/splash_pages/splash_pages.filters.js:31
 #: client/components/splash_pages/splash_pages.filters.js:52
@@ -7686,7 +7868,7 @@ msgstr "Remote Port"
 msgid "Remote host address"
 msgstr "Remote Host-Addresse"
 
-#: client/components/directives/users.directives.js:1209
+#: client/components/directives/users.directives.js:1227
 msgid "Remove"
 msgstr "Löschen"
 
@@ -7734,8 +7916,8 @@ msgstr "Repeater-Modus ist ausgeschaltet"
 msgid "Repeater Mode Enabled"
 msgstr "Repeater-Modus ist eingeschaltet"
 
-#: client/app/main/main.controllers.js:134
-#: client/app/main/main.controllers.js:90
+#: client/app/main/main.controllers.js:113
+#: client/app/main/main.controllers.js:80
 #: client/components/locations/locations.controller.js:257
 #: client/components/locations/show/_periscope.html:15
 #: client/components/reports/reports.v2.directives.js:169
@@ -7776,7 +7958,7 @@ msgstr "Jetzt erneut senden"
 
 #: client/components/boxes/boxes.directives.js:124
 #: client/components/boxes/boxes.directives.js:139
-#: client/components/locations/triggers/_new.html:87
+#: client/components/views/triggers/_new.html:92
 msgid "Reset"
 msgstr "Zurücksetzen"
 
@@ -7815,7 +7997,7 @@ msgstr "Resource"
 msgid "Resource Quotas"
 msgstr "Ressourcenkontingente"
 
-#: client/components/locations/triggers/history/_index.html:20
+#: client/components/views/triggers/history/_index.html:20
 msgid "Response"
 msgstr "Antwort"
 
@@ -7849,11 +8031,11 @@ msgstr "Resynchronisierung"
 msgid "Resync this Device"
 msgstr "Dieses Gerät resynchronisieren"
 
-#: client/components/locations/triggers/_new.html:99
+#: client/components/views/triggers/_new.html:104
 msgid "Resynced"
 msgstr "synchronisiert"
 
-#: client/components/directives/users.directives.js:1163
+#: client/components/directives/users.directives.js:1181
 #: client/components/locations/locations.directives.js:313
 #: client/components/locations/locations.directives.js:573
 #: client/components/locations/users/_revoke.html:1
@@ -7884,11 +8066,11 @@ msgstr ""
 msgid "Revoke it"
 msgstr "Rückgängig machen"
 
-#: client/components/directives/users.directives.js:1207
+#: client/components/directives/users.directives.js:1225
 msgid "Revoke this user?"
 msgstr "Diesen Benutzer widerrufen?"
 
-#: client/components/locations/triggers/_new.html:336
+#: client/components/views/triggers/_new.html:365
 #, fuzzy
 msgid "Revoked"
 msgstr "Rückgängig"
@@ -7898,8 +8080,8 @@ msgstr "Rückgängig"
 msgid "Right"
 msgstr "Rechts"
 
+#: client/components/directives/triggers.directives.js:258
 #: client/components/events/events.directives.js:57
-#: client/components/locations/triggers/triggers.directives.js:189
 msgid "Rogues"
 msgstr ""
 
@@ -7955,15 +8137,11 @@ msgstr "Befehle auf Ihren Access Points durchführen"
 msgid "Run the command"
 msgstr "Befehl ausführen"
 
-#: client/components/boxes/boxes.directives.js:1769
+#: client/components/boxes/boxes.directives.js:1767
 msgid "Running speedtest, please wait."
 msgstr "Geschwindigkeitstest läuft, bitte warten."
 
-#: client/components/locations/triggers/triggers.directives.js:656
-msgid "Running test, please wait."
-msgstr "Test läuft, bitte warten."
-
-#: client/components/locations/triggers/list.html:54
+#: client/components/views/triggers/list.html:66
 msgid "Runs"
 msgstr "Aufrufe"
 
@@ -8125,7 +8303,6 @@ msgstr "Saudi-Arabien"
 #: client/components/locations/settings/_main.html:163
 #: client/components/locations/settings/_notifications.html:33
 #: client/components/locations/settings/_splash.html:26
-#: client/components/locations/triggers/_new.html:491
 #: client/components/registrations/_flow.html:109
 #: client/components/registrations/_flow.html:153
 #: client/components/registrations/_flow.html:48
@@ -8137,9 +8314,11 @@ msgstr "Saudi-Arabien"
 #: client/components/splash_pages/view-store.html:252
 #: client/components/users/alerts/_index.html:59
 #: client/components/users/billing/_billing.html:56
-#: client/components/users/branding/_form.html:190
 #: client/components/users/show/_index.html:136
+#: client/components/views/brands/_show.html:274
+#: client/components/views/brands/theme/_index.html:44
 #: client/components/views/group_policies/_show.html:87
+#: client/components/views/triggers/_new.html:566
 #: client/components/zones/_show.html:88
 msgid "Save"
 msgstr "Speichern"
@@ -8186,7 +8365,7 @@ msgstr "Sicherheitscode"
 msgid "See a clickthrough login page"
 msgstr "Sehen Sie eine Durchklick-Anmeldeseite"
 
-#: client/components/locations/triggers/_new.html:367
+#: client/components/views/triggers/_new.html:435
 msgid "Select a Channel"
 msgstr "Wähle einen Kanal"
 
@@ -8202,19 +8381,19 @@ msgstr "Online verkaufen (via PayPal)"
 msgid "Send Offline Alert After (mins)"
 msgstr "Verschicke Offline-Warnung nach (Min.)"
 
-#: client/components/locations/triggers/_new.html:396
+#: client/components/views/triggers/_new.html:464
 msgid "Send a Webhook"
 msgstr "Aufruf eines Webhook"
 
-#: client/components/locations/triggers/_new.html:51
+#: client/components/views/triggers/_new.html:51
 msgid "Send a trigger when a vouchers creates a trigger"
 msgstr "Einen Trigger durch ein Gutschein-Ereignis auslösen."
 
-#: client/components/locations/triggers/_new.html:41
+#: client/components/views/triggers/_new.html:41
 msgid "Send a trigger when your wireless clients cause an event."
 msgstr "Einen Trigger durch ein Ereignis Ihrer WiFi-Station auslösen."
 
-#: client/components/locations/triggers/_new.html:394
+#: client/components/views/triggers/_new.html:462
 msgid "Send an Email"
 msgstr "Verschicke eine E-Mail"
 
@@ -8226,48 +8405,68 @@ msgstr "Sende das Kennwort zur dieser E-Mail-Adresse"
 msgid "Send selected invoices to billing emails"
 msgstr "Selektierte Rechnungen an Abrechnung-E-Mail-Adressen senden"
 
-#: client/components/locations/triggers/_new.html:48
+#: client/components/views/triggers/_new.html:48
 msgid "Send triggers on splash page events"
 msgstr "Einen Trigger bei Startseiten-Ereignissen auslösen."
 
-#: client/components/locations/triggers/_new.html:46
+#: client/components/views/triggers/_new.html:46
 msgid "Send triggers when QuickCodes cause an event."
 msgstr "Einen Trigger bei QuickCode-Ereignissen auslösen."
 
-#: client/components/locations/triggers/_new.html:49
+#: client/components/views/triggers/_new.html:49
 msgid "Send triggers when a Social login causes a trigger."
 msgstr "Einen Trigger bei einer Anmeldung über soziale Medien auslösen."
 
-#: client/components/locations/triggers/_new.html:43
+#: client/components/views/triggers/_new.html:43
 msgid "Send triggers when a guest causes an event"
 msgstr "Einen Trigger durch ein Gast-Ereignis auslösen."
 
-#: client/components/locations/triggers/_new.html:50
+#: client/components/views/triggers/_new.html:50
 msgid "Send triggers when a store creates an event."
 msgstr "Einen Trigger durch ein Shop-Ereignis auslösen."
 
-#: client/components/locations/triggers/_new.html:52
+#: client/components/views/triggers/_new.html:55
+#, fuzzy
+msgid "Send triggers when changes happen to a brand."
+msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
+
+#: client/components/views/triggers/_new.html:56
+#, fuzzy
+msgid "Send triggers when changes happen to a project."
+msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
+
+#: client/components/views/triggers/_new.html:54
+#, fuzzy
+msgid "Send triggers when changes happen to a user."
+msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
+
+#: client/components/views/triggers/_new.html:52
 msgid "Send triggers when changes happen to a zone."
 msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
 
-#: client/components/locations/triggers/_new.html:44
+#: client/components/views/triggers/_new.html:44
 msgid "Send triggers when one of your locations causes an event."
 msgstr "Einen Trigger durch ein Standort-Ereignis auslösen."
 
-#: client/components/locations/triggers/_new.html:47
+#: client/components/views/triggers/_new.html:57
+#, fuzzy
+msgid "Send triggers when project users are updated."
+msgstr "Einen Trigger durch ein Gast-Ereignis auslösen."
+
+#: client/components/views/triggers/_new.html:47
 #, fuzzy
 msgid "Send triggers when rogue devices checkin"
 msgstr "Einen Trigger durch ein Gast-Ereignis auslösen."
 
-#: client/components/locations/triggers/_new.html:40
+#: client/components/views/triggers/_new.html:40
 msgid "Send triggers when something happens to your boxes."
 msgstr "Einen Trigger durch ein Geräte-Ereignis auslösen."
 
-#: client/components/locations/triggers/_new.html:45
+#: client/components/views/triggers/_new.html:45
 msgid "Send triggers when your networks cause an event."
 msgstr "Einen Trigger durch ein Netzwerk-Ereignis auslösen."
 
-#: client/components/users/branding/_form.html:142
+#: client/components/views/brands/_show.html:144
 msgid "Sender Name"
 msgstr "Name des Absenders"
 
@@ -8316,7 +8515,13 @@ msgstr ""
 "Legen Sie die Zeitzone fest, um sicherzustellen, dass Ihre Startseiten-"
 "Einschränkungen ordnungsgemäß funktionieren."
 
-#: client/components/locations/triggers/_new.html:58
+#: client/components/views/brands/_show.html:213
+msgid ""
+"Set the default network location. Improve performance of speedtests and job "
+"processing."
+msgstr ""
+
+#: client/components/views/triggers/_new.html:63
 #, fuzzy
 msgid "Set the event trigger"
 msgstr "Jetzt den Ereignis-Trigger setzen"
@@ -8346,10 +8551,6 @@ msgstr ""
 #: client/components/locations/settings/_main.html:3
 #: client/components/locations/settings/_main.html:6
 #: client/components/locations/settings/_settings_header.html:3
-#: client/components/locations/triggers/_edit.html:3
-#: client/components/locations/triggers/_new.html:3
-#: client/components/locations/triggers/_show.html:3
-#: client/components/locations/triggers/history/_index.html:3
 #: client/components/splash_codes/_edit.html:3
 #: client/components/splash_codes/_show.html:3
 #: client/components/splash_pages/_form_designer.html:3
@@ -8363,12 +8564,17 @@ msgstr ""
 #: client/components/users/invoices/_index.html:3
 #: client/components/users/quotas/_index.html:3
 #: client/components/users/show/_index.html:4
+#: client/components/views/brands/_index.html:99
 #: client/components/views/messages/_index.html:3
 #: client/components/views/operations/_index.html:3
 #: client/components/views/operations/_show.html:3
+#: client/components/views/triggers/_edit.html:3
+#: client/components/views/triggers/_new.html:3
+#: client/components/views/triggers/_show.html:3
+#: client/components/views/triggers/history/_index.html:3
 #: client/components/vouchers/_edit.html:3
 #: client/components/vouchers/_new.html:3
-#: client/components/vouchers/_show.html:3 client/index.html:165
+#: client/components/vouchers/_show.html:3 client/index.html:171
 #: client/index.html:72
 msgid "Settings"
 msgstr "Einstellungen"
@@ -8377,8 +8583,8 @@ msgstr "Einstellungen"
 msgid "Settings for your splash-only device"
 msgstr "Einstellungen für Ihre Geräte, welche nur Startseiten anbieten."
 
-#: client/components/boxes/boxes.directives.js:783
-#: client/components/boxes/boxes.directives.js:900
+#: client/components/boxes/boxes.directives.js:782
+#: client/components/boxes/boxes.directives.js:899
 msgid "Settings updated successfully"
 msgstr "Einstellungen erfolgreich aktualisiert"
 
@@ -8528,16 +8734,12 @@ msgstr "St. Martin (Niederländischer Teil)"
 msgid "Slack"
 msgstr "Slack"
 
-#: client/components/locations/triggers/channel-slack.html:34
+#: client/components/views/triggers/channel-slack.html:6
 #, fuzzy
 msgid "Slack URL"
 msgstr "Callback-URL"
 
-#: client/components/locations/triggers/channel-slack.html:29
-msgid "Slack Username"
-msgstr "Slack Benutzername"
-
-#: client/components/locations/triggers/triggers.directives.js:384
+#: client/components/directives/triggers.directives.js:496
 msgid ""
 "Slack isn't setup yet, or you don't have any active integrations. Do that "
 "now and come back."
@@ -8555,8 +8757,8 @@ msgstr "Slowenien"
 
 #: client/components/audit/audits.directives.js:54
 #: client/components/clients/clients.directives.js:1074
+#: client/components/directives/triggers.directives.js:260
 #: client/components/events/events.directives.js:60
-#: client/components/locations/triggers/triggers.directives.js:191
 #: client/components/splash_pages/splash_pages.filters.js:29
 #: client/components/splash_pages/splash_pages.filters.js:50
 msgid "Social"
@@ -8639,6 +8841,7 @@ msgid "Speeds Restrictions"
 msgstr "Beschränkungen der Geschwindigkeiten"
 
 #: client/components/directives/group_policies.directives.js:13
+#: client/components/directives/triggers.directives.js:259
 #: client/components/events/events.directives.js:58
 #: client/components/locations/clients/_show.html:103
 #: client/components/locations/locations.controller.js:126
@@ -8646,10 +8849,8 @@ msgstr "Beschränkungen der Geschwindigkeiten"
 #: client/components/locations/locations.filters.js:279
 #: client/components/locations/networks/_index.html:35
 #: client/components/locations/networks/_index.html:8
-#: client/components/locations/triggers/triggers.directives.js:190
 #: client/components/splash_codes/_index.html:8
 #: client/components/splash_pages/_index.html:8
-#: client/components/users/branding/_form.html:3
 #: client/components/views/group_policies/_show.html:48
 #: client/components/zones/_index.html:8 client/components/zones/_show.html:49
 msgid "Splash"
@@ -8851,7 +9052,7 @@ msgstr "Standard-Support"
 msgid "Start"
 msgstr "Start"
 
-#: client/components/locations/triggers/_new.html:457
+#: client/components/views/triggers/_new.html:525
 #, fuzzy
 msgid "Start Hour"
 msgstr "Start"
@@ -8902,8 +9103,8 @@ msgstr "Status"
 msgid "Stop: {{ ::session.acctstoptime | humanTime }}"
 msgstr "Stopp: {{ ::session.acctstoptime | humanTime }}"
 
+#: client/components/directives/triggers.directives.js:261
 #: client/components/events/events.directives.js:59
-#: client/components/locations/triggers/triggers.directives.js:192
 msgid "Store"
 msgstr ""
 
@@ -8954,7 +9155,7 @@ msgstr "Stripe öffentlichen Schlüssel"
 msgid "Stripe Secret Key"
 msgstr "Stripe geheimen Schlüssel"
 
-#: client/components/locations/triggers/channel-email.html:25
+#: client/components/views/triggers/channel-email.html:25
 msgid "Subject"
 msgstr "Betreff"
 
@@ -8970,6 +9171,11 @@ msgstr "Abonnement-Status"
 #: client/components/users/invoices/_show.html:37
 msgid "Subtotal"
 msgstr "Zwischensumme"
+
+#: client/components/brands/brands.directives.js:86
+#, fuzzy
+msgid "Successfully created brand"
+msgstr "Brand erfolgreich geändert"
 
 #: client/components/vouchers/vouchers.directives.js:410
 msgid "Successfully delete voucher."
@@ -8995,12 +9201,12 @@ msgstr "Station erfolgreich getrennt."
 msgid "Successfully generated password"
 msgstr "Kennwort erfolgreich generiert"
 
-#: client/components/brands/brands.directives.js:107
-#: client/components/brands/brands.directives.js:63
+#: client/components/brands/brands.directives.js:133
+#: client/components/brands/brands.directives.js:225
 msgid "Successfully updated brand"
 msgstr "Brand erfolgreich geändert"
 
-#: client/components/directives/users.directives.js:542
+#: client/components/directives/users.directives.js:557
 msgid "Successfully updated details."
 msgstr "Details erfolgreich geändert."
 
@@ -9035,8 +9241,8 @@ msgstr ""
 msgid "Sun"
 msgstr "So."
 
-#: client/app/main/main.controllers.js:176 client/index.html:105
-#: client/index.html:188
+#: client/app/main/main.controllers.js:155 client/index.html:113
+#: client/index.html:192
 msgid "Support"
 msgstr "Support"
 
@@ -9138,8 +9344,8 @@ msgstr "Syslog-Port"
 msgid "TBC"
 msgstr "zu bestätigen"
 
-#: client/components/locations/triggers/_edit.html:9
 #: client/components/splash_pages/view-store.html:10
+#: client/components/views/triggers/_edit.html:9
 msgid "TOOLS"
 msgstr "WERKZEUGE"
 
@@ -9173,8 +9379,8 @@ msgstr "Tagged-Logins sind eingeschaltet"
 #: client/components/boxes/edit/_edit.html:65
 #: client/components/boxes/show/_index.html:225
 #: client/components/locations/boxes/_table.html:53
-#: client/components/locations/triggers/_new.html:442
-#: client/components/locations/triggers/_new.html:444
+#: client/components/views/triggers/_new.html:510
+#: client/components/views/triggers/_new.html:512
 msgid "Tags"
 msgstr ""
 
@@ -9205,6 +9411,10 @@ msgstr "Sagen Sie uns, was wir falsch gemacht haben"
 #: client/components/apps/_new.html:75
 msgid "Tell us about your App"
 msgstr "Erzählen Sie uns von Ihrer Anwendung"
+
+#: client/components/views/triggers/list.html:62
+msgid "Template"
+msgstr ""
 
 #: client/components/splash_pages/_menu.html:649
 msgid "Terms"
@@ -9248,7 +9458,7 @@ msgstr "Test Ruckus VSZ"
 msgid "Tested at {{ box.latest_speedtest.timestamp | humanTime }}"
 msgstr "Getestet am {{ box.latest_speedtest.timestamp | humanTime }}"
 
-#: client/components/locations/triggers/_show.html:60
+#: client/components/views/triggers/_show.html:60
 msgid "Testing Trigger"
 msgstr "Teste Trigger"
 
@@ -9277,6 +9487,10 @@ msgstr "Thailand"
 msgid "Thank You!"
 msgstr "Vielen Dank!"
 
+#: client/components/views/brands/_new.html:41
+msgid "The URL prefix control how you login to your dashboard."
+msgstr ""
+
 #: client/components/boxes/show/_health_modal.html:42
 msgid "The box cannot resolve hostnames. Please check your DNS settings."
 msgstr ""
@@ -9297,7 +9511,7 @@ msgstr ""
 msgid "The box was last see at"
 msgstr "Gerät zuletzt online am"
 
-#: client/components/locations/triggers/_new.html:371
+#: client/components/views/triggers/_new.html:439
 msgid "The channel is the way you get notified."
 msgstr "Der Kanal ist die Art und Weise wie Sie benachrichtigt werden."
 
@@ -9321,6 +9535,12 @@ msgstr ""
 "Die maximale Anzahl von Zeichen, die Sie derzeit speichern können ist 1000. "
 "Ihre verwendeten Formatierungen werden angewendet."
 
+#: client/components/views/brands/_new.html:27
+msgid ""
+"The name appears on your dashboard and notification emails. Typically it's "
+"your company name."
+msgstr ""
+
 #: client/components/locations/networks/firewall.html:9
 msgid ""
 "The prevents users on your Wi-Fi networks from accessing your private "
@@ -9334,7 +9554,7 @@ msgstr ""
 msgid "The start date must be less than the end date"
 msgstr "Das Startdatum muss kleiner sein als das Enddatum"
 
-#: client/components/locations/triggers/_new.html:61
+#: client/components/views/triggers/_new.html:66
 #, fuzzy
 msgid ""
 "The trigger will fire when this event happens.\n"
@@ -9353,7 +9573,9 @@ msgstr ""
 "Das Benutzername/E-Mail-Feld ist obligatorisch und kann nicht entfernt "
 "werden."
 
+#: client/components/controllers/brands.controller.js:32
 #: client/components/splash_pages/_menu.html:227
+#: client/components/views/brands/_index.html:105
 msgid "Theme"
 msgstr "Thema"
 
@@ -9370,7 +9592,7 @@ msgstr "Es gab ein Problem bei der Bearbeitung Ihrer Anfrage."
 msgid "There was a problem updating this user."
 msgstr "Es gab ein Problem beim Aktualisieren dieses Benutzers."
 
-#: client/components/locations/triggers/list.html:27
+#: client/components/views/triggers/list.html:27
 msgid "They monitor things that happen and notify you automatically."
 msgstr "Sie überwachen Geschehnisse und benachrichtigen Sie automatisch."
 
@@ -9413,7 +9635,7 @@ msgstr "Dieser Code ist gültig."
 msgid "This code will be for the splash page"
 msgstr "Dieser Code ist für die Startseite"
 
-#: client/components/boxes/boxes.directives.js:888
+#: client/components/boxes/boxes.directives.js:887
 msgid "This device is being resynced"
 msgstr ""
 
@@ -9463,7 +9685,7 @@ msgstr "Dies ist ein privater Standort"
 msgid "This is a public location"
 msgstr "Dies ist ein öffentlicher Standort"
 
-#: client/components/locations/triggers/_new.html:24
+#: client/components/views/triggers/_new.html:24
 msgid "This is a system trigger and is locked, you can't adjust some settings."
 msgstr ""
 
@@ -9551,14 +9773,14 @@ msgstr ""
 msgid "This text won't appear on the login page."
 msgstr "Dieser Text wird nicht auf der Anmeldeseite angezeigt."
 
-#: client/components/locations/triggers/_show.html:43
+#: client/components/views/triggers/_show.html:43
 #, fuzzy
 msgid "This trigger has run 1 time."
 msgid_plural "This trigger has run {{ trigger.run_count || 0 }} times."
 msgstr[0] "Dieser Trigger hat 1 Mal ausgelöst."
 msgstr[1] "Dieser Trigger hat {{ trigger.run_count || 0}} Mal ausgelöst."
 
-#: client/components/directives/users.directives.js:662
+#: client/components/directives/users.directives.js:677
 msgid "This will clear all active sessions, including this one."
 msgstr ""
 "Dadurch werden alle aktiven Anmeldungen beendet, einschließlich dieser."
@@ -9584,7 +9806,7 @@ msgstr "Dadurch wird verhindert, dass Benutzer sich anmelden können."
 msgid "This will resync all associated devices."
 msgstr "Dadurch werden alle zugehörigen Geräte neu synchronisiert."
 
-#: client/components/directives/users.directives.js:1208
+#: client/components/directives/users.directives.js:1226
 msgid ""
 "This will revoke the user's permissions. It does not remove the user "
 "completely"
@@ -9598,7 +9820,7 @@ msgstr ""
 "Dies wird Ihre vorhandenen Anmeldeinformationen zurücksetzen und kann nicht "
 "rückgängig gemacht werden."
 
-#: client/components/directives/users.directives.js:384
+#: client/components/directives/users.directives.js:396
 msgid "This will send a copy of the invoice to all billing emails."
 msgstr "Rechnungen werden an alle Abrechnungs-E-Mail-Adressen gesendet."
 
@@ -9631,6 +9853,7 @@ msgstr "Zeitüberschreitung Tage"
 #: client/components/boxes/edit/_edit.html:55
 #: client/components/locations/settings/_main.html:138
 #: client/components/splash_pages/splash_show.html:437
+#: client/components/views/brands/_index.html:65
 msgid "Timezone"
 msgstr "Zeitzone"
 
@@ -9638,7 +9861,7 @@ msgstr "Zeitzone"
 msgid "Timor-Leste"
 msgstr "Osttimor"
 
-#: client/components/locations/triggers/channel-email.html:4
+#: client/components/views/triggers/channel-email.html:4
 msgid "To Address"
 msgstr "Empfänger-Adresse"
 
@@ -9646,8 +9869,8 @@ msgstr "Empfänger-Adresse"
 msgid "To be completed"
 msgstr "Noch nicht fertig"
 
-#: client/components/locations/triggers/channel-sms.html:26
-#: client/components/locations/triggers/channel-sms.html:28
+#: client/components/views/triggers/channel-sms.html:26
+#: client/components/views/triggers/channel-sms.html:28
 msgid "To number"
 msgstr "Empfänger-Nummer"
 
@@ -9776,8 +9999,8 @@ msgstr "Übertragen Sie Ihr Gerät an einen Ihrer anderen Standorte."
 msgid "Transfer your splash to another location you own."
 msgstr "Übertragen Sie Ihre Startseite an einen Ihrer anderen Standorte."
 
-#: client/components/locations/triggers/_new.html:170
-#: client/components/locations/triggers/_new.html:94
+#: client/components/views/triggers/_new.html:175
+#: client/components/views/triggers/_new.html:99
 msgid "Transferred"
 msgstr "Übertragen"
 
@@ -9785,60 +10008,61 @@ msgstr "Übertragen"
 msgid "Transmission Failures"
 msgstr "Übertragungsfehler"
 
-#: client/components/locations/triggers/_show.html:53
+#: client/components/views/triggers/_show.html:53
 msgid "Trigger Active"
 msgstr "Trigger ist eingeschaltet"
 
-#: client/components/locations/triggers/history/_show.html:16
+#: client/components/views/triggers/history/_show.html:16
 #, fuzzy
 msgid "Trigger Details"
 msgstr "Bestelldetails"
 
-#: client/components/locations/triggers/_show.html:54
+#: client/components/views/triggers/_show.html:54
 msgid "Trigger Disabled"
 msgstr "Trigger ist ausgeschaltet"
 
-#: client/components/locations/triggers/_new.html:411
+#: client/components/views/triggers/_new.html:479
 #, fuzzy
 msgid "Trigger Settings"
 msgstr "Profil-Einstellungen"
 
-#: client/components/locations/triggers/_vars.html:4
+#: client/components/views/triggers/_vars.html:4
 msgid "Trigger Tags"
 msgstr "Schlagwörter des Triggers"
 
-#: client/components/locations/triggers/_show.html:37
+#: client/components/views/triggers/_show.html:37
 msgid "Trigger active."
 msgstr "Trigger aktiv."
 
-#: client/components/locations/triggers/triggers.directives.js:250
+#: client/components/directives/triggers.directives.js:341
 msgid "Trigger created successfully."
 msgstr "Trigger erfolgreich erstellt."
 
-#: client/components/locations/triggers/triggers.directives.js:125
-#: client/components/locations/triggers/triggers.directives.js:627
+#: client/components/directives/triggers.directives.js:147
+#: client/components/directives/triggers.directives.js:776
 msgid "Trigger successfully deleted."
 msgstr "Trigger erfolgreich gelöscht."
 
-#: client/components/locations/triggers/triggers.directives.js:237
+#: client/components/directives/triggers.directives.js:306
 msgid "Trigger successfully updated."
 msgstr "Trigger erfolgreich geändert."
 
+#: client/components/controllers/brands.controller.js:39
+#: client/components/directives/triggers.directives.js:262
 #: client/components/events/events.directives.js:61
 #: client/components/locations/locations.controller.js:109
-#: client/components/locations/triggers/_edit.html:6
-#: client/components/locations/triggers/_show.html:6
-#: client/components/locations/triggers/list.html:6
-#: client/components/locations/triggers/triggers.directives.js:193
+#: client/components/views/triggers/_edit.html:6
+#: client/components/views/triggers/_show.html:6
+#: client/components/views/triggers/list.html:6
 msgid "Triggers"
 msgstr "Trigger"
 
-#: client/components/locations/triggers/_show.html:57
+#: client/components/views/triggers/_show.html:57
 #, fuzzy
 msgid "Triggers are automatically disabled if they fail 5 times."
 msgstr "Trigger werden automatisch ausgeschaltet, wenn sie 3 Mal scheitern."
 
-#: client/components/locations/triggers/list.html:26
+#: client/components/views/triggers/list.html:26
 msgid "Triggers run automatically in the background."
 msgstr "Trigger werden im Hintergrund ausgeführt."
 
@@ -9877,14 +10101,6 @@ msgstr "Tuvalu"
 #: client/components/users/integrations/_integrations.html:70
 msgid "Twillio"
 msgstr "Twillio"
-
-#: client/components/locations/triggers/triggers.directives.js:458
-msgid ""
-"Twillio isn't setup yet, or you don't have any active integrations. You can "
-"<a href='/#/me/integrations'>do that here</a>."
-msgstr ""
-"Twillio wurde noch nicht eingerichtet oder die Integration is nicht aktiv. "
-"Sie können das <a href='/#/me/integrations'>hier</a> erledigen."
 
 #: client/components/locations/show/header.html:18
 msgid "Twitter"
@@ -9930,16 +10146,16 @@ msgstr "Senderate (Bit/s)"
 #: client/components/locations/index/_alerts.html:56
 #: client/components/locations/networks/_index.html:34
 #: client/components/locations/networks/firewall.html:13
-#: client/components/locations/triggers/channel-webhook.html:14
-#: client/components/locations/triggers/history/_index.html:18
-#: client/components/locations/triggers/list.html:51
 #: client/components/splash_pages/_index.html:50
 #: client/components/views/group_policies/_index.html:60
+#: client/components/views/triggers/channel-webhook.html:14
+#: client/components/views/triggers/history/_index.html:18
+#: client/components/views/triggers/list.html:64
 #: client/components/vouchers/_form.html:52
 msgid "Type"
 msgstr "Typ"
 
-#: client/components/locations/triggers/list.html:68
+#: client/components/views/triggers/list.html:92
 msgid "Type: {{ trigger.trigger_type }}. Runs: {{ trigger.run_count }}"
 msgstr "Typ: {{ trigger.trigger_type }}. Läufe: {{ trigger.run_count }}"
 
@@ -9965,7 +10181,8 @@ msgstr "AKTUALISIEREN "
 msgid "UPGRADE"
 msgstr "AKTUALISIEREN "
 
-#: client/components/locations/triggers/channel-webhook.html:5
+#: client/components/views/brands/_index.html:61
+#: client/components/views/triggers/channel-webhook.html:5
 msgid "URL"
 msgstr "URL"
 
@@ -9993,7 +10210,7 @@ msgstr ""
 msgid "Unarchive"
 msgstr "Wiederherstellen"
 
-#: client/components/locations/triggers/_new.html:165
+#: client/components/views/triggers/_new.html:170
 msgid "Unarchived"
 msgstr "Wiederhergestellt"
 
@@ -10048,8 +10265,7 @@ msgstr "Vereinigte Staaten Kleinere Ausgelagerte Inseln"
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: client/components/locations/triggers/triggers.directives.js:389
-#: client/components/locations/triggers/triggers.directives.js:463
+#: client/components/directives/triggers.directives.js:501
 msgid "Unknown error, please try again"
 msgstr "Unbekannter Fehler, versuchen Sie es bitte erneut"
 
@@ -10105,19 +10321,21 @@ msgstr "Zone ändern"
 msgid "Update or add your credit card"
 msgstr "Kreditkarte ändern oder neue hinzufügen"
 
-#: client/components/locations/triggers/_new.html:153
-#: client/components/locations/triggers/_new.html:189
-#: client/components/locations/triggers/_new.html:207
-#: client/components/locations/triggers/_new.html:239
-#: client/components/locations/triggers/_new.html:281
-#: client/components/locations/triggers/_new.html:323
-#: client/components/locations/triggers/_new.html:77
+#: client/components/views/triggers/_new.html:158
+#: client/components/views/triggers/_new.html:194
+#: client/components/views/triggers/_new.html:212
+#: client/components/views/triggers/_new.html:244
+#: client/components/views/triggers/_new.html:286
+#: client/components/views/triggers/_new.html:328
+#: client/components/views/triggers/_new.html:82
 msgid "Updated"
 msgstr "Aktualisiert"
 
-#: client/components/brands/brands.directives.js:122
-msgid "Updated CNAME, please login to finalise changes."
-msgstr "Aktualisiere CNAME, bitte neu anmelden um Änderung abzuschließen."
+#: client/components/views/triggers/_new.html:342
+#: client/components/views/triggers/_new.html:381
+#, fuzzy
+msgid "Updated*"
+msgstr "Aktualisiert"
 
 #: client/components/boxes/port_forwards/form.html:48
 msgid "Updating"
@@ -10149,7 +10367,7 @@ msgstr "Aktualisieren Sie Ihr Gerät"
 msgid "Upgrade at 2am localtime on the following date"
 msgstr "Aktualisieren um 2:00 Uhr lokaler Zeit am"
 
-#: client/components/boxes/boxes.directives.js:1433
+#: client/components/boxes/boxes.directives.js:1432
 msgid "Upgrade cancelled successfully."
 msgstr "Aktualisierung erfolgreich abgebrochen."
 
@@ -10274,17 +10492,15 @@ msgstr "Benutzerkontennummer"
 msgid "User Email"
 msgstr "Benutzer-E-Mail-Adresse"
 
-#: client/components/directives/users.directives.js:1029
-#: client/components/directives/users.directives.js:107
-#: client/components/directives/users.directives.js:50
+#: client/components/directives/users.directives.js:1047
+#: client/components/directives/users.directives.js:113
+#: client/components/directives/users.directives.js:53
 msgid "User successfully updated."
 msgstr "Benutzer erfolgreich geändert."
 
 #: client/components/codes/_index.html:44 client/components/codes/_table.html:8
 #: client/components/locations/clients/_show_code.html:27
 #: client/components/locations/clients/codes.html:31
-#: client/components/locations/triggers/channel-slack.html:85
-#: client/components/locations/triggers/show-slack.html:25
 #: client/components/locations/users/_index.html:36
 #: client/components/locations/users/_invite.html:23
 #: client/components/networks/_radtest.html:16
@@ -10292,10 +10508,12 @@ msgstr "Benutzer erfolgreich geändert."
 #: client/components/registrations/_flow.html:96
 #: client/components/users/index/_index.html:21
 #: client/components/users/show/_index.html:84
+#: client/components/views/triggers/channel-slack.html:44
+#: client/components/views/triggers/show-slack.html:25
 msgid "Username"
 msgstr "Benutzername"
 
-#: client/components/locations/triggers/channel-slack.html:83
+#: client/components/views/triggers/channel-slack.html:42
 msgid "Username (Optional)"
 msgstr "Benutzername (optional)"
 
@@ -10304,9 +10522,10 @@ msgstr "Benutzername (optional)"
 msgid "Username and Password"
 msgstr "Benutzername und Kennwort"
 
+#: client/app/main/main.controllers.js:391
+#: client/components/directives/triggers.directives.js:264
 #: client/components/events/events.directives.js:63
 #: client/components/locations/locations.controller.js:162
-#: client/components/locations/triggers/triggers.directives.js:195
 #: client/components/locations/users/_index.html:3
 msgid "Users"
 msgstr "Benutzer"
@@ -10385,13 +10604,13 @@ msgstr "Vietnam"
 
 #: client/components/audit/sales/_index.html:109
 #: client/components/clients/clients.directives.js:144
-#: client/components/directives/users.directives.js:343
+#: client/components/directives/triggers.directives.js:1067
+#: client/components/directives/triggers.directives.js:66
+#: client/components/directives/users.directives.js:355
 #: client/components/locations/boxes/_table.html:131
 #: client/components/locations/locations.directives.js:1955
 #: client/components/locations/locations.directives.js:561
 #: client/components/locations/show/_map.html:47
-#: client/components/locations/triggers/triggers.directives.js:58
-#: client/components/locations/triggers/triggers.directives.js:869
 #: client/components/reports/reports.v2.directives.js:400
 #: client/components/splash_codes/splash_codes.directives.js:63
 #: client/components/users/invoices/_details.html:133
@@ -10440,7 +10659,7 @@ msgstr "Geräte-Karte zeigen."
 msgid "View required URLs"
 msgstr "Zeige benötigte URLs"
 
-#: client/components/locations/triggers/_webhook_variables.html:1
+#: client/components/views/triggers/_webhook_variables.html:1
 msgid ""
 "View the available dynamic variables <a href=\"\" ng-click="
 "\"showVars()\">here</a>."
@@ -10507,9 +10726,8 @@ msgstr "Gutschein {{ voucher.is_active | humanBoolean }}"
 
 #: client/components/clients/clients.directives.js:1059
 #: client/components/codes/_index.html:3
+#: client/components/directives/triggers.directives.js:263
 #: client/components/events/events.directives.js:62
-#: client/components/locations/triggers/list.html:3
-#: client/components/locations/triggers/triggers.directives.js:194
 #: client/components/locations/versions/_index.html:3
 #: client/components/reports/_radius_stats.html:46
 #: client/components/splash_pages/access-social.html:24
@@ -10517,6 +10735,7 @@ msgstr "Gutschein {{ voucher.is_active | humanBoolean }}"
 #: client/components/splash_pages/splash_pages.filters.js:46
 #: client/components/users/history/_index.html:3
 #: client/components/users/quotas/_index.html:39
+#: client/components/views/triggers/list.html:3
 #: client/components/vouchers/_new.html:6
 #: client/components/vouchers/_show.html:6
 msgid "Vouchers"
@@ -10596,7 +10815,7 @@ msgstr ""
 msgid "Web Address"
 msgstr "Web-Adresse"
 
-#: client/components/locations/triggers/_vars.html:42
+#: client/components/views/triggers/_vars.html:42
 #, fuzzy
 msgid "Webhook tags"
 msgstr "Facebook Seite"
@@ -10688,99 +10907,99 @@ msgstr "Welche Webadresse möchten Sie für Ihr Dashboard verwenden?"
 msgid "What's the password?"
 msgstr "Wie lautet Ihr Kennwort?"
 
-#: client/components/locations/triggers/triggers.filters.js:26
+#: client/components/filters/triggers.filters.js:26
 msgid "When a Social is"
 msgstr "Wird ein soziales Medium"
 
-#: client/components/locations/triggers/triggers.filters.js:12
+#: client/components/filters/triggers.filters.js:12
 msgid "When a box is"
 msgstr "Wird ein Gerät"
 
-#: client/components/locations/triggers/triggers.filters.js:14
+#: client/components/filters/triggers.filters.js:14
 msgid "When a client"
 msgstr "Wird eine Station"
 
-#: client/components/locations/triggers/triggers.filters.js:18
+#: client/components/filters/triggers.filters.js:18
 msgid "When a guest is"
 msgstr "Wird ein Gast"
 
-#: client/components/locations/triggers/triggers.filters.js:20
+#: client/components/filters/triggers.filters.js:20
 msgid "When a location is"
 msgstr "Wird ein Standort"
 
-#: client/components/locations/triggers/triggers.filters.js:22
+#: client/components/filters/triggers.filters.js:22
 msgid "When a network / SSID is"
 msgstr "Wird ein Netzwerk / eine SSID"
 
-#: client/components/locations/triggers/triggers.filters.js:72
+#: client/components/filters/triggers.filters.js:72
 msgid "When a purchase happens"
 msgstr "Findet ein Kauf statt"
 
-#: client/components/locations/triggers/triggers.filters.js:24
+#: client/components/filters/triggers.filters.js:24
 msgid "When a splash page is"
 msgstr "Wird eine Startseite"
 
-#: client/components/locations/triggers/triggers.filters.js:28
+#: client/components/filters/triggers.filters.js:28
 msgid "When a voucher is"
 msgstr "Wird ein Gutschein"
 
-#: client/components/locations/triggers/triggers.filters.js:30
+#: client/components/filters/triggers.filters.js:30
 msgid "When a zone is"
 msgstr "Wird eine Zone"
 
-#: client/components/locations/triggers/triggers.filters.js:54
+#: client/components/filters/triggers.filters.js:54
 msgid "When a {{object}} goes offline"
 msgstr "Wenn ein(e) {{object}} offline geht"
 
-#: client/components/locations/triggers/triggers.filters.js:52
+#: client/components/filters/triggers.filters.js:52
 msgid "When a {{object}} goes online"
 msgstr "Wenn ein(e) {{object}} online geht"
 
-#: client/components/locations/triggers/triggers.filters.js:68
+#: client/components/filters/triggers.filters.js:68
 msgid "When a {{object}} is copied"
 msgstr "Wenn ein(e) {{object}} kopiert wird"
 
-#: client/components/locations/triggers/triggers.filters.js:46
+#: client/components/filters/triggers.filters.js:46
 msgid "When a {{object}} is created"
 msgstr "Wenn ein(e) {{object}} erstellt wird"
 
-#: client/components/locations/triggers/triggers.filters.js:50
+#: client/components/filters/triggers.filters.js:50
 msgid "When a {{object}} is deleted"
 msgstr "Wenn ein(e) {{object}} gelöscht wird"
 
-#: client/components/locations/triggers/triggers.filters.js:56
+#: client/components/filters/triggers.filters.js:56
 msgid "When a {{object}} is reset"
 msgstr "Wenn ein(e) {{object}} zurückgesetzt wird"
 
-#: client/components/locations/triggers/triggers.filters.js:64
+#: client/components/filters/triggers.filters.js:64
 msgid "When a {{object}} is restored"
 msgstr "Wenn ein(e) {{object}} wiederhergestellt wird"
 
-#: client/components/locations/triggers/triggers.filters.js:58
+#: client/components/filters/triggers.filters.js:58
 msgid "When a {{object}} is resynced"
 msgstr "Wenn ein(e) {{object}} neu synchronisiert wird"
 
-#: client/components/locations/triggers/triggers.filters.js:60
+#: client/components/filters/triggers.filters.js:60
 msgid "When a {{object}} is transferred"
 msgstr "Wenn ein(e) {{object}} übertragen wird"
 
-#: client/components/locations/triggers/triggers.filters.js:48
+#: client/components/filters/triggers.filters.js:48
 msgid "When a {{object}} is updated"
 msgstr "Wenn ein(e) {{object}} geändert wird"
 
-#: client/components/locations/triggers/triggers.filters.js:66
+#: client/components/filters/triggers.filters.js:66
 msgid "When a {{object}} logs in"
 msgstr "Wenn ein(e) {{object}} angemeldet wird"
 
-#: client/components/locations/triggers/_new.html:42
+#: client/components/views/triggers/_new.html:42
 msgid "When an email address is captured, send a trigger."
 msgstr "Einen Trigger senden, wenn eine E-Mail-Adresse erfasst wird."
 
-#: client/components/locations/triggers/triggers.filters.js:16
+#: client/components/filters/triggers.filters.js:16
 msgid "When an email is"
 msgstr "Wird eine E-Mail-Adresse"
 
-#: client/components/locations/triggers/triggers.filters.js:70
+#: client/components/filters/triggers.filters.js:70
 msgid "When an order is refunded"
 msgstr "Wenn eine Bestellung zurückerstattet wird"
 
@@ -10788,7 +11007,7 @@ msgstr "Wenn eine Bestellung zurückerstattet wird"
 msgid "When should this expire"
 msgstr "Wann soll dies ablaufen"
 
-#: client/components/locations/triggers/triggers.filters.js:74
+#: client/components/filters/triggers.filters.js:74
 msgid "When your codes have generated"
 msgstr "Wann Ihre Codes erstellt wurden"
 
@@ -10808,7 +11027,7 @@ msgstr "Wo ist das Netzwerk"
 msgid "Whitelist"
 msgstr "Whitelist"
 
-#: client/components/locations/triggers/channel-email.html:16
+#: client/components/views/triggers/channel-email.html:16
 msgid "Who's the email from"
 msgstr "Wem gehört die E-Mail-Adresse"
 
@@ -10859,7 +11078,7 @@ msgstr "WiFi-Statistik"
 msgid "Wireless Usage"
 msgstr "WiFi-Nutzung"
 
-#: client/components/locations/triggers/triggers.filters.js:62
+#: client/components/filters/triggers.filters.js:62
 msgid "Wnen a {{object}} is archived"
 msgstr "Wenn ein {{object}} archiviert ist"
 
@@ -10872,15 +11091,11 @@ msgstr "Möchten Sie dieses Gerät neustarten?"
 msgid "YOUR PLAN"
 msgstr "IHR TARIF"
 
-#: client/components/locations/triggers/triggers.directives.js:673
-msgid "Yay, it worked. The trigger completed successfully!"
-msgstr "Der Trigger hat funktioniert und wurde erfolgreich angelegt!"
-
 #: client/components/main/main.directives.js:357
 msgid "Yemen"
 msgstr "Yemen"
 
-#: client/components/users/branding/_form.html:20
+#: client/components/views/brands/_show.html:10
 msgid ""
 "You are a member of <b>{{ ::brand.brand_name }}</b>. Only brand admins can "
 "edit the brand details."
@@ -10916,6 +11131,10 @@ msgstr "Sie können mich Alice nennen. Schön Sie kennenzulernen."
 msgid "You can change all these later if you need."
 msgstr "Sie können dies alles später noch ändern, wenn Sie wollen."
 
+#: client/components/views/brands/_new.html:11
+msgid "You can create multiple brands on Enterprise plans only."
+msgstr ""
+
 #: client/components/splash_pages/_form.html:11
 msgid "You can design the splash pages to match your style."
 msgstr "Sie können die Startseiten passend zu Ihrem Stil entwerfen."
@@ -10944,17 +11163,9 @@ msgstr "Ein Standort mit Anmeldedaten kann nicht gelöscht werden."
 msgid "You don't have a facebook page set up"
 msgstr "Sie haben noch keine Facebook-Seite konfiguriert"
 
-#: client/components/locations/triggers/triggers.directives.js:402
+#: client/components/directives/triggers.directives.js:514
 msgid "You don't have any active channel associated with your slack account."
 msgstr "Sie haben Ihrem Slack-Konto noch keinen aktiven Kanal zugeordnet."
-
-#: client/components/locations/triggers/triggers.directives.js:439
-msgid "You don't have any active lists associated with your account."
-msgstr "Sie haben mit Ihrem Konto keine aktiven Listen verknüpft."
-
-#: client/components/locations/triggers/triggers.directives.js:478
-msgid "You don't have any active numbers associated with your Twillio account."
-msgstr "Sie haben Ihrem Twillio-Konto keine aktiven Nummern zugeordnet."
 
 #: client/components/locations/access/access-social.html:50
 msgid "You don't have any facebook pages on that account, please try again"
@@ -10985,6 +11196,12 @@ msgstr ""
 "Sie haben noch keine Geräte hinzugefügt. Bitte überprüfen Sie die Liste der "
 "kompatiblen Geräte <a href=\"http://docs.cucumberwifi.io/article/78-"
 "compatible-devices-access-points\" target=\"_blank\">hier</a>."
+
+#: client/components/brands/brands.directives.js:143
+#, fuzzy
+msgid "You may need to resync your boxes after updating your brand."
+msgstr ""
+"Bitte alle Ihre Geräte nach der Änderung Ihres Brands neu synchronisieren."
 
 #: client/components/boxes/new/_add.html:85
 msgid ""
@@ -11043,7 +11260,7 @@ msgstr "Geben Sie eine Stadt ein."
 msgid "You must enter a username"
 msgstr "Geben Sie einen Benutzernamen ein."
 
-#: client/components/locations/triggers/channel-webhook.html:9
+#: client/components/views/triggers/channel-webhook.html:9
 msgid "You must enter a valid URL including http(s)"
 msgstr "Geben Sie eine gültige URL inklusive http(s) ein "
 
@@ -11091,7 +11308,7 @@ msgstr "Benennen Sie die Liste"
 msgid "You must give the zone a name"
 msgstr "Benennen Sie die Zone"
 
-#: client/components/locations/triggers/channel-email.html:40
+#: client/components/views/triggers/channel-email.html:40
 msgid "You must set a body for the message"
 msgstr "Geben Sie für die Nachricht einen Inhalt ein."
 
@@ -11107,7 +11324,7 @@ msgstr "Geben Sie eine Beschreibung für den Artikel ein."
 msgid "You must set a duration for the product."
 msgstr "Legen Sie eine Dauer für den Artikel fest"
 
-#: client/components/locations/triggers/channel-email.html:18
+#: client/components/views/triggers/channel-email.html:18
 msgid "You must set a from address"
 msgstr "Geben Sie eine Absender-Adresse an"
 
@@ -11139,7 +11356,7 @@ msgstr "Legen Sie ein Kennwort fest"
 msgid "You must set a quantity"
 msgstr "Legen Sie eine Menge fest"
 
-#: client/components/locations/triggers/channel-email.html:29
+#: client/components/views/triggers/channel-email.html:29
 msgid "You must set a subject"
 msgstr "Geben Sie einen Betreff an"
 
@@ -11213,7 +11430,7 @@ msgstr "Sie müssen das Datenlimit festlegen."
 msgid "You must set the download restriction."
 msgstr "Sie müssen ein Download-Limit festlegen."
 
-#: client/components/locations/triggers/channel-email.html:8
+#: client/components/views/triggers/channel-email.html:8
 msgid "You must set the email"
 msgstr "Definieren Sie die E-Mail-Adresse"
 
@@ -11288,7 +11505,7 @@ msgstr "Ihre Newsletter-Listen-ID"
 msgid "Your Twitter &amp; Facebook links appear on your login screens."
 msgstr "Ihre Twitter &amp; Facebook Links erscheinen in Ihrer Anmeldeseite."
 
-#: client/components/users/branding/_form.html:127
+#: client/components/views/brands/_show.html:129
 msgid "Your Website"
 msgstr "Ihre Webseite"
 
@@ -11296,6 +11513,11 @@ msgstr "Ihre Webseite"
 #: client/components/locations/show/edit-modal.html:39
 msgid "Your address"
 msgstr "Ihre Adresse"
+
+#: client/components/views/brands/_new.html:45
+#, fuzzy
+msgid "Your address will be&nbsp;"
+msgstr "Ihre Dashboard-Adresse ist&nbsp;"
 
 #: client/components/apps/_new.html:34
 msgid "Your application name"
@@ -11308,6 +11530,11 @@ msgstr "Ihre Rechnungsstadt"
 #: client/components/users/billing/_billing.html:31
 msgid "Your billing postcode"
 msgstr "Rechnungspostleitzahl"
+
+#: client/components/views/brands/_index.html:30
+msgid ""
+"Your brand is logical container for all your locations, users and projects."
+msgstr ""
 
 #: client/components/apps/_new.html:49
 msgid "Your callback URL"
@@ -11329,7 +11556,7 @@ msgstr "Firma"
 msgid "Your customers enter this on the login pages."
 msgstr "Ihre Kunden  geben das auf den Login-Seiten an."
 
-#: client/components/users/branding/_form.html:90
+#: client/components/views/brands/_show.html:92
 msgid "Your dashboard address is&nbsp;"
 msgstr "Ihre Dashboard-Adresse ist&nbsp;"
 
@@ -11337,11 +11564,11 @@ msgstr "Ihre Dashboard-Adresse ist&nbsp;"
 msgid "Your dashboard is being created."
 msgstr "Ihr Dashboard wird erstellt."
 
-#: client/components/boxes/boxes.directives.js:1649
+#: client/components/boxes/boxes.directives.js:1647
 msgid "Your device has been added."
 msgstr "Ihr Gerät wurde hinzugefügt."
 
-#: client/components/boxes/boxes.directives.js:1652
+#: client/components/boxes/boxes.directives.js:1650
 msgid "Your devices have been added."
 msgstr "Ihre Geräte wurden hinzugefügt."
 
@@ -11400,7 +11627,7 @@ msgstr ""
 msgid "Your town"
 msgstr "Ihre Stadt"
 
-#: client/components/boxes/boxes.directives.js:1350
+#: client/components/boxes/boxes.directives.js:1349
 msgid "Your upgrade has been scheduled."
 msgstr "Ihr Upgrade wurde planmäßig durchgeführt."
 
@@ -11426,7 +11653,7 @@ msgstr "Simbabwe"
 msgid "Zone"
 msgstr "Zone"
 
-#: client/components/zones/_index.html:93 client/components/zones/_show.html:67
+#: client/components/zones/_index.html:86 client/components/zones/_show.html:67
 msgid "Zone Menu"
 msgstr "Zonen-Menü"
 
@@ -11446,14 +11673,14 @@ msgstr "Zone erfolgreich geändert"
 msgid "Zone: {{ ::box.metadata.zone_name }}"
 msgstr "Zone: {{ ::box.metadata.zone_name }}"
 
+#: client/components/directives/triggers.directives.js:265
 #: client/components/events/events.directives.js:64
 #: client/components/locations/locations.controller.js:93
-#: client/components/locations/triggers/triggers.directives.js:196
 #: client/components/zones/_index.html:11
 msgid "Zones"
 msgstr "Zonen"
 
-#: client/components/zones/_index.html:33
+#: client/components/zones/_index.html:31
 msgid "Zones let you organise and segment your networks."
 msgstr "Mit Zonen organisieren und segmentieren Sie ihre Netzwerke."
 
@@ -11461,7 +11688,7 @@ msgstr "Mit Zonen organisieren und segmentieren Sie ihre Netzwerke."
 msgid "Zones per location"
 msgstr "Zonen pro Standort"
 
-#: client/components/locations/triggers/triggers.directives.js:341
+#: client/components/directives/triggers.directives.js:453
 msgid "[WELCOME] Thanks for logging in"
 msgstr "[Willkommen] Danke für Ihre Anmeldung"
 
@@ -11483,7 +11710,7 @@ msgstr "eingeschaltet"
 msgid "add CARD"
 msgstr "Karte hinzufügen"
 
-#: client/components/locations/triggers/show-mailchimp.html:16
+#: client/components/views/triggers/show-mailchimp.html:16
 msgid "add an email to the MailChimp list"
 msgstr "eine E-Mail-Adresse zur MailChimp-Liste hinzufügen"
 
@@ -11551,7 +11778,7 @@ msgstr "entdecke Geräte"
 msgid "events"
 msgstr "Ereignisse"
 
-#: client/components/boxes/boxes.directives.js:1423
+#: client/components/boxes/boxes.directives.js:1422
 msgid "exit"
 msgstr "beenden"
 
@@ -11593,7 +11820,7 @@ msgstr "Offen"
 msgid "password"
 msgstr "Kennwort"
 
-#: client/components/boxes/boxes.directives.js:1422
+#: client/components/boxes/boxes.directives.js:1421
 msgid "please cancel it"
 msgstr "bitte abbrechen"
 
@@ -11609,35 +11836,35 @@ msgstr "Entfernung auswählen"
 msgid "select interval"
 msgstr "Intervall auswählen"
 
-#: client/components/locations/triggers/show-webhook.html:17
+#: client/components/views/triggers/show-webhook.html:17
 msgid "send a <b>{{ trigger.attr_2 }}</b> request to:"
 msgstr "sende eine <b>{{ trigger.attr_2 }}</b>-Anfrage an:"
 
-#: client/components/locations/triggers/triggers.filters.js:93
+#: client/components/filters/triggers.filters.js:93
 msgid "send a Slack notification."
 msgstr "sende eine Slack-Benachrichtigung."
 
-#: client/components/locations/triggers/triggers.filters.js:91
+#: client/components/filters/triggers.filters.js:91
 msgid "send a Webhook."
 msgstr "sende einen Webhook."
 
-#: client/components/locations/triggers/show-slack.html:16
+#: client/components/views/triggers/show-slack.html:16
 msgid "send a notification to the Slack channel"
 msgstr "sende eine Benachrichtigung an den Slack-Kanal"
 
-#: client/components/locations/triggers/triggers.filters.js:89
+#: client/components/filters/triggers.filters.js:89
 msgid "send an Email."
 msgstr "sende eine E-Mail."
 
-#: client/components/locations/triggers/show-sms.html:16
+#: client/components/views/triggers/show-sms.html:16
 msgid "send an SMS to"
 msgstr "sende eine SMS an"
 
-#: client/components/locations/triggers/triggers.filters.js:87
+#: client/components/filters/triggers.filters.js:87
 msgid "send an SMS."
 msgstr "sende eine SMS."
 
-#: client/components/locations/triggers/show-email.html:16
+#: client/components/views/triggers/show-email.html:16
 msgid "send an email to"
 msgstr "sende eine E-Mail an"
 
@@ -11647,7 +11874,7 @@ msgstr "sende eine E-Mail an"
 msgid "splash"
 msgstr "Startseite"
 
-#: client/components/locations/triggers/triggers.filters.js:95
+#: client/components/filters/triggers.filters.js:95
 msgid "subscribe an email to a MailChimp list."
 msgstr "E-Mail in MailChimp-Liste abonnieren"
 
@@ -11942,11 +12169,11 @@ msgstr ""
 "{{ stats.vouchers.created }} erstellt, {{ stats.vouchers.activated }} "
 "verwendet."
 
-#: client/components/locations/triggers/_new.html:6
+#: client/components/views/triggers/_new.html:6
 msgid "{{ trigger.id ? \"Back to Trigger\" : \"Triggers\" }}"
 msgstr "{{ trigger.id ? \"Zurück zu Trigger\" : \"Trigger\" }}"
 
-#: client/components/locations/triggers/_vars.html:52
+#: client/components/views/triggers/_vars.html:52
 msgid "{{ type | titleCase }} tags"
 msgstr "{{ type | titleCase }} Schlagwörter"
 
@@ -11966,7 +12193,7 @@ msgstr "{{ user.primary ? \"Eigentümer\" : (user.role_id | roleFilter) }}"
 msgid "{{ zone.zone_name | titleCase }} Zone"
 msgstr "{{ zone.zone_name | titleCase }} Zone"
 
-#: client/components/zones/_index.html:75
+#: client/components/zones/_index.html:70
 msgid "{{'N/A' | truncate:20}}"
 msgstr "{{'Nicht verfügbar' | truncate:20}}"
 
@@ -11981,6 +12208,54 @@ msgstr "{{'Kein Name' | truncate:20}}"
 #: client/components/main/main.directives.js:112
 msgid "Åland Islands"
 msgstr "Åland Islands"
+
+#~ msgid "Branding Details"
+#~ msgstr "Brand-Details"
+
+#~ msgid "Change Brand?"
+#~ msgstr "Brand ändern?"
+
+#, fuzzy
+#~ msgid "Enter a name for the Icon"
+#~ msgstr "Geben Sie einen Namen für den Standort ein"
+
+#~ msgid "MailChimp isn't setup yet. Do that first and come back."
+#~ msgstr ""
+#~ "MailChimp ist noch nicht eingerichtet. Erledigen Sie das zuerst und "
+#~ "kommen dann zurück."
+
+#~ msgid "Manage Users"
+#~ msgstr "Benutzer verwalten"
+
+#~ msgid "Oh no, the trigger failed. Please check the logs"
+#~ msgstr ""
+#~ "Der Trigger hat nicht funktioniert. Bitte überprüfen Sie die Protokolle"
+
+#~ msgid "Running test, please wait."
+#~ msgstr "Test läuft, bitte warten."
+
+#~ msgid "Slack Username"
+#~ msgstr "Slack Benutzername"
+
+#~ msgid ""
+#~ "Twillio isn't setup yet, or you don't have any active integrations. You "
+#~ "can <a href='/#/me/integrations'>do that here</a>."
+#~ msgstr ""
+#~ "Twillio wurde noch nicht eingerichtet oder die Integration is nicht "
+#~ "aktiv. Sie können das <a href='/#/me/integrations'>hier</a> erledigen."
+
+#~ msgid "Updated CNAME, please login to finalise changes."
+#~ msgstr "Aktualisiere CNAME, bitte neu anmelden um Änderung abzuschließen."
+
+#~ msgid "Yay, it worked. The trigger completed successfully!"
+#~ msgstr "Der Trigger hat funktioniert und wurde erfolgreich angelegt!"
+
+#~ msgid "You don't have any active lists associated with your account."
+#~ msgstr "Sie haben mit Ihrem Konto keine aktiven Listen verknüpft."
+
+#~ msgid ""
+#~ "You don't have any active numbers associated with your Twillio account."
+#~ msgstr "Sie haben Ihrem Twillio-Konto keine aktiven Nummern zugeordnet."
 
 #~ msgid "A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}"
 #~ msgstr ""
@@ -12010,9 +12285,6 @@ msgstr "Åland Islands"
 
 #~ msgid "Enter a url for the Icon"
 #~ msgstr "Geben Sie eine URL für das Icon ein"
-
-#~ msgid "Enterprise plans only."
-#~ msgstr "Nur Enterprise-Tarif"
 
 #~ msgid "Icon URL (Optional)"
 #~ msgstr "Icon-URL (optional)"

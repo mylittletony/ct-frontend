@@ -45,11 +45,11 @@ app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES)
     accent = p[1];
   }
 
-  if (primary === undefined || primary === null) {
+  if (primary === undefined || primary === null || primary === 'undefined') {
     primary = 'blue';
   }
 
-  if (accent === undefined || accent === null) {
+  if (accent === undefined || accent === null || accent === 'undefined') {
     accent = 'blue';
   }
 
