@@ -12,7 +12,7 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
 
     var path = $location.path().split('/');
     if (path[1] === 'brands') {
-      scope.brand.id =  $routeParams.id;
+      scope.brand.id =  $routeParams.brand_id;
     } else {
       scope.location.slug = $routeParams.id;
     }
@@ -264,6 +264,11 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       { key: gettextCatalog.getString('Users'), value: 'user' },
       { key: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
+
+    if (scope.brand.id) {
+      scope.triggers.push({ key: gettextCatalog.getString('Projects'), value: 'project' });
+      scope.triggers.push({ key: gettextCatalog.getString('Project Users'), value: 'project_user' });
+    }
 
     scope.channels = [
       { key: 'Email', value: 'email' },
@@ -699,7 +704,6 @@ app.directive('showTrigger', ['Trigger', 'BrandTrigger', '$q', '$routeParams', '
 
       // User permissions //
       scope.allowed = true;
-
       scope.menu = [];
 
       scope.menu.push({
@@ -715,11 +719,14 @@ app.directive('showTrigger', ['Trigger', 'BrandTrigger', '$q', '$routeParams', '
       //   type: 'test'
       // });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Logs'),
-        icon: 'list',
-        type: 'logs'
-      });
+      // We don't have an end-point for brand trigger hist yet
+      if (scope.trigger.location_id) {
+        scope.menu.push({
+          name: gettextCatalog.getString('Logs'),
+          icon: 'list',
+          type: 'logs'
+        });
+      }
 
       if (!scope.trigger.locked) {
         scope.menu.push({
@@ -931,75 +938,6 @@ app.directive('showTrigger', ['Trigger', 'BrandTrigger', '$q', '$routeParams', '
   };
 
 }]);
-
-// app.directive('editTrigger', ['Trigger', 'BrandTigger', '$q', '$routeParams', '$rootScope', '$http', '$location', function (Trigger, BrandTrigger, $q, $routeParams, $rootScope, $http, $location) {
-
-//   var link = function(scope,element,attrs) {
-
-//     scope.trigger = { id: $routeParams.trigger_id };
-//     scope.location = {};
-//     scope.brand = {};
-
-//     alert(123)
-
-//     var path = $location.path().split('/');
-//     if (path[1] === 'brands') {
-//       scope.brand.id =  $routeParams.brand_id;
-//     } else {
-//       scope.location.slug = $routeParams.id;
-//     }
-
-//     var setupTrigger = function(results) {
-//       scope.trigger = results;
-//       scope.loading = undefined;
-//     };
-
-//     var locationTrigger = function() {
-//       Trigger.get(
-//         {
-//           location_id: scope.location.slug,
-//           id: scope.trigger.id
-//         }
-//       ).$promise.then(function(results) {
-//         setupTrigger(results);
-//       }, function(err) {
-//         scope.errors = err;
-//       });
-//     };
-
-//     var brandTrigger = function() {
-//       BrandTrigger.get(
-//         {
-//           brand_id: scope.brand.id,
-//           id: scope.trigger.id
-//         }
-//       ).$promise.then(function(results) {
-//         setupTrigger(results);
-//       }, function(err) {
-//         scope.errors = err;
-//       });
-//     };
-
-//     var init = function() {
-//       if (scope.location.slug) {
-//         locationTrigger();
-//         return;
-//       }
-//       brandTrigger();
-//     };
-
-//     init();
-//   };
-
-//   return {
-//     link: link,
-//     scope: {
-//       loading: '='
-//     },
-//     templateUrl: 'components/views/triggers/_new.html'
-//   };
-
-// }]);
 
 app.directive('channelTypes', [function() {
   var link = function(scope, element, attrs) {

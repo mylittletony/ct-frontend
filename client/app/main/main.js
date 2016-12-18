@@ -29,28 +29,6 @@ app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
-// app.config(['$mdThemingProvider', '$provide', function($mdThemingProvider, $provide) {
-//   $mdThemingProvider.generateThemesOnDemand(true);
-//   $provide.value('greeting', $mdThemingProvider);
-// }]);
-
-// app.config(['$provide', '$mdThemingProvider', function($provide, $mdThemingProvider) {
-//   $provide.provider('greeting', function() {
-//     this.$get = function() {
-//       return function(name) {
-//         alert(123)
-//         $mdThemingProvider.theme('lime')
-//           .primaryPalette('blue')
-//           .accentPalette('blue', {
-//             'default': '500',
-//             'hue-1': '50'
-//           });
-//         // $mdThemingProvider.alwaysWatchTheme(true);
-//       };
-//     };
-//   });
-// }]);
-
 app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES) {
 
   var $cookies;
@@ -58,7 +36,6 @@ app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES)
     $cookies = _$cookies_;
   }]);
 
-  // var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
   var theme = $cookies.get('_ctt');
   var primary, accent;
 
@@ -68,13 +45,13 @@ app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES)
     accent = p[1];
   }
 
-  // if (THEMES.indexOf(primary) === -1) {
-  //   primary = 'blue';
-  // }
+  if (primary === undefined || primary === null) {
+    primary = 'blue';
+  }
 
-  // if (THEMES.indexOf(accent) === -1) {
-  //   accent = 'blue';
-  // }
+  if (accent === undefined || accent === null) {
+    accent = 'blue';
+  }
 
   $mdThemingProvider.theme('default')
     .primaryPalette(primary)
@@ -83,14 +60,15 @@ app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES)
       'hue-1': '50'
     });
 
-  for (var i = 0; i < THEMES.length; i++) {
-    $mdThemingProvider.theme(THEMES[i])
-      .primaryPalette(THEMES[i]);
-    // .accentPalette('orange')
-    // .warnPalette('blue');
+  if (THEMES.length > 0) {
+    for (var i = 0; i < THEMES.length; i++) {
+      $mdThemingProvider.theme(THEMES[i])
+        .primaryPalette(THEMES[i]);
+      // .accentPalette('orange')
+      // .warnPalette('blue');
+    }
+    $mdThemingProvider.alwaysWatchTheme(true);
   }
-
-  $mdThemingProvider.alwaysWatchTheme(true);
 
 }]);
 
@@ -148,12 +126,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/views/brands/new.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/brands/:id', {
+    when('/brands/:brand_id', {
       controller: 'BrandsController',
       templateUrl: 'components/views/brands/show.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/brands/:id/triggers', {
+    when('/brands/:brand_id/triggers', {
       controller: 'BrandsController',
       templateUrl: 'components/views/triggers/index.html',
       resolve: { loginRequired: loginRequired },
@@ -178,7 +156,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     //   templateUrl: 'components/views/brands/settings/index.html',
     //   resolve: { loginRequired: loginRequired },
     // }).
-    when('/brands/:id/theme', {
+    when('/brands/:brand_id/theme', {
       controller: 'BrandsController',
       templateUrl: 'components/views/brands/theme/index.html',
       resolve: { loginRequired: loginRequired },

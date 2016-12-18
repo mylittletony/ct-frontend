@@ -70,13 +70,15 @@ app.directive('newBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$
       { key: 'English', value: 'en-GB' }
     ];
 
-    scope.brand     = {
+    scope.brand = {
       locale: 'en-GB',
       network_location: 'eu-west',
     };
 
     scope.save = function(form) {
-      form.$setPristine();
+      if (form) {
+        form.$setPristine();
+      }
       scope.brand.brand_name = scope.brandName.name;
       Brand.create({}, scope.brand
       ).$promise.then(function(results) {
@@ -110,7 +112,7 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
     ];
 
     var init = function() {
-      Brand.get({id: $routeParams.id}).$promise.then(function(results) {
+      Brand.get({id: $routeParams.brand_id}).$promise.then(function(results) {
         scope.brand = results;
         menu.header = results.brand_name;
         scope.loading = undefined;
@@ -167,7 +169,7 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
 
 }]);
 
-app.directive('brandTheme', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', 'Theme', '$cookies', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels, Theme, $cookies) {
+app.directive('brandTheme', ['Brand', '$routeParams', '$location', '$rootScope', 'Auth', '$pusher', 'showErrors', 'showToast', '$mdDialog', 'gettextCatalog', 'menu', 'pagination_labels', '$cookies', function(Brand, $routeParams, $location, $rootScope, Auth, $pusher, showErrors, showToast, $mdDialog, gettextCatalog, menu, pagination_labels, $cookies) {
 
   var link = function(scope) {
 
@@ -197,7 +199,7 @@ app.directive('brandTheme', ['Brand', '$routeParams', '$location', '$rootScope',
     ];
 
     var init = function() {
-      Brand.get({id: $routeParams.id}).$promise.then(function(results) {
+      Brand.get({id: $routeParams.brand_id}).$promise.then(function(results) {
         scope.brand = results;
         menu.header = results.brand_name;
         scope.loading = undefined;
@@ -221,15 +223,11 @@ app.directive('brandTheme', ['Brand', '$routeParams', '$location', '$rootScope',
           }
         }).$promise.then(function(results) {
           $cookies.put('_ctt', results.theme_primary + '.' + results.theme_accent);
-          // scope.brand       = results;
           showToast(gettextCatalog.getString('Successfully updated brand'));
         }, function(err) {
           showErrors(err);
         });
     };
-
-    // var themeColors = _theme.colors;
-    // console.log(themeColors);
 
     scope.save = function(form) {
       form.$setPristine();

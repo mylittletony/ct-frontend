@@ -11,7 +11,7 @@ app.controller('BrandsController', ['$rootScope', '$window', '$scope', '$routePa
       return menu.isSectionSelected(section);
     }
 
-    var id = $routeParams.id;
+    var id = $routeParams.brand_id;
     var path = $location.path();
     path = path.split('/');
 
@@ -28,19 +28,20 @@ app.controller('BrandsController', ['$rootScope', '$window', '$scope', '$routePa
       icon: 'face',
     }];
 
-    // menu.sections.push({
-    //   name: gettextCatalog.getString('Triggers'),
-    //   type: 'link',
-    //   link: '/#/brands/' + id + '/alerts',
-    //   icon: 'email',
-    // });
-
     menu.sections.push({
       name: gettextCatalog.getString('Theme'),
       type: 'link',
       link: '/#/brands/' + id + '/theme',
       icon: 'format_paint',
     });
+
+    menu.sections.push({
+      name: gettextCatalog.getString('Triggers'),
+      type: 'link',
+      link: '/#/brands/' + id + '/triggers',
+      icon: 'notifications_active',
+    });
+
   }
 ]);
 

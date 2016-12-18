@@ -538,7 +538,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       var deferred = $q.defer();
       if (scope.box.zone_id || ignoreZone) {
         var msg = 'Ignoring zid: ' + scope.box.zone_id + '. Ignore: ' + ignoreZone;
-        console.log(msg);
         deferred.resolve();
       } else {
         Zone.get({

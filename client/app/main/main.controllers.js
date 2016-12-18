@@ -1,7 +1,6 @@
 'use strict';
 
 var app = angular.module('myApp.controllers', [
-
   'myApp.authentications.controller',
   'myApp.brands.controller',
   'myApp.boxes.controller',
@@ -28,19 +27,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $scope.ct_login = CTLogin;
 
     // Zak Moonman - bonjour move these into something separate
-    docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
-    docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
-    docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
-    docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
-    docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
+    // docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
+    // docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
+    // docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
+    // docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
+    // docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
     // Zak Moonman - bonjour move these into something separate
-
-    // greeting.theme('default')
-    //   .primaryPalette('pink')
-    //   .accentPalette('orange')
-    //   .backgroundPalette('yellow');
-
-    // $mdTheming.generateTheme('default');
 
     function isOpen(section) {
       return (menu.isSectionSelected(section) && menu.isOpen());
@@ -194,10 +186,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     // });
 
     $scope.toggleOpen = toggleOpen;
-
-    // $scope.$on('themeChange', function(args) {
-    //   alert(123);
-    // });
 
     $scope.$on('logout', function(args) {
       logout().then(function(response) {

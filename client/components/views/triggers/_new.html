@@ -50,6 +50,11 @@
             <p ng-if="trigger.type == 'store'" translate>Send triggers when a store creates an event.</p>
             <p ng-if="trigger.type == 'voucher'" translate>Send a trigger when a vouchers creates a trigger</p>
             <p ng-if="trigger.type == 'zone'" translate>Send triggers when changes happen to a zone.</p>
+
+            <p ng-if="trigger.type == 'user'" translate>Send triggers when changes happen to a user.</p>
+            <p ng-if="trigger.type == 'brand'" translate>Send triggers when changes happen to a brand.</p>
+            <p ng-if="trigger.type == 'project'" translate>Send triggers when changes happen to a project.</p>
+            <p ng-if="trigger.type == 'project_user'" translate>Send triggers when project users are updated.</p>
           </md-card-content>
         </md-card>
         <md-card ng-if="trigger.type && trigger.type != 'all'">
@@ -326,17 +331,80 @@
                 </md-radio-button>
               </span>
 
-              <span ng-if="trigger.type == 'user'">
-                <md-radio-button value="user.invite">
-                  <translate>
+              <span ng-if="trigger.type == 'user'" layout="row" layout-wrap>
+                <span flex="50">
+                  <md-radio-button value="user.create" ng-disabled="location.slug">
+                    <translate>
+                    Created*
+                    </translate>
+                  </md-radio-button>
+                  <md-radio-button value="user.update" ng-disabled="location.slug">
+                    <translate>
+                    Updated*
+                    </translate>
+                  </md-radio-button>
+                  <md-radio-button value="user.destroy" ng-disabled="location.slug">
+                    <translate>
+                    Deleted*
+                    </translate>
+                  </md-radio-button>
+                  <md-radio-button value="user.password" ng-disabled="location.slug">
+                    <translate>
+                    Password Changed*
+                    </translate>
+                  </md-radio-button>
+                </span>
+
+                <span flex="50">
+                  <md-radio-button value="user.invite">
+                    <translate>
                     Invited
-                  </translate>
-                </md-radio-button>
-                <md-radio-button value="user.revoke">
-                  <translate>
+                    </translate>
+                  </md-radio-button>
+                  <md-radio-button value="user.revoke">
+                    <translate>
                     Revoked
-                  </translate>
-                </md-radio-button>
+                    </translate>
+                  </md-radio-button>
+                </span>
+                <small class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
+              </span>
+
+              <span ng-if="trigger.type == 'project'" layout="row" layout-wrap>
+                <span flex="100">
+                  <md-radio-button value="project.create" ng-disabled="location.slug">
+                    <translate>
+                    Created*
+                    </translate>
+                  </md-radio-button>
+                  <md-radio-button value="project.update" ng-disabled="location.slug">
+                    <translate>
+                    Updated*
+                    </translate>
+                  </md-radio-button>
+                  <md-radio-button value="project.destroy" ng-disabled="location.slug">
+                    <translate>
+                    Deleted*
+                    </translate>
+                  </md-radio-button>
+                </span>
+                <small class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
+              </span>
+
+              <span ng-if="trigger.type == 'project_user'" layout="row" layout-wrap>
+                <span flex="100">
+                  <md-radio-button value="project_user.create" ng-disabled="location.slug">
+                    <translate>
+                    Created*
+                    </translate>
+                  </md-radio-button>
+                  <md-radio-button value="project_user.destroy" ng-disabled="location.slug">
+                    <translate>
+                    Deleted*
+                    </translate>
+                  </md-radio-button>
+                </span>
+                <small class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
               </span>
 
               <span ng-if="trigger.type == 'zone'">

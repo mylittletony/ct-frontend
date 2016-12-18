@@ -42,7 +42,6 @@ var app = angular.module('myApp.services', [
   'myApp.reports.services',
   'myApp.registrations.services',
   'myApp.splash_codes.services',
-  'myApp.themes.services',
   'myApp.splash_pages.services',
   'myApp.subscriptions.services',
   'myApp.speedtests.services',

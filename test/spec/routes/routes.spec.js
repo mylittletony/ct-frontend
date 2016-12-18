@@ -4,7 +4,7 @@ describe('Routing', function () {
 
   beforeEach(module('myApp'));
 
-  fit('should map routes to controllers', function() {
+  it('should map routes to controllers', function() {
 
     inject(function($route) {
 
@@ -33,7 +33,7 @@ describe('Routing', function () {
       expect($route.routes['/brands'].templateUrl).
                   toEqual('components/views/brands/index.html');
 
-      expect($route.routes['/brands/:id/triggers'].templateUrl).
+      expect($route.routes['/brands/:brand_id/triggers'].templateUrl).
                   toEqual('components/views/triggers/index.html');
 
       expect($route.routes['/brands/:brand_id/triggers/new'].templateUrl).
@@ -45,13 +45,13 @@ describe('Routing', function () {
       expect($route.routes['/brands/:brand_id/triggers/:trigger_id/edit'].templateUrl).
                   toEqual('components/views/triggers/edit.html');
 
-      expect($route.routes['/brands/:id/theme'].templateUrl).
+      expect($route.routes['/brands/:brand_id/theme'].templateUrl).
                   toEqual('components/views/brands/theme/index.html');
 
       expect($route.routes['/brands/new'].templateUrl).
                   toEqual('components/views/brands/new.html');
 
-      expect($route.routes['/brands/:id'].templateUrl).
+      expect($route.routes['/brands/:brand_id'].templateUrl).
                   toEqual('components/views/brands/show.html');
 
       expect($route.routes['/locations/map'].templateUrl).
@@ -211,10 +211,6 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/devices/:box_id/edit'].templateUrl).
                   toEqual('components/boxes/edit/index.html');
 
-      // expect($route.routes['/locations/:id/boxes/:box_id/port_forwards'].controller).toBe('PortForwardsCtrl');
-      // expect($route.routes['/locations/:id/boxes/:box_id/port_forwards'].templateUrl).
-      //             toEqual('components/boxes/port_forwards/index.html');
-
       expect($route.routes['/locations/:id/devices/:box_id/versions'].controller).toBe('LocationsCtrl as lc');
       expect($route.routes['/locations/:id/devices/:box_id/versions'].templateUrl).
                   toEqual('components/boxes/versions/index.html');
@@ -270,10 +266,6 @@ describe('Routing', function () {
       expect($route.routes['/me/integrations/:id'].controller).toBe('UsersIntegrationsController');
       expect($route.routes['/me/integrations/:id'].templateUrl).
                   toEqual('components/users/integrations/setup.html');
-
-      // expect($route.routes['/users/:id/branding'].controller).toBe('BrandsController');
-      // expect($route.routes['/users/:id/branding'].templateUrl).
-      //             toEqual('components/users/branding/index.html');
 
       expect($route.routes['/users/:id/locations'].controller).toBe('UsersShowController');
       expect($route.routes['/users/:id/locations'].templateUrl).
