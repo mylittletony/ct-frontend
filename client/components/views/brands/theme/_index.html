@@ -20,7 +20,7 @@
                   <div layout="column" layout-gt-xs="row" layout-wrap flex="100" flex-gt-sm="100">
                     <md-input-container class="md-block" flex-gt-sm="50">
                       <label><translate>Primary Colour</translate></label>
-                      <md-select ng-model="brand.theme_primary" ng-change="swatchPrimary()" required>
+                      <md-select ng-model="brand.theme_primary" ng-change="swatchPrimary()" ng-disabled="!brand.admin" required>
                         <md-option ng-repeat="theme in themes" ng-value="theme.key">
                           {{ theme.val }}
                         </md-option>
@@ -29,7 +29,7 @@
 
                     <md-input-container class="md-block" flex-gt-sm="50">
                       <label><translate>Accent Colour</translate></label>
-                      <md-select ng-model="brand.theme_accent" required>
+                      <md-select ng-model="brand.theme_accent" ng-disabled="!brand.admin" required>
                         <md-option ng-repeat="theme in themes" ng-value="theme.key">
                           {{ theme.val }}
                         </md-option>
@@ -41,7 +41,6 @@
                   </p>
                 </md-card-content>
               </md-card>
-
               <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
             </div>
           </div>

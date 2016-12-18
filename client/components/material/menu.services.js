@@ -109,7 +109,6 @@ app.factory('showErrors', ['$mdBottomSheet', 'gettextCatalog', function ($mdBott
         controller: MenuCtrl,
         clickOutsideToClose: true
       });
-
     }
   }
 

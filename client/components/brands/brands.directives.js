@@ -88,7 +88,6 @@ app.directive('newBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$
         showErrors(err);
       });
     };
-
   };
 
   return {
@@ -105,6 +104,7 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
 
   var link = function(scope) {
 
+    scope.brand = {};
     scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
     scope.locales = [
       { key: 'Deutsch', value: 'de-DE' },
@@ -118,7 +118,8 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        // scope.loading = undefined;
+        scope.brand.admin = false;
+        scope.loading = undefined;
       });
     };
 
@@ -129,11 +130,9 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
           brand: scope.brand
         }).$promise.then(function(results) {
           scope.brand       = results;
-          // scope.errors      = undefined;
-          // scope.updating    = undefined;
-          // scope.updateBrand = undefined;
           showToast(gettextCatalog.getString('Successfully updated brand'));
         }, function(err) {
+          console.log(err);
           showErrors(err);
         });
     };

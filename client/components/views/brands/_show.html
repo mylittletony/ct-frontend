@@ -1,4 +1,4 @@
-<md-content class="md-padding" ng-if="brand && brand.id && brand.admin != true">
+<md-content class="md-padding" ng-if="brand.admin != true">
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
       <md-card>
@@ -124,7 +124,7 @@
                 </md-card-title-text>
               </md-card-title>
               <md-card-content>
-                <div layout="column" layout-gt-xs="row" layout-wrap flex="100" flex-gt-sm="50">
+                <div layout="column" layout-gt-xs="row" layout-wrap flex="100" flex-gt-sm="50" ng-show="brand.email_active">
                   <md-input-container class="md-block" flex-gt-xs="100">
                     <label><translate>Your Website</translate></label>
                     <input type="url" ng-model="brand.website" name="website" placeholder="{{ 'Enter your website URL' | translate }}"></input>
@@ -148,6 +148,18 @@
                     </div>
                   </md-input-container>
                 </div>
+
+                <div layout="column" layout-gt-xs="row" layout-wrap flex="100">
+                  <md-switch title="email_active" ng-model="brand.email_active" aria-label=" ">
+                    <span translate>Email Alerts {{ brand.email_active | humanBoolean }}</span>
+                  </md-switch>
+                </div>
+                <p class="text-muted">
+                  <small translate>
+                    <md-icon md-font-icon="android" aria-label="android">star</md-icon>
+                    Disable all outbound email alerts! Brand and location triggers will continue to send. Premium only.
+                  </small>
+                </p>
               </md-card-content>
             </md-card>
 
@@ -256,10 +268,6 @@
                     <div ng-message="md-max" translate>Must be less than 100</div>
                   </div>
                 </md-input-container>
-
-                <!-- <md-switch title="is_monitored" ng-model="brand.quota_project_users" aria-label=" "> -->
-                <!--   <span translate>Projects {{ brand.quota_project_users | humanBoolean }}</span> -->
-                <!-- </md-switch> -->
 
               </md-card-content>
             </md-card>
