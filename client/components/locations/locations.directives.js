@@ -981,12 +981,18 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var resyncBox = function(box) {
       box.state = 'processing';
-      Box.update({location_id: scope.location.slug, id: box.slug, box: { resync: true}}).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Access point resynced successfully.'));
+      Box.update({
+        location_id: scope.location.slug,
+        id: box.slug,
+        box: {
+          action: 'resync'
+        }
+      }).$promise.then(function(res) {
+        showToast(gettextCatalog.getString('Device resynced successfully.'));
       }, function(errors) {
         box.state = 'failed';
-        showToast(gettextCatalog.getString('Failed to resync box, please try again.'));
-        console.log('Could not resync box:', errors);
+        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
+        console.log('Could not resync device:', errors);
       });
     };
 
