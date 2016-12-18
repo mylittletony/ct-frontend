@@ -69,22 +69,22 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
 
 }]);
 
-app.factory('UserSettings', ['$resource', 'API_END_POINT',
-  function($resource, API_END_POINT){
-    return $resource(API_END_POINT + '/user_settings', {}, {
-      get: {
-        params: {
-        }
-      },
-      update: {
-        method: 'PATCH',
-        params: {
-          user_settings: '@user_settings'
-        }
-      },
-    });
-  }
-]);
+// app.factory('UserSettings', ['$resource', 'API_END_POINT',
+//   function($resource, API_END_POINT){
+//     return $resource(API_END_POINT + '/user_settings', {}, {
+//       get: {
+//         params: {
+//         }
+//       },
+//       update: {
+//         method: 'PATCH',
+//         params: {
+//           user_settings: '@user_settings'
+//         }
+//       },
+//     });
+//   }
+// ]);
 
 app.factory('Me', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
@@ -96,12 +96,13 @@ app.factory('Me', ['$resource', 'API_END_POINT',
   }
 ]);
 
-app.factory('User', ['$resource', '$localStorage', 'API_END_POINT',
-  function($resource, $localStorage, API){
+app.factory('User', ['$resource', 'API_END_POINT',
+  function($resource, API){
 
     return $resource(API + '/users/:id/:action',
       {
-        token: '@token'
+        token: '@token',
+        id: '@id'
       },
       {
       get: {
@@ -141,11 +142,7 @@ app.factory('User', ['$resource', '$localStorage', 'API_END_POINT',
       },
       update: {
         method: 'PATCH',
-        isArray: false,
-        params: {
-          id: '@id',
-          user: '@user'
-        }
+        isArray: false
       },
       logout_all: {
         method: 'POST',

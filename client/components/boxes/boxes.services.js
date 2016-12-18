@@ -32,11 +32,7 @@ app.factory('Box', ['$resource', 'API_END_POINT',
       save: {
         method: 'POST',
         isArray: false,
-        dataType: 'json',
-        params: {
-          q: '@q',
-          location_id: '@location_id'
-        }
+        dataType: 'json'
       },
       query: {
         method: 'GET',
@@ -57,10 +53,7 @@ app.factory('Box', ['$resource', 'API_END_POINT',
       },
       update: {
         method: 'PATCH',
-        isArray: false,
-        params: {
-          box: '@box'
-        }
+        isArray: false
       },
       destroy: {
         method: 'DELETE',
