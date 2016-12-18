@@ -18,10 +18,10 @@
               <span class="md-headline" translate>
                 Choose an Event
               </span>
-              <span class="md-subhead" ng-hide="locked" translate>
+              <span class="md-subhead" ng-hide="trigger.locked" translate>
                 First you need to choose an event type.
               </span>
-              <span class="md-subhead" ng-show="locked" translate>
+              <span class="md-subhead" ng-show="trigger.locked" translate>
                 This is a system trigger and is locked, you can't adjust some settings.
               </span>
             </md-card-title-text>
@@ -463,6 +463,13 @@
               </md-input-container>
             </div>
             <small class="muted" style="font-size: 75%;">Set the start and end hours to zero to get alerts all day.</small>
+
+            <span ng-show="brand.id">
+              <md-switch ng-model="trigger.template" aria-label="Switch">
+                Location Template
+              </md-switch>
+              <small class="muted" style="font-size: 75%;">Template triggers won't fire for brand events. Instead, they will be added to your locations as default triggers.</small>
+            </span>
 
           </md-card-content>
         </md-card>

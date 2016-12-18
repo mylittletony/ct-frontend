@@ -2,12 +2,20 @@
 
 var app = angular.module('myApp.triggers.directives', []);
 
-app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', '$cookies', function (Trigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog, pagination_labels, $cookies) {
+app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$rootScope', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', '$cookies', '$location', function (Trigger, BrandTrigger, $routeParams, $rootScope, $http, $mdDialog, showToast, showErrors, gettextCatalog, pagination_labels, $cookies, $location) {
 
   var link = function(scope,element,attrs) {
 
     scope.loading = true;
-    scope.location = { slug: $routeParams.id };
+    scope.location = {};
+    scope.brand = {};
+
+    var path = $location.path().split('/');
+    if (path[1] === 'brands') {
+      scope.brand.id =  $routeParams.id;
+    } else {
+      scope.location.slug = $routeParams.id;
+    }
 
     if ($cookies.get('xct-trggrs') === '1') {
       scope.xctTrggrs = true;
@@ -128,18 +136,40 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
       }
     };
 
-    scope.init = function() {
-      Trigger.query({
-        q: scope.query,
-        page: scope.page,
-        location_id: scope.location.slug
-      }).$promise.then(function(results) {
+    var brandTriggers = function(params) {
+      params.brand_id = scope.brand.id;
+      BrandTrigger.query(params).$promise.then(function(results) {
         scope.triggers = results.triggers;
         scope.loading = undefined;
         createMenu();
       }, function(err) {
         console.log(err);
+        scope.loading = undefined;
       });
+    };
+
+    var locationTriggers = function(params) {
+      params.location_id = scope.location.slug;
+      Trigger.query(params).$promise.then(function(results) {
+        scope.triggers = results.triggers;
+        scope.loading = undefined;
+        createMenu();
+      }, function(err) {
+        console.log(err);
+        scope.loading = undefined;
+      });
+    };
+
+    var init = function() {
+      var params = {
+        q: scope.query,
+        page: scope.page,
+      };
+      if (scope.brand.id !== '') {
+        brandTriggers(params);
+        return;
+      }
+      locationTriggers(params);
     };
 
     var view = function(id) {
@@ -157,7 +187,8 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
     scope.create = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/triggers/new';
     };
-    scope.init();
+
+    init();
 
   };
 
@@ -171,12 +202,20 @@ app.directive('listTriggers', ['Trigger', '$routeParams', '$rootScope', '$http',
 
 }]);
 
-app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', function (Trigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog) {
+app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', function (Trigger, BrandTrigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
-    scope.location = { slug: $routeParams.id };
     scope.trigger = { id: $routeParams.trigger_id };
+    scope.location = {};
+    scope.brand = {};
+
+    var path = $location.path().split('/');
+    if (path[1] === 'brands') {
+      scope.brand.id =  $routeParams.id;
+    } else {
+      scope.location.slug = $routeParams.id;
+    }
 
     scope.triggers = [
       { key: gettextCatalog.getString('All'), value: 'all' },
@@ -508,20 +547,43 @@ app.directive('newTrigger', ['Trigger', 'Integration', 'Auth', '$q', '$routePara
       }
     };
 
-    var init = function() {
+    var triggerLoaded = function(results) {
+      scope.trigger = results;
+      scope.initChannel();
+      setTriggerType(results.trigger_type);
+      formatAlertTime();
+      formatDays();
+      scope.loading = undefined;
+    };
+
+    var brandTrigger = function(params) {
+      BrandTrigger.get({
+        brand_id: scope.brand.id,
+        id: $routeParams.trigger_id
+      }).$promise.then(function(results) {
+        triggerLoaded(results);
+      }, function(err) {
+        scope.errors = err;
+      });
+    };
+
+    var locationTrigger = function(params) {
       Trigger.get({
         location_id: scope.location.slug,
         id: $routeParams.trigger_id
       }).$promise.then(function(results) {
-        scope.trigger = results;
-        scope.initChannel();
-        setTriggerType(results.trigger_type);
-        formatAlertTime();
-        formatDays();
-        scope.loading = undefined;
+        triggerLoaded(results);
       }, function(err) {
         scope.errors = err;
       });
+    };
+
+    var init = function() {
+      if (scope.brand.id !== '') {
+        brandTrigger();
+        return;
+      }
+      locationTrigger();
     };
 
     if (scope.trigger.id) {

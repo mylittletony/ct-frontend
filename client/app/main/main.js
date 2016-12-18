@@ -100,24 +100,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
 
-  // function test ($rootScope) {
-  //   $rootScope.$broadcast('', '');
-  //   // $rootScope.$on('themeChange', function(args) {
-  //   //   alert(123);
-  //   // });
-  // }
-  // loginRequired.$inject = ['$rootScope' ];
-
-  // test();
-
-  // function test ($location, $q, AccessToken, $rootScope) {
-  //   $rootScope.$on('themeChange', function() {
-  //     alert(123)
-  //   });
-  // }
-  // test.$inject = ['$location', '$q', 'AccessToken', '$rootScope' ];
-  // test();
-
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
     if (! AccessToken.get() ) {
@@ -173,7 +155,22 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/brands/:id/triggers', {
       controller: 'BrandsController',
-      templateUrl: 'components/views/brands/triggers/index.html',
+      templateUrl: 'components/views/triggers/index.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:brand_id/triggers/new', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/triggers/new.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:brand_id/triggers/:trigger_id', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/triggers/show.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:brand_id/triggers/:trigger_id/edit', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/triggers/edit.html',
       resolve: { loginRequired: loginRequired },
     }).
     // when('/brands/:id/settings', {
@@ -375,32 +372,32 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers', {
-      templateUrl: 'components/locations/triggers/index.html',
+      templateUrl: 'components/views/triggers/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/new', {
-      templateUrl: 'components/locations/triggers/new.html',
+      templateUrl: 'components/views/triggers/new.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/:trigger_id', {
-      templateUrl: 'components/locations/triggers/show.html',
+      templateUrl: 'components/views/triggers/show.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
     when('/locations/:id/triggers/:trigger_id/edit', {
-      templateUrl: 'components/locations/triggers/edit.html',
+      templateUrl: 'components/views/triggers/edit.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/:trigger_id/trigger_history', {
-      templateUrl: 'components/locations/triggers/history/index.html',
+      templateUrl: 'components/views/triggers/history/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/:trigger_id/trigger_history/:trigger_history_id', {
-      templateUrl: 'components/locations/triggers/history/show.html',
+      templateUrl: 'components/views/triggers/history/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
