@@ -16,6 +16,7 @@ else
   grunt build-beta
 fi
 
+rm -rf dist/.git*
 yes | grunt buildcontrol:$CIRCLE_BRANCH
 
 if [ "${CIRCLE_BRANCH}" == "master" ]

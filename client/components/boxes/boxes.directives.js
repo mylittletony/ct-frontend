@@ -120,11 +120,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           type: 'operations',
         });
 
-        scope.menu.push({
-          name: gettextCatalog.getString('Reset'),
-          icon: 'clear',
-          type: 'reset',
-        });
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Reset'),
+        //   icon: 'clear',
+        //   type: 'reset',
+        // });
       }
 
       if (scope.box.is_cucumber) {
