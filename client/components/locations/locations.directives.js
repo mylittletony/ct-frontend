@@ -281,14 +281,12 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
     };
 
     var init = function() {
-      Report.periscope({v: 2}).$promise.then(function(results) {
+      Report.periscope({v: 2}, { periscope: true }).$promise.then(function(results) {
         if (results && results.periscope) {
           chart(results);
         }
       });
-
     };
-
 
     init();
 
@@ -981,12 +979,18 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var resyncBox = function(box) {
       box.state = 'processing';
-      Box.update({location_id: scope.location.slug, id: box.slug, box: { resync: true}}).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Access point resynced successfully.'));
+      Box.update({
+        location_id: scope.location.slug,
+        id: box.slug,
+        box: {
+          action: 'resync'
+        }
+      }).$promise.then(function(res) {
+        showToast(gettextCatalog.getString('Device resynced successfully.'));
       }, function(errors) {
         box.state = 'failed';
-        showToast(gettextCatalog.getString('Failed to resync box, please try again.'));
-        console.log('Could not resync box:', errors);
+        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
+        console.log('Could not resync device:', errors);
       });
     };
 

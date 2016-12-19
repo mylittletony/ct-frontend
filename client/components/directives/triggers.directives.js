@@ -9,6 +9,7 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
     scope.loading = true;
     scope.location = {};
     scope.brand = {};
+    scope.triggers = []; // helps initial load
 
     var path = $location.path().split('/');
     if (path[1] === 'brands') {
@@ -44,15 +45,20 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
       direction:  $routeParams.direction || 'desc'
     };
 
-    // scope.onPaginate = function (page, limit) {
-    //   scope.query.page = page;
-    //   scope.query.limit = limit;
-    //   scope.updatePage();
-    // };
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updatePage();
+    };
 
-    // scope.updatePage = function(item) {
+    scope.updatePage = function(item) {
+      var hash    = {};
+      scope.page  = scope._links.current_page;
+      hash.page   = scope.query.page;
 
-    // };
+      $location.search(hash);
+      init();
+    };
 
     // user permissions //
     var createMenu = function() {
@@ -150,12 +156,17 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
       }
     };
 
+    var loadedTriggers = function(results) {
+      scope.triggers = results.triggers;
+      scope._links   = results._links;
+      scope.loading  = undefined;
+      createMenu();
+    };
+
     var brandTriggers = function(params) {
       params.brand_id = scope.brand.id;
       BrandTrigger.query(params).$promise.then(function(results) {
-        scope.triggers = results.triggers;
-        scope.loading = undefined;
-        createMenu();
+        loadedTriggers(results);
       }, function(err) {
         console.log(err);
         scope.loading = undefined;
@@ -165,9 +176,7 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
     var locationTriggers = function(params) {
       params.location_id = scope.location.slug;
       Trigger.query(params).$promise.then(function(results) {
-        scope.triggers = results.triggers;
-        scope.loading = undefined;
-        createMenu();
+        loadedTriggers(results);
       }, function(err) {
         console.log(err);
         scope.loading = undefined;
@@ -176,8 +185,8 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
 
     var init = function() {
       var params = {
-        q: scope.query,
-        page: scope.page,
+        per: scope.query.limit,
+        page: scope.query.page
       };
       if (scope.brand.id) {
         brandTriggers(params);

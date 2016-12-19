@@ -108,7 +108,7 @@
                   </span>
                 </td>
                 <td md-cell hide show-gt-xs>
-                  {{ ::box.channel }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
+                  {{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
                 </td>
                 <td hide show-gt-md md-cell>
                   {{ box.wan_ip }}

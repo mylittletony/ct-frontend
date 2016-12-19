@@ -110,6 +110,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
+      name: gettextCatalog.getString('Events'),
+      link: '/#/events',
+      type: 'link',
+      icon: 'warning'
+    });
+
+    vm.menuRight.push({
       name: gettextCatalog.getString('Reports'),
       link: '/#/reports',
       type: 'link',
@@ -162,17 +169,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       link: '/#/downloads',
       type: 'link',
       icon: 'get_app'
-    });
-
-    vm.menuRight.push({
-      type: 'divider',
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Profile'),
-      link: '/#/me',
-      type: 'link',
-      icon: 'face'
     });
 
     vm.menuRight.push({
@@ -391,10 +387,40 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             title: gettextCatalog.getString('Users'),
             type: 'link',
             link: '/#/users',
-            icon: 'face'
+            icon: 'people'
           });
+
+          vm.menuRight.push({
+            name: gettextCatalog.getString('Brands'),
+            type: 'link',
+            link: '/#/brands',
+            icon: 'branding_watermark'
+          });
+
+          vm.menuRight.push({
+            title: gettextCatalog.getString('Users'),
+            type: 'link',
+            link: '/#/users',
+            icon: 'people'
+          });
+
+          vm.menuRight.push({
+            type: 'divider',
+          });
+
         }
       }
+
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Profile'),
+        link: '/#/me',
+        type: 'link',
+        icon: 'face'
+      });
+
+      vm.menuRight.push({
+        type: 'divider',
+      });
 
       var domain = 'ctapp.io';
       var addDistro = function() {
