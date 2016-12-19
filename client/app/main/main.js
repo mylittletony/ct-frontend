@@ -402,6 +402,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/settings/security', {
+      templateUrl: 'components/locations/settings/security.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/settings/devices', {
       templateUrl: 'components/locations/settings/devices.html',
       controller: 'LocationsCtrl as lc',

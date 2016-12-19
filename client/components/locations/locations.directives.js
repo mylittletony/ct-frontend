@@ -19,7 +19,12 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
     };
 
     function updateLocation() {
-      Location.update({id: $routeParams.id, location: { favourite: scope.location.is_favourite }} ).$promise.then(function(results) {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
         var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
         showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
       }, function(err) {
@@ -324,7 +329,12 @@ app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', '
     };
 
     function updateLocation() {
-      Location.update({id: $routeParams.id, location: { update_token: true }} ).$promise.then(function(results) {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          update_token: true
+        }
+      }).$promise.then(function(results) {
         scope.token = results.api_token;
         showToast(gettextCatalog.getString('Token successfully changed.'));
       }, function(err) {
@@ -1406,7 +1416,10 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
     this.update = function (myform) {
       // Doesn't work since we display the form via a template
       // myform.$setPristine();
-      Location.update({id: $scope.location.slug, location: $scope.location}, function(data) {
+      Location.update({}, {
+        id: $scope.location.slug,
+        location: $scope.location
+      }, function(data) {
         if (slug !== data.slug) {
           $location.path('/locations/' + data.slug + '/settings');
         }
@@ -1533,6 +1546,49 @@ app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 
 }]);
 
+app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
+
+  var link = function( scope, element, attrs, controller ) {
+
+
+    scope.update = function (form) {
+      // var emails = [];
+      // for (var i = 0, len = scope.ctrl.emails.length; i < len; i++) {
+      //   if (validateEmail(scope.ctrl.emails[i])) {
+      //     emails.push(scope.ctrl.emails[i]);
+      //   }
+      // }
+      // scope.location.reports_emails = emails.join(',');
+      controller.update(form);
+    };
+
+    scope.ctrl = {};
+    scope.ctrl.levels = [1,2,3];
+
+    // var populateEmails = function() {
+    //   if (scope.location.reports_emails) {
+    //     var emails = scope.location.reports_emails.split(',');
+    //     for (var i = 0, len = emails.length; i < len; i++) {
+    //       scope.ctrl.emails.push(emails[i]);
+    //     }
+    //   }
+    // };
+
+    // Prefer to watch atm //
+    scope.back = function() {
+      controller.back();
+    };
+
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/locations/settings/_security.html',
+    require: '^locationSettings'
+  };
+
+}]);
+
 app.directive('locationSettingsDevices', ['menu', function(menu) {
 
   var link = function( scope, element, attrs, controller ) {
@@ -1638,6 +1694,12 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       });
 
       scope.menu.push({
+        name: gettextCatalog.getString('Security'),
+        type: 'security',
+        icon: 'security'
+      });
+
+      scope.menu.push({
         name: gettextCatalog.getString('Splash'),
         type: 'splash',
         icon: 'web'
@@ -1672,25 +1734,28 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       switch(type) {
         case 'delete':
           destroy();
-        break;
-      case 'transfer':
-        transfer();
-      break;
-    case 'archive':
-      archive();
-    break;
-  case 'notifications':
-    notifications();
-  break;
-case 'devices':
-  devices();
-break;
+          break;
+        case 'transfer':
+          transfer();
+          break;
+        case 'archive':
+          archive();
+          break;
+        case 'security':
+          security();
+          break;
+        case 'notifications':
+          notifications();
+          break;
+        case 'devices':
+          devices();
+          break;
         case 'splash':
           splash();
-        break;
-      case 'analytics':
-        analytics();
-      break;
+          break;
+        case 'analytics':
+          analytics();
+          break;
       }
     };
 
@@ -1720,7 +1785,12 @@ break;
       if (state === false) {
         s = 'archived';
       }
-      Location.update({id: scope.location.slug, location: { state: s }}).$promise.then(function(results) {
+      Location.update({}, {
+        id: scope.location.slug,
+        location: {
+          state: s
+        }
+      }).$promise.then(function(results) {
         scope.location.archived = true;
         var msg;
         if (s === 'active') {
@@ -1795,6 +1865,10 @@ break;
       }, function(err) {
         showErrors(err);
       });
+    };
+
+    var security = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/settings/security';
     };
 
     var notifications = function() {
@@ -2023,7 +2097,12 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
     };
 
     function updateLocation(id) {
-      Location.update({id: id, location: { favourite: false }} ).$promise.then(function(results) {
+      Location.update({}, {
+        id: id,
+        location: {
+          favourite: false
+        }
+      }).$promise.then(function(results) {
         removeFromList(id);
       }, function(err) {
         showErrors(err);
