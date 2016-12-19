@@ -13,7 +13,7 @@
 </md-toolbar>
 
 <form ng-submit="search()" name="myForm">
-  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="!triggers || triggers.length == 0">
+  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="triggers.length == 0 && !query.page">
     <md-card>
       <md-card-title>
         <md-card-title-text>
@@ -32,7 +32,7 @@
     </md-card>
   </md-content>
 
-  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-show="triggers.length > 0 || searching || query.filter" layout-wrap>
+  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-show="triggers.length || query.page" layout-wrap>
     <md-card>
       <md-card-content>
         <md-card-title ng-show="!xctTrggrs && location.slug">
