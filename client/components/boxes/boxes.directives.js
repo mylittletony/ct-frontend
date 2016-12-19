@@ -806,7 +806,6 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
 
-    //fixme @Toni transltions: some of these might also have to be translated
     var ht20_channels  = ['auto', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
     var ht40m_channels  = ['auto','5','6','7','8','9','10','11'];
     var ht40p_channels  = ['auto','1','2','3','4','5','6','7'];
