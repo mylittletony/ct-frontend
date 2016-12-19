@@ -273,6 +273,14 @@
               <p ng-if="!box.uptime_seconds">{{ box.uptime | filterUptime }}</p>
             </div>
           </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3 translate>Channel(s)</h3>
+              <p>
+                {{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
+              </p>
+            </div>
+          </md-list-item>
 
           <span ng-if="isOpen('splash')" id="splash" class="menu-toggle-list">
 
