@@ -1,0 +1,47 @@
+<div ng-include="'components/locations/settings/_settings_header.html'"></div>
+<form name="myForm" submit="update(myForm)">
+  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Security Settings
+              </span>
+              <span class="md-subhead" translate>
+                Control how your devices are provisioned. These settings apply to version 4 devices only.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="column" layout-wrap flex="100" flex-gt-xs="50">
+              <md-input-container layout="column">
+                <label>
+                  <translate>Security Level</translate>
+                </label>
+                <md-select ng-model="location.security_level">
+                  <md-option ng-repeat="level in ctrl.levels" value="{{level}}">
+                    {{ level }}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+            <div layout="column" layout-wrap flex="100" flex-gt-xs="100" ng-show="location.security_level == 3">
+              <md-input-container class="md-block">
+                <label>Aurhorised IPs</label>
+                <input type="text" ng-model="location.authorized_ips" md-maxlength="500" rows="2" ng-required="location.security_level == 3"></input>
+              </md-input-container>
+            </div>
+            <small translate>Level 1 will allow devices from all IP address. Level 2 restricts the devices to the location they were added from. Level 3 allows devices froma  range of IPs.</small>
+          </md-card-content>
+        </md-card>
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+          <translate>
+          Save
+          </translate>
+        </md-button>
+      </div>
+    </div>
+</form>
+  </md-content>

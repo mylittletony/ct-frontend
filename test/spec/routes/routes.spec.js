@@ -125,6 +125,10 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/settings'].templateUrl).
                   toEqual('components/locations/settings/index.html');
 
+      expect($route.routes['/locations/:id/settings/security'].controller).toBe('LocationsCtrl as lc');
+      expect($route.routes['/locations/:id/settings/security'].templateUrl).
+                  toEqual('components/locations/settings/security.html');
+
       expect($route.routes['/locations/:id/settings/notifications'].controller).toBe('LocationsCtrl as lc');
       expect($route.routes['/locations/:id/settings/notifications'].templateUrl).
                   toEqual('components/locations/settings/notifications.html');
