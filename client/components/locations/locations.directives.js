@@ -281,14 +281,12 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
     };
 
     var init = function() {
-      Report.periscope({v: 2}).$promise.then(function(results) {
+      Report.periscope({v: 2}, { periscope: true }).$promise.then(function(results) {
         if (results && results.periscope) {
           chart(results);
         }
       });
-
     };
-
 
     init();
 

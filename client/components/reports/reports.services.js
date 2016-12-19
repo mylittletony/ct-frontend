@@ -92,10 +92,7 @@ app.factory('Report', ['$resource', '$localStorage', 'API_END_POINT',
       },
       periscope: {
         method:'GET',
-        isArray: false,
-        params: {
-          periscope: true
-        }
+        isArray: false
       },
       signal: {
         method:'GET',
