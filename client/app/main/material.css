@@ -548,6 +548,10 @@ pre .list-unstyled {
     line-height: 8px;
 }
 
+md-card.highlight-section {
+  background-color: #f4f8ff;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */

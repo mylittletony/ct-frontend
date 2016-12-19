@@ -797,7 +797,7 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout) {
+app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
 
   var link = function(scope) {
 
@@ -807,9 +807,9 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
     scope.timezones = moment.tz.names();
 
     //fixme @Toni transltions: some of these might also have to be translated
-    var ht20_channels  = ['auto', '01','02','03','04','05','06','07','08','09','10','11'];
-    var ht40m_channels = ['auto','05','06','07','08','09','10','11'];
-    var ht40p_channels = ['auto','01','02','03','04','05','06','07'];
+    var ht20_channels  = ['auto', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+    var ht40m_channels  = ['auto','5','6','7','8','9','10','11'];
+    var ht40p_channels  = ['auto','1','2','3','4','5','6','7'];
 
     var ht20_channels_5 = ['auto','36','40','44','48','52','56','60','64','149','153','157','161','165'];
     var ht40m_channels_5 = ['auto','40','44','48','52','56','60','64','153','157','161','165'];
@@ -912,6 +912,10 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
       });
     };
 
+    var highlight = function() {
+      scope.highlight = $location.hash();
+    };
+
     var init = function() {
       return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
         scope.box = box;
@@ -924,6 +928,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         scope.loading = undefined;
         getZones();
         loadPusher();
+        highlight();
       });
     };
 

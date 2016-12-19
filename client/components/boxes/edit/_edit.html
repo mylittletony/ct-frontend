@@ -95,7 +95,7 @@
       </md-card-content>
     </md-card>
 
-    <md-card>
+    <md-card ng-class="{ 'highlight-section': highlight == 'channel' }">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>Wireless Settings</span>
@@ -132,7 +132,6 @@
                 <md-slider flex class="md-primary" md-discrete ng-model="box.tx_power_2" step="1" min="5" max="20" aria-label="tx_power_2">
                 </md-slider>
               </md-slider-container>
-
             </div>
           </div>
           <div hide-xs flex-gt-xs="10"></div>

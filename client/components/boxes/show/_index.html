@@ -277,7 +277,7 @@
             <div class="md-list-item-text">
               <h3 translate>Channel(s)</h3>
               <p>
-                {{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
+                <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}/edit#channel">{{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</a></span>
               </p>
             </div>
           </md-list-item>
