@@ -1,90 +1,90 @@
-<!-- <div ng-show="loggedIn === true"> -->
+<div ng-show="loggedIn === true">
 
-<!--   <section> -->
-<!--   <md-toolbar class="md-table-toolbar md-default"> -->
-<!--     <div class="md-toolbar-tools"> -->
-<!--       <form ng-submit="$event.preventDefault()"> -->
-<!--         <md-autocomplete -->
-<!--             md-selected-item="selectedItem" -->
-<!--             ng-enter="search(item._key)" -->
-<!--             md-search-text-change="searchTextChange(searchText)" -->
-<!--             md-no-cache="true" -->
-<!--             md-search-text="searchText" -->
-<!--             md-selected-item-change="selectedItemChange(item)" -->
-<!--             md-items="item in querySearch(searchText)" -->
-<!--             md-item-text="item._key" -->
-<!--             md-min-length="5" -->
-<!--             md-autofocus="true" -->
-<!--             md-menu-class="locations-autocomplete" -->
-<!--             placeholder="{{ 'Search' | translate }}"> -->
+  <section>
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <form ng-submit="$event.preventDefault()">
+        <md-autocomplete
+            md-selected-item="selectedItem"
+            ng-enter="search(item._key)"
+            md-search-text-change="searchTextChange(searchText)"
+            md-no-cache="true"
+            md-search-text="searchText"
+            md-selected-item-change="selectedItemChange(item)"
+            md-items="item in querySearch(searchText)"
+            md-item-text="item._key"
+            md-min-length="5"
+            md-autofocus="true"
+            md-menu-class="locations-autocomplete"
+            placeholder="{{ 'Search' | translate }}">
 
-<!--           <md-item-template > -->
-<!--             <a ng-click="go(item.slug)"> -->
-<!--               <span class="item-title"> -->
-<!--                 <1!-- ZAK - TO DO --1> -->
-<!--                 <md-icon>{{ item._index == 'devices' ? "router" : "business" }}</md-icon> -->
-<!--             <span>&nbsp;{{ item._key }}</span> -->
-<!--               </span> -->
-<!--               <span class="item-metadata"> -->
-<!--                 <span class="item-metastat" translate translate-n="{{ ::item._score }}" translate-plural="{{ ::item._score || 0}} records"> -->
-<!--                   Found 1 record -->
-<!--                 </span> -->
-<!--               </span> -->
-<!--             </a> -->
-<!--           </md-item-template> -->
-<!--           <md-not-found translate> -->
-<!--             No results found. -->
-<!--           </md-not-found> -->
-<!--         </md-autocomplete> -->
-<!--         <br/> -->
-<!--       </form> -->
-<!--       <div flex></div> -->
-<!--       <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="{{ 'Add Device' | translate }}" hide show-gt-xs> -->
-<!--         <md-icon>add_circle</md-icon> -->
-<!--         <md-tooltip md-direction="bottom"> -->
-<!--           <translate> -->
-<!--             Add a new location. -->
-<!--           </translate> -->
-<!--         </md-tooltip> -->
-<!--       </md-button> -->
-<!--       <md-button class="md-icon-button" href="" aria-label="{{ 'Map' | translate }}" hide show-gt-xs> -->
-<!--         <md-icon>map</md-icon> -->
-<!--         <md-tooltip md-direction="bottom"> -->
-<!--           <translate> -->
-<!--             View device map. -->
-<!--           </translate> -->
-<!--         </md-tooltip> -->
-<!--       </md-button> -->
-<!--       <span hide show-gt-xs> -->
-<!--         <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'> -->
-<!--         </md-switch> -->
-<!--         <md-tooltip md-direction="bottom"> -->
-<!--           <translate> -->
-<!--             Streaming updates. -->
-<!--           </translate> -->
-<!--         </md-tooltip> -->
-<!--       </span> -->
-<!--     </div> -->
-<!--     <md-divider></md-divider> -->
-<!--   </md-toolbar> -->
-<!--   </section> -->
+          <md-item-template >
+            <a ng-click="go(item.slug)">
+              <span class="item-title">
+                <!-- ZAK - TO DO -->
+                <md-icon>{{ item._index == 'devices' ? "router" : "business" }}</md-icon>
+            <span>&nbsp;{{ item._key }}</span>
+              </span>
+              <span class="item-metadata">
+                <span class="item-metastat" translate translate-n="{{ ::item._score }}" translate-plural="{{ ::item._score || 0}} records">
+                  Found 1 record
+                </span>
+              </span>
+            </a>
+          </md-item-template>
+          <md-not-found translate>
+            No results found.
+          </md-not-found>
+        </md-autocomplete>
+        <br/>
+      </form>
+      <div flex></div>
+      <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="{{ 'Add Device' | translate }}" hide show-gt-xs>
+        <md-icon>add_circle</md-icon>
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Add a new location.
+          </translate>
+        </md-tooltip>
+      </md-button>
+      <md-button class="md-icon-button" href="" aria-label="{{ 'Map' | translate }}" hide show-gt-xs>
+        <md-icon>map</md-icon>
+        <md-tooltip md-direction="bottom">
+          <translate>
+            View device map.
+          </translate>
+        </md-tooltip>
+      </md-button>
+      <span hide show-gt-xs>
+        <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
+        </md-switch>
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Streaming updates.
+          </translate>
+        </md-tooltip>
+      </span>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+  </section>
 
-<!--   <md-content class="md-padding" layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' ng-if="!pinned && !alerts"> -->
-<!--     <div flex-md="50" flex-gt-md="33"> -->
-<!--       <dashing></dashing> -->
-<!--       <favourites></favourites> -->
-<!--     </div> -->
-<!--     <div flex-sm="50" flex-md="50" flex-gt-md="33"> -->
+  <md-content class="md-padding" layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' ng-if="!pinned && !alerts">
+    <div flex-md="50" flex-gt-md="33">
+      <dashing></dashing>
+      <favourites></favourites>
+    </div>
+    <div flex-sm="50" flex-md="50" flex-gt-md="33">
       <periscope hide show-gt-sm></periscope>
-<!--       <warnings></warnings> -->
-<!--     </div> -->
+      <warnings></warnings>
+    </div>
 
-<!--     <div flex-md="50" flex-gt-md="33"> -->
-<!--       <app-status></app-status> -->
-<!--       <dash-inventory></dash-inventory> -->
-<!--     </div> -->
-<!--   </md-content> -->
+    <div flex-md="50" flex-gt-md="33">
+      <app-status></app-status>
+      <dash-inventory></dash-inventory>
+    </div>
+  </md-content>
 
-<!--   <favourites-extended ng-if="pinned && !alerts"></favourites-extended> -->
+  <favourites-extended ng-if="pinned && !alerts"></favourites-extended>
 
-<!-- </div> -->
+</div>
