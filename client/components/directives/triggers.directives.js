@@ -451,7 +451,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
         scope.trigger.attr_1 = '{{ Email }}';
         scope.trigger.attr_2 = undefined;
         scope.trigger.attr_3 = gettextCatalog.getString('[WELCOME] Thanks for logging in');
-        scope.trigger.attr_4 = gettextCatalog.getString('Hello\n\nThanks for logging in today atrrrr {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge');
+        scope.trigger.attr_4 = gettextCatalog.getString('Hello\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge');
       }
     };
 
