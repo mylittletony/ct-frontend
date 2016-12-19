@@ -1552,29 +1552,12 @@ app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
 
 
     scope.update = function (form) {
-      // var emails = [];
-      // for (var i = 0, len = scope.ctrl.emails.length; i < len; i++) {
-      //   if (validateEmail(scope.ctrl.emails[i])) {
-      //     emails.push(scope.ctrl.emails[i]);
-      //   }
-      // }
-      // scope.location.reports_emails = emails.join(',');
       controller.update(form);
     };
 
     scope.ctrl = {};
     scope.ctrl.levels = [1,2,3];
 
-    // var populateEmails = function() {
-    //   if (scope.location.reports_emails) {
-    //     var emails = scope.location.reports_emails.split(',');
-    //     for (var i = 0, len = emails.length; i < len; i++) {
-    //       scope.ctrl.emails.push(emails[i]);
-    //     }
-    //   }
-    // };
-
-    // Prefer to watch atm //
     scope.back = function() {
       controller.back();
     };

@@ -6,10 +6,6 @@ app.factory('LocationCache', [function() {
   return { location: {} };
 }]);
 
-// app.factory('Data', function() {
-//   return {};
-// });
-
 app.factory('Location', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
 
