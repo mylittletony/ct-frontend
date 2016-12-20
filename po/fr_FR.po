@@ -653,7 +653,8 @@ msgstr "Port de Comptabilité"
 #: client/components/views/triggers/history/_index.html:22
 #: client/components/views/triggers/list.html:67
 #: client/components/vouchers/_index.html:81
-#: client/components/zones/_index.html:58 client/components/zones/_show.html:50
+#: client/components/zones/_index.html:58
+#: client/components/zones/_show.html:50
 msgid "Action"
 msgstr "Action"
 
@@ -3162,7 +3163,8 @@ msgstr "Danemark"
 #: client/components/views/group_policies/_show.html:47
 #: client/components/vouchers/_index.html:77
 #: client/components/vouchers/_show.html:58
-#: client/components/zones/_form.html:27 client/components/zones/_index.html:54
+#: client/components/zones/_form.html:27
+#: client/components/zones/_index.html:54
 #: client/components/zones/_show.html:48
 msgid "Description"
 msgstr "Description"
@@ -6470,7 +6472,8 @@ msgstr "Nouveau Site"
 #: client/components/views/triggers/_new.html:558
 #: client/components/views/triggers/list.html:63
 #: client/components/vouchers/_index.html:76
-#: client/components/zones/_form.html:19 client/components/zones/_index.html:51
+#: client/components/zones/_form.html:19
+#: client/components/zones/_index.html:51
 msgid "Name"
 msgstr "Nom"
 
@@ -7021,7 +7024,8 @@ msgstr "Ouvrir le Menu Portail "
 #: client/components/views/group_policies/_show.html:10
 #: client/components/views/triggers/_edit.html:8
 #: client/components/views/triggers/_show.html:8
-#: client/components/vouchers/_show.html:8 client/components/zones/_show.html:9
+#: client/components/vouchers/_show.html:8
+#: client/components/zones/_show.html:9
 msgid "Open Tools"
 msgstr "Ouvrir les Outils"
 
@@ -10518,7 +10522,8 @@ msgstr "E-mail Utilisateur"
 msgid "User successfully updated."
 msgstr "Utilisateur mis à jour avec succès."
 
-#: client/components/codes/_index.html:44 client/components/codes/_table.html:8
+#: client/components/codes/_index.html:44
+#: client/components/codes/_table.html:8
 #: client/components/locations/clients/_show_code.html:27
 #: client/components/locations/clients/codes.html:31
 #: client/components/locations/users/_index.html:36
@@ -11676,7 +11681,8 @@ msgstr "Zimbabwe"
 msgid "Zone"
 msgstr "Groupe"
 
-#: client/components/zones/_index.html:86 client/components/zones/_show.html:67
+#: client/components/zones/_index.html:86
+#: client/components/zones/_show.html:67
 msgid "Zone Menu"
 msgstr "Menu Groupe"
 

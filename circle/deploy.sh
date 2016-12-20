@@ -5,8 +5,6 @@ git config --global user.name "Simon Morley"
 
 echo yes | heroku keys:add
 
-rm -rf dist
-
 if [ "${CIRCLE_BRANCH}" == "master" ]
 then
   echo 'Building master.'
@@ -16,10 +14,16 @@ else
   grunt build-beta
 fi
 
+rm -rf dist/.git*
+
+echo 'Deploying EU repo'
 yes | grunt buildcontrol:$CIRCLE_BRANCH
+
+rm -rf dist/.git*
 
 if [ "${CIRCLE_BRANCH}" == "master" ]
 then
+  echo 'Deploying US repo'
   yes | grunt buildcontrol:usa
 fi
 
