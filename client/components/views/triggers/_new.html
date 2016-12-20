@@ -16,6 +16,27 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
+                Name your Trigger
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <md-input-container layout="column">
+              <label>
+                <translate>Trigger Name</translate>
+              </label>
+              <input type="text" name="trigger_name" md-maxlength="100" ng-model="trigger.trigger_name" placeholder="{{ 'Name of trigger' | translate }}" required></input>
+              <div ng-messages="myForm.trigger_name.$error" md-auto-hide="false">
+                <div ng-message="required" translate>Please enter a name for your trigger</div>
+                <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
+              </div>
+            </md-input-container>
+          </md-card-content>
+        </md-card>
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
                 Choose an Event
               </span>
               <span class="md-subhead" ng-hide="trigger.locked" translate>
@@ -38,7 +59,7 @@
               </md-select>
             </md-input-container>
 
-            <md-radio-group ng-model="trigger.trigger_event" layout="row" iing-disabled="trigger.locked" ng-show="trigger.type != 'all' && location.slug" ng-change="resetTypes()">
+            <md-radio-group ng-model="trigger.trigger_event" layout="row" ng-disabled="trigger.id" ng-show="trigger.type != 'all' && location.slug" ng-change="resetTypes()">
               <md-radio-button value="notify">
                 <translate>
                   Create Notification
@@ -84,6 +105,7 @@
                 </span>
                 <span ng-if="trigger.trigger_event == 'action'">
                   The trigger will run this action.
+                  <span ng-if="trigger.trigger_event == 'action'">Cannot be changed once created.</span>
                 </span>
                 <!-- {{ trigger.type | humanTrigger }} -->
               </span>
@@ -91,7 +113,7 @@
           </md-card-title>
           <md-card-content>
 
-            <md-radio-group ng-model="trigger.trigger_type" layout="column" ng-disabled="trigger.locked">
+            <md-radio-group ng-model="trigger.trigger_type" layout="column" ng-disabled="trigger.locked || (trigger.trigger_event == 'action' && trigger.id)">
               <span ng-if="trigger.type == 'box'" layout="row" layout-wrap>
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
                   <md-radio-button value="box.reboot">
@@ -625,7 +647,72 @@
           </md-card-content>
         </md-card>
 
-        <md-card ng-if="trigger.trigger_type">
+        <md-card ng-if="trigger.trigger_type && (trigger.trigger_event == 'action')">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                <translate>
+                  Action Settings
+                </translate>
+              </span>
+              <span class="md-subhead" translate>
+                Schedule the action to run at certain times or create a webhook for external applications to use.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+
+            <md-radio-group ng-model="trigger.schedule" layout="column" ing-disabled="trigger.id" ing-show="trigger.type != 'all' && location.slug" iing-change="resetTypes()">
+              <md-radio-button value=0>
+                <translate>
+                  Inbound webhook
+                </translate>
+              </md-radio-button>
+              <md-radio-button value=1>
+                <translate>
+                  Schedule
+                </translate>
+              </md-radio-button>
+            </md-radio-group>
+
+            <span ng-show="trigger.schedule == 1">
+              <div ng-hide="cron">
+                <div layout-gt-sm="row" layout="column" flex="100">
+                  <div style="margin-top: 1px;">
+                    <p><small translate>Run Days</small></p>
+                    <day-selector active="true" days="trigger.cron_days" array="trigger.periodic_days_cron"></day-selector>
+                  </div>
+                </div>
+
+                <div layout-gt-sm="row" flex="100" flex-gt-xs="40" style="margin: 20px 0 -20px 0">
+                  <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>When</label>
+                    <input type="text" placeholder="08:00" ng-model="trigger.cron_time" ng-pattern="/^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$\">
+                  </md-input-container>
+                </div>
+              </div>
+              <div ng-show="cron">
+                <md-input-container style="margin-bottom: 0px;">
+                  <label>
+                    <translate>Cron</translate>
+                  </label>
+                  <input type="text" name="cron" ng-model="trigger.cron" placeholder="0 * * * *" ng-pattern="/^(\*|([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])|\*\/([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])) (\*|([0-9]|1[0-9]|2[0-3])|\*\/([0-9]|1[0-9]|2[0-3])) (\*|([1-9]|1[0-9]|2[0-9]|3[0-1])|\*\/([1-9]|1[0-9]|2[0-9]|3[0-1])) (\*|([1-9]|1[0-2])|\*\/([1-9]|1[0-2])) (\*|([0-6])|\*\/([0-6]))$/"></input>
+                  <div ng-messages="myForm.cron.$error" md-auto-hide="false">
+                    <div ng-message="pattern" translate>Invalid format</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <small class="muted" style="font-size: 75%; outline:0!important;" ng-click="cron = !cron">Edit {{ cron ? 'Schedule' : 'Cron' }}</small>
+            </span>
+
+            <md-switch ng-model="trigger.yyy" aria-label="Switch">
+              Send notification
+            </md-switch>
+            <small class="muted" style="font-size: 75%;">Send yourself a message when the hook is triggered.</small>
+          </md-card-content>
+        </md-card>
+
+        <md-card ng-if="trigger.trigger_type && (trigger.trigger_event == 'notify')">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">
@@ -674,7 +761,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Trigger Settings
+                Advanced Settings
               </span>
               <span class="md-subhead" translate>
                 Deferring the trigger will queue it and send it after the event has occurred.
@@ -682,42 +769,47 @@
             </md-card-title-text>
           </md-card-title>
 
-          <md-card-content layout-gt-sm="column">
-            <md-input-container>
-              <label>
-                <translate>Defer Minutes</translate>
-              </label>
-              <input type="text" name="ttl" md-maxlength="100" ng-model="trigger.ttl" placeholder="{{ 'Defer for minutes' | translate }}"></input>
-              <div ng-messages="myForm.ttl.$error" md-auto-hide="false">
-                <div ng-message="md-max" translate>Must be less than 100 chars</div>
-              </div>
-            </md-input-container>
-            <md-input-container style="margin: 0 0 -20px -3px;">
-              <label>
-                <translate>Match</translate>
-              </label>
-              <input type="text" name="match" md-max="43200" ng-model="trigger.match" placeholder="{{ 'Expression match' | translate }}"></input>
-              <div ng-messages="myForm.match.$error" md-auto-hide="false">
-                <div ng-message="md-maxlength" translate>Must be less than 43,200 mins</div>
-              </div>
-            </md-input-container>
-            <small class="muted" style="font-size: 75%;">Regex match on description, AP Mac or Zone ID.</small>
-            <md-input-container style="margin: 40px 0 -20px -3px;">
-              <label>
-                <translate>Tags</translate>
-              </label>
-              <input type="text" name="tags" ng-model="trigger.tags" placeholder="{{ 'Tags' | translate }}"></input>
-              <div ng-messages="myForm.tags.$error" md-auto-hide="false">
-              </div>
-            </md-input-container>
-            <small class="muted" style="font-size: 75%;">Match any object tags.</small>
-
-            <div style="margin-top: 1px;">
-              <p><small translate>Allowed Days</small></p>
-              <day-selector active="true" days="trigger.allowed_days" array="trigger.periodic_days"></day-selector>
+          <md-card-content>
+            <div layout-gt-sm="column" layout="column" flex-gt-xs="60" flex="100">
+              <md-input-container>
+                <label>
+                  <translate>Defer Minutes</translate>
+                </label>
+                <input type="text" name="ttl" md-maxlength="100" ng-model="trigger.ttl" placeholder="{{ 'Defer for minutes' | translate }}"></input>
+                <div ng-messages="myForm.ttl.$error" md-auto-hide="false">
+                  <div ng-message="md-max" translate>Must be less than 100 chars</div>
+                </div>
+              </md-input-container>
+              <md-input-container style="margin: 0 0 -20px -3px;">
+                <label>
+                  <translate>Match</translate>
+                </label>
+                <input type="text" name="match" md-maxlength="255" ng-model="trigger.match" placeholder="{{ 'Expression match' | translate }}"></input>
+                <div ng-messages="myForm.match.$error" md-auto-hide="false">
+                  <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
+                </div>
+              </md-input-container>
+              <small class="muted" style="font-size: 75%;">Regex match on description, AP Mac or Zone ID.</small>
+              <md-input-container style="margin: 40px 0 0 -3px;">
+                <label>
+                  <translate>Tags</translate>
+                </label>
+                <input md-maxlength="255" type="text" name="tags" ng-model="trigger.tags" placeholder="{{ 'Tags' | translate }}"></input>
+                <div ng-messages="myForm.tags.$error" md-auto-hide="false">
+                  <div ng-message="md-maxlength" translate>Must be less than 128 characters</div>
+                </div>
+                <small class="muted" style="font-size: 75%; margin-top: -20px">Match any object tags.</small>
+              </md-input-container>
             </div>
 
-            <div layout-gt-sm="row" flex-gt-sm="40" style="margin: 20px 0 -20px 0">
+            <div layout-gt-sm="row" layout="column" flex="100">
+              <div style="margin-top: 1px;">
+                <p><small translate>Allowed Days</small></p>
+                <day-selector active="true" days="trigger.allowed_days" array="trigger.periodic_days"></day-selector>
+              </div>
+            </div>
+
+            <div layout-gt-sm="row" flex="100" flex-gt-xs="60" style="margin: 20px 0 -20px 0">
               <md-input-container class="md-block" flex-gt-sm>
                 <label translate>Start Hour</label>
                 <input type="time" ng-model="trigger.starttime">
@@ -727,6 +819,7 @@
                 <input type="time" ng-model="trigger.endtime">
               </md-input-container>
             </div>
+
             <small class="muted" style="font-size: 75%;">Set the start and end hours to zero to get alerts all day.</small>
 
             <span ng-show="brand.id">
@@ -735,31 +828,9 @@
               </md-switch>
               <small class="muted" style="font-size: 75%;">Template triggers won't fire for brand events. Instead, they will be added to your locations as default triggers.</small>
             </span>
-
           </md-card-content>
         </md-card>
 
-        <md-card ng-if="trigger.attr_1">
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Name your Trigger
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <md-input-container layout="column">
-              <label>
-                <translate>Name of trigger</translate>
-              </label>
-              <input type="text" name="trigger_name" md-maxlength="100" ng-model="trigger.trigger_name" placeholder="{{ 'Name' | translate }}" required></input>
-              <div ng-messages="myForm.trigger_name.$error" md-auto-hide="false">
-                <div ng-message="required" translate>Please enter a name for your trigger</div>
-                <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
-              </div>
-            </md-input-container>
-          </md-card-content>
-        </md-card>
         <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
       </div>
     </div>
