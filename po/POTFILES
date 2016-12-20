@@ -122,6 +122,7 @@
 ../client/components/locations/settings/_devices.html
 ../client/components/locations/settings/_main.html
 ../client/components/locations/settings/_notifications.html
+../client/components/locations/settings/_security.html
 ../client/components/locations/settings/_settings_header.html
 ../client/components/locations/settings/_settings_menu.html
 ../client/components/locations/settings/_splash.html
@@ -130,6 +131,7 @@
 ../client/components/locations/settings/devices.html
 ../client/components/locations/settings/index.html
 ../client/components/locations/settings/notifications.html
+../client/components/locations/settings/security.html
 ../client/components/locations/settings/splash.html
 ../client/components/locations/show/_app_status.html
 ../client/components/locations/show/_dashing.html
