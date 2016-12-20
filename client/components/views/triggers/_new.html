@@ -37,15 +37,16 @@
                 </md-option>
               </md-select>
             </md-input-container>
+
             <md-radio-group ng-model="trigger.trigger_event" layout="row" iing-disabled="trigger.locked" ng-show="trigger.type != 'all' && location.slug" ng-change="resetTypes()">
               <md-radio-button value="notify">
                 <translate>
-                Create Notification
+                  Create Notification
                 </translate>
               </md-radio-button>
               <md-radio-button value="action">
                 <translate>
-                Perform Action
+                  Perform Action
                 </translate>
               </md-radio-button>
             </md-radio-group>
@@ -89,6 +90,7 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
+
             <md-radio-group ng-model="trigger.trigger_type" layout="column" ng-disabled="trigger.locked">
               <span ng-if="trigger.type == 'box'" layout="row" layout-wrap>
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
@@ -158,24 +160,24 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="client.create">
                     <translate>
-                    First connects
+                      First connects
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="client.login">
                     <translate>
-                    Logs in through splash
+                      Logs in through splash
                     </translate>
                   </md-radio-button>
                 </span>
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
                   <md-radio-button value="client.disconnect">
                     <translate>
-                    Disconnect
+                      Disconnect
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="client.block">
                     <translate>
-                    Block
+                      Block
                     </translate>
                   </md-radio-button>
                 </span>
@@ -272,17 +274,17 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="network.create">
                     <translate>
-                    Created
+                      Created
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="network.update">
                     <translate>
-                    Updated
+                      Updated
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="network.destroy">
                     <translate>
-                    Deleted
+                      Deleted
                     </translate>
                   </md-radio-button>
                 </span>
@@ -310,22 +312,22 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="quickcode.create">
                     <translate>
-                    Created
+                      Created
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="quickcode.update">
                     <translate>
-                    Updated
+                      Updated
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="quickcode.destroy">
                     <translate>
-                    Deleted
+                      Deleted
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="quickcode.login">
                     <translate>
-                    Logged In
+                      Logged In
                     </translate>
                   </md-radio-button>
                 </span>
@@ -408,19 +410,19 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
                   <md-radio-button value="store.disable">
                     <translate>
-                    Disable
+                      Disable
                     </translate>
                   </md-radio-button>
 
                   <md-radio-button value="store.enable">
                     <translate>
-                    Enable
+                      Enable
                     </translate>
                   </md-radio-button>
 
                   <md-radio-button value="store.destroy">
                     <translate>
-                    Destroy
+                      Destroy
                     </translate>
                   </md-radio-button>
                 </span>
@@ -428,19 +430,19 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="store.create">
                     <translate>
-                    Created
+                      Created
                     </translate>
                   </md-radio-button>
 
                   <md-radio-button value="store.update">
                     <translate>
-                    Updated
+                      Updated
                     </translate>
                   </md-radio-button>
 
                   <md-radio-button value="store.destroy">
                     <translate>
-                    Destroy
+                      Destroy
                     </translate>
                   </md-radio-button>
                 </span>
@@ -448,13 +450,13 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="store.purchase">
                     <translate>
-                    Purchase
+                      Purchase
                     </translate>
                   </md-radio-button>
 
                   <md-radio-button value="store.refund">
                     <translate>
-                    Refund
+                      Refund
                     </translate>
                   </md-radio-button>
                 </span>
@@ -489,12 +491,12 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="voucher.create">
                     <translate>
-                    Created
+                      Created
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="voucher.update">
                     <translate>
-                    Updated
+                      Updated
                     </translate>
                   </md-radio-button>
                 </span>
@@ -513,22 +515,22 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="user.create">
                     <translate>
-                    Created*
+                      Created*
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="user.update">
                     <translate>
-                    Updated*
+                      Updated*
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="user.destroy">
                     <translate>
-                    Deleted*
+                      Deleted*
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="user.password">
                     <translate>
-                    Password Changed*
+                      Password Changed*
                     </translate>
                   </md-radio-button>
                 </span>
@@ -536,12 +538,12 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="user.invite">
                     <translate>
-                    Invited
+                      Invited
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="user.revoke">
                     <translate>
-                    Revoked
+                      Revoked
                     </translate>
                   </md-radio-button>
                 </span>
@@ -552,17 +554,17 @@
                 <span flex="100">
                   <md-radio-button value="project.create">
                     <translate>
-                    Created*
+                      Created*
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="project.update">
                     <translate>
-                    Updated*
+                      Updated*
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="project.destroy">
                     <translate>
-                    Deleted*
+                      Deleted*
                     </translate>
                   </md-radio-button>
                 </span>
@@ -573,7 +575,7 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
                   <md-radio-button value="project_user.destroy">
                     <translate>
-                    Delete
+                      Delete
                     </translate>
                   </md-radio-button>
                 </span>
@@ -581,12 +583,12 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="project_user.create">
                     <translate>
-                    Created*
+                      Created*
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="project_user.destroy">
                     <translate>
-                    Deleted*
+                      Deleted*
                     </translate>
                   </md-radio-button>
                 </span>
@@ -604,17 +606,17 @@
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="zone.create">
                     <translate>
-                    Created
+                      Created
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="zone.generate">
                     <translate>
-                    Generated
+                      Generated
                     </translate>
                   </md-radio-button>
                   <md-radio-button value="zone.destroy">
                     <translate>
-                    Deleted
+                      Deleted
                     </translate>
                   </md-radio-button>
                 </span>

@@ -13,7 +13,7 @@
 </md-toolbar>
 
 <form ng-submit="search()" name="myForm">
-  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="triggers.length == 0 && !query.page">
+  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-if="triggers.length == 0">
     <md-card>
       <md-card-title>
         <md-card-title-text>
@@ -33,14 +33,14 @@
   </md-content>
 
   <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-show="triggers.length || query.page" layout-wrap>
-    <md-card>
+    <md-card ng-show="triggers.length">
       <md-card-content>
-        <md-card-title ng-show="!xctTrggrs && location.slug">
+        <md-card-title ng-show="!xctTrggrs && location.slug && triggers.length">
           <md-card-title-text>
             <span class="md-headline">Understanding Triggers</span>
 
             <span class="md-subhead">
-              We've created some default triggers so you can get a feel how they work. You can delete these and start again but we recommend keeping them. Triggers notify you when things happen. From security notifications to when a customer logs in, they'll help you run your networks effeciently.<br><br>Set them up to email your guests, admin users or just yourself. Or, use them with Slack or setup a webhook! <a href="" ng-click="dismissTrigger()">Dismiss</a>.
+              We've created some default triggers to get you started. You can delete these and start again. <b>Triggers notify you when things happen</b>. From security notifications to when a customer logs in, they'll help you run your networks more effeciently.<br><br>Set them up to email your guests, admin users or just yourself. Or, use them with Slack or setup a webhook! <a href="" ng-click="dismissTrigger()">Dismiss</a>.
             </span>
 
           </md-card-title-text>
