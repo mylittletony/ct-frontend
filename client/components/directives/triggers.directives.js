@@ -245,7 +245,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
 
   var link = function(scope,element,attrs) {
 
-    scope.trigger = { id: $routeParams.trigger_id };
+    scope.trigger = { id: $routeParams.trigger_id, trigger_event: 'notify' };
     scope.location = {};
     scope.brand = {};
 
