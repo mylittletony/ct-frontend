@@ -37,7 +37,7 @@
                 </md-option>
               </md-select>
             </md-input-container>
-            <md-radio-group ng-model="trigger.trigger_event" layout="row" iing-disabled="trigger.locked" ng-show="trigger.type != 'all'" ng-change="resetTypes()">
+            <md-radio-group ng-model="trigger.trigger_event" layout="row" iing-disabled="trigger.locked" ng-show="trigger.type != 'all' && location.slug" ng-change="resetTypes()">
               <md-radio-button value="notify">
                 <translate>
                 Create Notification
