@@ -6,10 +6,8 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
 
   var link = function(scope,element,attrs) {
 
-    scope.loading = true;
     scope.location = {};
     scope.brand = {};
-    scope.triggers = []; // helps initial load
 
     var path = $location.path().split('/');
     if (path[1] === 'brands') {
@@ -159,8 +157,8 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
     var loadedTriggers = function(results) {
       scope.triggers = results.triggers;
       scope._links   = results._links;
-      scope.loading  = undefined;
       createMenu();
+      scope.loading  = undefined;
     };
 
     var brandTriggers = function(params) {
