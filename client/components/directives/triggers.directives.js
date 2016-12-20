@@ -243,7 +243,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
 
   var link = function(scope,element,attrs) {
 
-    scope.trigger = { id: $routeParams.trigger_id, trigger_event: 'notify' };
+    scope.trigger = { id: $routeParams.trigger_id };
     scope.location = {};
     scope.brand = {};
 
@@ -289,6 +289,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
 
     scope.resetTypes = function() {
       scope.trigger.trigger_type = undefined;
+      scope.trigger.channel = undefined;
     };
 
     var formatTonyTime = function() {
@@ -625,6 +626,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       if (!scope.trigger.allowed_days) {
         scope.trigger.allowed_days = ['0','1','2','3','4','5','6'];
       }
+      scope.trigger.periodic_days_cron = [];
     };
 
     var triggerLoaded = function(results) {
@@ -633,6 +635,10 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       setTriggerType(results.trigger_type);
       formatAlertTime();
       formatDays();
+      if (scope.trigger.cron) {
+        scope.trigger.schedule = 1;
+        scope.cron = true;
+      }
       scope.loading = undefined;
     };
 
@@ -676,9 +682,10 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
         scope.trigger.type = $routeParams.object;
       }
       scope.trigger.trigger_type = $routeParams.action;
+      scope.trigger.trigger_event = 'notify';
+      scope.trigger.schedule = 0;
       scope.loading = undefined;
     }
-
   };
 
   return {
