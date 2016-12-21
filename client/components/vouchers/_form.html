@@ -84,7 +84,7 @@
               </div>
             </md-input-container>
 
-            <md-switch aria-label="{{ 'Active switch' | translate }}" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
+            <md-switch flex="100" flex-gt-sm="40" aria-label="{{ 'Active switch' | translate }}" ng-model="voucher.is_active" ng-show="voucher.unique_id" style="margin: 0 0 0 0">
               <translate>
                 Voucher {{ voucher.is_active | humanBoolean }}
               </translate>
@@ -197,7 +197,7 @@
           <md-slider flex ng-model="voucher.upload_speed" min="56" max="102400" step="56" aria-label="down" id="down-slider" class="md-accent">
           </md-slider>
         </md-slider-container>
-        
+
       </div>
 
     </md-card-content>
