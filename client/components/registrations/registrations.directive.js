@@ -80,8 +80,8 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         scope.title = gettextCatalog.getString('Your dashboard is being created.');
         scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
       } else if ($location.hash() === 'brand') {
-        scope.title = gettextCatalog.getString('What web address do you want use for your dashboard?');
-        scope.subhead = gettextCatalog.getString('This is the address you\'ll use to sign-in.');
+        scope.title = gettextCatalog.getString('What web address do you want for your dashboard?');
+        scope.subhead = gettextCatalog.getString('Choose the address you\'ll use to sign-in.');
       } else if ($location.hash() === 'user') {
         scope.title = gettextCatalog.getString('What should we call you?');
         scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
