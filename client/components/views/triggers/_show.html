@@ -56,6 +56,13 @@
 
           <small><span ng-if="trigger.active" class="text-muted" translate>Disabling this will stop the alerts.</span> <translate>Triggers are automatically disabled if they fail 5 times.</translate></small>
 
+          <p>
+            <small>
+              <translate>Trigger ID: {{ trigger.id }}</translate>
+            </small>
+          </p>
+          <p><small><translate>Created: {{ trigger.created_at | humanTime }}<translate></small></p>
+
           <span ng-show="trigger.testing == true">
             <p translate>Testing Trigger</p>
             <md-progress-linear md-mode="query"></md-progress-linear>
