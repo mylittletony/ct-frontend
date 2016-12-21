@@ -6,7 +6,9 @@ app.factory('Report', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
     return $resource(API_END_POINT + '/reports',
       {
-        id: '@id'
+        id: '@id',
+        v: '@v',
+        periscope: '@periscope'
       },
       {
       inventory: {
