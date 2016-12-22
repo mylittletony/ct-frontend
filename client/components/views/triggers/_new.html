@@ -107,7 +107,6 @@
                   The trigger will run this action.
                   <span ng-if="trigger.trigger_event == 'action'">Cannot be changed once created.</span>
                 </span>
-                <!-- {{ trigger.type | humanTrigger }} -->
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -126,11 +125,11 @@
                       Reset
                     </translate>
                   </md-radio-button>
-                  <md-radio-button value="box.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
+                  <!-- <md-radio-button value="box.destroy"> -->
+                  <!--   <translate> -->
+                  <!--     Delete -->
+                  <!--   </translate> -->
+                  <!-- </md-radio-button> -->
                 </span>
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="box.create">
@@ -191,18 +190,20 @@
                     </translate>
                   </md-radio-button>
                 </span>
-                <span flex="50" ng-show="trigger.trigger_event == 'action'">
-                  <md-radio-button value="client.disconnect">
-                    <translate>
-                      Disconnect
-                    </translate>
-                  </md-radio-button>
-                  <md-radio-button value="client.block">
-                    <translate>
-                      Block
-                    </translate>
-                  </md-radio-button>
-                </span>
+
+                <!-- <span flex="50" ng-show="trigger.trigger_event == 'action'"> -->
+                <!--   <md-radio-button value="client.disconnect"> -->
+                <!--     <translate> -->
+                <!--       Disconnect -->
+                <!--     </translate> -->
+                <!--   </md-radio-button> -->
+                <!--   <md-radio-button value="client.block"> -->
+                <!--     <translate> -->
+                <!--       Block -->
+                <!--     </translate> -->
+                <!--   </md-radio-button> -->
+                <!-- </span> -->
+
               </span>
 
               <span ng-if="trigger.type == 'email' && trigger.trigger_event == 'notify'">
@@ -233,11 +234,11 @@
                       Restore
                     </translate>
                   </md-radio-button>
-                  <md-radio-button value="location.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
+                  <!-- <md-radio-button value="location.destroy"> -->
+                  <!--   <translate> -->
+                  <!--     Delete -->
+                  <!--   </translate> -->
+                  <!-- </md-radio-button> -->
                 </span>
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="location.create">
@@ -277,21 +278,21 @@
 
               <span ng-if="trigger.type == 'network'">
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
-                  <md-radio-button value="network.down">
+                  <md-radio-button value="network.disable">
                     <translate>
                       WiFi off
                     </translate>
                   </md-radio-button>
-                  <md-radio-button value="network.up">
+                  <md-radio-button value="network.enable">
                     <translate>
                       WiFi on
                     </translate>
                   </md-radio-button>
-                  <md-radio-button value="network.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
+                  <!-- <md-radio-button value="network.destroy"> -->
+                  <!--   <translate> -->
+                  <!--     Delete -->
+                  <!--   </translate> -->
+                  <!-- </md-radio-button> -->
                 </span>
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="network.create">
@@ -314,11 +315,11 @@
 
               <span ng-if="trigger.type == 'quickcode'">
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
-                  <md-radio-button value="quickcode.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
+                  <!-- <md-radio-button value="quickcode.destroy"> -->
+                  <!--   <translate> -->
+                  <!--     Delete -->
+                  <!--   </translate> -->
+                  <!-- </md-radio-button> -->
                   <md-radio-button value="quickcode.create">
                     <translate>
                       Create
@@ -375,11 +376,11 @@
                       Enable
                     </translate>
                   </md-radio-button>
-                  <md-radio-button value="splash.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
+                  <!-- <md-radio-button value="splash.destroy"> -->
+                  <!--   <translate> -->
+                  <!--     Delete -->
+                  <!--   </translate> -->
+                  <!-- </md-radio-button> -->
                 </span>
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
                   <md-radio-button value="splash.password">
@@ -426,6 +427,7 @@
                     Logged in
                   </translate>
                 </md-radio-button>
+
               </span>
 
               <span ng-if="trigger.type == 'store'" layout="row" layout-wrap>
@@ -442,11 +444,11 @@
                     </translate>
                   </md-radio-button>
 
-                  <md-radio-button value="store.destroy">
-                    <translate>
-                      Destroy
-                    </translate>
-                  </md-radio-button>
+                  <!-- <md-radio-button value="store.destroy"> -->
+                  <!--   <translate> -->
+                  <!--     Destroy -->
+                  <!--   </translate> -->
+                  <!-- </md-radio-button> -->
                 </span>
 
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
@@ -504,11 +506,11 @@
                       Enable
                     </translate>
                   </md-radio-button>
-                  <md-radio-button value="voucher.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
+                  <!-- <md-radio-button value="voucher.destroy"> -->
+                  <!--   <translate> -->
+                  <!--     Delete -->
+                  <!--   </translate> -->
+                  <!-- </md-radio-button> -->
                 </span>
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="voucher.create">
@@ -572,7 +574,7 @@
                 <small ng-if="trigger.trigger_event == 'notify'" class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
               </span>
 
-              <span ng-if="trigger.type == 'project'" layout="row" layout-wrap>
+              <span ng-if="trigger.type == 'project' && trigger.trigger_event == 'notify'" layout="row" layout-wrap>
                 <span flex="100">
                   <md-radio-button value="project.create">
                     <translate>
@@ -593,16 +595,8 @@
                 <small class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
               </span>
 
-              <span ng-if="trigger.type == 'project_user'" layout="row" layout-wrap>
-                <span flex="50" ng-show="trigger.trigger_event == 'action'">
-                  <md-radio-button value="project_user.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
-                </span>
-
-                <span flex="50" ng-show="trigger.trigger_event == 'notify'">
+              <span ng-if="trigger.type == 'project_user' && trigger.trigger_event == 'notify'" layout="row" layout-wrap>
+                <span flex="50">
                   <md-radio-button value="project_user.create">
                     <translate>
                       Created*
@@ -617,15 +611,8 @@
                 <small ng-if="trigger.trigger_event == 'notify'" class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
               </span>
 
-              <span ng-if="trigger.type == 'zone'">
-                <span flex="50" ng-show="trigger.trigger_event == 'action'">
-                  <md-radio-button value="zone.destroy">
-                    <translate>
-                      Delete
-                    </translate>
-                  </md-radio-button>
-                </span>
-                <span flex="50" ng-show="trigger.trigger_event == 'notify'">
+              <span ng-if="trigger.type == 'zone' && trigger.trigger_event == 'notify'">
+                <span flex="50">
                   <md-radio-button value="zone.create">
                     <translate>
                       Created
@@ -644,10 +631,15 @@
                 </span>
               </span>
             </md-radio-group>
+
+            <span ng-if="trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' && (trigger.trigger_event == 'action')">
+              <b>Action triggers not available for {{ trigger.type }}s</b>
+            </span>
+
           </md-card-content>
         </md-card>
 
-        <md-card ng-if="trigger.trigger_type && (trigger.trigger_event == 'action')">
+        <md-card ng-if="trigger.trigger_type && trigger.trigger_event == 'action'">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">
