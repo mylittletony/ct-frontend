@@ -239,7 +239,7 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
 
 }]);
 
-app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', function (Trigger, BrandTrigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog) {
+app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', '$mdDialog', function (Trigger, BrandTrigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog, $mdDialog) {
 
   var link = function(scope,element,attrs) {
 
@@ -297,6 +297,120 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       scope.trigger.end_hour = scope.trigger.endtime.getHours() + '' + ('0' + scope.trigger.endtime.getMinutes()).slice(-2);
     };
 
+    var createMenu = function() {
+
+      // User permissions //
+      scope.allowed = true;
+      scope.menu = [];
+
+      scope.menu.push({
+        name: gettextCatalog.getString('Edit'),
+        icon: 'settings',
+        type: 'edit'
+      });
+
+      // Removed until we re-wire backend
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Test'),
+      //   icon: 'compare_arrows',
+      //   type: 'test'
+      // });
+
+      // We don't have an end-point for brand trigger hist yet
+      if (scope.trigger.location_id) {
+        scope.menu.push({
+          name: gettextCatalog.getString('Logs'),
+          icon: 'list',
+          type: 'logs'
+        });
+      }
+
+      if (!scope.trigger.locked) {
+        scope.menu.push({
+          name: gettextCatalog.getString('Delete'),
+          icon: 'delete_forever',
+          type: 'delete'
+        });
+      }
+    };
+
+    scope.action = function(type,trigger) {
+      switch(type) {
+        case 'edit':
+          edit();
+          break;
+        // case 'test':
+        //   test();
+        //   break;
+        case 'logs':
+          logs();
+          break;
+        case 'delete':
+          destroy();
+          break;
+      }
+    };
+
+    var destroy = function(id) {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Delete Trigger'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this trigger?'))
+      .ariaLabel(gettextCatalog.getString('Delete Trigger'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        destroyTrigger(id);
+      }, function() {
+      });
+    };
+
+    var destroySuccess = function() {
+      if (scope.brand.id) {
+        $location.path('/brands/' + scope.brand.id + '/triggers/');
+      } else {
+        $location.path('/locations/' + scope.location.slug + '/triggers/');
+      }
+      showToast(gettextCatalog.getString('Trigger successfully deleted.'));
+    };
+
+    var destroyTrigger = function() {
+      if (scope.brand.id) {
+      BrandTrigger.destroy({}, {
+        brand_id: scope.brand.id,
+        id: scope.trigger.id
+      }).$promise.then(function(results) {
+        destroySuccess();
+      }, function(err) {
+        showErrors(err);
+      });
+      } else {
+        Trigger.destroy({}, {
+          location_id: scope.location.slug,
+          id: scope.trigger.id
+        }).$promise.then(function(results) {
+          destroySuccess();
+        }, function(err) {
+          showErrors(err);
+        });
+      }
+    };
+
+    var logs = function() {
+      if (scope.brand.id) {
+        window.location.href = '/#/brands/' + scope.brand.id + '/triggers/' + scope.trigger.id + '/trigger_history';
+      } else {
+        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id + '/trigger_history';
+      }
+    };
+
+    var edit = function() {
+      if (scope.brand.id) {
+        window.location.href = '/#/brands/' + scope.brand.id + '/triggers/' + scope.trigger.id + '/edit';
+      } else {
+        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id + '/edit';
+      }
+    };
+
     scope.save = function(form) {
       form.$setPristine();
       setCustomName();
@@ -309,8 +423,8 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
     };
 
     var updateSuccess = function(results) {
-      scope.trigger = results;
-      redirect(results.id);
+      // scope.trigger = results;
+      // redirect(results.id);
       showToast(gettextCatalog.getString('Trigger successfully updated.'));
     };
 
@@ -686,6 +800,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       scope.trigger.schedule = 0;
       scope.loading = undefined;
     }
+    createMenu();
   };
 
   return {
@@ -693,7 +808,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
     scope: {
       loading: '='
     },
-    templateUrl: 'components/views/triggers/_new.html'
+    templateUrl: 'components/views/triggers/_edit.html'
   };
 
 }]);

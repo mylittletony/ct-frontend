@@ -146,19 +146,19 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/brands/:brand_id/triggers/new', {
       controller: 'BrandsController',
-      templateUrl: 'components/views/triggers/new.html',
+      templateUrl: 'components/views/triggers/edit.html',
       resolve: { loginRequired: loginRequired },
     }).
     when('/brands/:brand_id/triggers/:trigger_id', {
       controller: 'BrandsController',
-      templateUrl: 'components/views/triggers/show.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands/:brand_id/triggers/:trigger_id/edit', {
-      controller: 'BrandsController',
       templateUrl: 'components/views/triggers/edit.html',
       resolve: { loginRequired: loginRequired },
     }).
+    // when('/brands/:brand_id/triggers/:trigger_id/edit', {
+    //   controller: 'BrandsController',
+    //   templateUrl: 'components/views/triggers/edit.html',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
     // when('/brands/:id/settings', {
     //   controller: 'BrandsController',
     //   templateUrl: 'components/views/brands/settings/index.html',
@@ -363,20 +363,20 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/new', {
-      templateUrl: 'components/views/triggers/new.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/triggers/:trigger_id', {
-      templateUrl: 'components/views/triggers/show.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/triggers/:trigger_id/edit', {
       templateUrl: 'components/views/triggers/edit.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/triggers/:trigger_id', {
+      templateUrl: 'components/views/triggers/edit.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc',
+    }).
+    // when('/locations/:id/triggers/:trigger_id/edit', {
+    //   templateUrl: 'components/views/triggers/edit.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/locations/:id/triggers/:trigger_id/trigger_history', {
       templateUrl: 'components/views/triggers/history/index.html',
       controller: 'LocationsCtrl as lc',
