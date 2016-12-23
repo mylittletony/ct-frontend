@@ -3,7 +3,7 @@
     <label>
       <translate>To Address</translate>
     </label>
-    <input type="text" name="to" ng-model="trigger.attr_1" placeholder="{{ 'Enter an email to send the notification' | translate }}" required></input>
+    <input type="text" name="to" ng-model="trigger.attr_1" placeholder="{{ 'Destination email' | translate }}" required></input>
     <div ng-messages="myForm.to.$error" md-auto-hide="false">
       <div ng-message="required" translate>You must set the email</div>
     </div>
@@ -11,9 +11,9 @@
 
   <md-input-container>
     <label>
-      <translate>From Address</translate>
+      <translate>Sender Address</translate>
     </label>
-    <input type="email" name="from" ng-model="trigger.attr_2" placeholder="{{ 'Who\'s the email from' | translate }}" required></input>
+    <input type="email" name="from" ng-model="trigger.attr_2" placeholder="{{ 'Sender email' | translate }}" required></input>
     <div ng-messages="myForm.from.$error" md-auto-hide="false">
       <div ng-message="required" translate>You must set a from address</div>
       <div ng-message="email" translate>Enter a valid email</div>
@@ -35,7 +35,7 @@
     <label>
       <translate>Message Body</translate>
     </label>
-    <textarea name="body" ng-model="trigger.attr_4" placeholder="What to say" rows=7 md-maxlength=1000 required></textarea>
+    <textarea name="body" ng-model="trigger.attr_4" placeholder="What would you like to say" rows=7 md-maxlength=1000 required></textarea>
     <div ng-messages="myForm.body.$error" md-auto-hide="false">
       <div ng-message="required" translate>You must set a body for the message</div>
       <div ng-message="md-maxlength" translate>Must be less than 1000 characters</div>

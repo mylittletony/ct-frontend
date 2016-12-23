@@ -44,7 +44,20 @@
                 <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
               </div>
             </md-input-container>
+            <md-input-container layout="column" ng-if="trigger.id && trigger.trigger_event == 'action'" style="margin: 40px 0 0 0">
+              <label>
+                <translate>Trigger URL</translate>
+              </label>
+              <input type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="trigger_url" ng-model="trigger.action_url" readonly="readonly"></input>
+            </md-input-container>
+            <small class="muted" style="font-size: 75%;" ng-if="trigger.id && trigger.trigger_event == 'action'">The unique URL to run trigger. POST only. Keep this secret!</small>
+
+            <md-switch ng-model="trigger.active" aria-label="{{ 'Active' | translate }}" ng-change="active()" class="md-warn" ng-show="trigger.id">
+              <span ng-if="trigger.active" translate>Trigger Active</span>
+              <span ng-if="!trigger.active" translate>Trigger Disabled</span>
+            </md-switch>
           </md-card-content>
+
         </md-card>
         <md-card ng-if="trigger.trigger_name || trigger.id">
           <md-card-title>
@@ -659,8 +672,11 @@
                   Action Settings
                 </translate>
               </span>
+              <!-- <span class="md-subhead" translate> -->
+              <!--   Schedule the action to run at certain times or create a webhook for external applications to use. -->
+              <!-- </span> -->
               <span class="md-subhead" translate>
-                Schedule the action to run at certain times or create a webhook for external applications to use.
+                Create an inbound webhook for external applications like Zapier or IFTTT to call.
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -672,11 +688,11 @@
                   Inbound webhook
                 </translate>
               </md-radio-button>
-              <md-radio-button value=1>
-                <translate>
-                  Schedule
-                </translate>
-              </md-radio-button>
+              <!-- <md-radio-button value=1> -->
+              <!--   <translate> -->
+              <!--     Schedule -->
+              <!--   </translate> -->
+              <!-- </md-radio-button> -->
             </md-radio-group>
 
             <span ng-show="trigger.schedule == 1">
@@ -732,7 +748,12 @@
                   </translate>
                 </span>
                 <span class="md-subhead" translate>
-                  The channel is the way you get notified.
+                  <span ng-if="trigger.trigger_event == 'notify'">
+                    The channel is the way you get notified.
+                  </span>
+                  <span ng-if="trigger.trigger_event == 'action'">
+                    Send a notification to this channel after the action runs.
+                  </span>
                 </span>
               </md-card-title-text>
             </md-card-title>
@@ -806,6 +827,17 @@
                 <small class="muted" style="font-size: 75%;">Regex match on description, AP Mac or Zone ID.</small>
               </span>
 
+              <md-input-container style="margin: 40px 0 0 -3px;" ng-if="trigger.trigger_event == 'action'">
+                <label>
+                  <translate>Authorized IPs</translate>
+                </label>
+                <input md-maxlength="255" name="ips" type="text" name="tags" ng-model="trigger.authorized_ips" placeholder="{{ 'Authorized IPs' | translate }}"></input>
+                <div ng-messages="myForm.ips.$error">
+                  <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
+                </div>
+                <small class="muted" style="font-size: 75%; margin-top: -20px">Whitelist IP addresses.</small>
+              </md-input-container>
+
               <md-input-container style="margin: 40px 0 0 -3px;">
                 <label>
                   <translate>Tags</translate>
@@ -817,16 +849,6 @@
                 <small class="muted" style="font-size: 75%; margin-top: -20px">Match any object tags.</small>
               </md-input-container>
 
-              <md-input-container style="margin: 40px 0 0 -3px;" ng-if="trigger.trigger_event == 'action'">
-                <label>
-                  <translate>Authorized IPs</translate>
-                </label>
-                <input md-maxlength="255" name="ips" type="text" name="tags" ng-model="trigger.authorized_ips" placeholder="{{ 'Authorized IPs' | translate }}"></input>
-                <div ng-messages="myForm.ips.$error">
-                  <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
-                </div>
-                <small class="muted" style="font-size: 75%; margin-top: -20px">Match any object tags.</small>
-              </md-input-container>
             </div>
 
             <div layout-gt-sm="row" layout="column" flex="100" ng-if="trigger.trigger_event == 'notify'">

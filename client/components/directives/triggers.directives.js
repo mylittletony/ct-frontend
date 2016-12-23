@@ -411,6 +411,28 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       }
     };
 
+    scope.active = function() {
+      var params = {
+        id: scope.trigger.id,
+        trigger: { active: true }
+      };
+      if (scope.brand.id) {
+        params.brand_id = scope.brand.id;
+        BrandTrigger.update({}, params).$promise.then(function(results) {
+          scope.loading = undefined;
+        }, function(err) {
+          scope.errors = err;
+        });
+      } else {
+        params.location_id = scope.location.slug;
+        Trigger.update({}, params).$promise.then(function(results) {
+          scope.loading = undefined;
+        }, function(err) {
+          scope.errors = err;
+        });
+      }
+    };
+
     scope.save = function(form) {
       form.$setPristine();
       setCustomName();
