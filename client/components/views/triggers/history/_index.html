@@ -25,7 +25,7 @@
           <tbody md-body>
             <tr md-row md-select="history" md-auto-select="options.autoSelect" ng-repeat="h in filtered = (histories | filter: query.filter | orderBy: query.direction)">
               <td md-cell>
-                <img title="{{ h.channel }}" src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/{{ h.channel }}.png" style="width: 32px; height: 32px!important;">
+                <img title="{{ h.action }} {{ h.channel }}" src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/{{ h.trigger_event == 'action' ? 'action' : h.channel }}.png" style="width: 32px; height: 32px!important;">
               </td>
               <td md-cell>
                 <a href="/#/locations/{{ location.slug }}/triggers/{{ trigger.id }}/trigger_history/{{ h.id }}">{{ h.success ? "Success" : "Error" }}</a>
