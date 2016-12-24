@@ -98,6 +98,7 @@
               </md-radio-button>
             </md-radio-group>
 
+            <p ng-if="trigger.type == 'action'" translate><small>Send triggers when an action run.</small></p>
             <p ng-if="trigger.type == 'box'" translate><small>Send triggers when something happens to your boxes.</small></p>
             <p ng-if="trigger.type == 'client'" translate><small>Send a trigger when your wireless clients cause an event.</small></p>
             <p ng-if="trigger.type == 'email'" translate><small>When an email address is captured, send a trigger.</small></p>
@@ -138,6 +139,16 @@
           </md-card-title>
           <md-card-content>
             <md-radio-group ng-model="trigger.trigger_type" layout="column" ng-disabled="trigger.locked || trigger.id" required>
+              <span ng-if="trigger.type == 'action'">
+                <span flex="50" ng-show="trigger.trigger_event == 'notify'">
+                  <md-radio-button value="action.run">
+                    <translate>
+                      Runs
+                    </translate>
+                  </md-radio-button>
+                </span>
+              </span>
+
               <span ng-if="trigger.type == 'box'" layout="row" layout-wrap>
                 <span flex="50" ng-show="trigger.trigger_event == 'action'">
                   <md-radio-button value="box.reboot">
@@ -657,7 +668,7 @@
               </span>
             </md-radio-group>
 
-            <span ng-if="trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' && (trigger.trigger_event == 'action')">
+            <span ng-if="trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' || trigger.type == 'action' && (trigger.trigger_event == 'action')">
               <b>Action triggers not available for {{ trigger.type }}s</b>
             </span>
 
@@ -731,10 +742,13 @@
               <small class="muted" style="font-size: 75%; outline:0!important;" ng-click="cron = !cron">Edit {{ cron ? 'Schedule' : 'Cron' }}</small>
             </span>
 
+            <small class="muted" style="font-size: 75%;">This will generate a unique URL for your applications to call.</small>
+
             <md-switch ng-model="trigger.notify" aria-label="Switch">
               Send notification
             </md-switch>
             <small class="muted" style="font-size: 75%;">Send yourself a message when the hook is triggered.</small>
+
           </md-card-content>
         </md-card>
 

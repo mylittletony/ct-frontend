@@ -256,6 +256,7 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
 
     scope.triggers = [
       { key: gettextCatalog.getString('All'), value: 'all' },
+      { key: gettextCatalog.getString('Actions'), value: 'action' },
       { key: gettextCatalog.getString('Boxes'), value: 'box' },
       { key: gettextCatalog.getString('Clients'), value: 'client' },
       { key: gettextCatalog.getString('Email'), value: 'email' },

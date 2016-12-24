@@ -98,7 +98,7 @@
                   {{ trigger.trigger_type }}
                 </td md-cell>
                 <td hide show-gt-sm md-cell>
-                  {{ trigger.channel }}
+                  {{ trigger.trigger_event == 'action' ? 'inbound' : trigger.channel }}
                 </td md-cell>
                 <td hide show-gt-sm md-cell ng-if="!brand.id">
                   <span>
