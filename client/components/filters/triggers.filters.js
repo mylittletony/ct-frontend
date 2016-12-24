@@ -97,5 +97,3 @@ app.filter('filterChannel', function() {
     }
   };
 });
-
-
