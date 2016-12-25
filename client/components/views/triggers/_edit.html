@@ -259,23 +259,23 @@
               </span>
 
               <span ng-if="trigger.type == 'location'" layout="row" layout-wrap>
-                <span flex="50" ng-show="trigger.trigger_event == 'action'">
-                  <md-radio-button value="location.archive">
-                    <translate>
-                      Archive
-                    </translate>
-                  </md-radio-button>
-                  <md-radio-button value="location.restore">
-                    <translate>
-                      Restore
-                    </translate>
-                  </md-radio-button>
-                  <!-- <md-radio-button value="location.destroy"> -->
-                  <!--   <translate> -->
-                  <!--     Delete -->
-                  <!--   </translate> -->
-                  <!-- </md-radio-button> -->
-                </span>
+                <!-- <span flex="50" ng-show="trigger.trigger_event == 'action'"> -->
+                <!--   <md-radio-button value="location.archive"> -->
+                <!--     <translate> -->
+                <!--       Archive -->
+                <!--     </translate> -->
+                <!--   </md-radio-button> -->
+                <!--   <md-radio-button value="location.restore"> -->
+                <!--     <translate> -->
+                <!--       Restore -->
+                <!--     </translate> -->
+                <!--   </md-radio-button> -->
+                <!--   <md-radio-button value="location.destroy"> -->
+                <!--     <translate> -->
+                <!--       Delete -->
+                <!--     </translate> -->
+                <!--   </md-radio-button> -->
+                <!-- </span> -->
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="location.create">
                     <translate>
@@ -531,23 +531,23 @@
               </span>
 
               <span ng-if="trigger.type == 'voucher'">
-                <span flex="50" ng-show="trigger.trigger_event == 'action'">
-                  <md-radio-button value="voucher.disable">
-                    <translate>
-                      Disable
-                    </translate>
-                  </md-radio-button>
-                  <md-radio-button value="voucher.enable">
-                    <translate>
-                      Enable
-                    </translate>
-                  </md-radio-button>
-                  <!-- <md-radio-button value="voucher.destroy"> -->
-                  <!--   <translate> -->
-                  <!--     Delete -->
-                  <!--   </translate> -->
-                  <!-- </md-radio-button> -->
-                </span>
+                <!-- <span flex="50" ng-show="trigger.trigger_event == 'action'"> -->
+                <!--   <md-radio-button value="voucher.disable"> -->
+                <!--     <translate> -->
+                <!--       Disable -->
+                <!--     </translate> -->
+                <!--   </md-radio-button> -->
+                <!--   <md-radio-button value="voucher.enable"> -->
+                <!--     <translate> -->
+                <!--       Enable -->
+                <!--     </translate> -->
+                <!--   </md-radio-button> -->
+                <!--   <1!-- <md-radio-button value="voucher.destroy"> --1> -->
+                <!--   <1!--   <translate> --1> -->
+                <!--   <1!--     Delete --1> -->
+                <!--   <1!--   </translate> --1> -->
+                <!--   <1!-- </md-radio-button> --1> -->
+                <!-- </span> -->
                 <span flex="50" ng-show="trigger.trigger_event == 'notify'">
                   <md-radio-button value="voucher.create">
                     <translate>
@@ -668,7 +668,7 @@
               </span>
             </md-radio-group>
 
-            <span ng-if="trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' || trigger.type == 'action' && (trigger.trigger_event == 'action')">
+            <span ng-if="trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' || trigger.type == 'action' || trigger.type == 'voucher' || trigger.type == 'location' && (trigger.trigger_event == 'action')">
               <b>Action triggers not available for {{ trigger.type }}s</b>
             </span>
 
