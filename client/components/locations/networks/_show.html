@@ -27,6 +27,7 @@
   <form ng-submit="saveNetwork(network.id)" name="myForm" form_submitted autocomplete="off">
     <div flex>
       <md-card>
+        <div class="md-card-image" style="height: 5px; background-color: {{ color }}"></div>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
@@ -87,6 +88,7 @@
 
             <small translate>Tags apply to triggers to provide a filter for actions.</small>
 
+            <!-- {{ network.captive_portal_enabled }} -->
             <!-- <md-switch ng-disabled="network.vlan_id || !network.dhcp_enabled" class="md-accent" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;"> -->
             <!--   <span  ng-if="network.captive_portal_enabled == true" translate>Splash Page Enabled</span> -->
             <!--   <span  ng-if="network.captive_portal_enabled != true" translate>Splash Page Disabled</span> -->
