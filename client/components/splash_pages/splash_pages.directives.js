@@ -335,11 +335,13 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
         parent: angular.element(document.body),
         clickOutsideToClose: true,
         controller: NetworksController,
-        locals: { splash: scope.splash }
+        locals: {
+          splash: scope.splash
+        }
       });
     };
 
-    var NetworksController = function($scope,splash) {
+    var NetworksController = function($scope, splash) {
       $scope.loading = true;
       $scope.splash = splash;
       // $scope.pristine = true;
@@ -459,8 +461,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
         splash_page: scope.splash
       }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Splash page successfully updated.'));
-        scope.splash.network_ids = [];
-        scope.splash.networks = results;
+        scope.splash.networks = results.splash_page.networks;
         createMenu();
         validate();
       }, function(err) {
