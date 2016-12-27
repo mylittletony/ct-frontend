@@ -37,7 +37,7 @@ app.directive('daySelector', ['gettextCatalog', function(gettextCatalog) {
     };
 
     var updateDays = function() {
-      if (scope.days !== null) {
+      if (scope.days !== null && scope.days !== undefined) {
         for(var i = 0; i <= 6; i++) {
           if (scope.days.indexOf(i.toString()) > -1) {
             scope.array[i] = 1;

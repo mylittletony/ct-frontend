@@ -255,15 +255,13 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     }
 
     scope.triggers = [
-      { key: gettextCatalog.getString('All'), value: 'all' },
-      { key: gettextCatalog.getString('Actions'), value: 'action' },
+      { key: gettextCatalog.getString('All'), value: '_all' },
       { key: gettextCatalog.getString('Boxes'), value: 'box' },
       { key: gettextCatalog.getString('Clients'), value: 'client' },
       { key: gettextCatalog.getString('Email'), value: 'email' },
       { key: gettextCatalog.getString('Guests'), value: 'guest' },
       { key: gettextCatalog.getString('Locations'), value: 'location' },
       { key: gettextCatalog.getString('Networks'), value: 'network' },
-      { key: gettextCatalog.getString('Rogues'), value: 'rogue' },
       { key: gettextCatalog.getString('Splash'), value: 'splash' },
       { key: gettextCatalog.getString('Social'), value: 'social' },
       { key: gettextCatalog.getString('Store'), value: 'store' },
@@ -273,10 +271,17 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       { key: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
 
+    if (scope.location.slug) {
+      scope.triggers.push({ key: gettextCatalog.getString('Actions'), value: 'action' });
+      scope.triggers.push({ key: gettextCatalog.getString('Rogues'), value: 'rogue' });
+    }
+
     if (scope.brand.id) {
       scope.triggers.push({ key: gettextCatalog.getString('Projects'), value: 'project' });
       scope.triggers.push({ key: gettextCatalog.getString('Project Users'), value: 'project_user' });
     }
+
+
 
     scope.channels = [
       { key: 'Email', value: 'email' },
@@ -816,7 +821,7 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     } else {
       formatAlertTime();
       formatDays();
-      scope.trigger.type = 'all';
+      scope.trigger.type = '_all';
       if ($routeParams.object) {
         scope.trigger.type = $routeParams.object;
       }
