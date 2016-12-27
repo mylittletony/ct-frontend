@@ -68,12 +68,6 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
 
       scope.menu.push({
         name: gettextCatalog.getString('View'),
-        icon: 'pageview',
-        type: 'view'
-      });
-
-      scope.menu.push({
-        name: gettextCatalog.getString('Edit'),
         icon: 'settings',
         type: 'edit'
       });
@@ -304,39 +298,32 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var createMenu = function() {
-
-      // User permissions //
       scope.allowed = true;
       scope.menu = [];
+      if (scope.trigger.id) {
+        // Removed until we re-wire backend
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Test'),
+        //   icon: 'compare_arrows',
+        //   type: 'test'
+        // });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Edit'),
-        icon: 'settings',
-        type: 'edit'
-      });
+        // We don't have an end-point for brand trigger hist yet
+        if (scope.trigger.location_id) {
+          scope.menu.push({
+            name: gettextCatalog.getString('Logs'),
+            icon: 'list',
+            type: 'logs'
+          });
+        }
 
-      // Removed until we re-wire backend
-      // scope.menu.push({
-      //   name: gettextCatalog.getString('Test'),
-      //   icon: 'compare_arrows',
-      //   type: 'test'
-      // });
-
-      // We don't have an end-point for brand trigger hist yet
-      if (scope.trigger.location_id) {
-        scope.menu.push({
-          name: gettextCatalog.getString('Logs'),
-          icon: 'list',
-          type: 'logs'
-        });
-      }
-
-      if (!scope.trigger.locked) {
-        scope.menu.push({
-          name: gettextCatalog.getString('Delete'),
-          icon: 'delete_forever',
-          type: 'delete'
-        });
+        if (!scope.trigger.locked) {
+          scope.menu.push({
+            name: gettextCatalog.getString('Delete'),
+            icon: 'delete_forever',
+            type: 'delete'
+          });
+        }
       }
     };
 
