@@ -438,8 +438,6 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var updateSuccess = function(results) {
-      // scope.trigger = results;
-      // redirect(results.id);
       showToast(gettextCatalog.getString('Trigger successfully updated.'));
     };
 
@@ -517,72 +515,26 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var setCustomName = function() {
-      // if (scope.trigger.channel === 'slack') {
-      //   for (var i = 0; i < scope.slack_channels.length; i++) {
-      //     if (scope.slack_channels[i].id === scope.trigger.attr_1) {
-      //       scope.trigger.custom_1 = scope.slack_channels[i].name;
-      //     }
-      //   }
-      // }
-      if (scope.trigger.channel === 'mailchimp' && scope.chimp_lists) {
-        for (var j = 0; j < scope.chimp_lists.length; j++) {
-          if (scope.chimp_lists[j].id === scope.trigger.attr_1) {
-            scope.trigger.custom_1 = scope.chimp_lists[j].name;
-          }
-        }
-      }
-      else if (scope.trigger.channel === 'sms') {
-        // for (var i = 0; i < scope.chimp_lists.length; i++) {
-        //   if (scope.chimp_lists[i].id === scope.trigger.attr_1) {
-        //     scope.trigger.custom_1 = scope.chimp_lists[i].name;
-        //   }
-        // }
-      }
     };
 
     scope.initChannel = function() {
       scope.error = undefined;
-      // if (scope.trigger.channel === 'slack') {
-      //   blank();
-      //   initSlack();
-      // } else if (scope.trigger.channel === 'webhook') {
       if (scope.trigger.channel === 'webhook') {
         blank();
         if (!scope.trigger.id) {
           scope.trigger.attr_1 = undefined;
         }
         initWebhook();
-      // } else if (scope.trigger.channel === 'mailchimp') {
-      //   blank();
-      //   initMc();
-      // } else if (scope.trigger.channel === 'sms') {
-      //   blank();
-      //   initSms();
       } else if (scope.trigger.channel === 'email') {
         initEmail();
       }
     };
-
-    // var initSlack = function() {
-    // };
 
     var initWebhook = function() {
       if (scope.trigger.attr_2 !== 'POST' || scope.trigger.attr_2 !== 'GET') {
         scope.trigger.attr_2 = 'POST';
       }
     };
-
-//     var initMc = function() {
-//       scope.loading_integration = true;
-//       checkMcIntegrated().then(function(a) {
-//         chimpLists();
-//         scope.loading_integration = undefined;
-//       }, function(err) {
-//         blank(true);
-//         scope.error = err;
-//         scope.loading_integration = undefined;
-//       });
-//     };
 
     var initEmail = function() {
       if (!scope.trigger.id) {
@@ -592,19 +544,6 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
         scope.trigger.attr_4 = gettextCatalog.getString('Hello\n\nThanks for logging in today at {{ Location_Name }}!\n\nWe\'re super excited to meet you. \n\nThe Lodge');
       }
     };
-
-    // var initSms = function() {
-    //   scope.loading_integration = true;
-    //   checkSmsIntegrated().then(function(a) {
-    //     twillioNumbers();
-    //     scope.loading_integration = undefined;
-    //     // scope.trigger.attr_2 = gettextCatalog.getString('A box with {{ Ap_Mac }} just went {{ State }} in {{ Location_Name }}');
-    //   }, function(err) {
-    //     blank(true);
-    //     scope.error = $sce.trustAsHtml(err);
-    //     scope.loading_integration = undefined;
-    //   });
-    // };
 
     var blank = function(force) {
       if ( force ) {
@@ -655,81 +594,6 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       scope.loading_integration = undefined;
       return deferred.promise;
     };
-
-    // var checkMcIntegrated = function() {
-    //   var msg;
-    //   var deferred = $q.defer();
-    //   Integration.get({q: 'mailchimp'}).$promise.then(function(results) {
-    //     for (var i = 0; i < results.length; i++) {
-    //       if (results[i].access_token) {
-    //         integrations.push(results[i]);
-    //       }
-    //     }
-    //     if (integrations.length > 0) {
-    //       deferred.resolve();
-    //     } else {
-    //       msg = gettextCatalog.getString('MailChimp isn\'t setup yet. Do that first and come back.');
-    //       scope.loading_integration = undefined;
-    //       deferred.reject(msg);
-    //     }
-    //   }, function(err) {
-    //     msg = 'Unknown error, please try again';
-    //     deferred.reject(msg);
-    //   });
-    //   return deferred.promise;
-    // };
-
-    // var chimpLists = function() {
-    //   var deferred = $q.defer();
-    //   Integration.chimp_lists({id: integrations[0].id}).$promise.then(function(results) {
-    //     scope.chimp_lists = results;
-    //     scope.trigger.attr_2 = '{{ Email }}';
-    //     deferred.resolve();
-    //   }, function(err) {
-    //     scope.error = gettextCatalog.getString('You don\'t have any active lists associated with your account.');
-    //     deferred.reject();
-    //   });
-    //   return deferred.promise;
-    // };
-
-    // var checkSmsIntegrated = function() {
-    //   var msg;
-    //   var deferred = $q.defer();
-    //   Integration.get({q: 'twillio'}).$promise.then(function(results) {
-    //     for (var i = 0; i < results.length; i++) {
-    //       if (results[i].access_token) {
-    //         integrations.push(results[i]);
-    //       }
-    //     }
-    //     if (integrations.length > 0) {
-    //       deferred.resolve();
-    //     } else {
-    //       //fixme @Toni translations: the anchor might not work
-    //       msg = gettextCatalog.getString('Twillio isn\'t setup yet, or you don\'t have any active integrations. You can <a href=\'/#/me/integrations\'>do that here</a>.');
-    //       scope.loading_integration = undefined;
-    //       deferred.reject(msg);
-    //     }
-    //   }, function(err) {
-    //     msg = gettextCatalog.getString('Unknown error, please try again');
-    //     deferred.reject(msg);
-    //     scope.loading_integration = undefined;
-    //   });
-    //   return deferred.promise;
-    // };
-
-    // var twillioNumbers = function() {
-    //   var deferred = $q.defer();
-    //   Integration.twillio({id: integrations[0].id}).$promise.then(function(results) {
-    //     scope.trigger.access_token = integrations[0].access_token;
-    //     scope.twillio_numbers = results;
-    //     scope.loading = undefined;
-    //     deferred.resolve();
-    //   }, function(err) {
-    //     scope.error = gettextCatalog.getString('You don\'t have any active numbers associated with your Twillio account.');
-    //     deferred.reject();
-    //   });
-    //   return deferred.promise;
-    // };
 
     var setTriggerType = function(type) {
       if (type) {
@@ -1045,4 +909,3 @@ app.directive('showTriggerHistory', ['TriggerHistory', '$http', '$routeParams', 
   };
 
 }]);
-
