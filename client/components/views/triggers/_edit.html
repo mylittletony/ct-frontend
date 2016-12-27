@@ -29,7 +29,11 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Name your Trigger
+                <span ng-if="!trigger.id">Name your Trigger</span>
+                <span ng-if="trigger.id">{{ trigger.trigger_name }} Trigger</span>
+              </span>
+              <span class="md-subhead" ng-if="trigger.id" translate>
+                Trigger ID: {{ ::trigger.id }}
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -38,10 +42,10 @@
               <label>
                 <translate>Trigger Name</translate>
               </label>
-              <input type="text" name="trigger_name" ng-minlength="5" md-maxlength="100" ng-model="trigger.trigger_name" placeholder="{{ 'My Handy Trigger' | translate }}" required></input>
+              <input type="text" name="trigger_name" ng-minlength="5" md-maxlength="50" ng-model="trigger.trigger_name" placeholder="{{ 'My Handy Trigger' | translate }}" required md-autofocus></input>
               <div ng-messages="myForm.trigger_name.$error">
                 <div ng-message="required" translate>Please enter a name for your trigger</div>
-                <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
+                <div ng-message="md-maxlength" translate>Must be less than 50 characters</div>
               </div>
             </md-input-container>
             <md-input-container layout="column" ng-if="trigger.id && trigger.trigger_event == 'action'" style="margin: 40px 0 0 0">
@@ -79,13 +83,13 @@
                 <translate>Event</translate>
               </label>
               <md-select ng-model="trigger.type" ng-disabled="trigger.locked || trigger.id">
-                <md-option ng-repeat="type in triggers" value="{{type.value}}">
+                <md-option ng-repeat="type in triggers | orderBy:'value'" value="{{type.value}}">
                   {{ type.key }}
                 </md-option>
               </md-select>
             </md-input-container>
 
-            <md-radio-group ng-model="trigger.trigger_event" layout="row" ng-disabled="trigger.id" ng-show="trigger.type != 'all' && location.slug" ng-change="resetTypes()">
+            <md-radio-group ng-model="trigger.trigger_event" layout="row" ng-disabled="trigger.id" ng-show="trigger.type != '_all' && location.slug" ng-change="resetTypes()">
               <md-radio-button value="notify">
                 <translate>
                   Create Notification
@@ -120,7 +124,7 @@
 
           </md-card-content>
         </md-card>
-        <md-card ng-if="trigger.type && trigger.type != 'all'">
+        <md-card ng-if="trigger.type && trigger.type != '_all'">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
@@ -668,7 +672,7 @@
               </span>
             </md-radio-group>
 
-            <span ng-if="trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' || trigger.type == 'action' || trigger.type == 'voucher' || trigger.type == 'location' && (trigger.trigger_event == 'action')">
+            <span ng-if="location.slug && trigger.trigger_event == 'action' && (trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' || trigger.type == 'action' || trigger.type == 'voucher' || trigger.type == 'location')">
               <b>Action triggers not available for {{ trigger.type }}s</b>
             </span>
 
@@ -693,7 +697,7 @@
           </md-card-title>
 
           <md-card-content>
-            <md-radio-group ng-model="trigger.schedule" layout="column" ing-disabled="trigger.id" ing-show="trigger.type != 'all' && location.slug" iing-change="resetTypes()">
+            <md-radio-group ng-model="trigger.schedule" layout="column" ing-disabled="trigger.id" ing-show="trigger.type != '_all' && location.slug" iing-change="resetTypes()">
               <md-radio-button value=0>
                 <translate>
                   Inbound webhook
@@ -718,14 +722,9 @@
                 <div layout-gt-sm="row" flex="100" flex-gt-xs="40" style="margin: 20px 0 -20px 0">
                   <md-input-container class="md-block" flex-gt-sm>
                     <label translate>When</label>
-                    <input type="text" placeholder="08:00" ng-model="trigger.cron_time" ng-pattern="/^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$\">
+                    <input type="text" placeholder="08:00" ng-model="trigger.cron_time" ng-pattern="/^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])$/">
                   </md-input-container>
                 </div>
-
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label translate>Autorized IPs</label>
-                  <input type="text" placeholder="08:00" ng-model="trigger.cron_time" ng-pattern="/^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$\">
-                </md-input-container>
               </div>
 
               <div ng-show="cron">
@@ -896,7 +895,7 @@
           </md-card-content>
         </md-card>
 
-        <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine || trigger.type == 'all'" class="md-raised"><translate>Save</translate></md-button>
+        <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine || trigger.type == '_all'" class="md-raised"><translate>Save</translate></md-button>
       </div>
     </div>
   </md-content>
