@@ -63,7 +63,6 @@
                 </div>
               </md-input-container>
             </div>
-
           </div>
 
           <div flex></div>
@@ -416,22 +415,7 @@
                   </div>
                 </md-input-container>
               </div>
-              <div flex-gt-sm="100">
-                <!-- <md-chips -->
-                <!--    ng-model="splash.splash_tags_array" -->
-                <!--    delete-button-label="Remove Tag" -->
-                <!--    delete-hint="Press delete to remove tag" -->
-                <!--    secondary-placeholder="+Tag" -->
-                <!--    placeholder="Splash Tags"> -->
-                <!-- </md-chips> -->
-                <md-input-container class="md-block">
-                  <label><translate>Splash Tags (comma separated list)</translate></label>
-                  <input type="text" name="splash_tags" ng-model="splash.splash_tags" ng-disabled="!splash.tagged_logins" ng-required="splash.tagged_logins">
-                  <div ng-messages="myForm.splash_tags.$error" md-auto-hide="false">
-                    <div ng-message="required" translate>You must set some tags when using tagged logins.</div>
-                  </div>
-                </md-input-container>
-              </div>
+
               <div flex-gt-sm="100">
                 <md-input-container class="md-block">
                   <label><translate>Timezone</translate></label>
@@ -443,6 +427,20 @@
                 </md-input-container>
                 <p><small><translate>Set the Timezone to ensure your splash restrictions work correctly.</translate></small></p>
               </div>
+
+              <div flex-gt-sm="100">
+                <md-input-container class="md-block" flex-gt-sm="100" style="margin: 40px 0 0 0;">
+                  <label>
+                    <translate>Tags</translate>
+                  </label>
+                  <input ng-model="splash.tags" name="tags" placeholder="{{ 'Splash tags' | translate }}" type="text" ng-maxlength="255">
+                  <div ng-messages="myForm.tags.$error">
+                    <div ng-message="ng-maxlength" translate>Must be less than 255 chars.</div>
+                  </div>
+                </md-input-container>
+                <small translate>Tags apply to triggers to provide a filter for actions.</small>
+              </div>
+
             </div>
           </div>
           <div flex></div>

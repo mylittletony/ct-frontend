@@ -398,7 +398,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           });
 
           vm.menuRight.push({
-            title: gettextCatalog.getString('Users'),
+            name: gettextCatalog.getString('Users'),
             type: 'link',
             link: '/#/users',
             icon: 'people'

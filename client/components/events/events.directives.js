@@ -48,6 +48,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
 
     scope.triggers = [
       { name: gettextCatalog.getString('All'), value: '' },
+      { name: gettextCatalog.getString('Actions'), value: 'action' },
       { name: gettextCatalog.getString('Boxes'), value: 'box' },
       { name: gettextCatalog.getString('Clients'), value: 'client' },
       { name: gettextCatalog.getString('Email'), value: 'email' },

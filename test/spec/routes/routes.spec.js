@@ -37,12 +37,9 @@ describe('Routing', function () {
                   toEqual('components/views/triggers/index.html');
 
       expect($route.routes['/brands/:brand_id/triggers/new'].templateUrl).
-                  toEqual('components/views/triggers/new.html');
+                  toEqual('components/views/triggers/edit.html');
 
       expect($route.routes['/brands/:brand_id/triggers/:trigger_id'].templateUrl).
-                  toEqual('components/views/triggers/show.html');
-
-      expect($route.routes['/brands/:brand_id/triggers/:trigger_id/edit'].templateUrl).
                   toEqual('components/views/triggers/edit.html');
 
       expect($route.routes['/brands/:brand_id/theme'].templateUrl).
@@ -107,12 +104,9 @@ describe('Routing', function () {
                   toEqual('components/views/triggers/index.html');
 
       expect($route.routes['/locations/:id/triggers/new'].templateUrl).
-                  toEqual('components/views/triggers/new.html');
+                  toEqual('components/views/triggers/edit.html');
 
       expect($route.routes['/locations/:id/triggers/:trigger_id'].templateUrl).
-                  toEqual('components/views/triggers/show.html');
-
-      expect($route.routes['/locations/:id/triggers/:trigger_id/edit'].templateUrl).
                   toEqual('components/views/triggers/edit.html');
 
       expect($route.routes['/locations/:id/triggers/:trigger_id/trigger_history'].templateUrl).

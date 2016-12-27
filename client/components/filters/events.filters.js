@@ -34,6 +34,9 @@ app.filter('eventSummary', [function() {
       case 'upgrade_failed':
         action = 'Failed upgrade for';
         break;
+      case 'run':
+        action = 'Inbound action trigger';
+        break;
       case 'purchase':
         action = 'Purchased voucher at';
         break;
