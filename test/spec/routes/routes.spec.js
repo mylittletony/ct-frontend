@@ -109,9 +109,6 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/triggers/:trigger_id'].templateUrl).
                   toEqual('components/views/triggers/edit.html');
 
-      expect($route.routes['/locations/:id/triggers/:trigger_id/edit'].templateUrl).
-                  toEqual('components/views/triggers/edit.html');
-
       expect($route.routes['/locations/:id/triggers/:trigger_id/trigger_history'].templateUrl).
                   toEqual('components/views/triggers/history/index.html');
 
