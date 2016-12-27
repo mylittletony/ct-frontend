@@ -18,6 +18,12 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
+              <h3>Created</h3>
+              <p>{{ event.created_at | humanTime }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
               <h3>Type</h3>
               <p>{{ event.event_type }}</p>
             </div>
