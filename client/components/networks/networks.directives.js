@@ -298,6 +298,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
   var link = function(scope, element, attrs) {
 
+    // scope.color = 'red';
     scope.location = { slug: $routeParams.id };
     scope.client_filters = [
       { key: gettextCatalog.getString('Off'), value: 'off' },

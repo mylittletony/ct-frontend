@@ -6,10 +6,8 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
 
   var link = function(scope,element,attrs) {
 
-    scope.loading = true;
     scope.location = {};
     scope.brand = {};
-    scope.triggers = []; // helps initial load
 
     var path = $location.path().split('/');
     if (path[1] === 'brands') {
@@ -159,8 +157,8 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
     var loadedTriggers = function(results) {
       scope.triggers = results.triggers;
       scope._links   = results._links;
-      scope.loading  = undefined;
       createMenu();
+      scope.loading  = undefined;
     };
 
     var brandTriggers = function(params) {
@@ -241,7 +239,7 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
 
 }]);
 
-app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', function (Trigger, BrandTrigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog) {
+app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', '$mdDialog', function (Trigger, BrandTrigger, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog, $mdDialog) {
 
   var link = function(scope,element,attrs) {
 
@@ -257,14 +255,13 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
     }
 
     scope.triggers = [
-      { key: gettextCatalog.getString('All'), value: 'all' },
+      { key: gettextCatalog.getString('All'), value: '_all' },
       { key: gettextCatalog.getString('Boxes'), value: 'box' },
       { key: gettextCatalog.getString('Clients'), value: 'client' },
       { key: gettextCatalog.getString('Email'), value: 'email' },
       { key: gettextCatalog.getString('Guests'), value: 'guest' },
       { key: gettextCatalog.getString('Locations'), value: 'location' },
       { key: gettextCatalog.getString('Networks'), value: 'network' },
-      { key: gettextCatalog.getString('Rogues'), value: 'rogue' },
       { key: gettextCatalog.getString('Splash'), value: 'splash' },
       { key: gettextCatalog.getString('Social'), value: 'social' },
       { key: gettextCatalog.getString('Store'), value: 'store' },
@@ -274,10 +271,17 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       { key: gettextCatalog.getString('Zones'), value: 'zone' }
     ];
 
+    if (scope.location.slug) {
+      scope.triggers.push({ key: gettextCatalog.getString('Actions'), value: 'action' });
+      scope.triggers.push({ key: gettextCatalog.getString('Rogues'), value: 'rogue' });
+    }
+
     if (scope.brand.id) {
       scope.triggers.push({ key: gettextCatalog.getString('Projects'), value: 'project' });
       scope.triggers.push({ key: gettextCatalog.getString('Project Users'), value: 'project_user' });
     }
+
+
 
     scope.channels = [
       { key: 'Email', value: 'email' },
@@ -291,11 +295,148 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
 
     scope.resetTypes = function() {
       scope.trigger.trigger_type = undefined;
+      scope.trigger.channel = undefined;
     };
 
     var formatTonyTime = function() {
       scope.trigger.start_hour = scope.trigger.starttime.getHours() + '' + ('0' + scope.trigger.starttime.getMinutes()).slice(-2);
       scope.trigger.end_hour = scope.trigger.endtime.getHours() + '' + ('0' + scope.trigger.endtime.getMinutes()).slice(-2);
+    };
+
+    var createMenu = function() {
+
+      // User permissions //
+      scope.allowed = true;
+      scope.menu = [];
+
+      scope.menu.push({
+        name: gettextCatalog.getString('Edit'),
+        icon: 'settings',
+        type: 'edit'
+      });
+
+      // Removed until we re-wire backend
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Test'),
+      //   icon: 'compare_arrows',
+      //   type: 'test'
+      // });
+
+      // We don't have an end-point for brand trigger hist yet
+      if (scope.trigger.location_id) {
+        scope.menu.push({
+          name: gettextCatalog.getString('Logs'),
+          icon: 'list',
+          type: 'logs'
+        });
+      }
+
+      if (!scope.trigger.locked) {
+        scope.menu.push({
+          name: gettextCatalog.getString('Delete'),
+          icon: 'delete_forever',
+          type: 'delete'
+        });
+      }
+    };
+
+    scope.action = function(type,trigger) {
+      switch(type) {
+        case 'edit':
+          edit();
+          break;
+        // case 'test':
+        //   test();
+        //   break;
+        case 'logs':
+          logs();
+          break;
+        case 'delete':
+          destroy();
+          break;
+      }
+    };
+
+    var destroy = function(id) {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Delete Trigger'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this trigger?'))
+      .ariaLabel(gettextCatalog.getString('Delete Trigger'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        destroyTrigger(id);
+      }, function() {
+      });
+    };
+
+    var destroySuccess = function() {
+      if (scope.brand.id) {
+        $location.path('/brands/' + scope.brand.id + '/triggers/');
+      } else {
+        $location.path('/locations/' + scope.location.slug + '/triggers/');
+      }
+      showToast(gettextCatalog.getString('Trigger successfully deleted.'));
+    };
+
+    var destroyTrigger = function() {
+      if (scope.brand.id) {
+      BrandTrigger.destroy({}, {
+        brand_id: scope.brand.id,
+        id: scope.trigger.id
+      }).$promise.then(function(results) {
+        destroySuccess();
+      }, function(err) {
+        showErrors(err);
+      });
+      } else {
+        Trigger.destroy({}, {
+          location_id: scope.location.slug,
+          id: scope.trigger.id
+        }).$promise.then(function(results) {
+          destroySuccess();
+        }, function(err) {
+          showErrors(err);
+        });
+      }
+    };
+
+    var logs = function() {
+      if (scope.brand.id) {
+        window.location.href = '/#/brands/' + scope.brand.id + '/triggers/' + scope.trigger.id + '/trigger_history';
+      } else {
+        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id + '/trigger_history';
+      }
+    };
+
+    var edit = function() {
+      if (scope.brand.id) {
+        window.location.href = '/#/brands/' + scope.brand.id + '/triggers/' + scope.trigger.id + '/edit';
+      } else {
+        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id + '/edit';
+      }
+    };
+
+    scope.active = function() {
+      var params = {
+        id: scope.trigger.id,
+        trigger: { active: true }
+      };
+      if (scope.brand.id) {
+        params.brand_id = scope.brand.id;
+        BrandTrigger.update({}, params).$promise.then(function(results) {
+          scope.loading = undefined;
+        }, function(err) {
+          scope.errors = err;
+        });
+      } else {
+        params.location_id = scope.location.slug;
+        Trigger.update({}, params).$promise.then(function(results) {
+          scope.loading = undefined;
+        }, function(err) {
+          scope.errors = err;
+        });
+      }
     };
 
     scope.save = function(form) {
@@ -310,8 +451,8 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
     };
 
     var updateSuccess = function(results) {
-      scope.trigger = results;
-      redirect(results.id);
+      // scope.trigger = results;
+      // redirect(results.id);
       showToast(gettextCatalog.getString('Trigger successfully updated.'));
     };
 
@@ -414,10 +555,11 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
 
     scope.initChannel = function() {
       scope.error = undefined;
-      if (scope.trigger.channel === 'slack') {
-        blank();
-        initSlack();
-      } else if (scope.trigger.channel === 'webhook') {
+      // if (scope.trigger.channel === 'slack') {
+      //   blank();
+      //   initSlack();
+      // } else if (scope.trigger.channel === 'webhook') {
+      if (scope.trigger.channel === 'webhook') {
         blank();
         if (!scope.trigger.id) {
           scope.trigger.attr_1 = undefined;
@@ -434,8 +576,8 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       }
     };
 
-    var initSlack = function() {
-    };
+    // var initSlack = function() {
+    // };
 
     var initWebhook = function() {
       if (scope.trigger.attr_2 !== 'POST' || scope.trigger.attr_2 !== 'GET') {
@@ -627,6 +769,7 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       if (!scope.trigger.allowed_days) {
         scope.trigger.allowed_days = ['0','1','2','3','4','5','6'];
       }
+      scope.trigger.periodic_days_cron = [];
     };
 
     var triggerLoaded = function(results) {
@@ -635,6 +778,11 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
       setTriggerType(results.trigger_type);
       formatAlertTime();
       formatDays();
+      if (scope.trigger.cron) {
+        scope.trigger.schedule = 1;
+        scope.cron = true;
+      }
+      createMenu();
       scope.loading = undefined;
     };
 
@@ -673,269 +821,16 @@ app.directive('newTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', '
     } else {
       formatAlertTime();
       formatDays();
-      scope.trigger.type = 'all';
+      scope.trigger.type = '_all';
       if ($routeParams.object) {
         scope.trigger.type = $routeParams.object;
       }
       scope.trigger.trigger_type = $routeParams.action;
-      scope.loading = undefined;
-    }
-
-  };
-
-  return {
-    link: link,
-    scope: {
-      loading: '='
-    },
-    templateUrl: 'components/views/triggers/_new.html'
-  };
-
-}]);
-
-app.directive('showTrigger', ['Trigger', 'BrandTrigger', '$q', '$routeParams', '$rootScope', '$http', '$location', '$pusher', 'Auth', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function (Trigger, BrandTrigger, $q, $routeParams, $rootScope, $http, $location, $pusher, Auth, $mdDialog, showToast, showErrors, gettextCatalog) {
-
-  var link = function(scope,element,attrs) {
-
-    scope.trigger = { id: $routeParams.trigger_id };
-    scope.location = {};
-    scope.brand = {};
-
-    var path = $location.path().split('/');
-    if (path[1] === 'brands') {
-      scope.brand.id =  $routeParams.brand_id;
-    } else {
-      scope.location.slug = $routeParams.id;
-    }
-
-    // user permissions //
-    var createMenu = function() {
-
-      // User permissions //
-      scope.allowed = true;
-      scope.menu = [];
-
-      scope.menu.push({
-        name: gettextCatalog.getString('Edit'),
-        icon: 'settings',
-        type: 'edit'
-      });
-
-      // Removed until we re-wire backend
-      // scope.menu.push({
-      //   name: gettextCatalog.getString('Test'),
-      //   icon: 'compare_arrows',
-      //   type: 'test'
-      // });
-
-      // We don't have an end-point for brand trigger hist yet
-      if (scope.trigger.location_id) {
-        scope.menu.push({
-          name: gettextCatalog.getString('Logs'),
-          icon: 'list',
-          type: 'logs'
-        });
-      }
-
-      if (!scope.trigger.locked) {
-        scope.menu.push({
-          name: gettextCatalog.getString('Delete'),
-          icon: 'delete_forever',
-          type: 'delete'
-        });
-      }
-    };
-
-    scope.action = function(type,trigger) {
-      switch(type) {
-        case 'edit':
-          edit();
-          break;
-        // case 'test':
-        //   test();
-        //   break;
-        case 'logs':
-          logs();
-          break;
-        case 'delete':
-          destroy();
-          break;
-      }
-    };
-
-    var destroy = function(id) {
-      var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Delete Trigger'))
-      .textContent(gettextCatalog.getString('Are you sure you want to delete this trigger?'))
-      .ariaLabel(gettextCatalog.getString('Delete Trigger'))
-      .ok(gettextCatalog.getString('Delete'))
-      .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        destroyTrigger(id);
-      }, function() {
-      });
-    };
-
-    var destroySuccess = function() {
-      if (scope.brand.id) {
-        $location.path('/brands/' + scope.brand.id + '/triggers/');
-      } else {
-        $location.path('/locations/' + scope.location.slug + '/triggers/');
-      }
-      showToast(gettextCatalog.getString('Trigger successfully deleted.'));
-    };
-
-    var destroyTrigger = function() {
-      if (scope.brand.id) {
-      BrandTrigger.destroy({}, {
-        brand_id: scope.brand.id,
-        id: scope.trigger.id
-      }).$promise.then(function(results) {
-        destroySuccess();
-      }, function(err) {
-        showErrors(err);
-      });
-      } else {
-        Trigger.destroy({}, {
-          location_id: scope.location.slug,
-          id: scope.trigger.id
-        }).$promise.then(function(results) {
-          destroySuccess();
-        }, function(err) {
-          showErrors(err);
-        });
-      }
-    };
-
-    scope.active = function() {
-      var params = {
-        id: scope.trigger.id,
-        trigger: scope.trigger
-      };
-      if (scope.brand.id) {
-        params.brand_id = scope.brand.id;
-        BrandTrigger.update({}, params).$promise.then(function(results) {
-          scope.trigger = results;
-          scope.loading = undefined;
-        }, function(err) {
-          scope.errors = err;
-        });
-      } else {
-        params.location_id = scope.location.slug;
-        Trigger.update({}, params).$promise.then(function(results) {
-          scope.trigger = results;
-          scope.loading = undefined;
-        }, function(err) {
-          scope.errors = err;
-        });
-      }
-    };
-
-    // Removed since we don't have test fn right now
-    // var test = function() {
-    //   scope.trigger.test = undefined;
-    //   scope.trigger.testing = true;
-    //   Trigger.update({location_id: scope.location.slug, id: scope.trigger.id, trigger: { test: true }}).$promise.then(function(results) {
-    //     showToast(gettextCatalog.getString('Running test, please wait.'));
-    //   }, function(err) {
-    //     showErrors(err);
-    //   });
-    // };
-
-    // var channel;
-    // function subAlerts () {
-    //   var pusher        = $pusher(client);
-    //   var key           = Auth.currentUser().key;
-    //   channel           = pusher.subscribe('private-' + key);
-    //   channel.bind('trigger_test', function(data) {
-    //     scope.trigger.testing = undefined;
-    //     if (data && data.message) {
-    //       var msg = data.message;
-    //       if (msg.success) {
-    //         scope.trigger.run_count++;
-    //         scope.trigger.test = gettextCatalog.getString('Yay, it worked. The trigger completed successfully!');
-    //       } else {
-    //         // scope.trigger.fail_count++;
-    //         // scope.trigger.total_fail_count++;
-    //         scope.trigger.test = gettextCatalog.getString('Oh no, the trigger failed. Please check the logs');
-    //       }
-    //     }
-    //   });
-    // }
-
-    var logs = function() {
-      if (scope.brand.id) {
-        window.location.href = '/#/brands/' + scope.brand.id + '/triggers/' + scope.trigger.id + '/trigger_history';
-      } else {
-        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id + '/trigger_history';
-      }
-    };
-
-    var edit = function() {
-      if (scope.brand.id) {
-        window.location.href = '/#/brands/' + scope.brand.id + '/triggers/' + scope.trigger.id + '/edit';
-      } else {
-        window.location.href = '/#/locations/' + scope.location.slug + '/triggers/' + scope.trigger.id + '/edit';
-      }
-    };
-
-    scope.back = function() {
-      if (scope.brand.id) {
-        window.location.href = '/#/brands/' + scope.brand.id + '/triggers';
-      } else {
-        window.location.href = '/#/locations/' + scope.location.slug + '/triggers';
-      }
-    };
-
-    var setupTrigger = function(results) {
-      scope.trigger = results;
+      scope.trigger.trigger_event = 'notify';
+      scope.trigger.schedule = 0;
       scope.loading = undefined;
       createMenu();
-    };
-
-    var locationTrigger = function() {
-      Trigger.get(
-        {
-          location_id: scope.location.slug,
-          id: scope.trigger.id
-        }
-      ).$promise.then(function(results) {
-        setupTrigger(results);
-      }, function(err) {
-        scope.errors = err;
-      });
-    };
-
-    var brandTrigger = function() {
-      BrandTrigger.get(
-        {
-          brand_id: scope.brand.id,
-          id: scope.trigger.id
-        }
-      ).$promise.then(function(results) {
-        setupTrigger(results);
-      }, function(err) {
-        scope.errors = err;
-      });
-    };
-
-    var init = function() {
-      if (scope.location.slug) {
-        locationTrigger();
-        return;
-      }
-      brandTrigger();
-    };
-
-    init();
-    // subAlerts();
-
-    // $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    //   if (channel) {
-    //     channel.unbind();
-    //   }
-    // });
-
+    }
   };
 
   return {
@@ -943,7 +838,7 @@ app.directive('showTrigger', ['Trigger', 'BrandTrigger', '$q', '$routeParams', '
     scope: {
       loading: '='
     },
-    templateUrl: 'components/views/triggers/_show.html'
+    templateUrl: 'components/views/triggers/_edit.html'
   };
 
 }]);
