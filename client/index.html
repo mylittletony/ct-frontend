@@ -115,6 +115,9 @@
               <md-icon>forum</md-icon>
             </a>
           </md-button>
+          <md-button class="md-icon-button" aria-label="'Support' | translate" id="feedbackTrigger">
+            <md-icon>feedback</md-icon>
+          </md-button>
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <user-avatar></user-avatar>
@@ -474,6 +477,18 @@
   <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyD243NSdgNYjRHBVBrWoEKX728FYOxuUgE&libraries=visualization"></script>
   <script src="//js.pusher.com/3.1/pusher.min.js"></script>
   <script src="/scripts/highlight.pack.js"></script>
+
+  <script type="text/javascript" src="https://cucumber.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/o5sjd3/100023/c/1000.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=72f0304a"></script>
+
+  <script type="text/javascript">window.ATL_JQ_PAGE_PROPS =  {
+    "triggerFunction": function(showCollectorDialog) {
+      //Requires that jQuery is available!
+      jQuery("#feedbackTrigger").click(function(e) {
+        e.preventDefault();
+        showCollectorDialog();
+      });
+    }};
+  </script>
 
 </body>
 </html>
