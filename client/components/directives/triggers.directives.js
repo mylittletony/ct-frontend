@@ -69,7 +69,7 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
       scope.menu.push({
         name: gettextCatalog.getString('View'),
         icon: 'settings',
-        type: 'edit'
+        type: 'view'
       });
 
       scope.menu.push({
@@ -90,9 +90,6 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
       switch(type) {
         case 'view':
           view(trigger.id);
-          break;
-        case 'edit':
-          edit(trigger.id);
           break;
         case 'logs':
           logs(trigger.id);
