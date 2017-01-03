@@ -63,7 +63,7 @@
           </md-card-content>
 
         </md-card>
-        <md-card ng-if="trigger.trigger_name || trigger.id">
+        <md-card iing-if="trigger.trigger_name || trigger.id">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
@@ -679,7 +679,7 @@
           </md-card-content>
         </md-card>
 
-        <md-card ng-if="trigger.trigger_type && trigger.trigger_event == 'action'">
+        <md-card iing-if="trigger.trigger_type && trigger.trigger_event == 'action'">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">
@@ -703,40 +703,74 @@
                   Inbound webhook
                 </translate>
               </md-radio-button>
-              <!-- <md-radio-button value=1> -->
-              <!--   <translate> -->
-              <!--     Schedule -->
-              <!--   </translate> -->
-              <!-- </md-radio-button> -->
+              <md-radio-button value=1>
+                <translate>
+                  Schedule
+                </translate>
+              </md-radio-button>
             </md-radio-group>
 
-            <span ng-show="trigger.schedule == 1">
+            <span ing-show="trigger.schedule == 1">
               <div ng-hide="cron">
-                <div layout-gt-sm="row" layout="column" flex="100">
-                  <div style="margin-top: 1px;">
-                    <p><small translate>Run Days</small></p>
-                    <day-selector active="true" days="trigger.cron_days" array="trigger.periodic_days_cron"></day-selector>
-                  </div>
-                </div>
 
-                <div layout-gt-sm="row" flex="100" flex-gt-xs="40" style="margin: 20px 0 -20px 0">
-                  <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>When</label>
-                    <input type="text" placeholder="08:00" ng-model="trigger.cron_time" ng-pattern="/^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])$/">
+                <div layout-gt-sm="row" layout="column" flex="100">
+                  <md-input-container layout="column">
+                    <label>
+                      <translate>Every</translate>
+                    </label>
+                    <md-select ng-model="trigger.everies" iing-change="initChannel()">
+                      <md-option ng-repeat="every in everies" value="{{ every.value }}">
+                        {{ every.key }}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container layout="column">
+                    <label>
+                      <translate>At</translate>
+                    </label>
+                    <md-select ng-model="trigger.hours" iing-change="initChannel()">
+                      <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
+                        {{ hour.key }}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container layout="column">
+                    <label>
+                      <translate>At</translate>
+                    </label>
+                    <md-select ng-model="trigger.mins" iing-change="initChannel()">
+                      <md-option ng-repeat="min in mins" value="{{ min.value }}">
+                        {{ min.key }}
+                      </md-option>
+                    </md-select>
                   </md-input-container>
                 </div>
-              </div>
 
-              <div ng-show="cron">
-                <md-input-container style="margin-bottom: 0px;">
-                  <label>
-                    <translate>Cron</translate>
-                  </label>
-                  <input type="text" name="cron" ng-model="trigger.cron" placeholder="0 * * * *" ng-pattern="/^(\*|([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])|\*\/([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])) (\*|([0-9]|1[0-9]|2[0-3])|\*\/([0-9]|1[0-9]|2[0-3])) (\*|([1-9]|1[0-9]|2[0-9]|3[0-1])|\*\/([1-9]|1[0-9]|2[0-9]|3[0-1])) (\*|([1-9]|1[0-2])|\*\/([1-9]|1[0-2])) (\*|([0-6])|\*\/([0-6]))$/"></input>
-                  <div ng-messages="myForm.cron.$error">
-                    <div ng-message="pattern" translate>Invalid format</div>
-                  </div>
-                </md-input-container>
+                <!-- <div layout-gt-sm="row" layout="column" flex="100"> -->
+                <!--   <div style="margin-top: 1px;"> -->
+                <!--     <p><small translate>Run Days</small></p> -->
+                <!--     <day-selector active="true" days="trigger.cron_days" array="trigger.periodic_days_cron"></day-selector> -->
+                <!--   </div> -->
+                <!-- </div> -->
+
+                <!-- <div layout-gt-sm="row" flex="100" flex-gt-xs="40" style="margin: 20px 0 -20px 0"> -->
+                <!--   <md-input-container class="md-block" flex-gt-sm> -->
+                <!--     <label translate>When</label> -->
+                <!--     <input type="text" placeholder="08:00" ng-model="trigger.cron_time" ng-pattern="/^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])$/"> -->
+                <!--   </md-input-container> -->
+                <!-- </div> -->
+              <!-- </div> -->
+
+              <!-- <div ng-show="cron"> -->
+              <!--   <md-input-container style="margin-bottom: 0px;"> -->
+              <!--     <label> -->
+              <!--       <translate>Cron</translate> -->
+              <!--     </label> -->
+              <!--     <input type="text" name="cron" ng-model="trigger.cron" placeholder="0 * * * *" ng-pattern="/^(\*|([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])|\*\/([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])) (\*|([0-9]|1[0-9]|2[0-3])|\*\/([0-9]|1[0-9]|2[0-3])) (\*|([1-9]|1[0-9]|2[0-9]|3[0-1])|\*\/([1-9]|1[0-9]|2[0-9]|3[0-1])) (\*|([1-9]|1[0-2])|\*\/([1-9]|1[0-2])) (\*|([0-6])|\*\/([0-6]))$/"></input> -->
+              <!--     <div ng-messages="myForm.cron.$error"> -->
+              <!--       <div ng-message="pattern" translate>Invalid format</div> -->
+              <!--     </div> -->
+              <!--   </md-input-container> -->
               </div>
               <small class="muted" style="font-size: 75%; outline:0!important;" ng-click="cron = !cron">Edit {{ cron ? 'Schedule' : 'Cron' }}</small>
             </span>
