@@ -467,10 +467,15 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       }
     };
 
+    var formatCronTime = function() {
+      scope.trigger.cron_time = scope.trigger.hours + scope.trigger.mins;
+    };
+
     scope.save = function(form) {
       form.$setPristine();
       setCustomName();
       formatTonyTime();
+      formatCronTime();
       if (scope.trigger.id) {
         update();
       } else {
@@ -661,15 +666,35 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       if (!scope.trigger.allowed_days) {
         scope.trigger.allowed_days = ['0','1','2','3','4','5','6'];
       }
-      scope.trigger.periodic_days_cron = [];
+    };
+
+    var formatCron = function() {
+      var array;
+      if (scope.trigger.cron_time === undefined || scope.trigger.cron_time === '') {
+        return;
+      }
+
+      array = scope.trigger.cron_time.match(/.{1,2}/g);
+      if (array.length !== 2) {
+        return;
+      }
+
+      scope.trigger.hours = array[0];
+      scope.trigger.mins = array[1];
+    };
+
+    var formatTimes = function() {
+      formatAlertTime();
+      formatDays();
+      formatCron();
     };
 
     var triggerLoaded = function(results) {
       scope.trigger = results;
       scope.initChannel();
       setTriggerType(results.trigger_type);
-      formatAlertTime();
-      formatDays();
+      formatTimes();
+
       if (scope.trigger.cron) {
         scope.trigger.schedule = 1;
         scope.cron = true;
@@ -711,8 +736,7 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     if (scope.trigger.id) {
       init();
     } else {
-      formatAlertTime();
-      formatDays();
+      formatTimes();
       scope.trigger.type = '_all';
       if ($routeParams.object) {
         scope.trigger.type = $routeParams.object;
