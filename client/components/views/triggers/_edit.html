@@ -63,7 +63,7 @@
           </md-card-content>
 
         </md-card>
-        <md-card iing-if="trigger.trigger_name || trigger.id">
+        <md-card ng-if="trigger.trigger_name || trigger.id">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
@@ -679,7 +679,7 @@
           </md-card-content>
         </md-card>
 
-        <md-card iing-if="trigger.trigger_type && trigger.trigger_event == 'action'">
+        <md-card ng-if="trigger.trigger_type && trigger.trigger_event == 'action'">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">

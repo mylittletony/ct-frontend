@@ -670,7 +670,7 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
 
     var formatCron = function() {
       var array;
-      if (scope.trigger.cron_time === undefined || scope.trigger.cron_time === '') {
+      if (scope.trigger.cron_time === undefined || scope.trigger.cron_time === '' || scope.trigger.cron_time === null) {
         return;
       }
 
