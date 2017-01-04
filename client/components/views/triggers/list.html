@@ -37,18 +37,18 @@
       <md-card-content>
         <md-card-title ng-show="!xctTrggrs && location.slug && triggers.length">
           <md-card-title-text>
-            <span class="md-headline">Understanding Triggers</span>
+            <span class="md-headline" translate>Understanding Triggers</span>
 
             <span class="md-subhead">
-              We've created some default triggers to get you started. You can delete these and start again. <b>Triggers notify you when things happen</b>. From security notifications to when a customer logs in, they'll help you run your networks more effeciently.<br><br>Set them up to email your guests, admin users or just yourself. Or, use them with Slack or setup a webhook! <a href="" ng-click="dismissTrigger()">Dismiss</a>.
+              <translate>We've created some default triggers to get you started. You can delete these and start again.</translate> <b translate>Triggers notify you when things happen</b>. <translate>From security notifications to when a customer logs in, they'll help you run your networks more effeciently.<br><br>Set them up to email your guests, admin users or just yourself. Or, use them with Slack or setup a webhook!</translate> <a href="" ng-click="dismissTrigger()" translate>Dismiss</a>.
             </span>
 
           </md-card-title-text>
         </md-card-title>
         <md-card-title ng-show="brand.id">
           <md-card-title-text>
-            <span class="md-headline">Understanding Brand Triggers</span>
-            <span class="md-subhead">
+            <span class="md-headline" translate>Understanding Brand Triggers</span>
+            <span class="md-subhead" translate>
               Brand Triggers are a little different to regular triggers. You can set them up to notify you when things happen within your brand, like location triggers. You can also <strong>add templates</strong> that get created as defaults for locations. Read more in the docs.
                <!-- <a href="" ng-click="dismissTrigger()">Dismiss</a>. -->
             </span>
@@ -73,8 +73,8 @@
                   <md-icon md-menu-origin md-font-icon="">{{ trigger.active ? "check_circle" : 'warning' }}</md-icon>
                   <md-tooltip>
                     <translate>
-                      <span ng-if="trigger.active">Trigger is active</span>
-                      <span ng-if="!trigger.active">Trigger disabled</span>
+                      <span ng-if="trigger.active" translate>Trigger is active</span>
+                      <span ng-if="!trigger.active" translate>Trigger disabled</span>
                     </translate>
                   </md-tooltip>
                 </td md-cell>

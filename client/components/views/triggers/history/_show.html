@@ -19,43 +19,43 @@
         <md-card-content>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Summary</h3>
+              <h3 translate>Summary</h3>
               <p>{{ history.attr_1 }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Created</h3>
+              <h3 translate>Created</h3>
               <p>{{ history.created_at | humanTime }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Event</h3>
+              <h3 translate>Event</h3>
               <p>{{ ::history.trigger_event }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Trigger</h3>
+              <h3 translate>Trigger</h3>
               <p><a href="/#/locations/{{ location.slug }}/triggers/{{ ::history.trigger_id }}">{{ ::history.trigger_name }}</a></p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Success</h3>
+              <h3 translate>Success</h3>
               <p>{{ ::history.success }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Response</h3>
+              <h3 translate>Response</h3>
               <p>{{ history.response || '-' }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Status Code</h3>
+              <h3 translate>Status Code</h3>
               <p>{{ ::history.status }}</p>
             </div>
           </md-list-item>
