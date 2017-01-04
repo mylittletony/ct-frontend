@@ -29,8 +29,8 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                <span ng-if="!trigger.id">Name your Trigger</span>
-                <span ng-if="trigger.id">{{ trigger.trigger_name }} Trigger</span>
+                <span ng-if="!trigger.id" translate>Name your Trigger</span>
+                <span ng-if="trigger.id" translate>{{ trigger.trigger_name }} Trigger</span>
               </span>
               <span class="md-subhead" ng-if="trigger.id" translate>
                 Trigger ID: {{ ::trigger.id }}
@@ -44,7 +44,7 @@
               </label>
               <input type="text" name="trigger_name" ng-minlength="5" md-maxlength="50" ng-model="trigger.trigger_name" placeholder="{{ 'My Handy Trigger' | translate }}" required md-autofocus></input>
               <div ng-messages="myForm.trigger_name.$error">
-                <div ng-message="required" translate>Please enter a name for your trigger</div>
+                <div ng-message="required"  translate>Please enter a name for your trigger</div>
                 <div ng-message="md-maxlength" translate>Must be less than 50 characters</div>
               </div>
             </md-input-container>
@@ -54,7 +54,7 @@
               </label>
               <input type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="trigger_url" ng-model="trigger.action_url" readonly="readonly"></input>
             </md-input-container>
-            <small class="muted" style="font-size: 75%;" ng-if="trigger.id && trigger.trigger_event == 'action'">The unique URL to run trigger. POST only. Keep this secret!</small>
+            <small class="muted" style="font-size: 75%;" ng-if="trigger.id && trigger.trigger_event == 'action'" translate>The unique URL to run trigger. POST only. Keep this secret!</small>
 
             <md-switch ng-model="trigger.active" aria-label="{{ 'Active' | translate }}" ng-change="active()" class="md-warn" ng-show="trigger.id">
               <span ng-if="trigger.active" translate>Trigger Active</span>
@@ -102,25 +102,25 @@
               </md-radio-button>
             </md-radio-group>
 
-            <p ng-if="trigger.type == 'action'" translate><small>Send triggers when an action run.</small></p>
-            <p ng-if="trigger.type == 'box'" translate><small>Send triggers when something happens to your boxes.</small></p>
-            <p ng-if="trigger.type == 'client'" translate><small>Send a trigger when your wireless clients cause an event.</small></p>
-            <p ng-if="trigger.type == 'email'" translate><small>When an email address is captured, send a trigger.</small></p>
-            <p ng-if="trigger.type == 'guest'" translate><small>Send triggers when a guest causes an event</small></p>
-            <p ng-if="trigger.type == 'location'" translate><small>Send triggers when one of your locations causes an event.</small></p>
-            <p ng-if="trigger.type == 'network'" translate><small>Send triggers when your networks cause an event.</small></p>
-            <p ng-if="trigger.type == 'quickcode'" translate><small>Send triggers when QuickCodes cause an event.</small></p>
-            <p ng-if="trigger.type == 'rogue'" translate><small>Send triggers when rogue devices checkin</small></p>
-            <p ng-if="trigger.type == 'splash'" translate><small>Send triggers on splash page events</small></p>
-            <p ng-if="trigger.type == 'social'" translate><small>Send triggers when a Social login causes a trigger.</small></p>
-            <p ng-if="trigger.type == 'store'" translate><small>Send triggers when a store creates an event.</small></p>
-            <p ng-if="trigger.type == 'voucher'" translate><small>Send a trigger when a vouchers creates a trigger</small></p>
-            <p ng-if="trigger.type == 'zone'" translate><small>Send triggers when changes happen to a zone.</small></p>
+            <p ng-if="trigger.type == 'action'"><small translate>Send triggers when an action run.</small></p>
+            <p ng-if="trigger.type == 'box'"><small translate>Send triggers when something happens to your boxes.</small></p>
+            <p ng-if="trigger.type == 'client'"><small translate>Send a trigger when your wireless clients cause an event.</small></p>
+            <p ng-if="trigger.type == 'email'"><small translate>When an email address is captured, send a trigger.</small></p>
+            <p ng-if="trigger.type == 'guest'"><small translate>Send triggers when a guest causes an event</small></p>
+            <p ng-if="trigger.type == 'location'"><small translate>Send triggers when one of your locations causes an event.</small></p>
+            <p ng-if="trigger.type == 'network'"><small translate>Send triggers when your networks cause an event.</small></p>
+            <p ng-if="trigger.type == 'quickcode'"><small translate>Send triggers when QuickCodes cause an event.</small></p>
+            <p ng-if="trigger.type == 'rogue'"><small translate>Send triggers when rogue devices checkin</small></p>
+            <p ng-if="trigger.type == 'splash'"><small translate>Send triggers on splash page events</small></p>
+            <p ng-if="trigger.type == 'social'"><small translate>Send triggers when a Social login causes a trigger.</small></p>
+            <p ng-if="trigger.type == 'store'"><small translate>Send triggers when a store creates an event.</small></p>
+            <p ng-if="trigger.type == 'voucher'"><small translate>Send a trigger when a vouchers creates a trigger</small></p>
+            <p ng-if="trigger.type == 'zone'"><small translate>Send triggers when changes happen to a zone.</small></p>
 
-            <p ng-if="trigger.type == 'user'" translate><small>Send triggers when changes happen to a user.</small></p>
-            <p ng-if="trigger.type == 'brand'" translate><small>Send triggers when changes happen to a brand.</small></p>
-            <p ng-if="trigger.type == 'project'" translate><small>Send triggers when changes happen to a project.</small></p>
-            <p ng-if="trigger.type == 'project_user'" translate><small>Send triggers when project users are updated.</small></p>
+            <p ng-if="trigger.type == 'user'"><small translate>Send triggers when changes happen to a user.</small></p>
+            <p ng-if="trigger.type == 'brand'"><small translate>Send triggers when changes happen to a brand.</small></p>
+            <p ng-if="trigger.type == 'project'"><small translate>Send triggers when changes happen to a project.</small></p>
+            <p ng-if="trigger.type == 'project_user'"><small translate>Send triggers when project users are updated.</small></p>
 
           </md-card-content>
         </md-card>
@@ -130,13 +130,13 @@
               <span class="md-headline" translate>
                 Set the event trigger
               </span>
-              <span class="md-subhead" translate>
-                <span ng-if="trigger.trigger_event == 'notify'">
+              <span class="md-subhead">
+                <span ng-if="trigger.trigger_event == 'notify'" translate>
                   The trigger will fire when this event happens.
                 </span>
                 <span ng-if="trigger.trigger_event == 'action'">
-                  The trigger will run this action.
-                  <span ng-if="trigger.trigger_event == 'action'">Cannot be changed once created.</span>
+                  <translate>The trigger will run this action.</translate>
+                  <span ng-if="trigger.trigger_event == 'action'" translate>Cannot be changed once created.</span>
                 </span>
               </span>
             </md-card-title-text>
@@ -673,7 +673,7 @@
             </md-radio-group>
 
             <span ng-if="location.slug && trigger.trigger_event == 'action' && (trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' || trigger.type == 'action' || trigger.type == 'voucher' || trigger.type == 'location')">
-              <b>Action triggers not available for {{ trigger.type }}s</b>
+              <b><translate>Action triggers not available for {{ trigger.type }}s</translate></b>
             </span>
 
           </md-card-content>
@@ -871,7 +871,7 @@
                     <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
                   </div>
                 </md-input-container>
-                <small class="muted" style="font-size: 75%;">Regex match on description, AP Mac or Zone ID.</small>
+                <small class="muted" style="font-size: 75%;" translate>Regex match on description, AP Mac or Zone ID.</small>
               </span>
 
               <md-input-container style="margin: 40px 0 0 -3px;" ng-if="trigger.trigger_event == 'action'">
@@ -882,7 +882,7 @@
                 <div ng-messages="myForm.ips.$error">
                   <div ng-message="md-maxlength" translate>Must be less than 255 characters</div>
                 </div>
-                <small class="muted" style="font-size: 75%; margin-top: -20px">Whitelist IP addresses.</small>
+                <small class="muted" style="font-size: 75%; margin-top: -20px" translate>Whitelist IP addresses.</small>
               </md-input-container>
 
               <md-input-container style="margin: 40px 0 0 -3px;">
@@ -893,7 +893,7 @@
                 <div ng-messages="myForm.tags.$error">
                   <div ng-message="md-maxlength" translate>Must be less than 128 characters</div>
                 </div>
-                <small class="muted" style="font-size: 75%; margin-top: -20px">Match any object tags.</small>
+                <small class="muted" style="font-size: 75%; margin-top: -20px" translate>Match any object tags.</small>
               </md-input-container>
 
             </div>
@@ -918,13 +918,13 @@
               </div>
             </span>
 
-            <small class="muted" style="font-size: 75%;">Set the start and end hours to zero to get alerts all day.</small>
+            <small class="muted" style="font-size: 75%;" translate>Set the start and end hours to zero to get alerts all day.</small>
 
             <span ng-show="brand.id">
               <md-switch ng-model="trigger.template" aria-label="Switch">
                 Location Template
               </md-switch>
-              <small class="muted" style="font-size: 75%;">Template triggers won't fire for brand events. Instead, they will be added to your locations as default triggers.</small>
+              <small class="muted" style="font-size: 75%;" translate>Template triggers won't fire for brand events. Instead, they will be added to your locations as default triggers.</small>
             </span>
           </md-card-content>
         </md-card>
