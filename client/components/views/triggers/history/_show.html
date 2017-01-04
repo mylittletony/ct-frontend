@@ -59,6 +59,12 @@
               <p>{{ ::history.status }}</p>
             </div>
           </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Request IP</h3>
+              <p>{{ history.request_ip || '-' }}</p>
+            </div>
+          </md-list-item>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
           <md-button href="" ng-click="back()"><translate>Back</translate></md-button>
