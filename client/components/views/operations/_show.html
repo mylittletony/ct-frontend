@@ -17,7 +17,7 @@
             <md-card-title-text>
               <span class="md-header">
                 <md-icon>{{ operation.statusIcon }}</md-icon>
-                Operation {{ operation.id }}
+                <translate>Operation {{ operation.id }}</translate>
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -25,25 +25,25 @@
           <md-card-content>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
-                <h3>Type</h3>
-                <p>Updated {{ operation.operation_type }}</p>
+                <h3 translate>Type</h3>
+                <p translate>Updated {{ operation.operation_type }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
-                <h3>Status</h3>
+                <h3 translate>Status</h3>
                 <p>{{ operation.status }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
-                <h3>Started</h3>
+                <h3 translate>Started</h3>
                 <p>{{ operation.created_at | humanTime }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
-                <h3>Completed</h3>
+                <h3 translate>Completed</h3>
                 <p>{{ operation.completed_at | humanTime }}</p>
               </div>
             </md-list-item>
