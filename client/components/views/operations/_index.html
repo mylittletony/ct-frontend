@@ -33,11 +33,11 @@
             </thead>
             <tbody md-body>
               <tr md-row ng-repeat="op in filtered = (operations | filter: filter)">
-                <td md-cell><a href="/#/locations/{{location.slug}}/devices/{{box.slug}}/operations/{{op.id}}">Updated {{ op.operation_type | truncate:25 }}</a></td>
+                <td md-cell><a href="/#/locations/{{location.slug}}/devices/{{box.slug}}/operations/{{op.id}}" translate>Updated {{ op.operation_type | truncate:25 }}</a></td>
                 <td hide show-gt-sm md-cell>{{ op.user || 'System' }}</td>
                 <td hide show-gt-sm md-cell>
-                  Start: {{ op.created_at | humanTime }}<br>
-                  End: {{ op.completed_at | humanTime }}<br>
+                  <translate>Start: {{ op.created_at | humanTime }}</translate><br>
+                  <translate>End: {{ op.completed_at | humanTime }}</translate><br>
                 </td>
                 <td md-cell>{{ op.status }}</td>
               </tr>
