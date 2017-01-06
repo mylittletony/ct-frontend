@@ -448,7 +448,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
         interval:     interval,
         distance:     scope.distance,
         ap_mac:       scope.ap_mac,
-        period:       scope.period,
+        period:       scope.period || '6h',
         resource:     'client',
       };
 
