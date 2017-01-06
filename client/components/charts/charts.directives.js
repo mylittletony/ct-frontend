@@ -344,7 +344,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
             this.interval = '1yr';
             break;
           default:
-            this.interval = '60s';
+            this.interval = '180s';
         }
       };
 

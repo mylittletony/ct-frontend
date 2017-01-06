@@ -690,7 +690,7 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
     scope.location = { slug: $routeParams.id };
     scope.ap_mac   = $routeParams.ap_mac;
     scope.fn       = $routeParams.fn;
-    scope.period   = $routeParams.period || '30m';
+    scope.period   = $routeParams.period || '6h';
 
     var logout = function() {
       scope.client.splash_status = 'dnat';
