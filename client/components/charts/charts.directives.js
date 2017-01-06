@@ -344,13 +344,17 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
             this.interval = '1yr';
             break;
           default:
-            this.interval = '60s';
+            this.interval = '180s';
         }
       };
 
       this.getStats = function(params) {
         var deferred = $q.defer();
-        this.period = params.period || $routeParams.period;
+        if (params.resource === 'location' ) {
+          this.period = params.period || $routeParams.period;
+        } else {
+          this.period = params.period || $routeParams.period || '6h';
+        }
         this.setInterval();
         $scope.client = ClientDetails.client;
         Report.clientstats({
