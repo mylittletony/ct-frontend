@@ -566,8 +566,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ap_mac:       scope.box.calledstationid,
         location_id:  scope.box.location_id,
         resource:     'device',
-        interval:     '60s',
-        period:       '60m'
+        interval:     '180s',
+        period:       '6h'
       }).$promise.then(function(data) {
         scope.box.throughput = data.throughput;
         deferred.resolve();
