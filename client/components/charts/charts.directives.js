@@ -1395,6 +1395,10 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       opts.hAxis = {
         format: 'dd/MM/yyyy',
       };
+      opts.vAxis = {
+        format: '0',
+        minValue: 4
+      };
       opts.vAxes = {
         0: {
           textPosition: 'none'
