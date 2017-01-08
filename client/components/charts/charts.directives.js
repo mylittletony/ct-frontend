@@ -624,7 +624,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
     var renderChart = function() {
       timer = $timeout(function() {
         drawChart(data.usage);
-        scope.noData = undefined;
+        // scope.noData = undefined;
       },100);
     };
 
