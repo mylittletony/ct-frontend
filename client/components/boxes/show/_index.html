@@ -56,7 +56,7 @@
   </md-subheader>
 </section>
 
-<md-content class="md-padding" ing-if="box.initialising">
+<md-content class="md-padding" ng-if="box.state == 'initializing'">
   <div layout="row" layout-align="center center">
     <div flex="100">
       <md-card>
@@ -74,7 +74,7 @@
   </div>
 </md-content>
 
-<md-content class="md-padding" iiing-if="box.state == 'new' && some other logic">
+<md-content class="md-padding" ng-if="box.state == 'new'">
   <div layout="row" layout-align="center center">
     <div flex="100">
       <md-card>
@@ -292,7 +292,7 @@
                   {{ box.uptime }}
                 </md-tooltip>
               </p>
-              <p ng-if="!box.uptime_seconds">{{ box.uptime | filterUptime }}</p>
+              <p ng-if="!box.uptime_seconds">{{ (box.uptime | filterUptime) || '-' }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
