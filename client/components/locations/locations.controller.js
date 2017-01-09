@@ -181,7 +181,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     };
 
     var setLocationStateIcon = function(location) {
-      menu.locationStateIcon = 12313;
+      menu.locationStateIcon = undefined;
       if (location.archived === 1 || location.archived === true) {
         menu.locationStateIcon = 'archived';
         return;
