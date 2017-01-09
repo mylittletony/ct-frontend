@@ -308,7 +308,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           sub = parts[0];
           if (sub !== 'my' && sub !== 'dashboard' ) {
             getBrand(sub);
+            return;
           }
+          setDefaultImages();
         } else {
           console.log('Domain error occured');
         }
