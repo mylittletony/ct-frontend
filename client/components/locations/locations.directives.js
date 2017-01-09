@@ -1779,9 +1779,11 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
         if (s === 'active') {
           menu.archived = false;
           msg = gettextCatalog.getString('Location successfully restored.');
+          menu.locationStateIcon = '';
         } else {
           menu.archived = true;
           msg = gettextCatalog.getString('Location successfully archived.');
+          menu.locationStateIcon = 'archived';
         }
         showToast(msg);
       }, function(err) {
