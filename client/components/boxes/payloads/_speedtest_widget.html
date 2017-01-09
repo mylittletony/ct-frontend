@@ -1,7 +1,7 @@
 <md-list-item class="md-2-line">
   <div class="md-list-item-text">
     <h3 translate>Connection Speed</h3>
-    <md-button class="md-secondary md-icon-button" ng-if="box.allowed_job && !box.speedtest_running" ng-click="runSpeedtest()">
+    <md-button class="md-secondary md-icon-button" ng-if="box.allowed_job && !box.speedtest_running && box.state !== 'new' && box.state != 'initializing'" ng-click="runSpeedtest()">
       <md-icon>replay</md-icon>
     </md-button>
     <span>

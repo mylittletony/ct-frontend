@@ -344,13 +344,17 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
             this.interval = '1yr';
             break;
           default:
-            this.interval = '60s';
+            this.interval = '180s';
         }
       };
 
       this.getStats = function(params) {
         var deferred = $q.defer();
-        this.period = params.period || $routeParams.period;
+        if (params.resource === 'location' ) {
+          this.period = params.period || $routeParams.period;
+        } else {
+          this.period = params.period || $routeParams.period || '6h';
+        }
         this.setInterval();
         $scope.client = ClientDetails.client;
         Report.clientstats({
@@ -611,13 +615,16 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
         }
         renderChart();
       }, function() {
-        renderChart();
+        scope.noData = true;
+        scope.loading = undefined;
+        // renderChart();
       });
     }
 
     var renderChart = function() {
       timer = $timeout(function() {
         drawChart(data.usage);
+        // scope.noData = undefined;
       },100);
     };
 
@@ -712,6 +719,10 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
           scope.noData = true;
           clearChart();
         }
+      }, function() {
+        scope.noData = true;
+        scope.loading = undefined;
+        clearChart();
       });
     }
 
@@ -1390,6 +1401,10 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       };
       opts.hAxis = {
         format: 'dd/MM/yyyy',
+      };
+      opts.vAxis = {
+        format: '0',
+        minValue: 4
       };
       opts.vAxes = {
         0: {
