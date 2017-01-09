@@ -615,13 +615,16 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
         }
         renderChart();
       }, function() {
-        renderChart();
+        scope.noData = true;
+        scope.loading = undefined;
+        // renderChart();
       });
     }
 
     var renderChart = function() {
       timer = $timeout(function() {
         drawChart(data.usage);
+        // scope.noData = undefined;
       },100);
     };
 
@@ -716,6 +719,10 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
           scope.noData = true;
           clearChart();
         }
+      }, function() {
+        scope.noData = true;
+        scope.loading = undefined;
+        clearChart();
       });
     }
 
@@ -1394,6 +1401,10 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       };
       opts.hAxis = {
         format: 'dd/MM/yyyy',
+      };
+      opts.vAxis = {
+        format: '0',
+        minValue: 4
       };
       opts.vAxes = {
         0: {
