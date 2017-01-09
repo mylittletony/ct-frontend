@@ -187,7 +187,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         return;
       }
       if (location.ct_view === 0 || location.ct_view === false) {
-        menu.locationStateIcon = 'lock';
+        menu.locationStateIcon = 'vpn_locked';
         return;
       }
     };
