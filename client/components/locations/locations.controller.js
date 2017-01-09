@@ -180,6 +180,18 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       window.location.href = '/#/locations/' + $scope.location.slug + '/boxes/new';
     };
 
+    var setLocationStateIcon = function(location) {
+      menu.locationStateIcon = 12313;
+      if (location.archived === 1 || location.archived === true) {
+        menu.locationStateIcon = 'archived';
+        return;
+      }
+      if (location.ct_view === 0 || location.ct_view === false) {
+        menu.locationStateIcon = 'lock';
+        return;
+      }
+    };
+
     var init = function() {
 
       var id = $routeParams.id;
@@ -191,11 +203,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         }
         menu.header = data.location_name;
         menu.sectionName = gettextCatalog.getString('Location');
-        if (data.archived) {
-          menu.archived = data.archived;
-        } else {
-          menu.archived = undefined;
-        }
+        setLocationStateIcon(data)
         $scope.location = data;
         console.log('Setting TZ to', $scope.location.timezone);
         window.moment.tz.setDefault($scope.location.timezone);

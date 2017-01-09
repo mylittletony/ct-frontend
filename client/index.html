@@ -221,10 +221,17 @@
             <md-toolbar class="md-table-toolbar md-default">
               <div class="sidenav md-toolbar-tools">
                 <h2 class="menu-heading menu-subhead" iing-if="section.type === 'header'">
-                  <span ng-if="vm.menu.archived">
-                    <md-icon>archived</md-icon>
-                    <md-tooltip md-direction="bottom">This location has been archived</md-tooltip>
-                  </span>
+                <span>
+                  <md-icon>{{vm.menu.locationStateIcon}}</md-icon>
+                  <md-tooltip md-direction="bottom">
+                    <span ng-if="vm.menu.locationStateIcon === 'archived'">
+                      This location has been archived
+                    </span>
+                    <span ng-if="vm.menu.locationStateIcon === 'lock'">
+                      Cucumber read access disabled
+                    </span>
+                  </md-tooltip>
+                </span>
                   {{ vm.menu.header }}
                 </h2>
               </div>
