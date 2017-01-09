@@ -306,7 +306,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         else if (parts.length === 3) {
           sub = parts[0];
-          getBrand(sub);
+          if (sub !== 'my' && sub !== 'dashboard' ) {
+            getBrand(sub);
+            return;
+          }
+          setDefaultImages();
         } else {
           console.log('Domain error occured');
         }
@@ -317,7 +321,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           sub = Auth.currentUser().url;
         }
 
-        Brand.query({
+        Brand.query({}, {
           id: sub,
           cname: cname,
           type: 'showcase'
