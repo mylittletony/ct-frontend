@@ -87,8 +87,8 @@
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item ng-repeat="item in vm.menu.main">
-                <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider>
-                <md-button ing-if="section.type === 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
+                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
+                <md-button ing-if="section.type == 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
                   {{ item.title }}
                 </md-button>
@@ -102,8 +102,8 @@
             </md-button>
             <md-menu-content width="4" >
               <md-menu-item ng-repeat="item in vm.menu.reports">
-                <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider>
-                <md-button ing-if="section.type === 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
+                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
+                <md-button ing-if="section.type == 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
                   {{ item.title }}
                 </md-button>
@@ -185,8 +185,8 @@
           <md-content layout-padding>
             <ul class="side-menu">
               <li ng-repeat="section in vm.menuRight" class="parent-list-item">
-                <menu-link section="section" ng-if="section.type === 'link'" side="right" id="section.id"></menu-link>
-                <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider>
+                <menu-link section="section" ng-if="section.type == 'link'" side="right" id="section.id"></menu-link>
+                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
               </li>
               <span ng-if="false">
                 <li class="parent-list-item">
@@ -220,11 +220,18 @@
 
             <md-toolbar class="md-table-toolbar md-default">
               <div class="sidenav md-toolbar-tools">
-                <h2 class="menu-heading menu-subhead" iing-if="section.type === 'header'">
-                  <span ng-if="vm.menu.archived">
-                    <md-icon>archived</md-icon>
-                    <md-tooltip md-direction="bottom">This location has been archived</md-tooltip>
-                  </span>
+                <h2 class="menu-heading menu-subhead">
+                <span>
+                  <md-icon class=".md-default-theme md-warn">{{vm.menu.locationStateIcon}}</md-icon>
+                  <md-tooltip md-direction="bottom">
+                    <span ng-if="vm.menu.locationStateIcon == 'archived'">
+                      This location has been archived
+                    </span>
+                    <span ng-if="vm.menu.locationStateIcon == 'vpn_locked'">
+                      Invisible location
+                    </span>
+                  </md-tooltip>
+                </span>
                   {{ vm.menu.header }}
                 </h2>
               </div>
@@ -233,9 +240,9 @@
 
             <ul class="side-menu">
               <li ng-repeat="section in vm.menu.sections" class="parent-list-item" iing-class="{'active' : vm.isSelected(section) }">
-                <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-                <md-divider ng-if="section.type === 'divider'" class="divider"></md-divider>
-                <h2 class="menu-heading menu-subhead" id="heading_{{ section.name | nospace }}" ng-if="section.type === 'subhead'">
+                <menu-link section="section" ng-if="section.type == 'link'"></menu-link>
+                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
+                <h2 class="menu-heading menu-subhead" id="heading_{{ section.name | nospace }}" ng-if="section.type == 'subhead'">
                   {{ section.name }}
                 </h2>
               </li>
@@ -258,7 +265,7 @@
 
   </div>
 
-  <md-sidenav flex-xs flex-gt-sm="20" class="design-sidebar md-sidenav-right md-whiteframe-z2" md-component-id="" md-is-locked-open="vm.menu.Designer === true">
+  <md-sidenav flex-xs flex-gt-sm="20" class="design-sidebar md-sidenav-right md-whiteframe-z2" md-component-id="" md-is-locked-open="vm.menu.Designer == true">
     <md-content layout-padding>
       <design-menu ver="designer"></design-menu>
     </md-content>
