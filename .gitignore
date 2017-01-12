@@ -8,6 +8,7 @@ client/scripts/config.js
 server/config/local-config.js
 local-config.js
 custom-config.js
+custom-config.sample.js
 dist/
 .sass-cache
 .tmp
