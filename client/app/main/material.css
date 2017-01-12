@@ -251,6 +251,10 @@ md-button-group > .md-button {
   margin: 0;
 }
 
+.small-chart {
+  min-height: 250px;
+}
+
 .clients-charts md-card {
   min-height: 350px;
 }
