@@ -16,12 +16,12 @@
     </md-button>
   </md-card-header>
   <md-card-content>
-    <div id="load-chart"></div>
-    <div>
-      <div layout="row" ng-if="noData || loading" layout-align="left end" class="muted small-chart">
-        <p><small><span ng-if="noData" translate>No graph data</span><span ng-if="loading" translate>Loading usage data</span></small></p>
-      </div>
-      <md-progress-linear ng-if="loading" md-mode="query"></md-progress-linear>
-    </div>
+    <div id="load-chart" class="small-chart"></div>
+    <md-card-actions layout="row" layout-align="end center">
+      <small>
+        <span ng-if="noData && !loading" translate>No graph data</span>
+        <span ng-if="loading" translate>Loading chart</span>
+      </small>
+    </md-card-actions>
   </md-card-content>
 </md-card>
