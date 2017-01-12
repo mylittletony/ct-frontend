@@ -272,8 +272,6 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       scope.triggers.push({ key: gettextCatalog.getString('Project Users'), value: 'project_user' });
     }
 
-
-
     scope.channels = [
       { key: 'Email', value: 'email' },
       { key: 'Slack', value: 'slack' },
@@ -281,6 +279,49 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       // { key: 'MailChimp', value: 'mailchimp' },
       // { key: 'SMS', value: 'sms' }
     ];
+
+    scope.everies = [
+      { key: 'Day', value: 'day' },
+      { key: 'Week', value: 'week' },
+      { key: 'Month', value: 'month' },
+      { key: 'Weekday', value: 'weekday' },
+      { key: 'Weekend', value: 'weekend' },
+    ];
+
+    scope.hours = [
+      { key: '12AM', value: '00' },
+      { key: '01AM', value: '01' },
+      { key: '02AM', value: '02' },
+      { key: '03AM', value: '03' },
+      { key: '04AM', value: '04' },
+      { key: '05AM', value: '05' },
+      { key: '06AM', value: '06' },
+      { key: '07AM', value: '07' },
+      { key: '08AM', value: '08' },
+      { key: '09AM', value: '09' },
+      { key: '10AM', value: '10' },
+      { key: '11AM', value: '11' },
+      { key: '12PM', value: '12' },
+      { key: '1PM', value: '13' },
+      { key: '2PM', value: '14' },
+      { key: '3PM', value: '15' },
+      { key: '4PM', value: '16' },
+      { key: '5PM', value: '17' },
+      { key: '6PM', value: '18' },
+      { key: '7PM', value: '19' },
+      { key: '8PM', value: '20' },
+      { key: '9PM', value: '21' },
+      { key: '10PM', value: '22' },
+      { key: '11PM', value: '23' },
+    ];
+
+    scope.mins = [
+      { key: '00 Minutes', value: '00' },
+      { key: '15 Minutes', value: '15' },
+      { key: '30 Minutes', value: '30' },
+      { key: '45 Minutes', value: '45' },
+    ];
+
     scope.webhook_types = ['POST', 'GET'];
     scope.user = Auth.currentUser();
 
@@ -423,10 +464,15 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       }
     };
 
+    var formatCronTime = function() {
+      scope.trigger.cron_time = scope.trigger.hours + scope.trigger.mins;
+    };
+
     scope.save = function(form) {
       form.$setPristine();
       setCustomName();
       formatTonyTime();
+      formatCronTime();
       if (scope.trigger.id) {
         update();
       } else {
@@ -617,15 +663,35 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       if (!scope.trigger.allowed_days) {
         scope.trigger.allowed_days = ['0','1','2','3','4','5','6'];
       }
-      scope.trigger.periodic_days_cron = [];
+    };
+
+    var formatCron = function() {
+      var array;
+      if (scope.trigger.cron_time === undefined || scope.trigger.cron_time === '' || scope.trigger.cron_time === null) {
+        return;
+      }
+
+      array = scope.trigger.cron_time.match(/.{1,2}/g);
+      if (array.length !== 2) {
+        return;
+      }
+
+      scope.trigger.hours = array[0];
+      scope.trigger.mins = array[1];
+    };
+
+    var formatTimes = function() {
+      formatAlertTime();
+      formatDays();
+      formatCron();
     };
 
     var triggerLoaded = function(results) {
       scope.trigger = results;
       scope.initChannel();
       setTriggerType(results.trigger_type);
-      formatAlertTime();
-      formatDays();
+      formatTimes();
+
       if (scope.trigger.cron) {
         scope.trigger.schedule = 1;
         scope.cron = true;
@@ -667,8 +733,7 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     if (scope.trigger.id) {
       init();
     } else {
-      formatAlertTime();
-      formatDays();
+      formatTimes();
       scope.trigger.type = '_all';
       if ($routeParams.object) {
         scope.trigger.type = $routeParams.object;

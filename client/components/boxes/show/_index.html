@@ -51,14 +51,14 @@
 
 <section ng-cloak ng-if="!loading">
   <md-subheader class="md-accent">
-    <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" class='box-image'/>
+    <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" ng-class="{ 'box-image': box.device_icon !== 'blank.png' }"/>
     <b><translate>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip><translate>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</translate></b></md-tooltip></span></span>
   </md-subheader>
 </section>
 
-<md-content class="md-padding" ng-if="box.initialising">
+<md-content class="md-padding" ng-if="box.state == 'initializing'">
   <div layout="row" layout-align="center center">
-    <div flex="100" flex-gt-sm="75">
+    <div flex="100">
       <md-card>
         <md-card-title>
           <md-card-title-text>
@@ -68,6 +68,31 @@
         <md-card-content>
           <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.determinateValue}}" md-buffer-value="{{vm.determinateValue2}}" ng-if="true"></md-progress-linear>
           <p translate>Please wait while this device initialises.</p>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</md-content>
+
+<md-content class="md-padding" ng-if="box.state == 'new'">
+  <div layout="row" layout-align="center center">
+    <div flex="100">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>New Device</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p translate><b ng-if="!box.last_heartbeat">This device has never checked in.</b> Please connect your device to a working Internet connection. It will initialise automatically.</p>
+          <p translate>If it doesn't come online within a few minutes, check you have added the right MAC Address. And ensure it is connected to the Internet.</p>
+          <p>
+            <md-button href="http://docs.cucumberwifi.io/category/403-getting-started" class="md-raised" aria-label="{{ 'getting started' | translate }}">
+              <translate>
+              DOCUMENTATION
+              </translate>
+            </md-button>
+          </p>
         </md-card-content>
       </md-card>
     </div>
@@ -149,48 +174,8 @@
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(!box.initialising && box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
 
-  <div flex flex-gt-sm="70" layout="column" ng-if="box.is_cucumber && box.state === 'new'">
-    <md-card>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline" translate>New Device</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <h4 translate>Please connect your device to an Internet connection. The device hasn't initialised yet.</h4>
-        <p>
-          <translate>If the box has not initialised after a few minutes, check the following:</translate>
-          <ul>
-            <li translate>Does it have a working Internet connection? </li>
-            <li translate>Is it plugged in to the power? Are the lights on?</li>
-            <li translate>Is the MAC Address correct? Check and double check.</li>
-            <li translate>Do you have a firewall? Could it be blocking the connection?</li>
-          </ul>
-        </p>
-        <p>
-          <span ng-if="box.last_heartbeat" translate>
-            The box was last 
-          </span>
-          <span am-time-ago="box.last_heartbeat" am-preprocess="unix"></span>
-        </p>
-        <p ng-if="!box.last_heartbeat" translate>
-         The box has never checked in.
-        </p>
-        <p>
-          <ct-docs name='getting-started'>
-            <md-button class="md-raised" aria-label="{{ 'getting started' | translate }}">
-              <translate>
-                DOCUMENTATION
-              </translate>
-            </md-button>
-          </ct-docs>
-        </p>
-      </md-card-content>
-    </md-card>
-  </div>
-
   <div flex flex-gt-sm="30" layout="column">
-    <md-card ng-if="box.state != 'new'">
+    <md-card ing-if="box.state != 'new'">
       <div ng-if="box.state != 'rebooting' && box.state != 'processing' && box.state != 'upgrading'" class="md-card-image" style='height: 5px; background-color: {{box.state | statusColour}}'></div>
       <md-progress-linear ng-if="box.state == 'rebooting' || box.state == 'processing' || box.state == 'upgrading'" class="md-{{ box.state == 'rebooting' ? 'warn' : box.state == 'upgrading' ? 'accent' : 'warn' }}" md-mode="query"></md-progress-linear>
       <md-card-title>
@@ -267,7 +252,7 @@
                   {{ box.uptime }}
                 </md-tooltip>
               </p>
-              <p ng-if="!box.uptime_seconds">{{ box.uptime | filterUptime }}</p>
+              <p ng-if="!box.uptime_seconds">{{ (box.uptime | filterUptime) || '-' }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
@@ -340,15 +325,13 @@
                 </p>
               </div>
             </md-list-item>
-
           </span>
         </md-list>
-
       </md-card-content>
     </md-card>
   </div>
 
-  <div flex flex-gt-sm="70" layout="column" ng-if="box.state != 'new'">
+  <div flex flex-gt-sm="70" layout="column" ing-if="box.state != 'new'">
     <div flex flex-gt-sm="70" layout="column" class="clients-charts">
       <div layout="" layout-wrap>
         <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ing-hide="fs && fs.panel != 'usage'">

@@ -12,25 +12,25 @@
         <md-card-content>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Summary</h3>
+              <h3 translate>Summary</h3>
               <p>{{ event.description | eventSummary:event.event_type }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Created</h3>
+              <h3 translate>Created</h3>
               <p>{{ event.created_at | humanTime }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Type</h3>
+              <h3 translate>Type</h3>
               <p>{{ event.event_type }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Location</h3>
+              <h3 translate>Location</h3>
               <p>
                 <a href="/#/locations/{{ event.location_id }}">{{ event.location_name }}</a>
               </p>
@@ -38,19 +38,19 @@
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Object</h3>
+              <h3 translate>Object</h3>
               <p>{{ event.object }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Username</h3>
+              <h3 translate>Username</h3>
               <p>{{ event.username }}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3>Level</h3>
+              <h3 translate>Level</h3>
               <p>{{ event.level | eventLevel }} ({{ event.level }})</p>
             </div>
           </md-list-item>
