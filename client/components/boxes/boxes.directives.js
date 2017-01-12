@@ -227,8 +227,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         if (action === 'reset') {
           showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
           scope.box.allowed_job = false;
-          scope.box.state = 'resetting';
-          scope.resetting = undefined;
+          scope.box.state       = 'new';
+          scope.resetting       = undefined;
         }
       }, function(errors) {
         var err;
@@ -566,8 +566,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ap_mac:       scope.box.calledstationid,
         location_id:  scope.box.location_id,
         resource:     'device',
-        interval:     '60s',
-        period:       '60m'
+        interval:     '180s',
+        period:       '6h'
       }).$promise.then(function(data) {
         scope.box.throughput = data.throughput;
         deferred.resolve();
@@ -615,7 +615,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     init().then(function() {
       loadTput();
-      loadCharts();
+      // loadCharts();
       createMenu();
       sortSsids();
       loadPusher();
