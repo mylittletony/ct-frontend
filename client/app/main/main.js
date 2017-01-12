@@ -714,13 +714,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     $locationProvider.html5Mode(false);
 }]);
 
-app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope',
-  function($q, AccessToken, $rootScope) {
-    var statusRegExp = /\S+statuspage.io\/\S+\/summary.json$/
+app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_URL',
+  function($q, AccessToken, $rootScope, API_URL) {
+    var apiRegExp = new RegExp(API_URL + '\\S+', 'i');
     return {
       request: function(config){
         var token = AccessToken.get();
-        if ((token) && !(statusRegExp.test(config.url))) {
+        if ((token) && (apiRegExp.test(config.url))) {
           config.headers.Authorization = 'Bearer ' + token;
         }
         return config;
