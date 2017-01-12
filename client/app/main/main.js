@@ -716,10 +716,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
 app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope',
   function($q, AccessToken, $rootScope) {
+    var statusRegExp = /\S+statuspage.io\/\S+\/summary.json$/
     return {
       request: function(config){
         var token = AccessToken.get();
-        if (token) {
+        if ((token) && !(statusRegExp.test(config.url))) {
           config.headers.Authorization = 'Bearer ' + token;
         }
         return config;
