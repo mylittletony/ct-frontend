@@ -174,46 +174,6 @@
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(!box.initialising && box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
 
-  <!-- <div flex flex-gt-sm="70" layout="column" ng-if="box.is_cucumber && box.state === 'new'"> -->
-  <!--   <md-card> -->
-  <!--     <md-card-title> -->
-  <!--       <md-card-title-text> -->
-  <!--         <span class="md-headline" translate>New Device</span> -->
-  <!--       </md-card-title-text> -->
-  <!--     </md-card-title> -->
-  <!--     <md-card-content> -->
-  <!--       <h4 translate>Please connect your device to an Internet connection. The device hasn't initialised yet.</h4> -->
-  <!--       <p> -->
-  <!--         <translate>If the box has not initialised after a few minutes, check the following:</translate> -->
-  <!--         <ul> -->
-  <!--           <li translate>Does it have a working Internet connection? </li> -->
-  <!--           <li translate>Is it plugged in to the power? Are the lights on?</li> -->
-  <!--           <li translate>Is the MAC Address correct? Check and double check.</li> -->
-  <!--           <li translate>Do you have a firewall? Could it be blocking the connection?</li> -->
-  <!--         </ul> -->
-  <!--       </p> -->
-  <!--       <p> -->
-  <!--         <span ng-if="box.last_heartbeat" translate> -->
-  <!--           The box was last -->
-  <!--         </span> -->
-  <!--         <span am-time-ago="box.last_heartbeat" am-preprocess="unix"></span> -->
-  <!--       </p> -->
-  <!--       <p ng-if="!box.last_heartbeat" translate> -->
-  <!--        The box has never checked in. -->
-  <!--       </p> -->
-  <!--       <p> -->
-  <!--         <ct-docs name='getting-started'> -->
-  <!--           <md-button class="md-raised" aria-label="{{ 'getting started' | translate }}"> -->
-  <!--             <translate> -->
-  <!--               DOCUMENTATION -->
-  <!--             </translate> -->
-  <!--           </md-button> -->
-  <!--         </ct-docs> -->
-  <!--       </p> -->
-  <!--     </md-card-content> -->
-  <!--   </md-card> -->
-  <!-- </div> -->
-
   <div flex flex-gt-sm="30" layout="column">
     <md-card ing-if="box.state != 'new'">
       <div ng-if="box.state != 'rebooting' && box.state != 'processing' && box.state != 'upgrading'" class="md-card-image" style='height: 5px; background-color: {{box.state | statusColour}}'></div>

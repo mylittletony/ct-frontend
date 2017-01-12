@@ -592,9 +592,9 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
     scope.type = 'data';
     scope.loading = true;
     var colours = COLOURS.split(' ');
+    var data = { usage: { inbound: 1 } };
 
     controller.$scope.$on('loadClientChart', function (evt,type){
-      scope.resource = type;
       chart();
     });
 
@@ -602,7 +602,6 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       chart();
     };
 
-    var data = { usage: { inbound: 1 } };
     function chart() {
       var params = {
         type:     scope.type,
@@ -617,14 +616,12 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       }, function() {
         scope.noData = true;
         scope.loading = undefined;
-        // renderChart();
       });
     }
 
     var renderChart = function() {
       timer = $timeout(function() {
         drawChart(data.usage);
-        // scope.noData = undefined;
       },100);
     };
 
@@ -657,9 +654,9 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
 
       formatter.format(data,1);
       c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
-      c.draw(data, opts);
       scope.noData = undefined;
       scope.loading = undefined;
+      c.draw(data, opts);
     }
 
   };
@@ -685,7 +682,6 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
     scope.type  = 'device_load';
 
     controller.$scope.$on('loadClientChart', function (evt, type){
-      scope.resource = type;
       chart();
     });
 
@@ -1283,7 +1279,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
       this.resizeTO = setTimeout(function() {
         $(this).trigger('resizeEnd');
-      }, 500);
+      }, 100);
     });
 
     $(window).on('resizeEnd', function() {

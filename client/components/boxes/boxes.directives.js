@@ -615,7 +615,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     init().then(function() {
       loadTput();
-      loadCharts();
+      // loadCharts();
       createMenu();
       sortSsids();
       loadPusher();
