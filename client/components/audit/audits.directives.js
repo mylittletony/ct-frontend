@@ -481,8 +481,7 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
     function querySearch (query) {
       var deferred = $q.defer();
       Social.get({
-        q: query,
-        v2: true // -------------------> remove when old-tony gone
+        q: query
       }).$promise.then(function(results) {
         deferred.resolve(results.results);
       }, function(err) {
@@ -547,7 +546,6 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
     };
 
     init();
-
   };
 
   return {
