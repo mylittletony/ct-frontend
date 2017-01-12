@@ -227,8 +227,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         if (action === 'reset') {
           showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
           scope.box.allowed_job = false;
-          scope.box.state = 'resetting';
-          scope.resetting = undefined;
+          scope.box.state       = 'new';
+          scope.resetting       = undefined;
         }
       }, function(errors) {
         var err;
