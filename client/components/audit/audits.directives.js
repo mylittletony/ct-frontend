@@ -1037,4 +1037,3 @@ app.directive('auditDownloads', ['Report', '$routeParams', '$mdDialog', '$locati
   };
 
 }]);
-
