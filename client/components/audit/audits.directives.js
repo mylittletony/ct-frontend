@@ -527,7 +527,6 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
         email: scope.email,
         location_name: scope.location_name
       }).$promise.then(function(results) {
-        console.log(results);
         scope.socials    = results.social;
         scope._links     = results._links;
         scope.loading    = undefined;
