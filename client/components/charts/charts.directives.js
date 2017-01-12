@@ -654,9 +654,9 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
 
       formatter.format(data,1);
       c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
+      c.draw(data, opts);
       scope.noData = undefined;
       scope.loading = undefined;
-      c.draw(data, opts);
     }
 
   };
@@ -1480,10 +1480,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     var usageChart = function() {
-
       json = json.timeline;
-
-
       if (json.inbound && json.inbound.length) {
         var len = json.inbound.length;
 
