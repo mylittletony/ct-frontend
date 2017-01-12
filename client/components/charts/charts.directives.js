@@ -655,6 +655,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       formatter.format(data,1);
       c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
       c.draw(data, opts);
+
       scope.noData = undefined;
       scope.loading = undefined;
     }
