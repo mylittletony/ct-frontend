@@ -482,8 +482,7 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
     function querySearch (query) {
       var deferred = $q.defer();
       Social.get({
-        q: query,
-        v2: true // -------------------> remove when old-tony gone
+        q: query
       }).$promise.then(function(results) {
         deferred.resolve(results.results);
       }, function(err) {
@@ -526,7 +525,9 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
         page: scope.query.page,
         per: scope.query.limit,
         email: scope.email,
-        location_name: scope.location_name
+        location_name: scope.location_name,
+        start: scope.query.start,
+        end: scope.query.end
       }).$promise.then(function(results) {
         scope.socials    = results.social;
         scope._links     = results._links;
@@ -548,7 +549,6 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
     };
 
     init();
-
   };
 
   return {

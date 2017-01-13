@@ -22,7 +22,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
       }
       this.resizeTO = setTimeout(function() {
         $(this).trigger('resizeEnd');
-      }, 500);
+      }, 250);
     });
 
     $(window).on('resizeEnd', function() {
@@ -44,6 +44,8 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
       if (chart) {
         chart.clearChart();
       }
+      scope.noData = true;
+      scope.loading = undefined;
     };
 
     function drawChart() {
@@ -161,8 +163,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           }
         };
       } else {
-        scope.noData = true;
-        scope.loading = undefined;
         clearChart();
       }
     };
@@ -183,8 +183,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
         );
         formatter.format(data,1);
       } else {
-        scope.noData = true;
-        scope.loading = undefined;
         clearChart();
       }
     };
@@ -207,8 +205,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
         );
         formatter.format(data,1);
       } else {
-        scope.noData = true;
-        scope.loading = undefined;
         clearChart();
       }
     };
@@ -250,8 +246,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
         formatter.format(data,2);
         formatter.format(data,1);
       } else {
-        scope.noData = true;
-        scope.loading = undefined;
         clearChart();
       }
     };
@@ -288,7 +282,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
         }
         this.resizeTO = setTimeout(function() {
           $(this).trigger('resizeEnd');
-        }, 500);
+        }, 250);
       });
 
       $(window).on('resizeEnd', function() {
@@ -396,6 +390,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
     scope.loading  = true;
     scope.fn       = 'mean';
     scope.resource = 'client';
+    scope.noData   = undefined;
 
     controller.$scope.$on('loadClientChart', function (evt,type){
       if (type && type === 'device') {
@@ -437,12 +432,10 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         fn: scope.fn
       };
       controller.getStats(params).then(function(data) {
-        timer = $timeout(function() {
-          drawChart(data.timeline);
-        },500);
+        // timer = $timeout(function() {
+        drawChart(data.timeline);
+        // },500);
       }, function() {
-        scope.noData = true;
-        scope.loading = undefined;
         clearChart();
       });
     }
@@ -451,6 +444,8 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (c) {
         c.clearChart();
       }
+      scope.noData = true;
+      scope.loading = undefined;
     };
 
     function drawChart(json) {
@@ -562,12 +557,10 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
           opts.height = 250;
         }
         c = new window.google.visualization.LineChart(document.getElementById('tx-chart'));
-        c.draw(data, opts);
         scope.noData = undefined;
         scope.loading = undefined;
+        c.draw(data, opts);
       } else {
-        scope.noData = true;
-        scope.loading = undefined;
         clearChart();
       }
     }
@@ -592,9 +585,9 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
     scope.type = 'data';
     scope.loading = true;
     var colours = COLOURS.split(' ');
+    var data = { usage: { inbound: 1 } };
 
     controller.$scope.$on('loadClientChart', function (evt,type){
-      scope.resource = type;
       chart();
     });
 
@@ -602,7 +595,6 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       chart();
     };
 
-    var data = { usage: { inbound: 1 } };
     function chart() {
       var params = {
         type:     scope.type,
@@ -615,16 +607,13 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
         }
         renderChart();
       }, function() {
-        scope.noData = true;
-        scope.loading = undefined;
-        // renderChart();
+        clearChart();
       });
     }
 
     var renderChart = function() {
       timer = $timeout(function() {
         drawChart(data.usage);
-        // scope.noData = undefined;
       },100);
     };
 
@@ -632,6 +621,8 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       if (c) {
         c.clearChart();
       }
+      scope.noData = true;
+      scope.loading = undefined;
     };
 
     function drawChart(json) {
@@ -658,6 +649,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       formatter.format(data,1);
       c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
       c.draw(data, opts);
+
       scope.noData = undefined;
       scope.loading = undefined;
     }
@@ -685,7 +677,6 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
     scope.type  = 'device_load';
 
     controller.$scope.$on('loadClientChart', function (evt, type){
-      scope.resource = type;
       chart();
     });
 
@@ -715,8 +706,6 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
             drawChart(data.timeline);
           },125);
         } else {
-          scope.loading = undefined;
-          scope.noData = true;
           clearChart();
         }
       }, function() {
@@ -730,6 +719,8 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
       if (c) {
         c.clearChart();
       }
+      scope.loading = undefined;
+      scope.noData = true;
     };
 
     function drawChart(json) {
@@ -849,8 +840,6 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
             drawChart(data.timeline);
           },125);
         } else {
-          scope.loading = undefined;
-          scope.noData = true;
           clearChart();
         }
       });
@@ -860,6 +849,8 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
       if (c) {
         c.clearChart();
       }
+      scope.loading = undefined;
+      scope.noData = true;
     };
 
     function drawChart(json) {
@@ -973,13 +964,9 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
           drawChart(data.timeline);
         },500);
         } else {
-          scope.loading = undefined;
-          scope.noData = true;
           clearChart();
         }
       }, function() {
-        scope.loading = undefined;
-        scope.noData = true;
         clearChart();
       });
     }
@@ -988,6 +975,8 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
       if (c) {
         c.clearChart();
       }
+      scope.loading = undefined;
+      scope.noData = true;
     };
 
     function drawChart(json) {
@@ -1133,8 +1122,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
           clearChart();
         }
       }, function() {
-        scope.loading = undefined;
-        scope.noData = true;
         clearChart();
       });
     }
@@ -1143,6 +1130,8 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
       if (c) {
         c.clearChart();
       }
+      scope.loading = undefined;
+      scope.noData = true;
     };
 
     function drawChart(json) {
@@ -1283,7 +1272,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
       this.resizeTO = setTimeout(function() {
         $(this).trigger('resizeEnd');
-      }, 500);
+      }, 250);
     });
 
     $(window).on('resizeEnd', function() {
@@ -1484,10 +1473,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     var usageChart = function() {
-
       json = json.timeline;
-
-
       if (json.inbound && json.inbound.length) {
         var len = json.inbound.length;
 
