@@ -409,18 +409,19 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           });
 
         }
+
+        vm.menuRight.push({
+          name: gettextCatalog.getString('Profile'),
+          link: '/#/me',
+          type: 'link',
+          icon: 'face'
+        });
+
+        vm.menuRight.push({
+          type: 'divider',
+        });
+        
       }
-
-      vm.menuRight.push({
-        name: gettextCatalog.getString('Profile'),
-        link: '/#/me',
-        type: 'link',
-        icon: 'face'
-      });
-
-      vm.menuRight.push({
-        type: 'divider',
-      });
 
       var domain = 'ctapp.io';
       var addDistro = function() {
