@@ -611,7 +611,7 @@
                     </translate>
                   </md-radio-button>
                 </span>
-                <small ng-if="trigger.trigger_event == 'notify'" class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
+                <small ng-if="trigger.trigger_event == 'notify'" class="muted" style="font-size: 75%;" translate>*Only available for brand triggers.</small>
               </span>
 
               <span ng-if="trigger.type == 'project' && trigger.trigger_event == 'notify'" layout="row" layout-wrap>
@@ -632,7 +632,7 @@
                     </translate>
                   </md-radio-button>
                 </span>
-                <small class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
+                <small class="muted" style="font-size: 75%;" translate>*Only available for brand triggers.</small>
               </span>
 
               <span ng-if="trigger.type == 'project_user' && trigger.trigger_event == 'notify'" layout="row" layout-wrap>
@@ -648,7 +648,7 @@
                     </translate>
                   </md-radio-button>
                 </span>
-                <small ng-if="trigger.trigger_event == 'notify'" class="muted" style="font-size: 75%;">*Only available for brand triggers.</small>
+                <small ng-if="trigger.trigger_event == 'notify'" class="muted" style="font-size: 75%;" translate>*Only available for brand triggers.</small>
               </span>
 
               <span ng-if="trigger.type == 'zone' && trigger.trigger_event == 'notify'">
@@ -696,7 +696,9 @@
           <md-card-content>
 
             <md-switch ng-true-value="1" ng-model="trigger.schedule" aria-label="Switch">
-              Scheduled
+              <translate>
+                Scheduled
+              </translate>
             </md-switch>
 
             <!-- <small class="muted" style="font-size: 75%;">Schedule the trigger to run periodically</small> -->
@@ -738,12 +740,14 @@
               </div>
             </span>
 
-            <small ng-if="trigger.hours && trigger.mins" class="muted" style="font-size: 75%;">Run the action automatically every {{ trigger.cron_frequency }} at {{ trigger.hours }}:{{ trigger.mins }}</small>
+            <small ng-if="trigger.hours && trigger.mins" class="muted" style="font-size: 75%;" translate>Run the action automatically every {{ trigger.cron_frequency }} at {{ trigger.hours }}:{{ trigger.mins }}</small>
 
             <md-switch ng-model="trigger.notify" aria-label="Switch">
-              Send notification
+              <translate>
+                Send notification
+              </translate>
             </md-switch>
-            <small class="muted" style="font-size: 75%;">
+            <small class="muted" style="font-size: 75%;" translate>
               Receive a notification when this trigger runs
             </small>
           </md-card-content>
@@ -759,10 +763,10 @@
                   </translate>
                 </span>
                 <span class="md-subhead" translate>
-                  <span ng-if="trigger.trigger_event == 'notify'">
+                  <span ng-if="trigger.trigger_event == 'notify'" translate> 
                     The channel is the way you get notified.
                   </span>
-                  <span ng-if="trigger.trigger_event == 'action'">
+                  <span ng-if="trigger.trigger_event == 'action'" translate>
                     Send a notification to this channel after the action runs.
                   </span>
                 </span>
@@ -886,7 +890,9 @@
 
             <span ng-show="brand.id">
               <md-switch ng-model="trigger.template" aria-label="Switch">
-                Location Template
+                <translate>
+                  Location Template
+                </translate>
               </md-switch>
               <small class="muted" style="font-size: 75%;" translate>Template triggers won't fire for brand events. Instead, they will be added to your locations as default triggers.</small>
             </span>
