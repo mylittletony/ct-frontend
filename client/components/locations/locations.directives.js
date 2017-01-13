@@ -1074,7 +1074,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     var runCommand = function(command) {
       formatIds();
       if (selection.length > 0) {
-        Payload.create({
+        Payload.create({}, {
+          location_id: scope.location.slug,
           payload: {
             save:       command.save,
             box_ids:    selection,
