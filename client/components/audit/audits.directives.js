@@ -794,7 +794,9 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
         email:          scope.email,
         voucher:        scope.voucher,
         authorization:  scope.authorization,
-        client_id:      $routeParams.client_id
+        client_id:      $routeParams.client_id,
+        start:          scope.query.start,
+        end:            scope.query.end
       }).$promise.then(function(results) {
         scope.orders      = results.orders;
         scope.predicate   = '-created_at';
