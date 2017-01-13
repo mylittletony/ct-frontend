@@ -962,7 +962,7 @@ app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettext
         var hash = $location.search();
         hash.start = new Date($scope.startDate).getTime() / 1000;
         var end = new Date($scope.endDate);
-        hash.end = end.setDate(end.getDate() + 1) / 1000;
+        hash.end = end.setDate(end.getDate()) / 1000;
         if (hash.start >= hash.end) {
           $scope.error = gettextCatalog.getString('The start date must be less than the end date');
         } else {
