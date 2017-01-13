@@ -407,7 +407,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           vm.menuRight.push({
             type: 'divider',
           });
-
         }
 
         vm.menuRight.push({
@@ -420,7 +419,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         vm.menuRight.push({
           type: 'divider',
         });
-        
       }
 
       var domain = 'ctapp.io';
