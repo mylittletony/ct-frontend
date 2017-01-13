@@ -34,6 +34,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     };
 
     menu.header = undefined;
+    menu.locationStateIcon = undefined;
     menu.sectionName = Auth.currentUser().username;
 
     menu.sections = [{

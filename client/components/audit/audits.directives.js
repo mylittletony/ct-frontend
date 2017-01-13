@@ -20,6 +20,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     menu.sections = [{}];
     menu.sectionName = gettextCatalog.getString('Audit');
     menu.header = '';
+    menu.locationStateIcon = undefined;
 
     var isActive = function(path) {
       var split = $location.path().split('/');
@@ -1039,4 +1040,3 @@ app.directive('auditDownloads', ['Report', '$routeParams', '$mdDialog', '$locati
   };
 
 }]);
-

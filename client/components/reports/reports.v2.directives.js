@@ -168,6 +168,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
     menu.sections = [{}];
     menu.sectionName = gettextCatalog.getString('Reports');
     menu.header = '';
+    menu.locationStateIcon = undefined;
 
     var isActive = function(path) {
       var split = $location.path().split('/');
