@@ -81,15 +81,27 @@
           </div>
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">
-            <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
-              <span translate>Alerts {{ box.is_monitored | humanBoolean }}</span>
-            </md-switch>
+
             <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}">
               <translate>
                 Cucumber Box
               </translate>
             </md-checkbox>
+
             <small translate>Don't disable this unless you're using a splash-only device.</small>
+
+            <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
+              <span translate>Alerts {{ box.is_monitored | humanBoolean }}</span>
+            </md-switch>
+
+            <small translate>Disabling alerts will prevent further alerts from this device.</small>
+
+            <md-switch title="ct_modify" ng-model="box.ct_modify" aria-label=" ">
+              <span translate>Cucumber Write Access {{ box.ct_modify | humanBoolean }}</span>
+            </md-switch>
+
+            <small translate>Enabling write access allows Cucumber staff to modify this device. This is overwritten by location write access changes.</small>
+
           </div>
         </div>
       </md-card-content>
