@@ -236,6 +236,7 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
     $scope.loading = true;
     menu.archived = undefined;
     menu.header = '';
+    menu.locationStateIcon = undefined;
 
     function isOpen(section) {
       return menu.isSectionSelected(section);
