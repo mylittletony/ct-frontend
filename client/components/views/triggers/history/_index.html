@@ -28,7 +28,7 @@
                 <img title="{{ h.action }} {{ h.channel }}" src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/{{ h.trigger_event == 'action' ? 'action' : h.channel }}.png" style="width: 32px; height: 32px!important;">
               </td>
               <td md-cell>
-                <a href="/#/locations/{{ location.slug }}/triggers/{{ trigger.id }}/trigger_history/{{ h.id }}">{{ h.success ? "Success" : "Error" }}</a>
+                <a href="/#/locations/{{ location.slug }}/triggers/{{ trigger.id }}/trigger_history/{{ h.id }}" translate>{{ h.success ? "Success" : "Error" }}</a>
                 <md-tooltip>
                   {{ h.attr_1 | truncate:100 }}
                 </md-tooltip>

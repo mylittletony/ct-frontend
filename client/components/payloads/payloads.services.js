@@ -7,7 +7,10 @@ app.factory('Payload', ['$resource', 'API_END_POINT',
     return $resource(API_END_POINT + '/:controller/:box_id/payloads/:id',
       {
         id: '@id',
-        controller: '@controller'
+        controller: '@controller',
+        box_id: '@box_id',
+        payload: '@payload',
+        save: '@save'
       },
       {
       get: {
@@ -30,13 +33,7 @@ app.factory('Payload', ['$resource', 'API_END_POINT',
       },
       create: {
         method:'POST',
-        isArray: false,
-        params: {
-          box_id: '@box_id',
-          payload: '@payload',
-          controller: '@controller',
-          save: true
-        }
+        isArray: false
       },
       query: {
         method:'GET',
