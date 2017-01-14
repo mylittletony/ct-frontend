@@ -278,8 +278,6 @@
 ../client/components/views/templates/_range_filter.html
 ../client/components/views/templates/_upload_button.html
 ../client/components/views/triggers/_edit.html
-../client/components/views/triggers/_new.html
-../client/components/views/triggers/_show.html
 ../client/components/views/triggers/_vars.html
 ../client/components/views/triggers/_webhook_variables.html
 ../client/components/views/triggers/channel-campaignmonitor.html
@@ -296,7 +294,6 @@
 ../client/components/views/triggers/history/show.html
 ../client/components/views/triggers/index.html
 ../client/components/views/triggers/list.html
-../client/components/views/triggers/new.html
 ../client/components/views/triggers/show-campaignmonitor.html
 ../client/components/views/triggers/show-email.html
 ../client/components/views/triggers/show-mailchimp.html
@@ -304,7 +301,6 @@
 ../client/components/views/triggers/show-slack.html
 ../client/components/views/triggers/show-sms.html
 ../client/components/views/triggers/show-webhook.html
-../client/components/views/triggers/show.html
 ../client/components/vouchers/_copy.html
 ../client/components/vouchers/_edit.html
 ../client/components/vouchers/_form.html
