@@ -20,6 +20,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     menu.sections = [{}];
     menu.sectionName = gettextCatalog.getString('Audit');
     menu.header = '';
+    menu.locationStateIcon = undefined;
 
     var isActive = function(path) {
       var split = $location.path().split('/');
@@ -524,7 +525,9 @@ app.directive('auditSocial', ['Social', '$routeParams', '$location', 'Client', '
         page: scope.query.page,
         per: scope.query.limit,
         email: scope.email,
-        location_name: scope.location_name
+        location_name: scope.location_name,
+        start: scope.query.start,
+        end: scope.query.end
       }).$promise.then(function(results) {
         scope.socials    = results.social;
         scope._links     = results._links;
@@ -792,7 +795,9 @@ app.directive('auditSales', ['Order', '$routeParams', '$location', 'Client', '$q
         email:          scope.email,
         voucher:        scope.voucher,
         authorization:  scope.authorization,
-        client_id:      $routeParams.client_id
+        client_id:      $routeParams.client_id,
+        start:          scope.query.start,
+        end:            scope.query.end
       }).$promise.then(function(results) {
         scope.orders      = results.orders;
         scope.predicate   = '-created_at';
@@ -960,7 +965,7 @@ app.directive('rangeFilter', ['$routeParams', '$mdDialog', '$location', 'gettext
         var hash = $location.search();
         hash.start = new Date($scope.startDate).getTime() / 1000;
         var end = new Date($scope.endDate);
-        hash.end = end.setDate(end.getDate() + 1) / 1000;
+        hash.end = end.setDate(end.getDate()) / 1000;
         if (hash.start >= hash.end) {
           $scope.error = gettextCatalog.getString('The start date must be less than the end date');
         } else {

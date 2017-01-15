@@ -55,5 +55,4 @@ describe("Payload Unit Tests", function() {
     $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/123/payloads')
     $httpBackend.flush();
   });
-
 })
