@@ -53,6 +53,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
     menu.isOpenLeft = false;
     menu.isOpen = false;
+    menu.hideBurger = true;
     menu.sectionName = gettextCatalog.getString('Locations');
 
     if ($routeParams.user_id) {
