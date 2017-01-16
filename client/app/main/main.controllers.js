@@ -23,16 +23,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
   function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH) {
 
-    $scope.commit = COMMITHASH;
-    $scope.ct_login = CTLogin;
+    var domain = 'ctapp.io';
 
-    // Zak Moonman - bonjour move these into something separate
-    // docs.url['find-mac'] = 'http://docs.cucumberwifi.io/article/112-finding-your-mac-address';
-    // docs.url['getting-started'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
-    // docs.url['firmware'] = 'http://docs.cucumberwifi.io/category/403-getting-started';
-    // docs.url['walled-gardens'] = 'http://docs.cucumberwifi.io/article/91-walled-gardens';
-    // docs.url['branding'] = 'http://docs.cucumberwifi.io/article/229-branding-your-dashboard-login';
-    // Zak Moonman - bonjour move these into something separate
+    $scope.brandName  = BrandName;
+    $scope.commit     = COMMITHASH;
+    $scope.ct_login   = CTLogin;
 
     function isOpen(section) {
       return (menu.isSectionSelected(section) && menu.isOpen());
@@ -175,12 +170,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       type: 'divider',
     });
 
-    // vm.menuRight.push({
-    //   name: gettextCatalog.getString('Logout'),
-    //   type: 'link',
-    //   icon: 'exit_to_app'
-    // });
-
     $scope.toggleOpen = toggleOpen;
 
     $scope.$on('logout', function(args) {
@@ -214,7 +203,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     };
 
     $scope.$on('login', function(args,event) {
-
       console.log('Logging in...');
       var cname = event.data.cname;
       if ((cname === null || cname === '') && event.data.url !== 'default') {
@@ -285,8 +273,140 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
     });
 
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    function menuPush() {
+      if (vm.menu.main.length === 0) {
+        vm.menu.main.push({
+          title: gettextCatalog.getString('Locations'),
+          type: 'link',
+          link: '/#/locations',
+          icon: 'business'
+        });
+
+        vm.menu.main.push({
+          title: gettextCatalog.getString('Events'),
+          type: 'link',
+          link: '/#/events',
+          icon: 'warning'
+        });
+
+        if (Auth.currentUser() && Auth.currentUser().guest === false) {
+
+          vm.menu.main.push({
+            title: gettextCatalog.getString('Brands'),
+            type: 'link',
+            link: '/#/brands',
+            icon: 'branding_watermark'
+          });
+
+          vm.menu.main.push({
+            title: gettextCatalog.getString('Users'),
+            type: 'link',
+            link: '/#/users',
+            icon: 'people'
+          });
+
+          vm.menuRight.push({
+            name: gettextCatalog.getString('Brands'),
+            type: 'link',
+            link: '/#/brands',
+            icon: 'branding_watermark'
+          });
+
+          vm.menuRight.push({
+            name: gettextCatalog.getString('Users'),
+            type: 'link',
+            link: '/#/users',
+            icon: 'people'
+          });
+
+          vm.menuRight.push({
+            type: 'divider',
+          });
+        }
+
+        vm.menuRight.push({
+          name: gettextCatalog.getString('Profile'),
+          link: '/#/me',
+          type: 'link',
+          icon: 'face'
+        });
+
+        vm.menuRight.push({
+          type: 'divider',
+        });
+      }
+    }
+
+    var setDefaultImages = function(sub) {
+      $scope.brandName.name = 'Cucumber';
+    };
+
+    function getBrand(sub, cname) {
+      if (Auth.currentUser() && Auth.currentUser().url !== null) {
+        sub = Auth.currentUser().url;
+      }
+
+      Brand.query({}, {
+        id: sub,
+        cname: cname,
+        type: 'showcase'
+      }).$promise.then(function(results) {
+        // Decide to switch the brand here
+        // Can we turn Cucumber into a variable so we don't just set
+        // Maybe use the config files - Simon TBD //
+
+        var t = $cookies.get('_ctt');
+        // if (t !== results.theme_primary) {
+        $cookies.put('_ctt', results.theme_primary + '.' + results.theme_accent);
+        // }
+        $scope.brandName.name  = results.brand_name || 'Cucumber';
+        // Maybe use the config files - Simon TBD //
+        $scope.brandName.admin = results.admin;
+        $scope.brandName.url   = results.url;
+        $scope.brandName.id    = results.id;
+      }, function() {
+        setDefaultImages(sub);
+      });
+    }
+
+    var removeCtCookie = function() {
+      $cookies.remove('_ct', { domain: domain });
+    };
+
+    function getSubdomain () {
+      var sub   = locationHelper.subdomain();
+      var host  = locationHelper.domain();
+      var parts = $location.host().split('.');
+      var cname;
+      if (host !== 'ctapp.io' && host !== 'ctapp.dev') {
+        getBrand(host, true);
+      }
+      else if (parts.length === 3) {
+        sub = parts[0];
+        if (sub !== 'my' && sub !== 'dashboard' ) {
+          getBrand(sub);
+          return;
+        }
+        setDefaultImages();
+      } else {
+        console.log('Domain error occured');
+      }
+    }
+
+    function getMe() {
+      Me.get({}).$promise.then(function(res) {
+        Auth.login(res).then(function(a) {
+          $scope.user = Auth.currentUser();
+          $scope.loggedIn = true;
+          menuPush();
+        });
+      });
+    }
+
+    function routeChangeStart() {
       var pusher;
+
+      // If user logged in, load pusher
       if (Auth.currentUser() && Auth.currentUser().key !== null) {
         $scope.$broadcast('intercom', {hi: 'user'});
         window.client = new Pusher(PUSHER, {
@@ -295,153 +415,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         pusher = $pusher(client);
       }
 
-      $scope.brandName = BrandName;
-      function getSubdomain () {
-        var sub   = locationHelper.subdomain();
-        var host  = locationHelper.domain();
-        var parts = $location.host().split('.');
-        var cname;
-        if (host !== 'ctapp.io' && host !== 'ctapp.dev') {
-          getBrand(host, true);
-        }
-        else if (parts.length === 3) {
-          sub = parts[0];
-          if (sub !== 'my' && sub !== 'dashboard' ) {
-            getBrand(sub);
-            return;
-          }
-          setDefaultImages();
-        } else {
-          console.log('Domain error occured');
-        }
-      }
-
-      function getBrand(sub, cname) {
-        if (Auth.currentUser() && Auth.currentUser().url !== null) {
-          sub = Auth.currentUser().url;
-        }
-
-        Brand.query({}, {
-          id: sub,
-          cname: cname,
-          type: 'showcase'
-        }).$promise.then(function(results) {
-          // Decide to switch the brand here
-          // Can we turn Cucumber into a variable so we don't just set
-          // Maybe use the config files - Simon TBD //
-
-          var t = $cookies.get('_ctt');
-          // if (t !== results.theme_primary) {
-          $cookies.put('_ctt', results.theme_primary + '.' + results.theme_accent);
-          // }
-          $scope.brandName.name  = results.brand_name || 'Cucumber';
-          // Maybe use the config files - Simon TBD //
-          $scope.brandName.admin = results.admin;
-          $scope.brandName.url   = results.url;
-          $scope.brandName.id    = results.id;
-        }, function() {
-          setDefaultImages(sub);
-        });
-      }
-
-      function getMe() {
-        Me.get({}).$promise.then(function(res) {
-          Auth.login(res).then(function(a) {
-            $scope.user = Auth.currentUser();
-            $scope.loggedIn = true;
-            menuPush()
-          });
-        });
-      }
-
-      var setDefaultImages = function(sub) {
-        $scope.brandName.name = 'Cucumber';
-      };
-
       var a = AccessToken.get();
       if ( (!Auth.currentUser() && a ) || Auth.currentUser() && (Auth.currentUser().url !== 'default' )) {
         getMe();
       }
       getSubdomain();
 
-      function menuPush() {
-        if (vm.menu.main.length === 0) {
-          vm.menu.main.push({
-            title: gettextCatalog.getString('Locations'),
-            type: 'link',
-            link: '/#/locations',
-            icon: 'business'
-          });
-
-          vm.menu.main.push({
-            title: gettextCatalog.getString('Events'),
-            type: 'link',
-            link: '/#/events',
-            icon: 'warning'
-          });
-
-          if (Auth.currentUser() && Auth.currentUser().guest === false) {
-
-            vm.menu.main.push({
-              title: gettextCatalog.getString('Brands'),
-              type: 'link',
-              link: '/#/brands',
-              icon: 'branding_watermark'
-            });
-
-            vm.menu.main.push({
-              title: gettextCatalog.getString('Users'),
-              type: 'link',
-              link: '/#/users',
-              icon: 'people'
-            });
-
-            vm.menuRight.push({
-              name: gettextCatalog.getString('Brands'),
-              type: 'link',
-              link: '/#/brands',
-              icon: 'branding_watermark'
-            });
-
-            vm.menuRight.push({
-              name: gettextCatalog.getString('Users'),
-              type: 'link',
-              link: '/#/users',
-              icon: 'people'
-            });
-
-            vm.menuRight.push({
-              type: 'divider',
-            });
-          }
-
-          vm.menuRight.push({
-            name: gettextCatalog.getString('Profile'),
-            link: '/#/me',
-            type: 'link',
-            icon: 'face'
-          });
-
-          vm.menuRight.push({
-            type: 'divider',
-          });
-        }
-      }
-
-      var domain = 'ctapp.io';
-      var addDistro = function() {
-        $cookies.put('_ct', $location.search().dst, {'domain': domain});
-        $location.search({});
-      };
-
-      if ($location.search().dst) {
-        addDistro();
-      }
-
-      var removeCtCookie = function() {
-        $cookies.remove('_ct', { domain: domain });
-      };
-
+      // Adds followup link if using referral 
       var cookie = $cookies.get('_ct', { 'domain': domain });
       if (cookie && Auth.currentUser() && Auth.currentUser().id) {
         User.distro({dst: cookie}).$promise.then(function(result) {
@@ -450,8 +430,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           removeCtCookie();
         });
       }
+
+      // Load the translations
       Translate.load();
-    });
+    }
 
     var setLoggedIn = function(isLoggedIn) {
       $scope.loggedIn = isLoggedIn;
@@ -478,11 +460,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       // });
     // }
 
-    // $scope.open = function (size) {
-    // };
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      routeChangeStart();
+    });
 
-    // $scope.close = function() {
-    // };
 
 }]);
 
