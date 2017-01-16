@@ -422,14 +422,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       getSubdomain();
 
       // Adds followup link if using referral 
-      var cookie = $cookies.get('_ct', { 'domain': domain });
-      if (cookie && Auth.currentUser() && Auth.currentUser().id) {
-        User.distro({dst: cookie}).$promise.then(function(result) {
-          removeCtCookie();
-        }, function() {
-          removeCtCookie();
-        });
-      }
+      // var cookie = $cookies.get('_ct', { 'domain': domain });
+      // if (cookie && Auth.currentUser() && Auth.currentUser().id) {
+      //   User.distro({dst: cookie}).$promise.then(function(result) {
+      //     removeCtCookie();
+      //   }, function() {
+      //     removeCtCookie();
+      //   });
+      // }
 
       // Load the translations
       Translate.load();
