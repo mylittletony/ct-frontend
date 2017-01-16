@@ -349,6 +349,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           Auth.login(res).then(function(a) {
             $scope.user = Auth.currentUser();
             $scope.loggedIn = true;
+            menuPush()
           });
         });
       }
@@ -363,66 +364,68 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       getSubdomain();
 
-      if (vm.menu.main.length === 0) {
-        vm.menu.main.push({
-          title: gettextCatalog.getString('Locations'),
-          type: 'link',
-          link: '/#/locations',
-          icon: 'business'
-        });
-
-        vm.menu.main.push({
-          title: gettextCatalog.getString('Events'),
-          type: 'link',
-          link: '/#/events',
-          icon: 'warning'
-        });
-
-        if (Auth.currentUser() && Auth.currentUser().guest === false) {
-
+      function menuPush() {
+        if (vm.menu.main.length === 0) {
           vm.menu.main.push({
-            title: gettextCatalog.getString('Brands'),
+            title: gettextCatalog.getString('Locations'),
             type: 'link',
-            link: '/#/brands',
-            icon: 'branding_watermark'
+            link: '/#/locations',
+            icon: 'business'
           });
 
           vm.menu.main.push({
-            title: gettextCatalog.getString('Users'),
+            title: gettextCatalog.getString('Events'),
             type: 'link',
-            link: '/#/users',
-            icon: 'people'
+            link: '/#/events',
+            icon: 'warning'
           });
 
-          vm.menuRight.push({
-            name: gettextCatalog.getString('Brands'),
-            type: 'link',
-            link: '/#/brands',
-            icon: 'branding_watermark'
-          });
+          if (Auth.currentUser() && Auth.currentUser().guest === false) {
+
+            vm.menu.main.push({
+              title: gettextCatalog.getString('Brands'),
+              type: 'link',
+              link: '/#/brands',
+              icon: 'branding_watermark'
+            });
+
+            vm.menu.main.push({
+              title: gettextCatalog.getString('Users'),
+              type: 'link',
+              link: '/#/users',
+              icon: 'people'
+            });
+
+            vm.menuRight.push({
+              name: gettextCatalog.getString('Brands'),
+              type: 'link',
+              link: '/#/brands',
+              icon: 'branding_watermark'
+            });
+
+            vm.menuRight.push({
+              name: gettextCatalog.getString('Users'),
+              type: 'link',
+              link: '/#/users',
+              icon: 'people'
+            });
+
+            vm.menuRight.push({
+              type: 'divider',
+            });
+          }
 
           vm.menuRight.push({
-            name: gettextCatalog.getString('Users'),
+            name: gettextCatalog.getString('Profile'),
+            link: '/#/me',
             type: 'link',
-            link: '/#/users',
-            icon: 'people'
+            icon: 'face'
           });
 
           vm.menuRight.push({
             type: 'divider',
           });
         }
-
-        vm.menuRight.push({
-          name: gettextCatalog.getString('Profile'),
-          link: '/#/me',
-          type: 'link',
-          icon: 'face'
-        });
-
-        vm.menuRight.push({
-          type: 'divider',
-        });
       }
 
       var domain = 'ctapp.io';
