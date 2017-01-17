@@ -21,7 +21,7 @@ describe("Payload Unit Tests", function() {
     $httpBackend.when('DELETE', 'http://mywifi.dev:8080/api/v1/boxes/123/payloads/456')
       .respond(200, {});
 
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/payloads?save=true')
+    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/boxes/123/payloads')
       .respond(200, {});
 
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
@@ -52,8 +52,7 @@ describe("Payload Unit Tests", function() {
 
   it('should have sent a post req to create a payload', function() {
     var result = Payload.create({controller: 'boxes', box_id: 123})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/123/payloads?save=true')
+    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/boxes/123/payloads')
     $httpBackend.flush();
   });
-
 })

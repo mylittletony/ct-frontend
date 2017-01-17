@@ -196,7 +196,7 @@ describe('networks', function () {
       expect(network.interface_netmask).toEqual(24)
       expect(network.use_ps_radius).toEqual(true)
       expect(network.captive_portal_ps).toEqual(true)
-      expect(network.content_filter).toEqual('Security')
+      expect(network.content_filter).toEqual('Off')
       expect(network.captive_portal_enabled).toEqual(false)
     });
 

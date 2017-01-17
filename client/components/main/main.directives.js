@@ -10,7 +10,15 @@ app.directive('daySelector', ['gettextCatalog', function(gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
-    scope.days_array = [{id:1, name: gettextCatalog.getString('Mon')},{id:2, name: gettextCatalog.getString('Tue')},{id:3, name: gettextCatalog.getString('Wed')},{id:4, name: gettextCatalog.getString('Thu')}, {id:5, name: gettextCatalog.getString('Fri')}, {id:6, name:gettextCatalog.getString('Sat')}, {id:0, name:gettextCatalog.getString('Sun')}];
+    scope.days_array = [
+      { id: 1, name: gettextCatalog.getString('Mon') },
+      { id: 2, name: gettextCatalog.getString('Tue') },
+      { id: 3, name: gettextCatalog.getString('Wed') },
+      { id: 4, name: gettextCatalog.getString('Thu') },
+      { id: 5, name: gettextCatalog.getString('Fri') },
+      { id: 6, name: gettextCatalog.getString('Sat') },
+      { id: 0, name: gettextCatalog.getString('Sun') }
+    ];
 
     scope.updateDays = function() {
       for (var day in scope.array ) {
@@ -29,7 +37,7 @@ app.directive('daySelector', ['gettextCatalog', function(gettextCatalog) {
     };
 
     var updateDays = function() {
-      if (scope.days !== null) {
+      if (scope.days !== null && scope.days !== undefined) {
         for(var i = 0; i <= 6; i++) {
           if (scope.days.indexOf(i.toString()) > -1) {
             scope.array[i] = 1;

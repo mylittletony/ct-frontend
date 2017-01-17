@@ -1,0 +1,137 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-button id="main" class="md-icon-button md-primary" aria-label="{{ 'Vouchers' | translate }}">
+      <md-icon md-font-icon="" >notifications_active</md-icon>
+    </md-button>
+    <p translate>Triggers</p>
+    <div flex></div>
+    <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
+      <md-icon>add_circle</md-icon>
+    </md-button>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<form ng-submit="search()" name="myForm">
+  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-if="triggers.length == 0">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Get Started
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <p translate>Triggers run automatically in the background.</p>
+        <p translate>They monitor things that happen and notify you automatically.</p>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="create()"><translate>Create</translate></md-button>
+        </md-card-actions>
+      </md-card-content>
+    </md-card>
+  </md-content>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-show="triggers.length || query.page" layout-wrap>
+    <md-card ng-show="triggers.length">
+      <md-card-content>
+        <md-card-title ng-show="!xctTrggrs && location.slug && triggers.length">
+          <md-card-title-text>
+            <span class="md-headline" translate>Understanding Triggers</span>
+
+            <span class="md-subhead">
+              <translate>We've created some default triggers to get you started. You can delete these and start again.</translate> <b translate>Triggers notify you when things happen</b>. <translate>From security notifications to when a customer logs in, they'll help you run your networks more effeciently.<br><br>Set them up to email your guests, admin users or just yourself. Or, use them with Slack or setup a webhook!</translate> <a href="" ng-click="dismissTrigger()" translate>Dismiss</a>.
+            </span>
+
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-title ng-show="brand.id">
+          <md-card-title-text>
+            <span class="md-headline" translate>Understanding Brand Triggers</span>
+            <span class="md-subhead" translate>
+              Brand Triggers are a little different to regular triggers. You can set them up to notify you when things happen within your brand, like location triggers. You can also <strong>add templates</strong> that get created as defaults for locations. Read more in the docs.
+               <!-- <a href="" ng-click="dismissTrigger()">Dismiss</a>. -->
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+            <thead md-head>
+              <tr md-row class="md-table-headers-row">
+                <th md-column md-order-by="active"><span translate>Active</span></th>
+                <th hide show-gt-sm md-column ng-if="brand.id"><span translate>Template</span></th>
+                <th md-column md-order-by="name"><span translate>Name</span></th>
+                <th hide show-gt-sm md-column md-order-by="type"><span translate>Type</span></th>
+                <th hide show-gt-sm md-column md-order-by="channel"><span translate>Channel</span></th>
+                <th hide show-gt-sm md-column ng-if="!brand.id"><span translate>Runs</span></th>
+                <th md-column translate>Action</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row md-select="trigger" md-auto-select="options.autoSelect" ng-repeat="trigger in filtered = (triggers | filter: query.filter | orderBy: query.direction)">
+                <td md-cell>
+                  <md-icon md-menu-origin md-font-icon="">{{ trigger.active ? "check_circle" : 'warning' }}</md-icon>
+                  <md-tooltip>
+                    <translate>
+                      <span ng-if="trigger.active" translate>Trigger is active</span>
+                      <span ng-if="!trigger.active" translate>Trigger disabled</span>
+                    </translate>
+                  </md-tooltip>
+                </td md-cell>
+                <td hide show-gt-sm md-cell ng-if="brand.id">
+                  <md-icon md-menu-origin md-font-icon="">{{ trigger.template ? "check" : '' }}</md-icon>
+                </td md-cell>
+                <td md-cell>
+                  <a ng-if="brand.id" href="/#/brands/{{ brand.id }}/triggers/{{ trigger.id }}">
+                    {{ trigger.trigger_name }}
+                  </a>
+                  <a ng-if="!brand.id" href="/#/locations/{{ location.slug }}/triggers/{{ trigger.id }}">
+                    {{ trigger.trigger_name }}
+                  </a>
+                  <md-tooltip hide-gt-sm>
+                    <translate>
+                      Type: {{ trigger.trigger_type }}. Runs: {{ trigger.run_count }}
+                    </translate>
+                  </md-tooltip>
+                </td md-cell>
+                <td hide show-gt-sm md-cell>
+                  {{ trigger.trigger_type }}
+                </td md-cell>
+                <td hide show-gt-sm md-cell>
+                  {{ trigger.trigger_event == 'action' ? 'inbound' : trigger.channel }}
+                </td md-cell>
+                <td hide show-gt-sm md-cell ng-if="!brand.id">
+                  <span>
+                    {{ trigger.run_count }}
+                    <md-tooltip>
+                      <translate>
+                        Fails: {{ trigger.total_fail_count || 0}}
+                      </translate>
+                    </md-tooltip>
+                  </span>
+                </td md-cell>
+                <td md-cell>
+                  <md-menu>
+                    <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content width="4" >
+                      <md-menu-item ng-repeat="item in menu">
+                        <md-button ng-click="action(item.type,trigger)" ng-disabled="{{ menuDisabled(item.type, client) || (trigger.locked && item.type == 'delete' ) }}">
+                          <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
+                      <p flex>{{ item.name }}</p>
+                        </md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </md-menu>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+        <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        </div>
+      </md-card-content>
+    </md-card>
+  </md-content>
+</form>

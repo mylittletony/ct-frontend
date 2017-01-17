@@ -75,13 +75,7 @@ app.factory('SplashPage', ['$resource', 'API_END_POINT',
       },
       update: {
         method: 'PATCH',
-        isArray: false,
-        data: '',
-        params: {
-          location_id: '@location_id',
-          id: '@id',
-          splash_page: '@splash_page'
-        }
+        isArray: false
       },
       duplicate: {
         method: 'POST',

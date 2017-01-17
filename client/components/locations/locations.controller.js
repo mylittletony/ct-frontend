@@ -180,6 +180,18 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       window.location.href = '/#/locations/' + $scope.location.slug + '/boxes/new';
     };
 
+    var setLocationStateIcon = function(location) {
+      menu.locationStateIcon = undefined;
+      if (location.archived === 1 || location.archived === true) {
+        menu.locationStateIcon = 'archived';
+        return;
+      }
+      if (location.ct_view === 0 || location.ct_view === false) {
+        menu.locationStateIcon = 'vpn_locked';
+        return;
+      }
+    };
+
     var init = function() {
 
       var id = $routeParams.id;
@@ -191,11 +203,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         }
         menu.header = data.location_name;
         menu.sectionName = gettextCatalog.getString('Location');
-        if (data.archived) {
-          menu.archived = data.archived;
-        } else {
-          menu.archived = undefined;
-        }
+        setLocationStateIcon(data)
         $scope.location = data;
         console.log('Setting TZ to', $scope.location.timezone);
         window.moment.tz.setDefault($scope.location.timezone);
@@ -213,7 +221,8 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     };
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-      menu.archived = undefined;
+      // menu.archived = undefined;
+      // menu.header = '';
     });
 
     init();
@@ -225,6 +234,9 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
   function($scope, menu, $mdSidenav, gettextCatalog) {
 
     $scope.loading = true;
+    menu.archived = undefined;
+    menu.header = '';
+    menu.locationStateIcon = undefined;
 
     function isOpen(section) {
       return menu.isSectionSelected(section);
@@ -274,5 +286,4 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
     };
 
     createMenu();
-
 }]);

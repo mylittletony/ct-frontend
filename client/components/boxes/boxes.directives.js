@@ -56,6 +56,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'resync':
           scope.resyncBox();
           break;
+        case 'operations':
+          viewOperations();
+          break;
         case 'changelog':
           viewHistory();
           break;
@@ -110,6 +113,20 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'delete'
       });
 
+      if (scope.box.gubbins_version === '4') {
+        scope.menu.push({
+          name: gettextCatalog.getString('Operations'),
+          icon: 'access_time',
+          type: 'operations',
+        });
+
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Reset'),
+        //   icon: 'clear',
+        //   type: 'reset',
+        // });
+      }
+
       if (scope.box.is_cucumber) {
         scope.menu.push({
           name: gettextCatalog.getString('Resync'),
@@ -130,6 +147,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       scope.not_in_zone = (results._info && results._info.total > 0);
     };
 
+    // showResetConfirm confirms or cancels a manual reset from a box.
+    // Sending true to resetBox will reset.
+    // Sending null to resetBox will cancel any actions on box.
     var showResetConfirm = function() {
       $mdBottomSheet.show({
         templateUrl: 'components/boxes/show/_toast_reset_confirm.html',
@@ -140,11 +160,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     function ResetCtrl($scope) {
       $scope.reset = function() {
         $mdBottomSheet.hide();
-        resetBox();
+        resetBox(true);
       };
       $scope.cancel = function() {
         $mdBottomSheet.hide();
-        resetBox(true);
+        resetBox();
       };
     }
     ResetCtrl.$inject = ['$scope'];
@@ -172,11 +192,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/edit');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/edit');
     };
 
     scope.payloads = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/payloads');
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/payloads');
     };
 
     scope.resetBox = function(ev) {
@@ -188,27 +208,27 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       .ok(gettextCatalog.getString('Reset it'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        resetBox();
+        resetBox(true);
       });
     };
 
-    var resetBox = function(cancel) {
+    var resetBox = function(reset) {
       var action = 'reset';
-      if (cancel === true) {
+      if (reset === true) {
         scope.resetting = true;
       } else {
         action = 'cancel';
       }
 
-      Box.update({
+      Box.update({}, {
         id: scope.box.slug,
         box: { action: action }
       }).$promise.then(function(results) {
-        if (!cancel) {
+        if (action === 'reset') {
           showToast(gettextCatalog.getString('Device reset in progress, please wait.'));
           scope.box.allowed_job = false;
-          scope.box.state = 'resetting';
-          scope.resetting = undefined;
+          scope.box.state       = 'new';
+          scope.resetting       = undefined;
         }
       }, function(errors) {
         var err;
@@ -388,6 +408,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         }
       }
       switch(data.type) {
+        case 'resync':
+          console.log('Device resynced');
+          break;
         case 'heartbeat':
           heartbeat(data);
           break;
@@ -398,6 +421,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
             result: data.message.val,
             timestamp: data.message.timestamp
           };
+          break;
+        case 'not-connected':
+          timeout = $timeout(function() {
+            showToast(gettextCatalog.getString('Device lost connection, jobs may fail.'));
+            $timeout.cancel(timeout);
+          }, 2000);
           break;
         case 'installer':
           if (data.status === true) {
@@ -509,7 +538,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       var deferred = $q.defer();
       if (scope.box.zone_id || ignoreZone) {
         var msg = 'Ignoring zid: ' + scope.box.zone_id + '. Ignore: ' + ignoreZone;
-        console.log(msg);
         deferred.resolve();
       } else {
         Zone.get({
@@ -538,8 +566,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ap_mac:       scope.box.calledstationid,
         location_id:  scope.box.location_id,
         resource:     'device',
-        interval:     '60s',
-        period:       '60m'
+        interval:     '180s',
+        period:       '6h'
       }).$promise.then(function(data) {
         scope.box.throughput = data.throughput;
         deferred.resolve();
@@ -568,6 +596,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
     };
 
+    var viewOperations = function() {
+      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
+    };
+
     var viewHistory = function() {
       $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
     };
@@ -583,7 +615,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
     init().then(function() {
       loadTput();
-      loadCharts();
+      // loadCharts();
       createMenu();
       sortSsids();
       loadPusher();
@@ -614,23 +646,49 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
 
 }]);
 
-app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', 'gettextCatalog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog, gettextCatalog) {
+app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $routeParams, $compile) {
 
-  var link = function(scope,element,attrs) {
-
-    scope.location = { slug: $routeParams.id };
-    scope.command = { save: true };
-
+  var link = function( scope, element, attrs ) {
     var init = function() {
       return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
-        scope.box = box;
-        scope.loading = undefined;
-        loadPayloads();
-        loadPusher();
+        compileTemplate(box.gubbins_version);
       }, function(err) {
         scope.loading = undefined;
         console.log(err);
       });
+    };
+
+    var compileTemplate = function(version) {
+      var template;
+      if (parseInt(version) === 4) {
+        template = $compile('<list-messages></list-messages>')(scope);
+      } else {
+        template = $compile('<box-payloads></box-payloads>')(scope);
+      }
+      element.html(template);
+      scope.loading = undefined;
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+
+  };
+}]);
+
+app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$routeParams', '$pusher', '$mdDialog', 'gettextCatalog', function(Box, Payload, showToast, showErrors, $routeParams, $pusher, $mdDialog, gettextCatalog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    scope.command = { save: true };
+    scope.location = { slug: $routeParams.id };
+    scope.box = { slug: $routeParams.box_id };
+
+    var init = function() {
+      loadPayloads();
+      loadPusher();
     };
 
     scope.deletePayload = function(index,id) {
@@ -665,6 +723,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
 
     var loadPayloads = function() {
       Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
+        console.log(data);
         scope.payloads = data;
       });
     };
@@ -738,17 +797,18 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone) {
+app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
 
   var link = function(scope) {
+
+    var channel, timer;
 
     scope.location = { slug: $routeParams.id };
     scope.timezones = moment.tz.names();
 
-    //fixme @Toni transltions: some of these might also have to be translated
-    var ht20_channels  = ['auto', '01','02','03','04','05','06','07','08','09','10','11'];
-    var ht40m_channels = ['auto','05','06','07','08','09','10','11'];
-    var ht40p_channels = ['auto','01','02','03','04','05','06','07'];
+    var ht20_channels  = ['auto', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+    var ht40m_channels  = ['auto','5','6','7','8','9','10','11'];
+    var ht40p_channels  = ['auto','1','2','3','4','5','6','7'];
 
     var ht20_channels_5 = ['auto','36','40','44','48','52','56','60','64','149','153','157','161','165'];
     var ht40m_channels_5 = ['auto','40','44','48','52','56','60','64','153','157','161','165'];
@@ -808,6 +868,25 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
       }
     };
 
+    function loadPusher(key) {
+      if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
+        scope.pusherLoaded = true;
+        var pusher = $pusher(client);
+        channel = pusher.subscribe('private-' + scope.box.location_pubsub);
+        console.log('Binding to:', channel.name);
+        channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
+          console.log('Message received at', new Date().getTime() / 1000);
+          processNotification(data.message);
+        });
+      }
+    }
+
+    var processNotification = function(msg) {
+      timer = $timeout(function() {
+        showToast(gettextCatalog.getString('This device is being resynced'));
+      }, 5000);
+    };
+
     scope.update = function(form) {
       form.$setPristine();
       scope.box.is_cucumber = scope.box.tony;
@@ -815,6 +894,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         id: scope.box.slug,
         box: scope.box
       }).$promise.then(function(box) {
+        scope.box.tags = box.tags;
         showToast(gettextCatalog.getString('Settings updated successfully'));
       }, function(errors) {
         form.$setPristine();
@@ -831,6 +911,10 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
       });
     };
 
+    var highlight = function() {
+      scope.highlight = $location.hash();
+    };
+
     var init = function() {
       return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
         scope.box = box;
@@ -842,12 +926,22 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         scope.box.tony       = scope.box.is_cucumber;
         scope.loading = undefined;
         getZones();
+        loadPusher();
+        highlight();
       });
     };
 
     scope.back = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug;
     };
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      if (channel) {
+        channel.unbind();
+      }
+      // $mdBottomSheet.hide();
+      $timeout.cancel(timer);
+    });
 
     init();
   };
@@ -1457,7 +1551,6 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     };
 
     function fetchDiscovered() {
-
       Box.detect({location_id: scope.location.slug}).$promise.then(function(data) {
         sortRogues(data);
       }, function(err) {
@@ -1549,7 +1642,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       }
       scope.creating = true;
       var type = $routeParams.type || scope.setup.type;
-      Box.save({
+      Box.save({}, {
         location_id: scope.location.slug,
         box: box
       }).$promise.then(function(data) {
@@ -1669,7 +1762,7 @@ app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'ge
   var link = function(scope, element,attrs) {
     scope.runSpeedtest = function() {
       scope.box.speedtest_running = true;
-      scope.box.allowed_job = false;
+      // scope.box.allowed_job = false;
       updateCT();
     };
 

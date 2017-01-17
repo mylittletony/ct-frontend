@@ -1,0 +1,44 @@
+<md-card>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">
+        {{ trigger.trigger_name | titleCase }}
+      </span>
+      <span class="md-subhead">
+        {{ trigger.description }}
+      </span>
+    </md-card-title-text>
+    <md-card-title-media>
+      <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/integration-images/email.png" class="integrations-icon-show">
+    </md-card-title-media>
+  </md-card-title>
+  <md-card-content>
+    <b>{{ trigger.human }}</b>, <translate>send an email to</translate> <b>{{ trigger.attr_1 }}</b>.
+    <md-list-item class="md-2-line">
+      <div class="md-list-item-text">
+        <h3 translate>Email To</h3>
+        <p>{{ trigger.attr_1 }}</p>
+      </div>
+    </md-list-item>
+    <md-list-item class="md-2-line">
+      <div class="md-list-item-text">
+        <h3 translate>Email From</h3>
+        <p>{{ trigger.attr_2 }}</p>
+      </div>
+    </md-list-item>
+    <md-list-item class="md-2-line">
+      <div class="md-list-item-text">
+        <h3 translate>Email Subject</h3>
+        <p>{{ trigger.attr_3 }}</p>
+      </div>
+    </md-list-item>
+    <md-list-item class="md-2-line">
+      <div class="md-list-item-text">
+        <h3 translate>Email Body</h3>
+        <p>{{ trigger.attr_4 }}</p>
+      </div>
+    </md-list-item>
+  </md-card-content>
+</md-card>
+
+

@@ -34,6 +34,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     };
 
     menu.header = undefined;
+    menu.locationStateIcon = undefined;
     menu.sectionName = Auth.currentUser().username;
 
     menu.sections = [{
@@ -62,13 +63,13 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       });
     }
 
-    menu.sections.push({
-      name: gettextCatalog.getString('Integrations'),
-      type: 'link',
-      link: '/#/users/' + id + '/integrations',
-      icon: 'widgets',
-      active: isActive('integrations')
-    });
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('Integrations'),
+    //   type: 'link',
+    //   link: '/#/users/' + id + '/integrations',
+    //   icon: 'widgets',
+    //   active: isActive('integrations')
+    // });
 
     menu.sections.push({
       name: gettextCatalog.getString('Notifications'),
@@ -78,13 +79,15 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       active: isActive('alerts')
     });
 
-    menu.sections.push({
-      name: gettextCatalog.getString('Branding'),
-      type: 'link',
-      link: '/#/users/' + id + '/branding',
-      icon: 'perm_identity',
-      active: isActive('branding')
-    });
+    // if (Auth.currentUser() && !Auth.currentUser().guest) {
+    //   menu.sections.push({
+    //     name: gettextCatalog.getString('Branding'),
+    //     type: 'link',
+    //     link: '/#/users/' + id + '/branding',
+    //     icon: 'perm_identity',
+    //     active: isActive('branding')
+    //   });
+    // }
 
     // menu.sections.push({
     //   name: gettextCatalog.getString('Locations'),

@@ -168,6 +168,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
     menu.sections = [{}];
     menu.sectionName = gettextCatalog.getString('Reports');
     menu.header = '';
+    menu.locationStateIcon = undefined;
 
     var isActive = function(path) {
       var split = $location.path().split('/');
@@ -268,6 +269,9 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
           break;
         case '30d':
           interval = '1h';
+          break;
+        case '1yr':
+          interval = '1yr';
           break;
         default:
           interval = '60s';
@@ -845,8 +849,6 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       $timeout.cancel(timer);
     });
-
-    // init();
   };
 
   return {
@@ -870,17 +872,24 @@ app.directive('wirelessStats', ['Report', '$routeParams', '$location', 'Location
     var init = function() {
 
       scope.stats = {};
+      var period = $routeParams.period || '7d';
 
       var params = {
+        interval: '7d',
         resource: 'client',
         type: 'wireless_stats',
-        interval: 'hour',
         location_id: $routeParams.location_id,
-        period: $routeParams.period || '7d'
+        period: period
       };
 
       controller.get(params).then(function(results) {
+        scope.uniques = 0;
         scope.stats = results.stats;
+        if (scope.stats && scope.stats.uniques && scope.stats.uniques.length > 0) {
+          for(var i = 0; i < scope.stats.uniques.length; i++) {
+            scope.uniques += scope.stats.uniques[i].val;
+          }
+        }
       });
     };
 

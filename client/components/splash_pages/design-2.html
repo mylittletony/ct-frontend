@@ -1,0 +1,49 @@
+<div style="height: 150px" ng-hide="splash.header_image_name || splash.logo_file_name">
+  <!-- <div ng-show="splash.header_image_type == 1" class="logo"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/QPcfBDMQ4GIws26Bn63g" alt="" class=""></div> -->
+  <!-- <div ng-show="splash.header_image_type == 2" class="banner"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/an030sXEQF2nBNDmLOdO" alt="" class=""></div> -->
+</div>
+
+<div ng-show="splash.header_image_name != undefined || splash.logo_file_name != undefined" class="" ng-class="splash.header_image_type == 1 ? 'logo location_logo' : 'banner'" ><a href="http://{{ splash.website }}"><img src="{{ splash.header_image_type == 1 ? splash.logo_file_name : splash.header_image_name }}" alt="" class=""></a></div>
+
+<div class="ps_inner">
+  <div ng-if="welcomeEditing == true">
+    <div ng-include="'components/splash_pages/_welcome.html'"></div>
+  </div>
+  <div ng-hide="welcomeEditing">
+    <div layout layout-wrap layout-align="center">
+      <div flex="50">
+        <h1>{{ splash.header_text }}</h1>
+        <h2><div ng-bind-html="splash.info | sanitize"></div></h2>
+        <splash-designer-form access="{{splash.primary_access_id}}" btntext="{{ splash.btn_text }}"></splash-designer-form>
+        <p class="small" ng-hide="splash.hide_terms">By logging in, you agree to our <a href="{{ splash.terms_url }}">terms of use</a></p>
+        <div class="location_address">
+          <p>{{splash.address}}</p>
+        </div>
+        <div class="social">
+          <a ng-show="splash.twitter_name" href="https://twitter.com/{{splash.twitter_name}}"><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/twitter.svg"></a>
+          <a ng-show="splash.google_name" href="https://plus.google.com/{{splash.google_name}}/about"><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/google.svg"></a>
+          <a ng-show="splash.facebook_name" href="http://facebook.com/{{splash.facebook_name}}"><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/facebook.svg"></a>
+          <a ng-show="splash.pinterest_name" href="http://pinterest.com/{{splash.pinterest_name}}"><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/pinterest.svg"></a>
+          <a ng-show="splash.instagram_name" href="http://instagram.com/{{splash.instagram_name}}"><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/instagram.svg"></a>
+          <a ng-show="splash.linkedin_name" href="http://linkedin.com/{{splash.linkedin_name}}"><img src="https://d3e9l1phmgx8f2.cloudfront.net/images/social/linkedin.svg"></a>
+        </div>
+        <p><a href="http://{{splash.website}}">{{ splash.website }}</a></p>
+      </div>
+      <div id="container-c2" flex="50" style="padding:15px;">
+        <div ng-show="splash.location_image_name">
+          <img style="max-width:100%;height:auto;" src="{{ splash.location_image_name }}">
+        </div>
+        <div ng-hide="splash.location_image_name">
+          <p ng-bind-html="splash.info_two | sanitize"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <p ng-bind-html="splash.info_two | sanitize"></p> -->
+<!-- <span class="btn">{{ splash.btn_text }}</span> -->
+<!-- <p class="small">By logging in, you agree to our <a href="{{ splash.terms_url }}">terms of use</a></p> -->
+<!-- <div class="location_address"> -->
+<!--   <p>{{splash.address}}</p> -->
+</div>
+</div>

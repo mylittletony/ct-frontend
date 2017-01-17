@@ -60,6 +60,13 @@
                 </md-option>
               </md-select>
             </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs style="margin: 40px 0 0 0">
+              <label>
+                <translate>Tags</translate>
+              </label>
+              <input ng-model="box.tags" name="tags" placeholder="{{ 'Box tags' | translate }}">
+            </md-input-container>
+            <small class="muted" translate>Enter a comma, separated, list, of, tags.</small>
             <md-input-container class="md-block" style="margin-top: 40px" flex-gt-xs ng-if="zones.length">
               <label>
                 <translate>Zone</translate>
@@ -74,28 +81,39 @@
           </div>
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">
-            <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
-              <span translate>Alerts {{ box.is_monitored | humanBoolean }}</span>
-            </md-switch>
+
             <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}">
               <translate>
                 Cucumber Box
               </translate>
             </md-checkbox>
+
             <small translate>Don't disable this unless you're using a splash-only device.</small>
+
+            <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
+              <span translate>Alerts {{ box.is_monitored | humanBoolean }}</span>
+            </md-switch>
+
+            <small translate>Disabling alerts will prevent further alerts from this device.</small>
+
+            <md-switch title="ct_modify" ng-model="box.ct_modify" aria-label=" ">
+              <span translate>Cucumber Write Access {{ box.ct_modify | humanBoolean }}</span>
+            </md-switch>
+
+            <small translate>Enabling write access allows Cucumber staff to modify this device. This is overwritten by location write access changes.</small>
+
           </div>
         </div>
       </md-card-content>
     </md-card>
 
-    <md-card>
+    <md-card ng-class="{ 'highlight-section': highlight == 'channel' }">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>Wireless Settings</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-
         <div layout="column" layout-gt-xs="row" layout-wrap>
           <div flex-gt-sm="50">
             <div layout="column" layout-gt-xs="row">
@@ -105,7 +123,7 @@
                 </label>
                 <md-select ng-model="box.channel" required>
                   <md-option ng-repeat="channel in channels" value="{{channel}}">
-                    {{channel}}
+                    {{ channel }}
                   </md-option>
                 </md-select>
               </md-input-container>
@@ -126,7 +144,6 @@
                 <md-slider flex class="md-primary" md-discrete ng-model="box.tx_power_2" step="1" min="5" max="20" aria-label="tx_power_2">
                 </md-slider>
               </md-slider-container>
-
             </div>
           </div>
           <div hide-xs flex-gt-xs="10"></div>

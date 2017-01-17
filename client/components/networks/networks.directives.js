@@ -72,7 +72,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     // };
 
     // scope.updatePage = function(item) {
-      
+
     // };
 
     var init = function() {
@@ -159,7 +159,13 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     scope.update = function(network) {
-      Network.update({location_id: scope.location.slug, id: network.id, network: { ssid: network.ssid }}).$promise.then(function(results) {
+      Network.update({}, {
+        location_id: scope.location.slug,
+        id: network.id,
+        network: {
+          ssid: network.ssid
+        }
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
         network.state = undefined;
       }, function(error) {
@@ -214,7 +220,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         interface_netmask: 24,
         use_ps_radius: true,
         captive_portal_ps: true,
-        content_filter: 'Security',
+        content_filter: 'Off',
         highlight: true,
         captive_portal_enabled: false
       };
@@ -292,6 +298,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
   var link = function(scope, element, attrs) {
 
+    // scope.color = 'red';
     scope.location = { slug: $routeParams.id };
     scope.client_filters = [
       { key: gettextCatalog.getString('Off'), value: 'off' },
@@ -317,7 +324,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
       {key: gettextCatalog.getString('Off'), value: 'Off'}
     ];
     scope.netmasks = ('8 12 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 32').split(' ').map(function (netmask) {
-      return { abbrev: netmask }; 
+      return { abbrev: netmask };
     });
 
     // User Permissions //
@@ -390,7 +397,13 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.cancelJob = function() {
       scope.network.state = 'cancelling';
-      Network.update({location_id: scope.locations.slug, id: scope.network.id, network: { cancel_sync: true }}).$promise.then(function(results) {
+      Network.update({}, {
+          location_id: scope.locations.slug,
+          id: scope.network.id,
+          network: {
+            cancel_sync: true
+          }
+        }).$promise.then(function(results) {
         scope.network.state     = undefined;
         scope.network.job_id    = undefined;
         $rootScope.banneralert  = undefined;
@@ -404,7 +417,11 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.update = function(form) {
       form.$setPristine();
-      Network.update({location_id: scope.location.slug, id: scope.network.id, network: scope.network}).$promise.then(function(results) {
+      Network.update({}, {
+        location_id: scope.location.slug,
+        id: scope.network.id,
+        network: scope.network
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Network successfully updated.'));
       }, function(err) {
         showErrors(err);

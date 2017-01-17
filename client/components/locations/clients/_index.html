@@ -84,7 +84,6 @@
               <span ng-if="type == 'failures'" translate>{{ client_mac }} Transmission Failures</span>
             </span>
             <span class="md-subhead">
-              <!-- ZAK - TO DO -->
               <span ng-if="type == 'mcs'" translate>{{ (fn || 'average') | titleCase }} client MCS values</span>
               <span ng-if="type == 'signal'" translate>{{ (fn || 'average') | titleCase }} signal, noise and SNR values</span>
               <span ng-if="type == 'tx'" translate>{{ (fn || 'average') | titleCase }} network throughput</span>
@@ -105,14 +104,6 @@
                 <md-icon>more_vert</md-icon>
               </button>
               <md-menu-content>
-                <md-menu-item>
-                  <md-button ng-click="">
-                    <translate>
-                    Share
-                    </translate>
-                  </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider>
                 <md-menu-item>
                   <md-button ng-click="changeType('signal')">
                     <translate>
@@ -150,7 +141,7 @@
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
                 <md-menu-item>
-                  <md-button ng-click="changeFn('mean')">
+                  <md-button ng-click="changeFn('average')">
                     <translate>
                     Average Values
                     </translate>

@@ -44,77 +44,84 @@ describe('brands', function () {
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
   }));
 
-  describe('displays a brand to a user', function() {
+  describe('displays the brands', function() {
     beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
       $scope = $rootScope;
       q = $q;
       $routeParams = _$routeParams_;
       $routeParams.id = 1;
-      var elem = angular.element('<user-brand></user-brand>');
+      $scope.loading = true;
+      var elem = angular.element('<list-brands loading="loading"></list-brands>');
       element = $compile(elem)($rootScope);
       element.scope().$digest();
     }));
 
     it("should set the default scope vars", function() {
-      spyOn(brandFactory, 'get').and.callThrough();
+      spyOn(brandFactory, 'query').and.callThrough();
+      expect(element.isolateScope().loading).toEqual(true);
 
-      expect(element.isolateScope().brand.creating).toEqual(true);
-      expect(element.isolateScope().brand.network_location).toEqual('eu-west');
-      expect(element.isolateScope().locations.length).toEqual(4);
-      expect(element.isolateScope().locations[0]).toEqual('eu-west');
-      expect(element.isolateScope().locations[1]).toEqual('us-central');
-      expect(element.isolateScope().locations[2]).toEqual('us-west');
-      expect(element.isolateScope().locations[3]).toEqual('asia-east');
-
-      var user = { id: 123 };
-      dd.resolve(user);
-      $scope.$digest();
-      expect(element.isolateScope().user).toEqual(user);
-
+      var params = {};
       var brand = { url: 'cucumber', brand_name: 'simon' };
-      deferred.resolve(brand);
+      params.brands = [brand];
+
+      deferred.resolve(params);
       $scope.$digest();
 
-      expect(element.isolateScope().brand).toEqual(brand);
-      expect(element.isolateScope().originalUrl).toEqual(brand.url);
-      expect(element.isolateScope().brandName.name).toEqual(brand.brand_name);
+      expect(element.isolateScope().brands[0]).toEqual(brand);
+      expect(element.isolateScope().loading).toEqual(undefined);
     });
-
-    it("should create a brand", function() {
-      spyOn(brandFactory, 'create').and.callThrough();
-      var form = {
-        $valid: true,
-        $setPristine: function() {}
-      };
-
-      element.isolateScope().save(form)
-
-      var brand = { url: 'cucumber', brand_name: 'simon' };
-      deferred.resolve(brand);
-      $scope.$digest();
-
-      expect(element.isolateScope().brand).toEqual(brand);
-    });
-
-    // Not sure how to confirm the mdialog
-    xit("should update a brand", function() {
-      element.isolateScope().brand.id = 123;
-      spyOn(brandFactory, 'update').and.callThrough();
-      var form = {
-        $valid: true,
-        $setPristine: function() {}
-      };
-
-      element.isolateScope().save(form)
-
-      var brand = { url: 'cucumber', brand_name: 'simon' };
-      deferred.resolve(brand);
-      $scope.$digest();
-
-      expect(element.isolateScope().brand).toEqual(brand);
-    });
-
   });
 
-});
+  describe('displays the brands', function() {
+    beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
+      $scope = $rootScope;
+      q = $q;
+      $routeParams = _$routeParams_;
+      $routeParams.id = 1;
+      $scope.loading = true;
+      var elem = angular.element('<list-brands loading="loading"></list-brands>');
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
+    }));
 
+    it("should set the default scope vars", function() {
+      spyOn(brandFactory, 'query').and.callThrough();
+      expect(element.isolateScope().loading).toEqual(true);
+
+      var params = {};
+      var brand = { url: 'cucumber', brand_name: 'simon' };
+      params.brands = [brand];
+
+      deferred.resolve(params);
+      $scope.$digest();
+
+      expect(element.isolateScope().brands[0]).toEqual(brand);
+      expect(element.isolateScope().loading).toEqual(undefined);
+    });
+  });
+
+  describe('creates a new brand', function() {
+    beforeEach(inject(function($compile, $rootScope, $q, _$routeParams_, $injector) {
+      $scope = $rootScope;
+      q = $q;
+      $routeParams = _$routeParams_;
+      $routeParams.id = 1;
+      var elem = angular.element('<new-brand loading="loading"></new-brand>');
+      element = $compile(elem)($rootScope);
+      element.scope().$digest();
+    }));
+
+    it("should set the default scope vars", function() {
+      spyOn(brandFactory, 'create').and.callThrough();
+
+      var brand = { locale: 'en-GB', network_location: 'eu-west', brand_name: 'Acme Inc' };
+
+      element.isolateScope().save();
+
+      deferred.resolve(brand);
+      $scope.$digest();
+
+      expect(element.isolateScope().brand).toEqual(brand);
+    });
+  });
+});

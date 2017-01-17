@@ -53,19 +53,22 @@
 
                 <div layout="column" flex-gt-sm="100">
                   <md-input-container layout="row" flex class="md-block">
-                    <label for="urk">
-                      <translate>Web Address</translate>
+                    <label for="url" style="margin-bottom: 10px;">
+                      <translate>Dashboard Domain</translate>
                     </label>
-                    <input type="text" name="url" ng-blur="checkBrand()" ng-model="holding.url" placeholder="{{ 'Enter a URL for your dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" autofocus required>
+                    <input type="text" name="url" ng-blur="checkBrand()" ng-model="holding.url" placeholder="{{ 'my-wifi-dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" autofocus required>
                     <div ng-messages="myForm.url.$error">
-                      <div ng-message="required" translate>A web address is required.</div>
+                      <div ng-message="required" translate>A domain is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
                       <div ng-message="pattern" translate>Lowercase, letters only.</div>
                     </div>
-                    <p ng-hide="invalid_brand" class="hint" translate>
-                      Visit <b>https://{{ holding.url || 'my-great-dashboard' }}.ctapp.io</b> to sign-in
+                    <p ng-hide="invalid_brand || holding.url" class="hint" style="font-size: 14px;" translate>
+                      Letters, numbers and dashes only please
                     </p>
-                    <p ng-show="invalid_brand" style="color: rgb(221,44,0);" translate><small>Brand has already been taken, try again.</small></p>
+                    <p ng-hide="invalid_brand || !holding.url" class="hint" style="font-size: 14px;" translate>
+                      Visit <b>https://{{ holding.url || 'my-wifi-dashboard' }}.ctapp.io</b> to sign-in
+                    </p>
+                    <p ng-show="invalid_brand" style="color: rgb(221,44,0);" translate><small><b>Brand has already been taken, try again.</b></small></p>
                   </md-input-container>
 
 
@@ -95,7 +98,7 @@
                     <label for="address">
                       <translate>Username</translate>
                     </label>
-                    <input type="text" name="username" ng-model="holding.username" placeholder="Keith Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
+                    <input type="text" name="username" ng-model="holding.username" placeholder="Steve Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
                     <div ng-messages="myForm.url.$error">
                       <div ng-message="required" translate>A username is required.</div>
                       <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>

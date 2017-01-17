@@ -14,8 +14,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
   var link = function( scope, element, attrs ) {
 
     var id, locale;
-
-    // scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}, { key: 'Français', value: 'fr-FR'}, {key: 'Italiano', value: 'it'}, { key: 'Română', value: 'ro' }];
+    // Check git history to more vars;
     scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
@@ -40,12 +39,15 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
 
     scope.update = function(form) {
       form.$setPristine();
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      scope.user.plan = undefined;
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         if (locale !== results.locale) {
           console.log('Setting locale to', results.locale);
           Auth.currentUser().locale = results.locale;
-          $cookies.put('locale', results.locale)
-          //$route.reload();
+          $cookies.put('locale', results.locale);
           $window.location.reload();
         }
         showToast(gettextCatalog.getString('User successfully updated.'));
@@ -53,9 +55,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
         showErrors(err);
       });
     };
-
     init();
-
   };
 
   return {
@@ -106,7 +106,10 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
     scope.save = function(form) {
       form.$setPristine();
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
@@ -157,7 +160,10 @@ app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'sh
     DialogController.$inject = ['$scope', 'user'];
 
     var save = function(user) {
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         scope.user.coupon_code = undefined;
         scope.user.adding_coupon = results.adding_coupon;
       }, function(err) {
@@ -248,7 +254,10 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
     DialogController.$inject = ['$scope'];
 
     var save = function() {
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         scope.user.subscribing = true;
       }, function(err) {
         showErrors(err);
@@ -541,7 +550,10 @@ app.directive('userBillingSettings', ['User', '$routeParams', 'showToast', 'show
 
     scope.save = function(form) {
       form.$setPristine();
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Successfully updated details.'));
         if (results.currency !== currency) {
           $route.reload();
@@ -835,7 +847,7 @@ app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$loca
     if (chimp_token === '531543883634') {
       chimp_url = encodeURIComponent('http://my.ctapp.dev:9090/#/me/integrations/mailchimp');
     } else {
-      chimp_url = encodeURIComponent('https://dashboard.ctapp.io/#/me/integrations/mailchimp');
+      chimp_url = encodeURIComponent('https://my.ctapp.io/#/me/integrations/mailchimp');
     }
 
     scope.user = Auth.currentUser();
@@ -1001,7 +1013,6 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
     };
 
     function formatAlertTime() {
-
       var start, end;
 
       start = ('0' + scope.user.alerts_window_start).slice(-4);
@@ -1012,7 +1023,6 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
 
       scope.user.starttime = new Date(start);
       scope.user.endtime = new Date(end);
-
     }
 
     var formatDays = function() {
@@ -1030,7 +1040,10 @@ app.directive('userAlerts', ['$routeParams', '$location', 'User', 'Auth', 'showT
     scope.update = function(form) {
       formatTonyTime();
       form.$setPristine();
-      User.update({id: scope.user.slug, user: scope.user}).$promise.then(function(results) {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
@@ -1151,6 +1164,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       var hash  = {};
       hash.page = page;
       hash.per  = limit;
+      hash.q    = $routeParams.q;
       $location.search(hash);
     };
 
@@ -1219,14 +1233,14 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
     };
 
     var updateRole = function(user) {
-      BrandUser.update({
-        id: user.brand_user.id,
+      BrandUser.update({}, {
+        id: user.id,
         brand_user: {
           role_id: user.brand_user.role_id
         },
         brand_id: scope.brand.id
       }).$promise.then(function(results) {
-        showToast('User successfully revoked.');
+        showToast('User successfully updated.');
       }, function(err) {
         showErrors(err);
         scope.loading = undefined;

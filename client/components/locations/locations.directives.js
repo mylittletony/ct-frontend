@@ -19,7 +19,12 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
     };
 
     function updateLocation() {
-      Location.update({id: $routeParams.id, location: { favourite: scope.location.is_favourite }} ).$promise.then(function(results) {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
         var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
         showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
       }, function(err) {
@@ -48,6 +53,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
     menu.isOpenLeft = false;
     menu.isOpen = false;
+    menu.hideBurger = true;
     menu.sectionName = gettextCatalog.getString('Locations');
 
     if ($routeParams.user_id) {
@@ -235,6 +241,7 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
 
       function drawChart() {
 
+        // devices throws an error, check what the backend is sending and imp a fix SM
         var data = new window.google.visualization.DataTable();
         var devices = JSON.parse(results.periscope.devices);
         var uniques = JSON.parse(results.periscope.splash_uniques);
@@ -280,14 +287,12 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
     };
 
     var init = function() {
-      Report.periscope({v: 2}).$promise.then(function(results) {
+      Report.periscope({}, { v: 2, periscope: true }).$promise.then(function(results) {
         if (results && results.periscope) {
           chart(results);
         }
       });
-
     };
-
 
     init();
 
@@ -325,7 +330,12 @@ app.directive('changeLocationToken', ['Location', '$routeParams', 'showToast', '
     };
 
     function updateLocation() {
-      Location.update({id: $routeParams.id, location: { update_token: true }} ).$promise.then(function(results) {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          update_token: true
+        }
+      }).$promise.then(function(results) {
         scope.token = results.api_token;
         showToast(gettextCatalog.getString('Token successfully changed.'));
       }, function(err) {
@@ -980,12 +990,18 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
 
     var resyncBox = function(box) {
       box.state = 'processing';
-      Box.update({location_id: scope.location.slug, id: box.slug, box: { resync: true}}).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Access point resynced successfully.'));
+      Box.update({
+        location_id: scope.location.slug,
+        id: box.slug,
+        box: {
+          action: 'resync'
+        }
+      }).$promise.then(function(res) {
+        showToast(gettextCatalog.getString('Device resynced successfully.'));
       }, function(errors) {
         box.state = 'failed';
-        showToast(gettextCatalog.getString('Failed to resync box, please try again.'));
-        console.log('Could not resync box:', errors);
+        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
+        console.log('Could not resync device:', errors);
       });
     };
 
@@ -1059,7 +1075,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     var runCommand = function(command) {
       formatIds();
       if (selection.length > 0) {
-        Payload.create({
+        Payload.create({}, {
+          location_id: scope.location.slug,
           payload: {
             save:       command.save,
             box_ids:    selection,
@@ -1153,9 +1170,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
           // Loop through the zones so we can set the zone_id for display //
           for(var i = 0, l = $scope.selected.length; i < l; ++i){
             var n, id;
-            if ($scope.selected[i].metadata && $scope.selected[i].metadata.zone_name) {
+            if ($scope.selected[i].zone_name) {
               n  = $scope.selected[i].metadata.zone_name;
-              id = $scope.selected[i].metadata.zone_id;
+              id = $scope.selected[i].zone_id;
             } else {
               n = 'null';
               id = 'remove';
@@ -1211,10 +1228,10 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       // Loop through the selected boxes and update //
       for (i = 0, len = scope.selected.length; i < len; i++) {
         var box = scope.selected[i];
-        if (box.metadata === undefined) {
-          box.metadata = {};
-        }
-        box.metadata.zone_name = zone_name;
+        // if (box.metadata === undefined) {
+        //   box.metadata = {};
+        // }
+        box.zone_name = zone_name;
         box.zone_id = zone_id;
         updateZone(box);
       }
@@ -1267,8 +1284,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       });
     };
 
-    scope.online = 0;
     var countOnline = function() {
+      scope.online = 0;
       if (scope.boxes.length) {
         for (var i = 0, len = scope.boxes.length; i < len; i++) {
           if (scope.boxes[i].metadata) {
@@ -1286,12 +1303,16 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         channel = pusher.subscribe('private-' + attrs.token);
         console.log('Binding to:', channel.name);
         for( var i = 0; i < scope.boxes.length; ++i ) {
-          channel.bind('boxes_' + scope.boxes[i].pubsub_token, function(data) {
-            updateBox(data.message);
-          });
+          channelBind(i);
         }
       }
     }
+
+    var channelBind = function(i) {
+      channel.bind('boxes_' + scope.boxes[i].pubsub_token, function(data) {
+        updateBox(data.message);
+      });
+    };
 
     var updateBox = function(data) {
       data = JSON.parse(data);
@@ -1397,7 +1418,10 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
     this.update = function (myform) {
       // Doesn't work since we display the form via a template
       // myform.$setPristine();
-      Location.update({id: $scope.location.slug, location: $scope.location}, function(data) {
+      Location.update({}, {
+        id: $scope.location.slug,
+        location: $scope.location
+      }, function(data) {
         if (slug !== data.slug) {
           $location.path('/locations/' + data.slug + '/settings');
         }
@@ -1524,6 +1548,32 @@ app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 
 }]);
 
+app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
+
+  var link = function( scope, element, attrs, controller ) {
+
+
+    scope.update = function (form) {
+      controller.update(form);
+    };
+
+    scope.ctrl = {};
+    scope.ctrl.levels = [1,2,3];
+
+    scope.back = function() {
+      controller.back();
+    };
+
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/locations/settings/_security.html',
+    require: '^locationSettings'
+  };
+
+}]);
+
 app.directive('locationSettingsDevices', ['menu', function(menu) {
 
   var link = function( scope, element, attrs, controller ) {
@@ -1629,6 +1679,12 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       });
 
       scope.menu.push({
+        name: gettextCatalog.getString('Security'),
+        type: 'security',
+        icon: 'security'
+      });
+
+      scope.menu.push({
         name: gettextCatalog.getString('Splash'),
         type: 'splash',
         icon: 'web'
@@ -1663,25 +1719,28 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       switch(type) {
         case 'delete':
           destroy();
-        break;
-      case 'transfer':
-        transfer();
-      break;
-    case 'archive':
-      archive();
-    break;
-  case 'notifications':
-    notifications();
-  break;
-case 'devices':
-  devices();
-break;
+          break;
+        case 'transfer':
+          transfer();
+          break;
+        case 'archive':
+          archive();
+          break;
+        case 'security':
+          security();
+          break;
+        case 'notifications':
+          notifications();
+          break;
+        case 'devices':
+          devices();
+          break;
         case 'splash':
           splash();
-        break;
-      case 'analytics':
-        analytics();
-      break;
+          break;
+        case 'analytics':
+          analytics();
+          break;
       }
     };
 
@@ -1711,15 +1770,22 @@ break;
       if (state === false) {
         s = 'archived';
       }
-      Location.update({id: scope.location.slug, location: { state: s }}).$promise.then(function(results) {
+      Location.update({}, {
+        id: scope.location.slug,
+        location: {
+          state: s
+        }
+      }).$promise.then(function(results) {
         scope.location.archived = true;
         var msg;
         if (s === 'active') {
           menu.archived = false;
           msg = gettextCatalog.getString('Location successfully restored.');
+          menu.locationStateIcon = undefined;
         } else {
           menu.archived = true;
           msg = gettextCatalog.getString('Location successfully archived.');
+          menu.locationStateIcon = 'archived';
         }
         showToast(msg);
       }, function(err) {
@@ -1786,6 +1852,10 @@ break;
       }, function(err) {
         showErrors(err);
       });
+    };
+
+    var security = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/settings/security';
     };
 
     var notifications = function() {
@@ -1869,11 +1939,11 @@ app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Sho
     scope.loading = true;
 
     var init = function() {
-      Event.query({warning: true, per: 5}).$promise.then(function(results) {
-        scope.events            = results.events;
-        scope.loading           = undefined;
+      Event.query({object: 'box', level: 2, per: 5}).$promise.then(function(results) {
+        scope.events = results.events;
+        scope.loading = undefined;
       }, function(error) {
-        scope.loading           = undefined;
+        scope.loading = undefined;
       });
     };
 
@@ -2014,7 +2084,12 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
     };
 
     function updateLocation(id) {
-      Location.update({id: id, location: { favourite: false }} ).$promise.then(function(results) {
+      Location.update({}, {
+        id: id,
+        location: {
+          favourite: false
+        }
+      }).$promise.then(function(results) {
         removeFromList(id);
       }, function(err) {
         showErrors(err);

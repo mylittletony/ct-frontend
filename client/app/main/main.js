@@ -14,6 +14,7 @@ var app = angular.module('myApp', [
   'angularMoment',
   'ngMaterial',
   'md.data.table',
+  'luegg.directives',
   'minicolors',
   'pusher-angular',
   'config',
@@ -24,23 +25,66 @@ app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
   $compileProvider.debugInfoEnabled(DEBUG);
 }]);
 
-app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider', '$mdIconProvider', function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {
+app.config(['$locationProvider', function($locationProvider) {
+  $locationProvider.hashPrefix('');
+}]);
+
+app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES) {
+
+  var $cookies;
+  angular.injector(['ngCookies']).invoke(['$cookies', function(_$cookies_) {
+    $cookies = _$cookies_;
+  }]);
+
+  var theme = $cookies.get('_ctt');
+  var primary, accent;
+
+  if (theme !== undefined && theme !== null && theme !== '') {
+    var p = theme.split('.');
+    primary = p[0];
+    accent = p[1];
+  }
+
+  if (primary === undefined || primary === null || primary === 'undefined') {
+    primary = 'blue';
+  }
+
+  if (accent === undefined || accent === null || accent === 'undefined') {
+    accent = 'blue';
+  }
+
+  if (THEMES.indexOf(primary) === -1) {
+    primary = 'blue';
+  }
+
+  if (THEMES.indexOf(accent) === -1) {
+    primary = 'blue';
+  }
+
+  $mdThemingProvider.theme('default')
+    .primaryPalette(primary)
+    .accentPalette(accent, {
+      'default': '500',
+      'hue-1': '50'
+    });
+
+  if (THEMES.length > 0) {
+    for (var i = 0; i < THEMES.length; i++) {
+      $mdThemingProvider.theme(THEMES[i])
+        .primaryPalette(THEMES[i]);
+      // .accentPalette('orange')
+      // .warnPalette('blue');
+    }
+    $mdThemingProvider.alwaysWatchTheme(true);
+  }
+
+}]);
+
+app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
   $httpProvider.interceptors.push('httpRequestInterceptor');
 
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
-
-  var items = ['pink', 'orange', 'blue-grey', 'blue', 'red', 'green', 'yellow', 'teal', 'brown'];
-  var item = 'blue';
-
-  $mdThemingProvider.theme('default')
-    .primaryPalette(item, {
-      'hue-1': '100',
-    }).
-    accentPalette('blue', {
-      'default': '500',
-      'hue-1': '50'
-    });
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
@@ -81,12 +125,48 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     when('/404', {
       templateUrl: 'components/home/404.html',
     }).
-    when('/aes', {
-      templateUrl: 'components/app_events/index.html',
+    when('/brands', {
+      templateUrl: 'components/views/brands/index.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/aes/:id', {
-      templateUrl: 'components/app_events/show.html',
+    when('/brands/new', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/brands/new.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:brand_id', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/brands/show.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:brand_id/triggers', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/triggers/index.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:brand_id/triggers/new', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/triggers/edit.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/brands/:brand_id/triggers/:trigger_id', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/triggers/edit.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    // when('/brands/:brand_id/triggers/:trigger_id/edit', {
+    //   controller: 'BrandsController',
+    //   templateUrl: 'components/views/triggers/edit.html',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
+    // when('/brands/:id/settings', {
+    //   controller: 'BrandsController',
+    //   templateUrl: 'components/views/brands/settings/index.html',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
+    when('/brands/:brand_id/theme', {
+      controller: 'BrandsController',
+      templateUrl: 'components/views/brands/theme/index.html',
       resolve: { loginRequired: loginRequired },
     }).
     when('/apps', {
@@ -161,9 +241,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/create', {
       templateUrl: 'components/registrations/create.html',
-      controller: function($rootScope) {
-        $rootScope.$broadcast('intercom', {hi: 'simon'});
-      },
+      // controller: function($rootScope) {
+      //   $rootScope.$broadcast('intercom', {hi: 'simon'});
+      // },
       resolve: { loggedIn: loggedIn }
     }).
     when('/success', {
@@ -278,32 +358,32 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers', {
-      templateUrl: 'components/locations/triggers/index.html',
+      templateUrl: 'components/views/triggers/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/new', {
-      templateUrl: 'components/locations/triggers/new.html',
+      templateUrl: 'components/views/triggers/edit.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/:trigger_id', {
-      templateUrl: 'components/locations/triggers/show.html',
+      templateUrl: 'components/views/triggers/edit.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    when('/locations/:id/triggers/:trigger_id/edit', {
-      templateUrl: 'components/locations/triggers/edit.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
+    // when('/locations/:id/triggers/:trigger_id/edit', {
+    //   templateUrl: 'components/views/triggers/edit.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/locations/:id/triggers/:trigger_id/trigger_history', {
-      templateUrl: 'components/locations/triggers/history/index.html',
+      templateUrl: 'components/views/triggers/history/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/triggers/:trigger_id/trigger_history/:trigger_history_id', {
-      templateUrl: 'components/locations/triggers/history/show.html',
+      templateUrl: 'components/views/triggers/history/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
@@ -319,6 +399,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     }).
     when('/locations/:id/settings/notifications', {
       templateUrl: 'components/locations/settings/notifications.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/settings/security', {
+      templateUrl: 'components/locations/settings/security.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
@@ -459,6 +544,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/devices/:box_id/operations', {
+      templateUrl: 'components/views/operations/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/devices/:box_id/operations/:operation_id', {
+      templateUrl: 'components/views/operations/show.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/boxes/:box_id/versions', {
       redirectTo: '/locations/:id/devices/:box_id/versions',
     }).
@@ -547,11 +642,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/users/:id/branding', {
-      templateUrl: 'components/users/branding/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
+    // when('/users/:id/branding', {
+    //   templateUrl: 'components/users/branding/index.html',
+    //   controller: 'UsersShowController',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/users/:id/locations', {
       templateUrl: 'components/users/locations/index.html',
       controller: 'UsersShowController',
@@ -619,12 +714,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', '$mdThemingP
     $locationProvider.html5Mode(false);
 }]);
 
-app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope',
-  function($q, AccessToken, $rootScope) {
+app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_URL',
+  function($q, AccessToken, $rootScope, API_URL) {
+    var apiRegExp = new RegExp(API_URL + '\\S+', 'i');
     return {
       request: function(config){
         var token = AccessToken.get();
-        if (token) {
+        if ((token) && (apiRegExp.test(config.url))) {
           config.headers.Authorization = 'Bearer ' + token;
         }
         return config;

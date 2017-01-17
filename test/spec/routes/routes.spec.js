@@ -30,6 +30,27 @@ describe('Routing', function () {
       expect($route.routes['/downloads'].templateUrl).
                   toEqual('components/downloads/index.html');
 
+      expect($route.routes['/brands'].templateUrl).
+                  toEqual('components/views/brands/index.html');
+
+      expect($route.routes['/brands/:brand_id/triggers'].templateUrl).
+                  toEqual('components/views/triggers/index.html');
+
+      expect($route.routes['/brands/:brand_id/triggers/new'].templateUrl).
+                  toEqual('components/views/triggers/edit.html');
+
+      expect($route.routes['/brands/:brand_id/triggers/:trigger_id'].templateUrl).
+                  toEqual('components/views/triggers/edit.html');
+
+      expect($route.routes['/brands/:brand_id/theme'].templateUrl).
+                  toEqual('components/views/brands/theme/index.html');
+
+      expect($route.routes['/brands/new'].templateUrl).
+                  toEqual('components/views/brands/new.html');
+
+      expect($route.routes['/brands/:brand_id'].templateUrl).
+                  toEqual('components/views/brands/show.html');
+
       expect($route.routes['/locations/map'].templateUrl).
                   toEqual('components/locations/map/index.html');
 
@@ -80,26 +101,27 @@ describe('Routing', function () {
                   toEqual('components/events/show.html');
 
       expect($route.routes['/locations/:id/triggers'].templateUrl).
-                  toEqual('components/locations/triggers/index.html');
+                  toEqual('components/views/triggers/index.html');
 
       expect($route.routes['/locations/:id/triggers/new'].templateUrl).
-                  toEqual('components/locations/triggers/new.html');
+                  toEqual('components/views/triggers/edit.html');
 
       expect($route.routes['/locations/:id/triggers/:trigger_id'].templateUrl).
-                  toEqual('components/locations/triggers/show.html');
-
-      expect($route.routes['/locations/:id/triggers/:trigger_id/edit'].templateUrl).
-                  toEqual('components/locations/triggers/edit.html');
+                  toEqual('components/views/triggers/edit.html');
 
       expect($route.routes['/locations/:id/triggers/:trigger_id/trigger_history'].templateUrl).
-                  toEqual('components/locations/triggers/history/index.html');
+                  toEqual('components/views/triggers/history/index.html');
 
       expect($route.routes['/locations/:id/triggers/:trigger_id/trigger_history/:trigger_history_id'].templateUrl).
-                  toEqual('components/locations/triggers/history/show.html');
+                  toEqual('components/views/triggers/history/show.html');
 
       expect($route.routes['/locations/:id/settings'].controller).toBe('LocationsCtrl as lc');
       expect($route.routes['/locations/:id/settings'].templateUrl).
                   toEqual('components/locations/settings/index.html');
+
+      expect($route.routes['/locations/:id/settings/security'].controller).toBe('LocationsCtrl as lc');
+      expect($route.routes['/locations/:id/settings/security'].templateUrl).
+                  toEqual('components/locations/settings/security.html');
 
       expect($route.routes['/locations/:id/settings/notifications'].controller).toBe('LocationsCtrl as lc');
       expect($route.routes['/locations/:id/settings/notifications'].templateUrl).
@@ -187,10 +209,6 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/devices/:box_id/edit'].templateUrl).
                   toEqual('components/boxes/edit/index.html');
 
-      // expect($route.routes['/locations/:id/boxes/:box_id/port_forwards'].controller).toBe('PortForwardsCtrl');
-      // expect($route.routes['/locations/:id/boxes/:box_id/port_forwards'].templateUrl).
-      //             toEqual('components/boxes/port_forwards/index.html');
-
       expect($route.routes['/locations/:id/devices/:box_id/versions'].controller).toBe('LocationsCtrl as lc');
       expect($route.routes['/locations/:id/devices/:box_id/versions'].templateUrl).
                   toEqual('components/boxes/versions/index.html');
@@ -198,6 +216,14 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/devices/:box_id/payloads'].controller).toBe('LocationsCtrl as lc');
       expect($route.routes['/locations/:id/devices/:box_id/payloads'].templateUrl).
                   toEqual('components/boxes/payloads/index.html');
+
+      expect($route.routes['/locations/:id/devices/:box_id/operations'].controller).toBe('LocationsCtrl as lc');
+      expect($route.routes['/locations/:id/devices/:box_id/operations'].templateUrl).
+                  toEqual('components/views/operations/index.html');
+
+      expect($route.routes['/locations/:id/devices/:box_id/operations/:operation_id'].controller).toBe('LocationsCtrl as lc');
+      expect($route.routes['/locations/:id/devices/:box_id/operations/:operation_id'].templateUrl).
+                  toEqual('components/views/operations/show.html');
 
       expect($route.routes['/register'].templateUrl).
                   toEqual('components/registrations/index.html');
@@ -238,10 +264,6 @@ describe('Routing', function () {
       expect($route.routes['/me/integrations/:id'].controller).toBe('UsersIntegrationsController');
       expect($route.routes['/me/integrations/:id'].templateUrl).
                   toEqual('components/users/integrations/setup.html');
-
-      expect($route.routes['/users/:id/branding'].controller).toBe('UsersShowController');
-      expect($route.routes['/users/:id/branding'].templateUrl).
-                  toEqual('components/users/branding/index.html');
 
       expect($route.routes['/users/:id/locations'].controller).toBe('UsersShowController');
       expect($route.routes['/users/:id/locations'].templateUrl).

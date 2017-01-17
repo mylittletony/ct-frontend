@@ -32,6 +32,7 @@
               <th md-column md-order-by="ssid"><span>SSID</span></th>
               <th hide show-gt-sm md-column md-order-by="interface_ipaddr"><span translate>Network</span></th>
               <th hide show-gt-sm md-column md-order-by="access_type"><span translate>Type</span></th>
+              <th md-column hide show-gt-sm><span translate>Tags</span></th>
               <th hide show-gt-xs md-column md-order-by="captive_portal_enabled"><span translate>Splash</span></th>
               <th hide show-gt-md md-column><span translate>Zone</span></th>
               <th md-column ng-show="menu.length"><span translate>Action</span></th>
@@ -56,6 +57,17 @@
                   <md-tooltip ng-if="network.access_type != 'open'" >
                     {{ network.encryption_type }}
                   </md-tooltip>
+                </span>
+              </td>
+              <td hide show-gt-sm md-cell>
+                <span ng-if="network.tags && network.tags.length > 1">
+                  {{ network.tags.length }} tags
+                  <md-tooltip>
+                    {{ ::network.tags.join(", ") }}
+                  </md-tooltip>
+                </span>
+                <span ng-if="network.tags && network.tags.length <= 1">
+                  {{ ::network.tags.join(", ") || '-' }}
                 </span>
               </td>
               <td hide show-gt-xs md-cell>

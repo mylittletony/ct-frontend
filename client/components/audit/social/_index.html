@@ -11,7 +11,7 @@
           md-selected-item-change="selectedItemChange(item)"
           md-items="item in querySearch(searchText)"
           md-item-text="item._key"
-          md-min-length="5"
+          md-min-length="3"
           md-autofocus="true"
           md-menu-class="locations-autocomplete"
           placeholder="{{ 'Search' | translate }}">
@@ -36,6 +36,7 @@
       <br/>
     </form>
     <div flex></div>
+    <range-filter search="test()" ing-if="query.filter || query.start" ></range-filter>
   </div>
   <md-divider></md-divider>
 </md-toolbar>

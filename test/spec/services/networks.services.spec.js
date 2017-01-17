@@ -30,7 +30,7 @@ describe("Networks Unit Tests", function() {
     $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/345/networks/reset')
       .respond(200, {});
 
-    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/networks/888/radtest')
+    $httpBackend.when('POST', 'http://mywifi.dev:8080/api/v1/locations/345/networks/888/radtest')
       .respond(200, {});
 
     $httpBackend.whenGET('/translations/en_GB.json').respond("");
@@ -79,8 +79,8 @@ describe("Networks Unit Tests", function() {
   });
 
   it('should have sent a POST request to the networks radtest API', function() {
-    var result = Network.radtest({id: 888})
-    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/networks/888/radtest')
+    var result = Network.radtest({id: 888, location_id: 345})
+    $httpBackend.expectPOST('http://mywifi.dev:8080/api/v1/locations/345/networks/888/radtest')
     $httpBackend.flush();
   });
 

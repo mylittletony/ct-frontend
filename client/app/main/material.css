@@ -1,6 +1,4 @@
 /* Temp fixes to address */
-/* Temp fixes to address */
-
 .hidden { display: none; }
 
 .hard-break {
@@ -71,7 +69,10 @@ md-menu-content {
   max-height: 504px;
 }
 
-/* Temp fixes to address */
+.intercom-foot-pad {
+  padding-bottom: 70px;
+}
+
 /* Temp fixes to address */
 
 .ng-hide.ng-hide-animate{
@@ -204,15 +205,15 @@ md-sidenav.md-sidenav-right ul {
 .splash-design-buttons {
   top: auto;
   left: auto;
-  right: 20px;
+  right: 85px;
   bottom: 20px;
   position: fixed;
 }
 
 .md-button.md-fab.md-fab-bottom-right {
   top: auto;
-  right: 20px;
-  bottom: 20px;
+  right: 80px;
+  bottom: 16px;
   left: auto;
   position: fixed;
 }
@@ -223,8 +224,8 @@ md-sidenav.md-sidenav-right ul {
 
 .bottom-right {
   top: auto;
-  right: 20px;
-  bottom: 20px;
+  right: 90px;
+  bottom: 16px;
   left: auto;
   position: fixed;
 }
@@ -248,6 +249,10 @@ md-button-group > .md-button {
   border: 0;
   min-width: 20px;
   margin: 0;
+}
+
+.small-chart {
+  min-height: 250px;
 }
 
 .clients-charts md-card {
@@ -389,9 +394,6 @@ table tr td, table.print-friendly tr th {
 /* } */
 
 .copy {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
   color: #ccc;
   font-size: 90%;
 }
@@ -470,3 +472,90 @@ table tr td, table.print-friendly tr th {
   margin: 0 20px;
   opacity: 0.5;
 }
+
+[scroll-glue] {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  max-height: 90%;
+  top: 80px;
+  bottom: 100px;
+  left: 20px;
+  right: 0;
+}
+
+.message-small {
+  color: #c5c5c5;
+  font-size: 10px;
+}
+
+.message-small a {
+  color: #c5c5c5;
+  text-decoration: none;
+}
+
+.message-small .material-icons {
+  font-size: 18px;
+  color: #c5c5c5;
+}
+
+#messages-outer {
+
+}
+
+#message-list {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border-right: .25rem solid transparent;
+  padding: 20px 20px 80px 20px;
+}
+
+#message-footer {
+  position: fixed;
+  bottom: 0;
+  width: 75%;
+  background: #fff;
+}
+
+.message-inner {
+  border-bottom: 1px solid #f5f3f3;
+  padding: 10px 0;
+}
+
+#message-footer input {
+  font-size: 16px;
+  height: 20px;
+  outline-width: 1px;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 10px 0 10px 14px;
+  width: 99%;
+}
+
+.message-input input:focus {
+  outline-color: transparent;
+  outline-style: none;
+  text-transform: lowercase;
+}
+
+.message-notifier {
+  padding: 0 20px;
+}
+
+.triggers pre {
+  margin-top: -30px;
+}
+
+pre .list-unstyled {
+    list-style: none;
+    margin: 0px 0 -40px -40px;
+    line-height: 8px;
+}
+
+md-card.highlight-section {
+  background-color: #f4f8ff;
+}
+
+/* pre { */
+/*   text-space-collapse: trim-inner; */
+/* } */

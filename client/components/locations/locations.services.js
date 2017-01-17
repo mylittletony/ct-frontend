@@ -6,10 +6,6 @@ app.factory('LocationCache', [function() {
   return { location: {} };
 }]);
 
-// app.factory('Data', function() {
-//   return {};
-// });
-
 app.factory('Location', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
 
@@ -108,22 +104,22 @@ app.factory('Location', ['$resource', '$localStorage', 'API_END_POINT',
           action: 'watchers'
         }
       },
-      enable_sense: {
-        method: 'POST',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          action: 'sense'
-        }
-      },
-      disable_sense: {
-        method: 'DELETE',
-        isArray: false,
-        dataType: 'json',
-        params: {
-          action: 'sense'
-        }
-      },
+      // enable_sense: {
+      //   method: 'POST',
+      //   isArray: false,
+      //   dataType: 'json',
+      //   params: {
+      //     action: 'sense'
+      //   }
+      // },
+      // disable_sense: {
+      //   method: 'DELETE',
+      //   isArray: false,
+      //   dataType: 'json',
+      //   params: {
+      //     action: 'sense'
+      //   }
+      // },
       clone: {
         method: 'POST',
         isArray: false,
@@ -134,10 +130,7 @@ app.factory('Location', ['$resource', '$localStorage', 'API_END_POINT',
       },
       update: {
         method: 'PATCH',
-        isArray: false,
-        params: {
-          walledgardens: '@walledgardens'
-        }
+        isArray: false
       },
       stats: {
         method: 'GET',

@@ -27,17 +27,21 @@
   <form ng-submit="saveNetwork(network.id)" name="myForm" form_submitted autocomplete="off">
     <div flex>
       <md-card>
+        <div class="md-card-image" style="height: 5px; background-color: {{ color }}"></div>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
               Network Settings
             </span>
+            <span class="md-subhead" ng-if="network.captive_portal_enabled" translate>
+              A captive portal is enabled on this network.
+            </span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
-          <div layout-gt-sm="row">
+          <div layout-gt-sm="column" flex="100" flex-gt-sm="50">
             <input style="display:none" type="password" name="ssid"/>
-            <md-input-container class="md-block" flex-gt-sm="50">
+            <md-input-container class="md-block">
               <label>
                 <translate>Network SSID</translate>
               </label>
@@ -48,35 +52,53 @@
                 <div ng-message="pattern" translate>Invalid characters in SSID</div>
               </div>
             </md-input-container>
-          </div>
-          <div layout-gt-sm="row" ng-if="network.access_type == 'password'">
-            <input style="display:none" type="password" name="xxxn"/>
-            <md-input-container class="md-block" flex-gt-sm="50">
+            <span ng-if="network.access_type == 'password'">
+              <input style="display:none" type="password" name="xxxn"/>
+              <md-input-container class="md-block" flex-gt-sm="100">
+                <label>
+                  <translate>Password</translate>
+                </label>
+                <!-- Please leave with this name since it fixes the issue with onepass etc -->
+                <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="FilterPattern" required>
+                <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
+                  <div ng-message="md-maxlength" translate>Max 32 characters</div>
+                  <div ng-message="minlength" translate>Min 8 characters</div>
+                  <div ng-message="required" translate>You must set a password</div>
+                  <div ng-message="pattern" translate>Invalid characters in password</div>
+                </div>
+              </md-input-container>
+
+            </span>
+
+            <md-radio-group ng-model="network.access_type" layout="row">
+              <md-radio-button value="password" class="md-primary"><translate>Password</translate></md-radio-button>
+              <md-radio-button value="open"><translate>Open</translate></md-radio-button>
+              <md-radio-button value="radius"> 802.1x </md-radio-button>
+            </md-radio-group>
+
+            <md-input-container class="md-block" flex-gt-sm="100" style="margin: 40px 0 0 0;">
               <label>
-                <translate>Password</translate>
+                <translate>Tags</translate>
               </label>
-              <!-- Please leave with this name since it fixes the issue with onepass etc -->
-              <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="network.encryption_key" ng-pattern="FilterPattern" required>
-              <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
-                <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                <div ng-message="minlength" translate>Min 8 characters</div>
-                <div ng-message="required" translate>You must set a password</div>
-                <div ng-message="pattern" translate>Invalid characters in password</div>
+              <input ng-model="network.tags" name="tags" placeholder="{{ 'Network tags' | translate }}" type="text" ng-maxlength="255">
+              <div ng-messages="myForm.tags.$error">
+                <div ng-message="ng-maxlength" translate>Must be less than 255 chars.</div>
               </div>
             </md-input-container>
+
+            <small translate>Filter your network triggers and actions with tags.</small>
+
+            <!-- {{ network.captive_portal_enabled }} -->
+            <!-- <md-switch ng-disabled="network.vlan_id || !network.dhcp_enabled" class="md-accent" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;"> -->
+            <!--   <span  ng-if="network.captive_portal_enabled == true" translate>Splash Page Enabled</span> -->
+            <!--   <span  ng-if="network.captive_portal_enabled != true" translate>Splash Page Disabled</span> -->
+            <!-- </md-switch> -->
+            <!-- <small ng-show="network.dhcp_enabled == false"><b translate>Turn on DHCP server to enable the splash page</b></small> -->
+            <!-- <small ng-show="network.vlan_id"><b translate>Remove the VLAN ID to enable the splash page</b></small> -->
+            <!-- <small ng-hide="network.vlan_id || network.dhcp_enabled == false" translate>Some settings aren't compatible with splash pages.</small> -->
+
           </div>
-          <md-radio-group ng-model="network.access_type" layout="row">
-            <md-radio-button value="password" class="md-primary"><translate>Password</translate></md-radio-button>
-            <md-radio-button value="open"><translate>Open</translate></md-radio-button>
-            <md-radio-button value="radius"> 802.1x </md-radio-button>
-          </md-radio-group>
-          <md-switch ng-disabled="network.vlan_id || !network.dhcp_enabled" class="md-accent" ng-model="network.captive_portal_enabled" aria-label="{{ 'Captive Portal' | translate }}" style="padding-top: 20px;">
-            <span  ng-if="network.captive_portal_enabled == true" translate>Splash Page Enabled</span>
-            <span  ng-if="network.captive_portal_enabled != true" translate>Splash Page Disabled</span>
-          </md-switch>
-          <small ng-show="network.dhcp_enabled == false"><b translate>Turn on DHCP server to enable the splash page</b></small>
-          <small ng-show="network.vlan_id"><b translate>Remove the VLAN ID to enable the splash page</b></small>
-          <small ng-hide="network.vlan_id || network.dhcp_enabled == false" translate>Some settings aren't compatible with splash pages.</small>
+
         </md-card-content>
       </md-card>
 
@@ -230,7 +252,7 @@
         </md-card-title>
 
         <md-card-content layout="column" layout-gt-sm="row" ng-show="isOpen('radius')" id="radius" class="menu-toggle-list">
-          <div flex-gt-sm="40">
+          <div flex-gt-sm="100">
             <div layout="row" layout-wrap>
 
               <md-input-container class="md-block" flex="40">
@@ -319,6 +341,10 @@
               <md-switch class="md-accent" ng-disabled="!network.active" ng-model="network.ssid_hidden" aria-label="{{ 'Show Hide SSID' | translate }}" ng-false-value=true ng-true-value=false>
                 <span ng-show="network.ssid_hidden" translate>SSID Hidden</span>
                 <span ng-show="!network.ssid_hidden" translate>SSID Visible</span>
+              </md-switch>
+              <md-switch ng-disabled="!network.captive_portal_enabled" class="md-accent" ng-model="network.captive_portal_roaming" aria-label="{{ 'Splash Roaming' | translate }}">
+                <span  ng-if="network.captive_portal_roaming == true" translate>Splash Roaming Enabled</span>
+                <span  ng-if="network.captive_portal_roaming != true" translate>Splash Roaming Disabled</span>
               </md-switch>
               <md-switch class="md-accent" ng-model="network.isolate" aria-label="{{ 'Isolate SSID' | translate }} ">
                 <span ng-show="network.isolate" translate>Client Isolation Enabled</span>

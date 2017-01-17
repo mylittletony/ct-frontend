@@ -1,0 +1,310 @@
+<!-- Why can't we format this properly! -->
+<!-- Why can't we format this properly! -->
+
+<md-dialog aria-label="{{ 'Trigger Tags' | translate }}" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Dynamic Variables</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout-align="left left">
+        <p ng-non-bindable translate>These can be included wrapped in {{ }} brackets. For example.</p>
+        <p><pre ng-non-bindable translate>Hello {{ Username }}, your box {{ Ap_Mac }} went offline!</pre></p>
+          <div layout="row" layout-wrap  class="triggers">
+            <div flex="100" flex-gt-sm="40">
+              <p><b translate>Common tags</b></p>
+              <pre>
+                <ul class="list-unstyled">
+                  <li>Created_At</li>
+                  <li>Location_ID</li>
+                  <li>Location_Name</li>
+                  <li>Object</li>
+                  <li>Resource_ID</li>
+                  <li>Slug</li>
+                  <li>Trigger_Type</li>
+                </ul>
+              </pre>
+              <span ng-if="channel == 'email'">
+                <p><b translate>Email tags</b></p>
+                <pre>
+                  <ul class="list-unstyled">
+                    <li>Owner_Email</li>
+                    <li>Admin_Email</li>
+                    <li>Editor_Email</li>
+                    <li>Supporter_Email</li>
+                    <li>Observer_Email</li>
+                 </ul>
+                </pre>
+              </span>
+              <span ng-if="channel == 'webhook'">
+                <p><b translate>Webhook tags</b></p>
+                <pre>
+                  <ul class="list-unstyled">
+                    <li>Forward</li>
+                 </ul>
+                </pre>
+              </span>
+            </div>
+            <div flex></div>
+            <div flex="100" flex-gt-sm="40">
+              <p><b translate>{{ type | titleCase }} tags</b></p>
+              <!-- <span ng-show='type == "action"'> -->
+              <!--   <pre> -->
+              <!--   <ul class="list-unstyled"> -->
+              <!--      <li>Trigger_Type</li> -->
+              <!--    </ul> -->
+              <!--   </pre> -->
+              <!-- </span> -->
+              <span ng-show='type == "box"'>
+                <pre>
+                <ul class="list-unstyled">
+                   <li>Machine_Type</li>
+                   <li>Description</li>
+                   <li>Ap_Mac</li>
+                   <li>State</li>
+                   <li>Last_Heartbeat</li>
+                   <li>Wan_IP</li>
+                   <li>Public_IP</li>
+                   <li>Load</li>
+                   <li>Connected</li>
+                   <li>Short_URL</li>
+                   <li>Tags</li>
+                 </ul>
+                </pre>
+              </span>
+              <span ng-show='type == "client"'>
+                <pre>
+                <ul class="list-unstyled">
+                <li>ID</li>
+                <li>Manufacturer</li>
+                <li>Object</li>
+                <li>Resource_ID</li>
+                <li>Client_Mac</li>
+                <li>Ap_Mac</li>
+                <li>Slug</li>
+                <li>Description</li>
+                <li>Location_ID</li>
+                <li>Timestamp</li>
+                <li>Lastseen</li>
+                <li>Interface</li>
+                <li>Ssid</li>
+                <li>Inactive_Time</li>
+                <li>Signal</li>
+                <li>Signal_Avg</li>
+                <li>Noise</li>
+                <li>Snr</li>
+                <li>Authenticated</li>
+                <li>Associated</li>
+                <li>Authorized</li>
+                <li>Tx_Bitrate</li>
+                <li>Rx_Bitrate</li>
+                <li>Tx_Failed</li>
+                <li>Wmm</li>
+                <li>Mfp</li>
+                <li>Tdls</li>
+                <li>Preamble</li>
+                <li>ConnTime</li>
+                <li>Expected_Tput</li>
+                <li>Device_Name</li>
+                <li>IP</li>
+                <li>Capabilities</li>
+                <li>Channel</li>
+                <li>Bitrate</li>
+                <li>Quality</li>
+                <li>Quality_Max</li>
+                <li>Splash_Connected</li>
+                <li>Splash_Username</li>
+                <li>Splash_Session</li>
+                <li>Splash_Status</li>
+                <li>First_Seen</li>
+                <li>Created_At</li>
+                <li>Updated_At</li>
+                <li>Conn_Type</li>
+                <li>Online</li>
+                <li>Mcs</li>
+                <li>Tx_Retries</li>
+                <li>Rx_Retries</li>
+                <li>Tx_Bytes</li>
+                <li>Rx_Bytes</li>
+                <li>Distance</li>
+                </ul>
+                </pre>
+              </span>
+              <span ng-if='type == "email"'>
+                <pre>
+                <ul class="list-unstyled">
+                 <li>Location_Name</li>
+                 <li>Email</li>
+                </pre>
+              </span>
+              <span ng-if='type == "guest"'>
+                <pre>
+                <ul class="list-unstyled">
+                 <li>Splash_ID</li>
+                 <li>Metadata</li>
+                 <li>Email</li>
+                 <li>Username</li>
+                </pre>
+              </span>
+              <span ng-if='type == "location"'>
+                <pre>
+                <ul class="list-unstyled">
+                  <li>ID</li>
+                  <li>Object</li>
+                  <li>Resource_ID</li>
+                  <li>Location_Name</li>
+                  <li>Unique_ID</li>
+                  <li>Created_At</li>
+                  <li>Updated_At</li>
+                  <li>Location_Address</li>
+                  <li>Street</li>
+                  <li>Postcode</li>
+                  <li>Town</li>
+                  <li>Country</li>
+                  <li>Website</li>
+                  <li>State</li>
+                  <li>Archived</li>
+                  <li>Slug</li>
+                  <li>Development_Mode</li>
+                  <li>Public_Location</li>
+                  <li>Description</li>
+                  <li>Timezone</li></li>
+                  <li>Brand_ID</li>
+                  <li>Short</li>
+                  <li>Network_Location</li>
+                  <li>Project_ID</li>
+                  <li>Security_Level</li>
+                  <li>Authorized_IPs</li>
+                  <li>Network_Country</li>
+                </ul>
+                </pre>
+              </span>
+
+              <span ng-if='type == "network"'>
+                <pre>
+                <ul class="list-unstyled">
+                 <li>Location_Name</li>
+                 <li>Ssid</li>
+                 <li>Encryption</li>
+                 <li>Access_Type</li>
+                 <li>Captive_Portal</li>
+                </pre>
+              </span>
+
+              <span ng-if='type == "rogue"'>
+                <pre>
+                <ul class="list-unstyled">
+                   <li>Request_IP</li>
+                   <li>Mac</li>
+                   <li>Type</li>
+                   <li>Version</li>
+                   <li>Message</li>
+                   <li>Firmware</li>
+                 </ul>
+                </pre>
+              </span>
+
+              <span ng-if='type == "splash"'>
+                <pre>
+                <ul class="list-unstyled">
+                 <li>ID</li>
+                 <li>Splash_Name</li>
+                 <li>Unique_ID</li>
+                 <li>Password</li>
+                 </ul>
+                </pre>
+              </span>
+
+              <span ng-if='type == "social"'>
+                <pre>
+                <ul class="list-unstyled">
+                 <li>Email</li>
+                 <li>First_Name</li>
+                 <li>Last_Name</li>
+                 <li>Gender</li>
+                 <li>Facebook_Id</li>
+                 <li>Linkedin_Id</li>
+                 <li>Google_Id</li>
+                 </ul>
+                </pre>
+              </span>
+
+              <span ng-if='type == "trigger"'>
+                <pre>
+                <ul class="list-unstyled">
+                 <li>Trigger_Name</li>
+                 <li>Location_Name</li>
+                 <li>Resource_ID</li>
+                 <li>Fail_Count</li>
+                 </ul>
+                </pre>
+              </span>
+
+              <span ng-if='type == "voucher"'>
+                <pre>
+                <ul class="list-unstyled">
+                <li>ID</li>
+                <li>Created_At</li>
+                <li>Updated_At</li>
+                <li>Active</li>
+                <li>Quantity</li>
+                <li>Length</li>
+                <li>Location_ID</li>
+                <li>Unique_ID</li>
+                <li>Batch_Name</li>
+                <li>Batch_Description</li>
+                <li>Limit_Type</li>
+                <li>Splash_Page_ID</li>
+                <li>Validity_Minutes</li>
+                <li>Session_Timeout</li>
+                <li>Idle_Timeout</li>
+                <li>Download_Speed</li>
+                <li>Upload_Speed</li>
+                <li>Simultaneous_Use</li>
+                <li>Voucher_Format</li>
+                <li>Location_Name</li>
+                <li>Private_Key</li>
+                <li>Download_PDF</li>
+                <li>Download_CSV</li>
+                </ul>
+                </pre>
+              </span>
+              <span ng-if='type == "user"'>
+                <pre>
+                <ul class="list-unstyled">
+                  <li>Location_Name</li>
+                  <li>Username</li>
+                  <li>Email</li>
+                  <li>Inviter_Username</li>
+                  <li>Inviter_Email</li>
+                 </ul>
+                </pre>
+              </span>
+              <span ng-if='type == "zone"'>
+                <pre>
+                <ul class="list-unstyled">
+                  <li>Location_Name</li>
+                  <li>Zone_Name</li>
+                  <li>Networks</li>
+                 </ul>
+                </pre>
+              </span>
+            </div>
+          </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+        CLOSE
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
+<!-- Why can't we format this properly! -->
+<!-- Why can't we format this properly! -->
