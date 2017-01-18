@@ -67,7 +67,7 @@ app.directive('listTriggers', ['Trigger', 'BrandTrigger', '$routeParams', '$root
       scope.menu = [];
 
       scope.menu.push({
-        name: gettextCatalog.getString('View'),
+        name: gettextCatalog.getString('Edit'),
         icon: 'settings',
         type: 'view'
       });

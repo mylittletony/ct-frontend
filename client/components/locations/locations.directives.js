@@ -828,7 +828,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'Payload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, Payload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -1072,26 +1072,30 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       });
     };
 
+    var createPayload = function(ids, command) {
+      LocationPayload.create({}, {
+        location_id: scope.location.slug,
+        payload: {
+          save:       command.save,
+          box_ids:    ids,
+          command_id: command.selected,
+          upgrade:    command.upgrade
+        }
+      }).$promise.then(function() {
+        closeDialog();
+        selection = [];
+        scope.selected = [];
+        showToast(gettextCatalog.getString('Payload sent successfully.'));
+      }, function(errors) {
+        closeDialog();
+        showToast(gettextCatalog.getString('Payload could not be sent.'));
+      });
+    };
+
     var runCommand = function(command) {
       formatIds();
       if (selection.length > 0) {
-        Payload.create({}, {
-          location_id: scope.location.slug,
-          payload: {
-            save:       command.save,
-            box_ids:    selection,
-            command_id: command.selected,
-            upgrade:    command.upgrade
-          }
-        }).$promise.then(function() {
-          closeDialog();
-          selection = [];
-          scope.selected = [];
-          showToast(gettextCatalog.getString('Payload sent successfully.'));
-        }, function(errors) {
-          closeDialog();
-          showToast(gettextCatalog.getString('Payload could not be sent.'));
-        });
+        createPayload(selection, command);
       } else {
         closeDialog();
       }
