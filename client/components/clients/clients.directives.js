@@ -424,9 +424,10 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       scope.promise = deferred.promise;
       var params = getParams();
       Client.query(params).$promise.then(function(results) {
-        scope.clients = results.clients;
-        scope.info    = results.info;
-        scope._links  = results._links;
+        scope.clients     = results.clients;
+        scope.info        = results.info;
+        scope._links      = results._links;
+        scope.unique_aps  = results.unique_aps;
         // loadPusher(scope.location.api_token);
         // poll();
         deferred.resolve();
