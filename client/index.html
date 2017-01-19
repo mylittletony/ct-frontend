@@ -222,7 +222,7 @@
               <div class="sidenav md-toolbar-tools">
                 <h2 class="menu-heading menu-subhead">
                 <span>
-                  <md-icon ng-hide="vm.menu.locationStateIcon == undefined" class=".md-default-theme md-warn">{{vm.menu.locationStateIcon}}</md-icon>
+                  <md-icon ng-if="vm.menu.locationStateIcon !== undefined" class=".md-default-theme md-warn">{{vm.menu.locationStateIcon}}</md-icon>
                   <md-tooltip md-direction="bottom">
                     <span ng-if="vm.menu.locationStateIcon == 'archived'">
                       This location has been archived
