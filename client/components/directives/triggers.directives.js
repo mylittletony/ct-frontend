@@ -289,30 +289,30 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     ];
 
     scope.hours = [
-      { key: '12AM', value: '00' },
-      { key: '01AM', value: '01' },
-      { key: '02AM', value: '02' },
-      { key: '03AM', value: '03' },
-      { key: '04AM', value: '04' },
-      { key: '05AM', value: '05' },
-      { key: '06AM', value: '06' },
-      { key: '07AM', value: '07' },
-      { key: '08AM', value: '08' },
-      { key: '09AM', value: '09' },
-      { key: '10AM', value: '10' },
-      { key: '11AM', value: '11' },
-      { key: '12PM', value: '12' },
-      { key: '1PM', value: '13' },
-      { key: '2PM', value: '14' },
-      { key: '3PM', value: '15' },
-      { key: '4PM', value: '16' },
-      { key: '5PM', value: '17' },
-      { key: '6PM', value: '18' },
-      { key: '7PM', value: '19' },
-      { key: '8PM', value: '20' },
-      { key: '9PM', value: '21' },
-      { key: '10PM', value: '22' },
-      { key: '11PM', value: '23' },
+      { key: '12AM', value: 0 },
+      { key: '01AM', value: 1 },
+      { key: '02AM', value: 2 },
+      { key: '03AM', value: 3 },
+      { key: '04AM', value: 4 },
+      { key: '05AM', value: 5 },
+      { key: '06AM', value: 6 },
+      { key: '07AM', value: 7 },
+      { key: '08AM', value: 8 },
+      { key: '09AM', value: 9 },
+      { key: '10AM', value: 10 },
+      { key: '11AM', value: 11 },
+      { key: '12PM', value: 12 },
+      { key: '1PM', value: 13 },
+      { key: '2PM', value: 14 },
+      { key: '3PM', value: 15 },
+      { key: '4PM', value: 16 },
+      { key: '5PM', value: 17 },
+      { key: '6PM', value: 18 },
+      { key: '7PM', value: 19 },
+      { key: '8PM', value: 20 },
+      { key: '9PM', value: 21 },
+      { key: '10PM', value: 22 },
+      { key: '11PM', value: 23 },
     ];
 
     scope.mins = [
@@ -331,8 +331,8 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var formatTonyTime = function() {
-      scope.trigger.start_hour = scope.trigger.starttime + "00";
-      scope.trigger.end_hour = scope.trigger.endtime + "00";
+      scope.trigger.start_hour = scope.trigger.starttime;
+      scope.trigger.end_hour = scope.trigger.endtime;
     };
 
     var createMenu = function() {
@@ -653,7 +653,6 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       start = ('0' + scope.trigger.start_hour).slice(-4);
       end   = ('0' + scope.trigger.end_hour).slice(-4);
       start = moment(start, 'HH');
-      console.log(start);
       end = moment(end, 'HH');
       scope.trigger.starttime = new Date(start);
       scope.trigger.endtime = new Date(end);
