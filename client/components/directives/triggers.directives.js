@@ -302,15 +302,15 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       { key: '10AM', value: 10 },
       { key: '11AM', value: 11 },
       { key: '12PM', value: 12 },
-      { key: '1PM', value: 13 },
-      { key: '2PM', value: 14 },
-      { key: '3PM', value: 15 },
-      { key: '4PM', value: 16 },
-      { key: '5PM', value: 17 },
-      { key: '6PM', value: 18 },
-      { key: '7PM', value: 19 },
-      { key: '8PM', value: 20 },
-      { key: '9PM', value: 21 },
+      { key: '01PM', value: 13 },
+      { key: '02PM', value: 14 },
+      { key: '03PM', value: 15 },
+      { key: '04PM', value: 16 },
+      { key: '05PM', value: 17 },
+      { key: '06PM', value: 18 },
+      { key: '07PM', value: 19 },
+      { key: '08PM', value: 20 },
+      { key: '09PM', value: 21 },
       { key: '10PM', value: 22 },
       { key: '11PM', value: 23 },
     ];
@@ -328,11 +328,6 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     scope.resetTypes = function() {
       scope.trigger.trigger_type = undefined;
       scope.trigger.channel = undefined;
-    };
-
-    var formatTonyTime = function() {
-      scope.trigger.start_hour = scope.trigger.starttime;
-      scope.trigger.end_hour = scope.trigger.endtime;
     };
 
     var createMenu = function() {
@@ -471,7 +466,6 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     scope.save = function(form) {
       form.$setPristine();
       setCustomName();
-      formatTonyTime();
       formatCronTime();
       if (scope.trigger.id) {
         update();

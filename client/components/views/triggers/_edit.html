@@ -879,8 +879,8 @@
                   <label>
                     <translate>Start</translate>
                   </label>
-                  <md-select ng-model="trigger.starttime">
-                    <md-option ng-repeat="hour in hours" value="{{ hour.value }}" ng-selected="{{ (hour.value === trigger.start_hour) }}">
+                  <md-select ng-model="trigger.start_hour">
+                    <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
                       {{ hour.key }}
                     </md-option>
                   </md-select>
@@ -889,8 +889,8 @@
                   <label>
                     <translate>End</translate>
                   </label>
-                  <md-select ng-model="trigger.endtime">
-                    <md-option ng-repeat="hour in hours" value="{{ hour.value }}" ng-selected="{{ (hour.value === trigger.end_hour) }}">
+                  <md-select ng-model="trigger.end_hour">
+                    <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
                       {{ hour.key }}
                     </md-option>
                   </md-select>
@@ -898,7 +898,7 @@
               </div>
             </span>
 
-            <small class="muted" style="font-size: 75%;" translate>Set the start and end hours to zero to get alerts all day.</small>
+            <small class="muted" style="font-size: 75%;" translate>Triggers will run all day if you set Start and End to 12am.</small>
 
             <span ng-show="brand.id">
               <md-switch ng-model="trigger.template" aria-label="Switch">
