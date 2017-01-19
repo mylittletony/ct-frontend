@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-10-19 13:06+0200\n"
+"PO-Revision-Date: 2017-01-17 02:32+0100\n"
 "Last-Translator: Thomas Molkenbur <thomas.molkenbur@devolo.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: client/components/locations/boxes/_table.html:46
 #: client/components/users/invoices/_details.html:106
@@ -18,9 +18,8 @@ msgid "&nbsp; Name"
 msgstr "&nbsp; Name"
 
 #: client/components/locations/users/_revoke.html:17
-#, fuzzy
 msgid "&nbsp;This will remove the user from all your locations!"
-msgstr "Hiermit wird der Benutzer aus allen Standorten entfernt!"
+msgstr "&nbsp;Hierdurch wird der Benutzer von allen Ihren Standorten entfernt!"
 
 #: client/components/audit/sessions/_index.html:66
 msgid ""
@@ -68,9 +67,8 @@ msgstr "(Keine Dienstleistungsvereinbarung) "
 #: client/components/views/triggers/_edit.html:614
 #: client/components/views/triggers/_edit.html:635
 #: client/components/views/triggers/_edit.html:651
-#, fuzzy
 msgid "*Only available for brand triggers."
-msgstr "Alle verfügbaren Kanäle"
+msgstr "* Nur verfügbar für Brand-Trigger."
 
 #: client/components/locations/boxes/_table.html:119
 msgid ". Static IP: {{ ::box.wan_ipaddr }}"
@@ -82,11 +80,10 @@ msgid "0 TBC"
 msgstr "0 zu bestätigen"
 
 #: client/components/views/brands/_index.html:51
-#, fuzzy
 msgid "1 Brand"
 msgid_plural "{{ ::_links.total_entries }} Brands"
-msgstr[0] "Branding"
-msgstr[1] "Branding"
+msgstr[0] "1 Brand"
+msgstr[1] "{{ ::_links.total_entries }} Brands"
 
 #: client/components/locations/boxes/_table.html:9
 msgid "1 Client Online."
@@ -397,6 +394,9 @@ msgid ""
 "Please connect your device to a working Internet connection. It will "
 "initialise automatically."
 msgstr ""
+"<b ng-if=\"!box.last_heartbeat\">Dieses Gerät hat sich noch nicht gemeldet.</"
+"b> Bitte schließen Sie Ihr Gerät an eine funktionierende Internetverbindung. "
+"Es wird automatisch initialisiert."
 
 #: client/components/views/brands/_show.html:158
 msgid ""
@@ -404,6 +404,10 @@ msgid ""
 "                    Disable all outbound email alerts! Brand and location "
 "triggers will continue to send. Premium only."
 msgstr ""
+"<md-icon md-font-icon=\"android\" aria-label=\"android\">star</md-icon>\n"
+"                    Alle ausgehenden E-Mails auschalten! Brand- und "
+"standortbezogene Trigger werden weiterhin funktionieren. Nur im Premium-"
+"Tarif verfügbar."
 
 #: client/components/users/billing/_index.html:55
 msgid ""
@@ -414,10 +418,10 @@ msgstr ""
 "                  Enterprise-Kunde"
 
 #: client/components/registrations/_flow.html:71
-#, fuzzy
 msgid "<small><b>Brand has already been taken, try again.</b></small>"
 msgstr ""
-"<small>Brand existiert bereits, bitte versuchen Sie es noch einmal.</small>"
+"<small><b>Brand existiert bereits, bitte versuchen Sie es noch einmal.</b></"
+"small>"
 
 #: client/components/vouchers/_form.html:95
 msgid ""
@@ -432,6 +436,8 @@ msgid ""
 "<small>The accent colour applies to some text and buttons. The primary "
 "colour updates your dashboard header and important text.</small>"
 msgstr ""
+"<small>Die Akzentfarbe gilt für Text und Schaltflächen. Die Grundfarbe "
+"ändert Ihren Dashboard-Header und wichtigen Text.</small>"
 
 #: client/components/views/triggers/_edit.html:31
 msgid ""
@@ -439,6 +445,10 @@ msgid ""
 "                <span ng-if=\"trigger.id\" translate=\"\">{{ trigger."
 "trigger_name }} Trigger</span>"
 msgstr ""
+"<span ng-if=\"!trigger.id\" translate=\"\">Benennen Sie Ihren Trigger</"
+"span>\n"
+"                <span ng-if=\"trigger.id\" translate=\"\">{{ trigger."
+"trigger_name }} Trigger</span>"
 
 #: client/components/views/triggers/list.html:75
 msgid ""
@@ -446,6 +456,10 @@ msgid ""
 "                      <span ng-if=\"!trigger.active\" translate=\"\">Trigger "
 "disabled</span>"
 msgstr ""
+"<span ng-if=\"trigger.active\" translate=\"\">Trigger ist eingeschaltet</"
+"span>\n"
+"                      <span ng-if=\"!trigger.active\" translate=\"\">Trigger "
+"ist ausgeschaltet</span>"
 
 #: client/components/views/triggers/_edit.html:765
 msgid ""
@@ -458,6 +472,13 @@ msgid ""
 "runs.\n"
 "                  </span>"
 msgstr ""
+"<span ng-if=\"trigger.trigger_event == 'notify'\">\n"
+"                    Über diesen Kanal werden Sie benachrichtigt.\n"
+"                  </span>\n"
+"                  <span ng-if=\"trigger.trigger_event == 'action'\">\n"
+"                    Eine Benachrichtigung an diesen Kanal senden, nachdem "
+"die Aktion abgeschlossen wurde.\n"
+"                  </span>"
 
 #: client/components/splash_pages/splash_pages.directives.js:1115
 msgid "A 24 hour voucher, for up to 3 devices. Valid for one 24 hour period."
@@ -485,9 +506,8 @@ msgid "A WAN metric is required"
 msgstr "Eine WAN-Metrik ist erforderlich"
 
 #: client/components/locations/networks/_show.html:36
-#, fuzzy
 msgid "A captive portal is enabled on this network."
-msgstr "Umgeht das Captive Portal für alle Netzwerke mit Startseiten."
+msgstr "Eine Startseite ist für dieses Netzwerk eingeschaltet."
 
 #: client/components/registrations/_create.html:13
 msgid "A confirmation has been sent to your email"
@@ -508,9 +528,8 @@ msgid "A description is required."
 msgstr "Bitte eine Beschreibung eingeben."
 
 #: client/components/registrations/_flow.html:61
-#, fuzzy
 msgid "A domain is required."
-msgstr "Bitte geben Sie dem Standort einen Namen."
+msgstr "Eine Domäne ist erforderlich."
 
 #: client/components/boxes/show/_index.html:289
 msgid "A firmware upgrade is available."
@@ -584,9 +603,8 @@ msgid "API secret required when using your own App."
 msgstr "API-Geheimnis erforderlich, wenn Sie Ihre eigene App zu verwenden."
 
 #: client/components/views/brands/theme/_index.html:31
-#, fuzzy
 msgid "Accent Colour"
-msgstr "Schriftfarbe"
+msgstr "Akzentfarbe"
 
 #: client/components/users/users.controllers.js:108
 msgid "Access"
@@ -698,19 +716,17 @@ msgstr ""
 "Installation abzuschließen."
 
 #: client/components/views/triggers/_edit.html:686
-#, fuzzy
 msgid "Action Settings"
-msgstr "Benachrichtigungs-Einstellungen"
+msgstr "Einstellungen für Aktion"
 
 #: client/components/views/triggers/_edit.html:676
 msgid "Action triggers not available for {{ trigger.type }}s"
-msgstr ""
+msgstr "Keine Aktion für den Trigger {{ trigger.type }} verfügbar."
 
 #: client/components/directives/triggers.directives.js:266
 #: client/components/events/events.directives.js:51
-#, fuzzy
 msgid "Actions"
-msgstr "Aktion "
+msgstr "Aktionen"
 
 #: client/components/codes/_index.html:46
 #: client/components/locations/clients/_show_code.html:39
@@ -759,9 +775,8 @@ msgid "Add Box"
 msgstr "Gerät hinzufügen"
 
 #: client/components/views/brands/_index.html:5
-#, fuzzy
 msgid "Add Brand"
-msgstr "Gerät hinzufügen"
+msgstr "Brand hinzufügen"
 
 #: client/components/views/clients/_create.html:5
 msgid "Add Client"
@@ -846,9 +861,8 @@ msgid "Add a new app."
 msgstr "Eine neue App hinzufügen."
 
 #: client/components/views/brands/_index.html:8
-#, fuzzy
 msgid "Add a new brand."
-msgstr "Eine neue App hinzufügen."
+msgstr "Einen neuen Brand hinzufügen."
 
 #: client/components/locations/show/_index.html:13
 msgid "Add a new device."
@@ -929,9 +943,8 @@ msgid "Address"
 msgstr "Adresse"
 
 #: client/components/views/brands/_index.html:31
-#, fuzzy
 msgid "Adjust the default settings, colours and more."
-msgstr "Globale Einstellungen für Ihre Geräte anpassen."
+msgstr "Ändern der Standard-Einstellungen, Farben und mehr."
 
 #: client/components/locations/settings/_splash.html:11
 msgid "Adjust the general settings for your splash pages."
@@ -947,7 +960,7 @@ msgstr "E-Mail und Benachrichtigungs-Einstellungen anpassen."
 
 #: client/components/views/brands/_show.html:255
 msgid "Admin Quota"
-msgstr ""
+msgstr "Anzahl der Administratoren"
 
 #: client/components/locations/users/_index.html:23
 #: client/components/locations/users/_index.html:6
@@ -996,9 +1009,8 @@ msgid "Albania"
 msgstr "Albanien"
 
 #: client/components/events/events.directives.js:72
-#, fuzzy
 msgid "Alert"
-msgstr "Warnungen"
+msgstr "Warnung"
 
 #: client/components/locations/show/_dashing.html:48
 msgid "Alerting Devices"
@@ -1343,9 +1355,8 @@ msgstr "Authorisierung {{ ::type }}, bitte warten."
 
 #: client/components/views/triggers/_edit.html:847
 #: client/components/views/triggers/_edit.html:849
-#, fuzzy
 msgid "Authorized IPs"
-msgstr "Bevollmächtigen"
+msgstr "Berechtigte IP-Adressen"
 
 #: client/components/splash_pages/access-password.html:32
 msgid "Auto Password Change Enabled"
@@ -1448,9 +1459,8 @@ msgid "Back to Location"
 msgstr "Zurück zu Standorten"
 
 #: client/components/views/operations/_show.html:6
-#, fuzzy
 msgid "Back to Operations"
-msgstr "Zurück zu Standorten"
+msgstr "Zurück zu Operationen"
 
 #: client/components/audit/sales/_show.html:7
 msgid "Back to Orders"
@@ -1691,9 +1701,8 @@ msgid "Box Port Forwards"
 msgstr "Geräte-Port-Weiterleitungen"
 
 #: client/components/views/brands/_show.html:246
-#, fuzzy
 msgid "Box Quota"
-msgstr "Gemeinsame Schlagwörter"
+msgstr "Anzahl der Geräte"
 
 #: client/components/directives/zones.directives.js:104
 msgid "Box successfully added to zone."
@@ -1714,9 +1723,8 @@ msgid "Box successfully {{val}}."
 msgstr "Gerät erfolgreich {{val}}."
 
 #: client/components/boxes/edit/_edit.html:67
-#, fuzzy
 msgid "Box tags"
-msgstr "Gemeinsame Schlagwörter"
+msgstr "Geräte-Schlagwörter"
 
 #: client/components/boxes/boxes.directives.js:363
 msgid "Box transferred successfully."
@@ -1757,9 +1765,8 @@ msgid "Brand Role"
 msgstr "Brand-Rolle"
 
 #: client/components/views/brands/_show.html:59
-#, fuzzy
 msgid "Brand Settings"
-msgstr "Erweiterte Einstellungen"
+msgstr "Brand-Einstellungen"
 
 #: client/components/locations/locations.filters.js:262
 msgid "Brand Super"
@@ -1774,6 +1781,13 @@ msgid ""
 "               <!-- <a href=\"\" ng-click=\"dismissTrigger()\">Dismiss</a>. "
 "-->"
 msgstr ""
+"Brand-Trigger funktionieren etwas anders als gewöhnliche Trigger. Sie werden "
+"verwendet, um Benachrichtigungen über Ereignisse innerhalb Ihres Brands zu "
+"informieren.  Sie können <strong>Vorlagen hinzufügen</strong>, die für neue "
+"Standorte als Standard-Trigger erstellt werden. Lesen Sie weitere Details "
+"dazu in der Dokumentation.\n"
+"               <!-- <a href=\"\" ng-click=\"dismissTrigger()\">Verbergen</"
+"a>. -->"
 
 #: client/components/locations/users/_revoke.html:13
 msgid ""
@@ -1792,9 +1806,8 @@ msgstr "Branding"
 #: client/app/main/main.controllers.js:398
 #: client/components/brands/brands.directives.js:11
 #: client/components/brands/brands.directives.js:62
-#, fuzzy
 msgid "Brands"
-msgstr "Branding"
+msgstr "Brands"
 
 #: client/components/main/main.directives.js:142
 msgid "Brazil"
@@ -1932,7 +1945,7 @@ msgstr "ABBRUCH"
 
 #: client/components/views/brands/_index.html:62
 msgid "CNAME"
-msgstr ""
+msgstr "CNAME"
 
 #: client/components/boxes/show/_toast_reset_confirm.html:7
 #: client/components/locations/locations.directives.js:1760
@@ -2060,7 +2073,7 @@ msgstr "Stornieren, bitte warten."
 
 #: client/components/views/triggers/_edit.html:139
 msgid "Cannot be changed once created."
-msgstr ""
+msgstr "Kann nach der Erstellung nicht mehr geändert werden."
 
 #: client/components/boxes/show/_health_modal.html:65
 msgid "Cannot communicate with Cucumber Tony. Please reboot."
@@ -2200,12 +2213,10 @@ msgid "Channel"
 msgstr "Kanal"
 
 #: client/components/views/triggers/channel-slack.html:28
-#, fuzzy
 msgid "Channel Override (Optional)"
-msgstr "Benutzername (optional)"
+msgstr "Kanal überschreiben (Optional)"
 
 #: client/components/boxes/show/_index.html:260
-#, fuzzy
 msgid "Channel(s)"
 msgstr "Kanal"
 
@@ -2276,13 +2287,12 @@ msgstr ""
 "\"fortschrittliche\"}} Methode</a>."
 
 #: client/components/registrations/registrations.directive.js:84
-#, fuzzy
 msgid "Choose the address you'll use to sign-in."
-msgstr "Dies ist die Adresse, die Sie verwenden, um sich anzumelden."
+msgstr "Wählen Sie die Adresse, die Sie verwenden, um sich anzumelden."
 
 #: client/components/views/brands/_new.html:74
 msgid "Choose the closest location to improve performance and job processing."
-msgstr ""
+msgstr "Wählen Sie den nächsten Standort um die die Perfomance zu verbessern."
 
 #: client/components/main/main.directives.js:157
 msgid "Christmas Island"
@@ -2549,6 +2559,8 @@ msgid ""
 "Control how your devices are provisioned. These settings apply to version 4 "
 "devices only."
 msgstr ""
+"Steuern Sie, wie Ihre Geräte konfiguriert werden. Diese Einstellungen gelten "
+"ausschließlich für Geräte mit Version 4."
 
 #: client/components/main/main.directives.js:163
 msgid "Cook Islands"
@@ -2580,9 +2592,8 @@ msgid "Could not find any locations to tranfer this device to."
 msgstr "Keine Standorte zum Transferieren dieses Gerät gefunden."
 
 #: client/components/directives/messages.directives.js:146
-#, fuzzy
 msgid "Could not publish message, try again"
-msgstr "Aktualisierung kann nicht geplant werden, bitte nochmal versuchen."
+msgstr "Nachricht konnte nicht gesendet werden, versuchen Sie es noch einmal"
 
 #: client/components/boxes/boxes.directives.js:238
 msgid "Could not reset this device, please try again"
@@ -2636,9 +2647,8 @@ msgid "Create Network"
 msgstr "Erstelle Netzwerk"
 
 #: client/components/views/brands/_new.html:8
-#, fuzzy
 msgid "Create New Brand"
-msgstr "Erstelle neue Zone"
+msgstr "Neuen Brand erstellen"
 
 #: client/components/networks/_create.html:5
 msgid "Create New Network"
@@ -2653,9 +2663,8 @@ msgid "Create New Zone"
 msgstr "Erstelle neue Zone"
 
 #: client/components/views/triggers/_edit.html:94
-#, fuzzy
 msgid "Create Notification"
-msgstr "Benachrichtigungen"
+msgstr "Benachrichtigung erstellen"
 
 #: client/components/splash_pages/_store_product.html:5
 msgid "Create Product"
@@ -2670,9 +2679,8 @@ msgid "Create Store"
 msgstr "Erstelle Shop"
 
 #: client/components/events/_show.html:60
-#, fuzzy
 msgid "Create Trigger"
-msgstr "Trigger löschen"
+msgstr "Trigger erstellen"
 
 #: client/components/zones/_form.html:1
 msgid "Create Zone"
@@ -2714,6 +2722,8 @@ msgid ""
 "Create an inbound webhook for external applications like Zapier or IFTTT to "
 "call. Or schedule it to run periodically."
 msgstr ""
+"Erstellen Sie einen eingehenden Webhook für den Aufruf aus externen "
+"Anwendungen, wie z.B. IFTTT, oder um ihn regelmäßig auszuführen zu lassen."
 
 #: client/components/locations/new/_index.html:24
 msgid "Create as many locations or networks as you need."
@@ -2795,9 +2805,8 @@ msgstr "Erstellt am {{splash.created_at | humanTime}}"
 #: client/components/views/triggers/_edit.html:581
 #: client/components/views/triggers/_edit.html:620
 #: client/components/views/triggers/_edit.html:641
-#, fuzzy
 msgid "Created*"
-msgstr "Erstellt "
+msgstr "Erstellt*"
 
 #: client/components/apps/_show.html:47
 msgid "Credentials"
@@ -2829,9 +2838,8 @@ msgid "Cucumber Tony Limited"
 msgstr "Cucumber Tony Limited"
 
 #: client/components/boxes/edit/_edit.html:100
-#, fuzzy
 msgid "Cucumber Write Access {{ box.ct_modify | humanBoolean }}"
-msgstr "Warnungen {{ box.is_monitored | humanBoolean }}"
+msgstr "Schreibzugriff für Cucumber {{ box.ct_modify | humanBoolean }}"
 
 #: client/components/boxes/edit/_edit.html:85
 msgid "Cucumber box"
@@ -2878,19 +2886,16 @@ msgid "Customer Email"
 msgstr "Kunden-E-Mail-Adresse"
 
 #: client/components/views/brands/theme/_index.html:14
-#, fuzzy
 msgid "Customise the primary and accent colours for your dashboard."
-msgstr "Passen Sie das Erscheinungsbild Ihres Dashboards an."
+msgstr "Passen Sie die Primär- und Akzentfarbe Ihres Dashboards an."
 
 #: client/components/views/brands/_show.html:62
-#, fuzzy
 msgid "Customise the settings for your brand"
-msgstr "Passen Sie das Erscheinungsbild Ihres Dashboards an."
+msgstr "Passen Sie Brand-Einstellungen an"
 
 #: client/components/views/brands/_show.html:121
-#, fuzzy
 msgid "Customise your outbound emails. Premium plans only."
-msgstr "Personalisieren Sie Ihre ausgehenden E-Mails. Nur im Enterprise-Tarif."
+msgstr "Personalisieren Sie Ihre ausgehenden E-Mails. Nur im Tarif Premium."
 
 #: client/components/main/main.directives.js:169
 msgid "Cyprus"
@@ -2965,9 +2970,8 @@ msgid "Dashboard"
 msgstr "Dashboard"
 
 #: client/components/registrations/_flow.html:57
-#, fuzzy
 msgid "Dashboard Domain"
-msgstr "Dashboard-Name"
+msgstr "Dashboard-Domäne"
 
 #: client/components/registrations/_flow.html:142
 #: client/components/registrations/_flow.html:77
@@ -2975,18 +2979,16 @@ msgid "Dashboard Name"
 msgstr "Dashboard-Name"
 
 #: client/components/views/brands/theme/_index.html:11
-#, fuzzy
 msgid "Dashboard Theme"
-msgstr "Dashboard-Name"
+msgstr "Dashboard-Thema"
 
 #: client/components/views/brands/_show.html:80
 msgid "Dashboard URL"
 msgstr "Dashboard-URL"
 
 #: client/components/views/brands/_new.html:31
-#, fuzzy
 msgid "Dashboard URL Prefix"
-msgstr "Dashboard-URL"
+msgstr "Dashboard-URL-Präfix"
 
 #: client/components/vouchers/vouchers.directives.js:253
 #: client/components/vouchers/vouchers.directives.js:525
@@ -3012,7 +3014,6 @@ msgid "Data Usage"
 msgstr "Datenverbrauch"
 
 #: client/components/vouchers/_form.html:70
-#, fuzzy
 msgid "Data Usage MB"
 msgstr "Datenverbrauch"
 
@@ -3026,7 +3027,6 @@ msgid "Days"
 msgstr "Tage"
 
 #: client/components/events/events.directives.js:74
-#, fuzzy
 msgid "Debug"
 msgstr "Debug-Modus"
 
@@ -3048,9 +3048,8 @@ msgstr "Standardverhalten nach erstmaliger Registrierung"
 
 #: client/components/views/brands/_new.html:77
 #: client/components/views/brands/_show.html:205
-#, fuzzy
 msgid "Default Locale"
-msgstr "Standardwert"
+msgstr "Standardsprache"
 
 #: client/components/splash_pages/_form_designer.html:86
 msgid "Default Value"
@@ -3061,18 +3060,18 @@ msgid "Default field value"
 msgstr "Standardwert"
 
 #: client/components/views/triggers/_edit.html:824
-#, fuzzy
 msgid "Defer Minutes"
-msgstr "Minuten"
+msgstr "Verzögerung in Minuten"
 
 #: client/components/views/triggers/_edit.html:826
 msgid "Defer for minutes"
-msgstr ""
+msgstr "Verzögerung in Minuten"
 
 #: client/components/views/triggers/_edit.html:814
 msgid ""
 "Deferring the trigger will queue it and send it after the event has occurred."
 msgstr ""
+"Ein verzögerter Trigger läuft ab, nachdem das Ereignis eingetreten ist."
 
 #: client/components/boxes/boxes.directives.js:111
 #: client/components/directives/group_policies.directives.js:123
@@ -3211,9 +3210,8 @@ msgstr "Gelöschtes Gerät mit MAC-Adresse {{address}}"
 #: client/components/views/triggers/_edit.html:591
 #: client/components/views/triggers/_edit.html:630
 #: client/components/views/triggers/_edit.html:646
-#, fuzzy
 msgid "Deleted*"
-msgstr "Gelöscht"
+msgstr "Gelöscht*"
 
 #: client/components/forms/forms.directives.js:182
 msgid "Deleting a field will wipe all your data, please be careful."
@@ -3286,9 +3284,8 @@ msgid "Destination IP"
 msgstr "Ziel-IP"
 
 #: client/components/views/triggers/channel-email.html:6
-#, fuzzy
 msgid "Destination email"
-msgstr "Ziel-IP"
+msgstr "Ziel-E-Mail-Adresse"
 
 #: client/components/views/triggers/_edit.html:508
 msgid "Destroy"
@@ -3311,9 +3308,8 @@ msgid "Details"
 msgstr "Details"
 
 #: client/components/views/triggers/_edit.html:401
-#, fuzzy
 msgid "Detected"
-msgstr "Verbindung wiederhergestellt"
+msgstr "Erkannt"
 
 #: client/app/main/main.controllers.js:138
 #: client/components/apps/apps.directives.js:11 client/index.html:159
@@ -3342,9 +3338,8 @@ msgid "Device Name"
 msgstr "Gerätename"
 
 #: client/components/views/operations/_index.html:16
-#, fuzzy
 msgid "Device Operations"
-msgstr "Geräteeinstellungen"
+msgstr "Geräte-Operationen"
 
 #: client/components/boxes/payloads/_index.html:23
 msgid "Device Payloads"
@@ -3381,7 +3376,7 @@ msgstr "Gerät wurde erfolgreich installiert."
 
 #: client/components/boxes/boxes.directives.js:427
 msgid "Device lost connection, jobs may fail."
-msgstr ""
+msgstr "Das Gerät ist offline, Aufgaben könnten fehlschlagen."
 
 #: client/components/boxes/boxes.filters.js:71
 msgid "Device offline"
@@ -3404,9 +3399,8 @@ msgid "Device resync in progress. Please wait."
 msgstr "Gerät wird synchronisiert. Bitte warten."
 
 #: client/components/locations/locations.directives.js:999
-#, fuzzy
 msgid "Device resynced successfully."
-msgstr "Gerät wurde erfolgreich installiert."
+msgstr "Gerät wurde erfolgreich resynchronisiert."
 
 #: client/components/boxes/boxes.filters.js:73
 msgid "Device upgrading"
@@ -3428,9 +3422,8 @@ msgid "Devices will sync after you alter their zone."
 msgstr "Geräte werden synchronisiert, sobald Sie es einer Zone hinzufügen."
 
 #: client/components/registrations/_create.html:24
-#, fuzzy
 msgid "Didn't get the invite?&nbsp;"
-msgstr "Haben Sie die Einladung nicht erhalten?"
+msgstr "Haben Sie die Einladung nicht erhalten?&nbsp;"
 
 #: client/components/codes/codes.directives.js:50
 #: client/components/codes/codes.directives.js:70
@@ -3465,9 +3458,9 @@ msgid "Disabled switch"
 msgstr "Schalter ist ausgeschaltet"
 
 #: client/components/boxes/edit/_edit.html:97
-#, fuzzy
 msgid "Disabling alerts will prevent further alerts from this device."
-msgstr "Nach dem Ausschalten werden keine Warnungen mehr versendet."
+msgstr ""
+"Ausschalten von Warnungen verhindert weitere Warnungen von diesem Gerät."
 
 #: client/components/vouchers/vouchers.directives.js:555
 msgid "Disabling the batch will disable all the associated codes."
@@ -3478,6 +3471,8 @@ msgid ""
 "Disabling this prevents Cucumber staff from viewing this location or any "
 "child components."
 msgstr ""
+"Ausschalten dieser Option verhindert, dass Mitarbeiter von Cucumber diesen "
+"Standort einsehen können."
 
 #: client/components/locations/show/_warnings.html:22
 msgid "Disconnected"
@@ -3497,7 +3492,7 @@ msgstr "Diskussionen"
 
 #: client/components/views/triggers/list.html:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Verbergen"
 
 #: client/components/splash_pages/_menu.html:636
 msgid "Display Welcome For (seconds)"
@@ -3579,15 +3574,14 @@ msgid "Download the Firmware"
 msgstr "Herunterladen der Firmware"
 
 #: client/components/boxes/firmware/_download_firmware.html:2
-#, fuzzy
 msgid ""
 "Download the firmware for your devices. You can read about installing the "
 "firmwares in the&nbsp;<ct-docs name=\"firmware\" alt=\"documentation"
 "\">documentation<ct-docs>.</ct-docs></ct-docs>"
 msgstr ""
 "Herunterladen der Firmware für Ihre Geräte. Erfahren Sie mehr über die "
-"Installation der Firmware unter <ct-docs name=\"firmware\" alt="
-"\"documentation\">Dokumentation<ct-docs>.</ct-docs></ct-docs>"
+"Installation der Firmware unter&nbsp;<ct-docs name=\"firmware\" alt="
+"\"Dokumentation\">Dokumentation<ct-docs>.</ct-docs></ct-docs>"
 
 #: client/components/vouchers/_show.html:169
 msgid "Download your codes using the links below."
@@ -3758,9 +3752,8 @@ msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
 #: client/components/views/brands/_show.html:154
-#, fuzzy
 msgid "Email Alerts {{ brand.email_active | humanBoolean }}"
-msgstr "Warnungen {{ box.is_monitored | humanBoolean }}"
+msgstr "E-Mail-Alarme {{ brand.email_active | humanBoolean }}"
 
 #: client/components/splash_pages/access-social.html:27
 msgid "Email Backup"
@@ -3795,18 +3788,16 @@ msgid "Email Subject"
 msgstr "E-Mail-Betreff"
 
 #: client/components/views/triggers/show-email.html:19
-#, fuzzy
 msgid "Email To"
-msgstr "E-Mail-Text"
+msgstr "E-Mail an"
 
 #: client/components/locations/access/access-password.html:41
 msgid "Email it to the following address"
 msgstr "Per E-Mail an folgende Adresse versenden"
 
 #: client/components/views/triggers/_vars.html:30
-#, fuzzy
 msgid "Email tags"
-msgstr "E-Mail-Einstellungen"
+msgstr "E-Mail-Schlagwörter"
 
 #: client/components/users/invoices/_show.html:62
 msgid "Email: help@cucumberwifi.io"
@@ -3887,21 +3878,26 @@ msgid ""
 "Enabling write access allows Cucumber staff to modify this device. This is "
 "overwritten by location write access changes."
 msgstr ""
+"Einschalten des Schreibzugriffs erlaubt Mitarbeiter von Cucumber Änderungen "
+"an den Einstellungen dieses Gerätes vornehmen zu können. Wird von "
+"Schreibzugriff-Einstellungen des Standorts überschrieben."
 
 #: client/components/locations/settings/_security.html:46
 msgid ""
 "Enabling write access allows Cucumber staff to modify this location, its "
 "networks, splash pages, devices and other components. Default is disabled."
 msgstr ""
+"Einschalten des Schreibzugriffs erlaubt Mitarbeiter von Cucumber Änderungen "
+"an den Einstellungen dieses Standorts vornehmen zu können. Ausgeschaltet ist "
+"die Standardeinstellung."
 
 #: client/components/splash_pages/splash_show.html:263
 msgid "End"
 msgstr "Ende"
 
 #: client/components/views/triggers/_edit.html:883
-#, fuzzy
 msgid "End Hour"
-msgstr "Stunden"
+msgstr "Endzeit"
 
 #: client/components/splash_pages/splash_show.html:262
 #: client/components/users/alerts/_index.html:46
@@ -3913,9 +3909,8 @@ msgid "End date"
 msgstr "Ablaufdatum"
 
 #: client/components/views/operations/_index.html:40
-#, fuzzy
 msgid "End: {{ op.completed_at | humanTime }}"
-msgstr "Erstellt am {{splash.created_at | humanTime}}"
+msgstr "Abgeschlossen:: {{ op.completed_at | humanTime }}"
 
 #: client/components/splash_pages/_menu.html:507
 msgid "Ensure these are in your walled gardens"
@@ -3965,18 +3960,16 @@ msgid "Enter a brand name"
 msgstr "Geben Sie einen Brand-Namen ein"
 
 #: client/components/views/triggers/channel-slack.html:30
-#, fuzzy
 msgid "Enter a channel"
-msgstr "Geben Sie einen Brand-Namen ein"
+msgstr "Geben Sie einen Kanal ein"
 
 #: client/components/splash_pages/access-social.html:70
 msgid "Enter a checkin message for the user to edit"
 msgstr "Geben Sie eine Anmelde-Nachricht für den Benutzer an"
 
 #: client/components/boxes/edit/_edit.html:69
-#, fuzzy
 msgid "Enter a comma, separated, list, of, tags."
-msgstr "Startseiten-Tags (durch Kommas getrennte Liste)"
+msgstr "Schlagwörter für Startseite (durch Kommas getrennte Liste)"
 
 #: client/components/registrations/_flow.html:28
 msgid "Enter a location name"
@@ -4004,7 +3997,6 @@ msgid "Enter a password"
 msgstr "Geben Sie ein Kennwort ein"
 
 #: client/components/views/triggers/channel-email.html:27
-#, fuzzy
 msgid "Enter a subject"
 msgstr "Geben Sie einen Betreff an"
 
@@ -4117,9 +4109,8 @@ msgid "Enter your SagePay password"
 msgstr "Geben Sie Ihr SagePay Password ein"
 
 #: client/components/views/triggers/channel-slack.html:8
-#, fuzzy
 msgid "Enter your Slack Webhook"
-msgstr "Geben Sie Ihr API-Token ein"
+msgstr "Geben Sie Ihr Slack-Webhook ein"
 
 #: client/components/splash_pages/view-store.html:169
 #: client/components/splash_pages/view-store.html:178
@@ -4163,9 +4154,8 @@ msgid "Enter your website URL"
 msgstr "Tragen Sie Ihre Webseiten-URL ein."
 
 #: client/components/views/brands/_show.html:226
-#, fuzzy
 msgid "Enterprise Features"
-msgstr "Nur Enterprise-Tarif"
+msgstr "Funktionen des Enterprise-Tarifs"
 
 #: client/components/boxes/show/_index.html:274
 #: client/components/locations/settings/_main.html:60
@@ -4227,7 +4217,7 @@ msgstr "Ereignisse"
 
 #: client/components/views/triggers/_edit.html:710
 msgid "Every"
-msgstr ""
+msgstr "Wiederholungsintervall"
 
 #: client/components/locations/boxes/dialog.html:25
 msgid "Execute"
@@ -4264,9 +4254,8 @@ msgid "Expiry Date"
 msgstr "Ablaufdatum"
 
 #: client/components/views/triggers/_edit.html:837
-#, fuzzy
 msgid "Expression match"
-msgstr "Ablaufdatum"
+msgstr "Übereinstimmung des Ausdrucks"
 
 #: client/components/splash_pages/_menu.html:723
 #: client/components/splash_pages/_menu.html:725
@@ -4423,10 +4412,13 @@ msgstr "Nach dieser Station suchen"
 #: client/components/locations/networks/_show.html:89
 msgid "Filter your network triggers and actions with tags."
 msgstr ""
+"Filtern Sie Ihre Netzwerk-Trigger und Aktionen mit Hilfe von Schlagwörtern."
 
 #: client/components/splash_pages/splash_show.html:441
 msgid "Filter your splash triggers and actions with tags."
 msgstr ""
+"Filtern Sie ihre Startseiten-Trigger und Aktionen mit Hilfe von "
+"Schlagwörtern."
 
 #: client/components/views/group_policies/_index.html:11
 msgid "Filters"
@@ -4607,6 +4599,11 @@ msgid ""
 "your networks more effeciently.<br><br>Set them up to email your guests, "
 "admin users or just yourself. Or, use them with Slack or setup a webhook!"
 msgstr ""
+"Von Sicherheit bis Gästeanmeldungen helfen Trigger Ihnen, auf dem Laufenden "
+"zu bleiben und Ihr Netzwerk effizient zu betreiben.<br><br>Erstellen Sie zum "
+"Beispiel Trigger um Ihre Gäste, Administratoren oder sich selbst per E-Mail "
+"zu benachrichtigen. Oder verarbeiten Sie Ereignisse in externen Systemen "
+"weiter, indem Sie Slack oder Webhooks verwenden!"
 
 #: client/components/main/_history.html:27
 msgid "From: {{ ::value[0] }}"
@@ -4638,9 +4635,8 @@ msgstr "Allgemeine Informationen"
 
 #: client/components/views/triggers/_edit.html:369
 #: client/components/views/triggers/_edit.html:427
-#, fuzzy
 msgid "Generate Password"
-msgstr "Kennwort jetzt erstellen"
+msgstr "Kennwort erstellen"
 
 #: client/components/splash_pages/_generate_password.html:2
 msgid "Generate password now"
@@ -4808,7 +4804,7 @@ msgstr "Haiti"
 
 #: client/components/views/triggers/_edit.html:149
 msgid "Happens"
-msgstr ""
+msgstr "Passiert"
 
 #: client/components/splash_pages/_menu.html:64
 #: client/components/splash_pages/_menu.html:75
@@ -4839,7 +4835,6 @@ msgid "Height"
 msgstr "Höhe "
 
 #: client/components/directives/triggers.directives.js:587
-#, fuzzy
 msgid ""
 "Hello\n"
 "\n"
@@ -4859,7 +4854,7 @@ msgstr ""
 
 #: client/components/views/triggers/_vars.html:14
 msgid "Hello {{ Username }}, your box {{ Ap_Mac }} went offline!"
-msgstr ""
+msgstr "Hallo {{Username}}, Ihr Gerät {{Ap_Mac}} ist offline!"
 
 #: client/components/registrations/registrations.directive.js:89
 msgid "Hello. Confirm your choices."
@@ -4923,9 +4918,8 @@ msgid "Hostname of your VSG"
 msgstr "VSG-Hostname"
 
 #: client/components/views/triggers/_edit.html:722
-#, fuzzy
 msgid "Hour"
-msgstr "Stunden"
+msgstr "Stunde"
 
 #: client/components/splash_pages/splash_pages.directives.js:1007
 msgid "Hours"
@@ -5005,6 +4999,9 @@ msgid ""
 "If it doesn't come online within a few minutes, check you have added the "
 "right MAC Address. And ensure it is connected to the Internet."
 msgstr ""
+"Wenn es nicht innerhalb weniger Minuten online ist, dann überprüfen Sie, ob "
+"Sie die richtige MAC-Adresse hinzugefügt haben und Ihr Gerät mit dem "
+"Internet verbunden ist."
 
 #: client/components/locations/clients/_index.html:263
 msgid "If the client signal drops below 16dB, they may have problems browsing."
@@ -5181,9 +5178,8 @@ msgid "Invite a user to manage this location."
 msgstr "Laden Sie einen Benutzer ein, diesen Standort zu verwalten."
 
 #: client/components/views/triggers/_edit.html:604
-#, fuzzy
 msgid "Invited"
-msgstr "Einladen"
+msgstr "Eingeladen"
 
 #: client/components/users/show/_index.html:36
 msgid "Invited By"
@@ -5384,15 +5380,14 @@ msgid "Letters only"
 msgstr "Nur Buchstaben"
 
 #: client/components/registrations/_flow.html:65
-#, fuzzy
 msgid "Letters, numbers and dashes only please"
-msgstr "Nur Zahlen und Buchstaben erlaubt"
+msgstr "Nur Buchstaben, Zahlen und Bindestriche erlaubt"
 
 #: client/components/events/_index.html:22
 #: client/components/events/_index.html:39
 #: client/components/events/_show.html:53
 msgid "Level"
-msgstr ""
+msgstr "Ebene"
 
 #: client/components/locations/settings/_security.html:36
 msgid ""
@@ -5400,6 +5395,9 @@ msgid ""
 "devices to the location they were added from. Level 3 allows devices froma  "
 "range of IPs."
 msgstr ""
+"Stufe 1 erlaubt das Hinzufügen von Geräte von jeder IP-Adresse. Stufe 2 "
+"beschränkt das Hinzufügen von Geräten auf den eigenen Standort. Stufe 3 "
+"erlaubt das Hinzufügen von einem bestimmten IP-Adressbereich."
 
 #: client/components/main/main.directives.js:236
 msgid "Liberia"
@@ -5470,9 +5468,8 @@ msgstr "Führe Aufgabe aus..."
 #: client/components/charts/devices/_wireless_chart.html:90
 #: client/components/reports/_radius_timeline.html:54
 #: client/components/reports/_wireless_timeline.html:40
-#, fuzzy
 msgid "Loading chart"
-msgstr "Lade Statistiken"
+msgstr "Lade Grafik"
 
 #: client/components/locations/show/_dashing.html:14
 #: client/components/locations/show/_dashing.html:34
@@ -5558,14 +5555,12 @@ msgid "Location Name"
 msgstr "Standortname"
 
 #: client/components/views/brands/_show.html:237
-#, fuzzy
 msgid "Location Quota"
-msgstr "Standort-Ort"
+msgstr "Anzahl Standorte"
 
 #: client/components/views/triggers/_edit.html:893
-#, fuzzy
 msgid "Location Template"
-msgstr "Standort-Überschrift"
+msgstr "Standort-Vorlage"
 
 #: client/components/locations/show/edit-modal.html:17
 msgid "Location name"
@@ -5851,11 +5846,11 @@ msgstr "Martinique"
 
 #: client/components/views/triggers/_edit.html:835
 msgid "Match"
-msgstr ""
+msgstr "Übereinstimmung"
 
 #: client/components/views/triggers/_edit.html:864
 msgid "Match any object tags."
-msgstr ""
+msgstr "Übereinstimmung mit irgendeinem Schlagwort."
 
 #: client/components/main/main.directives.js:251
 msgid "Mauritania"
@@ -6343,9 +6338,8 @@ msgid "Must be less than 100 characters."
 msgstr "Müssen weniger als 100 Zeichen sein."
 
 #: client/components/views/triggers/_edit.html:828
-#, fuzzy
 msgid "Must be less than 100 chars"
-msgstr "Müssen weniger als 15 Zeichen sein."
+msgstr "Müssen weniger als 100 Zeichen sein."
 
 #: client/components/boxes/edit/_edit.html:368
 #: client/components/views/brands/_show.html:241
@@ -6374,9 +6368,8 @@ msgid "Must be less than 1000000 Mb"
 msgstr "Müssen weniger als 1000000 Mb sein"
 
 #: client/components/views/triggers/_edit.html:862
-#, fuzzy
 msgid "Must be less than 128 characters"
-msgstr "Müssen weniger als 8 Zeichen sein"
+msgstr "Müssen weniger als 128 Zeichen sein"
 
 #: client/components/splash_pages/_store_product.html:138
 msgid "Must be less than 145 characters."
@@ -6479,9 +6472,8 @@ msgid "Must be less than 43201"
 msgstr "Muss kleiner als 43201 Zeichen sein"
 
 #: client/components/views/triggers/_edit.html:48
-#, fuzzy
 msgid "Must be less than 50 characters"
-msgstr "Müssen weniger als 50 Zeichen sein."
+msgstr "Müssen weniger als 50 Zeichen sein"
 
 #: client/components/splash_pages/_menu.html:537
 #: client/components/splash_pages/_menu.html:547
@@ -6568,9 +6560,8 @@ msgid "My Awesome Company"
 msgstr "Meine großartige Firma"
 
 #: client/components/views/triggers/_edit.html:45
-#, fuzzy
 msgid "My Handy Trigger"
-msgstr "Benennen Sie Ihren Trigger"
+msgstr "Benennen hilfreicher Trigger"
 
 #: client/components/networks/networks.directives.js:211
 msgid "My WiFi Network"
@@ -6734,9 +6725,8 @@ msgid "Network successfully updated."
 msgstr "Netzwerk erfolgreich geändert."
 
 #: client/components/locations/networks/_show.html:83
-#, fuzzy
 msgid "Network tags"
-msgstr "Netzwerk-Statistiken"
+msgstr "Netzwerk-Schlagwörter"
 
 #: client/components/audit/social/_index.html:57
 #: client/components/directives/triggers.directives.js:255
@@ -6805,7 +6795,7 @@ msgstr "Neues Gerät"
 msgid ""
 "New users will be created with this locale, translating the dashboard "
 "automagically."
-msgstr ""
+msgstr "Neu angelegte Benutzer verwenden diese Sprache für Ihr Dashboard."
 
 #: client/components/splash_pages/splash_show.html:133
 msgid "Newsletter API Token"
@@ -6902,7 +6892,7 @@ msgstr "Keine Diagramm-Daten"
 
 #: client/components/views/messages/_index.html:12
 msgid "No messages yet"
-msgstr ""
+msgstr "Keine Nachrichten vorhanden"
 
 #: client/components/locations/access/access-password.html:26
 msgid "No more that 12 letters please."
@@ -7051,9 +7041,8 @@ msgid "OK"
 msgstr "OK"
 
 #: client/components/events/_show.html:41
-#, fuzzy
 msgid "Object"
-msgstr "Betreff"
+msgstr "Objekt"
 
 #: client/components/locations/locations.directives.js:523
 #: client/components/locations/locations.filters.js:254
@@ -7197,18 +7186,19 @@ msgstr "Öffne Anmeldungs-Menü"
 
 #: client/components/views/operations/_show.html:20
 msgid "Operation {{ operation.id }}"
-msgstr ""
+msgstr "Vorgang {{ operation.id }}"
 
 #: client/components/boxes/boxes.directives.js:118
-#, fuzzy
 msgid "Operations"
-msgstr "Integrationen"
+msgstr "Operationen"
 
 #: client/components/views/operations/_index.html:17
 msgid ""
 "Operations are requests made by the system and users to update device "
 "resources."
 msgstr ""
+"Operationen sind Aufgaben, welche vom System oder vom Benutzer ausgeführt "
+"werden, um Geräteinformationen zu aktualisieren."
 
 #: client/components/networks/networks.directives.js:542
 msgid "Options may be unavailable when an incompatible feature is enabled."
@@ -7372,16 +7362,14 @@ msgid "Password Changed Email Recipient"
 msgstr "Empfänger der E-Mail für geändertes Kennwort"
 
 #: client/components/views/triggers/_edit.html:596
-#, fuzzy
 msgid "Password Changed*"
-msgstr "Kennwort geändert"
+msgstr "Kennwort geändert*"
 
 #: client/components/splash_pages/access-password.html:4
 msgid "Password Settings"
 msgstr "Kennworteinstellungen"
 
 #: client/components/views/triggers/_edit.html:451
-#, fuzzy
 msgid "Password changed"
 msgstr "Kennwort geändert"
 
@@ -7434,9 +7422,8 @@ msgid "Per day"
 msgstr "pro Tag"
 
 #: client/components/views/triggers/_edit.html:99
-#, fuzzy
 msgid "Perform Action"
-msgstr "Produktion"
+msgstr "Aktion ausführen"
 
 #: client/components/splash_pages/splash_pages.directives.js:156
 msgid "Periodic"
@@ -7557,24 +7544,20 @@ msgid "Please enter a name."
 msgstr "Bitte geben Sie einen Namen ein."
 
 #: client/components/views/brands/_show.html:258
-#, fuzzy
 msgid "Please enter a number of admins"
-msgstr "Geben Sie einen Namen für Ihren Brand ein"
+msgstr "Geben Sie eine Anzahl von Administratoren ein"
 
 #: client/components/views/brands/_show.html:249
-#, fuzzy
 msgid "Please enter a number of boxes"
-msgstr "Geben Sie eine gültige Nummer ein"
+msgstr "Geben Sie eine Anzahl von Geräten ein"
 
 #: client/components/views/brands/_show.html:240
-#, fuzzy
 msgid "Please enter a number of locations"
-msgstr "Geben Sie einen Standort ein."
+msgstr "Geben Sie eine Anzahl von Standorten ein"
 
 #: client/components/views/brands/_show.html:267
-#, fuzzy
 msgid "Please enter a number of projects"
-msgstr "Geben Sie eine gültige Nummer ein"
+msgstr "Geben Sie eine Anzahl von Projekten ein"
 
 #: client/components/views/brands/_show.html:192
 msgid "Please enter a valid URL"
@@ -7707,9 +7690,8 @@ msgid "Price"
 msgstr "Preis"
 
 #: client/components/views/brands/theme/_index.html:22
-#, fuzzy
 msgid "Primary Colour"
-msgstr "Rahmenfarbe"
+msgstr "Primärfarbe"
 
 #: client/components/boxes/show/_index.html:130
 msgid "Primary Radius"
@@ -7772,20 +7754,17 @@ msgstr "Projektrolle"
 
 #: client/components/directives/triggers.directives.js:272
 #: client/components/events/events.directives.js:67
-#, fuzzy
 msgid "Project Users"
-msgstr "Projektrolle"
+msgstr "Projektbenutzer"
 
 #: client/components/directives/triggers.directives.js:271
 #: client/components/events/events.directives.js:66
-#, fuzzy
 msgid "Projects"
-msgstr "Projektrolle"
+msgstr "Projekte"
 
 #: client/components/views/brands/_show.html:264
-#, fuzzy
 msgid "Projects Quota"
-msgstr "Projektrolle"
+msgstr "Anzahl von Projekten"
 
 #: client/components/boxes/edit/_edit.html:258
 msgid "Protocol"
@@ -7953,9 +7932,8 @@ msgid "Read more"
 msgstr "Weiterlesen"
 
 #: client/components/views/messages/_index.html:14
-#, fuzzy
 msgid "Read more in the docs."
-msgstr "Lesen Sie die Dokumentation"
+msgstr "Für weitere Informationen, lesen Sie die Dokumentation."
 
 #: client/components/boxes/boxes.directives.js:85
 #: client/components/locations/locations.directives.js:850
@@ -7984,6 +7962,7 @@ msgstr ""
 #: client/components/views/triggers/_edit.html:750
 msgid "Receive a notification when this trigger runs"
 msgstr ""
+"Erhalten Sie eine Benachrichtigung, wenn dieser Trigger ausgeführt wird"
 
 #: client/components/users/sessions/_index.html:20
 msgid "Recent Sessions"
@@ -8036,11 +8015,11 @@ msgstr "Rückzahlungstransaktion"
 #: client/components/views/triggers/_edit.html:842
 msgid "Regex match on description, AP Mac or Zone ID."
 msgstr ""
+"Regulärer Ausdruck trifft auf Beschreibung, MAC-Adresse oder Zonen-ID zu."
 
 #: client/components/views/brands/_index.html:63
-#, fuzzy
 msgid "Region"
-msgstr "Registrierung"
+msgstr "Region"
 
 #: client/components/splash_pages/splash_pages.filters.js:31
 #: client/components/splash_pages/splash_pages.filters.js:52
@@ -8248,7 +8227,7 @@ msgstr "Benutzer widerrufen"
 
 #: client/components/locations/users/_revoke.html:16
 msgid "Revoke from brand"
-msgstr ""
+msgstr "Vom Brand widerrufen."
 
 #: client/components/locations/locations.directives.js:318
 msgid "Revoke it"
@@ -8259,9 +8238,8 @@ msgid "Revoke this user?"
 msgstr "Diesen Benutzer widerrufen?"
 
 #: client/components/views/triggers/_edit.html:609
-#, fuzzy
 msgid "Revoked"
-msgstr "Rückgängig"
+msgstr "Widerrufen"
 
 #: client/components/splash_pages/_menu.html:112
 #: client/components/splash_pages/_menu.html:599
@@ -8271,7 +8249,7 @@ msgstr "Rechts"
 #: client/components/directives/triggers.directives.js:267
 #: client/components/events/events.directives.js:58
 msgid "Rogues"
-msgstr ""
+msgstr "Nicht autorisierte Geräte"
 
 #: client/components/main/main.directives.js:292
 msgid "Romania"
@@ -8326,6 +8304,8 @@ msgid ""
 "Run the action automatically every {{ trigger.cron_frequency }} at "
 "{{ trigger.hours }}:{{ trigger.mins }}"
 msgstr ""
+"Führen Sie die Aktion automatisch jede(n) {{trigger.cron_frequency}} um "
+"{{ trigger.hours }}:{{ trigger.mins }} aus"
 
 #: client/components/boxes/payloads/_payloads_mass.html:6
 msgid "Run the command"
@@ -8524,7 +8504,7 @@ msgstr "Speichere..."
 
 #: client/components/views/triggers/_edit.html:699
 msgid "Scheduled"
-msgstr ""
+msgstr "Geplant"
 
 #: client/components/locations/access/access-panel-top.html:28
 msgid "Scroll down to adjust the settings"
@@ -8562,14 +8542,12 @@ msgid "Security Code"
 msgstr "Sicherheitscode"
 
 #: client/components/locations/settings/_security.html:21
-#, fuzzy
 msgid "Security Level"
-msgstr "Sicherheitscode"
+msgstr "Sicherheitsstufe"
 
 #: client/components/locations/settings/_security.html:9
-#, fuzzy
 msgid "Security Settings"
-msgstr "Einstellungen zu sozialen Medien"
+msgstr "Sicherheitseinstellungen"
 
 #: client/components/splash_pages/access-registration.html:21
 msgid "See a clickthrough login page"
@@ -8596,9 +8574,10 @@ msgid "Send a Webhook"
 msgstr "Aufruf eines Webhook"
 
 #: client/components/views/triggers/_edit.html:769
-#, fuzzy
 msgid "Send a notification to this channel after the action runs."
-msgstr "sende eine Benachrichtigung an den Slack-Kanal"
+msgstr ""
+"Sendet eine Benachrichtigung an diesen Kanal, nachdem die Aktion ausgeführt "
+"wird."
 
 #: client/components/views/triggers/_edit.html:117
 msgid "Send a trigger when a vouchers creates a trigger"
@@ -8617,11 +8596,12 @@ msgid ""
 "Send messages and commands to your devices. Run payloads remotely, your "
 "devices will reply and print the reply here."
 msgstr ""
+"Schicken Sie Nachrichten und Befehle an Ihr Gerät. Starten Sie Aufgaben aus "
+"der Ferne. Die Antwort Ihrer Geräte finden Sie hier."
 
 #: client/components/views/triggers/_edit.html:746
-#, fuzzy
 msgid "Send notification"
-msgstr "sende eine Slack-Benachrichtigung."
+msgstr "Benachrichtigung senden"
 
 #: client/components/splash_pages/access-password.html:40
 msgid "Send password to this email"
@@ -8652,24 +8632,20 @@ msgid "Send triggers when a store creates an event."
 msgstr "Einen Trigger durch ein Shop-Ereignis auslösen."
 
 #: client/components/views/triggers/_edit.html:105
-#, fuzzy
 msgid "Send triggers when an action run."
-msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
+msgstr "Einen Trigger durch eine Aktion auslösen."
 
 #: client/components/views/triggers/_edit.html:121
-#, fuzzy
 msgid "Send triggers when changes happen to a brand."
-msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
+msgstr "Einen Trigger durch Änderungen einer Brand-Konfiguration auslösen."
 
 #: client/components/views/triggers/_edit.html:122
-#, fuzzy
 msgid "Send triggers when changes happen to a project."
-msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
+msgstr "Einen Trigger durch Änderungen einer Projekt-Konfiguration auslösen."
 
 #: client/components/views/triggers/_edit.html:120
-#, fuzzy
 msgid "Send triggers when changes happen to a user."
-msgstr "Einen Trigger durch Änderungen in einer Zone auslösen."
+msgstr "Einen Trigger durch Änderung einer Benutzer-Konfiguration auslösen."
 
 #: client/components/views/triggers/_edit.html:118
 msgid "Send triggers when changes happen to a zone."
@@ -8680,14 +8656,13 @@ msgid "Send triggers when one of your locations causes an event."
 msgstr "Einen Trigger durch ein Standort-Ereignis auslösen."
 
 #: client/components/views/triggers/_edit.html:123
-#, fuzzy
 msgid "Send triggers when project users are updated."
-msgstr "Einen Trigger durch ein Gast-Ereignis auslösen."
+msgstr "Einen Trigger auslösen, wenn Projektbenutzer geändert wurden."
 
 #: client/components/views/triggers/_edit.html:113
-#, fuzzy
 msgid "Send triggers when rogue devices checkin"
-msgstr "Einen Trigger durch ein Gast-Ereignis auslösen."
+msgstr ""
+"Einen Trigger auslösen, wenn sich ein nicht autorisiertes Endgerät anmeldet."
 
 #: client/components/views/triggers/_edit.html:106
 msgid "Send triggers when something happens to your boxes."
@@ -8698,18 +8673,16 @@ msgid "Send triggers when your networks cause an event."
 msgstr "Einen Trigger durch ein Netzwerk-Ereignis auslösen."
 
 #: client/components/views/triggers/channel-email.html:14
-#, fuzzy
 msgid "Sender Address"
-msgstr "Straße"
+msgstr "Absenderadresse"
 
 #: client/components/views/brands/_show.html:144
 msgid "Sender Name"
 msgstr "Name des Absenders"
 
 #: client/components/views/triggers/channel-email.html:16
-#, fuzzy
 msgid "Sender email"
-msgstr "Verschicke eine E-Mail"
+msgstr "E-Mail-Absender"
 
 #: client/components/main/main.directives.js:306
 msgid "Senegal"
@@ -8721,6 +8694,9 @@ msgid ""
 "created_at | humanTime }}. Delivery time: {{ msg.replies[0].created_at - msg."
 "created_at }}s."
 msgstr ""
+"Gesendet: {{ msg.created_at | humanTime }}. Übergeben: {{ msg.replies[0]."
+"created_at | humanTime }}. Lieferzeit: {{ msg.replies[0].created_at - msg."
+"created_at }}s."
 
 #: client/components/main/main.directives.js:307
 msgid "Serbia"
@@ -8768,18 +8744,18 @@ msgid ""
 "Set the default network location. Improve performance of speedtests and job "
 "processing."
 msgstr ""
+"Wähle den Standard-Netzwerkstandort um optimale Ergebnisse für Speedtest zu "
+"erreichen."
 
 #: client/components/views/triggers/_edit.html:130
-#, fuzzy
 msgid "Set the event trigger"
-msgstr "Jetzt den Ereignis-Trigger setzen"
+msgstr "Ereignis-Trigger setzen"
 
 #: client/components/views/triggers/_edit.html:889
-#, fuzzy
 msgid "Set the start and end hours to zero to get alerts all day."
 msgstr ""
-"Stellen Sie die Start- und Endzeiten auf  00:00 Uhr um einen dauernden "
-"Zugang zu ermöglichen"
+"Stellen Sie die Start- und Endzeit auf Null, um Warnungen ganztägig zu "
+"erhalten."
 
 #: client/components/splash_pages/splash_show.html:272
 msgid "Set the start and end times to 00:00 to allow access all day"
@@ -8916,19 +8892,16 @@ msgstr "Zeige die Aktivität der letzten 7 Tage"
 
 #: client/components/splash_pages/_menu.html:140
 #: client/components/splash_pages/_menu.html:150
-#, fuzzy
 msgid "Side Image"
-msgstr "Logo/Banner"
+msgstr "Bild für die Seitenleiste"
 
 #: client/components/splash_pages/_menu.html:157
-#, fuzzy
 msgid "Side Image Disabled"
-msgstr "Startseite ist ausgeschaltet"
+msgstr "Bild für die Seitenleiste ausgeschaltet"
 
 #: client/components/splash_pages/_menu.html:156
-#, fuzzy
 msgid "Side Image Enabled"
-msgstr "Startseite ist eingeschaltet"
+msgstr "Bild für die Seitenleiste eingeschaltet"
 
 #: client/components/main/main.directives.js:309
 msgid "Sierra Leone"
@@ -8988,9 +8961,8 @@ msgid "Slack"
 msgstr "Slack"
 
 #: client/components/views/triggers/channel-slack.html:6
-#, fuzzy
 msgid "Slack URL"
-msgstr "Callback-URL"
+msgstr "Slack-URL"
 
 #: client/components/directives/triggers.directives.js:616
 msgid ""
@@ -9190,19 +9162,16 @@ msgid "Splash Password"
 msgstr "Startseiten-Kennwort"
 
 #: client/components/locations/networks/_show.html:345
-#, fuzzy
 msgid "Splash Roaming"
-msgstr "Name der Startseite"
+msgstr "Automatische Startseiten-Anmeldung nach Roaming"
 
 #: client/components/locations/networks/_show.html:347
-#, fuzzy
 msgid "Splash Roaming Disabled"
-msgstr "Startseite ist ausgeschaltet"
+msgstr "Automatische Startseiten-Anmeldung nach Roaming ist ausgeschaltet"
 
 #: client/components/locations/networks/_show.html:346
-#, fuzzy
 msgid "Splash Roaming Enabled"
-msgstr "Startseite ist eingeschaltet"
+msgstr "Automatische Startseiten-Anmeldung nach Roaming ist eingeschaltet"
 
 #: client/components/splash_pages/_form.html:44
 msgid "Splash SSID (Network)"
@@ -9271,9 +9240,8 @@ msgid "Splash successfully deleted"
 msgstr "Startseite erfolgreich gelöscht"
 
 #: client/components/splash_pages/splash_show.html:436
-#, fuzzy
 msgid "Splash tags"
-msgstr "Startseiten"
+msgstr "Startseiten-Schlagwörter"
 
 #: client/components/splash_codes/_index.html:34
 msgid "SplashCodes are unique passwords that can be used on mutliple devices."
@@ -9295,9 +9263,8 @@ msgid "Start"
 msgstr "Start"
 
 #: client/components/views/triggers/_edit.html:879
-#, fuzzy
 msgid "Start Hour"
-msgstr "Start"
+msgstr "Startzeit"
 
 #: client/components/splash_pages/splash_show.html:255
 #: client/components/users/alerts/_index.html:42
@@ -9309,14 +9276,12 @@ msgid "Start date"
 msgstr "Startdatum"
 
 #: client/components/views/operations/_index.html:39
-#, fuzzy
 msgid "Start: {{ op.created_at | humanTime }}"
-msgstr "Erstellt am {{splash.created_at | humanTime}}"
+msgstr "Erstellt:  {{ op.created_at | humanTime }}"
 
 #: client/components/views/operations/_show.html:40
-#, fuzzy
 msgid "Started"
-msgstr "Start"
+msgstr "Ausgeführt"
 
 #: client/components/audit/sales/_index.html:53
 #: client/components/locations/index/_alerts.html:55
@@ -9353,9 +9318,8 @@ msgid "Status"
 msgstr "Status"
 
 #: client/components/views/triggers/history/_show.html:58
-#, fuzzy
 msgid "Status Code"
-msgstr "Startseiten-Code"
+msgstr "Status-Code"
 
 #: client/components/codes/_table.html:24
 msgid "Stop: {{ ::session.acctstoptime | humanTime }}"
@@ -9364,7 +9328,7 @@ msgstr "Stopp: {{ ::session.acctstoptime | humanTime }}"
 #: client/components/directives/triggers.directives.js:258
 #: client/components/events/events.directives.js:60
 msgid "Store"
-msgstr ""
+msgstr "Shop"
 
 #: client/components/splash_pages/view-store.html:243
 msgid "Store Disabled"
@@ -9431,14 +9395,12 @@ msgid "Subtotal"
 msgstr "Zwischensumme"
 
 #: client/components/views/triggers/history/_show.html:46
-#, fuzzy
 msgid "Success"
-msgstr "Zugriff"
+msgstr "Erfolgreich"
 
 #: client/components/brands/brands.directives.js:86
-#, fuzzy
 msgid "Successfully created brand"
-msgstr "Brand erfolgreich geändert"
+msgstr "Brand erfolgreich erstellt"
 
 #: client/components/vouchers/vouchers.directives.js:410
 msgid "Successfully delete voucher."
@@ -9500,7 +9462,7 @@ msgstr "Summe"
 #: client/components/views/operations/_index.html:28
 #: client/components/views/triggers/history/_show.html:22
 msgid "Summary"
-msgstr ""
+msgstr "Zusammenfassung"
 
 #: client/components/main/main.directives.js:20
 msgid "Sun"
@@ -9650,7 +9612,7 @@ msgstr "Tagged-Logins sind eingeschaltet"
 #: client/components/views/triggers/_edit.html:858
 #: client/components/views/triggers/_edit.html:860
 msgid "Tags"
-msgstr ""
+msgstr "Schlagwörter"
 
 #: client/components/main/main.directives.js:328
 msgid "Taiwan, Province of China"
@@ -9682,13 +9644,15 @@ msgstr "Erzählen Sie uns von Ihrer Anwendung"
 
 #: client/components/views/triggers/list.html:62
 msgid "Template"
-msgstr ""
+msgstr "Vorlage"
 
 #: client/components/views/triggers/_edit.html:897
 msgid ""
 "Template triggers won't fire for brand events. Instead, they will be added "
 "to your locations as default triggers."
 msgstr ""
+"Trigger-Vorlagen werden nicht durch Brand-Ereignisse ausgelöst. Stattdessen "
+"dienen sie als Standard-Trigger beim Erstellen von neuen Standorten."
 
 #: client/components/splash_pages/_menu.html:649
 msgid "Terms"
@@ -9759,7 +9723,7 @@ msgstr "Vielen Dank!"
 
 #: client/components/views/brands/_new.html:41
 msgid "The URL prefix control how you login to your dashboard."
-msgstr ""
+msgstr "Das URL-Präfix steuert, wie Sie sich an Ihrem Dashboard anmelden."
 
 #: client/components/boxes/show/_health_modal.html:42
 msgid "The box cannot resolve hostnames. Please check your DNS settings."
@@ -9802,6 +9766,8 @@ msgid ""
 "The name appears on your dashboard and notification emails. Typically it's "
 "your company name."
 msgstr ""
+"Der Name erscheint auf Ihrem Dashboard und in den Benachrichtungs-E-Mails. "
+"Oft ist dies der Name Ihrer Firma."
 
 #: client/components/locations/networks/firewall.html:9
 msgid ""
@@ -9817,22 +9783,20 @@ msgid "The start date must be less than the end date"
 msgstr "Das Startdatum muss kleiner sein als das Enddatum"
 
 #: client/components/views/triggers/_edit.html:134
-#, fuzzy
 msgid "The trigger will fire when this event happens."
-msgstr ""
-"Der Trigger wird ausgelöst, wenn dieses Ereignis eintritt.\n"
-"                {{trigger.type | humanTrigger}}..."
+msgstr "Der Trigger wird ausgelöst, wenn dieses Ereignis eintritt."
 
 #: client/components/views/triggers/_edit.html:138
-#, fuzzy
 msgid "The trigger will run this action."
-msgstr "Dieser Trigger hat 1 Mal ausgelöst."
+msgstr "Dieser Trigger wird die Aktion ausführen."
 
 #: client/components/views/triggers/_edit.html:57
 msgid ""
 "The unique URL to run trigger. Supports POST or GET requests. <b>Keep this "
 "secret!</b>"
 msgstr ""
+"Eine eindeutige URL für die Ausführung eines Triggers. Unterstützt POST- und "
+"GET-Requests. <b>Halten Sie diese URL geheim!</b>"
 
 #: client/components/locations/index/_list.html:89
 msgid "The user is an admin of this location."
@@ -9865,7 +9829,7 @@ msgstr "Es gab ein Problem beim Aktualisieren dieses Benutzers."
 
 #: client/components/views/triggers/_vars.html:13
 msgid "These can be included wrapped in {{ }} brackets. For example."
-msgstr ""
+msgstr "Diese können innerhalb von Klammern stehen. Zum Beispiel:  {{ }}."
 
 #: client/components/views/triggers/list.html:27
 msgid "They monitor things that happen and notify you automatically."
@@ -9912,7 +9876,7 @@ msgstr "Dieser Code ist für die Startseite"
 
 #: client/components/boxes/boxes.directives.js:886
 msgid "This device is being resynced"
-msgstr ""
+msgstr "Das Gerät wird neu synchronisiert."
 
 #: client/components/locations/networks/_show.html:121
 msgid "This device must have a valid IP"
@@ -9962,7 +9926,7 @@ msgstr "Dies ist ein öffentlicher Standort"
 
 #: client/components/views/triggers/_edit.html:75
 msgid "This is a system trigger and is locked, you can't adjust some settings."
-msgstr ""
+msgstr "Dieses ist ein System-Trigger, den Sie nicht anpassen können."
 
 #: client/components/apps/_new.html:27
 msgid ""
@@ -10273,7 +10237,6 @@ msgid "Transmission Failures"
 msgstr "Übertragungsfehler"
 
 #: client/components/views/triggers/history/_show.html:40
-#, fuzzy
 msgid "Trigger"
 msgstr "Trigger"
 
@@ -10282,9 +10245,8 @@ msgid "Trigger Active"
 msgstr "Trigger ist eingeschaltet"
 
 #: client/components/views/triggers/history/_show.html:16
-#, fuzzy
 msgid "Trigger Details"
-msgstr "Bestelldetails"
+msgstr "Trigger-Details"
 
 #: client/components/views/triggers/_edit.html:61
 msgid "Trigger Disabled"
@@ -10292,35 +10254,31 @@ msgstr "Trigger ist ausgeschaltet"
 
 #: client/components/views/triggers/_edit.html:35
 msgid "Trigger ID: {{ ::trigger.id }}"
-msgstr ""
+msgstr "Trigger-ID: {{ ::trigger.id }}"
 
 #: client/components/views/triggers/_edit.html:43
-#, fuzzy
 msgid "Trigger Name"
-msgstr "Schlagwörter des Triggers"
+msgstr "Trigger-Name"
 
 #: client/components/views/triggers/_vars.html:4
 msgid "Trigger Tags"
 msgstr "Schlagwörter des Triggers"
 
 #: client/components/views/triggers/_edit.html:53
-#, fuzzy
 msgid "Trigger URL"
-msgstr "Trigger"
+msgstr "Trigger-URL"
 
 #: client/components/directives/triggers.directives.js:519
 msgid "Trigger created successfully."
 msgstr "Trigger erfolgreich erstellt."
 
 #: client/components/views/triggers/list.html:77
-#, fuzzy
 msgid "Trigger disabled"
 msgstr "Trigger ist ausgeschaltet"
 
 #: client/components/views/triggers/list.html:76
-#, fuzzy
 msgid "Trigger is active"
-msgstr "Trigger aktiv."
+msgstr "Trigger ist eingeschatet"
 
 #: client/components/directives/triggers.directives.js:142
 #: client/components/directives/triggers.directives.js:404
@@ -10343,6 +10301,8 @@ msgstr "Trigger"
 #: client/components/views/triggers/list.html:43
 msgid "Triggers notify you when things happen"
 msgstr ""
+"Durch Trigger werden Sie benachrichtigt, wenn wichtige Dinge in Ihrem "
+"Netzwerk passieren"
 
 #: client/components/views/triggers/list.html:26
 msgid "Triggers run automatically in the background."
@@ -10495,14 +10455,12 @@ msgid "Unarchived"
 msgstr "Wiederhergestellt"
 
 #: client/components/views/triggers/list.html:50
-#, fuzzy
 msgid "Understanding Brand Triggers"
-msgstr "Teste Trigger"
+msgstr "Brand-Trigger verstehen"
 
 #: client/components/views/triggers/list.html:40
-#, fuzzy
 msgid "Understanding Triggers"
-msgstr "Teste Trigger"
+msgstr "Trigger verstehen"
 
 #: client/components/locations/locations.directives.js:2025
 msgid "Unfavourite"
@@ -10622,19 +10580,17 @@ msgid "Updated"
 msgstr "Aktualisiert"
 
 #: client/components/views/operations/_index.html:36
-#, fuzzy
 msgid "Updated {{ op.operation_type | truncate:25 }}"
-msgstr "{{'Keine Beschreibung' | truncate:15}}"
+msgstr "{{ op.operation_type | truncate:25 }} aktualisiert"
 
 #: client/components/views/operations/_show.html:29
 msgid "Updated {{ operation.operation_type }}"
-msgstr ""
+msgstr "{{ operation.operation_type }} aktualisiert"
 
 #: client/components/views/triggers/_edit.html:586
 #: client/components/views/triggers/_edit.html:625
-#, fuzzy
 msgid "Updated*"
-msgstr "Aktualisiert"
+msgstr "Aktualisiert*"
 
 #: client/components/boxes/port_forwards/form.html:48
 msgid "Updating"
@@ -10779,7 +10735,6 @@ msgstr "Verwenden Sie Ihre eigene LinkedIn-App"
 
 #: client/components/events/_index.html:43
 #: client/components/views/operations/_index.html:29
-#, fuzzy
 msgid "User"
 msgstr "Benutzer"
 
@@ -10943,9 +10898,8 @@ msgstr "Seiten zeigen"
 
 #: client/components/events/_index.html:83
 #: client/components/events/_show.html:61
-#, fuzzy
 msgid "View Resource"
-msgstr "Resource"
+msgstr "Ressource anzeigen"
 
 #: client/components/locations/clients/codes.html:68
 msgid "View Usage"
@@ -10977,12 +10931,11 @@ msgid "Virgin Islands, U.S."
 msgstr "Virgin Islands (US)"
 
 #: client/components/registrations/_flow.html:68
-#, fuzzy
 msgid ""
 "Visit <b>https://{{ holding.url || 'my-wifi-dashboard' }}.ctapp.io</b> to "
 "sign-in"
 msgstr ""
-"Besuchen Sie <b>https://{{ holding.url || 'my-great-dashboard' }}.ctapp.io</"
+"Besuchen Sie <b>https://{{ holding.url || 'my-wifi-dashboard' }}.ctapp.io</"
 "b> um sich anzumelden"
 
 #: client/components/users/billing/_plans.html:56
@@ -11118,15 +11071,16 @@ msgid ""
 "We've created some default triggers to get you started. You can delete these "
 "and start again."
 msgstr ""
+"Wir haben einige Standard-Trigger für Sie erstellt, um Ihnen den Einstieg zu "
+"erleichtern. Diese können Sie jederzeit löschen und neue erstellen."
 
 #: client/components/registrations/_flow.html:135
 msgid "Web Address"
 msgstr "Web-Adresse"
 
 #: client/components/views/triggers/_vars.html:42
-#, fuzzy
 msgid "Webhook tags"
-msgstr "Facebook Seite"
+msgstr "Webhook-Schlagwörter"
 
 #: client/components/splash_pages/_menu.html:513
 #: client/components/splash_pages/_menu.html:515
@@ -11208,7 +11162,6 @@ msgid "What should we call you?"
 msgstr "Wie sollen wir Sie nennen?"
 
 #: client/components/registrations/registrations.directive.js:83
-#, fuzzy
 msgid "What web address do you want for your dashboard?"
 msgstr "Welche Webadresse möchten Sie für Ihr Dashboard verwenden?"
 
@@ -11338,7 +11291,7 @@ msgstr "Whitelist"
 
 #: client/components/views/triggers/_edit.html:853
 msgid "Whitelist IP addresses."
-msgstr ""
+msgstr "IP-Adressen auf der Whitelist."
 
 #: client/index.html:20
 msgid "Wi-Fi Management Platform"
@@ -11366,14 +11319,12 @@ msgid "WiFi Usage"
 msgstr "WiFi-Nutzung"
 
 #: client/components/views/triggers/_edit.html:322
-#, fuzzy
 msgid "WiFi off"
-msgstr "WiFi-Datenverkehr"
+msgstr "WiFi ausschalten"
 
 #: client/components/views/triggers/_edit.html:327
-#, fuzzy
 msgid "WiFi on"
-msgstr "WiFi"
+msgstr "WiFi einschalten"
 
 #: client/components/splash_pages/_menu.html:487
 #: client/components/splash_pages/_menu.html:581
@@ -11452,7 +11403,7 @@ msgstr "Sie können dies alles später noch ändern, wenn Sie wollen."
 
 #: client/components/views/brands/_new.html:11
 msgid "You can create multiple brands on Enterprise plans only."
-msgstr ""
+msgstr "Mehrere Brands können Sie nur im Enterprise-Tarif erstellen."
 
 #: client/components/splash_pages/_form.html:11
 msgid "You can design the splash pages to match your style."
@@ -11517,7 +11468,6 @@ msgstr ""
 "compatible-devices-access-points\" target=\"_blank\">hier</a>."
 
 #: client/components/brands/brands.directives.js:143
-#, fuzzy
 msgid "You may need to resync your boxes after updating your brand."
 msgstr ""
 "Bitte alle Ihre Geräte nach der Änderung Ihres Brands neu synchronisieren."
@@ -11829,9 +11779,8 @@ msgid "Your address"
 msgstr "Ihre Adresse"
 
 #: client/components/views/brands/_new.html:45
-#, fuzzy
 msgid "Your address will be&nbsp;"
-msgstr "Ihre Dashboard-Adresse ist&nbsp;"
+msgstr "Ihre Adresse ist&nbsp;"
 
 #: client/components/apps/_new.html:34
 msgid "Your application name"
@@ -11849,6 +11798,8 @@ msgstr "Rechnungspostleitzahl"
 msgid ""
 "Your brand is logical container for all your locations, users and projects."
 msgstr ""
+"Ein Brand ist ein logischer Container für alle Ihre Standorte, Benutzer und "
+"Projekte."
 
 #: client/components/apps/_new.html:49
 msgid "Your callback URL"
@@ -12123,9 +12074,8 @@ msgid "muted"
 msgstr "gedämpft"
 
 #: client/components/registrations/_flow.html:59
-#, fuzzy
 msgid "my-wifi-dashboard"
-msgstr "Dashboard"
+msgstr "my-wifi-dashboard"
 
 #: client/components/services/pagination_labels.services.js:9
 msgid "of"
@@ -12355,11 +12305,11 @@ msgstr "{{ app.scopes }}"
 
 #: client/components/boxes/show/_index.html:211
 msgid "{{ box.tags || \"No tags\" }}"
-msgstr ""
+msgstr "{{ box.tags || \"Keine Schlagwörter\" }}"
 
 #: client/components/locations/clients/_index.html:244
 msgid "{{ client.expected_throughput }}Mbps"
-msgstr ""
+msgstr "{{ client.expected_throughput }} Mbit/s"
 
 #: client/components/locations/clients/_index.html:303
 msgid "{{ client.policies.length }} Policies"
@@ -12371,11 +12321,11 @@ msgstr "{{ client.policies.length }} Richtlinien"
 
 #: client/components/locations/clients/_index.html:250
 msgid "{{ client.rxbitrate }}Mbps"
-msgstr ""
+msgstr "{{ client.rxbitrate }} Mbit/s"
 
 #: client/components/locations/clients/_index.html:247
 msgid "{{ client.txbitrate }}Mbps"
-msgstr ""
+msgstr "{{ client.txbitrate }} Mbit/s"
 
 #: client/components/locations/clients/_index.html:80
 msgid "{{ client_mac }} MCS Value"
@@ -12399,7 +12349,7 @@ msgstr "{{ client_mac }} WiFi-Daten"
 
 #: client/components/views/triggers/history/_index.html:31
 msgid "{{ h.success ? \"Success\" : \"Error\" }}"
-msgstr ""
+msgstr "{{ h.success ? \"Erfolgreich\" : \"Fehler\" }}"
 
 #: client/components/locations/clients/_index.html:183
 msgid "{{ info.connected }} Connected."
@@ -12493,9 +12443,8 @@ msgstr ""
 "verwendet."
 
 #: client/components/views/triggers/_edit.html:33
-#, fuzzy
 msgid "{{ trigger.trigger_name }} Trigger"
-msgstr "{{ trigger.id ? \"Zurück zu Trigger\" : \"Trigger\" }}"
+msgstr "{{ trigger.trigger_name }}-Trigger"
 
 #: client/components/views/triggers/_vars.html:52
 msgid "{{ type | titleCase }} tags"

@@ -28,7 +28,7 @@
         </md-menu-content>
       </md-menu>
     </md-menu-bar>
-    <md-menu-bar ng-if="clients.unique_aps.length > 1" style="padding: 0">
+    <md-menu-bar ng-if="unique_aps.length > 0" style="padding: 0">
       <md-menu>
         <button ng-click="$mdOpenMenu()">
           <md-icon>router</md-icon>
@@ -42,7 +42,7 @@
             </md-button>
           </md-menu-item>
           <md-menu-divider></md-menu-divider>
-          <md-menu-item ng-repeat="box in clients.unique_aps">
+          <md-menu-item ng-repeat="box in unique_aps">
             <md-button ng-class="{ 'active': ap_mac == box.ap_mac }" ng-click="updateAp(box.ap_mac)">
               {{box.description}}
             </md-button>
