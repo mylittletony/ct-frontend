@@ -4,32 +4,24 @@ var app = angular.module('myApp.payloads.services', ['ngResource',]);
 
 app.factory('Payload', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
-    return $resource(API_END_POINT + '/:controller/:box_id/payloads/:id',
+    return $resource(API_END_POINT + '/locations/:location_id/boxes/:box_id/payloads/:id',
       {
         id: '@id',
         controller: '@controller',
+        box_ids: '@box_ids',
         box_id: '@box_id',
         payload: '@payload',
-        save: '@save'
+        location_id: '@location_id',
+        save: '@save',
       },
       {
       get: {
         method:'GET',
         isArray: false,
-        params: {
-          box_id: '@box_id',
-          id: '@id',
-          controller: 'boxes'
-        }
       },
       destroy: {
         method: 'DELETE',
-        isArray: false,
-        params: {
-          box_id: '@box_id',
-          id: '@id',
-          controller: 'boxes'
-        }
+        isArray: false
       },
       create: {
         method:'POST',
@@ -42,6 +34,24 @@ app.factory('Payload', ['$resource', 'API_END_POINT',
           box_id: '@box_id',
           controller: '@controller'
         }
+      },
+    });
+  }]);
+
+app.factory('LocationPayload', ['$resource', 'API_END_POINT',
+  function($resource, API_END_POINT){
+    return $resource(API_END_POINT + '/locations/:location_id/payloads',
+      {
+        id: '@id',
+        box_ids: '@box_ids',
+        payload: '@payload',
+        location_id: '@location_id',
+        save: '@save',
+      },
+      {
+      create: {
+        method:'POST',
+        isArray: false
       },
     });
   }]);

@@ -42,7 +42,7 @@
               <label>
                 <translate>Trigger Name</translate>
               </label>
-              <input type="text" name="trigger_name" ng-minlength="5" md-maxlength="50" ng-model="trigger.trigger_name" placeholder="{{ 'My Handy Trigger' | translate }}" required md-autofocus></input>
+              <input type="text" name="trigger_name" md-maxlength="50" ng-model="trigger.trigger_name" placeholder="{{ 'My Handy Trigger' | translate }}" required md-autofocus></input>
               <div ng-messages="myForm.trigger_name.$error">
                 <div ng-message="required"  translate>Please enter a name for your trigger</div>
                 <div ng-message="md-maxlength" translate>Must be less than 50 characters</div>

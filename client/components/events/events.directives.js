@@ -8,6 +8,7 @@ app.directive('listEvents', ['Event', '$location', '$routeParams', 'menu', 'gett
 
     menu.isOpenLeft = false;
     menu.isOpen = false;
+    menu.hideBurger = true;
     menu.sectionName = 'Events';
 
     scope.loading     = true;

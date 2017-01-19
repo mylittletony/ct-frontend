@@ -7,6 +7,8 @@ app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 
   var link = function( scope, element, attrs ) {
 
     scope.location = { slug: $routeParams.id };
+    var box      = { slug: $routeParams.box_id };
+    
     var loadCommands = function() {
       Command.query().$promise.then(function(results) {
         scope.commands = results;
@@ -24,13 +26,13 @@ app.directive('runPayload', ['Payload', 'Command', '$routeParams', 'showToast', 
       scope.command.selected = undefined;
       Payload.create({}, {
         location_id: scope.location.slug,
+        box_id: box.slug,
         payload: {
-          box_ids: $routeParams.box_id,
+          box_ids: box.slug,
           command_id: cmd,
           save: true
         }
       }).$promise.then(function() {
-        // scope.command.success = true;
         showToast(gettextCatalog.getString('Payload running, please wait.'));
       }, function(errors) {
         showErrors(errors);

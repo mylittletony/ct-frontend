@@ -692,7 +692,11 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     };
 
     scope.deletePayload = function(index,id) {
-      Payload.destroy({box_id: scope.box.slug, id: id}).$promise.then(function() {
+      Payload.destroy({}, {
+        location_id: scope.location.slug,
+        box_id: scope.box.slug, 
+        id: id
+      }).$promise.then(function() {
         scope.payloads.splice(index, 1);
         showToast(gettextCatalog.getString('Payload deleted successfully'));
       }, function(errors) {
@@ -722,8 +726,10 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     Ctrl.$inject = ['$scope', 'command'];
 
     var loadPayloads = function() {
-      Payload.query({controller: 'boxes', box_id: scope.box.slug}, function(data) {
-        console.log(data);
+      Payload.query({}, {
+        location_id: scope.location.slug,
+        box_id: scope.box.slug
+      }, function(data) {
         scope.payloads = data;
       });
     };
@@ -1334,15 +1340,17 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
       scope.box.state               = 'processing';
       scope.box.upgrade_scheduled   = true;
       if (scope.box) {
-        scope.box.cancelled             = undefined;
+        scope.box.cancelled = undefined;
       }
       Payload.create(
         {
+          location_id: scope.location.slug,
+          box_id: scope.box.slug,
           payload: {
-            scheduled: prefs.scheduled,
-            box_ids: scope.box.slug,
-            version: prefs.version,
-            upgrade: true
+            box_ids:    scope.box.slug,
+            scheduled:  prefs.scheduled,
+            version:    prefs.version,
+            upgrade:    true
           }
         }
       ).$promise.then(function() {
@@ -1430,7 +1438,9 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
     };
 
     var cancelUpgrade = function() {
-      Upgrade.destroy({box_id: scope.box.slug}).$promise.then(function(result) {
+      Upgrade.destroy({}, {
+        box_id: scope.box.slug
+      }).$promise.then(function(result) {
         scope.box.state = 'online';
         scope.box.upgrade_scheduled = undefined;
         showToast(gettextCatalog.getString('Upgrade cancelled successfully.'));
