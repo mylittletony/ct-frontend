@@ -36,7 +36,6 @@ app.directive('operations', ['Operation', 'Location', '$routeParams', 'gettextCa
       Operation.query({box_id: scope.box.slug, page: scope.query.page, per: scope.query.limit }).$promise.then(function(res) {
         scope.operations = res.operations;
         scope._links = res._links;
-        console.log(res._links);
         scope.loading = undefined;
       }, function() {
         scope.loading = undefined;
