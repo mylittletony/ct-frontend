@@ -331,8 +331,8 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var formatTonyTime = function() {
-      scope.trigger.start_hour = scope.trigger.starttime.getHours() + '' + ('0' + scope.trigger.starttime.getMinutes()).slice(-2);
-      scope.trigger.end_hour = scope.trigger.endtime.getHours() + '' + ('0' + scope.trigger.endtime.getMinutes()).slice(-2);
+      scope.trigger.start_hour = scope.trigger.starttime;
+      scope.trigger.end_hour = scope.trigger.endtime;
     };
 
     var createMenu = function() {
@@ -652,8 +652,9 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
       var start, end;
       start = ('0' + scope.trigger.start_hour).slice(-4);
       end   = ('0' + scope.trigger.end_hour).slice(-4);
-      start = moment(start, 'hh:mm:ss');
-      end = moment(end, 'hh:mm:ss');
+      start = moment(start, 'HH');
+      console.log(start);
+      end = moment(end, 'HH');
       scope.trigger.starttime = new Date(start);
       scope.trigger.endtime = new Date(end);
     };
