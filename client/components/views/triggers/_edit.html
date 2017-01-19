@@ -877,7 +877,7 @@
               <div layout-gt-sm="row" layout="column" layout-wrap>
                 <md-input-container flex-gt-sm="25" flex="100">
                   <label>
-                    <translate>Start Hour</translate>
+                    <translate>{{trigger.start_hour}}</translate>
                   </label>
                   <md-select ng-model="trigger.starttime">
                     <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
@@ -887,7 +887,7 @@
                 </md-input-container>
                 <md-input-container flex-gt-sm="25" flex="100">
                   <label>
-                    <translate>End Hour</translate>
+                    <translate>{{trigger.end_hour}}</translate>
                   </label>
                   <md-select ng-model="trigger.endtime">
                     <md-option ng-repeat="hour in hours" value="{{ hour.value }}">

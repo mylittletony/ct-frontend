@@ -331,8 +331,8 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var formatTonyTime = function() {
-      scope.trigger.start_hour = scope.trigger.starttime;
-      scope.trigger.end_hour = scope.trigger.endtime;
+      scope.trigger.start_hour = scope.trigger.starttime + "00";
+      scope.trigger.end_hour = scope.trigger.endtime + "00";
     };
 
     var createMenu = function() {
