@@ -703,13 +703,13 @@
 
             <!-- <small class="muted" style="font-size: 75%;">Schedule the trigger to run periodically</small> -->
 
-            <span iing-show="trigger.schedule == 1">
+            <span iing-show="trigger.schedule == 0">
               <div layout-gt-sm="row" layout="column" layout-wrap>
                 <md-input-container flex-gt-sm="50" flex="100">
                   <label>
                     <translate>Every</translate>
                   </label>
-                  <md-select ng-model="trigger.cron_frequency" ng-required="trigger.schedule == 1" ng-disabled="trigger.schedule !== 1">
+                  <md-select ng-model="trigger.cron_frequency">
                     <md-option ng-repeat="every in everies" value="{{ every.value }}">
                       {{ every.key }}
                     </md-option>
@@ -763,7 +763,7 @@
                   </translate>
                 </span>
                 <span class="md-subhead" translate>
-                  <span ng-if="trigger.trigger_event == 'notify'" translate> 
+                  <span ng-if="trigger.trigger_event == 'notify'" translate>
                     The channel is the way you get notified.
                   </span>
                   <span ng-if="trigger.trigger_event == 'action'" translate>
@@ -874,14 +874,26 @@
             </div>
 
             <span ng-if="trigger.trigger_event == 'notify'">
-              <div layout-gt-sm="row" flex="100" flex-gt-xs="60" style="margin: 20px 0 -20px 0">
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label translate>Start Hour</label>
-                  <input type="time" ng-model="trigger.starttime">
+              <div layout-gt-sm="row" layout="column" layout-wrap>
+                <md-input-container flex-gt-sm="25" flex="100">
+                  <label>
+                    <translate>Start Hour</translate>
+                  </label>
+                  <md-select ng-model="trigger.starttime">
+                    <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
+                      {{ hour.key }}
+                    </md-option>
+                  </md-select>
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label translate>End Hour</label>
-                  <input type="time" ng-model="trigger.endtime">
+                <md-input-container flex-gt-sm="25" flex="100">
+                  <label>
+                    <translate>End Hour</translate>
+                  </label>
+                  <md-select ng-model="trigger.endtime">
+                    <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
+                      {{ hour.key }}
+                    </md-option>
+                  </md-select>
                 </md-input-container>
               </div>
             </span>
