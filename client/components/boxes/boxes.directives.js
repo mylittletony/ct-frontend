@@ -694,7 +694,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     scope.deletePayload = function(index,id) {
       Payload.destroy({}, {
         location_id: scope.location.slug,
-        box_id: scope.box.slug, 
+        box_id: scope.box.slug,
         id: id
       }).$promise.then(function() {
         scope.payloads.splice(index, 1);
@@ -1335,6 +1335,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
   var link = function( scope, element, attrs ) {
 
     var ps;
+    var location = { slug: $routeParams.id };
 
     var upgrade = function(prefs) {
       scope.box.state               = 'processing';
@@ -1344,7 +1345,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
       }
       Payload.create(
         {
-          location_id: scope.location.slug,
+          location_id: location.slug,
           box_id: scope.box.slug,
           payload: {
             box_ids:    scope.box.slug,
