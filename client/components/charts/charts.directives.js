@@ -99,6 +99,15 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
             },
           }
         };
+        options.hAxis = {
+          gridlines: {
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd, yyyy')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
+          }
+        };
 
         if (scope.type === 'signal') {
           signalChart();
@@ -544,6 +553,16 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
           },
           1: {},
         };
+        opts.hAxis = {
+          gridlines: {
+            count: -1,
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
+          }
+        };
 
         opts.explorer = {
           maxZoomOut:2,
@@ -668,7 +687,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
 
 }]);
 
-app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Report, $routeParams, $timeout) {
+app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', function(Report, $routeParams, $timeout, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -764,6 +783,16 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
         },
         1: {},
       };
+      opts.hAxis = {
+        gridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
+        }
+      };
 
       opts.explorer = {
         maxZoomOut:2,
@@ -801,7 +830,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
 
 }]);
 
-app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report, $routeParams, $timeout) {
+app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', function(Report, $routeParams, $timeout, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -885,6 +914,16 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
         },
         2: {
           targetAxisIndex: 1
+        }
+      };
+      opts.hAxis = {
+        gridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
         }
       };
       opts.vAxes = {
@@ -1068,7 +1107,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
 
 }]);
 
-app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(Report, $routeParams, $timeout) {
+app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', function(Report, $routeParams, $timeout, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -1212,6 +1251,18 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
             targetAxisIndex: 1
           }
         };
+
+        opts.hAxis = {
+          gridlines: {
+            count: -1,
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
+          }
+        };
+
         opts.vAxes = {
           0: {
             textPosition: 'none'
@@ -1389,7 +1440,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         }
       };
       opts.hAxis = {
-        format: 'dd/MM/yyyy',
+        format:  gettextCatalog.getString('MMM dd, yyyy')
       };
       opts.vAxis = {
         format: '0',
@@ -1460,7 +1511,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
 
       var date_formatter = new window.google.visualization.DateFormat({
-        pattern: 'MMM dd, yyyy'
+        pattern: gettextCatalog.getString('MMM dd, yyyy')
       });
       date_formatter.format(data,0);
 

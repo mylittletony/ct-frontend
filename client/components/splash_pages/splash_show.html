@@ -215,7 +215,7 @@
 
               <div flex-gt-sm="50" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'none'">
                 <md-input-container class="md-block">
-                  <label><translate>Minutes {{ splash.access_restrict_period | titleCase }}</translate></label>
+                  <label><translate>Minutes {{ splash.access_restrict_period | translatableAccessRestrict | titleCase }}</translate></label>
                   <input ng-model="splash.access_restrict_mins" placeholder="" type='number' name="access_restrict_mins" ng-min="10" ng-max='43200' ng-disabled="splash.access_restrict === 'none'">
                   <div ng-messages="myForm.access_restrict_mins.$error">
                     <div ng-message="required" translate>You must set the restrict mins.</div>
@@ -227,7 +227,7 @@
 
               <div flex-gt-sm="50" ng-if="splash.access_restrict === 'data'">
                 <md-input-container class="md-block">
-                  <label>MB {{ splash.access_restrict_period | titleCase }} </label>
+                  <label>MB {{ splash.access_restrict_period | translatableAccessRestrict | titleCase }} </label>
                   <input ng-model="splash.access_restrict_down" placeholder="{{ 'MB Limit' | translate }}" type='text' name="access_restrict_down" ng-max='' ng-min="10" required>
                   <div ng-messages="myForm.access_restrict_down.$error">
                     <div ng-message="required" translate>You must set the download restriction.</div>
