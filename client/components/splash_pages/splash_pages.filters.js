@@ -57,3 +57,16 @@ app.filter('translatablePrimaryAccess', ['gettextCatalog', function(gettextCatal
     }
   };
 }]);
+
+app.filter('translatableAccessRestrict', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    switch(input) {
+      case 'daily':
+        return gettextCatalog.getString('daily');
+      case 'weekly':
+        return gettextCatalog.getString('weekly');
+      case 'monthly':
+        return gettextCatalog.getString('monthly');
+    }
+  };
+}]);
