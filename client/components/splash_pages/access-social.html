@@ -167,7 +167,7 @@
           </div>
         </md-input-container>
         <md-input-container class="md-block">
-          <label translate>LinkedIn Api Key</label>
+          <label translate>LinkedIn Api Secret</label>
           <input ng-model="splash.li_api_secret" ng-focus="liSecret = !liSecret" ng-blur="liSecret = !liSecret" name="li_api_secret" placeholder="{{ 'Enter your LinkedIn Secret' | translate }}" type='{{ liSecret ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
           <div ng-messages="myForm.li_api_secret.$error" md-auto-hide="false">
             <div ng-message="md-maxlength" translate>API secret required when using your own App.</div>
