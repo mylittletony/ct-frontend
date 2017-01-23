@@ -109,8 +109,8 @@
           <md-button ng-click="deleteField()" ng-show="selected._id && selected.name != 'username'" class="md-raised"><translate>Delete</translate></md-button>
           <md-button ng-click="newField()" ng-hide="" class="md-raised">New Field</md-button>
           <md-button ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised md-primary">
-            <span ng-if="selected._id === true" translate>Save</span>
-            <span ng-if="selected._id === false" translate>Create</span>
+            <span ng-if="selected._id" translate>Save</span>
+            <span ng-if="!selected._id" translate>Create</span>
           </md-button>
         </md-card-actions>
       </form>

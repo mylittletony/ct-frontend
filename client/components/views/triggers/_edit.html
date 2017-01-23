@@ -874,10 +874,11 @@
             </div>
 
             <span ng-if="trigger.trigger_event == 'notify'">
-              <div layout-gt-sm="row" flex="100" flex-gt-xs="60" style="margin: 20px 0 -20px 0">
+              <p><small translate>Allowed Hours</small></p>
+              <div layout-gt-sm="row" flex="100" flex-gt-xs="60" style="margin: 10px 0 -20px 0">
                 <md-input-container class="md-block" flex-gt-sm>
                   <label>
-                    <translate>Start</translate>
+                    <translate>Start Hour</translate>
                   </label>
                   <md-select ng-model="trigger.start_hour">
                     <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
@@ -887,7 +888,7 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                   <label>
-                    <translate>End</translate>
+                    <translate>End Hour</translate>
                   </label>
                   <md-select ng-model="trigger.end_hour">
                     <md-option ng-repeat="hour in hours" value="{{ hour.value }}">
