@@ -327,6 +327,14 @@ app.directive('googleMarker', function ($timeout,$compile) {
 
           controller.infoWindow.push(infoWindow);
 
+          function overrideCloseBounds() {
+            var listener = window.google.maps.event.addListener(map, "idle", function() {
+              var zoom = map.getZoom();
+              map.setZoom(zoom > 12 ? 12 : zoom)
+              google.maps.event.removeListener(listener);
+            });
+          }
+
           markers.push(marker);
           if (attrs.zoom) {
             map.setZoom(3);
@@ -370,14 +378,6 @@ app.directive('googleMarker', function ($timeout,$compile) {
               strokeWeight: 0.5,
               scale: scale * Math.pow(1.4, map.getZoom()) // Bigger circles as you zoom in
             };
-          }
-
-          function overrideCloseBounds() {
-            var listener = window.google.maps.event.addListener(map, "idle", function() {
-              var zoom = map.getZoom();
-              map.setZoom(zoom > 12 ? 12 : zoom)
-              google.maps.event.removeListener(listener);
-            });
           }
 
         });
