@@ -221,7 +221,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
     var init = function(params) {
       var deferred = $q.defer();
       params.v2 = true;
-      Report.get(params).$promise.then(function(results) {
+      Report.clientstats(params).$promise.then(function(results) {
         deferred.resolve(results);
       }, function(err) {
         deferred.reject(err);
@@ -436,15 +436,15 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
           a.push({ count: data.stats.outbound.total / (1000*1000), term: 'Outbound'});
           data.stats = a;
         }
+        json = data.stats;
+        drawChart();
       }, function() {
         var a = [];
         a.push({ count: 0.00001, term: 'No data' });
         data = { stats: a };
-      });
-      timer = $timeout(function() {
         json = data.stats;
         drawChart();
-      },500);
+      });
       scope.loading       = undefined;
     };
 
