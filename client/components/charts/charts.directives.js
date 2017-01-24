@@ -1440,7 +1440,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         }
       };
       opts.hAxis = {
-        format:  gettextCatalog.getString('MMM dd, yyyy')
+        format:  gettextCatalog.getString('MMM dd, yyyy'),
+        viewWindow: {
+          min: new Date(2016, 1, 1),
+          max: new Date(2017, 1, 1)
+        },
       };
       opts.vAxis = {
         format: '0',
