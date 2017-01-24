@@ -673,7 +673,7 @@
             </md-radio-group>
 
             <span ng-if="location.slug && trigger.trigger_event == 'action' && (trigger.type == 'guest' || trigger.type == 'email' || trigger.type == 'rogue' || trigger.type == 'social' || trigger.type == 'store' || trigger.type == 'zone' || trigger.type == 'client' || trigger.type == 'action' || trigger.type == 'voucher' || trigger.type == 'location')">
-              <b><translate>Action triggers not available for {{ trigger.type }}s</translate></b>
+              <b><translate>Action triggers not available for {{ trigger.type | translatableTriggerTypes}}</translate></b>
             </span>
 
           </md-card-content>
