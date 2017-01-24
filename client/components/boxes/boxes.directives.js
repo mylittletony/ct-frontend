@@ -577,6 +577,24 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       return deferred.promise;
     };
 
+    controller.$scope.$on('fullScreen', function(val,obj) {
+      menu.isOpenLeft = false;
+      menu.isOpen = false;
+      scope.fs = { panel: obj.panel };
+      $timeout(function() {
+        controller.$scope.$broadcast('loadClientChart', 'device');
+      },250);
+    });
+
+    controller.$scope.$on('closeFullScreen', function(val,obj) {
+      menu.isOpenLeft = true;
+      menu.isOpen = true;
+      scope.fs = undefined;
+      $timeout(function() {
+        controller.$scope.$broadcast('loadClientChart', 'device');
+      },250);
+    });
+
     var sortSsids = function() {
       if (scope.box.metadata && scope.box.metadata.ssids && scope.box.metadata.ssids.length > 0) {
         if (scope.box.metadata.ssids.length === 1) {

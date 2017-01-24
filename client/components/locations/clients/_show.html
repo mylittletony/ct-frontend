@@ -121,7 +121,7 @@
     </md-card>
   </div>
 
-  <div flex flex-gt-sm="70" layout="column" class="clients-charts">
+  <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" class="clients-charts">
     <div layout="" layout-wrap>
       <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
         <usage-chart ></usage-chart>
