@@ -1314,6 +1314,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           opts.height = 250;
         }
         c = new window.google.visualization.LineChart(document.getElementById('mcs-chart'));
+        console.log(data);
         c.draw(data, opts);
         scope.noData = undefined;
         scope.loading = undefined;
@@ -1443,9 +1444,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     function drawChart() {
 
       $timeout.cancel(timer);
-
+      console.log(data);
       data = new window.google.visualization.DataTable();
-
       if (scope.type === 'usage') {
         usageChart();
       } else if (scope.type === 'clients') {
