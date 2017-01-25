@@ -1379,6 +1379,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function chart() {
+
       var params = {
         type: scope.type,
         resource: resource,
@@ -1409,6 +1410,9 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function drawChart() {
+
+      var date = new Date();
+      date.setDate(date.getDate() - 7);
 
       $timeout.cancel(timer);
 
@@ -1442,8 +1446,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       opts.hAxis = {
         format:  gettextCatalog.getString('MMM dd, yyyy'),
         viewWindow: {
-          min: new Date(2016, 1, 1),
-          max: new Date(2017, 1, 1)
+          min: date,
+          max: new Date()
         },
       };
       opts.vAxis = {
