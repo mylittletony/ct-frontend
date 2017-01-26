@@ -74,12 +74,25 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
-      direction:  $routeParams.direction || 'desc'
+      direction:  $routeParams.direction || 'desc',
+      predicate:  $routeParams.predicate || 'updated_at'
     };
 
-    scope.onPaginate = function (page, limit) {
+    scope.sort = function(val, reverse) {
+      if (scope.query.direction === 'asc') {
+        scope.query.direction = 'desc';
+      } else {
+        scope.query.direction = 'asc';
+      }
+      var page = $routeParams.page || 1;
+      var limit = $routeParams.per || 25;
+      scope.onPaginate(page, limit, val);
+    };
+
+    scope.onPaginate = function (page, limit, val) {
       scope.query.page = page;
       scope.query.limit = limit;
+      scope.query.predicate = val || $routeParams.predicate;
       scope.blur();
     };
 
@@ -88,6 +101,8 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
         var hash = {};
         hash.page = scope.query.page;
         hash.per = scope.query.limit;
+        hash.predicate = scope.query.predicate;
+        hash.direction = scope.query.direction;
         hash.q = scope.query.filter;
         $location.search(hash);
       }
