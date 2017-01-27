@@ -1338,7 +1338,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         } else {
           opts.height = 250;
         }
-        c = new window.google.visualization.LineChart(document.getElementById('mcs-chart'));
+        c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
         c.draw(data, opts);
         scope.noData = undefined;
         scope.loading = undefined;
