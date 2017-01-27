@@ -1468,8 +1468,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
     function drawChart() {
 
-      var date = new Date();
-      date.setDate(date.getDate() - 7);
+      var minDate = new Date();
+      minDate.setDate(minDate.getDate() - 7);
+      minDate.setHours(0,0,0,0);
+      var maxDate = new Date();
+      maxDate.setHours(0,0,0,0);
 
       $timeout.cancel(timer);
       data = new window.google.visualization.DataTable();
@@ -1501,8 +1504,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       opts.hAxis = {
         format:  gettextCatalog.getString('MMM dd, yyyy'),
         viewWindow: {
-          min: date,
-          max: new Date()
+          min: minDate,
+          max: maxDate
         },
       };
       opts.vAxis = {
@@ -1538,6 +1541,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
       c = new window.google.visualization.LineChart(document.getElementById('location-chart'));
       c.draw(data, opts);
+      console.log(data);
       scope.noData = undefined;
       scope.loading = undefined;
     }
