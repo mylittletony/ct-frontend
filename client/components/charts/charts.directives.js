@@ -125,6 +125,8 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           chart.draw(data, options);
         }
       }
+
+      // For the tests mainly, not sure why this has started causing a failure, like above
       if (window.google && window.google.visualization) {
         var date_formatter = new window.google.visualization.DateFormat({
           pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
@@ -1434,6 +1436,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function chart() {
+
       var params = {
         type: scope.type,
         resource: resource,
@@ -1465,6 +1468,9 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
     function drawChart() {
 
+      var date = new Date();
+      date.setDate(date.getDate() - 7);
+
       $timeout.cancel(timer);
       data = new window.google.visualization.DataTable();
       if (scope.type === 'usage') {
@@ -1493,7 +1499,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         }
       };
       opts.hAxis = {
-        format:  gettextCatalog.getString('MMM dd, yyyy')
+        format:  gettextCatalog.getString('MMM dd, yyyy'),
+        viewWindow: {
+          min: date,
+          max: new Date()
+        },
       };
       opts.vAxis = {
         format: '0',
