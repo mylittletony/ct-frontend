@@ -7,7 +7,7 @@
         </label>
         <md-select ng-model="command.selected">
           <md-option ng-disabled="command.upgrade" ng-repeat="command in commands" value="{{command.unique_id}}">
-            {{ command.payload_description }}
+            {{ command.payload_description | translatablePayloadDescription }}
           </md-option>
         </md-select>
       </md-input-container>
