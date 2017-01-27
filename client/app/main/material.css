@@ -143,6 +143,22 @@ md-card-header.graph-small {
   padding: 10px 0 0 0px;
 }
 
+.design-sidebar .md-no-style {
+  border-bottom: 1px solid #ECECEC;
+  padding: 2px 0px 2px 5px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.870588);
+  text-transform: uppercase;
+  font-size: 14px;
+  width: 100%;
+}
+
+.design-sidebar .md-no-style md-icon {
+  float:right;
+  padding-right:15px;
+  padding-top:7px;
+}
+
 .design-sidebar .md-button-toggle {
   border-radius: 0;
   color: inherit;
