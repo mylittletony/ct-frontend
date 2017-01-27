@@ -1523,7 +1523,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
 
       var date_formatter = new window.google.visualization.DateFormat({
-        pattern: gettextCatalog.getString('MMM dd, yyyy'),
+        pattern: gettextCatalog.getString('MMM dd, yyyy')
       });
       date_formatter.format(data,0);
 
