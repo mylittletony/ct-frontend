@@ -125,10 +125,12 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           chart.draw(data, options);
         }
       }
-      var date_formatter = new window.google.visualization.DateFormat({
-        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
-      });
-      date_formatter.format(data,0);
+      if (window.google && window.google.visualization) {
+        var date_formatter = new window.google.visualization.DateFormat({
+          pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+        });
+        date_formatter.format(data,0);
+      }
     }
 
     //fixme @Toni translations: the titles will not work like that
