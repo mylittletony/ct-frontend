@@ -559,11 +559,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             targetAxisIndex: 1
           }
         };
-        opts.vAxes = {
-          0: {
-            textPosition: 'none'
-          },
-          1: {},
+        opts.vAxis = {
         };
         opts.hAxis = {
           gridlines: {
@@ -795,11 +791,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
           targetAxisIndex: 1
         }
       };
-      opts.vAxes = {
-        0: {
-          textPosition: 'none'
-        },
-        1: {},
+      opts.vAxis = {
       };
       opts.hAxis = {
         gridlines: {
@@ -1217,6 +1209,15 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
       data.addColumn('datetime', 'Date');
       data.addColumn('number', 'dummySeries');
+      var opts = controller.options;
+      opts.series = {
+        0: {
+          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+        },
+        1: {
+          targetAxisIndex: 1
+        }
+      };
 
       // Create temp store for interfaces and add columns //
       var ifaces = [];
@@ -1228,6 +1229,11 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           data.addColumn('number', k);
         }
       }
+
+      for (var i = 2; i < ifaces.length + 2; i++) {
+        opts.series[i] = { targetAxisIndex: 1 }
+      }
+
       var allRows = transpose(ifaceData);
 
       var first = json[ifaces[0]];
@@ -1249,7 +1255,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         }
 
         var suffix;
-        var opts = controller.options;
 
         // vAxis set to only have values on negative graphs
         if (scope.type === 'snr' ) {
