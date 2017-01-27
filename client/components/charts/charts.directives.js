@@ -125,6 +125,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           chart.draw(data, options);
         }
       }
+
       // For the tests mainly, not sure why this has started causing a failure, like above
       if (window.google && window.google.visualization) {
         var date_formatter = new window.google.visualization.DateFormat({
@@ -560,11 +561,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             targetAxisIndex: 1
           }
         };
-        opts.vAxes = {
-          0: {
-            textPosition: 'none'
-          },
-          1: {},
+        opts.vAxis = {
         };
         opts.hAxis = {
           gridlines: {
@@ -796,11 +793,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
           targetAxisIndex: 1
         }
       };
-      opts.vAxes = {
-        0: {
-          textPosition: 'none'
-        },
-        1: {},
+      opts.vAxis = {
       };
       opts.hAxis = {
         gridlines: {
@@ -1203,6 +1196,14 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       scope.noData = true;
     };
 
+    function transpose(array) {
+      return array[0].map(function (_, c) {
+        return array.map(function (r) {
+          return r[c];
+        });
+      });
+    }
+
     function drawChart(json) {
 
       $timeout.cancel(timer);
@@ -1210,17 +1211,33 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
       data.addColumn('datetime', 'Date');
       data.addColumn('number', 'dummySeries');
+      var opts = controller.options;
+      opts.series = {
+        0: {
+          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+        },
+        1: {
+          targetAxisIndex: 1
+        }
+      };
 
       // Create temp store for interfaces and add columns //
       var ifaces = [];
+      var ifaceData = [];
       for (var k in json) {
         if (typeof json[k] !== 'function') {
-          data.addColumn('number', k);
           ifaces.push(k);
+          ifaceData.push(json[k].values);
+          data.addColumn('number', k);
         }
       }
 
-      var dd = [];
+      for (var i = 2; i < ifaces.length + 2; i++) {
+        opts.series[i] = { targetAxisIndex: 1 }
+      }
+
+      var allRows = transpose(ifaceData);
+
       var first = json[ifaces[0]];
 
       if (first && first.values && first.values.length) {
@@ -1228,35 +1245,34 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
         for(var i = 0; i < len; i++) {
 
-          var temp = [];
+          var time = (first.values[i].time);
+          var t = new Date(time / (1000*1000));
+          var rowEntry = [t, null];
 
-          for (k in ifaces) {
-            var iface = ifaces[k];
+          allRows[i].forEach(function(element) {
+            rowEntry.push(element.value);
+          })
 
-            // Only insert the time and null col once //
-            if (temp.length === 0) {
-              var time = (json[iface].values[i].time);
-              var t = new Date(time / (1000*1000));
-              temp.push(t, null);
-            }
-
-            var val;
-            if (json[iface].values[i]) {
-              val = (json[iface].values[i].value);
-            }
-            temp.push(val);
-          }
-          data.addRow(temp);
+          data.addRow(rowEntry);
         }
 
         var suffix;
 
+        // vAxis set to only have values on negative graphs
         if (scope.type === 'snr' ) {
           suffix = 'dB';
+          opts.vAxis = {
+          }
         } else if (scope.type === 'noise' || scope.type === 'signal') {
           suffix = 'dBm';
+          opts.vAxis = {
+            minValue: -100,
+            maxValue: 0
+          }
         } else if (scope.type === 'quality') {
           suffix = '%';
+          opts.vAxis = {
+          }
         }
 
         var date_formatter = new window.google.visualization.DateFormat({
@@ -1272,8 +1288,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           formatter.format(data,i);
         }
 
-
-        var opts = controller.options;
         opts.legend = { position: 'bottom' };
         opts.series = {
           0: {
@@ -1283,6 +1297,21 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             targetAxisIndex: 1
           },
           2: {
+            targetAxisIndex: 1
+          },
+          3: {
+            targetAxisIndex: 1
+          },
+          4: {
+            targetAxisIndex: 1
+          },
+          5: {
+            targetAxisIndex: 1
+          },
+          6: {
+            targetAxisIndex: 1
+          },
+          7: {
             targetAxisIndex: 1
           }
         };
@@ -1296,13 +1325,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
               minutes: {format: [gettextCatalog.getString('hh:mm a')]}
             }
           }
-        };
-
-        opts.vAxes = {
-          0: {
-            textPosition: 'none'
-          },
-          1: {},
         };
 
         opts.explorer = {
@@ -1450,9 +1472,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       date.setDate(date.getDate() - 7);
 
       $timeout.cancel(timer);
-
       data = new window.google.visualization.DataTable();
-
       if (scope.type === 'usage') {
         usageChart();
       } else if (scope.type === 'clients') {
