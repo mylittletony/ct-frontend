@@ -99,3 +99,21 @@ app.filter('statusColour',['gettextCatalog', function(gett) {
   };
 }]);
 
+app.filter('translatableChartTitle', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return gettextCatalog.getString('N/A');
+    } else {
+      switch(input) {
+        case 'snr':
+          return gettextCatalog.getString('snr');
+        case 'quality':
+          return gettextCatalog.getString('quality');
+        case 'signal':
+          return gettextCatalog.getString('signal');
+        case 'noise':
+          return gettextCatalog.getString('noise');
+      }
+    }
+  };
+}]);

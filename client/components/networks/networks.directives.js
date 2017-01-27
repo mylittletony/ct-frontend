@@ -92,10 +92,10 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     scope.updateBand = function(band) {
       switch(band) {
         case 'two':
-          scope.band = gettextCatalog.getString('2.4Ghz');
+          scope.band = gettextCatalog.getString('two');
           break;
         case 'five':
-          scope.band = gettextCatalog.getString('5Ghz');
+          scope.band = gettextCatalog.getString('five');
           break;
         default:
           scope.band = '';

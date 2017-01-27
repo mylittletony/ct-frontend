@@ -85,10 +85,10 @@ describe('networks', function () {
 
     it("should update the band to 2.4Ghz or 5Ghz", function() {
       element.isolateScope().updateBand('two');
-      expect(element.isolateScope().band).toEqual('2.4Ghz');
+      expect(element.isolateScope().band).toEqual('two');
 
       element.isolateScope().updateBand('five');
-      expect(element.isolateScope().band).toEqual('5Ghz');
+      expect(element.isolateScope().band).toEqual('five');
 
       element.isolateScope().updateBand();
       expect(element.isolateScope().band).toEqual('');

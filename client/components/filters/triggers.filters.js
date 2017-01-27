@@ -77,7 +77,7 @@ app.filter('humanTriggerAction', ['gettextCatalog', function(gettextCatalog) {
   };
 }]);
 
-app.filter('filterChannel', function() {
+app.filter('filterChannel', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if (input === '' || input === undefined || input === null) {
       return input;
@@ -96,4 +96,35 @@ app.filter('filterChannel', function() {
       }
     }
   };
-});
+}]);
+
+app.filter('translatableTriggerTypes', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if (input === '' || input === undefined || input === null) {
+      return input;
+    } else {
+      switch(input) {
+        case 'guest':
+          return gettextCatalog.getString('guests');
+        case 'email':
+          return gettextCatalog.getString('emails');
+        case 'rogue':
+          return gettextCatalog.getString('rogues');
+        case 'social':
+          return gettextCatalog.getString('socials');
+        case 'store':
+          return gettextCatalog.getString('stores');
+        case 'zone':
+          return gettextCatalog.getString('zones');
+        case 'client':
+          return gettextCatalog.getString('clients');
+        case 'action':
+          return gettextCatalog.getString('actions');
+        case 'voucher':
+          return gettextCatalog.getString('vouchers');
+        case 'location':
+          return gettextCatalog.getString('locations');
+      }
+    }
+  };
+}]);

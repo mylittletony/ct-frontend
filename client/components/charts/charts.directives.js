@@ -99,6 +99,16 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
             },
           }
         };
+        options.hAxis = {
+          count: -1,
+          gridlines: {
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd, yyyy')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
+          }
+        };
 
         if (scope.type === 'signal') {
           signalChart();
@@ -114,6 +124,13 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
           chart.draw(data, options);
         }
+      }
+      // For the tests mainly, not sure why this has started causing a failure, like above
+      if (window.google && window.google.visualization) {
+        var date_formatter = new window.google.visualization.DateFormat({
+          pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+        });
+        date_formatter.format(data,0);
       }
     }
 
@@ -189,7 +206,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
 
     var mcsChart = function() {
       title = toTitleCase(scope.fn || gettextCatalog.getString('Mean')) + gettextCatalog.getString('MCS Values');
-      data.addColumn('number', 'MCS Index');
+      data.addColumn('number', gettextCatalog.getString('MCS Index'));
       if (json.mcs && json.mcs.length) {
         len = json.mcs.length;
         for(i = 0; i < len; i++) {
@@ -394,7 +411,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
     controller.$scope.$on('loadClientChart', function (evt,type){
       if (type && type === 'device') {
-         scope.resource = 'device';
+        scope.resource = 'device';
       }
       chart();
     });
@@ -518,6 +535,11 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
           }
         }
 
+        var date_formatter = new window.google.visualization.DateFormat({
+          pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+        });
+        date_formatter.format(data,0);
+
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: suffix}
         );
@@ -543,6 +565,16 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             textPosition: 'none'
           },
           1: {},
+        };
+        opts.hAxis = {
+          gridlines: {
+            count: -1,
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
+          }
         };
 
         opts.explorer = {
@@ -668,7 +700,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
 
 }]);
 
-app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Report, $routeParams, $timeout) {
+app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', function(Report, $routeParams, $timeout, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -730,7 +762,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
       var data = new window.google.visualization.DataTable();
       data.addColumn('datetime', 'Date');
       data.addColumn('number', 'dummySeries');
-      data.addColumn('number', 'Load Average');
+      data.addColumn('number', gettextCatalog.getString('Load Average'));
       var len = json.load.length;
       for(var i = 0; i < len; i++) {
         var load = json.load[i].value;
@@ -740,6 +772,12 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
         var time = new Date(json.load[i].time / (1000*1000));
         data.addRow([time, null, load*100]);
       }
+
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+      date_formatter.format(data,0);
+
       var formatter = new window.google.visualization.NumberFormat(
         { pattern: '0', suffix: '%' }
       );
@@ -763,6 +801,16 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
           textPosition: 'none'
         },
         1: {},
+      };
+      opts.hAxis = {
+        gridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
+        }
       };
 
       opts.explorer = {
@@ -801,7 +849,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', function(Repor
 
 }]);
 
-app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report, $routeParams, $timeout) {
+app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', function(Report, $routeParams, $timeout, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -859,7 +907,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
       var data = new window.google.visualization.DataTable();
       data.addColumn('datetime', 'Date');
       data.addColumn('number', 'dummySeries');
-      data.addColumn('number', 'MCS Index');
+      data.addColumn('number', gettextCatalog.getString('MCS Index'));
       var len = json.mcs.length;
       for(var i = 0; i < len; i++) {
         var mcs = json.mcs[i].value;
@@ -869,6 +917,12 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
         var time = new Date(json.mcs[i].time / (1000*1000));
         data.addRow([time, null, mcs]);
       }
+
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+      date_formatter.format(data,0);
+
       var formatter = new window.google.visualization.NumberFormat(
         { pattern: '0' }
       );
@@ -885,6 +939,16 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
         },
         2: {
           targetAxisIndex: 1
+        }
+      };
+      opts.hAxis = {
+        gridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
         }
       };
       opts.vAxes = {
@@ -926,7 +990,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', function(Report
 
 }]);
 
-app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeout, Report, $routeParams) {
+app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', function($timeout, Report, $routeParams, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -986,8 +1050,8 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
       data.addColumn('datetime', 'Date');
       data.addColumn('number', 'dummySeries');
       data.addColumn('number', 'SNR');
-      data.addColumn('number', 'Signal');
-      data.addColumn('number', 'Noise');
+      data.addColumn('number', gettextCatalog.getString('Signal'));
+      data.addColumn('number', gettextCatalog.getString('Noise'));
 
       var len = json.signal.length;
 
@@ -1005,6 +1069,11 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
         }
         data.addRow([time, null, snr, signal, noise ]);
       }
+
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+      date_formatter.format(data,0);
 
       var formatter = new window.google.visualization.NumberFormat(
         {suffix: 'dB', negativeColor: 'red', negativeParens: true, pattern: '0'}
@@ -1068,7 +1137,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', function($timeo
 
 }]);
 
-app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(Report, $routeParams, $timeout) {
+app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', function(Report, $routeParams, $timeout, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -1190,6 +1259,11 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
           suffix = '%';
         }
 
+        var date_formatter = new window.google.visualization.DateFormat({
+          pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+        });
+        date_formatter.format(data,0);
+
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: suffix, pattern: '0'}
         );
@@ -1212,6 +1286,18 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', function(
             targetAxisIndex: 1
           }
         };
+
+        opts.hAxis = {
+          gridlines: {
+            count: -1,
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
+          }
+        };
+
         opts.vAxes = {
           0: {
             textPosition: 'none'
@@ -1328,6 +1414,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function chart() {
+
       var params = {
         type: scope.type,
         resource: resource,
@@ -1359,6 +1446,9 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
     function drawChart() {
 
+      var date = new Date();
+      date.setDate(date.getDate() - 7);
+
       $timeout.cancel(timer);
 
       data = new window.google.visualization.DataTable();
@@ -1389,7 +1479,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         }
       };
       opts.hAxis = {
-        format: 'dd/MM/yyyy',
+        format:  gettextCatalog.getString('MMM dd, yyyy'),
+        viewWindow: {
+          min: date,
+          max: new Date()
+        },
       };
       opts.vAxis = {
         format: '0',
@@ -1442,7 +1536,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
-        data.addColumn('number', 'Clients');
+        data.addColumn('number', gettextCatalog.getString('Clients'));
 
         for(var i = 0; i < stats.length; i++) {
           time = new Date(stats[i].time * (1000));
@@ -1460,7 +1554,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
 
       var date_formatter = new window.google.visualization.DateFormat({
-        pattern: 'MMM dd, yyyy'
+        pattern: gettextCatalog.getString('MMM dd, yyyy')
       });
       date_formatter.format(data,0);
 
@@ -1479,8 +1573,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
         data.addColumn('date', 'Date');
         data.addColumn('number', 'dummySeries');
-        data.addColumn('number', 'Inbound');
-        data.addColumn('number', 'Outbound');
+        data.addColumn('number', gettextCatalog.getString('Inbound'));
+        data.addColumn('number', gettextCatalog.getString('Outbound'));
 
         for(var i = 0; i < len; i++) {
 
@@ -1495,6 +1589,12 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         }
 
       }
+
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+
+      date_formatter.format(data,0);
 
       var formatter = new window.google.visualization.NumberFormat(
         { suffix: 'MiB', pattern: '#,##0'}
@@ -1527,6 +1627,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         var time = new Date(sessions[i].time * (1000));
         data.addRow([time, null, sessions[i].count]);
       }
+
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+      date_formatter.format(data,0);
 
       var formatter = new window.google.visualization.NumberFormat(
         { pattern: '0' }
