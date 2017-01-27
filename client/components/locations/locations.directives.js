@@ -123,6 +123,8 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
         q: scope.query.filter,
         page: scope.query.page,
         per: scope.query.limit,
+        predicate: scope.query.predicate,
+        direction: scope.query.direction,
         user_id: scope.user_id
       }).$promise.then(function(results) {
         scope.total_locs  = results._links.total_entries;
