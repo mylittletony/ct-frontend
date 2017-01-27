@@ -1200,6 +1200,14 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       scope.noData = true;
     };
 
+    function transpose(array) {
+      return array[0].map(function (_, c) {
+        return array.map(function (r) {
+          return r[c];
+        });
+      });
+    }
+
     function drawChart(json) {
 
       $timeout.cancel(timer);
@@ -1210,14 +1218,16 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
       // Create temp store for interfaces and add columns //
       var ifaces = [];
+      var ifaceData = [];
       for (var k in json) {
         if (typeof json[k] !== 'function') {
-          data.addColumn('number', k);
           ifaces.push(k);
+          ifaceData.push(json[k].values);
+          data.addColumn('number', k);
         }
       }
+      var allRows = transpose(ifaceData);
 
-      var dd = [];
       var first = json[ifaces[0]];
 
       if (first && first.values && first.values.length) {
@@ -1225,35 +1235,35 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
         for(var i = 0; i < len; i++) {
 
-          var temp = [];
+          var time = (first.values[i].time);
+          var t = new Date(time / (1000*1000));
+          var rowEntry = [t, null];
 
-          for (k in ifaces) {
-            var iface = ifaces[k];
+          allRows[i].forEach(function(element) {
+            rowEntry.push(element.value);
+          })
 
-            // Only insert the time and null col once //
-            if (temp.length === 0) {
-              var time = (json[iface].values[i].time);
-              var t = new Date(time / (1000*1000));
-              temp.push(t, null);
-            }
-
-            var val;
-            if (json[iface].values[i]) {
-              val = (json[iface].values[i].value);
-            }
-            temp.push(val);
-          }
-          data.addRow(temp);
+          data.addRow(rowEntry);
         }
 
         var suffix;
+        var opts = controller.options;
 
+        // vAxis set to only have values on negative graphs
         if (scope.type === 'snr' ) {
           suffix = 'dB';
+          opts.vAxis = {
+          }
         } else if (scope.type === 'noise' || scope.type === 'signal') {
           suffix = 'dBm';
+          opts.vAxis = {
+            minValue: -100,
+            maxValue: 0
+          }
         } else if (scope.type === 'quality') {
           suffix = '%';
+          opts.vAxis = {
+          }
         }
 
         var date_formatter = new window.google.visualization.DateFormat({
@@ -1269,8 +1279,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           formatter.format(data,i);
         }
 
-
-        var opts = controller.options;
         opts.legend = { position: 'bottom' };
         opts.series = {
           0: {
@@ -1280,6 +1288,21 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             targetAxisIndex: 1
           },
           2: {
+            targetAxisIndex: 1
+          },
+          3: {
+            targetAxisIndex: 1
+          },
+          4: {
+            targetAxisIndex: 1
+          },
+          5: {
+            targetAxisIndex: 1
+          },
+          6: {
+            targetAxisIndex: 1
+          },
+          7: {
             targetAxisIndex: 1
           }
         };
@@ -1295,13 +1318,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           }
         };
 
-        opts.vAxes = {
-          0: {
-            textPosition: 'none'
-          },
-          1: {},
-        };
-
         opts.explorer = {
           maxZoomOut:2,
           keepInBounds: true,
@@ -1314,7 +1330,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           opts.height = 250;
         }
         c = new window.google.visualization.LineChart(document.getElementById('mcs-chart'));
-        console.log(data);
         c.draw(data, opts);
         scope.noData = undefined;
         scope.loading = undefined;
@@ -1444,7 +1459,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     function drawChart() {
 
       $timeout.cancel(timer);
-      console.log(data);
       data = new window.google.visualization.DataTable();
       if (scope.type === 'usage') {
         usageChart();
