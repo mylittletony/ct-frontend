@@ -75,7 +75,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
       direction:  $routeParams.direction || 'desc',
-      predicate:  $routeParams.predicate || 'updated_at'
+      predicate:  $routeParams.predicate || 'created_at'
     };
 
     scope.sort = function(val, reverse) {
