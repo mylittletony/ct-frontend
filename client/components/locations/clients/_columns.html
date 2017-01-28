@@ -1,15 +1,6 @@
-<!-- <md-button ng-click="toggle('cols-menu')" aria-controls="cols-menu" class="md-primary" aria-expanded="{{isOpen()}}"> -->
-<!--   <div flex></div> -->
-<!--   <md-icon md-font-icon="settings">settings</md-icon> -->
-<!-- </md-button> -->
-
 <div ng-show="isOpen('cols-menu')" id="cols-menu" class="menu-toggle-list" layout="column" layout-gt-sm="row" layout-wrap>
 
   <md-divider></md-divider>
-
-  <!-- <div flex="100" layout="row"> -->
-  <!--   Display Columns -->
-  <!-- </div> -->
 
   <md-switch ng-change="saveCols()" ng-model="columns.ssid" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="20">
     <translate>
