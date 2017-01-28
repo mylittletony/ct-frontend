@@ -4,6 +4,11 @@ body {
 }
 
 /* Temp fixes to address */
+
+ul {
+  line-height: 1.5rem;
+}
+
 .hidden { display: none; }
 
 .hard-break {
