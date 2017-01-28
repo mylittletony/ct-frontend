@@ -327,12 +327,21 @@ app.directive('googleMarker', function ($timeout,$compile) {
 
           controller.infoWindow.push(infoWindow);
 
+          function overrideCloseBounds() {
+            var listener = window.google.maps.event.addListener(map, "idle", function() {
+              var zoom = map.getZoom();
+              map.setZoom(zoom > 12 ? 12 : zoom)
+              google.maps.event.removeListener(listener);
+            });
+          }
+
           markers.push(marker);
           if (attrs.zoom) {
             map.setZoom(3);
           } else {
             bounds.extend(myLatLng);
             map.fitBounds(bounds);
+            overrideCloseBounds();
           }
 
           window.google.maps.event.addListener(marker, 'dragend', function(event) {

@@ -2,13 +2,13 @@
   <md-card-header class="graph-small">
     <md-card-header-text>
       <span class="md-subhead" ng-cloak translate>
-        Average {{ type | titleCase }}
+        Average {{ type | translatableChartTitle | titleCase }}
       </span>
     </md-card-header-text>
     <md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">
       <md-icon>fullscreen_exit</md-icon>
     </md-button>
-    <md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen('mcs')">
+    <md-button class="md-icon-button" ng-if="!fs" ng-click="fullScreen('snr')">
       <md-icon>fullscreen</md-icon>
     </md-button>
     <md-button class="md-icon-button" ng-click="refresh()">
@@ -53,12 +53,12 @@
     </md-menu-bar>
   </md-card-header>
   <md-card-content>
-    <div id="mcs-chart" class="small-chart"></div>
-    <md-card-actions layout="row" layout-align="end center">
-      <small>
-        <span ng-if="noData && !loading" translate>No graph data</span>
-        <span ng-if="loading" translate>Loading chart</span>
-      </small>
-    </md-card-actions>
+    <div id="snr-chart"></div>
+    <div>
+      <div layout="row" ng-if="noData || loading" style="min-height: 250px;" layout-align="left end" class="muted">
+        <p><small><span ng-if="noData" translate>No graph data</span><span ng-if="loading" translate>Loading usage data</span></small></p>
+      </div>
+      <md-progress-linear ng-if="loading" md-mode="query"></md-progress-linear>
+    </div>
   </md-card-content>
 </md-card>

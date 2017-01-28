@@ -5,7 +5,7 @@
     </label>
     <md-select ng-model="command.selected">
       <md-option ng-repeat="cmd in commands" value="{{cmd.unique_id}}">
-        {{cmd.payload_description}}
+        {{cmd.payload_description | translatablePayloadDescription }}
       </md-option>
     </md-select>
   </md-input-container>
