@@ -1,3 +1,8 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
 /* Temp fixes to address */
 .hidden { display: none; }
 
@@ -71,6 +76,28 @@ md-menu-content {
 
 .intercom-foot-pad {
   padding-bottom: 70px;
+}
+
+.align-right {
+  text-align: right!important;
+}
+
+form.flow {
+  font-size: 1.1rem;
+}
+
+form.flow input {
+  /* padding: 0 0 10px 0; */
+}
+
+form.flow label {
+  margin: 10px 0 10px 0;
+}
+
+form .url {
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding-top: 25px;
 }
 
 /* Temp fixes to address */
