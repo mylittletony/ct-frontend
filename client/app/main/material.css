@@ -4,6 +4,11 @@ body {
 }
 
 /* Temp fixes to address */
+
+ul {
+  line-height: 1.5rem;
+}
+
 .hidden { display: none; }
 
 .hard-break {
@@ -86,10 +91,6 @@ form.flow {
   font-size: 1.1rem;
 }
 
-form.flow input {
-  /* padding: 0 0 10px 0; */
-}
-
 form.flow label {
   margin: 10px 0 10px 0;
 }
@@ -156,10 +157,6 @@ md-toolbar md-autocomplete {
 
 .s12.material-icons {
   font-size: 16px;
-}
-
-md-select {
-  /* padding-bottom: 20px; */
 }
 
 md-card-header.graph-small {
@@ -423,18 +420,6 @@ table tr td, table.print-friendly tr th {
   max-width: 250px;
   word-break: break-word;
 }
-
-/* .avatar { */
-/*   position:relative; */
-/*   width: 54px; */
-/*   height: 54px; */
-/*   border: 1px solid #ddd; */
-/*   border-radius: 50%; */
-/*   display: inline-block; */
-/*   overflow: hidden; */
-/*   margin: 0px; */
-/*   vertical-align: middle; */
-/* } */
 
 .copy {
   color: #ccc;

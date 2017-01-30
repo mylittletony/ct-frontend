@@ -81,6 +81,13 @@
         </h2>
         <span flex></span>
         <span hide show-gt-sm ng-if="loggedIn">
+
+          <span ng-if="vm.upgrade">
+            <md-button aria-label="'Open Apps Menu' | translate" ng-click="vm.showUpgrade()">
+              UPGRADE
+            </md-button>
+          </span>
+
           <md-menu>
             <md-button aria-label="'Open Apps Menu' | translate" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <md-icon>apps</md-icon>

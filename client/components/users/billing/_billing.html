@@ -40,13 +40,10 @@
         </md-input-container>
 
         <div flex="100">
-          <p translate>Billing Currency</p>
-          <md-radio-group ng-model="user.currency" layout="row">
-            <md-radio-button ng-disabled="user.subscription_active" value="USD"><translate>USD</translate></md-radio-button>
-            <md-radio-button ng-disabled="user.subscription_active" value="GBP"><translate>GBP</translate></md-radio-button>
-            <md-radio-button ng-disabled="user.subscription_active" value="EUR"><translate>EURO</translate></md-radio-button>
-          </md-radio-group>
-          <p><small translate>You can't change the currency if you have an active subscription.</small></p>
+          <p translate>
+            Billing Currency {{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})
+          </p>
+          <small>Your currency was set automatically when your account was created. If you think it's wrong, please contact support.</small>
         </div>
       </div>
     </md-card-content>

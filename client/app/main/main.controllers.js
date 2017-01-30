@@ -19,9 +19,9 @@ var app = angular.module('myApp.controllers', [
   'myApp.vouchers.controller'
 ]);
 
-app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate', 'COMMITHASH',
+app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate', 'COMMITHASH', '$mdDialog',
 
-  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH) {
+  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, Brand, locationHelper, BrandName, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, docs, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, $mdDialog) {
 
     var domain = 'ctapp.io';
 
@@ -170,6 +170,27 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       type: 'divider',
     });
 
+    vm.showUpgrade = function() {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'components/views/main/upgrade.tmpl.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      });
+    };
+
+    function DialogController($scope, $mdDialog) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+
+      $scope.upgrade = function() {
+        $mdDialog.hide();
+        $location.path('/users/' + Auth.currentUser().slug + '/billing');
+      };
+
+    }
     $scope.toggleOpen = toggleOpen;
 
     $scope.$on('logout', function(args) {
@@ -322,6 +343,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           vm.menuRight.push({
             type: 'divider',
           });
+
+          if (Auth.currentUser().paid_plan !== true) {
+            vm.upgrade = true;
+          }
         }
 
         vm.menuRight.push({
@@ -421,17 +446,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       getSubdomain();
 
-      // Adds followup link if using referral 
-      // var cookie = $cookies.get('_ct', { 'domain': domain });
-      // if (cookie && Auth.currentUser() && Auth.currentUser().id) {
-      //   User.distro({dst: cookie}).$promise.then(function(result) {
-      //     removeCtCookie();
-      //   }, function() {
-      //     removeCtCookie();
-      //   });
-      // }
-
-      // Load the translations
       Translate.load();
     }
 
