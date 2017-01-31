@@ -149,9 +149,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       scope.creatingAccount = true;
       Holding.update({id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
         scope.errors = undefined;
-
         var timer = $timeout(function() {
-          // loadPusher(scope.location.pubsub_token);
           $timeout.cancel(timer);
           scope.switchBrand(data);
         }, 5000);
@@ -164,15 +162,15 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     scope.switchBrand = function(data) {
       $cookies.put('_cta', data.token, {domain: '.' + domain});
-      getMe(data.id);
+      getMe(data);
     };
 
-    var getMe = function(id) {
+    var getMe = function(data) {
       Me.get({}).$promise.then(function(res) {
         var search = {};
-        var loginArgs = { data: res, search: search };
+        var loginArgs = { data: res, search: search, path: '/locations/' + data.location_id };
         var domain = locationHelper.domain();
-        Holding.destroy({id: id}).$promise.then(function(data) {
+        Holding.destroy({id: data.id}).$promise.then(function(data) {
           login(domain, loginArgs);
         }, function() {
           login(domain, loginArgs);
