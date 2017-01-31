@@ -1407,6 +1407,12 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       chart();
     };
 
+    var minDate = new Date();
+    minDate.setDate(minDate.getDate() - 7);
+    minDate.setHours(0,0,0,0);
+    var maxDate = new Date();
+    maxDate.setHours(0,0,0,0);
+
     var searchParams = function() {
       var hash = {};
       hash.type = scope.type;
@@ -1443,7 +1449,9 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         period: scope.period,
         fn: scope.fn,
         interval: scope.interval,
-        fill: '0'
+        fill: '0',
+        start: minDate,
+        end: maxDate
       };
       controller.getStats(params).then(function(data) {
         if (data && data.timeline && data.timeline.stats) {
@@ -1467,12 +1475,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function drawChart() {
-
-      var minDate = new Date();
-      minDate.setDate(minDate.getDate() - 7);
-      minDate.setHours(0,0,0,0);
-      var maxDate = new Date();
-      maxDate.setHours(0,0,0,0);
 
       $timeout.cancel(timer);
       data = new window.google.visualization.DataTable();
@@ -1512,21 +1514,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         format: '0',
         minValue: 4
       };
-      opts.vAxes = {
-        0: {
-          textPosition: 'none'
-        },
-        1: {
-          // Leads to weird results but can help the min value
-          // also, need to figure out how to not display decimals
-          // format: '#,###',
-          // viewWindowMode:'explicit',
-          // viewWindow: {
-          //   min: 0,
-          //   max: 'auto'
-          // }
-        },
-      };
 
       opts.explorer = {
         maxZoomOut:2,
@@ -1541,7 +1528,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
       c = new window.google.visualization.LineChart(document.getElementById('location-chart'));
       c.draw(data, opts);
-      console.log(data);
       scope.noData = undefined;
       scope.loading = undefined;
     }
@@ -1564,7 +1550,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
         for(var i = 0; i < stats.length; i++) {
           time = new Date(stats[i].time * (1000));
-          data.addRow([time, null, stats[i].count]);
+          var timeUTC = new Date(time.getUTCFullYear(), time.getUTCMonth(), time.getUTCDate(),  time.getUTCHours(), time.getUTCMinutes(), time.getUTCSeconds());
+          data.addRow([timeUTC, null, stats[i].count]);
         }
 
         // Google charts, you are annoying. Why can't we just have a single-point chart ? //
@@ -1578,7 +1565,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
 
       var date_formatter = new window.google.visualization.DateFormat({
-        pattern: gettextCatalog.getString('MMM dd, yyyy')
+        pattern: gettextCatalog.getString('MMM dd, yyyy'),
       });
       date_formatter.format(data,0);
 
