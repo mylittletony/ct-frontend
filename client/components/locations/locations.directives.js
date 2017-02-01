@@ -75,7 +75,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
       direction:  $routeParams.direction || 'desc',
-      predicate:  $routeParams.predicate || 'created_at'
+      sort:  $routeParams.sort || 'updated_at'
     };
 
     scope.sort = function(val, reverse) {
@@ -92,7 +92,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
     scope.onPaginate = function (page, limit, val) {
       scope.query.page = page;
       scope.query.limit = limit;
-      scope.query.predicate = val || $routeParams.predicate;
+      scope.query.sort = val || $routeParams.sort;
       scope.blur();
     };
 
@@ -101,7 +101,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
         var hash = {};
         hash.page = scope.query.page;
         hash.per = scope.query.limit;
-        hash.predicate = scope.query.predicate;
+        hash.sort = scope.query.sort;
         hash.direction = scope.query.direction;
         hash.q = scope.query.filter;
         $location.search(hash);
@@ -123,14 +123,13 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
         q: scope.query.filter,
         page: scope.query.page,
         per: scope.query.limit,
-        predicate: scope.query.predicate,
+        sort: scope.query.sort,
         direction: scope.query.direction,
         user_id: scope.user_id
       }).$promise.then(function(results) {
         scope.total_locs  = results._links.total_entries;
         scope.locations   = results.locations;
         scope._links      = results._links;
-        scope.predicate   = '-updated_at';
         filterLocationOwners();
         scope.searching   = undefined;
         scope.loading     = undefined;
