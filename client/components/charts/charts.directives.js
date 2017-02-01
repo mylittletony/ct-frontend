@@ -1410,8 +1410,10 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     var minDate = new Date();
     minDate.setDate(minDate.getDate() - 7);
     minDate.setHours(0,0,0,0);
+    var minDateEpoch = Date.parse(minDate) / 1000;
     var maxDate = new Date();
     maxDate.setHours(0,0,0,0);
+    var maxDateEpoch = Date.parse(maxDate) / 1000;
 
     var searchParams = function() {
       var hash = {};
@@ -1450,8 +1452,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         fn: scope.fn,
         interval: scope.interval,
         fill: '0',
-        start: minDate,
-        end: maxDate
+        start: minDateEpoch,
+        end: maxDateEpoch
       };
       controller.getStats(params).then(function(data) {
         if (data && data.timeline && data.timeline.stats) {
