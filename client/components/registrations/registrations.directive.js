@@ -86,8 +86,8 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         scope.title = gettextCatalog.getString('What should we call you?');
         scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
       } else if ($location.hash() === 'confirm') {
-        scope.title = gettextCatalog.getString('Hello. Confirm your choices.');
-        scope.subhead = gettextCatalog.getString('You can change all these later if you need.');
+        scope.title = gettextCatalog.getString('Last Stage');
+        scope.subhead = gettextCatalog.getString('By clicking save, you\'re agreeing to our terms of use. You can read these at cucumberwifi.io/terms');
       } else if (!scope.creatingAccount) {
         scope.title = gettextCatalog.getString('What do you want to call your first network?');
         scope.subhead = gettextCatalog.getString('This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'');
@@ -116,7 +116,6 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
           check: true
         }).$promise.then(function(results) {
           scope.invalid_brand = true;
-          showToast(gettextCatalog.getString('This URL has already been take, try another.'));
         }, function() {
           scope.brandOk = true;
         });
@@ -150,9 +149,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       scope.creatingAccount = true;
       Holding.update({id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
         scope.errors = undefined;
-
         var timer = $timeout(function() {
-          // loadPusher(scope.location.pubsub_token);
           $timeout.cancel(timer);
           scope.switchBrand(data);
         }, 5000);
@@ -165,15 +162,15 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     scope.switchBrand = function(data) {
       $cookies.put('_cta', data.token, {domain: '.' + domain});
-      getMe(data.id);
+      getMe(data);
     };
 
-    var getMe = function(id) {
+    var getMe = function(data) {
       Me.get({}).$promise.then(function(res) {
         var search = {};
-        var loginArgs = { data: res, search: search };
+        var loginArgs = { data: res, search: search, path: '/locations/' + data.location_id };
         var domain = locationHelper.domain();
-        Holding.destroy({id: id}).$promise.then(function(data) {
+        Holding.destroy({id: data.id}).$promise.then(function(data) {
           login(domain, loginArgs);
         }, function() {
           login(domain, loginArgs);

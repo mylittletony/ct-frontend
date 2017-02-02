@@ -1,4 +1,14 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
 /* Temp fixes to address */
+
+ul {
+  line-height: 1.5rem;
+}
+
 .hidden { display: none; }
 
 .hard-break {
@@ -73,6 +83,24 @@ md-menu-content {
   padding-bottom: 70px;
 }
 
+.align-right {
+  text-align: right!important;
+}
+
+form.flow {
+  font-size: 1.1rem;
+}
+
+form.flow label {
+  margin: 10px 0 10px 0;
+}
+
+form .url {
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding-top: 25px;
+}
+
 /* Temp fixes to address */
 
 .ng-hide.ng-hide-animate{
@@ -131,16 +159,28 @@ md-toolbar md-autocomplete {
   font-size: 16px;
 }
 
-md-select {
-  /* padding-bottom: 20px; */
-}
-
 md-card-header.graph-small {
   padding: 0px 0 0 20px;
 }
 
 .graph-small md-card-header-text {
   padding: 10px 0 0 0px;
+}
+
+.design-sidebar .md-no-style {
+  border-bottom: 1px solid #ECECEC;
+  padding: 2px 0px 2px 5px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.870588);
+  text-transform: uppercase;
+  font-size: 14px;
+  width: 100%;
+}
+
+.design-sidebar .md-no-style md-icon {
+  float:right;
+  padding-right:15px;
+  padding-top:7px;
 }
 
 .design-sidebar .md-button-toggle {
@@ -380,18 +420,6 @@ table tr td, table.print-friendly tr th {
   max-width: 250px;
   word-break: break-word;
 }
-
-/* .avatar { */
-/*   position:relative; */
-/*   width: 54px; */
-/*   height: 54px; */
-/*   border: 1px solid #ddd; */
-/*   border-radius: 50%; */
-/*   display: inline-block; */
-/*   overflow: hidden; */
-/*   margin: 0px; */
-/*   vertical-align: middle; */
-/* } */
 
 .copy {
   color: #ccc;

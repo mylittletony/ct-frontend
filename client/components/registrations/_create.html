@@ -41,10 +41,10 @@
                   <translate>Enter Your Email</translate>
                 </label>
                 <input required ng-model="user.email" type="email">
-                <p class="hint" translate>Don't worry about choosing a password, we'll email you a link to set one.</p>
               </md-input-container>
             </div>
             <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="signup-email md-raised"><translate>Create</translate></md-button>
+            <p><b>We promise not to send you spam.</b></p>
           </md-card-content>
         </div>
       </md-card>

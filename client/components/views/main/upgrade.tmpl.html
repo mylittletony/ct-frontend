@@ -1,0 +1,35 @@
+<md-dialog aria-label="Upgrade">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Upgrade to Business or Premium Cucumber</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <p>
+          <b>The Business and Premium Cucumber accounts include:</b>
+        </p>
+        <ul>
+          <li>Live Engineering support</li>
+          <li>Unlimited splash views</li>
+          <li>Paid splash pages</li>
+          <li>Admin and guest users</li>
+          <li>Unlimited log retention</li>
+          <li>White-label dashboard</li>
+        </ul>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="upgrade()">
+        Upgrade
+      </md-button>
+      <md-button ng-click="hide()">
+       Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
