@@ -69,23 +69,6 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
 
 }]);
 
-// app.factory('UserSettings', ['$resource', 'API_END_POINT',
-//   function($resource, API_END_POINT){
-//     return $resource(API_END_POINT + '/user_settings', {}, {
-//       get: {
-//         params: {
-//         }
-//       },
-//       update: {
-//         method: 'PATCH',
-//         params: {
-//           user_settings: '@user_settings'
-//         }
-//       },
-//     });
-//   }
-// ]);
-
 app.factory('Me', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
     return $resource(API_END_POINT + '/me.json', {}, {
@@ -103,16 +86,18 @@ app.factory('User', ['$resource', 'API_END_POINT',
       {
         token: '@token',
         id: '@id',
+        action: '@action'
       },
       {
       get: {
         method: 'GET',
         isArray: true
       },
-      // distro: {
-      //   method: 'POST',
-      //   isArray: false,
-      // },
+      promos: {
+        method: 'GET',
+        isArray: false,
+        action: 'promos'
+      },
       switcher: {
         method: 'POST',
         isArray: false,
