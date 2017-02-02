@@ -396,6 +396,9 @@ ul.errors {
 
 .layout-padding {
   padding: 14px;
+}
+
+.design-sidebar .layout-padding {
   height: 100%;
 }
 
