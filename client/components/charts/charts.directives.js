@@ -259,10 +259,10 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           }
         }
         formatter = new window.google.visualization.NumberFormat(
-          {suffix: suffix, pattern: '0'}
+          {suffix: suffix, pattern: '0.000'}
         );
         formatter.format(data,2);
-        formatter.format(data,1);
+        formatter.format(data,3);
       } else {
         clearChart();
       }
