@@ -170,6 +170,32 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       type: 'divider',
     });
 
+    vm.showPromo = function(offer) {
+      $mdDialog.show({
+        controller: TrialController,
+        templateUrl: 'components/views/main/promos.tmpl.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        locals: {
+          offer: offer
+        },
+        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      });
+    };
+
+    function TrialController($scope, $mdDialog, offer) {
+      console.log(offer);
+      $scope.offer = offer;
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+
+      $scope.upgrade = function() {
+        $mdDialog.hide();
+        // $location.path('/users/' + Auth.currentUser().slug + '/billing');
+      };
+    }
+
     vm.showUpgrade = function() {
       $mdDialog.show({
         controller: DialogController,
@@ -189,8 +215,8 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $mdDialog.hide();
         $location.path('/users/' + Auth.currentUser().slug + '/billing');
       };
-
     }
+
     $scope.toggleOpen = toggleOpen;
 
     $scope.$on('logout', function(args) {
@@ -294,6 +320,17 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
     });
 
+    function promos() {
+      User.promos({}, {
+        action: 'promos',
+        id: Auth.currentUser().slug
+      }).$promise.then(function(results) {
+        vm.promos = results;
+      }, function() {
+        vm.upgrade = true;
+      });
+    }
+
     function menuPush() {
       if (vm.menu.main.length === 0) {
         vm.menu.main.push({
@@ -311,7 +348,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         });
 
         if (Auth.currentUser() && Auth.currentUser().guest === false) {
-
           vm.menu.main.push({
             title: gettextCatalog.getString('Brands'),
             type: 'link',
@@ -344,7 +380,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             type: 'divider',
           });
 
-          if (Auth.currentUser().paid_plan !== true) {
+          if (Auth.currentUser().promo !== '') {
+            promos();
+          } else if (Auth.currentUser().paid_plan !== true) {
             vm.upgrade = true;
           }
         }

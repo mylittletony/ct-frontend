@@ -82,6 +82,12 @@
         <span flex></span>
         <span hide show-gt-sm ng-if="loggedIn">
 
+          <span ng-if="vm.promos">
+            <md-button aria-label="'Open Apps Menu' | translate" ng-click="vm.showPromo(vm.promos.promo.value)">
+              {{ vm.promos.promo.key }}
+            </md-button>
+          </span>
+
           <span ng-if="vm.upgrade">
             <md-button aria-label="'Open Apps Menu' | translate" ng-click="vm.showUpgrade()">
               UPGRADE
