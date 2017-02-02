@@ -300,7 +300,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
         }
         this.resizeTO = setTimeout(function() {
           $(this).trigger('resizeEnd');
-        }, 250);
+        }, 500);
       });
 
       $(window).on('resizeEnd', function() {
