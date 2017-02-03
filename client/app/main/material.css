@@ -243,11 +243,10 @@ md-sidenav.md-sidenav-right ul {
 }
 
 .splash-design-buttons {
-  left: auto;
-  right: 85px;
-  bottom: 10px;
-  position: absolute;
-  top: auto;
+  margin-left: 20%;
+  margin-right: 20%;
+  position: relative;
+  margin-top: 5%%;
   margin-bottom: 5%;
 }
 
