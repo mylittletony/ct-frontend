@@ -300,7 +300,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
         }
         this.resizeTO = setTimeout(function() {
           $(this).trigger('resizeEnd');
-        }, 500);
+        }, 250);
       });
 
       $(window).on('resizeEnd', function() {
@@ -1019,7 +1019,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
         if (data.timeline.signal) {
         timer = $timeout(function() {
           drawChart(data.timeline);
-        },500);
+        },250);
         } else {
           clearChart();
         }
@@ -1548,7 +1548,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
     timer = $timeout(function() {
       init();
-    }, 500);
+    }, 250);
 
     var clientsChart = function() {
 
