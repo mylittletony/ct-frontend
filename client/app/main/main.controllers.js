@@ -327,7 +327,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }).$promise.then(function(results) {
         vm.promos = results;
       }, function() {
-        vm.upgrade = true;
+        if (Auth.currentUser().paid_plan !== true) {
+          vm.upgrade = true;
+        }
       });
     }
 
