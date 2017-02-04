@@ -183,16 +183,16 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       });
     };
 
-    function TrialController($scope, $mdDialog, offer) {
-      console.log(offer);
-      $scope.offer = offer;
+    function TrialController($scope, $mdDialog, $sce, offer) {
+      $scope.offer = $sce.trustAsHtml(offer);
       $scope.hide = function() {
         $mdDialog.hide();
       };
 
       $scope.upgrade = function() {
         $mdDialog.hide();
-        // $location.path('/users/' + Auth.currentUser().slug + '/billing');
+        $location.path('/users/' + Auth.currentUser().slug + '/billing');
+        $location.search({trial: 'y'});
       };
     }
 
@@ -380,7 +380,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             type: 'divider',
           });
 
-          if (Auth.currentUser().promo !== '') {
+          if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
             promos();
           } else if (Auth.currentUser().paid_plan !== true) {
             vm.upgrade = true;
