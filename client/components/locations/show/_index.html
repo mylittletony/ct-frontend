@@ -62,6 +62,11 @@
             <p translate>You haven't added any devices yet. Please check through the list of compatible devices <a href='http://docs.cucumberwifi.io/article/78-compatible-devices-access-points' target="_blank">here</a>.</p>
             <p translate>The firmware is available in the downloads section.</p>
             <p translate>Once you have installed this, add your device(s) to your dashboard. They will provision automatically.</p>
+            <md-button class="md-primary md-raised" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
+              <translate>
+                Add Device
+              </translate>
+            </md-button>
           </md-card-content>
 
           <md-divider ng-if="!$last"></md-divider>
