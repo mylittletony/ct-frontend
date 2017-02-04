@@ -1594,9 +1594,11 @@ app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
 
 }]);
 
-app.directive('locationSettingsDevices', ['menu', function(menu) {
+app.directive('locationSettingsDevices', ['menu', '$timeout', function(menu, $timeout) {
 
   var link = function( scope, element, attrs, controller ) {
+
+    scope.environments = [{key: 'Beta', value: 'Beta'}, {key: 'Production', value: 'Production'}];
 
     scope.update = function (form) {
       controller.update(form,scope.location);
@@ -1620,6 +1622,13 @@ app.directive('locationSettingsDevices', ['menu', function(menu) {
     scope.back = function() {
       controller.back();
     };
+
+    var timer = $timeout(function() {
+      if (scope.location.experimental === true) {
+        scope.environments.push({key: 'Experimental', value: 'Experimental' });
+      }
+      $timeout.cancel(timer);
+    }, 250);
 
   };
 

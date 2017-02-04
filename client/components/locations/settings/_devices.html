@@ -55,16 +55,22 @@
                   <div ng-message="required" translate>You must enter a NAS ID</div>
                 </div>
               </md-input-container>
-              <div flex="100"></div>
-              <md-switch ng-model="location.development_mode" ng-true-value="'Beta'" ng-false-value="'Production'" aria-label="{{ 'Beta Location' | translate }}" flex="100" flex-gt-sm="50">
-                <span ng-if="location.development_mode === 'Beta'" translate>Beta Enabled</span>
-                <span ng-if="location.development_mode !== 'Beta'" translate>Beta Disabled</span>
-              </md-switch>
+
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>Environment</label>
+                <md-select ng-model="location.development_mode">
+                  <md-option ng-repeat="env in environments" ng-value="env.value">
+                    {{env.key}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+
             </div>
         </md-card-content>
       </md-card>
 
-      <md-card>
+      <!-- // Dont support the vsz -->
+      <md-card ng-if='false'>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
@@ -130,13 +136,13 @@
               <translate>Unable to communicate with your Ruckus Virtual SmartZone. Check your credentials.</translate>
               <br>
               <br>
-              <span ng-if="location.vsg_controller.Reason == 'auth_failed'">
                 <b>
-                  <translate>We were able to reach the server but your username or password was rejected.</translate>
-              </span> 
-              <span ng-if="location.vsg_controller.Reason != 'auth_failed'">
-                  <translate>We were unable to reach your  server at {{ location.vsg_host }}.</translate>
-              </b>
+                  <span ng-if="location.vsg_controller.Reason == 'auth_failed'">
+                    <translate>We were able to reach the server but your username or password was rejected.</translate>
+                  </span>
+                  <span ng-if="location.vsg_controller.Reason != 'auth_failed'">
+                    <translate>We were unable to reach your  server at {{ location.vsg_host }}.</translate>
+                </b>
                 <p translate-comment="it is server" translate>
                   Please ensure it has a public IP and your firewall ports are open. You must use https for security reasons. If your ports are open, please check your user credentials has the correct permissions.
                 </p>
