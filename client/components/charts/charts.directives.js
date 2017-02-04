@@ -1199,7 +1199,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     function transpose(array) {
       return array[0].map(function (_, c) {
         return array.map(function (r) {
-          return r[c];
+          return typeof r[c] == 'undefined' ? {value: null} : r[c];
         });
       });
     }
@@ -1247,11 +1247,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           var time = (first.values[i].time);
           var t = new Date(time / (1000*1000));
-          var rowEntry = [t, null];
-
-          allRows[i].forEach(function(element) {
-            rowEntry.push(element.value);
-          })
+          
+          var rowEntry = allRows[i].map(function(e) { return e.value })
+          rowEntry.unshift(t, null);
 
           data.addRow(rowEntry);
         }
