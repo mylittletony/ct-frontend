@@ -1199,7 +1199,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     function transpose(array) {
       return array[0].map(function (_, c) {
         return array.map(function (r) {
-          return r[c];
+          return typeof r[c] == 'undefined' ? {value: null} : r[c];
         });
       });
     }
@@ -1247,11 +1247,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           var time = (first.values[i].time);
           var t = new Date(time / (1000*1000));
-          var rowEntry = [t, null];
-
-          allRows[i].forEach(function(element) {
-            rowEntry.push(element.value);
-          })
+          
+          var rowEntry = allRows[i].map(function(e) { return e.value })
+          rowEntry.unshift(t, null);
 
           data.addRow(rowEntry);
         }
@@ -1407,6 +1405,14 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       chart();
     };
 
+    var minDate = new Date();
+    minDate.setDate(minDate.getDate() - 7);
+    minDate.setHours(0,0,0,0);
+    var minDateEpoch = Date.parse(minDate) / 1000;
+    var maxDate = new Date();
+    maxDate.setHours(0,0,0,0);
+    var maxDateEpoch = Date.parse(maxDate) / 1000;
+
     var searchParams = function() {
       var hash = {};
       hash.type = scope.type;
@@ -1443,7 +1449,9 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         period: scope.period,
         fn: scope.fn,
         interval: scope.interval,
-        fill: '0'
+        fill: '0',
+        start: minDateEpoch,
+        end: maxDateEpoch
       };
       controller.getStats(params).then(function(data) {
         if (data && data.timeline && data.timeline.stats) {
@@ -1467,12 +1475,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function drawChart() {
-
-      var minDate = new Date();
-      minDate.setDate(minDate.getDate() - 7);
-      minDate.setHours(0,0,0,0);
-      var maxDate = new Date();
-      maxDate.setHours(0,0,0,0);
 
       $timeout.cancel(timer);
       data = new window.google.visualization.DataTable();
@@ -1512,21 +1514,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         format: '0',
         minValue: 4
       };
-      opts.vAxes = {
-        0: {
-          textPosition: 'none'
-        },
-        1: {
-          // Leads to weird results but can help the min value
-          // also, need to figure out how to not display decimals
-          // format: '#,###',
-          // viewWindowMode:'explicit',
-          // viewWindow: {
-          //   min: 0,
-          //   max: 'auto'
-          // }
-        },
-      };
 
       opts.explorer = {
         maxZoomOut:2,
@@ -1541,7 +1528,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
       c = new window.google.visualization.LineChart(document.getElementById('location-chart'));
       c.draw(data, opts);
-      console.log(data);
       scope.noData = undefined;
       scope.loading = undefined;
     }
@@ -1564,7 +1550,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
         for(var i = 0; i < stats.length; i++) {
           time = new Date(stats[i].time * (1000));
-          data.addRow([time, null, stats[i].count]);
+          var timeUTC = new Date(time.getUTCFullYear(), time.getUTCMonth(), time.getUTCDate(),  time.getUTCHours(), time.getUTCMinutes(), time.getUTCSeconds());
+          data.addRow([timeUTC, null, stats[i].count]);
         }
 
         // Google charts, you are annoying. Why can't we just have a single-point chart ? //
