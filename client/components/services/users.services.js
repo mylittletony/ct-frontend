@@ -231,7 +231,7 @@ app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($co
     //if the cookie is empty try if one of
     //the user's browser language preferences
     //is supported
-    if (language === undefined) {
+    if (language === undefined && !navigator.language) {
       setLanguage();
     }
 
