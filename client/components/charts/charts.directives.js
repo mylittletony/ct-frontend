@@ -1512,6 +1512,21 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         format: '0',
         minValue: 4
       };
+      opts.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
+        1: {
+          // Leads to weird results but can help the min value
+          // also, need to figure out how to not display decimals
+          // format: '#,###',
+          // viewWindowMode:'explicit',
+          // viewWindow: {
+          //   min: 0,
+          //   max: 'auto'
+          // }
+        },
+      };
 
       opts.explorer = {
         maxZoomOut:2,
