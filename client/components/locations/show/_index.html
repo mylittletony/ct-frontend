@@ -1,7 +1,6 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <!-- Depreciate has_nas -->
-    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices || location.has_nas">
+    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
       <label></label>
       <md-icon md-font-icon="search">search</md-icon>
       <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
@@ -46,7 +45,6 @@
 
 <md-content layout-padding>
 
-  <!-- Depreciate has_nas -->
   <div ng-show="location.has_devices == false">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
@@ -88,11 +86,11 @@
     </div>
   </div>
 
-  <div ng-if="location.has_devices || location.has_nas">
+  <div ng-if="location.has_devices">
     <client-chart ng-if="!query">
       <location-chart ></location-chart>
     </client-chart>
-    <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
+    <location-boxes filter="query" loading="loading" token="{{location.pub§sub_token}}" streaming="location.streamingUpdates"></location-boxes>
   </div>
 
 </md-content>
