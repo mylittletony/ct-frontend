@@ -51,19 +51,6 @@
     }
   </style>
 
-  <script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Roboto:500,400,300,700:latin,latin-ext' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })(); </script>
-
 </head>
 
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
@@ -460,6 +447,19 @@
   <!-- <script src="scripts/highlight.pack.js"></script> -->
   <!-- endinjector -->
   <!-- endbuild -->
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Roboto:500,400,300,700:latin,latin-ext' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
 
   <!-- This should be a template so it's not just CT -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KQ7WSH"
