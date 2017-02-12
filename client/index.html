@@ -51,6 +51,19 @@
     }
   </style>
 
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Roboto:500,400,300,700:latin,latin-ext' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+
 </head>
 
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
@@ -457,21 +470,6 @@
   <!-- endinjector -->
   <!-- endbuild -->
 
-  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
-  <script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Roboto:500,400,300,700:latin,latin-ext' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })(); </script>
-
   <script>
     (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;
      s.src='https://widget.intercom.io/widget/zklfhs87';
@@ -495,7 +493,6 @@
   </script>
 
   <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyD243NSdgNYjRHBVBrWoEKX728FYOxuUgE&libraries=visualization"></script>
-  <script src="//js.pusher.com/3.1/pusher.min.js"></script>
 
   <script type="text/javascript" src="https://cucumber.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/o5sjd3/100023/c/1000.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=72f0304a"></script>
 
@@ -519,6 +516,7 @@
   </script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script src="//js.pusher.com/3.1/pusher.min.js"></script>
 </body>
 </html>
