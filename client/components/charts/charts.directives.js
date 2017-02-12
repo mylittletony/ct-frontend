@@ -1247,7 +1247,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           var time = (first.values[i].time);
           var t = new Date(time / (1000*1000));
-          
+
           var rowEntry = allRows[i].map(function(e) { return e.value })
           rowEntry.unshift(t, null);
 
@@ -1449,9 +1449,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         period: scope.period,
         fn: scope.fn,
         interval: scope.interval,
-        fill: '0',
-        start: minDateEpoch,
-        end: maxDateEpoch
+        fill: '0'
       };
       controller.getStats(params).then(function(data) {
         if (data && data.timeline && data.timeline.stats) {
@@ -1514,6 +1512,21 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         format: '0',
         minValue: 4
       };
+      opts.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
+        1: {
+          // Leads to weird results but can help the min value
+          // also, need to figure out how to not display decimals
+          // format: '#,###',
+          // viewWindowMode:'explicit',
+          // viewWindow: {
+          //   min: 0,
+          //   max: 'auto'
+          // }
+        },
+      };
 
       opts.explorer = {
         maxZoomOut:2,
@@ -1550,8 +1563,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
         for(var i = 0; i < stats.length; i++) {
           time = new Date(stats[i].time * (1000));
-          var timeUTC = new Date(time.getUTCFullYear(), time.getUTCMonth(), time.getUTCDate(),  time.getUTCHours(), time.getUTCMinutes(), time.getUTCSeconds());
-          data.addRow([timeUTC, null, stats[i].count]);
+          data.addRow([time, null, stats[i].count]);
         }
 
         // Google charts, you are annoying. Why can't we just have a single-point chart ? //
