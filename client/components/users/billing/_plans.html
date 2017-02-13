@@ -4,8 +4,11 @@
       <span class="md-headline" translate>
         Plans
       </span>
-      <span class="md-subhead" ng-if="!user.credit_card_last4" translate>
+      <span class="md-subhead" ng-if="!user.credit_card_last4 && !user.promo" translate>
         Add a card to your account before choosing a plan from the list below.
+      </span>
+      <span class="md-subhead" ng-if="!user.credit_card_last4 && user.promo" translate>
+        <b style="font-size: 16px;">Activate your free trial! Enter your card details first, then choose the plan from the list below.</b>
       </span>
     </md-card-title-text>
   </md-card-title>
@@ -57,5 +60,3 @@
     </small>
   </md-card-actions>
 </md-card>
-
-

@@ -259,10 +259,10 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           }
         }
         formatter = new window.google.visualization.NumberFormat(
-          {suffix: suffix, pattern: '0'}
+          {suffix: suffix, pattern: '0.000'}
         );
         formatter.format(data,2);
-        formatter.format(data,1);
+        formatter.format(data,3);
       } else {
         clearChart();
       }
@@ -1019,7 +1019,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
         if (data.timeline.signal) {
         timer = $timeout(function() {
           drawChart(data.timeline);
-        },500);
+        },250);
         } else {
           clearChart();
         }
@@ -1199,7 +1199,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     function transpose(array) {
       return array[0].map(function (_, c) {
         return array.map(function (r) {
-          return r[c];
+          return typeof r[c] == 'undefined' ? {value: null} : r[c];
         });
       });
     }
@@ -1247,11 +1247,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           var time = (first.values[i].time);
           var t = new Date(time / (1000*1000));
-          var rowEntry = [t, null];
 
-          allRows[i].forEach(function(element) {
-            rowEntry.push(element.value);
-          })
+          var rowEntry = allRows[i].map(function(e) { return e.value })
+          rowEntry.unshift(t, null);
 
           data.addRow(rowEntry);
         }
@@ -1407,6 +1405,14 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       chart();
     };
 
+    var minDate = new Date();
+    minDate.setDate(minDate.getDate() - 7);
+    minDate.setHours(0,0,0,0);
+    var minDateEpoch = Date.parse(minDate) / 1000;
+    var maxDate = new Date();
+    maxDate.setHours(0,0,0,0);
+    var maxDateEpoch = Date.parse(maxDate) / 1000;
+
     var searchParams = function() {
       var hash = {};
       hash.type = scope.type;
@@ -1467,12 +1473,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function drawChart() {
-
-      var minDate = new Date();
-      minDate.setDate(minDate.getDate() - 7);
-      minDate.setHours(0,0,0,0);
-      var maxDate = new Date();
-      maxDate.setHours(0,0,0,0);
 
       $timeout.cancel(timer);
       data = new window.google.visualization.DataTable();
@@ -1541,14 +1541,13 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       }
       c = new window.google.visualization.LineChart(document.getElementById('location-chart'));
       c.draw(data, opts);
-      console.log(data);
       scope.noData = undefined;
       scope.loading = undefined;
     }
 
     timer = $timeout(function() {
       init();
-    }, 500);
+    }, 250);
 
     var clientsChart = function() {
 
