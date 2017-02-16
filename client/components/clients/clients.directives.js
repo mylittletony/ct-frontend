@@ -47,7 +47,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
     // scope.location        = { slug: $routeParams.id };
-    scope.predicate       = $routeParams.predicate;
     scope.sort            = $routeParams.sort
     scope.direction       = $routeParams.direction
 
@@ -214,7 +213,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       params.interval    = interval;
       params.period      = scope.period;
       params.fn          = scope.fn;
-      params.predicate   = scope.predicate;
       params.ap_mac      = scope.ap_mac;
       params.type        = scope.type;
       params.policy_id   = scope.policy_id;
@@ -239,7 +237,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       hash.page           = scope.query.page;
       hash.fn             = scope.fn;
       hash.type           = scope.type;
-      hash.predicate      = scope.predicate;
       hash.direction      = scope.query.direction;
       hash.per            = scope.query.limit;
       hash.sort           = scope.query.sort;
@@ -253,8 +250,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       } else {
         scope.query.direction = 'asc';
       }
-      scope.predicate = 'updated_at';
-      // scope.predicate = val;
       scope.query.sort = val;
       scope.updatePage();
     };
