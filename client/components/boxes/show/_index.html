@@ -213,6 +213,13 @@
               </p>
             </div>
           </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <md-button ng-click="rebootBox()" ng-disabled="box.state != 'online'" class="md-raised md-primary">
+                Reboot
+              </md-button>
+            </div>
+          </md-list-item>
         </md-list>
       </md-card-content>
     </md-card>
