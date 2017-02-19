@@ -35,9 +35,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
       scope.type = obj.type;
       json = obj.data;
 
-      timer = $timeout(function() {
-        drawChart();
-      },250);
+      window.google.charts.setOnLoadCallback(drawChart);
     }
 
     var clearChart = function() {
@@ -119,6 +117,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
         } else {
           txChart();
         }
+
 
         if (!scope.noData) {
           chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
@@ -451,7 +450,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       };
       controller.getStats(params).then(function(data) {
         // timer = $timeout(function() {
-        drawChart(data.timeline);
+        window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         // },500);
       }, function() {
         clearChart();
@@ -641,9 +640,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
     }
 
     var renderChart = function() {
-      timer = $timeout(function() {
-        drawChart(data.usage);
-      },100);
+      window.google.charts.setOnLoadCallback(drawChart(data.usage));
     };
 
     var clearChart = function() {
@@ -731,9 +728,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.load) {
-          timer = $timeout(function() {
-            drawChart(data.timeline);
-          },125);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           clearChart();
         }
@@ -877,9 +872,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.mcs) {
-          timer = $timeout(function() {
-            drawChart(data.timeline);
-          },125);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           clearChart();
         }
@@ -1017,9 +1010,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.signal) {
-        timer = $timeout(function() {
-          drawChart(data.timeline);
-        },250);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           clearChart();
         }
@@ -1175,9 +1166,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline) {
-          timer = $timeout(function() {
-            drawChart(data.timeline);
-          },125);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           scope.loading = undefined;
           scope.noData = true;
@@ -1454,7 +1443,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       controller.getStats(params).then(function(data) {
         if (data && data.timeline && data.timeline.stats) {
           json = data;
-          drawChart();
+          window.google.charts.setOnLoadCallback(drawChart);
         } else {
           clearChart();
         }

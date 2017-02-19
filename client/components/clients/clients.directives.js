@@ -26,6 +26,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
+      sort:       $routeParams.sort || 'lastseen',
+      direction:  $routeParams.direction || 'desc'
     };
 
     scope.onPaginate = function (page, limit) {
@@ -45,7 +47,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
     // scope.location        = { slug: $routeParams.id };
-    scope.predicate       = $routeParams.predicate;
+    scope.sort            = $routeParams.sort
+    scope.direction       = $routeParams.direction
 
     var view = function(id) {
       $location.path('/locations/' + scope.location.slug + '/clients/' + id);
@@ -205,10 +208,11 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       params.location_id = scope.location.slug;
       params.page        = scope.query.page;
       params.per         = scope.query.limit;
+      params.sort        = scope.query.sort;
+      params.direction   = scope.query.direction;
       params.interval    = interval;
       params.period      = scope.period;
       params.fn          = scope.fn;
-      params.predicate   = scope.predicate;
       params.ap_mac      = scope.ap_mac;
       params.type        = scope.type;
       params.policy_id   = scope.policy_id;
@@ -233,9 +237,9 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       hash.page           = scope.query.page;
       hash.fn             = scope.fn;
       hash.type           = scope.type;
-      hash.predicate      = scope.predicate;
       hash.direction      = scope.query.direction;
       hash.per            = scope.query.limit;
+      hash.sort           = scope.query.sort;
       $location.search(hash);
       init();
     };
@@ -246,9 +250,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       } else {
         scope.query.direction = 'asc';
       }
-      scope.predicate = 'updated_at';
-      // scope.predicate = val;
-      scope.updatePage(val);
+      scope.query.sort = val;
+      scope.updatePage();
     };
 
     var createColumns = function() {
