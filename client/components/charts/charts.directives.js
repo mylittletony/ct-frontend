@@ -120,7 +120,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
 
 
         if (!scope.noData) {
-          chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
+          window.google.charts.setOnLoadCallback(chart = new window.google.visualization.LineChart(document.getElementById('clients-chart')));
           chart.draw(data, options);
         }
       }
