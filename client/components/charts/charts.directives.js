@@ -1276,32 +1276,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         }
 
         opts.legend = { position: 'bottom' };
-        opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-          },
-          1: {
-            targetAxisIndex: 1
-          },
-          2: {
-            targetAxisIndex: 1
-          },
-          3: {
-            targetAxisIndex: 1
-          },
-          4: {
-            targetAxisIndex: 1
-          },
-          5: {
-            targetAxisIndex: 1
-          },
-          6: {
-            targetAxisIndex: 1
-          },
-          7: {
-            targetAxisIndex: 1
-          }
-        };
 
         opts.hAxis = {
           gridlines: {
