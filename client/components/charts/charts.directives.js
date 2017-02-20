@@ -1081,6 +1081,9 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
         },
         2: {
           targetAxisIndex: 1
+        },
+        3: {
+          targetAxisIndex: 1
         }
       };
       opts.vAxes = {
