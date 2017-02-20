@@ -35,9 +35,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
       scope.type = obj.type;
       json = obj.data;
 
-      timer = $timeout(function() {
-        drawChart();
-      },250);
+      window.google.charts.setOnLoadCallback(drawChart);
     }
 
     var clearChart = function() {
@@ -120,10 +118,14 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           txChart();
         }
 
-        if (!scope.noData) {
-          chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
-          chart.draw(data, options);
-        }
+        var compileChart = function() {
+          if (!scope.noData) {
+            chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
+            chart.draw(data, options);
+          }
+        };
+
+        window.google.charts.setOnLoadCallback(compileChart);
       }
 
       // For the tests mainly, not sure why this has started causing a failure, like above
@@ -451,7 +453,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       };
       controller.getStats(params).then(function(data) {
         // timer = $timeout(function() {
-        drawChart(data.timeline);
+        window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         // },500);
       }, function() {
         clearChart();
@@ -641,9 +643,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
     }
 
     var renderChart = function() {
-      timer = $timeout(function() {
-        drawChart(data.usage);
-      },100);
+      window.google.charts.setOnLoadCallback(drawChart(data.usage));
     };
 
     var clearChart = function() {
@@ -731,9 +731,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.load) {
-          timer = $timeout(function() {
-            drawChart(data.timeline);
-          },125);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           clearChart();
         }
@@ -877,9 +875,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.mcs) {
-          timer = $timeout(function() {
-            drawChart(data.timeline);
-          },125);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           clearChart();
         }
@@ -1017,9 +1013,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.signal) {
-        timer = $timeout(function() {
-          drawChart(data.timeline);
-        },250);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           clearChart();
         }
@@ -1089,6 +1083,9 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
           targetAxisIndex: 1
         },
         2: {
+          targetAxisIndex: 1
+        },
+        3: {
           targetAxisIndex: 1
         }
       };
@@ -1175,9 +1172,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline) {
-          timer = $timeout(function() {
-            drawChart(data.timeline);
-          },125);
+          window.google.charts.setOnLoadCallback(drawChart(data.timeline));
         } else {
           scope.loading = undefined;
           scope.noData = true;
@@ -1287,32 +1282,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         }
 
         opts.legend = { position: 'bottom' };
-        opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-          },
-          1: {
-            targetAxisIndex: 1
-          },
-          2: {
-            targetAxisIndex: 1
-          },
-          3: {
-            targetAxisIndex: 1
-          },
-          4: {
-            targetAxisIndex: 1
-          },
-          5: {
-            targetAxisIndex: 1
-          },
-          6: {
-            targetAxisIndex: 1
-          },
-          7: {
-            targetAxisIndex: 1
-          }
-        };
 
         opts.hAxis = {
           gridlines: {
@@ -1454,7 +1423,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       controller.getStats(params).then(function(data) {
         if (data && data.timeline && data.timeline.stats) {
           json = data;
-          drawChart();
+          window.google.charts.setOnLoadCallback(drawChart);
         } else {
           clearChart();
         }

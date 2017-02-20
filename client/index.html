@@ -45,6 +45,12 @@
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript">
+    window.google.charts.load('current', {'packages':['corechart']});
+  </script>
+
   <style type="text/css">
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
       display: none !important;
@@ -444,7 +450,6 @@
   <script src="components/webhooks/webhooks.directives.js"></script>
   <script src="components/webhooks/webhooks.services.js"></script>
   <script src="scripts/config.js"></script>
-  <!-- <script src="scripts/highlight.pack.js"></script> -->
   <!-- endinjector -->
   <!-- endbuild -->
 
@@ -484,12 +489,6 @@
         });
       }
     });
-  </script>
-
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-  <script type="text/javascript">
-    window.google.charts.load('current', {'packages':['corechart']});
   </script>
 
   <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyD243NSdgNYjRHBVBrWoEKX728FYOxuUgE&libraries=visualization"></script>
