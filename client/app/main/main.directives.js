@@ -139,7 +139,7 @@ app.directive('filepicker', ['$compile', '$cookies', function ($compile, $cookie
   var link = function(scope,element,attrs) {
 
     var options = {};
-    var locale = $cookies.get('dcc_locale');
+    var locale = $cookies.get('locale');
 
     filepicker.setKey('AOEp4NPeVQ1s5VydEkh3Qz');
     scope.upload = function() {
