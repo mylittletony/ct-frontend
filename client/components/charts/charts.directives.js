@@ -119,12 +119,12 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
             txChart();
           }
 
-
           if (!scope.noData) {
             chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
             chart.draw(data, options);
           }
         }
+
       }
       window.google.charts.setOnLoadCallback(drawChartCallback);
       // For the tests mainly, not sure why this has started causing a failure, like above
