@@ -128,12 +128,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
 
       if (scope.box.is_cucumber) {
-        scope.menu.push({
-          name: gettextCatalog.getString('Resync'),
-          icon: 'settings_backup_restore',
-          disabled: !scope.box.allowed_job,
-          type: 'resync',
-        });
+        // scope.menu.push({
+        //   name: gettextCatalog.getString('Resync'),
+        //   icon: 'settings_backup_restore',
+        //   disabled: !scope.box.allowed_job,
+        //   type: 'resync',
+        // });
 
         scope.menu.push({
           name: gettextCatalog.getString('Reset'),
