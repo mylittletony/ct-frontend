@@ -1302,9 +1302,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
         scope._links      = results._links;
         scope.brand.id    = results.brand.id;
         scope.loading     = undefined;
-        if (scope.brand && scope.brand.id) {
-          createMenu();
-        }
+        createMenu();
       }, function(err) {
         scope.loading = undefined;
       });
