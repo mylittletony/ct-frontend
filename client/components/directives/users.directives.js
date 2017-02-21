@@ -1300,7 +1300,6 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       User.query(params).$promise.then(function(results) {
         scope.users       = results.users;
         scope._links      = results._links;
-        scope.brand.id    = results.brand.id;
         scope.loading     = undefined;
         createMenu();
       }, function(err) {
