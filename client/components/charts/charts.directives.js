@@ -119,12 +119,12 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
             txChart();
           }
 
-
           if (!scope.noData) {
             chart = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
             chart.draw(data, options);
           }
         }
+
       }
       if (window.google && window.google.visualization) {
         window.google.charts.setOnLoadCallback(drawChartCallback);
