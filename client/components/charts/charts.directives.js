@@ -126,7 +126,9 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
           }
         }
       }
-      window.google.charts.setOnLoadCallback(drawChartCallback);
+      if (window.google && window.google.visualization) {
+        window.google.charts.setOnLoadCallback(drawChartCallback);
+      }
       // For the tests mainly, not sure why this has started causing a failure, like above
       if (window.google && window.google.visualization) {
         var date_formatter = new window.google.visualization.DateFormat({
