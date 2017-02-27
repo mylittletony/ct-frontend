@@ -30,7 +30,8 @@
           Code Details
         </span>
         <span class="md-subhead">
-          <span ng-show="splash_code.valid == false"><b translate>This code has expired. Please create another.</b></span>
+          <span ng-show="((splash_code.valid == false) && (splash_code.started == true))"><b translate>This code has expired. Please create another.</b></span>
+          <span ng-show="splash_code.started == false"><b translate>This code hasn't started yet.</b></span>
           <span ng-show="splash_code.valid == true"><b translate>This code is valid.</b></span>
         </span>
       </md-card-title-text>
@@ -55,9 +56,17 @@
 
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3 ng-if="splash_code.valid === true" translate>Expires</h3>
-              <h3 ng-if="splash_code.valid === false" translate>Expired</h3>
+              <h3 ng-if="splash_code.valid === true || splash_code.started === false" translate>Expires</h3>
+              <h3 ng-if="splash_code.valid === false && splash_code.started === true" translate>Expired</h3>
               <p>{{ splash_code.expires | humanTime }}</p>
+            </div>
+          </md-list-item>
+
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3 ng-if="splash_code.started === true" translate>Started</h3>
+              <h3 ng-if="splash_code.started === false" translate>Starts</h3>
+              <p>{{ splash_code.start_date | humanTime }}</p>
             </div>
           </md-list-item>
 
@@ -68,7 +77,7 @@
               <p ng-if="splash_code.period !== 'all'" translate>Daily</p>
             </div>
           </md-list-item>
-          
+
         </div>
         <div flex="100" flex-gt-sm="50">
           <md-list-item class="md-2-line">
