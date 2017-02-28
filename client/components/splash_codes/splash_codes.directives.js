@@ -15,7 +15,7 @@ app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q
       pageSelector: true,
       rowSelection: false
     };
-    
+
     scope.pagination_labels = pagination_labels;
     scope.query = {
       filter:     $routeParams.q,
@@ -198,6 +198,7 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
     scope.location  = {slug: $routeParams.id};
 
     var date = new Date();
+    var today_date = new Date(date);
     date.setDate(date.getDate() + 1);
     date = new Date(date);
 
@@ -214,6 +215,7 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
       simultaneous_use: 2,
       volume:           60,
       expires:          date,
+      start_date:       today_date,
       period:           'daily'
     };
 
