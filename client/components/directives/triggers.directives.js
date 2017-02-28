@@ -568,7 +568,7 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var initWebhook = function() {
-      if (scope.trigger.attr_2 !== 'POST' || scope.trigger.attr_2 !== 'GET') {
+      if (scope.trigger.attr_2 !== 'POST' && scope.trigger.attr_2 !== 'GET') {
         scope.trigger.attr_2 = 'POST';
       }
     };
