@@ -56,17 +56,17 @@
 
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3 ng-if="splash_code.valid === true || splash_code.started === false" translate>Expires</h3>
-              <h3 ng-if="splash_code.valid === false && splash_code.started === true" translate>Expired</h3>
-              <p>{{ splash_code.expires | humanTime }}</p>
+              <h3 ng-if="splash_code.started === true" translate>Started</h3>
+              <h3 ng-if="splash_code.started === false" translate>Starts</h3>
+              <p>{{ splash_code.start_date | humanTime }}</p>
             </div>
           </md-list-item>
 
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
-              <h3 ng-if="splash_code.started === true" translate>Started</h3>
-              <h3 ng-if="splash_code.started === false" translate>Starts</h3>
-              <p>{{ splash_code.start_date | humanTime }}</p>
+              <h3 ng-if="splash_code.valid === true || splash_code.started === false" translate>Expires</h3>
+              <h3 ng-if="splash_code.valid === false && splash_code.started === true" translate>Expired</h3>
+              <p>{{ splash_code.expires | humanTime }}</p>
             </div>
           </md-list-item>
 
