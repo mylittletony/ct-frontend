@@ -134,11 +134,12 @@ app.directive('navbar', ['$compile', '$location', function ($compile, $location)
 
 }]);
 
-app.directive('filepicker', ['$compile', function ($compile) {
+app.directive('filepicker', ['$compile', '$cookies', function ($compile, $cookies) {
 
   var link = function(scope,element,attrs) {
 
     var options = {};
+    var locale = $cookies.get('locale');
 
     filepicker.setKey('AOEp4NPeVQ1s5VydEkh3Qz');
     scope.upload = function() {
@@ -161,6 +162,9 @@ app.directive('filepicker', ['$compile', function ($compile) {
 
     var pickFile = function() {
       filepicker.pick(
+        {
+          language: locale
+        },
         function(Blob){
           scope.uploading = true;
           scope.$apply(function () {

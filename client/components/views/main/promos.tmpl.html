@@ -1,0 +1,25 @@
+<md-dialog aria-label="Upgrade">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Cucumber Free Trial!</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div ng-bind-html="offer"></div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="upgrade()">
+        Try now
+      </md-button>
+      <md-button ng-click="hide()">
+       Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

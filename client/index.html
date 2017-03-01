@@ -45,6 +45,12 @@
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript">
+    window.google.charts.load('current', {'packages':['corechart']});
+  </script>
+
   <style type="text/css">
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
       display: none !important;
@@ -54,15 +60,6 @@
 </head>
 
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
-
-  <!-- This should be a template so it's not just CT -->
-  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KQ7WSH"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-KQ7WSH');</script>
 
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
@@ -81,6 +78,12 @@
         </h2>
         <span flex></span>
         <span hide show-gt-sm ng-if="loggedIn">
+
+          <span ng-if="vm.promos">
+            <md-button aria-label="'Open Apps Menu' | translate" ng-click="vm.showPromo(vm.promos.promo.value)">
+              {{ vm.promos.promo.key }}
+            </md-button>
+          </span>
 
           <span ng-if="vm.upgrade">
             <md-button aria-label="'Open Apps Menu' | translate" ng-click="vm.showUpgrade()">
@@ -447,11 +450,8 @@
   <script src="components/webhooks/webhooks.directives.js"></script>
   <script src="components/webhooks/webhooks.services.js"></script>
   <script src="scripts/config.js"></script>
-  <script src="scripts/highlight.pack.js"></script>
   <!-- endinjector -->
   <!-- endbuild -->
-
-  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
   <script type="text/javascript">
   WebFontConfig = {
@@ -465,6 +465,15 @@
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(wf, s);
   })(); </script>
+
+  <!-- This should be a template so it's not just CT -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KQ7WSH"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KQ7WSH');</script>
 
   <script>
     (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;
@@ -482,17 +491,7 @@
     });
   </script>
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-  <script type="text/javascript">
-    window.google.charts.load('current', {'packages':['corechart']});
-  </script>
-
   <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyD243NSdgNYjRHBVBrWoEKX728FYOxuUgE&libraries=visualization"></script>
-  <script src="//js.pusher.com/3.1/pusher.min.js"></script>
-  <script src="/scripts/highlight.pack.js"></script>
-
-  <script type="text/javascript" src="https://cucumber.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/o5sjd3/100023/c/1000.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=72f0304a"></script>
 
   <script type="text/javascript">window.ATL_JQ_PAGE_PROPS =  {
     "triggerFunction": function(showCollectorDialog) {
@@ -504,5 +503,19 @@
     }};
   </script>
 
+  <!-- <script> -->
+  <!--   !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments); -->
+  <!--   },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js', -->
+  <!--   a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script'); -->
+  <!--   // Insert Twitter Pixel ID and Standard Event data below -->
+  <!--   twq('init','nw5lu'); -->
+  <!--   twq('track','PageView'); -->
+  <!-- </script> -->
+
+  <script type="text/javascript" src="https://cucumber.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/o5sjd3/100023/c/1000.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=72f0304a"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script src="//js.pusher.com/3.1/pusher.min.js"></script>
 </body>
 </html>

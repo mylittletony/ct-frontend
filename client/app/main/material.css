@@ -243,11 +243,11 @@ md-sidenav.md-sidenav-right ul {
 }
 
 .splash-design-buttons {
-  top: auto;
-  left: auto;
-  right: 85px;
-  bottom: 20px;
-  position: fixed;
+  margin-left: 20%;
+  margin-right: 20%;
+  position: relative;
+  margin-top: 5%%;
+  margin-bottom: 5%;
 }
 
 .md-button.md-fab.md-fab-bottom-right {
@@ -395,6 +395,10 @@ ul.errors {
 
 .layout-padding {
   padding: 14px;
+}
+
+.design-sidebar .layout-padding {
+  height: 100%;
 }
 
 md-toolbar h3 {

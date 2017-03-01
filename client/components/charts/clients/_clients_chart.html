@@ -1,3 +1,9 @@
+<script>
+  (window.google || {}).charts || document.write('\
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"><\/script>\
+  <script> google.charts.load("current", {"packages":["corechart"]});<\/script>')
+</script>
+
 <div id="clients-chart" layout="row" layout-align="left end"></div>
 <md-progress-linear ng-if="loadingChart" md-mode="query"></md-progress-linear>
 <div layout="row" ng-if="noData || loading" layout-align="left end" class="muted small-chart">
