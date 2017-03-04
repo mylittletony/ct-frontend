@@ -97,6 +97,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
     };
 
     scope.blur = function() {
+      console.log("sort function")
       var hash = {};
       hash.page = scope.query.page;
       hash.per = scope.query.limit;
