@@ -121,7 +121,12 @@
                 </div>
               </div>
 
-              <div flex="100">
+              <div flex="50">
+                <p translate>Start Date</p>
+                <md-datepicker class="picker-wider" name="dateField" ng-model="code.start_date" md-placeholder="{{ 'Start Date' | translate }}" required md-min-date="myDate" style="margin: 10px 0 0 -10px;"></md-datepicker>
+              </div>
+
+              <div flex="50">
                 <p translate>Expiration Date</p>
                 <md-datepicker class="picker-wider" name="dateField" ng-model="code.expires" md-placeholder="{{ 'Expiration Date' | translate }}" required md-min-date="minDate" style="margin: 10px 0 0 -10px;"></md-datepicker>
               </div>

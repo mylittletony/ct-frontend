@@ -97,15 +97,17 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
     };
 
     scope.blur = function() {
-      if (!scope.user_id) {
-        var hash = {};
-        hash.page = scope.query.page;
-        hash.per = scope.query.limit;
-        hash.sort = scope.query.sort;
-        hash.direction = scope.query.direction;
-        hash.q = scope.query.filter;
-        $location.search(hash);
+      console.log("sort function")
+      var hash = {};
+      hash.page = scope.query.page;
+      hash.per = scope.query.limit;
+      hash.sort = scope.query.sort;
+      hash.direction = scope.query.direction;
+      hash.q = scope.query.filter;
+      if (scope.user_id) {
+        hash.user_id = scope.user_id
       }
+      $location.search(hash);
     };
 
     var filterLocationOwners = function() {
