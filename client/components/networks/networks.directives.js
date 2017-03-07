@@ -124,7 +124,6 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     var shareDetails = function(network) {
-      network.action = "share";
       $mdDialog.show({
         templateUrl: 'components/networks/_share_network.html',
         parent: angular.element(document.body),
@@ -144,6 +143,10 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       };
       $scope.close = function() {
         $mdDialog.cancel();
+      };
+      $scope.share = function() {
+        network.action = 'share'
+        scope.update(network)
       };
     }
     DialogController.$inject = ['$scope', 'network'];
@@ -180,8 +183,6 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     scope.update = function(network) {
-      console.log("three")
-      console.log(network)
       Network.update({}, {
         location_id: scope.location.slug,
         id: network.id,
