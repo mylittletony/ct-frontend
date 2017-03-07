@@ -190,17 +190,19 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
         network: {
           ssid: network.ssid,
           action: network.action,
-          share_to: network.shareTo
+          share_to: network.share_to,
+          share_type: network.share_type
         }
       }).$promise.then(function(results) {
         if (network.action === 'share') {
-          showToast(gettextCatalog.getString('Network details sent to ' + network.shareTo));
+          showToast(gettextCatalog.getString('Network details sent to ' + network.share_to));
         } else {
           showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
         }
         network.state = undefined;
         network.action = undefined;
-        network.shareTo = undefined;
+        network.share_to = undefined;
+        network.share_type = undefined;
       }, function(error) {
         showErrors(error);
         network.state = undefined;
