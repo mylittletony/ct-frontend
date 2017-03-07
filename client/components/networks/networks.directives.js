@@ -28,7 +28,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
       scope.menu.push({
         name: gettextCatalog.getString('Share Network Details'),
-        icon: 'send',
+        icon: 'screen_share',
         type: 'share'
       });
 
