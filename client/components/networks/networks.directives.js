@@ -27,7 +27,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
 
       scope.menu.push({
-        name: gettextCatalog.getString('Share Network Details'),
+        name: gettextCatalog.getString('Share Details'),
         icon: 'screen_share',
         type: 'share'
       });
@@ -145,8 +145,9 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
         $mdDialog.cancel();
       };
       $scope.share = function() {
-        network.action = 'share'
-        scope.update(network)
+        network.action = 'share';
+        scope.update(network);
+        $mdDialog.cancel();
       };
     }
     DialogController.$inject = ['$scope', 'network'];
@@ -192,8 +193,14 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
           share_to: network.shareTo
         }
       }).$promise.then(function(results) {
-        showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
+        if (network.action === 'share') {
+          showToast(gettextCatalog.getString('Network details sent to ' + network.shareTo));
+        } else {
+          showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
+        }
         network.state = undefined;
+        network.action = undefined;
+        network.shareTo = undefined;
       }, function(error) {
         showErrors(error);
         network.state = undefined;
