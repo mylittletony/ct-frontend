@@ -2289,3 +2289,122 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
   };
 
 }]);
+
+app.directive('locationUsageChart', function() {
+
+  return {
+    link: function(scope) {
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      function chart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Data', 'MB', { role: 'style' } ],
+          ['Inbound', 1053, 'color: gray'],
+          ['Outbound', 327, 'color: #76A7FA']
+        ]);
+
+        var options = {
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart1'));
+        chart.draw(data, options);
+
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_data_usage_chart.html',
+  };
+});
+
+app.directive('locationCapabilitiesChart', function() {
+
+  return {
+    link: function(scope) {
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      function chart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Frequency Band', 'Devices'],
+          ['2.4 Ghz', 50],
+          ['5 Ghz', 17]
+        ]);
+
+        var options = {
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+        chart.draw(data, options);
+
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_location_capabilities_chart.html',
+  };
+});
+
+app.directive('locationHealthReport', function() {
+
+  return {
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_health_report.html',
+  };
+});
+
+app.directive('deviceListShort', function() {
+
+  return {
+    link: function(scope) {
+
+      window.google.charts.setOnLoadCallback(chart);
+      window.google.charts.setOnLoadCallback(chart2);
+
+      function chart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Frequency Band', 'Devices'],
+          ['2.4 Ghz', 50]
+        ]);
+
+        var options = {
+          height: 50,
+          width: 200
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart3'));
+        chart.draw(data, options);
+
+      }
+
+      function chart2() {
+        var data = google.visualization.arrayToDataTable([
+          ['Frequency Band', 'Devices'],
+          ['2.4 Ghz', 10]
+        ]);
+
+        var options = {
+          height: 50,
+          width: 200
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart4'));
+        chart.draw(data, options);
+
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_devices_short.html',
+  };
+});

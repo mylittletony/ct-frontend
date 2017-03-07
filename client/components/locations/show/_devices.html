@@ -40,15 +40,6 @@
         </translate>
       </md-tooltip>
     </span>
-    <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }"><span translate>5m</span></md-button>
-      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }"><span translate>30m</span></md-button>
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }"><span translate>60m</span></md-button>
-      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }"><span translate>6h</span></md-button>
-      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }"><span translate>1d</span></md-button>
-      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }"><span translate>7d</span></md-button>
-      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }"><span translate>30d</span></md-button>
-    </md-button-group>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -97,20 +88,11 @@
     </div>
   </div>
 
-  <div class="snapshot">
-    <location-health-report></location-health-report>
+  <div ng-if="location.has_devices || location.has_nas">
+    <client-chart ng-if="!query">
+      <location-chart ></location-chart>
+    </client-chart>
+    <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
   </div>
-  <div class="snapshot">
-    <location-usage-chart></location-usage-chart>
-  </div>
-  <div class="snapshot">
-    <location-capabilities-chart></location-capabilities-chart>
-  </div>
-  <div class="snapshot">
-    <device-list-short></device-list-short>
-  </div>
-  <!-- <div class="snapshot">
-    <location-clients></location-clients>
-  </div> -->
 
 </md-content>

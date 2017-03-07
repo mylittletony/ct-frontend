@@ -588,6 +588,21 @@ md-card.highlight-section {
   background-color: #f4f8ff;
 }
 
+.snapshot {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: 600px;
+  flex: 1;
+}
+
+.box-name {
+  float: left;
+  margin-right: 5px;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
