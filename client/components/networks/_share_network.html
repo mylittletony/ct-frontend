@@ -10,12 +10,30 @@
         <div flex layout="column">
           <p translate>Share your network details by SMS or email.</p>
         </div>
+        <md-radio-group ng-model="network.share_type" layout="row">
+          <md-radio-button value="sms" class="md-primary">
+            <translate>
+              SMS
+            </translate>
+          </md-radio-button>
+          <md-radio-button value="email">
+            <translate>
+              Email
+            </translate>
+          </md-radio-button>
+        </md-radio-group>
         <div flex layout="column">
-          <md-input-container>
+          <md-input-container ng-if="network.share_type == 'sms'">
             <label>
-              <translate>Email address or phone number</translate>
+              <translate>Phone number</translate>
             </label>
-            <input name="shareTo" ng-minlength="5" md-maxlength="32" ng-model="network.shareTo" required>
+            <input name="share_to" ng-minlength="5" md-maxlength="32" ng-model="network.share_to" required>
+          </md-input-container>
+          <md-input-container ng-if="network.share_type == 'email'">
+            <label>
+              <translate>Email address</translate>
+            </label>
+            <input name="share_to" type="email" ng-minlength="5" md-maxlength="32" ng-model="network.share_to" required>
           </md-input-container>
         </div>
       </div>
