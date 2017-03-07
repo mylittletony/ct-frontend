@@ -1,0 +1,37 @@
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Share Network Details</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Share your network details by SMS or email.</p>
+        </div>
+        <div flex layout="column">
+          <md-input-container>
+            <label>
+              <translate>Email address or phone number</translate>
+            </label>
+            <input name="shareTo" ng-minlength="5" md-maxlength="32" ng-model="network.shareTo" required>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update()">
+        <translate>
+          SHARE
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

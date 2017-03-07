@@ -27,6 +27,12 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
 
       scope.menu.push({
+        name: gettextCatalog.getString('Share Network Details'),
+        icon: 'send',
+        type: 'share'
+      });
+
+      scope.menu.push({
         name: gettextCatalog.getString('Delete Network'),
         icon: 'delete_forever',
         type: 'delete'
@@ -44,6 +50,9 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
           break;
         case 'delete':
           destroy(network);
+          break;
+        case 'share':
+          shareDetails(network);
           break;
       }
     };
@@ -114,6 +123,18 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
     };
 
+    var shareDetails = function(network) {
+      network.action = "share";
+      $mdDialog.show({
+        templateUrl: 'components/networks/_share_network.html',
+        parent: angular.element(document.body),
+        controller: DialogController,
+        locals: {
+          network: network
+        }
+      });
+    };
+
     function DialogController($scope,network) {
       $scope.network = network;
       $scope.update = function() {
@@ -159,11 +180,15 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     scope.update = function(network) {
+      console.log("three")
+      console.log(network)
       Network.update({}, {
         location_id: scope.location.slug,
         id: network.id,
         network: {
-          ssid: network.ssid
+          ssid: network.ssid,
+          action: network.action,
+          share_to: network.shareTo
         }
       }).$promise.then(function(results) {
         showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
