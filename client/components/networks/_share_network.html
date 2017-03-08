@@ -27,7 +27,7 @@
             <label>
               <translate>Phone number</translate>
             </label>
-            <input name="share_to" ng-minlength="10" md-maxlength="15" require ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im" ng-model="network.share_to" required>
+            <input name="share_to" ng-minlength="7" md-maxlength="15" require ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im" ng-model="network.share_to" required>
           </md-input-container>
           <md-input-container ng-if="network.share_type == 'email'">
             <label>
