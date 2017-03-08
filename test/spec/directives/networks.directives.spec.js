@@ -63,13 +63,15 @@ describe('networks', function () {
       deferred.resolve(results);
       $scope.$apply();
 
-      expect(element.isolateScope().menu.length).toEqual(3);
+      expect(element.isolateScope().menu.length).toEqual(4);
       expect(element.isolateScope().menu[0].name).toEqual('Edit Settings');
       expect(element.isolateScope().menu[0].type).toEqual('settings');
       expect(element.isolateScope().menu[1].name).toEqual('Change SSID');
       expect(element.isolateScope().menu[1].type).toEqual('ssid');
-      expect(element.isolateScope().menu[2].name).toEqual('Delete Network');
-      expect(element.isolateScope().menu[2].type).toEqual('delete');
+      expect(element.isolateScope().menu[2].name).toEqual('Share Details');
+      expect(element.isolateScope().menu[2].type).toEqual('share');
+      expect(element.isolateScope().menu[3].name).toEqual('Delete Network');
+      expect(element.isolateScope().menu[3].type).toEqual('delete');
 
       expect(element.isolateScope().query.page).toEqual('10');
       expect(element.isolateScope().query.limit).toEqual('100');
