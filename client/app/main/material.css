@@ -607,6 +607,43 @@ md-card.highlight-section {
   height: 100%;
 }
 
+.md-toolbar-tools .md-datepicker-button {
+  visibility:hidden;
+}
+
+md-sidenav.md-default-theme, md-sidenav, md-sidenav.md-default-theme md-content, md-sidenav md-content {
+  background: #1e3c72;
+  color: #EEEEEE;
+}
+
+md-sidenav md-divider {
+  border-top-color: #385383;
+}
+
+.sidenav.md-toolbar-tools {
+  background: #1e3c72;
+}
+
+.sidenav .menu-heading.menu-subhead {
+  color: #EEEEEE;
+}
+
+.menu-heading.menu-subhead .material-icons {
+  color: #EEEEEE;
+}
+
+.side-menu .material-icons {
+  color: #EEEEEE;
+}
+
+.side-menu .menu-subhead {
+  color: #EEEEEE;
+}
+
+.side-menu .divider {
+  border-top-color: #385383;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
