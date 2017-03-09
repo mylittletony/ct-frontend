@@ -607,6 +607,10 @@ md-card.highlight-section {
   height: 100%;
 }
 
+.md-toolbar-tools .md-datepicker-button {
+  visibility:hidden;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
