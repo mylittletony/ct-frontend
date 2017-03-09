@@ -40,14 +40,18 @@
         </translate>
       </md-tooltip>
     </span>
+    <md-input-container>
+      <label>Date</label>
+      <md-datepicker ng-model="snapshotDate" md-placeholder="Enter date"></md-datepicker>
+    </md-input-container>
+    <md-input-container>
+      <label>Time</label>
+      <input type="time" ng-model="snapshotTime"></input>
+    </md-input-container>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }"><span translate>5m</span></md-button>
-      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }"><span translate>30m</span></md-button>
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }"><span translate>60m</span></md-button>
+      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }"><span translate>1h</span></md-button>
       <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }"><span translate>6h</span></md-button>
       <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }"><span translate>1d</span></md-button>
-      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }"><span translate>7d</span></md-button>
-      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }"><span translate>30d</span></md-button>
     </md-button-group>
   </div>
   <md-divider></md-divider>
@@ -97,20 +101,23 @@
     </div>
   </div>
 
-  <div class="snapshot">
-    <location-health-report></location-health-report>
+  <div layout="row">
+    <div class="snapshot" flex="50">
+      <location-health-report flex="100"></location-health-report>
+    </div>
+    <div class="snapshot" flex="50">
+      <location-usage-chart flex="100"></location-usage-chart>
+    </div>
   </div>
-  <div class="snapshot">
-    <location-usage-chart></location-usage-chart>
+  <div layout="row">
+    <div class="snapshot" flex="50">
+      <device-list-short flex="100"></device-list-short>
+    </div>
+    <div class="snapshot" flex="25">
+      <location-capabilities-chart flex="100"></location-capabilities-chart>
+    </div>
+    <div class="snapshot" flex="25">
+      <location-clients flex="100"></location-clients>
+    </div>
   </div>
-  <div class="snapshot">
-    <location-capabilities-chart></location-capabilities-chart>
-  </div>
-  <div class="snapshot">
-    <device-list-short></device-list-short>
-  </div>
-  <!-- <div class="snapshot">
-    <location-clients></location-clients>
-  </div> -->
-
 </md-content>

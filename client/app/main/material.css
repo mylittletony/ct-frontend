@@ -603,6 +603,10 @@ md-card.highlight-section {
   margin-right: 5px;
 }
 
+.snapshot-card {
+  height: 100%;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */

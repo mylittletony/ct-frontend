@@ -67,7 +67,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
       menu.sections.push({
         name: gettextCatalog.getString('Devices'),
-        link: '/#/locations/' + $scope.location.slug,
+        link: '/#/locations/' + $scope.location.slug + '/devices',
         type: 'link',
         icon: 'router',
         active: isActive('dashboard')

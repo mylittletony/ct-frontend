@@ -2329,15 +2329,21 @@ app.directive('locationCapabilitiesChart', function() {
 
       function chart() {
         var data = google.visualization.arrayToDataTable([
-          ['Frequency Band', 'Devices'],
-          ['2.4 Ghz', 50],
-          ['5 Ghz', 17]
+          ['Time', 'Percent of 5Ghz Devices'],
+          ['1', 40],
+          ['2', 40],
+          ['3', 45],
+          ['4', 45]
         ]);
 
         var options = {
+          vAxis: {
+            minValue: 0,
+            maxValue: 100
+          }
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart2'));
         chart.draw(data, options);
 
       }
@@ -2377,7 +2383,8 @@ app.directive('deviceListShort', function() {
 
         var options = {
           height: 50,
-          width: 200
+          width: 200,
+          isStacked: 'percent'
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart3'));
@@ -2393,7 +2400,8 @@ app.directive('deviceListShort', function() {
 
         var options = {
           height: 50,
-          width: 200
+          width: 200,
+          isStacked: 'percent'
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart4'));
@@ -2406,5 +2414,16 @@ app.directive('deviceListShort', function() {
       loc: '@'
     },
     templateUrl: 'components/locations/show/_devices_short.html',
+  };
+});
+
+app.directive('locationClients', function() {
+
+  return {
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_clients_count.html',
   };
 });
