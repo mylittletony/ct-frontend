@@ -2389,14 +2389,14 @@ app.directive('deviceListShort', function() {
 
       function chart() {
         var data = google.visualization.arrayToDataTable([
-          ['Frequency Band', 'Devices'],
-          ['2.4 Ghz', 50]
+          ['Status', 'Hours'],
+          ['Online', 100],
         ]);
 
         var options = {
           height: 50,
-          width: 200,
-          isStacked: 'percent'
+          isStacked: 'true',
+          colors: [`#81C784`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart3'));
@@ -2406,14 +2406,14 @@ app.directive('deviceListShort', function() {
 
       function chart2() {
         var data = google.visualization.arrayToDataTable([
-          ['Frequency Band', 'Devices'],
-          ['2.4 Ghz', 10]
+          ['Status', 'Hours'],
+          ['Online', 100],
         ]);
 
         var options = {
           height: 50,
-          width: 200,
-          isStacked: 'percent'
+          isStacked: 'true',
+          colors: [`#81C784`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart4'));
@@ -2423,14 +2423,14 @@ app.directive('deviceListShort', function() {
 
       function chart3() {
         var data = google.visualization.arrayToDataTable([
-          ['Frequency Band', 'Devices'],
-          ['2.4 Ghz', 10]
+          ['Status', 'Hours'],
+          ['Online', 100],
         ]);
 
         var options = {
           height: 50,
-          width: 200,
-          isStacked: 'percent'
+          isStacked: 'true',
+          colors: [`#81C784`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart5'));
@@ -2440,14 +2440,14 @@ app.directive('deviceListShort', function() {
 
       function chart4() {
         var data = google.visualization.arrayToDataTable([
-          ['Frequency Band', 'Devices'],
-          ['2.4 Ghz', 10]
+          ['Status', 'Hours'],
+          ['Online', 100],
         ]);
 
         var options = {
           height: 50,
-          width: 200,
-          isStacked: 'percent'
+          isStacked: 'true',
+          colors: [`#81C784`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart6'));
@@ -2457,14 +2457,14 @@ app.directive('deviceListShort', function() {
 
       function chart5() {
         var data = google.visualization.arrayToDataTable([
-          ['Frequency Band', 'Devices'],
-          ['2.4 Ghz', 10]
+          ['Status', 'Hours'],
+          ['Online', 100],
         ]);
 
         var options = {
           height: 50,
-          width: 200,
-          isStacked: 'percent'
+          isStacked: 'true',
+          colors: [`#81C784`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart7'));
