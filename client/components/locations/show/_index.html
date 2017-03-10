@@ -99,24 +99,24 @@
   </div>
 </md-content>
 
-<md-content layout-padding>
-  <div layout="row">
-    <div class="snapshot" flex="50">
-      <location-health-report flex="100"></location-health-report>
-    </div>
-    <div class="snapshot" flex="50">
-      <location-usage-chart flex="100"></location-usage-chart>
-    </div>
+
+<md-content class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
+  <div flex-gt-xs="40">
+    <location-health-report></location-health-report>
   </div>
-  <div layout="row">
-    <div class="snapshot" flex="50">
-      <device-list-short flex="100"></device-list-short>
-    </div>
-    <div class="snapshot" flex="25">
-      <location-capabilities-chart flex="100"></location-capabilities-chart>
-    </div>
-    <div class="snapshot" flex="25">
-      <location-clients flex="100"></location-clients>
-    </div>
+  <div flex-gt-xs="60">
+    <location-usage-chart></location-usage-chart>
+  </div>
+</md-content>
+
+<md-content class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
+  <div flex-gt-xs="50">
+    <device-list-short></device-list-short>
+  </div>
+  <div flex-gt-xs="25">
+    <location-capabilities-chart></location-capabilities-chart>
+  </div>
+  <div flex-gt-xs="25">
+    <location-clients></location-clients>
   </div>
 </md-content>

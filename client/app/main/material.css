@@ -588,25 +588,6 @@ md-card.highlight-section {
   background-color: #f4f8ff;
 }
 
-.snapshot {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  width: 600px;
-  flex: 1;
-}
-
-.box-name {
-  float: left;
-  margin-right: 5px;
-}
-
-.snapshot-card {
-  height: 100%;
-}
-
 .md-toolbar-tools .md-datepicker-button {
   visibility:hidden;
 }
