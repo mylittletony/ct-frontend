@@ -92,6 +92,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     };
 
     this.get = function(params) {
+      console.log($routeParams)
       params.interval        = $routeParams.interval || gettextCatalog.getString('day');
       params.start           = $routeParams.start;
       params.end             = $routeParams.end;
@@ -571,6 +572,7 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
     scope.loading       = true;
     scope.email         = $routeParams.email;
     scope.location_name = $routeParams.location_name;
+    scope.location_id   = $routeParams.location_id;
 
     if (scope.email) {
       scope.selectedItem  = scope.email;
@@ -658,6 +660,7 @@ app.directive('auditGuests', ['Guest', '$routeParams', '$location', 'Client', '$
         start: scope.query.start,
         end: scope.query.end,
         location_name: scope.location_name,
+        location_id: scope.location_id,
         interval: interval
       }).$promise.then(function(results) {
         scope.guests        = results.guests;
