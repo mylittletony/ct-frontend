@@ -2309,9 +2309,10 @@ app.directive('locationUsageChart', function() {
         ]);
 
         var options = {
-          vAxis: {minValue: 0},
+          vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
           areaOpacity: 0.1,
-          colors: ['#0091EA', '#00BFA5']
+          colors: ['#0091EA', '#00BFA5'],
+          lineWidth: 1
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
