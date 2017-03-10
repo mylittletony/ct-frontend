@@ -2337,21 +2337,17 @@ app.directive('locationCapabilitiesChart', function() {
 
       function chart() {
         var data = google.visualization.arrayToDataTable([
-          ['Time', 'Percent of 5Ghz Devices'],
-          ['1', 40],
-          ['2', 40],
-          ['3', 45],
-          ['4', 45]
+          ['Band', 'Percent'],
+          ['2.4Ghz', 70],
+          ['5Ghz', 30]
         ]);
 
         var options = {
-          vAxis: {
-            minValue: 0,
-            maxValue: 100
-          }
+          pieHole: 0.4,
+          colors: [`#303F9F`,`#1976D2`]
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart2'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart2'));
         chart.draw(data, options);
 
       }
@@ -2396,7 +2392,7 @@ app.directive('deviceListShort', function() {
         var options = {
           height: 50,
           isStacked: 'true',
-          colors: [`#81C784`]
+          colors: [`#4caf50`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart3'));
@@ -2413,7 +2409,7 @@ app.directive('deviceListShort', function() {
         var options = {
           height: 50,
           isStacked: 'true',
-          colors: [`#81C784`]
+          colors: [`#4caf50`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart4'));
@@ -2430,7 +2426,7 @@ app.directive('deviceListShort', function() {
         var options = {
           height: 50,
           isStacked: 'true',
-          colors: [`#81C784`]
+          colors: [`#4caf50`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart5'));
@@ -2447,7 +2443,7 @@ app.directive('deviceListShort', function() {
         var options = {
           height: 50,
           isStacked: 'true',
-          colors: [`#81C784`]
+          colors: [`#4caf50`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart6'));
@@ -2464,7 +2460,7 @@ app.directive('deviceListShort', function() {
         var options = {
           height: 50,
           isStacked: 'true',
-          colors: [`#81C784`]
+          colors: [`#4caf50`]
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart7'));
@@ -2482,9 +2478,37 @@ app.directive('deviceListShort', function() {
   };
 });
 
+
 app.directive('locationClients', function() {
 
   return {
+    link: function(scope) {
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      function chart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Time', 'Download'],
+          ['10am',  200],
+          ['11am',  450],
+          ['12am',  475],
+          ['1pm',   521],
+          ['2pm',   724],
+          ['3pm',   911]
+        ]);
+
+        var options = {
+          vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+          colors: ['#0091EA'],
+          lineWidth: 1
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart8'));
+        chart.draw(data, options);
+
+      }
+    },
+
     scope: {
       mac: '@',
       loc: '@'

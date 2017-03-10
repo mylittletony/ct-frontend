@@ -592,8 +592,10 @@ md-card.highlight-section {
   visibility:hidden;
 }
 
+/*charts-n-stuff*/
+
 md-sidenav.md-default-theme, md-sidenav, md-sidenav.md-default-theme md-content, md-sidenav md-content {
-  background: #1e3c72;
+  background: #2c3a6c;
   color: #EEEEEE;
 }
 
@@ -602,7 +604,7 @@ md-sidenav md-divider {
 }
 
 .sidenav.md-toolbar-tools {
-  background: #1e3c72;
+  background: #2c3a6c;
 }
 
 .sidenav .menu-heading.menu-subhead {
