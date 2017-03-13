@@ -65,6 +65,15 @@
                 Captive Portal
               </translate>
             </md-switch>
+            <md-checkbox ng-model="network.self_destruct" aria-label="Self Destruct?">
+              Self Destruct?
+            </md-checkbox>
+            <md-input-container ng-if="network.self_destruct">
+              <label>
+                <translate>UNIX DATE/TIME placeholder thing</translate>
+              </label>
+              <input name="dateTime" type="number" ng-minlength="8" md-maxlength="12" ng-model="network.destruction_date_time" required>
+            </md-input-container>
           </span>
         </div>
       </div>
@@ -74,7 +83,7 @@
       <md-button ng-click="close()" translate>
         Close
       </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save()" translate>
+      <md-button class="md-raised"ng-click="save()" translate>
         CREATE
       </md-button>
     </md-dialog-actions>

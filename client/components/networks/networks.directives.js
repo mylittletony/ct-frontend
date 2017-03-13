@@ -222,7 +222,9 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         captive_portal_ps: true,
         content_filter: 'Off',
         highlight: true,
-        captive_portal_enabled: false
+        captive_portal_enabled: false,
+        self_destruct: false,
+        destruction_date_time:
       };
     }
 
