@@ -15,7 +15,7 @@
             <label>
               <translate>SSID</translate>
             </label>
-            <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" required>
+            <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" class="ssid-input" required>
             <div ng-messages="myForm.ssid.$error">
               <div ng-message="md-maxlength" translate>Max 32 characters</div>
               <div ng-message="minlength" translate>Min 5 characters</div>
@@ -41,3 +41,8 @@
     </md-dialog-actions>
   </form>
 </md-dialog>
+<script>
+  $('.ssid-input').emojioneArea({
+    pickerPosition: "bottom",
+  });
+</script>

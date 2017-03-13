@@ -45,7 +45,7 @@
               <label>
                 <translate>Network SSID</translate>
               </label>
-              <input autocomplete="off" name="ssid" md-maxlength="32" ng-model="network.ssid" ng-pattern="FilterPattern" required>
+              <input autocomplete="off" name="ssid" md-maxlength="32" ng-model="network.ssid" ng-pattern="FilterPattern" class="ssid-input" required>
               <div ng-messages="myForm.ssid.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>
@@ -398,3 +398,8 @@
 
   </div>
 </md-content>
+<script>
+  $('.ssid-input').emojioneArea({
+    pickerPosition: "bottom",
+  });
+</script>

@@ -584,6 +584,7 @@ table tr td, table.print-friendly tr th {
 
 .emojionearea, .emojionearea.form-control {
   box-shadow: none !important;
+  border-width: 0 0 1px 0 !important;
 }
 
 pre .list-unstyled {
