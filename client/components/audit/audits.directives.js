@@ -92,7 +92,6 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
     };
 
     this.get = function(params) {
-      console.log($routeParams)
       params.interval        = $routeParams.interval || gettextCatalog.getString('day');
       params.start           = $routeParams.start;
       params.end             = $routeParams.end;
