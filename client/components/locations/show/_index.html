@@ -31,15 +31,6 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <span>
-      <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
-      </md-switch>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Streaming updates.
-        </translate>
-      </md-tooltip>
-    </span>
     <md-input-container style="margin-top:53px;">
       <label>Date</label>
       <md-datepicker ng-model="snapshotDate" placeholder="Date"></md-datepicker>
