@@ -7,30 +7,6 @@
       <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
     </md-input-container>
     <div flex></div>
-    <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
-      <md-icon>add_circle</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Add a new device.
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="{{ 'Map' | translate }}">
-      <md-icon>map</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          View device map.
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
-      <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Add location to favourites.
-        </translate>
-      </md-tooltip>
-    </md-button>
     <md-input-container style="margin-top:53px;">
       <label>Date</label>
       <md-datepicker ng-model="snapshotDate" placeholder="Date"></md-datepicker>
