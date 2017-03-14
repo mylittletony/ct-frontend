@@ -47,6 +47,52 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
 }]);
 
+
+app.directive('locationDevices', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var channel;
+    scope.streamingUpdates = true;
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
+    };
+
+    scope.streamingUpdater = function() {
+      $rootScope.$broadcast('streaming', { enabled: scope.streamingUpdates });
+    };
+
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
+    scope.addDevice = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+    };
+
+  };
+
+  return {
+    scope: {
+    },
+    link: link,
+    controller: 'LocationsCtrl',
+    templateUrl: 'components/locations/show/_devices.html'
+  };
+
+}]);
+
 app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', 'pagination_labels', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
@@ -2297,6 +2343,10 @@ app.directive('locationUsageChart', function() {
 
       window.google.charts.setOnLoadCallback(chart);
 
+      $(window).resize(function() {
+        chart();
+      });
+
       function chart() {
         var data = google.visualization.arrayToDataTable([
           ['Time', 'Download', 'Upload'],
@@ -2334,6 +2384,10 @@ app.directive('locationCapabilitiesChart', function() {
     link: function(scope) {
 
       window.google.charts.setOnLoadCallback(chart);
+
+      $(window).resize(function() {
+        chart();
+      });
 
       function chart() {
         var data = google.visualization.arrayToDataTable([
@@ -2386,6 +2440,13 @@ app.directive('deviceListShort', function() {
       window.google.charts.setOnLoadCallback(chart4);
       window.google.charts.setOnLoadCallback(chart5);
 
+      $(window).resize(function() {
+        chart();
+        chart2();
+        chart3();
+        chart4();
+        chart5();
+      });
 
       function chart() {
         var data = google.visualization.arrayToDataTable([
@@ -2485,10 +2546,40 @@ app.directive('deviceListShort', function() {
 app.directive('locationClients', function() {
 
   return {
+    link: function(scope) {
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      $(window).resize(function() {
+        chart();
+      });
+
+      function chart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Time', 'Unique Clients'],
+          ['10am',  93],
+          ['11am',  87],
+          ['12am',  120],
+          ['1pm',   189],
+          ['2pm',   153],
+          ['3pm',   204]
+        ]);
+
+        var options = {
+          vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+          areaOpacity: 0.1,
+          colors: ['#0091EA', '#00BFA5'],
+          lineWidth: 1
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart8'));
+        chart.draw(data, options);
+      }
+    },
     scope: {
       mac: '@',
       loc: '@'
     },
-    templateUrl: 'components/locations/show/_clients_count.html',
+    templateUrl: 'components/locations/show/_unique_clients_graph.html',
   };
 });
