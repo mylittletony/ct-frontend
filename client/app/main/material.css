@@ -595,7 +595,7 @@ md-card.highlight-section {
 /*charts-n-stuff*/
 
 md-sidenav.md-default-theme, md-sidenav, md-sidenav.md-default-theme md-content, md-sidenav md-content {
-  background: #2c3a6c;
+  background: #37484f;
   color: #EEEEEE;
 }
 
@@ -604,7 +604,7 @@ md-sidenav md-divider {
 }
 
 .sidenav.md-toolbar-tools {
-  background: #2c3a6c;
+  background: #37484f;
 }
 
 .sidenav .menu-heading.menu-subhead {
@@ -627,9 +627,6 @@ md-sidenav md-divider {
   border-top-color: #385383;
 }
 
-.snapshot-card {
-  height: 100%;
-}
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
