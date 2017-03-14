@@ -2445,19 +2445,81 @@ app.directive('deviceListShort', function() {
       });
 
       function chart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Status', 'Hours'],
-          ['Online', 100],
-        ]);
+        var dataTable = new google.visualization.DataTable();
 
-        var options = {
-          height: 50,
-          isStacked: 'true',
-          colors: [`#4caf50`]
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var data = [
+          ['Online', 1489486680000],
+          ['Online', 1489486860000],
+          ['Online', 1489487040000],
+          ['Online', 1489487220000],
+          ['Online', 1489487400000],
+          ['Online', 1489487580000],
+          ['Online', 1489487940000],
+          ['Online', 1489488300000],
+          ['Online', 1489488480000],
+          ['Offline', 1489488660000],
+          ['Offline', 1489488840000],
+          ['Offline', 1489489920000],
+          ['Offline', 1489490100000],
+          ['Offline', 1489490280000],
+          ['Offline', 1489490460000],
+          ['Offline', 1489490820000],
+          ['Online', 1489491000000],
+          ['Online', 1489491180000],
+          ['Online', 1489491540000],
+          ['Online', 1489491720000],
+          ['Offline', 1489491900000],
+          ['Offline', 1489492260000],
+          ['Offline', 1489492620000],
+          ['Online', 1489492800000],
+          ['Online', 1489493340000],
+          ['Online', 1489493880000],
+          ['Online', 1489494060000],
+          ['Online', 1489494240000],
+          ['Online', 1489494420000],
+          ['Online', 1489494780000],
+          ['Online', 1489494960000],
+          ['Online', 1489495140000],
+          ['Online', 1489495320000],
+          ['Online', 1489495500000],
+          ['Online', 1489495680000],
+          ['Online', 1489495860000],
+          ['Online', 1489496040000],
+          ['Online', 1489496220000],
+          ['Online', 1489496940000],
+          ['Online', 1489497120000],
+          ['Online', 1489497300000],
+          ['Offline', 1489497480000]
+        ];
+
+        for (var i = 0; i < data.length; i++) {
+          if (data[i + 1]) {
+            data[i].push(data[i + 1][1]);
+          } else {
+            data[i].push(1489497660000);
+          }
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart3'));
-        chart.draw(data, options);
+        data.forEach(function(dataEntry) {
+          dataTable.addRow(['Heartbeat', dataEntry[0], new Date(dataEntry[1]), new Date(dataEntry[2])]);
+        });
+
+        var options = {
+          colors: [`#4caf50`, `#af504c`],
+          timeline: {
+                      colorByRowLabel:  false,
+                      showBarLabels:    false
+                    },
+          avoidOverlappingGridLines: false
+        };
+
+        var chart = new google.visualization.Timeline(document.getElementById('chart3'));
+        chart.draw(dataTable, options);
 
       }
 
