@@ -7,6 +7,7 @@
       <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
     </md-input-container>
     <div flex></div>
+<<<<<<< HEAD
     <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
       <md-icon>add_circle</md-icon>
       <md-tooltip md-direction="bottom">
@@ -31,6 +32,8 @@
         </translate>
       </md-tooltip>
     </md-button>
+=======
+>>>>>>> cd9def4f02d99cc799f1ed8579b36e308a28efc7
     <md-input-container style="margin-top:53px;">
       <label>Date</label>
       <md-datepicker ng-model="snapshotDate" placeholder="Date"></md-datepicker>
@@ -45,6 +48,14 @@
       <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }"><span translate>7d</span></md-button>
       <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }"><span translate>30d</span></md-button>
     </md-button-group>
+    <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
+      <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
+      <md-tooltip md-direction="bottom">
+        <translate>
+          Add location to favourites.
+        </translate>
+      </md-tooltip>
+    </md-button>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
@@ -92,24 +103,32 @@
   </div>
 </md-content>
 
+<md-content class="md-padding" layout="column" layout-xs="column" layout-sm="column" iilayout-wrap="" layout-gt-sm="row">
 
-<div class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
-  <div flex-gt-xs="50">
-    <device-list-short></device-list-short>
-  </div>
-  <div flex-gt-xs="50">
-    <location-usage-chart></location-usage-chart>
-  </div>
-</div>
-
-<div class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
   <div flex-gt-xs="40">
-    <location-health-report></location-health-report>
+    <div flex-gt-xs="100">
+      <device-list-short></device-list-short>
+    </div>
+    <div flex-gt-xs="100">
+      <location-health-report></location-health-report>
+    </div>
   </div>
-  <div flex-gt-xs="30">
-    <location-capabilities-chart></location-capabilities-chart>
+
+  <div flex-gt-xs="60">
+    <div layout="column" layout-wrap layout-gt-xs='row'>
+      <div flex-gt-xs="100">
+        <location-usage-chart></location-usage-chart>
+      </div>
+    </div>
+
+    <div layout="column" layout-wrap layout-gt-xs='row'>
+      <div flex-gt-xs="50">
+        <location-capabilities-chart></location-capabilities-chart>
+      </div>
+      <div flex-gt-xs="50">
+        <location-clients></location-clients>
+      </div>
+    </div>
   </div>
-  <div flex-gt-xs="30">
-    <location-clients></location-clients>
-  </div>
-</div>
+
+</md-content>

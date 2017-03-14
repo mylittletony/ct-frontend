@@ -8,15 +8,18 @@
     </md-card-title-text>
   </md-card-title>
   <md-card-content>
-    <div id='health-summary'>
+    <div>
       Your boxes are healthy!
       No symptoms.
     </div>
-    <div id='health-uniques'>
-      You had 528 unique clients in this period.
-    </div>
-    <div id='health-devices'>
-      All 5 of your boxes were online during this period!
+    <div id="clients-count">
+      <p>In this time you have had:</p>
+      <h1>93</h1>
+      <p>Clients Connected</p>
     </div>
   </md-card-content>
+  <md-divider></md-divider>
+  <md-card-actions layout="row" layout-align="end center">
+  <md-button target="_blank" href="{{ url}}"><translate>View</translate></md-button>
+  </md-card-actions>
 </md-card>
