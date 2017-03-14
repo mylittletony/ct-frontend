@@ -7,39 +7,6 @@
       <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
     </md-input-container>
     <div flex></div>
-    <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
-      <md-icon>add_circle</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Add a new device.
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="{{ 'Map' | translate }}">
-      <md-icon>map</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          View device map.
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
-      <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Add location to favourites.
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <span>
-      <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
-      </md-switch>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Streaming updates.
-        </translate>
-      </md-tooltip>
-    </span>
     <md-input-container style="margin-top:53px;">
       <label>Date</label>
       <md-datepicker ng-model="snapshotDate" placeholder="Date"></md-datepicker>
@@ -51,7 +18,17 @@
       <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }"><span translate>1h</span></md-button>
       <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }"><span translate>6h</span></md-button>
       <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }"><span translate>1d</span></md-button>
+      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }"><span translate>7d</span></md-button>
+      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }"><span translate>30d</span></md-button>
     </md-button-group>
+    <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
+      <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
+      <md-tooltip md-direction="bottom">
+        <translate>
+          Add location to favourites.
+        </translate>
+      </md-tooltip>
+    </md-button>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
