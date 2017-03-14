@@ -224,11 +224,12 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         highlight: true,
         captive_portal_enabled: false,
         self_destruct: false,
-        destruction_date_time:
+        destruction_date_time: 0
       };
     }
 
     var createNewNetwork = function(network) {
+      console.log(network)
       Network.create({location_id: scope.location.slug, network: network}).$promise.then(function(results) {
         network.id = results.id;
         scope.networks.push(network);
