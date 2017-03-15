@@ -2364,7 +2364,8 @@ app.directive('locationUsageChart', function() {
           colors: ['#0091EA', '#00BFA5'],
           lineWidth: 1,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
-          legend: { position: 'bottom' }
+          legend: { position: 'bottom' },
+          chartArea: {left:50, top:20, width:"100%", height:"200px"}
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
@@ -2401,7 +2402,8 @@ app.directive('locationCapabilitiesChart', function() {
         var options = {
           pieHole: 0.4,
           colors: [`#303F9F`,`#1976D2`],
-          legend: { position: 'bottom' }
+          legend: { position: 'bottom' },
+          chartArea: {left:0, top:20, width:"100%", height:"200px"}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart2'));
@@ -2903,8 +2905,9 @@ app.directive('locationClients', function() {
           vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
           colors: ['#0091EA'],
           lineWidth: 1,
-          crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
-          legend: { position: 'bottom' }
+          crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
+          legend: { position: 'bottom'},
+          chartArea: {left:20, top:20, width:"100%", height:"200px"}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart8'));
