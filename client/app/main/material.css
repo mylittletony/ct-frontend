@@ -594,13 +594,13 @@ md-card.highlight-section {
 
 /*charts-n-stuff*/
 
-md-sidenav.md-default-theme, md-sidenav, md-sidenav.md-default-theme md-content, md-sidenav md-content {
+.md-sidenav-left, .md-sidenav-left md-content {
   background: #37484f;
   color: #EEEEEE;
 }
 
-md-sidenav md-divider {
-  border-top-color: #385383;
+.md-sidenav-left md-divider {
+  border-top-color: #263238;
 }
 
 .sidenav.md-toolbar-tools {
@@ -624,7 +624,7 @@ md-sidenav md-divider {
 }
 
 .side-menu .divider {
-  border-top-color: #385383;
+  border-top-color: #263238;
 }
 
 div.google-visualization-tooltip {
