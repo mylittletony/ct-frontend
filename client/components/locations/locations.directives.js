@@ -2452,62 +2452,74 @@ app.directive('deviceListShort', function() {
         dataTable.addColumn({ type: 'date', id: 'Start' });
         dataTable.addColumn({ type: 'date', id: 'End' });
 
-        var data = [
-          ['Online', 1489486680000],
-          ['Online', 1489486860000],
-          ['Online', 1489487040000],
-          ['Online', 1489487220000],
-          ['Online', 1489487400000],
-          ['Online', 1489487580000],
-          ['Online', 1489487940000],
-          ['Online', 1489488300000],
-          ['Online', 1489488480000],
-          ['Offline', 1489488660000],
-          ['Offline', 1489488840000],
-          ['Offline', 1489489920000],
-          ['Offline', 1489490100000],
-          ['Offline', 1489490280000],
-          ['Offline', 1489490460000],
-          ['Offline', 1489490820000],
-          ['Online', 1489491000000],
-          ['Online', 1489491180000],
-          ['Online', 1489491540000],
-          ['Online', 1489491720000],
-          ['Offline', 1489491900000],
-          ['Offline', 1489492260000],
-          ['Offline', 1489492620000],
-          ['Online', 1489492800000],
-          ['Online', 1489493340000],
-          ['Online', 1489493880000],
-          ['Online', 1489494060000],
-          ['Online', 1489494240000],
-          ['Online', 1489494420000],
-          ['Online', 1489494780000],
-          ['Online', 1489494960000],
-          ['Online', 1489495140000],
-          ['Online', 1489495320000],
-          ['Online', 1489495500000],
-          ['Online', 1489495680000],
-          ['Online', 1489495860000],
-          ['Online', 1489496040000],
-          ['Online', 1489496220000],
-          ['Online', 1489496940000],
-          ['Online', 1489497120000],
-          ['Online', 1489497300000],
-          ['Offline', 1489497480000]
-        ];
-
-        for (var i = 0; i < data.length; i++) {
-          if (data[i + 1]) {
-            data[i].push(data[i + 1][1]);
-          } else {
-            data[i].push(1489497660000);
-          }
+        var response = {
+          "data": [
+            {
+                "timestamp": 1488786960000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488902580000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488962520000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489010940000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489055520000,
+                "value": 0
+            },
+            {
+                "timestamp": 1489137540000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489254120000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489273200000,
+                "value": 0
+            },
+            {
+                "timestamp": 1489526640000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489532400000,
+                "value": 1
+            }
+          ],
+          "start_time": 1487483542000,
+          "end_time": 1489542400000,
+          "location_id": 7193,
+          "series_type": "device.heartbeats"
         };
 
-        data.forEach(function(dataEntry) {
-          dataTable.addRow(['Heartbeat', dataEntry[0], new Date(dataEntry[1]), new Date(dataEntry[2])]);
-        });
+        var data = [];
+        var status;
+        var last_time;
+
+        for (var i = 0; i < response.data.length; i++) {
+          var this_time = response.data[i].timestamp
+          if (i != 0) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+          }
+          if (response.data[i].value) {
+            status = 'Online';
+          } else {
+            status = 'Offline';
+          }
+          last_time = this_time;
+          if (i + 1 == response.data.length) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
+          }
+        };
 
         var options = {
           colors: [`#4caf50`, `#af504c`],
