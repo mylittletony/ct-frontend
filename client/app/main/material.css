@@ -627,6 +627,9 @@ md-sidenav md-divider {
   border-top-color: #385383;
 }
 
+div.google-visualization-tooltip {
+  z-index: 1;
+}
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */

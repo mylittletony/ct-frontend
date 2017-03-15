@@ -2444,6 +2444,16 @@ app.directive('deviceListShort', function() {
         chart5();
       });
 
+      var options = {
+        colors: [`#4caf50`, `#af504c`],
+        timeline: {
+                    colorByRowLabel:  false,
+                    showBarLabels:    false
+                  },
+        avoidOverlappingGridLines: false,
+        height: 100
+      };
+
       function chart() {
         var dataTable = new google.visualization.DataTable();
 
@@ -2521,85 +2531,335 @@ app.directive('deviceListShort', function() {
           }
         };
 
-        var options = {
-          colors: [`#4caf50`, `#af504c`],
-          timeline: {
-                      colorByRowLabel:  false,
-                      showBarLabels:    false
-                    },
-          avoidOverlappingGridLines: false
+        var chart = new google.visualization.Timeline(document.getElementById('chart3'));
+        chart.draw(dataTable, options);
+      }
+
+      function chart2() {
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var response = {
+          "data": [
+            {
+                "timestamp": 1488786960000,
+                "value": 0
+            },
+            {
+                "timestamp": 1488902580000,
+                "value": 0
+            },
+            {
+                "timestamp": 1488962520000,
+                "value": 0
+            },
+            {
+                "timestamp": 1489010940000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489055520000,
+                "value": 0
+            },
+            {
+                "timestamp": 1489137540000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489254120000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489273200000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489526640000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489532400000,
+                "value": 1
+            }
+          ],
+          "start_time": 1487483542000,
+          "end_time": 1489542400000,
+          "location_id": 7193,
+          "series_type": "device.heartbeats"
         };
 
-        var chart = new google.visualization.Timeline(document.getElementById('chart3'));
+        var data = [];
+        var status;
+        var last_time;
+
+        for (var i = 0; i < response.data.length; i++) {
+          var this_time = response.data[i].timestamp
+          if (i != 0) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+          }
+          if (response.data[i].value) {
+            status = 'Online';
+          } else {
+            status = 'Offline';
+          }
+          last_time = this_time;
+          if (i + 1 == response.data.length) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
+          }
+        };
+
+        var chart = new google.visualization.Timeline(document.getElementById('chart4'));
         chart.draw(dataTable, options);
 
       }
 
-      function chart2() {
-        var data = google.visualization.arrayToDataTable([
-          ['Status', 'Hours'],
-          ['Online', 100],
-        ]);
-
-        var options = {
-          height: 50,
-          isStacked: 'true',
-          colors: [`#4caf50`]
-        };
-
-        var chart = new google.visualization.BarChart(document.getElementById('chart4'));
-        chart.draw(data, options);
-
-      }
-
       function chart3() {
-        var data = google.visualization.arrayToDataTable([
-          ['Status', 'Hours'],
-          ['Online', 100],
-        ]);
+        var dataTable = new google.visualization.DataTable();
 
-        var options = {
-          height: 50,
-          isStacked: 'true',
-          colors: [`#4caf50`]
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var response = {
+          "data": [
+            {
+                "timestamp": 1488786960000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488902580000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488962520000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489010940000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489055520000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489137540000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489254120000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489273200000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489526640000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489532400000,
+                "value": 1
+            }
+          ],
+          "start_time": 1487483542000,
+          "end_time": 1489542400000,
+          "location_id": 7193,
+          "series_type": "device.heartbeats"
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart5'));
-        chart.draw(data, options);
+        var data = [];
+        var status;
+        var last_time;
+
+        for (var i = 0; i < response.data.length; i++) {
+          var this_time = response.data[i].timestamp
+          if (i != 0) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+          }
+          if (response.data[i].value) {
+            status = 'Online';
+          } else {
+            status = 'Offline';
+          }
+          last_time = this_time;
+          if (i + 1 == response.data.length) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
+          }
+        };
+
+        var chart = new google.visualization.Timeline(document.getElementById('chart5'));
+        chart.draw(dataTable, options);
 
       }
 
       function chart4() {
-        var data = google.visualization.arrayToDataTable([
-          ['Status', 'Hours'],
-          ['Online', 100],
-        ]);
+        var dataTable = new google.visualization.DataTable();
 
-        var options = {
-          height: 50,
-          isStacked: 'true',
-          colors: [`#4caf50`]
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var response = {
+          "data": [
+            {
+                "timestamp": 1488786960000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488902580000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488962520000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489010940000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489055520000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489137540000,
+                "value": 0
+            },
+            {
+                "timestamp": 1489254120000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489273200000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489526640000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489532400000,
+                "value": 1
+            }
+          ],
+          "start_time": 1487483542000,
+          "end_time": 1489542400000,
+          "location_id": 7193,
+          "series_type": "device.heartbeats"
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart6'));
-        chart.draw(data, options);
+        var data = [];
+        var status;
+        var last_time;
+
+        for (var i = 0; i < response.data.length; i++) {
+          var this_time = response.data[i].timestamp
+          if (i != 0) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+          }
+          if (response.data[i].value) {
+            status = 'Online';
+          } else {
+            status = 'Offline';
+          }
+          last_time = this_time;
+          if (i + 1 == response.data.length) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
+          }
+        };
+
+        var chart = new google.visualization.Timeline(document.getElementById('chart6'));
+        chart.draw(dataTable, options);
 
       }
 
       function chart5() {
-        var data = google.visualization.arrayToDataTable([
-          ['Status', 'Hours'],
-          ['Online', 100],
-        ]);
+        var dataTable = new google.visualization.DataTable();
 
-        var options = {
-          height: 50,
-          isStacked: 'true',
-          colors: [`#4caf50`]
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var response = {
+          "data": [
+            {
+                "timestamp": 1488786960000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488902580000,
+                "value": 1
+            },
+            {
+                "timestamp": 1488962520000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489010940000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489055520000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489137540000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489254120000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489273200000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489526640000,
+                "value": 1
+            },
+            {
+                "timestamp": 1489532400000,
+                "value": 1
+            }
+          ],
+          "start_time": 1487483542000,
+          "end_time": 1489542400000,
+          "location_id": 7193,
+          "series_type": "device.heartbeats"
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart7'));
-        chart.draw(data, options);
+        var data = [];
+        var status;
+        var last_time;
+
+        for (var i = 0; i < response.data.length; i++) {
+          var this_time = response.data[i].timestamp
+          if (i != 0) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+          }
+          if (response.data[i].value) {
+            status = 'Online';
+          } else {
+            status = 'Offline';
+          }
+          last_time = this_time;
+          if (i + 1 == response.data.length) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
+          }
+        };
+
+        var chart = new google.visualization.Timeline(document.getElementById('chart7'));
+        chart.draw(dataTable, options);
 
       }
 
