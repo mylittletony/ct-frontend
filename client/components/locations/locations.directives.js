@@ -2907,7 +2907,7 @@ app.directive('locationClients', function() {
           lineWidth: 1,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
           legend: { position: 'bottom'},
-          chartArea: {left:20, top:20, width:"100%", height:"200px"}
+          chartArea: {left:30, top:20, width:"100%", height:"200px"}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart8'));
