@@ -637,3 +637,7 @@ md-card.highlight-section {
 div.google-visualization-tooltip {
   z-index: 1;
 }
+
+svg g:first-of-type rect {
+  stroke-width: 0;
+}
