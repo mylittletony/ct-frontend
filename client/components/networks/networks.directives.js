@@ -241,9 +241,9 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
     };
 
     var formatTtl = function(network) {
-      var ttlDaysInMinutes = network.ttl_days * 24 * 60
-      var ttlHoursInMinutes = network.ttl_hours * 60
-      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + network.ttl_minutes
+      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60
+      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60
+      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0)
     }
 
     var openDialog = function(network) {
