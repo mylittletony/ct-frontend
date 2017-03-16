@@ -638,6 +638,6 @@ div.google-visualization-tooltip {
   z-index: 1;
 }
 
-svg g:first-of-type rect {
+.box-heartbeat svg g rect {
   stroke-width: 0;
 }

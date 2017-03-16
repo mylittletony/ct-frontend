@@ -2453,7 +2453,8 @@ app.directive('deviceListShort', function() {
         colors: [`#4caf50`, `#af504c`],
         timeline: {
                     colorByRowLabel:  false,
-                    showBarLabels:    false
+                    showBarLabels: false,
+                    showRowLabels: false
                   },
         avoidOverlappingGridLines: false,
         height: 100
