@@ -1,11 +1,10 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <!-- Depreciate has_nas -->
-    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices || location.has_nas">
-      <label></label>
-      <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
-    </md-input-container>
+    <md-button class="md-icon-button md-primary" aria-label="{{ 'Overview' | translate }}">
+      <md-icon md-font-icon="">all_out</md-icon>
+    </md-button>
+    <p translate>Overview</p>
     <div flex></div>
     <md-input-container style="margin-top:53px;">
       <label>Date</label>
