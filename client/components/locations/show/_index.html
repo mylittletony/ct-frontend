@@ -77,31 +77,25 @@
 </md-content>
 
 <md-content class="md-padding" layout="column" layout-xs="column" layout-sm="column" iilayout-wrap="" layout-gt-sm="row">
-
-  <div flex-gt-xs="40">
-    <div flex-gt-xs="100">
-      <device-list-short></device-list-short>
-    </div>
-    <div flex-gt-xs="100">
-      <location-health-report></location-health-report>
-    </div>
-  </div>
-
-  <div flex-gt-xs="60">
-    <div layout="column" layout-wrap layout-gt-xs='row'>
+    <div flex="40">
       <div flex-gt-xs="100">
-        <location-usage-chart></location-usage-chart>
+        <device-list-short></device-list-short>
+      </div>
+      <div flex-gt-xs="100">
+        <location-health-report></location-health-report>
       </div>
     </div>
 
-    <div layout="column" layout-wrap layout-gt-xs='row'>
-      <div flex-gt-xs="50">
-        <location-capabilities-chart></location-capabilities-chart>
-      </div>
-      <div flex-gt-xs="50">
-        <location-clients></location-clients>
-      </div>
+    <div flex="60">
+        <div flex-gt-xs="100">
+          <location-usage-chart></location-usage-chart>
+        </div>
+        <div flex-gt-xs="50">
+          <location-capabilities-chart></location-capabilities-chart>
+        </div>
+        <div flex-gt-xs="50">
+          <location-clients></location-clients>
+        </div>
     </div>
-  </div>
 
 </md-content>

@@ -2442,6 +2442,15 @@ app.directive('deviceListShort', function() {
       window.google.charts.setOnLoadCallback(chart5);
 
       $(window).resize(function() {
+        if (this.resizeTO) {
+          clearTimeout(this.resizeTO);
+        }
+        this.resizeTO = setTimeout(function() {
+          $(this).trigger('resizeEnd');
+        }, 250);
+      });
+
+      $(window).on('resizeEnd', function() {
         chart();
         chart2();
         chart3();
@@ -2535,6 +2544,11 @@ app.directive('deviceListShort', function() {
             dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
           }
         };
+
+        var element = document.getElementById('chart3');
+        var style = window.getComputedStyle(element);
+        var width = style.getPropertyValue('width');
+        options.width = width;
 
         var chart = new google.visualization.Timeline(document.getElementById('chart3'));
         chart.draw(dataTable, options);
