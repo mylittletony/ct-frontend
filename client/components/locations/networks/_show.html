@@ -30,8 +30,7 @@
           Network Self-Destruct
         </span>
         <span class="md-subhead" translate>
-          <!-- {{network.created_at | humanTime}} -->
-          at {{network.created_at + (network.ttl * 60) | humanTime}}
+          at {{network.created_at + (network.ttl * 60) | humanTimeShort}}
         </span>
       </md-card-title-text>
     </md-card-title>
