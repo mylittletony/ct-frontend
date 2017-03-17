@@ -2,14 +2,16 @@
 
 var app = angular.module('myApp.charts.directives', []);
 
-app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', function($timeout, $rootScope, gettextCatalog) {
+app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$filter', function($timeout, $rootScope, gettextCatalog, $filter) {
 
   var link = function(scope,element,attrs,controller) {
 
     var chart, d, json, len, formatter, i, time, title, data, timer, options;
 
     function toTitleCase(str) {
-      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      if (str.key !== undefined) {
+        return str.key.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      }
     }
 
     controller.$scope.$on('clientIndexChart', function(val,obj) {
@@ -30,8 +32,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
     });
 
     function init(obj) {
-
-      scope.fn = obj.fn;
+       scope.fn = {key: $filter('translatableChartTitle')(obj.fn), value: obj.fn};
       scope.type = obj.type;
       json = obj.data;
 
@@ -231,7 +232,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', funct
     };
 
     var txChart = function() {
-      var suffix = 'Mbps';
+      var suffix =  gettextCatalog.getString('Mbps');
       var type = 'Traffic';
       if (scope.type === 'usage') {
         type = 'Usage';
@@ -409,7 +410,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
     scope.type     = 'tx';
     scope.loading  = true;
-    scope.fn       = 'mean';
+    scope.fn       = {key: gettextCatalog.getString('mean'), value:'mean'};
     scope.resource = 'client';
     scope.noData   = undefined;
 
@@ -422,7 +423,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
     scope.changeFn = function(type) {
       controller.fn = type;
-      scope.fn = type;
+      scope.fn = {key: $filter('translatableChartTitle')(type), value: type};;
       chart();
     };
 
@@ -612,7 +613,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
 }]);
 
-app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', function($timeout, Report, $routeParams, COLOURS) {
+app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -662,11 +663,11 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', fu
       $timeout.cancel(timer);
       var drawChartCallback = function() {
         var data = new window.google.visualization.DataTable();
-        data.addColumn('string', 'Inbound');
-        data.addColumn('number', 'Outbound');
+        data.addColumn('string', gettextCatalog.getString('Inbound'));
+        data.addColumn('number', gettextCatalog.getString('Outbound'));
         data.addRows([
-          ['Outbound', json.outbound / (1000*1000) || 0],
-          ['Inbound', json.inbound / (1000*1000) || 0]
+          [gettextCatalog.getString('Outbound'), json.outbound / (1000*1000) || 0],
+          [gettextCatalog.getString('Inbound'), json.inbound / (1000*1000) || 0]
         ]);
 
         var formatter = new window.google.visualization.NumberFormat(
@@ -881,7 +882,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
       var params = {
         type: scope.type,
         resource: scope.resource,
-        fn: scope.fn
+        //fn: scope.fn.value
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.mcs) {
@@ -1022,7 +1023,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
       var params = {
         type: scope.type,
         resource: scope.resource,
-        fn: scope.fn
+        //fn: scope.fn.value
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.signal) {
@@ -1181,7 +1182,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       var params = {
         type: scope.type,
         resource: scope.resource,
-        fn: scope.fn
+        //fn: scope.fn.value
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline) {
@@ -1458,7 +1459,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         type: scope.type,
         resource: resource,
         period: scope.period,
-        fn: scope.fn,
+        //fn: scope.fn.value,
         interval: scope.interval,
         fill: '0'
       };
