@@ -591,3 +591,38 @@ md-card.highlight-section {
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
+
+/*sidebar style*/
+
+.md-sidenav-left, .md-sidenav-left md-content {
+  background: #37484f;
+  color: #EEEEEE;
+}
+
+.md-sidenav-left md-divider {
+  border-top-color: #263238;
+}
+
+.sidenav.md-toolbar-tools {
+  background: #37484f;
+}
+
+.sidenav .menu-heading.menu-subhead {
+  color: #EEEEEE;
+}
+
+.menu-heading.menu-subhead .material-icons {
+  color: #EEEEEE;
+}
+
+.side-menu .material-icons {
+  color: #EEEEEE;
+}
+
+.side-menu .menu-subhead {
+  color: #EEEEEE;
+}
+
+.side-menu .divider {
+  border-top-color: #263238;
+}
