@@ -26,14 +26,14 @@
           <p class="text text-danger small" ng-show="myForm.source_ip.$error.pattern"><b translate>Should look like an IP.</b></p>
         </td>
         <td>
-          <input class="form-control" ng-model="rule.source_port" name="source_port" placeholder="{{ 'From port' | translate }}" type="number" ng-min='1', ng-max='64322'>
+          <input class="form-control" ng-model="rule.source_port" name="source_port" placeholder="{{ 'From port' | translate }}" type="number" min="1" max="64322" ng-min='1', ng-max='64322'>
           <p class="text text-danger small" ng-show="myForm.source_port.$error.min"><b translate>Should be between 1 and 65322.</b></p>
         </td>
         <td>
           <input class="form-control" ng-model="rule.dest_ip" name="dest_ip" placeholder="{{ 'Dest network' | translate }}" type="text">
         </td>
         <td>
-          <input class="form-control" ng-model="rule.dest_port" name="dest_port" placeholder="{{ 'Dest port' | translate }}" type="number" ng-min="1" ng-max="64322">
+          <input class="form-control" ng-model="rule.dest_port" name="dest_port" placeholder="{{ 'Dest port' | translate }}" type="number" min="1" max="64322" ng-min="1" ng-max="64322">
         </td>
         <td>
           <span ng-click="deleteField(rule)" class='btn btn-sm btn-danger'><i class="fa fa-trash"></i></span>
