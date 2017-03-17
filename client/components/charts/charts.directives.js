@@ -100,10 +100,18 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
             }
           };
           options.hAxis = {
-            count: -1,
             gridlines: {
+              count: -1,
               units: {
                 days: {format: [gettextCatalog.getString('MMM dd, yyyy')]},
+                hours: {format: [gettextCatalog.getString('hh:mm a')]},
+                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+              }
+            },
+            minorGridlines: {
+              count: -1,
+              units: {
+                days: {format: [gettextCatalog.getString('MMM dd')]},
                 hours: {format: [gettextCatalog.getString('hh:mm a')]},
                 minutes: {format: [gettextCatalog.getString('hh:mm a')]}
               }
@@ -576,6 +584,14 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
                 hours: {format: [gettextCatalog.getString('hh:mm a')]},
                 minutes: {format: [gettextCatalog.getString('hh:mm a')]}
               }
+            },
+            minorGridlines: {
+              count: -1,
+              units: {
+                days: {format: [gettextCatalog.getString('MMM dd')]},
+                hours: {format: [gettextCatalog.getString('hh:mm a')]},
+                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+              }
             }
           };
 
@@ -810,6 +826,14 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
               hours: {format: [gettextCatalog.getString('hh:mm a')]},
               minutes: {format: [gettextCatalog.getString('hh:mm a')]}
             }
+          },
+          minorGridlines: {
+            count: -1,
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
           }
         };
 
@@ -944,6 +968,14 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
         };
         opts.hAxis = {
           gridlines: {
+            count: -1,
+            units: {
+              days: {format: [gettextCatalog.getString('MMM dd')]},
+              hours: {format: [gettextCatalog.getString('hh:mm a')]},
+              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+            }
+          },
+          minorGridlines: {
             count: -1,
             units: {
               days: {format: [gettextCatalog.getString('MMM dd')]},
@@ -1326,6 +1358,14 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           opts.hAxis = {
             gridlines: {
+              count: -1,
+              units: {
+                days: {format: [gettextCatalog.getString('MMM dd')]},
+                hours: {format: [gettextCatalog.getString('hh:mm a')]},
+                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+              }
+            },
+            minorGridlines: {
               count: -1,
               units: {
                 days: {format: [gettextCatalog.getString('MMM dd')]},
