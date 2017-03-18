@@ -23,6 +23,18 @@
 </md-toolbar>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+  <md-card  ng-if="network.self_destruct">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline" translate>
+          Network Self-Destruct
+        </span>
+        <span class="md-subhead" translate>
+          at {{network.created_at + (network.ttl * 60) | humanTimeShort}}
+        </span>
+      </md-card-title-text>
+    </md-card-title>
+  </md-card>
 
   <form ng-submit="saveNetwork(network.id)" name="myForm" form_submitted autocomplete="off">
     <div flex>

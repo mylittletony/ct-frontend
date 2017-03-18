@@ -65,6 +65,31 @@
                 Captive Portal
               </translate>
             </md-switch>
+            <md-checkbox ng-model="network.self_destruct" aria-label="Self Destruct?">
+              Self Destruct?
+            </md-checkbox>
+            <span ng-if="network.self_destruct">
+              <translate>Network will destroy itself in...</translate>
+              <br>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>
+                  <translate>Days</translate>
+                </label>
+                <input name="days" type="number" ng-model="network.ttl_days" min="0">
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>
+                  <translate>Hours</translate>
+                </label>
+                <input name="hours" type="number" ng-model="network.ttl_hours" min="0">
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>
+                  <translate>Minutes</translate>
+                </label>
+                <input name="minutes" type="number" ng-model="network.ttl_minutes" min="0">
+              </md-input-container>
+            </span>
           </span>
         </div>
       </div>
@@ -74,7 +99,7 @@
       <md-button ng-click="close()" translate>
         Close
       </md-button>
-      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save()" translate>
+      <md-button class="md-raised"ng-click="save()" translate>
         CREATE
       </md-button>
     </md-dialog-actions>
