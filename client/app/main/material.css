@@ -588,13 +588,17 @@ table tr td, table.print-friendly tr th {
 }
 
 pre .list-unstyled {
-    list-style: none;
-    margin: 0px 0 -40px -40px;
-    line-height: 8px;
+  list-style: none;
+  margin: 0px 0 -40px -40px;
+  line-height: 8px;
 }
 
 md-card.highlight-section {
   background-color: #f4f8ff;
+}
+
+.ssid-form {
+  height: 400px;
 }
 
 /* pre { */
