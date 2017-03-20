@@ -2361,8 +2361,8 @@ app.directive('locationUsageChart', function() {
         var options = {
           vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
           areaOpacity: 0.1,
-          colors: ['#0091EA', '#00BFA5'],
-          lineWidth: 1,
+          colors: ['#26C6DA', '#5C6BC0'],
+          lineWidth: 3,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
           legend: { position: 'bottom' },
           chartArea: {left:50, top:20, width:"100%", height:"200px"}
@@ -2401,7 +2401,7 @@ app.directive('locationCapabilitiesChart', function() {
 
         var options = {
           pieHole: 0.4,
-          colors: [`#303F9F`,`#1976D2`],
+          colors: [`#5C6BC0`,`#26C6DA`],
           legend: { position: 'bottom' },
           chartArea: {left:0, top:20, width:"100%", height:"200px"}
         };
@@ -2904,8 +2904,8 @@ app.directive('locationClients', function() {
 
         var options = {
           vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
-          colors: ['#0091EA'],
-          lineWidth: 1,
+          colors: ['#26C6DA'],
+          lineWidth: 2,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
           legend: { position: 'bottom'},
           chartArea: {left:30, top:20, width:"100%", height:"200px"}
