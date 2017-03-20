@@ -15,10 +15,9 @@
             <label>
               <translate>SSID</translate>
             </label>
-            <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="network.ssid" class="ssid-input" required>
+            <input name="ssid" md-maxlength="32" ng-model="network.ssid" class="ssid-input" ng-pattern="/^[^[\]\'\\]+$/" required>
             <div ng-messages="myForm.ssid.$error">
               <div ng-message="md-maxlength" translate>Max 32 characters</div>
-              <div ng-message="minlength" translate>Min 5 characters</div>
               <div ng-message="required" translate>You must set an SSID</div>
               <div ng-message="pattern" translate>Invalid SSID</div>
             </div>
