@@ -209,6 +209,8 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
       scope.myDate.getDate() + 1
     );
 
+    var offset = new Date().getTimezoneOffset();
+
     scope.code      = {
       download_speed:   2056,
       upload_speed:     1024,
@@ -216,7 +218,8 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
       volume:           60,
       expires:          date,
       start_date:       today_date,
-      period:           'daily'
+      period:           'daily',
+      offset:           offset
     };
 
     var init = function() {
