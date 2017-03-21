@@ -656,21 +656,25 @@ md-card[md-ink-ripple] {
 .home-stat-card-local {
   background-color:#5C6BC0;
   color:white;
+  cursor: pointer;
 }
 
 .home-stat-card-box {
   background-color:#29B6F6;
   color:white;
+  cursor: pointer;
 }
 
 .home-stat-card-client {
   background-color:#26C6DA;
   color:white;
+  cursor: pointer;
 }
 
 .home-stat-card-splash {
   background-color:#26A69A;
   color:white;
+  cursor: pointer;
 }
 
 .home-stat-icon {
