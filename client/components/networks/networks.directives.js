@@ -116,7 +116,9 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
     function DialogController($scope,network) {
       $scope.network = network;
+      $scope.networkEdit = angular.copy($scope.network);
       $scope.update = function() {
+        angular.copy($scope.networkEdit, $scope.network);
         network.state = 'processing';
         scope.update(network);
         $mdDialog.cancel();
