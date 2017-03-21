@@ -382,7 +382,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
           resource:     params.resource,
           interval:     params.interval || this.interval,
           period:       this.period,
-          start:        params.start,
+          start:        params.end,
           end:          params.end,
         }).$promise.then(function(data) {
           if (data.usage || data.timeline) {
@@ -1460,7 +1460,9 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         period: scope.period,
         fn: scope.fn,
         interval: scope.interval,
-        fill: '0'
+        fill: '0',
+        start: minDateEpoch,
+        end: maxDateEpoch
       };
       controller.getStats(params).then(function(data) {
         if (data && data.timeline && data.timeline.stats) {
