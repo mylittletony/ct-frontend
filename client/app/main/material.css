@@ -649,6 +649,10 @@ div.google-visualization-tooltip {
 
 /*home-n-stuff*/
 
+md-card[md-ink-ripple] {
+  position: relative;
+}
+
 .home-stat-card-local {
   background-color:#5C6BC0;
   color:white;
