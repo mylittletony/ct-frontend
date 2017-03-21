@@ -646,3 +646,38 @@ div.google-visualization-tooltip {
 .box-heartbeat svg g rect {
   stroke-width: 0;
 }
+
+/*home-n-stuff*/
+
+.home-stat-card-local {
+  background-color:#5C6BC0;
+  color:white;
+}
+
+.home-stat-card-box {
+  background-color:#29B6F6;
+  color:white;
+}
+
+.home-stat-card-client {
+  background-color:#26C6DA;
+  color:white;
+}
+
+.home-stat-card-splash {
+  background-color:#26A69A;
+  color:white;
+}
+
+.home-stat-icon {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.home-stat-icon md-icon {
+  color:white;
+  font-size:70px;
+  height:auto;
+  width:auto;
+}
