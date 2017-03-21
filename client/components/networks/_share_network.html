@@ -6,7 +6,7 @@
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <div class="md-dialog-content" layout="column">
+      <div class="md-dialog-content" layout="column" style="width: 300px;">
         <div flex layout="column">
           <p translate>Share your network details by SMS or email.</p>
         </div>
@@ -22,13 +22,28 @@
             </translate>
           </md-radio-button>
         </md-radio-group>
-        <div flex layout="column">
-          <md-input-container ng-if="network.share_type == 'sms'">
-            <label>
-              <translate>Phone number</translate>
-            </label>
-            <input name="share_to" ng-minlength="7" md-maxlength="15" require ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im" ng-model="network.share_to" required>
-          </md-input-container>
+        <div layout="column">
+          <div ng-if="network.share_type == 'sms'">
+            <div flex layout="row">
+              <md-input-container>
+                <label>
+                  <translate>Country</translate>
+                </label>
+                <md-select ng-model="network.share_calling_code">
+                  <md-option ng-repeat="code in calling_codes" value="{{code}}">
+                    {{code}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container>
+                <label>
+                  <translate>Phone number</translate>
+                </label>
+                <input name="share_to" ng-minlength="7" md-maxlength="14" ng-model="network.share_number" required>
+              </md-input-container>
+            </div>
+            <p><small class="muted" style="font-size: 75%;" translate>We are currently only able to support sharing network details via SMS to +44, +1 and +49 numbers.</small></p>
+          </div>
           <md-input-container ng-if="network.share_type == 'email'">
             <label>
               <translate>Email address</translate>

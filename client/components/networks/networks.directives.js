@@ -136,6 +136,11 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
     function DialogController($scope,network) {
       $scope.network = network;
+      $scope.calling_codes = [
+          "+44",
+          "+1",
+          "+49"
+      ];
       $scope.update = function() {
         network.state = 'processing';
         scope.update(network);
@@ -184,6 +189,9 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     scope.update = function(network) {
+      if (network.share_type === "sms") {
+        network.share_to = network.share_calling_code + network.share_number
+      }
       Network.update({}, {
         location_id: scope.location.slug,
         id: network.id,
