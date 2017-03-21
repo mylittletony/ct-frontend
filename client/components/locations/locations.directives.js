@@ -2923,3 +2923,9 @@ app.directive('locationClients', function() {
     templateUrl: 'components/locations/show/_unique_clients_graph.html',
   };
 });
+
+app.directive('homeStatCards', function() {
+  return {
+    templateUrl: 'components/locations/show/_home_stat_cards.html'
+  };
+});
