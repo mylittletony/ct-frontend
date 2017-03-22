@@ -588,11 +588,11 @@ md-card.highlight-section {
   background-color: #f4f8ff;
 }
 
-.md-toolbar-tools .md-datepicker-button {
-  visibility:hidden;
-}
+/* pre { */
+/*   text-space-collapse: trim-inner; */
+/* } */
 
-/*charts-n-stuff*/
+/*sidebar style*/
 
 .md-sidenav-left, .md-sidenav-left md-content {
   background: #37484f;
@@ -627,9 +627,22 @@ md-card.highlight-section {
   border-top-color: #263238;
 }
 
+/*charts-n-stuff*/
+
+.md-toolbar-tools .md-datepicker-button {
+  display:none;
+}
+
+.md-toolbar-tools ._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) {
+  left: 14px;
+  right: 0px;
+  width: auto;
+}
+
 div.google-visualization-tooltip {
   z-index: 1;
 }
-/* pre { */
-/*   text-space-collapse: trim-inner; */
-/* } */
+
+.box-heartbeat svg g rect {
+  stroke-width: 0;
+}
