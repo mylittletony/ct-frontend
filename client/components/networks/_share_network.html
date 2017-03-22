@@ -1,0 +1,55 @@
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Share Network Details</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Share your network details by SMS or email.</p>
+        </div>
+        <md-radio-group ng-model="network.share_type" layout="row">
+          <md-radio-button value="sms" class="md-primary">
+            <translate>
+              SMS
+            </translate>
+          </md-radio-button>
+          <md-radio-button value="email">
+            <translate>
+              Email
+            </translate>
+          </md-radio-button>
+        </md-radio-group>
+        <div flex layout="column">
+          <md-input-container ng-if="network.share_type == 'sms'">
+            <label>
+              <translate>Phone number</translate>
+            </label>
+            <input name="share_to" ng-minlength="7" md-maxlength="15" require ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im" ng-model="network.share_to" required>
+          </md-input-container>
+          <md-input-container ng-if="network.share_type == 'email'">
+            <label>
+              <translate>Email address</translate>
+            </label>
+            <input name="share_to" type="email" ng-minlength="5" md-maxlength="32" ng-model="network.share_to" required>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="share()">
+        <translate>
+          SHARE
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

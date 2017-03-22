@@ -27,6 +27,12 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
 
       scope.menu.push({
+        name: gettextCatalog.getString('Share Details'),
+        icon: 'screen_share',
+        type: 'share'
+      });
+
+      scope.menu.push({
         name: gettextCatalog.getString('Delete Network'),
         icon: 'delete_forever',
         type: 'delete'
@@ -44,6 +50,9 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
           break;
         case 'delete':
           destroy(network);
+          break;
+        case 'share':
+          shareDetails(network);
           break;
       }
     };
@@ -114,6 +123,17 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
     };
 
+    var shareDetails = function(network) {
+      $mdDialog.show({
+        templateUrl: 'components/networks/_share_network.html',
+        parent: angular.element(document.body),
+        controller: DialogController,
+        locals: {
+          network: network
+        }
+      });
+    };
+
     function DialogController($scope,network) {
       $scope.network = network;
       $scope.update = function() {
@@ -122,6 +142,11 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
         $mdDialog.cancel();
       };
       $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.share = function() {
+        network.action = 'share';
+        scope.update(network);
         $mdDialog.cancel();
       };
     }
@@ -163,11 +188,21 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
         location_id: scope.location.slug,
         id: network.id,
         network: {
-          ssid: network.ssid
+          ssid: network.ssid,
+          action: network.action,
+          share_to: network.share_to,
+          share_type: network.share_type
         }
       }).$promise.then(function(results) {
-        showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
+        if (network.action === 'share') {
+          showToast(gettextCatalog.getString('Network details sent to ' + network.share_to));
+        } else {
+          showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
+        }
         network.state = undefined;
+        network.action = undefined;
+        network.share_to = undefined;
+        network.share_type = undefined;
       }, function(error) {
         showErrors(error);
         network.state = undefined;
