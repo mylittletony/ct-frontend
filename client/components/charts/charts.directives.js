@@ -382,7 +382,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
           resource:     params.resource,
           interval:     params.interval || this.interval,
           period:       this.period,
-          start:        params.end,
+          start:        params.start,
           end:          params.end,
         }).$promise.then(function(data) {
           if (data.usage || data.timeline) {
