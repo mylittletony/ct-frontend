@@ -75,9 +75,9 @@
   </div>
 </md-content>
 
-<md-content class="md-padding" layout="row" layout-xs="column" layout-sm="column" iilayout-wrap="">
+<md-content class="md-padding" layout="row" layout-xs="column" layout-sm="row">
 
-  <div flex="40">
+  <div flex-gt-xs="40">
     <div flex-gt-xs="100">
       <device-list-short></device-list-short>
     </div>
@@ -86,15 +86,17 @@
     </div>
   </div>
 
-  <div flex="60">
+  <div flex-gt-xs="60">
     <div flex-gt-xs="100">
       <location-usage-chart></location-usage-chart>
     </div>
-    <div flex-gt-xs="50">
-      <location-capabilities-chart></location-capabilities-chart>
-    </div>
-    <div flex-gt-xs="50">
-      <location-clients></location-clients>
+    <div layout="row" layout-sm="column" layout-xs="column">
+      <div flex-gt-sm="50">
+        <location-capabilities-chart></location-capabilities-chart>
+      </div>
+      <div flex-gt-sm="50">
+        <location-clients></location-clients>
+      </div>
     </div>
   </div>
 
