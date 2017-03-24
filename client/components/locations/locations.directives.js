@@ -2458,16 +2458,18 @@ app.directive('deviceListShort', function() {
         chart5();
       });
 
-      var options = {
-        colors: [`#4caf50`, `#af504c`],
-        timeline: {
-                    colorByRowLabel:  false,
-                    showBarLabels: false,
-                    showRowLabels: false
-                  },
-        avoidOverlappingGridLines: false,
-        height: 100
-      };
+      function getOptions() {
+        return {
+          colors: [`#4caf50`, `#af504c`],
+          timeline: {
+                      colorByRowLabel:  false,
+                      showBarLabels: false,
+                      showRowLabels: false
+                    },
+          avoidOverlappingGridLines: false,
+          height: 100
+        };
+      }
 
       function chart() {
         var dataTable = new google.visualization.DataTable();
@@ -2546,6 +2548,7 @@ app.directive('deviceListShort', function() {
           }
         };
 
+        var options = getOptions();
         var element = document.getElementById('chart3');
         var style = window.getComputedStyle(element);
         var width = style.getPropertyValue('width');
@@ -2632,6 +2635,12 @@ app.directive('deviceListShort', function() {
           }
         };
 
+        var options = getOptions();
+        var element = document.getElementById('chart4');
+        var style = window.getComputedStyle(element);
+        var width = style.getPropertyValue('width');
+        options.width = width;
+
         var chart = new google.visualization.Timeline(document.getElementById('chart4'));
         chart.draw(dataTable, options);
 
@@ -2713,6 +2722,12 @@ app.directive('deviceListShort', function() {
             dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
           }
         };
+
+        var options = getOptions();
+        var element = document.getElementById('chart5');
+        var style = window.getComputedStyle(element);
+        var width = style.getPropertyValue('width');
+        options.width = width;
 
         var chart = new google.visualization.Timeline(document.getElementById('chart5'));
         chart.draw(dataTable, options);
@@ -2796,6 +2811,12 @@ app.directive('deviceListShort', function() {
           }
         };
 
+        var options = getOptions();
+        var element = document.getElementById('chart6');
+        var style = window.getComputedStyle(element);
+        var width = style.getPropertyValue('width');
+        options.width = width;
+
         var chart = new google.visualization.Timeline(document.getElementById('chart6'));
         chart.draw(dataTable, options);
 
@@ -2877,6 +2898,12 @@ app.directive('deviceListShort', function() {
             dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
           }
         };
+
+        var options = getOptions();
+        var element = document.getElementById('chart7');
+        var style = window.getComputedStyle(element);
+        var width = style.getPropertyValue('width');
+        options.width = width;
 
         var chart = new google.visualization.Timeline(document.getElementById('chart7'));
         chart.draw(dataTable, options);
