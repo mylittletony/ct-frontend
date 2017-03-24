@@ -2924,8 +2924,52 @@ app.directive('locationClients', function() {
   };
 });
 
-app.directive('homeStatCards', function() {
-  return {
-    templateUrl: 'components/locations/show/_home_stat_cards.html'
+// app.directive('homeStatCards', function() {
+//   return {
+//     templateUrl: 'components/locations/show/_home_stat_cards.html'
+//   };
+// });
+
+app.directive('homeStatCards', ['Report', function (Report) {
+
+  var link = function(scope,element,attrs) {
+
+    scope.loading = true;
+
+    var init = function() {
+
+      Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
+        scope.stats     = results.stats;
+        process();
+        scope.loading   = undefined;
+      });
+
+    };
+
+    function process () {
+      angular.forEach(scope.stats.boxes.states, function(b) {
+        if (b.state === 'offline') {
+          scope.offline = b.total;
+        } else if (b.state === 'online') {
+          scope.online = b.total;
+        } else if (b.state === 'online') {
+          scope.online = b.total;
+        } else if (b.state === 'splash_only') {
+          scope.splash_only = b.total;
+        }
+      });
+    }
+
+    init();
+
   };
-});
+
+  return {
+    link: link,
+    scope: {
+      locations: '@'
+    },
+    templateUrl: 'components/locations/show/_home_stat_cards.html',
+  };
+
+}]);

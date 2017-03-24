@@ -3,8 +3,8 @@
   <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-local">
     <md-card-content layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1>17</h1>
-        <p>Locations</p>
+        <h1>{{ ::stats.locations }}</h1>
+        <p translate>Locations</p>
       </div>
       <div flex="50" class="home-stat-icon">
         <md-icon>business</md-icon>
@@ -15,20 +15,25 @@
   <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-box">
     <md-card-content layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1>42</h1>
+        <h1 translate>{{ ::online }}</h1>
         <p>Devices Online</p>
       </div>
       <div flex="50" class="home-stat-icon">
         <md-icon>router</md-icon>
       </div>
+      <md-tooltip>
+        <translate>
+          {{ ::offline }} Offline, {{ ::stats.boxes.stats.total }} Total
+        </translate>
+      </md-tooltip>
     </md-card-content>
   </md-card>
 
   <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-client">
     <md-card-content layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1>123</h1>
-        <p>Clients Online</p>
+        <h1>{{ ::stats.online }}</h1>
+        <p translate>Clients Online</p>
       </div>
       <div flex="50" class="home-stat-icon">
         <md-icon>devices</md-icon>
@@ -39,8 +44,8 @@
   <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-splash">
     <md-card-content layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1>2593</h1>
-        <p>Splash Views</p>
+        <h1>{{ ::stats.splash_views }}</h1>
+        <p translate>Splash Views</p>
       </div>
       <div flex="50" class="home-stat-icon">
         <md-icon>web</md-icon>
