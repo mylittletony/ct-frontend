@@ -409,7 +409,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
 
 }]);
 
-app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', function($timeout, Report, $routeParams, gettextCatalog) {
+app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', '$filter', function($timeout, Report, $routeParams, gettextCatalog, $filter) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -459,7 +459,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       var params = {
         type: scope.type,
         resource: scope.resource,
-        fn: scope.fn
+        fn: scope.fn.value
       };
       controller.getStats(params).then(function(data) {
         // timer = $timeout(function() {
