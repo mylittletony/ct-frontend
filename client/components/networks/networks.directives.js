@@ -222,11 +222,15 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         captive_portal_ps: true,
         content_filter: 'Off',
         highlight: true,
-        captive_portal_enabled: false
+        captive_portal_enabled: false,
+        self_destruct: false
       };
     }
 
     var createNewNetwork = function(network) {
+      if (network.self_destruct) {
+        formatTtl(network)
+      }
       Network.create({location_id: scope.location.slug, network: network}).$promise.then(function(results) {
         network.id = results.id;
         scope.networks.push(network);
@@ -235,6 +239,12 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
         showErrors(err);
       });
     };
+
+    var formatTtl = function(network) {
+      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60
+      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60
+      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0)
+    }
 
     var openDialog = function(network) {
       $mdDialog.show({
