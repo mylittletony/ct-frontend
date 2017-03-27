@@ -653,6 +653,11 @@ md-card[md-ink-ripple] {
   position: relative;
 }
 
+.home-stat-card-local:focus, .home-stat-card-box:focus, .home-stat-card-client:focus, .home-stat-card-splash:focus {
+  outline: none;
+  border: 0;
+ }
+
 .home-stat-card-local, .home-stat-card-box, .home-stat-card-client, .home-stat-card-splash {
   color:white;
   cursor: pointer;
@@ -663,11 +668,23 @@ md-card[md-ink-ripple] {
   -webkit-touch-callout: none;
 }
 
-
 .home-stat-card-local {
-  background-color:#5C6BC0;
-
+  color: white;
+  background-color: #5C6BC0;
+  border-radius: 2px;
+  font-size: 16px;
 }
+
+.home-stat-card-local:not([disabled]):hover {
+  background-color: #5C6BC0);
+  color: white;
+}
+
+.home-stat-card-local[disabled] {
+  color : rgb(187, 187, 187);
+  background-color: #5C6BC0;
+}
+
 
 .home-stat-card-box {
   background-color:#29B6F6;

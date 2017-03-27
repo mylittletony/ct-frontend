@@ -1,7 +1,7 @@
 <div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' hide show-gt-sm ng-if="!pinned && !alerts">
 
-  <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-local">
-    <md-card-content layout="row">
+  <md-button md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-local">
+    <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1>{{ ::stats.locations }}</h1>
         <p translate>Locations</p>
@@ -9,8 +9,8 @@
       <div flex="50" class="home-stat-icon">
         <md-icon>business</md-icon>
       </div>
-    </md-card-content>
-  </md-card>
+    </div>
+  </md-button>
 
   <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-box">
     <md-card-content layout="row">
