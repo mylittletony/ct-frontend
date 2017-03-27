@@ -1,6 +1,6 @@
 <div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' hide show-gt-sm ng-if="!pinned && !alerts">
 
-  <md-button md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-local">
+  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-local">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1>{{ ::stats.locations }}</h1>
@@ -12,8 +12,8 @@
     </div>
   </md-button>
 
-  <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-box">
-    <md-card-content layout="row">
+  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-box">
+    <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1 translate>{{ ::online }}</h1>
         <p>Devices Online</p>
@@ -26,11 +26,11 @@
           {{ ::offline }} Offline, {{ ::stats.boxes.stats.total }} Total
         </translate>
       </md-tooltip>
-    </md-card-content>
-  </md-card>
+    </div>
+  </md-button>
 
-  <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-client">
-    <md-card-content layout="row">
+  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-client">
+    <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1>{{ ::stats.online }}</h1>
         <p translate>Clients Online</p>
@@ -38,11 +38,11 @@
       <div flex="50" class="home-stat-icon">
         <md-icon>devices</md-icon>
       </div>
-    </md-card-content>
-  </md-card>
+    </div>
+  </md-button>
 
-  <md-card md-ink-ripple flex-md="50" flex-gt-md="25" class="home-stat-card-splash">
-    <md-card-content layout="row">
+  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-splash">
+    <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1>{{ ::stats.splash_views }}</h1>
         <p translate>Splash Views</p>
@@ -50,7 +50,7 @@
       <div flex="50" class="home-stat-icon">
         <md-icon>web</md-icon>
       </div>
-    </md-card-content>
-  </md-card>
+    </div>
+  </md-button>
 
 </div>
