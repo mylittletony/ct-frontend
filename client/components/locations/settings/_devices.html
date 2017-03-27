@@ -26,7 +26,7 @@
                 <label>
                   <translate>Send Offline Alert After (mins)</translate>
                 </label>
-                <input type="number" name="alert_interval" ng-model="location.alert_interval" placeholder="10" ng-min="0" ng-max='10080' required/>
+                <input type="number" min="0" max="10080" name="alert_interval" ng-model="location.alert_interval" placeholder="10" required/>
                 <div ng-messages="myForm.alert_interval.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 10,080 minutes</div>
                   <div ng-message="min" translate>Must be greater than 5 minutes</div>
@@ -37,7 +37,7 @@
                 <label>
                   <translate>Automatic Reboot Interval (mins)</translate>
                 </label>
-                <input type="number" name="connect_timeout" ng-model="location.connect_timeout" placeholder="10" ng-min="0" ng-max='255' required/>
+                <input type="number" min="0" max="255" name="connect_timeout" ng-model="location.connect_timeout" placeholder="10" required/>
                 <div ng-messages="myForm.connect_timeout.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 255 minutes</div>
                   <div ng-message="min" translate>Must be greater than 0 minutes</div>
