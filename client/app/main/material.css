@@ -654,35 +654,19 @@ div.google-visualization-tooltip {
   font-size: 16px;
 }
 
-.home-stat-card-local.md-raised {
+.home-stat-card-local.md-raised, .home-stat-card-local.md-raised.md-focused, .home-stat-card-local.md-raised:not([disabled]):hover, .home-stat-card-local.md-raised:not([disabled]).md-focused {
   background-color: #5C6BC0;
 }
 
-.home-stat-card-local.md-raised:not([disabled]):hover {
-  background-color: #5C6BC0;
-}
-
-.home-stat-card-box.md-raised {
+.home-stat-card-box.md-raised, .home-stat-card-box.md-raised.md-focused, .home-stat-card-box.md-raised:not([disabled]):hover, .home-stat-card-box.md-raised:not([disabled]).md-focused {
   background-color: #29B6F6;
 }
 
-.home-stat-card-box.md-raised:not([disabled]):hover {
-  background-color: #29B6F6;
-}
-
-.home-stat-card-client.md-raised {
+.home-stat-card-client.md-raised, .home-stat-card-client.md-raised.md-focused, .home-stat-card-client.md-raised:not([disabled]):hover, .home-stat-card-client.md-raised:not([disabled]).md-focused {
   background-color: #26C6DA;
 }
 
-.home-stat-card-client.md-raised:not([disabled]):hover {
-  background-color: #26C6DA;
-}
-
-.home-stat-card-splash.md-raised {
-  background-color: #26A69A;
-}
-
-.home-stat-card-splash.md-raised:not([disabled]):hover {
+.home-stat-card-splash.md-raised, .home-stat-card-splash.md-raised.md-focused, .home-stat-card-splash.md-raised:not([disabled]):hover, .home-stat-card-splash.md-raised:not([disabled]).md-focused {
   background-color: #26A69A;
 }
 
