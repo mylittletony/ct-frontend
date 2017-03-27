@@ -237,7 +237,7 @@ describe('client', function () {
       $routeParams = _$routeParams_;
       $routeParams.id = 'xxx';
       $routeParams.period = 'my-period';
-      $routeParams.fn = 'my-fn';
+      $routeParams.fn = 'mean';
       $routeParams.ap_mac = 'ap-mac';
       $scope.loading = true;
       var elem = angular.element('<client-chart><client-detail loading="loading"></client-detail></client-chart>');
@@ -250,7 +250,7 @@ describe('client', function () {
       spyOn(clientFactory, 'get').and.callThrough();
       expect(clientScope.location.slug).toEqual('xxx');
       expect(clientScope.ap_mac).toEqual('ap-mac');
-      expect(clientScope.fn).toEqual('my-fn');
+      expect(clientScope.fn).toEqual({ key: 'mean', value: 'mean' });
       expect(clientScope.period).toEqual('my-period');
 
       var client = { id: 123 };
