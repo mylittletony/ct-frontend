@@ -348,12 +348,6 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
         icon: 'delete_forever',
         type: 'delete'
       });
-      scope.menu.push({
-        name: gettextCatalog.getString('Test Radius'),
-        icon: 'network_check',
-        type: 'radius',
-        disabled: scope.network.access_type !== 'radius'
-      });
     };
 
     scope.action = function(type) {
@@ -363,9 +357,6 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
           break;
         case 'zones':
           zones();
-          break;
-        case 'radius':
-          radtest();
           break;
       }
     };
