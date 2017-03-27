@@ -304,7 +304,7 @@
 
               <md-input-container class="md-block">
                 <label for="splash.download_speed"><translate>Download {{ splash.download_speed | mbps }}</translate></label>
-                <input name="download" type="number" ng-model="splash.download_speed" ng-min="0"></input>
+                <input name="download" type="number" min="0" ng-model="splash.download_speed"></input>
                 <div ng-messages="myForm.download.$error">
                   <div ng-message="min" translate>Must be greater than or equal to 0.</div>
                 </div>
@@ -312,7 +312,7 @@
 
               <md-input-container class="md-block">
                 <label for="splash.upload_speed"><translate>Upload {{ splash.upload_speed | mbps }}</translate></label>
-                <input name="upload" type="number" ng-model="splash.upload_speed" ng-min="0"></input>
+                <input name="upload" type="number" min="0" ng-model="splash.upload_speed"></input>
                 <div ng-messages="myForm.upload.$error">
                   <div ng-message="min" translate>Must be greater than or equal to 0.</div>
                 </div>
