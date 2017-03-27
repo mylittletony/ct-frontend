@@ -20,13 +20,13 @@
           <p class="text text-danger small" ng-show="innerForm.source.$error.pattern"><b><small translate>Must be a valid IP with range. <br> For example: 10.1.1.0/24</small></b></p>
         </td>
         <td>
-          <input type="number" class="form-control" name="destination_port" ng-model="port_forward.destination_port" placeholder="{{ 'Source Port' | translate }}" required ng-min="1" ng-max="64322">
+          <input type="number"  min="1" max="64322" class="form-control" name="destination_port" ng-model="port_forward.destination_port" placeholder="{{ 'Source Port' | translate }}" required ng-min="1" ng-max="64322">
           <p class="text text-danger small" ng-show="innerForm.destination_port.$error.required"><b><small translate>Required.</small></b></p>
           <p class="text text-danger small" ng-show="innerForm.destination_port.$error.number"><b><small translate>Should be a number.</small></b></p>
           <p class="text text-danger small" ng-show="innerForm.destination_port.$error.min || innerForm.destination_port.$error.max"><b><small translate>Must be between 1 and 65322.</small></b></p>
         </td>
         <td>
-          <input type="number" class="form-control" name="forward_to_port" ng-model="port_forward.forward_to_port" placeholder="{{ 'Port Number' | translate }}" required ng-min="1" ng-max='64322'>
+          <input type="number" min="1" max="64322" class="form-control" name="forward_to_port" ng-model="port_forward.forward_to_port" placeholder="{{ 'Port Number' | translate }}" required ng-min="1" ng-max='64322'>
           <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.required"><b><small translate>Required.</small></b></p>
           <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.number"><b><small translate>Should be a number.</small></b></p>
           <p class="text text-danger small" ng-show="innerForm.forward_to_port.$error.min || innerForm.forward_port.$error.max"><b><small translate>Must be between 1 and 65322.</small></b></p>
