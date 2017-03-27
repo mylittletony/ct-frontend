@@ -2933,20 +2933,30 @@ app.directive('locationClients', function() {
       });
 
       function chart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Time', 'Unique Clients'],
-          ['10am',  93],
-          ['11am',  87],
-          ['12am',  120],
-          ['1pm',   189],
-          ['2pm',   153],
-          ['3pm',   204]
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Time'); // Implicit domain label col.
+        data.addColumn('number', 'Clients'); // Implicit series 1 data col.
+        data.addRows([
+          [1000, 93],
+          [1100, 87],
+          [1200, 120],
+          [1300, 189],
+          [1400, 153],
+          [1500, 204]
         ]);
 
         var options = {
-          vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+          vAxis: {
+            minValue: 0,
+            gridlines: { color: "#EEEEEE"},
+            baselineColor: '#BDBDBD'
+          },
+          hAxis: {
+            gridlines: { color: 'transparent'},
+            baselineColor: '#BDBDBD'
+          },
           colors: ['#26C6DA'],
-          lineWidth: 2,
+          lineWidth: 3,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
           legend: { position: 'bottom'},
           chartArea: {left:30, top:20, width:"100%", height:"200px"}
