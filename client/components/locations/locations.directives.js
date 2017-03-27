@@ -325,17 +325,31 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
           legend: {
             position: 'none'
           },
-          lineWidth: 1.5,
+          lineWidth: 3,
+          colors: ['#26C6DA', '#5C6BC0'],
           vAxis: {
             viewWindow: {
               min: 0
-            }
+            },
+            gridlines: {
+              color: "#EEEEEE"
+            },
+            baselineColor: '#BDBDBD'
           },
           hAxis: {
-            format: 'dd MMM'
+            format: 'dd MMM',
+            gridlines: {
+              color: "transparent"
+            },
+            baselineColor: '#BDBDBD'
+          },
+          crosshair: {
+            orientation: 'vertical',
+            trigger: 'both',
+            color: "#BDBDBD"
           },
           chartArea: {
-            left: '10%',
+            left: '5%',
             top: '3%',
             height: '74%',
             width: '87%'
@@ -347,6 +361,10 @@ app.directive('periscope', ['Report', '$routeParams', '$timeout', function (Repo
       }
 
       window.google.charts.setOnLoadCallback(drawChart);
+
+      $(window).resize(function() {
+        drawChart();
+      });
 
     };
 

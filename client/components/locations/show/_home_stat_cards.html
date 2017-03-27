@@ -1,6 +1,6 @@
 <div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' hide show-gt-sm ng-if="!pinned && !alerts">
 
-  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-local">
+  <md-button ng-href="/#/locations" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-local">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1>{{ ::stats.locations }}</h1>
@@ -12,7 +12,7 @@
     </div>
   </md-button>
 
-  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-box">
+  <md-button ng-href="/#/alerts" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-box">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1 translate>{{ ::online }}</h1>
@@ -23,13 +23,13 @@
       </div>
       <md-tooltip>
         <translate>
-          {{ ::offline }} Offline, {{ ::stats.boxes.stats.total }} Total
+          {{ ::offline || 0 }} Offline, {{ ::stats.boxes.stats.total }} Total
         </translate>
       </md-tooltip>
     </div>
   </md-button>
 
-  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-client">
+  <md-button ng-href="/#/reports" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-client">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1>{{ ::stats.online }}</h1>
@@ -41,7 +41,7 @@
     </div>
   </md-button>
 
-  <md-button flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-splash">
+  <md-button ng-href="/#/reports/radius" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-splash">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <h1>{{ ::stats.splash_views }}</h1>
