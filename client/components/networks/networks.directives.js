@@ -194,6 +194,17 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
 }]);
 
+app.directive('emojiPicker', function() {
+    return {
+        // Restrict it to be an attribute in this case
+        restrict: 'A',
+        // responsible for registering DOM listeners as well as updating the DOM
+        link: function(scope, element, attrs) {
+            $(element).emojioneArea(scope.$eval(attrs.emojiPicker));
+        }
+    };
+});
+
 app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network, Zone, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
