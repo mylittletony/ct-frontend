@@ -244,9 +244,7 @@ app.directive('emojiPicker', function() {
         // responsible for registering DOM listeners as well as updating the DOM
         link: function(scope, element, attrs) {
           angular.element(document).ready(function () {
-            if (emojioneArea) {
-              angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
-            }
+            angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
           });
         }
     };

@@ -222,6 +222,8 @@ describe('networks', function () {
 
     it("should set the default vars for the network", function() {
       spyOn(networkFactory, 'query').and.callThrough();
+      var elem = angular.element('<new-network emoji-picker loading="loading"></new-network>');
+      element = $compile(elem)($rootScope);
       expect(element.isolateScope().location.slug).toEqual('xxx');
 
       var network = { id: '123' };
