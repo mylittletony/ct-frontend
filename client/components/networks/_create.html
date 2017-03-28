@@ -1,5 +1,5 @@
 <md-dialog aria-label="{{ 'Create Network' | translate }}"  ng-cloak>
-  <form name="myForm">
+  <form name="myForm" class="ssid-form">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2 translate>Create New Network</h2>
@@ -19,7 +19,7 @@
               <label>
                 <translate>SSID</translate>
               </label>
-              <input name="ssid" md-maxlength="32" ng-model="network.ssid" ng-pattern="/^[^[\]\'\\]+$/" required>
+              <input name="ssid" md-maxlength="32" ng-model="network.ssid" emoji-picker="{content: '.ssid-input', pickerPosition: 'bottom'}" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" required>
               <div ng-messages="myForm.ssid.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>

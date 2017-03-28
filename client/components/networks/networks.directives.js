@@ -136,12 +136,14 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
     function DialogController($scope,network) {
       $scope.network = network;
+      $scope.networkEdit = angular.copy($scope.network);
       $scope.calling_codes = [
           "+44",
           "+1",
           "+49"
       ];
       $scope.update = function() {
+        angular.copy($scope.networkEdit, $scope.network);
         network.state = 'processing';
         scope.update(network);
         $mdDialog.cancel();
@@ -234,6 +236,17 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
   };
 
 }]);
+
+app.directive('emojiPicker', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+          angular.element(document).ready(function () {
+            angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
+          });
+        }
+    };
+});
 
 app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network, Zone, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 

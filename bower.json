@@ -29,7 +29,8 @@
     "angular-gettext": "~2.2.1",
     "moment-timezone": "~0.5.4",
     "angular-scroll-glue": "^2.1.0",
-    "angular-animate": "~1.5.*"
+    "angular-animate": "~1.5.*",
+    "emojionearea": "^3.1.6"
   },
   "overrides": {
     "urijs": {
