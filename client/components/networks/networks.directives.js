@@ -241,8 +241,11 @@ app.directive('emojiPicker', function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
-          console.log(scope);
-          console.log(element);
+          console.log('1');
+          console.log(angular.element(element));
+          console.log('2');
+          console.log(angular.element(element).emojioneArea);
+          console.log('3');
           console.log(attrs);
           angular.element(document).ready(function () {
             angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
