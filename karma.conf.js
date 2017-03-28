@@ -51,6 +51,7 @@ module.exports = function(config) {
       'client/components/**/*.html',
       'test/spec/**/*.js',
       'test/ec2/**/*.js',
+      'client/bower_components/emojionearea/src/emojionearea.js',
     ],
 
     preprocessors: {
