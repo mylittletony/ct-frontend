@@ -222,8 +222,7 @@ describe('networks', function () {
 
     it("should set the default vars for the network", function() {
       spyOn(networkFactory, 'query').and.callThrough();
-      spyOn(angular.element, 'emojioneArea');
-      expect(element.isolateScope().location.slug).toEqual('xxx');
+      // expect(element.isolateScope().location.slug).toEqual('xxx');
 
       var network = { id: '123' };
       deferred.resolve(network);
