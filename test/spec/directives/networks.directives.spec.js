@@ -215,15 +215,13 @@ describe('networks', function () {
       $routeParams.page = '10';
       $routeParams.per = '100';
       $scope.loading = true;
-      var elem = angular.element('<display-network loading="loading"></display-network>');
+      var elem = angular.element('<display-network emoji-picker="{content: '.ssid-input', pickerPosition: 'bottom'}" class="ssid-input" loading="loading"></display-network>');
       element = $compile(elem)($rootScope);
       element.scope().$digest();
     }));
 
     it("should set the default vars for the network", function() {
       spyOn(networkFactory, 'query').and.callThrough();
-      var elem = angular.element('<new-network emoji-picker loading="loading"></new-network>');
-      element = $compile(elem)($rootScope);
       expect(element.isolateScope().location.slug).toEqual('xxx');
 
       var network = { id: '123' };
