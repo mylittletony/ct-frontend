@@ -242,10 +242,7 @@ app.directive('emojiPicker', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
           angular.element(document).ready(function () {
-            console.log(angular.element(element).emojioneArea);
-            if (typeof emojioneArea == "undefined") {
-              angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
-            }
+            angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
           });
         }
     };
