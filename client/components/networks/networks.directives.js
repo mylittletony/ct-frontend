@@ -124,6 +124,10 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     var shareDetails = function(network) {
+      network.share_type = 'sms'
+      network.share_calling_code = undefined
+      network.share_number = undefined
+      network.share_to = undefined
       $mdDialog.show({
         templateUrl: 'components/networks/_share_network.html',
         parent: angular.element(document.body),
