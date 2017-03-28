@@ -239,10 +239,11 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
 app.directive('emojiPicker', function() {
     return {
-        // Restrict it to be an attribute in this case
         restrict: 'A',
-        // responsible for registering DOM listeners as well as updating the DOM
         link: function(scope, element, attrs) {
+          console.log(scope);
+          console.log(element);
+          console.log(attrs);
           angular.element(document).ready(function () {
             angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
           });
