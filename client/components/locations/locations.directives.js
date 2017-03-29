@@ -2988,9 +2988,9 @@ app.directive('locationBoxHealth', function() {
 
       function chart() {
         var data = google.visualization.arrayToDataTable([
-          ['Status', 'Percent'],
-          ['Online', 82],
-          ['Offline', 15],
+          ['Status', 'Number'],
+          ['Online', 47],
+          ['Offline', 7],
           ['New', 3]
         ]);
 
