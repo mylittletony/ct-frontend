@@ -244,14 +244,21 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 }]);
 
 app.directive('emojiPicker', function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-          angular.element(document).ready(function () {
-            angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
-          });
-        }
-    };
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      angular.element(document).ready(function () {
+        var emojiInput = angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
+        (function waitForElement() {
+          if(typeof scope.network !== "undefined"){
+            emojiInput[0].emojioneArea.setText(scope.network.ssid);
+          } else {
+            setTimeout(waitForElement, 250);
+          }
+        })()
+      });
+    }
+  };
 });
 
 app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network, Zone, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
