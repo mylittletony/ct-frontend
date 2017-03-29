@@ -2974,3 +2974,42 @@ app.directive('locationClients', function() {
     templateUrl: 'components/locations/show/_unique_clients_graph.html',
   };
 });
+
+app.directive('locationBoxHealth', function() {
+
+  return {
+    link: function(scope) {
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      $(window).resize(function() {
+        chart();
+      });
+
+      function chart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Status', 'Percent'],
+          ['Online', 82],
+          ['Offline', 15],
+          ['New', 3]
+        ]);
+
+        var options = {
+          pieHole: 0.4,
+          colors: [ `#66BB6A`, `#EC407A`, `#78909C`],
+          legend: { position: 'bottom' },
+          chartArea: {left:0, top:20, width:"100%", height:"200px"}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart9'));
+        chart.draw(data, options);
+
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_location_box_health.html',
+  };
+});
