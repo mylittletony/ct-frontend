@@ -211,7 +211,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
         }
       }).$promise.then(function(results) {
         if (network.action === 'share') {
-          showToast(gettextCatalog.getString('Network details sent to ' + network.share_to));
+          showToast(gettextCatalog.getString('Network details sent'));
         } else {
           showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
         }
