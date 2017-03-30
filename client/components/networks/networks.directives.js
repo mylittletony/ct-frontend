@@ -124,6 +124,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     var shareDetails = function(network) {
+      network.share_type = 'sms'
       $mdDialog.show({
         templateUrl: 'components/networks/_share_network.html',
         parent: angular.element(document.body),
@@ -150,6 +151,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       };
       $scope.close = function() {
         $mdDialog.cancel();
+        resetShareValues(network);
       };
       $scope.share = function() {
         network.action = 'share';
@@ -158,6 +160,12 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       };
     }
     DialogController.$inject = ['$scope', 'network'];
+
+    var resetShareValues = function(network) {
+      network.share_calling_code = undefined
+      network.share_number = undefined
+      network.share_to = undefined
+    }
 
     var destroy = function(network) {
       var confirm = $mdDialog.confirm()
@@ -205,18 +213,16 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
         }
       }).$promise.then(function(results) {
         if (network.action === 'share') {
-          showToast(gettextCatalog.getString('Network details sent to ' + network.share_to));
+          showToast(gettextCatalog.getString('Network details sent'));
         } else {
           showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
         }
         network.state = undefined;
-        network.action = undefined;
-        network.share_to = undefined;
-        network.share_type = undefined;
       }, function(error) {
         showErrors(error);
         network.state = undefined;
       });
+      resetShareValues(network);
     };
 
     var editSettings = function(network) {
