@@ -124,7 +124,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     var shareDetails = function(network) {
-      network.share_type = 'sms'
+      network.share_type = 'sms';
       $mdDialog.show({
         templateUrl: 'components/networks/_share_network.html',
         parent: angular.element(document.body),
@@ -139,9 +139,9 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       $scope.network = network;
       $scope.networkEdit = angular.copy($scope.network);
       $scope.calling_codes = [
-          "+44",
-          "+1",
-          "+49"
+          '+44',
+          '+1',
+          '+49'
       ];
       $scope.update = function() {
         angular.copy($scope.networkEdit, $scope.network);
@@ -162,10 +162,10 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     DialogController.$inject = ['$scope', 'network'];
 
     var resetShareValues = function(network) {
-      network.share_calling_code = undefined
-      network.share_number = undefined
-      network.share_to = undefined
-    }
+      network.share_calling_code = undefined;
+      network.share_number = undefined;
+      network.share_to = undefined;
+    };
 
     var destroy = function(network) {
       var confirm = $mdDialog.confirm()
@@ -199,8 +199,8 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     scope.update = function(network) {
-      if (network.share_type === "sms") {
-        network.share_to = network.share_calling_code + network.share_number
+      if (network.share_type === 'sms') {
+        network.share_to = network.share_calling_code + network.share_number;
       }
       Network.update({}, {
         location_id: scope.location.slug,
@@ -255,7 +255,7 @@ app.directive('emojiPicker', function() {
           } else {
             setTimeout(waitForElement, 250);
           }
-        })()
+        })();
       });
     }
   };
@@ -298,7 +298,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
 
     var createNewNetwork = function(network) {
       if (network.self_destruct) {
-        formatTtl(network)
+        formatTtl(network);
       }
       Network.create({location_id: scope.location.slug, network: network}).$promise.then(function(results) {
         network.id = results.id;
@@ -310,10 +310,10 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
     };
 
     var formatTtl = function(network) {
-      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60
-      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60
-      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0)
-    }
+      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60;
+      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60;
+      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0);
+    };
 
     var openDialog = function(network) {
       $mdDialog.show({
