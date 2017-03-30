@@ -8,6 +8,8 @@
     "angular-payments": "*",
     "angular-resource": "~1.5.*",
     "angular-route": "~1.5",
+    "angular-aria": "1.6.2",
+    "angular-messages": "1.6.2",
     "angular-sanitize": "~1.5.*",
     "es5-shim": "~3.0.1",
     "jquery": "~1.11.0",
@@ -27,7 +29,8 @@
     "angular-gettext": "~2.2.1",
     "moment-timezone": "~0.5.4",
     "angular-scroll-glue": "^2.1.0",
-    "angular-animate": "~1.5.*"
+    "angular-animate": "~1.5.*",
+    "emojionearea": "^3.1.6"
   },
   "overrides": {
     "urijs": {

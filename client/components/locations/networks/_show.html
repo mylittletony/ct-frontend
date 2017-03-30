@@ -23,6 +23,18 @@
 </md-toolbar>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
+  <md-card  ng-if="network.self_destruct">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline" translate>
+          Network Self-Destruct
+        </span>
+        <span class="md-subhead" translate>
+          on {{network.created_at + (network.ttl * 60) | humanTimeShort}}
+        </span>
+      </md-card-title-text>
+    </md-card-title>
+  </md-card>
 
   <form ng-submit="saveNetwork(network.id)" name="myForm" form_submitted autocomplete="off">
     <div flex>
@@ -45,7 +57,7 @@
               <label>
                 <translate>Network SSID</translate>
               </label>
-              <input autocomplete="off" name="ssid" md-maxlength="32" ng-model="network.ssid" ng-pattern="FilterPattern" required>
+              <input autocomplete="off" name="ssid" md-maxlength="32" placeholder="Network SSID" ng-pattern="FilterPattern" emoji-picker="{pickerPosition: 'bottom'}" ng-model="network.ssid" class="ssid-input" required>
               <div ng-messages="myForm.ssid.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>
@@ -170,7 +182,7 @@
                 <label>
                   <translate>Port</translate>
                 </label>
-                <input ng-disabled="network.captive_portal_enabled" ng-model="network.proxy_server_port" name="proxy_server_port" placeholder="3128" type="number" ng-min="1" ng-max='65432'>
+                <input ng-disabled="network.captive_portal_enabled" ng-model="network.proxy_server_port" name="proxy_server_port" placeholder="3128" type="number" min="1" max="65432">
                 <div ng-messages="myForm.proxy_server_port.$error">
                   <div ng-message="max" translate>Max 65432</div>
                   <div ng-message="min" translate>Minimum 1</div>
@@ -197,7 +209,7 @@
               <label>
                 <translate>Network Metric</translate>
               </label>
-              <input ng-disabled="network.make_part_of_lan || network.network_radio_mode == 'sta'" type="number" name="metric" ng-model="network.metric" ng-max=10000 ng-min=0 required>
+              <input ng-disabled="network.make_part_of_lan || network.network_radio_mode == 'sta'" type="number" min="0" max="10000"name="metric" ng-model="network.metric" required>
               <div ng-messages="myForm.metric.$error">
                 <div ng-message="min" translate>Must be greater than 0</div>
                 <div ng-message="max" translate>Must be less than 10000</div>
@@ -217,7 +229,7 @@
               <label>
                 <translate>VLAN ID</translate>
               </label>
-              <input ng-disabled="network.captive_portal_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" ng-model="network.vlan_id" name="vlan_id" placeholder="{{ 'VLAN ID' | translate }}" ng-min="1" type="number" ng-min="1" ng-max="4096">
+              <input ng-disabled="network.captive_portal_enabled || network.make_part_of_lan || network.network_radio_mode == 'sta'" ng-model="network.vlan_id" name="vlan_id" placeholder="{{ 'VLAN ID' | translate }}" type="number" min="1" max="4096">
               <div ng-messages="myForm.vlan_id.$error">
                 <div ng-message="min" translate>Must be greater than 1</div>
                 <div ng-message="max" translate>Must be less than 4096</div>
@@ -280,7 +292,7 @@
                 <label>
                   <translate>Port</translate>
                 </label>
-                <input ng-model="network.radius_8021x_port_1" name="radius_8021x_port_1" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433' ng-required="network.access_type == 'radius'">
+                <input ng-model="network.radius_8021x_port_1" name="radius_8021x_port_1" placeholder="{{ 'Radius Port' | translate }}" type="number" min="1" max="65433" ng-required="network.access_type == 'radius'">
                 <div ng-messages="myForm.radius_8021x_port_1.$error">
                   <div ng-message="required" translate>Must have a valid port.</div>
                   <div ng-message="max" translate>Must be less than 65433.</div>
@@ -313,7 +325,7 @@
                 <label>
                   <translate>Port</translate>
                 </label>
-                <input ng-model="network.radius_8021x_port_2" name="radius_8021x_port_2" placeholder="{{ 'Radius Port' | translate }}" type="number" ng-min="1" ng-max='65433'>
+                <input ng-model="network.radius_8021x_port_2" name="radius_8021x_port_2" placeholder="{{ 'Radius Port' | translate }}" type="number" min="1" max="65433">
                 <div ng-messages="myForm.radius_8021x_port_2.$error">
                   <div ng-message="required" translate>Must have a valid port.</div>
                   <div ng-message="max" translate>Must be less than 65433.</div>
