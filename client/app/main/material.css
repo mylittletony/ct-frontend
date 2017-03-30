@@ -601,6 +601,10 @@ md-card.highlight-section {
   height: 400px;
 }
 
+#new-ssid-form.ssid-form {
+  height: 100%;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
