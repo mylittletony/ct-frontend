@@ -135,7 +135,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
     };
 
-    var update = function(network) {
+    scope.update = function(network) {
       if (network.share_type === 'sms') {
         network.share_to = network.share_calling_code + network.share_number;
       }
@@ -183,7 +183,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       };
       $scope.share = function() {
         network.action = 'share';
-        update(network);
+        scope.update(network);
         $mdDialog.cancel();
       };
     }
@@ -299,9 +299,9 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
 
     var createNewNetwork = function(network) {
       if (network.self_destruct) {
-        formatTtl(network)
+        formatTtl(network);
       }
-      Network.create({location_id: scope.location.slug, network: network}).$promise.then(function(results) {
+      Network.create({}, {location_id: scope.location.slug, network: network}).$promise.then(function(results) {
         network.id = results.id;
         scope.networks.push(network);
         showToast(gettextCatalog.getString('Network created successfully'));
@@ -311,10 +311,10 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
     };
 
     var formatTtl = function(network) {
-      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60
-      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60
-      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0)
-    }
+      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60;
+      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60;
+      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0);
+    };
 
     var openDialog = function(network) {
       $mdDialog.show({
