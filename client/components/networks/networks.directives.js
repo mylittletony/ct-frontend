@@ -301,7 +301,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
       if (network.self_destruct) {
         formatTtl(network)
       }
-      Network.create({location_id: scope.location.slug, network: network}).$promise.then(function(results) {
+      Network.create({}, {location_id: scope.location.slug, network: network}).$promise.then(function(results) {
         network.id = results.id;
         scope.networks.push(network);
         showToast(gettextCatalog.getString('Network created successfully'));
