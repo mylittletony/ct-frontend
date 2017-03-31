@@ -135,7 +135,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
     };
 
-    var update = function(network) {
+    scope.update = function(network) {
       if (network.share_type === 'sms') {
         network.share_to = network.share_calling_code + network.share_number;
       }
@@ -183,7 +183,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       };
       $scope.share = function() {
         network.action = 'share';
-        update(network);
+        scope.update(network);
         $mdDialog.cancel();
       };
     }
