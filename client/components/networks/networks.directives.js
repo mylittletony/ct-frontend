@@ -243,6 +243,37 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
 }]);
 
+app.directive('ssidByte', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$validators.ssidByte = function(modelValue, viewValue) {
+        function lengthInUtf8Bytes(str) {
+          var m = encodeURIComponent(str).match(/%[89ABab]/g);
+          function emojiCount(str){
+            const joiner = "\u{200D}";
+            const split = str.split(joiner);
+            let count = 0;
+
+            for(const s of split){
+              const num = Array.from(s.split(/[\ufe00-\ufe0f]/).join("")).length;
+              count += num;
+            }
+            return count / split.length;
+          }
+          return emojiCount(str) + (m ? m.length : 0);
+        }
+
+        if (lengthInUtf8Bytes(viewValue) <= 32) {
+          return true;
+        }
+
+        return false;
+      };
+    }
+  };
+});
+
 app.directive('emojiPicker', function() {
   return {
     restrict: 'A',
