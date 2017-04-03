@@ -2,16 +2,14 @@
 
 var app = angular.module('myApp.charts.directives', []);
 
-app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$filter', function($timeout, $rootScope, gettextCatalog, $filter) {
+app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', function($timeout, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
     var chart, d, json, len, formatter, i, time, title, data, timer, options;
 
     function toTitleCase(str) {
-      if (str.key !== undefined) {
-        return str.key.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-      }
+      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     }
 
     controller.$scope.$on('clientIndexChart', function(val,obj) {
@@ -32,7 +30,8 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
     });
 
     function init(obj) {
-       scope.fn = {key: $filter('translatableChartTitle')(obj.fn), value: obj.fn};
+
+      scope.fn = obj.fn;
       scope.type = obj.type;
       json = obj.data;
 
@@ -100,18 +99,10 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
             }
           };
           options.hAxis = {
+            count: -1,
             gridlines: {
-              count: -1,
               units: {
                 days: {format: [gettextCatalog.getString('MMM dd, yyyy')]},
-                hours: {format: [gettextCatalog.getString('hh:mm a')]},
-                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-              }
-            },
-            minorGridlines: {
-              count: -1,
-              units: {
-                days: {format: [gettextCatalog.getString('MMM dd')]},
                 hours: {format: [gettextCatalog.getString('hh:mm a')]},
                 minutes: {format: [gettextCatalog.getString('hh:mm a')]}
               }
@@ -240,7 +231,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
     };
 
     var txChart = function() {
-      var suffix =  gettextCatalog.getString('Mbps');
+      var suffix = 'Mbps';
       var type = 'Traffic';
       if (scope.type === 'usage') {
         type = 'Usage';
@@ -409,7 +400,7 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
 
 }]);
 
-app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', '$filter', function($timeout, Report, $routeParams, gettextCatalog, $filter) {
+app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', function($timeout, Report, $routeParams, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -418,7 +409,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
     scope.type     = 'tx';
     scope.loading  = true;
-    scope.fn       = {key: gettextCatalog.getString('mean'), value:'mean'};
+    scope.fn       = 'mean';
     scope.resource = 'client';
     scope.noData   = undefined;
 
@@ -431,7 +422,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
     scope.changeFn = function(type) {
       controller.fn = type;
-      scope.fn = {key: $filter('translatableChartTitle')(type), value: type};;
+      scope.fn = type;
       chart();
     };
 
@@ -459,7 +450,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       var params = {
         type: scope.type,
         resource: scope.resource,
-        fn: scope.fn.value
+        fn: scope.fn
       };
       controller.getStats(params).then(function(data) {
         // timer = $timeout(function() {
@@ -584,14 +575,6 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
                 hours: {format: [gettextCatalog.getString('hh:mm a')]},
                 minutes: {format: [gettextCatalog.getString('hh:mm a')]}
               }
-            },
-            minorGridlines: {
-              count: -1,
-              units: {
-                days: {format: [gettextCatalog.getString('MMM dd')]},
-                hours: {format: [gettextCatalog.getString('hh:mm a')]},
-                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-              }
             }
           };
 
@@ -629,7 +612,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
 }]);
 
-app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
+app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', function($timeout, Report, $routeParams, COLOURS) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -679,11 +662,11 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
       $timeout.cancel(timer);
       var drawChartCallback = function() {
         var data = new window.google.visualization.DataTable();
-        data.addColumn('string', gettextCatalog.getString('Inbound'));
-        data.addColumn('number', gettextCatalog.getString('Outbound'));
+        data.addColumn('string', 'Inbound');
+        data.addColumn('number', 'Outbound');
         data.addRows([
-          [gettextCatalog.getString('Outbound'), json.outbound / (1000*1000) || 0],
-          [gettextCatalog.getString('Inbound'), json.inbound / (1000*1000) || 0]
+          ['Outbound', json.outbound / (1000*1000) || 0],
+          ['Inbound', json.inbound / (1000*1000) || 0]
         ]);
 
         var formatter = new window.google.visualization.NumberFormat(
@@ -826,14 +809,6 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
               hours: {format: [gettextCatalog.getString('hh:mm a')]},
               minutes: {format: [gettextCatalog.getString('hh:mm a')]}
             }
-          },
-          minorGridlines: {
-            count: -1,
-            units: {
-              days: {format: [gettextCatalog.getString('MMM dd')]},
-              hours: {format: [gettextCatalog.getString('hh:mm a')]},
-              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-            }
           }
         };
 
@@ -906,7 +881,7 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
       var params = {
         type: scope.type,
         resource: scope.resource,
-        //fn: scope.fn.value
+        fn: scope.fn
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.mcs) {
@@ -968,14 +943,6 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
         };
         opts.hAxis = {
           gridlines: {
-            count: -1,
-            units: {
-              days: {format: [gettextCatalog.getString('MMM dd')]},
-              hours: {format: [gettextCatalog.getString('hh:mm a')]},
-              minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-            }
-          },
-          minorGridlines: {
             count: -1,
             units: {
               days: {format: [gettextCatalog.getString('MMM dd')]},
@@ -1055,7 +1022,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
       var params = {
         type: scope.type,
         resource: scope.resource,
-        //fn: scope.fn.value
+        fn: scope.fn
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline.signal) {
@@ -1214,7 +1181,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       var params = {
         type: scope.type,
         resource: scope.resource,
-        //fn: scope.fn.value
+        fn: scope.fn
       };
       controller.getStats(params).then(function(data) {
         if (data.timeline) {
@@ -1364,14 +1331,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
                 hours: {format: [gettextCatalog.getString('hh:mm a')]},
                 minutes: {format: [gettextCatalog.getString('hh:mm a')]}
               }
-            },
-            minorGridlines: {
-              count: -1,
-              units: {
-                days: {format: [gettextCatalog.getString('MMM dd')]},
-                hours: {format: [gettextCatalog.getString('hh:mm a')]},
-                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-              }
             }
           };
 
@@ -1499,7 +1458,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         type: scope.type,
         resource: resource,
         period: scope.period,
-        //fn: scope.fn.value,
+        fn: scope.fn,
         interval: scope.interval,
         fill: '0',
         start: minDateEpoch,

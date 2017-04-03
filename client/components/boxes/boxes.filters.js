@@ -99,7 +99,7 @@ app.filter('statusColour',['gettextCatalog', function(gett) {
   };
 }]);
 
-app.filter('translatableChartTitleSNR', ['gettextCatalog', function(gettextCatalog) {
+app.filter('translatableChartTitle', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null || input === '') {
       return gettextCatalog.getString('N/A');
