@@ -249,7 +249,9 @@ app.directive('ssidByte', function() {
     link: function(scope, elm, attrs, ctrl) {
       ctrl.$validators.ssidByte = function(modelValue, viewValue) {
         function lengthInUtf8Bytes(str) {
+
           var m = encodeURIComponent(str).match(/%[89ABab]/g);
+
           function emojiCount(str){
             const joiner = "\u{200D}";
             const split = str.split(joiner);
@@ -263,7 +265,7 @@ app.directive('ssidByte', function() {
           }
           return emojiCount(str) + (m ? m.length : 0);
         }
-
+        //if you call the above function with a string it will return the size of the string in bytes
         if (lengthInUtf8Bytes(viewValue) <= 32) {
           return true;
         }
