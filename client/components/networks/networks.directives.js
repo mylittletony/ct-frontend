@@ -124,7 +124,7 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     };
 
     var shareDetails = function(network) {
-      network.share_type = 'sms'
+      network.share_type = 'sms';
       $mdDialog.show({
         templateUrl: 'components/networks/_share_network.html',
         parent: angular.element(document.body),
@@ -135,14 +135,42 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
     };
 
+    scope.update = function(network) {
+      if (network.share_type === 'sms') {
+        network.share_to = network.share_calling_code + network.share_number;
+      }
+      Network.update({}, {
+        location_id: scope.location.slug,
+        id: network.id,
+        network: {
+          ssid:       network.ssid,
+          action:     network.action,
+          share_to:   network.share_to,
+          share_type: network.share_type
+        }
+      }).$promise.then(function(results) {
+        if (network.action === 'share') {
+          showToast(gettextCatalog.getString('Network details sent'));
+        } else {
+          showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
+        }
+        network.state = undefined;
+      }, function(error) {
+        showErrors(error);
+        network.state = undefined;
+      });
+      resetShareValues(network);
+    };
+
     function DialogController($scope,network) {
       $scope.network = network;
       $scope.networkEdit = angular.copy($scope.network);
       $scope.calling_codes = [
-          "+44",
-          "+1",
-          "+49"
+          '+44',
+          '+1',
+          '+49'
       ];
+      $scope.network.share_calling_code = '+44';
       $scope.update = function() {
         angular.copy($scope.networkEdit, $scope.network);
         network.state = 'processing';
@@ -162,10 +190,10 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
     DialogController.$inject = ['$scope', 'network'];
 
     var resetShareValues = function(network) {
-      network.share_calling_code = undefined
-      network.share_number = undefined
-      network.share_to = undefined
-    }
+      network.share_calling_code = undefined;
+      network.share_number = undefined;
+      network.share_to = undefined;
+    };
 
     var destroy = function(network) {
       var confirm = $mdDialog.confirm()
@@ -196,33 +224,6 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
           break;
         }
       }
-    };
-
-    scope.update = function(network) {
-      if (network.share_type === "sms") {
-        network.share_to = network.share_calling_code + network.share_number
-      }
-      Network.update({}, {
-        location_id: scope.location.slug,
-        id: network.id,
-        network: {
-          ssid: network.ssid,
-          action: network.action,
-          share_to: network.share_to,
-          share_type: network.share_type
-        }
-      }).$promise.then(function(results) {
-        if (network.action === 'share') {
-          showToast(gettextCatalog.getString('Network details sent'));
-        } else {
-          showToast(gettextCatalog.getString('SSID updated, your boxes will resync'));
-        }
-        network.state = undefined;
-      }, function(error) {
-        showErrors(error);
-        network.state = undefined;
-      });
-      resetShareValues(network);
     };
 
     var editSettings = function(network) {
@@ -281,12 +282,12 @@ app.directive('emojiPicker', function() {
       angular.element(document).ready(function () {
         var emojiInput = angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
         (function waitForElement() {
-          if(typeof scope.network !== "undefined" && typeof scope.network.ssid !== "undefined") {
+          if(typeof scope.network !== 'undefined' && typeof scope.network.ssid !== 'undefined') {
             emojiInput[0].emojioneArea.setText(scope.network.ssid);
           } else {
             setTimeout(waitForElement, 250);
           }
-        })()
+        })();
       });
     }
   };
@@ -329,9 +330,9 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
 
     var createNewNetwork = function(network) {
       if (network.self_destruct) {
-        formatTtl(network)
+        formatTtl(network);
       }
-      Network.create({location_id: scope.location.slug, network: network}).$promise.then(function(results) {
+      Network.create({}, {location_id: scope.location.slug, network: network}).$promise.then(function(results) {
         network.id = results.id;
         scope.networks.push(network);
         showToast(gettextCatalog.getString('Network created successfully'));
@@ -341,10 +342,10 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
     };
 
     var formatTtl = function(network) {
-      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60
-      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60
-      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0)
-    }
+      var ttlDaysInMinutes = (network.ttl_days || 0) * 24 * 60;
+      var ttlHoursInMinutes = (network.ttl_hours || 0) * 60;
+      network.ttl = ttlDaysInMinutes + ttlHoursInMinutes + (network.ttl_minutes || 0);
+    };
 
     var openDialog = function(network) {
       $mdDialog.show({
