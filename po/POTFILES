@@ -269,6 +269,8 @@
 ../client/components/views/group_policies/_show.html
 ../client/components/views/group_policies/index.html
 ../client/components/views/group_policies/show.html
+../client/components/views/main/promos.tmpl.html
+../client/components/views/main/upgrade.tmpl.html
 ../client/components/views/messages/_create.html
 ../client/components/views/messages/_index.html
 ../client/components/views/operations/_index.html

@@ -37,10 +37,6 @@ app.factory('Network', ['$resource', '$localStorage', 'API_END_POINT',
       create: {
         method: 'POST',
         isArray: false,
-        params: {
-          location_id: '@location_id',
-          network: '@network',
-        }
       },
       destroy: {
         method: 'DELETE',
