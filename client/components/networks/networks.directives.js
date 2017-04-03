@@ -251,7 +251,7 @@ app.directive('ssid', function() {
       function emojiByteValidation(value) {
 
         function emojiCount(str){
-          var joiner = "\u{200D}";
+          var joiner = "\u200D";
           var split = str.split(joiner);
           var count = 0;
 
