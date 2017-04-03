@@ -52,10 +52,9 @@
                   <label>
                     <translate>Price</translate>
                   </label>
-                  <input name="value" ng-model="product.value" type="number" min="50" required>
+                  <input name="value" ng-model="product.value" type="number" ng-min=50 required>
                   <div ng-messages="myForm.value.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a value for the product.</div>
-                    <div ng-message="min" translate>The value must be min. 50.</div>
                   </div>
                 </md-input-container>
               </div>
@@ -88,7 +87,7 @@
                   <label>
                     <translate>Session Timeout (mins)</translate>
                   </label>
-                  <input name="timeout" ng-model="product.session_timeout" min="10" max="50000" type="number" required>
+                  <input name="timeout" ng-model="product.session_timeout" ng-min=10 ng-max=50000 type="number" required>
                   <div ng-messages="myForm.timeout.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a timeout for the product.</div>
                     <div ng-message="max" translate>Must be less than 50,000 minutes.</div>
@@ -102,7 +101,7 @@
                   <label>
                     <translate>Max Devices</translate>
                   </label>
-                  <input name="devices" ng-model="product.devices" min="1" max="50" type="number" required>
+                  <input name="devices" ng-model="product.devices" ng-min=1 ng-max=50 type="number" required>
                   <div ng-messages="myForm.devices.$error" md-auto-hide="false">
                     <div ng-message="required" translate>You must set a timeout for the product.</div>
                     <div ng-message="max" translate>Must be less than 50 devices.</div>

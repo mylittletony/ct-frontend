@@ -248,7 +248,7 @@
             <label>
               <translate>Syslog Port</translate>
             </label>
-            <input ng-model="box.rsyslog_port" name="rsyslog_port" placeholder="{{ 'Remote Port' | translate }}" type="number"  min="1" max="65535" ng-required="box.rsyslog_host">
+            <input ng-model="box.rsyslog_port" name="rsyslog_port" placeholder="{{ 'Remote Port' | translate }}" type="number" ng-min="1" ng-max="65535" ng-required="box.rsyslog_host">
             <div ng-messages="myForm.rsyslog_port.$error">
               <div ng-message="required" translate>This is required</div>
               <div ng-message="min" translate>Must be greated than 1</div>
@@ -351,7 +351,7 @@
             <label>
               <translate>WAN MTU</translate>
             </label>
-            <input ng-model="box.wan_mtu" name="mtu" type="number" min="100" max="1500" step="1" required>
+            <input ng-model="box.wan_mtu" name="mtu" type="number" step="1" ng-min=100 ng-max=1500 required>
             <div ng-messages="myForm.mtu.$error">
               <div ng-message="required" translate>A valid MTU is required</div>
               <div ng-message="min" translate>Must be greated than 100</div>
@@ -362,7 +362,7 @@
             <label>
               <translate>WAN Metric</translate>
             </label>
-            <input ng-model="box.wan_metric_1" name="wan_metric_1" type="number" min="0" max="1000" required>
+            <input ng-model="box.wan_metric_1" name="wan_metric_1" type="number" ng-max=1000 ng-min=0 required>
             <div ng-messages="myForm.wan_metric_1.$error">
               <div ng-message="required" translate>A WAN metric is required</div>
               <div ng-message="min" translate>Must not be less than 0</div>
