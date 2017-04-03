@@ -251,21 +251,15 @@ app.directive('ssid', function() {
     link: function(scope, element, attr, ctrl) {
       function emojiByteValidation(value) {
 
-        function emojiCount(str){
-          var joiner = "\u200D";
-          var split = str.split(joiner);
-          var count = 0;
+        var regexAstralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 
-          for(var s in split){
-            var num = Array.from(s.split(/[\ufe00-\ufe0f]/).join("")).length;
-            count += num;
-          }
-          return count / split.length;
+        function countSymbols(string) {
+          return string.replace(regexAstralSymbols, '_').length;
         }
 
         function lengthInUtf8Bytes(str) {
           var m = encodeURIComponent(str).match(/%[89ABab]/g);
-          return emojiCount(str) + (m ? m.length : 0);
+          return countSymbols(str) + (m ? m.length : 0);
         }
 
         if (lengthInUtf8Bytes(value) <= 32) {

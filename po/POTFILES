@@ -158,6 +158,7 @@
 ../client/components/networks/_create.html
 ../client/components/networks/_edit_ssid.html
 ../client/components/networks/_radtest.html
+../client/components/networks/_share_network.html
 ../client/components/payloads/_run_payload.html
 ../client/components/registrations/_create.html
 ../client/components/registrations/_flow.html
