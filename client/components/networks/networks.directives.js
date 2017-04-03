@@ -243,35 +243,39 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
 
 }]);
 
-app.directive('ssidByte', function() {
+app.directive('ssid', function() {
   return {
+    restrict: 'A',
     require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
-      ctrl.$validators.ssidByte = function(modelValue, viewValue) {
-        function lengthInUtf8Bytes(str) {
+    link: function(scope, element, attr, ctrl) {
+      function emojiByteValidation(value) {
 
-          var m = encodeURIComponent(str).match(/%[89ABab]/g);
+        function emojiCount(str){
+          const joiner = "\u{200D}";
+          const split = str.split(joiner);
+          let count = 0;
 
-          function emojiCount(str){
-            const joiner = "\u{200D}";
-            const split = str.split(joiner);
-            let count = 0;
-
-            for(const s of split){
-              const num = Array.from(s.split(/[\ufe00-\ufe0f]/).join("")).length;
-              count += num;
-            }
-            return count / split.length;
+          for(const s of split){
+            const num = Array.from(s.split(/[\ufe00-\ufe0f]/).join("")).length;
+            count += num;
           }
+          return count / split.length;
+        }
+
+        function lengthInUtf8Bytes(str) {
+          var m = encodeURIComponent(str).match(/%[89ABab]/g);
           return emojiCount(str) + (m ? m.length : 0);
         }
-        //if you call the above function with a string it will return the size of the string in bytes
-        if (lengthInUtf8Bytes(viewValue) <= 32) {
-          return true;
-        }
 
-        return false;
-      };
+        if (lengthInUtf8Bytes(value) <= 32) {
+          ctrl.$setValidity('ssidValidator', true);
+        } else {
+          ctrl.$setValidity('ssidValidator', false);
+        }
+        return value;
+
+      }
+      ctrl.$parsers.push(emojiByteValidation);
     }
   };
 });
