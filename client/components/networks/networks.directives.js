@@ -255,7 +255,7 @@ app.directive('ssid', function() {
           var split = str.split(joiner);
           var count = 0;
 
-          for(var s of split){
+          for(var s in split){
             var num = Array.from(s.split(/[\ufe00-\ufe0f]/).join("")).length;
             count += num;
           }
