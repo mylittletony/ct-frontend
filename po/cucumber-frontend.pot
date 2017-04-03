@@ -696,7 +696,7 @@ msgid "Access denied. If you cancelled the request, please try again."
 msgstr ""
 
 #: client/components/users/layouts/sidebar.html:1
-#: client/index.html:142
+#: client/index.html:141
 msgid "Account"
 msgstr ""
 
@@ -3271,7 +3271,7 @@ msgstr ""
 
 #: client/app/main/main.controllers.js:133
 #: client/components/apps/apps.directives.js:11
-#: client/index.html:172
+#: client/index.html:171
 msgid "Developer"
 msgstr ""
 
@@ -3445,7 +3445,7 @@ msgid "Discover my Devices"
 msgstr ""
 
 #: client/app/main/main.controllers.js:149
-#: client/index.html:157
+#: client/index.html:156
 msgid "Discussions"
 msgstr ""
 
@@ -3466,7 +3466,7 @@ msgid "Djibouti"
 msgstr ""
 
 #: client/app/main/main.controllers.js:141
-#: client/index.html:150
+#: client/index.html:149
 msgid "Documentation"
 msgstr ""
 
@@ -3532,7 +3532,7 @@ msgstr ""
 #: client/components/locations/show/_index.html:75
 #: client/components/locations/show/_index.html:76
 #: client/components/vouchers/_show.html:159
-#: client/index.html:165
+#: client/index.html:164
 msgid "Downloads"
 msgstr ""
 
@@ -5469,8 +5469,8 @@ msgstr ""
 #: client/components/clients/clients.directives.js:1057
 #: client/components/directives/users.directives.js:678
 #: client/components/views/triggers/_edit.html:578
-#: client/index.html:181
-#: client/index.html:217
+#: client/index.html:180
+#: client/index.html:216
 msgid "Logout"
 msgstr ""
 
@@ -5617,7 +5617,7 @@ msgstr ""
 msgid "MailChimp Single Opt-In"
 msgstr ""
 
-#: client/index.html:225
+#: client/index.html:224
 msgid "Main Menu"
 msgstr ""
 
@@ -6995,10 +6995,10 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: client/index.html:113
-#: client/index.html:86
-#: client/index.html:92
-#: client/index.html:98
+#: client/index.html:112
+#: client/index.html:85
+#: client/index.html:91
+#: client/index.html:97
 msgid "Open Apps Menu"
 msgstr ""
 
@@ -7576,7 +7576,7 @@ msgstr ""
 msgid "Primary Radius"
 msgstr ""
 
-#: client/index.html:266
+#: client/index.html:265
 msgid "Privacy Policy - Terms of Service"
 msgstr ""
 
@@ -8643,8 +8643,8 @@ msgstr ""
 #: client/components/vouchers/_edit.html:3
 #: client/components/vouchers/_new.html:3
 #: client/components/vouchers/_show.html:3
-#: client/index.html:187
-#: client/index.html:72
+#: client/index.html:186
+#: client/index.html:71
 msgid "Settings"
 msgstr ""
 
@@ -9306,9 +9306,9 @@ msgid "Sun"
 msgstr ""
 
 #: client/app/main/main.controllers.js:157
-#: client/index.html:126
-#: client/index.html:131
-#: client/index.html:208
+#: client/index.html:125
+#: client/index.html:130
+#: client/index.html:207
 msgid "Support"
 msgstr ""
 

@@ -151,8 +151,8 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
     var placeholderNewsletterPass =  gettextCatalog.getString('Username and Password'),
         placeholderNewsletterToken = gettextCatalog.getString('Enter your API token');
 
-    // scope.timezones = moment.tz.names();
-    scope.timezones = [];
+    scope.timezones = moment.tz.names();
+    // scope.timezones = [];
 
     scope.access_restrict = [{ key: gettextCatalog.getString('Off'), value: 'none'}, {key: gettextCatalog.getString('Periodic'), value: 'periodic'}, {key: gettextCatalog.getString('Data Downloaded'), value: 'data' }, {key: gettextCatalog.getString('Timed Access'), value: 'timed'}];
     scope.newsletter_types = [{ key: gettextCatalog.getString('Off'), value: 0 }, { key: 'MailChimp', value: 1}, {key: 'CampaignMonitor', value: 2}, {key: 'SendGrid', value: 4}, {key: gettextCatalog.getString('Internal only'), value: 3 }];
