@@ -105,7 +105,7 @@
                       <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
                     </md-button>
                     <md-menu-content width="4" >
-                      <md-menu-item ng-repeat="item in menu">
+                      <md-menu-item ng-repeat="item in menu" ng-if="network.access_type == 'password' || item.type != 'share'">
                         <md-button ng-click="action(network,item.type)" ng-disabled="false">
                           <md-icon md-menu-origin md-font-icon="{{ item.icon}}">{{ item.icon }}</md-icon>
                           <p flex>{{ item.name }}</p>

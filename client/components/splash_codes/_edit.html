@@ -73,7 +73,7 @@
                 <label>
                   <translate>Validity Minutes</translate>
                 </label>
-                <input type="number" ng-model="code.volume" placeholder="" name="volume" ng-min="10" ng-max="43200" required>
+                <input type="number" min="10" max="43200" ng-model="code.volume" placeholder="" name="volume" required>
                 <div ng-messages="myForm.volume.$error">
                   <div ng-message="minlength" translate>Must be greater than 10 minutes</div>
                   <div ng-message="max" translate>Must be less than 43200 minutes</div>
@@ -85,7 +85,7 @@
                 <label>
                   <translate>Max. Users</translate>
                 </label>
-                <input type="number" ng-model="code.simultaneous_use" name="sim_use" placeholder="" ng-min="1" required>
+                <input type="number" min="1" ng-model="code.simultaneous_use" name="sim_use" placeholder=""  required>
                 <div ng-messages="myForm.sim_use.$error">
                   <div ng-message="min" translate>Must be greater than 1</div>
                   <div ng-message="required" translate>You must set the max. users</div>
@@ -123,12 +123,12 @@
 
               <div flex="50">
                 <p translate>Start Date</p>
-                <md-datepicker class="picker-wider" name="dateField" ng-model="code.start_date" md-placeholder="{{ 'Start Date' | translate }}" required md-min-date="myDate" style="margin: 10px 0 0 -10px;"></md-datepicker>
+                <md-datepicker class="picker-wider" name="dateField" ng-model="code.start_date" required style="margin: 10px 0 0 -10px;"></md-datepicker>
               </div>
 
               <div flex="50">
                 <p translate>Expiration Date</p>
-                <md-datepicker class="picker-wider" name="dateField" ng-model="code.expires" md-placeholder="{{ 'Expiration Date' | translate }}" required md-min-date="minDate" style="margin: 10px 0 0 -10px;"></md-datepicker>
+                <md-datepicker class="picker-wider" name="dateField" ng-model="code.expires" required style="margin: 10px 0 0 -10px;"></md-datepicker>
               </div>
             </div>
           </md-card-content>

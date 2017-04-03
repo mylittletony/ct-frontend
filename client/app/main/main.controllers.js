@@ -464,6 +464,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           $scope.user = Auth.currentUser();
           $scope.loggedIn = true;
           menuPush();
+          if ($scope.user.promo !== '') {
+            console.log('Getting promo...');
+          }
         });
       });
     }

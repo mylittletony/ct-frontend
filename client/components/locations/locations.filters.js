@@ -327,3 +327,24 @@ app.filter('translatableNetworkAccess', ['gettextCatalog', function(gettextCatal
     }
   };
 }]);
+
+app.filter('translatableChartTitle', ['gettextCatalog', 'gettext', function(gettextCatalog , gettext) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return undefined;
+    } else {
+      switch(input) {
+        case 'mean':
+          return gettext('mean');
+        case 'average':
+          return gettext('average');
+        case 'max':
+          return gettext('max');
+        case 'median':
+          return gettext('median');
+        case 'sum':
+          return gettext('sum');
+      }
+    }
+  };
+}]);
