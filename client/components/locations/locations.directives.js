@@ -2360,12 +2360,12 @@ app.directive('locationUsageChart', function() {
 
         var options = {
           vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+          legend: 'none',
           areaOpacity: 0.1,
           colors: ['#26C6DA', '#5C6BC0'],
           lineWidth: 3,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
-          legend: { position: 'bottom' },
-          chartArea: {left:50, top:20, width:"100%", height:"200px"}
+          chartArea: {width:"80%"}
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
@@ -2959,8 +2959,8 @@ app.directive('locationClients', function() {
           colors: ['#26C6DA'],
           lineWidth: 3,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
-          legend: { position: 'bottom'},
-          chartArea: {left:30, top:20, width:"100%", height:"200px"}
+          legend: 'none',
+          chartArea: {width:"80%"}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart8'));
