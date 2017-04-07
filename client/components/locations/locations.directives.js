@@ -2435,12 +2435,12 @@ app.directive('locationUsageChart', ['$http', function($http) {
 
         var options = {
           vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+          legend: 'none',
           areaOpacity: 0.1,
           colors: ['#26C6DA', '#5C6BC0'],
           lineWidth: 3,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
-          legend: { position: 'bottom' },
-          chartArea: {left:50, top:20, width:"100%", height:"200px"}
+          chartArea: {width:"80%"}
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
@@ -2519,10 +2519,12 @@ app.directive('locationCapabilitiesChart', ['$http', function($http) {
         ]);
 
         var options = {
-          pieHole: 0.4,
+          pieHole: 0.7,
+          pieSliceText: "none",
           colors: [`#5C6BC0`,`#26C6DA`],
           legend: { position: 'bottom' },
-          chartArea: {left:0, top:20, width:"100%", height:"200px"}
+          chartArea: {top:10, width:"100%", height:"80%"},
+          pieSliceBorderColor: "transparent"
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart2'));
@@ -2643,8 +2645,8 @@ app.directive('locationClients', ['$http', function($http) {
           colors: ['#26C6DA'],
           lineWidth: 3,
           crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
-          legend: { position: 'bottom'},
-          chartArea: {left:30, top:20, width:"100%", height:"200px"}
+          legend: 'none',
+          chartArea: {width:"80%"}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart8'));
@@ -2725,10 +2727,12 @@ app.directive('locationBoxHealth', ['$http', function($http) {
         ]);
 
         var options = {
-          pieHole: 0.4,
+          pieHole: 0.7,
+          pieSliceText: "none",
           colors: [ `#66BB6A`, `#EC407A`, `#78909C`],
           legend: { position: 'bottom' },
-          chartArea: {left:0, top:20, width:"100%", height:"200px"}
+          chartArea: {top:10, width:"100%", height:"80%"},
+          pieSliceBorderColor: "transparent"
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart9'));
