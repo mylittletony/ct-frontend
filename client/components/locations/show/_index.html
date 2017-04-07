@@ -14,11 +14,11 @@
       <input type="time" ng-model="snapshotTime" placeholder="Time"></input>
     </md-input-container>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }"><span translate>1h</span></md-button>
-      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }"><span translate>6h</span></md-button>
-      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }"><span translate>1d</span></md-button>
-      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }"><span translate>7d</span></md-button>
-      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }"><span translate>30d</span></md-button>
+      <md-button ng-click="updateDuration('60m')" ng-class="{ 'active': duration === '60m' }"><span translate>1h</span></md-button>
+      <md-button ng-click="updateDuration('6h')" ng-class="{ 'active': duration === '6h' }"><span translate>6h</span></md-button>
+      <md-button ng-click="updateDuration('1d')" ng-class="{ 'active': duration === '1d' }"><span translate>1d</span></md-button>
+      <md-button ng-click="updateDuration('7d')" ng-class="{ 'active': duration === '7d' }"><span translate>7d</span></md-button>
+      <md-button ng-click="updateDuration('30d')" ng-class="{ 'active': duration === '30d' }"><span translate>30d</span></md-button>
     </md-button-group>
     <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
       <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>

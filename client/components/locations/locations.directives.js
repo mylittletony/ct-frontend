@@ -35,10 +35,40 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
 
+    function durationToSeconds(duration) {
+      switch(duration) {
+        case '60m':
+          return 3600
+          break;
+        case '6h':
+          return 21600
+          break;
+        case '1d':
+          return 86400
+          break;
+        case '7d':
+          return 604800
+          break;
+        case '30d':
+          return 2592000
+          break;
+        default:
+          console.log('Whatchu talking \'bout Willis');
+      }
+    }
+    scope.updateDuration = function(duration) {
+      scope.injectedObject.snapshot = {}
+      scope.injectedObject.snapshot.time = scope.snapshotTime;
+      scope.injectedObject.snapshot.date = scope.snapshotDate;
+      scope.injectedObject.snapshot.duration = durationToSeconds(duration);
+      scope.injectedObject.invoke();
+    };
+
   };
 
   return {
     scope: {
+      objectToInject: '='
     },
     link: link,
     controller: 'LocationsCtrl',
@@ -2336,7 +2366,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-app.directive('locationUsageChart', function() {
+app.directive('locationUsageChart', ['$http', function($http) {
 
   return {
     link: function(scope) {
@@ -2348,6 +2378,51 @@ app.directive('locationUsageChart', function() {
       });
 
       function chart() {
+
+        var metricUrl = [
+          'https://api.ctapp.io/api/v2/metrics?',
+          'location_id=',
+          '&start_time=',
+          '&end_time=',
+          '&metric_type=device.tx'
+        ];
+
+        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
+          var start = scope.snapshotTimeData.snapshot.date;
+          var startTime = scope.snapshotTimeData.snapshot.time;
+          start.setHours(startTime.getHours());
+          start.setMinutes(startTime.getMinutes());
+          start = Math.floor(Date.parse(start) / 1000);
+          console.log(start);
+          var end = start + scope.snapshotTimeData.snapshot.duration;
+        } else {
+          var now = Date.now();
+          var end = Math.floor(now / 1000);
+          var start = (end - 86400);
+        }
+
+        metricUrl[1] += scope.$parent.location.id;
+        metricUrl[2] += start;
+        metricUrl[3] += end;
+
+        var url = metricUrl.join('');
+
+        var req = {
+          method: 'GET',
+          url: url,
+          headers: {
+            'Token': 'token goes here'
+          }
+        };
+
+        $http(req).then(function successCallback(response) {
+          var json = response.data;
+
+          var dataTable = google.visualization.arrayToDataTable(json);
+
+        }, function errorCallback(response) {
+        });
+
         var data = google.visualization.arrayToDataTable([
           ['Time', 'Download', 'Upload'],
           ['10am',  200,      50],
@@ -2379,9 +2454,9 @@ app.directive('locationUsageChart', function() {
     },
     templateUrl: 'components/locations/show/_data_usage_chart.html',
   };
-});
+}]);
 
-app.directive('locationCapabilitiesChart', function() {
+app.directive('locationCapabilitiesChart', ['$http', function($http) {
 
   return {
     link: function(scope) {
@@ -2393,6 +2468,50 @@ app.directive('locationCapabilitiesChart', function() {
       });
 
       function chart() {
+
+        var metricUrl = [
+          'https://api.ctapp.io/api/v2/metrics?',
+          'location_id=',
+          '&start_time=',
+          '&end_time=',
+          '&metric_type=device.caps'
+        ];
+
+        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
+          var start = scope.snapshotTimeData.snapshot.date;
+          var startTime = scope.snapshotTimeData.snapshot.time;
+          start.setHours(startTime.getHours());
+          start.setMinutes(startTime.getMinutes());
+          start = Math.floor(Date.parse(start) / 1000);
+          var end = start + scope.snapshotTimeData.snapshot.duration;
+        } else {
+          var now = Date.now();
+          var end = Math.floor(now / 1000);
+          var start = (end - 86400);
+        }
+
+        metricUrl[1] += scope.$parent.location.id;
+        metricUrl[2] += start;
+        metricUrl[3] += end;
+
+        var url = metricUrl.join('');
+
+        var req = {
+          method: 'GET',
+          url: url,
+          headers: {
+            'Token': 'token goes here'
+          }
+        };
+
+        $http(req).then(function successCallback(response) {
+          var json = response.data;
+
+          var dataTable = google.visualization.arrayToDataTable(json);
+
+        }, function errorCallback(response) {
+        });
+
         var data = google.visualization.arrayToDataTable([
           ['Band', 'Percent'],
           ['2.4Ghz', 70],
@@ -2413,11 +2532,13 @@ app.directive('locationCapabilitiesChart', function() {
     },
     scope: {
       mac: '@',
-      loc: '@'
+      loc: '@',
+      objectToInject: '='
     },
+    require: '^locationShow',
     templateUrl: 'components/locations/show/_location_capabilities_chart.html',
   };
-});
+}]);
 
 app.directive('locationHealthReport', function() {
 
@@ -2430,501 +2551,19 @@ app.directive('locationHealthReport', function() {
   };
 });
 
-app.directive('deviceListShort', function() {
+app.directive('locationClients', ['$http', function($http) {
 
   return {
-    link: function(scope) {
+    link: function(scope, element, attrs, controller) {
 
-      window.google.charts.setOnLoadCallback(chart);
-      window.google.charts.setOnLoadCallback(chart2);
-      window.google.charts.setOnLoadCallback(chart3);
-      window.google.charts.setOnLoadCallback(chart4);
-      window.google.charts.setOnLoadCallback(chart5);
-
-      $(window).resize(function() {
-        if (this.resizeTO) {
-          clearTimeout(this.resizeTO);
+      scope.$watch('objectToInject', function (value) {
+        if(value){
+          scope.snapshotTimeData = value;
+          scope.snapshotTimeData.invoke = function(){
+            chart();
+          }
         }
-        this.resizeTO = setTimeout(function() {
-          $(this).trigger('resizeEnd');
-        }, 250);
       });
-
-      $(window).on('resizeEnd', function() {
-        chart();
-        chart2();
-        chart3();
-        chart4();
-        chart5();
-      });
-
-      function getOptions() {
-        return {
-          colors: [`#4caf50`, `#af504c`],
-          timeline: {
-                      colorByRowLabel:  false,
-                      showBarLabels: false,
-                      showRowLabels: false
-                    },
-          avoidOverlappingGridLines: false,
-          height: 100
-        };
-      }
-
-      function chart() {
-        var dataTable = new google.visualization.DataTable();
-
-        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-        dataTable.addColumn({ type: 'string', id: 'Status' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-
-        var response = {
-          "data": [
-            {
-                "timestamp": 1488786960000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488902580000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488962520000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489010940000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489055520000,
-                "value": 0
-            },
-            {
-                "timestamp": 1489137540000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489254120000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489273200000,
-                "value": 0
-            },
-            {
-                "timestamp": 1489526640000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489532400000,
-                "value": 1
-            }
-          ],
-          "start_time": 1487483542000,
-          "end_time": 1489542400000,
-          "location_id": 7193,
-          "series_type": "device.heartbeats"
-        };
-
-        var data = [];
-        var status;
-        var last_time;
-
-        for (var i = 0; i < response.data.length; i++) {
-          var this_time = response.data[i].timestamp
-          if (i != 0) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
-          }
-          if (response.data[i].value) {
-            status = 'Online';
-          } else {
-            status = 'Offline';
-          }
-          last_time = this_time;
-          if (i + 1 == response.data.length) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
-          }
-        };
-
-        var options = getOptions();
-        var element = document.getElementById('chart3');
-        var style = window.getComputedStyle(element);
-        var width = style.getPropertyValue('width');
-        options.width = width;
-
-        var chart = new google.visualization.Timeline(document.getElementById('chart3'));
-        chart.draw(dataTable, options);
-      }
-
-      function chart2() {
-        var dataTable = new google.visualization.DataTable();
-
-        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-        dataTable.addColumn({ type: 'string', id: 'Status' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-
-        var response = {
-          "data": [
-            {
-                "timestamp": 1488786960000,
-                "value": 0
-            },
-            {
-                "timestamp": 1488902580000,
-                "value": 0
-            },
-            {
-                "timestamp": 1488962520000,
-                "value": 0
-            },
-            {
-                "timestamp": 1489010940000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489055520000,
-                "value": 0
-            },
-            {
-                "timestamp": 1489137540000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489254120000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489273200000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489526640000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489532400000,
-                "value": 1
-            }
-          ],
-          "start_time": 1487483542000,
-          "end_time": 1489542400000,
-          "location_id": 7193,
-          "series_type": "device.heartbeats"
-        };
-
-        var data = [];
-        var status;
-        var last_time;
-
-        for (var i = 0; i < response.data.length; i++) {
-          var this_time = response.data[i].timestamp
-          if (i != 0) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
-          }
-          if (response.data[i].value) {
-            status = 'Online';
-          } else {
-            status = 'Offline';
-          }
-          last_time = this_time;
-          if (i + 1 == response.data.length) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
-          }
-        };
-
-        var options = getOptions();
-        var element = document.getElementById('chart4');
-        var style = window.getComputedStyle(element);
-        var width = style.getPropertyValue('width');
-        options.width = width;
-
-        var chart = new google.visualization.Timeline(document.getElementById('chart4'));
-        chart.draw(dataTable, options);
-
-      }
-
-      function chart3() {
-        var dataTable = new google.visualization.DataTable();
-
-        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-        dataTable.addColumn({ type: 'string', id: 'Status' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-
-        var response = {
-          "data": [
-            {
-                "timestamp": 1488786960000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488902580000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488962520000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489010940000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489055520000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489137540000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489254120000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489273200000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489526640000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489532400000,
-                "value": 1
-            }
-          ],
-          "start_time": 1487483542000,
-          "end_time": 1489542400000,
-          "location_id": 7193,
-          "series_type": "device.heartbeats"
-        };
-
-        var data = [];
-        var status;
-        var last_time;
-
-        for (var i = 0; i < response.data.length; i++) {
-          var this_time = response.data[i].timestamp
-          if (i != 0) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
-          }
-          if (response.data[i].value) {
-            status = 'Online';
-          } else {
-            status = 'Offline';
-          }
-          last_time = this_time;
-          if (i + 1 == response.data.length) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
-          }
-        };
-
-        var options = getOptions();
-        var element = document.getElementById('chart5');
-        var style = window.getComputedStyle(element);
-        var width = style.getPropertyValue('width');
-        options.width = width;
-
-        var chart = new google.visualization.Timeline(document.getElementById('chart5'));
-        chart.draw(dataTable, options);
-
-      }
-
-      function chart4() {
-        var dataTable = new google.visualization.DataTable();
-
-        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-        dataTable.addColumn({ type: 'string', id: 'Status' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-
-        var response = {
-          "data": [
-            {
-                "timestamp": 1488786960000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488902580000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488962520000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489010940000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489055520000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489137540000,
-                "value": 0
-            },
-            {
-                "timestamp": 1489254120000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489273200000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489526640000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489532400000,
-                "value": 1
-            }
-          ],
-          "start_time": 1487483542000,
-          "end_time": 1489542400000,
-          "location_id": 7193,
-          "series_type": "device.heartbeats"
-        };
-
-        var data = [];
-        var status;
-        var last_time;
-
-        for (var i = 0; i < response.data.length; i++) {
-          var this_time = response.data[i].timestamp
-          if (i != 0) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
-          }
-          if (response.data[i].value) {
-            status = 'Online';
-          } else {
-            status = 'Offline';
-          }
-          last_time = this_time;
-          if (i + 1 == response.data.length) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
-          }
-        };
-
-        var options = getOptions();
-        var element = document.getElementById('chart6');
-        var style = window.getComputedStyle(element);
-        var width = style.getPropertyValue('width');
-        options.width = width;
-
-        var chart = new google.visualization.Timeline(document.getElementById('chart6'));
-        chart.draw(dataTable, options);
-
-      }
-
-      function chart5() {
-        var dataTable = new google.visualization.DataTable();
-
-        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-        dataTable.addColumn({ type: 'string', id: 'Status' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-
-        var response = {
-          "data": [
-            {
-                "timestamp": 1488786960000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488902580000,
-                "value": 1
-            },
-            {
-                "timestamp": 1488962520000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489010940000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489055520000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489137540000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489254120000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489273200000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489526640000,
-                "value": 1
-            },
-            {
-                "timestamp": 1489532400000,
-                "value": 1
-            }
-          ],
-          "start_time": 1487483542000,
-          "end_time": 1489542400000,
-          "location_id": 7193,
-          "series_type": "device.heartbeats"
-        };
-
-        var data = [];
-        var status;
-        var last_time;
-
-        for (var i = 0; i < response.data.length; i++) {
-          var this_time = response.data[i].timestamp
-          if (i != 0) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
-          }
-          if (response.data[i].value) {
-            status = 'Online';
-          } else {
-            status = 'Offline';
-          }
-          last_time = this_time;
-          if (i + 1 == response.data.length) {
-            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
-          }
-        };
-
-        var options = getOptions();
-        var element = document.getElementById('chart7');
-        var style = window.getComputedStyle(element);
-        var width = style.getPropertyValue('width');
-        options.width = width;
-
-        var chart = new google.visualization.Timeline(document.getElementById('chart7'));
-        chart.draw(dataTable, options);
-
-      }
-
-
-    },
-    scope: {
-      mac: '@',
-      loc: '@'
-    },
-    templateUrl: 'components/locations/show/_devices_short.html',
-  };
-});
-
-
-app.directive('locationClients', function() {
-
-  return {
-    link: function(scope) {
 
       window.google.charts.setOnLoadCallback(chart);
 
@@ -2933,9 +2572,55 @@ app.directive('locationClients', function() {
       });
 
       function chart() {
+
+        var metricUrl = [
+          'https://api.ctapp.io/api/v2/metrics?',
+          'location_id=',
+          '&start_time=',
+          '&end_time=',
+          '&metric_type=clients.uniques'
+        ];
+
+        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
+          var start = scope.snapshotTimeData.snapshot.date;
+          var startTime = scope.snapshotTimeData.snapshot.time;
+          start.setHours(startTime.getHours());
+          start.setMinutes(startTime.getMinutes());
+          start = Math.floor(Date.parse(start) / 1000);
+          var end = start + scope.snapshotTimeData.snapshot.duration;
+        } else {
+          var now = Date.now();
+          var end = Math.floor(now / 1000);
+          var start = (end - 86400);
+        }
+
+        metricUrl[1] += scope.$parent.location.id;
+        metricUrl[2] += start;
+        metricUrl[3] += end;
+
+        var url = metricUrl.join('');
+
+        var req = {
+          method: 'GET',
+          url: url,
+          headers: {
+            'Token': 'token goes here'
+          }
+        };
+
+        $http(req).then(function successCallback(response) {
+          var json = response.data;
+
+          var dataTable = google.visualization.arrayToDataTable(json);
+
+        }, function errorCallback(response) {
+        });
+
         var data = new google.visualization.DataTable();
-        data.addColumn('number', 'Time'); // Implicit domain label col.
-        data.addColumn('number', 'Clients'); // Implicit series 1 data col.
+
+        data.addColumn('number', 'Time');
+        data.addColumn('number', 'Clients');
+
         data.addRows([
           [1000, 93],
           [1100, 87],
@@ -2964,18 +2649,19 @@ app.directive('locationClients', function() {
 
         var chart = new google.visualization.LineChart(document.getElementById('chart8'));
         chart.draw(data, options);
-
       }
     },
     scope: {
       mac: '@',
-      loc: '@'
+      loc: '@',
+      objectToInject: '='
     },
+    require: '^locationShow',
     templateUrl: 'components/locations/show/_unique_clients_graph.html',
   };
-});
+}]);
 
-app.directive('locationBoxHealth', function() {
+app.directive('locationBoxHealth', ['$http', function($http) {
 
   return {
     link: function(scope) {
@@ -2987,6 +2673,50 @@ app.directive('locationBoxHealth', function() {
       });
 
       function chart() {
+
+        var metricUrl = [
+          'https://api.ctapp.io/api/v2/metrics?',
+          'location_id=',
+          '&start_time=',
+          '&end_time=',
+          '&metric_type=clients.uniques'
+        ];
+
+        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
+          var start = scope.snapshotTimeData.snapshot.date;
+          var startTime = scope.snapshotTimeData.snapshot.time;
+          start.setHours(startTime.getHours());
+          start.setMinutes(startTime.getMinutes());
+          start = Math.floor(Date.parse(start) / 1000);
+          var end = start + scope.snapshotTimeData.snapshot.duration;
+        } else {
+          var now = Date.now();
+          var end = Math.floor(now / 1000);
+          var start = (end - 86400);
+        }
+
+        metricUrl[1] += scope.$parent.location.id;
+        metricUrl[2] += start;
+        metricUrl[3] += end;
+
+        var url = metricUrl.join('');
+
+        var req = {
+          method: 'GET',
+          url: url,
+          headers: {
+            'Token': 'token goes here'
+          }
+        };
+
+        $http(req).then(function successCallback(response) {
+          var json = response.data;
+
+          var dataTable = google.visualization.arrayToDataTable(json);
+
+        }, function errorCallback(response) {
+        });
+
         var data = google.visualization.arrayToDataTable([
           ['Status', 'Number'],
           ['Online', 47],
@@ -3003,13 +2733,14 @@ app.directive('locationBoxHealth', function() {
 
         var chart = new google.visualization.PieChart(document.getElementById('chart9'));
         chart.draw(data, options);
-
       }
     },
     scope: {
       mac: '@',
-      loc: '@'
+      loc: '@',
+      objectToInject: '='
     },
+    require: '^locationShow',
     templateUrl: 'components/locations/show/_location_box_health.html',
   };
-});
+}]);

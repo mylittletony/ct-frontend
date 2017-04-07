@@ -31,6 +31,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     $scope.loading = true;
     $scope.location = { slug: $routeParams.id };
+    $scope.injectedObject = {};
 
     function isOpen(section) {
       return menu.isSectionSelected(section);
