@@ -2404,7 +2404,7 @@ app.directive('locationCapabilitiesChart', function() {
           pieSliceText: "none",
           colors: [`#5C6BC0`,`#26C6DA`],
           legend: { position: 'bottom' },
-          chartArea: {left:0, top:20, width:"100%", height:"200px"}
+          chartArea: {top:10, width:"100%", height:"80%"}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart2'));
@@ -3000,7 +3000,7 @@ app.directive('locationBoxHealth', function() {
           pieSliceText: "none",
           colors: [ `#66BB6A`, `#EC407A`, `#78909C`],
           legend: { position: 'bottom' },
-          chartArea: {left:0, top:20, width:"100%", height:"200px"}
+          chartArea: {top:10, width:"100%", height:"80%"}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart9'));
