@@ -2400,7 +2400,7 @@ app.directive('locationCapabilitiesChart', function() {
         ]);
 
         var options = {
-          pieHole: 0.6,
+          pieHole: 0.7,
           pieSliceText: "none",
           colors: [`#5C6BC0`,`#26C6DA`],
           legend: { position: 'bottom' },
@@ -2997,7 +2997,7 @@ app.directive('locationBoxHealth', function() {
         ]);
 
         var options = {
-          pieHole: 0.6,
+          pieHole: 0.7,
           pieSliceText: "none",
           colors: [ `#66BB6A`, `#EC407A`, `#78909C`],
           legend: { position: 'bottom' },
