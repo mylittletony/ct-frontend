@@ -86,3 +86,24 @@ app.factory('Client', ['$resource', 'API_END_POINT',
     });
   }]);
 
+app.factory('ClientV2', ['$resource', 'API_END_POINT_V2',
+  function($resource, API_END_POINT){
+    return $resource(API_END_POINT + '/clients/:id/:action/:action_id',
+      {
+      },
+      {
+      query: {
+        method:'GET',
+        isArray: false
+      },
+      get: {
+        method:'GET',
+        params: {
+          location_id: '@location_id',
+          q: '@q',
+          id: '@id'
+        }
+      }
+    });
+  }]);
+

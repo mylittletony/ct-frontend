@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.clients.directives', []);
 
-app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', function(Client, Location, Report, GroupPolicy, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter) {
+app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPolicy', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', 'Auth', function(Client, ClientV2, Location, Report, GroupPolicy, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter, Auth) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -27,7 +27,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
       sort:       $routeParams.sort || 'lastseen',
-      direction:  $routeParams.direction || 'desc'
+      direction:  $routeParams.direction || 'desc',
+      v:          $routeParams.v
     };
 
     scope.onPaginate = function (page, limit) {
@@ -189,22 +190,9 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       }
     };
 
-    // var logout = function() {
-    //   scope.client.splash_status = 'dnat';
-    //   Client.logout({
-    //     location_id: scope.location.slug,
-    //     box_id: scope.client.slug,
-    //     id: scope.client.id
-    //   }).$promise.then(function(results) {
-    //     showToast(gettextCatalog.getString('Successfully disconnected client.'));
-    //   }, function(err) {
-    //     scope.client.splash_status = 'pass';
-    //     showErrors(err);
-    //   });
-    // };
-
     var getParams = function() {
       var params = {};
+      params.v           = scope.query.v;
       params.location_id = scope.location.slug;
       params.page        = scope.query.page;
       params.per         = scope.query.limit;
@@ -231,7 +219,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       hash.ap_mac         = scope.ap_mac;
       hash.client_mac     = scope.client_mac;
       hash.policy_id      = scope.policy_id;
-      // hash.presence       = scope.presence;
       hash.interval       = scope.interval;
       hash.period         = scope.period;
       hash.page           = scope.query.page;
@@ -240,6 +227,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       hash.direction      = scope.query.direction;
       hash.per            = scope.query.limit;
       hash.sort           = scope.query.sort;
+      hash.v              = scope.query.v;
       $location.search(hash);
       init();
     };
@@ -412,16 +400,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     }
     clientsCtrl.$inject = ['$scope'];
 
-    // We've remove the pusher notifications since the volume was getting too high
-    // Not implemented yet until we fix #331
-    // var poller;
-    // var poll = function() {
-    //   poller = $timeout(function() {
-    //     console.log('Refreshing device');
-    //     init();
-    //   }, 10000);
-    // };
-
     var init = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
@@ -431,8 +409,6 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
         scope.info        = results.info;
         scope._links      = results._links;
         scope.unique_aps  = results.unique_aps;
-        // loadPusher(scope.location.api_token);
-        // poll();
         deferred.resolve();
       }, function() {
         scope.loading_table = undefined;
@@ -492,9 +468,49 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     setInterval();
     createMenu();
 
-    init().then(clientsChart).then(groupPolicies).then(function() {
-      scope.loading = undefined;
-    });
+    var getLocation = function() {
+      var deferred = $q.defer();
+      Location.get({}, {id: scope.location.slug}).$promise.then(function(results) {
+        scope.location.id = results.id;
+        deferred.resolve();
+      }, function(err) {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var initV2 = function() {
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+
+      var params = getParams();
+      params.access_token = Auth.currentUser().api_token;
+      params.location_id = scope.location.id;
+      params.client_type = 'clients.list';
+
+      if (params.access_token === undefined || params.access_token === '') {
+        deferred.reject();
+      } else {
+        ClientV2.query(params).$promise.then(function(results) {
+          scope.clients = results.clients;
+          deferred.resolve();
+        }, function(err) {
+          scope.loading_table = undefined;
+          deferred.reject(err);
+        });
+      }
+      return deferred.promise;
+    };
+
+    if ($routeParams.v === '2') {
+      getLocation().then(initV2).then(function() {
+        scope.loading = undefined;
+      });
+    } else {
+      init().then(clientsChart).then(groupPolicies).then(function() {
+        scope.loading = undefined;
+      });
+    }
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       // if (channel) {
@@ -687,7 +703,7 @@ app.directive('clientsRangeButtons', ['$routeParams', '$location', '$route', 'Au
 
 }]);
 
-app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', 'gettextCatalog', '$q', 'GroupPolicy', '$filter', function(Client,ClientDetails,Report,$routeParams,menu,$pusher, $rootScope,showToast,showErrors,$mdDialog, $timeout, $location, gettextCatalog, $q, GroupPolicy, $filter) {
+app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', 'gettextCatalog', '$q', 'GroupPolicy', '$filter', function(Client, ClientV2, ClientDetails, Report, $routeParams, menu, $pusher, $rootScope, showToast, showErrors, $mdDialog, $timeout, $location, gettextCatalog, $q, GroupPolicy, $filter) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -1024,13 +1040,27 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
       });
     };
 
+    var initV2 = function() {
+      ClientV2.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
+        // ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
+        // scope.client    = results;
+        // scope.loading   = undefined;
+        // loadPusher(results.location_token);
+        // controller.$scope.$broadcast('loadClientChart');
+      });
+    };
+
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
         channel.unbind();
       }
     });
 
-    init();
+    if ($routeParams.v == '2') {
+      initV2();
+    } else {
+      init();
+    }
 
   };
 
