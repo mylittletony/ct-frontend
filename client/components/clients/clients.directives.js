@@ -1042,6 +1042,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
     var initV2 = function() {
       ClientV2.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
+        console.log(results);
         // ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
         // scope.client    = results;
         // scope.loading   = undefined;
