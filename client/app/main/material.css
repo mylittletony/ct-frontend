@@ -46,7 +46,7 @@ md-table-container::-webkit-scrollbar-thumb {
 }
 
 .md-toolbar-tools md-input-container {
-  margin-top: 50px;
+  margin-top: 49px;
 }
 
 .user-avatar {
@@ -658,4 +658,24 @@ md-card.highlight-section {
 
 .side-menu .divider {
   border-top-color: #263238;
+}
+
+/*charts-n-stuff*/
+
+.md-toolbar-tools .md-datepicker-button {
+  display:none;
+}
+
+.md-toolbar-tools ._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) {
+  left: 14px;
+  right: 0px;
+  width: auto;
+}
+
+div.google-visualization-tooltip {
+  z-index: 1;
+}
+
+.box-heartbeat svg g rect {
+  stroke-width: 0;
 }

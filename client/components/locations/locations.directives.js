@@ -2,7 +2,80 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', 'snapshotDateTimePicker', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog, snapshotDateTimePicker) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var channel;
+    scope.streamingUpdates = true;
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
+    };
+
+    scope.streamingUpdater = function() {
+      $rootScope.$broadcast('streaming', { enabled: scope.streamingUpdates });
+    };
+
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
+    scope.addDevice = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+    };
+
+    function durationToSeconds(duration) {
+      switch(duration) {
+        case '60m':
+          return 3600
+          break;
+        case '6h':
+          return 21600
+          break;
+        case '1d':
+          return 86400
+          break;
+        case '7d':
+          return 604800
+          break;
+        case '30d':
+          return 2592000
+          break;
+        default:
+          console.log('Whatchu talking \'bout Willis');
+      }
+    };
+
+    scope.updateDuration = function(duration) {
+      snapshotDateTimePicker.update(scope.snapshotDate, scope.snapshotTime, durationToSeconds(duration));
+    };
+
+  };
+
+  return {
+    scope: {
+      objectToInject: '='
+    },
+    link: link,
+    controller: 'LocationsCtrl',
+    templateUrl: 'components/locations/show/_index.html'
+  };
+
+}]);
+
+
+app.directive('locationDevices', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -42,7 +115,7 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
     },
     link: link,
     controller: 'LocationsCtrl',
-    templateUrl: 'components/locations/show/_index.html'
+    templateUrl: 'components/locations/show/_devices.html'
   };
 
 }]);
@@ -2288,3 +2361,462 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
   };
 
 }]);
+
+app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
+
+  return {
+    link: function(scope) {
+
+      scope.snapshotTime = snapshotDateTimePicker;
+      scope.$watch('snapshotTime.snapshotStartTime', chart);
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      $(window).resize(function() {
+        chart(true);
+      });
+
+      var dataTable;
+      var options;
+
+      function chart() {
+
+        if (resize !== true) {
+          var metricUrl = [
+            'https://api.ctapp.io/api/v2/metrics?',
+            'location_id=',
+            '&start_time=',
+            '&end_time=',
+            '&metric_type=device.tx',
+            '&access_token=access_token',
+            '&ap_mac=DC-9F-DB-98-0B-ED'
+          ];
+
+          if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+            var start = scope.snapshotTime.snapshotStartTime;
+            var end = scope.snapshotTime.snapshotEndTime;
+          } else {
+            var now = Date.now();
+            var end = Math.floor(now / 1000);
+            var start = (end - 86400);
+          }
+
+          Location.get({id: $routeParams.id}, function(result) {
+            metricUrl[1] += scope.$parent.location.id;
+            metricUrl[2] += start;
+            metricUrl[3] += end;
+
+            var url = metricUrl.join('');
+            metricUrl[4] = '&metric_type=device.rx'
+            var rxUrl = metricUrl.join('');
+
+            var req = {
+              method: 'GET',
+              url: url
+            };
+
+            $http(req).then(function successCallback(response) {
+              var req = {
+                method: 'GET',
+                url: rxUrl
+              };
+
+              var txJson = response.data.data;
+              var data = [];
+
+              $http(req).then(function successCallback(response) {
+
+                var rxJson = response.data.data;
+
+                var len = txJson.length;
+
+                for(var i = 0; i < len; i++) {
+                  data[i] = [ new Date(txJson[i].timestamp),
+                              null,
+                              (txJson[i].value / 1000000),
+                              (rxJson[i].value / 1000000)];
+                }
+
+                dataTable = new google.visualization.DataTable();
+
+                dataTable.addColumn('datetime', 'Time');
+                dataTable.addColumn('number', 'dummySeries');
+                dataTable.addColumn('number', 'tx');
+                dataTable.addColumn('number', 'rx');
+                dataTable.addRows(data);
+
+                options = {
+                  vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+                  legend: 'none',
+                  areaOpacity: 0.1,
+                  colors: ['#26C6DA', '#5C6BC0'],
+                  lineWidth: 3,
+                  crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
+                  chartArea: {width:"80%"},
+                  series: {
+                      0: { targetAxisIndex: 0, },
+                      1: { targetAxisIndex: 1, },
+                      2: { targetAxisIndex: 1, }
+                  },
+                  vAxes: {
+                      0: { textPosition: 'none' },
+                      1: {},
+                      2: {}
+                  }
+                };
+
+                var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
+                chart.draw(dataTable, options);
+
+              }, function errorCallback(response) {
+              });
+
+            }, function errorCallback(response) {
+            });
+          });
+        } else {
+          var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
+          chart.draw(dataTable, options);
+        }
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_data_usage_chart.html',
+  };
+}]);
+
+app.directive('locationCapabilitiesChart', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
+
+  return {
+    link: function(scope) {
+
+      scope.snapshotTime = snapshotDateTimePicker;
+      scope.$watch('snapshotTime.snapshotStartTime', chart);
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      $(window).resize(function() {
+        chart(true);
+      });
+
+      var dataTable;
+      var options;
+
+      function chart(resize=false) {
+
+        if (resize !== true) {
+          var metricUrl = [
+            'https://api.ctapp.io/api/v2/metrics?',
+            'location_id=',
+            '&start_time=',
+            '&end_time=',
+            '&metric_type=device.caps',
+            '&access_token=access_token',
+            '&ap_mac=DC-9F-DB-98-0B-ED'
+          ];
+
+          if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+            var start = scope.snapshotTime.snapshotStartTime;
+            var end = scope.snapshotTime.snapshotEndTime;
+          } else {
+            var now = Date.now();
+            var end = Math.floor(now / 1000);
+            var start = (end - 86400);
+          }
+
+          Location.get({id: $routeParams.id}, function(result) {
+            metricUrl[1] += result.id;
+            metricUrl[2] += start;
+            metricUrl[3] += end;
+
+            var url = metricUrl.join('');
+
+            var req = {
+              method: 'GET',
+              url: url
+            };
+
+            $http(req).then(function successCallback(response) {
+              var json = response.data.stats;
+              var data = json.map(function(x) {
+                var row = Object.values(x);
+                if (row[0] == 'two') {
+                  row[0] = '2.4Ghz'
+                } else if (row[0] == 'five') {
+                  row[0] = '5Ghz'
+                }
+                return row
+              });
+
+              dataTable = new google.visualization.DataTable();
+
+              dataTable.addColumn('string', 'Band');
+              dataTable.addColumn('number', 'Percent');
+              dataTable.addRows(data);
+
+              options = {
+                pieHole: 0.7,
+                pieSliceText: "none",
+                colors: [`#5C6BC0`,`#26C6DA`],
+                legend: { position: 'bottom' },
+                chartArea: {top:10, width:"100%", height:"80%"},
+                pieSliceBorderColor: "transparent"
+              };
+
+
+              var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+              chart.draw(dataTable, options)
+
+            }, function errorCallback(response) {
+            });
+          });
+        } else {
+          var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+          chart.draw(dataTable, options)
+        }
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@',
+      objectToInject: '='
+    },
+    require: '^locationShow',
+    templateUrl: 'components/locations/show/_location_capabilities_chart.html',
+  };
+}]);
+
+app.directive('locationHealthReport', function() {
+
+  return {
+    scope: {
+      mac: '@',
+      loc: '@'
+    },
+    templateUrl: 'components/locations/show/_health_report.html',
+  };
+});
+
+app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
+
+  return {
+    link: function(scope, element, attrs, controller) {
+
+      scope.snapshotTime = snapshotDateTimePicker;
+      scope.$watch('snapshotTime.snapshotStartTime', chart);
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      $(window).resize(function() {
+        chart(true);
+      });
+
+      var dataTable;
+      var options;
+
+      function chart(resize=false) {
+
+        if (resize !== true) {
+          var metricUrl = [
+            'https://api.ctapp.io/api/v2/metrics?',
+            'location_id=',
+            '&start_time=',
+            '&end_time=',
+            '&metric_type=client.uniques',
+            '&access_token=access_token',
+            '&ap_mac=DC-9F-DB-98-0B-ED'
+          ];
+
+          if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+            var start = scope.snapshotTime.snapshotStartTime;
+            var end = scope.snapshotTime.snapshotEndTime;
+          } else {
+            var now = Date.now();
+            var end = Math.floor(now / 1000);
+            var start = (end - 86400);
+          }
+
+          Location.get({id: $routeParams.id}, function(result) {
+            metricUrl[1] += result.id;
+            metricUrl[2] += start;
+            metricUrl[3] += end;
+
+            var url = metricUrl.join('');
+
+            var req = {
+              method: 'GET',
+              url: url
+            };
+
+            $http(req).then(function successCallback(response) {
+              var json = response.data.data;
+              var data = json.map(function(x) {
+                var row = Object.values(x);
+                row[0] = new Date(row[0]);
+                row[2] = row[1];
+                row[1] = null
+                return row
+              });
+
+              dataTable = new google.visualization.DataTable();
+
+              dataTable.addColumn('datetime', 'Time');
+              dataTable.addColumn('number', 'dummySeries');
+              dataTable.addColumn('number', 'Clients');
+              dataTable.addRows(data);
+
+              options = {
+                vAxis: {
+                  minValue: 0,
+                  gridlines: { color: "#EEEEEE"},
+                  baselineColor: '#BDBDBD'
+                },
+                hAxis: {
+                  gridlines: { color: 'transparent'},
+                  baselineColor: '#BDBDBD'
+                },
+                colors: ['#26C6DA'],
+                lineWidth: 3,
+                crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
+                legend: 'none',
+                chartArea: {width:"80%"},
+                series: {
+                    0: { targetAxisIndex: 0, },
+                    1: { targetAxisIndex: 1, }
+                },
+                vAxes: {
+                    0: { textPosition: 'none' },
+                    1: {}
+                }
+              };
+
+              var chart = new google.visualization.LineChart(document.getElementById('chart8'));
+              chart.draw(dataTable, options);
+
+            }, function errorCallback(response) {
+            });
+          });
+        } else {
+          var chart = new google.visualization.LineChart(document.getElementById('chart8'));
+          chart.draw(dataTable, options);
+        }
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@',
+      objectToInject: '='
+    },
+    require: '^locationShow',
+    templateUrl: 'components/locations/show/_unique_clients_graph.html',
+  };
+}]);
+
+app.directive('locationBoxHealth', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
+
+  return {
+    link: function(scope) {
+
+      window.google.charts.setOnLoadCallback(chart);
+
+      $(window).resize(function() {
+        chart();
+      });
+
+      function chart() {
+
+        // var metricUrl = [
+        //   'https://api.ctapp.io/api/v2/metrics?',
+        //   'location_id=',
+        //   '&start_time=',
+        //   '&end_time=',
+        //   '&metric_type=clients.uniques',
+        //   '&access_token=access_token'
+        // ];
+        //
+        // if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
+        //   var start = scope.snapshotTimeData.snapshot.date;
+        //   var startTime = scope.snapshotTimeData.snapshot.time;
+        //   start.setHours(startTime.getHours());
+        //   start.setMinutes(startTime.getMinutes());
+        //   start = Math.floor(Date.parse(start) / 1000);
+        //   var end = start + scope.snapshotTimeData.snapshot.duration;
+        // } else {
+        //   var now = Date.now();
+        //   var end = Math.floor(now / 1000);
+        //   var start = (end - 86400);
+        // }
+        //
+        // Location.get({id: $routeParams.id}, function(result) {
+        //   metricUrl[1] += result.id;
+        //   metricUrl[2] += start;
+        //   metricUrl[3] += end;
+        //
+        //   var url = metricUrl.join('');
+        //
+        //   var req = {
+        //     method: 'GET',
+        //     url: url
+        //   };
+        //
+        //   $http(req).then(function successCallback(response) {
+        //     var json = response.data;
+        //
+        //     var dataTable = google.visualization.arrayToDataTable(json);
+        //
+        //   }, function errorCallback(response) {
+        //   });
+        // });
+        var data = google.visualization.arrayToDataTable([
+          ['Status', 'Number'],
+          ['Online', 47],
+          ['Offline', 7],
+          ['New', 3]
+        ]);
+
+        var options = {
+          pieHole: 0.7,
+          pieSliceText: "none",
+          colors: [ `#66BB6A`, `#EC407A`, `#78909C`],
+          legend: { position: 'bottom' },
+          chartArea: {top:10, width:"100%", height:"80%"},
+          pieSliceBorderColor: "transparent"
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart9'));
+        chart.draw(data, options);
+      }
+    },
+    scope: {
+      mac: '@',
+      loc: '@',
+      objectToInject: '='
+    },
+    require: '^locationShow',
+    templateUrl: 'components/locations/show/_location_box_health.html',
+  };
+}]);
+
+app.factory('snapshotDateTimePicker', function() {
+  return {
+    snapshotStartTime: null,
+    snapshotEndTime: null,
+    update: function(date, time, duration) {
+      var start = date;
+      var startTime = time;
+      start.setHours(startTime.getHours());
+      start.setMinutes(startTime.getMinutes());
+      start = Math.floor(Date.parse(start) / 1000);
+      var end = start + duration;
+      this.snapshotStartTime = start;
+      this.snapshotEndTime = end;
+    },
+    clear: function() {
+      this.snapshotStartTime = null;
+      this.snapshotEndTime = null;
+    }
+  }
+});

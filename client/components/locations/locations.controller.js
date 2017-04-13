@@ -31,6 +31,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     $scope.loading = true;
     $scope.location = { slug: $routeParams.id };
+    $scope.injectedObject = {};
 
     function isOpen(section) {
       return menu.isSectionSelected(section);
@@ -67,10 +68,10 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
       menu.sections.push({
         name: gettextCatalog.getString('Devices'),
-        link: '/#/locations/' + $scope.location.slug,
+        link: '/#/locations/' + $scope.location.slug + '/devices',
         type: 'link',
         icon: 'router',
-        active: isActive('dashboard')
+        active: isActive('devices')
       });
 
       menu.sections.push({
