@@ -1,4 +1,4 @@
-access_token=access_token'use strict';
+'use strict';
 
 var app = angular.module('myApp.locations.directives', []);
 
