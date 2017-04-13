@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', 'snapshotDateTimePicker', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog, snapshotDateTimePicker) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -55,13 +55,10 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
         default:
           console.log('Whatchu talking \'bout Willis');
       }
-    }
+    };
+
     scope.updateDuration = function(duration) {
-      scope.injectedObject.snapshot = {}
-      scope.injectedObject.snapshot.time = scope.snapshotTime;
-      scope.injectedObject.snapshot.date = scope.snapshotDate;
-      scope.injectedObject.snapshot.duration = durationToSeconds(duration);
-      scope.injectedObject.invoke();
+      snapshotDateTimePicker.update(scope.snapshotDate, scope.snapshotTime, durationToSeconds(duration));
     };
 
   };
@@ -2366,10 +2363,13 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-app.directive('locationUsageChart', ['$http', function($http) {
+app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
 
   return {
     link: function(scope) {
+
+      scope.snapshotTime = snapshotDateTimePicker;
+      scope.$watch('snapshotTime.snapshotStartTime', chart);
 
       window.google.charts.setOnLoadCallback(chart);
 
@@ -2384,45 +2384,40 @@ app.directive('locationUsageChart', ['$http', function($http) {
           'location_id=',
           '&start_time=',
           '&end_time=',
-          '&metric_type=device.tx'
+          '&metric_type=device.tx',
+          '&access_token=access_token',
+          '&ap_mac=00-90-A9-A7-31-60'
         ];
 
-        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
-          var start = scope.snapshotTimeData.snapshot.date;
-          var startTime = scope.snapshotTimeData.snapshot.time;
-          start.setHours(startTime.getHours());
-          start.setMinutes(startTime.getMinutes());
-          start = Math.floor(Date.parse(start) / 1000);
-          console.log(start);
-          var end = start + scope.snapshotTimeData.snapshot.duration;
+        if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+          var start = scope.snapshotTime.snapshotStartTime;
+          var end = scope.snapshotTime.snapshotEndTime;
         } else {
           var now = Date.now();
           var end = Math.floor(now / 1000);
           var start = (end - 86400);
         }
 
-        metricUrl[1] += scope.$parent.location.id;
-        metricUrl[2] += start;
-        metricUrl[3] += end;
+        Location.get({id: $routeParams.id}, function(result) {
+          metricUrl[1] += scope.$parent.location.id;
+          metricUrl[2] += start;
+          metricUrl[3] += end;
 
-        var url = metricUrl.join('');
+          var url = metricUrl.join('');
 
-        var req = {
-          method: 'GET',
-          url: url,
-          headers: {
-            'Token': 'token goes here'
-          }
-        };
+          var req = {
+            method: 'GET',
+            url: url
+          };
 
-        $http(req).then(function successCallback(response) {
-          var json = response.data;
+          $http(req).then(function successCallback(response) {
+            var json = response.data;
 
-          var dataTable = google.visualization.arrayToDataTable(json);
+            var dataTable = google.visualization.arrayToDataTable(json);
 
-        }, function errorCallback(response) {
+          }, function errorCallback(response) {
+          });
         });
-
         var data = google.visualization.arrayToDataTable([
           ['Time', 'Download', 'Upload'],
           ['10am',  200,      50],
@@ -2456,10 +2451,13 @@ app.directive('locationUsageChart', ['$http', function($http) {
   };
 }]);
 
-app.directive('locationCapabilitiesChart', ['$http', function($http) {
+app.directive('locationCapabilitiesChart', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
 
   return {
     link: function(scope) {
+
+      scope.snapshotTime = snapshotDateTimePicker;
+      scope.$watch('snapshotTime.snapshotStartTime', chart);
 
       window.google.charts.setOnLoadCallback(chart);
 
@@ -2474,62 +2472,65 @@ app.directive('locationCapabilitiesChart', ['$http', function($http) {
           'location_id=',
           '&start_time=',
           '&end_time=',
-          '&metric_type=device.caps'
+          '&metric_type=device.caps',
+          '&access_token=access_token',
+          '&ap_mac=00-90-A9-A7-31-60'
         ];
 
-        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
-          var start = scope.snapshotTimeData.snapshot.date;
-          var startTime = scope.snapshotTimeData.snapshot.time;
-          start.setHours(startTime.getHours());
-          start.setMinutes(startTime.getMinutes());
-          start = Math.floor(Date.parse(start) / 1000);
-          var end = start + scope.snapshotTimeData.snapshot.duration;
+        if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+          var start = scope.snapshotTime.snapshotStartTime;
+          var end = scope.snapshotTime.snapshotEndTime;
         } else {
           var now = Date.now();
           var end = Math.floor(now / 1000);
           var start = (end - 86400);
         }
 
-        metricUrl[1] += scope.$parent.location.id;
-        metricUrl[2] += start;
-        metricUrl[3] += end;
+        Location.get({id: $routeParams.id}, function(result) {
+          metricUrl[1] += result.id;
+          metricUrl[2] += start;
+          metricUrl[3] += end;
 
-        var url = metricUrl.join('');
+          var url = metricUrl.join('');
 
-        var req = {
-          method: 'GET',
-          url: url,
-          headers: {
-            'Token': 'token goes here'
-          }
-        };
+          var req = {
+            method: 'GET',
+            url: url
+          };
 
-        $http(req).then(function successCallback(response) {
-          var json = response.data;
+          $http(req).then(function successCallback(response) {
+            var json = response.data.stats;
+            var data = json.map(function(x) {
+              var row = Object.values(x);
+              if (row[0] == 'two') {
+                row[0] = '2.4Ghz'
+              } else if (row[0] == 'five') {
+                row[0] = '5Ghz'
+              }
+              return row
+            });
 
-          var dataTable = google.visualization.arrayToDataTable(json);
+            var datatable = new google.visualization.DataTable();
 
-        }, function errorCallback(response) {
+            datatable.addColumn('string', 'Band');
+            datatable.addColumn('number', 'Percent');
+            datatable.addRows(data);
+
+            var options = {
+              pieHole: 0.7,
+              pieSliceText: "none",
+              colors: [`#5C6BC0`,`#26C6DA`],
+              legend: { position: 'bottom' },
+              chartArea: {top:10, width:"100%", height:"80%"},
+              pieSliceBorderColor: "transparent"
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+            chart.draw(datatable, options)
+
+          }, function errorCallback(response) {
+          });
         });
-
-        var data = google.visualization.arrayToDataTable([
-          ['Band', 'Percent'],
-          ['2.4Ghz', 70],
-          ['5Ghz', 30]
-        ]);
-
-        var options = {
-          pieHole: 0.7,
-          pieSliceText: "none",
-          colors: [`#5C6BC0`,`#26C6DA`],
-          legend: { position: 'bottom' },
-          chartArea: {top:10, width:"100%", height:"80%"},
-          pieSliceBorderColor: "transparent"
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart2'));
-        chart.draw(data, options);
-
       }
     },
     scope: {
@@ -2553,19 +2554,13 @@ app.directive('locationHealthReport', function() {
   };
 });
 
-app.directive('locationClients', ['$http', function($http) {
+app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
 
   return {
     link: function(scope, element, attrs, controller) {
 
-      scope.$watch('objectToInject', function (value) {
-        if(value){
-          scope.snapshotTimeData = value;
-          scope.snapshotTimeData.invoke = function(){
-            chart();
-          }
-        }
-      });
+      scope.snapshotTime = snapshotDateTimePicker;
+      scope.$watch('snapshotTime.snapshotStartTime', chart);
 
       window.google.charts.setOnLoadCallback(chart);
 
@@ -2580,77 +2575,68 @@ app.directive('locationClients', ['$http', function($http) {
           'location_id=',
           '&start_time=',
           '&end_time=',
-          '&metric_type=clients.uniques'
+          '&metric_type=client.uniques',
+          '&access_token=access_token'
         ];
 
-        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
-          var start = scope.snapshotTimeData.snapshot.date;
-          var startTime = scope.snapshotTimeData.snapshot.time;
-          start.setHours(startTime.getHours());
-          start.setMinutes(startTime.getMinutes());
-          start = Math.floor(Date.parse(start) / 1000);
-          var end = start + scope.snapshotTimeData.snapshot.duration;
+        if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+          var start = scope.snapshotTime.snapshotStartTime;
+          var end = scope.snapshotTime.snapshotEndTime;
         } else {
           var now = Date.now();
           var end = Math.floor(now / 1000);
           var start = (end - 86400);
         }
 
-        metricUrl[1] += scope.$parent.location.id;
-        metricUrl[2] += start;
-        metricUrl[3] += end;
+        Location.get({id: $routeParams.id}, function(result) {
+          metricUrl[1] += result.id;
+          metricUrl[2] += start;
+          metricUrl[3] += end;
 
-        var url = metricUrl.join('');
+          var url = metricUrl.join('');
 
-        var req = {
-          method: 'GET',
-          url: url,
-          headers: {
-            'Token': 'token goes here'
-          }
-        };
+          var req = {
+            method: 'GET',
+            url: url
+          };
 
-        $http(req).then(function successCallback(response) {
-          var json = response.data;
+          $http(req).then(function successCallback(response) {
+            var json = response.data.data;
+            var data = json.map(function(x) {
+              var row = Object.values(x);
+              row[0] = new Date(row[0]);
+              return row
+            });
 
-          var dataTable = google.visualization.arrayToDataTable(json);
+            var datatable = new google.visualization.DataTable();
 
-        }, function errorCallback(response) {
+            datatable.addColumn('datetime', 'Time');
+            datatable.addColumn('number', 'Clients');
+            datatable.addRows(data);
+
+            var options = {
+              vAxis: {
+                minValue: 0,
+                gridlines: { color: "#EEEEEE"},
+                baselineColor: '#BDBDBD'
+              },
+              hAxis: {
+                gridlines: { color: 'transparent'},
+                baselineColor: '#BDBDBD'
+              },
+              colors: ['#26C6DA'],
+              lineWidth: 3,
+              crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
+              legend: 'none',
+              chartArea: {width:"80%"}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart8'));
+            chart.draw(datatable, options);
+
+          }, function errorCallback(response) {
+          });
         });
-
-        var data = new google.visualization.DataTable();
-
-        data.addColumn('number', 'Time');
-        data.addColumn('number', 'Clients');
-
-        data.addRows([
-          [1000, 93],
-          [1100, 87],
-          [1200, 120],
-          [1300, 189],
-          [1400, 153],
-          [1500, 204]
-        ]);
-
-        var options = {
-          vAxis: {
-            minValue: 0,
-            gridlines: { color: "#EEEEEE"},
-            baselineColor: '#BDBDBD'
-          },
-          hAxis: {
-            gridlines: { color: 'transparent'},
-            baselineColor: '#BDBDBD'
-          },
-          colors: ['#26C6DA'],
-          lineWidth: 3,
-          crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
-          legend: 'none',
-          chartArea: {width:"80%"}
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('chart8'));
-        chart.draw(data, options);
       }
     },
     scope: {
@@ -2663,7 +2649,7 @@ app.directive('locationClients', ['$http', function($http) {
   };
 }]);
 
-app.directive('locationBoxHealth', ['$http', function($http) {
+app.directive('locationBoxHealth', ['$http', '$routeParams', 'Location', 'snapshotDateTimePicker', function($http, $routeParams, Location, snapshotDateTimePicker) {
 
   return {
     link: function(scope) {
@@ -2676,49 +2662,48 @@ app.directive('locationBoxHealth', ['$http', function($http) {
 
       function chart() {
 
-        var metricUrl = [
-          'https://api.ctapp.io/api/v2/metrics?',
-          'location_id=',
-          '&start_time=',
-          '&end_time=',
-          '&metric_type=clients.uniques'
-        ];
-
-        if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
-          var start = scope.snapshotTimeData.snapshot.date;
-          var startTime = scope.snapshotTimeData.snapshot.time;
-          start.setHours(startTime.getHours());
-          start.setMinutes(startTime.getMinutes());
-          start = Math.floor(Date.parse(start) / 1000);
-          var end = start + scope.snapshotTimeData.snapshot.duration;
-        } else {
-          var now = Date.now();
-          var end = Math.floor(now / 1000);
-          var start = (end - 86400);
-        }
-
-        metricUrl[1] += scope.$parent.location.id;
-        metricUrl[2] += start;
-        metricUrl[3] += end;
-
-        var url = metricUrl.join('');
-
-        var req = {
-          method: 'GET',
-          url: url,
-          headers: {
-            'Token': 'token goes here'
-          }
-        };
-
-        $http(req).then(function successCallback(response) {
-          var json = response.data;
-
-          var dataTable = google.visualization.arrayToDataTable(json);
-
-        }, function errorCallback(response) {
-        });
-
+        // var metricUrl = [
+        //   'https://api.ctapp.io/api/v2/metrics?',
+        //   'location_id=',
+        //   '&start_time=',
+        //   '&end_time=',
+        //   '&metric_type=clients.uniques',
+        //   '&access_token=access_token'
+        // ];
+        //
+        // if (scope.snapshotTimeData != undefined && scope.snapshotTimeData.snapshot != undefined) {
+        //   var start = scope.snapshotTimeData.snapshot.date;
+        //   var startTime = scope.snapshotTimeData.snapshot.time;
+        //   start.setHours(startTime.getHours());
+        //   start.setMinutes(startTime.getMinutes());
+        //   start = Math.floor(Date.parse(start) / 1000);
+        //   var end = start + scope.snapshotTimeData.snapshot.duration;
+        // } else {
+        //   var now = Date.now();
+        //   var end = Math.floor(now / 1000);
+        //   var start = (end - 86400);
+        // }
+        //
+        // Location.get({id: $routeParams.id}, function(result) {
+        //   metricUrl[1] += result.id;
+        //   metricUrl[2] += start;
+        //   metricUrl[3] += end;
+        //
+        //   var url = metricUrl.join('');
+        //
+        //   var req = {
+        //     method: 'GET',
+        //     url: url
+        //   };
+        //
+        //   $http(req).then(function successCallback(response) {
+        //     var json = response.data;
+        //
+        //     var dataTable = google.visualization.arrayToDataTable(json);
+        //
+        //   }, function errorCallback(response) {
+        //   });
+        // });
         var data = google.visualization.arrayToDataTable([
           ['Status', 'Number'],
           ['Online', 47],
@@ -2748,3 +2733,24 @@ app.directive('locationBoxHealth', ['$http', function($http) {
     templateUrl: 'components/locations/show/_location_box_health.html',
   };
 }]);
+
+app.factory('snapshotDateTimePicker', function() {
+  return {
+    snapshotStartTime: null,
+    snapshotEndTime: null,
+    update: function(date, time, duration) {
+      var start = date;
+      var startTime = time;
+      start.setHours(startTime.getHours());
+      start.setMinutes(startTime.getMinutes());
+      start = Math.floor(Date.parse(start) / 1000);
+      var end = start + duration;
+      this.snapshotStartTime = start;
+      this.snapshotEndTime = end;
+    },
+    clear: function() {
+      this.snapshotStartTime = null;
+      this.snapshotEndTime = null;
+    }
+  }
+});
