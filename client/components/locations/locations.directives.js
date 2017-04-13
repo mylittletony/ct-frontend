@@ -2440,7 +2440,7 @@ app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snaps
             colors: ['#26C6DA', '#5C6BC0'],
             lineWidth: 3,
             crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
-            chartArea: {width:"80%"}
+            chartArea: {width:"90%", height:"90%"}
           };
         }
 
@@ -2648,7 +2648,7 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
                 lineWidth: 3,
                 crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
                 legend: 'none',
-                chartArea: {width:"80%"}
+                chartArea: {width:"90%", height:"90%"}
               };
 
               var chart = new google.visualization.LineChart(document.getElementById('chart8'));
