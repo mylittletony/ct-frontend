@@ -2683,7 +2683,6 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
                 lineWidth: 3,
                 crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
                 legend: 'none',
-<<<<<<< HEAD
                 chartArea: {width:"80%"},
                 series: {
                     0: { targetAxisIndex: 0, },
@@ -2693,9 +2692,6 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
                     0: { textPosition: 'none' },
                     1: {}
                 }
-=======
-                chartArea: {width:"90%", height:"190"}
->>>>>>> a1b0f117b2d5ccb1c01294d2c1047c97ce42cf3c
               };
 
               var chart = new google.visualization.LineChart(document.getElementById('chart8'));
