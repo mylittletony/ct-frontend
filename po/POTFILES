@@ -158,6 +158,7 @@
 ../client/components/networks/_create.html
 ../client/components/networks/_edit_ssid.html
 ../client/components/networks/_radtest.html
+../client/components/networks/_share_network.html
 ../client/components/payloads/_run_payload.html
 ../client/components/registrations/_create.html
 ../client/components/registrations/_flow.html
@@ -269,6 +270,8 @@
 ../client/components/views/group_policies/_show.html
 ../client/components/views/group_policies/index.html
 ../client/components/views/group_policies/show.html
+../client/components/views/main/promos.tmpl.html
+../client/components/views/main/upgrade.tmpl.html
 ../client/components/views/messages/_create.html
 ../client/components/views/messages/_index.html
 ../client/components/views/operations/_index.html

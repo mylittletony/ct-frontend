@@ -84,11 +84,11 @@
               <span ng-if="type == 'failures'" translate>{{ client_mac }} Transmission Failures</span>
             </span>
             <span class="md-subhead">
-              <span ng-if="type == 'mcs'" translate>{{ (fn || 'average') | titleCase }} client MCS values</span>
-              <span ng-if="type == 'signal'" translate>{{ (fn || 'average') | titleCase }} signal, noise and SNR values</span>
-              <span ng-if="type == 'tx'" translate>{{ (fn || 'average') | titleCase }} network throughput</span>
-              <span ng-if="type == 'usage'" translate>{{ (fn || 'average') | titleCase }} aggregated network usage</span>
-              <span ng-if="type == 'failures'" translate>{{ (fn || 'average') | titleCase }} transmission packets that failed</span>
+              <span ng-if="type == 'mcs'" translate>{{ (fn.key || 'average') | titleCase | translate }} client MCS values</span>
+              <span ng-if="type == 'signal'" translate>{{ (fn.key || 'average') | titleCase | translate }} signal, noise and SNR values</span>
+              <span ng-if="type == 'tx'" translate>{{ (fn.key || 'average') | titleCase | translate }} network throughput</span>
+              <span ng-if="type == 'usage'" translate>{{ (fn.key || 'average') | titleCase | translate }} aggregated network usage</span>
+              <span ng-if="type == 'failures'" translate>{{ (fn.key || 'average') | titleCase | translate }} transmission packets that failed</span>
             </span>
           </md-card-header-text>
           <div flex></div>
@@ -219,7 +219,12 @@
                     <md-icon ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
                   </td md-cell>
                   <td md-cell ng-show="columns.device_name">
-                    <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.name || client.device_name | emptyFilter | truncate:20 }}</a><br>
+                    <span ng-if="!client.id">
+                      <a href="/#/locations/{{ location.slug }}/clients/{{ client.client_mac }}?v=2">{{ client.name || client.device_name | emptyFilter | truncate:20 }}</a><br>
+                    </span>
+                    <span ng-if="client.id">
+                      <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.name || client.device_name | emptyFilter | truncate:20 }}</a><br>
+                    </span>
                     <span hide show-sm>
                       <small>{{ client.client_mac }}</small>
                     </span>

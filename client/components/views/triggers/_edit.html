@@ -350,6 +350,11 @@
                       Deleted
                     </translate>
                   </md-radio-button>
+                  <md-radio-button value="network.share_email">
+                    <translate>
+                      Share Network Details
+                    </translate>
+                  </md-radio-button>
                 </span>
               </span>
 
@@ -799,7 +804,7 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-content>
-              <trigger-tags type="{{trigger.type}}" channel="{{trigger.channel}}"></trigger-tags>
+              <trigger-tags type="{{trigger.type}}" channel="{{trigger.channel}}" location="{{ location.slug }}"></trigger-tags>
               <span channel-types ver='{{ trigger.channel }}'></span>
             </md-card-content>
           </md-card>

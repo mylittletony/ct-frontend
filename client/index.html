@@ -31,8 +31,9 @@
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
   <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
-  <link rel="stylesheet" href="bower_components/dragula.js/dist/dragula.css" />
   <link rel="stylesheet" href="bower_components/jquery-minicolors/jquery.minicolors.css" />
+  <link rel="stylesheet" href="bower_components/emojione/assets/css/emojione.css" />
+  <link rel="stylesheet" href="bower_components/dragula.js/dist/dragula.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,client}) app/app.css -->
@@ -42,6 +43,8 @@
   <link rel="stylesheet" href="app/main/material.css">
   <!-- endinjector -->
   <!-- endbuild -->
+
+  <link rel="stylesheet" href="bower_components/emojionearea/dist/emojionearea.min.css">
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -303,17 +306,16 @@
   <script src="bower_components/angular-payments/lib/angular-payments.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="bower_components/ngstorage/ngStorage.js"></script>
   <script src="bower_components/pusher-angular/lib/pusher-angular.js"></script>
   <script src="bower_components/urijs/src/SecondLevelDomains.js"></script>
   <script src="bower_components/urijs/src/URI.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
-  <script src="bower_components/angular-aria/angular-aria.js"></script>
-  <script src="bower_components/angular-messages/angular-messages.js"></script>
   <script src="bower_components/angular-material/angular-material.js"></script>
   <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
-  <script src="bower_components/dragula.js/dist/dragula.js"></script>
   <script src="bower_components/jquery-minicolors/jquery.minicolors.js"></script>
   <script src="bower_components/angular-minicolors/angular-minicolors.js"></script>
   <script src="bower_components/filepicker-js-bower/filepicker.min.js"></script>
@@ -323,6 +325,10 @@
   <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
   <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
   <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
+  <script src="bower_components/emojione/lib/js/emojione.js"></script>
+  <script src="bower_components/jquery-textcomplete/dist/jquery.textcomplete.js"></script>
+  <script src="bower_components/emojionearea/dist/emojionearea.js"></script>
+  <script src="bower_components/dragula.js/dist/dragula.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -507,15 +513,6 @@
       });
     }};
   </script>
-
-  <!-- <script> -->
-  <!--   !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments); -->
-  <!--   },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js', -->
-  <!--   a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script'); -->
-  <!--   // Insert Twitter Pixel ID and Standard Event data below -->
-  <!--   twq('init','nw5lu'); -->
-  <!--   twq('track','PageView'); -->
-  <!-- </script> -->
 
   <script type="text/javascript" src="https://cucumber.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/o5sjd3/100023/c/1000.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=72f0304a"></script>
 
