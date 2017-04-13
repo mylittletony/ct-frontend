@@ -2374,69 +2374,75 @@ app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snaps
       window.google.charts.setOnLoadCallback(chart);
 
       $(window).resize(function() {
-        chart();
+        chart(true);
       });
 
-      function chart() {
+      var dataTable;
+      var options;
+      var data;
 
-        var metricUrl = [
-          'https://api.ctapp.io/api/v2/metrics?',
-          'location_id=',
-          '&start_time=',
-          '&end_time=',
-          '&metric_type=device.tx',
-          '&access_token=access_token',
-          '&ap_mac=00-90-A9-A7-31-60'
-        ];
+      function chart(resize=false) {
 
-        if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
-          var start = scope.snapshotTime.snapshotStartTime;
-          var end = scope.snapshotTime.snapshotEndTime;
-        } else {
-          var now = Date.now();
-          var end = Math.floor(now / 1000);
-          var start = (end - 86400);
-        }
+        if (!resize) {
+          var metricUrl = [
+            'https://api.ctapp.io/api/v2/metrics?',
+            'location_id=',
+            '&start_time=',
+            '&end_time=',
+            '&metric_type=device.tx',
+            '&access_token=access_token',
+            '&ap_mac=00-90-A9-A7-31-60'
+          ];
 
-        Location.get({id: $routeParams.id}, function(result) {
-          metricUrl[1] += scope.$parent.location.id;
-          metricUrl[2] += start;
-          metricUrl[3] += end;
+          if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+            var start = scope.snapshotTime.snapshotStartTime;
+            var end = scope.snapshotTime.snapshotEndTime;
+          } else {
+            var now = Date.now();
+            var end = Math.floor(now / 1000);
+            var start = (end - 86400);
+          }
 
-          var url = metricUrl.join('');
+          Location.get({id: $routeParams.id}, function(result) {
+            metricUrl[1] += scope.$parent.location.id;
+            metricUrl[2] += start;
+            metricUrl[3] += end;
 
-          var req = {
-            method: 'GET',
-            url: url
-          };
+            var url = metricUrl.join('');
 
-          $http(req).then(function successCallback(response) {
-            var json = response.data;
+            var req = {
+              method: 'GET',
+              url: url
+            };
 
-            var dataTable = google.visualization.arrayToDataTable(json);
+            $http(req).then(function successCallback(response) {
+              var json = response.data;
 
-          }, function errorCallback(response) {
+              dataTable = google.visualization.arrayToDataTable(json);
+
+            }, function errorCallback(response) {
+            });
           });
-        });
-        var data = google.visualization.arrayToDataTable([
-          ['Time', 'Download', 'Upload'],
-          ['10am',  200,      50],
-          ['11am',  450,     210],
-          ['12am',  475,     280],
-          ['1pm',   521,     350],
-          ['2pm',   724,     411],
-          ['3pm',   911,     696]
-        ]);
+          data = google.visualization.arrayToDataTable([
+            ['Time', 'Download', 'Upload'],
+            ['10am',  200,      50],
+            ['11am',  450,     210],
+            ['12am',  475,     280],
+            ['1pm',   521,     350],
+            ['2pm',   724,     411],
+            ['3pm',   911,     696]
+          ]);
 
-        var options = {
-          vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
-          legend: 'none',
-          areaOpacity: 0.1,
-          colors: ['#26C6DA', '#5C6BC0'],
-          lineWidth: 3,
-          crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
-          chartArea: {width:"80%"}
-        };
+          options = {
+            vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+            legend: 'none',
+            areaOpacity: 0.1,
+            colors: ['#26C6DA', '#5C6BC0'],
+            lineWidth: 3,
+            crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
+            chartArea: {width:"80%"}
+          };
+        }
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
         chart.draw(data, options);
@@ -2462,75 +2468,84 @@ app.directive('locationCapabilitiesChart', ['$http', '$routeParams', 'Location',
       window.google.charts.setOnLoadCallback(chart);
 
       $(window).resize(function() {
-        chart();
+        chart(true);
       });
 
-      function chart() {
+      var dataTable;
+      var options;
 
-        var metricUrl = [
-          'https://api.ctapp.io/api/v2/metrics?',
-          'location_id=',
-          '&start_time=',
-          '&end_time=',
-          '&metric_type=device.caps',
-          '&access_token=access_token',
-          '&ap_mac=00-90-A9-A7-31-60'
-        ];
+      function chart(resize=false) {
 
-        if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
-          var start = scope.snapshotTime.snapshotStartTime;
-          var end = scope.snapshotTime.snapshotEndTime;
-        } else {
-          var now = Date.now();
-          var end = Math.floor(now / 1000);
-          var start = (end - 86400);
-        }
+        if (!resize) {
+          var metricUrl = [
+            'https://api.ctapp.io/api/v2/metrics?',
+            'location_id=',
+            '&start_time=',
+            '&end_time=',
+            '&metric_type=device.caps',
+            '&access_token=access_token',
+            '&ap_mac=00-90-A9-A7-31-60'
+          ];
 
-        Location.get({id: $routeParams.id}, function(result) {
-          metricUrl[1] += result.id;
-          metricUrl[2] += start;
-          metricUrl[3] += end;
+          if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+            var start = scope.snapshotTime.snapshotStartTime;
+            var end = scope.snapshotTime.snapshotEndTime;
+          } else {
+            var now = Date.now();
+            var end = Math.floor(now / 1000);
+            var start = (end - 86400);
+          }
 
-          var url = metricUrl.join('');
+          Location.get({id: $routeParams.id}, function(result) {
+            metricUrl[1] += result.id;
+            metricUrl[2] += start;
+            metricUrl[3] += end;
 
-          var req = {
-            method: 'GET',
-            url: url
-          };
+            var url = metricUrl.join('');
 
-          $http(req).then(function successCallback(response) {
-            var json = response.data.stats;
-            var data = json.map(function(x) {
-              var row = Object.values(x);
-              if (row[0] == 'two') {
-                row[0] = '2.4Ghz'
-              } else if (row[0] == 'five') {
-                row[0] = '5Ghz'
-              }
-              return row
-            });
-
-            var datatable = new google.visualization.DataTable();
-
-            datatable.addColumn('string', 'Band');
-            datatable.addColumn('number', 'Percent');
-            datatable.addRows(data);
-
-            var options = {
-              pieHole: 0.7,
-              pieSliceText: "none",
-              colors: [`#5C6BC0`,`#26C6DA`],
-              legend: { position: 'bottom' },
-              chartArea: {top:10, width:"100%", height:"80%"},
-              pieSliceBorderColor: "transparent"
+            var req = {
+              method: 'GET',
+              url: url
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('chart2'));
-            chart.draw(datatable, options)
+            $http(req).then(function successCallback(response) {
+              var json = response.data.stats;
+              var data = json.map(function(x) {
+                var row = Object.values(x);
+                if (row[0] == 'two') {
+                  row[0] = '2.4Ghz'
+                } else if (row[0] == 'five') {
+                  row[0] = '5Ghz'
+                }
+                return row
+              });
 
-          }, function errorCallback(response) {
+              dataTable = new google.visualization.DataTable();
+
+              dataTable.addColumn('string', 'Band');
+              dataTable.addColumn('number', 'Percent');
+              dataTable.addRows(data);
+
+              options = {
+                pieHole: 0.7,
+                pieSliceText: "none",
+                colors: [`#5C6BC0`,`#26C6DA`],
+                legend: { position: 'bottom' },
+                chartArea: {top:10, width:"100%", height:"80%"},
+                pieSliceBorderColor: "transparent"
+              };
+
+
+              var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+              chart.draw(dataTable, options)
+
+            }, function errorCallback(response) {
+            });
           });
-        });
+        } else {
+          var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+          chart.draw(dataTable, options)
+        }
       }
     },
     scope: {
@@ -2565,78 +2580,87 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
       window.google.charts.setOnLoadCallback(chart);
 
       $(window).resize(function() {
-        chart();
+        chart(true);
       });
 
-      function chart() {
+      var dataTable;
+      var options;
 
-        var metricUrl = [
-          'https://api.ctapp.io/api/v2/metrics?',
-          'location_id=',
-          '&start_time=',
-          '&end_time=',
-          '&metric_type=client.uniques',
-          '&access_token=access_token'
-        ];
+      function chart(resize=false) {
 
-        if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
-          var start = scope.snapshotTime.snapshotStartTime;
-          var end = scope.snapshotTime.snapshotEndTime;
-        } else {
-          var now = Date.now();
-          var end = Math.floor(now / 1000);
-          var start = (end - 86400);
-        }
+        if (!resize) {
+          var metricUrl = [
+            'https://api.ctapp.io/api/v2/metrics?',
+            'location_id=',
+            '&start_time=',
+            '&end_time=',
+            '&metric_type=client.uniques',
+            '&access_token=access_token',
+            '&ap_mac=00-90-A9-A7-31-60'
+          ];
 
-        Location.get({id: $routeParams.id}, function(result) {
-          metricUrl[1] += result.id;
-          metricUrl[2] += start;
-          metricUrl[3] += end;
+          if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
+            var start = scope.snapshotTime.snapshotStartTime;
+            var end = scope.snapshotTime.snapshotEndTime;
+          } else {
+            var now = Date.now();
+            var end = Math.floor(now / 1000);
+            var start = (end - 86400);
+          }
 
-          var url = metricUrl.join('');
+          Location.get({id: $routeParams.id}, function(result) {
+            metricUrl[1] += result.id;
+            metricUrl[2] += start;
+            metricUrl[3] += end;
 
-          var req = {
-            method: 'GET',
-            url: url
-          };
+            var url = metricUrl.join('');
 
-          $http(req).then(function successCallback(response) {
-            var json = response.data.data;
-            var data = json.map(function(x) {
-              var row = Object.values(x);
-              row[0] = new Date(row[0]);
-              return row
-            });
-
-            var datatable = new google.visualization.DataTable();
-
-            datatable.addColumn('datetime', 'Time');
-            datatable.addColumn('number', 'Clients');
-            datatable.addRows(data);
-
-            var options = {
-              vAxis: {
-                minValue: 0,
-                gridlines: { color: "#EEEEEE"},
-                baselineColor: '#BDBDBD'
-              },
-              hAxis: {
-                gridlines: { color: 'transparent'},
-                baselineColor: '#BDBDBD'
-              },
-              colors: ['#26C6DA'],
-              lineWidth: 3,
-              crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
-              legend: 'none',
-              chartArea: {width:"80%"}
+            var req = {
+              method: 'GET',
+              url: url
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart8'));
-            chart.draw(datatable, options);
+            $http(req).then(function successCallback(response) {
+              var json = response.data.data;
+              var data = json.map(function(x) {
+                var row = Object.values(x);
+                row[0] = new Date(row[0]);
+                return row
+              });
 
-          }, function errorCallback(response) {
+              dataTable = new google.visualization.DataTable();
+
+              dataTable.addColumn('datetime', 'Time');
+              dataTable.addColumn('number', 'Clients');
+              dataTable.addRows(data);
+
+              options = {
+                vAxis: {
+                  minValue: 0,
+                  gridlines: { color: "#EEEEEE"},
+                  baselineColor: '#BDBDBD'
+                },
+                hAxis: {
+                  gridlines: { color: 'transparent'},
+                  baselineColor: '#BDBDBD'
+                },
+                colors: ['#26C6DA'],
+                lineWidth: 3,
+                crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
+                legend: 'none',
+                chartArea: {width:"80%"}
+              };
+
+              var chart = new google.visualization.LineChart(document.getElementById('chart8'));
+              chart.draw(dataTable, options);
+
+            }, function errorCallback(response) {
+            });
           });
-        });
+        } else {
+          var chart = new google.visualization.LineChart(document.getElementById('chart8'));
+          chart.draw(dataTable, options);
+        }
       }
     },
     scope: {
