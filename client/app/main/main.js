@@ -296,6 +296,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
+    when('/locations/:id/snapshot', {
+      templateUrl: 'components/locations/show/snapshot.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired },
+      reloadOnSearch: false
+    }).
     when('/locations/:id/map', {
       templateUrl: 'components/locations/show/map.html',
       controller: 'LocationsCtrl as lc',
