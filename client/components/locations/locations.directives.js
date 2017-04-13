@@ -2379,7 +2379,7 @@ app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snaps
       var dataTable;
       var options;
 
-      function chart(resize=false) {
+      function chart() {
 
         if (resize !== true) {
           var metricUrl = [
