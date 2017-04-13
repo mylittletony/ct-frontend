@@ -2379,11 +2379,10 @@ app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snaps
 
       var dataTable;
       var options;
-      var data;
 
       function chart(resize=false) {
 
-        if (!resize) {
+        if (resize !== true) {
           var metricUrl = [
             'https://api.ctapp.io/api/v2/metrics?',
             'location_id=',
@@ -2391,7 +2390,7 @@ app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snaps
             '&end_time=',
             '&metric_type=device.tx',
             '&access_token=access_token',
-            '&ap_mac=00-90-A9-A7-31-60'
+            '&ap_mac=DC-9F-DB-98-0B-ED'
           ];
 
           if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
@@ -2409,6 +2408,8 @@ app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snaps
             metricUrl[3] += end;
 
             var url = metricUrl.join('');
+            metricUrl[4] = '&metric_type=device.rx'
+            var rxUrl = metricUrl.join('');
 
             var req = {
               method: 'GET',
@@ -2416,37 +2417,72 @@ app.directive('locationUsageChart', ['$http', '$routeParams', 'Location', 'snaps
             };
 
             $http(req).then(function successCallback(response) {
-              var json = response.data;
+              var req = {
+                method: 'GET',
+                url: rxUrl
+              };
 
-              dataTable = google.visualization.arrayToDataTable(json);
+              var txJson = response.data.data;
+              var data = [];
+
+              $http(req).then(function successCallback(response) {
+
+                var rxJson = response.data.data;
+
+                console.log(txJson);
+                console.log(rxJson);
+                var len = txJson.length;
+
+                for(var i = 0; i < len; i++) {
+                  data[i] = [ new Date(txJson[i].timestamp),
+                              null,
+                              (txJson[i].value / 1000000),
+                              (rxJson[i].value / 1000000)];
+                }
+
+                dataTable = new google.visualization.DataTable();
+
+                console.log(data[0][2] + 5);
+
+                dataTable.addColumn('datetime', 'Time');
+                dataTable.addColumn('number', 'dummySeries');
+                dataTable.addColumn('number', 'tx');
+                dataTable.addColumn('number', 'rx');
+                dataTable.addRows(data);
+
+                options = {
+                  vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
+                  legend: 'none',
+                  areaOpacity: 0.1,
+                  colors: ['#26C6DA', '#5C6BC0'],
+                  lineWidth: 3,
+                  crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
+                  chartArea: {width:"80%"},
+                  series: {
+                      0: { targetAxisIndex: 0, },
+                      1: { targetAxisIndex: 1, },
+                      2: { targetAxisIndex: 1, }
+                  },
+                  vAxes: {
+                      0: { textPosition: 'none' },
+                      1: {},
+                      2: {}
+                  }
+                };
+
+                var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
+                chart.draw(dataTable, options);
+
+              }, function errorCallback(response) {
+              });
 
             }, function errorCallback(response) {
             });
           });
-          data = google.visualization.arrayToDataTable([
-            ['Time', 'Download', 'Upload'],
-            ['10am',  200,      50],
-            ['11am',  450,     210],
-            ['12am',  475,     280],
-            ['1pm',   521,     350],
-            ['2pm',   724,     411],
-            ['3pm',   911,     696]
-          ]);
-
-          options = {
-            vAxis: { minValue: 0, gridlines: { color: "#EEEEEE"} , baselineColor: '#BDBDBD'},
-            legend: 'none',
-            areaOpacity: 0.1,
-            colors: ['#26C6DA', '#5C6BC0'],
-            lineWidth: 3,
-            crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD" },
-            chartArea: {width:"80%"}
-          };
+        } else {
+          var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
+          chart.draw(dataTable, options);
         }
-
-        var chart = new google.visualization.AreaChart(document.getElementById('chart1'));
-        chart.draw(data, options);
-
       }
     },
     scope: {
@@ -2476,7 +2512,7 @@ app.directive('locationCapabilitiesChart', ['$http', '$routeParams', 'Location',
 
       function chart(resize=false) {
 
-        if (!resize) {
+        if (resize !== true) {
           var metricUrl = [
             'https://api.ctapp.io/api/v2/metrics?',
             'location_id=',
@@ -2484,7 +2520,7 @@ app.directive('locationCapabilitiesChart', ['$http', '$routeParams', 'Location',
             '&end_time=',
             '&metric_type=device.caps',
             '&access_token=access_token',
-            '&ap_mac=00-90-A9-A7-31-60'
+            '&ap_mac=DC-9F-DB-98-0B-ED'
           ];
 
           if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
@@ -2588,7 +2624,7 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
 
       function chart(resize=false) {
 
-        if (!resize) {
+        if (resize !== true) {
           var metricUrl = [
             'https://api.ctapp.io/api/v2/metrics?',
             'location_id=',
@@ -2596,7 +2632,7 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
             '&end_time=',
             '&metric_type=client.uniques',
             '&access_token=access_token',
-            '&ap_mac=00-90-A9-A7-31-60'
+            '&ap_mac=DC-9F-DB-98-0B-ED'
           ];
 
           if (scope.snapshotTime != undefined && scope.snapshotTime.snapshotStartTime != null) {
@@ -2625,12 +2661,15 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
               var data = json.map(function(x) {
                 var row = Object.values(x);
                 row[0] = new Date(row[0]);
+                row[2] = row[1];
+                row[1] = null
                 return row
               });
 
               dataTable = new google.visualization.DataTable();
 
               dataTable.addColumn('datetime', 'Time');
+              dataTable.addColumn('number', 'dummySeries');
               dataTable.addColumn('number', 'Clients');
               dataTable.addRows(data);
 
@@ -2648,7 +2687,15 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
                 lineWidth: 3,
                 crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
                 legend: 'none',
-                chartArea: {width:"80%"}
+                chartArea: {width:"80%"},
+                series: {
+                    0: { targetAxisIndex: 0, },
+                    1: { targetAxisIndex: 1, }
+                },
+                vAxes: {
+                    0: { textPosition: 'none' },
+                    1: {}
+                }
               };
 
               var chart = new google.visualization.LineChart(document.getElementById('chart8'));
