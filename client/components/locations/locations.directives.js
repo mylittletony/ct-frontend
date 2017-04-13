@@ -2648,7 +2648,7 @@ app.directive('locationClients', ['$http', '$routeParams', 'Location', 'snapshot
                 lineWidth: 3,
                 crosshair: { orientation: 'vertical', trigger: 'both', color: "#BDBDBD"},
                 legend: 'none',
-                chartArea: {width:"90%", height:"180"}
+                chartArea: {width:"90%", height:"190"}
               };
 
               var chart = new google.visualization.LineChart(document.getElementById('chart8'));
