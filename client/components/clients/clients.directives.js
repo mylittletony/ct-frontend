@@ -59,30 +59,39 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       switch(scope.period) {
         case '5m':
           interval = '10s';
+          scope.query.distance = 60*5;
           break;
         case '30m':
           interval = '1m';
+          scope.query.distance = 60*30;
           break;
         case '1d':
           interval = '30m';
+          scope.query.distance = 60*60*24;
           break;
         case '6h':
           interval = '30s';
+          scope.query.distance = 60*60*6;
           break;
         case '7d':
           interval = '1h';
+          scope.query.distance = 60*60*24*7;
           break;
         case '14d':
           interval = '1h';
+          scope.query.distance = 60*60*24*14;
           break;
         case '30d':
           interval = '1h';
+          scope.query.distance = 60*60*24*30;
           break;
         case '1yr':
           interval = '1yr';
+          scope.query.distance = 60*60*24*365;
           break;
         default:
           interval = '60s';
+          scope.query.distance = 60*60*6;
       }
     };
 
@@ -483,10 +492,24 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       var deferred = $q.defer();
       scope.promise = deferred.promise;
 
+      if (scope.query.end_time === undefined) {
+        var end = new Date();
+        end.setHours(23,59,59,999);
+        end = end.getTime();
+        scope.query.end_time = Math.floor(end / 1000);
+      }
+
+      if (scope.query.start_time === undefined) {
+        console.log(scope.query.end_time, scope.query.distance)
+        scope.query.start_time = scope.query.end_time - scope.query.distance;
+      }
+
       var params = getParams();
       params.access_token = Auth.currentUser().api_token;
       params.location_id = scope.location.id;
       params.client_type = 'clients.list';
+      params.end_time = scope.query.end_time;
+      params.start_time = scope.query.start_time;
 
       if (params.access_token === undefined || params.access_token === '') {
         deferred.reject();
@@ -496,6 +519,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           deferred.resolve();
         }, function(err) {
           scope.loading_table = undefined;
+          scope.loading = undefined;
           deferred.reject(err);
         });
       }
