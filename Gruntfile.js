@@ -91,7 +91,7 @@ module.exports = function (grunt) {
       },
       beta: {
         constants: {
-          API_END_POINT_V2: 'https://beta.ctapp.io/api/v2',
+          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
           API_END_POINT: 'https://beta.ctapp.io/api/v1',
           API_URL: 'https://beta.ctapp.io',
           STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
