@@ -494,7 +494,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
       if (scope.query.end_time === undefined) {
         var end = new Date();
-        end.setHours(23,59,59,999);
         end = end.getTime();
         scope.query.end_time = Math.floor(end / 1000);
       }
