@@ -1482,6 +1482,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
 
     // Can be removed when we migrate everything to v4 //
     ClientDetails.client.version = '3';
+    ClientDetails.client.ap_mac = undefined;
 
     scope.type = $routeParams.type || 'client.uniques';
     var c, timer, data;
