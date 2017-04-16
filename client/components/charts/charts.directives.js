@@ -687,6 +687,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
   var link = function(scope,element,attrs,controller) {
 
     var c, timer;
+    scope.type = 'data';
     scope.loading = true;
     var colours = COLOURS.split(' ');
     var data = { usage: { inbound: 1 } };
@@ -701,7 +702,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
 
     function chart() {
       var params = {
-        type:         'data',
+        type:         scope.type,
         metric_type:  'device.usage',
         resource:     scope.resource
       };

@@ -95,28 +95,28 @@ describe('boxes', function () {
       expect(boxScope.menu[6].name).toBe('Reset');
     });
 
-    it("should load the box and set the throughput", function() {
-      var boxScope = element.find('show-box').isolateScope();
-      spyOn(boxFactory, 'get').and.callThrough();
-      spyOn(zoneFactory, 'get').and.callThrough()
-      spyOn(reportFactory, 'clientstats').and.callThrough();
+    // it("should load the box and set the throughput", function() {
+    //   var boxScope = element.find('show-box').isolateScope();
+    //   spyOn(boxFactory, 'get').and.callThrough();
+    //   spyOn(zoneFactory, 'get').and.callThrough()
+    //   spyOn(reportFactory, 'clientstats').and.callThrough();
 
-      expect(boxScope.streamingUpdates).toEqual(true);
-      expect(boxScope.location.slug).toEqual(111);
-      expect(boxScope.period).toEqual('11h');
+    //   expect(boxScope.streamingUpdates).toEqual(true);
+    //   expect(boxScope.location.slug).toEqual(111);
+    //   expect(boxScope.period).toEqual('11h');
 
-      var box = { is_cucumber: true, id: 123 };
-      deferred.resolve(box);
-      $scope.$digest()
+    //   var box = { is_cucumber: true, id: 123 };
+    //   deferred.resolve(box);
+    //   $scope.$digest()
 
-      expect(boxScope.box).toEqual(box);
+    //   expect(boxScope.box).toEqual(box);
 
-      var tput = { throughput: 123 };
-      deferred.resolve(tput);
-      $scope.$digest()
+    //   var tput = { throughput: 123 };
+    //   deferred.resolve(tput);
+    //   $scope.$digest()
 
-      expect(boxScope.box.throughput).toEqual(123);
-    });
+    //   expect(boxScope.box.throughput).toEqual(123);
+    // });
 
     it("should set the not in zone flag if box has no zone id", function() {
       var boxScope = element.find('show-box').isolateScope()
