@@ -1506,7 +1506,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     });
 
     function setTitle() {
-      console.log(scope.type)
       if (scope.type === 'usage') {
         scope.title = gettextCatalog.getString('Usage Data');
       } else if (scope.type === 'client.uniques') {
