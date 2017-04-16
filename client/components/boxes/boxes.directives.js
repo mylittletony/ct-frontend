@@ -14,7 +14,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     scope.zone             = ZoneListing;
     scope.location         = { slug: $routeParams.id };
     scope.period           = $routeParams.period || '6h';
-    scope.streamingUpdates = true;
 
     scope.setPrefs = function(a) {
       if (prefs[scope.box.slug] === undefined) {
@@ -483,30 +482,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       hash.fn             = scope.fn;
       hash.type           = scope.type;
       $location.search(hash);
-
-      // timeout = $timeout(function() {
-      //   // loadTput(); // not unless we want to adjust dynamically
-      //   // loadCharts();
-      // }, 500);
     };
 
     scope.refresh = function() {
       scope.period = '6h';
       updatePage();
-    };
-
-    scope.streamingUpdater = function() {
-      if (scope.streamingUpdates) {
-        if (scope.box.pubsub_token) {
-          loadPusher(scope.box.pubsub_token);
-        }
-        showToast(gettextCatalog.getString('Streaming updates enabled'));
-      } else {
-        if (channel) {
-          channel.unbind();
-        }
-        showToast(gettextCatalog.getString('Streaming updates disabled'));
-      }
     };
 
     scope.isOpen = function(section) {

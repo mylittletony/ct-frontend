@@ -407,7 +407,6 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       };
 
       this.v2 = function(params, deferred) {
-
         if (params.end_time === undefined) {
           var end = new Date();
           end = end.getTime();
@@ -419,7 +418,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         }
 
         Metric.clientstats({
-          type:         params.metric_type,
+          type:         params.metric_type || params.type,
           // fill:         params.fill || $routeParams.fill,
           // fn:           params.fn || $routeParams.fn,
           ap_mac:       $scope.client.ap_mac,
@@ -431,11 +430,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           start_time:   params.start_time,
           end_time:     params.end_time,
         }).$promise.then(function(data) {
-          // if (data.usage || data.timeline) {
           deferred.resolve(data);
-          // } else {
-          //   deferred.reject();
-          // }
         }, function() {
           deferred.reject();
         });
@@ -1463,7 +1458,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           scope.noData = true;
           scope.loading = undefined;
         }
-      }
+      };
       window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
@@ -1471,7 +1466,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
   return {
     link: link,
-    // restrict: 'EA',
     scope: {
       mac: '@',
       loc: '@'
@@ -1482,12 +1476,16 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
 }]);
 
-app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location', 'gettextCatalog', function(Report, $routeParams, $timeout, $location, gettextCatalog) {
+app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location', 'gettextCatalog', 'ClientDetails', function(Report, $routeParams, $timeout, $location, gettextCatalog, ClientDetails) {
 
   var link = function(scope,element,attrs,controller) {
 
-    scope.type = $routeParams.type || 'clients';
-    var c, timer, data, json;
+    // Can be removed when we migrate everything to v4 //
+    ClientDetails.client.version = '3';
+
+    scope.type = $routeParams.type || 'client.uniques';
+    var c, timer, data;
+    var json = {};
     var opts = controller.options;
 
     var resource = 'location';
@@ -1509,7 +1507,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     function setTitle() {
       if (scope.type === 'usage') {
         scope.title = gettextCatalog.getString('Usage Data');
-      } else if (scope.type === 'clients') {
+      } else if (scope.type === 'client.uniques') {
+        ClientDetails.client.version = '4';
         scope.title = gettextCatalog.getString('Wireless Clients');
       } else if (scope.type === 'impressions') {
         scope.title = gettextCatalog.getString('Splash Impressions');
@@ -1568,15 +1567,36 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         type: scope.type,
         resource: resource,
         period: scope.period,
-        //fn: scope.fn.value,
         interval: scope.interval,
         fill: '0',
-        start: minDateEpoch,
-        end: maxDateEpoch
+        start_time: minDateEpoch,
+        end_time: maxDateEpoch
       };
-      controller.getStats(params).then(function(data) {
-        if (data && data.timeline && data.timeline.stats) {
-          json = data;
+
+      controller.getStats(params).then(function(res) {
+
+        if (res && (res.timeline && res.timeline.stats) || res.v === 2) {
+
+          // Depreciate this when we've moved all to v4 //
+          if (res.v === 2) {
+            var array = [];
+            for (var i in res.data) {
+              var stats = {};
+              stats.count = res.data[i].value;
+              stats.time = res.data[i].timestamp / 1000;
+              array.push(stats);
+            }
+            json = {
+              timeline: {
+                stats: array
+              },
+              _stats: {
+                start: res.start_time
+              }
+            };
+          } else {
+            json = res;
+          }
           window.google.charts.setOnLoadCallback(drawChart);
         } else {
           clearChart();

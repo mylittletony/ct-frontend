@@ -26,8 +26,8 @@ app.controller('LocationsCtrlShort', ['$scope', '$routeParams', '$filter', 'Loca
 
 ]);
 
-app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache', 'gettextCatalog',
-  function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache, gettextCatalog) {
+app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache', 'gettextCatalog', 'ClientDetails',
+  function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache, gettextCatalog, ClientDetails) {
 
     $scope.loading = true;
     $scope.location = { slug: $routeParams.id };
@@ -205,7 +205,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         menu.sectionName = gettextCatalog.getString('Location');
         setLocationStateIcon(data)
         $scope.location = data;
-        console.log('Setting TZ to', $scope.location.timezone);
         window.moment.tz.setDefault($scope.location.timezone);
 
         var params = {id: data.id, location_name: data.location_name};
@@ -216,6 +215,8 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         // Will refresh the page if a change is detected
 
         slug = $scope.location.slug;
+
+        ClientDetails.client.location_id = data.id;
         $scope.$broadcast('locationLoaded');
       });
     };
