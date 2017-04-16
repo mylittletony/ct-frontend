@@ -525,7 +525,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           location_id: box.location_id,
           ap_mac: box.calledstationid,
           version: box.gubbins_version,
-          location_id: box.location_id,
         };
         scope.loading = undefined;
         poll();
