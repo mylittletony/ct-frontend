@@ -295,7 +295,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
 }]);
 
-app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, $routeParams, $q, ClientDetails, COLOURS) {
+app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
 
   return {
     scope: {
@@ -341,46 +341,48 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
         colors: colours
       };
 
+      var distance;
       this.setInterval = function() {
         switch(this.period) {
           case '5m':
             this.interval = '10s';
+            distance = 10;
             break;
           case '30m':
             this.interval = '1m';
+            distance = 60*30;
             break;
           case '1d':
             this.interval = '30m';
+            distance = 60*60*24;
             break;
           case '6h':
             this.interval = '180s';
+            distance = 60*60*6;
             break;
           case '7d':
             this.interval = '1h';
+            distance = 60*60*24*7;
             break;
           case '14d':
             this.interval = '1h';
+            distance = 60*60*24*14;
             break;
           case '30d':
             this.interval = '1h';
+            distance = 60*60*24*30;
             break;
           case '1yr':
             this.interval = '1yr';
+            distance = 60*60*24*365;
             break;
           default:
+            distance = 180;
             this.interval = '180s';
         }
       };
 
-      this.getStats = function(params) {
-        var deferred = $q.defer();
-        if (params.resource === 'location' ) {
-          this.period = params.period || $routeParams.period;
-        } else {
-          this.period = params.period || $routeParams.period || '6h';
-        }
-        this.setInterval();
-        $scope.client = ClientDetails.client;
+      this.v1 = function(params, deferred) {
         Report.clientstats({
           type:         params.type,
           fill:         params.fill || $routeParams.fill,
@@ -402,6 +404,57 @@ app.directive('clientChart', ['Report', '$routeParams', '$q', 'ClientDetails', '
         }, function() {
           deferred.reject();
         });
+      };
+
+      this.v2 = function(params, deferred) {
+
+        if (params.end_time === undefined) {
+          var end = new Date();
+          end = end.getTime();
+          params.end_time = Math.floor(end / 1000);
+        }
+
+        if (params.start_time === undefined) {
+          params.start_time = params.end_time - distance;
+        }
+
+        Metric.clientstats({
+          type:         params.metric_type,
+          // fill:         params.fill || $routeParams.fill,
+          // fn:           params.fn || $routeParams.fn,
+          ap_mac:       $scope.client.ap_mac,
+          client_mac:   $scope.client.client_mac,
+          location_id:  $scope.client.location_id,
+          // resource:     params.resource,
+          // interval:     params.interval || this.interval,
+          // period:       this.period,
+          start_time:   params.start_time,
+          end_time:     params.end_time,
+        }).$promise.then(function(data) {
+          // if (data.usage || data.timeline) {
+          deferred.resolve(data);
+          // } else {
+          //   deferred.reject();
+          // }
+        }, function() {
+          deferred.reject();
+        });
+      };
+
+      this.getStats = function(params) {
+        var deferred = $q.defer();
+        if (params.resource === 'location' ) {
+          this.period = params.period || $routeParams.period;
+        } else {
+          this.period = params.period || $routeParams.period || '6h';
+        }
+        this.setInterval();
+        $scope.client = ClientDetails.client;
+        if ($scope.client.version === '4') {
+          this.v2(params, deferred);
+        } else {
+          this.v1(params, deferred);
+        }
         return deferred.promise;
       };
     }
@@ -634,7 +687,6 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
   var link = function(scope,element,attrs,controller) {
 
     var c, timer;
-    scope.type = 'data';
     scope.loading = true;
     var colours = COLOURS.split(' ');
     var data = { usage: { inbound: 1 } };
@@ -649,11 +701,25 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
 
     function chart() {
       var params = {
-        type:     scope.type,
-        resource: scope.resource
+        type:         'data',
+        metric_type:  'device.usage',
+        resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
-        data = resp;
+        if (resp.v === 2) {
+          // Sort when old data is depreciated
+          for (var i in resp.stats) {
+            var key = resp.stats[i].key;
+            if (key === 'outbound') {
+              data.usage.outbound = resp.stats[i].value;
+            } else if (key === 'inbound') {
+              data.usage.inbound = resp.stats[i].value;
+            }
+          }
+        } else {
+          data = resp;
+        }
+
         if (data.usage.inbound === 0 && data.usage.outbound === 0) {
           data.usage.inbound = 1;
         }
@@ -707,13 +773,15 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
       scope.loading = undefined;
     }
 
+    chart();
   };
 
   return {
     link: link,
     scope: {
       mac: '@',
-      loc: '@'
+      loc: '@',
+      version: '@'
     },
     require: '^clientChart',
     templateUrl: 'components/charts/clients/_client_usage_chart.html',

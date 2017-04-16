@@ -214,7 +214,7 @@
                 </tr>
               </thead>
               <tbody md-body>
-                <tr md-row md-auto-select="false" md-on-select="updateChart" md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients | filter: query.filter | orderBy: query.direction)">
+                <tr md-row md-auto-select="false" md-on-select="updateChart" md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients | filter: query.filter | orderBy: '-lastseen')">
                   <td md-cell class="with-padding">
                     <md-icon ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
                   </td md-cell>

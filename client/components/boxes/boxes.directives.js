@@ -484,10 +484,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       hash.type           = scope.type;
       $location.search(hash);
 
-      timeout = $timeout(function() {
-        // loadTput(); // not unless we want to adjust dynamically
-        loadCharts();
-      }, 500);
+      // timeout = $timeout(function() {
+      //   // loadTput(); // not unless we want to adjust dynamically
+      //   // loadCharts();
+      // }, 500);
     };
 
     scope.refresh = function() {
@@ -523,7 +523,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         scope.box = box;
         ClientDetails.client = {
           location_id: box.location_id,
-          ap_mac: box.calledstationid
+          ap_mac: box.calledstationid,
+          version: box.gubbins_version,
+          location_id: box.location_id,
         };
         scope.loading = undefined;
         poll();
@@ -553,29 +555,29 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       return deferred.promise;
     };
 
-    var loadCharts = function() {
-      timeout = $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      }, 250);
-    };
+    // var loadCharts = function() {
+    //   timeout = $timeout(function() {
+    //     controller.$scope.$broadcast('loadClientChart', 'device');
+    //   }, 250);
+    // };
 
-    var loadTput = function() {
-      var deferred = $q.defer();
-      Report.clientstats({
-        type:         'tput',
-        ap_mac:       scope.box.calledstationid,
-        location_id:  scope.box.location_id,
-        resource:     'device',
-        interval:     '180s',
-        period:       '6h'
-      }).$promise.then(function(data) {
-        scope.box.throughput = data.throughput;
-        deferred.resolve();
-      }, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
+    // var loadTput = function() {
+    //   var deferred = $q.defer();
+    //   Report.clientstats({
+    //     type:         'tput',
+    //     ap_mac:       scope.box.calledstationid,
+    //     location_id:  scope.box.location_id,
+    //     resource:     'device',
+    //     interval:     '180s',
+    //     period:       '6h'
+    //   }).$promise.then(function(data) {
+    //     scope.box.throughput = data.throughput;
+    //     deferred.resolve();
+    //   }, function() {
+    //     deferred.reject();
+    //   });
+    //   return deferred.promise;
+    // };
 
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
@@ -632,7 +634,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     init().then(function() {
-      loadTput();
+      // loadTput();
       // loadCharts();
       createMenu();
       sortSsids();

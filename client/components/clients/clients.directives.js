@@ -499,7 +499,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
 
       if (scope.query.start_time === undefined) {
-        console.log(scope.query.end_time, scope.query.distance)
         scope.query.start_time = scope.query.end_time - scope.query.distance;
       }
 
