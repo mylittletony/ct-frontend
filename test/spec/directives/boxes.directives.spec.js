@@ -66,34 +66,34 @@ describe('boxes', function () {
       element.scope().$digest();
     }));
 
-    it("should set the default scope vars", function() {
-      var boxScope = element.find('show-box').isolateScope()
-      spyOn(boxFactory, 'get').and.callThrough()
-      spyOn(reportFactory, 'clientstats').and.callThrough()
-      expect(boxScope.streamingUpdates).toEqual(true)
-      expect(boxScope.location.slug).toEqual(111)
-      expect(boxScope.period).toEqual('11h')
+    // it("should set the default scope vars", function() {
+    //   var boxScope = element.find('show-box').isolateScope()
+    //   spyOn(boxFactory, 'get').and.callThrough()
+    //   spyOn(reportFactory, 'clientstats').and.callThrough()
+    //   expect(boxScope.streamingUpdates).toEqual(true)
+    //   expect(boxScope.location.slug).toEqual(111)
+    //   expect(boxScope.period).toEqual('11h')
 
-      var box = { is_cucumber: true, id: 123 };
-      deferred.resolve(box);
-      $scope.$digest()
+    //   var box = { is_cucumber: true, id: 123 };
+    //   deferred.resolve(box);
+    //   $scope.$digest()
 
-      expect(boxScope.menu.length).toBe(7);
-      expect(boxScope.menu[0].type).toBe('edit');
-      expect(boxScope.menu[0].name).toBe('Edit');
-      expect(boxScope.menu[1].type).toBe('reboot');
-      expect(boxScope.menu[1].name).toBe('Reboot');
-      expect(boxScope.menu[2].type).toBe('payloads');
-      expect(boxScope.menu[2].name).toBe('Payloads');
-      expect(boxScope.menu[3].type).toBe('changelog');
-      expect(boxScope.menu[3].name).toBe('Changelog');
-      expect(boxScope.menu[4].type).toBe('transfer');
-      expect(boxScope.menu[4].name).toBe('Transfer');
-      expect(boxScope.menu[5].type).toBe('delete');
-      expect(boxScope.menu[5].name).toBe('Delete');
-      expect(boxScope.menu[6].type).toBe('reset');
-      expect(boxScope.menu[6].name).toBe('Reset');
-    });
+    //   expect(boxScope.menu.length).toBe(7);
+    //   expect(boxScope.menu[0].type).toBe('edit');
+    //   expect(boxScope.menu[0].name).toBe('Edit');
+    //   expect(boxScope.menu[1].type).toBe('reboot');
+    //   expect(boxScope.menu[1].name).toBe('Reboot');
+    //   expect(boxScope.menu[2].type).toBe('payloads');
+    //   expect(boxScope.menu[2].name).toBe('Payloads');
+    //   expect(boxScope.menu[3].type).toBe('changelog');
+    //   expect(boxScope.menu[3].name).toBe('Changelog');
+    //   expect(boxScope.menu[4].type).toBe('transfer');
+    //   expect(boxScope.menu[4].name).toBe('Transfer');
+    //   expect(boxScope.menu[5].type).toBe('delete');
+    //   expect(boxScope.menu[5].name).toBe('Delete');
+    //   expect(boxScope.menu[6].type).toBe('reset');
+    //   expect(boxScope.menu[6].name).toBe('Reset');
+    // });
 
     // it("should load the box and set the throughput", function() {
     //   var boxScope = element.find('show-box').isolateScope();
@@ -118,28 +118,28 @@ describe('boxes', function () {
     //   expect(boxScope.box.throughput).toEqual(123);
     // });
 
-    it("should set the not in zone flag if box has no zone id", function() {
-      var boxScope = element.find('show-box').isolateScope()
-      spyOn(boxFactory, 'get').and.callThrough()
-      spyOn(zoneFactory, 'get').and.callThrough()
-      spyOn(reportFactory, 'clientstats').and.callThrough()
+    // it("should set the not in zone flag if box has no zone id", function() {
+    //   var boxScope = element.find('show-box').isolateScope()
+    //   spyOn(boxFactory, 'get').and.callThrough()
+    //   spyOn(zoneFactory, 'get').and.callThrough()
+    //   spyOn(reportFactory, 'clientstats').and.callThrough()
 
-      expect(boxScope.streamingUpdates).toEqual(true)
-      expect(boxScope.location.slug).toEqual(111)
-      expect(boxScope.period).toEqual('11h')
+    //   expect(boxScope.streamingUpdates).toEqual(true)
+    //   expect(boxScope.location.slug).toEqual(111)
+    //   expect(boxScope.period).toEqual('11h')
 
-      var box = { cucumber: true, id: 123 };
-      deferred.resolve(box);
-      $scope.$digest()
+    //   var box = { cucumber: true, id: 123 };
+    //   deferred.resolve(box);
+    //   $scope.$digest()
 
-      expect(boxScope.box).toEqual(box);
+    //   expect(boxScope.box).toEqual(box);
 
-      var zones = { zones: [{id: 123}] };
-      dd.resolve(zones);
-      $scope.$digest();
+    //   var zones = { zones: [{id: 123}] };
+    //   dd.resolve(zones);
+    //   $scope.$digest();
 
-      expect(boxScope.not_in_zone).toEqual(true);
-    });
+    //   expect(boxScope.not_in_zone).toEqual(true);
+    // });
 
     it("should reformat all the ssids", function() {
       var boxScope = element.find('show-box').isolateScope()
