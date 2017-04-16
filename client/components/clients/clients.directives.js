@@ -48,8 +48,8 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
     // scope.location        = { slug: $routeParams.id };
-    scope.sort            = $routeParams.sort
-    scope.direction       = $routeParams.direction
+    scope.sort            = $routeParams.sort;
+    scope.direction       = $routeParams.direction;
 
     var view = function(id) {
       $location.path('/locations/' + scope.location.slug + '/clients/' + id);
@@ -514,6 +514,8 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       } else {
         ClientV2.query(params).$promise.then(function(results) {
           scope.clients = results.clients;
+          scope.connected = results.online;
+          scope.total = results.total;
           deferred.resolve();
         }, function(err) {
           scope.loading_table = undefined;
@@ -1064,7 +1066,6 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
     var initV2 = function() {
       ClientV2.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
-        console.log(results);
         // ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
         // scope.client    = results;
         // scope.loading   = undefined;
