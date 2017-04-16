@@ -1505,6 +1505,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     });
 
     function setTitle() {
+      console.log(scope.type)
       if (scope.type === 'usage') {
         scope.title = gettextCatalog.getString('Usage Data');
       } else if (scope.type === 'client.uniques') {
@@ -1782,6 +1783,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         scope.title = gettextCatalog.getString('Splash Impressions');
       } else if (scope.type === 'uniques') {
         scope.title = gettextCatalog.getString('Splash Users');
+      } else if (scope.type === 'client.uniques') {
+        scope.title = gettextCatalog.getString('Wireless Clients');
       } else {
         scope.title = gettextCatalog.getString('Splash Sessions');
       }
