@@ -1622,6 +1622,8 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function drawChart() {
+      var max = moment().utc().startOf('day').toDate();
+
       $timeout.cancel(timer);
       var drawChartCallback = function() {
         data = new window.google.visualization.DataTable();
@@ -1664,7 +1666,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
           format:  format,
           viewWindow: {
             // min: minDate,
-            max: maxDate
+            max: max
           },
         };
         opts.vAxis = {
