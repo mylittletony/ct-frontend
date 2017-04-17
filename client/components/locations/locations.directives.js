@@ -33,8 +33,8 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
   };
 
   return {
-    scope: {
-    },
+    // scope: {
+    // },
     link: link,
     // controller: 'LocationsCtrl',
     templateUrl: 'components/locations/show/_index.html'
