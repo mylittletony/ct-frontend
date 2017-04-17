@@ -1253,7 +1253,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
   var link = function(scope,element,attrs,controller) {
 
-    var c, timer, data;
+    var c, timer, formatted;
 
     scope.type = 'client.uniques';
     scope.loading = true;
@@ -1272,9 +1272,10 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       chart();
     });
 
-    scope.refresh = function() {
-      chart();
-    };
+    // scope.refresh = function() {
+    //   alert(123);
+    //   chart();
+    // };
 
     function chart() {
 
@@ -1285,24 +1286,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       };
 
       controller.getStats(params).then(function(res) {
-        // data = res;
-        // var array = [];
-        // for (var i in res.data) {
-        //   var stats = {};
-        //   stats.count = res.data[i].value;
-        //   stats.time = res.data[i].timestamp / 1000;
-        //   array.push(stats);
-        // }
-        // json = {
-        //   timeline: {
-        //     stats: array
-        //   },
-        //   _stats: {
-        //     start: res.start_time
-        //   }
-        // };
         drawChart(res);
-        // window.google.charts.setOnLoadCallback(drawChart);
       }, function() {
         clearChart();
         console.log('No data returned for query');
@@ -1321,31 +1305,24 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     };
 
-    function drawChart(res) {
+    var data;
+    function drawChart(resp) {
       $timeout.cancel(timer);
       if (window.google && window.google.visualization) {
       }
 
       var format = gettextCatalog.getString('MMM dd, yyyy');
 
-      data = new window.google.visualization.DataTable();
-      data.addColumn('datetime', 'Date');
-      data.addColumn('number', 'dummySeries');
-      data.addColumn('number', 'clients');
-
-      // colours.splice(1, 1);
       colours[1] = colours[0];
       var opts = controller.options;
 
-      // console.log(opts)
-      // opts.explorer = undefined;
       opts.legend = { position: 'none' };
       opts.title = 'none';
       opts.height = '350';
       opts.colors = ['#225566'];
       opts.curveType = 'function';
 
-      // opts.legend = { position: 'none' };
+      opts.legend = { position: 'none' };
       opts.series = {
         0: {
           targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 1
@@ -1390,35 +1367,34 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
       var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
 
-      var len = res.data.length;
-      for(var i = 0; i < len; i++) {
-        var time = dateFormatter.formatValue(new Date(Math.floor(res.data[i].timestamp)));
-        time = new Date(time);
-        var count = res.data[i].value;
-        data.addRow([time, null, count]);
+      if (data === undefined) {
+        data = new window.google.visualization.DataTable();
+        data.addColumn('datetime', 'Date');
+        data.addColumn('number', 'dummySeries');
+        data.addColumn('number', 'clients');
+
+        var len = resp.data.length;
+        for(var i = 0; i < len; i++) {
+          var time = dateFormatter.formatValue(new Date(Math.floor(resp.data[i].timestamp)));
+          time = new Date(time);
+          var count = resp.data[i].value;
+          data.addRow([time, null, count]);
+        }
+
+        var date_formatter = new window.google.visualization.DateFormat({
+          pattern: gettextCatalog.getString(format)
+        });
+
+        date_formatter.format(data,0);
+
+        var formatter = new window.google.visualization.NumberFormat(
+          { pattern: '0' }
+        );
+        formatter.format(data,2);
       }
-
-      var date_formatter = new window.google.visualization.DateFormat({
-        pattern: gettextCatalog.getString(format)
-      });
-
-      date_formatter.format(data,0);
-
-      // var date_formatter = new window.google.visualization.DateFormat({
-      //   pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
-      // });
-      // date_formatter.format(data,0);
-
-      var formatter = new window.google.visualization.NumberFormat(
-        { pattern: '0' }
-      );
-      formatter.format(data,2);
 
       c = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
       c.draw(data, opts);
-      // }
-
-      // window.google.charts.setOnLoadCallback(drawChartCallback);
 
       scope.noData = undefined;
       scope.loading = undefined;
