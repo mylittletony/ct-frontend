@@ -514,8 +514,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         scope.query.start_time = Math.floor(min.getTime() / 1000);
       }
 
-      console.log(scope.query)
-
       var params = getParams();
       params.access_token = Auth.currentUser().api_token;
       params.location_id = scope.location.id;
