@@ -407,15 +407,22 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       };
 
       this.v2 = function(params, deferred) {
-        if (params.end_time === undefined) {
-          var end = new Date();
-          end = end.getTime();
-          params.end_time = Math.floor(end / 1000);
-        }
+        console.log(params)
+        // if (params.end_time === undefined) {
+        //   var end = new Date();
+        //   end = end.getTime();
+        //   params.end_time = Math.floor(end / 1000);
 
-        if (params.start_time === undefined) {
-          params.start_time = params.end_time - distance;
-        }
+        // }
+
+        // if (params.start_time === undefined) {
+        //   params.start_time = params.end_time - distance;
+        // }
+
+        var endOfDay = Math.floor(moment().utc().endOf('day').toDate().getTime() / 1000);
+        console.log(endOfDay)
+
+        console.log(params)
 
         Metric.clientstats({
           type:         params.metric_type || params.type,
@@ -1526,13 +1533,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       chart();
     };
 
-    var minDate = new Date();
-    minDate.setDate(minDate.getDate() - 7);
-    minDate.setHours(0,0,0,0);
-    var minDateEpoch = Date.parse(minDate) / 1000;
-    var maxDate = new Date();
-    maxDate.setHours(0,0,0,0);
-    var maxDateEpoch = Date.parse(maxDate) / 1000;
+    var maxDate = moment().utc().endOf('day').toDate();
+    var minDate = moment().utc().subtract(7, 'days').startOf('day').toDate();
+
+    var minDateEpoch = Math.floor(minDate.getTime() / 1000);
+    var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
 
     var searchParams = function() {
       var hash = {};
@@ -1617,7 +1622,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     };
 
     function drawChart() {
-
       $timeout.cancel(timer);
       var drawChartCallback = function() {
         data = new window.google.visualization.DataTable();
@@ -1633,6 +1637,11 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
           sessionsChart();
         }
 
+        // Formats the tooltips but not the gridline //
+        var format = gettextCatalog.getString('MMM dd, yyyy');
+        var formatter = new window.google.visualization.DateFormat({pattern: format, timeZone: +0});
+        formatter.format(data, 0);
+
         opts.legend = { position: 'none' };
 
         opts.series = {
@@ -1647,9 +1656,9 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
           }
         };
         opts.hAxis = {
-          format:  gettextCatalog.getString('MMM dd, yyyy'),
+          format:  format,
           viewWindow: {
-            min: minDate,
+            // min: minDate,
             max: maxDate
           },
         };
@@ -1688,7 +1697,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
         c.draw(data, opts);
         scope.noData = undefined;
         scope.loading = undefined;
-      }
+      };
       window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 

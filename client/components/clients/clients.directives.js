@@ -488,18 +488,29 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    // Create as helper //
+    // var maxDate = moment().utc().endOf('day').toDate();
+    // var minDate = moment().utc().subtract(7, 'days').startOf('day').toDate();
+    // var minDateEpoch = Math.floor(minDate.getTime() / 1000);
+    // var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+    // Create as helper //
+
     var initV2 = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
 
       if (scope.query.end_time === undefined) {
-        var end = new Date();
-        end = end.getTime();
-        scope.query.end_time = Math.floor(end / 1000);
+        var maxDate = moment().utc().endOf('day').toDate();
+        var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+
+        // These dates won't work when we send different start end times
+        scope.query.end_time = maxDateEpoch;
       }
 
       if (scope.query.start_time === undefined) {
-        scope.query.start_time = scope.query.end_time - scope.query.distance;
+        var max = moment().utc().endOf('day').toDate();
+        var min = moment(max).utc().subtract(scope.query.distance, 'seconds').toDate();
+        scope.query.start_time = Math.floor(min / 1000);
       }
 
       var params = getParams();
