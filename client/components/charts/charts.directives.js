@@ -322,10 +322,8 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
 
       this.options = {
         lineWidth: 1.5,
-        // legend: { position: 'none' },
         height: 250,
         focusTarget: 'category',
-        // fontName: 'roboto',
         crosshair: {
           trigger: 'both',
           orientation: 'vertical'
@@ -381,6 +379,12 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         }
       };
 
+      var maxDate = moment().utc().endOf('day').toDate();
+      var minDate = moment().utc().subtract(7, 'days').startOf('day').toDate();
+
+      var minDateEpoch = Math.floor(minDate.getTime() / 1000);
+      var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+
       this.v1 = function(params, deferred) {
         Report.clientstats({
           type:         params.type,
@@ -412,8 +416,8 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           ap_mac:       $scope.client.ap_mac,
           client_mac:   $scope.client.client_mac,
           location_id:  $scope.client.location_id,
-          start_time:   params.start_time,
-          end_time:     params.end_time,
+          start_time:   minDateEpoch,
+          end_time:     maxDateEpoch,
         }).$promise.then(function(data) {
           deferred.resolve(data);
         }, function() {
@@ -790,33 +794,33 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     };
 
     function chart() {
-      // var params = {
-      //   type:         scope.type,
-      //   metric_type:  'device.usage',
-      //   resource:     scope.resource
-      // };
-      // controller.getStats(params).then(function(resp) {
-      //   if (resp.v === 2) {
-      //     // Sort when old data is depreciated
-      //     for (var i in resp.stats) {
-      //       var key = resp.stats[i].key;
-      //       if (key === 'outbound') {
-      //         data.usage.outbound = resp.stats[i].value;
-      //       } else if (key === 'inbound') {
-      //         data.usage.inbound = resp.stats[i].value;
-      //       }
-      //     }
-      //   } else {
-      //     data = resp;
-      //   }
+      var params = {
+        type:         scope.type,
+        metric_type:  'device.usage',
+        resource:     scope.resource
+      };
+      controller.getStats(params).then(function(resp) {
+        if (resp.v === 2) {
+          // Sort when old data is depreciated
+          for (var i in resp.stats) {
+            var key = resp.stats[i].key;
+            if (key === 'outbound') {
+              data.usage.outbound = resp.stats[i].value;
+            } else if (key === 'inbound') {
+              data.usage.inbound = resp.stats[i].value;
+            }
+          }
+        } else {
+          data = resp;
+        }
 
-      //   if (data.usage.inbound === 0 && data.usage.outbound === 0) {
-      //     data.usage.inbound = 1;
-      //   }
+        if (data.usage.inbound === 0 && data.usage.outbound === 0) {
+          data.usage.inbound = 1;
+        }
         renderChart();
-      // }, function() {
-      //   clearChart();
-      // });
+      }, function() {
+        clearChart();
+      });
     }
 
     var renderChart = function() {
@@ -1262,11 +1266,11 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
 
-    var maxDate = moment().utc().endOf('day').toDate();
-    var minDate = moment().utc().subtract(7, 'days').startOf('day').toDate();
+    // var maxDate = moment().utc().endOf('day').toDate();
+    // var minDate = moment().utc().subtract(7, 'days').startOf('day').toDate();
 
-    var minDateEpoch = Math.floor(minDate.getTime() / 1000);
-    var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+    // var minDateEpoch = Math.floor(minDate.getTime() / 1000);
+    // var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
 
     controller.$scope.$on('loadClientChart', function (evt,type){
       chart();
@@ -1281,8 +1285,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
       var params = {
         type: scope.type,
-        start_time: minDateEpoch,
-        end_time: maxDateEpoch
+        // start_time: minDateEpoch,
+        // end_time: maxDateEpoch
       };
 
       controller.getStats(params).then(function(res) {
