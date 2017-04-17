@@ -1226,7 +1226,7 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
         formatter.format(data,1);
         c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
         c.draw(data, opts);
-      }
+      };
       window.google.charts.setOnLoadCallback(drawChartCallback);
 
       scope.noData = undefined;

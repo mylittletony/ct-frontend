@@ -203,7 +203,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         }
         menu.header = data.location_name;
         menu.sectionName = gettextCatalog.getString('Location');
-        setLocationStateIcon(data)
+        setLocationStateIcon(data);
         $scope.location = data;
         window.moment.tz.setDefault($scope.location.timezone);
 
@@ -217,7 +217,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         slug = $scope.location.slug;
 
         ClientDetails.client.location_id = data.id;
-        $scope.$broadcast('locationLoaded');
+        $rootScope.$broadcast('locationLoaded');
       });
     };
 

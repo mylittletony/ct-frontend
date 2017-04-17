@@ -663,3 +663,13 @@ md-card.highlight-section {
 .side-menu .divider {
   border-top-color: #263238;
 }
+
+.page-loader {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  left: 0;
+  position: absolute;
+  background-color: white;
+}

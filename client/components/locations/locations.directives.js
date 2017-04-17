@@ -36,47 +36,53 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
     scope: {
     },
     link: link,
-    controller: 'LocationsCtrl',
+    // controller: 'LocationsCtrl',
     templateUrl: 'components/locations/show/_index.html'
   };
 
 }]);
 
-app.directive('locationDashboard', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationDashboard', ['Location', '$rootScope', '$compile', function(Location, $rootScope, $compile) {
 
   var link = function(scope,element,attrs,controller) {
 
-    var channel;
-
-    scope.favourite = function() {
-      scope.location.is_favourite = !scope.location.is_favourite;
-      updateLocation();
+    var compileTemplate = function(version) {
+      var template;
+      template = $compile('<show-dashboard></show-dashboard>')(scope);
+      element.html(template);
+      scope.loading = undefined;
     };
 
-    function updateLocation() {
-      Location.update({}, {
-        id: $routeParams.id,
-        location: {
-          favourite: scope.location.is_favourite
-        }
-      }).$promise.then(function(results) {
-        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
-        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
-      }, function(err) {
-      });
-    }
+    $rootScope.$on('locationLoaded', function (event, next, current) {
+      compileTemplate();
+    });
+  };
 
-    scope.addDevice = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
-    };
+  return {
+    scope: {},
+    link: link
+  };
 
+}]);
+
+app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', function(Location, $routeParams, $rootScope, $location, $timeout) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var timer;
+    timer = $timeout(function() {
+      scope.loader = true;
+    }, 250);
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $timeout.cancel(timer);
+    });
   };
 
   return {
     scope: {
     },
     link: link,
-    controller: 'LocationsCtrl',
     templateUrl: 'components/locations/dashboard/_index.html'
   };
 

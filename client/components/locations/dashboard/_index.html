@@ -1,3 +1,5 @@
+<div class="page-loader" ng-hide="loader == true"></div>
+
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <!-- <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices"> -->
@@ -100,11 +102,4 @@
       </div>
     </div>
   </client-chart>
-  <!-- <div ng-if="location.has_devices"> -->
-  <!--   <client-chart ng-if="!query"> -->
-  <!--     <location-chart ></location-chart> -->
-  <!--   </client-chart> -->
-  <!--   <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes> -->
-  <!-- </div> -->
-
 </md-content>
