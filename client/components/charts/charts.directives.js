@@ -843,7 +843,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         opts.height = '350';
         opts.colors = colours;
 
-        if (data === undefined) {
+        if (data === undefined && json) {
           data = new window.google.visualization.DataTable();
           data.addColumn('string', gettextCatalog.getString('Inbound'));
           data.addColumn('number', gettextCatalog.getString('Outbound'));
@@ -937,7 +937,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
         opts.height = '350';
         opts.colors = colours;
 
-        if (data === undefined) {
+        if (data === undefined && formatted) {
           data = new window.google.visualization.DataTable();
           data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
           data.addColumn('number', gettextCatalog.getString('5Ghz'));
@@ -986,53 +986,30 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
   var link = function(scope,element,attrs,controller) {
 
-    var c, timer;
-    // scope.type = 'data';
     scope.loading = true;
-    // var colours = COLOURS.split(' ');
-    var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC']
-    var data = { usage: { inbound: 1 } };
+    var c, timer, data, formatted;
+    var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
 
     controller.$scope.$on('loadClientChart', function (evt,type){
-      chart();
+      drawChart();
     });
 
-    scope.refresh = function() {
-      chart();
-    };
-
     function chart() {
-      // var params = {
-      //   type:         scope.type,
-      //   metric_type:  'device.usage',
-      //   resource:     scope.resource
-      // };
-      // controller.getStats(params).then(function(resp) {
-      //   if (resp.v === 2) {
-      //     // Sort when old data is depreciated
-      //     for (var i in resp.stats) {
-      //       var key = resp.stats[i].key;
-      //       if (key === 'outbound') {
-      //         data.usage.outbound = resp.stats[i].value;
-      //       } else if (key === 'inbound') {
-      //         data.usage.inbound = resp.stats[i].value;
-      //       }
-      //     }
-      //   } else {
-      //     data = resp;
-      //   }
-
-      //   if (data.usage.inbound === 0 && data.usage.outbound === 0) {
-      //     data.usage.inbound = 1;
-      //   }
+      var params = {
+        type:         scope.type,
+        metric_type:  'client.stats',
+        resource:     scope.resource
+      };
+      controller.getStats(params).then(function(resp) {
+        formatted = resp;
         renderChart();
-      // }, function() {
-      //   clearChart();
-      // });
+      }, function() {
+        clearChart();
+      });
     }
 
     var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(data.usage));
+      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
     };
 
     var clearChart = function() {
@@ -1043,27 +1020,10 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     };
 
-    function drawChart(json) {
+    function drawChart() {
+
       $timeout.cancel(timer);
       var drawChartCallback = function() {
-        var data = google.visualization.arrayToDataTable([
-          ['State', 'Number'],
-          ['Online',     76],
-          ['Offline',      4],
-          // ['Upgrading',    1]
-        ]);
-        // var data = new window.google.visualization.DataTable();
-        // data.addColumn('string', gettextCatalog.getString('Inbound'));
-        // data.addColumn('number', gettextCatalog.getString('Outbound'));
-        // data.addRows([
-        //   [gettextCatalog.getString('Outbound'), json.outbound / (1000*1000) || 0],
-        //   [gettextCatalog.getString('Inbound'), json.inbound / (1000*1000) || 0]
-        // ]);
-
-        var formatter = new window.google.visualization.NumberFormat(
-          {suffix: '%', pattern: '0'}
-        );
-        formatter.format(data, 1);
 
         var opts = controller.options;
         opts.explorer = undefined;
@@ -1072,15 +1032,31 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         opts.title = 'none';
         opts.pieSliceText = 'none';
         opts.height = '350';
-        opts.tooltip = {
-          text: 'value'
-        };
         opts.colors = colours;
 
+        if (data === undefined && formatted) {
+          data = new window.google.visualization.DataTable();
+          data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
+          data.addColumn('number', gettextCatalog.getString('5Ghz'));
+          for (var i in formatted.stats) {
+            if (formatted.stats[i].key === 'total') {
+              data.addRow(['Total', formatted.stats[i].value]);
+            } else if (formatted.stats[i].key === 'online') {
+              data.addRow(['Online', formatted.stats[i].value]);
+            }
+          }
+        }
+
+        var formatter = new window.google.visualization.NumberFormat(
+          {suffix: '', pattern: ''}
+        );
+
+        formatter.format(data, 1);
 
         c = new window.google.visualization.PieChart(document.getElementById('dash-conn-chart'));
         c.draw(data, opts);
       };
+
       window.google.charts.setOnLoadCallback(drawChartCallback);
 
       scope.noData = undefined;
@@ -1198,7 +1174,7 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
         opts.colors = colours;
 
         formatter.format(data,1);
-        c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
+        c = new window.google.visualization.PieChart(document.getElementById('dash-health-chart'));
         c.draw(data, opts);
       };
       window.google.charts.setOnLoadCallback(drawChartCallback);
@@ -1341,7 +1317,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
       var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
 
-      if (data === undefined) {
+      if (data === undefined && resp) {
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
