@@ -299,6 +299,10 @@ md-button-group > .md-button {
   min-height: 350px;
 }
 
+.dashboard-charts md-card {
+  min-height: 450px;
+}
+
 .md-button .active {
   background-color: rgba(158,158,158,0.2)!important;
 }

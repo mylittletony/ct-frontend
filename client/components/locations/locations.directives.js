@@ -42,6 +42,46 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
 
 }]);
 
+app.directive('locationDashboard', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var channel;
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
+    };
+
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
+    scope.addDevice = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+    };
+
+  };
+
+  return {
+    scope: {
+    },
+    link: link,
+    controller: 'LocationsCtrl',
+    templateUrl: 'components/locations/dashboard/_index.html'
+  };
+
+}]);
+
 app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', 'pagination_labels', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
