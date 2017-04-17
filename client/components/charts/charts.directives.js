@@ -1637,10 +1637,15 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
           sessionsChart();
         }
 
-        // Formats the tooltips but not the gridline //
         var format = gettextCatalog.getString('MMM dd, yyyy');
-        var formatter = new window.google.visualization.DateFormat({pattern: format, timeZone: +0});
-        formatter.format(data, 0);
+        var date_formatter = new window.google.visualization.DateFormat({
+          pattern: gettextCatalog.getString(format)
+        });
+        date_formatter.format(data,0);
+
+        // Formats the tooltips but not the gridline //
+        // var formatter = new window.google.visualization.DateFormat({pattern: format, timeZone: +0});
+        // formatter.format(data, 0);
 
         opts.legend = { position: 'none' };
 

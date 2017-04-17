@@ -501,6 +501,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
       if (scope.query.end_time === undefined) {
         var maxDate = moment().utc().toDate();
+        // var maxDate = moment().utc().endOf('day').toDate();
         var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
 
         // These dates won't work when we send different start end times
