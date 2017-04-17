@@ -500,7 +500,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       scope.promise = deferred.promise;
 
       if (scope.query.end_time === undefined) {
-        var maxDate = moment().utc().endOf('day').toDate();
+        var maxDate = moment().utc().toDate();
         var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
 
         // These dates won't work when we send different start end times
@@ -508,10 +508,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
 
       if (scope.query.start_time === undefined) {
-        var max = moment().utc().endOf('day').toDate();
+        var max = moment().utc().toDate();
         var min = moment(max).utc().subtract(scope.query.distance, 'seconds').toDate();
-        scope.query.start_time = Math.floor(min / 1000);
+
+        scope.query.start_time = Math.floor(min.getTime() / 1000);
       }
+
+      console.log(scope.query)
 
       var params = getParams();
       params.access_token = Auth.currentUser().api_token;
