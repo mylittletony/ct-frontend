@@ -778,20 +778,18 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
   var link = function(scope,element,attrs,controller) {
 
-    var c, timer;
-    // scope.type = 'data';
+    var c, timer, data;
     scope.loading = true;
-    // var colours = COLOURS.split(' ');
-    var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC']
-    var data = { usage: { inbound: 1 } };
+    var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
+    var formatted = { usage: { inbound: 1 } };
 
     controller.$scope.$on('loadClientChart', function (evt,type){
-      chart();
+      drawChart();
     });
 
-    scope.refresh = function() {
-      chart();
-    };
+    // scope.refresh = function() {
+    //   chart();
+    // };
 
     function chart() {
       var params = {
@@ -805,26 +803,26 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
           for (var i in resp.stats) {
             var key = resp.stats[i].key;
             if (key === 'outbound') {
-              data.usage.outbound = resp.stats[i].value;
+              formatted.usage.outbound = resp.stats[i].value;
             } else if (key === 'inbound') {
-              data.usage.inbound = resp.stats[i].value;
+              formatted.usage.inbound = resp.stats[i].value;
             }
           }
         } else {
-          data = resp;
+          formatted = resp;
         }
 
-        if (data.usage.inbound === 0 && data.usage.outbound === 0) {
-          data.usage.inbound = 1;
+        if (formatted.usage.inbound === 0 && formatted.usage.outbound === 0) {
+          formatted.usage.inbound = 1;
         }
-        renderChart();
+        renderChart(formatted.usage);
       }, function() {
         clearChart();
       });
     }
 
     var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(data.usage));
+      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
     };
 
     var clearChart = function() {
@@ -836,25 +834,9 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     };
 
     function drawChart(json) {
+
       $timeout.cancel(timer);
       var drawChartCallback = function() {
-        var data = google.visualization.arrayToDataTable([
-          ['State', 'Number'],
-          ['Inbound',     1626625355],
-          ['Outbound',      41271276],
-        ]);
-
-        // var data = new window.google.visualization.DataTable();
-        // data.addColumn('string', gettextCatalog.getString('Inbound'));
-        // data.addColumn('number', gettextCatalog.getString('Outbound'));
-        // data.addRows([
-        //   [gettextCatalog.getString('Outbound'), json.outbound / (1000*1000) || 0],
-        //   [gettextCatalog.getString('Inbound'), json.inbound / (1000*1000) || 0]
-        // ]);
-
-        var formatter = new window.google.visualization.NumberFormat(
-          {suffix: '', pattern: '0'}
-        );
 
         var opts = controller.options;
         opts.explorer = undefined;
@@ -865,10 +847,26 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         opts.height = '350';
         opts.colors = colours;
 
-        formatter.format(data,1);
+        if (data === undefined) {
+          data = new window.google.visualization.DataTable();
+          data.addColumn('string', gettextCatalog.getString('Inbound'));
+          data.addColumn('number', gettextCatalog.getString('Outbound'));
+          data.addRows([
+            [ gettextCatalog.getString('Outbound'), json.outbound / (1000*1000) || 0 ],
+            [ gettextCatalog.getString('Inbound'), json.inbound / (1000*1000) || 0 ]
+          ]);
+        }
+
+        var formatter = new window.google.visualization.NumberFormat(
+          {suffix: 'Mb', pattern: '#,###,###'}
+        );
+
+        formatter.format(data, 1);
+
         c = new window.google.visualization.PieChart(document.getElementById('dash-usage-chart'));
         c.draw(data, opts);
-      }
+      };
+
       window.google.charts.setOnLoadCallback(drawChartCallback);
 
       scope.noData = undefined;
@@ -1273,7 +1271,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     // var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
 
     controller.$scope.$on('loadClientChart', function (evt,type){
-      chart();
+      drawChart();
     });
 
     // scope.refresh = function() {
