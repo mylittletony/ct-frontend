@@ -751,7 +751,8 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         formatter.format(data,1);
         c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
         c.draw(data, opts);
-      }
+      };
+
       window.google.charts.setOnLoadCallback(drawChartCallback);
 
       scope.noData = undefined;
@@ -837,7 +838,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         var opts = controller.options;
         opts.explorer = undefined;
         opts.pieHole = 0.8;
-        opts.legend = { position: 'none' };
+        opts.legend = { position: 'bottom' };
         opts.title = 'none';
         opts.pieSliceText = 'none';
         opts.height = '350';
@@ -931,7 +932,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
         var opts = controller.options;
         opts.explorer = undefined;
         opts.pieHole = 0.8;
-        opts.legend = { position: 'none' };
+        opts.legend = { position: 'bottom' };
         opts.title = 'none';
         opts.pieSliceText = 'none';
         opts.height = '350';
@@ -1028,10 +1029,11 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         var opts = controller.options;
         opts.explorer = undefined;
         opts.pieHole = 0.8;
-        opts.legend = { position: 'none' };
+        opts.legend = { position: 'bottom' };
         opts.title = 'none';
         opts.pieSliceText = 'none';
         opts.height = '350';
+        opts.tooltipText = 'value';
         opts.colors = colours;
 
         if (data === undefined && formatted) {
@@ -1045,13 +1047,14 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               data.addRow(['Online', formatted.stats[i].value]);
             }
           }
+
+          var formatter = new window.google.visualization.NumberFormat(
+            {suffix: '', pattern: '###,###,###'}
+          );
+
+          formatter.format(data, 1);
         }
 
-        var formatter = new window.google.visualization.NumberFormat(
-          {suffix: '', pattern: ''}
-        );
-
-        formatter.format(data, 1);
 
         c = new window.google.visualization.PieChart(document.getElementById('dash-conn-chart'));
         c.draw(data, opts);
@@ -1167,7 +1170,7 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
         var opts = controller.options;
         opts.explorer = undefined;
         opts.pieHole = 0.8;
-        opts.legend = { position: 'none' };
+        opts.legend = { position: 'bottom' };
         opts.title = 'none';
         opts.pieSliceText = 'none';
         opts.height = '350';
@@ -1266,12 +1269,10 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       colours[1] = colours[0];
       var opts = controller.options;
 
-      opts.legend = { position: 'none' };
       opts.title = 'none';
       opts.height = '350';
       opts.colors = ['#225566'];
       opts.curveType = 'function';
-
       opts.legend = { position: 'none' };
       opts.series = {
         0: {
@@ -1495,7 +1496,8 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         }
         c = new window.google.visualization.LineChart(document.getElementById('load-chart'));
         c.draw(data, opts);
-      }
+      };
+
       window.google.charts.setOnLoadCallback(drawChartCallback);
       scope.noData = undefined;
       scope.loading = undefined;
@@ -1798,7 +1800,8 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
         }
         c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
         c.draw(data, opts);
-      }
+      };
+
       window.google.charts.setOnLoadCallback(drawChartCallback);
       scope.noData = undefined;
       scope.loading = undefined;
