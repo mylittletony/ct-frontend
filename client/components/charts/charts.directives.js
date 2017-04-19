@@ -1206,7 +1206,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
   var link = function(scope,element,attrs,controller) {
 
-    var c, timer, formatted;
+    var c, timer, formatted, data;
 
     scope.type = 'client.uniques';
     scope.loading = true;
@@ -1258,99 +1258,97 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     };
 
-    var data;
     function drawChart(resp) {
       $timeout.cancel(timer);
       if (window.google && window.google.visualization) {
-      }
+        var format = gettextCatalog.getString('MMM dd, yyyy');
 
-      var format = gettextCatalog.getString('MMM dd, yyyy');
+        colours[1] = colours[0];
+        var opts = controller.options;
 
-      colours[1] = colours[0];
-      var opts = controller.options;
-
-      opts.title = 'none';
-      opts.height = '350';
-      opts.colors = ['#225566'];
-      opts.curveType = 'function';
-      opts.legend = { position: 'none' };
-      opts.series = {
-        0: {
-          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 1
-        },
-        1: {
-          targetAxisIndex: 1, lineWidth: 2.5
-        }
-      };
-      opts.vAxes = {
-        0: {
-          textPosition: 'none',
-          viewWindow:{
-            max: 10,
-            min: 0
+        opts.title = 'none';
+        opts.height = '350';
+        opts.colors = ['#225566'];
+        opts.curveType = 'function';
+        opts.legend = { position: 'none' };
+        opts.series = {
+          0: {
+            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 1
+          },
+          1: {
+            targetAxisIndex: 1, lineWidth: 2.5
           }
-        },
-        1: {
-          viewWindow:{
-            min: 0
+        };
+        opts.vAxes = {
+          0: {
+            textPosition: 'none',
+            viewWindow:{
+              max: 10,
+              min: 0
+            }
+          },
+          1: {
+            viewWindow:{
+              min: 0
+            }
+          },
+        };
+
+        opts.hAxis = {
+          lineWidth: 4,
+          gridlines: {
+            count: 10,
+            color: '#f3f3f3',
+          },
+          minorGridlines: {
+            count: 2,
+            color: '#f3f3f3',
           }
-        },
-      };
+        };
 
-      opts.hAxis = {
-        lineWidth: 4,
-        gridlines: {
-          count: 10,
-          color: '#f3f3f3',
-        },
-        minorGridlines: {
-          count: 2,
-          color: '#f3f3f3',
+        opts.explorer = {
+          maxZoomOut: 0,
+          keepInBounds: true,
+          axis: 'none',
+          actions: [],
+        };
+
+        if (data === undefined && resp && resp.data) {
+
+          var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
+
+          data = new window.google.visualization.DataTable();
+          data.addColumn('datetime', 'Date');
+          data.addColumn('number', 'dummySeries');
+          data.addColumn('number', 'clients');
+
+          var len = resp.data.length;
+          for(var i = 0; i < len; i++) {
+            var time = dateFormatter.formatValue(new Date(Math.floor(resp.data[i].timestamp)));
+            time = new Date(time);
+            var count = resp.data[i].value;
+            data.addRow([time, null, count]);
+          }
+
+          var date_formatter = new window.google.visualization.DateFormat({
+            pattern: gettextCatalog.getString(format)
+          });
+
+          date_formatter.format(data,0);
+
+          var formatter = new window.google.visualization.NumberFormat(
+            { pattern: '0' }
+          );
+          formatter.format(data,2);
         }
-      };
 
-      opts.explorer = {
-        maxZoomOut: 0,
-        keepInBounds: true,
-        axis: 'none',
-        actions: [],
-      };
+        // if (window.google && window.google.visualization) {
+        c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
+        c.draw(data, opts);
 
-      if (data === undefined && resp && resp.data) {
-
-        var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
-
-        data = new window.google.visualization.DataTable();
-        data.addColumn('datetime', 'Date');
-        data.addColumn('number', 'dummySeries');
-        data.addColumn('number', 'clients');
-
-        var len = resp.data.length;
-        for(var i = 0; i < len; i++) {
-          var time = dateFormatter.formatValue(new Date(Math.floor(resp.data[i].timestamp)));
-          time = new Date(time);
-          var count = resp.data[i].value;
-          data.addRow([time, null, count]);
-        }
-
-        var date_formatter = new window.google.visualization.DateFormat({
-          pattern: gettextCatalog.getString(format)
-        });
-
-        date_formatter.format(data,0);
-
-        var formatter = new window.google.visualization.NumberFormat(
-          { pattern: '0' }
-        );
-        formatter.format(data,2);
+        scope.noData = undefined;
+        scope.loading = undefined;
       }
-
-      // if (window.google && window.google.visualization) {
-      c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
-      c.draw(data, opts);
-
-      scope.noData = undefined;
-      scope.loading = undefined;
     }
 
     window.google.charts.setOnLoadCallback(chart());
