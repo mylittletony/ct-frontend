@@ -1313,9 +1313,9 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           actions: [],
         };
 
-        if (data === undefined && resp && resp.data) {
+        var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
 
-          var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
+        if (data === undefined && resp && resp.data) {
 
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
@@ -1351,7 +1351,10 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     }
 
-    window.google.charts.setOnLoadCallback(chart());
+    var timeout = $timeout(function() {
+      window.google.charts.setOnLoadCallback(chart());
+    }, 25);
+
   };
 
   return {
