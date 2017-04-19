@@ -1316,7 +1316,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         actions: [],
       };
 
-      if (data === undefined && resp) {
+      if (data === undefined && resp && resp.data) {
 
         var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
 
