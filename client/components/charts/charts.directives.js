@@ -1345,6 +1345,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         formatter.format(data,2);
       }
 
+      // if (window.google && window.google.visualization) {
       c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
       c.draw(data, opts);
 
@@ -1352,7 +1353,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     }
 
-    chart();
+    window.google.charts.setOnLoadCallback(chart());
   };
 
   return {
