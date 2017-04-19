@@ -1316,9 +1316,10 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         actions: [],
       };
 
-      var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
-
       if (data === undefined && resp) {
+
+        var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
+
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
@@ -1344,7 +1345,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         formatter.format(data,2);
       }
 
-      c = new window.google.visualization.LineChart(document.getElementById('clients-chart'));
+      c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
       c.draw(data, opts);
 
       scope.noData = undefined;
