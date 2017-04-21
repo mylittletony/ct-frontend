@@ -1,0 +1,47 @@
+<md-dialog aria-label="{{ 'Create Self-Destructing Network' | translate }}"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Create New Self-Destructing Network</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column" style="width: 280px">
+        <span ng-if="network.self_destruct == true">
+          <translate>Set the lifespan for your Self-Destructing Network.</translate>
+          <br>
+          <div layout="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>
+                <translate>Days</translate>
+              </label>
+              <input name="days" type="number" ng-model="network.ttl_days" min="0">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>
+                <translate>Hours</translate>
+              </label>
+              <input name="hours" type="number" ng-model="network.ttl_hours" min="0">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>
+                <translate>Minutes</translate>
+              </label>
+              <input name="minutes" type="number" ng-model="network.ttl_minutes" min="0">
+            </md-input-container>
+          </div>
+          <small class="muted" style="font-size: 75%;" translate>Self-destructing networks allow you to create a network that will destroy itself after a certain number of days, hours and minutes. Perfect for office events or when your enemy wants to watch Netflix in your living room.</small>
+        </span>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex="auto"></span>
+      <md-button ng-click="close()" translate>
+        Close
+      </md-button>
+      <md-button class="md-raised"ng-click="save()" translate>
+        CREATE
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
