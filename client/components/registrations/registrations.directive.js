@@ -87,7 +87,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
       } else if ($location.hash() === 'confirm') {
         scope.title = gettextCatalog.getString('Last Stage');
-        scope.subhead = gettextCatalog.getString('By clicking save, you\'re agreeing to our terms of use. You can read these at cucumberwifi.io/terms');
+        scope.subhead = gettextCatalog.getString('By clicking create dashboard, you\'re agreeing to our terms of use. You can read these at cucumberwifi.io/terms');
       } else if (!scope.creatingAccount) {
         scope.title = gettextCatalog.getString('What do you want to call your first network?');
         scope.subhead = gettextCatalog.getString('This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'');

@@ -253,12 +253,12 @@ describe('client', function () {
       expect(clientScope.fn).toEqual({ key: 'mean', value: 'mean' });
       expect(clientScope.period).toEqual('my-period');
 
-      var client = { id: 123 };
-      deferred.resolve(client);
-      $scope.$apply();
+    //   var client = { id: 123 };
+    //   deferred.resolve(client);
+    //   $scope.$apply();
 
-      expect(clientScope.client.id).toEqual(123);
-    });
+    //   expect(clientScope.client.id).toEqual(123);
+    // });
 
     it("should fetch the group policies", function() {
       // var clientScope = element.find('client-detail').isolateScope()

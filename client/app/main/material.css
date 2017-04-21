@@ -299,6 +299,10 @@ md-button-group > .md-button {
   min-height: 350px;
 }
 
+.dashboard-charts md-card {
+  min-height: 450px;
+}
+
 .md-button .active {
   background-color: rgba(158,158,158,0.2)!important;
 }
@@ -578,14 +582,47 @@ table tr td, table.print-friendly tr th {
   margin-top: -30px;
 }
 
+.ssid-form {
+  width: 350px;
+}
+
+.emojionearea, .emojionearea.form-control {
+  box-shadow: none !important;
+  border-width: 0 0 1px 0 !important;
+}
+
 pre .list-unstyled {
-    list-style: none;
-    margin: 0px 0 -40px -40px;
-    line-height: 8px;
+  list-style: none;
+  margin: 0px 0 -40px -40px;
+  line-height: 8px;
 }
 
 md-card.highlight-section {
   background-color: #f4f8ff;
+}
+
+.ssid-form {
+  height: 400px;
+}
+
+#new-ssid-form.ssid-form {
+  height: 100%;
+}
+
+.emojionearea.emojionearea-inline>.emojionearea-editor {
+  position: initial !important;
+}
+
+.emojionearea .emojionearea-editor {
+  color: rgba(0,0,0,0.87) !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  font-size: 16px !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  font-variant-caps: : normal !important;
+  font-variant-ligatures: : normal !important;
+  font-variant-numeric: : normal !important;
+  font-weight: : normal !important;
 }
 
 /* pre { */
@@ -625,4 +662,14 @@ md-card.highlight-section {
 
 .side-menu .divider {
   border-top-color: #263238;
+}
+
+.page-loader {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  left: 0;
+  position: absolute;
+  background-color: white;
 }

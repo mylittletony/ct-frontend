@@ -57,11 +57,12 @@
               <label>
                 <translate>Network SSID</translate>
               </label>
-              <input autocomplete="off" name="ssid" md-maxlength="32" ng-model="network.ssid" ng-pattern="FilterPattern" required>
+              <input autocomplete="off" name="ssid" md-maxlength="32" placeholder="Network SSID" ng-pattern="FilterPattern" emoji-picker="{pickerPosition: 'bottom'}" ng-model="network.ssid" class="ssid-input" ssid required>
               <div ng-messages="myForm.ssid.$error" md-auto-hide="false">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>
                 <div ng-message="pattern" translate>Invalid characters in SSID</div>
+                <div ng-message="ssidValidator" translate>SSID is too large, emojis take up more space!</div>
               </div>
             </md-input-container>
             <span ng-if="network.access_type == 'password'">
