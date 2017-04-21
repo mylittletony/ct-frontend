@@ -53,6 +53,7 @@
               <th md-column hide show-gt-sm><span translate>Tags</span></th>
               <th md-column hide show-gt-xs><span translate>Channel</span></th>
               <th md-column hide show-gt-md md-order-by="wan_ip"><span translate>IP</span></th>
+              <th md-column><span translate>Status</span></th>
               <th md-column><span translate>Action</span></th>
             </tr>
           </thead>
@@ -118,6 +119,9 @@
                     </translate>
                     <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
                   </md-tooltip>
+                </td>
+                <td md-cell>
+                  <svg id="heartbeat-{{$index}}">
                 </td>
                 <td md-cell>
                   <md-menu>

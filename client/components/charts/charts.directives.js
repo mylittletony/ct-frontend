@@ -2391,3 +2391,132 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
   };
 
 }]);
+
+// app.directive('heartbeatsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails) {
+//
+//   var link = function(scope,element,attrs,controller) {
+//     window.google.charts.setOnLoadCallback(chart);
+//
+//     $(window).resize(function() {
+//       if (this.resizeTO) {
+//         clearTimeout(this.resizeTO);
+//       }
+//       this.resizeTO = setTimeout(function() {
+//         $(this).trigger('resizeEnd');
+//       }, 250);
+//     });
+//
+//     $(window).on('resizeEnd', function() {
+//       chart();
+//     });
+//
+//     function getOptions() {
+//       return {
+//         colors: [`#4caf50`, `#af504c`],
+//         timeline: {
+//                     colorByRowLabel:  false,
+//                     showBarLabels: false,
+//                     showRowLabels: false
+//                   },
+//         avoidOverlappingGridLines: false,
+//         height: 20,
+//         width: 100,
+//         forceIFrame: true
+//       };
+//     }
+//
+//     function chart() {
+//       var dataTable = new google.visualization.DataTable();
+//
+//       dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+//       dataTable.addColumn({ type: 'string', id: 'Status' });
+//       dataTable.addColumn({ type: 'date', id: 'Start' });
+//       dataTable.addColumn({ type: 'date', id: 'End' });
+//
+//       var data = [
+//           ['Online', 1489486680000],
+//           ['Online', 1489486860000],
+//           ['Online', 1489487040000],
+//           ['Online', 1489487220000],
+//           ['Online', 1489487400000],
+//           ['Online', 1489487580000],
+//           ['Online', 1489487940000],
+//           ['Online', 1489488300000],
+//           ['Online', 1489488480000],
+//           ['Offline', 1489488660000],
+//           ['Offline', 1489488840000],
+//           ['Offline', 1489489920000],
+//           ['Offline', 1489490100000],
+//           ['Offline', 1489490280000],
+//           ['Offline', 1489490460000],
+//           ['Offline', 1489490820000],
+//           ['Online', 1489491000000],
+//           ['Online', 1489491180000],
+//           ['Online', 1489491540000],
+//           ['Online', 1489491720000],
+//           ['Offline', 1489491900000],
+//           ['Offline', 1489492260000],
+//           ['Offline', 1489492620000],
+//           ['Online', 1489492800000],
+//           ['Online', 1489493340000],
+//           ['Online', 1489493880000],
+//           ['Online', 1489494060000],
+//           ['Online', 1489494240000],
+//           ['Online', 1489494420000],
+//           ['Online', 1489494780000],
+//           ['Online', 1489494960000],
+//           ['Online', 1489495140000],
+//           ['Online', 1489495320000],
+//           ['Online', 1489495500000],
+//           ['Online', 1489495680000],
+//           ['Online', 1489495860000],
+//           ['Online', 1489496040000],
+//           ['Online', 1489496220000],
+//           ['Online', 1489496940000],
+//           ['Online', 1489497120000],
+//           ['Online', 1489497300000],
+//           ['Offline', 1489497480000]
+//         ];
+//       var status;
+//       var last_time;
+//
+//       for (var i = 0; i < response.data.length; i++) {
+//         var this_time = response.data[i].timestamp
+//         if (i != 0) {
+//           dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+//         }
+//         if (response.data[i].value) {
+//           status = 'Online';
+//         } else {
+//           status = 'Offline';
+//         }
+//         last_time = this_time;
+//         if (i + 1 == response.data.length) {
+//           dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(response.end_time)])
+//         }
+//       };
+//
+//       var options = getOptions();
+//       // var element = document.getElementById('chart3');
+//       // var style = window.getComputedStyle(element);
+//       // var width = style.getPropertyValue('width');
+//       // options.width = width;
+//
+//       var chart = new google.visualization.Timeline(document.getElementById('heartbeats-1'));
+//       chart.draw(dataTable, options);
+//     }
+//
+//   };
+//
+//   return {
+//     link: link,
+//     scope: {
+//       mac: '@',
+//       loc: '@',
+//       version: '@'
+//     },
+//     require: '^clientChart',
+//     templateUrl: 'components/charts/locations/_clients_chart.html',
+//   };
+//
+// }]);
