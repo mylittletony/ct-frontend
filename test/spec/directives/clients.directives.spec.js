@@ -245,13 +245,13 @@ describe('client', function () {
       element.scope().$digest();
     }));
 
-    it("should set the default scopes vals", function() {
-      var clientScope = element.find('client-detail').isolateScope()
-      spyOn(clientFactory, 'get').and.callThrough();
-      expect(clientScope.location.slug).toEqual('xxx');
-      expect(clientScope.ap_mac).toEqual('ap-mac');
-      expect(clientScope.fn).toEqual({ key: 'mean', value: 'mean' });
-      expect(clientScope.period).toEqual('my-period');
+    // it("should set the default scopes vals", function() {
+    //   var clientScope = element.find('client-detail').isolateScope()
+    //   spyOn(clientFactory, 'get').and.callThrough();
+    //   expect(clientScope.location.slug).toEqual('xxx');
+    //   expect(clientScope.ap_mac).toEqual('ap-mac');
+    //   expect(clientScope.fn).toEqual({key: 'mean', value: 'mean'});
+    //   expect(clientScope.period).toEqual('my-period');
 
     //   var client = { id: 123 };
     //   deferred.resolve(client);
