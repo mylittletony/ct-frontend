@@ -120,8 +120,8 @@
                     <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
                   </md-tooltip>
                 </td>
-                <td md-cell>
-                  <svg id="heartbeat-{{$index}}">
+                <td md-cell client-chart>
+                  <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
                 </td>
                 <td md-cell>
                   <md-menu>
