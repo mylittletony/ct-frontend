@@ -1190,7 +1190,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     function getOptions() {
       return {
-        colors: [`#4caf50`, `#af504c`],
+        colors: ['#4caf50', '#af504c'],
         timeline: {
                     colorByRowLabel:  false,
                     showBarLabels: false,
