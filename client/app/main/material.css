@@ -661,3 +661,10 @@ md-card.highlight-section {
 .md-sidenav-left .side-menu .menu-subhead {
   color: #EEEEEE;
 }
+
+/*toast text style*/
+
+md-bottom-sheet .md-subheader {
+  white-space: normal;
+  line-height: 26px;
+}
