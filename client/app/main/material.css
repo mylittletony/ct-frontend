@@ -625,6 +625,10 @@ md-card.highlight-section {
   font-weight: : normal !important;
 }
 
+.google-visualization-tooltip{
+  z-index: 1000;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
