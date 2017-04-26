@@ -1205,7 +1205,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     window.google.charts.setOnLoadCallback(chart);
 
-    var dataNew;
+    var data;
 
     $(window).resize(function() {
       if (this.resizeTO) {
@@ -1236,6 +1236,10 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       };
     }
 
+    function boolToStatus(value) {
+      return value ? 'Online' : 'Offline'
+    }
+
     function chart() {
 
       var params = {
@@ -1243,101 +1247,46 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         ap_mac: scope.mac
       };
       controller.getStats(params).then(function(resp) {
-        console.log(resp);
-        if (resp.v === 2) {
-          // Sort when old data is depreciated
-          for (var i in resp.stats) {
-            var key = resp.stats[i].key;
-            if (key === 'outbound') {
-              dataNew.usage.outbound = resp.stats[i].value;
-            } else if (key === 'inbound') {
-              dataNew.usage.inbound = resp.stats[i].value;
-            }
-          }
-        } else {
-          dataNew = resp;
-        }
-
-        if (formatted.usage.inbound === 0 && formatted.usage.outbound === 0) {
-          formatted.usage.inbound = 1;
-        }
-        renderChart(formatted.usage);
-      });
-
-      var dataTable = new google.visualization.DataTable();
-
-      dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-      dataTable.addColumn({ type: 'string', id: 'Status' });
-      dataTable.addColumn({ type: 'date', id: 'Start' });
-      dataTable.addColumn({ type: 'date', id: 'End' });
-
-      var data = [
-          ['Online', 1489486680000],
-          ['Online', 1489486860000],
-          ['Online', 1489487040000],
-          ['Online', 1489487220000],
-          ['Online', 1489487400000],
-          ['Online', 1489487580000],
-          ['Online', 1489487940000],
-          ['Online', 1489488300000],
-          ['Online', 1489488480000],
-          ['Offline', 1489488660000],
-          ['Offline', 1489488840000],
-          ['Offline', 1489489920000],
-          ['Offline', 1489490100000],
-          ['Offline', 1489490280000],
-          ['Offline', 1489490460000],
-          ['Offline', 1489490820000],
-          ['Online', 1489491000000],
-          ['Online', 1489491180000],
-          ['Online', 1489491540000],
-          ['Online', 1489491720000],
-          ['Offline', 1489491900000],
-          ['Offline', 1489492260000],
-          ['Offline', 1489492620000],
-          ['Online', 1489492800000],
-          ['Online', 1489493340000],
-          ['Online', 1489493880000],
-          ['Online', 1489494060000],
-          ['Online', 1489494240000],
-          ['Online', 1489494420000],
-          ['Online', 1489494780000],
-          ['Online', 1489494960000],
-          ['Online', 1489495140000],
-          ['Online', 1489495320000],
-          ['Online', 1489495500000],
-          ['Online', 1489495680000],
-          ['Online', 1489495860000],
-          ['Online', 1489496040000],
-          ['Online', 1489496220000],
-          ['Online', 1489496940000],
-          ['Online', 1489497120000],
-          ['Online', 1489497300000],
-          ['Offline', 1489497480000]
+        var time = resp.data[0].timestamp;
+        var value = boolToStatus(resp.data[0].value);
+        data = [
+          [value, time]
         ];
-      var status;
-      var last_time;
-
-      for (var i = 0; i < data.length; i++) {
-        var this_time = data[i][1]
-        if (i != 0) {
-          dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+        for (var i = 0; i < 49; i++) {
+          time = time - 600000;
+          value = boolToStatus(Math.random() >= 0.2);
+          data.push([value, time]);
         }
-        status = data[i][0];
-        last_time = this_time;
-        if (i + 1 == data.length) {
-          dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)])
-        }
-      };
 
-      var options = getOptions();
-      // var element = document.getElementById('chart3');
-      // var style = window.getComputedStyle(element);
-      // var width = style.getPropertyValue('width');
-      // options.width = width;
+        data.reverse();
 
-      var chart = new google.visualization.Timeline(document.getElementById(scope.target));
-      chart.draw(dataTable, options);
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var status;
+        var last_time;
+
+        for (var i = 0; i < data.length; i++) {
+          var this_time = data[i][1]
+          if (i != 0) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+          }
+          status = data[i][0];
+          last_time = this_time;
+          if (i + 1 == data.length) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)])
+          }
+        };
+
+        var options = getOptions();
+
+        var chart = new google.visualization.Timeline(document.getElementById(scope.target));
+        chart.draw(dataTable, options);
+      });
     }
 
   };
