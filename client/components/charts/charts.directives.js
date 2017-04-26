@@ -413,7 +413,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         var endOfDay = Math.floor(moment().utc().endOf('day').toDate().getTime() / 1000);
         Metric.clientstats({
           type:         params.metric_type || params.type,
-          ap_mac:       $scope.client.ap_mac,
+          ap_mac:       $scope.client.ap_mac || params.ap_mac,
           client_mac:   $scope.client.client_mac,
           location_id:  $scope.client.location_id,
           start_time:   minDateEpoch,
@@ -816,7 +816,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       }, function() {
         clearChart();
       });
-    }
+    };
 
     var renderChart = function() {
       window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
@@ -1205,6 +1205,110 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     },
     require: '^clientChart',
     templateUrl: 'components/charts/locations/_health_chart.html',
+  };
+
+}]);
+
+app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$location', 'gettextCatalog', 'ClientDetails', function($timeout, Report, $routeParams, COLOURS, $location, gettextCatalog, ClientDetails) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    window.google.charts.setOnLoadCallback(chart);
+
+    var data;
+
+    $(window).resize(function() {
+      if (this.resizeTO) {
+        clearTimeout(this.resizeTO);
+      }
+      this.resizeTO = setTimeout(function() {
+        $(this).trigger('resizeEnd');
+      }, 250);
+    });
+
+    $(window).on('resizeEnd', function() {
+      chart();
+    });
+
+    function getOptions() {
+      return {
+        colors: ['#4caf50', '#af504c'],
+        timeline: {
+                    colorByRowLabel:  false,
+                    showBarLabels: false,
+                    showRowLabels: false
+                  },
+        avoidOverlappingGridLines: false,
+        //dont set height to 50+, just don't
+        height: 45,
+        width: 200,
+        forceIFrame: true
+      };
+    }
+
+    function boolToStatus(value) {
+      return value ? 'Online' : 'Offline'
+    }
+
+    function chart() {
+
+      var params = {
+        metric_type:  'device.heartbeats',
+        ap_mac: scope.mac
+      };
+      controller.getStats(params).then(function(resp) {
+        var time = resp.data[0].timestamp;
+        var value = boolToStatus(resp.data[0].value);
+        data = [
+          [value, time]
+        ];
+        for (var i = 0; i < 49; i++) {
+          time = time - 600000;
+          value = boolToStatus(Math.random() >= 0.2);
+          data.push([value, time]);
+        }
+
+        data.reverse();
+
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var status;
+        var last_time;
+
+        for (var i = 0; i < data.length; i++) {
+          var this_time = data[i][1]
+          if (i != 0) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)]);
+          }
+          status = data[i][0];
+          last_time = this_time;
+          if (i + 1 == data.length) {
+            dataTable.addRow(['Heartbeat', status, new Date(last_time), new Date(this_time)])
+          }
+        };
+
+        var options = getOptions();
+
+        var chart = new google.visualization.Timeline(document.getElementById(scope.target));
+        chart.draw(dataTable, options);
+      });
+    }
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      mac: '@',
+      loc: '@',
+      target: '@'
+    },
+    require: '^clientChart',
   };
 
 }]);
