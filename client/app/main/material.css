@@ -584,10 +584,6 @@ table tr td, table.print-friendly tr th {
   margin-top: -30px;
 }
 
-.ssid-form {
-  width: 350px;
-}
-
 .emojionearea, .emojionearea.form-control {
   box-shadow: none !important;
   border-width: 0 0 1px 0 !important;
@@ -667,4 +663,18 @@ md-card.highlight-section {
 md-bottom-sheet .md-subheader {
   white-space: normal;
   line-height: 26px;
+}
+
+/*new ssid dialog dialog*/
+
+@media (max-width: 600px) {
+  .emojionearea-button {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .ssid-form {
+    width: 350px;
+  }
 }
