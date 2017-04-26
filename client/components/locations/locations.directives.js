@@ -1405,7 +1405,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         scope._links          = results._links;
         scope.loading         = undefined;
         countOnline();
-        poll();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
