@@ -130,6 +130,12 @@ md-toolbar md-autocomplete {
   /* height: 15px; */
 }
 
+@media (max-width: 600px) {
+  md-toolbar md-autocomplete {
+    min-width: 230px;
+  }
+}
+
 .login {
   background: #455A64; /* Old browsers */
   background: -moz-linear-gradient(top,  #455A64 0%, #37474F 100%); /* FF3.6-15 */
