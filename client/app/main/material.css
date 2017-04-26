@@ -640,7 +640,7 @@ md-card.highlight-section {
   background: #37484f;
 }
 
-.sidenav .menu-heading.menu-subhead {
+.md-sidenav-left .menu-heading.menu-subhead {
   color: #EEEEEE;
 }
 
@@ -648,14 +648,10 @@ md-card.highlight-section {
   color: #EEEEEE;
 }
 
-.side-menu .material-icons {
+.md-sidenav-left .side-menu .material-icons {
   color: #EEEEEE;
 }
 
-.side-menu .menu-subhead {
+.md-sidenav-left .side-menu .menu-subhead {
   color: #EEEEEE;
-}
-
-.side-menu .divider {
-  border-top-color: #263238;
 }
