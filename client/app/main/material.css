@@ -629,6 +629,26 @@ md-card.highlight-section {
   z-index: 1000;
 }
 
+[heartbeat-chart] {
+  margin-top: 5px;
+}
+
+[heartbeat-chart] div:not(.google-visualization-tooltip):not(.google-visualization-tooltip-separator) {
+  height: 45px;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > rect {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > path {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(2) > text {
+  opacity: 0 !important;
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
