@@ -305,6 +305,10 @@ md-button-group > .md-button {
   min-height: 350px;
 }
 
+.dashboard-charts md-card {
+  min-height: 450px;
+}
+
 .md-button .active {
   background-color: rgba(158,158,158,0.2)!important;
 }
@@ -677,4 +681,14 @@ md-bottom-sheet .md-subheader {
   .ssid-form {
     width: 350px;
   }
+}
+
+.page-loader {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  left: 0;
+  position: absolute;
+  background-color: white;
 }
