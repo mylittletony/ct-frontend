@@ -1232,7 +1232,6 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         //dont set height to 50+, just don't
         height: 45,
         width: 200,
-        forceIFrame: true
       };
     }
 
