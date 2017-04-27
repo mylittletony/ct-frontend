@@ -1,7 +1,7 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <!-- Depreciate has_nas -->
-    <md-input-container flex-xs="60" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices || location.has_nas">
+    <md-input-container flex-xs="60" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
       <label></label>
       <md-icon md-font-icon="search">search</md-icon>
       <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
