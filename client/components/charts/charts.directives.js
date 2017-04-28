@@ -1207,10 +1207,14 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       return value ? 'Online' : 'Offline'
     }
 
+    function prefixNumber(number) {
+      return (number < 10 ? '0' + number : number)
+    }
+
     function formatDate(date) {
       date = new Date(date);
-      var timeFormatted = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-      var dateFormatted = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '/' + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + '/' + date.getFullYear().toString().slice(-2);
+      var timeFormatted = prefixNumber(date.getHours()) + ':' + prefixNumber(date.getMinutes());
+      var dateFormatted = prefixNumber(date.getDate()) + '/' + prefixNumber(date.getMonth()) + '/' + date.getFullYear().toString().slice(-2);
       var datetimeFormatted = timeFormatted + ' ' + dateFormatted;
       return datetimeFormatted
     }
