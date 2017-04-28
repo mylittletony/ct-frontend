@@ -708,15 +708,11 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         if (data.usage.inbound === 0 && data.usage.outbound === 0) {
           data.usage.inbound = 1;
         }
-        renderChart();
+        drawChart(data.usage)
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(data.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -812,15 +808,11 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         if (formatted.usage.inbound === 0 && formatted.usage.outbound === 0) {
           formatted.usage.inbound = 1;
         }
-        renderChart(formatted.usage);
+        drawChart(formatted.usage);
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -906,15 +898,11 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
-        renderChart();
+        drawChart(formatted.usage);
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -1045,7 +1033,7 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           }
 
           var formatter = new window.google.visualization.NumberFormat(
-            {suffix: '', pattern: '###,###,###'}
+            {suffix: '%', pattern: '###,###,###'}
           );
 
           formatter.format(data, 1);
