@@ -1003,16 +1003,11 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
-        renderChart();
+        drawChart();
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      // window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-      drawChart();
-    };
 
     var clearChart = function() {
       if (c) {
