@@ -1251,11 +1251,15 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       return datetimeFormatted
     }
 
-    function makeTooltip(startTime, endTime) {
+    function duration(start, end) {
+      return (end - start) / 60000
+    }
+
+    function makeTooltip(status, startTime, endTime) {
       var tooltip = '<div class="heartbeats-tooltip" style="width: 250px; height: 120px; left 5px; top: 30px; pointer-events: none; font-weight: bold;">' +
         '<div class="heartbeats-tooltip-item-list" style="height: 35px">' +
           '<div class="heartbeats-tooltip-item">' +
-            '<span style="font-family: Arial">Offline</span>' +
+            '<span style="font-family: Arial">' + status + '</span>' +
           '</div>' +
         '</div>' +
         '<div class="heartbeats-tooltip-separator" style="height: 1px; margin: 0; padding: 0; background-color: #dddddd;"></div>' +
@@ -1266,7 +1270,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
           '</div>' +
            '<div class="heartbeats-tooltip-item" style="height: 30px;">' +
             '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Duration:</span>' +
-            '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;">Need to do</span>' +
+            '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;">' + duration(startTime, endTime) + ' minutes</span>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -1308,12 +1312,12 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         for (var i = 0; i < data.length; i++) {
           var thisTime = data[i][1]
           if (i != 0) {
-            dataTable.addRow(['Heartbeat', status, makeTooltip(lastTime, thisTime), new Date(lastTime), new Date(thisTime)]);
+            dataTable.addRow(['Heartbeat', status, makeTooltip(status, lastTime, thisTime), new Date(lastTime), new Date(thisTime)]);
           }
           status = data[i][0];
           lastTime = thisTime;
           if (i + 1 == data.length) {
-            dataTable.addRow(['Heartbeat', status, makeTooltip(lastTime, thisTime), new Date(lastTime), new Date(thisTime)])
+            dataTable.addRow(['Heartbeat', status, makeTooltip(status, lastTime, thisTime), new Date(lastTime), new Date(thisTime)])
           }
         };
 
