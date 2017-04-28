@@ -625,8 +625,48 @@ md-card.highlight-section {
   font-weight: : normal !important;
 }
 
-.google-visualization-tooltip{
+.google-visualization-tooltip {
   z-index: 1000;
+  background-color: white;
+  left: 30px !important;
+  top: 30px !important;
+}
+
+.google-visualization-tooltip > div > div > div {
+  margin: 12px 0 12px 0 !important;
+  padding: 0 24px 0 12px !important;
+}
+
+location-boxes md-table-container {
+  overflow: visible !important;
+}
+
+location-boxes table {
+  overflow: visible !important;
+}
+
+.heartbeats-tooltip-separator {
+  height: 1px !important;
+  margin: 0;
+  padding: 0;
+  background-color: #dddddd;
+  z-index: 1000;
+}
+
+[heartbeat-chart] {
+  margin-top: 5px;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > rect {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > path {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(2) > text {
+  opacity: 0 !important;
 }
 
 /* pre { */
