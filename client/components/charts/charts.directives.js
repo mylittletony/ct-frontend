@@ -708,15 +708,11 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         if (data.usage.inbound === 0 && data.usage.outbound === 0) {
           data.usage.inbound = 1;
         }
-        renderChart();
+        drawChart(data.usage)
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(data.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -812,15 +808,11 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         if (formatted.usage.inbound === 0 && formatted.usage.outbound === 0) {
           formatted.usage.inbound = 1;
         }
-        renderChart(formatted.usage);
+        drawChart(formatted.usage);
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -906,15 +898,11 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
-        renderChart();
+        drawChart(formatted.usage);
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -996,23 +984,18 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     });
 
     function chart() {
-      // var params = {
-      //   type:         scope.type,
-      //   metric_type:  'client.stats',
-      //   resource:     scope.resource
-      // };
-      // controller.getStats(params).then(function(resp) {
-      //   formatted = resp;
-        renderChart();
-      // }, function() {
-      //   clearChart();
-      // });
+      var params = {
+        type:         scope.type,
+        metric_type:  'client.loyalty',
+        resource:     scope.resource
+      };
+      controller.getStats(params).then(function(resp) {
+        formatted = resp;
+        drawChart();
+      }, function() {
+        clearChart();
+      });
     }
-
-    var renderChart = function() {
-      // window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-      drawChart();
-    };
 
     var clearChart = function() {
       if (c) {
@@ -1037,33 +1020,26 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         opts.tooltipText = 'value';
         opts.colors = colours;
 
-        // if (data === undefined && formatted) {
-          // data = new window.google.visualization.DataTable();
-          // data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
-          // data.addColumn('number', gettextCatalog.getString('5Ghz'));
-          // for (var i in formatted.stats) {
-          //   if (formatted.stats[i].key === 'total') {
-          //     data.addRow(['Total', formatted.stats[i].value]);
-          //   } else if (formatted.stats[i].key === 'online') {
-          //     data.addRow(['Online', formatted.stats[i].value]);
-          //   }
-          // }
-
-          data = new window.google.visualization.arrayToDataTable([
-            ['State', 'Number'],
-            ['New',     4],
-            ['Returning',      8],
-          ]);
+        if (data === undefined && formatted) {
+          data = new window.google.visualization.DataTable();
+          data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
+          data.addColumn('number', gettextCatalog.getString('5Ghz'));
+          for (var i in formatted.stats) {
+            if (formatted.stats[i].key === 'new') {
+              data.addRow(['New', formatted.stats[i].value]);
+            } else if (formatted.stats[i].key === 'returning') {
+              data.addRow(['Returning', formatted.stats[i].value]);
+            }
+          }
 
           var formatter = new window.google.visualization.NumberFormat(
-            {suffix: '', pattern: '###,###,###'}
+            {suffix: '%', pattern: '###,###,###'}
           );
 
           formatter.format(data, 1);
-        // }
+        }
 
-
-        c = new window.google.visualization.PieChart(document.getElementById('dash-conn-chart'));
+        c = new window.google.visualization.PieChart(document.getElementById('dash-loyalty-chart'));
         c.draw(data, opts);
       };
 
@@ -1084,7 +1060,7 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       version: '@'
     },
     require: '^clientChart',
-    templateUrl: 'components/charts/locations/_conn_chart.html',
+    templateUrl: 'components/charts/locations/_loyalty_chart.html',
   };
 
 }]);
