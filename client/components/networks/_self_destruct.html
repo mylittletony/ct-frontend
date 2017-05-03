@@ -1,12 +1,12 @@
 <md-dialog aria-label="{{ 'Create Self-Destructing Network' | translate }}"  ng-cloak>
-  <form name="myForm">
+  <form name="myForm" class="ssid-form">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2 translate>Create New Self-Destructing Network</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <div class="md-dialog-content" layout="column" style="width: 280px">
+      <div class="md-dialog-content" layout="column">
         <span ng-if="network.self_destruct == true">
           <translate>Set the lifespan for your Self-Destructing Network.</translate>
           <br>
