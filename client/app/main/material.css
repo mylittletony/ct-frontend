@@ -763,3 +763,39 @@ location-boxes table {
   position: absolute;
   background-color: white;
 }
+
+/*home-n-stuff*/
+
+.home-stat-card-local.md-raised, .home-stat-card-box.md-raised, .home-stat-card-client.md-raised, .home-stat-card-splash.md-raised {
+  color:white;
+  font-size: 16px;
+}
+
+.home-stat-card-local.md-raised, .home-stat-card-local.md-raised.md-focused, .home-stat-card-local.md-raised:not([disabled]):hover, .home-stat-card-local.md-raised:not([disabled]).md-focused {
+  background-color: #5C6BC0;
+}
+
+.home-stat-card-box.md-raised, .home-stat-card-box.md-raised.md-focused, .home-stat-card-box.md-raised:not([disabled]):hover, .home-stat-card-box.md-raised:not([disabled]).md-focused {
+  background-color: #29B6F6;
+}
+
+.home-stat-card-client.md-raised, .home-stat-card-client.md-raised.md-focused, .home-stat-card-client.md-raised:not([disabled]):hover, .home-stat-card-client.md-raised:not([disabled]).md-focused {
+  background-color: #26C6DA;
+}
+
+.home-stat-card-splash.md-raised, .home-stat-card-splash.md-raised.md-focused, .home-stat-card-splash.md-raised:not([disabled]):hover, .home-stat-card-splash.md-raised:not([disabled]).md-focused {
+  background-color: #26A69A;
+}
+
+.home-stat-icon {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.md-button.md-raised .home-stat-icon md-icon.material-icons {
+  color:white;
+  font-size:70px;
+  height:auto;
+  width:auto;
+}

@@ -708,15 +708,11 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         if (data.usage.inbound === 0 && data.usage.outbound === 0) {
           data.usage.inbound = 1;
         }
-        renderChart();
+        drawChart(data.usage)
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(data.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -812,14 +808,10 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         if (formatted.usage.inbound === 0 && formatted.usage.outbound === 0) {
           formatted.usage.inbound = 1;
         }
-        renderChart(formatted.usage);
+        drawChart(formatted.usage);
       }, function() {
         clearChart();
       });
-    };
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
     };
 
     var clearChart = function() {
@@ -906,15 +898,11 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
-        renderChart();
+        drawChart(formatted.usage);
       }, function() {
         clearChart();
       });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -996,23 +984,18 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     });
 
     function chart() {
-      // var params = {
-      //   type:         scope.type,
-      //   metric_type:  'client.stats',
-      //   resource:     scope.resource
-      // };
-      // controller.getStats(params).then(function(resp) {
-      //   formatted = resp;
-        renderChart();
-      // }, function() {
-      //   clearChart();
-      // });
+      var params = {
+        type:         scope.type,
+        metric_type:  'client.loyalty',
+        resource:     scope.resource
+      };
+      controller.getStats(params).then(function(resp) {
+        formatted = resp;
+        drawChart();
+      }, function() {
+        clearChart();
+      });
     }
-
-    var renderChart = function() {
-      // window.google.charts.setOnLoadCallback(drawChart(formatted.usage));
-      drawChart();
-    };
 
     var clearChart = function() {
       if (c) {
@@ -1037,33 +1020,26 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         opts.tooltipText = 'value';
         opts.colors = colours;
 
-        // if (data === undefined && formatted) {
-          // data = new window.google.visualization.DataTable();
-          // data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
-          // data.addColumn('number', gettextCatalog.getString('5Ghz'));
-          // for (var i in formatted.stats) {
-          //   if (formatted.stats[i].key === 'total') {
-          //     data.addRow(['Total', formatted.stats[i].value]);
-          //   } else if (formatted.stats[i].key === 'online') {
-          //     data.addRow(['Online', formatted.stats[i].value]);
-          //   }
-          // }
-
-          data = new window.google.visualization.arrayToDataTable([
-            ['State', 'Number'],
-            ['New',     4],
-            ['Returning',      8],
-          ]);
+        if (data === undefined && formatted) {
+          data = new window.google.visualization.DataTable();
+          data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
+          data.addColumn('number', gettextCatalog.getString('5Ghz'));
+          for (var i in formatted.stats) {
+            if (formatted.stats[i].key === 'new') {
+              data.addRow(['New', formatted.stats[i].value]);
+            } else if (formatted.stats[i].key === 'returning') {
+              data.addRow(['Returning', formatted.stats[i].value]);
+            }
+          }
 
           var formatter = new window.google.visualization.NumberFormat(
-            {suffix: '', pattern: '###,###,###'}
+            {suffix: '%', pattern: '###,###,###'}
           );
 
           formatter.format(data, 1);
-        // }
+        }
 
-
-        c = new window.google.visualization.PieChart(document.getElementById('dash-conn-chart'));
+        c = new window.google.visualization.PieChart(document.getElementById('dash-loyalty-chart'));
         c.draw(data, opts);
       };
 
@@ -1084,25 +1060,24 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       version: '@'
     },
     require: '^clientChart',
-    templateUrl: 'components/charts/locations/_conn_chart.html',
+    templateUrl: 'components/charts/locations/_loyalty_chart.html',
   };
 
 }]);
 
-app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
+app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails) {
 
   var link = function(scope,element,attrs,controller) {
 
-    var c, timer;
-    // scope.type = 'data';
+    ClientDetails.client.version = '4';
+    ClientDetails.client.ap_mac = undefined;
+
+    var c, timer, json, data;
     scope.loading = true;
-    // var colours = COLOURS.split(' ');
-    // var colours = ['#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC']
-    var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148']
-    var data = { usage: { inbound: 1 } };
+    var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
 
     controller.$scope.$on('loadClientChart', function (evt,type){
-      chart();
+      drawChart();
     });
 
     scope.refresh = function() {
@@ -1110,38 +1085,17 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     };
 
     function chart() {
-      // var params = {
-      //   type:         scope.type,
-      //   metric_type:  'device.usage',
-      //   resource:     scope.resource
-      // };
-      // controller.getStats(params).then(function(resp) {
-      //   if (resp.v === 2) {
-      //     // Sort when old data is depreciated
-      //     for (var i in resp.stats) {
-      //       var key = resp.stats[i].key;
-      //       if (key === 'outbound') {
-      //         data.usage.outbound = resp.stats[i].value;
-      //       } else if (key === 'inbound') {
-      //         data.usage.inbound = resp.stats[i].value;
-      //       }
-      //     }
-      //   } else {
-      //     data = resp;
-      //   }
-
-      //   if (data.usage.inbound === 0 && data.usage.outbound === 0) {
-      //     data.usage.inbound = 1;
-      //   }
-        renderChart();
-      // }, function() {
-      //   clearChart();
-      // });
+      var params = {
+        type:         scope.type,
+        metric_type:  'device.health',
+        resource:     scope.resource
+      };
+      controller.getStats(params).then(function(resp) {
+        drawChart(resp)
+      }, function(err) {
+        clearChart();
+      });
     }
-
-    var renderChart = function() {
-      window.google.charts.setOnLoadCallback(drawChart(data.usage));
-    };
 
     var clearChart = function() {
       if (c) {
@@ -1154,25 +1108,29 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     function drawChart(json) {
       $timeout.cancel(timer);
       var drawChartCallback = function() {
-        var data = google.visualization.arrayToDataTable([
-          ['State', 'Number'],
-          ['Online',     4],
-          ['Offline',      8],
-          ['New',  2],
-          ['Rebooting', 2],
-          // ['Upgrading',    1]
-        ]);
-        // var data = new window.google.visualization.DataTable();
-        // data.addColumn('string', gettextCatalog.getString('Inbound'));
-        // data.addColumn('number', gettextCatalog.getString('Outbound'));
-        // data.addRows([
-        //   [gettextCatalog.getString('Outbound'), json.outbound / (1000*1000) || 0],
-        //   [gettextCatalog.getString('Inbound'), json.inbound / (1000*1000) || 0]
-        // ]);
+
+        if (data === undefined) {
+          var stats = json.stats;
+          var len = stats.length;
+
+          data = new window.google.visualization.DataTable();
+          data.addColumn('string', 'state');
+          data.addColumn('number', 'count');
+
+          for(var i = 0; i < len; i++) {
+            if (stats[i].key === 'total') {
+              scope.total = stats[i].value;
+            } else {
+              data.addRow([stats[i].key, stats[i].value]);
+            }
+          }
+        }
 
         var formatter = new window.google.visualization.NumberFormat(
-          // {suffix: 'MiB', pattern: '0.00'}
+          {pattern: '###,###,###'}
         );
+
+        formatter.format(data, 1);
 
         var opts = controller.options;
         opts.explorer = undefined;
