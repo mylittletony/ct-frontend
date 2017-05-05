@@ -1127,7 +1127,7 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
         }
 
         var formatter = new window.google.visualization.NumberFormat(
-          {suffix: '%', pattern: '###,###,###'}
+          {pattern: '###,###,###'}
         );
 
         formatter.format(data, 1);
