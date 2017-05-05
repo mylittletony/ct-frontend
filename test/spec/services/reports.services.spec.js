@@ -69,11 +69,11 @@ describe("Report Unit Tests", function() {
     $httpBackend.flush();
   });
 
-  it('should have sent a GET request to get the client stats API', function() {
-    var result = Report.clientstats({type: 'tx'})
-    $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/reports?v2=true&type=tx')
-    $httpBackend.flush();
-  });
+  // it('should have sent a GET request to get the client stats API', function() {
+  //   var result = Report.clientstats({type: 'tx'})
+  //   $httpBackend.expectGET('http://mywifi.dev:8080/api/v1/reports?v2=true&type=tx')
+  //   $httpBackend.flush();
+  // });
 
   it('should have sent a GET request to get the tx stats API', function() {
     var result = Report.tx({})

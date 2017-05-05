@@ -71,6 +71,7 @@ module.exports = function (grunt) {
       },
       test: {
         constants: {
+          API_END_POINT_V2: 'http://mywifi.dev:8000/api/v2',
           API_END_POINT: 'http://mywifi.dev:8080/api/v1',
           API_URL: 'http://mywifi.dev:8080',
           STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
@@ -90,6 +91,7 @@ module.exports = function (grunt) {
       },
       beta: {
         constants: {
+          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
           API_END_POINT: 'https://beta.ctapp.io/api/v1',
           API_URL: 'https://beta.ctapp.io',
           STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
@@ -128,6 +130,7 @@ module.exports = function (grunt) {
       },
       production: {
         constants: {
+          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
           API_END_POINT: 'https://api.ctapp.io/api/v1',
           API_URL: 'https://api.ctapp.io',
           STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
