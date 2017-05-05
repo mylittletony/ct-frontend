@@ -511,7 +511,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
     }).
     when('/locations/:id/devices', {
-      redirectTo: '/locations/:id'
+      templateUrl: 'components/locations/show/devices.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired },
     }).
     when('/locations/:id/boxes', {
       redirectTo: '/locations/:id'

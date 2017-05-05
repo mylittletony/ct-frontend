@@ -1,0 +1,56 @@
+<md-card flex="100">
+  <div class="md-card-image" style="height: 5px; background-color: {{ color }};"></div>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">
+        <translate>Devices Online</translate>
+      </span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <div layout="row">
+      <div flex="20">
+        <p>Box 1</p>
+      </div>
+      <div id="chart3" class="box-heartbeat" flex="80">
+        <svg></svg>
+      </div>
+    </div>
+    <div layout="row">
+      <div flex="20">
+        <p>Box 2</p>
+      </div>
+      <div id="chart4" class="box-heartbeat" flex="80">
+        <svg></svg>
+      </div>
+    </div>
+    <div layout="row">
+      <div flex="20">
+        <p>Box 3</p>
+      </div>
+      <div id="chart5" class="box-heartbeat" flex="80">
+        <svg></svg>
+      </div>
+    </div>
+    <div layout="row">
+      <div flex="20">
+        <p>Box 4</p>
+      </div>
+      <div id="chart6" class="box-heartbeat" flex="80">
+        <svg></svg>
+      </div>
+    </div>
+    <div layout="row">
+      <div flex="20">
+        <p>Box 5</p>
+      </div>
+      <div id="chart7" class="box-heartbeat" flex="80">
+        <svg></svg>
+      </div>
+    </div>
+  </md-card-content>
+  <md-divider></md-divider>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button target="_blank" href="{{ url}}"><translate>VIEW</translate></md-button>
+  </md-card-actions>
+</md-card>
