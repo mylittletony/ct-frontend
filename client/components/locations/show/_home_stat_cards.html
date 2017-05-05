@@ -3,7 +3,8 @@
   <md-button ng-href="/#/locations" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-local">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1>{{ ::stats.locations }}</h1>
+        <span ng-if="loading"><h1 translate>0</h1></span>
+        <span ng-if="!loading"><h1>{{ ::stats.locations }}</h1></span>
         <p translate>Locations</p>
       </div>
       <div flex="50" class="home-stat-icon">
@@ -15,7 +16,8 @@
   <md-button ng-href="/#/alerts" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-box">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1 translate>{{ ::online }}</h1>
+        <span ng-if="loading"><h1 translate>0</h1></span>
+        <span ng-if="!loading"><h1 translate>{{ ::online }}</h1></span>
         <p>Devices Online</p>
       </div>
       <div flex="50" class="home-stat-icon">
@@ -23,7 +25,7 @@
       </div>
       <md-tooltip>
         <translate>
-          {{ ::offline || 0 }} Offline, {{ ::stats.boxes.stats.total }} Total
+          {{ ::offline }} Offline, {{ ::stats.boxes.stats.total }} Total
         </translate>
       </md-tooltip>
     </div>
@@ -32,7 +34,8 @@
   <md-button ng-href="/#/reports" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-client">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1>{{ ::stats.online }}</h1>
+        <span ng-if="loading"><h1 translate>0</h1></span>
+        <span ng-if="!loading"><h1>{{ ::stats.online }}</h1></span>
         <p translate>Clients Online</p>
       </div>
       <div flex="50" class="home-stat-icon">
@@ -44,7 +47,8 @@
   <md-button ng-href="/#/reports/radius" flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-splash">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
-        <h1>{{ ::stats.splash_views }}</h1>
+        <span ng-if="loading"><h1 translate>0</h1></span>
+        <span ng-if="!loading"><h1>{{ ::stats.splash_views }}</h1></span>
         <p translate>Splash Views</p>
       </div>
       <div flex="50" class="home-stat-icon">
