@@ -299,6 +299,10 @@ md-button-group > .md-button {
   min-height: 350px;
 }
 
+.dashboard-charts md-card {
+  min-height: 450px;
+}
+
 .md-button .active {
   background-color: rgba(158,158,158,0.2)!important;
 }
@@ -621,6 +625,96 @@ md-card.highlight-section {
   font-weight: : normal !important;
 }
 
+.google-visualization-tooltip {
+  z-index: 1000;
+  background-color: white;
+  left: 30px !important;
+  top: 30px !important;
+}
+
+.google-visualization-tooltip > div > div > div {
+  margin: 12px 0 12px 0 !important;
+  padding: 0 24px 0 12px !important;
+}
+
+location-boxes md-table-container {
+  overflow: visible !important;
+}
+
+location-boxes table {
+  overflow: visible !important;
+}
+
+.heartbeats-tooltip-separator {
+  height: 1px !important;
+  margin: 0;
+  padding: 0;
+  background-color: #dddddd;
+  z-index: 1000;
+}
+
+[heartbeat-chart] {
+  margin-top: 5px;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > rect {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > path {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(2) > text {
+  opacity: 0 !important;
+}
+
+@media (max-width: 1200px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -50px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+30)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1130px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -90px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+50)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1090px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -125px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+70)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1055px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -145px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+80)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1035px) {
+  .heartbeat-table {
+    display:none !important;
+  }
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
@@ -660,24 +754,14 @@ md-card.highlight-section {
   border-top-color: #263238;
 }
 
-/*charts-n-stuff*/
-
-.md-toolbar-tools .md-datepicker-button {
-  display:none;
-}
-
-.md-toolbar-tools ._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) {
-  left: 14px;
-  right: 0px;
-  width: auto;
-}
-
-div.google-visualization-tooltip {
-  z-index: 1;
-}
-
-.box-heartbeat svg g rect {
-  stroke-width: 0;
+.page-loader {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  left: 0;
+  position: absolute;
+  background-color: white;
 }
 
 /*home-n-stuff*/
