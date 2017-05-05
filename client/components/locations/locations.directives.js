@@ -2315,12 +2315,6 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-// app.directive('homeStatCards', function() {
-//   return {
-//     templateUrl: 'components/locations/show/_home_stat_cards.html'
-//   };
-// });
-
 app.directive('homeStatCards', ['Report', function (Report) {
 
   var link = function(scope,element,attrs) {
