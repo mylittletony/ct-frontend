@@ -1,8 +1,32 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
+<<<<<<< HEAD
     <!-- Depreciate has_nas -->
     <md-button class="md-icon-button md-primary" aria-label="{{ 'Overview' | translate }}">
       <md-icon md-font-icon="">all_out</md-icon>
+=======
+    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
+      <label></label>
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
+    </md-input-container>
+    <div flex></div>
+    <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
+      <md-icon>add_circle</md-icon>
+      <md-tooltip md-direction="bottom">
+        <translate>
+          Add a new device.
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="{{ 'Map' | translate }}">
+      <md-icon>map</md-icon>
+      <md-tooltip md-direction="bottom">
+        <translate>
+          View device map.
+        </translate>
+      </md-tooltip>
+>>>>>>> dev
     </md-button>
     <p translate>Overview</p>
     <div flex></div>
@@ -34,6 +58,7 @@
 
 <md-content layout-padding ng-show="location.has_devices == false">
 
+<<<<<<< HEAD
 <!-- Depreciate has_nas -->
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="75">
@@ -44,6 +69,18 @@
             <span class="md-subhead" translate>Manage and monitor all your device remotely.</span>
           </md-card-title-text>
         </md-card-title>
+=======
+  <div ng-show="location.has_devices == false">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>Please Add a Device</span>
+              <span class="md-subhead" translate>Manage and monitor all your device remotely.</span>
+            </md-card-title-text>
+          </md-card-title>
+>>>>>>> dev
 
         <md-card-content>
           <p translate>You haven't added any devices yet. Please check through the list of compatible devices <a href='http://docs.cucumberwifi.io/article/78-compatible-devices-access-points' target="_blank">here</a>.</p>
@@ -75,6 +112,7 @@
   </div>
 </md-content>
 
+<<<<<<< HEAD
 <md-content class="md-padding" layout="column" layout-xs="column" layout-sm="column" iilayout-wrap="" layout-gt-sm="row">
 
   <div flex-gt-xs="40">
@@ -101,6 +139,13 @@
         <location-clients></location-clients>
       </div>
     </div>
+=======
+  <div ng-if="location.has_devices">
+    <client-chart ng-if="!query">
+      <location-chart ></location-chart>
+    </client-chart>
+    <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
+>>>>>>> dev
   </div>
 
 </md-content>

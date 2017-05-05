@@ -7,15 +7,10 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
   var link = function(scope,element,attrs,controller) {
 
     var channel;
-    scope.streamingUpdates = true;
 
     scope.favourite = function() {
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
-    };
-
-    scope.streamingUpdater = function() {
-      $rootScope.$broadcast('streaming', { enabled: scope.streamingUpdates });
     };
 
     function updateLocation() {
@@ -38,11 +33,57 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
   };
 
   return {
+    // scope: {
+    // },
+    link: link,
+    // controller: 'LocationsCtrl',
+    templateUrl: 'components/locations/show/_index.html'
+  };
+
+}]);
+
+app.directive('locationDashboard', ['Location', '$rootScope', '$compile', function(Location, $rootScope, $compile) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var compileTemplate = function(version) {
+      var template;
+      template = $compile('<show-dashboard></show-dashboard>')(scope);
+      element.html(template);
+      scope.loading = undefined;
+    };
+
+    $rootScope.$on('locationLoaded', function (event, next, current) {
+      compileTemplate();
+    });
+  };
+
+  return {
+    scope: {},
+    link: link
+  };
+
+}]);
+
+app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', function(Location, $routeParams, $rootScope, $location, $timeout) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var timer;
+    timer = $timeout(function() {
+      scope.loader = true;
+    }, 250);
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $timeout.cancel(timer);
+    });
+  };
+
+  return {
     scope: {
     },
     link: link,
-    controller: 'LocationsCtrl',
-    templateUrl: 'components/locations/show/_index.html'
+    templateUrl: 'components/locations/dashboard/_index.html'
   };
 
 }]);
@@ -1428,7 +1469,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         scope._links          = results._links;
         scope.loading         = undefined;
         countOnline();
-        poll();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
@@ -1445,19 +1485,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       }, 30000);
     };
 
-    $rootScope.$on('streaming', function(args,res) {
-      if (res.enabled) {
-        loadPusher();
-        showToast(gettextCatalog.getString('Streaming updates enabled'));
-      } else {
-        scope.pusherLoaded = undefined;
-        if (channel) {
-          channel.unbind();
-        }
-        showToast(gettextCatalog.getString('Streaming updates disabled'));
-      }
-    });
-
     init().then(loadPusher);
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -1473,8 +1500,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     scope: {
       filter: '=',
       loading: '=',
-      token: '@',
-      streaming: '='
+      token: '@'
     },
     templateUrl: 'components/locations/boxes/_table.html'
   };

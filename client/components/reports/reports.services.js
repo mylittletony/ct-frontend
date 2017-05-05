@@ -29,7 +29,8 @@ app.factory('Report', ['$resource', '$localStorage', 'API_END_POINT',
         method:'GET',
         isArray: false,
         params: {
-          v2: true, // can remove soon
+          v: '@v',
+          // v2: true, // can remove soon
           resource: '@resource',
           type: '@type',
           location_id: '@location_id',
