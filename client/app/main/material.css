@@ -692,3 +692,17 @@ md-bottom-sheet .md-subheader {
   position: absolute;
   background-color: white;
 }
+
+/*new ssid dialog*/
+
+@media (max-width: 600px) {
+  .emojionearea-button {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .ssid-form {
+    width: 350px;
+  }
+}
