@@ -360,6 +360,19 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
       });
     };
 
+    var sdnDialog = function(network) {
+      $mdDialog.show({
+        templateUrl: 'components/networks/_self_destruct.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+          loading: scope.loading,
+          network: scope.network
+        }
+      });
+    }
+
     function DialogController($scope,loading,network) {
       $scope.loading = loading;
       $scope.network = network;
@@ -379,6 +392,9 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
       };
       $scope.close = function() {
         $mdDialog.cancel();
+      };
+      $scope.next = function(network) {
+        sdnDialog(network);
       };
     }
     DialogController.$inject = ['$scope', 'loading', 'network'];
