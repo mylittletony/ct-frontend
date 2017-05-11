@@ -576,7 +576,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
         location_id: scope.location.slug,
         splash_page: {
           ssid: scope.splash.ssid,
-          networks: scope.splash.network_id,
+          networks: [scope.splash.network_id],
           splash_name: scope.splash.splash_name,
           primary_access_id: scope.splash.primary_access_id
         }
