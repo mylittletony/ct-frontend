@@ -418,6 +418,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           location_id:  $scope.client.location_id,
           start_time:   minDateEpoch,
           end_time:     maxDateEpoch,
+          rate:         params.rate,
         }).$promise.then(function(data) {
           deferred.resolve(data);
         }, function() {
@@ -454,6 +455,10 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
     var c, timer;
     var opts = controller.options;
+    var rate = $routeParams.rate;
+    if (rate === undefined || rate !== 'true' || rate || 'false') {
+      rate = 'true';
+    }
 
     // Update when testing clients //
     scope.type     = 'devices.tx';
@@ -500,6 +505,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       var params = {
         type: scope.type,
         resource: scope.resource,
+        rate: rate,
         fn: scope.fn.value
       };
       controller.getStats(params).then(function(data) {
