@@ -783,6 +783,7 @@ md-bottom-sheet .md-subheader {
   background-color: white;
 }
 
+<<<<<<< HEAD
 /*new ssid dialog*/
 
 @media (max-width: 600px) {
@@ -797,6 +798,8 @@ md-bottom-sheet .md-subheader {
   }
 }
 
+=======
+>>>>>>> 8d19ba661c6107aa71155d32f60ada8542c367e3
 /*home-n-stuff*/
 
 .home-stat-card-local.md-raised, .home-stat-card-box.md-raised, .home-stat-card-client.md-raised, .home-stat-card-splash.md-raised {
