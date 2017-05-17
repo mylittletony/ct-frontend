@@ -534,29 +534,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       return deferred.promise;
     };
 
-    // var loadCharts = function() {
-    //   timeout = $timeout(function() {
-    //     controller.$scope.$broadcast('loadClientChart', 'device');
-    //   }, 250);
-    // };
-
-    // var loadTput = function() {
-    //   var deferred = $q.defer();
-    //   Report.clientstats({
-    //     type:         'tput',
-    //     ap_mac:       scope.box.calledstationid,
-    //     location_id:  scope.box.location_id,
-    //     resource:     'device',
-    //     interval:     '180s',
-    //     period:       '6h'
-    //   }).$promise.then(function(data) {
-    //     scope.box.throughput = data.throughput;
-    //     deferred.resolve();
-    //   }, function() {
-    //     deferred.reject();
-    //   });
-    //   return deferred.promise;
-    // };
+    var loadCharts = function() {
+      timeout = $timeout(function() {
+        controller.$scope.$broadcast('loadClientChart', 'device');
+      }, 250);
+    };
 
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
@@ -622,6 +604,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         processAlertMessages();
       });
     });
+    loadCharts();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {

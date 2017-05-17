@@ -446,14 +446,18 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
 
 }]);
 
-app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', '$filter', function($timeout, Report, $routeParams, gettextCatalog, $filter) {
+app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', '$filter', 'ClientDetails', function($timeout, Report, $routeParams, gettextCatalog, $filter, ClientDetails) {
 
   var link = function(scope,element,attrs,controller) {
+
+    ClientDetails.client.version = '4';
 
     var c, timer;
     var opts = controller.options;
 
-    scope.type     = 'tx';
+    // Update when testing clients //
+    scope.type     = 'devices.tx';
+
     scope.loading  = true;
     scope.fn       = {key: gettextCatalog.getString('mean'), value:'mean'};
     scope.resource = 'client';
@@ -499,9 +503,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         fn: scope.fn.value
       };
       controller.getStats(params).then(function(data) {
-        // timer = $timeout(function() {
-        window.google.charts.setOnLoadCallback(drawChart(data.timeline));
-        // },500);
+        drawChart(data);
       }, function() {
         clearChart();
       });
@@ -517,87 +519,88 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
     function drawChart(json) {
 
-      $timeout.cancel(timer);
       var len, time, suffix;
 
       var drawChartCallback = function() {
-        if (json.txfailed || json.txretries || json.inbound) {
+        // if (json.txfailed || json.txretries || json.inbound) {
 
-          if (scope.type === 'usage') {
-            scope.title = gettextCatalog.getString('WiFi Usage');
-            suffix = 'MB';
-          } else if (scope.resource === 'device') {
-            scope.title = gettextCatalog.getString('Device Traffic (Mbps)');
-            suffix = 'Mbps';
-          } else if (scope.type === 'tx') {
-            scope.title = gettextCatalog.getString('WiFi Traffic (Mbps)');
-            suffix = 'Mbps';
-          } else if (scope.type === 'txfailed') {
-            scope.title = gettextCatalog.getString('Failed Tx Count');
-            suffix = undefined;
-          } else if (scope.type === 'txretries') {
-            scope.title = gettextCatalog.getString('Tx Retries');
-            suffix = undefined;
-          }
+        //   if (scope.type === 'usage') {
+        //     scope.title = gettextCatalog.getString('WiFi Usage');
+        //     suffix = 'MB';
+        //   } else if (scope.resource === 'device') {
+        //     scope.title = gettextCatalog.getString('Device Traffic (Mbps)');
+        //     suffix = 'Mbps';
+        //   } else if (scope.type === 'tx') {
+        //     scope.title = gettextCatalog.getString('WiFi Traffic (Mbps)');
+        //     suffix = 'Mbps';
+        //   } else if (scope.type === 'txfailed') {
+        //     scope.title = gettextCatalog.getString('Failed Tx Count');
+        //     suffix = undefined;
+        //   } else if (scope.type === 'txretries') {
+        //     scope.title = gettextCatalog.getString('Tx Retries');
+        //     suffix = undefined;
+        //   }
 
           var data = new window.google.visualization.DataTable();
           data.addColumn('datetime', gettextCatalog.getString('Date'));
           data.addColumn('number', 'dummySeries');
-          if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
-            len = json.inbound.length;
+          // if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
+          //   len = json.inbound.length;
             data.addColumn('number', gettextCatalog.getString('Inbound'));
-            data.addColumn('number', gettextCatalog.getString('Outbound'));
-          } else if (scope.type === 'txfailed') {
-            len = json.txfailed.length;
-            data.addColumn('number', gettextCatalog.getString('Tx Failed'));
-          } else if (scope.type === 'txretries') {
-            len = json.txretries.length;
-            data.addColumn('number', gettextCatalog.getString('Tx Retries'));
-          }
+            // data.addColumn('number', gettextCatalog.getString('Outbound'));
+          // } else if (scope.type === 'txfailed') {
+          //   len = json.txfailed.length;
+          //   data.addColumn('number', gettextCatalog.getString('Tx Failed'));
+          // } else if (scope.type === 'txretries') {
+          //   len = json.txretries.length;
+          //   data.addColumn('number', gettextCatalog.getString('Tx Retries'));
+          // }
 
+          len = json.data.length;
           for(var i = 0; i < len; i++) {
+              // console.log(json.data[i])
+          //   if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
 
-            if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
+          //     var outbound = 0;
+              var inbound = json.data[i].value;
+              time = new Date(json.data[i].timestamp*1000);
 
-              var outbound = 0;
-              var inbound = json.inbound[i].value;
-              time = new Date(json.inbound[i].time / (1000*1000));
+          //     if (json.outbound && json.outbound[i] && json.outbound[i].value) {
+          //       outbound = json.outbound[i].value;
+          //     }
 
-              if (json.outbound && json.outbound[i] && json.outbound[i].value) {
-                outbound = json.outbound[i].value;
-              }
+              data.addRow([time, null, inbound]);
+          //     data.addRow([time, null, inbound / (1000*1000), outbound / (1000*1000) ]);
 
-              data.addRow([time, null, inbound / (1000*1000), outbound / (1000*1000) ]);
+          //   } else if (scope.type === 'txfailed') {
 
-            } else if (scope.type === 'txfailed') {
+          //     time = new Date(json.txfailed[i].time / (1000*1000));
+          //     var val = 0;
+          //     if (json.txfailed && json.txfailed[i] && json.txfailed[i].value) {
+          //       val = json.txfailed[i].value;
+          //     }
+          //     data.addRow([time, null, val]);
 
-              time = new Date(json.txfailed[i].time / (1000*1000));
-              var val = 0;
-              if (json.txfailed && json.txfailed[i] && json.txfailed[i].value) {
-                val = json.txfailed[i].value;
-              }
-              data.addRow([time, null, val]);
+          //   } else if (scope.type === 'txretries') {
 
-            } else if (scope.type === 'txretries') {
+          //     time = new Date(json.txretries[i].time / (1000*1000));
+          //     data.addRow([time, null, json.txretries[i].value]);
 
-              time = new Date(json.txretries[i].time / (1000*1000));
-              data.addRow([time, null, json.txretries[i].value]);
-
-            }
+          //   }
           }
 
           var date_formatter = new window.google.visualization.DateFormat({
             pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
           });
-          date_formatter.format(data,0);
+          // date_formatter.format(data,0);
 
-          var formatter = new window.google.visualization.NumberFormat(
-            {suffix: suffix}
-          );
-          formatter.format(data,2);
-          if (scope.type === 'tx' || scope.type === 'usage' || scope.type === 'device_tx') {
-            formatter.format(data,3);
-          }
+          // var formatter = new window.google.visualization.NumberFormat(
+          //   {suffix: suffix}
+          // );
+          // formatter.format(data,2);
+          // if (scope.type === 'tx' || scope.type === 'usage' || scope.type === 'device_tx') {
+          //   formatter.format(data,3);
+          // }
 
           opts.legend = { position: 'none' };
           opts.series = {
@@ -643,13 +646,14 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
           } else {
             opts.height = 250;
           }
+
           c = new window.google.visualization.LineChart(document.getElementById('tx-chart'));
           scope.noData = undefined;
           scope.loading = undefined;
           c.draw(data, opts);
-        } else {
-          clearChart();
-        }
+        // } else {
+        //   clearChart();
+        // }
       };
       window.google.charts.setOnLoadCallback(drawChartCallback);
     }
