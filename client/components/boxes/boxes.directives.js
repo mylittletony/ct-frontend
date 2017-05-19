@@ -534,11 +534,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       return deferred.promise;
     };
 
-    var loadCharts = function() {
-      timeout = $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      }, 250);
-    };
+    // var loadCharts = function() {
+    //   timeout = $timeout(function() {
+    //     controller.$scope.$broadcast('loadClientChart', 'device');
+    //   }, 250);
+    // };
 
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
@@ -604,7 +604,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         processAlertMessages();
       });
     });
-    loadCharts();
+    // loadCharts();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
