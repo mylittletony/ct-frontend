@@ -101,7 +101,8 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          // COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: [
             "pink",
@@ -140,7 +141,8 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          // COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: [
             "pink",

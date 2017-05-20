@@ -702,7 +702,9 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     var c, timer;
     scope.type = 'data';
     scope.loading = true;
-    var colours = COLOURS.split(' ');
+    // var colours = COLOURS.split(' ');
+    var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
+
     var data = { usage: { inbound: 1 } };
 
     controller.$scope.$on('loadClientChart', function (evt,type){
@@ -720,8 +722,6 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
-        console.log(resp)
-
         if (resp.v === 2) {
           // Sort when old data is depreciated
           for (var i in resp.stats) {
@@ -769,11 +769,13 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         );
 
         var opts = controller.options;
-        opts.height = 255;
         opts.explorer = undefined;
-        opts.pieHole = 0.6;
+        opts.pieHole = 0.8;
         opts.legend = { position: 'right' };
-        opts.height = '255';
+        opts.title = 'none';
+        opts.pieSliceText = 'none';
+        opts.height = '260';
+        opts.colors = colours;
 
         formatter.format(data,1);
         c = new window.google.visualization.PieChart(document.getElementById('usage-chart'));
@@ -843,7 +845,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       }, function() {
         clearChart();
       });
-    };
+    }
 
     var clearChart = function() {
       if (c) {
