@@ -720,6 +720,8 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
+        console.log(resp)
+
         if (resp.v === 2) {
           // Sort when old data is depreciated
           for (var i in resp.stats) {
@@ -1613,6 +1615,20 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         );
         formatter.format(data,2);
 
+        opts.vAxes = {
+          0: {
+            textPosition: 'none',
+            viewWindow:{
+              max: 10,
+              min: 0
+            }
+          },
+          1: {
+            viewWindow:{
+              min: 0
+            }
+          },
+        };
         opts.legend = { position: 'none' };
         opts.series = {
           0: {
@@ -2045,17 +2061,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       scope.noData = true;
     };
 
-    // function transpose(array) {
-    //   return array[0].map(function (_, c) {
-    //     return array.map(function (r) {
-    //       return typeof r[c] == 'undefined' ? {value: null} : r[c];
-    //     });
-    //   });
-    // }
-
     function drawChart() {
-
-      console.log(json)
 
       $timeout.cancel(timer);
       var drawChartCallback = function() {
@@ -2068,7 +2074,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
           },
           1: {
-            targetAxisIndex: 1
+            targetAxisIndex: 1, lineWidth: 2.5
           }
         };
 
@@ -2078,7 +2084,20 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           // vAxis set to only have values on negative graphs
           if (scope.type === 'interfaces.snr' ) {
             suffix = 'dB';
-            opts.vAxis = {};
+            opts.vAxes = {
+              0: {
+                textPosition: 'none',
+                viewWindow:{
+                  max: 10,
+                  min: 0
+                }
+              },
+              1: {
+                viewWindow:{
+                  min: 0
+                }
+              },
+            };
           } else if (scope.type === 'noise' || scope.type === 'signal') {
             suffix = 'dBm';
             opts.vAxis = {
