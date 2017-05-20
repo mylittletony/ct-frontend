@@ -2090,7 +2090,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
               0: {
                 textPosition: 'none',
                 viewWindow:{
-                  max: 10,
+                  max: 100,
                   min: 0
                 }
               },
@@ -2120,7 +2120,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             var name;
             for (var j = 0; j < json.meta.length; j++) {
               if (json.meta[j].interface === json.data[i].tags.interface) {
-                name = json.meta[j].ssid;
+                name = json.meta[j].ssid + ' ('+json.meta[j].interface+')';
                 break;
               }
               if (name === undefined) {
