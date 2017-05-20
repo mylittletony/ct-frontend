@@ -2120,7 +2120,13 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             var name;
             for (var j = 0; j < json.meta.length; j++) {
               if (json.meta[j].interface === json.data[i].tags.interface) {
-                name = json.meta[j].ssid + ' ('+json.meta[j].interface+')';
+                var freq = json.meta[j].freq;
+                if (freq === '2') {
+                  freq = '2.4Ghz';
+                } else {
+                  freq = '5Ghz';
+                }
+                name = json.meta[j].ssid + ' ('+ freq +')';
                 break;
               }
               if (name === undefined) {
