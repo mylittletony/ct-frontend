@@ -470,6 +470,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
     };
 
+    var loadCharts = function() {
+      $timeout(function() {
+        controller.$scope.$broadcast('loadClientChart', 'device');
+      },250);
+    };
+
     scope.updatePeriod = function(period) {
       scope.period = period;
       updatePage();
@@ -482,6 +488,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       hash.fn             = scope.fn;
       hash.type           = scope.type;
       $location.search(hash);
+      loadCharts();
     };
 
     scope.refresh = function() {
@@ -534,28 +541,24 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       return deferred.promise;
     };
 
-    // var loadCharts = function() {
-    //   timeout = $timeout(function() {
-    //     controller.$scope.$broadcast('loadClientChart', 'device');
-    //   }, 250);
-    // };
-
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
       menu.isOpen = false;
       scope.fs = { panel: obj.panel };
-      $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      },250);
+      loadCharts();
+      // $timeout(function() {
+      //   controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
     });
 
     controller.$scope.$on('closeFullScreen', function(val,obj) {
       menu.isOpenLeft = true;
       menu.isOpen = true;
       scope.fs = undefined;
-      $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      },250);
+      loadCharts();
+      // $timeout(function() {
+      //   controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
     });
 
     var sortSsids = function() {
