@@ -361,6 +361,10 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
             this.interval = '180s';
             distance = 60*60*6;
             break;
+          case '7d':
+            this.interval = '1h';
+            distance = 60*60*24*7;
+            break;
           case '14d':
             this.interval = '1h';
             distance = 60*60*24*14;
@@ -1348,27 +1352,15 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
 
-    // var maxDate = moment().utc().endOf('day').toDate();
-    // var minDate = moment().utc().subtract(7, 'days').startOf('day').toDate();
-
-    // var minDateEpoch = Math.floor(minDate.getTime() / 1000);
-    // var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
-
     controller.$scope.$on('loadClientChart', function (evt,type){
       drawChart();
     });
-
-    // scope.refresh = function() {
-    //   alert(123);
-    //   chart();
-    // };
 
     function chart() {
 
       var params = {
         type: scope.type,
-        // start_time: minDateEpoch,
-        // end_time: maxDateEpoch
+        period: '7d' // can be removed soon when loyalty dynamic
       };
 
       controller.getStats(params).then(function(res) {
@@ -1660,7 +1652,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
           maxZoomOut:2,
           keepInBounds: true,
           axis: 'horizontal',
-          actions: [ 'dragToZoom', 'rightClickToReset'],
+          actions: ['dragToZoom', 'rightClickToReset'],
         };
         if (scope.fs) {
           opts.height = 600;
@@ -1674,101 +1666,11 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
 
         a = true;
         c.draw(data, opts);
-        // } else {
-        //   clearChart();
-        // }
       };
       window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
     chart();
-    // function drawChart(json) {
-
-    //   $timeout.cancel(timer);
-
-    //   var drawChartCallback = function() {
-    //     var data = new window.google.visualization.DataTable();
-    //     data.addColumn('datetime', 'Date');
-    //     data.addColumn('number', 'dummySeries');
-    //     data.addColumn('number', gettextCatalog.getString('Load Average'));
-    //     var len = json.load.length;
-    //     for(var i = 0; i < len; i++) {
-    //       var load = json.load[i].value;
-    //       if (!load) {
-    //         load = 0;
-    //       }
-    //       var time = new Date(json.load[i].time / (1000*1000));
-    //       data.addRow([time, null, load*100]);
-    //     }
-
-    //     var date_formatter = new window.google.visualization.DateFormat({
-    //       pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
-    //     });
-    //     date_formatter.format(data,0);
-
-    //     var formatter = new window.google.visualization.NumberFormat(
-    //       { pattern: '0', suffix: '%' }
-    //     );
-    //     formatter.format(data,2);
-
-    //     var opts = controller.options;
-    //     opts.legend = { position: 'none' };
-    //     opts.series = {
-    //       0: {
-    //         targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-    //       },
-    //       1: {
-    //         targetAxisIndex: 1
-    //       },
-    //       2: {
-    //         targetAxisIndex: 1
-    //       }
-    //     };
-    //     opts.vAxis = {
-    //     };
-    //     opts.hAxis = {
-    //       gridlines: {
-    //         count: -1,
-    //         units: {
-    //           days: {format: [gettextCatalog.getString('MMM dd')]},
-    //           hours: {format: [gettextCatalog.getString('hh:mm a')]},
-    //           minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-    //         }
-    //       },
-    //       minorGridlines: {
-    //         count: -1,
-    //         units: {
-    //           days: {format: [gettextCatalog.getString('MMM dd')]},
-    //           hours: {format: [gettextCatalog.getString('hh:mm a')]},
-    //           minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-    //         }
-    //       }
-    //     };
-
-    //     opts.explorer = {
-    //       maxZoomOut:2,
-    //       keepInBounds: true,
-    //       axis: 'horizontal',
-    //       actions: [ 'dragToZoom', 'rightClickToReset'],
-    //     };
-    //     if (scope.fs) {
-    //       opts.height = 600;
-    //     } else {
-    //       opts.height = 250;
-    //     }
-    //     c = new window.google.visualization.LineChart(document.getElementById('load-chart'));
-    //     c.draw(data, opts);
-    //   };
-
-    //   window.google.charts.setOnLoadCallback(drawChartCallback);
-    //   scope.noData = undefined;
-    //   scope.loading = undefined;
-    // }
-
-    // // The resize event triggers the graphs to load
-    // // Not ideal, but good for responsive layouts atm
-    // $(window).trigger('resize');
-
   };
 
   return {
@@ -2331,7 +2233,7 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
     ClientDetails.client.version = '3';
     ClientDetails.client.ap_mac = undefined;
 
-    scope.type = $routeParams.type || 'client.uniques';
+    scope.type = $routeParams.type || 'clients.uniques';
     var c, timer, data;
     var json = {};
     var opts = controller.options;
@@ -2412,7 +2314,6 @@ app.directive('locationChart', ['Report', '$routeParams', '$timeout', '$location
       var params = {
         type: scope.type,
         resource: resource,
-        period: scope.period,
         interval: scope.interval,
         fill: '0',
         start_time: minDateEpoch,
