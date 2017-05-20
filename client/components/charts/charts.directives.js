@@ -540,44 +540,6 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       scope.loading = undefined;
     };
 
-    // function test(data, datas) {
-    //   var len = datas.length;
-    //   var time;
-    //   for(var i = 0; i < len; i++) {
-    //     // console.log(json.data[i])
-    //     //   if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
-
-    //     //     var outbound = 0;
-    //     var inbound = (datas[i].value / (1000*1000)) * 8;
-    //     time = new Date(datas[i].timestamp*1000);
-    //     console.log(time);
-
-    //     //     if (json.outbound && json.outbound[i] && json.outbound[i].value) {
-    //     //       outbound = json.outbound[i].value;
-    //     //     }
-
-    //     data.addRow([time, null, inbound]);
-    //     // data.addRow([time, null, inbound / (1000*1000), outbound / (1000*1000) ]);
-
-
-    //     //   } else if (scope.type === 'txfailed') {
-
-    //     //     time = new Date(json.txfailed[i].time / (1000*1000));
-    //     //     var val = 0;
-    //     //     if (json.txfailed && json.txfailed[i] && json.txfailed[i].value) {
-    //     //       val = json.txfailed[i].value;
-    //     //     }
-    //     //     data.addRow([time, null, val]);
-
-    //     //   } else if (scope.type === 'txretries') {
-
-    //     //     time = new Date(json.txretries[i].time / (1000*1000));
-    //     //     data.addRow([time, null, json.txretries[i].value]);
-
-    //     //   }
-    //   }
-    // }
-
     function drawChart() {
 
       var len, time, suffix;
@@ -585,7 +547,6 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       var drawChartCallback = function() {
 
         if (json.multi === true) {
-          // alert(123)
         }
 
         // a = true;
@@ -648,7 +609,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         var date_formatter = new window.google.visualization.DateFormat({
           pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
         });
-        // date_formatter.format(data,0);
+        date_formatter.format(data,0);
 
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: suffix}
@@ -1653,7 +1614,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         var date_formatter = new window.google.visualization.DateFormat({
           pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
         });
-        // date_formatter.format(data,0);
+        date_formatter.format(data,0);
 
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%'}
@@ -1673,6 +1634,8 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
           }
         };
         opts.vAxis = {
+          minValue: 0,
+          maxValue: 100
         };
         opts.hAxis = {
           gridlines: {
@@ -2207,39 +2170,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           }
         };
 
-        // Create temp store for interfaces and add columns //
-        // var ifaces = [];
-        // var ifaceData = [];
-        // for (var k in json) {
-        //   if (typeof json[k] !== 'function') {
-        //     ifaces.push(k);
-        //     ifaceData.push(json[k].values);
-        //     data.addColumn('number', k);
-        //   }
-        // }
-
-        // for (var i = 2; i < ifaces.length + 2; i++) {
-        //   opts.series[i] = { targetAxisIndex: 1 }
-        // }
-
-        // var allRows = transpose(ifaceData);
-
-        // var first = json[ifaces[0]];
-
-        // if (true) {
-        // if (first && first.values && first.values.length) {
-        //   var len = first.values.length;
-
-        //   for(var i = 0; i < len; i++) {
-
-        //     var time = (first.values[i].time);
-        //     var t = new Date(time / (1000*1000));
-
-        //     var rowEntry = allRows[i].map(function(e) { return e.value })
-        //     rowEntry.unshift(t, null);
-
-        //     data.addRow(rowEntry);
-        //   }
 
           var suffix;
 
@@ -2258,40 +2188,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             opts.vAxis = {};
           }
 
-        //   var date_formatter = new window.google.visualization.DateFormat({
-        //     pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
-        //   });
-        //   date_formatter.format(data,0);
-
-        //   var formatter = new window.google.visualization.NumberFormat(
-        //     {suffix: suffix, pattern: '0'}
-        //   );
-
-        //   for (i = 0; i < data.getNumberOfColumns(); i++){
-        //     formatter.format(data,i);
-        //   }
-
         if (a === undefined) {
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', gettextCatalog.getString('Date'));
           data.addColumn('number', 'dummySeries');
-          // if (scope.type === 'device_tx' || scope.type === 'tx' || scope.type === 'usage') {
-          //   len = json.inbound.length;
-          // data.addColumn('number', gettextCatalog.getString('Inbound'));
-          // if (json.multi) {
-          //   data.addColumn('number', gettextCatalog.getString('Outbound'));
-          // }
-
-          // var s1 = json.data[0].data;
-          // var s2 = json.data[1].data;
-
-          // for(var i = 0; i < json.data[0].data.length; i++) {
-          //   time = new Date(s1[i].timestamp*1000);
-          //   var inbound = (s1[i].value / (1000*1000)) * 8;
-          //   var outbound = (s2[i].value / (1000*1000)) * -8;
-          //   data.addRow([time, null, inbound, outbound]);
-          // }
-          //
 
           for(var i = 0; i < json.data.length; i++) {
             var name;
@@ -2307,13 +2207,13 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             data.addColumn('number', name);
           }
 
-          for(var i = 0; i < json.data[0].data.length; i++) {
+          for(i = 0; i < json.data[0].data.length; i++) {
             var time;
-            var a = [];
-            time = new Date(json.data[0].data[i].timestamp*1000);
+            var array = [];
 
-            a.push(time)
-            a.push(null)
+            time = new Date(json.data[0].data[i].timestamp*1000);
+            array.push(time);
+            array.push(null);
 
             for(var j = 0; j < json.data.length; j++) {
               var val = (json.data[j].data[i].value);
@@ -2322,14 +2222,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
               if (scope.type === 'interfaces.snr' && val >= 95 ) {
                 val = 0;
               }
-              a.push(val);
+              array.push(val);
             }
 
-            // time = new Date([i].timestamp*1000);
-            // console.log(time)
-            // var inbound = (s1[i].value / (1000*1000)) * 8;
-            // var outbound = (s2[i].value / (1000*1000)) * -8;
-            data.addRow(a);
+            data.addRow(array);
           }
         }
 
@@ -2342,8 +2238,8 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             {suffix: suffix, pattern: '0'}
           );
 
-          for (i = 0; i < data.getNumberOfColumns(); i++){
-            formatter.format(data,i);
+          for (var i = 0; i < data.getNumberOfColumns(); i++){
+            formatter.format(data, i);
           }
 
           opts.legend = { position: 'bottom' };
@@ -2408,10 +2304,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           c.draw(data, opts);
           scope.noData = undefined;
           scope.loading = undefined;
-        // } else {
-        //   scope.noData = true;
-        //   scope.loading = undefined;
-        // }
       };
       window.google.charts.setOnLoadCallback(drawChartCallback);
     }
