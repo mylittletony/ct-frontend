@@ -295,7 +295,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
-    when('/locations/:id/devices', {
+    when('/locations/:id/boxes', {
       templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
@@ -524,9 +524,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     // when('/locations/:id/devices', {
     //   redirectTo: '/locations/:id'
     // }).
-    when('/locations/:id/boxes', {
-      redirectTo: '/locations/:id'
-    }).
+    // when('/locations/:id/boxes', {
+    //   redirectTo: '/locations/:id'
+    // }).
     when('/locations/:id/boxes/new', {
       redirectTo: '/locations/:id/devices/new'
     }).

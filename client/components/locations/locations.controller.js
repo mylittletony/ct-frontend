@@ -74,11 +74,11 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: gettextCatalog.getString('Devices'),
-        link: '/#/locations/' + $scope.location.slug + '/devices',
+        name: gettextCatalog.getString('Boxes'),
+        link: '/#/locations/' + $scope.location.slug + '/boxes',
         type: 'link',
         icon: 'router',
-        active: isActive('devices')
+        active: isActive('boxes')
       });
 
       menu.sections.push({

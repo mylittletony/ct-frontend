@@ -381,7 +381,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug;
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
     };
 
     var channel;
@@ -1672,7 +1672,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug;
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
     };
 
     scope.manualBox = function() {
