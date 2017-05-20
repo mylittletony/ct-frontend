@@ -79,9 +79,6 @@
   </div>
 
   <div ng-if="location.has_devices">
-    <client-chart ng-if="!query">
-      <location-chart ></location-chart>
-    </client-chart>
     <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
   </div>
 

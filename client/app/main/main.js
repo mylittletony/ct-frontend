@@ -291,16 +291,27 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
+      templateUrl: 'components/locations/dashboard/index.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
+    }).
+    when('/locations/:id/devices', {
       templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
-    when('/locations/:id/dashboard', {
-      templateUrl: 'components/locations/dashboard/index.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc'
-    }).
+    // when('/locations/:id', {
+    //   templateUrl: 'components/locations/show/index.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired },
+    //   reloadOnSearch: false
+    // }).
+    // when('/locations/:id/dashboard', {
+    //   templateUrl: 'components/locations/dashboard/index.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc'
+    // }).
     when('/locations/:id/map', {
       templateUrl: 'components/locations/show/map.html',
       controller: 'LocationsCtrl as lc',
@@ -510,9 +521,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/downloads/index.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/locations/:id/devices', {
-      redirectTo: '/locations/:id'
-    }).
+    // when('/locations/:id/devices', {
+    //   redirectTo: '/locations/:id'
+    // }).
     when('/locations/:id/boxes', {
       redirectTo: '/locations/:id'
     }).
