@@ -696,6 +696,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
 }]);
 
+// Depreciate in favour of dash usage chart
 app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
@@ -703,18 +704,13 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     var c, timer;
     scope.type = 'data';
     scope.loading = true;
-    // var colours = COLOURS.split(' ');
-    var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
+    // var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
 
     var data = { usage: { inbound: 1 } };
 
     controller.$scope.$on('loadClientChart', function (evt,type){
       chart();
     });
-
-    scope.refresh = function() {
-      chart();
-    };
 
     function chart() {
       var params = {
@@ -790,7 +786,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     }
     setTimeout(function() {
       chart();
-    }, 500);
+    }, 250);
   };
 
   return {
@@ -806,12 +802,13 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
 
 }]);
 
-app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
+app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails) {
 
   var link = function(scope,element,attrs,controller) {
 
-    var c, timer, data;
     scope.loading = true;
+    var c, timer, data, json;
+    ClientDetails.client.version = '4';
     var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
     var formatted = { usage: { inbound: 1 } };
 
@@ -826,24 +823,16 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
-        if (resp.v === 2) {
-          // Sort when old data is depreciated
-          for (var i in resp.stats) {
-            var key = resp.stats[i].key;
-            if (key === 'outbound') {
-              formatted.usage.outbound = resp.stats[i].value;
-            } else if (key === 'inbound') {
-              formatted.usage.inbound = resp.stats[i].value;
-            }
+        for (var i in resp.stats) {
+          var key = resp.stats[i].key;
+          if (key === 'outbound') {
+            formatted.usage.outbound = resp.stats[i].value;
+          } else if (key === 'inbound') {
+            formatted.usage.inbound = resp.stats[i].value;
           }
-        } else {
-          formatted = resp;
         }
-
-        if (formatted.usage.inbound === 0 && formatted.usage.outbound === 0) {
-          formatted.usage.inbound = 1;
-        }
-        drawChart(formatted.usage);
+        json = formatted.usage;
+        drawChart();
       }, function() {
         clearChart();
       });
@@ -857,10 +846,10 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       scope.loading = undefined;
     };
 
-    function drawChart(json) {
+    function drawChart() {
 
-      $timeout.cancel(timer);
-      var drawChartCallback = function() {
+      // $timeout.cancel(timer);
+      // var drawChartCallback = function() {
 
         var opts = controller.options;
         opts.explorer = undefined;
@@ -889,16 +878,18 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
         c = new window.google.visualization.PieChart(document.getElementById('dash-usage-chart'));
         c.draw(data, opts);
-      };
+      // };
 
-      window.google.charts.setOnLoadCallback(drawChartCallback);
+      // window.google.charts.setOnLoadCallback(drawChartCallback);
 
       scope.noData = undefined;
       scope.loading = undefined;
     }
-    setTimeout(function() {
+
+    timer = setTimeout(function() {
       chart();
-    }, 500);
+      $timeout.cancel(timer);
+    }, 50);
   };
 
   return {
@@ -951,7 +942,6 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
 
     function drawChart() {
 
-      $timeout.cancel(timer);
       var drawChartCallback = function() {
 
         var opts = controller.options;
@@ -1000,9 +990,11 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       scope.noData = undefined;
       scope.loading = undefined;
     }
-    setTimeout(function() {
+
+    timer = setTimeout(function() {
       chart();
-    }, 500);
+      $timeout.cancel(timer);
+    }, 150);
   };
 
   return {
@@ -1276,8 +1268,6 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
             '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;"> ' + formatDate(startTime) + ' - ' + formatDate(endTime) + ' </span>' +
             '</p>'+
             '<p>'+
-          // '</div>' +
-          //  '<div class="heartbeats-tooltip-item" style="height: 30px;">' +
             '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Duration:</span>' +
             '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;">' + duration(startTime, endTime) + ' minutes</span>' +
             '</p>'+
@@ -1291,7 +1281,8 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     var chart = function() {
       var params = {
         metric_type:  'device.heartbeats',
-        ap_mac: scope.mac
+        ap_mac: scope.mac,
+        period: '7d' // can be removed soon when loyalty dynamic
       };
       controller.getStats(params).then(function(resp) {
         data = resp.data.reverse();
@@ -1351,9 +1342,9 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     // });
 
     var timer = $timeout(function() {
+      chart();
       $timeout.cancel(timer);
-      window.google.charts.setOnLoadCallback(chart());
-    }, 500);
+    }, 250);
 
   };
 
