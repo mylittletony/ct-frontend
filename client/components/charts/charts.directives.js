@@ -1283,6 +1283,13 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       return tooltip;
     }
 
+    function sort(array) {
+      return array.sort(function(a, b) {
+        var x = a.timestamp; var y = b.timestamp;
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+      });
+    }
+
     var chart = function() {
       var params = {
         metric_type:  'device.heartbeats',
@@ -1290,7 +1297,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         period: '7d' // can be removed soon when loyalty dynamic
       };
       controller.getStats(params).then(function(resp) {
-        data = resp.data.reverse();
+        data = sort(resp.data).reverse();
         drawChart();
       }, function() {
       });
