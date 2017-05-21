@@ -930,7 +930,8 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       var params = {
         type:         scope.type,
         metric_type:  'device.caps',
-        resource:     scope.resource
+        resource:     scope.resource,
+        period:       '7d' // can be removed soon when loyalty dynamic
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
@@ -966,13 +967,22 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
           data = new window.google.visualization.DataTable();
           data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
           data.addColumn('number', gettextCatalog.getString('5Ghz'));
+
+          var two, five = 0;
           for (var i in formatted.stats) {
             if (formatted.stats[i].key === 'two') {
-              data.addRow(['2.4Ghz', formatted.stats[i].value]);
+              two = formatted.stats[i].value;
             } else if (formatted.stats[i].key === 'five') {
-              data.addRow(['5Ghz', formatted.stats[i].value]);
+              five = formatted.stats[i].value;
             }
           }
+
+          if (two === 0 && five === 0) {
+            two = 1;
+          }
+
+          data.addRow(['2.4Ghz', two]);
+          data.addRow(['5Ghz', five]);
         }
 
         var formatter = new window.google.visualization.NumberFormat(
