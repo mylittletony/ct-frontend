@@ -889,7 +889,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     timer = setTimeout(function() {
       chart();
       $timeout.cancel(timer);
-    }, 50);
+    }, 150);
   };
 
   return {
