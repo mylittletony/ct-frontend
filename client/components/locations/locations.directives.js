@@ -48,7 +48,7 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
 
     var compileTemplate = function(version) {
       var template;
-      template = $compile('<show-dashboard></show-dashboard>')(scope);
+      template = $compile('<show-dashboard location="location"></show-dashboard>')(scope);
       element.html(template);
       scope.loading = undefined;
     };
@@ -59,17 +59,18 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
   };
 
   return {
-    scope: {},
+    // scope: {},
     link: link
   };
 
 }]);
 
-app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', function(Location, $routeParams, $rootScope, $location, $timeout) {
+app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
     var timer;
+
     timer = $timeout(function() {
       scope.loader = true;
     }, 250);
@@ -77,10 +78,30 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       $timeout.cancel(timer);
     });
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
+    };
+
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
   };
 
   return {
     scope: {
+      location: '='
     },
     link: link,
     templateUrl: 'components/locations/dashboard/_index.html'
@@ -145,7 +166,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
       hash.direction = scope.query.direction;
       hash.q = scope.query.filter;
       if (scope.user_id) {
-        hash.user_id = scope.user_id
+        hash.user_id = scope.user_id;
       }
       $location.search(hash);
     };

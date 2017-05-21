@@ -471,9 +471,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     var loadCharts = function() {
-      $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      },250);
+      // alert(123)
+      // $timeout(function() {
+      controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
     };
 
     scope.updatePeriod = function(period) {

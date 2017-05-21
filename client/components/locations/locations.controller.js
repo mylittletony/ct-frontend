@@ -207,7 +207,12 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
       Location.get({id: id}, function(data) {
         if (id % 1 === 0) {
-          $location.path('/locations/' + data.slug).replace();
+          var suffix;
+          var path = $location.path().split('/');
+          if (path.length === 4) {
+            suffix = '/' + path[path.length-1];
+          }
+          $location.path('/locations/' + data.slug + suffix).replace();
         }
         menu.header = data.location_name;
         menu.sectionName = gettextCatalog.getString('Location');
