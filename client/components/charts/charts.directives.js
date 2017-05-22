@@ -1347,10 +1347,10 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       chart.draw(dataTable, options);
     };
 
-    var timer = $timeout(function() {
-      chart();
+    var timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
       $timeout.cancel(timer);
-    }, 250);
+    }, 500);
 
   };
 
