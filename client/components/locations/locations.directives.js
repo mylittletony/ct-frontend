@@ -33,10 +33,7 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
   };
 
   return {
-    // scope: {
-    // },
     link: link,
-    // controller: 'LocationsCtrl',
     templateUrl: 'components/locations/show/_index.html'
   };
 
@@ -65,7 +62,7 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
 
 }]);
 
-app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog) {
+app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -97,6 +94,9 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
       });
     }
 
+    scope.addDevice = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+    };
   };
 
   return {
@@ -2311,15 +2311,19 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
       });
     };
 
+    var loopStats = function(i, stats) {
+      Object.keys(stats[i]).forEach(function (key) {
+        if (key === 'new') {
+          scope.stats.new = stats[i][key];
+        } else if (key === 'active') {
+          scope.stats.active = stats[i][key];
+        }
+      });
+    };
+
     var createStats = function(stats) {
       for(var i = 0; i < stats.length; i++) {
-        Object.keys(stats[i]).forEach(function (key) {
-          if (key === 'new') {
-            scope.stats.new = stats[i][key];
-          } else if (key === 'active') {
-            scope.stats.active = stats[i][key];
-          }
-        });
+        loopStats(i, stats);
       }
     };
 
