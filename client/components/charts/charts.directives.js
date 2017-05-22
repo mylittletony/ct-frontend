@@ -1543,10 +1543,6 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
       chart();
     });
 
-    // scope.refresh = function() {
-    //   chart();
-    // };
-
     scope.fullScreen = function(type) {
       var t = { panel: type };
       if (!scope.fs) {
@@ -1600,9 +1596,12 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
           data.addColumn('number', gettextCatalog.getString('Load Average'));
 
           for(var i = 0; i < json.data.length; i++) {
-              time = new Date(json.data[i].timestamp*1000);
-              var load = (json.data[i].value*100);
-              data.addRow([time, null, load]);
+            time = new Date(json.data[i].timestamp*1000);
+            var load = (json.data[i].value*100);
+            if (load > 100) {
+              load = 100;
+            }
+            data.addRow([time, null, load]);
           }
         }
 
