@@ -400,29 +400,29 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
       };
 
-      this.v1 = function(params, deferred) {
-        Report.clientstats({
-          type:         params.type,
-          fill:         params.fill || $routeParams.fill,
-          fn:           params.fn || $routeParams.fn,
-          ap_mac:       $scope.client.ap_mac,
-          client_mac:   $scope.client.client_mac,
-          location_id:  $routeParams.id,
-          resource:     params.resource,
-          interval:     params.interval || this.interval,
-          period:       this.period,
-          start:        params.start,
-          end:          params.end,
-        }).$promise.then(function(data) {
-          if (data.usage || data.timeline) {
-            deferred.resolve(data);
-          } else {
-            deferred.reject();
-          }
-        }, function() {
-          deferred.reject();
-        });
-      };
+      // this.v1 = function(params, deferred) {
+      //   Report.clientstats({
+      //     type:         params.type,
+      //     fill:         params.fill || $routeParams.fill,
+      //     fn:           params.fn || $routeParams.fn,
+      //     ap_mac:       $scope.client.ap_mac,
+      //     client_mac:   $scope.client.client_mac,
+      //     location_id:  $routeParams.id,
+      //     resource:     params.resource,
+      //     interval:     params.interval || this.interval,
+      //     period:       this.period,
+      //     start:        params.start,
+      //     end:          params.end,
+      //   }).$promise.then(function(data) {
+      //     if (data.usage || data.timeline) {
+      //       deferred.resolve(data);
+      //     } else {
+      //       deferred.reject();
+      //     }
+      //   }, function() {
+      //     deferred.reject();
+      //   });
+      // };
 
       this.v2 = function(params, deferred) {
         var endOfDay = Math.floor(moment().utc().endOf('day').toDate().getTime() / 1000);
@@ -453,11 +453,11 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         this.setStartEnd();
 
         $scope.client = ClientDetails.client;
-        if ($scope.client.version === '4') {
+        // if ($scope.client.version === '4') {
           this.v2(params, deferred);
-        } else {
-          this.v1(params, deferred);
-        }
+        // } else {
+        //   this.v1(params, deferred);
+        // }
         return deferred.promise;
       };
     }
@@ -487,12 +487,14 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
     scope.resource = 'client';
     scope.noData   = undefined;
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   // if (type && type === 'device') {
-    //   //   scope.resource = 'device';
-    //   // }
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      // if (type && type === 'device') {
+      //   scope.resource = 'device';
+      // }
+      if (a) {
+        drawChart();
+      }
+    });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
       a = undefined;
@@ -1531,9 +1533,11 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     scope.type  = 'devices.load5';
     var opts = controller.options;
 
-    // controller.$scope.$on('resizeClientChart', function (evt, type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt, type){
+      if (a) {
+        drawChart();
+      }
+    });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
       a = undefined;
@@ -2012,9 +2016,11 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
     ClientDetails.client.version = '4';
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      if (a) {
+        drawChart();
+      }
+    });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
       a = undefined;
@@ -2062,176 +2068,179 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
     function drawChart() {
 
-      $timeout.cancel(timer);
-      var drawChartCallback = function() {
+      var opts = controller.options;
+      opts.series = {
+        0: {
+          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+        },
+        1: {
+          targetAxisIndex: 1, lineWidth: 2.5
+        }
+      };
+
+      var suffix;
+      // $timeout.cancel(timer);
+      // var drawChartCallback = function() {
+
+      // vAxis set to only have values on negative graphs
+      if (scope.type === 'interfaces.snr' ) {
+        suffix = 'dB';
+        opts.vAxes = {
+          0: {
+            textPosition: 'none',
+            viewWindow:{
+              max: 100,
+              min: 0
+            }
+          },
+          1: {
+            viewWindow:{
+              min: 0
+            }
+          }
+        };
+      // } else if (scope.type === 'noise' || scope.type === 'signal') {
+      //   suffix = 'dBm';
+      //   opts.vAxis = {
+      //     minValue: -100,
+      //     maxValue: 0
+      //   };
+      // } else if (scope.type === 'quality') {
+      //   suffix = '%';
+      //   opts.vAxis = {};
+      }
+
+      opts.legend = { position: 'bottom' };
+      opts.series = {
+        0: {
+          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+        },
+        1: {
+          targetAxisIndex: 1
+        },
+        2: {
+          targetAxisIndex: 1
+        },
+        3: {
+          targetAxisIndex: 1
+        },
+        4: {
+          targetAxisIndex: 1
+        },
+        5: {
+          targetAxisIndex: 1
+        },
+        6: {
+          targetAxisIndex: 1
+        },
+        7: {
+          targetAxisIndex: 1
+        }
+      };
+
+      opts.hAxis = {
+        gridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
+        },
+        minorGridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
+        }
+      };
+
+      opts.explorer = {
+        maxZoomOut:2,
+        keepInBounds: true,
+        axis: 'horizontal',
+        actions: [ 'dragToZoom', 'rightClickToReset'],
+      };
+      if (scope.fs) {
+        opts.height = 600;
+      } else {
+        opts.height = 250;
+      }
+      if (!a) {
+
+        a = true;
+
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
-        var opts = controller.options;
-        opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-          },
-          1: {
-            targetAxisIndex: 1, lineWidth: 2.5
-          }
-        };
+        
+        data = new window.google.visualization.DataTable();
+        data.addColumn('datetime', gettextCatalog.getString('Date'));
+        data.addColumn('number', 'dummySeries');
 
-
-          var suffix;
-
-          // vAxis set to only have values on negative graphs
-          if (scope.type === 'interfaces.snr' ) {
-            suffix = 'dB';
-            opts.vAxes = {
-              0: {
-                textPosition: 'none',
-                viewWindow:{
-                  max: 100,
-                  min: 0
-                }
-              },
-              1: {
-                viewWindow:{
-                  min: 0
-                }
+        for(var i = 0; i < json.data.length; i++) {
+          var name;
+          for (var j = 0; j < json.meta.length; j++) {
+            if (json.meta[j].interface === json.data[i].tags.interface) {
+              var freq = json.meta[j].freq;
+              if (freq === '2') {
+                freq = '2.4Ghz';
+              } else {
+                freq = '5Ghz';
               }
-            };
-          } else if (scope.type === 'noise' || scope.type === 'signal') {
-            suffix = 'dBm';
-            opts.vAxis = {
-              minValue: -100,
-              maxValue: 0
-            };
-          } else if (scope.type === 'quality') {
-            suffix = '%';
-            opts.vAxis = {};
-          }
-
-        if (a === undefined) {
-          data = new window.google.visualization.DataTable();
-          data.addColumn('datetime', gettextCatalog.getString('Date'));
-          data.addColumn('number', 'dummySeries');
-
-          for(var i = 0; i < json.data.length; i++) {
-            var name;
-            for (var j = 0; j < json.meta.length; j++) {
-              if (json.meta[j].interface === json.data[i].tags.interface) {
-                var freq = json.meta[j].freq;
-                if (freq === '2') {
-                  freq = '2.4Ghz';
-                } else {
-                  freq = '5Ghz';
-                }
-                name = json.meta[j].ssid + ' ('+ freq +')';
-                break;
-              }
-              if (name === undefined) {
-                name = 'N/A';
-              }
+              name = json.meta[j].ssid + ' ('+ freq +')';
+              break;
             }
-            data.addColumn('number', name);
-          }
-
-          for(i = 0; i < json.data[0].data.length; i++) {
-            var time;
-            var array = [];
-
-            time = new Date(json.data[0].data[i].timestamp*1000);
-            array.push(time);
-            array.push(null);
-
-            for(var j = 0; j < json.data.length; j++) {
-              var val = (json.data[j].data[i].value);
-
-              // Temp hack to fix broken data
-              if (scope.type === 'interfaces.snr' && val >= 95 ) {
-                val = 0;
-              }
-              array.push(val);
+            if (name === undefined) {
+              name = 'N/A';
             }
-
-            data.addRow(array);
           }
+          data.addColumn('number', name);
         }
 
-          var date_formatter = new window.google.visualization.DateFormat({
-            pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
-          });
-          date_formatter.format(data,0);
+        for(i = 0; i < json.data[0].data.length; i++) {
+          var time;
+          var array = [];
 
-          var formatter = new window.google.visualization.NumberFormat(
-            {suffix: suffix, pattern: '0'}
-          );
+          time = new Date(json.data[0].data[i].timestamp*1000);
+          array.push(time);
+          array.push(null);
 
-          for (var i = 0; i < data.getNumberOfColumns(); i++){
-            formatter.format(data, i);
+          for(var j = 0; j < json.data.length; j++) {
+            var val = (json.data[j].data[i].value);
+
+            // Temp hack to fix broken data
+            if (scope.type === 'interfaces.snr' && val >= 95 ) {
+              val = 0;
+            }
+            array.push(val);
           }
 
-          opts.legend = { position: 'bottom' };
-          opts.series = {
-            0: {
-              targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-            },
-            1: {
-              targetAxisIndex: 1
-            },
-            2: {
-              targetAxisIndex: 1
-            },
-            3: {
-              targetAxisIndex: 1
-            },
-            4: {
-              targetAxisIndex: 1
-            },
-            5: {
-              targetAxisIndex: 1
-            },
-            6: {
-              targetAxisIndex: 1
-            },
-            7: {
-              targetAxisIndex: 1
-            }
-          };
+          data.addRow(array);
+        }
+      }
 
-          opts.hAxis = {
-            gridlines: {
-              count: -1,
-              units: {
-                days: {format: [gettextCatalog.getString('MMM dd')]},
-                hours: {format: [gettextCatalog.getString('hh:mm a')]},
-                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-              }
-            },
-            minorGridlines: {
-              count: -1,
-              units: {
-                days: {format: [gettextCatalog.getString('MMM dd')]},
-                hours: {format: [gettextCatalog.getString('hh:mm a')]},
-                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-              }
-            }
-          };
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+      date_formatter.format(data,0);
 
-          opts.explorer = {
-            maxZoomOut:2,
-            keepInBounds: true,
-            axis: 'horizontal',
-            actions: [ 'dragToZoom', 'rightClickToReset'],
-          };
-          if (scope.fs) {
-            opts.height = 600;
-          } else {
-            opts.height = 250;
-          }
-          c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
-          c.draw(data, opts);
-          scope.noData = undefined;
-          scope.loading = undefined;
-      };
-      window.google.charts.setOnLoadCallback(drawChartCallback);
+      var formatter = new window.google.visualization.NumberFormat(
+        {suffix: suffix, pattern: '0'}
+      );
+
+      for (var i = 0; i < data.getNumberOfColumns(); i++){
+        formatter.format(data, i);
+      }
+
+      c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
+      c.draw(data, opts);
+      scope.noData = undefined;
+      scope.loading = undefined;
+      // };
+      // window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
     setTimeout(function() {
