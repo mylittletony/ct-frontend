@@ -568,7 +568,7 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var initWebhook = function() {
-      if (scope.trigger.attr_2 !== 'POST' || scope.trigger.attr_2 !== 'GET') {
+      if (scope.trigger.attr_2 !== 'POST' && scope.trigger.attr_2 !== 'GET') {
         scope.trigger.attr_2 = 'POST';
       }
     };
@@ -798,19 +798,21 @@ app.directive('triggerTags', ['$mdDialog',function($mdDialog) {
         controller: DialogController,
         locals: {
           type: attrs.type,
-          channel: attrs.channel
+          channel: attrs.channel,
+          location: attrs.location
         }
       });
     };
 
-    function DialogController($scope,type,channel) {
+    function DialogController($scope,type,channel,location) {
       $scope.type = type;
       $scope.channel = channel;
+      $scope.location = location;
       $scope.close = function() {
         $mdDialog.cancel();
       };
     }
-    DialogController.$inject = ['$scope', 'type', 'channel'];
+    DialogController.$inject = ['$scope', 'type', 'channel', 'location'];
 
     attrs.$observe('channel', function(start) {
       scope.type = attrs.type;

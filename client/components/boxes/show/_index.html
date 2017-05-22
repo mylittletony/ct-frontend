@@ -172,7 +172,7 @@
   </div>
 </md-content>
 
-<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(!box.initialising && box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
+<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
 
   <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
     <md-card ing-if="box.state != 'new'">
@@ -211,6 +211,13 @@
               <p translate>
                 {{ box.tags || "No tags" }}
               </p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <md-button ng-click="rebootBox()" ng-disabled="box.state != 'online'" class="md-raised md-primary">
+                Reboot
+              </md-button>
             </div>
           </md-list-item>
         </md-list>

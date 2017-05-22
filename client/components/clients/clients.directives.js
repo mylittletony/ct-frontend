@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.clients.directives', []);
 
-app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', function(Client, Location, Report, GroupPolicy, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels) {
+app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', function(Client, Location, Report, GroupPolicy, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -26,6 +26,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
+      sort:       $routeParams.sort || 'lastseen',
+      direction:  $routeParams.direction || 'desc'
     };
 
     scope.onPaginate = function (page, limit) {
@@ -39,13 +41,14 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     scope.ap_mac          = $routeParams.ap_mac;
     scope.client_mac      = $routeParams.client_mac;
     scope.query.filter    = $routeParams.q;
-    scope.fn              = $routeParams.fn;
+    scope.fn              = {key: $filter('translatableChartTitle')($routeParams.fn ), value: $routeParams.fn };
     scope.end             = $routeParams.end;
     scope.client_mac      = $routeParams.client_mac;
     scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
     // scope.location        = { slug: $routeParams.id };
-    scope.predicate       = $routeParams.predicate;
+    scope.sort            = $routeParams.sort
+    scope.direction       = $routeParams.direction
 
     var view = function(id) {
       $location.path('/locations/' + scope.location.slug + '/clients/' + id);
@@ -130,7 +133,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
     };
 
     scope.changeFn = function(fn) {
-      scope.fn = fn;
+      scope.fn = {key: $filter('translatableChartTitle')(fn), value: fn};
       clientsChart();
     };
 
@@ -205,10 +208,11 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       params.location_id = scope.location.slug;
       params.page        = scope.query.page;
       params.per         = scope.query.limit;
+      params.sort        = scope.query.sort;
+      params.direction   = scope.query.direction;
       params.interval    = interval;
       params.period      = scope.period;
-      params.fn          = scope.fn;
-      params.predicate   = scope.predicate;
+      params.fn          = scope.fn.value;
       params.ap_mac      = scope.ap_mac;
       params.type        = scope.type;
       params.policy_id   = scope.policy_id;
@@ -231,11 +235,11 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       hash.interval       = scope.interval;
       hash.period         = scope.period;
       hash.page           = scope.query.page;
-      hash.fn             = scope.fn;
+      hash.fn             = scope.fn.value;
       hash.type           = scope.type;
-      hash.predicate      = scope.predicate;
       hash.direction      = scope.query.direction;
       hash.per            = scope.query.limit;
+      hash.sort           = scope.query.sort;
       $location.search(hash);
       init();
     };
@@ -246,9 +250,8 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       } else {
         scope.query.direction = 'asc';
       }
-      scope.predicate = 'updated_at';
-      // scope.predicate = val;
-      scope.updatePage(val);
+      scope.query.sort = val;
+      scope.updatePage();
     };
 
     var createColumns = function() {
@@ -444,7 +447,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
       var params = {
         type:         scope.type,
         client_mac:   scope.client_mac,
-        fn:           scope.fn,
+        fn:           scope.fn.value || $routeParams.fn,
         location_id:  $routeParams.id,
         interval:     interval,
         distance:     scope.distance,
@@ -459,7 +462,7 @@ app.directive('clients', ['Client', 'Location', 'Report', 'GroupPolicy', '$locat
           var obj = {
             data: data.timeline,
             type: scope.type,
-            fn: scope.fn
+            fn: scope.fn.value
           };
           controller.$scope.$broadcast(
             'clientIndexChart', obj
@@ -684,13 +687,13 @@ app.directive('clientsRangeButtons', ['$routeParams', '$location', '$route', 'Au
 
 }]);
 
-app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', 'gettextCatalog', '$q', 'GroupPolicy', function(Client,ClientDetails,Report,$routeParams,menu,$pusher, $rootScope,showToast,showErrors,$mdDialog, $timeout, $location, gettextCatalog, $q, GroupPolicy) {
+app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParams', 'menu', '$pusher', '$rootScope','showToast', 'showErrors', '$mdDialog', '$timeout', '$location', 'gettextCatalog', '$q', 'GroupPolicy', '$filter', function(Client,ClientDetails,Report,$routeParams,menu,$pusher, $rootScope,showToast,showErrors,$mdDialog, $timeout, $location, gettextCatalog, $q, GroupPolicy, $filter) {
 
   var link = function( scope, element, attrs, controller ) {
 
     scope.location = { slug: $routeParams.id };
     scope.ap_mac   = $routeParams.ap_mac;
-    scope.fn       = $routeParams.fn;
+    scope.fn       = {key: $filter('translatableChartTitle')($routeParams.fn), value: $routeParams.fn};
     scope.period   = $routeParams.period || '6h';
 
     var logout = function() {
@@ -713,7 +716,7 @@ app.directive('clientDetail', ['Client', 'ClientDetails', 'Report', '$routeParam
       hash.ap_mac         = scope.ap_mac;
       hash.interval       = scope.interval;
       hash.period         = scope.period;
-      hash.fn             = scope.fn;
+      hash.fn             = scope.fn.value;
       $location.search(hash);
       $timeout(function() {
         scope.reload();

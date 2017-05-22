@@ -213,8 +213,16 @@ app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($co
   }
 
   function setLanguage() {
-    for (var i = 0;  language === undefined && navigator.languages !== null && i < navigator.languages.length; ++i) {
-      var lang = navigator.languages[i].substr(0, 2);
+    if (navigator.languages) {
+      for (var i = 0;  language === undefined && navigator.languages !== null && i < navigator.languages.length; ++i) {
+        var lang = navigator.languages[i].substr(0, 2);
+        language = fixLocale(lang);
+        if (supported[lang]) {
+          language = lang;
+        }
+      }
+    } else {
+      var lang = navigator.language.substr(0, 2);
       language = fixLocale(lang);
       if (supported[lang]) {
         language = lang;
