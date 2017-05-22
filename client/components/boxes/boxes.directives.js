@@ -112,7 +112,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'delete'
       });
 
-      if (scope.box.gubbins_version === '4') {
+      if (scope.box.v === '4') {
         scope.menu.push({
           name: gettextCatalog.getString('Operations'),
           icon: 'access_time',
@@ -504,7 +504,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ClientDetails.client = {
           location_id: box.location_id,
           ap_mac: box.calledstationid,
-          version: box.gubbins_version,
+          version: box.v,
         };
         scope.loading = undefined;
         poll();
@@ -650,7 +650,7 @@ app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $rou
   var link = function( scope, element, attrs ) {
     var init = function() {
       return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
-        compileTemplate(box.gubbins_version);
+        compileTemplate(box.v);
       }, function(err) {
         scope.loading = undefined;
         console.log(err);
