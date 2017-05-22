@@ -32,6 +32,7 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
     }
 
     scope.addDevice = function() {
+      window.mixpanel.track('Add box');
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
 
