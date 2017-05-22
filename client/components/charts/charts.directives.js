@@ -666,10 +666,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       // window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
-    window.google.charts.setOnLoadCallback(chart);
-    // setTimeout(function() {
-    //   chart();
-    // }, 500);
+    setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
   };
 
   return {
@@ -1685,7 +1684,9 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
       window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
-    chart();
+    setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
   };
 
   return {
@@ -2233,7 +2234,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
-    chart();
+    setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
   };
 
   return {
