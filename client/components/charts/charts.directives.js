@@ -1217,6 +1217,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     var data, a;
 
     ClientDetails.client.version = '4';
+    ClientDetails.client.ap_mac = undefined;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
       drawChart();
@@ -1231,7 +1232,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
           showRowLabels: false
         },
         avoidOverlappingGridLines: false,
-        height: 45,
+        height: attrs.height || 45,
         width: '100%',
         tooltip: {isHtml: true}
       };
@@ -1358,7 +1359,8 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     scope: {
       mac: '@',
       loc: '@',
-      target: '@'
+      target: '@',
+      height: '@'
     },
     require: '^clientChart',
   };

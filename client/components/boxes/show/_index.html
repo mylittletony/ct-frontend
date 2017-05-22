@@ -56,6 +56,7 @@
   </md-subheader>
 </section>
 
+
 <md-content class="md-padding" ng-if="box.state == 'initializing'">
   <div layout="row" layout-align="center center">
     <div flex="100">
@@ -173,7 +174,9 @@
 </md-content>
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
-
+  <div flex flex-gt-sm="100" layout="column" style='padding: 0 10px;'>
+    <div heartbeat-chart height="100" target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
+  </div>
   <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
     <md-card ing-if="box.state != 'new'">
       <div ng-if="box.state != 'rebooting' && box.state != 'processing' && box.state != 'upgrading'" class="md-card-image" style='height: 5px; background-color: {{box.state | statusColour}}'></div>
