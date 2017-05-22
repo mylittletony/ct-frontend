@@ -880,12 +880,10 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       scope.loading = undefined;
     }
 
-    window.google.charts.setOnLoadCallback(chart);
-
-    // timer = setTimeout(function() {
-    //   chart();
-    //   $timeout.cancel(timer);
-    // }, 250);
+    timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
+    $timeout.cancel(timer);
   };
 
   return {
@@ -984,10 +982,10 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
 
     window.google.charts.setOnLoadCallback(chart);
 
-    // timer = setTimeout(function() {
-    //   chart();
-    //   $timeout.cancel(timer);
-    // }, 250);
+    timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
+    $timeout.cancel(timer);
   };
 
   return {
@@ -1090,12 +1088,10 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     }
 
-    window.google.charts.setOnLoadCallback(chart);
-
-    //
-    // setTimeout(function() {
-    //   chart();
-    // }, 500);
+    timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
+    $timeout.cancel(timer);
   };
 
   return {
@@ -1194,10 +1190,10 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
       scope.loading = undefined;
     }
 
-    window.google.charts.setOnLoadCallback(chart);
-    // setTimeout(function() {
-    //   chart();
-    // }, 500);
+    timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
+    $timeout.cancel(timer);
 
   };
 
@@ -1253,8 +1249,9 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     function formatDate(date) {
       date = new Date(date * 1000 * 1000);
       var timeFormatted = prefixNumber(date.getHours()) + ':' + prefixNumber(date.getMinutes());
-      var dateFormatted = prefixNumber(date.getDate()) + '/' + prefixNumber(date.getMonth()) + '/' + date.getFullYear().toString().slice(-2);
+      var dateFormatted = prefixNumber(date.getDate()) + '/' + prefixNumber(date.getMonth() + 1) + '/' + date.getFullYear().toString().slice(-2);
       var datetimeFormatted = timeFormatted + ' ' + dateFormatted;
+      console.log(datetimeFormatted, date)
       return datetimeFormatted;
     }
 
@@ -1263,22 +1260,22 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     }
 
     function makeTooltip(status, startTime, endTime) {
-      var tooltip = '<div class="heartbeats-tooltip" style="width: 250px; height: 120px; left 5px; top: 30px; pointer-events: none; font-weight: bold;">' +
-        '<div class="heartbeats-tooltip-item-list" style="height: 35px">' +
+      var tooltip = '<div class="heartbeats-tooltip" style="width: 250px; height: 80px; left 5px; top: 30px; pointer-events: none; font-weight: bold;">' +
+        '<div class="heartbeats-tooltip-item-list" style="height: 25px">' +
           '<div class="heartbeats-tooltip-item">' +
-            '<span style="font-family: Arial">' + status + '</span>' +
+            '<span style="font-family: Arial">Status: ' + status + '</span>' +
           '</div>' +
         '</div>' +
-        '<div class="heartbeats-tooltip-separator" style="height: 1px; margin: 0; padding: 0; background-color: #dddddd;"></div>' +
-        '<div class="heartbeats-tooltip-item-list" style="height: 65px">' +
-          '<div class="heartbeats-tooltip-item" style="height: 30px;">' +
-            '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Heartbeat:</span>' +
+        // '<div class="heartbeats-tooltip-separator" style="height: 1px; margin: 0; padding: 0; background-color: #dddddd;"></div>' +
+        '<div class="heartbeats-tooltip-item-list" style="height: 25px">' +
+          '<div class="heartbeats-tooltip-item" style="height: 0px;">' +
+            '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Between:</span>' +
             '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;"> ' + formatDate(startTime) + ' - ' + formatDate(endTime) + ' </span>' +
             '</p>'+
-            '<p>'+
-            '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Duration:</span>' +
-            '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;">' + duration(startTime, endTime) + ' minutes</span>' +
-            '</p>'+
+            // '<p>'+
+            // '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Duration:</span>' +
+            // '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;">' + duration(startTime, endTime) + ' minutes</span>' +
+            // '</p>'+
           '</div>' +
         '</div>' +
       '</div>';
