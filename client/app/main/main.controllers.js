@@ -71,12 +71,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     vm.settingsMenu = [];
     vm.menuRight = [];
 
-    vm.menu.reports.push({
-      title: gettextCatalog.getString('Reports'),
-      type: 'link',
-      link: '/#/reports',
-      icon: 'timeline'
-    });
+    // vm.menu.reports.push({
+    //   title: gettextCatalog.getString('Reports'),
+    //   type: 'link',
+    //   link: '/#/reports',
+    //   icon: 'timeline'
+    // });
 
     vm.menu.reports.push({
       title: gettextCatalog.getString('Audit'),

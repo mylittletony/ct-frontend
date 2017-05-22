@@ -547,16 +547,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/reports', {
-      templateUrl: 'components/reports/wireless.html',
-      controller: 'ReportsCtrl as rc',
-      reloadOnSearch: false,
-      resolve: { loginRequired: loginRequired }
+      redirectTo: '/',
+      // templateUrl: 'components/reports/wireless.html',
+      // controller: 'ReportsCtrl as rc',
+      // reloadOnSearch: false,
+      // resolve: { loginRequired: loginRequired }
     }).
     when('/reports/radius', {
-      templateUrl: 'components/reports/radius.html',
-      controller: 'ReportsCtrl as rc',
-      reloadOnSearch: false,
-      resolve: { loginRequired: loginRequired }
+      redirectTo: '/',
+      // templateUrl: 'components/reports/radius.html',
+      // controller: 'ReportsCtrl as rc',
+      // reloadOnSearch: false,
+      // resolve: { loginRequired: loginRequired }
     }).
     when('/users', {
       templateUrl: 'components/users/index/index.html',
