@@ -49,8 +49,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
     function drawChart() {
 
-      $timeout.cancel(timer);
-
       var drawChartCallback = function() {
         // For the tests mainly, not sure why this has started causing a failure
         if (window.google && window.google.visualization) {
@@ -885,6 +883,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       window.google.charts.setOnLoadCallback(chart);
     }, 500);
     $timeout.cancel(timer);
+
   };
 
   return {
@@ -2168,8 +2167,8 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       } else {
         opts.height = 250;
       }
-      if (!a) {
 
+      if (!a) {
         a = true;
 
         data = new window.google.visualization.DataTable();
@@ -2200,16 +2199,20 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           data.addColumn('number', name);
         }
 
-        for(i = 0; i < json.data[0].data.length; i++) {
+        for(var x = 0; x < json.data[0].data.length; x++) {
           var time;
           var array = [];
 
-          time = new Date(json.data[0].data[i].timestamp*1000);
+          time = new Date(json.data[0].data[x].timestamp*1000);
           array.push(time);
           array.push(null);
 
-          for(var j = 0; j < json.data.length; j++) {
-            var val = (json.data[j].data[i].value);
+          for(var k = 0; k < json.data.length; k++) {
+            var val = 0;
+            var d = json.data[k].data[x];
+            if (d && d.value > 0) {
+              val = (d.value);
+            }
 
             // Temp hack to fix broken data
             if (scope.type === 'interfaces.snr' && val >= 95 ) {
@@ -2239,12 +2242,11 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       c.draw(data, opts);
       scope.noData = undefined;
       scope.loading = undefined;
-      // };
-      // window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
     setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
+      $timeout.cancel(timer);
     }, 500);
   };
 
