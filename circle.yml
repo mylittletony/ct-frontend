@@ -18,6 +18,6 @@ test:
 
 deployment:
   production:
-    branch: [master, beta, staging]
+    branch: [master, beta, staging, dev]
     commands:
       - chmod +x ./circle/deploy.sh && ./circle/deploy.sh

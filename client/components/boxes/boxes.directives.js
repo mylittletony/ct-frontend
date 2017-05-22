@@ -381,7 +381,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug;
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
     };
 
     var channel;
@@ -470,6 +470,13 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
     };
 
+    var loadCharts = function() {
+      // alert(123)
+      // $timeout(function() {
+      controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
+    };
+
     scope.updatePeriod = function(period) {
       scope.period = period;
       updatePage();
@@ -482,6 +489,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       hash.fn             = scope.fn;
       hash.type           = scope.type;
       $location.search(hash);
+      loadCharts();
     };
 
     scope.refresh = function() {
@@ -534,46 +542,24 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       return deferred.promise;
     };
 
-    // var loadCharts = function() {
-    //   timeout = $timeout(function() {
-    //     controller.$scope.$broadcast('loadClientChart', 'device');
-    //   }, 250);
-    // };
-
-    // var loadTput = function() {
-    //   var deferred = $q.defer();
-    //   Report.clientstats({
-    //     type:         'tput',
-    //     ap_mac:       scope.box.calledstationid,
-    //     location_id:  scope.box.location_id,
-    //     resource:     'device',
-    //     interval:     '180s',
-    //     period:       '6h'
-    //   }).$promise.then(function(data) {
-    //     scope.box.throughput = data.throughput;
-    //     deferred.resolve();
-    //   }, function() {
-    //     deferred.reject();
-    //   });
-    //   return deferred.promise;
-    // };
-
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
       menu.isOpen = false;
       scope.fs = { panel: obj.panel };
-      $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      },250);
+      loadCharts();
+      // $timeout(function() {
+      //   controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
     });
 
     controller.$scope.$on('closeFullScreen', function(val,obj) {
       menu.isOpenLeft = true;
       menu.isOpen = true;
       scope.fs = undefined;
-      $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      },250);
+      loadCharts();
+      // $timeout(function() {
+      //   controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
     });
 
     var sortSsids = function() {
@@ -622,6 +608,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         processAlertMessages();
       });
     });
+    // loadCharts();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
@@ -1686,7 +1673,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug;
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
     };
 
     scope.manualBox = function() {

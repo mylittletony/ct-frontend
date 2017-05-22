@@ -81,13 +81,53 @@ module.exports = function (grunt) {
           INTERCOM: 'xxx',
           PUSHER: 'xxx',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: []
         }
       },
       development: {
         constants: config.frontend.constants
+      },
+      dev: {
+        constants: {
+          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
+          API_END_POINT: 'https://beta.ctapp.io/api/v1',
+          API_URL: 'https://beta.ctapp.io',
+          STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
+          AUTH_URL: 'https://id.ctapp.io',
+          SLACK_TOKEN: '3540010629.11828901815',
+          CHIMP_TOKEN: '279197455989',
+          PUSHER: 'f5c774e098156e548079',
+          INTERCOM: 'zklfhs87',
+          DEBUG: true,
+          // COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
+          COMMITHASH: commitHash.stdout,
+          THEMES: [
+            "pink",
+            "orange",
+            "deep-orange",
+            "blue",
+            "blue-grey",
+            "light-blue",
+            "red",
+            "green",
+            "light-green",
+            "lime",
+            "yellow",
+            "teal",
+            "brown",
+            "purple",
+            "deep-purple",
+            "cyan",
+            "yellow",
+            "amber",
+            "indigo",
+            "brown",
+            "grey",
+          ]
+        }
       },
       beta: {
         constants: {
@@ -101,7 +141,8 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          // COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: [
             "pink",
@@ -140,7 +181,8 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          // COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: [
             "pink",
@@ -587,6 +629,13 @@ module.exports = function (grunt) {
         connectCommits: false,
         message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
       },
+      dev: {
+        options: {
+          remote: 'git@heroku.com:thawing-basin-34731.git',
+          branch: 'master',
+          force: true
+        }
+      },
       beta: {
         options: {
           remote: 'git@heroku.com:secure-mesa-9387.git',
@@ -808,6 +857,25 @@ module.exports = function (grunt) {
   });
 
   // grunt.registerTask('test', ['karma:travis']);
+
+  grunt.registerTask('build-dev', [
+    'clean:dist',
+    'ngconstant:dev',
+    'concurrent:dist',
+    'wiredep',
+    'useminPrepare',
+    'autoprefixer',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'all-po',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'rev',
+    'usemin'
+  ]);
 
   grunt.registerTask('build-beta', [
     'clean:dist',

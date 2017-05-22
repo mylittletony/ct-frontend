@@ -10,7 +10,7 @@ then
   echo 'Building master.'
   grunt build
 else
-  echo 'Building beta.'
+  echo "Building $CIRCLE_BRANCH branch"
   grunt build-beta
 fi
 
