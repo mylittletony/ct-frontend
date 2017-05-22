@@ -154,16 +154,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/views/triggers/edit.html',
       resolve: { loginRequired: loginRequired },
     }).
-    // when('/brands/:brand_id/triggers/:trigger_id/edit', {
-    //   controller: 'BrandsController',
-    //   templateUrl: 'components/views/triggers/edit.html',
-    //   resolve: { loginRequired: loginRequired },
-    // }).
-    // when('/brands/:id/settings', {
-    //   controller: 'BrandsController',
-    //   templateUrl: 'components/views/brands/settings/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    // }).
     when('/brands/:brand_id/theme', {
       controller: 'BrandsController',
       templateUrl: 'components/views/brands/theme/index.html',
@@ -291,15 +281,15 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
+      templateUrl: 'components/locations/dashboard/index.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
+    }).
+    when('/locations/:id/boxes', {
       templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
-    }).
-    when('/locations/:id/dashboard', {
-      templateUrl: 'components/locations/dashboard/index.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc'
     }).
     when('/locations/:id/map', {
       templateUrl: 'components/locations/show/map.html',
@@ -377,11 +367,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    // when('/locations/:id/triggers/:trigger_id/edit', {
-    //   templateUrl: 'components/views/triggers/edit.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/locations/:id/triggers/:trigger_id/trigger_history', {
       templateUrl: 'components/views/triggers/history/index.html',
       controller: 'LocationsCtrl as lc',
@@ -510,12 +495,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/downloads/index.html',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/locations/:id/devices', {
-      redirectTo: '/locations/:id'
-    }).
-    when('/locations/:id/boxes', {
-      redirectTo: '/locations/:id'
-    }).
     when('/locations/:id/boxes/new', {
       redirectTo: '/locations/:id/devices/new'
     }).
@@ -568,16 +547,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/reports', {
-      templateUrl: 'components/reports/wireless.html',
-      controller: 'ReportsCtrl as rc',
-      reloadOnSearch: false,
-      resolve: { loginRequired: loginRequired }
+      redirectTo: '/',
+      // templateUrl: 'components/reports/wireless.html',
+      // controller: 'ReportsCtrl as rc',
+      // reloadOnSearch: false,
+      // resolve: { loginRequired: loginRequired }
     }).
     when('/reports/radius', {
-      templateUrl: 'components/reports/radius.html',
-      controller: 'ReportsCtrl as rc',
-      reloadOnSearch: false,
-      resolve: { loginRequired: loginRequired }
+      redirectTo: '/',
+      // templateUrl: 'components/reports/radius.html',
+      // controller: 'ReportsCtrl as rc',
+      // reloadOnSearch: false,
+      // resolve: { loginRequired: loginRequired }
     }).
     when('/users', {
       templateUrl: 'components/users/index/index.html',
@@ -647,11 +628,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/users/:id/branding', {
-    //   templateUrl: 'components/users/branding/index.html',
-    //   controller: 'UsersShowController',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/users/:id/locations', {
       templateUrl: 'components/users/locations/index.html',
       controller: 'UsersShowController',

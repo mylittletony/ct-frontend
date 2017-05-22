@@ -2,7 +2,7 @@
   <md-card-header class="graph-small">
     <md-card-header-text>
       <span class="md-subhead" ng-cloak translate>
-        Average {{ type | translatableChartTitleSNR | titleCase }}
+        Average Signal (SNR) {{ type | translatableChartTitleSNR | titleCase }}
       </span>
     </md-card-header-text>
     <md-button class="md-icon-button" ng-if="fs" ng-click="fullScreen()">
@@ -14,7 +14,7 @@
     <md-button class="md-icon-button" ng-click="refresh()">
       <md-icon>refresh</md-icon>
     </md-button>
-    <md-menu-bar style="padding: 0">
+    <md-menu-bar style="padding: 0" ng-if="false">
       <md-menu>
         <button ng-click="$mdOpenMenu()">
           <md-icon>more_vert</md-icon>

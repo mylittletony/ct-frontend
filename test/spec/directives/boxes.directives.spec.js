@@ -141,41 +141,41 @@ describe('boxes', function () {
     //   expect(boxScope.not_in_zone).toEqual(true);
     // });
 
-    it("should reformat all the ssids", function() {
-      var boxScope = element.find('show-box').isolateScope()
-      spyOn(boxFactory, 'get').and.callThrough()
-      var box = { is_cucumber: true, id: 123 };
-      deferred.resolve(box);
-      $scope.$digest();
-      expect(boxScope.box.ssids).toEqual('N/A');
-    });
+    // it("should reformat all the ssids", function() {
+    //   var boxScope = element.find('show-box').isolateScope()
+    //   spyOn(boxFactory, 'get').and.callThrough()
+    //   var box = { is_cucumber: true, id: 123 };
+    //   deferred.resolve(box);
+    //   $scope.$digest();
+    //   expect(boxScope.box.ssids).toEqual('N/A');
+    // });
 
-    it("should reformat 1 ssid", function() {
-      var boxScope = element.find('show-box').isolateScope();
-      spyOn(boxFactory, 'get').and.callThrough();
-      var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid'] } };
-      deferred.resolve(box);
-      $scope.$digest();
-      expect(boxScope.box.ssids).toEqual('my-ssid');
-    });
+    // it("should reformat 1 ssid", function() {
+    //   var boxScope = element.find('show-box').isolateScope();
+    //   spyOn(boxFactory, 'get').and.callThrough();
+    //   var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid'] } };
+    //   deferred.resolve(box);
+    //   $scope.$digest();
+    //   expect(boxScope.box.ssids).toEqual('my-ssid');
+    // });
 
-    it("should reformat 2 ssids", function() {
-      var boxScope = element.find('show-box').isolateScope();
-      spyOn(boxFactory, 'get').and.callThrough();
-      var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid'] } };
-      deferred.resolve(box);
-      $scope.$digest();
-      expect(boxScope.box.ssids).toEqual('my-ssid & other-ssid');
-    });
+    // it("should reformat 2 ssids", function() {
+    //   var boxScope = element.find('show-box').isolateScope();
+    //   spyOn(boxFactory, 'get').and.callThrough();
+    //   var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid'] } };
+    //   deferred.resolve(box);
+    //   $scope.$digest();
+    //   expect(boxScope.box.ssids).toEqual('my-ssid & other-ssid');
+    // });
 
-    it("should reformat 3 ssids", function() {
-      var boxScope = element.find('show-box').isolateScope();
-      spyOn(boxFactory, 'get').and.callThrough();
-      var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid', 'hidden-ssid'] } };
-      deferred.resolve(box);
-      $scope.$digest();
-      expect(boxScope.box.ssids).toEqual('my-ssid, other-ssid and 1 more.');
-    });
+    // it("should reformat 3 ssids", function() {
+    //   var boxScope = element.find('show-box').isolateScope();
+    //   spyOn(boxFactory, 'get').and.callThrough();
+    //   var box = { is_cucumber: true, id: 123, metadata: { ssids: ['my-ssid', 'other-ssid', 'hidden-ssid'] } };
+    //   deferred.resolve(box);
+    //   $scope.$digest();
+    //   expect(boxScope.box.ssids).toEqual('my-ssid, other-ssid and 1 more.');
+    // });
 
     xit("set the preferences", function() {
     });

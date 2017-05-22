@@ -48,11 +48,13 @@
                 </span>
               </th>
               <th md-column hide show-gt-lg md-order-by="calledstationid"><span translate>Mac</span></th>
-              <th md-column hide show-gt-md md-order-by="metadata.online"><span translate>Clients</span></th>
+              <th md-column hide show-gt-xs md-order-by="metadata.online"><span translate>Clients</span></th>
               <th md-column hide show-gt-sm md-order-by="zone_id"><span translate>Zone</span></th>
-              <th md-column hide show-gt-sm><span translate>Tags</span></th>
-              <th md-column hide show-gt-xs><span translate>Channel</span></th>
+              <th md-column hide show-gt-lg><span translate>Tags</span></th>
+              <th md-column hide show-gt-lg><span translate>Channel</span></th>
               <th md-column hide show-gt-md md-order-by="wan_ip"><span translate>IP</span></th>
+              <th md-column hide show-gt-md class="heartbeat-table"><span translate>Status</span></th>
+              <th md-column hide show-gt-sm><span translate>V</span></th>
               <th md-column><span translate>Action</span></th>
             </tr>
           </thead>
@@ -79,73 +81,78 @@
                 </span>
               </td>
               <td md-cell ing-click="editDescription($event, box)">
-                <span>
-                  <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
-                    <span hide-gt-xs>{{ box.description | emptyFilter | truncate:10 }}</span>
-                    <span hide show-gt-xs>{{ box.description | emptyFilter | truncate:20 }}</span>
-                  </a>
-                </td>
-                <td hide show-gt-lg md-cell>
-                  {{ box.calledstationid }}
-                </td>
-                <td hide show-gt-md md-cell>
-                  {{ ::box.metadata.online || '-' }}
-                </td>
-                <td hide show-gt-sm md-cell>
-                  <a href="/#/locations/{{ location.slug }}/zones/{{ box.zone_id }}">
-                    {{ box.zone_name | truncate:20 | titleCase }}
-                  </a>
-                </td>
-                <td hide show-gt-sm md-cell>
-                  <span ng-if="box.tags && box.tags.split(',').length > 1">
-                    {{ box.tags.split(",").length }} tags
-                    <md-tooltip>
-                      {{ ::box.tags }}
-                    </md-tooltip>
-                  </span>
-                  <span ng-if="box.tags && box.tags.split(',').length <= 1">
-                    {{ ::box.tags || '-' }}
-                  </span>
-                </td>
-                <td md-cell hide show-gt-xs>
-                  {{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
-                </td>
-                <td hide show-gt-md md-cell>
-                  {{ box.wan_ip }}
+                <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
+                  <span hide-gt-xs>{{ box.description | emptyFilter | truncate:10 }}</span>
+                  <span hide show-gt-xs>{{ box.description | emptyFilter | truncate:20 }}</span>
+                </a>
+              </td>
+              <td hide show-gt-lg md-cell>
+                {{ box.calledstationid }}
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ ::box.metadata.online || '-' }}
+              </td>
+              <td hide show-gt-sm md-cell>
+                <a href="/#/locations/{{ location.slug }}/zones/{{ box.zone_id }}">
+                  {{ box.zone_name | truncate:20 | titleCase }}
+                </a>
+              </td>
+              <td hide show-gt-lg md-cell>
+                <span ng-if="box.tags && box.tags.split(',').length > 1">
+                  {{ box.tags.split(",").length }} tags
                   <md-tooltip>
-                    <translate>
-                      WAN Protocol: {{ ::box.wan_proto }}
-                    </translate>
-                    <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
+                    {{ ::box.tags }}
                   </md-tooltip>
-                </td>
-                <td md-cell>
-                  <md-menu>
-                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
-                    <md-menu-content width="4" >
-                      <md-menu-item>
-                        <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
-                          <md-icon>pageview</md-icon>
-                          <p flex translate>View</p>
-                        </md-button>
-                      </md-menu-item>
-                      <md-menu-item ng-repeat="item in menuItems">
-                        <md-button ng-click="action(box,item.type)" ng-disabled="{{ disabled(box,item.type) }}">
-                          <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
-                          <p flex>{{ ::item.name }}</p>
-                        </md-button>
-                      </md-menu-item>
-                    </md-menu-content>
-                  </md-menu>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </md-table-container>
-      </md-card-content>
-      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+                </span>
+                <span ng-if="box.tags && box.tags.split(',').length <= 1">
+                  {{ ::box.tags || '-' }}
+                </span>
+              </td>
+              <td hide show-gt-lg md-cell>
+                {{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
+              </td>
+              <td hide show-gt-md md-cell>
+                {{ box.wan_ip }}
+                <md-tooltip>
+                  <translate>
+                    WAN Protocol: {{ ::box.wan_proto }}
+                  </translate>
+                  <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
+                </md-tooltip>
+              </td>
+              <td hide show-gt-md md-cell client-chart class="heartbeat-table">
+                <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
+              </td>
+              <td hide show-gt-sm md-cell>
+                {{ box.v }}
+              </td>
+              <td md-cell>
+                <md-menu>
+                  <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                  </md-button>
+                  <md-menu-content width="4" >
+                    <md-menu-item>
+                      <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
+                        <md-icon>pageview</md-icon>
+                        <p flex translate>View</p>
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-repeat="item in menuItems">
+                      <md-button ng-click="action(box,item.type)" ng-disabled="{{ disabled(box,item.type) }}">
+                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
+                        <p flex>{{ ::item.name }}</p>
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-card-content>
+    <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
 
     </md-card>
   </div>

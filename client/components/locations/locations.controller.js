@@ -66,11 +66,19 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       // menu.header = $scope.location.location_name;
 
       menu.sections.push({
-        name: gettextCatalog.getString('Devices'),
+        name: gettextCatalog.getString('Dashboard'),
         link: '/#/locations/' + $scope.location.slug,
         type: 'link',
-        icon: 'router',
+        icon: 'dashboard',
         active: isActive('dashboard')
+      });
+
+      menu.sections.push({
+        name: gettextCatalog.getString('Boxes'),
+        link: '/#/locations/' + $scope.location.slug + '/boxes',
+        type: 'link',
+        icon: 'router',
+        active: isActive('boxes')
       });
 
       menu.sections.push({
@@ -199,7 +207,12 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
       Location.get({id: id}, function(data) {
         if (id % 1 === 0) {
-          $location.path('/locations/' + data.slug).replace();
+          var suffix;
+          var path = $location.path().split('/');
+          if (path.length === 4) {
+            suffix = '/' + path[path.length-1];
+          }
+          $location.path('/locations/' + data.slug + suffix).replace();
         }
         menu.header = data.location_name;
         menu.sectionName = gettextCatalog.getString('Location');
