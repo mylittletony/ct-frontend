@@ -130,6 +130,12 @@ md-toolbar md-autocomplete {
   /* height: 15px; */
 }
 
+@media (max-width: 600px) {
+  md-toolbar md-autocomplete {
+    min-width: 230px;
+  }
+}
+
 .login {
   background: #455A64; /* Old browsers */
   background: -moz-linear-gradient(top,  #455A64 0%, #37474F 100%); /* FF3.6-15 */
@@ -297,6 +303,10 @@ md-button-group > .md-button {
 
 .clients-charts md-card {
   min-height: 350px;
+}
+
+.dashboard-charts md-card {
+  min-height: 450px;
 }
 
 .md-button .active {
@@ -578,10 +588,6 @@ table tr td, table.print-friendly tr th {
   margin-top: -30px;
 }
 
-.ssid-form {
-  width: 350px;
-}
-
 .emojionearea, .emojionearea.form-control {
   box-shadow: none !important;
   border-width: 0 0 1px 0 !important;
@@ -640,7 +646,7 @@ md-card.highlight-section {
   background: #37484f;
 }
 
-.sidenav .menu-heading.menu-subhead {
+.md-sidenav-left .menu-heading.menu-subhead {
   color: #EEEEEE;
 }
 
@@ -648,14 +654,41 @@ md-card.highlight-section {
   color: #EEEEEE;
 }
 
-.side-menu .material-icons {
+.md-sidenav-left .side-menu .material-icons {
   color: #EEEEEE;
 }
 
-.side-menu .menu-subhead {
+.md-sidenav-left .side-menu .menu-subhead {
   color: #EEEEEE;
 }
 
-.side-menu .divider {
-  border-top-color: #263238;
+/*toast text style*/
+
+md-bottom-sheet .md-subheader {
+  white-space: normal;
+  line-height: 26px;
+}
+
+/*new ssid dialog dialog*/
+
+@media (max-width: 600px) {
+  .emojionearea-button {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .ssid-form {
+    width: 350px;
+  }
+}
+
+.page-loader {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  left: 0;
+  position: absolute;
+  background-color: white;
 }
