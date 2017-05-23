@@ -764,7 +764,7 @@ md-bottom-sheet .md-subheader {
   line-height: 26px;
 }
 
-/*new ssid dialog dialog*/
+/*new ssid dialog*/
 
 @media (max-width: 600px) {
   .emojionearea-button {
@@ -788,23 +788,6 @@ md-bottom-sheet .md-subheader {
   background-color: white;
 }
 
-<<<<<<< HEAD
-/*new ssid dialog*/
-
-@media (max-width: 600px) {
-  .emojionearea-button {
-    display: none;
-  }
-}
-
-@media (min-width: 600px) {
-  .ssid-form {
-    width: 350px;
-  }
-}
-
-=======
->>>>>>> 8d19ba661c6107aa71155d32f60ada8542c367e3
 /*home-n-stuff*/
 
 .home-stat-card-local.md-raised, .home-stat-card-box.md-raised, .home-stat-card-client.md-raised, .home-stat-card-splash.md-raised {
