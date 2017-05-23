@@ -1221,18 +1221,20 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     ClientDetails.client.ap_mac = undefined;
 
     // controller.$scope.$on('resizeClientChart', function (evt, type){
-    //   drawChart();
+    //   if (a) {
+    //     drawChart();
+    //   }
     // });
 
-    function getOptions() {
+    function getOptions(colors) {
       var opts =  {
-        colors: ['#eb0404', '#16ac5b'],
+        colors: colors,
         timeline: {
-          colorByRowLabel:  false,
           showBarLabels: false,
           showRowLabels: false
         },
         avoidOverlappingGridLines: false,
+        backgroundColor: '#16ac5b',
         height: attrs.height || 45,
         width: '100%',
         tooltip: {isHtml: true}
@@ -1320,13 +1322,19 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
         var status;
         var t1, t2;
+        var colors = ['#eb0404', '#16ac5b'];
 
         for (var i = 0; i < data.length; i++) {
+          if (data && data[0].value === 0) {
+            colors.reverse();
+          }
+
           t1 = data[i].timestamp;
 
           if (data.length === 1) {
             t2 = new Date().getTime() / (1000 * 1000);
-            status = boolToStatus(data[i].value);
+            status = boolToStatus(data[0].value);
+            colors = ['#16ac5b'];
             dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
 
@@ -1343,15 +1351,15 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         }
       }
 
-      var options = getOptions();
+      var options = getOptions(colors);
       var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
       chart.draw(dataTable, options);
     };
 
-    var timer = $timeout(function() {
-      chart();
-      $timeout.cancel(timer);
-    }, 250);
+    var timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 500);
+    $timeout.cancel(timer);
 
   };
 
@@ -1982,6 +1990,7 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
           opts.height = 250;
         }
         c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
+        console.log(c)
         c.draw(data, opts);
       };
 
@@ -2175,7 +2184,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
-        
+
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', gettextCatalog.getString('Date'));
         data.addColumn('number', 'dummySeries');
