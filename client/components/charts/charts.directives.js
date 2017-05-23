@@ -1990,7 +1990,6 @@ app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog
           opts.height = 250;
         }
         c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
-        console.log(c)
         c.draw(data, opts);
       };
 
