@@ -764,7 +764,7 @@ md-bottom-sheet .md-subheader {
   line-height: 26px;
 }
 
-/*new ssid dialog dialog*/
+/*new ssid dialog*/
 
 @media (max-width: 600px) {
   .emojionearea-button {
@@ -788,45 +788,7 @@ md-bottom-sheet .md-subheader {
   background-color: white;
 }
 
-<<<<<<< HEAD
-/*new ssid dialog*/
-
-@media (max-width: 600px) {
-  .emojionearea-button {
-    display: none;
-  }
-}
-
-@media (min-width: 600px) {
-  .ssid-form {
-    width: 350px;
-  }
-}
-
-=======
->>>>>>> 8d19ba661c6107aa71155d32f60ada8542c367e3
 /*home-n-stuff*/
-
-.home-stat-card-local.md-raised, .home-stat-card-box.md-raised, .home-stat-card-client.md-raised, .home-stat-card-splash.md-raised {
-  color:white;
-  font-size: 16px;
-}
-
-.home-stat-card-local.md-raised, .home-stat-card-local.md-raised.md-focused, .home-stat-card-local.md-raised:not([disabled]):hover, .home-stat-card-local.md-raised:not([disabled]).md-focused {
-  background-color: #5C6BC0;
-}
-
-.home-stat-card-box.md-raised, .home-stat-card-box.md-raised.md-focused, .home-stat-card-box.md-raised:not([disabled]):hover, .home-stat-card-box.md-raised:not([disabled]).md-focused {
-  background-color: #29B6F6;
-}
-
-.home-stat-card-client.md-raised, .home-stat-card-client.md-raised.md-focused, .home-stat-card-client.md-raised:not([disabled]):hover, .home-stat-card-client.md-raised:not([disabled]).md-focused {
-  background-color: #26C6DA;
-}
-
-.home-stat-card-splash.md-raised, .home-stat-card-splash.md-raised.md-focused, .home-stat-card-splash.md-raised:not([disabled]):hover, .home-stat-card-splash.md-raised:not([disabled]).md-focused {
-  background-color: #26A69A;
-}
 
 .home-stat-icon {
   display:flex;
@@ -834,9 +796,8 @@ md-bottom-sheet .md-subheader {
   align-items:center;
 }
 
-.md-button.md-raised .home-stat-icon md-icon.material-icons {
-  color:white;
-  font-size:50px;
+.home-stat-icon md-icon.material-icons {
+  font-size: 32px;
   height:auto;
   width:auto;
 }
