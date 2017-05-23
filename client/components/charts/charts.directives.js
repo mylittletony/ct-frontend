@@ -49,8 +49,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
     function drawChart() {
 
-      $timeout.cancel(timer);
-
       var drawChartCallback = function() {
         // For the tests mainly, not sure why this has started causing a failure
         if (window.google && window.google.visualization) {
@@ -400,29 +398,29 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
       };
 
-      this.v1 = function(params, deferred) {
-        Report.clientstats({
-          type:         params.type,
-          fill:         params.fill || $routeParams.fill,
-          fn:           params.fn || $routeParams.fn,
-          ap_mac:       $scope.client.ap_mac,
-          client_mac:   $scope.client.client_mac,
-          location_id:  $routeParams.id,
-          resource:     params.resource,
-          interval:     params.interval || this.interval,
-          period:       this.period,
-          start:        params.start,
-          end:          params.end,
-        }).$promise.then(function(data) {
-          if (data.usage || data.timeline) {
-            deferred.resolve(data);
-          } else {
-            deferred.reject();
-          }
-        }, function() {
-          deferred.reject();
-        });
-      };
+      // this.v1 = function(params, deferred) {
+      //   Report.clientstats({
+      //     type:         params.type,
+      //     fill:         params.fill || $routeParams.fill,
+      //     fn:           params.fn || $routeParams.fn,
+      //     ap_mac:       $scope.client.ap_mac,
+      //     client_mac:   $scope.client.client_mac,
+      //     location_id:  $routeParams.id,
+      //     resource:     params.resource,
+      //     interval:     params.interval || this.interval,
+      //     period:       this.period,
+      //     start:        params.start,
+      //     end:          params.end,
+      //   }).$promise.then(function(data) {
+      //     if (data.usage || data.timeline) {
+      //       deferred.resolve(data);
+      //     } else {
+      //       deferred.reject();
+      //     }
+      //   }, function() {
+      //     deferred.reject();
+      //   });
+      // };
 
       this.v2 = function(params, deferred) {
         var endOfDay = Math.floor(moment().utc().endOf('day').toDate().getTime() / 1000);
@@ -453,11 +451,11 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         this.setStartEnd();
 
         $scope.client = ClientDetails.client;
-        if ($scope.client.version === '4') {
+        // if ($scope.client.version === '4') {
           this.v2(params, deferred);
-        } else {
-          this.v1(params, deferred);
-        }
+        // } else {
+        //   this.v1(params, deferred);
+        // }
         return deferred.promise;
       };
     }
@@ -491,7 +489,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       // if (type && type === 'device') {
       //   scope.resource = 'device';
       // }
-      drawChart();
+      if (a) {
+        drawChart();
+      }
     });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
@@ -692,9 +692,9 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     scope.loading = true;
     var colours = COLOURS.split(' ');
 
-    controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
-    });
+    // controller.$scope.$on('resizeClientChart', function (evt,type){
+    //   drawChart();
+    // });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
       a = undefined;
@@ -805,9 +805,9 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     var colours = COLOURS.split(' ');
     var formatted = { usage: { inbound: 1 } };
 
-    controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
-    });
+    // controller.$scope.$on('resizeClientChart', function (evt,type){
+    //   drawChart();
+    // });
 
     function chart() {
       var params = {
@@ -883,6 +883,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       window.google.charts.setOnLoadCallback(chart);
     }, 500);
     $timeout.cancel(timer);
+
   };
 
   return {
@@ -906,9 +907,9 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
     var c, timer, data, formatted;
     var colours = COLOURS.split(' ');
 
-    controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
-    });
+    // controller.$scope.$on('resizeClientChart', function (evt,type){
+    //   drawChart();
+    // });
 
     function chart() {
       var params = {
@@ -1009,9 +1010,9 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     // var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
     var colours = COLOURS.split(' ');
 
-    controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
-    });
+    // controller.$scope.$on('resizeClientChart', function (evt,type){
+    //   drawChart();
+    // });
 
     function chart() {
       var params = {
@@ -1118,9 +1119,9 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
     var colours = COLOURS.split(' ');
 
-    controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
-    });
+    // controller.$scope.$on('resizeClientChart', function (evt,type){
+    //   drawChart();
+    // });
 
     function chart() {
       var params = {
@@ -1218,13 +1219,13 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
 
-    controller.$scope.$on('resizeClientChart', function (evt, type){
-      drawChart();
-    });
+    // controller.$scope.$on('resizeClientChart', function (evt, type){
+    //   drawChart();
+    // });
 
     function getOptions() {
       var opts =  {
-        colors: ['#16ac5b', '#eb0404'],
+        colors: ['#eb0404', '#16ac5b'],
         timeline: {
           colorByRowLabel:  false,
           showBarLabels: false,
@@ -1346,10 +1347,10 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       chart.draw(dataTable, options);
     };
 
-    var timer = $timeout(function() {
-      chart();
+    var timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
       $timeout.cancel(timer);
-    }, 250);
+    }, 500);
 
   };
 
@@ -1379,9 +1380,9 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
 
-    controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
-    });
+    // controller.$scope.$on('resizeClientChart', function (evt,type){
+    //   drawChart();
+    // });
 
     function chart() {
 
@@ -1532,17 +1533,15 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     var opts = controller.options;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
-      drawChart();
+      if (a) {
+        drawChart();
+      }
     });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
       a = undefined;
       chart();
     });
-
-    // scope.refresh = function() {
-    //   chart();
-    // };
 
     scope.fullScreen = function(type) {
       var t = { panel: type };
@@ -1597,9 +1596,12 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
           data.addColumn('number', gettextCatalog.getString('Load Average'));
 
           for(var i = 0; i < json.data.length; i++) {
-              time = new Date(json.data[i].timestamp*1000);
-              var load = (json.data[i].value*100);
-              data.addRow([time, null, load]);
+            time = new Date(json.data[i].timestamp*1000);
+            var load = (json.data[i].value*100);
+            if (load > 100) {
+              load = 100;
+            }
+            data.addRow([time, null, load]);
           }
         }
 
@@ -2013,7 +2015,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     ClientDetails.client.version = '4';
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
+      if (a) {
+        drawChart();
+      }
     });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
@@ -2062,180 +2066,186 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
     function drawChart() {
 
-      $timeout.cancel(timer);
-      var drawChartCallback = function() {
+      var opts = controller.options;
+      opts.series = {
+        0: {
+          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+        },
+        1: {
+          targetAxisIndex: 1, lineWidth: 2.5
+        }
+      };
+
+      var suffix;
+      // $timeout.cancel(timer);
+      // var drawChartCallback = function() {
+
+      // vAxis set to only have values on negative graphs
+      if (scope.type === 'interfaces.snr' ) {
+        suffix = 'dB';
+        opts.vAxes = {
+          0: {
+            textPosition: 'none',
+            viewWindow:{
+              max: 100,
+              min: 0
+            }
+          },
+          1: {
+            viewWindow:{
+              min: 0
+            }
+          }
+        };
+      // } else if (scope.type === 'noise' || scope.type === 'signal') {
+      //   suffix = 'dBm';
+      //   opts.vAxis = {
+      //     minValue: -100,
+      //     maxValue: 0
+      //   };
+      // } else if (scope.type === 'quality') {
+      //   suffix = '%';
+      //   opts.vAxis = {};
+      }
+
+      opts.legend = { position: 'bottom' };
+      opts.series = {
+        0: {
+          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+        },
+        1: {
+          targetAxisIndex: 1
+        },
+        2: {
+          targetAxisIndex: 1
+        },
+        3: {
+          targetAxisIndex: 1
+        },
+        4: {
+          targetAxisIndex: 1
+        },
+        5: {
+          targetAxisIndex: 1
+        },
+        6: {
+          targetAxisIndex: 1
+        },
+        7: {
+          targetAxisIndex: 1
+        }
+      };
+
+      opts.hAxis = {
+        gridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
+        },
+        minorGridlines: {
+          count: -1,
+          units: {
+            days: {format: [gettextCatalog.getString('MMM dd')]},
+            hours: {format: [gettextCatalog.getString('hh:mm a')]},
+            minutes: {format: [gettextCatalog.getString('hh:mm a')]}
+          }
+        }
+      };
+
+      opts.explorer = {
+        maxZoomOut:2,
+        keepInBounds: true,
+        axis: 'horizontal',
+        actions: [ 'dragToZoom', 'rightClickToReset'],
+      };
+      if (scope.fs) {
+        opts.height = 600;
+      } else {
+        opts.height = 250;
+      }
+
+      if (!a) {
+        a = true;
+
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', 'Date');
         data.addColumn('number', 'dummySeries');
-        var opts = controller.options;
-        opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-          },
-          1: {
-            targetAxisIndex: 1, lineWidth: 2.5
-          }
-        };
+        
+        data = new window.google.visualization.DataTable();
+        data.addColumn('datetime', gettextCatalog.getString('Date'));
+        data.addColumn('number', 'dummySeries');
 
-
-          var suffix;
-
-          // vAxis set to only have values on negative graphs
-          if (scope.type === 'interfaces.snr' ) {
-            suffix = 'dB';
-            opts.vAxes = {
-              0: {
-                textPosition: 'none',
-                viewWindow:{
-                  max: 100,
-                  min: 0
-                }
-              },
-              1: {
-                viewWindow:{
-                  min: 0
-                }
+        for(var i = 0; i < json.data.length; i++) {
+          var name;
+          for (var j = 0; j < json.meta.length; j++) {
+            if (json.meta[j].interface === json.data[i].tags.interface) {
+              var freq = json.meta[j].freq;
+              if (freq === '2') {
+                freq = '2.4Ghz';
+              } else {
+                freq = '5Ghz';
               }
-            };
-          } else if (scope.type === 'noise' || scope.type === 'signal') {
-            suffix = 'dBm';
-            opts.vAxis = {
-              minValue: -100,
-              maxValue: 0
-            };
-          } else if (scope.type === 'quality') {
-            suffix = '%';
-            opts.vAxis = {};
-          }
-
-        if (a === undefined) {
-          data = new window.google.visualization.DataTable();
-          data.addColumn('datetime', gettextCatalog.getString('Date'));
-          data.addColumn('number', 'dummySeries');
-
-          for(var i = 0; i < json.data.length; i++) {
-            var name;
-            for (var j = 0; j < json.meta.length; j++) {
-              if (json.meta[j].interface === json.data[i].tags.interface) {
-                var freq = json.meta[j].freq;
-                if (freq === '2') {
-                  freq = '2.4Ghz';
-                } else {
-                  freq = '5Ghz';
-                }
-                name = json.meta[j].ssid + ' ('+ freq +')';
-                break;
-              }
-              if (name === undefined) {
-                name = 'N/A';
-              }
+              name = json.meta[j].ssid + ' ('+ freq +')';
+              break;
             }
-            data.addColumn('number', name);
-          }
-
-          for(i = 0; i < json.data[0].data.length; i++) {
-            var time;
-            var array = [];
-
-            time = new Date(json.data[0].data[i].timestamp*1000);
-            array.push(time);
-            array.push(null);
-
-            for(var j = 0; j < json.data.length; j++) {
-              var val = (json.data[j].data[i].value);
-
-              // Temp hack to fix broken data
-              if (scope.type === 'interfaces.snr' && val >= 95 ) {
-                val = 0;
-              }
-              array.push(val);
+            if (name === undefined) {
+              name = 'N/A';
             }
-
-            data.addRow(array);
           }
+          data.addColumn('number', name);
         }
 
-          var date_formatter = new window.google.visualization.DateFormat({
-            pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
-          });
-          date_formatter.format(data,0);
+        for(var x = 0; x < json.data[0].data.length; x++) {
+          var time;
+          var array = [];
 
-          var formatter = new window.google.visualization.NumberFormat(
-            {suffix: suffix, pattern: '0'}
-          );
+          time = new Date(json.data[0].data[x].timestamp*1000);
+          array.push(time);
+          array.push(null);
 
-          for (var i = 0; i < data.getNumberOfColumns(); i++){
-            formatter.format(data, i);
+          for(var k = 0; k < json.data.length; k++) {
+            var val = 0;
+            var d = json.data[k].data[x];
+            if (d && d.value > 0) {
+              val = (d.value);
+            }
+
+            // Temp hack to fix broken data
+            if (scope.type === 'interfaces.snr' && val >= 95 ) {
+              val = 0;
+            }
+            array.push(val);
           }
 
-          opts.legend = { position: 'bottom' };
-          opts.series = {
-            0: {
-              targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-            },
-            1: {
-              targetAxisIndex: 1
-            },
-            2: {
-              targetAxisIndex: 1
-            },
-            3: {
-              targetAxisIndex: 1
-            },
-            4: {
-              targetAxisIndex: 1
-            },
-            5: {
-              targetAxisIndex: 1
-            },
-            6: {
-              targetAxisIndex: 1
-            },
-            7: {
-              targetAxisIndex: 1
-            }
-          };
+          data.addRow(array);
+        }
+      }
 
-          opts.hAxis = {
-            gridlines: {
-              count: -1,
-              units: {
-                days: {format: [gettextCatalog.getString('MMM dd')]},
-                hours: {format: [gettextCatalog.getString('hh:mm a')]},
-                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-              }
-            },
-            minorGridlines: {
-              count: -1,
-              units: {
-                days: {format: [gettextCatalog.getString('MMM dd')]},
-                hours: {format: [gettextCatalog.getString('hh:mm a')]},
-                minutes: {format: [gettextCatalog.getString('hh:mm a')]}
-              }
-            }
-          };
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+      date_formatter.format(data,0);
 
-          opts.explorer = {
-            maxZoomOut:2,
-            keepInBounds: true,
-            axis: 'horizontal',
-            actions: [ 'dragToZoom', 'rightClickToReset'],
-          };
-          if (scope.fs) {
-            opts.height = 600;
-          } else {
-            opts.height = 250;
-          }
-          c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
-          c.draw(data, opts);
-          scope.noData = undefined;
-          scope.loading = undefined;
-      };
-      window.google.charts.setOnLoadCallback(drawChartCallback);
+      var formatter = new window.google.visualization.NumberFormat(
+        {suffix: suffix, pattern: '0'}
+      );
+
+      for (var i = 0; i < data.getNumberOfColumns(); i++){
+        formatter.format(data, i);
+      }
+
+      c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
+      c.draw(data, opts);
+      scope.noData = undefined;
+      scope.loading = undefined;
     }
 
     setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
+      $timeout.cancel(timer);
     }, 500);
   };
 
