@@ -1,6 +1,82 @@
-<div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' hide show-gt-sm ng-if="!pinned && !alerts" style='margin: 0 auto; text-align: center; width: 98%; margin: 10px 10px 20px 10px;'>
+<div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' hide show-gt-sm ng-if="!pinned && !alerts">
 
-  <div flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-local">
+  <md-card flex-md="50" flex-gt-md="25">
+    <md-card-content>
+      <div layout="row">
+        <div flex="50" style="padding-left:20px;">
+          <span ng-if="loading"><h1 translate>0</h1></span>
+          <span ng-if="!loading"><h1>{{ ::stats.locations }}</h1></span>
+          <p>Locations</p>
+        </div>
+        <div flex="50" class="home-stat-icon">
+          <md-icon>business</md-icon>
+        </div>
+      </div>
+
+      <div id="line"></div>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button href="/#/reports/radius"><translate>Reports</translate></md-button>
+    </md-card-actions>
+  </md-card>
+
+  <md-card flex-md="50" flex-gt-md="25">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline" translate>
+          Devices Online
+        </span>
+        <span class="md-subhead" translate>Showing the last 7 days activity</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div id="line"></div>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button href="/#/reports/radius"><translate>Reports</translate></md-button>
+    </md-card-actions>
+  </md-card>
+
+  <md-card flex-md="50" flex-gt-md="25">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline" translate>
+          Clients Online
+        </span>
+        <span class="md-subhead" translate>Showing the last 7 days activity</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div id="line"></div>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button href="/#/reports/radius"><translate>Reports</translate></md-button>
+    </md-card-actions>
+  </md-card>
+
+  <md-card flex-md="50" flex-gt-md="25">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline" translate>
+          Alerts
+        </span>
+        <span class="md-subhead" translate>Showing the last 7 days activity</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div id="line"></div>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button href="/#/reports/radius"><translate>Reports</translate></md-button>
+    </md-card-actions>
+  </md-card>
+
+
+  <!-- <div flex-md="50" flex-gt-md="25" class="md-raised home-stat-card-local">
     <div layout="row">
       <div flex="50" style="padding-left:20px;">
         <span ng-if="loading"><h1 translate>0</h1></span>
@@ -55,6 +131,6 @@
         <md-icon>web</md-icon>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>
