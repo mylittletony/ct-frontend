@@ -1230,11 +1230,11 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       var opts =  {
         colors: colors,
         timeline: {
+          colorByRowLabel:  false,
           showBarLabels: false,
           showRowLabels: false
         },
         avoidOverlappingGridLines: false,
-        backgroundColor: '#16ac5b',
         height: attrs.height || 45,
         width: '100%',
         tooltip: {isHtml: true}
@@ -1307,6 +1307,8 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     };
 
     var dataTable;
+    var colors = [];
+    var colorMap = ['eb0404', '16ac5b'];
     var drawChart = function() {
 
       if (!a) {
@@ -1322,19 +1324,16 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
         var status;
         var t1, t2;
-        var colors = ['#eb0404', '#16ac5b'];
 
         for (var i = 0; i < data.length; i++) {
-          if (data && data[0].value === 0) {
-            colors.reverse();
-          }
 
           t1 = data[i].timestamp;
 
+          colors.push(colorMap[data[i].value]);
+
           if (data.length === 1) {
             t2 = new Date().getTime() / (1000 * 1000);
-            status = boolToStatus(data[0].value);
-            colors = ['#16ac5b'];
+            status = boolToStatus(data[i].value);
             dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
 
@@ -1346,6 +1345,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
           status = boolToStatus(data[i].value);
 
           if (i + 1 === data.length) {
+            colors.shift();
             dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
         }
