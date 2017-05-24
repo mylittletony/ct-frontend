@@ -254,7 +254,9 @@ app.directive('ssid', function() {
         var regexAstralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 
         function countSymbols(string) {
-          return string.replace(regexAstralSymbols, '_').length;
+          if (regexAstralSymbols) {
+            return string.replace(regexAstralSymbols, '_').length;
+          }
         }
 
         function lengthInUtf8Bytes(str) {
@@ -282,8 +284,8 @@ app.directive('emojiPicker', ['gettextCatalog', function(gettextCatalog) {
       angular.element(document).ready(function () {
         // var emojiInput = angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
         var emojiInput = angular.element(element).emojioneArea({
-                            content: '.ssid-input', 
-                            pickerPosition: 'bottom', 
+                            content: '.ssid-input',
+                            pickerPosition: 'bottom',
                             filters: {
                               tones: {
                                   title: gettextCatalog.getString('Diversity')
