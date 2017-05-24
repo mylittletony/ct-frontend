@@ -254,7 +254,9 @@ app.directive('ssid', function() {
         var regexAstralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 
         function countSymbols(string) {
-          return string.replace(regexAstralSymbols, '_').length;
+          if (string) {
+            return string.replace(regexAstralSymbols, '_').length;
+          }
         }
 
         function lengthInUtf8Bytes(str) {
