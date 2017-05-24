@@ -1,7 +1,7 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <!-- Depreciate has_nas -->
-    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices || location.has_nas">
+    <md-input-container flex-xs="60" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
       <label></label>
       <md-icon md-font-icon="search">search</md-icon>
       <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
@@ -31,22 +31,12 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <span>
-      <md-switch title="Streaming updates {{ streamingUpdates ? 'enabled' : 'disabled' }}" ng-model="streamingUpdates" aria-label="{{ 'Switch 1' | translate }}" ng-change='streamingUpdater()'>
-      </md-switch>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Streaming updates.
-        </translate>
-      </md-tooltip>
-    </span>
   </div>
   <md-divider></md-divider>
 </md-toolbar>
 
 <md-content layout-padding>
 
-  <!-- Depreciate has_nas -->
   <div ng-show="location.has_devices == false">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
@@ -54,7 +44,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>Please Add a Device</span>
-              <span class="md-subhead" translate>Manage and monitor all your device remotely.</span>
+              <span class="md-subhead" translate>Manage and monitor all your devices remotely.</span>
             </md-card-title-text>
           </md-card-title>
 
@@ -88,10 +78,7 @@
     </div>
   </div>
 
-  <div ng-if="location.has_devices || location.has_nas">
-    <client-chart ng-if="!query">
-      <location-chart ></location-chart>
-    </client-chart>
+  <div ng-if="location.has_devices">
     <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
   </div>
 

@@ -32,7 +32,7 @@
     </md-card>
   </md-content>
 
-  <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-show="triggers.length || query.page" layout-wrap>
+  <md-content class="md-padding" ng-show="triggers.length || query.page">
     <md-card ng-show="triggers.length">
       <md-card-content>
         <md-card-title ng-show="!xctTrggrs && location.slug && triggers.length">

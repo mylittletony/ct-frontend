@@ -365,7 +365,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
       $scope.update = function() {
         for (var i = 0; i < $scope.selected.length; i++) {
-          $scope.splash.network_ids.push($scope.selected[i].id);
+          $scope.splash.networks.push($scope.selected[i].id);
         }
         $mdDialog.cancel();
         updateCT();
@@ -423,7 +423,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
         scope.access_name();
 
         scope.networks = results.networks;
-        scope.splash.network_ids = [];
+        scope.splash.networks = [];
 
         createMenu();
         scope.loading = undefined;
@@ -466,7 +466,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
         createMenu();
         validate();
       }, function(err) {
-        scope.splash.network_ids = [];
+        scope.splash.networks = [];
         showErrors(err);
       });
     };
@@ -576,7 +576,7 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
         location_id: scope.location.slug,
         splash_page: {
           ssid: scope.splash.ssid,
-          network_ids: scope.splash.network_id,
+          networks: [scope.splash.network_id],
           splash_name: scope.splash.splash_name,
           primary_access_id: scope.splash.primary_access_id
         }

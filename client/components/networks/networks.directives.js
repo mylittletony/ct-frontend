@@ -254,7 +254,9 @@ app.directive('ssid', function() {
         var regexAstralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 
         function countSymbols(string) {
-          return string.replace(regexAstralSymbols, '_').length;
+          if (string) {
+            return string.replace(regexAstralSymbols, '_').length;
+          }
         }
 
         function lengthInUtf8Bytes(str) {
@@ -275,12 +277,58 @@ app.directive('ssid', function() {
   };
 });
 
-app.directive('emojiPicker', function() {
+app.directive('emojiPicker', ['gettextCatalog', function(gettextCatalog) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       angular.element(document).ready(function () {
-        var emojiInput = angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
+        // var emojiInput = angular.element(element).emojioneArea(scope.$eval(attrs.emojiPicker));
+        var emojiInput = angular.element(element).emojioneArea({
+                            content: '.ssid-input', 
+                            pickerPosition: 'bottom', 
+                            filters: {
+                              tones: {
+                                  title: gettextCatalog.getString('Diversity')
+                              },
+
+                              recent: {
+                                  title: gettextCatalog.getString('Recent')
+                              },
+
+                              smileys_people: {
+                                  title: gettextCatalog.getString('Smileys & People')
+                              },
+
+                              animals_nature: {
+                                  title: gettextCatalog.getString('Animals & Nature')
+                              },
+
+                              food_drink: {
+                                  title: gettextCatalog.getString('Food & Drink')
+                              },
+
+                              activity: {
+                                  title: gettextCatalog.getString('Activity')
+                              },
+
+                              travel_places: {
+                                  title: gettextCatalog.getString('Travel & Places')
+                              },
+
+                              objects: {
+                                  title: gettextCatalog.getString('Objects')
+                              },
+
+                              symbols: {
+                                  title: gettextCatalog.getString('Symbols')
+                              },
+
+                              flags: {
+                                  title: gettextCatalog.getString('Flags')
+                              }
+                            }
+                          });
+
         (function waitForElement() {
           if(typeof scope.network !== 'undefined' && typeof scope.network.ssid !== 'undefined') {
             emojiInput[0].emojioneArea.setText(scope.network.ssid);
@@ -291,7 +339,7 @@ app.directive('emojiPicker', function() {
       });
     }
   };
-});
+}]);
 
 app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network, Zone, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
@@ -360,6 +408,19 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
       });
     };
 
+    var sdnDialog = function(network) {
+      $mdDialog.show({
+        templateUrl: 'components/networks/_self_destruct.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+          loading: scope.loading,
+          network: scope.network
+        }
+      });
+    }
+
     function DialogController($scope,loading,network) {
       $scope.loading = loading;
       $scope.network = network;
@@ -379,6 +440,9 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
       };
       $scope.close = function() {
         $mdDialog.cancel();
+      };
+      $scope.next = function(network) {
+        sdnDialog(network);
       };
     }
     DialogController.$inject = ['$scope', 'loading', 'network'];

@@ -14,7 +14,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     scope.zone             = ZoneListing;
     scope.location         = { slug: $routeParams.id };
     scope.period           = $routeParams.period || '6h';
-    scope.streamingUpdates = true;
 
     scope.setPrefs = function(a) {
       if (prefs[scope.box.slug] === undefined) {
@@ -113,7 +112,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'delete'
       });
 
-      if (scope.box.gubbins_version === '4') {
+      if (scope.box.v === '4') {
         scope.menu.push({
           name: gettextCatalog.getString('Operations'),
           icon: 'access_time',
@@ -382,7 +381,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug;
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
     };
 
     var channel;
@@ -471,6 +470,13 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
     };
 
+    var loadCharts = function() {
+      // alert(123)
+      $timeout(function() {
+        controller.$scope.$broadcast('loadClientChart', 'device');
+      },250);
+    };
+
     scope.updatePeriod = function(period) {
       scope.period = period;
       updatePage();
@@ -483,30 +489,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       hash.fn             = scope.fn;
       hash.type           = scope.type;
       $location.search(hash);
-
-      timeout = $timeout(function() {
-        // loadTput(); // not unless we want to adjust dynamically
-        loadCharts();
-      }, 500);
+      loadCharts();
     };
 
     scope.refresh = function() {
       scope.period = '6h';
       updatePage();
-    };
-
-    scope.streamingUpdater = function() {
-      if (scope.streamingUpdates) {
-        if (scope.box.pubsub_token) {
-          loadPusher(scope.box.pubsub_token);
-        }
-        showToast(gettextCatalog.getString('Streaming updates enabled'));
-      } else {
-        if (channel) {
-          channel.unbind();
-        }
-        showToast(gettextCatalog.getString('Streaming updates disabled'));
-      }
     };
 
     scope.isOpen = function(section) {
@@ -523,7 +511,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         scope.box = box;
         ClientDetails.client = {
           location_id: box.location_id,
-          ap_mac: box.calledstationid
+          ap_mac: box.calledstationid,
+          version: box.v,
         };
         scope.loading = undefined;
         poll();
@@ -553,46 +542,24 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       return deferred.promise;
     };
 
-    var loadCharts = function() {
-      timeout = $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      }, 250);
-    };
-
-    var loadTput = function() {
-      var deferred = $q.defer();
-      Report.clientstats({
-        type:         'tput',
-        ap_mac:       scope.box.calledstationid,
-        location_id:  scope.box.location_id,
-        resource:     'device',
-        interval:     '180s',
-        period:       '6h'
-      }).$promise.then(function(data) {
-        scope.box.throughput = data.throughput;
-        deferred.resolve();
-      }, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
       menu.isOpen = false;
       scope.fs = { panel: obj.panel };
-      $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      },250);
+      loadCharts();
+      // $timeout(function() {
+      //   controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
     });
 
     controller.$scope.$on('closeFullScreen', function(val,obj) {
       menu.isOpenLeft = true;
       menu.isOpen = true;
       scope.fs = undefined;
-      $timeout(function() {
-        controller.$scope.$broadcast('loadClientChart', 'device');
-      },250);
+      loadCharts();
+      // $timeout(function() {
+      //   controller.$scope.$broadcast('loadClientChart', 'device');
+      // },250);
     });
 
     var sortSsids = function() {
@@ -632,7 +599,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     init().then(function() {
-      loadTput();
+      // loadTput();
       // loadCharts();
       createMenu();
       sortSsids();
@@ -641,6 +608,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         processAlertMessages();
       });
     });
+    // loadCharts();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
@@ -669,7 +637,7 @@ app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $rou
   var link = function( scope, element, attrs ) {
     var init = function() {
       return Box.get({id: $routeParams.box_id}).$promise.then(function(box) {
-        compileTemplate(box.gubbins_version);
+        compileTemplate(box.v);
       }, function(err) {
         scope.loading = undefined;
         console.log(err);
@@ -1705,7 +1673,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug;
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
     };
 
     scope.manualBox = function() {

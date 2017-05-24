@@ -20,11 +20,11 @@
       </md-tooltip>
 
     </md-button>
-    <md-switch title="Streaming updates {{ streamingUpdates | humanBoolean }}" ng-model="streamingUpdates" aria-label="{{ 'Enable streaming updates' | translate }}" ng-change='streamingUpdater()'>
+    <!-- <md-switch title="Streaming updates {{ streamingUpdates | humanBoolean }}" ng-model="streamingUpdates" aria-label="{{ 'Enable streaming updates' | translate }}" ng-change='streamingUpdater()'> -->
     </md-switch>
     <!-- moved it into a tag, the btns are not blank in firefox and chrome -->
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }"><translate>5m</translate></md-button>
+      <!-- <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }"><translate>5m</translate></md-button> -->
       <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }"><translate>30m</translate></md-button>
       <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" ><translate>60m</translate></md-button>
       <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" ><translate>6h</translate></md-button>
@@ -55,6 +55,7 @@
     <b><translate>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip><translate>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</translate></b></md-tooltip></span></span>
   </md-subheader>
 </section>
+
 
 <md-content class="md-padding" ng-if="box.state == 'initializing'">
   <div layout="row" layout-align="center center">
@@ -173,7 +174,9 @@
 </md-content>
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
-
+  <!-- <div flex flex-gt-sm="100" layout="column" style='padding: 0 10px;'> -->
+  <!--   <div heartbeat-chart height="100" target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div> -->
+  <!-- </div> -->
   <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
     <md-card ing-if="box.state != 'new'">
       <div ng-if="box.state != 'rebooting' && box.state != 'processing' && box.state != 'upgrading'" class="md-card-image" style='height: 5px; background-color: {{box.state | statusColour}}'></div>
@@ -204,7 +207,7 @@
               </p>
             </div>
           </md-list-item>
-          <box-speedtest-widget box="box"></box-speedtest-widget>
+          <box-speedtest-widget box="box" ng-show="box.v == '3'"></box-speedtest-widget>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3 translate>Tags</h3>

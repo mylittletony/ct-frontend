@@ -19,6 +19,7 @@ module.exports = {
             // FIXME! These constants are outside of 'CONFIG' for historical
             // reasons.  They should be moved inside 'CONFIG' at some time.
             API_END_POINT: 'http://mywifi.dev:8080/api/v1',
+            API_END_POINT_V2: 'http://mywifi.dev:8000/api/v2',
             API_URL: 'http://mywifi.dev:8080',
             STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
             AUTH_URL: 'http://id.mywifi.dev:8080',
@@ -27,7 +28,8 @@ module.exports = {
             INTERCOM: 'z0kiwroa',
             PUSHER: 'f5c774e098156e548079',
             DEBUG: true,
-            COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+            // COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+            COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
             COMMITHASH: commitHash.stdout,
             THEMES: [
                 "pink",

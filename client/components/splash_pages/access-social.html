@@ -80,9 +80,9 @@
 
     <div flex="40">
       <div layout="column">
-        <md-switch class="md-accent" ng-model="splash.fb_redirect_to_page" aria-label="Redirect To Page"> 
+        <md-switch class="md-accent" ng-model="splash.fb_redirect_to_page" aria-label="Redirect To Page">
         <!--Toni, fixme-->
-          <translate>Redirect To Facebook Page {{ splash.fb_redirect_to_page ? 'Enabled' : 'Disabled' }}</translate>
+          <translate style="word-wrap: break-word">Redirect To Facebook Page {{ splash.fb_redirect_to_page ? 'Enabled' : 'Disabled' }}</translate>
         </md-switch>
         <md-switch class="md-accent" ng-model="splash.fb_checkin" aria-label="FB Checkin">
           <translate>Allow Checkin {{ splash.fb_checkin ? 'Enabled' : 'Disabled' }}</translate>

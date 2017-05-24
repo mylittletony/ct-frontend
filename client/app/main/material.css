@@ -101,6 +101,11 @@ form .url {
   padding-top: 25px;
 }
 
+.heartbeat-table {
+  width: 100%;
+  max-width: 100px;
+}
+
 /* Temp fixes to address */
 
 .ng-hide.ng-hide-animate{
@@ -128,6 +133,12 @@ md-toolbar md-autocomplete {
   min-width: 300px;
   margin-top: 18px;
   /* height: 15px; */
+}
+
+@media (max-width: 600px) {
+  md-toolbar md-autocomplete {
+    min-width: 230px;
+  }
 }
 
 .login {
@@ -297,6 +308,10 @@ md-button-group > .md-button {
 
 .clients-charts md-card {
   min-height: 350px;
+}
+
+.dashboard-charts md-card {
+  min-height: 450px;
 }
 
 .md-button .active {
@@ -578,10 +593,6 @@ table tr td, table.print-friendly tr th {
   margin-top: -30px;
 }
 
-.ssid-form {
-  width: 350px;
-}
-
 .emojionearea, .emojionearea.form-control {
   box-shadow: none !important;
   border-width: 0 0 1px 0 !important;
@@ -621,6 +632,96 @@ md-card.highlight-section {
   font-weight: : normal !important;
 }
 
+.google-visualization-tooltip {
+  z-index: 1000;
+  background-color: white;
+  left: 30px !important;
+  top: 30px !important;
+}
+
+.google-visualization-tooltip > div > div > div {
+  margin: 12px 0 12px 0 !important;
+  padding: 0 24px 0 12px !important;
+}
+
+location-boxes md-table-container {
+  overflow: visible !important;
+}
+
+location-boxes table {
+  overflow: visible !important;
+}
+
+.heartbeats-tooltip-separator {
+  height: 1px !important;
+  margin: 0;
+  padding: 0;
+  background-color: #dddddd;
+  z-index: 1000;
+}
+
+[heartbeat-chart] {
+  margin-top: 5px;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > rect {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g:nth-child(2) > path {
+  opacity: 0 !important;
+}
+
+[heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(2) > text {
+  opacity: 0 !important;
+}
+
+@media (max-width: 1200px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -50px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+30)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1130px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -90px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+50)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1090px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -125px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+70)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1055px) {
+  [heartbeat-chart] > div > div:nth-child(1) {
+    margin-left: -145px !important;
+  }
+
+  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+80)  {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1035px) {
+  .heartbeat-table {
+    display:none !important;
+  }
+}
+
 /* pre { */
 /*   text-space-collapse: trim-inner; */
 /* } */
@@ -640,7 +741,7 @@ md-card.highlight-section {
   background: #37484f;
 }
 
-.sidenav .menu-heading.menu-subhead {
+.md-sidenav-left .menu-heading.menu-subhead {
   color: #EEEEEE;
 }
 
@@ -648,14 +749,55 @@ md-card.highlight-section {
   color: #EEEEEE;
 }
 
-.side-menu .material-icons {
+.md-sidenav-left .side-menu .material-icons {
   color: #EEEEEE;
 }
 
-.side-menu .menu-subhead {
+.md-sidenav-left .side-menu .menu-subhead {
   color: #EEEEEE;
 }
 
-.side-menu .divider {
-  border-top-color: #263238;
+/*toast text style*/
+
+md-bottom-sheet .md-subheader {
+  white-space: normal;
+  line-height: 26px;
+}
+
+/*new ssid dialog*/
+
+@media (max-width: 600px) {
+  .emojionearea-button {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .ssid-form {
+    width: 350px;
+  }
+}
+
+.page-loader {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  left: 0;
+  position: absolute;
+  background-color: white;
+}
+
+/*home-n-stuff*/
+
+.home-stat-icon {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.home-stat-icon md-icon.material-icons {
+  font-size: 32px;
+  height:auto;
+  width:auto;
 }

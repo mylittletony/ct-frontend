@@ -26,8 +26,8 @@ app.controller('LocationsCtrlShort', ['$scope', '$routeParams', '$filter', 'Loca
 
 ]);
 
-app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache', 'gettextCatalog',
-  function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache, gettextCatalog) {
+app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache', 'gettextCatalog', 'ClientDetails',
+  function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache, gettextCatalog, ClientDetails) {
 
     $scope.loading = true;
     $scope.location = { slug: $routeParams.id };
@@ -66,11 +66,19 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       // menu.header = $scope.location.location_name;
 
       menu.sections.push({
-        name: gettextCatalog.getString('Devices'),
+        name: gettextCatalog.getString('Dashboard'),
         link: '/#/locations/' + $scope.location.slug,
         type: 'link',
-        icon: 'router',
+        icon: 'dashboard',
         active: isActive('dashboard')
+      });
+
+      menu.sections.push({
+        name: gettextCatalog.getString('Boxes'),
+        link: '/#/locations/' + $scope.location.slug + '/boxes',
+        type: 'link',
+        icon: 'router',
+        active: isActive('boxes')
       });
 
       menu.sections.push({
@@ -199,13 +207,17 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
       Location.get({id: id}, function(data) {
         if (id % 1 === 0) {
-          $location.path('/locations/' + data.slug).replace();
+          var suffix;
+          var path = $location.path().split('/');
+          if (path.length === 4) {
+            suffix = '/' + path[path.length-1];
+          }
+          $location.path('/locations/' + data.slug + suffix).replace();
         }
         menu.header = data.location_name;
         menu.sectionName = gettextCatalog.getString('Location');
-        setLocationStateIcon(data)
+        setLocationStateIcon(data);
         $scope.location = data;
-        console.log('Setting TZ to', $scope.location.timezone);
         window.moment.tz.setDefault($scope.location.timezone);
 
         var params = {id: data.id, location_name: data.location_name};
@@ -216,7 +228,9 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         // Will refresh the page if a change is detected
 
         slug = $scope.location.slug;
-        $scope.$broadcast('locationLoaded');
+
+        ClientDetails.client.location_id = data.id;
+        $rootScope.$broadcast('locationLoaded');
       });
     };
 

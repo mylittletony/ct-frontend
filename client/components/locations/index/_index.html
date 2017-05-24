@@ -69,19 +69,27 @@
   </md-toolbar>
   </section>
 
-  <md-content class="md-padding" layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' ng-if="!pinned && !alerts">
-    <div flex-md="50" flex-gt-md="33">
-      <dashing></dashing>
-      <favourites></favourites>
-    </div>
-    <div flex-sm="50" flex-md="50" flex-gt-md="33">
-      <periscope hide show-gt-sm></periscope>
-      <warnings></warnings>
-    </div>
-
-    <div flex-md="50" flex-gt-md="33">
-      <app-status></app-status>
-      <dash-inventory></dash-inventory>
+  <md-content class="md-padding">
+    <home-stat-cards></home-stat-cards>
+    <div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row' ng-if="!pinned && !alerts">
+      <div flex-sm="50" flex-md="33" flex-gt-md="33">
+        <dashing hide-gt-sm></dashing>
+        <favourites></favourites>
+      </div>
+      <div flex-sm="50" flex-md="66" flex-gt-md="66">
+        <periscope></periscope>
+        <div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row'>
+          <!-- <div flex-sm="50" flex-md="50" flex-gt-md="33"> -->
+          <!--   <warnings></warnings> -->
+          <!-- </div> -->
+          <div flex-md="50" flex-gt-md="33">
+            <dash-inventory></dash-inventory>
+          </div>
+          <div flex-md="50" flex-gt-md="33">
+            <app-status></app-status>
+          </div>
+        </div>
+      </div>
     </div>
   </md-content>
 

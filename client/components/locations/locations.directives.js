@@ -7,15 +7,78 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
   var link = function(scope,element,attrs,controller) {
 
     var channel;
-    scope.streamingUpdates = true;
 
     scope.favourite = function() {
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
 
-    scope.streamingUpdater = function() {
-      $rootScope.$broadcast('streaming', { enabled: scope.streamingUpdates });
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
+    scope.addDevice = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+    };
+
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/locations/show/_index.html'
+  };
+
+}]);
+
+app.directive('locationDashboard', ['Location', '$rootScope', '$compile', function(Location, $rootScope, $compile) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var compileTemplate = function(version) {
+      var template;
+      template = $compile('<show-dashboard location="location"></show-dashboard>')(scope);
+      element.html(template);
+      scope.loading = undefined;
+    };
+
+    $rootScope.$on('locationLoaded', function (event, next, current) {
+      compileTemplate();
+    });
+  };
+
+  return {
+    // scope: {},
+    link: link
+  };
+
+}]);
+
+app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var timer;
+
+    timer = $timeout(function() {
+      scope.loader = true;
+    }, 250);
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $timeout.cancel(timer);
+    });
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
     };
 
     function updateLocation() {
@@ -35,15 +98,14 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       window.mixpanel.track('Add box');
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
-
   };
 
   return {
     scope: {
+      location: '='
     },
     link: link,
-    controller: 'LocationsCtrl',
-    templateUrl: 'components/locations/show/_index.html'
+    templateUrl: 'components/locations/dashboard/_index.html'
   };
 
 }]);
@@ -105,7 +167,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
       hash.direction = scope.query.direction;
       hash.q = scope.query.filter;
       if (scope.user_id) {
-        hash.user_id = scope.user_id
+        hash.user_id = scope.user_id;
       }
       $location.search(hash);
     };
@@ -1365,7 +1427,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         scope._links          = results._links;
         scope.loading         = undefined;
         countOnline();
-        poll();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
@@ -1382,19 +1443,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       }, 30000);
     };
 
-    $rootScope.$on('streaming', function(args,res) {
-      if (res.enabled) {
-        loadPusher();
-        showToast(gettextCatalog.getString('Streaming updates enabled'));
-      } else {
-        scope.pusherLoaded = undefined;
-        if (channel) {
-          channel.unbind();
-        }
-        showToast(gettextCatalog.getString('Streaming updates disabled'));
-      }
-    });
-
     init().then(loadPusher);
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -1410,8 +1458,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
     scope: {
       filter: '=',
       loading: '=',
-      token: '@',
-      streaming: '='
+      token: '@'
     },
     templateUrl: 'components/locations/boxes/_table.html'
   };
@@ -2265,15 +2312,19 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
       });
     };
 
+    var loopStats = function(i, stats) {
+      Object.keys(stats[i]).forEach(function (key) {
+        if (key === 'new') {
+          scope.stats.new = stats[i][key];
+        } else if (key === 'active') {
+          scope.stats.active = stats[i][key];
+        }
+      });
+    };
+
     var createStats = function(stats) {
       for(var i = 0; i < stats.length; i++) {
-        Object.keys(stats[i]).forEach(function (key) {
-          if (key === 'new') {
-            scope.stats.new = stats[i][key];
-          } else if (key === 'active') {
-            scope.stats.active = stats[i][key];
-          }
-        });
+        loopStats(i, stats);
       }
     };
 
@@ -2286,6 +2337,50 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
     },
     link: link,
     templateUrl: 'components/locations/show/_inventory.html',
+  };
+
+}]);
+
+app.directive('homeStatCards', ['Report', function (Report) {
+
+  var link = function(scope,element,attrs) {
+
+    scope.loading = true;
+
+    var init = function() {
+
+      Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
+        scope.stats     = results.stats;
+        process();
+        scope.loading   = undefined;
+      });
+
+    };
+
+    function process () {
+      angular.forEach(scope.stats.boxes.states, function(b) {
+        if (b.state === 'offline') {
+          scope.offline = b.total;
+        } else if (b.state === 'online') {
+          scope.online = b.total;
+        } else if (b.state === 'online') {
+          scope.online = b.total;
+        } else if (b.state === 'splash_only') {
+          scope.splash_only = b.total;
+        }
+      });
+    }
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      locations: '@'
+    },
+    templateUrl: 'components/locations/show/_home_stat_cards.html'
   };
 
 }]);
