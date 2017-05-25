@@ -285,7 +285,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
-    when('/locations/:id/boxes', {
+    when('/locations/:id/devices', {
       templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
@@ -734,4 +734,3 @@ app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_U
     };
   }
 ]);
-

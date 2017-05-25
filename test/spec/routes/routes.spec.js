@@ -61,7 +61,7 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id'].templateUrl).
                   toEqual('components/locations/dashboard/index.html');
 
-      expect($route.routes['/locations/:id/boxes'].templateUrl).
+      expect($route.routes['/locations/:id/devices'].templateUrl).
                   toEqual('components/locations/show/index.html');
 
       expect($route.routes['/locations/:id/clients'].templateUrl).
@@ -326,4 +326,3 @@ describe('Routing', function () {
   });
 
 });
-
