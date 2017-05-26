@@ -20,7 +20,6 @@
       </md-tooltip>
 
     </md-button>
-    <!-- <md-switch title="Streaming updates {{ streamingUpdates | humanBoolean }}" ng-model="streamingUpdates" aria-label="{{ 'Enable streaming updates' | translate }}" ng-change='streamingUpdater()'> -->
     </md-switch>
     <!-- moved it into a tag, the btns are not blank in firefox and chrome -->
     <md-button-group hide show-gt-sm class="md-raised">
@@ -174,9 +173,9 @@
 </md-content>
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
-  <div flex flex-gt-sm="100" layout="column" style='padding: 0 10px;'>
-    <div heartbeat-chart height="100" target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
-  </div>
+  <!-- <div flex flex-gt-sm="100" layout="column" style='padding: 0 10px;'> -->
+  <!--   <div heartbeat-chart height="100" target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div> -->
+  <!-- </div> -->
   <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
     <md-card ing-if="box.state != 'new'">
       <div ng-if="box.state != 'rebooting' && box.state != 'processing' && box.state != 'upgrading'" class="md-card-image" style='height: 5px; background-color: {{box.state | statusColour}}'></div>
