@@ -676,49 +676,26 @@ location-boxes table {
   opacity: 0 !important;
 }
 
-@media (max-width: 1200px) {
-  [heartbeat-chart] > div > div:nth-child(1) {
-    margin-left: -50px !important;
-  }
-
-  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+30)  {
-    display: none !important;
-  }
+[heartbeat-chart] > div > div:nth-child(1) > div > svg > g:nth-child(2) > rect {
+  opacity: 0 !important;
 }
 
-@media (max-width: 1130px) {
-  [heartbeat-chart] > div > div:nth-child(1) {
-    margin-left: -90px !important;
-  }
-
-  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+50)  {
-    display: none !important;
-  }
+[heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(3) > text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;
 }
 
-@media (max-width: 1090px) {
-  [heartbeat-chart] > div > div:nth-child(1) {
-    margin-left: -125px !important;
+@media (max-width: 960px) {
+  [heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(3) > text {
+    display: none!important;
   }
 
-  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+70)  {
-    display: none !important;
-  }
-}
-
-@media (max-width: 1055px) {
-  [heartbeat-chart] > div > div:nth-child(1) {
-    margin-left: -145px !important;
+  [heartbeat-chart] > div > div:nth-child(1) > div > svg > g:nth-child(2) > path {
+    opacity: 0 !important;
   }
 
-  [heartbeat-chart] > div > div:nth-child(1) > div > div > svg > g > rect:nth-child(-n+80)  {
-    display: none !important;
-  }
-}
-
-@media (max-width: 1035px) {
-  .heartbeat-table {
-    display:none !important;
+  [heartbeat-chart]> div > div:nth-child(1) {
+    height: 60px!important;
   }
 }
 
