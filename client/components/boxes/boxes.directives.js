@@ -381,7 +381,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
+      window.location.href = '/#/locations/' + scope.location.slug + '/devices';
     };
 
     var channel;
