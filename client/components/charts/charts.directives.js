@@ -451,11 +451,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         this.setStartEnd();
 
         $scope.client = ClientDetails.client;
-        // if ($scope.client.version === '4') {
-          this.v2(params, deferred);
-        // } else {
-        //   this.v1(params, deferred);
-        // }
+        this.v2(params, deferred);
         return deferred.promise;
       };
     }
@@ -467,7 +463,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
   var link = function(scope,element,attrs,controller) {
 
-    ClientDetails.client.version = '4';
+    // ClientDetails.client.version = '4';
 
     var a, data;
     var c, timer, json;
@@ -704,7 +700,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.usage',
+        metric_type:  'devices.usage',
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
@@ -1216,8 +1212,8 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     var data, a;
 
-    ClientDetails.client.version = '4';
-    ClientDetails.client.ap_mac = undefined;
+    // ClientDetails.client.version = '4';
+    // ClientDetails.client.ap_mac = undefined;
 
     // controller.$scope.$on('resizeClientChart', function (evt, type){
     //   if (a) {
@@ -1530,13 +1526,16 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
 
   var link = function(scope,element,attrs,controller) {
 
-    ClientDetails.client.version = '4';
-
     var a, data;
     var c, timer, json;
     var rate = 'false';
     scope.loading = true;
     scope.type  = 'devices.load5';
+
+    // Depreciate soon
+    if (ClientDetails.client.version === '3.0') {
+      scope.type  = 'devices.load';
+    }
     var opts = controller.options;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
@@ -2019,7 +2018,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     scope.resource = 'device';
     var rate = false;
 
-    ClientDetails.client.version = '4';
+    // ClientDetails.client.version = '4';
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
       if (a) {

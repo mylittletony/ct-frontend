@@ -617,6 +617,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       $mdBottomSheet.hide();
       $timeout.cancel(timeout);
       $timeout.cancel(poller);
+      ClientDetails.client.version = undefined;
+      ClientDetails.client.ap_mac = undefined;
     });
 
   };
