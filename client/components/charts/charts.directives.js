@@ -1338,8 +1338,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
           status = boolToStatus(data[i].value);
 
           if (i + 1 === data.length) {
-            // t2 = new Date().getTime() / (1000 * 1000);
-            console.log(t2, t1)
+            // This is wrong, the last time doesn't look correct
             dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
         }
