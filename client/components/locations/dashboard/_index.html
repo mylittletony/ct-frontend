@@ -11,14 +11,6 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="{{ 'Map' | translate }}">
-      <md-icon>map</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          View device map.
-        </translate>
-      </md-tooltip>
-    </md-button>
     <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
       <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
       <md-tooltip md-direction="bottom">
