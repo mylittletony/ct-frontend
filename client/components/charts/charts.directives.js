@@ -1064,8 +1064,8 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           newV = 100;
         }
 
-        data.addRow(['New', newV]);
-        data.addRow(['Returning', retV]);
+        data.addRow([gettextCatalog.getString('New'), newV]);
+        data.addRow([gettextCatalog.getString('Returning'), retV]);
 
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%', pattern: '###,###,###'}
