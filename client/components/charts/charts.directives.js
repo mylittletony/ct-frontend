@@ -1469,7 +1469,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
           data.addColumn('number', 'dummySeries');
-          data.addColumn('number', 'clients');
+          data.addColumn('number', gettextCatalog.getString('clients'));
 
           var len = resp.data.length;
           for(var i = 0; i < len; i++) {
