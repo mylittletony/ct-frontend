@@ -174,7 +174,7 @@
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
   <div flex flex-gt-sm="100" layout="column" style='padding: 0 10px;'>
-    <div heartbeat-chart height="100" target="heartbeats-0" mac="{{box.mac}}" id='heartbeats-0'></div>
+    <div heartbeat-chart ng-if="box.state != 'new'" height="100" target="heartbeats-0" mac="{{box.mac}}" id='heartbeats-0'></div>
   </div>
   <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
     <md-card ing-if="box.state != 'new'">
