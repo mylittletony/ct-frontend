@@ -1296,7 +1296,8 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         period: $routeParams.period || '6h'
       };
       controller.getStats(params).then(function(resp) {
-        data = sort(resp.data).reverse();
+        data = resp;
+        data.data = sort(data.data);
         drawChart();
       }, function() {
       });
@@ -1304,47 +1305,41 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     var dataTable;
     var drawChart = function() {
+      dataTable = new window.google.visualization.DataTable();
 
-      if (!a) {
+      dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+      dataTable.addColumn({ type: 'string', id: 'Status' });
+      dataTable.addColumn({ type: 'string', role: 'tooltip', p: {html: 'true'}});
+      dataTable.addColumn({ type: 'string', id: 'Style',  role: 'style'  });
+      dataTable.addColumn({ type: 'datetime', id: 'Start' });
+      dataTable.addColumn({ type: 'datetime', id: 'End' });
 
-        a = true;
-        dataTable = new window.google.visualization.DataTable();
+      var status;
+      var t1, t2, i;
+      var colours = {Offline: '#eb0404', Online: '#16ac5b'};
+      var start_time = Math.floor(data.start_time / 1000);
+      var end_time = Math.floor(data.end_time / 1000);
 
-        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-        dataTable.addColumn({ type: 'string', id: 'Status' });
-        dataTable.addColumn({ type: 'string', role: 'tooltip', p: {html: 'true'}});
-        dataTable.addColumn({ type: 'string', id: 'Style',  role: 'style'  });
-        dataTable.addColumn({ type: 'datetime', id: 'Start' });
-        dataTable.addColumn({ type: 'datetime', id: 'End' });
-
-        var status;
-        var t1, t2;
-
-        for (var i = 0; i < data.length; i++) {
-
-          t1 = data[i].timestamp;
-
-          var colours = {Offline: '#eb0404', Online: '#16ac5b'};
-
-          if (data.length === 1) {
-            t2 = new Date().getTime() / (1000 * 1000);
-            status = boolToStatus(data[i].value);
-            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
-          }
-
-          if (i !== 0) {
-            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
-          }
-
-          t2 = t1;
-          status = boolToStatus(data[i].value);
-
-          if (i + 1 === data.length) {
-            // This is wrong, the last time doesn't look correct
-            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
-          }
+      for (i = 0; i < data.data.length; i++) {
+        if (data.data[i].timestamp >= start_time) {
+          break;
         }
       }
+
+      t1 = start_time;
+      status = boolToStatus(false);
+
+      for (; i < data.data.length; i++) {
+        t2 = data.data[i].timestamp;
+        if (t1 < t2 && start_time <= t1) {
+          dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
+        }
+        t1 = t2;
+        status = boolToStatus(data.data[i].value);
+      }
+
+      t2 = end_time;
+      dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
 
       var options = getOptions();
       var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
