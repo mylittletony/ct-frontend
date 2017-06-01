@@ -423,7 +423,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
         scope.access_name();
 
         scope.networks = results.networks;
-        scope.splash.networks = [];
+        //scope.splash.networks = [];
 
         createMenu();
         scope.loading = undefined;
