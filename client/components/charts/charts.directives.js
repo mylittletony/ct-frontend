@@ -1293,7 +1293,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       var params = {
         metric_type:  'device.heartbeats',
         ap_mac: scope.mac,
-        period: '7d' // can be removed soon when loyalty dynamic
+        period: $routeParams.period || '6h'
       };
       controller.getStats(params).then(function(resp) {
         data = sort(resp.data).reverse();
