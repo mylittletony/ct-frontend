@@ -1216,9 +1216,11 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     // ClientDetails.client.ap_mac = undefined;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
-      if (a) {
-        drawChart();
-      }
+      drawChart();
+    });
+
+    controller.$scope.$on('loadClientChart', function  (){
+      chart();
     });
 
     function getOptions(colors) {
