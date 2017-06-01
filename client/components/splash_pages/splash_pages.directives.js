@@ -364,6 +364,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
       $scope.loading = undefined;
 
       $scope.update = function() {
+        $scope.splash.networks = [];
         for (var i = 0; i < $scope.selected.length; i++) {
           $scope.splash.networks.push($scope.selected[i].id);
         }
