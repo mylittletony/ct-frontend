@@ -241,6 +241,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
       var type = 'Traffic';
       if (scope.type === 'usage') {
         type = 'Usage';
+        type = gettextCatalog.getString('Usage');
         suffix = 'MiB';
       }
 
