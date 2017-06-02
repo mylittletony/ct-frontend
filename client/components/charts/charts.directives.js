@@ -554,8 +554,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (json.multi === true) {
       }
 
-      suffix = 'Kbps';
-      scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+      suffix = gettextCatalog.getString('Kbps');
+      //scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+       scope.title = gettextCatalog.getString('Device Traffic (Kbps)');
 
       if (a === undefined) {
         data = new window.google.visualization.DataTable();
