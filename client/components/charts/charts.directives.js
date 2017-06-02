@@ -1321,7 +1321,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var status;
       var t1, t2, i;
-      var colours = {Offline: '#eb0404', Online: '#16ac5b'};
+      var colours = {Offline: '#eb0404', Online: '#16ac5b', Unknown: '#e0e0e0'};
       var start_time = Math.floor(data.start_time / 1000);
       var end_time = Math.floor(data.end_time / 1000);
 
@@ -1332,7 +1332,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       }
 
       t1 = start_time;
-      status = boolToStatus(false);
+      status = 'Unknown';
 
       for (; i < data.data.length; i++) {
         t2 = data.data[i].timestamp;
