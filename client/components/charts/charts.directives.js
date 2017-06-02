@@ -1248,10 +1248,12 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     function formatDate(date) {
       date = new Date(date * 1000 * 1000);
-      var timeFormatted = prefixNumber(date.getHours()) + ':' + prefixNumber(date.getMinutes());
-      var dateFormatted = prefixNumber(date.getDate()) + '/' + prefixNumber(date.getMonth() + 1) + '/' + date.getFullYear().toString().slice(-2);
-      var datetimeFormatted = timeFormatted + ' ' + dateFormatted;
-      return datetimeFormatted;
+
+      var formatter = new window.google.visualization.DateFormat({
+        pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
+      });
+
+      return formatter.formatValue(date);
     }
 
     function duration(start, end) {
@@ -1262,14 +1264,17 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       var tooltip = '<div class="heartbeats-tooltip" style="width: 250px; height: 80px; left 5px; top: 30px; pointer-events: none; font-weight: bold;">' +
         '<div class="heartbeats-tooltip-item-list" style="height: 25px">' +
           '<div class="heartbeats-tooltip-item">' +
-            '<span style="font-family: Arial">Status: ' + status + '</span>' +
+            '<span style="font-family: Arial">' + gettextCatalog.getString('Status:') + ' ' + gettextCatalog.getString(status) + '</span>' +
           '</div>' +
         '</div>' +
         // '<div class="heartbeats-tooltip-separator" style="height: 1px; margin: 0; padding: 0; background-color: #dddddd;"></div>' +
         '<div class="heartbeats-tooltip-item-list" style="height: 25px">' +
           '<div class="heartbeats-tooltip-item" style="height: 0px;">' +
-            '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Between:</span>' +
-            '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;"> ' + formatDate(startTime) + ' - ' + formatDate(endTime) + ' </span>' +
+            '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">' + gettextCatalog.getString('From:') + '</span>' +
+            '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;"> ' + formatDate(startTime) + ' </span>' +
+            '</p>'+
+            '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">' + gettextCatalog.getString('Until:') + '</span>' +
+            '<span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: normal;"> ' + formatDate(endTime) + ' </span>' +
             '</p>'+
             // '<p>'+
             // '<p><span style="font-family: Arial; font-size: 12px; color: rgb(0, 0, 0); margin: 0px; text-decoration: none; font-weight: bold;">Duration:</span>' +
