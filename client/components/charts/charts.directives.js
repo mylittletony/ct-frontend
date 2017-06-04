@@ -241,6 +241,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
       var type = 'Traffic';
       if (scope.type === 'usage') {
         type = 'Usage';
+        type = gettextCatalog.getString('Usage');
         suffix = 'MiB';
       }
 
@@ -553,8 +554,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (json.multi === true) {
       }
 
-      suffix = 'Kbps';
-      scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+      suffix = gettextCatalog.getString('Kbps');
+      //scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+       scope.title = gettextCatalog.getString('Device Traffic (Kbps)');
 
       if (a === undefined) {
         data = new window.google.visualization.DataTable();
@@ -1064,8 +1066,8 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           newV = 100;
         }
 
-        data.addRow(['New', newV]);
-        data.addRow(['Returning', retV]);
+        data.addRow([gettextCatalog.getString('New'), newV]);
+        data.addRow([gettextCatalog.getString('Returning'), retV]);
 
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%', pattern: '###,###,###'}
