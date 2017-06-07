@@ -241,6 +241,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
       var type = 'Traffic';
       if (scope.type === 'usage') {
         type = 'Usage';
+        type = gettextCatalog.getString('Usage');
         suffix = 'MiB';
       }
 
@@ -451,11 +452,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         this.setStartEnd();
 
         $scope.client = ClientDetails.client;
-        // if ($scope.client.version === '4') {
-          this.v2(params, deferred);
-        // } else {
-        //   this.v1(params, deferred);
-        // }
+        this.v2(params, deferred);
         return deferred.promise;
       };
     }
@@ -467,7 +464,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
   var link = function(scope,element,attrs,controller) {
 
-    ClientDetails.client.version = '4';
+    // ClientDetails.client.version = '4';
 
     var a, data;
     var c, timer, json;
@@ -557,8 +554,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (json.multi === true) {
       }
 
-      suffix = 'Kbps';
-      scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+      suffix = gettextCatalog.getString('Kbps');
+      //scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+       scope.title = gettextCatalog.getString('Device Traffic (Kbps)');
 
       if (a === undefined) {
         data = new window.google.visualization.DataTable();
@@ -704,7 +702,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.usage',
+        metric_type:  'devices.usage',
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
@@ -1068,8 +1066,8 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           newV = 100;
         }
 
-        data.addRow(['New', newV]);
-        data.addRow(['Returning', retV]);
+        data.addRow([gettextCatalog.getString('New'), newV]);
+        data.addRow([gettextCatalog.getString('Returning'), retV]);
 
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%', pattern: '###,###,###'}
@@ -1216,24 +1214,23 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     var data, a;
 
-    ClientDetails.client.version = '4';
-    ClientDetails.client.ap_mac = undefined;
+    // ClientDetails.client.version = '4';
+    // ClientDetails.client.ap_mac = undefined;
 
-    // controller.$scope.$on('resizeClientChart', function (evt, type){
-    //   if (a) {
-    //     drawChart();
-    //   }
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt, type){
+      if (a) {
+        drawChart();
+      }
+    });
 
     function getOptions(colors) {
       var opts =  {
-        colors: colors,
         timeline: {
+          colorByRowLabel:  false,
           showBarLabels: false,
           showRowLabels: false
         },
         avoidOverlappingGridLines: false,
-        backgroundColor: '#16ac5b',
         height: attrs.height || 45,
         width: '100%',
         tooltip: {isHtml: true}
@@ -1316,41 +1313,40 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
         dataTable.addColumn({ type: 'string', id: 'Status' });
         dataTable.addColumn({ type: 'string', role: 'tooltip', p: {html: 'true'}});
+        dataTable.addColumn({ type: 'string', id: 'Style',  role: 'style'  });
         dataTable.addColumn({ type: 'datetime', id: 'Start' });
         dataTable.addColumn({ type: 'datetime', id: 'End' });
 
         var status;
         var t1, t2;
-        var colors = ['#eb0404', '#16ac5b'];
 
         for (var i = 0; i < data.length; i++) {
-          if (data && data[0].value === 0) {
-            colors.reverse();
-          }
 
           t1 = data[i].timestamp;
 
+          var colours = {Offline: '#eb0404', Online: '#16ac5b'};
+
           if (data.length === 1) {
             t2 = new Date().getTime() / (1000 * 1000);
-            status = boolToStatus(data[0].value);
-            colors = ['#16ac5b'];
-            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
+            status = boolToStatus(data[i].value);
+            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
 
           if (i !== 0) {
-            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
+            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
 
           t2 = t1;
           status = boolToStatus(data[i].value);
 
           if (i + 1 === data.length) {
-            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
+            // This is wrong, the last time doesn't look correct
+            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
         }
       }
 
-      var options = getOptions(colors);
+      var options = getOptions();
       var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
       chart.draw(dataTable, options);
     };
@@ -1530,13 +1526,16 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
 
   var link = function(scope,element,attrs,controller) {
 
-    ClientDetails.client.version = '4';
-
     var a, data;
     var c, timer, json;
     var rate = 'false';
     scope.loading = true;
     scope.type  = 'devices.load5';
+
+    // Depreciate soon
+    if (ClientDetails.client.version === '3.0') {
+      scope.type  = 'devices.load';
+    }
     var opts = controller.options;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
@@ -2019,7 +2018,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     scope.resource = 'device';
     var rate = false;
 
-    ClientDetails.client.version = '4';
+    // ClientDetails.client.version = '4';
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
       if (a) {
