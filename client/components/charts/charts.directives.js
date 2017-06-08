@@ -1223,11 +1223,6 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       }
     });
 
-    controller.$scope.$on('loadClientChart', function  (){
-      a = undefined;
-      chart();
-    });
-
     function getOptions(colors) {
       var opts =  {
         timeline: {
@@ -1362,8 +1357,8 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     var timer = setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
+      $timeout.cancel(timer);
     }, 500);
-    $timeout.cancel(timer);
   };
 
   return {
