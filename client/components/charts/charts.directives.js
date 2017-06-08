@@ -1216,10 +1216,13 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     // ClientDetails.client.ap_mac = undefined;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
-      drawChart();
+      if (a) {
+        drawChart();
+      }
     });
 
     controller.$scope.$on('loadClientChart', function  (){
+      a = undefined;
       chart();
     });
 
@@ -1310,45 +1313,49 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     var dataTable;
     var drawChart = function() {
-      dataTable = new window.google.visualization.DataTable();
+      if (!a) {
+        a = true;
 
-      dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
-      dataTable.addColumn({ type: 'string', id: 'Status' });
-      dataTable.addColumn({ type: 'string', role: 'tooltip', p: {html: 'true'}});
-      dataTable.addColumn({ type: 'string', id: 'Style',  role: 'style'  });
-      dataTable.addColumn({ type: 'datetime', id: 'Start' });
-      dataTable.addColumn({ type: 'datetime', id: 'End' });
+        dataTable = new window.google.visualization.DataTable();
 
-      var status;
-      var t1, t2, i;
-      var colours = {Offline: '#eb0404', Online: '#16ac5b', Unknown: '#e0e0e0'};
-      var start_time = Math.floor(data.start_time / 1000);
-      var end_time = Math.floor(data.end_time / 1000);
+        dataTable.addColumn({ type: 'string', id: 'Heartbeat' });
+        dataTable.addColumn({ type: 'string', id: 'Status' });
+        dataTable.addColumn({ type: 'string', role: 'tooltip', p: {html: 'true'}});
+        dataTable.addColumn({ type: 'string', id: 'Style',  role: 'style'  });
+        dataTable.addColumn({ type: 'datetime', id: 'Start' });
+        dataTable.addColumn({ type: 'datetime', id: 'End' });
 
-      for (i = 0; i < data.data.length; i++) {
-        if (data.data[i].timestamp >= start_time) {
-          break;
+        var status;
+        var t1, t2, i;
+        var colours = {Offline: '#eb0404', Online: '#16ac5b', Unknown: '#e0e0e0'};
+        var start_time = Math.floor(data.start_time / 1000);
+        var end_time = Math.floor(data.end_time / 1000);
+
+        for (i = 0; i < data.data.length; i++) {
+          if (data.data[i].timestamp >= start_time) {
+            break;
+          }
         }
-      }
 
-      t1 = start_time;
-      status = 'Unknown';
+        t1 = start_time;
+        status = 'Unknown';
 
-      for (; i < data.data.length; i++) {
-        t2 = data.data[i].timestamp;
-        if (t1 < t2 && start_time <= t1) {
-          dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
+        for (; i < data.data.length; i++) {
+          t2 = data.data[i].timestamp;
+          if (t1 < t2 && start_time <= t1) {
+            dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
+          }
+          t1 = t2;
+          status = boolToStatus(data.data[i].value);
         }
-        t1 = t2;
-        status = boolToStatus(data.data[i].value);
+
+        t2 = end_time;
+        dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
+
+        var options = getOptions();
+        var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
+        chart.draw(dataTable, options);
       }
-
-      t2 = end_time;
-      dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
-
-      var options = getOptions();
-      var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
-      chart.draw(dataTable, options);
     };
 
     var timer = setTimeout(function() {
