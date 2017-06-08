@@ -241,6 +241,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
       var type = 'Traffic';
       if (scope.type === 'usage') {
         type = 'Usage';
+        type = gettextCatalog.getString('Usage');
         suffix = 'MiB';
       }
 
@@ -553,8 +554,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (json.multi === true) {
       }
 
-      suffix = 'Kbps';
-      scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+      suffix = gettextCatalog.getString('Kbps');
+      //scope.title = gettextCatalog.getString('Device Traffic ('+suffix+')');
+       scope.title = gettextCatalog.getString('Device Traffic (Kbps)');
 
       if (a === undefined) {
         data = new window.google.visualization.DataTable();
@@ -1064,8 +1066,8 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           newV = 100;
         }
 
-        data.addRow(['New', newV]);
-        data.addRow(['Returning', retV]);
+        data.addRow([gettextCatalog.getString('New'), newV]);
+        data.addRow([gettextCatalog.getString('Returning'), retV]);
 
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%', pattern: '###,###,###'}
@@ -1453,7 +1455,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           minorGridlines: {
             count: 2,
             color: '#f3f3f3',
-          }
+          },
+          format: format
         };
 
         opts.explorer = {
@@ -1463,25 +1466,22 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           actions: [],
         };
 
-        var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
-
         if (data === undefined && resp && resp.data) {
 
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
           data.addColumn('number', 'dummySeries');
-          data.addColumn('number', 'clients');
+          data.addColumn('number', gettextCatalog.getString('clients'));
 
           var len = resp.data.length;
           for(var i = 0; i < len; i++) {
-            var time = dateFormatter.formatValue(new Date(Math.floor(resp.data[i].timestamp)));
-            time = new Date(time);
+            var time = new Date(Math.floor(resp.data[i].timestamp));
             var count = resp.data[i].value;
             data.addRow([time, null, count]);
           }
 
           var date_formatter = new window.google.visualization.DateFormat({
-            pattern: gettextCatalog.getString(format)
+            pattern: format
           });
 
           date_formatter.format(data,0);
