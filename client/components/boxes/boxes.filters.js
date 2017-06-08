@@ -99,6 +99,26 @@ app.filter('statusColour',['gettextCatalog', function(gett) {
   };
 }]);
 
+
+app.filter('translateEnvironment', ['gettextCatalog', function(gettextCatalog) {
+  return function(input) {
+    if ( input === undefined || input === null || input === '') {
+      return gettextCatalog.getString('N/A');
+    } else {
+      switch(input) {
+        case 'Beta':
+          return gettextCatalog.getString('Beta');
+        case 'Production':
+          return gettextCatalog.getString('Production');
+        case 'Experimental':
+          return gettextCatalog.getString('Experimental');
+        default:
+          return input;
+      }
+    }
+  };
+}]);
+
 app.filter('translatableChartTitleSNR', ['gettextCatalog', function(gettextCatalog) {
   return function(input) {
     if ( input === undefined || input === null || input === '') {
