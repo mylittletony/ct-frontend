@@ -1455,7 +1455,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           minorGridlines: {
             count: 2,
             color: '#f3f3f3',
-          }
+          },
+          format: format
         };
 
         opts.explorer = {
@@ -1465,25 +1466,22 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           actions: [],
         };
 
-        var dateFormatter = new window.google.visualization.DateFormat({formatType: format, timeZone: 0});
-
         if (data === undefined && resp && resp.data) {
 
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
           data.addColumn('number', 'dummySeries');
-          data.addColumn('number', 'clients');
+          data.addColumn('number', gettextCatalog.getString('clients'));
 
           var len = resp.data.length;
           for(var i = 0; i < len; i++) {
-            var time = dateFormatter.formatValue(new Date(Math.floor(resp.data[i].timestamp)));
-            time = new Date(time);
+            var time = new Date(Math.floor(resp.data[i].timestamp));
             var count = resp.data[i].value;
             data.addRow([time, null, count]);
           }
 
           var date_formatter = new window.google.visualization.DateFormat({
-            pattern: gettextCatalog.getString(format)
+            pattern: format
           });
 
           date_formatter.format(data,0);
