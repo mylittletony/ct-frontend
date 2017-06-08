@@ -235,37 +235,37 @@
 
                 <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Location Quota</translate></label>
-                  <input  type="number" name="quota_locations" ng-model="brand.quota_locations" max="1000" required></input>
+                  <input  type="number" name="quota_locations" ng-model="brand.quota_locations" ng-max=1000 required></input>
                   <div ng-messages="myForm.quota_locations.$error" md-auto-hide="false">
                     <div ng-message="required" translate>Please enter a number of locations</div>
-                    <div ng-message="max" translate>Must be less than 1000</div>
+                    <div ng-message="md-max" translate>Must be less than 1000</div>
                   </div>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Box Quota</translate></label>
-                  <input  type="number" name="quota_boxes" ng-model="brand.quota_boxes" max="1000" required></input>
+                  <input  type="number" name="quota_boxes" ng-model="brand.quota_boxes" ng-max=1000 required></input>
                   <div ng-messages="myForm.quota_boxes.$error" md-auto-hide="false">
                     <div ng-message="required" translate>Please enter a number of boxes</div>
-                    <div ng-message="max" translate>Must be less than 1000</div>
+                    <div ng-message="md-max" translate>Must be less than 1000</div>
                   </div>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Admin Quota</translate></label>
-                  <input  type="number" name="quota_admins" ng-model="brand.quota_admins" max="100" required></input>
+                  <input  type="number" name="quota_admins" ng-model="brand.quota_admins" ng-max=100 required></input>
                   <div ng-messages="myForm.quota_admins.$error" md-auto-hide="false">
                     <div ng-message="required" translate>Please enter a number of admins</div>
-                    <div ng-message="max" translate>Must be less than 100</div>
+                    <div ng-message="md-max" translate>Must be less than 100</div>
                   </div>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-xs="50">
                   <label><translate>Projects Quota</translate></label>
-                  <input  type="number" name="quota_projects" ng-model="brand.quota_projects" max="100" ing-disabled="!brand.quota_project_users" required></input>
+                  <input  type="number" name="quota_projects" ng-model="brand.quota_projects" ng-max=100 ing-disabled="!brand.quota_project_users" required></input>
                   <div ng-messages="myForm.quota_projects.$error" md-auto-hide="false">
                     <div ng-message="required" translate>Please enter a number of projects</div>
-                    <div ng-message="max" translate>Must be less than 100</div>
+                    <div ng-message="md-max" translate>Must be less than 100</div>
                   </div>
                 </md-input-container>
 
