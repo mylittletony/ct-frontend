@@ -539,21 +539,11 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
-    if ($routeParams.v === '2') {
-      getLocation().then(initV2).then(function() {
-        scope.loading = undefined;
-      });
-    } else {
-      init().then(clientsChart).then(groupPolicies).then(function() {
-        scope.loading = undefined;
-      });
-    }
+    getLocation().then(initV2).then(function() {
+      scope.loading = undefined;
+    });
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      // if (channel) {
-      //   channel.unbind();
-      // }
-      // $timeout.cancel(poller);
     });
 
   };
@@ -1077,27 +1067,16 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       });
     };
 
-    var initV2 = function() {
-      ClientV2.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
-        // ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
-        // scope.client    = results;
-        // scope.loading   = undefined;
-        // loadPusher(results.location_token);
-        // controller.$scope.$broadcast('loadClientChart');
-      });
-    };
-
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
         channel.unbind();
       }
     });
 
-    if ($routeParams.v == '2') {
-      initV2();
-    } else {
-      init();
-    }
+    // if ($routeParams.v == '2') {
+    // } else {
+    init();
+    // }
 
   };
 
@@ -1178,19 +1157,19 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
     };
 
     var orderRedirect = function() {
-      window.location.href = '/#/audit/sales?client_id=' + scope.client.id;
+      window.location.href = '/#/audit/sales?client_id=' + $routeParams.client_id;
     };
 
     var socialRedirect = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/social/' + scope.client.social_id;
+      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + $routeParams.client_id + '/social/' + scope.client.social_id;
     };
 
     var redirect = function(type) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/' + type;
+      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + $routeParams.client_id + '/' + type;
     };
 
     var policies = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/policies?client_mac=' + scope.client.client_mac;
+      window.location.href = '/#/locations/' + scope.location.slug + '/policies?client_mac=' + $routeParams.client_id;
     };
 
     var logout = function() {
