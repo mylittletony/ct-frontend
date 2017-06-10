@@ -23,12 +23,12 @@ app.factory('menu', ['$location', '$rootScope', function ($location, $rootScope)
 
 }]);
 
-app.factory('showToast', ['$mdToast', function ($mdToast) {
+app.factory('showToast', ['$mdToast', 'gettextCatalog', function ($mdToast, gettextCatalog) {
 
   function t(msg) {
     var toast = $mdToast.simple()
     .textContent(msg)
-    .action('Close')
+    .action(gettextCatalog.getString('Close'))
     .highlightAction(true)
     .hideDelay(3000);
     $mdToast.show(toast);
@@ -46,6 +46,12 @@ app.factory('showErrors', ['$mdBottomSheet', 'gettextCatalog', function ($mdBott
   var formatErrors = function(errors) {
     var e = [];
     var err, res;
+    var errorMsgs = [
+          gettextCatalog.getString("Splash codes can't be created on the free plans"),
+          gettextCatalog.getString("Captive portal enabled on multiple SSIDs. This is not possible without using a zone."),
+          gettextCatalog.getString("Channel can't be blank"),
+          gettextCatalog.getString("Channel is invalid")
+        ];
     if (errors.data && errors.data.errors) {
       res = errors.data.errors;
     }
@@ -94,15 +100,7 @@ app.factory('showErrors', ['$mdBottomSheet', 'gettextCatalog', function ($mdBott
     var errors = formatErrors(msg);
     if (errors && errors.length > 0) {
       $mdBottomSheet.show({
-        template:
-          '<md-bottom-sheet class="md-list md-has-header" ng-cloak>'+
-          '<md-subheader class="md-warn">There was a problem processing your request.'+
-          '<ul ng-repeat="error in errors" class="errors"><li>{{ error }}</li></ul>'+
-          '</md-subheader>'+
-          '<md-button ng-click="close()" class="md-list-item-content" >'+
-          '<span class="md-inline-list-icon-label md-warn">Close</span>'+
-          '</md-button>'+
-          '</md-bottom-sheet>',
+        templateUrl: 'components/views/templates/_error_msg.html',
         locals: {
           errors: errors
         },
