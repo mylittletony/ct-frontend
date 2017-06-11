@@ -73,115 +73,11 @@
   <div layout="row" layout-wrap layout-align="space-between start">
     <div flex="100">
 
-      <!-- <md-card hide show-gt-sm> -->
-      <!--   <md-card-header> -->
-      <!--     <md-card-header-text> -->
-      <!--       <span class="md-title"> -->
-      <!--         <span ng-if="type == 'mcs'" translate>{{ client_mac }} MCS Value</span> -->
-      <!--         <span ng-if="type == 'signal'" translate>{{ client_mac }} WiFi Signal</span> -->
-      <!--         <span ng-if="type == 'tx'" translate>{{ client_mac }} WiFi Traffic</span> -->
-      <!--         <span ng-if="type == 'usage'" translate>{{ client_mac }} Total WiFi Usage</span> -->
-      <!--         <span ng-if="type == 'failures'" translate>{{ client_mac }} Transmission Failures</span> -->
-      <!--       </span> -->
-      <!--       <span class="md-subhead"> -->
-      <!--         <span ng-if="type == 'mcs'" translate>{{ (fn.key || 'average') | titleCase | translate }} client MCS values</span> -->
-      <!--         <span ng-if="type == 'signal'" translate>{{ (fn.key || 'average') | titleCase | translate }} signal, noise and SNR values</span> -->
-      <!--         <span ng-if="type == 'tx'" translate>{{ (fn.key || 'average') | titleCase | translate }} network throughput</span> -->
-      <!--         <span ng-if="type == 'usage'" translate>{{ (fn.key || 'average') | titleCase | translate }} aggregated network usage</span> -->
-      <!--         <span ng-if="type == 'failures'" translate>{{ (fn.key || 'average') | titleCase | translate }} transmission packets that failed</span> -->
-      <!--       </span> -->
-      <!--     </md-card-header-text> -->
-      <!--     <div flex></div> -->
-      <!--     <md-button class="md-icon-button" ng-click="reset()" ng-disabled="!client_mac && !ap_mac && !query.filter && period == '6h'"> -->
-      <!--       <md-icon>zoom_out</md-icon> -->
-      <!--     </md-button> -->
-      <!--     <md-button class="md-icon-button" ng-click="refresh()"> -->
-      <!--       <md-icon>refresh</md-icon> -->
-      <!--     </md-button> -->
-      <!--     <md-menu-bar style="padding: 0"> -->
-      <!--       <md-menu> -->
-      <!--         <button ng-click="$mdOpenMenu()"> -->
-      <!--           <md-icon>more_vert</md-icon> -->
-      <!--         </button> -->
-      <!--         <md-menu-content> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeType('signal')"> -->
-      <!--               <translate> -->
-      <!--               Signal Strength -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeType('tx')"> -->
-      <!--               <translate> -->
-      <!--               WiFi Traffic -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeType('usage')"> -->
-      <!--               <translate> -->
-      <!--               WiFi Usage -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeType('mcs')"> -->
-      <!--               <translate> -->
-      <!--               MCS Index -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeType('failures')"> -->
-      <!--               <translate> -->
-      <!--               TX Fails -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-divider></md-menu-divider> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeFn('average')"> -->
-      <!--               <translate> -->
-      <!--               Average Values -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeFn('max')"> -->
-      <!--               <translate> -->
-      <!--               Max. Values -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeFn('median')"> -->
-      <!--               <translate> -->
-      <!--               Median Values -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--           <md-menu-item> -->
-      <!--             <md-button ng-click="changeFn('sum')" ng-disabled="type != 'usage'"> -->
-      <!--               <translate> -->
-      <!--               Sum -->
-      <!--               </translate> -->
-      <!--             </md-button> -->
-      <!--           </md-menu-item> -->
-      <!--         </md-menu-content> -->
-      <!--       </md-menu> -->
-      <!--     </md-menu-bar> -->
-      <!--   </md-card-header> -->
-      <!--   <md-card-content> -->
-      <!--     <clients-chart></clients-chart> -->
-      <!--   </md-card-content> -->
-      <!-- </md-card> -->
-
       <md-card>
         <md-card-content>
           <div class="md-toolbar-tools" ng-cloak>
             <span class="md-subhead" translate>
-              There {{ connected == 1 ? 'is' : 'are' }} currently {{ connected }} client{{ connected == 1 ? '' : 's' }} connected to your network.
+              There {{ connected == 1 ? 'is' : 'are' }} currently {{ connected || 0 }} client{{ connected == 1 ? '' : 's' }} connected to your network.
             </span>
           </div>
           <md-table-container style="overflow-x:scroll;">

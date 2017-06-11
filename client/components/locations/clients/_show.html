@@ -99,10 +99,10 @@
 
   <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" class="clients-charts">
     <div layout="" layout-wrap>
-      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'tx'">
-        <tx-chart></tx-chart>
+      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'tx'">
+        <tx-chart height="450"></tx-chart>
       </div>
-      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'snr'">
+      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'snr'">
         <interface-chart ></interface-chart>
       </div>
     </div>
