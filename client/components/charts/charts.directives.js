@@ -659,8 +659,6 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
       a = true;
       c.draw(data, opts);
-      // };
-      // window.google.charts.setOnLoadCallback(drawChartCallback);
     }
 
     setTimeout(function() {
@@ -688,10 +686,6 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     scope.type = 'data';
     scope.loading = true;
     var colours = COLOURS.split(' ');
-
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
 
     controller.$scope.$on('loadClientChart', function (evt, type){
       a = undefined;
@@ -1833,8 +1827,6 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
       }
       c = new window.google.visualization.LineChart(document.getElementById('mcs-chart'));
       c.draw(data, opts);
-        // }
-        // window.google.charts.setOnLoadCallback(drawChartCallback);
       scope.noData = undefined;
       scope.loading = undefined;
     };
@@ -1843,7 +1835,6 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
 
   return {
     link: link,
-    // restrict: 'EA',
     scope: {
       mac: '@',
       loc: '@'
@@ -1853,153 +1844,6 @@ app.directive('mcsChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog
   };
 
 }]);
-
-// app.directive('snrChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', function($timeout, Report, $routeParams, gettextCatalog) {
-
-//   var link = function(scope,element,attrs,controller) {
-
-//     var c, timer;
-//     scope.type  = 'signal';
-
-//     controller.$scope.$on('loadClientChart', function  (){
-//       chart();
-//     });
-
-//     scope.refresh = function() {
-//       chart();
-//     };
-
-//     scope.fullScreen = function(type) {
-//       var t = { panel: type };
-//       if (!scope.fs) {
-//         scope.fs = true;
-//         controller.$scope.$broadcast('fullScreen', t);
-//       } else {
-//         scope.fs = undefined;
-//         controller.$scope.$broadcast('closeFullScreen', t);
-//       }
-//     };
-
-//     function chart() {
-//       var params = {
-//         type: type,
-//       };
-//       controller.getStats(params).then(function(data) {
-//         if (data.timeline.signal) {
-//           window.google.charts.setOnLoadCallback(drawChart(data.timeline));
-//         } else {
-//           clearChart();
-//         }
-//       }, function() {
-//         clearChart();
-//       });
-//     }
-
-//     var clearChart = function() {
-//       if (c) {
-//         c.clearChart();
-//       }
-//       scope.loading = undefined;
-//       scope.noData = true;
-//     };
-
-//     function drawChart(json) {
-
-//       $timeout.cancel(timer);
-//       var drawChartCallback = function() {
-//         var data = new window.google.visualization.DataTable();
-//         data.addColumn('datetime', 'Date');
-//         data.addColumn('number', 'dummySeries');
-//         data.addColumn('number', 'SNR');
-//         data.addColumn('number', gettextCatalog.getString('Signal'));
-//         data.addColumn('number', gettextCatalog.getString('Noise'));
-
-//         var len = json.signal.length;
-
-//         for(var i = 0; i < len; i++) {
-//           var time = new Date(json.signal[i].time / (1000*1000));
-//           var snr = 0, noise = 0, signal = 0;
-//           if (json.signal && json.signal[i] && json.signal[i].value) {
-//             signal = json.signal[i].value;
-//           }
-//           if (json.snr && json.snr[i] && json.snr[i].value) {
-//             snr = json.snr[i].value;
-//           }
-//           if (json.noise && json.noise[i] && json.noise[i].value) {
-//             noise = json.noise[i].value;
-//           }
-//           data.addRow([time, null, snr, signal, noise ]);
-//         }
-
-//         var date_formatter = new window.google.visualization.DateFormat({
-//           pattern: gettextCatalog.getString('MMM dd, yyyy hh:mm:ss a')
-//         });
-//         date_formatter.format(data,0);
-
-//         var formatter = new window.google.visualization.NumberFormat(
-//           {suffix: 'dB', negativeColor: 'red', negativeParens: true, pattern: '0'}
-//         );
-//         formatter.format(data,1);
-//         formatter = new window.google.visualization.NumberFormat(
-//           {suffix: 'dBm', negativeColor: 'red', negativeParens: true, pattern: '0'}
-//         );
-//         formatter.format(data,2);
-//         formatter.format(data,3);
-//         formatter.format(data,4);
-
-//         var opts = controller.options;
-//         opts.legend = { position: 'none' };
-//         opts.series = {
-//           0: {
-//             targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-//           },
-//           1: {
-//             targetAxisIndex: 1
-//           },
-//           2: {
-//             targetAxisIndex: 1
-//           }
-//         };
-//         opts.vAxes = {
-//           0: {
-//             textPosition: 'none'
-//           },
-//           1: {},
-//         };
-
-//         opts.explorer = {
-//           maxZoomOut:2,
-//           keepInBounds: true,
-//           axis: 'horizontal',
-//           actions: [ 'dragToZoom', 'rightClickToReset'],
-//         };
-//         if (scope.fs) {
-//           opts.height = 600;
-//         } else {
-//           opts.height = 250;
-//         }
-//         c = new window.google.visualization.LineChart(document.getElementById('snr-chart'));
-//         c.draw(data, opts);
-//       };
-
-//       window.google.charts.setOnLoadCallback(drawChartCallback);
-//       scope.noData = undefined;
-//       scope.loading = undefined;
-//     }
-
-//   };
-
-//   return {
-//     link: link,
-//     scope: {
-//       mac: '@',
-//       loc: '@'
-//     },
-//     require: '^clientChart',
-//     templateUrl: 'components/charts/clients/_signal_chart.html',
-//   };
-
-// }]);
 
 app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', 'ClientDetails', function(Report, $routeParams, $timeout, gettextCatalog, ClientDetails) {
 
