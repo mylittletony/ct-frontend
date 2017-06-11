@@ -95,44 +95,16 @@
         </md-list>
       </md-card-content>
     </md-card>
-    <!-- <md-card> -->
-    <!--   <md-card-title> -->
-    <!--     <md-card-title-text> -->
-    <!--       <span class="md-headline" translate>Splash</span> -->
-    <!--       <span class="md-subhead" translate> -->
-    <!--         Client -->
-    <!--         {{client.splash_status | splashStatus }} -->
-    <!--       </span> -->
-    <!--     </md-card-title-text> -->
-    <!--     <md-button ng-click="toggle('splash')" aria-controls="{{ 'splash' | translate}}" class="md-secondary md-icon-button" ng-if="client.splash_status == 'pass' || client.splash.status === 'dnat'" aria-label="{{ 'call' | translate }}"> -->
-    <!--       <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('splash') ? "up" : "down" }}</md-icon> -->
-    <!--     </md-button> -->
-    <!--   </md-card-title> -->
-    <!--   <md-card-content ng-if="isOpen('splash')" id="splash" class="menu-toggle-list" layout="column" layout-gt-sm="row" layout-wrap> -->
-    <!--     <md-list-item class="md-2-line"> -->
-    <!--       <div class="md-list-item-text" layout="column"> -->
-    <!--         <h3 translate>Current Username</h3> -->
-    <!--         <p>{{client.splash_username | emptyFilter }}</p> -->
-    <!--       </div> -->
-    <!--     </md-list-item> -->
-    <!--   </md-card-content> -->
-    <!-- </md-card> -->
   </div>
 
   <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" class="clients-charts">
     <div layout="" layout-wrap>
-      <!-- <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
-      <!--   <usage-chart ></usage-chart> -->
-      <!-- </div> -->
       <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'tx'">
         <tx-chart></tx-chart>
       </div>
-      <!-- <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'mcs'"> -->
-      <!--   <mcs-chart ></mcs-chart> -->
-      <!-- </div> -->
-      <!-- <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'snr'"> -->
-      <!--   <snr-chart ></snr-chart> -->
-      <!-- </div> -->
+      <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'snr'">
+        <interface-chart ></interface-chart>
+      </div>
     </div>
   </div>
 </md-content>

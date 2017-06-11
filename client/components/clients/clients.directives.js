@@ -734,6 +734,9 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
   var link = function( scope, element, attrs, controller ) {
 
+    // Mainly for the charts
+    ClientDetails.client.client_mac = $routeParams.client_id;
+
     scope.location = { slug: $routeParams.id };
     scope.ap_mac   = $routeParams.ap_mac;
     scope.fn       = {key: $filter('translatableChartTitle')($routeParams.fn), value: $routeParams.fn};
@@ -780,9 +783,9 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       scope.updatePage();
     };
 
-    scope.reload = function() {
-      controller.$scope.$broadcast('loadClientChart');
-    };
+    // scope.reload = function() {
+    //   controller.$scope.$broadcast('loadClientChart');
+    // };
 
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
@@ -1059,24 +1062,21 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
     var init = function() {
       Client.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
-        ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
+        ClientDetails.client.location_id = results.location_id;
         scope.client    = results;
         scope.loading   = undefined;
         loadPusher(results.location_token);
-        controller.$scope.$broadcast('loadClientChart');
       });
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      ClientDetails.client = {}
       if (channel) {
         channel.unbind();
       }
     });
 
-    // if ($routeParams.v == '2') {
-    // } else {
     init();
-    // }
 
   };
 
