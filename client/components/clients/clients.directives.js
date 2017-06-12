@@ -347,7 +347,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         },
         controller: rangeCtrl
       });
-    }
+    };
 
     function rangeCtrl($scope) {
 
@@ -358,11 +358,11 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           scope.updatePage();
         }
         $mdDialog.cancel();
-      }
+      };
 
       $scope.close = function() {
         $mdDialog.cancel();
-      }
+      };
     }
 
     var loadPolicies = function() {
