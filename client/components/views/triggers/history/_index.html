@@ -17,8 +17,8 @@
             <tr md-row>
               <th md-column md-order-by="trigger_type"><span translate>Type</span></th>
               <th md-column><span translate>Details</span></th>
-              <th md-column><span translate>Response</span></th>
-              <th md-column md-order-by="created_at" md-desc><span translate>Created</span></th>
+              <th hide show-gt-xs md-column><span translate>Response</span></th>
+              <th hide show-gt-sm md-column md-order-by="created_at" md-desc><span translate>Created</span></th>
               <th md-column ng-show="menu.length"><span translate>Action</span></th>
             </tr>
           </thead>
@@ -33,7 +33,7 @@
                   {{ h.attr_1 | truncate:100 }}
                 </md-tooltip>
               </td>
-              <td md-cell>
+              <td hide show-gt-xs md-cell>
                 {{ h.response | truncate:100 }}
               </td>
               <td hide show-gt-sm md-cell>
