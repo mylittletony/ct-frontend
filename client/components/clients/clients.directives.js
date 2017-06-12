@@ -39,10 +39,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       scope.updatePage();
     };
 
-    scope.updateRange = function() {
-      console.log('hello')
-    }
-
     scope.toggleSearch    = false; // ?
     scope.type            = $routeParams.type || 'tx';
     scope.ap_mac          = $routeParams.ap_mac;
