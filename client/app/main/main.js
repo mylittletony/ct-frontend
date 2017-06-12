@@ -18,7 +18,8 @@ var app = angular.module('myApp', [
   'minicolors',
   'pusher-angular',
   'config',
-  'gettext'
+  'gettext',
+  'moment-picker'
 ]);
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
@@ -708,6 +709,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     });
     $locationProvider.html5Mode(false);
 }]);
+
+// app.config(['moment-picker-provider', function(momentPickerProvider) {
+//   momentPickerProvider.options({
+//     minView: 'year',
+//     maxView: 'hour',
+//     startView: 'day'
+//   });
+// }]);
 
 app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_URL',
   function($q, AccessToken, $rootScope, API_URL) {
