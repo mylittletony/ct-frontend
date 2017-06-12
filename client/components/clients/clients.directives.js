@@ -39,6 +39,10 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       scope.updatePage();
     };
 
+    scope.updateRange = function() {
+      console.log('hello')
+    }
+
     scope.toggleSearch    = false; // ?
     scope.type            = $routeParams.type || 'tx';
     scope.ap_mac          = $routeParams.ap_mac;
@@ -335,6 +339,35 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       };
     }
     colsCtrl.$inject = ['$scope', 'columns'];
+
+    scope.openMomentRange = function() {
+      $mdDialog.show({
+        templateUrl: 'components/locations/clients/_client_date_range.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        locals: {
+          start: scope.start,
+          end: scope.end
+        },
+        controller: rangeCtrl
+      });
+    }
+
+    function rangeCtrl($scope) {
+
+      $scope.saveRange = function() {
+        if ($scope.startFull && $scope.endFull) {
+          scope.query.start = Math.floor($scope.startFull._d / 1000);
+          scope.query.end = Math.floor($scope.endFull._d / 1000);
+          scope.updatePage();
+        }
+        $mdDialog.cancel();
+      }
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      }
+    }
 
     var loadPolicies = function() {
       var deferred = $q.defer();
