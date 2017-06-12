@@ -28,6 +28,8 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       options:    [5,10,25,50,100],
       sort:       $routeParams.sort || 'lastseen',
       direction:  $routeParams.direction || 'desc',
+      start:      $routeParams.start,
+      end:        $routeParams.end,
       v:          $routeParams.v
     };
 
@@ -55,53 +57,48 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       $location.path('/locations/' + scope.location.slug + '/clients/' + id);
     };
 
-    var setInterval = function() {
-      switch(scope.period) {
-        case '5m':
-          interval = '10s';
-          scope.query.distance = 60*5;
-          break;
-        case '30m':
-          interval = '1m';
-          scope.query.distance = 60*30;
-          break;
-        case '1d':
-          interval = '30m';
-          scope.query.distance = 60*60*24;
-          break;
-        case '6h':
-          interval = '30s';
-          scope.query.distance = 60*60*6;
-          break;
-        case '7d':
-          interval = '1h';
-          scope.query.distance = 60*60*24*7;
-          break;
-        case '14d':
-          interval = '1h';
-          scope.query.distance = 60*60*24*14;
-          break;
-        case '30d':
-          interval = '1h';
-          scope.query.distance = 60*60*24*30;
-          break;
-        case '1yr':
-          interval = '1yr';
-          scope.query.distance = 60*60*24*365;
-          break;
-        default:
-          interval = '60s';
-          scope.query.distance = 60*60*6;
-      }
-    };
+    // var setInterval = function() {
+    //   switch(scope.period) {
+    //     case '5m':
+    //       interval = '10s';
+    //       scope.query.distance = 60*5;
+    //       break;
+    //     case '30m':
+    //       interval = '1m';
+    //       scope.query.distance = 60*30;
+    //       break;
+    //     case '1d':
+    //       interval = '30m';
+    //       scope.query.distance = 60*60*24;
+    //       break;
+    //     case '6h':
+    //       interval = '30s';
+    //       scope.query.distance = 60*60*6;
+    //       break;
+    //     case '7d':
+    //       interval = '1h';
+    //       scope.query.distance = 60*60*24*7;
+    //       break;
+    //     case '14d':
+    //       interval = '1h';
+    //       scope.query.distance = 60*60*24*14;
+    //       break;
+    //     case '30d':
+    //       interval = '1h';
+    //       scope.query.distance = 60*60*24*30;
+    //       break;
+    //     case '1yr':
+    //       interval = '1yr';
+    //       scope.query.distance = 60*60*24*365;
+    //       break;
+    //     default:
+    //       interval = '60s';
+    //       scope.query.distance = 60*60*6;
+    //   }
+    // };
 
-    if ($routeParams.start === undefined) {
-      var d = new Date();
-      d.setHours(d.getHours()-2);
-      scope.start = parseInt(d) / 1000;
-    } else {
-      scope.start = $routeParams.start;
-    }
+    // scope.start = $routeParams.start;
+    // scope.end = $routeParams.end;
 
     // scope.table = {
     //   autoSelect: true,
@@ -225,6 +222,8 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
     scope.updatePage = function() {
       var hash            = {};
+      hash.start          = scope.query.start;
+      hash.end             = scope.query.end;
       hash.ap_mac         = scope.ap_mac;
       hash.client_mac     = scope.client_mac;
       hash.policy_id      = scope.policy_id;
@@ -336,18 +335,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       };
     }
     colsCtrl.$inject = ['$scope', 'columns'];
-
-    // var channel, pusherLoaded;
-    // var loadPusher = function(key) {
-    //   if (pusherLoaded === undefined && typeof client !== 'undefined') {
-    //     pusherLoaded = true;
-    //     var pusher = $pusher(client);
-    //     channel = pusher.subscribe('private-'+key);
-    //     channel.bind('clients_update', function(data) {
-    //       updateClients(data.client);
-    //     });
-    //   }
-    // };
 
     var loadPolicies = function() {
       var deferred = $q.defer();
@@ -474,7 +461,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       });
     };
 
-    setInterval();
+    // setInterval();
     createMenu();
 
     var getLocation = function() {
@@ -499,33 +486,33 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       var deferred = $q.defer();
       scope.promise = deferred.promise;
 
-      if (scope.query.end_time === undefined) {
-        var maxDate = moment().utc().toDate();
-        // var maxDate = moment().utc().endOf('day').toDate();
-        var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+      // if (scope.query.end_time === undefined) {
+      //   // var maxDate = moment().utc().toDate();
+      //   // var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
 
-        // These dates won't work when we send different start end times
-        scope.query.end_time = maxDateEpoch;
-      }
+      //   // // These dates won't work when we send different start end times
+      //   // scope.query.end_time = maxDateEpoch;
+      // }
 
-      if (scope.query.start_time === undefined) {
-        var max = moment().utc().toDate();
-        var min = moment(max).utc().subtract(scope.query.distance, 'seconds').toDate();
+      // if (scope.query.start_time === undefined) {
+      //   // var max = moment().utc().toDate();
+      //   // var min = moment(max).utc().subtract(scope.query.distance, 'seconds').toDate();
 
-        scope.query.start_time = Math.floor(min.getTime() / 1000);
-      }
+      //   // scope.query.start_time = Math.floor(min.getTime() / 1000);
+      // }
 
       var params = getParams();
       params.access_token = Auth.currentUser().api_token;
       params.location_id = scope.location.id;
       params.client_type = 'clients.list';
-      params.end_time = scope.query.end_time;
-      params.start_time = scope.query.start_time;
+      params.end_time = scope.query.end;
+      params.start_time = scope.query.start;
 
       if (params.access_token === undefined || params.access_token === '') {
         deferred.reject();
       } else {
         ClientV2.query(params).$promise.then(function(results) {
+          console.log(results)
           scope.clients = results.clients;
           scope.connected = results.online;
           scope.total = results.total;
@@ -539,21 +526,11 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
-    if ($routeParams.v === '2') {
-      getLocation().then(initV2).then(function() {
-        scope.loading = undefined;
-      });
-    } else {
-      init().then(clientsChart).then(groupPolicies).then(function() {
-        scope.loading = undefined;
-      });
-    }
+    getLocation().then(initV2).then(function() {
+      scope.loading = undefined;
+    });
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      // if (channel) {
-      //   channel.unbind();
-      // }
-      // $timeout.cancel(poller);
     });
 
   };
@@ -744,6 +721,9 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
   var link = function( scope, element, attrs, controller ) {
 
+    // Mainly for the charts
+    ClientDetails.client.client_mac = $routeParams.client_id;
+
     scope.location = { slug: $routeParams.id };
     scope.ap_mac   = $routeParams.ap_mac;
     scope.fn       = {key: $filter('translatableChartTitle')($routeParams.fn), value: $routeParams.fn};
@@ -790,9 +770,9 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       scope.updatePage();
     };
 
-    scope.reload = function() {
-      controller.$scope.$broadcast('loadClientChart');
-    };
+    // scope.reload = function() {
+    //   controller.$scope.$broadcast('loadClientChart');
+    // };
 
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
@@ -1069,35 +1049,21 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
     var init = function() {
       Client.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
-        ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
+        ClientDetails.client.location_id = results.location_id;
         scope.client    = results;
         scope.loading   = undefined;
         loadPusher(results.location_token);
-        controller.$scope.$broadcast('loadClientChart');
-      });
-    };
-
-    var initV2 = function() {
-      ClientV2.get({location_id: scope.location.slug, id: $routeParams.client_id}).$promise.then(function(results) {
-        // ClientDetails.client = { location_id: results.location_id, client_mac: results.client_mac };
-        // scope.client    = results;
-        // scope.loading   = undefined;
-        // loadPusher(results.location_token);
-        // controller.$scope.$broadcast('loadClientChart');
       });
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      ClientDetails.client = {}
       if (channel) {
         channel.unbind();
       }
     });
 
-    if ($routeParams.v == '2') {
-      initV2();
-    } else {
-      init();
-    }
+    init();
 
   };
 
@@ -1178,19 +1144,19 @@ app.directive('clientsToolbar', ['$routeParams', '$cookies', 'Client', 'showToas
     };
 
     var orderRedirect = function() {
-      window.location.href = '/#/audit/sales?client_id=' + scope.client.id;
+      window.location.href = '/#/audit/sales?client_id=' + $routeParams.client_id;
     };
 
     var socialRedirect = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/social/' + scope.client.social_id;
+      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + $routeParams.client_id + '/social/' + scope.client.social_id;
     };
 
     var redirect = function(type) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/' + type;
+      window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + $routeParams.client_id + '/' + type;
     };
 
     var policies = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/policies?client_mac=' + scope.client.client_mac;
+      window.location.href = '/#/locations/' + scope.location.slug + '/policies?client_mac=' + $routeParams.client_id;
     };
 
     var logout = function() {
