@@ -353,11 +353,19 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
-          scope.query.start = Math.floor($scope.startFull._d / 1000);
-          scope.query.end = Math.floor($scope.endFull._d / 1000);
-          scope.updatePage();
+          var startTimestamp = Math.floor($scope.startFull._d / 1000);
+          var endTimestamp = Math.floor($scope.endFull._d / 1000);
+          if (startTimestamp > endTimestamp) {
+            showToast(gettextCatalog.getString('Not a valid range period'));
+          } else if ((endTimestamp - startTimestamp) < 3600 || (endTimestamp - startTimestamp) > 86400) {
+            showToast(gettextCatalog.getString('Range period must be between one hour and one day'));
+          } else {
+            scope.query.start = startTimestamp;
+            scope.query.end = endTimestamp;
+            scope.updatePage();
+            $mdDialog.cancel();
+          }
         }
-        $mdDialog.cancel();
       };
 
       $scope.close = function() {
