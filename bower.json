@@ -31,7 +31,7 @@
     "angular-animate": "1.5.11",
     "emojionearea": "3.1.6",
     "dragula.js": "3.7.2",
-    "angular-moment-picker": "moment-picker#^0.10.1"
+    "angular-moment-picker": "0.10.3"
   },
   "overrides": {
     "urijs": {
