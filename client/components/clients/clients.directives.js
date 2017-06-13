@@ -353,8 +353,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
-          var startTimestamp = Math.floor($scope.startFull._d / 1000);
-          var endTimestamp = Math.floor($scope.endFull._d / 1000);
+          // converting the moment picker bullshit time format - this could really do with some work:
+          var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
+          var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
           if (startTimestamp > endTimestamp) {
             showToast(gettextCatalog.getString('Selected range period not valid'));
           } else if ((endTimestamp - startTimestamp) < 3600 || (endTimestamp - startTimestamp) > 86400) {
