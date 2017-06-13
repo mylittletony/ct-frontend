@@ -80,7 +80,7 @@
         <md-card-content>
           <div class="md-toolbar-tools" ng-cloak>
             <span class="md-subhead" translate>
-              There {{ connected == 1 ? 'is' : 'are' }} currently {{ connected || 0 }} client{{ connected == 1 ? '' : 's' }} connected to your network. <span ng-if="query.start">{{ total | 0 }} in total between {{ query.start | lastSeen }} and {{ query.end | lastSeen }}.</span>
+              There {{ connected == 1 ? 'is' : 'are' }} currently {{ connected || 0 }} client{{ connected == 1 ? '' : 's' }} connected to your network. <span ng-if="query.start">{{ total || 0 }} in total between {{ query.start | lastSeen }} and {{ query.end | lastSeen }}.</span>
             </span>
           </div>
           <md-table-container style="overflow-x:scroll;">

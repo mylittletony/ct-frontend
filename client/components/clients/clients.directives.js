@@ -514,31 +514,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
-    // Create as helper //
-    // var maxDate = moment().utc().endOf('day').toDate();
-    // var minDate = moment().utc().subtract(7, 'days').startOf('day').toDate();
-    // var minDateEpoch = Math.floor(minDate.getTime() / 1000);
-    // var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
-    // Create as helper //
-
     var initV2 = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
-
-      // if (scope.query.end_time === undefined) {
-      //   // var maxDate = moment().utc().toDate();
-      //   // var maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
-
-      //   // // These dates won't work when we send different start end times
-      //   // scope.query.end_time = maxDateEpoch;
-      // }
-
-      // if (scope.query.start_time === undefined) {
-      //   // var max = moment().utc().toDate();
-      //   // var min = moment(max).utc().subtract(scope.query.distance, 'seconds').toDate();
-
-      //   // scope.query.start_time = Math.floor(min.getTime() / 1000);
-      // }
 
       var params = getParams();
       params.access_token = Auth.currentUser().api_token;
@@ -551,7 +529,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         deferred.reject();
       } else {
         ClientV2.query(params).$promise.then(function(results) {
-          console.log(results)
           scope.clients = results.clients;
           scope.connected = results.online;
           scope.total = results.total;
@@ -565,7 +542,17 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    var getStats = function() {
+      // var params = {}
+      // params.client_type = 'clients.stats';
+      // params.client_macs = '80-EA-96-97-1A-CF|2C-0E-3D-60-E0-EB';
+      // ClientV2.query(params).$promise.then(function(results) {
+      //   console.log(results)
+      // });
+    }
+
     getLocation().then(initV2).then(function() {
+      getStats();
       scope.loading = undefined;
     });
 
