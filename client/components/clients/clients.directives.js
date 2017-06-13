@@ -336,6 +336,45 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     }
     colsCtrl.$inject = ['$scope', 'columns'];
 
+    scope.openMomentRange = function() {
+      $mdDialog.show({
+        templateUrl: 'components/locations/clients/_client_date_range.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        locals: {
+          start: scope.start,
+          end: scope.end
+        },
+        controller: rangeCtrl
+      });
+    };
+
+    function rangeCtrl($scope) {
+
+      $scope.saveRange = function() {
+        if ($scope.startFull && $scope.endFull) {
+          // converting the moment picker bullshit time format - this could really do with some work:
+          var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
+          var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
+          if (startTimestamp > endTimestamp) {
+            showToast(gettextCatalog.getString('Selected range period not valid'));
+          } else if ((endTimestamp - startTimestamp) < 3600 || (endTimestamp - startTimestamp) > 86400) {
+            // check that the selected range period is between one hour and one day
+            showToast(gettextCatalog.getString('Range period must be between one hour and one day'));
+          } else {
+            scope.query.start = startTimestamp;
+            scope.query.end = endTimestamp;
+            scope.updatePage();
+            $mdDialog.cancel();
+          }
+        }
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+
     var loadPolicies = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;

@@ -1,0 +1,50 @@
+<md-dialog aria-label="{{ 'Client range' | translate }}"  flex="80" ng-cloak  style="max-width: 300px;">
+  <form name="myForm" class="range-form" id="new-range-form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Time range for clients</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex="auto" layout="column">
+          <p translate>Set the hours in which you want to see all connected clients.</p>
+        </div>
+        <div flex="auto" layout="column">
+          <md-input-container>
+            <label>
+              <translate>Start time</translate>
+            </label>
+            <input class="form-control"
+              ng-model="startFull"
+              moment-picker="startFull"
+              start-view="month"
+              min-view="year"
+              max-view="hour">
+          </md-input-container>
+          <md-input-container>
+            <label>
+              <translate>End time</translate>
+            </label>
+            <input class="form-control"
+              ng-model="endFull"
+              moment-picker="endFull"
+              start-view="month"
+              min-view="year"
+              max-view="hour">
+          </md-input-container>
+        </div>
+        <p><small class="muted" style="font-size: 75%;" translate>The maximum range to view clients is one day and the minimum is one hour. You may view connected clients from any time in the last three months.</small></p>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex="auto"></span>
+      <md-button ng-click="close()" translate>
+        Close
+      </md-button>
+      <md-button class="md-raised" ng-click="saveRange()" translate>
+        SAVE
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

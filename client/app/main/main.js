@@ -18,7 +18,8 @@ var app = angular.module('myApp', [
   'minicolors',
   'pusher-angular',
   'config',
-  'gettext'
+  'gettext',
+  'moment-picker'
 ]);
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
