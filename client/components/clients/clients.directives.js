@@ -356,8 +356,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           var startTimestamp = Math.floor($scope.startFull._d / 1000);
           var endTimestamp = Math.floor($scope.endFull._d / 1000);
           if (startTimestamp > endTimestamp) {
-            showToast(gettextCatalog.getString('Not a valid range period'));
+            showToast(gettextCatalog.getString('Selected range period not valid'));
           } else if ((endTimestamp - startTimestamp) < 3600 || (endTimestamp - startTimestamp) > 86400) {
+            // check that the selected range period is between one hour and one day
             showToast(gettextCatalog.getString('Range period must be between one hour and one day'));
           } else {
             scope.query.start = startTimestamp;
