@@ -47,7 +47,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.fn              = {key: $filter('translatableChartTitle')($routeParams.fn ), value: $routeParams.fn };
     scope.end             = $routeParams.end;
     scope.client_mac      = $routeParams.client_mac;
-    scope.period          = $routeParams.period || '6h';
+    // scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
     // scope.location        = { slug: $routeParams.id };
     scope.sort            = $routeParams.sort;
@@ -120,7 +120,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       scope.query.filter = undefined;
       scope.client_mac = undefined;
       scope.ap_mac = undefined;
-      scope.period = '6h';
+      // scope.period = '6h';
       scope.updatePage();
     };
 
@@ -129,10 +129,10 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       clientsChart();
     };
 
-    scope.updatePeriod = function(period) {
-      scope.period = period;
-      scope.updatePage();
-    };
+    // scope.updatePeriod = function(period) {
+    //   scope.period = period;
+    //   scope.updatePage();
+    // };
 
     scope.changeType = function(t) {
       scope.type = t;
