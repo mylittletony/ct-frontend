@@ -554,7 +554,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       // ClientV2.query(params).$promise.then(function(results) {
       //   console.log(results)
       // });
-    }
+    };
 
     getLocation().then(initV2).then(function() {
       getStats();
@@ -758,7 +758,11 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.location = { slug: $routeParams.id };
     scope.ap_mac   = $routeParams.ap_mac;
     scope.fn       = {key: $filter('translatableChartTitle')($routeParams.fn), value: $routeParams.fn};
-    scope.period   = $routeParams.period || '6h';
+    // scope.period   = $routeParams.period || '6h';
+    // default to 6 hours ago:
+    scope.start    = $routeParams.start || (Math.floor(new Date() / 1000) - 21600);
+    // default to now:
+    scope.end      = $routeParams.end || Math.floor(new Date() / 1000);
 
     var logout = function() {
       scope.client.splash_status = 'dnat';
@@ -779,7 +783,9 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       var hash            = {};
       hash.ap_mac         = scope.ap_mac;
       hash.interval       = scope.interval;
-      hash.period         = scope.period;
+      // hash.period         = scope.period;
+      hash.start          = scope.start;
+      hash.end            = scope.end;
       hash.fn             = scope.fn.value;
       $location.search(hash);
       $timeout(function() {
@@ -790,10 +796,54 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       },2000);
     };
 
-    scope.updatePeriod = function(period) {
-      scope.period = period;
-      scope.updatePage();
+    scope.openMomentRange = function() {
+      if ($routeParams.start && $routeParams.end) {
+        scope.startFull = moment($routeParams.start * 1000).format('MM/DD/YYYY h:mm A');
+        scope.endFull = moment($routeParams.end * 1000).format('MM/DD/YYYY h:mm A');
+      }
+      $mdDialog.show({
+        templateUrl: 'components/locations/clients/_client_date_range.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        locals: {
+          startFull: scope.startFull,
+          endFull:   scope.endFull
+        },
+        controller: rangeCtrl
+      });
     };
+
+    function rangeCtrl($scope, startFull, endFull) {
+      $scope.startFull = startFull;
+      $scope.endFull = endFull;
+      $scope.saveRange = function() {
+        if ($scope.startFull && $scope.endFull) {
+          // converting the moment picker time format - this could really do with some work:
+          var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
+          var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
+          if (startTimestamp > endTimestamp) {
+            showToast(gettextCatalog.getString('Selected range period not valid'));
+          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 2592000) {
+            // check that the selected range period is between one hour and one day
+            showToast(gettextCatalog.getString('Range period should be between five minutes and thirty days'));
+          } else {
+            scope.start = startTimestamp;
+            scope.end = endTimestamp;
+            scope.updatePage();
+            $mdDialog.cancel();
+          }
+        }
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+
+    // scope.updatePeriod = function(period) {
+    //   scope.period = period;
+    //   scope.updatePage();
+    // };
 
     scope.refresh = function() {
       scope.period = '30m';
@@ -1088,7 +1138,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      ClientDetails.client = {}
+      ClientDetails.client = {};
       if (channel) {
         channel.unbind();
       }
