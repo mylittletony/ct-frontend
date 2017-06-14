@@ -353,7 +353,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
-          // converting the moment picker bullshit time format - this could really do with some work:
+          // converting the moment picker time format - this could really do with some work:
           var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
           var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
           if (startTimestamp > endTimestamp) {
