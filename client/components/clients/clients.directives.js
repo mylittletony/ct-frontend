@@ -337,23 +337,28 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     colsCtrl.$inject = ['$scope', 'columns'];
 
     scope.openMomentRange = function() {
+      if ($routeParams.start && $routeParams.end) {
+        scope.startFull = moment($routeParams.start * 1000).format('MM/DD/YYYY h:mm A');
+        scope.endFull = moment($routeParams.end * 1000).format('MM/DD/YYYY h:mm A');
+      }
       $mdDialog.show({
         templateUrl: 'components/locations/clients/_client_date_range.html',
         parent: angular.element(document.body),
         clickOutsideToClose:true,
         locals: {
-          start: scope.start,
-          end: scope.end
+          startFull: scope.startFull,
+          endFull:   scope.endFull
         },
         controller: rangeCtrl
       });
     };
 
-    function rangeCtrl($scope) {
-
+    function rangeCtrl($scope, startFull, endFull) {
+      $scope.startFull = startFull;
+      $scope.endFull = endFull;
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
-          // converting the moment picker bullshit time format - this could really do with some work:
+          // converting the moment picker time format - this could really do with some work:
           var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
           var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
           if (startTimestamp > endTimestamp) {
