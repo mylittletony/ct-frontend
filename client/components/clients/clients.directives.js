@@ -779,6 +779,10 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     // default to now:
     scope.end      = $routeParams.end || Math.floor(new Date() / 1000);
 
+    if ($routeParams.start || $routeParams.end) {
+      scope.rangeParams = true;
+    }
+
     var logout = function() {
       scope.client.splash_status = 'dnat';
       Client.logout({
@@ -862,6 +866,12 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
         $mdDialog.cancel();
       };
     }
+
+    scope.clearRangeFilter = function() {
+      scope.start = undefined;
+      scope.end = undefined;
+      scope.updatePage();
+    };
 
     // scope.updatePeriod = function(period) {
     //   scope.period = period;
