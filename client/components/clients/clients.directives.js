@@ -357,6 +357,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     function rangeCtrl($scope, startFull, endFull) {
       $scope.startFull = startFull;
       $scope.endFull = endFull;
+      $scope.page = 'index';
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
           // converting the moment picker time format - this could really do with some work:
@@ -381,7 +382,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         scope.query.end = undefined;
         scope.updatePage();
         $mdDialog.cancel();
-      }
+      };
 
       $scope.close = function() {
         $mdDialog.cancel();
@@ -830,6 +831,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     function rangeCtrl($scope, startFull, endFull) {
       $scope.startFull = startFull;
       $scope.endFull = endFull;
+      $scope.page = 'show';
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
           // converting the moment picker time format - this could really do with some work:
@@ -838,7 +840,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
           if (startTimestamp > endTimestamp) {
             showToast(gettextCatalog.getString('Selected range period not valid'));
           } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 2592000) {
-            // check that the selected range period is between one hour and one day
+            // check that the selected range period is between five minutes and thirty days
             showToast(gettextCatalog.getString('Range period should be between five minutes and thirty days'));
           } else {
             scope.start = startTimestamp;
@@ -854,7 +856,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
         scope.end = undefined;
         scope.updatePage();
         $mdDialog.cancel();
-      }
+      };
 
       $scope.close = function() {
         $mdDialog.cancel();

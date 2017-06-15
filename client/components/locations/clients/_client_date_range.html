@@ -1,4 +1,4 @@
-<md-dialog aria-label="{{ 'Client range' | translate }}"  flex="80" ng-cloak  style="max-width: 350px;">
+<md-dialog aria-label="{{ 'Client range' | translate }}"  flex="80" ng-cloak  style="max-width: 300px;">
   <form name="myForm" class="range-form" id="new-range-form">
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -34,12 +34,13 @@
               max-view="hour">
           </md-input-container>
         </div>
-        <p><small class="muted" style="font-size: 75%;" translate>The maximum range to view clients is one day and the minimum is one hour. You may view connected clients from any time in the last three months.</small></p>
+        <p ng-if='page == "index"'><small class="muted" style="font-size: 75%;" translate>The maximum range to view clients is one day and the minimum is one hour. You may view connected clients from any time in the last three months.</small></p>
+        <p ng-if='page == "show"'><small class="muted" style="font-size: 75%;" translate>The maximum range to view clients is thirty days and the minimum is five minutes. You may view connected clients from any time in the last three months.</small></p>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex="auto"></span>
-      <p><small><a href="" ng-click="clearRangeFilter()" ng-if="startFull || endFull" translate>Clear range filter</a></small></p>
+      <p><small style="font-size: 75%;"><a href="" ng-click="clearRangeFilter()" ng-if="startFull || endFull" translate>Clear filter</a></small></p>
       <md-button ng-click="close()" translate>
         Close
       </md-button>
