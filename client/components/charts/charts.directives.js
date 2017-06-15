@@ -800,7 +800,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     scope.loading = true;
     var c, timer, data, json;
     ClientDetails.client.version = '4';
-    var colours = COLOURS.split(' ');
+    var colours = ['#16ac5b', '#225566'];
     var formatted = { usage: { inbound: 1 } };
 
     // controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -903,7 +903,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
 
     scope.loading = true;
     var c, timer, data, formatted;
-    var colours = COLOURS.split(' ');
+    var colours = ['#16ac5b', '#225566'];
 
     // controller.$scope.$on('resizeClientChart', function (evt,type){
     //   drawChart();
@@ -1006,8 +1006,7 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     scope.loading = true;
     var c, timer, data, formatted;
     // var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
-    var colours = COLOURS.split(' ');
-
+    var colours = ['#16ac5b', '#225566'];
     // controller.$scope.$on('resizeClientChart', function (evt,type){
     //   drawChart();
     // });
@@ -1115,7 +1114,7 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     var c, timer, json, data;
     scope.loading = true;
     // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
-    var colours = COLOURS.split(' ');
+    var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
 
     // controller.$scope.$on('resizeClientChart', function (evt,type){
     //   drawChart();
