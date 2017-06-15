@@ -771,7 +771,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.location = { slug: $routeParams.id };
     scope.ap_mac   = $routeParams.ap_mac;
     scope.fn       = {key: $filter('translatableChartTitle')($routeParams.fn), value: $routeParams.fn};
-    // scope.period   = $routeParams.period || '6h';
+    scope.period   = $routeParams.period || '6h';
     // default to 6 hours ago:
     scope.start    = $routeParams.start || (Math.floor(new Date() / 1000) - 21600);
     // default to now:
@@ -800,9 +800,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       var hash            = {};
       hash.ap_mac         = scope.ap_mac;
       hash.interval       = scope.interval;
-      // hash.period         = scope.period;
-      hash.start          = scope.start;
-      hash.end            = scope.end;
+      hash.period         = scope.period;
       hash.fn             = scope.fn.value;
       $location.search(hash);
       $timeout(function() {
@@ -813,10 +811,10 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       },2000);
     };
 
-    // scope.updatePeriod = function(period) {
-    //   scope.period = period;
-    //   scope.updatePage();
-    // };
+    scope.updatePeriod = function(period) {
+      scope.period = period;
+      scope.updatePage();
+    };
 
     scope.refresh = function() {
       scope.period = '30m';
