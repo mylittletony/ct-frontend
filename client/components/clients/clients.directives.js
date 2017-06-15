@@ -378,9 +378,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       };
 
       $scope.clearRangeFilter = function() {
-        scope.query.start = undefined;
-        scope.query.end = undefined;
-        scope.updatePage();
+        scope.clearRangeFilter();
         $mdDialog.cancel();
       };
 
@@ -856,9 +854,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       };
 
       $scope.clearRangeFilter = function() {
-        scope.start = undefined;
-        scope.end = undefined;
-        scope.updatePage();
+        scope.clearRangeFilter();
         $mdDialog.cancel();
       };
 
