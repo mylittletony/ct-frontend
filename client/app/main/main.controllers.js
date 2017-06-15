@@ -16,7 +16,7 @@ var app = angular.module('myApp.controllers', [
   'myApp.registrations.controller',
   'myApp.zones.controller',
   'myApp.users.controller',
-  'myApp.vouchers.controller',
+  'myApp.vouchers.controller'
 ]);
 
 app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'Brand', 'locationHelper', 'BrandName', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', 'docs', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate', 'COMMITHASH', '$mdDialog',

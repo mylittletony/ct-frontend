@@ -49,17 +49,6 @@
       "main": [
         "webcomponents-lite.min.js"
       ]
-    },
-    "angular-bootstrap-datetimepicker": {
-      "main": [
-        "src/js/datetimepicker.js",
-        "src/js/datetimepicker.templates.js",
-        "src/css/datetimepicker.css"
-      ],
-      "dependencies": {
-        "angular": "^1.x",
-        "moment": "^2.x"
-      }
     }
   },
   "devDependencies": {
