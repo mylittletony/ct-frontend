@@ -8,18 +8,7 @@
     <md-button class="md-icon-button" ng-click="updatePage()" ng-disabled="loadingChart">
       <md-icon>refresh</md-icon>
     </md-button>
-    <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="rangeParams" ng-click="clearRangeFilter()">
-      <md-icon>clear_all</md-icon>
-      <md-tooltip>
-        <translate>
-        Clear range filter
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
-     <md-icon md-font-icon="date_range">date_range</md-icon>
-    </md-button>
-    <!-- <md-button-group hide show-gt-sm class="md-raised">
+    <md-button-group hide show-gt-sm class="md-raised">
       <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }"><span translate>5m</span></md-button>
       <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }"><span translate>30m</span></md-button>
       <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }"><span translate>60m</span></md-button>
@@ -27,7 +16,7 @@
       <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }"><span translate>1d</span></md-button>
       <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }"><span translate>7d</span></md-button>
       <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }"><span translate>30d</span></md-button>
-    </md-button-group> -->
+    </md-button-group>
     <clients-toolbar client="client"></clients-toolbar>
   </div>
   <md-divider></md-divider>

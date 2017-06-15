@@ -21,8 +21,8 @@ app.factory('Client', ['$resource', 'API_END_POINT',
           location_id: '@location_id',
           interval: '@interval',
           distance: '@distance',
-          start_time: '@start',
-          end_time: '@end',
+          start: '@start',
+          end: '@end',
         }
       },
       get: {
