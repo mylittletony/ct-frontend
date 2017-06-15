@@ -45,6 +45,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.client_mac      = $routeParams.client_mac;
     scope.query.filter    = $routeParams.q;
     scope.fn              = {key: $filter('translatableChartTitle')($routeParams.fn ), value: $routeParams.fn };
+    scope.start           = $routeParams.start;
     scope.end             = $routeParams.end;
     scope.client_mac      = $routeParams.client_mac;
     // scope.period          = $routeParams.period || '6h';
@@ -379,6 +380,12 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         $mdDialog.cancel();
       };
     }
+
+    scope.clearRangeFilter = function() {
+      scope.query.start = undefined;
+      scope.query.end = undefined;
+      scope.updatePage();
+    };
 
     var loadPolicies = function() {
       var deferred = $q.defer();
