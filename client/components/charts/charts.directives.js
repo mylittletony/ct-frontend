@@ -18,15 +18,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
       init(obj);
     });
 
-    // $(window).resize(function() {
-    //   if (this.resizeTO) {
-    //     clearTimeout(this.resizeTO);
-    //   }
-    //   this.resizeTO = setTimeout(function() {
-    //     $(this).trigger('resizeEnd');
-    //   }, 250);
-    // });
-
     $(window).on('resizeEnd', function() {
       drawChart();
     });
@@ -399,30 +390,6 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
       };
 
-      // this.v1 = function(params, deferred) {
-      //   Report.clientstats({
-      //     type:         params.type,
-      //     fill:         params.fill || $routeParams.fill,
-      //     fn:           params.fn || $routeParams.fn,
-      //     ap_mac:       $scope.client.ap_mac,
-      //     client_mac:   $scope.client.client_mac,
-      //     location_id:  $routeParams.id,
-      //     resource:     params.resource,
-      //     interval:     params.interval || this.interval,
-      //     period:       this.period,
-      //     start:        params.start,
-      //     end:          params.end,
-      //   }).$promise.then(function(data) {
-      //     if (data.usage || data.timeline) {
-      //       deferred.resolve(data);
-      //     } else {
-      //       deferred.reject();
-      //     }
-      //   }, function() {
-      //     deferred.reject();
-      //   });
-      // };
-
       this.v2 = function(params, deferred) {
         var endOfDay = Math.floor(moment().utc().endOf('day').toDate().getTime() / 1000);
         Metric.clientstats({
@@ -431,8 +398,8 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           client_mac:   $scope.client.client_mac,
           location_id:  $scope.client.location_id,
           interface:    params.interface,
-          start_time:   minDateEpoch,
-          end_time:     maxDateEpoch,
+          start_time:   $routeParams.start || minDateEpoch,
+          end_time:     $routeParams.end || maxDateEpoch,
           rate:         params.rate,
         }).$promise.then(function(data) {
           deferred.resolve(data);
@@ -2025,7 +1992,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
               } else {
                 freq = '5Ghz';
               }
-              console.log(json.meta[j])
               name = json.meta[j].ssid + ' ('+ freq +')';
               break;
             }
