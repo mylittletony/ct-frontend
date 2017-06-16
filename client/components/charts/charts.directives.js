@@ -398,8 +398,8 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           client_mac:   $scope.client.client_mac,
           location_id:  $scope.client.location_id,
           interface:    params.interface,
-          start_time:   minDateEpoch,
-          end_time:     maxDateEpoch,
+          start_time:   $routeParams.start || minDateEpoch,
+          end_time:     $routeParams.end || maxDateEpoch,
           rate:         params.rate,
         }).$promise.then(function(data) {
           deferred.resolve(data);
@@ -1992,7 +1992,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
               } else {
                 freq = '5Ghz';
               }
-              console.log(json.meta[j])
               name = json.meta[j].ssid + ' ('+ freq +')';
               break;
             }
