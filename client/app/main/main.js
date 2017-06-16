@@ -18,7 +18,8 @@ var app = angular.module('myApp', [
   'minicolors',
   'pusher-angular',
   'config',
-  'gettext'
+  'gettext',
+  'moment-picker'
 ]);
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
@@ -27,6 +28,20 @@ app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
 
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
+}]);
+
+app.config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
+  $mdDateLocaleProvider.formatDate = function(date) {
+    var dd = ("0" + date.getDate()).slice(-2);
+    var mm = ("0" + (date.getMonth() + 1)).slice(-2);
+    var yy = date.getFullYear();
+    var full = mm + '/' + dd + '/' + yy;
+    return moment(full, 'MM/DD/YYYY').format('L');
+  };
+  $mdDateLocaleProvider.parseDate = function(dateString) {
+    var m = moment(dateString, 'L');
+    return m.isValid() ? m.toDate() : new Date(NaN);
+  };
 }]);
 
 app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES) {
