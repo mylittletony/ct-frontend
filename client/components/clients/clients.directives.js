@@ -45,6 +45,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.client_mac      = $routeParams.client_mac;
     scope.query.filter    = $routeParams.q;
     scope.fn              = {key: $filter('translatableChartTitle')($routeParams.fn ), value: $routeParams.fn };
+    scope.start           = $routeParams.start;
     scope.end             = $routeParams.end;
     scope.client_mac      = $routeParams.client_mac;
     // scope.period          = $routeParams.period || '6h';
@@ -337,23 +338,29 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     colsCtrl.$inject = ['$scope', 'columns'];
 
     scope.openMomentRange = function() {
+      if ($routeParams.start && $routeParams.end) {
+        scope.startFull = moment($routeParams.start * 1000).format('MM/DD/YYYY h:mm A');
+        scope.endFull = moment($routeParams.end * 1000).format('MM/DD/YYYY h:mm A');
+      }
       $mdDialog.show({
         templateUrl: 'components/locations/clients/_client_date_range.html',
         parent: angular.element(document.body),
         clickOutsideToClose:true,
         locals: {
-          start: scope.start,
-          end: scope.end
+          startFull: scope.startFull,
+          endFull:   scope.endFull
         },
         controller: rangeCtrl
       });
     };
 
-    function rangeCtrl($scope) {
-
+    function rangeCtrl($scope, startFull, endFull) {
+      $scope.startFull = startFull;
+      $scope.endFull = endFull;
+      $scope.page = 'index';
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
-          // converting the moment picker bullshit time format - this could really do with some work:
+          // converting the moment picker time format - this could really do with some work:
           var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
           var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
           if (startTimestamp > endTimestamp) {
@@ -370,10 +377,21 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         }
       };
 
+      $scope.clearRangeFilter = function() {
+        scope.clearRangeFilter();
+        $mdDialog.cancel();
+      };
+
       $scope.close = function() {
         $mdDialog.cancel();
       };
     }
+
+    scope.clearRangeFilter = function() {
+      scope.query.start = undefined;
+      scope.query.end = undefined;
+      scope.updatePage();
+    };
 
     var loadPolicies = function() {
       var deferred = $q.defer();
@@ -549,7 +567,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       // ClientV2.query(params).$promise.then(function(results) {
       //   console.log(results)
       // });
-    }
+    };
 
     getLocation().then(initV2).then(function() {
       getStats();
@@ -754,6 +772,14 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.ap_mac   = $routeParams.ap_mac;
     scope.fn       = {key: $filter('translatableChartTitle')($routeParams.fn), value: $routeParams.fn};
     scope.period   = $routeParams.period || '6h';
+    // default to 6 hours ago:
+    scope.start    = $routeParams.start || (Math.floor(new Date() / 1000) - 21600);
+    // default to now:
+    scope.end      = $routeParams.end || Math.floor(new Date() / 1000);
+
+    if ($routeParams.start || $routeParams.end) {
+      scope.rangeParams = true;
+    }
 
     var logout = function() {
       scope.client.splash_status = 'dnat';
@@ -1083,7 +1109,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      ClientDetails.client = {}
+      ClientDetails.client = {};
       if (channel) {
         channel.unbind();
       }
