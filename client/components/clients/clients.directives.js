@@ -534,17 +534,22 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
     var txrx = function() {
       for (var i = 0, len = scope.clients.length; i < len; i++) {
+        var tx, rx;
         var metrics = scope.clients[i].metrics;
         if (metrics && metrics.length == 2) {
           var data = metrics[0].data;
-          var tx = data[data.length-1].value;
-          tx = Math.round(tx * 100) / 100;
-          scope.clients[i].txbitrate = tx;
+          if (data.length > 0) {
+            tx = data[data.length-1].value;
+            tx = Math.round(tx * 100) / 100;
+            scope.clients[i].txbitrate = tx;
+          }
 
           data = metrics[1].data;
-          var rx = data[data.length-1].value;
-          rx = Math.round(rx * 100) / 100;
-          scope.clients[i].rxbitrate = rx;
+          if (data.length > 0) {
+            rx = data[data.length-1].value;
+            rx = Math.round(rx * 100) / 100;
+            scope.clients[i].rxbitrate = rx;
+          }
         }
       }
     };
