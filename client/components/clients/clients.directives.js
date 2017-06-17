@@ -534,15 +534,18 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
     var txrx = function() {
       for (var i = 0, len = scope.clients.length; i < len; i++) {
-        var data = scope.clients[i].metrics[0].data
-        var tx = data[data.length-1].value
-        tx = Math.round(tx * 100) / 100
-        scope.clients[i].txbitrate = tx
+        var metrics = scope.clients[i].metrics;
+        if (metrics && metrics.length == 2) {
+          var data = metrics[0].data;
+          var tx = data[data.length-1].value;
+          tx = Math.round(tx * 100) / 100;
+          scope.clients[i].txbitrate = tx;
 
-        data = scope.clients[i].metrics[1].data
-        var rx = data[data.length-1].value
-        rx = Math.round(rx * 100) / 100
-        scope.clients[i].rxbitrate = rx
+          data = metrics[1].data;
+          var rx = data[data.length-1].value;
+          rx = Math.round(rx * 100) / 100;
+          scope.clients[i].rxbitrate = rx;
+        }
       }
     };
 
@@ -565,7 +568,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           scope.clients = results.clients;
           scope.connected = results.online;
           scope.total = results.total;
-          txrx()
+          txrx();
           deferred.resolve();
         }, function(err) {
           scope.loading_table = undefined;
