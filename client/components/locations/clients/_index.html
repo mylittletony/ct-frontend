@@ -155,10 +155,10 @@
                     <translate>{{ client.expected_throughput || 0}}Mbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.txbitrate">
-                    <translate>{{ client.txbitrate || 0 }}Mbps</translate>
+                    <translate>{{ client.txbitrate || 0 }}Kbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.rxbitrate">
-                    <translate>{{ client.rxbitrate || 0 }}Mbps</translate>
+                    <translate>{{ client.rxbitrate || 0 }}Kbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.snr">
                     <span class="text-muted" ng-if="client.conn_type == 'wired'" translate>

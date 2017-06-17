@@ -532,6 +532,20 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    var txrx = function() {
+      for (var i = 0, len = scope.clients.length; i < len; i++) {
+        var data = scope.clients[i].metrics[0].data
+        var tx = data[data.length-1].value
+        tx = Math.round(tx * 100) / 100
+        scope.clients[i].txbitrate = tx
+
+        data = scope.clients[i].metrics[1].data
+        var rx = data[data.length-1].value
+        rx = Math.round(rx * 100) / 100
+        scope.clients[i].rxbitrate = rx
+      }
+    };
+
     var initV2 = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
@@ -542,6 +556,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       params.client_type = 'clients.list';
       params.end_time = scope.query.end;
       params.start_time = scope.query.start;
+      params.meta = true;
 
       if (params.access_token === undefined || params.access_token === '') {
         deferred.reject();
@@ -550,6 +565,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           scope.clients = results.clients;
           scope.connected = results.online;
           scope.total = results.total;
+          txrx()
           deferred.resolve();
         }, function(err) {
           scope.loading_table = undefined;
