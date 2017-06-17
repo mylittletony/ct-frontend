@@ -22,21 +22,21 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     // replacing for the short-term
     scope.pagination_labels = pagination_labels;
     scope.query = {
-      order:      'updated_at',
+      order:      '-lastseen',
       limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
+      // page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
-      sort:       $routeParams.sort || 'lastseen',
-      direction:  $routeParams.direction || 'desc',
+      // sort:       $routeParams.sort || 'lastseen',
+      // direction:  $routeParams.direction || 'desc',
       start:      $routeParams.start,
       end:        $routeParams.end,
       v:          $routeParams.v
     };
 
     scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      scope.updatePage();
+      // scope.query.page = page;
+      // scope.query.limit = limit;
+      // scope.updatePage();
     };
 
     scope.toggleSearch    = false; // ?
