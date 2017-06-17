@@ -576,17 +576,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
-    var getStats = function() {
-      // var params = {}
-      // params.client_type = 'clients.stats';
-      // params.client_macs = '80-EA-96-97-1A-CF|2C-0E-3D-60-E0-EB';
-      // ClientV2.query(params).$promise.then(function(results) {
-      //   console.log(results)
-      // });
-    };
-
     getLocation().then(initV2).then(function() {
-      getStats();
       scope.loading = undefined;
     });
 
