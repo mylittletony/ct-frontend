@@ -22,21 +22,21 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     // replacing for the short-term
     scope.pagination_labels = pagination_labels;
     scope.query = {
-      order:      'updated_at',
+      order:      '-lastseen',
       limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
+      // page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
-      sort:       $routeParams.sort || 'lastseen',
-      direction:  $routeParams.direction || 'desc',
+      // sort:       $routeParams.sort || 'lastseen',
+      // direction:  $routeParams.direction || 'desc',
       start:      $routeParams.start,
       end:        $routeParams.end,
       v:          $routeParams.v
     };
 
     scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      scope.updatePage();
+      // scope.query.page = page;
+      // scope.query.limit = limit;
+      // scope.updatePage();
     };
 
     scope.toggleSearch    = false; // ?
@@ -532,6 +532,28 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    var txrx = function() {
+      for (var i = 0, len = scope.clients.length; i < len; i++) {
+        var tx, rx;
+        var metrics = scope.clients[i].metrics;
+        if (metrics && metrics.length == 2) {
+          var data = metrics[0].data;
+          if (data.length > 0) {
+            tx = data[data.length-1].value;
+            tx = Math.round(tx * 100) / 100;
+            scope.clients[i].txbitrate = tx;
+          }
+
+          data = metrics[1].data;
+          if (data.length > 0) {
+            rx = data[data.length-1].value;
+            rx = Math.round(rx * 100) / 100;
+            scope.clients[i].rxbitrate = rx;
+          }
+        }
+      }
+    };
+
     var initV2 = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
@@ -542,6 +564,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       params.client_type = 'clients.list';
       params.end_time = scope.query.end;
       params.start_time = scope.query.start;
+      params.meta = true;
 
       if (params.access_token === undefined || params.access_token === '') {
         deferred.reject();
@@ -550,6 +573,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           scope.clients = results.clients;
           scope.connected = results.online;
           scope.total = results.total;
+          txrx();
           deferred.resolve();
         }, function(err) {
           scope.loading_table = undefined;
@@ -560,17 +584,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
-    var getStats = function() {
-      // var params = {}
-      // params.client_type = 'clients.stats';
-      // params.client_macs = '80-EA-96-97-1A-CF|2C-0E-3D-60-E0-EB';
-      // ClientV2.query(params).$promise.then(function(results) {
-      //   console.log(results)
-      // });
-    };
-
     getLocation().then(initV2).then(function() {
-      getStats();
       scope.loading = undefined;
     });
 
