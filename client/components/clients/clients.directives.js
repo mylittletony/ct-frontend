@@ -771,10 +771,10 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.start    = $routeParams.start || (Math.floor(new Date() / 1000) - 21600);
     // default to now:
     scope.end      = $routeParams.end || Math.floor(new Date() / 1000);
-    scope.showClearFilter = false
+    scope.filtered = false;
 
     if ($routeParams.start || $routeParams.end) {
-      scope.showClearFilter = true;
+      scope.filtered = true;
     }
 
     var logout = function() {
@@ -843,7 +843,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
           } else {
             scope.start = startTimestamp;
             scope.end = endTimestamp;
-            scope.showClearFilter = true;
+            scope.filtered = true;
             scope.updatePage();
             $mdDialog.cancel();
           }
@@ -858,7 +858,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.clearRangeFilter = function() {
       scope.start = undefined;
       scope.end = undefined;
-      scope.showClearFilter = false;
+      scope.filtered = false;
       scope.updatePage();
     };
 
