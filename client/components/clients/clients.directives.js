@@ -377,11 +377,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         }
       };
 
-      $scope.clearRangeFilter = function() {
-        scope.clearRangeFilter();
-        $mdDialog.cancel();
-      };
-
       $scope.close = function() {
         $mdDialog.cancel();
       };
@@ -777,10 +772,6 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     // default to now:
     scope.end      = $routeParams.end || Math.floor(new Date() / 1000);
 
-    if ($routeParams.start || $routeParams.end) {
-      scope.rangeParams = true;
-    }
-
     var logout = function() {
       scope.client.splash_status = 'dnat';
       Client.logout({
@@ -851,11 +842,6 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
             $mdDialog.cancel();
           }
         }
-      };
-
-      $scope.clearRangeFilter = function() {
-        scope.clearRangeFilter();
-        $mdDialog.cancel();
       };
 
       $scope.close = function() {
