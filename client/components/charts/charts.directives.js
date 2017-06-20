@@ -1433,13 +1433,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         };
 
         if (data === undefined && resp && resp.data) {
-          // if (window.google && window.google.visualization) {
-            // data = new window.google.visualization.DataTable();
-          // } else {
-            // $timeout(function () {
-              data = new window.google.visualization.DataTable();
-            // }, 500);
-          // }
+          
+          data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
           data.addColumn('number', 'dummySeries');
           data.addColumn('number', gettextCatalog.getString('clients'));
