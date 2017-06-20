@@ -1352,7 +1352,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       };
 
       controller.getStats(params).then(function(res) {
-        drawChart(res);
+        if (window.google && window.google.visualization) {
+          drawChart(res);
+        } else {
+          $timeout(function () {
+            drawChart(res);
+          }, 500);
+        }
       }, function() {
         clearChart();
         console.log('No data returned for query');
@@ -1424,8 +1430,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         };
 
         if (data === undefined && resp && resp.data) {
-
-          data = new window.google.visualization.DataTable();
+          // if (window.google && window.google.visualization) {
+            // data = new window.google.visualization.DataTable();
+          // } else {
+            // $timeout(function () {
+              data = new window.google.visualization.DataTable();
+            // }, 500);
+          // }
           data.addColumn('datetime', 'Date');
           data.addColumn('number', 'dummySeries');
           data.addColumn('number', gettextCatalog.getString('clients'));
