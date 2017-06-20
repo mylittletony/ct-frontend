@@ -427,7 +427,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
 
 }]);
 
-app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', '$filter', 'ClientDetails', function($timeout, Report, $routeParams, gettextCatalog, $filter, ClientDetails) {
+app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog', '$filter', 'COLOURS', 'ClientDetails', function($timeout, Report, $routeParams, gettextCatalog, $filter, COLOURS, ClientDetails) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -440,6 +440,8 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
     if (rate === undefined && rate !== 'true' && rate !== 'false') {
       rate = 'true';
     }
+    var colours = COLOURS.split(' ');
+
 
     scope.loading  = true;
     scope.fn       = {key: gettextCatalog.getString('mean'), value:'mean'};
@@ -557,6 +559,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       formatter.format(data,2);
       formatter.format(data,3);
 
+      opts.colors = colours;
       opts.legend = { position: 'bottom' };
       opts.series = {
         0: {
@@ -689,7 +692,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
       opts.title = 'none';
       opts.pieSliceText = 'none';
       opts.height = '260';
-      opts.colors = colours;
+      opts.colors = ['#16ac5b', '#225566'];
 
       if (!a) {
 
@@ -1488,7 +1491,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
 }]);
 
-app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', 'ClientDetails', function(Report, $routeParams, $timeout, gettextCatalog, ClientDetails) {
+app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalog', 'COLOURS', 'ClientDetails', function(Report, $routeParams, $timeout, gettextCatalog, COLOURS, ClientDetails) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -1497,6 +1500,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     var rate = 'false';
     scope.loading = true;
     scope.type  = 'devices.load5';
+    var colours = COLOURS.split(' ');
 
     // Depreciate soon
     if (ClientDetails.client.version === '3.0') {
@@ -1587,6 +1591,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         );
         formatter.format(data,2);
 
+        opts.colors = colours;
         opts.vAxes = {
           0: {
             textPosition: 'none',
