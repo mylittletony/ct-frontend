@@ -557,7 +557,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         {suffix: suffix}
       );
       formatter.format(data,2);
-      formatter.format(data,3);
+      if (data.pg.length > 3) {
+        formatter.format(data,3);
+      }
 
       opts.colors = colours;
       opts.legend = { position: 'bottom' };
