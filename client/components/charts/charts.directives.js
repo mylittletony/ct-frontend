@@ -1433,7 +1433,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         };
 
         if (data === undefined && resp && resp.data) {
-          
+
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
           data.addColumn('number', 'dummySeries');
