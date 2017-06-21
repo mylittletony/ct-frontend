@@ -1355,7 +1355,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       };
 
       controller.getStats(params).then(function(res) {
-        drawChart(res);
+        if (window.google && window.google.visualization) {
+          drawChart(res);
+        } else {
+          $timeout(function () {
+            drawChart(res);
+          }, 500);
+        }
       }, function() {
         clearChart();
         console.log('No data returned for query');
