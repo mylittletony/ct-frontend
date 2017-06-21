@@ -766,9 +766,9 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     var colours = ['#16ac5b', '#225566'];
     var formatted = { usage: { inbound: 1 } };
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -868,9 +868,9 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
     var c, timer, data, formatted;
     var colours = ['#16ac5b', '#225566'];
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -970,9 +970,9 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     var c, timer, data, formatted;
     // var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
     var colours = ['#16ac5b', '#225566'];
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -1079,9 +1079,9 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
     var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -1343,9 +1343,9 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
 
