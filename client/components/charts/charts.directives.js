@@ -1182,7 +1182,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       }
     });
 
-    controller.$scope.$on('loadClientChart', function  (){
+    controller.$scope.$on('loadClientChart', function() {
       a = undefined;
       chart();
     });
