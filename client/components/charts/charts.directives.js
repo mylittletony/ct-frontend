@@ -1182,6 +1182,11 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       }
     });
 
+    controller.$scope.$on('loadClientChart', function  (){
+      a = undefined;
+      chart();
+    });
+
     function getOptions(colors) {
       var opts =  {
         timeline: {
