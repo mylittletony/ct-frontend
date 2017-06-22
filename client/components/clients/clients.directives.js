@@ -1015,6 +1015,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
         } else {
           params.destroy_policies = true;
         }
+
         Client.update({
           location_id: scope.location.slug,
           id: scope.client.client_mac,
@@ -1067,8 +1068,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       $scope.close = function() {
         $mdDialog.cancel();
       };
-      $scope.save = function() {
-        console.log()
+      $scope.save = function(name) {
         scope.update();
         $mdDialog.cancel();
       };
