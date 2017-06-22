@@ -1015,10 +1015,9 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
         } else {
           params.destroy_policies = true;
         }
-
         Client.update({
           location_id: scope.location.slug,
-          id: scope.client.id,
+          id: scope.client.client_mac,
           client: params
         }).$promise.then(function(results) {
           refreshPolicies();
