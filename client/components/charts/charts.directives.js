@@ -608,6 +608,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             hours: {format: [gettextCatalog.getString('hh:mm a')]},
             minutes: {format: [gettextCatalog.getString('hh:mm a')]}
           }
+        },
+        textStyle: {
+          fontSize: 12
         }
       };
 
@@ -1971,6 +1974,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             hours: {format: [gettextCatalog.getString('hh:mm a')]},
             minutes: {format: [gettextCatalog.getString('hh:mm a')]}
           }
+        },
+        textStyle: {
+          fontSize: 12
         }
       };
 
