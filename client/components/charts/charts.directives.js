@@ -1869,7 +1869,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         type = 'interfaces.snr';
         iface = '*';
       } else {
-        type = 'clients.snr'
+        type = 'clients.snr';
       }
 
       var params = {
