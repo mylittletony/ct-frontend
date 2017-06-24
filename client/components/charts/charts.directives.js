@@ -608,6 +608,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             hours: {format: [gettextCatalog.getString('hh:mm a')]},
             minutes: {format: [gettextCatalog.getString('hh:mm a')]}
           }
+        },
+        textStyle: {
+          fontSize: 12
         }
       };
 
@@ -1182,6 +1185,11 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       }
     });
 
+    controller.$scope.$on('loadClientChart', function() {
+      a = undefined;
+      chart();
+    });
+
     function getOptions(colors) {
       var opts =  {
         timeline: {
@@ -1355,7 +1363,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       };
 
       controller.getStats(params).then(function(res) {
-        drawChart(res);
+        if (window.google && window.google.visualization) {
+          drawChart(res);
+        } else {
+          $timeout(function () {
+            drawChart(res);
+          }, 500);
+        }
       }, function() {
         clearChart();
         console.log('No data returned for query');
@@ -1960,6 +1974,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             hours: {format: [gettextCatalog.getString('hh:mm a')]},
             minutes: {format: [gettextCatalog.getString('hh:mm a')]}
           }
+        },
+        textStyle: {
+          fontSize: 12
         }
       };
 

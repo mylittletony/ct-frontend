@@ -377,11 +377,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         }
       };
 
-      $scope.clearRangeFilter = function() {
-        scope.clearRangeFilter();
-        $mdDialog.cancel();
-      };
-
       $scope.close = function() {
         $mdDialog.cancel();
       };
@@ -790,9 +785,10 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.start    = $routeParams.start || (Math.floor(new Date() / 1000) - 21600);
     // default to now:
     scope.end      = $routeParams.end || Math.floor(new Date() / 1000);
+    scope.filtered = false;
 
     if ($routeParams.start || $routeParams.end) {
-      scope.rangeParams = true;
+      scope.filtered = true;
     }
 
     var logout = function() {
@@ -861,15 +857,11 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
           } else {
             scope.start = startTimestamp;
             scope.end = endTimestamp;
+            scope.filtered = true;
             scope.updatePage();
             $mdDialog.cancel();
           }
         }
-      };
-
-      $scope.clearRangeFilter = function() {
-        scope.clearRangeFilter();
-        $mdDialog.cancel();
       };
 
       $scope.close = function() {
@@ -880,6 +872,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.clearRangeFilter = function() {
       scope.start = undefined;
       scope.end = undefined;
+      scope.filtered = false;
       scope.updatePage();
     };
 
@@ -1025,7 +1018,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
         Client.update({
           location_id: scope.location.slug,
-          id: scope.client.id,
+          id: scope.client.client_mac,
           client: params
         }).$promise.then(function(results) {
           refreshPolicies();
@@ -1162,7 +1155,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       client.description = scope.client.description;
       Client.update({
         location_id: scope.location.slug,
-        id: scope.client.id,
+        id: scope.client.client_mac,
         client: client
       }).$promise.then(function(results) {
         showToast('Client updated successfully.');
