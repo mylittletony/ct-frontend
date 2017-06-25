@@ -48,10 +48,10 @@
   <md-divider></md-divider>
 </md-toolbar>
 
-<section ng-cloak ng-if="!loading && !fs">
-  <md-subheader class="md-accent">
+<section ng-if="!loading && !fs">
+  <md-subheader class="md-no-sticky">
     <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" ng-class="{ 'box-image': box.device_icon !== 'blank.png' }"/>
-    <b><translate>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip><translate>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</translate></b></md-tooltip></span></span>
+    <device-meta box="box"></device-meta>
   </md-subheader>
 </section>
 
