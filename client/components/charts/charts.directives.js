@@ -558,7 +558,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
           }
         },
         textStyle: {
-          fontSize: 12
+          fontSize: 10
         }
       };
 
@@ -1972,7 +1972,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           }
         },
         textStyle: {
-          fontSize: 12
+          fontSize: 10
         }
       };
 
