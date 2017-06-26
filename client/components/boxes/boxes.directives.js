@@ -1756,18 +1756,26 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('deviceMeta', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
+app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     var load;
 
-    var loadMeta = function() {
+    var loadMeta = function(nv) {
+      Metric.clientstats({
+        type:         'devices.meta',
+        ap_mac:       nv.calledstationid,
+        location_id:  nv.location_id,
+      }).$promise.then(function(data) {
+        scope.metadata = data
+      }, function() {
+      });
       return;
     };
 
     scope.$watch('box',function(nv){
       if (nv !== undefined && !load && nv.calledstationid) {
-        loadMeta();
+        loadMeta(nv);
       }
     });
   };
