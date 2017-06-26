@@ -598,9 +598,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     };
 
     var fetchMetrics = function(val) {
-
-      // val = 'D8-42-E2-00-00-C0'
-
       var deferred = $q.defer();
       var params = getParams();
       params.access_token = Auth.currentUser().api_token;
@@ -628,8 +625,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           defer.resolve();
         });
       }
-
-      var a = [1]
 
       angular.forEach(scope.clients, function(value){
         promises.push(fetchMetrics(value.client_mac));

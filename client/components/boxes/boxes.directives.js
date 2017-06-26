@@ -1756,21 +1756,45 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
+app.directive('deviceMeta', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
+
+  var link = function(scope, element,attrs) {
+    var load;
+
+    var loadMeta = function() {
+      return;
+    };
+
+    scope.$watch('box',function(nv){
+      if (nv !== undefined && !load && nv.calledstationid) {
+        loadMeta();
+      }
+    });
+  };
+
+  return {
+    link: link,
+    scope: {
+      box: '='
+    },
+    // templateUrl: 'components/boxes/payloads/_speedtest_widget.html'
+  };
+
+}]);
+
 app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
-    scope.runSpeedtest = function() {
-      scope.box.speedtest_running = true;
-      // scope.box.allowed_job = false;
-      updateCT();
-    };
-
     var updateCT = function() {
       Speedtest.create({box_id: scope.box.slug}).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Running speedtest, please wait.'));
       }, function(errors) {
         showErrors(errors);
       });
+    };
+    scope.runSpeedtest = function() {
+      scope.box.speedtest_running = true;
+      updateCT();
     };
   };
 
