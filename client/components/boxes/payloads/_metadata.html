@@ -1,0 +1,5 @@
+<section ng-cloak ng-if="!loading && !fs">
+  <md-subheader class="md-accent">
+    <b><translate>{{ box_data.meta.clients || 0 }} connected. {{ (box_data.meta.tx || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box_data.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box_data.meta.ssids.length != 1">s</span>: {{ box_data.ssids.length }} <md-tooltip><translate>Broadcasting {{ box_data.ssids.length }} SSIDs</translate></b></md-tooltip></span></span>
+  </md-subheader>
+</section>

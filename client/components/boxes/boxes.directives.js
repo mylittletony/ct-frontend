@@ -1767,7 +1767,8 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
         ap_mac:       nv.calledstationid,
         location_id:  nv.location_id,
       }).$promise.then(function(data) {
-        scope.metadata = data
+        console.log(data)
+        scope.box_data = data
       }, function() {
       });
       return;
@@ -1785,7 +1786,7 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
     scope: {
       box: '='
     },
-    // templateUrl: 'components/boxes/payloads/_speedtest_widget.html'
+    templateUrl: 'components/boxes/payloads/_metadata.html'
   };
 
 }]);
