@@ -19,7 +19,7 @@
               <label>
                 <translate>SSID</translate>
               </label>
-              <input name="ssid" md-maxlength="32" ng-model="network.ssid" emoji-picker="{content: '.ssid-input', pickerPosition: 'bottom'}" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
+              <!-- <input name="ssid" md-maxlength="32" ng-model="network.ssid" emoji-picker="{content: '.ssid-input', pickerPosition: 'bottom'}" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required> -->
               <div ng-messages="myForm.ssid.$error">
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>
