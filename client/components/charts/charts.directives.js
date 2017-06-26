@@ -431,8 +431,6 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
 
   var link = function(scope,element,attrs,controller) {
 
-    // ClientDetails.client.version = '4';
-
     var a, data;
     var c, timer, json, type;
     var opts = controller.options;
@@ -447,32 +445,6 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
     scope.fn       = {key: gettextCatalog.getString('mean'), value:'mean'};
     scope.noData   = undefined;
 
-    controller.$scope.$on('resizeClientChart', function (evt,type){
-      if (a) {
-        drawChart();
-      }
-    });
-
-    controller.$scope.$on('loadClientChart', function (evt, type){
-      a = undefined;
-      chart();
-    });
-
-    scope.changeFn = function(type) {
-      controller.fn = type;
-      scope.fn = {key: $filter('translatableChartTitle')(type), value: type};
-      chart();
-    };
-
-    scope.changeTxType = function(t) {
-      type = t;
-      chart(type);
-    };
-
-    scope.refresh = function() {
-      chart();
-    };
-
     scope.fullScreen = function(type) {
       var t = { panel: type };
       if (!scope.fs) {
@@ -484,27 +456,6 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       }
     };
 
-    function chart() {
-
-      if (ClientDetails.client.client_mac === '') {
-        type = 'devices.rx,devices.tx';
-      } else {
-        type = 'clients.tx,clients.rx'
-      }
-      var params = {
-        type: type,
-        resource: scope.resource,
-        rate: rate,
-        fn: scope.fn.value
-      };
-      controller.getStats(params).then(function(data) {
-        json = data;
-        drawChart();
-      }, function() {
-        clearChart();
-      });
-    }
-
     var clearChart = function() {
       if (c) {
         c.clearChart();
@@ -514,10 +465,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
     };
 
     function drawChart() {
-
       var len, time, suffix;
-
-      // var drawChartCallback = function() {
 
       if (json.multi === true) {
       }
@@ -608,6 +556,9 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             hours: {format: [gettextCatalog.getString('hh:mm a')]},
             minutes: {format: [gettextCatalog.getString('hh:mm a')]}
           }
+        },
+        textStyle: {
+          fontSize: 12
         }
       };
 
@@ -630,6 +581,55 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       a = true;
       c.draw(data, opts);
     }
+
+    function chart() {
+      if (ClientDetails.client.client_mac === '' || ClientDetails.client.client_mac === undefined) {
+        type = 'devices.rx,devices.tx';
+      } else {
+        type = 'clients.tx,clients.rx';
+      }
+      var params = {
+        type: type,
+        resource: scope.resource,
+        rate: rate,
+        fn: scope.fn.value
+      };
+      controller.getStats(params).then(function(data) {
+        if (data && data.data && data.data.length) {
+          json = data;
+          drawChart();
+        } else {
+          clearChart();
+        }
+      }, function() {
+        clearChart();
+      });
+    }
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      if (a) {
+        drawChart();
+      }
+    });
+
+    controller.$scope.$on('loadClientChart', function (evt, type){
+      a = undefined;
+      chart();
+    });
+
+    scope.changeTxType = function(t) {
+      type = t;
+      chart(type);
+    };
+
+    scope.refresh = function() {
+      chart();
+    };
+
+    scope.changeFn = function(type) {
+      controller.fn = type;
+      scope.fn = {key: $filter('translatableChartTitle')(type), value: type};
+      chart();
+    };
 
     setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
@@ -766,9 +766,9 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     var colours = ['#16ac5b', '#225566'];
     var formatted = { usage: { inbound: 1 } };
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -868,9 +868,9 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
     var c, timer, data, formatted;
     var colours = ['#16ac5b', '#225566'];
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -970,9 +970,9 @@ app.directive('clientsConnChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     var c, timer, data, formatted;
     // var colours = ['#16ac5b', '#225566', '#007788', '#0088AA', '#0088BB', '#BBCCCC'];
     var colours = ['#16ac5b', '#225566'];
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -1079,9 +1079,9 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
     var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
       var params = {
@@ -1180,6 +1180,11 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
       if (a) {
         drawChart();
       }
+    });
+
+    controller.$scope.$on('loadClientChart', function() {
+      a = undefined;
+      chart();
     });
 
     function getOptions(colors) {
@@ -1343,9 +1348,9 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
 
-    // controller.$scope.$on('resizeClientChart', function (evt,type){
-    //   drawChart();
-    // });
+    controller.$scope.$on('resizeClientChart', function (evt,type){
+      drawChart();
+    });
 
     function chart() {
 
@@ -1355,7 +1360,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       };
 
       controller.getStats(params).then(function(res) {
-        drawChart(res);
+        if (window.google && window.google.visualization) {
+          drawChart(res);
+        } else {
+          $timeout(function () {
+            drawChart(res);
+          }, 500);
+        }
       }, function() {
         clearChart();
         console.log('No data returned for query');
@@ -1854,12 +1865,11 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     };
 
     function chart() {
-
       if (ClientDetails.client.client_mac === undefined) {
         type = 'interfaces.snr';
         iface = '*';
       } else {
-        type = 'clients.snr'
+        type = 'clients.snr';
       }
 
       var params = {
@@ -1960,6 +1970,9 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
             hours: {format: [gettextCatalog.getString('hh:mm a')]},
             minutes: {format: [gettextCatalog.getString('hh:mm a')]}
           }
+        },
+        textStyle: {
+          fontSize: 12
         }
       };
 

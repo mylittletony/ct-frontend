@@ -163,7 +163,7 @@
                     </span>
                     <span ng-if="client.conn_type != 'wired'">
                       <span ng-if="!client.snr_alert">
-                        {{ client.snr }}dB
+                        {{ client.snr || 0 }}dB
                       </span>
                       <span ng-if="client.snr_alert">
                         <b>{{ client.snr }}dB</b>
@@ -194,7 +194,7 @@
                     {{ client.channel }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.capabilities">
-                    {{ client.capabilities }}
+                    {{ client.channel > 14 ? '5Ghz' : '2.4Ghz' }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.manufacturer">
                     {{ client.manufacturer | emptyFilter }}

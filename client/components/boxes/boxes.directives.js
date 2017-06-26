@@ -512,7 +512,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ClientDetails.client = {
           location_id: box.location_id,
           ap_mac: box.calledstationid,
-          version: box.v,
+          version: box.v
         };
         scope.loading = undefined;
         poll();
