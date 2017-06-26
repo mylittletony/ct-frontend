@@ -490,7 +490,12 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
           for(var i = 0; i < json.data[0].data.length; i++) {
             time = new Date(s1[i].timestamp*1000);
             var inbound = (s1[i].value / (1000)) * 8;
-            var outbound = (s2[i].value / (1000)) * 8;
+            var outbound;
+            if (s2[i]) {
+              outbound = (s2[i].value / (1000)) * 8;
+            } else {
+              outbound = 0;
+            }
             data.addRow([time, null, inbound, outbound]);
           }
         }
@@ -558,7 +563,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
           }
         },
         textStyle: {
-          fontSize: 12
+          fontSize: 10
         }
       };
 
@@ -1972,7 +1977,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           }
         },
         textStyle: {
-          fontSize: 12
+          fontSize: 10
         }
       };
 
