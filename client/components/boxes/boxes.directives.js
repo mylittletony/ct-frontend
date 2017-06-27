@@ -1761,22 +1761,22 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
   var link = function(scope, element,attrs) {
     var load;
 
-    var loadMeta = function(nv) {
+    var loadMeta = function(box) {
+      load = true;
       Metric.clientstats({
         type:         'devices.meta',
-        ap_mac:       nv.calledstationid,
-        location_id:  nv.location_id,
+        ap_mac:       box.calledstationid,
+        location_id:  box.location_id,
       }).$promise.then(function(data) {
-        console.log(data)
-        scope.box_data = data
+        console.log(data);
+        scope.box_data = data;
       }, function() {
       });
-      return;
     };
 
-    scope.$watch('box',function(nv){
-      if (nv !== undefined && !load && nv.calledstationid) {
-        loadMeta(nv);
+    scope.$watch('box',function(box){
+      if (box !== undefined && !load && box.calledstationid) {
+        loadMeta(box);
       }
     });
   };
