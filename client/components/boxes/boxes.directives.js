@@ -1756,18 +1756,26 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('deviceMeta', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
+app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     var load;
 
-    var loadMeta = function() {
-      return;
+    var loadMeta = function(box) {
+      load = true;
+      Metric.clientstats({
+        type:         'devices.meta',
+        ap_mac:       box.calledstationid,
+        location_id:  box.location_id,
+      }).$promise.then(function(data) {
+        scope.box_data = data;
+      }, function() {
+      });
     };
 
-    scope.$watch('box',function(nv){
-      if (nv !== undefined && !load && nv.calledstationid) {
-        loadMeta();
+    scope.$watch('box',function(box){
+      if (box !== undefined && !load && box.calledstationid) {
+        loadMeta(box);
       }
     });
   };
@@ -1777,7 +1785,7 @@ app.directive('deviceMeta', ['showErrors', 'showToast', 'Speedtest', 'gettextCat
     scope: {
       box: '='
     },
-    // templateUrl: 'components/boxes/payloads/_speedtest_widget.html'
+    templateUrl: 'components/boxes/payloads/_metadata.html'
   };
 
 }]);
