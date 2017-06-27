@@ -1768,7 +1768,6 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
         ap_mac:       box.calledstationid,
         location_id:  box.location_id,
       }).$promise.then(function(data) {
-        console.log(data);
         scope.box_data = data;
       }, function() {
       });
