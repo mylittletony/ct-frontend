@@ -693,7 +693,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
       var opts = controller.options;
       opts.explorer = undefined;
       opts.pieHole = 0.8;
-      opts.legend = { position: 'right' };
+      opts.legend = { position: 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
       opts.height = '260';
