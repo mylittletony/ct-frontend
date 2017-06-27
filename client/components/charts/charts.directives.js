@@ -302,7 +302,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         }
         this.resizeTO = setTimeout(function() {
           $(this).trigger('resizeEnd');
-        }, 250);
+        }, 500);
       });
 
       $(window).on('resizeEnd', function() {
@@ -693,7 +693,7 @@ app.directive('usageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
       var opts = controller.options;
       opts.explorer = undefined;
       opts.pieHole = 0.8;
-      opts.legend = { position: 'right' };
+      opts.legend = { position: 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
       opts.height = '260';
@@ -1314,11 +1314,11 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
         t2 = end_time;
         dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
-
-        var options = getOptions();
-        var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
-        chart.draw(dataTable, options);
       }
+
+      var options = getOptions();
+      var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
+      chart.draw(dataTable, options);
     };
 
     var timer = setTimeout(function() {
