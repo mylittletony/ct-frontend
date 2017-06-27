@@ -2029,7 +2029,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           var time;
           var array = [];
 
-          time = new Date(json.data[0].data[x].timestamp*1000);
+          time = new Date(json.data[0].data[x].timestamp);
           array.push(time);
           array.push(null);
 
