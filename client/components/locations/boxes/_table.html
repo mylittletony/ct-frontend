@@ -4,9 +4,6 @@
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
         <p>
-          <!-- <span ng-if="filter" translate translate-context="filtered number, devices" translate-n="filtered.length" translate-plural="{{filtered.length}} Devices.">1 Device.</span>
-          <span ng-if="!filter" translate translate-context="total number, devices" translate-n="_links.total_entries" translate-plural="{{_links.total_entries}} Devices.">1 Device.</span>
-          <span translate translate-n="{{ online }}" translate-plural="{{ online }} Clients Online.">1 Client Online.</span> -->
         </p>
         <div flex></div>
         <md-menu ng-if="selected.length">
@@ -121,9 +118,9 @@
                   <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
                 </md-tooltip>
               </td>
-              <!-- <td hide show-gt-md md-cell client-chart class="heartbeat-table">
+              <td hide show-gt-md md-cell client-chart class="heartbeat-table">
                 <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
-              </td> -->
+              </td>
               <td hide show-gt-sm md-cell>
                 {{ box.v }}
               </td>
