@@ -1304,7 +1304,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         status = 'Unknown';
 
         for (; i < data.data.length; i++) {
-          t2 = data.data[i].timestamp;
+          t2 = data.data[i].timestamp / 1000;
           if (t1 < t2 && start_time <= t1) {
             dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
           }
@@ -2029,7 +2029,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           var time;
           var array = [];
 
-          time = new Date(json.data[0].data[x].timestamp);
+          time = new Date(json.data[0].data[x].timestamp*1000);
           array.push(time);
           array.push(null);
 
