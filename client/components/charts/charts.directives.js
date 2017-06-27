@@ -284,7 +284,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
 }]);
 
-app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
+app.directive('clientChart', ['$timeout', 'Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function($timeout, Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
 
   return {
     scope: {
@@ -302,7 +302,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         }
         this.resizeTO = setTimeout(function() {
           $(this).trigger('resizeEnd');
-        }, 250);
+        }, 500);
       });
 
       $(window).on('resizeEnd', function() {
@@ -1314,11 +1314,11 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
         t2 = end_time;
         dataTable.addRow(['Heartbeat', status, makeTooltip(status, t1, t2), 'color: ' + colours[status], new Date(t1 * 1000 * 1000), new Date(t2 * 1000 * 1000)]);
-
-        var options = getOptions();
-        var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
-        chart.draw(dataTable, options);
       }
+
+      var options = getOptions();
+      var chart = new window.google.visualization.Timeline(document.getElementById(scope.target));
+      chart.draw(dataTable, options);
     };
 
     var timer = setTimeout(function() {
