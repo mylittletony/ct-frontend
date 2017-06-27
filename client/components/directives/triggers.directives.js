@@ -660,18 +660,17 @@ app.directive('editTrigger', ['Trigger', 'BrandTrigger', 'Integration', 'Auth', 
     };
 
     var formatCron = function() {
-      var array;
+      var array, cronT, newcronT, mins;
       if (scope.trigger.cron_time === undefined || scope.trigger.cron_time === '' || scope.trigger.cron_time === null) {
         return;
       }
 
-      array = scope.trigger.cron_time.match(/.{1,2}/g);
-      if (array.length !== 2) {
-        return;
-      }
+      cronT = scope.trigger.cron_time;
+      newcronT = cronT.substr(0, cronT.length-2);
+      mins = scope.trigger.cron_time.slice(-2);
 
-      scope.trigger.hours = array[0];
-      scope.trigger.mins = array[1];
+      scope.trigger.hours = newcronT;
+      scope.trigger.mins = mins;
     };
 
     var formatTimes = function() {
