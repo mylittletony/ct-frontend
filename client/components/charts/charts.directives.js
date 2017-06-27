@@ -284,7 +284,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
 }]);
 
-app.directive('clientChart', ['$timeout', 'Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function($timeout, Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
+app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
 
   return {
     scope: {
