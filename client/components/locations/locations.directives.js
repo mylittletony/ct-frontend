@@ -908,7 +908,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -1368,16 +1368,37 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       });
     };
 
-    var countOnline = function() {
-      scope.online = 0;
-      if (scope.boxes.length) {
-        for (var i = 0, len = scope.boxes.length; i < len; i++) {
-          if (scope.boxes[i].metadata) {
-            scope.online += scope.boxes[i].metadata.online;
+    var assignClientCounts = function(data) {
+      scope.total_online = 0;
+      for (var i = 0, len = data.meta.length; i < len; i++) {
+        var metaObject = data.meta[i];
+        for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
+          if (scope.boxes[j].calledstationid === metaObject.ap_mac) {
+            scope.boxes[j].clients_online = metaObject.clients;
+            scope.total_online += metaObject.clients;
           }
         }
       }
     };
+
+    var countOnline = function() {
+      scope.box_macs = '';
+      for (var i = 0, len = scope.boxes.length; i < len; i++) {
+        if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
+          scope.box_macs += scope.boxes[i].calledstationid;
+          scope.box_macs += ',';
+        }
+      }
+      scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
+      Metric.clientstats({
+        type:         'devices.meta',
+        ap_mac:       scope.box_macs,
+        location_id:  scope.boxes[0].location_id
+      }).$promise.then(function(data) {
+        assignClientCounts(data);
+      });
+    };
+
 
     var channel;
     function loadPusher() {
