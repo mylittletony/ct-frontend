@@ -1295,7 +1295,6 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         var end_time = Math.floor(data.end_time);
 
         for (i = 0; i < data.data.length; i++) {
-          console.log(start_time)
           if (data.data[i].timestamp >= start_time) {
             break;
           }
