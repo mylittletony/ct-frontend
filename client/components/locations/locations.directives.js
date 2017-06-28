@@ -1368,10 +1368,29 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
     };
 
+    var assignClientCounts = function(data) {
+      for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
+        scope.boxes[j].clients_online = 0;
+      }
+      scope.total_online = 0;
+      for (var i = 0, len = data.meta.length; i < len; i++) {
+        var metaObject = data.meta[i];
+        for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
+          if (scope.boxes[j].state !== 'offline' && scope.boxes[j].state !== 'new' && scope.boxes[j].calledstationid === metaObject.ap_mac) {
+            scope.boxes[j].clients_online = metaObject.clients;
+            scope.total_online += metaObject.clients;
+          }
+        }
+      }
+    };
+
     var countOnline = function() {
       scope.box_macs = '';
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        scope.box_macs += scope.boxes[i].calledstationid + ',';
+        scope.box_macs += scope.boxes[i].calledstationid;
+        if (i !== len - 1) {
+          scope.box_macs += ',';
+        }
       }
       scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
       Metric.clientstats({
@@ -1379,12 +1398,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         ap_mac:       scope.box_macs,
         location_id:  scope.boxes[0].location_id
       }).$promise.then(function(data) {
-        scope.total_online = 0;
-        for (var i = 0, len = data.meta.length; i < len; i++) {
-          scope.total_online += data.meta[i].clients
-        }
-      }, function() {
-      });
+        assignClientCounts(data);
+      }
     };
 
     var channel;
