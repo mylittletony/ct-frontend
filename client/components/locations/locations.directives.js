@@ -1369,14 +1369,11 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
     };
 
     var assignClientCounts = function(data) {
-      for (var k = 0, lengt = scope.boxes.length; k < lengt; k++) {
-        scope.boxes[k].clients_online = 0;
-      }
       scope.total_online = 0;
       for (var i = 0, len = data.meta.length; i < len; i++) {
         var metaObject = data.meta[i];
         for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
-          if (scope.boxes[j].state !== 'offline' && scope.boxes[j].state !== 'new' && scope.boxes[j].calledstationid === metaObject.ap_mac) {
+          if (scope.boxes[j].calledstationid === metaObject.ap_mac) {
             scope.boxes[j].clients_online = metaObject.clients;
             scope.total_online += metaObject.clients;
           }
@@ -1387,8 +1384,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
     var countOnline = function() {
       scope.box_macs = '';
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        scope.box_macs += scope.boxes[i].calledstationid;
-        if (i !== len - 1) {
+        if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
+          scope.box_macs += scope.boxes[i].calledstationid;
           scope.box_macs += ',';
         }
       }
