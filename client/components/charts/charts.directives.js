@@ -1295,7 +1295,6 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         var end_time = Math.floor(data.end_time);
 
         for (i = 0; i < data.data.length; i++) {
-          console.log(start_time)
           if (data.data[i].timestamp >= start_time) {
             break;
           }
@@ -1345,7 +1344,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
   var link = function(scope,element,attrs,controller) {
 
-    var c, timer, formatted, data;
+    var a, c, timer, formatted, data;
 
     scope.type = 'client.uniques';
     scope.loading = true;
@@ -1355,7 +1354,9 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     ClientDetails.client.ap_mac = undefined;
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
-      drawChart();
+      if (a) {
+        drawChart();
+      }
     });
 
     function chart() {
@@ -1471,6 +1472,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
         // if (window.google && window.google.visualization) {
         c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
+
+        a = true
         c.draw(data, opts);
 
         scope.noData = undefined;

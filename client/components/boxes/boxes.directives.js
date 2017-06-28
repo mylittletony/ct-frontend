@@ -1766,9 +1766,9 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
       Metric.clientstats({
         type:         'devices.meta',
         ap_mac:       box.calledstationid,
-        location_id:  box.location_id,
+        location_id:  box.location_id
       }).$promise.then(function(data) {
-        scope.box_data = data;
+        scope.box_data = data.meta[0];
       }, function() {
       });
     };
