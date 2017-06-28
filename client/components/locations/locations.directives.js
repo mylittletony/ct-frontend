@@ -1369,8 +1369,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
     };
 
     var assignClientCounts = function(data) {
-      for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
-        scope.boxes[j].clients_online = 0;
+      for (var k = 0, lengt = scope.boxes.length; k < lengt; k++) {
+        scope.boxes[k].clients_online = 0;
       }
       scope.total_online = 0;
       for (var i = 0, len = data.meta.length; i < len; i++) {
@@ -1382,7 +1382,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
           }
         }
       }
-    };
+    }
 
     var countOnline = function() {
       scope.box_macs = '';
@@ -1399,8 +1399,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         location_id:  scope.boxes[0].location_id
       }).$promise.then(function(data) {
         assignClientCounts(data);
-      }
+      });
     };
+
 
     var channel;
     function loadPusher() {
