@@ -1382,7 +1382,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
           }
         }
       }
-    }
+    };
 
     var countOnline = function() {
       scope.box_macs = '';
