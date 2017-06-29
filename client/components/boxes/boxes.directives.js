@@ -1756,21 +1756,53 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
+app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
+
+  var link = function(scope, element,attrs) {
+    var load;
+
+    var loadMeta = function(box) {
+      load = true;
+      Metric.clientstats({
+        type:         'devices.meta',
+        ap_mac:       box.calledstationid,
+        location_id:  box.location_id
+      }).$promise.then(function(data) {
+        scope.box_data = data.meta[0];
+      }, function() {
+      });
+    };
+
+    scope.$watch('box',function(box){
+      if (box !== undefined && !load && box.calledstationid) {
+        loadMeta(box);
+      }
+    });
+  };
+
+  return {
+    link: link,
+    scope: {
+      box: '='
+    },
+    templateUrl: 'components/boxes/payloads/_metadata.html'
+  };
+
+}]);
+
 app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
-    scope.runSpeedtest = function() {
-      scope.box.speedtest_running = true;
-      // scope.box.allowed_job = false;
-      updateCT();
-    };
-
     var updateCT = function() {
       Speedtest.create({box_id: scope.box.slug}).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Running speedtest, please wait.'));
       }, function(errors) {
         showErrors(errors);
       });
+    };
+    scope.runSpeedtest = function() {
+      scope.box.speedtest_running = true;
+      updateCT();
     };
   };
 
