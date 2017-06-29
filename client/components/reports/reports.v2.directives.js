@@ -158,17 +158,17 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
 
   var link = function( scope, element, attrs ) {
 
-    if ($cookies.get('_ctm') === 'true') {
-      menu.isOpenLeft = false;
-      menu.isOpen = false;
-    } else {
-      menu.isOpen = true;
-    }
-    menu.hideBurger = false;
-    menu.sections = [{}];
-    menu.sectionName = gettextCatalog.getString('Reports');
-    menu.header = '';
-    menu.locationStateIcon = undefined;
+    // if ($cookies.get('_ctm') === 'true') {
+    //   menu.isOpenLeft = false;
+    //   menu.isOpen = false;
+    // } else {
+    //   menu.isOpen = true;
+    // }
+    // menu.hideBurger = false;
+    // // menu.sections = [{}];
+    // menu.sectionName = gettextCatalog.getString('Reports');
+    // menu.header = '';
+    // menu.locationStateIcon = undefined;
 
     var isActive = function(path) {
       var split = $location.path().split('/');
@@ -200,7 +200,7 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
 
     };
 
-    createMenu();
+    // createMenu();
 
   };
 
@@ -486,7 +486,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     scope.interval    = '1d';
     scope.period      = $routeParams.period   || '7d';
     scope.fill        = $routeParams.fill     || '0';
-    scope.location_id = $routeParams.location_id;
+    scope.location_id = $routeParams.id;
     scope.type        = $routeParams.type;
 
     attrs.$observe('render', function(val){
