@@ -30,5 +30,12 @@
       <radius-timeline render="sessions" show-gt-sm></radius-timeline>
     </div>
   </div>
-    
+
+  <radius-stats></radius-stats>
+
+  <div flex layout="row" class="md-padding">
+    <reports-pie hole="0.4" type="loyalty" title="{{ 'Visitor Loyalty' | translate }}" render="loyalty"></reports-pie>
+    <reports-pie type="manufacturers" title="{{ 'Manufacturers' | translate }}" render="mans"></reports-pie>
+  </div>
+
 </analytics>
