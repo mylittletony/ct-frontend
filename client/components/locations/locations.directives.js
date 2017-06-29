@@ -110,6 +110,48 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
 
 }]);
 
+app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', '$location', '$timeout', 'Location', '$q', 'Locations', function(Report, $routeParams, $rootScope, $location, $timeout, Location, $q, Locations) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var timer;
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data
+    }, function(err){
+      console.log(err);
+    });
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
+    };
+
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/reports/_splash.html'
+  };
+
+}]);
+
 app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', 'pagination_labels', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
