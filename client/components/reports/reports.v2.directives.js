@@ -444,7 +444,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       timer = $timeout(function() {
         json = data.stats;
         drawChart();
-      },500);
+      },1000);
       scope.loading       = undefined;
     };
 
@@ -455,10 +455,15 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         scope.subhead   = attrs.subhead;
         scope.render    = attrs.render;
         period          = $routeParams.period   || '7d';
-        location_id     = $routeParams.location_id;
+        location_id     = $routeParams.id;
         init();
       }
     });
+
+    timer = setTimeout(function() {
+      window.google.charts.setOnLoadCallback(chart);
+    }, 1000);
+    $timeout.cancel(timer);
 
   };
 
@@ -922,7 +927,7 @@ app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location',
         resource: 'splash',
         type: 'splash_stats',
         interval: 'hour',
-        location_id: $routeParams.location_id,
+        location_id: $routeParams.id,
         period: $routeParams.period || '7d'
       };
 
