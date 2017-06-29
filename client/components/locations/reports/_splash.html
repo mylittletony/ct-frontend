@@ -1,0 +1,34 @@
+<analytics ng-if="!loading">
+
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <div flex>
+        <md-button  href="/#/locations/{{location.slug}}" style='font-size: 14px'>
+          Overview
+        </md-button>
+        <!-- <md-button href="/#/locations/{{location.slug}}/client_reports" style='font-size: 14px'>
+          Client
+        </md-button> -->
+        <md-button href="/#/locations/{{location.slug}}/splash_reports" ng-disabled=true style='font-size: 14px; color: rgba(0, 0, 0, 0.26); background-color: transparent;'>
+          Splash
+        </md-button>
+      </div>
+      <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
+        <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Add location to favourites.
+          </translate>
+        </md-tooltip>
+      </md-button>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <div layout="column" class="md-padding">
+    <div flex-md="100" flex-gt-md="100">
+      <radius-timeline render="sessions" show-gt-sm></radius-timeline>
+    </div>
+  </div>
+    
+</analytics>
