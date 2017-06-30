@@ -110,11 +110,21 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
 
 }]);
 
-app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', '$location', '$timeout', 'Location', '$q', 'Locations', function(Report, $routeParams, $rootScope, $location, $timeout, Location, $q, Locations) {
+app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', '$location', '$timeout', 'Location', '$q', 'Locations', '$mdDialog', function(Report, $routeParams, $rootScope, $location, $timeout, Location, $q, Locations, $mdDialog) {
 
   var link = function(scope,element,attrs,controller) {
 
     var timer;
+
+    if ($routeParams.start && $routeParams.end) {
+      scope.start        = $routeParams.start;
+      scope.end          = $routeParams.end;
+      scope.dateFiltered = true
+    } else {
+      scope.start    = (Math.floor(new Date() / 1000) - 21600);
+      scope.end      = Math.floor(new Date() / 1000);
+    }
+
 
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data
@@ -140,6 +150,70 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
       });
     }
 
+    function rangeCtrl($scope, startFull, endFull) {
+      $scope.startFull = startFull;
+      $scope.endFull = endFull;
+      $scope.page = 'show';
+      $scope.saveRange = function() {
+        if ($scope.startFull && $scope.endFull) {
+          // converting the moment picker time format - this could really do with some work:
+          var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
+          var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
+          if (startTimestamp > endTimestamp) {
+            showToast(gettextCatalog.getString('Selected range period not valid'));
+          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 2592000) {
+            // check that the selected range period is between five minutes and thirty days
+            showToast(gettextCatalog.getString('Range period should be between five minutes and thirty days'));
+          } else {
+            scope.start = startTimestamp;
+            scope.end = endTimestamp;
+            scope.filtered = true;
+            scope.updatePage();
+            $mdDialog.cancel();
+          }
+        }
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+
+    scope.openMomentRange = function() {
+      if ($routeParams.start && $routeParams.end) {
+        scope.startFull = moment($routeParams.start * 1000).format('MM/DD/YYYY h:mm A');
+        scope.endFull = moment($routeParams.end * 1000).format('MM/DD/YYYY h:mm A');
+      }
+      $mdDialog.show({
+        templateUrl: 'components/locations/clients/_client_date_range.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        locals: {
+          startFull: scope.startFull,
+          endFull:   scope.endFull
+        },
+        controller: rangeCtrl
+      });
+    };
+
+    scope.updatePage = function() {
+      scope.loadingChart  = true;
+      var hash            = {};
+      hash.ap_mac         = scope.ap_mac;
+      hash.interval       = scope.interval;
+      hash.start          = scope.start;
+      hash.end            = scope.end;
+      $location.search(hash);
+      $timeout(function() {
+        scope.loadingChart = undefined;
+      },2000);
+    };
+
+    scope.clearRangeFilter = function() {
+      scope.start = undefined;
+      scope.end = undefined;
+      scope.updatePage();
+    };
   };
 
   return {
