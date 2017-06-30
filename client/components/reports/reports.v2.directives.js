@@ -156,19 +156,7 @@ app.directive('radiusReports', ['Report', '$routeParams', '$location', 'Location
 
 app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '$q', '$route', '$cookies', 'menu', 'gettextCatalog', function(Report, $routeParams,$location,Location, $q, $route, $cookies, menu, gettextCatalog) {
 
-  var link = function( scope, element, attrs ) {
-
-    // if ($cookies.get('_ctm') === 'true') {
-    //   menu.isOpenLeft = false;
-    //   menu.isOpen = false;
-    // } else {
-    //   menu.isOpen = true;
-    // }
-    // menu.hideBurger = false;
-    // // menu.sections = [{}];
-    // menu.sectionName = gettextCatalog.getString('Reports');
-    // menu.header = '';
-    // menu.locationStateIcon = undefined;
+  var link = function(scope, element, attrs, controller) {
 
     var isActive = function(path) {
       var split = $location.path().split('/');
@@ -178,30 +166,6 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
         return true;
       }
     };
-
-    var createMenu = function() {
-      menu.header = gettextCatalog.getString('Usage Reports');
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Wireless Stats'),
-        link: '/#/reports/',
-        type: 'link',
-        icon: 'wifi',
-        active: isActive('dashboard')
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Radius Stats'),
-        type: 'link',
-        link: '/#/reports/radius',
-        icon: 'donut_large',
-        active: isActive('radius')
-      });
-
-    };
-
-    // createMenu();
-
   };
 
   var controller = function($scope) {
@@ -424,7 +388,8 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         type: scope.type,
         resource: attrs.resource,
         location_id: location_id,
-        period: period
+        start: $routeParams.start || (Math.floor(new Date() / 1000) - 604800),
+        end: $routeParams.end || Math.floor(new Date() / 1000)
       };
 
       var data;
@@ -444,7 +409,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       timer = $timeout(function() {
         json = data.stats;
         drawChart();
-      },1000);
+      },2000);
       scope.loading       = undefined;
     };
 
@@ -454,7 +419,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         scope.type      = attrs.type;
         scope.subhead   = attrs.subhead;
         scope.render    = attrs.render;
-        period          = $routeParams.period   || '7d';
+        // period          = $routeParams.period   || '7d';
         location_id     = $routeParams.id;
         init();
       }
@@ -462,7 +427,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
     timer = setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
-    }, 1000);
+    }, 2000);
     $timeout.cancel(timer);
 
   };
@@ -493,6 +458,9 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     scope.fill        = $routeParams.fill     || '0';
     scope.location_id = $routeParams.id;
     scope.type        = $routeParams.type;
+    scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+    scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
+    scope.interval    = 'hour';
 
     attrs.$observe('render', function(val){
       if (val !== '') {
@@ -641,7 +609,9 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       var params = {
         resource:       'splash',
         type:           scope.type,
-        period:         scope.period,
+        // period:         scope.period,
+        start:          scope.start,
+        end:            scope.end,
         interval:       scope.interval,
         fill:           scope.fill,
         location_id:    scope.location_id
