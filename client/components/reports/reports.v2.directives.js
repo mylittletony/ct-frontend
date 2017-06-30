@@ -453,7 +453,6 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.interval    = '1d';
     scope.period      = $routeParams.period   || '7d';
     scope.fill        = $routeParams.fill     || '0';
     scope.location_id = $routeParams.id;
@@ -609,7 +608,6 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       var params = {
         resource:       'splash',
         type:           scope.type,
-        // period:         scope.period,
         start:          scope.start,
         end:            scope.end,
         interval:       scope.interval,
@@ -892,13 +890,17 @@ app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location',
     var init = function() {
 
       scope.stats = {};
+      scope.start = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+      scope.end   = $routeParams.end || Math.floor(new Date() / 1000);
 
       var params = {
         resource: 'splash',
         type: 'splash_stats',
         interval: 'hour',
         location_id: $routeParams.id,
-        period: $routeParams.period || '7d'
+        start: scope.start,
+        end: scope.end
+        // period: $routeParams.period || '7d'
       };
 
       // Get the splash stats
