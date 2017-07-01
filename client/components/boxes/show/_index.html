@@ -191,7 +191,7 @@
             <div class="md-list-item-text">
               <h3 translate>Status</h3>
               <p>
-                {{ box.state | deviceStatus }}
+                {{ box.upgrade_processing == true ? 'Upgrade Processing' : (box.state | deviceStatus) }}
               </p>
             </div>
           </md-list-item>
