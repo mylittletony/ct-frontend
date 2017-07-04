@@ -66,7 +66,7 @@ app.filter('deviceStatus',['gettextCatalog', function(gettextCatalog) {
         case 'online':
           return gettextCatalog.getString('Device online');
         case 'processing':
-          return gettextCatalog.getString('Waiting for configs');
+          return gettextCatalog.getString('Processing job');
         case 'offline':
           return gettextCatalog.getString('Device offline');
         case 'upgrading':
