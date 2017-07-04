@@ -646,14 +646,22 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
 }]);
 
-app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', 'gettextCatalog', function(Social, Email, Guest, Order, $routeParams, $location, Location, $timeout, $rootScope, gettextCatalog) {
+app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routeParams', '$location', '$q', 'Location', '$timeout', '$rootScope', 'gettextCatalog', function(Social, Email, Guest, Order, $routeParams, $location, $q, Location, $timeout, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.location_id = $routeParams.id;
+    var locationSearch = function() {
+      var deferred = $q.defer();
+      Location.get({id: $routeParams.id}, function(data) {
+        deferred.resolve(data)
+      }, function(){
+        deferred.reject();
+      });
+      return deferred.promise;
+    }
 
     attrs.$observe('render', function(val){
       if (val !== '') {
@@ -798,24 +806,26 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
     };
 
     var init = function() {
-      createTitle();
-      var params = {
-        location_id:    scope.location_id,
-        start: 1498586976,
-        end: 1499105386,
-        per: 25,
-        page: 1
-      };
-      Email.get(params).$promise.then(function(results) {
-        json = results;
-        console.log(results)
-        timer = $timeout(function() {
-          drawChart();
-        },1000);
-        scope.loading = undefined;
-      }, function(err) {
-        console.log(err);
-      });
+      locationSearch().then(function(data) {
+        scope.location = data
+        createTitle();
+        var params = {
+          location_id: scope.location.id,
+          start: 1498586976,
+          end: 1499105386,
+          per: 25,
+          page: 1
+        };
+        Email.get(params).$promise.then(function(results) {
+          json = results;
+          timer = $timeout(function() {
+            drawChart();
+          },1000);
+          scope.loading = undefined;
+        }, function(err) {
+          console.log(err);
+        });
+      })
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
