@@ -315,7 +315,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
       $timeout.cancel(timer);
 
-      options.colors = ['#FFC107', '#009688', '#FF5722', '#03A9F4', '#FF5722', '#607D8B', '#F44336', '#E91E63', '#3F51B5', '#2196F3', '#4CAF50', '#FFC107'];
+      options.colors = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
       options.chartArea = { width: '90%;', left: 10, right: 10 };
       options.legend = { position: attrs.legend || 'none' };
       options.height = '255';
@@ -409,7 +409,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       timer = $timeout(function() {
         json = data.stats;
         drawChart();
-      },2000);
+      },1000);
       scope.loading       = undefined;
     };
 
@@ -619,7 +619,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         json = results;
         timer = $timeout(function() {
           drawChart();
-        },500);
+        },1000);
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
@@ -642,6 +642,200 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     },
     require: '^analytics',
     templateUrl: 'components/reports/_radius_timeline.html',
+  };
+
+}]);
+
+app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', 'gettextCatalog', function(Social, Email, Guest, Order, $routeParams, $location, Location, $timeout, $rootScope, gettextCatalog) {
+
+  var link = function( scope, element, attrs, controller ) {
+
+    var timer, results, c, json, stats, start;
+    var options = controller.options;
+
+    scope.location_id = $routeParams.id;
+
+    attrs.$observe('render', function(val){
+      if (val !== '') {
+        scope.subhead = attrs.subhead;
+        scope.render = attrs.render;
+        init();
+      }
+    });
+
+    $(window).resize(function() {
+      if (this.resizeTO) {
+        clearTimeout(this.resizeTO);
+      }
+      this.resizeTO = setTimeout(function() {
+        $(this).trigger('resizeEnd');
+      }, 500);
+    });
+
+    $(window).on('resizeEnd', function() {
+      drawChart();
+    });
+
+    var drawChart = function() {
+
+      $timeout.cancel(timer);
+
+      var data = new window.google.visualization.DataTable();
+
+      data.addColumn('datetime', 'Date');
+      data.addColumn('number', 'dummy series');
+
+      if (json && json.timeline && (json.timeline.stats && json.timeline.stats.length || json.timeline.uniques)) {
+
+        scope.noData = undefined;
+        scope.loading = undefined;
+
+        if (scope.type === 'usage') {
+          drawUsage(data);
+        } else {
+          drawClients(data);
+        }
+
+        c = new window.google.visualization.LineChart(document.getElementById(scope.render));
+        c.draw(data, options);
+
+      } else {
+        scope.noData = true;
+        scope.loading = undefined;
+        clearChart();
+      }
+    };
+
+    var drawUsage = function(data) {
+      data.addColumn('number', 'Inbound');
+      data.addColumn('number', 'Outbound');
+
+      stats = json.timeline.stats;
+
+      for(var i = 0; i < stats.length; i++) {
+        var time = new Date(stats[i].time * (1000));
+        data.addRow([time, null, stats[i].inbound / (1000*1000) , stats[i].outbound / (-1000*1000) ]);
+      }
+
+      options.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
+        1: {
+          format: '#Gb'
+        }
+      };
+
+      var formatter = new window.google.visualization.NumberFormat(
+        { suffix: 'Gb', pattern: '#,##0.00;'}
+      );
+      formatter.format(data,3);
+      formatter.format(data,2);
+
+    };
+
+    var drawClients = function(data) {
+      data.addColumn('number', scope.title);
+
+      stats = json.timeline.stats;
+      start = new Date(json._stats.start * 1000);
+
+      for(var i = 0; i < stats.length; i++) {
+        var time = new Date(stats[i].time * (1000));
+        data.addRow([time, null, stats[i].count]);
+      }
+
+      options.vAxes = {
+        0: {
+          textPosition: 'none'
+        },
+        1: {
+          format: ''
+        }
+      };
+
+      var date_formatter = new window.google.visualization.DateFormat({
+        pattern: 'MMM dd, yyyy'
+      });
+      date_formatter.format(data,0);
+
+    };
+
+    var clearChart = function() {
+      if (c) {
+        c.clearChart();
+      }
+    };
+
+    scope.changeType = function(t) {
+      clearChart();
+      var hash        = $location.search();
+      hash.type       = t;
+      scope.type      = t;
+      hash.interval   = scope.interval;
+      $location.search(hash);
+      init();
+    };
+
+    var createTitle = function() {
+      switch(scope.type) {
+        case 'guest':
+          scope.title = gettextCatalog.getString('Guests');
+          break;
+        case 'social':
+          scope.title = gettextCatalog.getString('Social');
+          break;
+        case 'sales':
+          scope.title = gettextCatalog.getString('Sales');
+          break;
+        default:
+          scope.title = gettextCatalog.getString('Emails');
+      }
+    };
+
+    scope.init = function() {
+      init();
+    };
+
+    var init = function() {
+      createTitle();
+      var params = {
+        location_id:    scope.location_id,
+        start: 1498586976,
+        end: 1499105386,
+        per: 25,
+        page: 1
+      };
+      Email.get(params).$promise.then(function(results) {
+        json = results;
+        console.log(results)
+        timer = $timeout(function() {
+          drawChart();
+        },1000);
+        scope.loading = undefined;
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $timeout.cancel(timer);
+    });
+
+    scope.init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      type: '@',
+      title: '@',
+      render: '@',
+      subhead: '@'
+    },
+    require: '^analytics',
+    templateUrl: 'components/reports/_splash_bar_chart.html',
   };
 
 }]);
