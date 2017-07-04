@@ -42,11 +42,20 @@
     </div>
   </div>
 
-  <radius-stats></radius-stats>
+  <radius-stats render="emails"></radius-stats>
+
+  <div layout="column" class="md-padding">
+    <div flex-md="100" flex-gt-md="100">
+      <splash-bar-chart></splash-bar-chart>
+    </div>
+  </div>
 
   <div flex layout="row" class="md-padding">
     <reports-pie hole="0.4" type="loyalty" title="{{ 'Visitor Loyalty' | translate }}" render="loyalty"></reports-pie>
-    <reports-pie type="manufacturers" title="{{ 'Manufacturers' | translate }}" render="mans"></reports-pie>
+    <reports-pie hole="0.4" type="manufacturers" title="{{ 'Manufacturers' | translate }}" render="mans"></reports-pie>
+    <client-chart>
+        <dash-usage-chart  hole="0.4" legend="none" height='255'></dash-usage-chart>
+    <client-chart>
   </div>
 
 </analytics>
