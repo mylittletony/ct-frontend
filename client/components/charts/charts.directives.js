@@ -768,7 +768,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     scope.loading = true;
     var c, timer, data, json;
     ClientDetails.client.version = '4';
-    var colours = ['#16ac5b', '#225566'];
+    var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
     var formatted = { usage: { inbound: 1 } };
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -801,8 +801,8 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var opts = controller.options;
       opts.explorer = undefined;
-      opts.pieHole = 0.8;
-      opts.legend = { position: 'bottom' };
+      opts.pieHole = attrs.hole || 0.8
+      opts.legend = { position: attrs.legend || 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
       opts.height = '350';
