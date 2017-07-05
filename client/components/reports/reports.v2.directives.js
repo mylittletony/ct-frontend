@@ -650,8 +650,26 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
   var link = function( scope, element, attrs, controller ) {
 
-    var timer, results, c, json, stats, start;
+    var timer, results, json, c, stats, start;
     var options = controller.options;
+
+    var weeks = [{
+      start: moment().utc().day(1).startOf('day').toDate().getTime() / 1000,
+      end: Math.floor(new Date() / 1000)
+    },
+    {
+      start: moment().utc().day(-6).startOf('day').toDate().getTime() / 1000,
+      end: Math.floor(moment().utc().day(0).endOf('day').toDate().getTime() / 1000)
+    },
+    {
+      start: moment().utc().day(-13).startOf('day').toDate().getTime() / 1000,
+      end: Math.floor(moment().utc().day(-7).endOf('day').toDate().getTime() / 1000)
+    },
+    {
+      start: moment().utc().day(-20).startOf('day').toDate().getTime() / 1000,
+      end: Math.floor(moment().utc().day(-14).endOf('day').toDate().getTime() / 1000)
+    }
+    ]
 
     var locationSearch = function() {
       var deferred = $q.defer();
@@ -690,28 +708,26 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
       var data = new window.google.visualization.DataTable();
 
-      data.addColumn('datetime', 'Date');
-      data.addColumn('number', 'dummy series');
-
-      if (json && json.timeline && (json.timeline.stats && json.timeline.stats.length || json.timeline.uniques)) {
+      if (json && json.length === 4) {
 
         scope.noData = undefined;
         scope.loading = undefined;
 
-        if (scope.type === 'usage') {
-          drawUsage(data);
-        } else {
-          drawClients(data);
+        data.addColumn('string', 'Week');
+        data.addColumn('number', 'Emails');
+
+        for(var i = 0; i < json.length; i++) {
+          data.addRow(['Week' + (i + 1), json[i]])
         }
-
-        c = new window.google.visualization.LineChart(document.getElementById(scope.render));
-        c.draw(data, options);
-
       } else {
         scope.noData = true;
         scope.loading = undefined;
         clearChart();
       }
+
+      c = new window.google.visualization.ColumnChart(document.getElementById("splash_emails"));
+
+      c.draw(data, options)
     };
 
     var drawUsage = function(data) {
@@ -739,33 +755,6 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
       );
       formatter.format(data,3);
       formatter.format(data,2);
-
-    };
-
-    var drawClients = function(data) {
-      data.addColumn('number', scope.title);
-
-      stats = json.timeline.stats;
-      start = new Date(json._stats.start * 1000);
-
-      for(var i = 0; i < stats.length; i++) {
-        var time = new Date(stats[i].time * (1000));
-        data.addRow([time, null, stats[i].count]);
-      }
-
-      options.vAxes = {
-        0: {
-          textPosition: 'none'
-        },
-        1: {
-          format: ''
-        }
-      };
-
-      var date_formatter = new window.google.visualization.DateFormat({
-        pattern: 'MMM dd, yyyy'
-      });
-      date_formatter.format(data,0);
 
     };
 
@@ -801,6 +790,23 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
       }
     };
 
+    var getEmailCounts = function() {
+      json = []
+      for(var i = 0; i < weeks.length; i++) {
+        var params = {
+          start: weeks[i].start,
+          end: weeks[i].end,
+          location_id: scope.location.id
+        };
+        Email.get(params).$promise.then(function(results) {
+          json.push(results.emails.length)
+          scope.loading = undefined;
+        }, function(err) {
+          console.log(err);
+        });
+      }
+    }
+
     scope.init = function() {
       init();
     };
@@ -809,22 +815,10 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
       locationSearch().then(function(data) {
         scope.location = data
         createTitle();
-        var params = {
-          location_id: scope.location.id,
-          start: 1498586976,
-          end: 1499105386,
-          per: 25,
-          page: 1
-        };
-        Email.get(params).$promise.then(function(results) {
-          json = results;
-          timer = $timeout(function() {
-            drawChart();
-          },1000);
-          scope.loading = undefined;
-        }, function(err) {
-          console.log(err);
-        });
+        getEmailCounts();
+        timer = $timeout(function() {
+          drawChart();
+        },2000);
       })
     };
 
