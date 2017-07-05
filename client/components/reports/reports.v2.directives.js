@@ -718,10 +718,15 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         scope.loading = undefined;
 
         data.addColumn('string', 'Week');
-        data.addColumn('number', 'Emails');
+        data.addColumn('number', scope.title);
+
+        var weekStart;
+        var weekEnd;
 
         for(var i = 0; i < json.length; i++) {
-          data.addRow(['Week ' + (i + 1), json[i]]);
+          weekStart = moment.unix(weeks[i].start).format("DD/MM")
+          weekEnd = moment.unix(weeks[i].end).format("DD/MM")
+          data.addRow([weekStart + ' - ' + weekEnd, json[i]]);
         }
         c = new window.google.visualization.ColumnChart(document.getElementById("splash_bar"));
 
