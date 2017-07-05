@@ -653,22 +653,24 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
     var timer, results, json, c, stats, start;
     var options = controller.options;
 
-
-    var weeks = [{
-        start: moment().utc().day(1).startOf('day').toDate().getTime() / 1000,
-        end: Math.floor(new Date() / 1000)
-      },
+    // lists three weeks ago; two weeks ago; last week; current week
+    // all monday 00:00 - sunday 23:59, aside from current week which is up to current moment
+    var weeks = [
       {
-        start: moment().utc().day(-6).startOf('day').toDate().getTime() / 1000,
-        end: Math.floor(moment().utc().day(0).endOf('day').toDate().getTime() / 1000)
+        start: moment().utc().day(-20).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(-14).endOf('day').toDate().getTime() / 1000)
       },
       {
         start: moment().utc().day(-13).startOf('day').toDate().getTime() / 1000,
         end: Math.floor(moment().utc().day(-7).endOf('day').toDate().getTime() / 1000)
       },
       {
-        start: moment().utc().day(-20).startOf('day').toDate().getTime() / 1000,
-        end: Math.floor(moment().utc().day(-14).endOf('day').toDate().getTime() / 1000)
+        start: moment().utc().day(-6).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(0).endOf('day').toDate().getTime() / 1000)
+      },
+      {
+        start: moment().utc().day(1).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(new Date() / 1000)
       }
     ];
 
@@ -785,7 +787,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
           scope.title = gettextCatalog.getString('Social');
           scope.service = Social;
           break;
-        case 'sales':
+        case 'orders':
           scope.title = gettextCatalog.getString('Sales');
           scope.service = Order;
           break;
@@ -805,7 +807,6 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         };
         scope.service.get(params).$promise.then(function(results) {
           json.push(results[scope.bar_type || 'emails'].length);
-          console.log(json);
         }, function(err) {
           console.log(err);
         });
