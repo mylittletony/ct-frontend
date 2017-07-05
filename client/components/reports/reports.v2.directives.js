@@ -653,33 +653,34 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
     var timer, results, json, c, stats, start;
     var options = controller.options;
 
+
     var weeks = [{
-      start: moment().utc().day(1).startOf('day').toDate().getTime() / 1000,
-      end: Math.floor(new Date() / 1000)
-    },
-    {
-      start: moment().utc().day(-6).startOf('day').toDate().getTime() / 1000,
-      end: Math.floor(moment().utc().day(0).endOf('day').toDate().getTime() / 1000)
-    },
-    {
-      start: moment().utc().day(-13).startOf('day').toDate().getTime() / 1000,
-      end: Math.floor(moment().utc().day(-7).endOf('day').toDate().getTime() / 1000)
-    },
-    {
-      start: moment().utc().day(-20).startOf('day').toDate().getTime() / 1000,
-      end: Math.floor(moment().utc().day(-14).endOf('day').toDate().getTime() / 1000)
-    }
-    ]
+        start: moment().utc().day(1).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(new Date() / 1000)
+      },
+      {
+        start: moment().utc().day(-6).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(0).endOf('day').toDate().getTime() / 1000)
+      },
+      {
+        start: moment().utc().day(-13).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(-7).endOf('day').toDate().getTime() / 1000)
+      },
+      {
+        start: moment().utc().day(-20).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(-14).endOf('day').toDate().getTime() / 1000)
+      }
+    ];
 
     var locationSearch = function() {
       var deferred = $q.defer();
       Location.get({id: $routeParams.id}, function(data) {
-        deferred.resolve(data)
+        deferred.resolve(data);
       }, function(){
         deferred.reject();
       });
       return deferred.promise;
-    }
+    };
 
     attrs.$observe('render', function(val){
       if (val !== '') {
@@ -717,7 +718,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         data.addColumn('number', 'Emails');
 
         for(var i = 0; i < json.length; i++) {
-          data.addRow(['Week' + (i + 1), json[i]])
+          data.addRow(['Week' + (i + 1), json[i]]);
         }
       } else {
         scope.noData = true;
@@ -727,7 +728,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
       c = new window.google.visualization.ColumnChart(document.getElementById("splash_emails"));
 
-      c.draw(data, options)
+      c.draw(data, options);
     };
 
     var drawUsage = function(data) {
@@ -767,45 +768,49 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
     scope.changeType = function(t) {
       clearChart();
       var hash        = $location.search();
-      hash.type       = t;
-      scope.type      = t;
-      hash.interval   = scope.interval;
+      hash.bar_type       = t;
+      scope.bar_type      = t;
+      // hash.interval   = scope.interval;
       $location.search(hash);
       init();
     };
 
     var createTitle = function() {
-      switch(scope.type) {
-        case 'guest':
+      switch(scope.bar_type) {
+        case 'guests':
           scope.title = gettextCatalog.getString('Guests');
+          scope.service = Guest;
           break;
         case 'social':
           scope.title = gettextCatalog.getString('Social');
+          scope.service = Social;
           break;
         case 'sales':
           scope.title = gettextCatalog.getString('Sales');
+          scope.service = Order;
           break;
         default:
           scope.title = gettextCatalog.getString('Emails');
+          scope.service = Email;
       }
     };
 
-    var getEmailCounts = function() {
-      json = []
+    var getCaptureCounts = function() {
+      json = [];
       for(var i = 0; i < weeks.length; i++) {
         var params = {
           start: weeks[i].start,
           end: weeks[i].end,
           location_id: scope.location.id
         };
-        Email.get(params).$promise.then(function(results) {
-          json.push(results.emails.length)
-          scope.loading = undefined;
+        scope.service.get(params).$promise.then(function(results) {
+          json.push(results[scope.bar_type || 'emails'].length);
+          console.log(json);
         }, function(err) {
           console.log(err);
         });
       }
-    }
+    };
 
     scope.init = function() {
       init();
@@ -813,13 +818,14 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
     var init = function() {
       locationSearch().then(function(data) {
-        scope.location = data
+        scope.location = data;
         createTitle();
-        getEmailCounts();
+        getCaptureCounts();
         timer = $timeout(function() {
           drawChart();
         },2000);
-      })
+        scope.loading = undefined;
+      });
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
