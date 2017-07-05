@@ -652,6 +652,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
     var timer, results, json, c, stats, start;
     var options = controller.options;
+    scope.bar_type = $routeParams.bar_type
 
     // lists three weeks ago; two weeks ago; last week; current week
     // all monday 00:00 - sunday 23:59, aside from current week which is up to current moment
@@ -711,7 +712,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
       var data = new window.google.visualization.DataTable();
 
-      if (json && json.length === 4) {
+      if (json[0] || json[1] || json[2] || json[3]) {
 
         scope.noData = undefined;
         scope.loading = undefined;
@@ -720,44 +721,16 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         data.addColumn('number', 'Emails');
 
         for(var i = 0; i < json.length; i++) {
-          data.addRow(['Week' + (i + 1), json[i]]);
+          data.addRow(['Week ' + (i + 1), json[i]]);
         }
+        c = new window.google.visualization.ColumnChart(document.getElementById("splash_emails"));
+
+        c.draw(data, options);
       } else {
         scope.noData = true;
         scope.loading = undefined;
         clearChart();
       }
-
-      c = new window.google.visualization.ColumnChart(document.getElementById("splash_emails"));
-
-      c.draw(data, options);
-    };
-
-    var drawUsage = function(data) {
-      data.addColumn('number', 'Inbound');
-      data.addColumn('number', 'Outbound');
-
-      stats = json.timeline.stats;
-
-      for(var i = 0; i < stats.length; i++) {
-        var time = new Date(stats[i].time * (1000));
-        data.addRow([time, null, stats[i].inbound / (1000*1000) , stats[i].outbound / (-1000*1000) ]);
-      }
-
-      options.vAxes = {
-        0: {
-          textPosition: 'none'
-        },
-        1: {
-          format: '#Gb'
-        }
-      };
-
-      var formatter = new window.google.visualization.NumberFormat(
-        { suffix: 'Gb', pattern: '#,##0.00;'}
-      );
-      formatter.format(data,3);
-      formatter.format(data,2);
 
     };
 
@@ -806,6 +779,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
           location_id: scope.location.id
         };
         scope.service.get(params).$promise.then(function(results) {
+          console.log(results)
           json.push(results[scope.bar_type || 'emails'].length);
         }, function(err) {
           console.log(err);
