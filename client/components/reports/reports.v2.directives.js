@@ -723,7 +723,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         for(var i = 0; i < json.length; i++) {
           data.addRow(['Week ' + (i + 1), json[i]]);
         }
-        c = new window.google.visualization.ColumnChart(document.getElementById("splash_emails"));
+        c = new window.google.visualization.ColumnChart(document.getElementById("splash_bar"));
 
         c.draw(data, options);
       } else {
@@ -779,7 +779,6 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
           location_id: scope.location.id
         };
         scope.service.get(params).$promise.then(function(results) {
-          console.log(results)
           json.push(results[scope.bar_type || 'emails'].length);
         }, function(err) {
           console.log(err);
