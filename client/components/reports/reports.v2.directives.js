@@ -409,7 +409,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       timer = $timeout(function() {
         json = data.stats;
         drawChart();
-      },1000);
+      },2000);
       scope.loading       = undefined;
     };
 
