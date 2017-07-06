@@ -1497,7 +1497,18 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       }
     };
 
-    var countOnline = function() {
+    var assignDeviceChannels = function(data) {
+      for (var i = 0, len = data.meta.length; i < len; i++) {
+        var metaObject = data.meta[i];
+        for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
+          if (metaObject.ssids && scope.boxes[j].calledstationid === metaObject.ap_mac) {
+            scope.boxes[j].channel = metaObject.ssids[0].channel;
+          }
+        }
+      }
+    }
+
+    var boxMetadata = function() {
       scope.box_macs = '';
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
         if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
@@ -1512,6 +1523,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         location_id:  scope.boxes[0].location_id
       }).$promise.then(function(data) {
         assignClientCounts(data);
+        assignDeviceChannels(data);
       });
     };
 
@@ -1563,7 +1575,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         scope.boxes           = results.boxes;
         scope._links          = results._links;
         scope.loading         = undefined;
-        countOnline();
+        boxMetadata();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;

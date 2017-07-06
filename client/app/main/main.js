@@ -599,6 +599,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/users/:id/reseller', {
+      templateUrl: 'components/users/reseller/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/users/:id/billing', {
       templateUrl: 'components/users/billing/index.html',
       controller: 'UsersShowController',

@@ -63,13 +63,22 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       });
     }
 
-    // menu.sections.push({
-    //   name: gettextCatalog.getString('Integrations'),
-    //   type: 'link',
-    //   link: '/#/users/' + id + '/integrations',
-    //   icon: 'widgets',
-    //   active: isActive('integrations')
-    // });
+    if (Auth.currentUser() && Auth.currentUser().reseller) {
+      menu.sections.push({
+        name: gettextCatalog.getString('Reseller'),
+        type: 'link',
+        link: '/#/users/' + id + '/reseller',
+        icon: 'event_seat',
+        active: isActive('reseller')
+      });
+    }
+
+    menu.sections.push({
+      name: gettextCatalog.getString('Locations'),
+      type: 'link',
+      link: '/#/users/' + id + '/locations',
+      icon: 'business'
+    });
 
     menu.sections.push({
       name: gettextCatalog.getString('Notifications'),
@@ -78,23 +87,6 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       icon: 'email',
       active: isActive('alerts')
     });
-
-    // if (Auth.currentUser() && !Auth.currentUser().guest) {
-    //   menu.sections.push({
-    //     name: gettextCatalog.getString('Branding'),
-    //     type: 'link',
-    //     link: '/#/users/' + id + '/branding',
-    //     icon: 'perm_identity',
-    //     active: isActive('branding')
-    //   });
-    // }
-
-    // menu.sections.push({
-    //   name: gettextCatalog.getString('Locations'),
-    //   type: 'link',
-    //   link: '/#/users/' + id + '/locations',
-    //   icon: 'business'
-    // });
 
     menu.sections.push({
       name: gettextCatalog.getString('History'),

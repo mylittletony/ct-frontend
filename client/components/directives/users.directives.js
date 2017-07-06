@@ -68,6 +68,19 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
 
 }]);
 
+app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog) {
+
+  var link = function( scope, element, attrs ) {
+
+    scope.loading = undefined;
+  }
+
+  return {
+    link: link,
+    loading: '='
+  }
+}]);
+
 app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
