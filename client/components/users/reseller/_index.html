@@ -1,0 +1,106 @@
+<form name="myForm" ng-submit="update(myForm)">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
+        <md-icon md-font-icon="arrow_back" >all_inclusive</md-icon>
+      </md-button>
+      <p translate>Reseller</p>
+      <div flex></div>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="75">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                Reseller Details
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-list-item class="md-3-line" flex="100" flex-gt-sm="50">
+                <div class="md-list-item-text">
+                  <h3 translate>Referral URL</h3>
+                  <p>{{ ::user.referral_url }}
+                  </p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="user.invited_by">
+                <div class="md-list-item-text">
+                  <h3 translate>Invited By</h3>
+                  <p>
+                    {{ user.invited_by }}
+                  </p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="user.plan">
+                <div class="md-list-item-text">
+                  <h3 translate>Reseller Status</h3>
+                  <p ng-if="user.reseller == true" translate> Enabled</p>
+                  <p ng-if="user.reseller == false" translate> Disabled</p>
+                </div>
+              </md-list-item>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <md-card ng-hide="user.reseller_processing">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                Become a Reseller
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <p>There is a one off cost to join the reseller program. After you've subscribed, you will have access to the reseller features plus you'll get a discount on the per AP costs.</p>
+              <md-list-item class="md-3-line md-long-text">
+                <div class="md-list-item-text">
+                  <h3>Step 1: Pay Membership Fee</h3>
+                  <p>Pay the one-off membership fee using the form below. This is a one-off cost and provides you with access to the reseller features.</p>
+                </div>
+              </md-list-item>
+
+              <md-list-item class="md-3-line md-long-text">
+                <div class="md-list-item-text">
+                  <h3>Step 2: Sign-up for the Reseller Plan</h3>
+                  <p>The reseller plan costs $5 per month which includes 2 access points. Futher access points will cost you $2.50 per month. You get $1 off the regular price.</p>
+                </div>
+              </md-list-item>
+              <p>If you want to know more about the reseller plan, contact the support team via the support widget. You'll find this at the bottom of the screen!</p>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                Become a Reseller
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <div ng-show="user.reseller_processing">
+                Thanks! We're processing your request. Please wait a few seconds.
+              </div>
+              <div ng-hide="user.reseller_processing">
+                <md-button class="md-raised" ng-click="go()">
+                  <translate>Sign-up!</translate>
+                </md-button>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+
+      </div>
+
+  </md-content>
+</form>
