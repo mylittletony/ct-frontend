@@ -68,17 +68,146 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
 
 }]);
 
-app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog) {
+app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', '$mdDialog', 'STRIPE_KEY', '$rootScope', '$pusher', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog, $mdDialog, STRIPE_KEY, $rootScope, $pusher) {
 
   var link = function( scope, element, attrs ) {
 
-    scope.loading = undefined;
-  }
+    var init = function() {
+      User.query({id: $routeParams.id}).$promise.then(function (res) {
+        scope.user = res;
+        if (scope.user.slug === Auth.currentUser().slug) {
+          scope.user.allowed = true;
+        }
+        if (scope.user.role_id === 1 || scope.user.role_id === 2 || scope.user.role_id === 3) {
+          scope.user.admin = true;
+        }
+        scope.loading = undefined;
+      });
+    };
+
+    var save = function() {
+    };
+
+    function CardController ($scope) {
+      $scope.user = scope.user;
+      // $scope.stripeCallback = function (code, result) {
+      //   if (result.error) {
+      //     showErrors({data: result.error.message});
+      //   } else {
+      //     $mdDialog.cancel();
+      //     scope.user.reseller_processing = true;
+      //     scope.user.card = result.id;
+      //     save();
+      //   }
+      // };
+
+      $scope.save = function() {
+        scope.user.reseller_processing = true;
+        $mdDialog.cancel();
+        save();
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    CardController.$inject = ['$scope'];
+
+    function DialogController ($scope) {
+      $scope.stripeCallback = function (code, result) {
+        if (result.error) {
+          showErrors({data: result.error.message});
+        } else {
+          $mdDialog.cancel();
+          scope.user.reseller_processing = true;
+          scope.user.card = result.id;
+          save();
+        }
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    DialogController.$inject = ['$scope'];
+
+    var justSub = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/reseller/_create.html',
+        parent: angular.element(document.body),
+        controller: CardController,
+        clickOutsideToClose: true
+      });
+    };
+
+    var addCard = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/billing/_card.html',
+        parent: angular.element(document.body),
+        controller: DialogController,
+        clickOutsideToClose: true
+      });
+    };
+
+    var channel;
+    var subscribe = function(key) {
+      if (typeof client !== 'undefined') {
+        var pusher = $pusher(client);
+        if (key) {
+          channel = pusher.subscribe(key);
+          channel.bind('card_added', function(data) {
+            if (data.message.success === true) {
+              alert(123, ' done')
+              // scope.user.credit_card_last4 = data.message.credit_card_last4;
+              // scope.user.credit_card_exp_month = data.credit_card_exp_month;
+              // scope.user.credit_card_exp_year = data.message.credit_card_exp_year;
+              // scope.user.stripe_id = true;
+              // showToast(data.message.msg);
+            } else {
+              console.log(data);
+            }
+            // scope.user.reseller_processing = undefined;
+          });
+        }
+      }
+    };
+
+    scope.go = function() {
+      if (scope.user.credit_card_last4) {
+        justSub();
+      } else {
+        addCard();
+      }
+    };
+
+    scope.$watch('user',function(nv){
+      if (nv !== undefined) {
+        subscribe(scope.user.key);
+      }
+    });
+
+    if (STRIPE_KEY && window.Stripe) {
+      console.log('Setting Stripe Token');
+      window.Stripe.setPublishableKey(STRIPE_KEY);
+    } else {
+      console.log('Could not set stripe token');
+    }
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      if (channel) {
+        channel.unbind();
+      }
+    });
+
+    init();
+
+  };
 
   return {
     link: link,
-    loading: '='
-  }
+    loading: '=',
+    templateUrl: 'components/users/reseller/_index.html'
+  };
 }]);
 
 app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog) {
@@ -240,12 +369,14 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
 
   var link = function( scope, element, attrs ) {
 
-    scope.addCard = function() {
-      $mdDialog.show({
-        templateUrl: 'components/users/billing/_card.html',
-        parent: angular.element(document.body),
-        controller: DialogController,
-        clickOutsideToClose: true
+    var save = function() {
+      User.update({}, {
+        id: scope.user.slug,
+        user: scope.user
+      }).$promise.then(function(results) {
+        scope.user.subscribing = true;
+      }, function(err) {
+        showErrors(err);
       });
     };
 
@@ -266,14 +397,12 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
     }
     DialogController.$inject = ['$scope'];
 
-    var save = function() {
-      User.update({}, {
-        id: scope.user.slug,
-        user: scope.user
-      }).$promise.then(function(results) {
-        scope.user.subscribing = true;
-      }, function(err) {
-        showErrors(err);
+    scope.addCard = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/billing/_card.html',
+        parent: angular.element(document.body),
+        controller: DialogController,
+        clickOutsideToClose: true
       });
     };
 
