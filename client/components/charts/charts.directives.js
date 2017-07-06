@@ -286,13 +286,14 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
 app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
 
+
   return {
     scope: {
       location: '@',
       mac: '@'
     },
 
-    controller: function($scope,$element,$attrs) {
+    controller: function($scope,$element,$attrs, $routeParams) {
 
       var colours = COLOURS.split(' ');
 
@@ -378,16 +379,22 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       var minDateEpoch, maxDateEpoch, minDate, maxDate;
 
       this.setStartEnd = function() {
-        if (distance >= 60*60*24) {
-          minDate = moment().utc().subtract(distance, 'seconds').startOf('day').toDate();
-          maxDate = moment().utc().endOf('day').toDate();
-        } else {
-          minDate = moment().utc().subtract(distance, 'seconds').toDate();
+        if ($attrs.location === 'splash_reports') {
+          minDate = moment().utc().subtract(604800, 'seconds').toDate();
           maxDate = moment().utc().toDate();
+        } else {
+          if (distance >= 60*60*24) {
+            minDate = moment().utc().subtract(distance, 'seconds').startOf('day').toDate();
+            maxDate = moment().utc().endOf('day').toDate();
+          } else {
+            minDate = moment().utc().subtract(distance, 'seconds').toDate();
+            maxDate = moment().utc().toDate();
+          }
         }
 
         minDateEpoch = Math.floor(minDate.getTime() / 1000);
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+
       };
 
       this.v2 = function(params, deferred) {
