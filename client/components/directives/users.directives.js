@@ -68,24 +68,44 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
 
 }]);
 
-app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', '$mdDialog', 'STRIPE_KEY', '$rootScope', '$pusher', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog, $mdDialog, STRIPE_KEY, $rootScope, $pusher) {
+app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', '$mdDialog', 'STRIPE_KEY', '$rootScope', '$pusher', 'Reseller', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog, $mdDialog, STRIPE_KEY, $rootScope, $pusher, Reseller) {
 
   var link = function( scope, element, attrs ) {
+
+    var formatCurrency = function() {
+      if (scope.user && scope.user.plan) {
+        switch(scope.user.plan.currency) {
+          case 'GBP':
+            scope.user.plan.currency_symbol = '$';
+            scope.amount = 250;
+            break;
+          case 'EUR':
+            scope.user.plan.currency_symbol = '€';
+            scope.amount = 250;
+            break;
+          default:
+            scope.user.plan.currency_symbol = '$';
+            scope.amount = 250;
+            break;
+        }
+      }
+    };
 
     var init = function() {
       User.query({id: $routeParams.id}).$promise.then(function (res) {
         scope.user = res;
-        if (scope.user.slug === Auth.currentUser().slug) {
-          scope.user.allowed = true;
-        }
-        if (scope.user.role_id === 1 || scope.user.role_id === 2 || scope.user.role_id === 3) {
-          scope.user.admin = true;
-        }
+        formatCurrency();
         scope.loading = undefined;
       });
     };
 
     var save = function() {
+      Reseller.create({}, {
+      }).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('User successfully updated.'));
+      }, function(err) {
+        showErrors(err);
+      });
     };
 
     function CardController ($scope) {
@@ -113,23 +133,23 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
     }
     CardController.$inject = ['$scope'];
 
-    function DialogController ($scope) {
-      $scope.stripeCallback = function (code, result) {
-        if (result.error) {
-          showErrors({data: result.error.message});
-        } else {
-          $mdDialog.cancel();
-          scope.user.reseller_processing = true;
-          scope.user.card = result.id;
-          save();
-        }
-      };
+//     function DialogController ($scope) {
+//       $scope.stripeCallback = function (code, result) {
+//         if (result.error) {
+//           showErrors({data: result.error.message});
+//         } else {
+//           $mdDialog.cancel();
+//           scope.user.reseller_processing = true;
+//           scope.user.card = result.id;
+//           save();
+//         }
+//       };
 
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    }
-    DialogController.$inject = ['$scope'];
+//       $scope.close = function() {
+//         $mdDialog.cancel();
+//       };
+//     }
+//     DialogController.$inject = ['$scope'];
 
     var justSub = function() {
       $mdDialog.show({
@@ -140,14 +160,14 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
       });
     };
 
-    var addCard = function() {
-      $mdDialog.show({
-        templateUrl: 'components/users/billing/_card.html',
-        parent: angular.element(document.body),
-        controller: DialogController,
-        clickOutsideToClose: true
-      });
-    };
+//     var addCard = function() {
+//       $mdDialog.show({
+//         templateUrl: 'components/users/billing/_card.html',
+//         parent: angular.element(document.body),
+//         controller: DialogController,
+//         clickOutsideToClose: true
+//       });
+//     };
 
     var channel;
     var subscribe = function(key) {
@@ -155,18 +175,15 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
         var pusher = $pusher(client);
         if (key) {
           channel = pusher.subscribe(key);
-          channel.bind('card_added', function(data) {
+          channel.bind('sub_completed', function(data) {
             if (data.message.success === true) {
-              alert(123, ' done')
-              // scope.user.credit_card_last4 = data.message.credit_card_last4;
-              // scope.user.credit_card_exp_month = data.credit_card_exp_month;
-              // scope.user.credit_card_exp_year = data.message.credit_card_exp_year;
-              // scope.user.stripe_id = true;
-              // showToast(data.message.msg);
+              scope.new_reseller = true;
+              scope.user.reseller = true;
+              showToast(data.message.msg);
             } else {
               console.log(data);
             }
-            // scope.user.reseller_processing = undefined;
+            scope.user.reseller_processing = undefined;
           });
         }
       }
@@ -175,8 +192,6 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
     scope.go = function() {
       if (scope.user.credit_card_last4) {
         justSub();
-      } else {
-        addCard();
       }
     };
 

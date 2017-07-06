@@ -30,14 +30,6 @@
                   </p>
                 </div>
               </md-list-item>
-              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="user.invited_by">
-                <div class="md-list-item-text">
-                  <h3 translate>Invited By</h3>
-                  <p>
-                    {{ user.invited_by }}
-                  </p>
-                </div>
-              </md-list-item>
               <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="user.plan">
                 <div class="md-list-item-text">
                   <h3 translate>Reseller Status</h3>
@@ -45,44 +37,16 @@
                   <p ng-if="user.reseller == false" translate> Disabled</p>
                 </div>
               </md-list-item>
+              <p ng-show="user.reseller == true"><span ng-show="new_reseller"><b>Success! We have activated your account</b>!</span>Please ensure you have subscribed to the reseller plan in the <a href="/#/users/{{ user.slug }}/billing">billing section</a>.</p>
             </div>
           </md-card-content>
         </md-card>
 
-        <md-card ng-hide="user.reseller_processing">
+        <md-card ng-show="user.reseller == false" && user.credit_card_last4>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">
-                Become a Reseller
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <div layout="row" layout-wrap>
-              <p>There is a one off cost to join the reseller program. After you've subscribed, you will have access to the reseller features plus you'll get a discount on the per AP costs.</p>
-              <md-list-item class="md-3-line md-long-text">
-                <div class="md-list-item-text">
-                  <h3>Step 1: Pay Membership Fee</h3>
-                  <p>Pay the one-off membership fee using the form below. This is a one-off cost and provides you with access to the reseller features.</p>
-                </div>
-              </md-list-item>
-
-              <md-list-item class="md-3-line md-long-text">
-                <div class="md-list-item-text">
-                  <h3>Step 2: Sign-up for the Reseller Plan</h3>
-                  <p>The reseller plan costs $5 per month which includes 2 access points. Further access points will cost you $2.50 per month. You get $1 off the regular price.</p>
-                </div>
-              </md-list-item>
-              <p>If you want to know more about the reseller plan, contact the support team via the support widget. You'll find this at the bottom of the screen!</p>
-            </div>
-          </md-card-content>
-        </md-card>
-
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">
-                Become a Reseller
+              <span class="md-headline" >
+                 Sign-up
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -92,13 +56,67 @@
                 Thanks! We're processing your request. Please wait a few seconds.
               </div>
               <div ng-hide="user.reseller_processing">
-                <md-button class="md-raised" ng-click="go()">
-                  <translate>Sign-up!</translate>
+                <p>Activate your reseller account now.</p>
+                <md-button class="md-raised md-primary" ng-click="go()">
+                  <translate>ACTIVATE</translate>
                 </md-button>
               </div>
             </div>
           </md-card-content>
         </md-card>
+
+
+        <md-card ng-show="!user.reseller_processing && user.reseller == false">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                How to become a reseller
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <p>It costs {{ user.plan.currency_symbol }} {{ amount }} per year to become a member of the reseller program. After you've subscribed, you will have access to the reseller features plus you'll get a discount on the per AP costs. Here's how it works:</p>
+
+              <md-list-item class="md-3-line md-long-text" ng-show="!user.credit_card_last4">
+                <div class="md-list-item-text">
+                  <h3>First, add a card to your account</h3>
+                  <p>You'll need to add a card to your account before you sign-up. <a href="/#/users/{{ user.slug }}/billing">Do that here</a>.</p>
+                </div>
+              </md-list-item>
+
+              <md-list-item class="md-3-line md-long-text">
+                <div class="md-list-item-text">
+                  <h3>Pay Yearly Membership Fee</h3>
+                  <p>Pay the membership fee using the form below. This is a one-off cost and provides you with access to the reseller features.</p>
+                </div>
+              </md-list-item>
+
+              <md-list-item class="md-3-line md-long-text">
+                <div class="md-list-item-text">
+                  <h3>Sign-up for the Reseller Plan</h3>
+                  <p>The reseller plan costs $5 per month which includes 2 access points. Further access points will cost you $2.50 per month. You get $1 off the regular price.</p>
+                </div>
+              </md-list-item>
+              <p>If you want to know more about the reseller plan, contact the support team via the support widget.</p>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <!-- <md-card ng-show="user.reseller == true && new_reseller"> -->
+        <!--   <md-card-title> -->
+        <!--     <md-card-title-text> -->
+        <!--       <span class="md-headline"> -->
+        <!--         Reseller Enabled -->
+        <!--       </span> -->
+        <!--     </md-card-title-text> -->
+        <!--   </md-card-title> -->
+        <!--   <md-card-content> -->
+        <!--     <div layout="row" layout-wrap> -->
+        <!--       <p>Great news, we've activated the reseller plans! Please subscribe to the reseller plans in the billing section.</p> -->
+        <!--     </div> -->
+        <!--   </md-card-content> -->
+        <!-- </md-card> -->
 
       </div>
 
