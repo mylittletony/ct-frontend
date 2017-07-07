@@ -378,13 +378,9 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       var minDateEpoch, maxDateEpoch, minDate, maxDate;
 
       this.setStartEnd = function() {
-        if (distance >= 60*60*24) {
-          minDate = moment().utc().subtract(distance, 'seconds').startOf('day').toDate();
-          maxDate = moment().utc().endOf('day').toDate();
-        } else {
-          minDate = moment().utc().subtract(distance, 'seconds').toDate();
-          maxDate = moment().utc().toDate();
-        }
+        
+        minDate = moment().utc().subtract(distance, 'seconds').toDate();
+        maxDate = moment().utc().toDate();
 
         minDateEpoch = Math.floor(minDate.getTime() / 1000);
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
