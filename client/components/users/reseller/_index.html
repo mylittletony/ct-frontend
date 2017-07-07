@@ -37,7 +37,7 @@
                   <p ng-if="user.reseller == false" translate> Disabled</p>
                 </div>
               </md-list-item>
-              <p ng-show="user.reseller == true"><span ng-show="new_reseller"><b>Success! We have activated your account</b>!</span>Please ensure you have subscribed to the reseller plan in the <a href="/#/users/{{ user.slug }}/billing">billing section</a>.</p>
+              <p ng-show="user.reseller == true"><span ng-show="new_reseller"><b>Success! We have activated your account</b>!</span> Please ensure you have subscribed to the reseller plan in the <a href="/#/users/{{ user.slug }}/billing">billing section</a>.</p>
             </div>
           </md-card-content>
         </md-card>
@@ -64,7 +64,6 @@
             </div>
           </md-card-content>
         </md-card>
-
 
         <md-card ng-show="!user.reseller_processing && user.reseller == false">
           <md-card-title>

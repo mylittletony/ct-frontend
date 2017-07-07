@@ -76,9 +76,9 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
       if (scope.user && scope.user.plan) {
         switch(scope.user.plan.currency) {
           case 'GBP':
-            scope.user.plan.currency_symbol = '$';
-            scope.amount = 500;
-            scope.per = 1;
+            scope.user.plan.currency_symbol = '£';
+            scope.amount = 400;
+            scope.per = 0.78;
             break;
           case 'EUR':
             scope.user.plan.currency_symbol = '€';
@@ -87,8 +87,8 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
             break;
           default:
             scope.user.plan.currency_symbol = '$';
-            scope.amount = 400;
-            scope.per = 0.78;
+            scope.amount = 500;
+            scope.per = 1.00;
             break;
         }
       }
