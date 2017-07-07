@@ -76,7 +76,7 @@
           </md-card-title>
           <md-card-content>
             <div layout="row" layout-wrap>
-              <p>It costs {{ user.plan.currency_symbol }} {{ amount }} per year to become a member of the reseller program. After you've subscribed, you will have access to the reseller features plus you'll get a discount on the per AP costs. Here's how it works:</p>
+              <p>It costs {{ user.plan.currency_symbol }}{{ amount }} per year to become a member of the reseller program. After you've subscribed, you will have access to the reseller features plus you'll get a discount on the per AP costs. Here's how it works:</p>
 
               <md-list-item class="md-3-line md-long-text" ng-show="!user.credit_card_last4">
                 <div class="md-list-item-text">
@@ -88,14 +88,14 @@
               <md-list-item class="md-3-line md-long-text">
                 <div class="md-list-item-text">
                   <h3>Pay Yearly Membership Fee</h3>
-                  <p>Pay the membership fee using the form below. This is a one-off cost and provides you with access to the reseller features.</p>
+                  <p>Pay the membership fee using the form below. This is paid yearly and gives you access to the reseller features and discounted rates.</p>
                 </div>
               </md-list-item>
 
               <md-list-item class="md-3-line md-long-text">
                 <div class="md-list-item-text">
                   <h3>Sign-up for the Reseller Plan</h3>
-                  <p>The reseller plan costs $5 per month which includes 2 access points. Further access points will cost you $2.50 per month. You get $1 off the regular price.</p>
+                  <p>The reseller plan costs {{ user.plan.currency_symbol}}5 per month which includes 2 access points. Additional APs cost from {{ user.plan.currency_symbol}}{{ per }} per month per AP. See the website for full pricing details.</p>
                 </div>
               </md-list-item>
               <p>If you want to know more about the reseller plan, contact the support team via the support widget.</p>
