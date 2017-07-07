@@ -784,7 +784,8 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
           location_id: scope.location.id
         };
         scope.service.get(params).$promise.then(function(results) {
-          json.push(results[scope.bar_type || 'emails'].length);
+          console.log(results)
+          json.push(results._links.total_entries);
         }, function(err) {
           console.log(err);
         });
