@@ -10,6 +10,7 @@ var app = angular.module('myApp.controllers', [
   'myApp.invoices.controller',
   'myApp.locations.controller',
   'myApp.port_forwards.controller',
+  'myApp.projects.controller',
   'myApp.reports.controller',
   'myApp.speedtests.controller',
   'myApp.splash_pages.controller',
@@ -376,6 +377,13 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             type: 'link',
             link: '/#/users',
             icon: 'people'
+          });
+
+          vm.menu.main.push({
+            title: gettextCatalog.getString('Projects'),
+            type: 'link',
+            link: '/#/projects',
+            icon: 'dns'
           });
 
           vm.menuRight.push({

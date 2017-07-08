@@ -140,6 +140,20 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     when('/404', {
       templateUrl: 'components/home/404.html',
     }).
+    when('/projects', {
+      templateUrl: 'components/views/projects/index.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/projects/:id', {
+      controller: 'ProjectsController',
+      templateUrl: 'components/views/projects/show.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/projects/:id/locations', {
+      controller: 'ProjectsController',
+      templateUrl: 'components/views/projects/locations.html',
+      resolve: { loginRequired: loginRequired },
+    }).
     when('/brands', {
       templateUrl: 'components/views/brands/index.html',
       resolve: { loginRequired: loginRequired },
