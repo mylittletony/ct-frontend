@@ -5,6 +5,16 @@
     </md-button>
     <p translate>Back to Devices</p>
     <span flex></span>
+
+    <md-button id="main" class="md-icon-button" aria-label="{{ 'Settings' | translate }}">
+      <md-icon ng-class="{'official-fw': box.official}" style="outline: 0;" md-font-icon="">star{{box.official ? '' : '_border'}}</md-icon>
+      <md-tooltip md-direction="left">
+        <translate>
+        <span ng-if="box.official == true">Official Cucumber Firmware</span>
+        <span ng-if="box.official == false">Unofficial Firmware</span>
+        </translate>
+      </md-tooltip>
+    </md-button>
     <upgrade-box box="box"></upgrade-box>
     <span ng-if="box.state == 'offline'">
       <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" : "volume_up" }}</md-icon>
@@ -54,7 +64,6 @@
     <device-meta box="box"></device-meta>
   </md-subheader>
 </section>
-
 
 <md-content class="md-padding" ng-if="box.state == 'initializing'">
   <div layout="row" layout-align="center center">
