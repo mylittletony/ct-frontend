@@ -424,12 +424,6 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         init();
       }
     });
-
-    timer = setTimeout(function() {
-      window.google.charts.setOnLoadCallback(chart);
-    }, 2000);
-    $timeout.cancel(timer);
-
   };
 
   return {
@@ -712,7 +706,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
       var data = new window.google.visualization.DataTable();
 
-      if (json[0] || json[1] || json[2] || json[3]) {
+      if (json.length === 4) {
 
         scope.noData = undefined;
         scope.loading = undefined;
@@ -724,9 +718,9 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         var weekEnd;
 
         for(var i = 0; i < json.length; i++) {
-          weekStart = moment.unix(weeks[i].start).format("DD/MM")
-          weekEnd = moment.unix(weeks[i].end).format("DD/MM")
-          data.addRow([weekStart + ' - ' + weekEnd, json[i]]);
+          weekStart = moment.unix(json[i].start).format("DD/MM");
+          weekEnd = moment.unix(json[i].end).format("DD/MM");
+          data.addRow([weekStart + ' - ' + weekEnd, json[i].count]);
         }
         c = new window.google.visualization.ColumnChart(document.getElementById("splash_bar"));
 
@@ -775,8 +769,27 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
       }
     };
 
+    var setJson = function(results) {
+      var obj = {
+        count: results._links.total_entries,
+        start: results._links.start,
+        end:   results._links.end
+      }
+      var distance = Math.round(new Date() / 1000) - results._links.start
+      if (distance < 604800) {
+        json[3] = obj
+      } else if (distance < 604800 * 2) {
+        json[2] = obj
+      } else if (distance < 604800 * 3) {
+        json[1] = obj
+      } else {
+        json[0] = obj
+      }
+    }
+
     var getCaptureCounts = function() {
       json = [];
+      var distance;
       for(var i = 0; i < weeks.length; i++) {
         var params = {
           start: weeks[i].start,
@@ -784,8 +797,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
           location_id: scope.location.id
         };
         scope.service.get(params).$promise.then(function(results) {
-          console.log(results)
-          json.push(results._links.total_entries);
+          setJson(results);
         }, function(err) {
           console.log(err);
         });
