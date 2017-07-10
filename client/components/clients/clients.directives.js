@@ -529,12 +529,18 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     };
 
     var fetchBoxes = function() {
-      scope.boxes = {}
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      scope.boxes = {};
       Box.get({location_id: scope.location.slug}).$promise.then(function(results) {
         for (var i = 0, len = results.boxes.length; i < len; i++) {
           scope.boxes[results.boxes[i].calledstationid] = results.boxes[i].description;
         }
+        deferred.resolve();
+      }, function(err) {
+        deferred.reject(err);
       });
+      return deferred.promise;
     };
 
     var initV2 = function() {
@@ -558,9 +564,10 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         scope.clients = results.clients;
         scope.connected = results.online;
         scope.total = results.total;
-        fetchBoxes();
+        fetchBoxes().then(function() {
+          deferred.resolve();
+        });
         // txrx();
-        deferred.resolve();
         // scope.loading = undefined;
       }, function(err) {
         scope.loading_table = undefined;
