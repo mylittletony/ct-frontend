@@ -646,7 +646,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
     var timer, results, json, c, stats, start;
     var options = controller.options;
-    scope.bar_type = $routeParams.bar_type
+    scope.bar_type = $routeParams.bar_type;
 
     // lists three weeks ago; two weeks ago; last week; current week
     // all monday 00:00 - sunday 23:59, aside from current week which is up to current moment
@@ -718,11 +718,11 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         var weekEnd;
 
         for(var i = 0; i < json.length; i++) {
-          weekStart = moment.unix(json[i].start).format("DD/MM");
-          weekEnd = moment.unix(json[i].end).format("DD/MM");
+          weekStart = moment.unix(json[i].start).format('DD/MM');
+          weekEnd = moment.unix(json[i].end).format('DD/MM');
           data.addRow([weekStart + ' - ' + weekEnd, json[i].count]);
         }
-        c = new window.google.visualization.ColumnChart(document.getElementById("splash_bar"));
+        c = new window.google.visualization.ColumnChart(document.getElementById('splash_bar'));
 
         c.draw(data, options);
       } else {
@@ -774,18 +774,18 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
         count: results._links.total_entries,
         start: results._links.start,
         end:   results._links.end
-      }
-      var distance = Math.round(new Date() / 1000) - results._links.start
+      };
+      var distance = Math.round(new Date() / 1000) - results._links.start;
       if (distance < 604800) {
-        json[3] = obj
+        json[3] = obj;
       } else if (distance < 604800 * 2) {
-        json[2] = obj
+        json[2] = obj;
       } else if (distance < 604800 * 3) {
-        json[1] = obj
+        json[1] = obj;
       } else {
-        json[0] = obj
+        json[0] = obj;
       }
-    }
+    };
 
     var getCaptureCounts = function() {
       json = [];
