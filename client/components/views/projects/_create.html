@@ -1,0 +1,35 @@
+<md-dialog aria-label="{{ 'Add to Zone' | translate }}"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Create New Project</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex="auto" layout="column">
+          <p translate>Create a new project to segment your locations.</p>
+        </div>
+        <div flex="auto" layout="column">
+          <md-input-container>
+            <label><translate>Project Name</translate></label>
+              <input ng-model="project.project_name" type="text" ng-maxlength="255">
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex="auto"></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save(zone)">
+        <translate>
+          ADD
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -61,14 +61,12 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
         icon: 'picture_as_pdf',
         active: isActive('invoices')
       });
-    }
 
-    if (Auth.currentUser() && Auth.currentUser().reseller) {
       menu.sections.push({
         name: gettextCatalog.getString('Reseller'),
         type: 'link',
         link: '/#/users/' + id + '/reseller',
-        icon: 'event_seat',
+        icon: 'all_inclusive',
         active: isActive('reseller')
       });
     }

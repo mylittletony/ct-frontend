@@ -208,14 +208,6 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
       });
     };
 
-    scope.destroy = function(network) {
-      Network.destroy({location_id: scope.location.slug, id: network.id}).$promise.then(function(results) {
-        removeFromList(network);
-      }, function(err) {
-        showErrors(err);
-      });
-    };
-
     var removeFromList = function(network) {
       for (var i = 0, len = scope.networks.length; i < len; i++) {
         if (scope.networks[i].id === network.id) {
@@ -224,6 +216,14 @@ app.directive('listNetworks', ['Network', '$routeParams', '$mdDialog', 'showToas
           break;
         }
       }
+    };
+
+    scope.destroy = function(network) {
+      Network.destroy({location_id: scope.location.slug, id: network.id}).$promise.then(function(results) {
+        removeFromList(network);
+      }, function(err) {
+        showErrors(err);
+      });
     };
 
     var editSettings = function(network) {
