@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.clients.directives', []);
 
-app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPolicy', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', 'Auth', function(Client, ClientV2, Location, Report, GroupPolicy, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter, Auth) {
+app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPolicy', 'Box', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', 'Auth', function(Client, ClientV2, Location, Report, GroupPolicy, Box, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter, Auth) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -253,7 +253,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
     var createColumns = function() {
       scope.columns = {
-        device_name: true,
+        ap_name: true,
         client_mac: true,
         ssid: true,
         txbps: true,
@@ -527,6 +527,15 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    var fetchBoxes = function() {
+      scope.boxes = {}
+      Box.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        for (var i = 0, len = results.boxes.length; i < len; i++) {
+          scope.boxes[results.boxes[i].calledstationid] = results.boxes[i].description;
+        }
+      });
+    };
+
     var initV2 = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
@@ -548,6 +557,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         scope.clients = results.clients;
         scope.connected = results.online;
         scope.total = results.total;
+        fetchBoxes();
         // txrx();
         deferred.resolve();
         // scope.loading = undefined;
