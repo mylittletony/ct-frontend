@@ -253,7 +253,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
     var createColumns = function() {
       scope.columns = {
-        ap_name: true,
+        device_name: true,
         client_mac: true,
         ssid: true,
         txbps: true,
@@ -270,6 +270,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         manufacturer: false,
         splash_username: false,
         type: true,
+        ap_name: true
       };
       scope.saveCols();
     };
