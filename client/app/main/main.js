@@ -140,6 +140,20 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     when('/404', {
       templateUrl: 'components/home/404.html',
     }).
+    when('/projects', {
+      templateUrl: 'components/views/projects/index.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/projects/:id', {
+      controller: 'ProjectsController',
+      templateUrl: 'components/views/projects/show.html',
+      resolve: { loginRequired: loginRequired },
+    }).
+    when('/projects/:id/locations', {
+      controller: 'ProjectsController',
+      templateUrl: 'components/views/projects/locations.html',
+      resolve: { loginRequired: loginRequired },
+    }).
     when('/brands', {
       templateUrl: 'components/views/brands/index.html',
       resolve: { loginRequired: loginRequired },
@@ -561,6 +575,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/splash_reports', {
+      templateUrl: 'components/locations/reports/splash.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/reports', {
       redirectTo: '/',
       // templateUrl: 'components/reports/wireless.html',
@@ -591,6 +610,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/me', {
       templateUrl: 'components/users/show/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/users/:id/reseller', {
+      templateUrl: 'components/users/reseller/index.html',
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).

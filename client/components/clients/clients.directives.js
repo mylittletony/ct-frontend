@@ -22,21 +22,21 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     // replacing for the short-term
     scope.pagination_labels = pagination_labels;
     scope.query = {
-      order:      'updated_at',
+      order:      '-lastseen',
       limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
+      // page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
-      sort:       $routeParams.sort || 'lastseen',
-      direction:  $routeParams.direction || 'desc',
+      // sort:       $routeParams.sort || 'lastseen',
+      // direction:  $routeParams.direction || 'desc',
       start:      $routeParams.start,
       end:        $routeParams.end,
       v:          $routeParams.v
     };
 
     scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      scope.updatePage();
+      // scope.query.page = page;
+      // scope.query.limit = limit;
+      // scope.updatePage();
     };
 
     scope.toggleSearch    = false; // ?
@@ -377,11 +377,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         }
       };
 
-      $scope.clearRangeFilter = function() {
-        scope.clearRangeFilter();
-        $mdDialog.cancel();
-      };
-
       $scope.close = function() {
         $mdDialog.cancel();
       };
@@ -542,37 +537,122 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       params.client_type = 'clients.list';
       params.end_time = scope.query.end;
       params.start_time = scope.query.start;
+      // params.meta = true;
 
       if (params.access_token === undefined || params.access_token === '') {
         deferred.reject();
-      } else {
-        ClientV2.query(params).$promise.then(function(results) {
-          scope.clients = results.clients;
-          scope.connected = results.online;
-          scope.total = results.total;
-          deferred.resolve();
-        }, function(err) {
-          scope.loading_table = undefined;
-          scope.loading = undefined;
-          deferred.reject(err);
-        });
+        return deferred.promise;
       }
+
+      ClientV2.query(params).$promise.then(function(results) {
+        scope.clients = results.clients;
+        scope.connected = results.online;
+        scope.total = results.total;
+        // txrx();
+        deferred.resolve();
+        // scope.loading = undefined;
+      }, function(err) {
+        scope.loading_table = undefined;
+        scope.loading = undefined;
+        deferred.reject(err);
+      });
+
       return deferred.promise;
     };
 
-    var getStats = function() {
-      // var params = {}
-      // params.client_type = 'clients.stats';
-      // params.client_macs = '80-EA-96-97-1A-CF|2C-0E-3D-60-E0-EB';
-      // ClientV2.query(params).$promise.then(function(results) {
-      //   console.log(results)
-      // });
+    var formatMetrics = function(val) {
+      for (var i = 0, len = scope.clients.length; i < len; i++) {
+        if (scope.clients[i].client_mac === val.client_mac) {
+          var tx, rx, snr;
+          var metrics = val.metrics;
+          if (metrics && metrics.length >= 0) {
+            for (var j = 0, lenn = metrics.length; j < lenn; j++) {
+              var data = metrics[j].data;
+              if (data.length !== 0) {
+                var v, key;
+                if (metrics[j].series_type === 'clients.tx' || metrics[j].series_type === 'clients.rx') {
+                  if (metrics[j].series_type === 'clients.tx') {
+                    key = 'txbitrate';
+                  } else if (metrics[j].series_type === 'clients.rx') {
+                    key = 'rxbitrate';
+                  }
+                  v = data[data.length-1].value;
+                  v = Math.round(v * 100) / 100;
+                } else if (metrics[j].series_type === 'clients.snr' || metrics[j].series_type === 'clients.mcs' || metrics[j].series_type === 'clients.signal') {
+                  if (metrics[j].series_type === 'clients.snr') {
+                    key = 'snr';
+                  } else if (metrics[j].series_type === 'clients.mcs') {
+                    key = 'mcs';
+                  } else if (metrics[j].series_type === 'clients.signal') {
+                    key = 'signal';
+                  }
+                  v = data[data.length-1].value;
+                  v = Math.round(v);
+                }
+                scope.clients[i][key] = v;
+              }
+            }
+          }
+        }
+      }
     };
 
-    getLocation().then(initV2).then(function() {
-      getStats();
+    var fetchMetrics = function(val) {
+      var deferred = $q.defer();
+      var params = getParams();
+      params.access_token = Auth.currentUser().api_token;
+      params.location_id = scope.location.id;
+      params.client_type = 'clients.metrics';
+      params.end_time = $routeParams.end;
+      params.start_time = $routeParams.start;
+      params.client_mac = val;
+      // params.meta = true;
+      ClientV2.query(params).$promise.then(function(results) {
+        formatMetrics(results);
+        deferred.resolve(results);
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var getMetrics = function() {
+      var defer = $q.defer();
+      var promises = [];
+
+      function lastTask(){
+        formatMetrics().then( function(){
+          defer.resolve();
+        });
+      }
+
+      angular.forEach(scope.clients, function(value){
+        promises.push(fetchMetrics(value.client_mac));
+      });
+
+      $q.all(promises).then(function(val) {
+        formatMetrics(val);
+      });
+
+      return defer.promise;
+    };
+
+    var loaded = function() {
+      var defer = $q.defer();
       scope.loading = undefined;
+      defer.resolve();
+      return defer.promise;
+    };
+
+    getLocation().then(initV2).then(loaded);//.then(getMetrics);
+
+    // Otherwise we delay the page load //
+    scope.$watch('clients',function(nv){
+      if (nv !== undefined) {
+        getMetrics();
+      }
     });
+    // getMetrics();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
     });
@@ -776,9 +856,10 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.start    = $routeParams.start || (Math.floor(new Date() / 1000) - 21600);
     // default to now:
     scope.end      = $routeParams.end || Math.floor(new Date() / 1000);
+    scope.filtered = false;
 
     if ($routeParams.start || $routeParams.end) {
-      scope.rangeParams = true;
+      scope.filtered = true;
     }
 
     var logout = function() {
@@ -847,15 +928,11 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
           } else {
             scope.start = startTimestamp;
             scope.end = endTimestamp;
+            scope.filtered = true;
             scope.updatePage();
             $mdDialog.cancel();
           }
         }
-      };
-
-      $scope.clearRangeFilter = function() {
-        scope.clearRangeFilter();
-        $mdDialog.cancel();
       };
 
       $scope.close = function() {
@@ -866,6 +943,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
     scope.clearRangeFilter = function() {
       scope.start = undefined;
       scope.end = undefined;
+      scope.filtered = false;
       scope.updatePage();
     };
 
@@ -880,9 +958,9 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       scope.updatePage();
     };
 
-    // scope.reload = function() {
-    //   controller.$scope.$broadcast('loadClientChart');
-    // };
+    scope.reload = function() {
+      controller.$scope.$broadcast('loadClientChart');
+    };
 
     controller.$scope.$on('fullScreen', function(val,obj) {
       menu.isOpenLeft = false;
@@ -1011,7 +1089,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
 
         Client.update({
           location_id: scope.location.slug,
-          id: scope.client.id,
+          id: scope.client.client_mac,
           client: params
         }).$promise.then(function(results) {
           refreshPolicies();
@@ -1148,7 +1226,7 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       client.description = scope.client.description;
       Client.update({
         location_id: scope.location.slug,
-        id: scope.client.id,
+        id: scope.client.client_mac,
         client: client
       }).$promise.then(function(results) {
         showToast('Client updated successfully.');

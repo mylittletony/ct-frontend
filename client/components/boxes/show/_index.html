@@ -5,6 +5,16 @@
     </md-button>
     <p translate>Back to Devices</p>
     <span flex></span>
+
+    <md-button id="main" class="md-icon-button" aria-label="{{ 'Settings' | translate }}">
+      <md-icon ng-class="{'official-fw': box.official}" style="outline: 0;" md-font-icon="">star{{box.official ? '' : '_border'}}</md-icon>
+      <md-tooltip md-direction="left">
+        <translate>
+        <span ng-if="box.official == true">Official Cucumber Firmware</span>
+        <span ng-if="box.official == false">Unofficial Firmware</span>
+        </translate>
+      </md-tooltip>
+    </md-button>
     <upgrade-box box="box"></upgrade-box>
     <span ng-if="box.state == 'offline'">
       <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" : "volume_up" }}</md-icon>
@@ -48,13 +58,12 @@
   <md-divider></md-divider>
 </md-toolbar>
 
-<section ng-cloak ng-if="!loading && !fs">
-  <md-subheader class="md-accent">
+<section ng-if="!loading && !fs">
+  <md-subheader class="md-no-sticky">
     <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" ng-class="{ 'box-image': box.device_icon !== 'blank.png' }"/>
-    <b><translate>{{ ::box.metadata.online || 0 }} connected. {{ (box.throughput || 0) | mbps }} throughput.</translate> <a hide show-gt-sm class="no-anchor-style" href="/#/locations/{{ location.slug }}/zones/{{ box.metadata.zone_id }}" ng-if="box.metadata && box.metadata.zone_name" translate>{{ ::(box.metadata.zone_name | titleCase) }} zone.</a> <span hide show-gt-sm>SSID<span ng-if="box.metadata.ssids.length != 1">s</span>: {{ ::box.ssids }} <md-tooltip><translate>Broadcasting {{ ::box.metadata.ssids.length }} SSIDs: {{ box.all_ssids }}</translate></b></md-tooltip></span></span>
+    <device-meta box="box"></device-meta>
   </md-subheader>
 </section>
-
 
 <md-content class="md-padding" ng-if="box.state == 'initializing'">
   <div layout="row" layout-align="center center">
@@ -173,8 +182,8 @@
 </md-content>
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
-  <div flex ng-if="box.state != 'new'" flex-gt-sm="100" layout="column" style='padding: 0 10px;'>
-    <div heartbeat-chart ng-if="box.state != 'new'" height="100" target="heartbeats-0" mac="{{box.mac}}" id='heartbeats-0'></div>
+  <div flex ng-if="box.state != 'new'" flex-gt-sm="100" layout="column" style='padding: 0px 0px 0px 0px;'>
+    <div heartbeat-chart ng-if="box.state != 'new'" height="100" target="heartbeats-0" mac="{{box.mac}}" id='heartbeats-0' style='padding: 0px 8px 0px 8px'></div>
   </div>
   <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
     <md-card>
@@ -191,7 +200,7 @@
             <div class="md-list-item-text">
               <h3 translate>Status</h3>
               <p>
-                {{ box.state | deviceStatus }}
+                {{ box.upgrade_processing == true ? 'Upgrade Processing' : (box.state | deviceStatus) }}
               </p>
             </div>
           </md-list-item>

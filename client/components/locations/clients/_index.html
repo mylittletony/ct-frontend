@@ -64,15 +64,6 @@
     <md-button ng-click="openColumns()" class="md-icon-button" hide show-gt-xs>
       <md-icon md-font-icon="settings">settings</md-icon>
     </md-button>
-    <!-- <md-button-group hide show-gt-sm class="md-raised"> -->
-    <!--   <md-button ng-click="updatePeriod('5m')" ng-class="{ 'active': period === '5m' }"><span translate>5m</span></md-button> -->
-    <!--   <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }"><span translate>30m</span></md-button> -->
-    <!--   <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }"><span translate>60m</span></md-button> -->
-    <!--   <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }"><span translate>6h</span></md-button> -->
-    <!--   <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }"><span translate>1d</span></md-button> -->
-    <!--   <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }"><span translate>7d</span></md-button> -->
-    <!--   <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }"><span translate>30d</span></md-button> -->
-    <!-- </md-button-group> -->
     <md-button class='md-icon-button md-accent' ng-click='createClient()'>
       <md-icon>add_circle</md-icon>
     </md-button>
@@ -93,34 +84,31 @@
           </div>
           <md-table-container style="overflow-x:scroll;">
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="clients">
-              <thead md-head>
+              <thead md-head md-order="query.order">
                 <tr md-row class="md-table-headers-row">
-                  <th md-column><a href="" ng-click='sort("online", query.direction)' translate>Status</a></th>
-                  <th md-column><a href="" ng-click='sort("device_name", query.direction)' translate>Description</a></th>
-                  <th md-column hide show-gt-sm><a href="" ng-click='sort("client_mac", query.direction)' translate>Mac Address</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.ssid"><a href="" ng-click='sort("ssid", query.direction)' translate>SSID</a></th>
-                  <!-- <th hide show-gt-sm md-column ng-show="columns.tx"><a href="" ng-click='sort("tx", query.direction)'>Usage</a></th> -->
-                  <!-- <th hide show-gt-sm md-column ng-show="columns.txbps"><a href="" ng-click='sort("txbps", query.direction)'>Txbps</a></th> -->
-                  <!-- <th hide show-gt-sm md-column ng-show="columns.rxbps"><a href="" ng-click='sort("rxbps", query.direction)'>Rxbps</a></th> -->
-                  <th hide show-gt-sm md-column ng-show="columns.expected_throughput"><a href="" ng-click='sort("expected_throughput", query.direction)' translate>Expected Tput</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.txbitrate"><a href="" ng-click='sort("txbitrate", query.direction)' translate>Tx Rate</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.rxbitrate"><a href="" ng-click='sort("rxbitrate", query.direction)' translate>Rx Rate</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.snr"><a href="" ng-click='sort("snr", query.direction)' translate>SNR</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.signal"><a href="" ng-click='sort("signal", query.direction)' translate>Signal</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.mcs"><a href="" ng-click='sort("mcs", query.direction)' translate>MCS Index</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.ip"><a href="" ng-click='sort("ip", query.direction)' translate>IPv4</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.lastseen"><a href="" ng-click='sort("lastseen", query.direction)' translate>Last Seen</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.description"><a href="" ng-click='sort("description", query.direction)' translate>AP Name</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.channel"><a href="" ng-click='sort("channel", query.direction)' translate>Channel</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.capabilities"><a href="" ng-click='sort("capabilities", query.direction)' translate>Frequency</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.manufacturer"><a href="" ng-click='sort("manufacturer", query.direction)' translate>Manufacturer</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.splash_username"><a href="" ng-click='sort("splash_username", query.direction)' translate>Splash User</a></th>
-                  <th hide show-gt-sm md-column ng-show="columns.policies"><a href="" ng-click='sort("policies", query.direction)' translate>Policies</a></th>
+                  <th md-column md-order-by="status"><a href="" translate>Status</a></th>
+                  <th md-column><a href="" translate>Description</a></th>
+                  <th md-column hide md-order-by="client_mac" show-gt-sm><a href="" translate>Mac Address</a></th>
+                  <th hide show-gt-sm md-column md-order-by="ssid" ng-show="columns.ssid"><a href="" translate>SSID</a></th>
+                  <!-- <th hide show-gt-sm md-column md-order-by="" ng-show="columns.expected_throughput"><a href="" translate>Expected Tput</a></th> -->
+                  <th hide show-gt-sm md-column md-order-by="txbitrate" ng-show="columns.txbitrate"><a href="" translate>Tx Rate</a></th>
+                  <th hide show-gt-sm md-column md-order-by="rxbitrate" ng-show="columns.rxbitrate"><a href="" translate>Rx Rate</a></th>
+                  <th hide show-gt-sm md-column md-order-by="snr" ng-show="columns.snr"><a href="" translate>SNR</a></th>
+                  <th hide show-gt-sm md-column md-order-by="signal" ng-show="columns.signal"><a href="" translate>Signal</a></th>
+                  <th hide show-gt-sm md-column md-order-by="mcs" ng-show="columns.mcs"><a href="" translate>MCS Index</a></th>
+                  <th hide show-gt-sm md-column md-order-by="ip" ng-show="columns.ip"><a href="" translate>IPv4</a></th>
+                  <th hide show-gt-sm md-column md-order-by="lastseen" ng-show="columns.lastseen"><a href="" translate>Last Seen</a></th>
+                  <th hide show-gt-sm md-column md-order-by="ap_mac" ng-show="columns.ap_name"><a href="" translate>AP Name</a></th>
+                  <th hide show-gt-sm md-column md-order-by="channel" ng-show="columns.channel"><a href="" translate>Channel</a></th>
+                  <th hide show-gt-sm md-column md-order-by="capabilities" ng-show="columns.capabilities"><a href="" translate>Frequency</a></th>
+                  <!-- <th hide show-gt-sm md-column md-order-by="manufacturer" ng-show="columns.manufacturer"><a href="" translate>Manufacturer</a></th> -->
+                  <!-- <th hide show-gt-sm md-column md-order-by="" ng-show="columns.splash_username"><a href="" translate>Splash User</a></th> -->
+                  <!-- <th hide show-gt-sm md-column md-order-by="" ng-show="columns.policies"><a href="" translate>Policies</a></th> -->
                   <th md-column translate>Action</th>
                 </tr>
               </thead>
               <tbody md-body>
-                <tr md-row md-auto-select="false" md-on-select="updateChart" md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients | filter: query.filter | orderBy: '-lastseen')">
+                <tr md-row md-auto-select="false" md-on-select="updateChart" md-select="client" md-auto-select="options.autoSelect" ng-repeat="client in filtered = (clients | filter: query.filter | orderBy: query.order)">
                   <td md-cell class="with-padding">
                     <md-icon ng-class="client.online ? (client.splash_status == 'dnat' ? 'dnat' : 'online' ) : 'offline'">wifi</md-icon>
                   </td md-cell>
@@ -151,14 +139,14 @@
                       {{ client.ap_mac }}
                     </md-tooltip>
                   </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.expected_throughput">
-                    <translate>{{ client.expected_throughput || 0}}Mbps</translate>
-                  </td md-cell>
+                  <!-- <td hide show-gt-sm md-cell ng-show="columns.expected_throughput"> -->
+                  <!--   <translate>{{ client.expected_throughput || 0}}Mbps</translate> -->
+                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.txbitrate">
-                    <translate>{{ client.txbitrate || 0 }}Mbps</translate>
+                    <translate>{{ client.txbitrate || 0 }}Kbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.rxbitrate">
-                    <translate>{{ client.rxbitrate || 0 }}Mbps</translate>
+                    <translate>{{ client.rxbitrate || 0 }}Kbps</translate>
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.snr">
                     <span class="text-muted" ng-if="client.conn_type == 'wired'" translate>
@@ -166,7 +154,7 @@
                     </span>
                     <span ng-if="client.conn_type != 'wired'">
                       <span ng-if="!client.snr_alert">
-                        {{ client.snr }}dB
+                        {{ client.snr || 0 }}dB
                       </span>
                       <span ng-if="client.snr_alert">
                         <b>{{ client.snr }}dB</b>
@@ -190,33 +178,33 @@
                   <td hide show-gt-sm md-cell ng-show="columns.lastseen">
                     {{ client.lastseen | lastSeen }}
                   </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.description">
-                    <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a>
-                  </td md-cell>
+                  <!-- <td hide show-gt-sm md-cell ng-show="columns.description"> -->
+                  <!--   <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a> -->
+                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.channel">
                     {{ client.channel }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.capabilities">
-                    {{ client.capabilities }}
+                    {{ client.channel > 14 ? '5Ghz' : '2.4Ghz' }}
                   </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.manufacturer">
-                    {{ client.manufacturer | emptyFilter }}
-                  </td md-cell>
+                  <!-- <td hide show-gt-sm md-cell ng-show="columns.manufacturer"> -->
+                  <!--   {{ client.manufacturer | emptyFilter }} -->
+                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.splash_username">
                     <span ng-show="client.errors"><b translate>Failed</b></span>
                   </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.policies">
-                    <span ng-if="client.policies.length == 0">-</span>
-                    <translate ng-if="client.policies.length == 1">
-                    <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name | titleCase }}</a>
-                    </translate>
-                    <span ng-if="client.policies.length > 1">
-                      <translate>{{ client.policies.length }} Policies</translate>
-                      <md-tooltip>
-                        {{ client.policies | toString }}
-                      </md-tooltip>
-                    </span>
-                  </td>
+                  <!-- <td hide show-gt-sm md-cell ng-show="columns.policies"> -->
+                  <!--   <span ng-if="client.policies.length == 0">-</span> -->
+                  <!--   <translate ng-if="client.policies.length == 1"> -->
+                  <!--   <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name | titleCase }}</a> -->
+                  <!--   </translate> -->
+                  <!--   <span ng-if="client.policies.length > 1"> -->
+                  <!--     <translate>{{ client.policies.length }} Policies</translate> -->
+                  <!--     <md-tooltip> -->
+                  <!--       {{ client.policies | toString }} -->
+                  <!--     </md-tooltip> -->
+                  <!--   </span> -->
+                  <!-- </td> -->
                   <td md-cell ng-show="menu.length">
                     <span ng-show="client.processing">
                       <md-progress-circular class="md-warn" md-diameter="40"></md-progress-circular>

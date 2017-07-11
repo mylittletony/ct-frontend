@@ -4,9 +4,11 @@
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
         <p>
-          <span ng-if="filter" translate translate-context="filtered number, devices" translate-n="filtered.length" translate-plural="{{filtered.length}} Devices.">1 Device.</span>
+          <!-- <span ng-if="filter" translate translate-context="filtered number, devices" translate-n="filtered.length" translate-plural="{{filtered.length}} Devices.">1 Device.</span>
           <span ng-if="!filter" translate translate-context="total number, devices" translate-n="_links.total_entries" translate-plural="{{_links.total_entries}} Devices.">1 Device.</span>
-          <span translate translate-n="{{ online }}" translate-plural="{{ online }} Clients Online.">1 Client Online.</span></p>
+          <span translate translate-n="{{ online }}" translate-plural="{{ online }} Clients Online.">1 Client Online.</span></p> -->
+          <span>{{total_online}} Client<span ng-if="total_online != 1">s</span> Online</span>
+        </p>
         <div flex></div>
         <md-menu ng-if="selected.length">
           <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-fab md-mini md-warn" ng-click="$mdOpenMenu($event)">
@@ -90,7 +92,7 @@
                 {{ box.calledstationid }}
               </td>
               <td hide show-gt-xs md-cell>
-                {{ ::box.metadata.online || '-' }}
+                {{ box.clients_online || '-' }}
               </td>
               <td hide show-gt-sm md-cell>
                 <a href="/#/locations/{{ location.slug }}/zones/{{ box.zone_id }}">
@@ -109,7 +111,7 @@
                 </span>
               </td>
               <td hide show-gt-lg md-cell>
-                {{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</span>
+                <span>{{ box.channel || '-' }}</span><span ng-if="box.dual_band">, {{ box.channel_5 }}</span>
               </td>
               <td hide show-gt-md md-cell>
                 {{ box.wan_ip }}

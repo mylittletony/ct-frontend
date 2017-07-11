@@ -11,6 +11,15 @@ ul {
 
 .hidden { display: none; }
 
+.official-fw {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  color: #16AC5B!important;
+}
+
+.custom-fw {
+  color: blue;
+}
+
 .hard-break {
   white-space: pre-wrap; /* css-3 */
   white-space: -moz-pre-wrap; /* Mozilla, since 1999 */

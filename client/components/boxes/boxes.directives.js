@@ -512,7 +512,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         ClientDetails.client = {
           location_id: box.location_id,
           ap_mac: box.calledstationid,
-          version: box.v,
+          version: box.v
         };
         scope.loading = undefined;
         poll();
@@ -1327,7 +1327,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     var upgrade = function(prefs) {
       scope.box.state               = 'processing';
-      scope.box.upgrade_scheduled   = true;
+      scope.box.upgrade_processing  = true;
       if (scope.box) {
         scope.box.cancelled = undefined;
       }
@@ -1350,7 +1350,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';
-        scope.box.upgrade_scheduled   = undefined;
+        scope.box.upgrade_processing   = undefined;
         var e;
         if (err && err.data && err.data.message) {
           e = err.data.message;
@@ -1431,7 +1431,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         box_id: scope.box.slug
       }).$promise.then(function(result) {
         scope.box.state = 'online';
-        scope.box.upgrade_scheduled = undefined;
+        scope.box.upgrade_processing = undefined;
         showToast(gettextCatalog.getString('Upgrade cancelled successfully.'));
       }, function(err) {
         showToast(err);
@@ -1453,7 +1453,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
             msg = data.message;
           }
           if (msg.status) {
-            scope.box.upgrade_scheduled = undefined;
+            scope.box.upgrade_processing = undefined;
             scope.box.state = 'upgrading';
             scope.box.allowed_job = false;
             channel.unbind();
@@ -1756,21 +1756,53 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
+app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
+
+  var link = function(scope, element,attrs) {
+    var load;
+
+    var loadMeta = function(box) {
+      load = true;
+      Metric.clientstats({
+        type:         'devices.meta',
+        ap_mac:       box.calledstationid,
+        location_id:  box.location_id
+      }).$promise.then(function(data) {
+        scope.box_data = data.meta[0];
+      }, function() {
+      });
+    };
+
+    scope.$watch('box',function(box){
+      if (box !== undefined && !load && box.calledstationid) {
+        loadMeta(box);
+      }
+    });
+  };
+
+  return {
+    link: link,
+    scope: {
+      box: '='
+    },
+    templateUrl: 'components/boxes/payloads/_metadata.html'
+  };
+
+}]);
+
 app.directive('boxSpeedtestWidget', ['showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
-    scope.runSpeedtest = function() {
-      scope.box.speedtest_running = true;
-      // scope.box.allowed_job = false;
-      updateCT();
-    };
-
     var updateCT = function() {
       Speedtest.create({box_id: scope.box.slug}).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Running speedtest, please wait.'));
       }, function(errors) {
         showErrors(errors);
       });
+    };
+    scope.runSpeedtest = function() {
+      scope.box.speedtest_running = true;
+      updateCT();
     };
   };
 
