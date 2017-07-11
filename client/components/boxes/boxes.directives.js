@@ -1327,7 +1327,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
 
     var upgrade = function(prefs) {
       scope.box.state               = 'processing';
-      scope.box.upgrade_scheduled   = true;
+      scope.box.upgrade_processing  = true;
       if (scope.box) {
         scope.box.cancelled = undefined;
       }
@@ -1350,7 +1350,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         showToast(gettextCatalog.getString('Your upgrade has been scheduled.'));
       }, function(err) {
         scope.box.state               = 'online';
-        scope.box.upgrade_scheduled   = undefined;
+        scope.box.upgrade_processing   = undefined;
         var e;
         if (err && err.data && err.data.message) {
           e = err.data.message;
@@ -1431,7 +1431,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
         box_id: scope.box.slug
       }).$promise.then(function(result) {
         scope.box.state = 'online';
-        scope.box.upgrade_scheduled = undefined;
+        scope.box.upgrade_processing = undefined;
         showToast(gettextCatalog.getString('Upgrade cancelled successfully.'));
       }, function(err) {
         showToast(err);
@@ -1453,7 +1453,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
             msg = data.message;
           }
           if (msg.status) {
-            scope.box.upgrade_scheduled = undefined;
+            scope.box.upgrade_processing = undefined;
             scope.box.state = 'upgrading';
             scope.box.allowed_job = false;
             channel.unbind();

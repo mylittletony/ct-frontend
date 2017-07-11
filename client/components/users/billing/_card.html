@@ -2,7 +2,10 @@
   <form name="form" stripe-form="stripeCallback">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h2 translate>Add Credit Card</h2>
+        <h2 translate>
+          <md-icon>lock</md-icon>
+          Add Credit Card
+        </h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
@@ -31,6 +34,7 @@
             <div ng-message="expiry" translate>Invalid CVC</div>
           </div>
         </md-input-container>
+        <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/powered_by_stripe_3x.png" style="width: 150px; height: 33px;"/>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
