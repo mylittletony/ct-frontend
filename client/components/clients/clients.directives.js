@@ -528,6 +528,12 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    var assignClientAps = function() {
+      for (var i = 0, len = scope.clients.length; i < len; i++) {
+        scope.clients[i].ap_name = scope.boxes[scope.clients[i].ap_mac];
+      }
+    };
+
     var fetchBoxes = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
@@ -536,6 +542,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         for (var i = 0, len = results.boxes.length; i < len; i++) {
           scope.boxes[results.boxes[i].calledstationid] = results.boxes[i].description;
         }
+        assignClientAps();
         deferred.resolve();
       }, function(err) {
         deferred.reject(err);
