@@ -23,6 +23,11 @@
       </md-button>
       <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
        <md-icon md-font-icon="date_range">date_range</md-icon>
+       <md-tooltip>
+         <translate>
+           Add date range filter
+         </translate>
+       </md-tooltip>
       </md-button>
       <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
         <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
