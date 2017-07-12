@@ -849,10 +849,12 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.period      = $routeParams.period   || '7d';
-    scope.interval    = $routeParams.interval || '12h';
+    // scope.period      = $routeParams.period   || '7d';
+    scope.interval    = $routeParams.interval || 'hour';
     scope.fill        = $routeParams.fill     || '0';
-    scope.location_id = $routeParams.location_id;
+    scope.location_id = $routeParams.id;
+    scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+    scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
     scope.type        = $routeParams.type;
 
     attrs.$observe('render', function(val){
@@ -973,7 +975,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       var hash        = $location.search();
       hash.type       = t;
       scope.type      = t;
-      scope.interval  = controller.setInterval(scope.period);
+      // scope.interval  = controller.setInterval(scope.period);
       hash.interval   = scope.interval;
       $location.search(hash);
       init();
@@ -998,7 +1000,8 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       var params = {
         resource:       'device',
         type:           scope.type,
-        period:         scope.period,
+        start:          scope.start,
+        end:            scope.end,
         interval:       scope.interval,
         fill:           scope.fill,
         location_id:    scope.location_id
