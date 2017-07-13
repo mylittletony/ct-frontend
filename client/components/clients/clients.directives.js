@@ -232,9 +232,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       hash.period         = scope.period;
       hash.page           = scope.query.page;
       hash.fn             = scope.fn.value;
-      hash.type           = scope.type;
       hash.direction      = scope.query.direction;
-      hash.per            = scope.query.limit;
       hash.sort           = scope.query.sort;
       hash.v              = scope.query.v;
       $location.search(hash);
