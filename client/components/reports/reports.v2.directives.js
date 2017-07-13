@@ -1045,13 +1045,17 @@ app.directive('wirelessStats', ['Report', '$routeParams', '$location', 'Location
 
       scope.stats = {};
       var period = $routeParams.period || '7d';
+      scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+      scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
 
       var params = {
-        interval: '7d',
+        // interval: '7d',
         resource: 'client',
         type: 'wireless_stats',
-        location_id: $routeParams.location_id,
-        period: period
+        location_id: $routeParams.id,
+        // period: period
+        start: scope.start,
+        end: scope.end
       };
 
       controller.get(params).then(function(results) {
