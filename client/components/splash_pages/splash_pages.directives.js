@@ -548,7 +548,6 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       return Network.get({location_id: scope.location.slug, splash: true}).$promise.then(function(results) {
         scope.obj.networks = results;
         if (scope.obj.networks.length) {
-          console.log(results)
           scope.splash.network_id = scope.obj.networks[0].id;
           for (var i = 0; i < scope.obj.networks.length; i++) {
             if (scope.obj.networks[i].zones.length) {
