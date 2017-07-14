@@ -389,7 +389,6 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       };
 
       this.v2 = function(params, deferred) {
-        var endOfDay = Math.floor(moment().utc().endOf('day').toDate().getTime() / 1000);
         Metric.clientstats({
           type:         params.metric_type || params.type,
           ap_mac:       $scope.client.ap_mac || params.ap_mac,
@@ -799,7 +798,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var opts = controller.options;
       opts.explorer = undefined;
-      opts.pieHole = attrs.hole || 0.8
+      opts.pieHole = 0.8
       opts.legend = { position: attrs.legend || 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';

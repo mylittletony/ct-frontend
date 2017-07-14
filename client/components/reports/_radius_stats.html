@@ -3,8 +3,8 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Unique Users</h3>
-          <p>{{ stats.splash.uniques || 0 }}</p>
+          <p translate>Unique Users</p>
+          <h2>{{ stats.splash.uniques || 0 }}</h2>
         </div>
       </md-list-item>
     </md-card-content>
@@ -13,8 +13,8 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Average Session</h3>
-          <p translate>{{ (stats.splash.durations.avg / 60) | number:0 }} Mins</p>
+          <p translate>Average Session</p>
+          <h2 translate>{{ (stats.splash.durations.avg / 60) || 0 | number:0 }} Mins</h2>
         </div>
       </md-list-item>
     </md-card-content>
@@ -23,8 +23,8 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Total Sessions</h3>
-          <p>{{ stats.splash.total_sessions }}</p>
+          <p translate>Total Sessions</p>
+          <h2>{{ stats.splash.total_sessions || 0 }}</h2>
         </div>
       </md-list-item>
     </md-card-content>
@@ -33,7 +33,7 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Data Transferred</h3>
+          <p translate>Data Transferred</p>
           <p>{{ (stats.splash.usage.inbound.sum + stats.splash.usage.outbound.sum) | humanData }}</p>
         </div>
       </md-list-item>
@@ -43,8 +43,13 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Vouchers</h3>
-          <p translate>{{ stats.vouchers.created }} created, {{ stats.vouchers.activated }} used.</p>
+          <p translate>Vouchers Used</p>
+          <span>
+            <h2 translate>{{ stats.vouchers.activated || 0 }} / {{ stats.vouchers.created || 0 }}</h2>
+            <md-tooltip>
+              <translate>Used/Created</translate>
+            </md-tooltip>
+          </span>
         </div>
       </md-list-item>
     </md-card-content>

@@ -316,10 +316,12 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       $timeout.cancel(timer);
 
       options.colors = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
-      options.chartArea = { width: '90%;', left: 10, right: 10 };
-      options.legend = { position: attrs.legend || 'none' };
-      options.height = '255';
+      options.chartArea = { left: '3%', top: '3%', height: '84%', width: '90%' };
+      options.legend = { position: attrs.legend || 'bottom' };
+      options.height = '350';
       options.sliceVisibilityThreshold = 0;
+      options.pieHole = '0.8';
+      options.pieSliceText = 'none';
 
       var len = json.length;
       var data = new window.google.visualization.DataTable();
@@ -349,10 +351,6 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
       if (scope.type === 'popular' ) {
         options.pieSliceText = 'value';
-      }
-
-      if (attrs.hole) {
-        options.pieHole = attrs.hole;
       }
 
       var chart = new window.google.visualization.PieChart(document.getElementById(scope.render));
@@ -454,6 +452,10 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
     scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
     scope.interval    = 'hour';
+
+    options.curveType = 'function';
+    options.colors = ['#16ac5b','#225566'];
+    options.lineWidth = '2.5';
 
     attrs.$observe('render', function(val){
       if (val !== '') {
@@ -849,10 +851,12 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.period      = $routeParams.period   || '7d';
-    scope.interval    = $routeParams.interval || '12h';
+    // scope.period      = $routeParams.period   || '7d';
+    scope.interval    = $routeParams.interval || 'hour';
     scope.fill        = $routeParams.fill     || '0';
-    scope.location_id = $routeParams.location_id;
+    scope.location_id = $routeParams.id;
+    scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+    scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
     scope.type        = $routeParams.type;
 
     attrs.$observe('render', function(val){
@@ -973,7 +977,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       var hash        = $location.search();
       hash.type       = t;
       scope.type      = t;
-      scope.interval  = controller.setInterval(scope.period);
+      // scope.interval  = controller.setInterval(scope.period);
       hash.interval   = scope.interval;
       $location.search(hash);
       init();
@@ -998,7 +1002,8 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       var params = {
         resource:       'device',
         type:           scope.type,
-        period:         scope.period,
+        start:          scope.start,
+        end:            scope.end,
         interval:       scope.interval,
         fill:           scope.fill,
         location_id:    scope.location_id
@@ -1042,13 +1047,17 @@ app.directive('wirelessStats', ['Report', '$routeParams', '$location', 'Location
 
       scope.stats = {};
       var period = $routeParams.period || '7d';
+      scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+      scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
 
       var params = {
-        interval: '7d',
+        // interval: '7d',
         resource: 'client',
         type: 'wireless_stats',
-        location_id: $routeParams.location_id,
-        period: period
+        location_id: $routeParams.id,
+        // period: period
+        start: scope.start,
+        end: scope.end
       };
 
       controller.get(params).then(function(results) {
