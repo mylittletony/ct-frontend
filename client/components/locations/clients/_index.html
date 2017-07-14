@@ -50,16 +50,29 @@
         </md-menu-content>
       </md-menu>
     </md-menu-bar>
-    <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="start || end" ng-click="clearRangeFilter()">
-      <md-icon>clear_all</md-icon>
+    <md-button ng-click="clearRangeFilter()" class='md-accent' ng-if="start || end" href="" style='font-size: 14px; color: rgba(0, 0, 0, 0.54)'>
+      Show all online
       <md-tooltip>
         <translate>
-        Clear range filter
+          Show all clients that are currently online
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <md-button ng-click="showSixHours()" class='md-accent' ng-if="!start && !end" href="" style='font-size: 14px; color: rgba(0, 0, 0, 0.54)'>
+      Show last 6hr
+      <md-tooltip>
+        <translate>
+          See all clients that have connected within the last six hours
         </translate>
       </md-tooltip>
     </md-button>
     <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
      <md-icon md-font-icon="date_range">date_range</md-icon>
+     <md-tooltip>
+       <translate>
+         Add date range filter
+       </translate>
+     </md-tooltip>
     </md-button>
     <md-button ng-click="openColumns()" class="md-icon-button" hide show-gt-xs>
       <md-icon md-font-icon="settings">settings</md-icon>
@@ -74,12 +87,11 @@
 <md-content layout-padding>
   <div layout="row" layout-wrap layout-align="space-between start">
     <div flex="100">
-
       <md-card>
         <md-card-content>
           <div class="md-toolbar-tools" ng-cloak>
             <span class="md-subhead" translate>
-              There {{ connected == 1 ? 'is' : 'are' }} currently {{ connected || 0 }} client{{ connected == 1 ? '' : 's' }} connected to your network. <span ng-if="query.start">{{ total || 0 }} in total between {{ query.start | lastSeen }} and {{ query.end | lastSeen }}.</span>
+              There {{ connected == 1 ? 'is' : 'are' }} currently {{ connected || 0 }} client{{ connected == 1 ? '' : 's' }} connected to your network. <span ng-if="query.start">{{ total || 0 }} in total between {{ query.start | lastSeen }} and {{ query.end | lastSeen }}. </span>
             </span>
           </div>
           <md-table-container style="overflow-x:scroll;">

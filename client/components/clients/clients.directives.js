@@ -232,9 +232,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       hash.period         = scope.period;
       hash.page           = scope.query.page;
       hash.fn             = scope.fn.value;
-      hash.type           = scope.type;
       hash.direction      = scope.query.direction;
-      hash.per            = scope.query.limit;
       hash.sort           = scope.query.sort;
       hash.v              = scope.query.v;
       $location.search(hash);
@@ -388,6 +386,15 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       scope.query.end = undefined;
       scope.updatePage();
     };
+
+    scope.showSixHours = function() {
+      var distance = 60 * 60 * 6
+      var min = Math.floor(moment().utc().subtract(distance, 'seconds').toDate().getTime() / 1000);
+      var max = Math.floor(moment().utc().toDate().getTime() / 1000);
+      scope.query.start = min;
+      scope.query.end = max;
+      scope.updatePage();
+    }
 
     var loadPolicies = function() {
       var deferred = $q.defer();
