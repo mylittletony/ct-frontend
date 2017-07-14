@@ -316,10 +316,12 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       $timeout.cancel(timer);
 
       options.colors = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
-      options.chartArea = { width: '90%;', left: 10, right: 10 };
-      options.legend = { position: attrs.legend || 'none' };
-      options.height = '255';
+      options.chartArea = { left: '3%', top: '3%', height: '84%', width: '90%' };
+      options.legend = { position: attrs.legend || 'bottom' };
+      options.height = '350';
       options.sliceVisibilityThreshold = 0;
+      options.pieHole = '0.8';
+      options.pieSliceText = 'none';
 
       var len = json.length;
       var data = new window.google.visualization.DataTable();
@@ -349,10 +351,6 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
       if (scope.type === 'popular' ) {
         options.pieSliceText = 'value';
-      }
-
-      if (attrs.hole) {
-        options.pieHole = attrs.hole;
       }
 
       var chart = new window.google.visualization.PieChart(document.getElementById(scope.render));
@@ -454,6 +452,10 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
     scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
     scope.interval    = 'hour';
+
+    options.curveType = 'function';
+    options.colors = ['#16ac5b','#225566'];
+    options.lineWidth = '2.5';
 
     attrs.$observe('render', function(val){
       if (val !== '') {
