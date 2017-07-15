@@ -455,7 +455,12 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
     options.curveType = 'function';
     options.colors = ['#16ac5b','#225566'];
-    options.lineWidth = '2.5';
+    options.lineWidth = '2';
+    options.vAxis = {
+      viewWindow: {
+        min: 0
+      }
+    }
 
     attrs.$observe('render', function(val){
       if (val !== '') {
@@ -708,7 +713,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
       var data = new window.google.visualization.DataTable();
 
-      if (json.length === 4) {
+      if (json[0].count || json[1].count || json[2].count || json[3].count) {
 
         scope.noData = undefined;
         scope.loading = undefined;
