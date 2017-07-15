@@ -130,10 +130,31 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       clientsChart();
     };
 
-    // scope.updatePeriod = function(period) {
-    //   scope.period = period;
-    //   scope.updatePage();
-    // };
+    calculateStartEnd = function(period) {
+      var distance;
+      switch(scope.period) {
+          case '1h':
+            distance = 3600;
+            break;
+          case '6h':
+            distance = 3600 * 6;
+            break;
+          case '12h':
+            distance = 3600 * 12;
+            break;
+          case '1d':
+            distance = 3600 * 24;
+            break;
+          default:
+          
+      }
+    };
+
+    scope.updatePeriod = function(period) {
+      scope.period = period;
+      calculateStartEnd(period);
+      scope.updatePage();
+    };
 
     scope.changeType = function(t) {
       scope.type = t;
