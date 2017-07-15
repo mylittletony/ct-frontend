@@ -455,7 +455,12 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
     options.curveType = 'function';
     options.colors = ['#16ac5b','#225566'];
-    options.lineWidth = '2.5';
+    options.lineWidth = '2';
+    options.vAxis = {
+      viewWindow: {
+        min: 0
+      }
+    }
 
     attrs.$observe('render', function(val){
       if (val !== '') {
