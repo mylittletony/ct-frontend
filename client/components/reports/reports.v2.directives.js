@@ -713,7 +713,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
       var data = new window.google.visualization.DataTable();
 
-      if (json[0].count || json[1].count || json[2].count || json[3].count) {
+      if (json[0] && (json[0].count || json[1].count || json[2].count || json[3].count)) {
 
         scope.noData = undefined;
         scope.loading = undefined;
