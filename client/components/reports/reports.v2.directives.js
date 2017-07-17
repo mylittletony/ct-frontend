@@ -451,7 +451,12 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     scope.type        = $routeParams.type;
     scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
     scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
-    scope.interval    = 'hour';
+    scope.interval = 'day';
+
+    // smaller intervals when stats period is less than 48hrs
+    if (scope.end - scope.start < 60 * 60 * 48) {
+      scope.interval = 'hour';
+    }
 
     options.curveType = 'function';
     options.colors = ['#16ac5b','#225566'];
@@ -713,7 +718,7 @@ app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routePar
 
       var data = new window.google.visualization.DataTable();
 
-      if (json[0].count || json[1].count || json[2].count || json[3].count) {
+      if (json[0] && (json[0].count || json[1].count || json[2].count || json[3].count)) {
 
         scope.noData = undefined;
         scope.loading = undefined;
