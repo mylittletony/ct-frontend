@@ -451,7 +451,12 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     scope.type        = $routeParams.type;
     scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
     scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
-    scope.interval    = 'hour';
+    scope.interval = 'day';
+
+    // smaller intervals when stats period is less than 48hrs
+    if (scope.end - scope.start < 60 * 60 * 48) {
+      scope.interval = 'hour';
+    }
 
     options.curveType = 'function';
     options.colors = ['#16ac5b','#225566'];
