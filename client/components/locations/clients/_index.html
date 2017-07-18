@@ -51,13 +51,13 @@
       </md-menu>
     </md-menu-bar>
     <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('now')" ng-class="{ 'active': period === 'now' }" ><translate>Now</translate></md-button>
+      <md-button ng-click="updatePeriod('now')" ng-class="{ 'active': period === 'now' }" ><translate>NOW</translate></md-button>
       <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" ><translate>60m</translate></md-button>
       <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" ><translate>6h</translate></md-button>
       <md-button ng-click="updatePeriod('12h')" ng-class="{ 'active': period === '12h' }" ><translate>12h</translate></md-button>
       <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" ><translate>1d</translate></md-button>
       <md-button ng-click="openMomentRange()" ng-class="{ 'active': period === 'custom' }" hide show-gt-xs>
-       <md-icon md-font-icon="date_range" style="rgba(0, 0, 0, 0.87)">date_range</md-icon>
+       <md-icon md-font-icon="date_range" style="color: rgba(0, 0, 0, 0.87)">date_range</md-icon>
        <md-tooltip>
          <translate>
            Add date range filter
