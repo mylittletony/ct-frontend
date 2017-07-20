@@ -286,13 +286,14 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
 app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
 
+
   return {
     scope: {
       location: '@',
       mac: '@'
     },
 
-    controller: function($scope,$element,$attrs) {
+    controller: function($scope,$element,$attrs, $routeParams) {
 
       var colours = COLOURS.split(' ');
 
@@ -378,16 +379,16 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       var minDateEpoch, maxDateEpoch, minDate, maxDate;
 
       this.setStartEnd = function() {
-        
+
         minDate = moment().utc().subtract(distance, 'seconds').toDate();
         maxDate = moment().utc().toDate();
 
         minDateEpoch = Math.floor(minDate.getTime() / 1000);
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+
       };
 
       this.v2 = function(params, deferred) {
-        var endOfDay = Math.floor(moment().utc().endOf('day').toDate().getTime() / 1000);
         Metric.clientstats({
           type:         params.metric_type || params.type,
           ap_mac:       $scope.client.ap_mac || params.ap_mac,
@@ -764,7 +765,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     scope.loading = true;
     var c, timer, data, json;
     ClientDetails.client.version = '4';
-    var colours = ['#16ac5b', '#225566'];
+    var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
     var formatted = { usage: { inbound: 1 } };
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -797,8 +798,8 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var opts = controller.options;
       opts.explorer = undefined;
-      opts.pieHole = 0.8;
-      opts.legend = { position: 'bottom' };
+      opts.pieHole = 0.8
+      opts.legend = { position: attrs.legend || 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
       opts.height = '350';
