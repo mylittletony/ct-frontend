@@ -6,6 +6,16 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
 
   var link = function( scope, element, attrs, controller ) {
 
+    if ($routeParams.period) {
+      scope.period = $routeParams.period
+    } else {
+      if ($routeParams.start && $routeParams.end) {
+        scope.period = 'custom'
+      } else {
+        scope.period = 'now'
+      }
+    }
+
     var interval;
     scope.selected = [];
 
@@ -130,10 +140,42 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       clientsChart();
     };
 
-    // scope.updatePeriod = function(period) {
-    //   scope.period = period;
-    //   scope.updatePage();
-    // };
+    scope.calculateStartEnd = function() {
+      var distance;
+      scope.query.end = Math.floor(moment().utc().toDate().getTime() / 1000);
+      switch(scope.period) {
+          case 'now':
+            scope.query.start = undefined;
+            scope.query.end = undefined;
+            scope.period = undefined;
+            break;
+          case '60m':
+            distance = 3600;
+            break;
+          case '6h':
+            distance = 3600 * 6;
+            break;
+          case '12h':
+            distance = 3600 * 12;
+            break;
+          case '1d':
+            distance = 3600 * 24;
+            break;
+          default:
+            scope.query.start = undefined;
+            scope.query.end = undefined;
+            break;
+      }
+      if (distance && scope.query.end) {
+        scope.query.start = scope.query.end - distance;
+      }
+    };
+
+    scope.updatePeriod = function(period) {
+      scope.period = period;
+      scope.calculateStartEnd();
+      scope.updatePage();
+    };
 
     scope.changeType = function(t) {
       scope.type = t;
@@ -206,7 +248,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       params.sort        = scope.query.sort;
       params.direction   = scope.query.direction;
       params.interval    = interval;
-      params.period      = scope.period;
+      // params.period      = scope.period;
       params.fn          = scope.fn.value;
       params.ap_mac      = scope.ap_mac;
       params.type        = scope.type;
@@ -224,7 +266,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.updatePage = function() {
       var hash            = {};
       hash.start          = scope.query.start;
-      hash.end             = scope.query.end;
+      hash.end            = scope.query.end;
       hash.ap_mac         = scope.ap_mac;
       hash.client_mac     = scope.client_mac;
       hash.policy_id      = scope.policy_id;
@@ -370,6 +412,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           } else {
             scope.query.start = startTimestamp;
             scope.query.end = endTimestamp;
+            scope.period = undefined;
             scope.updatePage();
             $mdDialog.cancel();
           }
@@ -484,7 +527,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         interval:     interval,
         distance:     scope.distance,
         ap_mac:       scope.ap_mac,
-        period:       scope.period || '6h',
+        // period:       scope.period || '6h',
         resource:     'client',
       };
 

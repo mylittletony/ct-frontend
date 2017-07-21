@@ -156,19 +156,7 @@ app.directive('radiusReports', ['Report', '$routeParams', '$location', 'Location
 
 app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '$q', '$route', '$cookies', 'menu', 'gettextCatalog', function(Report, $routeParams,$location,Location, $q, $route, $cookies, menu, gettextCatalog) {
 
-  var link = function( scope, element, attrs ) {
-
-    if ($cookies.get('_ctm') === 'true') {
-      menu.isOpenLeft = false;
-      menu.isOpen = false;
-    } else {
-      menu.isOpen = true;
-    }
-    menu.hideBurger = false;
-    menu.sections = [{}];
-    menu.sectionName = gettextCatalog.getString('Reports');
-    menu.header = '';
-    menu.locationStateIcon = undefined;
+  var link = function(scope, element, attrs, controller) {
 
     var isActive = function(path) {
       var split = $location.path().split('/');
@@ -178,30 +166,6 @@ app.directive('analytics', ['Report', '$routeParams', '$location', 'Location', '
         return true;
       }
     };
-
-    var createMenu = function() {
-      menu.header = gettextCatalog.getString('Usage Reports');
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Wireless Stats'),
-        link: '/#/reports/',
-        type: 'link',
-        icon: 'wifi',
-        active: isActive('dashboard')
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Radius Stats'),
-        type: 'link',
-        link: '/#/reports/radius',
-        icon: 'donut_large',
-        active: isActive('radius')
-      });
-
-    };
-
-    createMenu();
-
   };
 
   var controller = function($scope) {
@@ -351,11 +315,13 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
       $timeout.cancel(timer);
 
-      options.colors = ['#FFC107', '#009688', '#FF5722', '#03A9F4', '#FF5722', '#607D8B', '#F44336', '#E91E63', '#3F51B5', '#2196F3', '#4CAF50', '#FFC107'];
-      options.chartArea = { width: '90%;', left: 10, right: 10 };
-      options.legend = { position: attrs.legend || 'none' };
-      options.height = '255';
+      options.colors = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
+      options.chartArea = { left: '3%', top: '3%', height: '84%', width: '90%' };
+      options.legend = { position: attrs.legend || 'bottom' };
+      options.height = '350';
       options.sliceVisibilityThreshold = 0;
+      options.pieHole = '0.8';
+      options.pieSliceText = 'none';
 
       var len = json.length;
       var data = new window.google.visualization.DataTable();
@@ -385,10 +351,6 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
 
       if (scope.type === 'popular' ) {
         options.pieSliceText = 'value';
-      }
-
-      if (attrs.hole) {
-        options.pieHole = attrs.hole;
       }
 
       var chart = new window.google.visualization.PieChart(document.getElementById(scope.render));
@@ -424,7 +386,8 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         type: scope.type,
         resource: attrs.resource,
         location_id: location_id,
-        period: period
+        start: $routeParams.start || (Math.floor(new Date() / 1000) - 604800),
+        end: $routeParams.end || Math.floor(new Date() / 1000)
       };
 
       var data;
@@ -444,7 +407,7 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
       timer = $timeout(function() {
         json = data.stats;
         drawChart();
-      },500);
+      },2000);
       scope.loading       = undefined;
     };
 
@@ -454,12 +417,11 @@ app.directive('reportsPie', ['Report', '$routeParams', '$location', 'Location', 
         scope.type      = attrs.type;
         scope.subhead   = attrs.subhead;
         scope.render    = attrs.render;
-        period          = $routeParams.period   || '7d';
-        location_id     = $routeParams.location_id;
+        // period          = $routeParams.period   || '7d';
+        location_id     = $routeParams.id;
         init();
       }
     });
-
   };
 
   return {
@@ -483,11 +445,27 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.interval    = '1d';
     scope.period      = $routeParams.period   || '7d';
     scope.fill        = $routeParams.fill     || '0';
-    scope.location_id = $routeParams.location_id;
+    scope.location_id = $routeParams.id;
     scope.type        = $routeParams.type;
+    scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+    scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
+    scope.interval = 'day';
+
+    // smaller intervals when stats period is less than 48hrs
+    if (scope.end - scope.start < 60 * 60 * 48) {
+      scope.interval = 'hour';
+    }
+
+    options.curveType = 'function';
+    options.colors = ['#16ac5b','#225566'];
+    options.lineWidth = '2';
+    options.vAxis = {
+      viewWindow: {
+        min: 0
+      }
+    }
 
     attrs.$observe('render', function(val){
       if (val !== '') {
@@ -636,7 +614,8 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
       var params = {
         resource:       'splash',
         type:           scope.type,
-        period:         scope.period,
+        start:          scope.start,
+        end:            scope.end,
         interval:       scope.interval,
         fill:           scope.fill,
         location_id:    scope.location_id
@@ -646,7 +625,7 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
         json = results;
         timer = $timeout(function() {
           drawChart();
-        },500);
+        },1000);
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
@@ -673,6 +652,208 @@ app.directive('radiusTimeline', ['Report', '$routeParams', '$location', 'Locatio
 
 }]);
 
+app.directive('splashBarChart', ['Social', 'Email', 'Guest', 'Order', '$routeParams', '$location', '$q', 'Location', '$timeout', '$rootScope', 'gettextCatalog', function(Social, Email, Guest, Order, $routeParams, $location, $q, Location, $timeout, $rootScope, gettextCatalog) {
+
+  var link = function( scope, element, attrs, controller ) {
+
+    var timer, results, json, c, stats, start;
+    var options = controller.options;
+    scope.bar_type = $routeParams.bar_type;
+
+    // lists three weeks ago; two weeks ago; last week; current week
+    // all monday 00:00 - sunday 23:59, aside from current week which is up to current moment
+    var weeks = [
+      {
+        start: moment().utc().day(-20).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(-14).endOf('day').toDate().getTime() / 1000)
+      },
+      {
+        start: moment().utc().day(-13).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(-7).endOf('day').toDate().getTime() / 1000)
+      },
+      {
+        start: moment().utc().day(-6).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(moment().utc().day(0).endOf('day').toDate().getTime() / 1000)
+      },
+      {
+        start: moment().utc().day(1).startOf('day').toDate().getTime() / 1000,
+        end: Math.floor(new Date() / 1000)
+      }
+    ];
+
+    var locationSearch = function() {
+      var deferred = $q.defer();
+      Location.get({id: $routeParams.id}, function(data) {
+        deferred.resolve(data);
+      }, function(){
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    attrs.$observe('render', function(val){
+      if (val !== '') {
+        scope.subhead = attrs.subhead;
+        scope.render = attrs.render;
+        init();
+      }
+    });
+
+    $(window).resize(function() {
+      if (this.resizeTO) {
+        clearTimeout(this.resizeTO);
+      }
+      this.resizeTO = setTimeout(function() {
+        $(this).trigger('resizeEnd');
+      }, 500);
+    });
+
+    $(window).on('resizeEnd', function() {
+      drawChart();
+    });
+
+    var drawChart = function() {
+
+      $timeout.cancel(timer);
+
+      var data = new window.google.visualization.DataTable();
+
+      if (json[0] && (json[0].count || json[1].count || json[2].count || json[3].count)) {
+
+        scope.noData = undefined;
+        scope.loading = undefined;
+
+        data.addColumn('string', 'Week');
+        data.addColumn('number', scope.title);
+
+        var weekStart;
+        var weekEnd;
+
+        for(var i = 0; i < json.length; i++) {
+          weekStart = moment.unix(json[i].start).format('DD/MM');
+          weekEnd = moment.unix(json[i].end).format('DD/MM');
+          data.addRow([weekStart + ' - ' + weekEnd, json[i].count]);
+        }
+        c = new window.google.visualization.ColumnChart(document.getElementById('splash_bar'));
+
+        c.draw(data, options);
+      } else {
+        scope.noData = true;
+        scope.loading = undefined;
+        clearChart();
+      }
+
+    };
+
+    var clearChart = function() {
+      if (c) {
+        c.clearChart();
+      }
+    };
+
+    scope.changeType = function(t) {
+      clearChart();
+      var hash        = $location.search();
+      hash.bar_type       = t;
+      scope.bar_type      = t;
+      // hash.interval   = scope.interval;
+      $location.search(hash);
+      init();
+    };
+
+    var createTitle = function() {
+      switch(scope.bar_type) {
+        case 'guests':
+          scope.title = gettextCatalog.getString('Guests');
+          scope.service = Guest;
+          break;
+        case 'social':
+          scope.title = gettextCatalog.getString('Social');
+          scope.service = Social;
+          break;
+        case 'orders':
+          scope.title = gettextCatalog.getString('Sales');
+          scope.service = Order;
+          break;
+        default:
+          scope.title = gettextCatalog.getString('Emails');
+          scope.service = Email;
+      }
+    };
+
+    var setJson = function(results) {
+      var obj = {
+        count: results._links.total_entries,
+        start: results._links.start,
+        end:   results._links.end
+      };
+      var distance = Math.round(new Date() / 1000) - results._links.start;
+      if (distance < 604800) {
+        json[3] = obj;
+      } else if (distance < 604800 * 2) {
+        json[2] = obj;
+      } else if (distance < 604800 * 3) {
+        json[1] = obj;
+      } else {
+        json[0] = obj;
+      }
+    };
+
+    var getCaptureCounts = function() {
+      json = [];
+      var distance;
+      for(var i = 0; i < weeks.length; i++) {
+        var params = {
+          start: weeks[i].start,
+          end: weeks[i].end,
+          location_id: scope.location.id
+        };
+        scope.service.get(params).$promise.then(function(results) {
+          setJson(results);
+        }, function(err) {
+          console.log(err);
+        });
+      }
+    };
+
+    scope.init = function() {
+      init();
+    };
+
+    var init = function() {
+      locationSearch().then(function(data) {
+        scope.location = data;
+        createTitle();
+        getCaptureCounts();
+        timer = $timeout(function() {
+          drawChart();
+        },2000);
+        scope.loading = undefined;
+      });
+    };
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $timeout.cancel(timer);
+    });
+
+    scope.init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      type: '@',
+      title: '@',
+      render: '@',
+      subhead: '@'
+    },
+    require: '^analytics',
+    templateUrl: 'components/reports/_splash_bar_chart.html',
+  };
+
+}]);
+
 app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Location', '$timeout', '$rootScope', 'gettextCatalog', function(Report, $routeParams, $location, Location, $timeout, $rootScope, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
@@ -680,10 +861,12 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
     var timer, results, c, json, stats, start;
     var options = controller.options;
 
-    scope.period      = $routeParams.period   || '7d';
-    scope.interval    = $routeParams.interval || '12h';
+    // scope.period      = $routeParams.period   || '7d';
+    scope.interval    = $routeParams.interval || 'hour';
     scope.fill        = $routeParams.fill     || '0';
-    scope.location_id = $routeParams.location_id;
+    scope.location_id = $routeParams.id;
+    scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+    scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
     scope.type        = $routeParams.type;
 
     attrs.$observe('render', function(val){
@@ -804,7 +987,7 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       var hash        = $location.search();
       hash.type       = t;
       scope.type      = t;
-      scope.interval  = controller.setInterval(scope.period);
+      // scope.interval  = controller.setInterval(scope.period);
       hash.interval   = scope.interval;
       $location.search(hash);
       init();
@@ -829,7 +1012,8 @@ app.directive('wirelessTimeline', ['Report', '$routeParams', '$location', 'Locat
       var params = {
         resource:       'device',
         type:           scope.type,
-        period:         scope.period,
+        start:          scope.start,
+        end:            scope.end,
         interval:       scope.interval,
         fill:           scope.fill,
         location_id:    scope.location_id
@@ -873,13 +1057,17 @@ app.directive('wirelessStats', ['Report', '$routeParams', '$location', 'Location
 
       scope.stats = {};
       var period = $routeParams.period || '7d';
+      scope.start       = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+      scope.end         = $routeParams.end || Math.floor(new Date() / 1000);
 
       var params = {
-        interval: '7d',
+        // interval: '7d',
         resource: 'client',
         type: 'wireless_stats',
-        location_id: $routeParams.location_id,
-        period: period
+        location_id: $routeParams.id,
+        // period: period
+        start: scope.start,
+        end: scope.end
       };
 
       controller.get(params).then(function(results) {
@@ -917,13 +1105,17 @@ app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location',
     var init = function() {
 
       scope.stats = {};
+      scope.start = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+      scope.end   = $routeParams.end || Math.floor(new Date() / 1000);
 
       var params = {
         resource: 'splash',
         type: 'splash_stats',
         interval: 'hour',
-        location_id: $routeParams.location_id,
-        period: $routeParams.period || '7d'
+        location_id: $routeParams.id,
+        start: scope.start,
+        end: scope.end
+        // period: $routeParams.period || '7d'
       };
 
       // Get the splash stats
