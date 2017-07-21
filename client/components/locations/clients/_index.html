@@ -50,14 +50,6 @@
         </md-menu-content>
       </md-menu>
     </md-menu-bar>
-    <!-- <md-button class="md-icon-button md-primary" aria-label="Filter" ng-if="start || end" ng-click="clearRangeFilter()">
-      <md-icon>clear</md-icon>
-      <md-tooltip>
-        <translate>
-        Clear range filter
-        </translate>
-      </md-tooltip>
-    </md-button> -->
     <md-button ng-click="clearRangeFilter()" class='md-accent' ng-if="start || end" href="" style='font-size: 14px; color: rgba(0, 0, 0, 0.54)'>
       Show all online
       <md-tooltip>
@@ -197,6 +189,9 @@
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.lastseen">
                     {{ client.lastseen | lastSeen }}
+                  </td md-cell>
+                  <td hide show-gt-sm md-cell ng-show="columns.ap_name">
+                    {{ client.ap_name }}
                   </td md-cell>
                   <!-- <td hide show-gt-sm md-cell ng-show="columns.description"> -->
                   <!--   <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a> -->
