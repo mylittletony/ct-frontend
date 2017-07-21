@@ -50,30 +50,21 @@
         </md-menu-content>
       </md-menu>
     </md-menu-bar>
-    <md-button ng-click="clearRangeFilter()" class='md-accent' ng-if="start || end" href="" style='font-size: 14px; color: rgba(0, 0, 0, 0.54)'>
-      Show all online
-      <md-tooltip>
-        <translate>
-          Show all clients that are currently online
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button ng-click="showSixHours()" class='md-accent' ng-if="!start && !end" href="" style='font-size: 14px; color: rgba(0, 0, 0, 0.54)'>
-      Show last 6hr
-      <md-tooltip>
-        <translate>
-          See all clients that have connected within the last six hours
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
-     <md-icon md-font-icon="date_range">date_range</md-icon>
-     <md-tooltip>
-       <translate>
-         Add date range filter
-       </translate>
-     </md-tooltip>
-    </md-button>
+    <md-button-group hide show-gt-sm class="md-raised">
+      <md-button ng-click="updatePeriod('now')" ng-class="{ 'active': period === 'now' }" ><translate>NOW</translate></md-button>
+      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" ><translate>60m</translate></md-button>
+      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" ><translate>6h</translate></md-button>
+      <md-button ng-click="updatePeriod('12h')" ng-class="{ 'active': period === '12h' }" ><translate>12h</translate></md-button>
+      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" ><translate>1d</translate></md-button>
+      <md-button ng-click="openMomentRange()" ng-class="{ 'active': period === 'custom' }" hide show-gt-xs>
+       <md-icon md-font-icon="date_range" style="color: rgba(0, 0, 0, 0.87)">date_range</md-icon>
+       <md-tooltip>
+         <translate>
+           Add date range filter
+         </translate>
+       </md-tooltip>
+     </md-button>
+    </md-button-group>
     <md-button ng-click="openColumns()" class="md-icon-button" hide show-gt-xs>
       <md-icon md-font-icon="settings">settings</md-icon>
     </md-button>
