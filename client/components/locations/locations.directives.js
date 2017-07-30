@@ -1178,12 +1178,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
 
       scope.menuItems.push({
-        name: gettextCatalog.getString('Resync'),
-        type: 'resync',
-        icon: 'settings_backup_restore'
-      });
-
-      scope.menuItems.push({
         name: gettextCatalog.getString('Delete'),
         type: 'delete',
         icon: 'delete_forever'
@@ -1284,36 +1278,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         console.log('Could not reboot box:', errors);
         box.state = 'online';
         box.processing = undefined;
-      });
-    };
-
-    var resync = function(box,ev) {
-      var confirm = $mdDialog.confirm()
-        .title(gettextCatalog.getString('Resync The Configs for this Device?'))
-        .textContent(gettextCatalog.getString('This will disconnect your clients temporarily.'))
-        .ariaLabel(gettextCatalog.getString('Lucky day'))
-        .targetEvent(ev)
-        .ok(gettextCatalog.getString('Resync it'))
-        .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        resyncBox(box);
-      });
-    };
-
-    var resyncBox = function(box) {
-      box.state = 'processing';
-      Box.update({
-        location_id: scope.location.slug,
-        id: box.slug,
-        box: {
-          action: 'resync'
-        }
-      }).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Device resynced successfully.'));
-      }, function(errors) {
-        box.state = 'failed';
-        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
-        console.log('Could not resync device:', errors);
       });
     };
 
