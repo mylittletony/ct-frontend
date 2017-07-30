@@ -44,9 +44,10 @@ module.exports = function(app) {
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
 
-   // app.get('/translations/:lang', function(req, res) {
-   //   res.sendFile(path.join(__dirname, '/translations/' + req.params.lang));
-  // });
+   app.get('/translations/:lang', function(req, res) {
+     res.sendStatus(200);
+     // res.sendFile(path.join(__dirname, '/translations/' + req.params.lang));
+  });
 
   app.route('/*')
     .get(function(req, res) {

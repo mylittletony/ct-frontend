@@ -41,6 +41,8 @@ module.exports = function(app) {
   process.env.profileURL = process.env.profileURL || secrets.profileURL;
   process.env.baseURL = secrets.baseURL;
 
+  console.log(123123123, process.env.APP_SECRET);
+
   passport.serializeUser(function(options, done) {
     done(null, options);
   });
