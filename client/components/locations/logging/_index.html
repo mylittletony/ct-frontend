@@ -1,0 +1,19 @@
+<md-content class="md-padding">
+  <md-table-container>
+    <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
+      <tbody md-body>
+        <tr md-row ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)">
+          <!-- <td md-cell> -->
+            <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
+            <!-- </td> -->
+          <td md-cell small style="max-width: 20px;">
+            {{ log.timestamp / 1000 | humanTimeShort }}
+          </td>
+          <td md-cell>
+            {{ log.message }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+</md-content>
