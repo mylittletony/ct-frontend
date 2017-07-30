@@ -37,6 +37,18 @@ ul {
   padding: 10px 0;
 }
 
+table.table-logs {
+  font-family: courier, courier new, serif;
+}
+
+table.table-logs td {
+  font-size: 10px!important;
+}
+
+table.table-logs tr {
+  height: 26px!important;
+}
+
 .status-icon {
   width: 10px;
 }
