@@ -45,12 +45,12 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   // Required for the translations //
-  var potfiles = [
-      'client/index.html',
-      'client/components/**/*.html',
-      'client/components/**/*.js',
-      'client/app/main/*.js',
-  ];
+  // var potfiles = [
+  //     'client/index.html',
+  //     'client/components/**/*.html',
+  //     'client/components/**/*.js',
+  //     'client/app/main/*.js',
+  // ];
 
   var languages = [
       'en_GB',
@@ -304,54 +304,54 @@ module.exports = function (grunt) {
     },
 
     // Required for the translations //
-    nggettext_extract: {
-      pot: {
-        files: {
-          'po/cucumber-frontend.pot': potfiles
-        }
-      }
-    },
-    msgInitMerge: {
-      target_pot: {
-        src: ['po/cucumber-frontend.pot'],
-        options: {
-            locales: languages,
-            poFilesPath: 'po/<%= locale%>.po',
-        }
-      }
-    },
-    nggettext_compile: {
-      options: {
-          format: 'json'
-      },
-      all: {
-          files: [
-              {
-                  expand: true,
-                  dot: true,
-                  cwd: "po",
-                  dest: '<%= yeoman.dist %>/server/translations',
-                  src: ["*.po"],
-                  ext: ".json"
-              }
-          ]
-      }
-    },
+    // nggettext_extract: {
+    //   pot: {
+    //     files: {
+    //       'po/cucumber-frontend.pot': potfiles
+    //     }
+    //   }
+    // },
+    // msgInitMerge: {
+    //   target_pot: {
+    //     src: ['po/cucumber-frontend.pot'],
+    //     options: {
+    //         locales: languages,
+    //         poFilesPath: 'po/<%= locale%>.po',
+    //     }
+    //   }
+    // },
+    // nggettext_compile: {
+    //   options: {
+    //       format: 'json'
+    //   },
+    //   all: {
+    //       files: [
+    //           {
+    //               expand: true,
+    //               dot: true,
+    //               cwd: "po",
+    //               dest: '<%= yeoman.dist %>/server/translations',
+    //               src: ["*.po"],
+    //               ext: ".json"
+    //           }
+    //       ]
+    //   }
+    // },
 
-    potomo: {
-      all: {
-        files: [
-            {
-              expand: true,
-              cwd: 'po',
-              src: ['*.po'],
-              dest: 'po',
-              ext: '.mo',
-              nonull: true
-            }
-        ]
-      }
-    },
+    // potomo: {
+    //   all: {
+    //     files: [
+    //         {
+    //           expand: true,
+    //           cwd: 'po',
+    //           src: ['*.po'],
+    //           dest: 'po',
+    //           ext: '.mo',
+    //           nonull: true
+    //         }
+    //     ]
+    //   }
+    // },
 
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
@@ -916,49 +916,49 @@ module.exports = function (grunt) {
     'usemin'
   ]);
 
-  grunt.registerTask('po/POTFILES',
-                   'Collect files containing translatable strings',
-                   function() {
-    grunt.log.debug('Collecting files with translatable messages');
+  // grunt.registerTask('po/POTFILES',
+  //                  'Collect files containing translatable strings',
+  //                  function() {
+  //   grunt.log.debug('Collecting files with translatable messages');
 
-    var output = '',
-        found = grunt.file.expand(potfiles);
+  //   var output = '',
+  //       found = grunt.file.expand(potfiles);
 
-    found.forEach(function(filename) {
-      output += '../' + filename + '\n';
-    });
+  //   found.forEach(function(filename) {
+  //     output += '../' + filename + '\n';
+  //   });
 
-      try {
-          grunt.file.write('po/POTFILES', output, {encoding: 'utf-8'});
-      } catch(e) {
-          console.log(e);
-          grunt.log.error(e.message);
-      }
-  });
+  //     try {
+  //         grunt.file.write('po/POTFILES', output, {encoding: 'utf-8'});
+  //     } catch(e) {
+  //         console.log(e);
+  //         grunt.log.error(e.message);
+  //     }
+  // });
 
-  grunt.registerTask('pot', [
-    'nggettext_extract'
-  ]);
+  // grunt.registerTask('pot', [
+  //   'nggettext_extract'
+  // ]);
 
-  grunt.registerTask('update-po', [
-    'msgInitMerge'
-  ]);
+  // grunt.registerTask('update-po', [
+  //   'msgInitMerge'
+  // ]);
 
-  grunt.registerTask('install-po', [
-    'potomo',
-    'nggettext_compile'
-  ]);
+  // grunt.registerTask('install-po', [
+  //   'potomo',
+  //   'nggettext_compile'
+  // ]);
 
-  grunt.registerTask('all-po', [
-    'po/POTFILES',
-    'pot',
-    'update-po',
-    'install-po'
-  ]);
+  // grunt.registerTask('all-po', [
+  //   'po/POTFILES',
+  //   'pot',
+  //   'update-po',
+  //   'install-po'
+  // ]);
 
   grunt.loadNpmTasks('grunt-msg-init-merge');
-  grunt.loadNpmTasks('grunt-potomo');
-  grunt.loadNpmTasks('grunt-angular-gettext');
+  // grunt.loadNpmTasks('grunt-potomo');
+  // grunt.loadNpmTasks('grunt-angular-gettext');
 
   grunt.registerTask('server', function () {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');

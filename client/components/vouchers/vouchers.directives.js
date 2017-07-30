@@ -247,6 +247,7 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
     scope.voucher.idle_timeout            = 60;
     scope.voucher.simultaneous_use        = 2;
     scope.voucher.limit_type              = 'multi_use';
+    scope.voucher.length                  = 6;
     scope.voucher.access_restrict_period  = '';
     scope.voucher.voucher_format          = 'alphanumeric';
 
@@ -272,18 +273,11 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
       SplashPage.query({location_id: scope.location.slug}).$promise.then(function(results) {
         if (results && results.splash_pages) {
           scope.splash_pages = results.splash_pages;
-          if (scope.splash_pages.length === 0) {
-            // scope.voucher.splash_page_id = 'external';
-          // } else if (scope.splash_pages.length === 1) {
-          //   scope.voucher.splash_page_id = scope.splash_pages[0].id;
-          // } else if ( scope.splash_pages.length > 1 ) {
-          //   replaceUniqueId();
+          if (scope.splash_pages.length === 1) {
+            scope.voucher.splash_page_id = scope.splash_pages[0].id;
           }
-        } else {
-          // scope.voucher.splash_page_id = undefined;
         }
         var s = { id: 'external', splash_name: 'External Splash Page' };
-        // scope.splash_pages = [];
         scope.splash_pages.push(s);
         replaceUniqueId();
         scope.loading = undefined;
