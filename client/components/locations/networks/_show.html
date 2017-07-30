@@ -341,6 +341,77 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
+            <span class="md-headline" translate>Splash Settings</span>
+            <span class="md-subhead">
+              <translate>Edit your splash settings</translate>
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
+          <div flex-gt-sm="100">
+            <div layout="row" layout-wrap>
+
+              <div flex-gt-sm="100">
+                <md-switch class="md-accent" ng-model="network.captive_portal_ps">
+                  <span ng-show="network.captive_portal_ps" translate>Use built-in splash</span>
+                  <span ng-hide="network.captive_portal_ps" translate>Use external splash</span>
+                </md-switch>
+              </div>
+
+              <md-input-container class="md-block" flex="40" ng-hide="network.captive_portal_ps">
+                <label>
+                  <translate>Splash Page URL</translate>
+                </label>
+                <input ng-model="network.captive_portal_url" ng-disabled="network.captive_portal_ps" name="captive_portal_url" placeholder="{{ 'Splash Page URL' | translate }}" type="url" ng-required="!network.captive_portal_ps">
+                <div ng-messages="myForm.captive_portal_url.$error">
+                  <div ng-message="required" translate>Must have a valid URL.</div>
+                  <div ng-message="url" translate>Must be a valid URL</div>
+                </div>
+              </md-input-container>
+
+              <div flex-gt-sm="100">
+              </div>
+
+              <md-input-container class="md-block" flex="40" ng-hide="network.captive_portal_ps">
+                <label>
+                  <translate>UAM Secret</translate>
+                </label>
+                <input autocomplete="off" type="{{ showuam == true ? 'text' : 'password' }}" ng-focus="showuam = !showuam" ng-blur="showuam = !showuam" name="xxxsssn" ng-minlength="8" ng-model="network.captive_portal_uamsecret">
+              </md-input-container>
+
+              <div flex-gt-sm="100">
+              </div>
+
+              <md-input-container class="md-block" flex="40">
+                <label>
+                  <translate>Splash Radius Host 1</translate>
+                </label>
+                <input ng-model="network.radius_host_1" name="radius_host_1" placeholder="{{ 'radius-1.ctapp.io' | translate }}">
+              </md-input-container>
+
+              <div flex-gt-sm="100">
+              </div>
+
+              <md-input-container class="md-block" flex="40">
+                <label>
+                  <translate>Splash Radius Host 2</translate>
+                </label>
+                <input ng-model="network.radius_host_2" name="radius_host_2" placeholder="{{ 'radius-2.ctapp.io' | translate }}">
+              </md-input-container>
+
+              <div flex-gt-sm="100">
+                <p><small>Please do not change these unless you know exactly what you're doing.</small></p>
+              </div>
+
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
             <span class="md-headline" translate>Advanced Settings</span>
           </md-card-title-text>
         </md-card-title>

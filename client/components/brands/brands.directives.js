@@ -66,7 +66,7 @@ app.directive('newBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$
 
     scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
     scope.locales = [
-      { key: 'Deutsch', value: 'de-DE' },
+      // { key: 'Deutsch', value: 'de-DE' },
       { key: 'English', value: 'en-GB' }
     ];
 

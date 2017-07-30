@@ -15,7 +15,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
 
     var id, locale;
     // Check git history to more vars;
-    scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
+    // scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
 
     if ($location.path() === '/me' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
@@ -26,7 +26,7 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
     var init = function() {
       User.query({id: id}).$promise.then(function (res) {
         scope.user = res;
-        locale = res.locale;
+        // locale = res.locale;
         if (scope.user.slug === Auth.currentUser().slug) {
           scope.user.allowed = true;
         }
@@ -44,12 +44,12 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
         id: scope.user.slug,
         user: scope.user
       }).$promise.then(function(results) {
-        if (locale !== results.locale) {
-          console.log('Setting locale to', results.locale);
-          Auth.currentUser().locale = results.locale;
-          $cookies.put('locale', results.locale);
-          $window.location.reload();
-        }
+        // if (locale !== results.locale) {
+        //   console.log('Setting locale to', results.locale);
+        //   Auth.currentUser().locale = results.locale;
+        //   $cookies.put('locale', results.locale);
+        //   $window.location.reload();
+        // }
         showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
         showErrors(err);
