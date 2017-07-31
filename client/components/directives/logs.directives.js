@@ -19,6 +19,7 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     };
 
     var boxes = {};
+    var location;
 
     var fetchBoxes = function() {
       Box.get({location_id: $routeParams.id}).$promise.then(function(results) {
@@ -61,23 +62,28 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
 
     var ap_mac;// = '80-2A-A8-19-3D-B2';
     var init = function() {
-      fetchBoxes();
-      Logs.query({
-        location_id: 8589,
-        ap_mac: ap_mac,
-        page: scope.query.page,
-        per: scope.query.limit,
-        start_time: start_time,
-        end_time: end_time,
-        q: scope.query.query
-      }).$promise.then(function(res) {
-        scope.logs = res.data;
-        setApNames();
-        // scope._links = res._links;
-        scope.loading = undefined;
-      }, function() {
-        scope.loading = undefined;
+      Location.get({id: $routeParams.id}, function(result) {
+        location = result;
+        fetchBoxes();
+        Logs.query({
+          location_id: location.id,
+          ap_mac: ap_mac,
+          page: scope.query.page,
+          per: scope.query.limit,
+          start_time: start_time,
+          end_time: end_time,
+          q: scope.query.query
+        }).$promise.then(function(res) {
+          scope.logs = res.data;
+          setApNames();
+          // scope._links = res._links;
+          scope.loading = undefined;
+        }, function() {
+          scope.loading = undefined;
+        });      }, function(err){
+        console.log(err);
       });
+
     };
 
     init();
