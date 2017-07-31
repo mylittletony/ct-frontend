@@ -7,7 +7,7 @@ app.directive('logging', ['Logs', 'Location', '$routeParams', 'gettextCatalog', 
   var link = function(scope,element,attrs,controller) {
 
     scope.loading  = true;
-//     scope.location = { slug: $routeParams.id };
+    var ap_mac = $routeParams.ap_mac;
 
     scope.pagination_labels = pagination_labels;
     scope.query = {
@@ -43,14 +43,13 @@ app.directive('logging', ['Logs', 'Location', '$routeParams', 'gettextCatalog', 
       end_time = Math.round((new Date().getTime()) / 1000);
     }
 
-    var ap_mac;// = '80-2A-A8-19-3D-B2';
-    var init = function() {
+    var getLogs = function() {
       Logs.query({
-        location_id: 8589, 
+        location_id: 8589,
         ap_mac: ap_mac,
         page: scope.query.page,
-        per: scope.query.limit, 
-        start_time: start_time, 
+        per: scope.query.limit,
+        start_time: start_time,
         end_time: end_time,
         q: scope.query.query
       }).$promise.then(function(res) {
@@ -62,6 +61,16 @@ app.directive('logging', ['Logs', 'Location', '$routeParams', 'gettextCatalog', 
       });
     };
 
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        getLogs();
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    // var ap_mac;// = '80-2A-A8-19-3D-B2';
     init();
   };
 
