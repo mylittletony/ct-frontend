@@ -45,7 +45,8 @@ module.exports = function(app) {
    .get(errors[404]);
 
    app.get('/translations/:lang', function(req, res) {
-     res.sendFile(path.join(__dirname, '/translations/' + req.params.lang));
+     res.sendStatus(200);
+     // res.sendFile(path.join(__dirname, '/translations/' + req.params.lang));
   });
 
   app.route('/*')

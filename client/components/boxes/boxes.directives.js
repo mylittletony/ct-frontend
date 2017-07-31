@@ -52,9 +52,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'payloads':
           scope.payloads();
           break;
-        case 'resync':
-          scope.resyncBox();
-          break;
         case 'operations':
           viewOperations();
           break;
@@ -79,7 +76,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
 
       if (scope.box.is_cucumber) {
-
         scope.menu.push({
           name: gettextCatalog.getString('Reboot'),
           icon: 'autorenew',
@@ -127,13 +123,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       }
 
       if (scope.box.is_cucumber) {
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Resync'),
-        //   icon: 'settings_backup_restore',
-        //   disabled: !scope.box.allowed_job,
-        //   type: 'resync',
-        // });
-
         scope.menu.push({
           name: gettextCatalog.getString('Reset'),
           icon: 'clear',
@@ -215,6 +204,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       var action = 'reset';
       if (reset === true) {
         scope.resetting = true;
+        scope.box.allowed_job = false;
+        createMenu();
       } else {
         action = 'cancel';
       }
@@ -240,37 +231,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         showToast(err);
         scope.box.state = 'failed';
         scope.resetting = undefined;
-      });
-    };
-
-    scope.resyncBox = function(ev) {
-      var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Resync this Device'))
-      .textContent(gettextCatalog.getString('This will force a complete refresh of it\'s configuration files. A resync will disconnect any wireless clients temporarily'))
-      .ariaLabel(gettextCatalog.getString('Resync Device'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('Resync it'))
-      .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        resyncBox();
-      });
-    };
-
-    var resyncBox = function() {
-      scope.box.state = 'processing';
-      scope.box.allowed_job = false;
-      Box.update({
-        location_id: scope.location.slug,
-        id: scope.box.slug,
-        box: {
-          action: 'resync'
-        }
-      }).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Device resync in progress. Please wait.'));
-      }, function(errors) {
-        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
-        console.log('Could not resync device:', errors);
-        scope.box.state = 'online';
       });
     };
 
@@ -822,7 +782,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
           {key: 'VHT20', value: 'VHT20' },
           {key: 'VHT40', value: 'VHT40'},
           {key: 'VHT80', value: 'VHT80'},
-          {key: 'VHT160', value: 'VHT160'}
+          // {key: 'VHT160', value: 'VHT160'}
         ];
       } else {
         scope.ht_modes_5 = scope.ht_modes;
@@ -857,8 +817,8 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         scope.channels5 = vht40_channels_5;
       } else if (scope.box.ht_mode_5 === 'VHT80') {
         scope.channels5 = vht80_channels_5;
-      } else if (scope.box.ht_mode_5 === 'VHT1600') {
-        scope.channels5 = vht160_channels_5;
+      // } else if (scope.box.ht_mode_5 === 'VHT1600') {
+      //   scope.channels5 = vht160_channels_5;
       }
     };
 

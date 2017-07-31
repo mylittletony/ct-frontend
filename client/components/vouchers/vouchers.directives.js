@@ -9,7 +9,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
 
     scope.location = { slug: $routeParams.id };
 
-    scope.selected = []; 
+    scope.selected = [];
 
     scope.batch_name = $routeParams.batch_name;
     scope.username      = $routeParams.username;
@@ -182,9 +182,9 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       var deferred = $q.defer();
       scope.promise = deferred.promise;
       return Voucher.get({
-        location_id: scope.location.slug, 
-        q: $routeParams.q, 
-        page: scope.query.page, 
+        location_id: scope.location.slug,
+        q: $routeParams.q,
+        page: scope.query.page,
         per: scope.query.limit,
         username: scope.username,
         batch_name: scope.batch_name
@@ -247,6 +247,7 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
     scope.voucher.idle_timeout            = 60;
     scope.voucher.simultaneous_use        = 2;
     scope.voucher.limit_type              = 'multi_use';
+    scope.voucher.length                  = 6;
     scope.voucher.access_restrict_period  = '';
     scope.voucher.voucher_format          = 'alphanumeric';
 
@@ -262,31 +263,28 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
       return menu.isSectionSelected(section);
     };
 
-    var init = function() {
-      SplashPage.query({location_id: scope.location.slug}).$promise.then(function(results) {
-        if (results && results.splash_pages) {
-          scope.splash_pages = results.splash_pages;
-          if (scope.splash_pages.length === 0) {
-            scope.voucher.splash_page_id = undefined;
-          } else if (scope.splash_pages.length === 1) {
-            scope.voucher.splash_page_id = scope.splash_pages[0].id;
-          } else if ( scope.splash_pages.length > 1 ) {
-            replaceUniqueId();
-          }
-        } else {
-          scope.voucher.splash_page_id = undefined;
-        }
-        scope.loading = undefined;
-      }, function(err) {
-        scope.loading = undefined;
-      });
-    };
-
     function replaceUniqueId() {
       angular.forEach(scope.splash_pages, function(v,k) {
         v.unique_name = v.splash_name || v.unique_id;
       });
     }
+
+    var init = function() {
+      SplashPage.query({location_id: scope.location.slug}).$promise.then(function(results) {
+        if (results && results.splash_pages) {
+          scope.splash_pages = results.splash_pages;
+          if (scope.splash_pages.length === 1) {
+            scope.voucher.splash_page_id = scope.splash_pages[0].id;
+          }
+        }
+        var s = { id: 'external', splash_name: 'External Splash Page' };
+        scope.splash_pages.push(s);
+        replaceUniqueId();
+        scope.loading = undefined;
+      }, function(err) {
+        scope.loading = undefined;
+      });
+    };
 
     scope.save = function(form) {
       form.$setPristine();
