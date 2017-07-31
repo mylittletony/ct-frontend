@@ -6,8 +6,14 @@
           <!-- <td md-cell> -->
             <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
             <!-- </td> -->
-          <td md-cell small style="max-width: 20px;">
+          <td md-cell>
             {{ log.timestamp / 1000 | humanTimeShort }}
+          </td>
+          <td md-cell>
+            {{ log.ap_name }}
+          </td>
+          <td md-cell>
+            {{ log.ap_mac }}
           </td>
           <td md-cell>
             {{ log.message }}
