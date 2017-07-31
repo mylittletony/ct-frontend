@@ -13,7 +13,7 @@ app.directive('logging', ['Logs', 'Location', '$routeParams', 'gettextCatalog', 
     scope.query = {
       // order:   '-timestamp',
       query:   $routeParams.q,
-      limit:   $routeParams.per || 100,
+      limit:   $routeParams.per,
       page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
     };
