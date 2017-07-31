@@ -7,13 +7,13 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
   var link = function(scope,element,attrs,controller) {
 
     scope.loading  = true;
-//     scope.location = { slug: $routeParams.id };
+    var ap_mac = $routeParams.ap_mac;
 
     scope.pagination_labels = pagination_labels;
     scope.query = {
       // order:   '-timestamp',
       query:   $routeParams.q,
-      limit:   $routeParams.per || 100,
+      limit:   $routeParams.per,
       page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
     };
@@ -60,30 +60,34 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       end_time = Math.round((new Date().getTime()) / 1000);
     }
 
-    var ap_mac;// = '80-2A-A8-19-3D-B2';
-    var init = function() {
-      Location.get({id: $routeParams.id}, function(result) {
-        location = result;
-        fetchBoxes();
-        Logs.query({
-          location_id: location.id,
-          ap_mac: ap_mac,
-          page: scope.query.page,
-          per: scope.query.limit,
-          start_time: start_time,
-          end_time: end_time,
-          q: scope.query.query
-        }).$promise.then(function(res) {
-          scope.logs = res.data;
-          setApNames();
-          // scope._links = res._links;
-          scope.loading = undefined;
-        }, function() {
-          scope.loading = undefined;
-        });      }, function(err){
-        console.log(err);
+    var getLogs = function() {
+      Logs.query({
+        location_id: scope.location.id,
+        ap_mac: ap_mac,
+        page: scope.query.page,
+        per: scope.query.limit,
+        start_time: start_time,
+        end_time: end_time,
+        q: scope.query.query
+      }).$promise.then(function(res) {
+        scope.logs = res.data;
+        setApNames()
+        // scope._links = res._links;
+        scope.loading = undefined;
+      }, function() {
+        scope.loading = undefined;
       });
 
+    };
+
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        fetchBoxes();
+        getLogs();
+      }, function(err){
+        console.log(err);
+      });
     };
 
     init();
