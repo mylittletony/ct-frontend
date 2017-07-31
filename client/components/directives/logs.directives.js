@@ -45,7 +45,7 @@ app.directive('logging', ['Logs', 'Location', '$routeParams', 'gettextCatalog', 
 
     var getLogs = function() {
       Logs.query({
-        location_id: 8589,
+        location_id: scope.location.id,
         ap_mac: ap_mac,
         page: scope.query.page,
         per: scope.query.limit,
