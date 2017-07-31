@@ -70,7 +70,6 @@ app.directive('logging', ['Logs', 'Location', '$routeParams', 'gettextCatalog', 
       });
     };
 
-    // var ap_mac;// = '80-2A-A8-19-3D-B2';
     init();
   };
 
