@@ -1,3 +1,31 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
+      <md-icon md-font-icon="search">search</md-icon>
+      <label></label>
+      <input ng-model="query.query" md-autofocus placeholder="{{ 'Filter Clients' | translate }}">
+    </md-input-container>
+    <div flex></div>
+    <md-button class="md-icon-button md-primary" aria-label="Filter" ng-click="clearRangeFilter()" ng-show="date_range">
+      <md-icon>clear</md-icon>
+      <md-tooltip>
+        <translate>
+        Clear range filter
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
+     <md-icon md-font-icon="date_range">date_range</md-icon>
+     <md-tooltip>
+       <translate>
+         Add date range filter
+       </translate>
+     </md-tooltip>
+    </md-button>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
 <md-content class="md-padding">
   <md-table-container>
     <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
@@ -6,10 +34,13 @@
           <!-- <td md-cell> -->
             <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
             <!-- </td> -->
-          <td md-cell small style="min-width: 20px;">
-            {{ log.timestamp / 1000 | humanTimeShort }}
+          <td md-cell>
+            {{ log.created_at | humanTimeShort }}
           </td>
-          <td md-cell small style="min-width: 15px;">
+          <td md-cell>
+            {{ log.ap_name }}
+          </td>
+          <td md-cell>
             {{ log.ap_mac }}
           </td>
           <td md-cell>
