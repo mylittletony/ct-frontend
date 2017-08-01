@@ -18,7 +18,7 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       options: [5,10,25,50,100],
     };
 
-    $routeParams.start && $routeParams.end ? scope.date_range = true : scope.date_range = false;
+    $routeParams.start || $routeParams.end ? scope.date_range = true : scope.date_range = false;
 
     var boxes = {};
     var location;
@@ -53,14 +53,19 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       $location.search(hash);
     };
 
-    var start_time = $routeParams.start;
-    var end_time = $routeParams.end;
+    var start_time;
+    var end_time;
 
-    if (!start_time) {
+    if ($routeParams.start && $routeParams.end && $routeParams.end - $routeParams.start <= 3600) {
+      start_time = $routeParams.start;
+      end_time = $routeParams.end;
+    } else {
+      if ($routeParams.end - $routeParams.start > 3600) {
+        showToast(gettextCatalog.getString('Period should not be longer than an hour'));
+      } else if ($routeParams.start || $routeParams.end) {
+        showToast(gettextCatalog.getString('Selected range period not valid'));
+      }
       start_time = Math.round((new Date().getTime() - 60*60*1000) / 1000);
-    }
-
-    if (!end_time) {
       end_time = Math.round((new Date().getTime()) / 1000);
     }
 
