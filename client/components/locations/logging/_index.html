@@ -44,8 +44,8 @@
 <md-content class="md-padding">
   <md-card ng-if="logs.length > 0">
     <md-card-content>
-      <b>THIS IS A BETA FEATURE</b><br><br>
-      While this feature is being developed, please do not be surprised should you come across some small issues. We will, of course, appreciate any feedback.
+      <b>SYSTEM LOGGING IS A BETA FEATURE</b><br><br>
+      While this feature is being developed, please do not be surprised should you come across some small issues.
     </md-card-content>
   </md-card>
   <md-card ng-if="logs.length == 0">
@@ -55,11 +55,14 @@
   </md-card>
   <md-table-container ng-if="logs.length > 0">
     <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
-      <tbody md-body>
-        <tr md-row ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)">
+      <tbody md-body ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)">
+        <tr md-row ng-click="expandRow(log)">
           <!-- <td md-cell> -->
             <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
             <!-- </td> -->
+          <td md-cell>
+            <md-icon md-menu-origin md-font-icon="">{{ log.show_detail ? "keyboard_arrow_down" : "keyboard_arrow_right" }}</md-icon>
+          </td>
           <td md-cell>
             {{ log.created_at | humanTimeShort }}
           </td>
@@ -71,6 +74,17 @@
           </td>
           <td md-cell>
             {{ log.message }}
+          </td>
+        </tr>
+        <tr md-row ng-if="log.show_detail == true">
+          <td md-cell>
+
+          </td>
+          <td md-cell>
+            Severity: {{log.severity}}
+          </td>
+          <td md-cell>
+            Facility: {{log.facility}}
           </td>
         </tr>
       </tbody>

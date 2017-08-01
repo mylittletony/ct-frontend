@@ -43,6 +43,14 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     //   updatePage();
     // };
 
+    scope.expandRow = function(log) {
+      if (log.show_detail && log.show_detail === true) {
+        log.show_detail = false;
+      } else {
+        log.show_detail = true;
+      }
+    };
+
     scope.updatePage = function(page) {
       var hash  = {};
       hash.start = scope.start;
