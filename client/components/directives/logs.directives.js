@@ -122,6 +122,11 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       scope.updatePage();
     };
 
+    scope.clearQueryFilter = function() {
+      scope.query.query = undefined;
+      scope.updatePage();
+    };
+
     var getLogs = function() {
       Logs.query({
         location_id: scope.location.id,
