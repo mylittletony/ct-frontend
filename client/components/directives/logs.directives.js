@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.logs.directives', []);
 
-app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', '$location', '$mdDialog', function(Logs, Location, Box, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope, $location, $mdDialog) {
+app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', '$location', '$mdDialog', 'showToast', function(Logs, Location, Box, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope, $location, $mdDialog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -75,9 +75,9 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
           var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
           if (startTimestamp > endTimestamp) {
             showToast(gettextCatalog.getString('Selected range period not valid'));
-          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 2592000) {
+          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 3600) {
             // check that the selected range period is between five minutes and thirty days
-            showToast(gettextCatalog.getString('Range period should be between five minutes and thirty days'));
+            showToast(gettextCatalog.getString('Range period should be between five minutes and one hour'));
           } else {
             scope.start = startTimestamp;
             scope.end = endTimestamp;
