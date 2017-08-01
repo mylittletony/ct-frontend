@@ -27,17 +27,17 @@
 </md-toolbar>
 
 <md-content class="md-padding">
-  <!-- <md-card ng-if="logs.length > 0">
+  <md-card ng-if="logs.length > 0">
     <md-card-content>
-      <b>THIS IS AN ALPHA FEATURE</b><br><br>
+      <b>THIS IS AN BETA FEATURE</b><br><br>
       While this feature is being developed, please do not be surprised should you come across some small issues. We will, of course, appreciate any feedback.
     </md-card-content>
   </md-card>
   <md-card ng-if="logs.length == 0">
     <md-card-content>
-      No logs to show for given criteria.
+      No logs available for given criteria.
     </md-card-content>
-  </md-card> -->
+  </md-card>
   <md-table-container ng-if="logs.length > 0">
     <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
       <tbody md-body>
