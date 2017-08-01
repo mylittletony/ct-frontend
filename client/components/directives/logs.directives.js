@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.logs.directives', []);
 
-app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', '$location', '$mdDialog', function(Logs, Location, Box, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope, $location, $mdDialog) {
+app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCatalog', 'pagination_labels', '$pusher', '$rootScope', '$location', '$mdDialog', 'showToast', function(Logs, Location, Box, $routeParams, gettextCatalog, pagination_labels, $pusher, $rootScope, $location, $mdDialog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -14,11 +14,11 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       // order:   '-timestamp',
       query:   $routeParams.q,
       limit:   $routeParams.per,
-      page:    $routeParams.page || 1,
+      // page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
     };
 
-    $routeParams.start && $routeParams.end ? scope.date_range = true : scope.date_range = false;
+    $routeParams.start || $routeParams.end ? scope.date_range = true : scope.date_range = false;
 
     var boxes = {};
     var location;
@@ -47,20 +47,25 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       var hash  = {};
       hash.start = scope.start;
       hash.end   = scope.end;
-      hash.page  = scope.query.page;
+      // hash.page  = scope.query.page;
       hash.per   = scope.query.limit;
       hash.q     = scope.query.query;
       $location.search(hash);
     };
 
-    var start_time = $routeParams.start;
-    var end_time = $routeParams.end;
+    var start_time;
+    var end_time;
 
-    if (!start_time) {
+    if ($routeParams.start && $routeParams.end && $routeParams.end - $routeParams.start <= 3600) {
+      start_time = $routeParams.start;
+      end_time = $routeParams.end;
+    } else {
+      if ($routeParams.end - $routeParams.start > 3600) {
+        showToast(gettextCatalog.getString('Period should not be longer than an hour'));
+      } else if ($routeParams.start || $routeParams.end) {
+        showToast(gettextCatalog.getString('Selected range period not valid'));
+      }
       start_time = Math.round((new Date().getTime() - 60*60*1000) / 1000);
-    }
-
-    if (!end_time) {
       end_time = Math.round((new Date().getTime()) / 1000);
     }
 
@@ -75,9 +80,9 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
           var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
           if (startTimestamp > endTimestamp) {
             showToast(gettextCatalog.getString('Selected range period not valid'));
-          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 2592000) {
+          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 3600) {
             // check that the selected range period is between five minutes and thirty days
-            showToast(gettextCatalog.getString('Range period should be between five minutes and thirty days'));
+            showToast(gettextCatalog.getString('Range period should be between five minutes and one hour'));
           } else {
             scope.start = startTimestamp;
             scope.end = endTimestamp;
@@ -117,11 +122,16 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       scope.updatePage();
     };
 
+    scope.clearQueryFilter = function() {
+      scope.query.query = undefined;
+      scope.updatePage();
+    };
+
     var getLogs = function() {
       Logs.query({
         location_id: scope.location.id,
         ap_mac: ap_mac,
-        page: scope.query.page,
+        // page: scope.query.page,
         per: scope.query.limit,
         start_time: start_time,
         end_time: end_time,
