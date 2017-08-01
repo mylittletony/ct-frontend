@@ -6,50 +6,6 @@
       <input ng-model="query.query" md-autofocus placeholder="{{ 'Filter Clients' | translate }}">
     </md-input-container>
     <div flex></div>
-    <md-menu-bar ng-if="group_policies.length > 0" style="padding: 0">
-      <md-menu>
-        <button ng-click="$mdOpenMenu()">
-          <md-icon>group_work</md-icon>
-        </button>
-        <md-menu-content >
-          <md-menu-item>
-            <md-button ng-click="refresh()" ng-disabled="!policy_id">
-              <translate>
-              Clear Filter
-              </translate>
-            </md-button>
-          </md-menu-item>
-          <md-menu-divider></md-menu-divider>
-          <md-menu-item ng-repeat="policy in group_policies">
-            <md-button ng-class="{ 'active': policy.id == policy_id }" ng-click="updatePolicy(policy.id)">
-              {{ policy.policy_name }}
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </md-menu-bar>
-    <md-menu-bar ng-if="unique_aps.length > 0" style="padding: 0">
-      <md-menu>
-        <button ng-click="$mdOpenMenu()">
-          <md-icon>router</md-icon>
-        </button>
-        <md-menu-content >
-          <md-menu-item>
-            <md-button ng-click="refresh()" ng-disabled="!ap_mac">
-              <translate>
-              Clear Filter
-              </translate>
-            </md-button>
-          </md-menu-item>
-          <md-menu-divider></md-menu-divider>
-          <md-menu-item ng-repeat="box in unique_aps">
-            <md-button ng-class="{ 'active': ap_mac == box.ap_mac }" ng-click="updateAp(box.ap_mac)">
-              {{box.description}}
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </md-menu-bar>
     <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
      <md-icon md-font-icon="date_range">date_range</md-icon>
      <md-tooltip>
