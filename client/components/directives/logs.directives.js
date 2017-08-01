@@ -18,6 +18,8 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       options: [5,10,25,50,100],
     };
 
+    $routeParams.start && $routeParams.end ? scope.date_range = true : scope.date_range = false;
+
     var boxes = {};
     var location;
 
@@ -41,7 +43,7 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     //   updatePage();
     // };
 
-    var updatePage = function(page) {
+    scope.updatePage = function(page) {
       var hash  = {};
       hash.start = scope.start;
       hash.end   = scope.end;
@@ -79,8 +81,8 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
           } else {
             scope.start = startTimestamp;
             scope.end = endTimestamp;
-            scope.filtered = true;
-            updatePage();
+            scope.date_range = true;
+            scope.updatePage();
             $mdDialog.cancel();
           }
         }
@@ -108,6 +110,13 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       });
     };
 
+    scope.clearRangeFilter = function() {
+      scope.start = undefined;
+      scope.end = undefined;
+      scope.date_range = false;
+      scope.updatePage();
+    };
+
     var getLogs = function() {
       Logs.query({
         location_id: scope.location.id,
@@ -125,7 +134,6 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       }, function() {
         scope.loading = undefined;
       });
-
     };
 
     var init = function() {
