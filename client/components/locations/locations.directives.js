@@ -119,7 +119,7 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
       scope.end          = $routeParams.end;
-      scope.dateFiltered = true
+      scope.dateFiltered = true;
     } else {
       scope.start    = (Math.floor(new Date() / 1000) - 21600);
       scope.end      = Math.floor(new Date() / 1000);
@@ -127,7 +127,7 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
 
 
     Location.get({id: $routeParams.id}, function(data) {
-      scope.location = data
+      scope.location = data;
     }, function(err){
       console.log(err);
     });

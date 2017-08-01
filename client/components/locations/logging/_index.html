@@ -1,0 +1,93 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <form ng-submit="updatePage()">
+      <section>
+        <div class="md-toolbar-tools">
+          <md-input-container flex="100" flex-gt-xs="100" style="margin-top: 50px" >
+            <md-icon md-font-icon="search">search</md-icon>
+            <label></label>
+            <input ng-blur="updatePage()" ng-model="query.query" md-autofocus placeholder="{{'Search for logs' | translate}}">
+          </md-input-container>
+          <md-button class="md-icon-button md-primary" aria-label="Filter" ng-click="clearQueryFilter()" ng-show="query.query">
+            <md-icon>clear</md-icon>
+            <md-tooltip>
+              <translate>
+              Clear search
+              </translate>
+            </md-tooltip>
+          </md-button>
+          <div flex></div>
+        </div>
+      </section>
+    </form>
+    <div flex></div>
+    <md-button class="md-icon-button md-primary" aria-label="Filter" ng-click="clearRangeFilter()" ng-show="date_range">
+      <md-icon>clear</md-icon>
+      <md-tooltip>
+        <translate>
+        Clear range filter
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
+     <md-icon md-font-icon="date_range">date_range</md-icon>
+     <md-tooltip>
+       <translate>
+         Add date range filter
+       </translate>
+     </md-tooltip>
+    </md-button>
+  </div>
+  <md-divider></md-divider>
+</md-toolbar>
+
+<md-content class="md-padding">
+  <md-card ng-if="logs.length > 0">
+    <md-card-content>
+      <b>SYSTEM LOGGING IS A BETA FEATURE</b><br><br>
+      While this feature is being developed, please do not be surprised should you come across some small issues.
+    </md-card-content>
+  </md-card>
+  <md-card ng-if="logs.length == 0">
+    <md-card-content>
+      No logs available for given criteria.
+    </md-card-content>
+  </md-card>
+  <md-table-container ng-if="logs.length > 0">
+    <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
+      <tbody md-body ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)">
+        <tr md-row ng-click="expandRow(log)">
+          <!-- <td md-cell> -->
+            <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
+            <!-- </td> -->
+          <td md-cell>
+            <md-icon md-menu-origin md-font-icon="">{{ log.show_detail ? "keyboard_arrow_down" : "keyboard_arrow_right" }}</md-icon>
+          </td>
+          <td md-cell>
+            {{ log.created_at | humanTimeShort }}
+          </td>
+          <td md-cell>
+            {{ log.ap_name }}
+          </td>
+          <td md-cell>
+            {{ log.ap_mac }}
+          </td>
+          <td md-cell>
+            {{ log.message }}
+          </td>
+        </tr>
+        <tr md-row ng-if="log.show_detail == true">
+          <td md-cell>
+
+          </td>
+          <td md-cell>
+            Severity: {{log.severity}}
+          </td>
+          <td md-cell>
+            Facility: {{log.facility}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+</md-content>

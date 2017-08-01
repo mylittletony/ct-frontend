@@ -447,6 +447,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/logs', {
+      templateUrl: 'components/locations/logging/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/networks', {
       templateUrl: 'components/locations/networks/index.html',
       controller: 'LocationsCtrl as lc',
