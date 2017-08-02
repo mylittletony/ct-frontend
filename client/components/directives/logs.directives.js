@@ -13,6 +13,7 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     scope.query = {
       // order:   '-timestamp',
       query:   $routeParams.q,
+      ap_mac:  $routeParams.ap_mac,
       limit:   $routeParams.per,
       // page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
@@ -56,11 +57,12 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
 
     scope.updatePage = function(page) {
       var hash  = {};
-      hash.start = scope.start;
-      hash.end   = scope.end;
+      hash.start  = scope.start;
+      hash.end    = scope.end;
       // hash.page  = scope.query.page;
-      hash.per   = scope.query.limit;
-      hash.q     = scope.query.query;
+      hash.per    = scope.query.limit;
+      hash.q      = scope.query.query;
+      hash.ap_mac = scope.query.ap_mac;
       $location.search(hash);
     };
 
@@ -137,6 +139,25 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       scope.query.query = undefined;
       scope.updatePage();
     };
+
+    scope.filterByMac = function(mac) {
+      scope.query.ap_mac = mac;
+      scope.updatePage();
+    };
+
+    scope.clearAPFilter = function() {
+      scope.query.ap_mac = undefined;
+      scope.updatePage();
+    };
+
+    scope.clearAllFilters = function() {
+      scope.query.ap_mac = undefined;
+      scope.query.query = undefined;
+      scope.start = undefined;
+      scope.end = undefined;
+      scope.date_range = false;
+      scope.updatePage();
+    }
 
     var getLogs = function() {
       Logs.query({
