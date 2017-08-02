@@ -67,10 +67,7 @@
             {{ log.created_at | humanTimeShort }}
           </td>
           <td md-cell>
-            {{ log.ap_name }}
-          </td>
-          <td md-cell>
-            {{ log.ap_mac }}
+            <a href="#/locations/{{location.slug}}/devices/{{log.ap_slug}}">{{ log.ap_name }}</a>
           </td>
           <td md-cell>
             {{ log.message }}
@@ -85,6 +82,9 @@
           </td>
           <td md-cell>
             Facility: {{log.facility}}
+          </td>
+          <td md-cell>
+            Mac Address: {{ log.ap_mac }}
           </td>
         </tr>
       </tbody>
