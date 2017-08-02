@@ -218,7 +218,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.menuAction = function(type,client) {
       switch(type) {
         case 'view':
-          view(client.id);
+          view(client.client_mac);
           break;
         // case 'disconnect':
         //   client.processing = true;
