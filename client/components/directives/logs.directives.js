@@ -157,7 +157,11 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       scope.end = undefined;
       scope.date_range = false;
       scope.updatePage();
-    }
+    };
+
+    // scope.loadMore = function() {
+    //   console.log('hello')
+    // };
 
     var getLogs = function() {
       Logs.query({
