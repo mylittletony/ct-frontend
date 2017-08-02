@@ -21,6 +21,15 @@
       </section>
     </form>
     <div flex></div>
+    <md-button class="md-primary" aria-label="Filter" ng-click="clearAPFilter()" ng-show="query.ap_mac" style="min-width: 160px">
+      {{query.ap_mac}}
+      <md-icon>clear</md-icon>
+      <md-tooltip>
+        <translate>
+        Clear AP filter
+        </translate>
+      </md-tooltip>
+    </md-button>
     <md-button class="md-icon-button md-primary" aria-label="Filter" ng-click="clearRangeFilter()" ng-show="date_range">
       <md-icon>clear</md-icon>
       <md-tooltip>
@@ -50,7 +59,7 @@
   </md-card>
   <md-card ng-if="logs.length == 0">
     <md-card-content>
-      No logs available for given criteria.
+      <span>No logs available for given criteria. <a href="" ng-click="clearAllFilters()" ng-if="date_range || query.query || query.ap_mac" style="text-decoration: none">Clear search filters.</a></span>
     </md-card-content>
   </md-card>
   <md-table-container ng-if="logs.length > 0">
@@ -67,16 +76,13 @@
             {{ log.created_at | humanTimeShort }}
           </td>
           <td md-cell>
-            {{ log.ap_name }}
-          </td>
-          <td md-cell>
-            {{ log.ap_mac }}
+            <a href="#/locations/{{location.slug}}/devices/{{log.ap_slug}}">{{ log.ap_name }}</a>
           </td>
           <td md-cell>
             {{ log.message }}
           </td>
         </tr>
-        <tr md-row ng-if="log.show_detail == true">
+        <tr md-row ng-if="log.show_detail == true" style="background-color: rgba(0,0,0,0.12)">
           <td md-cell>
 
           </td>
@@ -86,6 +92,24 @@
           <td md-cell>
             Facility: {{log.facility}}
           </td>
+          <td md-cell>
+            Created at: {{log.created_at | humanTime}}
+          </td>
+
+          <tr md-row ng-if="log.show_detail == true" style="background-color: rgba(0,0,0,0.12)">
+            <td md-cell>
+
+            </td>
+            <td md-cell>
+              Type: {{log.type}}
+            </td>
+            <td md-cell>
+              Facility ID: {{log.facility_id}}
+            </td>
+            <td md-cell>
+              <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)">{{ log.ap_mac }}</a></span>
+            </td>
+          </tr>
         </tr>
       </tbody>
     </table>
