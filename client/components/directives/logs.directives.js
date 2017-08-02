@@ -21,7 +21,7 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     $routeParams.start || $routeParams.end ? scope.date_range = true : scope.date_range = false;
 
     var ap_descriptions = {};
-    var ap_slugs = {}
+    var ap_slugs = {};
     var location;
 
     var fetchBoxes = function() {
