@@ -497,7 +497,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       getSubdomain();
 
-      Translate.load();
+      // Translate.load();
     }
 
     var setLoggedIn = function(isLoggedIn) {
