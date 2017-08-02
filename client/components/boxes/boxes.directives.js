@@ -105,24 +105,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'transfer',
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Delete'),
-        icon: 'delete_forever',
-        type: 'delete'
-      });
-
       if (scope.box.v === '4') {
         scope.menu.push({
           name: gettextCatalog.getString('Operations'),
           icon: 'access_time',
           type: 'operations',
         });
-
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Reset'),
-        //   icon: 'clear',
-        //   type: 'reset',
-        // });
       }
 
       if (scope.box.is_cucumber) {
@@ -137,8 +125,13 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           icon: 'clear',
           type: 'reset',
         });
-
       }
+
+      scope.menu.push({
+        name: gettextCatalog.getString('Delete'),
+        icon: 'delete_forever',
+        type: 'delete'
+      });
     };
 
     var logs = function() {
