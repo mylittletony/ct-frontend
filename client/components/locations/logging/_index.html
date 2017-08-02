@@ -82,7 +82,7 @@
             {{ log.message }}
           </td>
         </tr>
-        <tr md-row ng-if="log.show_detail == true">
+        <tr md-row ng-if="log.show_detail == true" style="background-color: rgba(0,0,0,0.12)">
           <td md-cell>
 
           </td>
@@ -93,8 +93,23 @@
             Facility: {{log.facility}}
           </td>
           <td md-cell>
-            <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)">{{ log.ap_mac }}</a></span>
+            Created at: {{log.created_at | humanTime}}
           </td>
+
+          <tr md-row ng-if="log.show_detail == true" style="background-color: rgba(0,0,0,0.12)">
+            <td md-cell>
+
+            </td>
+            <td md-cell>
+              Type: {{log.type}}
+            </td>
+            <td md-cell>
+              Facility ID: {{log.facility_id}}
+            </td>
+            <td md-cell>
+              <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)">{{ log.ap_mac }}</a></span>
+            </td>
+          </tr>
         </tr>
       </tbody>
     </table>
