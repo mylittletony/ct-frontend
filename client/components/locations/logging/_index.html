@@ -82,39 +82,54 @@
               {{ log.message }}
             </td>
           </tr>
+          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+            <td md-cell></td>
+            <td md-cell></td>
+            <td md-cell>
+              Facility:
+            </td>
+            <td md-cell>{{log.facility}}</td>
+          </tr>
+          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+            <td md-cell></td>
+            <td md-cell></td>
+            <td md-cell>
+              Facility ID:
+            </td>
+            <td md-cell>{{log.facility_id}}</td>
+          </tr>
+          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+            <td md-cell></td>
+            <td md-cell></td>
+            <td md-cell>
+              Severity:
+            </td>
+            <td md-cell>{{log.severity}}</td>
+          </tr>
+          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+            <td md-cell></td>
+            <td md-cell></td>
+            <td md-cell>
+              <span>Mac Address:</span>
+            </td>
+            <td md-cell><a href="" ng-click="filterByMac(log.ap_mac)" style="color:#0000EE; text-decoration:underline">{{ log.ap_mac }}<md-tooltip>Filter logs by device</md-tooltip></a></td>
+          </tr>
+          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+            <td md-cell></td>
+            <td md-cell></td>
+            <td md-cell>
+              Type:
+            </td>
+            <td md-cell>{{log.type}}</td>
+          </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175)">
             <td md-cell></td>
             <td md-cell></td>
+
             <td md-cell>
-              Facility: {{log.facility}}
+              Created at:
             </td>
-            <td md-cell>
-              Facility ID: {{log.facility_id}}
-            </td>
-          </tr>
-            <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175)">
-              <td md-cell></td>
-              <td md-cell></td>
-              <td md-cell>
-                Severity: {{log.severity}}
-              </td>
-              <td md-cell>
-                <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)" style="color:#0000EE; text-decoration:underline">{{ log.ap_mac }}<md-tooltip>Filter logs by device</md-tooltip></a></span>
-              </td>
-            </tr>
-            <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175)">
-              <td md-cell></td>
-              <td md-cell></td>
-              <td md-cell>
-                Type: {{log.type}}
-              </td>
-              <td md-cell>
-                Created at: {{log.created_at | humanTime}}
-              </td>
-              <td md-cell>
-                <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)">{{ log.ap_mac }}</a></span>
-              </td>
-            </tr>
+            <td md-cell>{{log.created_at | humanTime}}</td>
           </tr>
         </tbody>
       </table>
