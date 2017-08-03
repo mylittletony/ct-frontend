@@ -62,56 +62,57 @@
       <span>No logs available for given criteria. <a href="" ng-click="clearAllFilters()" ng-if="date_range || query.query || query.ap_mac" style="text-decoration: none">Clear search filters.</a></span>
     </md-card-content>
   </md-card>
-  <md-table-container ng-if="logs.length > 0">
-    <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
-      <tbody md-body ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)">
-        <tr md-row ng-click="expandRow(log)">
-          <!-- <td md-cell> -->
-            <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
-            <!-- </td> -->
-          <td md-cell>
-            <md-icon md-menu-origin md-font-icon="">{{ log.show_detail ? "keyboard_arrow_down" : "keyboard_arrow_right" }}</md-icon>
-          </td>
-          <td md-cell>
-            {{ log.created_at | humanTimeShort }}
-          </td>
-          <td md-cell>
-            <a href="#/locations/{{location.slug}}/devices/{{log.ap_slug}}">{{ log.ap_name }}</a>
-          </td>
-          <td md-cell>
-            {{ log.message }}
-          </td>
-        </tr>
-        <tr md-row ng-if="log.show_detail == true" style="background-color: rgba(0,0,0,0.12)">
-          <td md-cell>
-
-          </td>
-          <td md-cell>
-            Severity: {{log.severity}}
-          </td>
-          <td md-cell>
-            Facility: {{log.facility}}
-          </td>
-          <td md-cell>
-            Created at: {{log.created_at | humanTime}}
-          </td>
-
+    <md-table-container ng-if="logs.length > 0">
+      <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
+        <tbody md-body ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)">
+          <tr md-row ng-click="expandRow(log)">
+            <!-- <td md-cell> -->
+              <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
+              <!-- </td> -->
+            <td md-cell>
+              <md-icon md-menu-origin md-font-icon="">{{ log.show_detail ? "keyboard_arrow_down" : "keyboard_arrow_right" }}</md-icon>
+            </td>
+            <td md-cell>
+              {{ log.created_at | humanTimeShort }}
+            </td>
+            <td md-cell>
+              <a href="#/locations/{{location.slug}}/devices/{{log.ap_slug}}">{{ log.ap_name }}</a>
+            </td>
+            <td md-cell>
+              {{ log.message }}
+            </td>
+          </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgba(0,0,0,0.12)">
             <td md-cell>
 
             </td>
             <td md-cell>
-              Type: {{log.type}}
+              Severity: {{log.severity}}
             </td>
             <td md-cell>
-              Facility ID: {{log.facility_id}}
+              Facility: {{log.facility}}
             </td>
             <td md-cell>
-              <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)">{{ log.ap_mac }}</a></span>
+              Created at: {{log.created_at | humanTime}}
             </td>
+
+            <tr md-row ng-if="log.show_detail == true" style="background-color: rgba(0,0,0,0.12)">
+              <td md-cell>
+
+              </td>
+              <td md-cell>
+                Type: {{log.type}}
+              </td>
+              <td md-cell>
+                Facility ID: {{log.facility_id}}
+              </td>
+              <td md-cell>
+                <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)">{{ log.ap_mac }}</a></span>
+              </td>
+            </tr>
           </tr>
-        </tr>
-      </tbody>
-    </table>
-  </md-table-container>
+        </tbody>
+      </table>
+    </md-table-container>
+  </div>
 </md-content>

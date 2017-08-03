@@ -19,7 +19,8 @@ var app = angular.module('myApp', [
   'pusher-angular',
   'config',
   'gettext',
-  'moment-picker'
+  'moment-picker',
+  'infinite-scroll'
 ]);
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
