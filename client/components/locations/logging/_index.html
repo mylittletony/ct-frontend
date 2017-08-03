@@ -76,7 +76,7 @@
               {{ log.created_at | humanTimeShort }}
             </td>
             <td md-cell>
-              <a href="#/locations/{{location.slug}}/devices/{{log.ap_slug}}">{{ log.ap_name }}</a>
+              <a href="#/locations/{{location.slug}}/devices/{{log.ap_slug}}" style="color:#0000EE; text-decoration:underline">{{ log.ap_name }}<md-tooltip>Go to device</md-tooltip></a>
             </td>
             <td md-cell>
               {{ log.message }}
@@ -99,7 +99,7 @@
                 Severity: {{log.severity}}
               </td>
               <td md-cell>
-                <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)">{{ log.ap_mac }}</a></span>
+                <span>Mac Address: <a href="" ng-click="filterByMac(log.ap_mac)" style="color:#0000EE; text-decoration:underline">{{ log.ap_mac }}<md-tooltip>Filter logs by device</md-tooltip></a></span>
               </td>
             </tr>
             <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175)">
