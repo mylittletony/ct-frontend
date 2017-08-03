@@ -263,7 +263,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return params;
     };
 
-    scope.updatePage = function(mac, item) {
+    scope.updatePage = function(mac) {
       if (mac) {
         scope.ap_mac = mac;
       }
