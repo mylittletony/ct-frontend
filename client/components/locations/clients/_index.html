@@ -1,6 +1,6 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <form ng-submit="$event.preventDefault()" style="padding-left: 5px; padding-bottom: 15px">
+    <!-- <form ng-submit="$event.preventDefault()" style="padding-left: 5px; padding-bottom: 15px">
       <section>
         <md-autocomplete
             md-selected-item="selectedItem"
@@ -32,14 +32,14 @@
         </md-autocomplete>
         <md-divider></md-divider>
       </section>
-    </form>
-    <!-- <form>
+    </form> -->
+    <form>
       <md-input-container flex="100" flex-gt-xs="100" style="margin-top: 50px">
         <md-icon md-font-icon="search">search</md-icon>
         <label></label>
         <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Clients' | translate }}">
       </md-input-container>
-    </form> -->
+    </form>
     <div flex></div>
     <md-menu-bar ng-if="group_policies.length > 0" style="padding: 0">
       <md-menu>
