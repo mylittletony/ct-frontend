@@ -128,6 +128,7 @@
                   <th md-column><a href="" translate>Description</a></th>
                   <th md-column hide md-order-by="client_mac" show-gt-sm><a href="" translate>Mac Address</a></th>
                   <th hide show-gt-sm md-column md-order-by="ssid" ng-show="columns.ssid"><a href="" translate>SSID</a></th>
+                  <th hide show-gt-sm md-column md-order-by="ap_name" ng-show="columns.ap_name"><a href="" translate>AP Name</a></th>
                   <!-- <th hide show-gt-sm md-column md-order-by="" ng-show="columns.expected_throughput"><a href="" translate>Expected Tput</a></th> -->
                   <th hide show-gt-sm md-column md-order-by="txbitrate" ng-show="columns.txbitrate"><a href="" translate>Tx Rate</a></th>
                   <th hide show-gt-sm md-column md-order-by="rxbitrate" ng-show="columns.rxbitrate"><a href="" translate>Rx Rate</a></th>
@@ -136,7 +137,6 @@
                   <th hide show-gt-sm md-column md-order-by="mcs" ng-show="columns.mcs"><a href="" translate>MCS Index</a></th>
                   <th hide show-gt-sm md-column md-order-by="ip" ng-show="columns.ip"><a href="" translate>IPv4</a></th>
                   <th hide show-gt-sm md-column md-order-by="lastseen" ng-show="columns.lastseen"><a href="" translate>Last Seen</a></th>
-                  <th hide show-gt-sm md-column md-order-by="ap_mac" ng-show="columns.ap_name"><a href="" translate>AP Name</a></th>
                   <th hide show-gt-sm md-column md-order-by="channel" ng-show="columns.channel"><a href="" translate>Channel</a></th>
                   <th hide show-gt-sm md-column md-order-by="capabilities" ng-show="columns.capabilities"><a href="" translate>Frequency</a></th>
                   <!-- <th hide show-gt-sm md-column md-order-by="manufacturer" ng-show="columns.manufacturer"><a href="" translate>Manufacturer</a></th> -->
@@ -177,6 +177,9 @@
                       {{ client.ap_mac }}
                     </md-tooltip>
                   </td md-cell>
+                  <td hide show-gt-sm md-cell ng-show="columns.ap_name">
+                    {{ client.ap_name }}
+                  </td md-cell>
                   <!-- <td hide show-gt-sm md-cell ng-show="columns.expected_throughput"> -->
                   <!--   <translate>{{ client.expected_throughput || 0}}Mbps</translate> -->
                   <!-- </td md-cell> -->
@@ -215,9 +218,6 @@
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.lastseen">
                     {{ client.lastseen | lastSeen }}
-                  </td md-cell>
-                  <td hide show-gt-sm md-cell ng-show="columns.ap_name">
-                    {{ client.ap_name }}
                   </td md-cell>
                   <!-- <td hide show-gt-sm md-cell ng-show="columns.description"> -->
                   <!--   <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a> -->
