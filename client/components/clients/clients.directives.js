@@ -263,9 +263,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return params;
     };
 
-    scope.updatePage = function(mac) {
+    scope.updatePage = function(mac, item) {
       if (mac) {
-        scope.query.filter = mac;
+        scope.ap_mac = mac;
       }
       var hash            = {};
       hash.start          = scope.query.start;
@@ -282,7 +282,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       hash.v              = scope.query.v;
       hash.q              = scope.query.filter;
       $location.search(hash);
-      init();
+      initV2();
     };
 
     scope.sort = function(val, reverse) {
@@ -638,7 +638,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         deferred.reject();
         return deferred.promise;
       }
-
       ClientV2.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
         scope.connected = results.online;
