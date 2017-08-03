@@ -159,10 +159,6 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       scope.updatePage();
     };
 
-    // scope.loadMore = function() {
-    //   console.log('hello')
-    // };
-
     var getLogs = function() {
       Logs.query({
         location_id: scope.location.id,
