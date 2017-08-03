@@ -1,5 +1,39 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
+    <!-- <form style="padding-left: 5px; padding-bottom: 15px">
+      <section>
+        <md-autocomplete
+            ng-model="query.filter"
+            md-selected-item="selectedItem"
+            ng-enter="updatePage(item)"
+            md-search-text-change="searchTextChange(searchText)"
+            md-no-cache="true"
+            md-search-text="searchText"
+            md-selected-item-change="selectedItemChange(item)"
+            md-items="box in getBoxes(searchText)"
+            md-item-text="box.description"
+            md-min-length="3"
+            md-autofocus="true"
+            md-menu-class="locations-autocomplete"
+            placeholder="{{ 'Search' | translate }}">
+          <md-item-template>
+            <a ng-click="updatePage(box.calledstationid)">
+              <span class="item-title">
+                <md-icon>router</md-icon>
+            <span>&nbsp;{{ box.description }}</span>
+              </span>
+              <span class="item-metadata">
+                {{box.calledstationid}}
+              </span>
+            </a>
+          </md-item-template>
+          <md-not-found translate>
+            No results found.
+          </md-not-found>
+        </md-autocomplete>
+        <md-divider></md-divider>
+      </section>
+    </form> -->
     <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px">
       <md-icon md-font-icon="search">search</md-icon>
       <label></label>
