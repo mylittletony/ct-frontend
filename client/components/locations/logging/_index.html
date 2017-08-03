@@ -83,53 +83,53 @@
             </td>
           </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
-            <td md-cell></td>
-            <td md-cell></td>
-            <td md-cell>
+            <td></td>
+            <td></td>
+            <td>
               Facility:
             </td>
-            <td md-cell>{{log.facility}}</td>
+            <td>{{log.facility}}</td>
           </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
-            <td md-cell></td>
-            <td md-cell></td>
-            <td md-cell>
+            <td></td>
+            <td></td>
+            <td>
               Facility ID:
             </td>
-            <td md-cell>{{log.facility_id}}</td>
+            <td>{{log.facility_id}}</td>
           </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
-            <td md-cell></td>
-            <td md-cell></td>
-            <td md-cell>
+            <td></td>
+            <td></td>
+            <td>
               Severity:
             </td>
-            <td md-cell>{{log.severity}}</td>
+            <td>{{log.severity}}</td>
           </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
-            <td md-cell></td>
-            <td md-cell></td>
-            <td md-cell>
+            <td></td>
+            <td></td>
+            <td>
               <span>Mac Address:</span>
             </td>
-            <td md-cell><a href="" ng-click="filterByMac(log.ap_mac)" style="color:#0000EE; text-decoration:underline">{{ log.ap_mac }}<md-tooltip>Filter logs by device</md-tooltip></a></td>
+            <td><a href="" ng-click="filterByMac(log.ap_mac)" style="color:#0000EE; text-decoration:underline">{{ log.ap_mac }}<md-tooltip>Filter logs by device</md-tooltip></a></td>
           </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
-            <td md-cell></td>
-            <td md-cell></td>
-            <td md-cell>
+            <td></td>
+            <td></td>
+            <td>
               Type:
             </td>
-            <td md-cell>{{log.type}}</td>
+            <td>{{log.type}}</td>
           </tr>
           <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175)">
-            <td md-cell></td>
-            <td md-cell></td>
+            <td></td>
+            <td></td>
 
-            <td md-cell>
+            <td>
               Created at:
             </td>
-            <td md-cell>{{log.created_at | humanTime}}</td>
+            <td>{{log.created_at | humanTime}}</td>
           </tr>
         </tbody>
       </table>
