@@ -14,8 +14,8 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       // order:   '-timestamp',
       query:   $routeParams.q,
       ap_mac:  $routeParams.ap_mac,
-      limit:   $routeParams.per,
-      // page:    $routeParams.page || 1,
+      limit:   $routeParams.per || 25,
+      page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
     };
 
