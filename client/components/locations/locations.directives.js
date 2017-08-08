@@ -446,6 +446,24 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
+app.directive('locationAudit', ['$routeParams', '$rootScope', '$location', '$timeout', 'Location', '$q', 'Locations', '$mdDialog', function($routeParams, $rootScope, $location, $timeout, Location, $q, Locations, $mdDialog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/audit/_index.html'
+  };
+
+}]);
+
 app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, locationHelper, $q, Shortener, $timeout, Box) {
 
   var link = function(scope,element,attrs) {
