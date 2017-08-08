@@ -235,7 +235,7 @@ app.directive('locationWirelessReports', ['Report', '$routeParams', '$rootScope'
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
       scope.end          = $routeParams.end;
-      scope.dateFiltered = true
+      scope.dateFiltered = true;
     } else {
       scope.start    = (Math.floor(new Date() / 1000) - 21600);
       scope.end      = Math.floor(new Date() / 1000);
@@ -243,7 +243,7 @@ app.directive('locationWirelessReports', ['Report', '$routeParams', '$rootScope'
 
 
     Location.get({id: $routeParams.id}, function(data) {
-      scope.location = data
+      scope.location = data;
     }, function(err){
       console.log(err);
     });
@@ -446,11 +446,32 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['$routeParams', '$rootScope', '$location', '$timeout', 'Location', '$q', 'Locations', '$mdDialog', function($routeParams, $rootScope, $location, $timeout, Location, $q, Locations, $mdDialog) {
+app.directive('locationAudit', ['Email', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Email, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
 
   var link = function(scope,element,attrs,controller) {
 
+    var getLocation = function() {
+      var deferred = $q.defer();
+      Location.get({id: $routeParams.id}).$promise.then(function(results) {
+        scope.location = results;
+        deferred.resolve(results.results);
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
 
+    var init = function() {
+      getLocation().then(function() {
+        Email.get({location_id: scope.location.id}).$promise.then(function(results) {
+          scope.results = results;
+        }, function() {
+          console.log('errrrrrorrr!');
+        });
+      });
+    };
+
+    init();
 
   };
 
@@ -1604,7 +1625,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
           }
         }
       }
-    }
+    };
 
     var boxMetadata = function() {
       scope.box_macs = '';
