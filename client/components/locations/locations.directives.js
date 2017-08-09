@@ -446,15 +446,82 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Email', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Email, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
+app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
 
   var link = function(scope,element,attrs,controller) {
 
     var params = {};
+    scope.audit_models = ['Emails', 'Guests', 'Social', 'Sales'];
 
     scope.query = {
       page: $routeParams.page || 1,
       limit:  $routeParams.per || 25
+    };
+
+    var updatePage = function() {
+
+    }
+
+    var findEmails = function() {
+      Email.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Emails';
+        scope.results = data.emails;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    var findGuests = function() {
+      Guest.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Guests';
+        scope.results = data.guests;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    var findSocial = function() {
+      Social.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Social';
+        scope.results = data.social;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    var findOrders = function() {
+      Order.get(params).$promise.then(function(data, err) {
+        console.log(data)
+        scope.selected = 'Sales';
+        scope.results = data.orders;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    scope.updateAudit = function(selected) {
+      switch(selected) {
+        case 'Guests':
+          findGuests();
+          break;
+        case 'Social':
+          findSocial();
+          break;
+        case 'Sales':
+          findOrders();
+          break;
+        default:
+          findEmails();
+          break;
+      }
     };
 
     var getLocation = function() {
@@ -479,8 +546,10 @@ app.directive('locationAudit', ['Email', 'Location', '$routeParams', '$rootScope
     var init = function() {
       getLocation().then(function() {
         getParams();
-        Email.get(params).$promise.then(function(results, err) {
-          scope.results = results;
+        Email.get(params).$promise.then(function(data, err) {
+          scope.selected = 'Emails';
+          scope.results = data.emails;
+          scope.links = data._links;
         }, function() {
           console.log(err);
         });
