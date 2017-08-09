@@ -451,11 +451,20 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
   var link = function(scope,element,attrs,controller) {
 
     var params = {};
+
+    var weekAgo = moment().utc().subtract(7, 'days').toDate();
+    var now = moment().utc().toDate();
+
+    var weekAgoEpoch = Math.floor(weekAgo.getTime() / 1000);
+    var nowEpoch = Math.floor(now.getTime() / 1000);
+
     scope.audit_models = ['Emails', 'Guests', 'Social', 'Sales'];
 
     scope.query = {
       page: $routeParams.page || 1,
-      limit:  $routeParams.per || 25
+      limit: $routeParams.per || 25,
+      start: $routeParams.start || weekAgoEpoch,
+      end: $routeParams.end || nowEpoch
     };
 
     var updatePage = function() {
