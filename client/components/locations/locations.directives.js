@@ -458,6 +458,9 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     var weekAgoEpoch = Math.floor(weekAgo.getTime() / 1000);
     var nowEpoch = Math.floor(now.getTime() / 1000);
 
+    scope.startFull = moment.unix(weekAgoEpoch).format('MM/DD/YYYY');
+    scope.endFull = moment.unix(nowEpoch).format('MM/DD/YYYY');
+
     scope.audit_models = ['Emails', 'Guests', 'Social', 'Sales'];
 
     scope.query = {
@@ -530,6 +533,10 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
           findEmails();
           break;
       }
+    };
+
+    scope.setPresence = function() {
+      console.log(scope.start_date)
     };
 
     var getLocation = function() {
