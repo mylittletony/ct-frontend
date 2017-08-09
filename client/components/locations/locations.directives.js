@@ -450,6 +450,13 @@ app.directive('locationAudit', ['Email', 'Location', '$routeParams', '$rootScope
 
   var link = function(scope,element,attrs,controller) {
 
+    var params = {};
+
+    scope.query = {
+      page: $routeParams.page || 1,
+      limit:  $routeParams.per || 25
+    };
+
     var getLocation = function() {
       var deferred = $q.defer();
       Location.get({id: $routeParams.id}).$promise.then(function(results) {
@@ -461,12 +468,21 @@ app.directive('locationAudit', ['Email', 'Location', '$routeParams', '$rootScope
       return deferred.promise;
     };
 
+    var getParams = function() {
+      params = {
+        location_id: scope.location.id,
+        page: scope.query.page,
+        per: scope.query.limit
+      };
+    };
+
     var init = function() {
       getLocation().then(function() {
-        Email.get({location_id: scope.location.id}).$promise.then(function(results) {
+        getParams();
+        Email.get({location_id: scope.location.id}).$promise.then(function(results, err) {
           scope.results = results;
         }, function() {
-          console.log('errrrrrorrr!');
+          console.log(err);
         });
       });
     };
