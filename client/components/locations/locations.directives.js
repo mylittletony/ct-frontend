@@ -479,7 +479,7 @@ app.directive('locationAudit', ['Email', 'Location', '$routeParams', '$rootScope
     var init = function() {
       getLocation().then(function() {
         getParams();
-        Email.get({location_id: scope.location.id}).$promise.then(function(results, err) {
+        Email.get(params).$promise.then(function(results, err) {
           scope.results = results;
         }, function() {
           console.log(err);
