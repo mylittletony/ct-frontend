@@ -460,7 +460,7 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
 
     var updatePage = function() {
 
-    }
+    };
 
     var findEmails = function() {
       Email.get(params).$promise.then(function(data, err) {
@@ -497,7 +497,6 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
 
     var findOrders = function() {
       Order.get(params).$promise.then(function(data, err) {
-        console.log(data)
         scope.selected = 'Sales';
         scope.results = data.orders;
         scope.links = data._links;
