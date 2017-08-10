@@ -463,6 +463,8 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
 
     scope.audit_models = ['Emails', 'Guests', 'Social', 'Sales'];
 
+    scope.selected = 'Emails';
+
     scope.query = {
       page: $routeParams.page || 1,
       limit: $routeParams.per || 25,
@@ -470,11 +472,8 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
       end: $routeParams.end || nowEpoch
     };
 
-    var updatePage = function() {
-
-    };
-
     var findEmails = function() {
+      getParams();
       Email.get(params).$promise.then(function(data, err) {
         scope.selected = 'Emails';
         scope.results = data.emails;
@@ -486,6 +485,7 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     };
 
     var findGuests = function() {
+      getParams();
       Guest.get(params).$promise.then(function(data, err) {
         scope.selected = 'Guests';
         scope.results = data.guests;
@@ -497,6 +497,7 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     };
 
     var findSocial = function() {
+      getParams();
       Social.get(params).$promise.then(function(data, err) {
         scope.selected = 'Social';
         scope.results = data.social;
@@ -508,6 +509,7 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     };
 
     var findOrders = function() {
+      getParams();
       Order.get(params).$promise.then(function(data, err) {
         scope.selected = 'Sales';
         scope.results = data.orders;
@@ -535,8 +537,18 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
       }
     };
 
-    scope.setPresence = function() {
-      console.log(scope.start_date)
+    scope.setStart = function() {
+
+    }
+
+    scope.setEnd = function() {
+
+    }
+
+    scope.onPaginate = function(page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updateAudit(scope.selected);
     };
 
     var getLocation = function() {
@@ -561,13 +573,7 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     var init = function() {
       getLocation().then(function() {
         getParams();
-        Email.get(params).$promise.then(function(data, err) {
-          scope.selected = 'Emails';
-          scope.results = data.emails;
-          scope.links = data._links;
-        }, function() {
-          console.log(err);
-        });
+        scope.updateAudit(scope.selected);
       });
     };
 
