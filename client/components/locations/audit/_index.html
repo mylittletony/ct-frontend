@@ -7,32 +7,18 @@
         </md-option>
       </md-select>
     </div>
-    <!-- <div flex layout="row" style="padding-bottom: 3px;">
-      <md-input-container>
-        <label>
-          <translate>Start time</translate>
-        </label>
-        <input class="form-control"
-          ng-model="startFull"
-          moment-picker="startFull"
-          start-view="month"
-          min-view="year"
-          max-view="hour">
-      </md-input-container>
-      <md-input-container>
-        <label>
-          <translate>End time</translate>
-        </label>
-        <input class="form-control"
-          ng-model="endFull"
-          moment-picker="endFull"
-          start-view="month"
-          min-view="year"
-          max-view="hour">
-      </md-input-container>
-    </div> -->
+    <div flex></div>
+    <div layout="row" flex style="padding-top: 12px">
+      <md-datepicker ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+      <md-datepicker ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+    </div>
+    <div flex></div>
+    <div flex style="padding-top: 10px">
+      <md-button>
+        <md-icon>file_download</md-icon>
+      </md-button>
+    </div>
   </div>
-  <md-divider></md-divider>
 </md-toolbar>
 
 <md-content layout-padding>
