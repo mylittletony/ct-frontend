@@ -452,24 +452,31 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
 
     var params = {};
 
-    var weekAgo = moment().utc().subtract(7, 'days').toDate();
-    var now = moment().utc().toDate();
+    scope.startDate = moment().utc().subtract(6, 'days').startOf('day').toDate();
+    scope.endDate = moment().utc().toDate();
 
-    var weekAgoEpoch = Math.floor(weekAgo.getTime() / 1000);
-    var nowEpoch = Math.floor(now.getTime() / 1000);
-
-    scope.startFull = moment.unix(weekAgoEpoch).format('MM/DD/YYYY');
-    scope.endFull = moment.unix(nowEpoch).format('MM/DD/YYYY');
+    var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
+    var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
 
     scope.audit_models = ['Emails', 'Guests', 'Social', 'Sales'];
 
-    scope.selected = 'Emails';
+    scope.selected = 'Emails' || $routeParams.type;
 
     scope.query = {
       page: $routeParams.page || 1,
       limit: $routeParams.per || 25,
       start: $routeParams.start || weekAgoEpoch,
       end: $routeParams.end || nowEpoch
+    };
+
+    var getParams = function() {
+      params = {
+        location_id: scope.location.id,
+        page: scope.query.page,
+        per: scope.query.limit,
+        start: scope.query.start,
+        end: scope.query.end
+      };
     };
 
     var findEmails = function() {
@@ -538,12 +545,14 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     };
 
     scope.setStart = function() {
-
-    }
+      scope.query.start = new Date(scope.startDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
 
     scope.setEnd = function() {
-
-    }
+      scope.query.end = new Date(scope.endDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
 
     scope.onPaginate = function(page, limit) {
       scope.query.page = page;
@@ -560,14 +569,6 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
         deferred.reject();
       });
       return deferred.promise;
-    };
-
-    var getParams = function() {
-      params = {
-        location_id: scope.location.id,
-        page: scope.query.page,
-        per: scope.query.limit
-      };
     };
 
     var init = function() {
