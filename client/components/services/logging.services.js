@@ -1,19 +1,19 @@
 'use strict';
 
-var app = angular.module('myApp.metrics.services', ['ngResource',]);
+var app = angular.module('myApp.logs.services', ['ngResource',]);
 
-app.factory('Metric', ['$resource', '$localStorage', 'API_END_POINT_V2',
+app.factory('Logs', ['$resource', '$localStorage', 'API_END_POINT_V2',
   function($resource, $localStorage, API_END_POINT_V2){
     var token;
     if ($localStorage && $localStorage.user && $localStorage.user.api_token) {
       token = $localStorage.user.api_token;
     }
-    return $resource(API_END_POINT_V2 + '/metrics',
+    return $resource(API_END_POINT_V2 + '/logs',
       {
         'access_token': token
       },
       {
-      clientstats: {
+      query: {
         method:'GET',
         isArray: false,
       },

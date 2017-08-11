@@ -159,11 +159,28 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
+        name: gettextCatalog.getString('Audits'),
+        type: 'subhead',
+      });
+
+      menu.sections.push({
         name: gettextCatalog.getString('History'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/versions',
         icon: 'history',
         active: isActive('versions')
+      });
+
+      menu.sections.push({
+        name: gettextCatalog.getString('Logging'),
+        type: 'link',
+        link: '/#/locations/' + $scope.location.slug + '/logs',
+        icon: 'library_books',
+        active: isActive('logs')
+      });
+
+      menu.sections.push({
+        type: 'divider',
       });
 
       menu.sections.push({

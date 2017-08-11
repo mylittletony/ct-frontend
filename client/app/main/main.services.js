@@ -27,6 +27,7 @@ var app = angular.module('myApp.services', [
   'myApp.jobs.services',
   'myApp.integrations.services',
   'myApp.locations.services',
+  'myApp.logs.services',
   'myApp.main.services',
   'myApp.menu.services',
   'myApp.messages.services',
