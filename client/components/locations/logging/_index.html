@@ -82,7 +82,7 @@
               {{ log.message }}
             </td>
           </tr>
-          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+          <tr md-row ng-if="log.show_detail == true" class="table-expand">
             <td></td>
             <td></td>
             <td>
@@ -90,7 +90,7 @@
             </td>
             <td>{{log.facility}}</td>
           </tr>
-          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+          <tr md-row ng-if="log.show_detail == true" class="table-expand">
             <td></td>
             <td></td>
             <td>
@@ -98,7 +98,7 @@
             </td>
             <td>{{log.facility_id}}</td>
           </tr>
-          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+          <tr md-row ng-if="log.show_detail == true" class="table-expand">
             <td></td>
             <td></td>
             <td>
@@ -106,7 +106,7 @@
             </td>
             <td>{{log.severity}}</td>
           </tr>
-          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+          <tr md-row ng-if="log.show_detail == true" class="table-expand">
             <td></td>
             <td></td>
             <td>
@@ -114,7 +114,7 @@
             </td>
             <td><a href="" ng-click="filterByMac(log.ap_mac)" style="color:#0000EE; text-decoration:underline">{{ log.ap_mac }}<md-tooltip>Filter logs by device</md-tooltip></a></td>
           </tr>
-          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175);">
+          <tr md-row ng-if="log.show_detail == true" class="table-expand">
             <td></td>
             <td></td>
             <td>
@@ -122,7 +122,7 @@
             </td>
             <td>{{log.type}}</td>
           </tr>
-          <tr md-row ng-if="log.show_detail == true" style="background-color: rgb(255, 255, 175)">
+          <tr md-row ng-if="log.show_detail == true" class="table-expand">
             <td></td>
             <td></td>
 
@@ -134,6 +134,6 @@
         </tbody>
       </table>
     </md-table-container>
-    <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+    <!-- <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination> -->
   </div>
 </md-content>
