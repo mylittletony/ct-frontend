@@ -199,6 +199,18 @@ md-toolbar md-autocomplete {
   min-width: 90px;
 }
 
+.picker-smaller .md-datepicker-triangle-button .md-datepicker-expand-triangle, .md-datepicker-triangle-button .md-datepicker-expand-triangle {
+  border-top-color: rgba(0,0,0,0.87);
+}
+
+.picker-smaller .md-datepicker-triangle-button.md-button.md-icon-button {
+  margin-top: -4px;
+}
+
+.md-datepicker-calendar-pane {
+ border-radius: 2px;
+}
+
 .md-datepicker-button {
   display: none;
 }
