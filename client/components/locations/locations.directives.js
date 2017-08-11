@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -458,9 +458,9 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
 
-    scope.audit_models = ['Emails', 'Guests', 'Social', 'Sales'];
+    scope.audit_models = ['Radius Sessions', 'Emails', 'Guests', 'Social', 'Sales'];
 
-    scope.selected = 'Emails' || $routeParams.type;
+    scope.selected = 'Radius Sessions' || $routeParams.type;
 
     scope.query = {
       page: $routeParams.page || 1,
@@ -477,6 +477,18 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
         start: scope.query.start,
         end: scope.query.end
       };
+    };
+
+    var findSessions = function() {
+      getParams();
+      Session.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Radius Sessions';
+        scope.results = data.sessions;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
     };
 
     var findEmails = function() {
@@ -529,6 +541,9 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
 
     scope.updateAudit = function(selected) {
       switch(selected) {
+        case 'Emails':
+          findEmails();
+          break;
         case 'Guests':
           findGuests();
           break;
@@ -539,7 +554,7 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
           findOrders();
           break;
         default:
-          findEmails();
+          findSessions();
           break;
       }
     };
