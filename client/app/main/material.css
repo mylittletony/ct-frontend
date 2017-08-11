@@ -203,6 +203,10 @@ md-toolbar md-autocomplete {
   margin-top: -4px;
 }
 
+.md-datepicker-calendar-pane {
+ border-radius: 2px;
+}
+
 .md-datepicker-button {
   display: none;
 }
