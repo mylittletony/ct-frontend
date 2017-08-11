@@ -58,6 +58,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'changelog':
           viewHistory();
           break;
+        case 'logging':
+          logs();
+          break;
         case 'reset':
           scope.resetBox();
           break;
@@ -102,33 +105,37 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'transfer',
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Delete'),
-        icon: 'delete_forever',
-        type: 'delete'
-      });
-
       if (scope.box.v === '4') {
         scope.menu.push({
           name: gettextCatalog.getString('Operations'),
           icon: 'access_time',
           type: 'operations',
         });
-
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Reset'),
-        //   icon: 'clear',
-        //   type: 'reset',
-        // });
       }
 
       if (scope.box.is_cucumber) {
+        scope.menu.push({
+          name: gettextCatalog.getString('Logs'),
+          icon: 'library_books',
+          type: 'logging',
+        });
+
         scope.menu.push({
           name: gettextCatalog.getString('Reset'),
           icon: 'clear',
           type: 'reset',
         });
       }
+
+      scope.menu.push({
+        name: gettextCatalog.getString('Delete'),
+        icon: 'delete_forever',
+        type: 'delete'
+      });
+    };
+
+    var logs = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/logs?ap_mac=' + scope.box.calledstationid;
     };
 
     var checkZones = function(results) {

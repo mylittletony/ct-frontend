@@ -163,12 +163,20 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         type: 'subhead',
       });
 
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('History'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/versions',
+      //   icon: 'history',
+      //   active: isActive('versions')
+      // });
+
       menu.sections.push({
-        name: gettextCatalog.getString('History'),
+        name: gettextCatalog.getString('Audit'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/versions',
+        link: '/#/locations/' + $scope.location.slug + '/audit',
         icon: 'history',
-        active: isActive('versions')
+        active: isActive('audit')
       });
 
       menu.sections.push({
