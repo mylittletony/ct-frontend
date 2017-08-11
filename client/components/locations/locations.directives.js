@@ -2742,7 +2742,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-app.directive('homeStatCards', ['Report', function (Report) {
+app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
   var link = function(scope,element,attrs) {
 
@@ -2751,9 +2751,12 @@ app.directive('homeStatCards', ['Report', function (Report) {
     var init = function() {
 
       Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
-        scope.stats     = results.stats;
-        process();
-        scope.loading   = undefined;
+        Box.get({state: 'offline', per: 25, page: 1}).$promise.then(function(data) {
+          scope.stats     = results.stats;
+          scope.stats.alerts = data._links.total_entries
+          process();
+          scope.loading   = undefined;
+        })
       });
 
     };
