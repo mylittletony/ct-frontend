@@ -575,6 +575,11 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
       findSessions();
     };
 
+    scope.clearClientFilter = function() {
+      scope.query.client_mac = undefined;
+      findSessions();
+    };
+
     scope.onPaginate = function(page, limit) {
       scope.query.page = page;
       scope.query.limit = limit;
