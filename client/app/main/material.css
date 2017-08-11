@@ -191,6 +191,10 @@ md-toolbar md-autocomplete {
   min-width: 155px;
 }
 
+.md-datepicker-button {
+  display: none;
+}
+
 .s12.material-icons {
   font-size: 16px;
 }
