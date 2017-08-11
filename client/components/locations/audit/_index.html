@@ -1,24 +1,22 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <div flex="50" style="padding-left: 6px; padding-right: 20px;">
-      <md-select ng-model="selected" ng-change="updateAudit(selected)" required>
+    <div flex="30">
+      <md-select style="margin:0px" ng-model="selected" ng-change="updateAudit(selected)" required>
         <md-option ng-repeat="model in audit_models" value="{{model}}">
           {{model}}
         </md-option>
       </md-select>
     </div>
-    <div flex></div>
-    <div layout="row" flex style="padding-top: 12px">
-      <md-datepicker ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
-      <md-datepicker ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+    <div layout="row" flex style="margin-top:4px">
+      <md-datepicker class="picker-smaller" ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+      <md-datepicker class="picker-smaller" ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
     </div>
     <div flex></div>
-    <div flex style="padding-top: 10px">
-      <md-button>
-        <md-icon>file_download</md-icon>
-      </md-button>
-    </div>
+    <md-button class="md-icon-button">
+      <md-icon>file_download</md-icon>
+    </md-button>
   </div>
+  <md-divider></md-divider>
 </md-toolbar>
 
 <md-content layout-padding>
