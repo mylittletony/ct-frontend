@@ -50,7 +50,7 @@ table.table-logs tr {
 }
 
 table.table-logs > tbody > tr:hover {
-    background-color: #f5f5f5;
+    background-color: #e8e8e8;
 }
 
 .status-icon {
