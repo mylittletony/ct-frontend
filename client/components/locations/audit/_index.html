@@ -85,8 +85,8 @@
                     <md-tooltip ng-if="result.acctstoptime">{{ ::result.acctstopcause }}</md-tooltip>
                   </td>
                   <td hide show-gt-xs md-cell ng-show="selected == 'Radius Sessions'">
-                    {{ ::(result.client_mac | uppercase)}}
-                    <md-tooltip ng-if="result.device_ipaddr">{{ ::result.device_ipaddr }}</md-tooltip>
+                    <a href="" ng-click="filterSessionsByClient(result.client_mac)">{{ ::(result.client_mac | uppercase)}}</a>
+                    <md-tooltip>Filter by client</md-tooltip>
                   </td>
                   <td hide show-gt-md md-cell ng-show="selected == 'Radius Sessions'">
                     {{ result.username | truncate:30 }}
