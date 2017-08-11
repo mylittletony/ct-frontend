@@ -481,6 +481,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
 
     var findSessions = function() {
       getParams();
+      params.client_mac = scope.query.client_mac;
       Session.query(params).$promise.then(function(data, err) {
         scope.selected = 'Radius Sessions';
         scope.results = data.sessions;
@@ -567,6 +568,11 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     scope.setEnd = function() {
       scope.query.end = new Date(scope.endDate).getTime() / 1000;
       scope.updateAudit(scope.selected);
+    };
+
+    scope.filterSessionsByClient = function(mac) {
+      scope.query.client_mac = mac;
+      findSessions();
     };
 
     scope.onPaginate = function(page, limit) {
