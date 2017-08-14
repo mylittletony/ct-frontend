@@ -205,10 +205,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/apps/new.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/audit', {
-      templateUrl: 'components/audit/sessions/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
+    // when('/audit', {
+    //   templateUrl: 'components/audit/sessions/index.html',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
     when('/audit/emails', {
       templateUrl: 'components/audit/emails/index.html',
       resolve: { loginRequired: loginRequired }
