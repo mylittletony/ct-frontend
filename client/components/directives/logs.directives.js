@@ -14,8 +14,8 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       // order:   '-timestamp',
       query:   $routeParams.q,
       ap_mac:  $routeParams.ap_mac,
-      // limit:   $routeParams.per || 25,
-      // page:    $routeParams.page || 1,
+      limit:   $routeParams.per || 25,
+      page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
     };
 
@@ -53,8 +53,8 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       var hash  = {};
       hash.start  = scope.start;
       hash.end    = scope.end;
-      // hash.page  = scope.query.page;
-      // hash.per    = scope.query.limit;
+      hash.page  = scope.query.page;
+      hash.per    = scope.query.limit;
       hash.q      = scope.query.query;
       hash.ap_mac = scope.query.ap_mac;
       $location.search(hash);
@@ -162,12 +162,13 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       Logs.query({
         location_id: scope.location.id,
         ap_mac: ap_mac,
-        // page: scope.query.page,
-        // per: scope.query.limit,
+        page: scope.query.page,
+        per: scope.query.limit,
         start_time: start_time,
         end_time: end_time,
         q: scope.query.query
       }).$promise.then(function(res) {
+        console.log(res)
         scope.logs = res.data;
         setApAttributes();
         // scope._links = res._links;
