@@ -1,24 +1,31 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <div flex="50" style="padding-left: 6px; padding-right: 20px;">
-      <md-select ng-model="selected" ng-change="updateAudit(selected)" required>
+    <div flex="30">
+      <md-select style="margin:0px" ng-model="selected" ng-change="updateAudit(selected)" required>
         <md-option ng-repeat="model in audit_models" value="{{model}}">
           {{model}}
         </md-option>
       </md-select>
     </div>
-    <div flex></div>
-    <div layout="row" flex style="padding-top: 12px">
-      <md-datepicker ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
-      <md-datepicker ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+    <div layout="row" flex style="margin-top:4px">
+      <md-datepicker class="picker-smaller" ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+      <md-datepicker class="picker-smaller" ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
     </div>
     <div flex></div>
-    <div flex style="padding-top: 10px">
-      <md-button>
-        <md-icon>file_download</md-icon>
-      </md-button>
-    </div>
+    <md-button class="md-primary" hide show-gt-xs aria-label="Filter" ng-click="clearClientFilter()" ng-show="selected == 'Radius Sessions' && query.client_mac" style="min-width: 160px">
+      {{query.client_mac}}
+      <md-icon>clear</md-icon>
+      <md-tooltip>
+        <translate>
+        Clear AP filter
+        </translate>
+      </md-tooltip>
+    </md-button>
+    <md-button class="md-icon-button">
+      <md-icon>file_download</md-icon>
+    </md-button>
   </div>
+  <md-divider></md-divider>
 </md-toolbar>
 
 <md-content layout-padding>
@@ -36,9 +43,16 @@
                 <tr md-row>
                   <th hide show-gt-xs md-column ng-show="selected == 'Emails'"><span translate>Added</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Sales'"><span translate>State</span></th>
-                  <th hide show-gt-xs md-column ng-show="selected == 'Social' || selected == 'Guests'"><span translate></span></th>
+                  <th hide show-gt-xs md-column ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions'"><span translate></span></th>
+                  <th md-column ng-show="selected == 'Radius Sessions'"><span translate>Start</span></th>
+                  <th hide show-gt-sm md-column ng-show="selected == 'Radius Sessions'"><span translate>Duration</span></th>
+                  <th hide show-gt-xs md-column ng-show="selected == 'Radius Sessions'"><span translate>Client Mac</span></th>
+                  <th hide show-gt-md md-column ng-show="selected == 'Radius Sessions'"><span translate>Username</span></th>
+                  <th hide show-gt-lg md-column ng-show="selected == 'Radius Sessions'"><span translate>Device Mac</span></th>
+                  <th hide show-gt-xs md-column ng-show="selected == 'Radius Sessions'"><span translate>Usage</span></th>
+                  <th hide show-gt-md md-column ng-show="selected == 'Radius Sessions'"><span translate>Manufacturer</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Social'"><span translate>Name</span></th>
-                  <th md-column><span translate>Email</span></th>
+                  <th md-column><span translate ng-hide="selected == 'Radius Sessions'">Email</span></th>
                   <th hide show-gt-sm md-column ng-show="selected == 'Emails'"><span translate>Type</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Sales'"><span translate>Voucher</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Sales'"><span translate>Total</span></th>
@@ -63,8 +77,38 @@
                       <span ng-if="result.state == 'refunded'" translate>This order was refunded</span>
                     </md-tooltip>
                   </td>
-                  <td md-cell ng-show="selected == 'Social' || selected == 'Guests'">
+                  <td md-cell ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions'">
                   </td>
+                  <td md-cell ng-show="selected == 'Radius Sessions'">
+                    <span hide show-gt-xs>{{ ::(result.acctstarttime | humanTime) }}</span>
+                    <span hide-gt-xs>
+                      {{ ::(result.acctstarttime | humanTimeShort) }}<br>
+                      <small>{{ ::result.username | truncate:30 }}</small>
+                    </span>
+                    <md-tooltip><translate>Stop: {{ ::result.acctstoptime | humanTime }}</translate></md-tooltip>
+                  </td>
+                  <td hide show-gt-sm md-cell ng-show="selected == 'Radius Sessions'">
+                    {{ ::(result.acctsessiontime | humanised ) || '-' }}
+                    <md-tooltip ng-if="result.acctstoptime">{{ ::result.acctstopcause }}</md-tooltip>
+                  </td>
+                  <td hide show-gt-xs md-cell ng-show="selected == 'Radius Sessions'">
+                    <a href="" ng-click="filterSessionsByClient(result.client_mac)">{{ ::(result.client_mac | uppercase)}}</a>
+                    <md-tooltip>Filter by client</md-tooltip>
+                  </td>
+                  <td hide show-gt-md md-cell ng-show="selected == 'Radius Sessions'">
+                    {{ result.username | truncate:30 }}
+                    <md-tooltip ng-if="result.username.length > 30">
+                      {{ ::result.username }}
+                    </md-tooltip>
+                  </td>
+                  <td hide show-gt-lg md-cell ng-show="selected == 'Radius Sessions'">
+                    {{ ::(result.ap_mac | uppercase )}}
+                  </td>
+                  <td hide show-gt-xs md-cell ng-show="selected == 'Radius Sessions'">
+                    {{::((result.download + result.upload)| humanData)}}
+                    <md-tooltip><translate>Inbound: {{ ::result.download | humanData }}. Outbound: {{ ::result.upload | humanData }}</translate></md-tooltip>
+                  </td>
+                  <td hide show-gt-md md-cell ng-show="selected == 'Radius Sessions'">{{ ::(result.manufacturer | truncate: 20) }}</td>
                   <td md-cell ng-show="selected == 'Social'">
                     {{ result.first_name }} {{ result.last_name }}
                   </td>

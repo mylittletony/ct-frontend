@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -458,9 +458,9 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
 
-    scope.audit_models = ['Emails', 'Guests', 'Social', 'Sales'];
+    scope.audit_models = ['Radius Sessions', 'Emails', 'Guests', 'Social', 'Sales'];
 
-    scope.selected = 'Emails' || $routeParams.type;
+    scope.selected = 'Radius Sessions' || $routeParams.type;
 
     scope.query = {
       page: $routeParams.page || 1,
@@ -477,6 +477,19 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
         start: scope.query.start,
         end: scope.query.end
       };
+    };
+
+    var findSessions = function() {
+      getParams();
+      params.client_mac = scope.query.client_mac;
+      Session.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Radius Sessions';
+        scope.results = data.sessions;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
     };
 
     var findEmails = function() {
@@ -529,6 +542,9 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
 
     scope.updateAudit = function(selected) {
       switch(selected) {
+        case 'Emails':
+          findEmails();
+          break;
         case 'Guests':
           findGuests();
           break;
@@ -539,7 +555,7 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
           findOrders();
           break;
         default:
-          findEmails();
+          findSessions();
           break;
       }
     };
@@ -552,6 +568,16 @@ app.directive('locationAudit', ['Email', 'Guest', 'Social', 'Order', 'Location',
     scope.setEnd = function() {
       scope.query.end = new Date(scope.endDate).getTime() / 1000;
       scope.updateAudit(scope.selected);
+    };
+
+    scope.filterSessionsByClient = function(mac) {
+      scope.query.client_mac = mac;
+      findSessions();
+    };
+
+    scope.clearClientFilter = function() {
+      scope.query.client_mac = undefined;
+      findSessions();
     };
 
     scope.onPaginate = function(page, limit) {
@@ -2716,7 +2742,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-app.directive('homeStatCards', ['Report', function (Report) {
+app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
   var link = function(scope,element,attrs) {
 
@@ -2725,9 +2751,12 @@ app.directive('homeStatCards', ['Report', function (Report) {
     var init = function() {
 
       Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
-        scope.stats     = results.stats;
-        process();
-        scope.loading   = undefined;
+        Box.get({state: 'offline', per: 25, page: 1}).$promise.then(function(data) {
+          scope.stats     = results.stats;
+          scope.stats.alerts = data._links.total_entries
+          process();
+          scope.loading   = undefined;
+        })
       });
 
     };
