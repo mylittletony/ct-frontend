@@ -254,6 +254,49 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
+            <span class="md-headline" translate>Bandwidth Management</span>
+            <span class="md-subhead">
+              <translate>Control your network's bandwidth</translate>
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
+          <div flex-gt-sm="100">
+            <div layout="row" layout-wrap>
+
+              <div flex-gt-sm="50">
+                <p translate>Bandwidth limit: <span ng-if="network.bandwidth_limit > 0">{{network.bandwidth_limit}} Mbps</span><span ng-if="network.bandwidth_limit == 0">Unlimited</span></p>
+                <md-slider-container>
+                  <md-slider flex class="md-primary" ng-model="network.bandwidth_limit" step="0.001" min="0" max="50">
+                  </md-slider>
+                </md-slider-container>
+              </div>
+
+              <div flex-gt-sm="100">
+              </div>
+
+              <div flex-gt-sm="100">
+                <md-checkbox ng-model="edit_value">
+                  Custom value<span ng-if="edit_value">:&nbsp;</span>
+                </md-checkbox>
+                <md-input-container ng-if="edit_value">
+                  <input flex type="number" ng-model="network.bandwidth_limit">
+                </md-input-container>
+              </div>
+
+              <div flex-gt-sm="100">
+                <p><small>Please note that this is an alpha feature, so may not behave entirely as expected.</small></p>
+              </div>
+
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
             <span class="md-headline" translate>802.1x Radius Settings</span>
             <span class="md-subhead">
               <translate>Enable 802.1x on your network</translate>
