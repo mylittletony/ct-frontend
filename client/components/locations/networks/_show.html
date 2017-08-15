@@ -270,6 +270,9 @@
                 <md-slider-container>
                   <md-slider flex class="md-primary" ng-model="network.bandwidth_limit" step="0.001" min="0" max="50" aria-label="bandwidth">
                   </md-slider>
+                  <md-input-container ng-if="edit_value">
+                    <input flex type="number" ng-model="network.bandwidth_limit" style="min-width: 100px">
+                  </md-input-container>
                 </md-slider-container>
               </div>
 
@@ -280,9 +283,6 @@
                 <md-checkbox ng-model="edit_value">
                   Custom value<span ng-if="edit_value">:&nbsp;</span>
                 </md-checkbox>
-                <md-input-container ng-if="edit_value">
-                  <input flex type="number" ng-model="network.bandwidth_limit">
-                </md-input-container>
               </div>
 
               <div flex-gt-sm="100">
