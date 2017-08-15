@@ -591,6 +591,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     //   controller: 'LocationsCtrl as lc',
     //   resolve: { loginRequired: loginRequired }
     // }).
+    when('/locations/:id/audit', {
+      templateUrl: 'components/locations/audit/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/reports', {
       redirectTo: '/',
       // templateUrl: 'components/reports/wireless.html',

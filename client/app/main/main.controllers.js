@@ -68,7 +68,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     vm.menu.main = [];
-    vm.menu.reports = [];
+    // vm.menu.reports = [];
     vm.settingsMenu = [];
     vm.menuRight = [];
 
@@ -79,12 +79,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     //   icon: 'timeline'
     // });
 
-    vm.menu.reports.push({
-      title: gettextCatalog.getString('Audit'),
-      type: 'link',
-      link: '/#/audit',
-      icon: 'assignment'
-    });
+    // vm.menu.reports.push({
+    //   title: gettextCatalog.getString('Audit'),
+    //   type: 'link',
+    //   link: '/#/audit',
+    //   icon: 'assignment'
+    // });
 
     vm.status = {
       isFirstOpen: true,
@@ -119,12 +119,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       icon: 'timeline'
     });
 
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Audit'),
-      link: '/#/audit',
-      type: 'link',
-      icon: 'assignment'
-    });
+    // vm.menuRight.push({
+    //   name: gettextCatalog.getString('Audit'),
+    //   link: '/#/audit',
+    //   type: 'link',
+    //   icon: 'assignment'
+    // });
 
     vm.menuRight.push({
       type: 'divider',
@@ -292,7 +292,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         $cookies.remove('_ctp');
         $scope.ct_login = undefined;
-        Translate.load();
+        // Translate.load();
       });
     }
 
@@ -497,7 +497,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       getSubdomain();
 
-      Translate.load();
+      // Translate.load();
     }
 
     var setLoggedIn = function(isLoggedIn) {

@@ -13,35 +13,33 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     scope.query = {
       // order:   '-timestamp',
       query:   $routeParams.q,
-      limit:   $routeParams.per,
-      // page:    $routeParams.page || 1,
+      ap_mac:  $routeParams.ap_mac,
+      limit:   $routeParams.per || 100,
+      page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
     };
 
     $routeParams.start || $routeParams.end ? scope.date_range = true : scope.date_range = false;
 
-    var boxes = {};
+    var ap_descriptions = {};
+    var ap_slugs = {};
     var location;
 
     var fetchBoxes = function() {
       Box.get({location_id: $routeParams.id}).$promise.then(function(results) {
         for (var i = 0, len = results.boxes.length; i < len; i++) {
-          boxes[results.boxes[i].calledstationid] = results.boxes[i].description;
+          ap_descriptions[results.boxes[i].calledstationid] = results.boxes[i].description;
+          ap_slugs[results.boxes[i].calledstationid] = results.boxes[i].slug;
         }
       });
     };
 
-    var setApNames = function() {
+    var setApAttributes = function() {
       for (var i = 0, len = scope.logs.length; i < len; i++) {
-        scope.logs[i].ap_name = boxes[scope.logs[i].ap_mac];
+        scope.logs[i].ap_name = ap_descriptions[scope.logs[i].ap_mac];
+        scope.logs[i].ap_slug = ap_slugs[scope.logs[i].ap_mac];
       }
     };
-
-    // scope.onPaginate = function (page, limit) {
-    //   scope.query.page = page;
-    //   scope.query.limit = limit;
-    //   updatePage();
-    // };
 
     scope.expandRow = function(log) {
       if (log.show_detail && log.show_detail === true) {
@@ -53,11 +51,12 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
 
     scope.updatePage = function(page) {
       var hash  = {};
-      hash.start = scope.start;
-      hash.end   = scope.end;
-      // hash.page  = scope.query.page;
-      hash.per   = scope.query.limit;
-      hash.q     = scope.query.query;
+      hash.start  = scope.start;
+      hash.end    = scope.end;
+      hash.page  = scope.query.page;
+      hash.per    = scope.query.limit;
+      hash.q      = scope.query.query;
+      hash.ap_mac = scope.query.ap_mac;
       $location.search(hash);
     };
 
@@ -80,7 +79,6 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     function rangeCtrl($scope, startFull, endFull) {
       $scope.startFull = startFull;
       $scope.endFull = endFull;
-      $scope.page = 'show';
       $scope.saveRange = function() {
         if ($scope.startFull && $scope.endFull) {
           // converting the moment picker time format - this could really do with some work:
@@ -135,18 +133,43 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       scope.updatePage();
     };
 
+    scope.filterByMac = function(mac) {
+      scope.query.ap_mac = mac;
+      scope.updatePage();
+    };
+
+    scope.clearAPFilter = function() {
+      scope.query.ap_mac = undefined;
+      scope.updatePage();
+    };
+
+    scope.clearAllFilters = function() {
+      scope.query.ap_mac = undefined;
+      scope.query.query = undefined;
+      scope.start = undefined;
+      scope.end = undefined;
+      scope.date_range = false;
+      scope.updatePage();
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updatePage();
+    };
+
     var getLogs = function() {
       Logs.query({
         location_id: scope.location.id,
         ap_mac: ap_mac,
-        // page: scope.query.page,
+        page: scope.query.page,
         per: scope.query.limit,
         start_time: start_time,
         end_time: end_time,
         q: scope.query.query
       }).$promise.then(function(res) {
         scope.logs = res.data;
-        setApNames();
+        setApAttributes();
         // scope._links = res._links;
         scope.loading = undefined;
       }, function() {
