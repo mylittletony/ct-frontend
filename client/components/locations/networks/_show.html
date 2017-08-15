@@ -268,7 +268,7 @@
               <div flex-gt-sm="50">
                 <p translate>Bandwidth limit: <span ng-if="network.bandwidth_limit > 0">{{network.bandwidth_limit}} Mbps</span><span ng-if="network.bandwidth_limit == 0">Unlimited</span></p>
                 <md-slider-container>
-                  <md-slider flex class="md-primary" ng-model="network.bandwidth_limit" step="0.001" min="0" max="50">
+                  <md-slider flex class="md-primary" ng-model="network.bandwidth_limit" step="0.001" min="0" max="50" aria-label="bandwidth">
                   </md-slider>
                 </md-slider-container>
               </div>
