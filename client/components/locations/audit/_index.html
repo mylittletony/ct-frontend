@@ -7,7 +7,7 @@
         </md-option>
       </md-select>
     </div>
-    <div layout="row" flex style="margin-top:4px">
+    <div layout="row" flex style="margin-top:4px" hide show-gt-xs>
       <md-datepicker class="picker-smaller" ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
       <md-datepicker class="picker-smaller" ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
     </div>
