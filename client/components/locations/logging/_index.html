@@ -64,7 +64,7 @@
     <md-card-content style="padding-right:0px;padding-left:0px;">
         <md-table-container ng-if="logs.length > 0">
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="table-logs">
-            <tbody md-body ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)" style="background-color: {{$even ? '#f0f0f0' : '#ffffff'}}">
+            <tbody md-body ng-repeat="log in filtered = (logs | filter: filter | orderBy: query.order)">
               <tr md-row ng-click="expandRow(log)">
                 <!-- <td md-cell> -->
                   <!--   <md-icon md-menu-origin md-font-icon="">{{ location.archived ? "archived" : 'check_circle' }}</md-icon> -->
