@@ -14,7 +14,7 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
       // order:   '-timestamp',
       query:   $routeParams.q,
       ap_mac:  $routeParams.ap_mac,
-      limit:   $routeParams.per || 25,
+      limit:   $routeParams.per || 100,
       page:    $routeParams.page || 1,
       options: [5,10,25,50,100],
     };
@@ -168,7 +168,6 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
         end_time: end_time,
         q: scope.query.query
       }).$promise.then(function(res) {
-        console.log(res)
         scope.logs = res.data;
         setApAttributes();
         // scope._links = res._links;
