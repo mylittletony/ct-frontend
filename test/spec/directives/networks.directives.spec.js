@@ -167,7 +167,7 @@ describe('networks', function () {
       element.isolateScope().init();
 
       var cf = [
-        {key: 'Danger', value:'Danger'},
+        // {key: 'Danger', value:'Danger'},
         {key: 'Adult', value: 'Adult'},
         {key: 'Security', value: 'Security'},
         {key: 'Family', value: 'Family'},
