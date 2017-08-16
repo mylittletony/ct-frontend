@@ -7,12 +7,12 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
   var link = function( scope, element, attrs, controller ) {
 
     if ($routeParams.period) {
-      scope.period = $routeParams.period
+      scope.period = $routeParams.period;
     } else {
       if ($routeParams.start && $routeParams.end) {
-        scope.period = 'custom'
+        scope.period = 'custom';
       } else {
-        scope.period = 'now'
+        scope.period = 'now';
       }
     }
 
@@ -33,8 +33,8 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-lastseen',
-      limit:      $routeParams.per || 25,
-      // page:       $routeParams.page || 1,
+      limit:      $routeParams.per || 100,
+      page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
       // sort:       $routeParams.sort || 'lastseen',
       // direction:  $routeParams.direction || 'desc',
@@ -44,9 +44,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     };
 
     scope.onPaginate = function (page, limit) {
-      // scope.query.page = page;
-      // scope.query.limit = limit;
-      // scope.updatePage();
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updatePage();
     };
 
     scope.toggleSearch    = false; // ?
