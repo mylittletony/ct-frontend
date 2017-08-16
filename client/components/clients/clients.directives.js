@@ -218,7 +218,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.menuAction = function(type,client) {
       switch(type) {
         case 'view':
-          view(client.id);
+          view(client.client_mac);
           break;
         // case 'disconnect':
         //   client.processing = true;
@@ -263,7 +263,10 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return params;
     };
 
-    scope.updatePage = function() {
+    scope.updatePage = function(mac, item) {
+      if (mac) {
+        scope.ap_mac = mac;
+      }
       var hash            = {};
       hash.start          = scope.query.start;
       hash.end            = scope.query.end;
@@ -277,8 +280,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       hash.direction      = scope.query.direction;
       hash.sort           = scope.query.sort;
       hash.v              = scope.query.v;
+      hash.q              = scope.query.filter;
       $location.search(hash);
-      init();
+      initV2();
     };
 
     scope.sort = function(val, reverse) {
@@ -584,11 +588,29 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
     };
 
+    scope.getBoxes = function(query) {
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      Box.get({q: query}).$promise.then(function(results) {
+        var boxes = [];
+        for (var i = 0, len = results.boxes.length; i < len; i++) {
+          if (results.boxes[i].location_id === scope.location.id) {
+            boxes.push(results.boxes[i]);
+          }
+        }
+        deferred.resolve(boxes);
+      }, function(err) {
+        deferred.reject(err);
+      });
+      return deferred.promise;
+    };
+
     var fetchBoxes = function() {
       var deferred = $q.defer();
       scope.promise = deferred.promise;
       scope.boxes = {};
       Box.get({location_id: scope.location.slug}).$promise.then(function(results) {
+        scope.devices = results.boxes;
         for (var i = 0, len = results.boxes.length; i < len; i++) {
           scope.boxes[results.boxes[i].calledstationid] = results.boxes[i].description;
         }
@@ -616,7 +638,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         deferred.reject();
         return deferred.promise;
       }
-
       ClientV2.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
         scope.connected = results.online;

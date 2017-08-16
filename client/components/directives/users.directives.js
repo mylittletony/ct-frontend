@@ -105,24 +105,18 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
     var save = function() {
       Reseller.create({}, {
       }).$promise.then(function(results) {
+        scope.user.new_reseller = true;
+        scope.user.reseller = true;
+        scope.user.reseller_processing = undefined;
         showToast(gettextCatalog.getString('User successfully updated.'));
       }, function(err) {
+        scope.user.reseller_processing = undefined;
         showErrors(err);
       });
     };
 
     function CardController ($scope) {
       $scope.user = scope.user;
-      // $scope.stripeCallback = function (code, result) {
-      //   if (result.error) {
-      //     showErrors({data: result.error.message});
-      //   } else {
-      //     $mdDialog.cancel();
-      //     scope.user.reseller_processing = true;
-      //     scope.user.card = result.id;
-      //     save();
-      //   }
-      // };
 
       $scope.save = function() {
         scope.user.reseller_processing = true;
@@ -136,24 +130,6 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
     }
     CardController.$inject = ['$scope'];
 
-//     function DialogController ($scope) {
-//       $scope.stripeCallback = function (code, result) {
-//         if (result.error) {
-//           showErrors({data: result.error.message});
-//         } else {
-//           $mdDialog.cancel();
-//           scope.user.reseller_processing = true;
-//           scope.user.card = result.id;
-//           save();
-//         }
-//       };
-
-//       $scope.close = function() {
-//         $mdDialog.cancel();
-//       };
-//     }
-//     DialogController.$inject = ['$scope'];
-
     var justSub = function() {
       $mdDialog.show({
         templateUrl: 'components/users/reseller/_create.html',
@@ -163,46 +139,11 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
       });
     };
 
-//     var addCard = function() {
-//       $mdDialog.show({
-//         templateUrl: 'components/users/billing/_card.html',
-//         parent: angular.element(document.body),
-//         controller: DialogController,
-//         clickOutsideToClose: true
-//       });
-//     };
-
-    var channel;
-    var subscribe = function(key) {
-      if (typeof client !== 'undefined') {
-        var pusher = $pusher(client);
-        if (key) {
-          channel = pusher.subscribe(key);
-          channel.bind('sub_completed', function(data) {
-            if (data.message.success === true) {
-              scope.new_reseller = true;
-              scope.user.reseller = true;
-              showToast(data.message.msg);
-            } else {
-              console.log(data);
-            }
-            scope.user.reseller_processing = undefined;
-          });
-        }
-      }
-    };
-
     scope.go = function() {
       if (scope.user.credit_card_last4) {
         justSub();
       }
     };
-
-    scope.$watch('user',function(nv){
-      if (nv !== undefined) {
-        subscribe(scope.user.key);
-      }
-    });
 
     if (STRIPE_KEY && window.Stripe) {
       console.log('Setting Stripe Token');
@@ -210,12 +151,6 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
     } else {
       console.log('Could not set stripe token');
     }
-
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      if (channel) {
-        channel.unbind();
-      }
-    });
 
     init();
 

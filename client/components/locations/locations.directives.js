@@ -235,7 +235,7 @@ app.directive('locationWirelessReports', ['Report', '$routeParams', '$rootScope'
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
       scope.end          = $routeParams.end;
-      scope.dateFiltered = true
+      scope.dateFiltered = true;
     } else {
       scope.start    = (Math.floor(new Date() / 1000) - 21600);
       scope.end      = Math.floor(new Date() / 1000);
@@ -243,7 +243,7 @@ app.directive('locationWirelessReports', ['Report', '$routeParams', '$rootScope'
 
 
     Location.get({id: $routeParams.id}, function(data) {
-      scope.location = data
+      scope.location = data;
     }, function(err){
       console.log(err);
     });
@@ -442,6 +442,178 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
     link: link,
     templateUrl: 'components/locations/index/_list.html',
     scope: {}
+  };
+
+}]);
+
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var params = {};
+
+    scope.startDate = moment().utc().subtract(6, 'days').startOf('day').toDate();
+    scope.endDate = moment().utc().toDate();
+
+    var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
+    var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
+
+    scope.audit_models = ['Radius Sessions', 'Emails', 'Guests', 'Social', 'Sales'];
+
+    scope.selected = 'Radius Sessions' || $routeParams.type;
+
+    scope.query = {
+      page: $routeParams.page || 1,
+      limit: $routeParams.per || 25,
+      start: $routeParams.start || weekAgoEpoch,
+      end: $routeParams.end || nowEpoch
+    };
+
+    var getParams = function() {
+      params = {
+        location_id: scope.location.id,
+        page: scope.query.page,
+        per: scope.query.limit,
+        start: scope.query.start,
+        end: scope.query.end
+      };
+    };
+
+    var findSessions = function() {
+      getParams();
+      params.client_mac = scope.query.client_mac;
+      Session.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Radius Sessions';
+        scope.results = data.sessions;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    var findEmails = function() {
+      getParams();
+      Email.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Emails';
+        scope.results = data.emails;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    var findGuests = function() {
+      getParams();
+      Guest.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Guests';
+        scope.results = data.guests;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    var findSocial = function() {
+      getParams();
+      Social.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Social';
+        scope.results = data.social;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    var findOrders = function() {
+      getParams();
+      Order.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Sales';
+        scope.results = data.orders;
+        scope.links = data._links;
+        $location.search();
+      }, function() {
+        console.log(err);
+      });
+    };
+
+    scope.updateAudit = function(selected) {
+      switch(selected) {
+        case 'Emails':
+          findEmails();
+          break;
+        case 'Guests':
+          findGuests();
+          break;
+        case 'Social':
+          findSocial();
+          break;
+        case 'Sales':
+          findOrders();
+          break;
+        default:
+          findSessions();
+          break;
+      }
+    };
+
+    scope.setStart = function() {
+      scope.query.start = new Date(scope.startDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.setEnd = function() {
+      scope.query.end = new Date(scope.endDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.filterSessionsByClient = function(mac) {
+      scope.query.client_mac = mac;
+      findSessions();
+    };
+
+    scope.clearClientFilter = function() {
+      scope.query.client_mac = undefined;
+      findSessions();
+    };
+
+    scope.onPaginate = function(page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updateAudit(scope.selected);
+    };
+
+    var getLocation = function() {
+      var deferred = $q.defer();
+      Location.get({id: $routeParams.id}).$promise.then(function(results) {
+        scope.location = results;
+        deferred.resolve(results.results);
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var init = function() {
+      getLocation().then(function() {
+        getParams();
+        scope.updateAudit(scope.selected);
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/audit/_index.html'
   };
 
 }]);
@@ -1586,7 +1758,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
           }
         }
       }
-    }
+    };
 
     var boxMetadata = function() {
       scope.box_macs = '';
@@ -2570,7 +2742,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-app.directive('homeStatCards', ['Report', function (Report) {
+app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
   var link = function(scope,element,attrs) {
 
@@ -2579,9 +2751,12 @@ app.directive('homeStatCards', ['Report', function (Report) {
     var init = function() {
 
       Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
-        scope.stats     = results.stats;
-        process();
-        scope.loading   = undefined;
+        Box.get({state: 'offline', per: 25, page: 1}).$promise.then(function(data) {
+          scope.stats     = results.stats;
+          scope.stats.alerts = data._links.total_entries
+          process();
+          scope.loading   = undefined;
+        })
       });
 
     };
