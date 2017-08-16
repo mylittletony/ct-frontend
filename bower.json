@@ -33,7 +33,8 @@
     "emojione": "2.2.7",
     "dragula.js": "3.7.2",
     "angular-moment-picker": "moment-picker#0.1.4",
-    "angular-emojione": "*"
+    "angular-emojione": "*",
+    "jspdf": "^1.3.4"
   },
   "overrides": {
     "urijs": {

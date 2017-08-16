@@ -586,6 +586,13 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
       scope.updateAudit(scope.selected);
     };
 
+    scope.downloadAudit = function() {
+      var doc = new jsPDF('p','pt','a4');
+      doc.addHTML(document.body, function() {
+        doc.save(scope.selected.replace(/\s/g, '') + '.pdf');
+      })
+    };
+
     var getLocation = function() {
       var deferred = $q.defer();
       Location.get({id: $routeParams.id}).$promise.then(function(results) {

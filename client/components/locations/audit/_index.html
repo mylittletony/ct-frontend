@@ -21,7 +21,7 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <md-button class="md-icon-button">
+    <md-button class="md-icon-button" ng-click="downloadAudit()">
       <md-icon>file_download</md-icon>
     </md-button>
   </div>
@@ -37,7 +37,7 @@
             <span translate translate-n="{{links.total_entries}}" translate-plural="{{links.total_entries || 0}} {{selected}}">1 {{selected}}</span><span hide show-gt-sm ng-if="query.start" translate>&nbsp;created between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
             <div flex></div>
           </div>
-          <md-table-container>
+          <md-table-container id='to-pdf'>
             <table ng-if="results.length > 0" ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
               <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
