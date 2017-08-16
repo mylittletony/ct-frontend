@@ -609,7 +609,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       var deferred = $q.defer();
       scope.promise = deferred.promise;
       scope.boxes = {};
-      Box.get({location_id: scope.location.slug}).$promise.then(function(results) {
+      Box.get({location_id: scope.location.slug, per: 100}).$promise.then(function(results) {
         scope.devices = results.boxes;
         for (var i = 0, len = results.boxes.length; i < len; i++) {
           scope.boxes[results.boxes[i].calledstationid] = results.boxes[i].description;
