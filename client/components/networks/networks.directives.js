@@ -346,7 +346,7 @@ app.directive('newNetwork', ['Network', 'Zone', '$routeParams', '$location', '$h
   var link = function(scope, element, attrs) {
 
     scope.content_filters = [
-      {key: gettextCatalog.getString('Danger'), value:'Danger'},
+      // {key: gettextCatalog.getString('Danger'), value:'Danger'},
       {key: gettextCatalog.getString('Adult'), value: 'Adult'},
       {key: gettextCatalog.getString('Security'), value: 'Security'},
       {key: gettextCatalog.getString('Family'), value: 'Family'},
@@ -492,7 +492,7 @@ app.directive('displayNetwork', ['Network', 'Location', '$routeParams', '$locati
 
     scope.encryptions = {'None': 'none', 'WPA2': 'psk2'};
     scope.content_filters = [
-      {key: gettextCatalog.getString('Danger'), value:'Danger'},
+      // {key: gettextCatalog.getString('Danger'), value:'Danger'},
       {key: gettextCatalog.getString('Adult'), value: 'Adult'},
       {key: gettextCatalog.getString('Security'), value: 'Security'},
       {key: gettextCatalog.getString('Family'), value: 'Family'},
