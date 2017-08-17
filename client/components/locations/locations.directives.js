@@ -587,7 +587,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     };
 
     scope.downloadAudit = function() {
-      showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back soon.'));
+      showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back in a bit.'));
     };
 
     var getLocation = function() {
