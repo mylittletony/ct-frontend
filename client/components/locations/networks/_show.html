@@ -276,11 +276,11 @@
               <div flex-gt-sm="100">
               </div>
 
-              <div flex-gt-sm="100" style="min-height: 100px">
-                <md-checkbox ng-model="edit_value" style="margin-top: 37px">
+              <div flex-gt-sm="100">
+                <md-checkbox ng-model="edit_value">
                   Custom value<span ng-if="edit_value">:&nbsp;</span>
                 </md-checkbox>
-                <md-input-container ng-if="edit_value">
+                <md-input-container ng-if="edit_value" style="margin-top: 40px">
                   <input flex type="number" ng-model="network.bandwidth_limit">
                 </md-input-container>
               </div>
