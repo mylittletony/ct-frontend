@@ -26,7 +26,7 @@ app.directive('logging', ['Logs', 'Location', 'Box', '$routeParams', 'gettextCat
     var location;
 
     var fetchBoxes = function() {
-      Box.get({location_id: $routeParams.id}).$promise.then(function(results) {
+      Box.get({location_id: $routeParams.id, per: 100}).$promise.then(function(results) {
         for (var i = 0, len = results.boxes.length; i < len; i++) {
           ap_descriptions[results.boxes[i].calledstationid] = results.boxes[i].description;
           ap_slugs[results.boxes[i].calledstationid] = results.boxes[i].slug;
