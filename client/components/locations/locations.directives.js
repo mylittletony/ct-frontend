@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -587,10 +587,11 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     };
 
     scope.downloadAudit = function() {
-      var doc = new jsPDF('p','pt','a4');
-      doc.addHTML(document.body, function() {
-        doc.save(scope.selected.replace(/\s/g, '') + '.pdf');
-      })
+      // var doc = new jsPDF('p','pt','a4');
+      // doc.addHTML(document.body, function() {
+      //   doc.save(scope.selected.replace(/\s/g, '') + '.pdf');
+      // })
+      showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back soon.'));
     };
 
     var getLocation = function() {
