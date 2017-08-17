@@ -19,7 +19,9 @@ var app = angular.module('myApp', [
   'pusher-angular',
   'config',
   'gettext',
-  'moment-picker'
+  'moment-picker',
+  'ngSanitize',
+  'ngCsv'
 ]);
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {

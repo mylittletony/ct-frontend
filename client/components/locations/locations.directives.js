@@ -622,6 +622,34 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
 
 }]);
 
+app.directive('exportToPdf', function(){
+
+  return {
+    restrict: 'E',
+    scope: {
+        elemId: '@'
+    },
+    template: '<button data-ng-click="exportToPdf()">Export to PDF</button>',
+    link: function(scope, elem, attr){
+
+      scope.exportToPdf = function() {
+
+          var doc = new jsPDF();
+
+          doc.fromHTML(
+          document.getElementById(scope.elemId).innerHTML, 0, 0, {
+                 'width': 200,
+                 'color': 'blue'
+          });
+
+          doc.save('a4.pdf')
+
+       }
+    }
+  }
+
+});
+
 app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, locationHelper, $q, Shortener, $timeout, Box) {
 
   var link = function(scope,element,attrs) {
