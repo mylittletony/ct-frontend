@@ -21,7 +21,6 @@ var app = angular.module('myApp', [
   'gettext',
   'moment-picker',
   'ngSanitize',
-  'ngCsv'
 ]);
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
