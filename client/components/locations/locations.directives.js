@@ -460,6 +460,14 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
 
     scope.audit_models = ['Radius Sessions', 'Emails', 'Guests', 'Social', 'Sales'];
 
+    var mailerType = {
+      'Radius Sessions': 'radius',
+      'Emails': 'email',
+      'Guests': 'guest',
+      'Social': 'social',
+      'Sales': 'order'
+    };
+
     scope.selected = 'Radius Sessions' || $routeParams.type;
 
     scope.query = {
@@ -545,7 +553,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         start: scope.query.start,
         end: scope.query.end,
         location_id: scope.location.id,
-        type: 'email'
+        type: mailerType[scope.selected]
       };
       Report.create(params).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
