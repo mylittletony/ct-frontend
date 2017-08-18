@@ -487,7 +487,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.sessions;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -499,7 +499,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.emails;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -511,7 +511,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.guests;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -523,7 +523,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.social;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -535,7 +535,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.orders;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -544,8 +544,8 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
       var params = {
         start: scope.query.start,
         end: scope.query.end,
-        location_id: scope.lid,
-        type: scope.type
+        location_id: scope.location.id,
+        type: 'email'
       };
       Report.create(params).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
