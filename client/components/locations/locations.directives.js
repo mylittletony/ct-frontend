@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, gettextCatalog) {
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -540,6 +540,20 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
       });
     };
 
+    var downloadReport = function() {
+      var params = {
+        start: scope.query.start,
+        end: scope.query.end,
+        location_id: scope.lid,
+        type: scope.type
+      };
+      Report.create(params).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
     scope.updateAudit = function(selected) {
       switch(selected) {
         case 'Emails':
@@ -587,7 +601,16 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     };
 
     scope.downloadAudit = function() {
-      showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back in a bit.'));
+      // showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back in a bit.'));
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Download Report'))
+      .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
+      .ariaLabel(gettextCatalog.getString('Email Report'))
+      .ok(gettextCatalog.getString('Download'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        downloadReport();
+      });
     };
 
     var getLocation = function() {
