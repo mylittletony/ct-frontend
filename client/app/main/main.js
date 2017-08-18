@@ -19,8 +19,7 @@ var app = angular.module('myApp', [
   'pusher-angular',
   'config',
   'gettext',
-  'moment-picker',
-  'ngSanitize',
+  'moment-picker'
 ]);
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
