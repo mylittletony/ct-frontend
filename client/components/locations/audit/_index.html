@@ -21,7 +21,7 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <md-button class="md-icon-button">
+    <md-button class="md-icon-button" ng-click="downloadAudit()" hide show-gt-xs>
       <md-icon>file_download</md-icon>
     </md-button>
   </div>
@@ -172,7 +172,6 @@
           </md-table-container>
 
           <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-
 
         </md-card-content>
       </md-card>

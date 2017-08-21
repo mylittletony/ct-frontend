@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog) {
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -584,6 +584,10 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
       scope.query.page = page;
       scope.query.limit = limit;
       scope.updateAudit(scope.selected);
+    };
+
+    scope.downloadAudit = function() {
+      showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back in a bit.'));
     };
 
     var getLocation = function() {
