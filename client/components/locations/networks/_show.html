@@ -262,33 +262,32 @@
         </md-card-title>
 
         <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
-          <div flex-gt-sm="100">
-            <div layout="row" layout-wrap>
-
-              <div flex-gt-sm="50">
-                <p translate>Download limit: <span ng-if="network.bandwidth_limit > 0">{{network.bandwidth_limit}} Mbps</span><span ng-if="network.bandwidth_limit == 0">Unlimited</span></p>
-                <md-slider-container ng-hide="edit_value" style="margin: 31px 0px 31px;">
+          <div flex-gt-sm="40">
+            <div>
+              <div ng-hide="edit_value">
+                <translate>Download Speed: <span ng-if="network.bandwidth_limit > 0">{{network.bandwidth_limit}} Mbps</span><span ng-if="network.bandwidth_limit == 0">Unlimited</span></translate>
+                <md-slider-container style="padding-bottom:6px;">
                   <md-slider flex class="md-primary" ng-model="network.bandwidth_limit" step="0.001" min="0" max="50" aria-label="bandwidth">
                   </md-slider>
                 </md-slider-container>
-                <md-input-container ng-if="edit_value">
+              </div>
+              <div ng-if="edit_value">
+                <md-input-container style="margin:0px;padding:0px;">
+                  <translate>Download Speed: <span ng-if="network.bandwidth_limit > 0">{{network.bandwidth_limit}} Mbps</span><span ng-if="network.bandwidth_limit == 0">Unlimited</span></translate>
                   <input flex type="number" ng-model="network.bandwidth_limit">
                 </md-input-container>
               </div>
 
-              <div flex-gt-sm="100">
-              </div>
+            </div>
 
-              <div flex-gt-sm="100">
-                <md-checkbox ng-model="edit_value">
-                  Custom value
-                </md-checkbox>
-              </div>
+            <div>
+              <md-checkbox ng-model="edit_value">
+                Custom value
+              </md-checkbox>
+            </div>
 
-              <div flex-gt-sm="100">
-                <p><small>Please note that this is an alpha feature, so may not behave entirely as expected.</small></p>
-              </div>
-
+            <div>
+              <p><small>Please note that this is an alpha feature, so may not behave entirely as expected.</small></p>
             </div>
           </div>
         </md-card-content>
@@ -392,17 +391,15 @@
         </md-card-title>
 
         <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
-          <div flex-gt-sm="100">
-            <div layout="row" layout-wrap>
-
-              <div flex-gt-sm="100">
-                <md-switch class="md-accent" ng-model="network.captive_portal_ps">
+          <div flex-gt-sm="40">
+              <div>
+                <md-switch class="md-accent" ng-model="network.captive_portal_ps" style="margin-top:0px;padding-bottom:13px;">
                   <span ng-show="network.captive_portal_ps" translate>Use built-in splash</span>
                   <span ng-hide="network.captive_portal_ps" translate>Use external splash</span>
                 </md-switch>
               </div>
 
-              <md-input-container class="md-block" flex="40" ng-hide="network.captive_portal_ps">
+              <md-input-container class="md-block" ng-hide="network.captive_portal_ps">
                 <label>
                   <translate>Splash Page URL</translate>
                 </label>
@@ -413,37 +410,28 @@
                 </div>
               </md-input-container>
 
-              <div flex-gt-sm="100">
-              </div>
-
-              <md-input-container class="md-block" flex="40" ng-hide="network.captive_portal_ps">
+              <md-input-container class="md-block" ng-hide="network.captive_portal_ps">
                 <label>
                   <translate>UAM Secret</translate>
                 </label>
                 <input autocomplete="off" type="{{ showuam == true ? 'text' : 'password' }}" ng-focus="showuam = !showuam" ng-blur="showuam = !showuam" name="xxxsssn" ng-minlength="8" ng-model="network.captive_portal_uamsecret">
               </md-input-container>
 
-              <div flex-gt-sm="100">
-              </div>
-
-              <md-input-container class="md-block" flex="40">
+              <md-input-container class="md-block">
                 <label>
                   <translate>Splash Radius Host 1</translate>
                 </label>
                 <input ng-model="network.radius_host_1" name="radius_host_1" placeholder="{{ 'radius-1.ctapp.io' | translate }}">
               </md-input-container>
 
-              <div flex-gt-sm="100">
-              </div>
-
-              <md-input-container class="md-block" flex="40">
+              <md-input-container class="md-block">
                 <label>
                   <translate>Splash Radius Host 2</translate>
                 </label>
                 <input ng-model="network.radius_host_2" name="radius_host_2" placeholder="{{ 'radius-2.ctapp.io' | translate }}">
               </md-input-container>
 
-              <div flex-gt-sm="100">
+              <div>
                 <p><small>Please do not change these unless you know exactly what you're doing.</small></p>
               </div>
 
