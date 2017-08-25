@@ -115,7 +115,6 @@ app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 's
     };
 
     scope.updatePage = function(page) {
-      scope.query.page = scope._links.current_page;
       var hash         = {};
       hash.q           = scope.query.filter;
       hash.activated   = scope.activated;
