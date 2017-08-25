@@ -609,7 +609,6 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     };
 
     scope.downloadAudit = function() {
-      // showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back in a bit.'));
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Download Report'))
       .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
