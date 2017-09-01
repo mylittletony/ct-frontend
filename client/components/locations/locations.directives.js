@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, gettextCatalog) {
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -459,6 +459,14 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
 
     scope.audit_models = ['Radius Sessions', 'Emails', 'Guests', 'Social', 'Sales'];
+
+    var mailerType = {
+      'Radius Sessions': 'radius',
+      'Emails': 'email',
+      'Guests': 'guest',
+      'Social': 'social',
+      'Sales': 'order'
+    };
 
     scope.selected = 'Radius Sessions' || $routeParams.type;
 
@@ -487,7 +495,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.sessions;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -499,7 +507,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.emails;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -511,7 +519,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.guests;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -523,7 +531,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.social;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
       });
     };
@@ -535,8 +543,22 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.results = data.orders;
         scope.links = data._links;
         $location.search();
-      }, function() {
+      }, function(err) {
         console.log(err);
+      });
+    };
+
+    var downloadReport = function() {
+      var params = {
+        start: scope.query.start,
+        end: scope.query.end,
+        location_id: scope.location.id,
+        type: mailerType[scope.selected]
+      };
+      Report.create(params).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
+      }, function(err) {
+        showErrors(err);
       });
     };
 
@@ -587,7 +609,15 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     };
 
     scope.downloadAudit = function() {
-      showToast(gettextCatalog.getString('Coming soon! We\'re still working on this feature so check back in a bit.'));
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Download Report'))
+      .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
+      .ariaLabel(gettextCatalog.getString('Email Report'))
+      .ok(gettextCatalog.getString('Download'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        downloadReport();
+      });
     };
 
     var getLocation = function() {
