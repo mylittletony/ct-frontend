@@ -1,4 +1,4 @@
-Configuration Of Cucumber-Frontend
+Configuration Of CT-Frontend
 ==================================
 
 Note! The below currently only applies to the "development" environment
@@ -101,7 +101,7 @@ In order to make this list extendable, introduce a new default variable in
         }
     }
 
-In other words: the extension is the empty array by default. Then change 
+In other words: the extension is the empty array by default. Then change
 `Gruntfile.js` so that it reads:
 
     grunt: {
@@ -128,6 +128,6 @@ Extending the list is now easy.  In `local-config.js` you write:
         }
     }
 
-At the end of the day, the variable `grunt.paths.sassFiles` will now 
+At the end of the day, the variable `grunt.paths.sassFiles` will now
 contain the array `['this.scss', 'that.scss', 'more.scss', 'other.scss']`.
 

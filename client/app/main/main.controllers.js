@@ -411,7 +411,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     var setDefaultImages = function(sub) {
-      $scope.brandName.name = 'Cucumber';
+      $scope.brandName.name = 'CT';
     };
 
     function getBrand(sub, cname) {
@@ -425,14 +425,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         type: 'showcase'
       }).$promise.then(function(results) {
         // Decide to switch the brand here
-        // Can we turn Cucumber into a variable so we don't just set
+        // Can we turn CT into a variable so we don't just set
         // Maybe use the config files - Simon TBD //
 
         var t = $cookies.get('_ctt');
         // if (t !== results.theme_primary) {
         $cookies.put('_ctt', results.theme_primary + '.' + results.theme_accent);
         // }
-        $scope.brandName.name  = results.brand_name || 'Cucumber';
+        $scope.brandName.name  = results.brand_name || 'CT';
         // Maybe use the config files - Simon TBD //
         $scope.brandName.admin = results.admin;
         $scope.brandName.url   = results.url;

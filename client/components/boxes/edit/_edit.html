@@ -83,9 +83,9 @@
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">
 
-            <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}">
+            <md-checkbox ng-model="box.tony" aria-label="{{ 'CT box' | translate }}">
               <translate>
-                Cucumber Box
+                CT Box
               </translate>
             </md-checkbox>
 
@@ -98,10 +98,10 @@
             <small translate>Disabling alerts will prevent further alerts from this device.</small>
 
             <md-switch title="ct_modify" ng-model="box.ct_modify" aria-label=" ">
-              <span translate>Cucumber Write Access {{ box.ct_modify | humanBoolean }}</span>
+              <span translate>CT Write Access {{ box.ct_modify | humanBoolean }}</span>
             </md-switch>
 
-            <small translate>Enabling write access allows Cucumber staff to modify this device. This is overwritten by location write access changes.</small>
+            <small translate>Enabling write access allows CT staff to modify this device. This is overwritten by location write access changes.</small>
 
           </div>
         </div>
@@ -267,7 +267,7 @@
             </md-select>
           </md-input-container>
         </div>
-        <md-checkbox ng-model="box.debug" aria-label="{{ 'Cucumber Debug' | translate }}">
+        <md-checkbox ng-model="box.debug" aria-label="{{ 'CT Debug' | translate }}">
           <translate>
             Enable Debug Mode
           </translate>
