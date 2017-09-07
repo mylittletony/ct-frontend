@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, gettextCatalog) {
+app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
