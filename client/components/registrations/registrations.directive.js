@@ -13,7 +13,7 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
     menu.isOpenLeft = false;
     menu.isOpen = false;
 
-    scope.brand_name = 'Cucumber WiFi';
+    scope.brand_name = 'CT WiFi';
 
     var cookies = $cookies.get('_cth', { domain: domain });
     if (cookies) {
@@ -103,7 +103,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     setStage();
 
     scope.brandName = BrandName;
-    if (scope.brandName.name === 'Cucumber WiFi') {
+    if (scope.brandName.name === 'CT WiFi') {
       scope.brandName.name = gettextCatalog.getString('My Awesome Company');
     }
 

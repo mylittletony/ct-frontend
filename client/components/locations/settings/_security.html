@@ -41,20 +41,20 @@
             <h4>Additional Settings</h4>
 
             <md-switch ng-model="location.ct_modify" aria-label="{{ 'Active' | translate }}" class="md-warn">
-              Cucumber Write Access
+              CT Write Access
               <span ng-if="location.ct_modify" translate>Enabled</span>
               <span ng-if="!location.ct_modify" translate>Disabled</span>
             </md-switch>
 
-            <small translate>Enabling write access allows Cucumber staff to modify this location, its networks, splash pages, devices and other components. Default is disabled.</small>
+            <small translate>Enabling write access allows CT staff to modify this location, its networks, splash pages, devices and other components. Default is disabled.</small>
 
             <md-switch ng-model="location.ct_view" aria-label="{{ 'Active' | translate }}" class="md-warn">
-              Cucumber Read Access
+              CT Read Access
               <span ng-if="location.ct_view" translate>Enabled</span>
               <span ng-if="!location.ct_view" translate>Disabled</span>
             </md-switch>
 
-            <small translate>Disabling this prevents Cucumber staff from viewing this location or any child components.</small>
+            <small translate>Disabling this prevents CT staff from viewing this location or any child components.</small>
 
           </md-card-content>
 
