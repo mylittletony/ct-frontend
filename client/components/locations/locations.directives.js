@@ -519,7 +519,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       scope.promise = deferred.promise;
       Client.query(params).$promise.then(function(data, err) {
         scope.selected = 'Clients';
-        scope.results = data.emails;
+        scope.results = data.clients;
         scope.links = data._links;
         deferred.resolve();
         $location.search();
