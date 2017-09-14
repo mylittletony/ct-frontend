@@ -515,8 +515,6 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
 
     var findClients = function() {
       getParams();
-      var deferred = $q.defer();
-      scope.promise = deferred.promise;
       Client.query(params).$promise.then(function(data, err) {
         scope.selected = 'Clients';
         scope.results = data.clients;
