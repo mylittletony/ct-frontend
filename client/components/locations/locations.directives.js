@@ -1190,15 +1190,6 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
           user: user,
         }
       });
-      // var confirm = $mdDialog.confirm()
-      // .title(gettextCatalog.getString('Remove User'))
-      // .textContent(gettextCatalog.getString('Removing a user will prevent them from accessing this location.'))
-      // .ariaLabel(gettextCatalog.getString('Remove'))
-      // .ok(gettextCatalog.getString('remove'))
-      // .cancel(gettextCatalog.getString('Cancel'));
-      // $mdDialog.show(confirm).then(function() {
-      //   revokeAdmin(user);
-      // });
     };
 
     function RevokeController ($scope, user) {
