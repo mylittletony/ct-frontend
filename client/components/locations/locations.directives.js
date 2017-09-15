@@ -466,7 +466,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       'Emails': 'email',
       'Guests': 'guest',
       'Social': 'social',
-      'Sales': 'order',
+      'Sales': 'order'
     };
 
     scope.selected = 'Radius Sessions' || $routeParams.type;
