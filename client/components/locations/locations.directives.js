@@ -446,7 +446,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Client, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -458,14 +458,15 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
     var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
 
-    scope.audit_models = ['Radius Sessions', 'Emails', 'Guests', 'Social', 'Sales'];
+    scope.audit_models = ['Radius Sessions', 'Clients', 'Emails', 'Guests', 'Social', 'Sales'];
 
     var mailerType = {
       'Radius Sessions': 'radius',
+      'Clients': 'client',
       'Emails': 'email',
       'Guests': 'guest',
       'Social': 'social',
-      'Sales': 'order'
+      'Sales': 'order',
     };
 
     scope.selected = 'Radius Sessions' || $routeParams.type;
@@ -506,6 +507,19 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
         scope.selected = 'Emails';
         scope.results = data.emails;
         scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    var findClients = function() {
+      getParams();
+      Client.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Clients';
+        scope.results = data.clients;
+        scope.links = data._links;
+        deferred.resolve();
         $location.search();
       }, function(err) {
         console.log(err);
@@ -566,6 +580,9 @@ app.directive('locationAudit', ['Session', 'Email', 'Guest', 'Social', 'Order', 
       switch(selected) {
         case 'Emails':
           findEmails();
+          break;
+        case 'Clients':
+          findClients();
           break;
         case 'Guests':
           findGuests();
