@@ -43,23 +43,23 @@
                 <tr md-row>
                   <th hide show-gt-xs md-column ng-show="selected == 'Emails'"><span translate>Added</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Sales'"><span translate>State</span></th>
-                  <th hide show-gt-xs md-column ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions'"><span translate></span></th>
+                  <th hide show-gt-xs md-column ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions' || selected == 'Clients'"><span translate></span></th>
                   <th md-column ng-show="selected == 'Radius Sessions'"><span translate>Start</span></th>
                   <th hide show-gt-sm md-column ng-show="selected == 'Radius Sessions'"><span translate>Duration</span></th>
-                  <th hide show-gt-xs md-column ng-show="selected == 'Radius Sessions'"><span translate>Client Mac</span></th>
+                  <th hide show-gt-xs md-column ng-show="selected == 'Radius Sessions' || selected == 'Clients'"><span translate>Client Mac</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Radius Sessions'"><span translate>Username</span></th>
                   <th hide show-gt-lg md-column ng-show="selected == 'Radius Sessions'"><span translate>Device Mac</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Radius Sessions'"><span translate>Usage</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Radius Sessions'"><span translate>Manufacturer</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Social'"><span translate>Name</span></th>
-                  <th md-column><span translate ng-hide="selected == 'Radius Sessions'">Email</span></th>
+                  <th hide show-gt-md md-column ng-show="selected == 'Emails' || selected == 'Guests' || selected == 'Social' || selected == 'Sales'"><span translate>Email</span></th>
                   <th hide show-gt-sm md-column ng-show="selected == 'Emails'"><span translate>Type</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Sales'"><span translate>Voucher</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Sales'"><span translate>Total</span></th>
-                  <th hide show-gt-sm md-column ng-show="selected == 'Emails' || selected ==  'Guests' || selected ==  'Sales'"><span translate>Created</span></th>
+                  <th hide show-gt-sm md-column ng-show="selected == 'Emails' || selected ==  'Guests' || selected ==  'Sales' || selected == 'Clients'"><span translate>Created</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Sales' || selected == 'Guests'"><span translate>Mac</span></th>
                   <th hide show-gt-sm md-column ng-show="selected == 'Sales'"><span translate>Merchant</span></th>
-                  <th hide show-gt-md md-column ng-show="selected == 'Social'"><span translate>Last Seen</span></th>
+                  <th hide show-gt-md md-column ng-show="selected == 'Social' || selected == 'Clients'"><span translate>Last Seen</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Social'"><span translate>Gender</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Social'"><span translate>Networks</span></th>
                 </tr>
@@ -77,7 +77,7 @@
                       <span ng-if="result.state == 'refunded'" translate>This order was refunded</span>
                     </md-tooltip>
                   </td>
-                  <td md-cell ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions'">
+                  <td md-cell ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions' || selected == 'Clients'">
                   </td>
                   <td md-cell ng-show="selected == 'Radius Sessions'">
                     <span hide show-gt-xs>{{ ::(result.acctstarttime | humanTime) }}</span>
@@ -94,6 +94,9 @@
                   <td hide show-gt-xs md-cell ng-show="selected == 'Radius Sessions'">
                     <a href="" ng-click="filterSessionsByClient(result.client_mac)">{{ ::(result.client_mac | uppercase)}}</a>
                     <md-tooltip>Filter by client</md-tooltip>
+                  </td>
+                  <td hide show-gt-xs md-cell ng-show="selected == 'Clients'">
+                    <a href="/#/locations/{{location.slug}}/clients/{{ result.client_mac }}" ng-if="result.client_mac">{{ ::(result.client_mac | uppercase)}}<md-tooltip>View client</md-tooltip></a>
                   </td>
                   <td hide show-gt-md md-cell ng-show="selected == 'Radius Sessions'">
                     {{ result.username | truncate:30 }}
@@ -143,7 +146,7 @@
                   </td>
                   <td hide show-gt-md md-cell ng-show="selected == 'Sales'">{{ ::(result.vouchers | truncate:20) }}</td>
                   <td hide show-gt-xs md-cell ng-show="selected == 'Sales'">{{ result.total / 100 | currency:result.currency }}</td>
-                  <td hide show-gt-sm md-cell ng-show="selected == 'Emails' || selected == 'Guests' || selected == 'Sales'">
+                  <td hide show-gt-sm md-cell ng-show="selected == 'Emails' || selected == 'Guests' || selected == 'Sales' || selected == 'Clients'">
                     {{ ::(result.created_at | humanTimeShort ) }}
                   </td>
                   <td hide show-gt-md md-cell ng-show="selected == 'Sales'">{{ ::(result.client_mac) }}</td>
@@ -151,6 +154,9 @@
                   <td hide show-gt-sm md-cell ng-show="selected == 'Sales'">{{ ::(result.merchant_type | titleCase) || '-' }}</td>
                   <td hide show-gt-md md-cell ng-show="selected == 'Social'">
                     {{ result.updated_at | humanTimeShort }}
+                  </td>
+                  <td hide show-gt-md md-cell ng-show="selected == 'Clients'">
+                    {{ result.lastseen | humanTimeShort }}
                   </td>
                   <td hide show-gt-xs md-cell ng-show="selected == 'Social'">
                     {{ result.gender == 'male' ? 'M' : 'F' }}
