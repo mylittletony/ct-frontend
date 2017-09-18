@@ -519,7 +519,6 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.selected = 'Clients';
         scope.results = data.clients;
         scope.links = data._links;
-        deferred.resolve();
         $location.search();
       }, function(err) {
         console.log(err);
