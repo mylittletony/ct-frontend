@@ -43,7 +43,6 @@
                 <tr md-row>
                   <th hide show-gt-xs md-column ng-show="selected == 'Emails'"><span translate>Added</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Sales'"><span translate>State</span></th>
-                  <th hide show-gt-xs md-column ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions' || selected == 'Clients'"><span translate></span></th>
                   <th md-column ng-show="selected == 'Radius Sessions'"><span translate>Start</span></th>
                   <th hide show-gt-sm md-column ng-show="selected == 'Radius Sessions'"><span translate>Duration</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Radius Sessions' || selected == 'Clients'"><span translate>Client Mac</span></th>
@@ -76,8 +75,6 @@
                       <span ng-if="result.state == 'success'" translate>This order was a success</span>
                       <span ng-if="result.state == 'refunded'" translate>This order was refunded</span>
                     </md-tooltip>
-                  </td>
-                  <td md-cell ng-show="selected == 'Social' || selected == 'Guests' || selected == 'Radius Sessions' || selected == 'Clients'">
                   </td>
                   <td md-cell ng-show="selected == 'Radius Sessions'">
                     <span hide show-gt-xs>{{ ::(result.acctstarttime | humanTime) }}</span>
