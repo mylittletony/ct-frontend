@@ -520,7 +520,6 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.clients;
         scope.links = data._links;
         $location.search();
-        console.log('hello')
       }, function(err) {
         console.log(err);
       });
