@@ -96,7 +96,7 @@
                     <md-tooltip>Filter by client</md-tooltip>
                   </td>
                   <td hide show-gt-xs md-cell ng-show="selected == 'Clients'">
-                    {{ ::(result.client_mac | uppercase)}}
+                    <a href="/#/locations/{{location.slug}}/clients/{{ result.client_mac }}" ng-if="result.client_mac">{{ ::(result.client_mac | uppercase)}}<md-tooltip>View client</md-tooltip></a>
                   </td>
                   <td hide show-gt-md md-cell ng-show="selected == 'Radius Sessions'">
                     {{ result.username | truncate:30 }}
