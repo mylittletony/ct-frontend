@@ -27,6 +27,9 @@ app.filter('sentenceCase', function() {
 app.filter('titleCase', function() {
   return function(input) {
     if ( typeof input === 'string' ) {
+      if (input === 'CT') {
+        return input
+      }
       input = input || '';
       return input.replace(/_/g, ' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     } else {
