@@ -34,7 +34,7 @@
       <md-card>
         <md-card-content>
           <div class="md-toolbar-tools">
-            <span translate translate-n="{{links.total_entries}}" translate-plural="{{links.total_entries || 0}} {{selected}}">1 {{selected}}</span><span hide show-gt-sm ng-if="query.start" translate>&nbsp;created between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
+            <span translate translate-n="{{links.total_entries}}" translate-plural="{{links.total_entries || 0}} {{selected}}">1 {{selected}}</span><span hide show-gt-sm ng-if="query.start" translate><span ng-if="selected == 'Emails' || selected == 'Sales' || selected == 'Guests' || selected == 'Radius Sessions'">&nbsp;created</span><span ng-if="selected == 'Social' || selected == 'Clients'">&nbsp;seen</span> between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
             <div flex></div>
           </div>
           <md-table-container>
