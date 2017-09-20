@@ -492,6 +492,9 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       scope.results = [];
       scope.links = undefined;
       $location.search();
+      if (scope.query.end - scope.query.start > 604800) {
+        showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
+      }
     };
 
     var findSessions = function() {
