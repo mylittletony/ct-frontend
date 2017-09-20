@@ -488,6 +488,15 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       };
     };
 
+    var clearTable = function() {
+      scope.results = [];
+      scope.links = undefined;
+      $location.search();
+      if (scope.query.end - scope.query.start > 604800) {
+        showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
+      }
+    };
+
     var findSessions = function() {
       getParams();
       params.client_mac = scope.query.client_mac;
@@ -498,6 +507,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         $location.search();
       }, function(err) {
         console.log(err);
+        clearTable();
       });
     };
 
@@ -510,6 +520,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         $location.search();
       }, function(err) {
         console.log(err);
+        clearTable();
       });
     };
 
@@ -522,6 +533,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         $location.search();
       }, function(err) {
         console.log(err);
+        clearTable();
       });
     };
 
@@ -534,6 +546,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         $location.search();
       }, function(err) {
         console.log(err);
+        clearTable();
       });
     };
 
@@ -546,6 +559,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         $location.search();
       }, function(err) {
         console.log(err);
+        clearTable();
       });
     };
 
@@ -558,6 +572,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         $location.search();
       }, function(err) {
         console.log(err);
+        clearTable();
       });
     };
 
