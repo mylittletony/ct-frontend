@@ -138,21 +138,29 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     // Permissions //
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Documentation'),
-      link: 'http://docs.cucumberwifi.io',
-      type: 'link',
-      target: '_blank',
-      icon: 'account_balance'
-    });
+    if (!Auth.currentUser().guest) {
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Documentation'),
+        link: 'http://docs.cucumberwifi.io',
+        type: 'link',
+        target: '_blank',
+        icon: 'account_balance'
+      });
 
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Discussions'),
-      link: 'https://discuss.cucumberwifi.io',
-      target: '_blank',
-      type: 'link',
-      icon: 'forum'
-    });
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Discussions'),
+        link: 'https://discuss.cucumberwifi.io',
+        target: '_blank',
+        type: 'link',
+        icon: 'forum'
+      });
+
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Support'),
+        icon: 'get_app',
+        id: 'intercom'
+      });
+    }
 
     vm.menuRight.push({
       name: gettextCatalog.getString('Support'),
