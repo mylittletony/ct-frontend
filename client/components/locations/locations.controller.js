@@ -302,20 +302,6 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
       });
 
       menu.sections.push({
-        name: gettextCatalog.getString('Reports'),
-        link: '/#/reports/',
-        type: 'link',
-        icon: 'timeline',
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Audit'),
-        link: '/#/audit/',
-        type: 'link',
-        icon: 'assignment',
-      });
-
-      menu.sections.push({
         name: gettextCatalog.getString('Events'),
         link: '/#/events/',
         type: 'link',
