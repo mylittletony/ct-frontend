@@ -144,7 +144,7 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParams', '$filter', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, $routeParams, $filter, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
+app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$routeParams', '$filter', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, Auth, $routeParams, $filter, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -425,6 +425,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
         scope.networks = results.networks;
         //scope.splash.networks = [];
+        scope.user_is_guest = Auth.currentUser().guest;
 
         createMenu();
         scope.loading = undefined;
