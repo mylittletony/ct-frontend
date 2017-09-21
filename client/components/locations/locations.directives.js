@@ -62,7 +62,7 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
 
 }]);
 
-app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
+app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, Auth, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -80,6 +80,8 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    scope.user_is_guest = Auth.currentUser().guest;
 
     function updateLocation() {
       Location.update({}, {
