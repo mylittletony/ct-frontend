@@ -138,7 +138,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     // Permissions //
-    if (!Auth.currentUser().referred) {
+    if (!Auth.currentUser().guest) {
       vm.menuRight.push({
         name: gettextCatalog.getString('Documentation'),
         link: 'http://docs.cucumberwifi.io',
