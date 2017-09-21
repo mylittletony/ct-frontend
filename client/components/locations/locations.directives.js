@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -12,6 +12,8 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    scope.user_is_guest = Auth.currentUser().guest;
 
     function updateLocation() {
       Location.update({}, {
