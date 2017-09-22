@@ -574,7 +574,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
         scope.splash.network_id = undefined;
       }
       if ($localStorage && $localStorage.user) {
-        scope.splash.powered_by = !$localStorage.user.custom
+        scope.splash.powered_by = !$localStorage.user.custom;
       }
       SplashPage.create({
         location_id: scope.location.slug,
