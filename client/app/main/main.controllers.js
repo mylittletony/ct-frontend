@@ -138,7 +138,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     // Permissions //
-    if (Auth.currentUser() && !Auth.currentUser().guest) {
+    if ($localStorage.user && !$localStorage.user.custom) {
       vm.menuRight.push({
         name: gettextCatalog.getString('Documentation'),
         link: 'http://docs.cucumberwifi.io',
@@ -358,7 +358,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           icon: 'warning'
         });
 
-        if (Auth.currentUser() && Auth.currentUser().guest === false) {
+        if ($localStorage.user && $localStorage.user.custom) {
           vm.menu.main.push({
             title: gettextCatalog.getString('Brands'),
             type: 'link',

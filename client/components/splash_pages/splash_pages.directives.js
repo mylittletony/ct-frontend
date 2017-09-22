@@ -144,7 +144,7 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParams', '$filter', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, $routeParams, $filter, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
+app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$routeParams', '$filter', '$localStorage', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, Auth, $routeParams, $filter, $localStorage, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -425,6 +425,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
         scope.networks = results.networks;
         //scope.splash.networks = [];
+        scope.white_label = $localStorage.user.custom;
 
         createMenu();
         scope.loading = undefined;
@@ -536,7 +537,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
 }]);
 
-app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams', '$rootScope', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,$location,$routeParams,$rootScope,$mdDialog,showToast,showErrors,gettextCatalog) {
+app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$routeParams', '$rootScope', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,Auth,$location,$routeParams,$rootScope,$mdDialog,showToast,showErrors,gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
