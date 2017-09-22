@@ -305,7 +305,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
+      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && !Auth.currentUser().custom && Auth.currentUser().user_hash !== undefined)) {
         vm.menu.Intercom = true;
         var settings = {
             app_id: INTERCOM,
