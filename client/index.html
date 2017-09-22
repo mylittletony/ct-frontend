@@ -124,7 +124,7 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu> -->
-          <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="!user.custom">
+          <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
             <a target="_blank" href="http://discuss.cucumberwifi.io">
               <md-icon>forum</md-icon>
             </a>
@@ -145,14 +145,14 @@
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
 
-              <md-menu-item ng-if="!user.custom">
+              <md-menu-item ng-if="user && !user.custom">
                 <md-button target="_blank" ng-href="http://docs.cucumberwifi.io" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">account_balance</md-icon>
                   <span translate>Documentation</span>
                 </md-button>
               </md-menu-item>
 
-              <md-menu-item ng-if="!user.custom">
+              <md-menu-item ng-if="user && !user.custom">
                 <md-button target="_blank" ng-href="https://discuss.cucumberwifi.io/" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">forum</md-icon>
                   <span translate>Discussions</span>
