@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -13,7 +13,7 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
       updateLocation();
     };
 
-    scope.user_is_guest = Auth.currentUser().guest;
+    scope.white_label = $localStorage.user.custom;
 
     function updateLocation() {
       Location.update({}, {
@@ -64,7 +64,7 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
 
 }]);
 
-app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, Auth, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
+app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope', '$location', '$timeout', '$localStorage', 'gettextCatalog', 'showToast', function(Location, Auth, $routeParams, $rootScope, $location, $timeout, $localStorage, gettextCatalog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -83,7 +83,7 @@ app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope'
       updateLocation();
     };
 
-    scope.user_is_guest = Auth.currentUser().guest;
+    scope.white_label = $localStorage.user.custom;
 
     function updateLocation() {
       Location.update({}, {

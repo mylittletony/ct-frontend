@@ -1448,7 +1448,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
   };
 }]);
 
-app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', 'Auth', '$cookies', 'menu', 'gettextCatalog', function($routeParams, $location, Box, Firmware, Auth, $cookies, menu, gettextCatalog) {
+app.directive('downloadFirmware', ['$routeParams', '$location', '$localStorage', 'Box', 'Firmware', 'Auth', '$cookies', 'menu', 'gettextCatalog', function($routeParams, $location, $localStorage, Box, Firmware, Auth, $cookies, menu, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1458,7 +1458,7 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
     menu.sectionName = gettextCatalog.getString('Downloads');
 
     var init = function() {
-      scope.user_is_guest = Auth.currentUser().guest;
+      scope.white_label = $localStorage.user.custom;
       Firmware.query({public: true}).$promise.then(function(res) {
         scope.firmwares   = res;
         scope.loading     = undefined;
