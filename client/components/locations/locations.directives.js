@@ -2078,7 +2078,7 @@ app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 
 }]);
 
-app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
+app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function($timeout, $localStorage) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -2089,6 +2089,7 @@ app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
 
     scope.ctrl = {};
     scope.ctrl.levels = [1,2,3];
+    scope.white_label = $localStorage.user.custom;
 
     scope.back = function() {
       controller.back();
