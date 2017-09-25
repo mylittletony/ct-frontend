@@ -83,13 +83,13 @@
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">
 
-            <md-checkbox ng-model="box.tony" aria-label="{{ 'CT box' | translate }}">
+            <md-checkbox ng-model="box.tony" aria-label="{{ 'CT box' | translate }}" ng-if="!white_label">
               <translate>
                 CT Box
               </translate>
             </md-checkbox>
 
-            <small translate>Don't disable this unless you're using a splash-only device.</small>
+            <small translate ng-if="!white_label">Don't disable this unless you're using a splash-only device.</small>
 
             <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
               <span translate>Alerts {{ box.is_monitored | humanBoolean }}</span>
@@ -97,11 +97,11 @@
 
             <small translate>Disabling alerts will prevent further alerts from this device.</small>
 
-            <md-switch title="ct_modify" ng-model="box.ct_modify" aria-label=" ">
+            <md-switch title="ct_modify" ng-model="box.ct_modify" aria-label=" " ng-if="!white_label">
               <span translate>CT Write Access {{ box.ct_modify | humanBoolean }}</span>
             </md-switch>
 
-            <small translate>Enabling write access allows CT staff to modify this device. This is overwritten by location write access changes.</small>
+            <small translate ng-if="!white_label">Enabling write access allows CT staff to modify this device. This is overwritten by location write access changes.</small>
 
           </div>
         </div>
