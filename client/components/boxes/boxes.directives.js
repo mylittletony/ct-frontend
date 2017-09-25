@@ -758,13 +758,14 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
+app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, $localStorage, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
 
   var link = function(scope) {
 
     var channel, timer;
 
     scope.location = { slug: $routeParams.id };
+    scope.white_label = $localStorage.user.custom;
     scope.timezones = moment.tz.names();
 
     var ht20_channels  = ['auto', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
