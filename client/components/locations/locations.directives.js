@@ -687,7 +687,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
 
 }]);
 
-app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, locationHelper, $q, Shortener, $timeout, Box) {
+app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', '$localStorage', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, $localStorage, locationHelper, $q, Shortener, $timeout, Box) {
 
   var link = function(scope,element,attrs) {
 
@@ -695,6 +695,8 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       scope.querySearch        = querySearch;
       scope.selectedItemChange = selectedItemChange;
       scope.searchTextChange   = searchTextChange;
+      scope.white_label        = $localStorage.user.custom;
+
 
       if ($rootScope.loggedIn || (scope.$parent.loggedIn && scope.$parent.loggedOut === undefined)) {
         scope.loggedIn = true;
@@ -2078,7 +2080,7 @@ app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 
 }]);
 
-app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
+app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function($timeout, $localStorage) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -2089,6 +2091,7 @@ app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
 
     scope.ctrl = {};
     scope.ctrl.levels = [1,2,3];
+    scope.white_label = $localStorage.user.custom;
 
     scope.back = function() {
       controller.back();
