@@ -138,21 +138,29 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     // Permissions //
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Documentation'),
-      link: 'http://docs.cucumberwifi.io',
-      type: 'link',
-      target: '_blank',
-      icon: 'account_balance'
-    });
+    if ($localStorage.user && !$localStorage.user.custom) {
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Documentation'),
+        link: 'http://docs.cucumberwifi.io',
+        type: 'link',
+        target: '_blank',
+        icon: 'account_balance'
+      });
 
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Discussions'),
-      link: 'https://discuss.cucumberwifi.io',
-      target: '_blank',
-      type: 'link',
-      icon: 'forum'
-    });
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Discussions'),
+        link: 'https://discuss.cucumberwifi.io',
+        target: '_blank',
+        type: 'link',
+        icon: 'forum'
+      });
+
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Support'),
+        icon: 'get_app',
+        id: 'intercom'
+      });
+    }
 
     vm.menuRight.push({
       name: gettextCatalog.getString('Support'),
@@ -297,7 +305,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
+      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && !Auth.currentUser().custom && Auth.currentUser().user_hash !== undefined)) {
         vm.menu.Intercom = true;
         var settings = {
             app_id: INTERCOM,
@@ -350,7 +358,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           icon: 'warning'
         });
 
-        if (Auth.currentUser() && Auth.currentUser().guest === false) {
+        if ($localStorage.user && $localStorage.user.custom) {
           vm.menu.main.push({
             title: gettextCatalog.getString('Brands'),
             type: 'link',

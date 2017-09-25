@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -12,6 +12,8 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    scope.white_label = $localStorage.user.custom;
 
     function updateLocation() {
       Location.update({}, {
@@ -62,7 +64,7 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
 
 }]);
 
-app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
+app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope', '$location', '$timeout', '$localStorage', 'gettextCatalog', 'showToast', function(Location, Auth, $routeParams, $rootScope, $location, $timeout, $localStorage, gettextCatalog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -80,6 +82,8 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    scope.white_label = $localStorage.user.custom;
 
     function updateLocation() {
       Location.update({}, {
