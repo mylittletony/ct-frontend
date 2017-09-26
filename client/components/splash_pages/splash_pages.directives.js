@@ -144,7 +144,7 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParams', '$filter', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, $routeParams, $filter, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
+app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$routeParams', '$filter', '$localStorage', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, Auth, $routeParams, $filter, $localStorage, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -425,6 +425,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
         scope.networks = results.networks;
         //scope.splash.networks = [];
+        scope.white_label = $localStorage.user.custom;
 
         createMenu();
         scope.loading = undefined;
@@ -536,7 +537,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
 }]);
 
-app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams', '$rootScope', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,$location,$routeParams,$rootScope,$mdDialog,showToast,showErrors,gettextCatalog) {
+app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$routeParams', '$rootScope', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,Auth,$location,$routeParams,$rootScope,$mdDialog,$localStorage,showToast,showErrors,gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -572,13 +573,17 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       if (scope.splash.ssid) {
         scope.splash.network_id = undefined;
       }
+      if ($localStorage && $localStorage.user) {
+        scope.splash.powered_by = !$localStorage.user.custom;
+      }
       SplashPage.create({
         location_id: scope.location.slug,
         splash_page: {
           ssid: scope.splash.ssid,
           network_ids: scope.splash.network_id,
           splash_name: scope.splash.splash_name,
-          primary_access_id: scope.splash.primary_access_id
+          primary_access_id: scope.splash.primary_access_id,
+          powered_by: scope.splash.powered_by
         }
       }).$promise.then(function(results) {
         scope.splash = {};

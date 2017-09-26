@@ -758,13 +758,14 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
+app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, $localStorage, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
 
   var link = function(scope) {
 
     var channel, timer;
 
     scope.location = { slug: $routeParams.id };
+    scope.white_label = $localStorage.user.custom;
     scope.timezones = moment.tz.names();
 
     var ht20_channels  = ['auto', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
@@ -1448,7 +1449,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
   };
 }]);
 
-app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', '$cookies', 'menu', 'gettextCatalog', function($routeParams, $location, Box, Firmware, $cookies, menu, gettextCatalog) {
+app.directive('downloadFirmware', ['$routeParams', '$location', '$localStorage', 'Box', 'Firmware', 'Auth', '$cookies', 'menu', 'gettextCatalog', function($routeParams, $location, $localStorage, Box, Firmware, Auth, $cookies, menu, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1458,6 +1459,7 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
     menu.sectionName = gettextCatalog.getString('Downloads');
 
     var init = function() {
+      scope.white_label = $localStorage.user.custom;
       Firmware.query({public: true}).$promise.then(function(res) {
         scope.firmwares   = res;
         scope.loading     = undefined;

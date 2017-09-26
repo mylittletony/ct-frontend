@@ -38,24 +38,25 @@
             </div>
             <small translate>Level 1 will allow devices from all IP address. Level 2 restricts the devices to the location they were added from. Level 3 allows devices froma  range of IPs.</small>
 
-            <h4>Additional Settings</h4>
+            <div ng-if="!white_label">
+              <h4>Additional Settings</h4>
 
-            <md-switch ng-model="location.ct_modify" aria-label="{{ 'Active' | translate }}" class="md-warn">
-              CT Write Access
-              <span ng-if="location.ct_modify" translate>Enabled</span>
-              <span ng-if="!location.ct_modify" translate>Disabled</span>
-            </md-switch>
+              <md-switch ng-model="location.ct_modify" aria-label="{{ 'Active' | translate }}" class="md-warn">
+                CT Write Access
+                <span ng-if="location.ct_modify" translate>Enabled</span>
+                <span ng-if="!location.ct_modify" translate>Disabled</span>
+              </md-switch>
 
-            <small translate>Enabling write access allows CT staff to modify this location, its networks, splash pages, devices and other components. Default is disabled.</small>
+              <small translate>Enabling write access allows CT staff to modify this location, its networks, splash pages, devices and other components. Default is disabled.</small>
 
-            <md-switch ng-model="location.ct_view" aria-label="{{ 'Active' | translate }}" class="md-warn">
-              CT Read Access
-              <span ng-if="location.ct_view" translate>Enabled</span>
-              <span ng-if="!location.ct_view" translate>Disabled</span>
-            </md-switch>
+              <md-switch ng-model="location.ct_view" aria-label="{{ 'Active' | translate }}" class="md-warn">
+                CT Read Access
+                <span ng-if="location.ct_view" translate>Enabled</span>
+                <span ng-if="!location.ct_view" translate>Disabled</span>
+              </md-switch>
 
-            <small translate>Disabling this prevents CT staff from viewing this location or any child components.</small>
-
+              <small translate>Disabling this prevents CT staff from viewing this location or any child components.</small>
+            </div>
           </md-card-content>
 
         </md-card>
