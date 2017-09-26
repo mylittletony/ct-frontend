@@ -425,8 +425,10 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
 
         scope.networks = results.networks;
         //scope.splash.networks = [];
-        scope.white_label = $localStorage.user.custom;
-
+        if ($localStorage.user) {
+          scope.white_label = $localStorage.user.custom;
+        }
+        
         createMenu();
         scope.loading = undefined;
       }, function(err) {
