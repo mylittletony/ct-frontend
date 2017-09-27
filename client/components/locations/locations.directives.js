@@ -13,7 +13,9 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
       updateLocation();
     };
 
-    scope.white_label = $localStorage.user.custom;
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     function updateLocation() {
       Location.update({}, {
@@ -83,7 +85,9 @@ app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope'
       updateLocation();
     };
 
-    scope.white_label = $localStorage.user.custom;
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     function updateLocation() {
       Location.update({}, {
@@ -695,8 +699,10 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       scope.querySearch        = querySearch;
       scope.selectedItemChange = selectedItemChange;
       scope.searchTextChange   = searchTextChange;
-      scope.white_label        = $localStorage.user.custom;
 
+      if ($localStorage.user) {
+        scope.white_label = $localStorage.user.custom;
+      }
 
       if ($rootScope.loggedIn || (scope.$parent.loggedIn && scope.$parent.loggedOut === undefined)) {
         scope.loggedIn = true;
@@ -2091,8 +2097,10 @@ app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function
 
     scope.ctrl = {};
     scope.ctrl.levels = [1,2,3];
-    scope.white_label = $localStorage.user.custom;
-
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
+    
     scope.back = function() {
       controller.back();
     };

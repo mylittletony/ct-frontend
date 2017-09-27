@@ -765,7 +765,9 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
     var channel, timer;
 
     scope.location = { slug: $routeParams.id };
-    scope.white_label = $localStorage.user.custom;
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
     scope.timezones = moment.tz.names();
 
     var ht20_channels  = ['auto', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
@@ -1459,7 +1461,9 @@ app.directive('downloadFirmware', ['$routeParams', '$location', '$localStorage',
     menu.sectionName = gettextCatalog.getString('Downloads');
 
     var init = function() {
-      scope.white_label = $localStorage.user.custom;
+      if ($localStorage.user) {
+        scope.white_label = $localStorage.user.custom;
+      }
       Firmware.query({public: true}).$promise.then(function(res) {
         scope.firmwares   = res;
         scope.loading     = undefined;
