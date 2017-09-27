@@ -268,9 +268,9 @@ describe('Routing', function () {
       expect($route.routes['/me/integrations/:id'].templateUrl).
                   toEqual('components/users/integrations/setup.html');
 
-      expect($route.routes['/users/:id/locations'].controller).toBe('UsersShowController');
-      expect($route.routes['/users/:id/locations'].templateUrl).
-                  toEqual('components/users/locations/index.html');
+      // expect($route.routes['/users/:id/locations'].controller).toBe('UsersShowController');
+      // expect($route.routes['/users/:id/locations'].templateUrl).
+      //             toEqual('components/users/locations/index.html');
 
       expect($route.routes['/users/:id/users'].controller).toBe('UsersShowController');
       expect($route.routes['/users/:id/users'].templateUrl).

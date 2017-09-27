@@ -683,11 +683,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/users/:id/locations', {
-      templateUrl: 'components/users/locations/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
+    // when('/users/:id/locations', {
+    //   templateUrl: 'components/users/locations/index.html',
+    //   controller: 'UsersShowController',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/users/:id/users', {
       templateUrl: 'components/users/users/index.html',
       controller: 'UsersShowController',

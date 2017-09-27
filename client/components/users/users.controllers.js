@@ -71,12 +71,12 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       });
     }
 
-    menu.sections.push({
-      name: gettextCatalog.getString('Locations'),
-      type: 'link',
-      link: '/#/users/' + id + '/locations',
-      icon: 'business'
-    });
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('Locations'),
+    //   type: 'link',
+    //   link: '/#/users/' + id + '/locations',
+    //   icon: 'business'
+    // });
 
     menu.sections.push({
       name: gettextCatalog.getString('Notifications'),
