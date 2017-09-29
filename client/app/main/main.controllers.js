@@ -397,12 +397,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           vm.menuRight.push({
             type: 'divider',
           });
-
-          if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
-            promos();
-          } else if (Auth.currentUser().paid_plan !== true) {
-            vm.upgrade = true;
-          }
         }
 
         vm.menuRight.push({
@@ -415,6 +409,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         vm.menuRight.push({
           type: 'divider',
         });
+      }
+
+      if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
+        promos();
+      } else if (Auth.currentUser().paid_plan !== true) {
+        vm.upgrade = true;
       }
     }
 
