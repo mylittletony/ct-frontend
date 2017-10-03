@@ -454,7 +454,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Client, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Client, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -500,7 +500,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       scope.results = [];
       scope.links = undefined;
       $location.search();
-      if (scope.query.end - scope.query.start > 604800) {
+      if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
         showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
       }
     };
@@ -2100,7 +2100,7 @@ app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function
     if ($localStorage.user) {
       scope.white_label = $localStorage.user.custom;
     }
-    
+
     scope.back = function() {
       controller.back();
     };
