@@ -2,9 +2,13 @@
 
 var app = angular.module('myApp.registrations.directives', []);
 
-app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$cookies', 'menu', function(Holding, locationHelper, $routeParams, $cookies, menu) {
+app.directive('createHolding', ['Holding', 'Brand', 'locationHelper', '$routeParams', '$location', '$cookies', 'menu', 'gettextCatalog', function(Holding, Brand, locationHelper, $routeParams, $location, $cookies, menu, gettextCatalog) {
 
-  var link = function( scope, element, attrs ) {
+  var subdomain = locationHelper.subdomain();
+  var templateUrl;
+  var link;
+
+  var standardLink = function( scope, element, attrs ) {
 
     var domain = locationHelper.domain();
 
@@ -39,10 +43,42 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
     };
   };
 
+  var standardSignUp = function() {
+    link = standardLink;
+    templateUrl = 'components/registrations/_create.html';
+  };
+
+  var brandLink = function(scope, element, attrs) {
+    menu.hideToolbar = false;
+    menu.hideBurger = true;
+    menu.isOpenLeft = false;
+    menu.isOpen = false;
+
+    scope.brand_sign_up = true;
+
+    scope.create = function() {
+      console.log(scope.user);
+    };
+  };
+
+  var brandSignUp = function() {
+    // Brand.query({}, {
+    //   url: subdomain,
+    //   type: 'showcase'
+    // }).$promise.then(function(results) {
+    // }, function() {
+    // });
+
+    link = brandLink;
+    templateUrl = 'components/registrations/_reseller_create.html';
+  };
+
+  subdomain === 'dashboard' || subdomain === 'my' ? standardSignUp() : brandSignUp();
+
   return {
     link: link,
     scope: {},
-    templateUrl: 'components/registrations/_create.html'
+    templateUrl: templateUrl
   };
 
 }]);
