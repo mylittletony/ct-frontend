@@ -1,0 +1,80 @@
+<form name="myResellerForm" ng-submit="create()">
+  <div layout="row" layout-align="center center" class="md-padding">
+    <div flex="100" flex-gt-sm="50">
+      <md-card ng-if="brand_sign_up">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">hello</span>
+            <span class="md-subhead">hello</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div>
+            <div>
+              <div layout="column" flex-gt-sm="100">
+                <br><br>
+                <md-input-container layout="row" flex class="md-block">
+                  <label for="company_name">
+                    <translate>Location Name</translate>
+                  </label>
+                  <input type="text" name="location_name" ng-model="user.location_name" placeholder="{{ 'Name your first location' | translate }}" md-maxlength="25" ng-minlength="5" autofocus required>
+                  <div ng-messages="myForm.location_name.$error" md-auto-hide="false">
+                    <div ng-message="required" translate>A location name is required.</div>
+                    <div ng-message="md-maxlength" translate>Name should be less than 25 characters.</div>
+                    <div ng-message="minlength" translate>Name should be at least characters.</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container layout="row" flex class="md-block">
+                  <label for="address">
+                    <translate>Location Address</translate>
+                  </label>
+                  <input type="text" name="address" ng-model="user.address" placeholder="{{ 'Where is the location' | translate }}" md-maxlength=255 ng-minlength=5 required>
+                  <div ng-messages="myForm.address.$error" md-auto-hide="false">
+                    <div ng-message="required" translate>A location address is required.</div>
+                    <div ng-message="md-maxlength" translate>Address should be less than 255 characters.</div>
+                    <div ng-message="minlength" translate>Address should be between 5 and 255 characters.</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </div>
+            <div>
+              <div layout="column" flex-gt-sm="100">
+                <md-input-container layout="row" flex class="md-block">
+                  <label for="username">
+                    <translate>Username</translate>
+                  </label>
+                  <input type="text" name="username" ng-model="user.username" placeholder="Steve Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
+                  <div ng-messages="myForm.username.$error" md-auto-hide="false">
+                    <div ng-message="required" translate>A username is required.</div>
+                    <div ng-message="md-maxlength" translate>Username should be less than 25 characters.</div>
+                    <div ng-message="pattern" translate>Number and letters only.</div>
+                    <div ng-message="minlength" translate>Username should be at least 5 characters.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container layout="row" flex class="md-block">
+                  <label for="password">
+                    <translate>Password</translate>
+                  </label>
+                  <input type="password" placeholder="Top secret password" name="password" ng-minlength="5" ng-model="user.password" md-minlength=8 required>
+                  <md-icon>lock</md-icon>
+                  <div ng-messages="myForm.password.$error" md-auto-hide="false">
+                    <div ng-message="required" translate>A password is required.</div>
+                    <div ng-message="md-minlength" translate>Password should be less than 25 characters.</div>
+                    <div ng-message="minlength" translate>Password should be at least 8 characters.</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </div>
+          </div>
+        </md-card-content>
+        <md-divider ng-if="!$last"></md-divider>
+        <md-card-actions layout="row" layout-align="start center">
+          <md-button type="submit" ng-disabled="myResellerForm.$invalid" class="signup-complete md-raised md-primary">
+            <translate>Create Dashboard</translate>
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </div>
+</form>
