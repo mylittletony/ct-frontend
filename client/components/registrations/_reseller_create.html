@@ -1,4 +1,4 @@
-<form name="myResellerForm" ng-submit="create()">
+<form name="myForm" ng-submit="create()">
   <div layout="row" layout-align="center center" class="md-padding">
     <div flex="100" flex-gt-sm="50">
       <md-card ng-if="brand_sign_up">
@@ -70,7 +70,7 @@
         </md-card-content>
         <md-divider ng-if="!$last"></md-divider>
         <md-card-actions layout="row" layout-align="start center">
-          <md-button type="submit" ng-disabled="myResellerForm.$invalid" class="signup-complete md-raised md-primary">
+          <md-button type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary">
             <translate>Create Dashboard</translate>
           </md-button>
         </md-card-actions>

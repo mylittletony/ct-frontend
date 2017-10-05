@@ -29,7 +29,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Sign-up for {{ ::brand_name }}.
+                Sign-up for <span ng-if="!brand">{{ ::brand_name }}</span><span ng-if="brand">{{ brand.brand_name }}</span>.
               </span>
               <span class="md-subhead" translate>Getting started only takes a moment.</span>
             </md-card-title-text>
