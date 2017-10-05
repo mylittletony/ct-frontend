@@ -171,7 +171,6 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       scope.user = scope.holding;
       setCookies();
       setStage(stage);
-      console.log(scope)
     };
 
     var save = function() {
