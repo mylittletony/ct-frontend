@@ -2,15 +2,12 @@
 
 var app = angular.module('myApp.registrations.directives', []);
 
-app.directive('createHolding', ['Holding', 'Brand', 'locationHelper', '$routeParams', '$location', '$cookies', 'menu', 'gettextCatalog', function(Holding, Brand, locationHelper, $routeParams, $location, $cookies, menu, gettextCatalog) {
+app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$routeParams', '$location', '$cookies', 'menu', 'gettextCatalog', function(Holding, User, Brand, locationHelper, $routeParams, $location, $cookies, menu, gettextCatalog) {
 
-  var subdomain = locationHelper.subdomain();
-  var templateUrl;
-  var link;
-
-  var standardLink = function( scope, element, attrs ) {
+  var link = function( scope, element, attrs ) {
 
     var domain = locationHelper.domain();
+    var subdomain = locationHelper.subdomain();
 
     menu.hideToolbar = false;
     menu.hideBurger = true;
@@ -18,6 +15,21 @@ app.directive('createHolding', ['Holding', 'Brand', 'locationHelper', '$routePar
     menu.isOpen = false;
 
     scope.brand_name = 'CT WiFi';
+
+    var brandCheck = function() {
+      Brand.query({
+        id: subdomain,
+        type: 'showcase',
+        check: true
+      }).$promise.then(function(results) {
+        scope.brand = results;
+      }, function() {
+      });
+    };
+
+    if (subdomain !== 'my' || subdomain !== 'dashboard') {
+      brandCheck();
+    }
 
     var cookies = $cookies.get('_cth', { domain: domain });
     if (cookies) {
@@ -30,8 +42,13 @@ app.directive('createHolding', ['Holding', 'Brand', 'locationHelper', '$routePar
       var now         = new Date();
       var ts          = now.setDate(now.getDate() + 1);
       var expires     = new Date(ts);
+      var holding_account = {}
+      holding_account.email = scope.user.email
+      if (scope.brand) {
+        holding_account.brand = scope.brand.id
+      }
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
-      Holding.create({email: scope.user.email}).$promise.then(function(data) {
+      Holding.create(holding_account).$promise.then(function(data) {
       }, function() {
         scope.clearCookies();
       });
@@ -41,44 +58,13 @@ app.directive('createHolding', ['Holding', 'Brand', 'locationHelper', '$routePar
       scope.cookies = undefined;
       $cookies.remove('_cth', { domain: domain });
     };
+
   };
-
-  var standardSignUp = function() {
-    link = standardLink;
-    templateUrl = 'components/registrations/_create.html';
-  };
-
-  var brandLink = function(scope, element, attrs) {
-    menu.hideToolbar = false;
-    menu.hideBurger = true;
-    menu.isOpenLeft = false;
-    menu.isOpen = false;
-
-    scope.brand_sign_up = true;
-
-    scope.create = function() {
-      console.log(scope.user);
-    };
-  };
-
-  var brandSignUp = function() {
-    // Brand.query({}, {
-    //   url: subdomain,
-    //   type: 'showcase'
-    // }).$promise.then(function(results) {
-    // }, function() {
-    // });
-
-    link = brandLink;
-    templateUrl = 'components/registrations/_reseller_create.html';
-  };
-
-  subdomain === 'dashboard' || subdomain === 'my' ? standardSignUp() : brandSignUp();
 
   return {
     link: link,
     scope: {},
-    templateUrl: templateUrl
+    templateUrl: 'components/registrations/_create.html'
   };
 
 }]);
