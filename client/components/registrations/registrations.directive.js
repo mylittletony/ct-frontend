@@ -85,8 +85,12 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var setStage = function(stage) {
       if (stage === 1) {
-        $location.hash('brand');
-        scope.checkBrand();
+        if (scope.brand_url) {
+          $location.hash('user');
+        } else {
+          $location.hash('brand');
+          scope.checkBrand();
+        }
       } else if (stage === 2) {
         $location.hash('user');
       } else if (stage === 3) {
@@ -146,6 +150,9 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var init = function() {
       Holding.get({id: $routeParams.id}).$promise.then(function(data) {
+        if (data.brand_id && data.brand_url) {
+          scope.brand_url = data.brand_url;
+        }
         scope.loading = undefined;
       }, function(err) {
         $cookies.remove('_cth', { domain: domain });
@@ -164,11 +171,15 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       scope.user = scope.holding;
       setCookies();
       setStage(stage);
+      console.log(scope)
     };
 
     var save = function() {
       $location.hash('done');
       scope.creatingAccount = true;
+      if (scope.brand_url) {
+        scope.user.url = scope.brand_url;
+      }
       Holding.update({id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
         scope.errors = undefined;
         var timer = $timeout(function() {
