@@ -191,6 +191,29 @@
               </md-card-content>
             </md-card>
 
+            <md-card ng-if="brand.reseller">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">
+                    <md-icon md-font-icon="android" aria-label="android">star</md-icon>
+                    <translate>Reseller Settings</translate>
+                  </span>
+                  <span class="md-subhead">
+                    Enable this to allow customers to sign up at <b>https://{{brand.url}}.ctapp.io/#/create</b>.
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+
+              <md-card-content>
+
+                <div layout="column" layout-gt-xs="row" layout-wrap flex="100">
+                  <md-switch title="sign_ups" ng-model="brand.reseller_sign_up" aria-label=" ">
+                    <span translate>Customer Sign-Ups {{ brand.reseller_sign_up | humanBoolean }}</span>
+                  </md-switch>
+                </div>
+              </md-card-content>
+            </md-card>
+
             <md-card>
               <md-card-title>
                 <md-card-title-text>
