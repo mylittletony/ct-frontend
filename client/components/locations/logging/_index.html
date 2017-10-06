@@ -73,7 +73,7 @@
                   <md-icon md-menu-origin md-font-icon="">{{ log.show_detail ? "keyboard_arrow_down" : "keyboard_arrow_right" }}</md-icon>
                 </td>
                 <td md-cell>
-                  {{ log.created_at | humanTimeShort }}
+                  {{ (log.timestamp / 1000) | humanTimeShort }}
                 </td>
                 <td md-cell>
                   <a href="#/locations/{{location.slug}}/devices/{{log.ap_slug}}" style="text-decoration:underline">{{ log.ap_name }}<md-tooltip>Go to device</md-tooltip></a>
@@ -128,7 +128,7 @@
                 <td>
                   Created at:
                 </td>
-                <td>{{log.created_at | humanTime}}</td>
+                <td>{{log.timestamp / 1000 | humanTime}}</td>
               </tr>
             </tbody>
           </table>
