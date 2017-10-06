@@ -44,10 +44,10 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
       var now         = new Date();
       var ts          = now.setDate(now.getDate() + 1);
       var expires     = new Date(ts);
-      var holding_account = {}
-      holding_account.email = scope.user.email
+      var holding_account = {};
+      holding_account.email = scope.user.email;
       if (scope.brand) {
-        holding_account.brand = scope.brand.id
+        holding_account.brand = scope.brand.id;
       }
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
       Holding.create(holding_account).$promise.then(function(data) {
