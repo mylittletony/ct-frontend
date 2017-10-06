@@ -15,6 +15,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     menu.isOpen = false;
 
     scope.brand_name = 'CT WiFi';
+    scope.user = {}
 
     var brandCheck = function() {
       Brand.query({
@@ -22,7 +23,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
         type: 'showcase',
         check: true
       }).$promise.then(function(results) {
-        if (results.reseller_sign_up) {
+        if (results.reseller) {
           scope.brand = results;
         }
       }, function() {
