@@ -22,8 +22,8 @@
                       <label for="company_name">
                         <translate>Location Name</translate>
                       </label>
-                      <input type="text" name="location_name" ng-model="holding.location_name" placeholder="{{ 'Name your first location' | translate }}" md-maxlength="25" ng-minlength="5" autofocus required>
-                      <div ng-messages="myForm.location_name.$error" md-auto-hide="false">
+                      <input type="text" name="location_name" ng-model="holding.company_name" placeholder="{{ 'Name your first location' | translate }}" md-maxlength="25" ng-minlength="5" autofocus required>
+                      <div ng-messages="myForm.company_name.$error" md-auto-hide="false">
                         <div ng-message="required" translate>A location name is required.</div>
                         <div ng-message="md-maxlength" translate>Name should be less than 25 characters.</div>
                         <div ng-message="minlength" translate>Name should be at least characters.</div>
