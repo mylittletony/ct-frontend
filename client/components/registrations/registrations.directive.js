@@ -22,7 +22,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
         type: 'showcase',
         check: true
       }).$promise.then(function(results) {
-        if (results.reseller) {
+        if (results.reseller_sign_up) {
           scope.brand = results;
         }
       }, function() {
