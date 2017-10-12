@@ -264,15 +264,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       if ((cname === null || cname === '') && event.data.url !== 'default') {
         var sub   = locationHelper.subdomain();
         var host  = locationHelper.domain();
-        // put back when on public //
-        // if (event.data.url && (sub !== event.data.url)) {
-        //   var newUrl = locationHelper.reconstructed(event.data.url);
-        //   var reconstructed = newUrl + '/#/switch?return_to=' + event.path;
-        //   $cookies.put('event', JSON.stringify(event), {'domain': host});
-        //   window.location = reconstructed;
-        // } else {
+        if (event.data.url && (sub !== event.data.url)) {
+          var newUrl = locationHelper.reconstructed(event.data.url);
+          var reconstructed = newUrl + '/#/';
+          $cookies.put('event', JSON.stringify(event), {'domain': host});
+          window.location = reconstructed;
+        } else {
           doLogin(event);
-        // }
+        }
       } else {
         doLogin(event);
       }
