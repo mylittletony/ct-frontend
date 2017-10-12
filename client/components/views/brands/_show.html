@@ -267,6 +267,30 @@
 
               </md-card-content>
             </md-card>
+
+            <md-card ng-if="brand.reseller">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">
+                    <md-icon md-font-icon="android" aria-label="android">star</md-icon>
+                    <translate>Custom logo</translate>
+                  </span>
+                  <span class="md-subhead">
+                    Enter the URL of your company logo to display in top-left of dashboard, only available on Reseller plans.
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+
+              <md-card-content>
+
+                <div layout="column" layout-gt-xs="row" layout-wrap flex="100">
+                  <md-input-container class="md-block" flex-gt-xs="66">
+                    <label><translate>Image Url</translate></label>
+                    <input  type="text" name="logo_url" ng-model="brand.logo_url"></input>
+                  </md-input-container>
+                </div>
+              </md-card-content>
+            </md-card>
             <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
           </div>
         </div>
