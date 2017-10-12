@@ -857,7 +857,7 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
   };
 }]);
 
-app.directive('userQuotas', ['Quota', '$routeParams', function(Quota,$routeParams) {
+app.directive('userQuotas', ['Quota', 'showToast', 'gettextCatalog', 'showErrors', '$routeParams', '$localStorage', function(Quota,showToast,gettextCatalog,showErrors,$routeParams,$localStorage) {
 
   var link = function( scope, element, attrs ) {
 
@@ -865,7 +865,21 @@ app.directive('userQuotas', ['Quota', '$routeParams', function(Quota,$routeParam
       Quota.get({user_id: $routeParams.id}).$promise.then(function(data) {
         scope.quota = data.quota;
         scope.usage = data.usage;
+        scope.user = $localStorage.user;
         scope.loading = undefined;
+      });
+    };
+
+    scope.editBoxQuota = function() {
+      scope.edit_ap_quota = true;
+    };
+
+    scope.saveBoxQuota = function(quota) {
+      scope.edit_ap_quota = false;
+      Quota.update({}, {user_id: $routeParams.id, id: scope.quota.id, updated_by: scope.user.slug, quota: {boxes: scope.quota.boxes}}).$promise.then(function(data) {
+        showToast(gettextCatalog.getString(data.message));
+      }, function(errors) {
+        showErrors(errors);
       });
     };
 
