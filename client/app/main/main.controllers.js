@@ -445,7 +445,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.url   = results.url;
         $scope.brandName.id    = results.id;
         $scope.brandName.logo_url = results.logo_url;
-        console.log($scope.brandName)
       }, function() {
         setDefaultImages(sub);
       });
