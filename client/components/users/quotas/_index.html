@@ -33,8 +33,7 @@
                 <tr md-row>
                   <td md-cell><span translate>Boxes</span></td>
                   <td md-cell>{{ usage.boxes || 0 }}</td>
-                  <td md-cell ng-if="!edit_ap_quota">{{ quota.boxes || 0 }}<md-button ng-if="user.reseller" ng-click='editBoxQuota()' style="min-width: 36px"><md-icon style="font-size: 18px">edit</md-icon></md-button></td>
-                  <td md-cell ng-if="edit_ap_quota"><input style="max-width: 30px" ng-model="quota.boxes" type="number"></input><md-button ng-click='saveBoxQuota(quota.boxes)' style="min-width: 36px"><md-icon style="font-size: 18px">done</md-icon></md-button></td>
+                  <td md-cell>{{ quota.boxes || 0 }}<md-button ng-if="user.reseller" ng-click='editBoxQuota()' style="min-width: 36px"><md-icon style="font-size: 18px">edit</md-icon></md-button></td>
                 </tr>
                 <tr md-row>
                   <td md-cell><span translate>Vouchers</spans></td>
