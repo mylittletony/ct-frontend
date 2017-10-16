@@ -28,8 +28,7 @@ app.factory('Quota', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
           user_id: '@user_id',
           id: '@id',
-          quota: '@quota',
-          updated_by: '@updated_by'
+          quota: '@quota'
         }
       }
     });
