@@ -857,7 +857,7 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
   };
 }]);
 
-app.directive('userQuotas', ['Quota', 'showToast', 'gettextCatalog', 'showErrors', '$routeParams', '$localStorage', function(Quota,showToast,gettextCatalog,showErrors,$routeParams,$localStorage) {
+app.directive('userQuotas', ['Quota', 'showToast', 'gettextCatalog', 'showErrors', '$routeParams', '$localStorage', '$mdDialog', function(Quota,showToast,gettextCatalog,showErrors,$routeParams,$localStorage,$mdDialog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -871,12 +871,30 @@ app.directive('userQuotas', ['Quota', 'showToast', 'gettextCatalog', 'showErrors
     };
 
     scope.editBoxQuota = function() {
-      scope.edit_ap_quota = true;
+      $mdDialog.show({
+        templateUrl: 'components/users/quotas/_update_quota.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        locals: {
+          quota: scope.quota
+        },
+        controller: DialogController
+      });
     };
 
-    scope.saveBoxQuota = function(quota) {
-      scope.edit_ap_quota = false;
-      Quota.update({}, {user_id: $routeParams.id, id: scope.quota.id, updated_by: scope.user.slug, quota: {boxes: scope.quota.boxes}}).$promise.then(function(data) {
+    function DialogController ($scope,quota) {
+      $scope.quota = quota;
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function() {
+        $mdDialog.cancel();
+        saveBoxQuota();
+      };
+    }
+
+    var saveBoxQuota = function(quota) {
+      Quota.update({}, {user_id: $routeParams.id, id: scope.quota.id, quota: {boxes: scope.quota.boxes}}).$promise.then(function(data) {
         showToast(gettextCatalog.getString(data.message));
       }, function(errors) {
         showErrors(errors);
