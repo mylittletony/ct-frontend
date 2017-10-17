@@ -199,7 +199,7 @@
                     <translate>Reseller Settings</translate>
                   </span>
                   <span class="md-subhead">
-                    Enable this to allow customers to sign up at <b>https://{{brand.url}}.ctapp.io/#/create</b>.
+                    Enable this to allow customers to sign up at <b ng-if="brand.cname">{{brand.cname}}/#/create</b><b ng-if="!brand.cname">https://{{brand.url}}.ctapp.io/#/create</b>.
                   </span>
                 </md-card-title-text>
               </md-card-title>
