@@ -304,27 +304,36 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && !Auth.currentUser().custom && Auth.currentUser().user_hash !== undefined)) {
+      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
         vm.menu.Intercom = true;
-        var settings = {
-            app_id: INTERCOM,
-            user_id: Auth.currentUser().accountId,
-            email: Auth.currentUser().email,
-            name: Auth.currentUser().username,
-            created_at: Auth.currentUser().created_at,
-            user_hash: Auth.currentUser().user_hash,
-            brand_name: Auth.currentUser().url,
-            cname: Auth.currentUser().cname,
-            sense_active: Auth.currentUser().sense_active,
-            plan_name: Auth.currentUser().plan_name,
-            paid_plan: Auth.currentUser().paid_plan,
-            locs: Auth.currentUser().locs,
-            version: '2'
-        };
-        settings.widget = {
-          activator: '#intercom'
-        };
-        window.Intercom('boot', settings);
+        var app_id;
+        if (Auth.currentUser().custom && !Auth.currentUser().reseller) {
+          app_id = $scope.brandName.intercom_id;
+        } else {
+          app_id = INTERCOM;
+        }
+        if (app_id) {
+          var settings = {
+              app_id: app_id,
+              user_id: Auth.currentUser().accountId,
+              reseller: Auth.currentUser().reseller,
+              email: Auth.currentUser().email,
+              name: Auth.currentUser().username,
+              created_at: Auth.currentUser().created_at,
+              user_hash: Auth.currentUser().user_hash,
+              brand_name: Auth.currentUser().url,
+              cname: Auth.currentUser().cname,
+              sense_active: Auth.currentUser().sense_active,
+              plan_name: Auth.currentUser().plan_name,
+              paid_plan: Auth.currentUser().paid_plan,
+              locs: Auth.currentUser().locs,
+              version: '2'
+          };
+          settings.widget = {
+            activator: '#intercom'
+          };
+          window.Intercom('boot', settings);
+        }
       }
     });
 
@@ -444,6 +453,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.admin = results.admin;
         $scope.brandName.url   = results.url;
         $scope.brandName.id    = results.id;
+        $scope.brandName.intercom_id = results.intercom_id;
       }, function() {
         setDefaultImages(sub);
       });
