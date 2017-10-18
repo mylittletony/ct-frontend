@@ -17,5 +17,22 @@ app.factory('Quota', ['$resource', '$localStorage', 'API_END_POINT',
     });
   }]);
 
+app.factory('Quota', ['$resource', '$localStorage', 'API_END_POINT',
+  function($resource, $localStorage, API_END_POINT){
+    return $resource(API_END_POINT + '/users/:user_id/quotas/:id',
+      {},
+      {
+      update: {
+        method: 'PATCH',
+        isArray: false,
+        params: {
+          user_id: '@user_id',
+          id: '@id',
+          quota: '@quota'
+        }
+      }
+    });
+  }]);
+
 
 

@@ -1,0 +1,25 @@
+<md-dialog aria-label="Update Quota" ng-cloak flex="75" flex-sm="40" flex-gt-sm="20">
+  <form name="form" ng-submit="save()">
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2 translate>Update User's Quota</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="row" layout-wrap>
+        <md-input-container class="md-block" flex="100">
+          <label translate>Box Quota</label>
+          <input ng-model="quota.boxes" type="number" min="0" max="99"></input>
+        </md-input-container>
+        <p translate><small class="muted">Feature only available on reseller plans. Update the default box quota on brand settings page.</small></p>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>Close</translate>
+      </md-button>
+      <md-button type="submit" ng-disabled="form.$pristine || form.$invalid" class="md-raised md-wardn"><translate>UPDATE QUOTA</translate></md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
