@@ -34,10 +34,6 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
       brandCheck();
     }
 
-    // if (subdomain !== 'my' || subdomain !== 'dashboard') {
-    //   brandCheck();
-    // }
-
     var cookies = $cookies.get('_cth', { domain: domain });
     if (cookies) {
       scope.cookies = JSON.parse(cookies);
