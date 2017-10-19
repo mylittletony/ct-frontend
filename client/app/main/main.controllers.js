@@ -309,27 +309,31 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         var intercom_id;
         if ($scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
           intercom_id = $scope.brandName.intercom_id;
+        } else {
+          intercom_id = INTERCOM
         }
-        var settings = {
-            app_id: intercom_id || INTERCOM,
-            user_id: Auth.currentUser().accountId,
-            reseller: Auth.currentUser().reseller,
-            email: Auth.currentUser().email,
-            name: Auth.currentUser().username,
-            created_at: Auth.currentUser().created_at,
-            user_hash: Auth.currentUser().user_hash,
-            brand_name: Auth.currentUser().url,
-            cname: Auth.currentUser().cname,
-            sense_active: Auth.currentUser().sense_active,
-            plan_name: Auth.currentUser().plan_name,
-            paid_plan: Auth.currentUser().paid_plan,
-            locs: Auth.currentUser().locs,
-            version: '2'
-        };
-        settings.widget = {
-          activator: '#intercom'
-        };
-        window.Intercom('boot', settings);
+        if (intercom_id !== undefined) {
+          var settings = {
+              app_id: intercom_id,
+              user_id: Auth.currentUser().accountId,
+              reseller: Auth.currentUser().reseller,
+              email: Auth.currentUser().email,
+              name: Auth.currentUser().username,
+              created_at: Auth.currentUser().created_at,
+              user_hash: Auth.currentUser().user_hash,
+              brand_name: Auth.currentUser().url,
+              cname: Auth.currentUser().cname,
+              sense_active: Auth.currentUser().sense_active,
+              plan_name: Auth.currentUser().plan_name,
+              paid_plan: Auth.currentUser().paid_plan,
+              locs: Auth.currentUser().locs,
+              version: '2'
+          };
+          settings.widget = {
+            activator: '#intercom'
+          };
+          window.Intercom('boot', settings);
+        }
       }
     });
 
