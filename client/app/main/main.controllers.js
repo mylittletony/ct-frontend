@@ -466,7 +466,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         sub = parts[0];
         if (sub !== 'dashboard') {
           getBrand(sub);
-          window.location.hostname = 'dashboard.' + host
+          window.location.hostname = 'dashboard.' + host;
           return;
         }
         setDefaultImages();
