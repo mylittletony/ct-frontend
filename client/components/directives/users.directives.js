@@ -1308,6 +1308,11 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
         name: gettextCatalog.getString('Revoke'),
         icon: 'delete_forever'
       });
+      scope.menu.push({
+        type: 'view',
+        name: gettextCatalog.getString('View'),
+        icon: 'pageview'
+      });
     };
 
     scope.menuAction = function(type,user) {
@@ -1317,6 +1322,9 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
           break;
         case 'revoke':
           destroy(user);
+          break;
+        case 'view':
+          $location.path('/users/' + user.slug);
           break;
       }
     };
