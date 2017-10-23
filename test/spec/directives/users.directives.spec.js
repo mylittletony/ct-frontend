@@ -53,9 +53,10 @@ describe('users', function () {
       $scope.$apply()
 
       expect(element.isolateScope().users[0].role_id).toBe(200);
-      expect(element.isolateScope().menu.length).toBe(2);
+      expect(element.isolateScope().menu.length).toBe(3);
       expect(element.isolateScope().menu[0].type).toBe('edit');
       expect(element.isolateScope().menu[1].type).toBe('revoke');
+      expect(element.isolateScope().menu[2].type).toBe('view');
 
       // Tests other scopes are set
       expect(element.isolateScope().query.order).toBe('created_at');
