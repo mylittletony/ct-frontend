@@ -343,7 +343,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           icon: 'warning'
         });
 
-        if ($localStorage.user && $localStorage.user.custom) {
+        if ($localStorage.user && ($localStorage.user.custom !== true || $localStorage.user.reseller === true)) {
           vm.menu.main.push({
             title: gettextCatalog.getString('Brands'),
             type: 'link',
