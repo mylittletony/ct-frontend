@@ -260,21 +260,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     $scope.$on('login', function(args,event) {
       console.log('Logging in...');
-      var cname = event.data.cname;
-      if ((cname === null || cname === '') && event.data.url !== 'default') {
-        var sub   = locationHelper.subdomain();
-        var host  = locationHelper.domain();
-        if (event.data.url && (sub !== event.data.url)) {
-          var newUrl = locationHelper.reconstructed(event.data.url);
-          var reconstructed = newUrl + '/#/';
-          $cookies.put('event', JSON.stringify(event), {'domain': host});
-          window.location = reconstructed;
-        } else {
-          doLogin(event);
-        }
-      } else {
-        doLogin(event);
-      }
+      doLogin(event);
     });
 
     function doLogin(event) {
@@ -475,8 +461,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       else if (parts.length === 3) {
         sub = parts[0];
-        if (sub !== 'my' && sub !== 'dashboard' ) {
+        if (sub !== 'dashboard' && sub !== 'my') {
           getBrand(sub);
+          // window.location.hostname = 'dashboard.' + host;
           return;
         }
         setDefaultImages();

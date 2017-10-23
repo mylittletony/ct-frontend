@@ -19,9 +19,9 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
 
     var brandCheck = function() {
       Brand.query({
-        id: subdomain,
+        id: subdomain + domain,
         type: 'showcase',
-        check: true
+        cname: true
       }).$promise.then(function(results) {
         if (results.reseller) {
           scope.brand = results;
@@ -30,7 +30,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
       });
     };
 
-    if (subdomain !== 'my' || subdomain !== 'dashboard') {
+    if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
       brandCheck();
     }
 
