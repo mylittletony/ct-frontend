@@ -492,7 +492,8 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         page: scope.query.page,
         per: scope.query.limit,
         start: scope.query.start,
-        end: scope.query.end
+        end: scope.query.end,
+        interval: 'day'
       };
     };
 
