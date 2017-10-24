@@ -260,22 +260,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     $scope.$on('login', function(args,event) {
       console.log('Logging in...');
-      var cname = event.data.cname;
-      if ((cname === null || cname === '') && event.data.url !== 'default') {
-        var sub   = locationHelper.subdomain();
-        var host  = locationHelper.domain();
-        // put back when on public //
-        // if (event.data.url && (sub !== event.data.url)) {
-        //   var newUrl = locationHelper.reconstructed(event.data.url);
-        //   var reconstructed = newUrl + '/#/switch?return_to=' + event.path;
-        //   $cookies.put('event', JSON.stringify(event), {'domain': host});
-        //   window.location = reconstructed;
-        // } else {
-          doLogin(event);
-        // }
-      } else {
-        doLogin(event);
-      }
+      doLogin(event);
     });
 
     function doLogin(event) {
@@ -305,27 +290,36 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && !Auth.currentUser().custom && Auth.currentUser().user_hash !== undefined)) {
+      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
         vm.menu.Intercom = true;
-        var settings = {
-            app_id: INTERCOM,
-            user_id: Auth.currentUser().accountId,
-            email: Auth.currentUser().email,
-            name: Auth.currentUser().username,
-            created_at: Auth.currentUser().created_at,
-            user_hash: Auth.currentUser().user_hash,
-            brand_name: Auth.currentUser().url,
-            cname: Auth.currentUser().cname,
-            sense_active: Auth.currentUser().sense_active,
-            plan_name: Auth.currentUser().plan_name,
-            paid_plan: Auth.currentUser().paid_plan,
-            locs: Auth.currentUser().locs,
-            version: '2'
-        };
-        settings.widget = {
-          activator: '#intercom'
-        };
-        window.Intercom('boot', settings);
+        var intercom_id;
+        if ($scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
+          intercom_id = $scope.brandName.intercom_id;
+        } else {
+          intercom_id = INTERCOM
+        }
+        if (intercom_id !== undefined) {
+          var settings = {
+              app_id: intercom_id,
+              user_id: Auth.currentUser().accountId,
+              reseller: Auth.currentUser().reseller,
+              email: Auth.currentUser().email,
+              name: Auth.currentUser().username,
+              created_at: Auth.currentUser().created_at,
+              user_hash: Auth.currentUser().user_hash,
+              brand_name: Auth.currentUser().url,
+              cname: Auth.currentUser().cname,
+              sense_active: Auth.currentUser().sense_active,
+              plan_name: Auth.currentUser().plan_name,
+              paid_plan: Auth.currentUser().paid_plan,
+              locs: Auth.currentUser().locs,
+              version: '2'
+          };
+          settings.widget = {
+            activator: '#intercom'
+          };
+          window.Intercom('boot', settings);
+        }
       }
     });
 
@@ -358,7 +352,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           icon: 'warning'
         });
 
-        if ($localStorage.user && $localStorage.user.custom) {
+        if ($localStorage.user && ($localStorage.user.custom !== true || $localStorage.user.reseller === true)) {
           vm.menu.main.push({
             title: gettextCatalog.getString('Brands'),
             type: 'link',
@@ -445,6 +439,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.admin = results.admin;
         $scope.brandName.url   = results.url;
         $scope.brandName.id    = results.id;
+        $scope.brandName.intercom_id = results.intercom_id;
+        $scope.brandName.logo_url = results.logo_url;
+        $scope.brandName.reseller = results.reseller
       }, function() {
         setDefaultImages(sub);
       });
@@ -464,8 +461,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       else if (parts.length === 3) {
         sub = parts[0];
-        if (sub !== 'my' && sub !== 'dashboard' ) {
-          getBrand(sub);
+        if (sub !== 'dashboard' && sub !== 'alpha-preview') {
+          if (sub !== 'my') {
+            getBrand(sub);
+          }
+          window.location.hostname = 'dashboard.' + host;
           return;
         }
         setDefaultImages();
