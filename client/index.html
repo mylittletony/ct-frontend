@@ -75,7 +75,7 @@
         </md-button>
         <h2>
           <a href="/#/" ng-if="!brandName.logo_url">{{ brandName.name | titleCase }}</a>
-          <a href="/#/" ng-if="brandName.logo_url"><img src="{{brandName.logo_url}}" style="max-height: 24px; max-width: 150px"></a>
+          <a href="/#/" ng-if="brandName.logo_url"><img ng-src="{{brandName.logo_url}}" style="max-height: 24px; max-width: 150px"></a>
         </h2>
         <md-divider class="vertical-divider" ng-if="vm.menu.sectionName"></md-divider>
         <h2>
