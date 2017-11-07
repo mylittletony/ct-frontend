@@ -1742,7 +1742,6 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
         location_id:  box.location_id
       }).$promise.then(function(data) {
         scope.box_data = data.meta[0];
-      }, function() {
       });
     };
 

@@ -15,6 +15,7 @@
     "grunt-angular-gettext": "^2.2.3",
     "grunt-angular-templates": "^1.0.3",
     "grunt-autoprefixer": "^3.0.4",
+    "grunt-cli": "^1.2.0",
     "grunt-concurrent": "^2.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.0",
@@ -104,9 +105,6 @@
     "sync-exec": "^0.6.2",
     "tslint": "^3.5.0",
     "typings": "^0.8.1"
-  },
-  "engines": {
-    "node": "4.4.7"
   },
   "scripts": {
     "start": "node server/app.js",

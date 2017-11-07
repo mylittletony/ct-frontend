@@ -1507,11 +1507,6 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     scope.loading = true;
     scope.type  = 'devices.load5';
     var colours = COLOURS.split(' ');
-
-    // Depreciate soon
-    if (ClientDetails.client.version === '3.0') {
-      scope.type  = 'devices.load';
-    }
     var opts = controller.options;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
@@ -1988,6 +1983,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         axis: 'horizontal',
         actions: [ 'dragToZoom', 'rightClickToReset'],
       };
+
       if (scope.fs) {
         opts.height = 600;
       } else {
