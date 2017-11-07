@@ -2,18 +2,37 @@
 
 var app = angular.module('myApp.registrations.directives', []);
 
-app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$cookies', 'menu', function(Holding, locationHelper, $routeParams, $cookies, menu) {
+app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$routeParams', '$location', '$cookies', 'menu', 'gettextCatalog', function(Holding, User, Brand, locationHelper, $routeParams, $location, $cookies, menu, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
     var domain = locationHelper.domain();
+    var subdomain = locationHelper.subdomain();
 
     menu.hideToolbar = false;
     menu.hideBurger = true;
     menu.isOpenLeft = false;
     menu.isOpen = false;
 
-    scope.brand_name = 'Cucumber WiFi';
+    scope.brand_name = 'CT WiFi';
+    scope.user = {}
+
+    var brandCheck = function() {
+      Brand.query({
+        id: subdomain + domain,
+        type: 'showcase',
+        cname: true
+      }).$promise.then(function(results) {
+        if (results.reseller) {
+          scope.brand = results;
+        }
+      }, function() {
+      });
+    };
+
+    if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
+      brandCheck();
+    }
 
     var cookies = $cookies.get('_cth', { domain: domain });
     if (cookies) {
@@ -26,8 +45,13 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
       var now         = new Date();
       var ts          = now.setDate(now.getDate() + 1);
       var expires     = new Date(ts);
+      var holding_account = {};
+      holding_account.email = scope.user.email;
+      if (scope.brand) {
+        holding_account.brand = scope.brand.id;
+      }
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
-      Holding.create({email: scope.user.email}).$promise.then(function(data) {
+      Holding.create(holding_account).$promise.then(function(data) {
       }, function() {
         scope.clearCookies();
       });
@@ -37,6 +61,7 @@ app.directive('createHolding', ['Holding', 'locationHelper', '$routeParams', '$c
       scope.cookies = undefined;
       $cookies.remove('_cth', { domain: domain });
     };
+
   };
 
   return {
@@ -63,8 +88,12 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var setStage = function(stage) {
       if (stage === 1) {
-        $location.hash('brand');
-        scope.checkBrand();
+        if (scope.brand_url) {
+          $location.hash('user');
+        } else {
+          $location.hash('brand');
+          scope.checkBrand();
+        }
       } else if (stage === 2) {
         $location.hash('user');
       } else if (stage === 3) {
@@ -103,7 +132,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     setStage();
 
     scope.brandName = BrandName;
-    if (scope.brandName.name === 'Cucumber WiFi') {
+    if (scope.brandName.name === 'CT WiFi') {
       scope.brandName.name = gettextCatalog.getString('My Awesome Company');
     }
 
@@ -124,6 +153,9 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var init = function() {
       Holding.get({id: $routeParams.id}).$promise.then(function(data) {
+        if (data.brand_id && data.brand_url) {
+          scope.brand_url = data.brand_url;
+        }
         scope.loading = undefined;
       }, function(err) {
         $cookies.remove('_cth', { domain: domain });
@@ -147,6 +179,9 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     var save = function() {
       $location.hash('done');
       scope.creatingAccount = true;
+      if (scope.brand_url) {
+        scope.user.url = scope.brand_url;
+      }
       Holding.update({id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
         scope.errors = undefined;
         var timer = $timeout(function() {

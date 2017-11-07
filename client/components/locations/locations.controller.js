@@ -159,11 +159,36 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: gettextCatalog.getString('History'),
+        name: gettextCatalog.getString('Audits'),
+        type: 'subhead',
+      });
+
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('History'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/versions',
+      //   icon: 'history',
+      //   active: isActive('versions')
+      // });
+
+      menu.sections.push({
+        name: gettextCatalog.getString('Audit'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/versions',
+        link: '/#/locations/' + $scope.location.slug + '/audit',
         icon: 'history',
-        active: isActive('versions')
+        active: isActive('audit')
+      });
+
+      menu.sections.push({
+        name: gettextCatalog.getString('Logging'),
+        type: 'link',
+        link: '/#/locations/' + $scope.location.slug + '/logs',
+        icon: 'library_books',
+        active: isActive('logs')
+      });
+
+      menu.sections.push({
+        type: 'divider',
       });
 
       menu.sections.push({
@@ -274,20 +299,6 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
         link: '/#/locations/',
         type: 'link',
         icon: 'business',
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Reports'),
-        link: '/#/reports/',
-        type: 'link',
-        icon: 'timeline',
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Audit'),
-        link: '/#/audit/',
-        type: 'link',
-        icon: 'assignment',
       });
 
       menu.sections.push({

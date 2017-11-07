@@ -1,6 +1,6 @@
 FROM node:4.4
 
-MAINTAINER Cucumber WiFi
+MAINTAINER CT WiFi
 
 RUN \
   apt-get update && \

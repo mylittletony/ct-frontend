@@ -122,7 +122,7 @@ app.directive('audit', ['Report', '$routeParams', '$location', 'Location', '$q',
 
 }]);
 
-app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', '$q', '$timeout', 'gettextCatalog', 'pagination_labels', function(Session, $routeParams, $location, Client, $q, $timeout, gettextCatalog, pagination_labels) {
+app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client', 'Location', '$q', '$timeout', 'gettextCatalog', 'pagination_labels', function(Session, $routeParams, $location, Client, Location, $q, $timeout, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -240,9 +240,18 @@ app.directive('auditSessions', ['Session', '$routeParams', '$location', 'Client'
     // the conversion from a numeric id to slug in the locs. controller what???
 
     scope.visitClient = function(session) {
-      Client.get({location_id: session.location_id, q: session.client_mac}, function(data) {
-        $location.path('/locations/' + data.location_slug + '/clients/' + data.id);
-      }, function(){
+      Location.get({id: session.location_id}, function(location) {
+        $location.path('/locations/' + location.slug + '/clients/' + session.client_mac);
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    scope.visitLocation = function(session) {
+      Location.get({id: session.location_id}, function(location) {
+        $location.path('/locations/' + location.slug);
+      }, function(err){
+        console.log(err);
       });
     };
 

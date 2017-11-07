@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -12,6 +12,10 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     function updateLocation() {
       Location.update({}, {
@@ -62,7 +66,7 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
 
 }]);
 
-app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
+app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope', '$location', '$timeout', '$localStorage', 'gettextCatalog', 'showToast', function(Location, Auth, $routeParams, $rootScope, $location, $timeout, $localStorage, gettextCatalog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -80,6 +84,10 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     function updateLocation() {
       Location.update({}, {
@@ -119,7 +127,7 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
       scope.end          = $routeParams.end;
-      scope.dateFiltered = true
+      scope.dateFiltered = true;
     } else {
       scope.start    = (Math.floor(new Date() / 1000) - 21600);
       scope.end      = Math.floor(new Date() / 1000);
@@ -127,7 +135,7 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
 
 
     Location.get({id: $routeParams.id}, function(data) {
-      scope.location = data
+      scope.location = data;
     }, function(err){
       console.log(err);
     });
@@ -235,7 +243,7 @@ app.directive('locationWirelessReports', ['Report', '$routeParams', '$rootScope'
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
       scope.end          = $routeParams.end;
-      scope.dateFiltered = true
+      scope.dateFiltered = true;
     } else {
       scope.start    = (Math.floor(new Date() / 1000) - 21600);
       scope.end      = Math.floor(new Date() / 1000);
@@ -243,7 +251,7 @@ app.directive('locationWirelessReports', ['Report', '$routeParams', '$rootScope'
 
 
     Location.get({id: $routeParams.id}, function(data) {
-      scope.location = data
+      scope.location = data;
     }, function(err){
       console.log(err);
     });
@@ -446,7 +454,245 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, locationHelper, $q, Shortener, $timeout, Box) {
+app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Client, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var params = {};
+
+    scope.startDate = moment().utc().subtract(6, 'days').startOf('day').toDate();
+    scope.endDate = moment().utc().toDate();
+
+    var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
+    var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
+
+    scope.audit_models = ['Radius Sessions', 'Clients', 'Emails', 'Guests', 'Social', 'Sales'];
+
+    var mailerType = {
+      'Radius Sessions': 'radius',
+      'Clients': 'client',
+      'Emails': 'email',
+      'Guests': 'guest',
+      'Social': 'social',
+      'Sales': 'order'
+    };
+
+    scope.selected = 'Radius Sessions' || $routeParams.type;
+
+    scope.query = {
+      page: $routeParams.page || 1,
+      limit: $routeParams.per || 25,
+      start: $routeParams.start || weekAgoEpoch,
+      end: $routeParams.end || nowEpoch
+    };
+
+    var getParams = function() {
+      params = {
+        location_id: scope.location.id,
+        page: scope.query.page,
+        per: scope.query.limit,
+        start: scope.query.start,
+        end: scope.query.end,
+        interval: 'day'
+      };
+    };
+
+    var clearTable = function() {
+      scope.results = [];
+      scope.links = undefined;
+      $location.search();
+      if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
+        showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
+      }
+    };
+
+    var findSessions = function() {
+      getParams();
+      params.client_mac = scope.query.client_mac;
+      Session.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Radius Sessions';
+        scope.results = data.sessions;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findEmails = function() {
+      getParams();
+      Email.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Emails';
+        scope.results = data.emails;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findClients = function() {
+      getParams();
+      Client.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Clients';
+        scope.results = data.clients;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findGuests = function() {
+      getParams();
+      Guest.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Guests';
+        scope.results = data.guests;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findSocial = function() {
+      getParams();
+      Social.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Social';
+        scope.results = data.social;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findOrders = function() {
+      getParams();
+      Order.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Sales';
+        scope.results = data.orders;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var downloadReport = function() {
+      var params = {
+        start: scope.query.start,
+        end: scope.query.end,
+        location_id: scope.location.id,
+        type: mailerType[scope.selected]
+      };
+      Report.create(params).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.updateAudit = function(selected) {
+      switch(selected) {
+        case 'Emails':
+          findEmails();
+          break;
+        case 'Clients':
+          findClients();
+          break;
+        case 'Guests':
+          findGuests();
+          break;
+        case 'Social':
+          findSocial();
+          break;
+        case 'Sales':
+          findOrders();
+          break;
+        default:
+          findSessions();
+          break;
+      }
+    };
+
+    scope.setStart = function() {
+      scope.query.start = new Date(scope.startDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.setEnd = function() {
+      scope.query.end = new Date(scope.endDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.filterSessionsByClient = function(mac) {
+      scope.query.client_mac = mac;
+      findSessions();
+    };
+
+    scope.clearClientFilter = function() {
+      scope.query.client_mac = undefined;
+      findSessions();
+    };
+
+    scope.onPaginate = function(page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.downloadAudit = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Download Report'))
+      .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
+      .ariaLabel(gettextCatalog.getString('Email Report'))
+      .ok(gettextCatalog.getString('Download'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        downloadReport();
+      });
+    };
+
+    var getLocation = function() {
+      var deferred = $q.defer();
+      Location.get({id: $routeParams.id}).$promise.then(function(results) {
+        scope.location = results;
+        deferred.resolve(results.results);
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var init = function() {
+      getLocation().then(function() {
+        getParams();
+        scope.updateAudit(scope.selected);
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/audit/_index.html'
+  };
+
+}]);
+
+app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', '$localStorage', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, $localStorage, locationHelper, $q, Shortener, $timeout, Box) {
 
   var link = function(scope,element,attrs) {
 
@@ -454,6 +700,10 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       scope.querySearch        = querySearch;
       scope.selectedItemChange = selectedItemChange;
       scope.searchTextChange   = searchTextChange;
+
+      if ($localStorage.user) {
+        scope.white_label = $localStorage.user.custom;
+      }
 
       if ($rootScope.loggedIn || (scope.$parent.loggedIn && scope.$parent.loggedOut === undefined)) {
         scope.loggedIn = true;
@@ -984,15 +1234,6 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
           user: user,
         }
       });
-      // var confirm = $mdDialog.confirm()
-      // .title(gettextCatalog.getString('Remove User'))
-      // .textContent(gettextCatalog.getString('Removing a user will prevent them from accessing this location.'))
-      // .ariaLabel(gettextCatalog.getString('Remove'))
-      // .ok(gettextCatalog.getString('remove'))
-      // .cancel(gettextCatalog.getString('Cancel'));
-      // $mdDialog.show(confirm).then(function() {
-      //   revokeAdmin(user);
-      // });
     };
 
     function RevokeController ($scope, user) {
@@ -1178,12 +1419,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
 
       scope.menuItems.push({
-        name: gettextCatalog.getString('Resync'),
-        type: 'resync',
-        icon: 'settings_backup_restore'
-      });
-
-      scope.menuItems.push({
         name: gettextCatalog.getString('Delete'),
         type: 'delete',
         icon: 'delete_forever'
@@ -1284,36 +1519,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         console.log('Could not reboot box:', errors);
         box.state = 'online';
         box.processing = undefined;
-      });
-    };
-
-    var resync = function(box,ev) {
-      var confirm = $mdDialog.confirm()
-        .title(gettextCatalog.getString('Resync The Configs for this Device?'))
-        .textContent(gettextCatalog.getString('This will disconnect your clients temporarily.'))
-        .ariaLabel(gettextCatalog.getString('Lucky day'))
-        .targetEvent(ev)
-        .ok(gettextCatalog.getString('Resync it'))
-        .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        resyncBox(box);
-      });
-    };
-
-    var resyncBox = function(box) {
-      box.state = 'processing';
-      Box.update({
-        location_id: scope.location.slug,
-        id: box.slug,
-        box: {
-          action: 'resync'
-        }
-      }).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Device resynced successfully.'));
-      }, function(errors) {
-        box.state = 'failed';
-        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
-        console.log('Could not resync device:', errors);
       });
     };
 
@@ -1622,7 +1827,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
           }
         }
       }
-    }
+    };
 
     var boxMetadata = function() {
       scope.box_macs = '';
@@ -1882,7 +2087,7 @@ app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 
 }]);
 
-app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
+app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function($timeout, $localStorage) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -1893,6 +2098,9 @@ app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
 
     scope.ctrl = {};
     scope.ctrl.levels = [1,2,3];
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     scope.back = function() {
       controller.back();
@@ -2606,7 +2814,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-app.directive('homeStatCards', ['Report', function (Report) {
+app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
   var link = function(scope,element,attrs) {
 
@@ -2615,9 +2823,12 @@ app.directive('homeStatCards', ['Report', function (Report) {
     var init = function() {
 
       Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
-        scope.stats     = results.stats;
-        process();
-        scope.loading   = undefined;
+        Box.get({state: 'offline', per: 25, page: 1}).$promise.then(function(data) {
+          scope.stats     = results.stats;
+          scope.stats.alerts = data._links.total_entries
+          process();
+          scope.loading   = undefined;
+        })
       });
 
     };

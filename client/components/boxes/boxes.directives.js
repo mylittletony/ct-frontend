@@ -52,14 +52,14 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         case 'payloads':
           scope.payloads();
           break;
-        case 'resync':
-          scope.resyncBox();
-          break;
         case 'operations':
           viewOperations();
           break;
         case 'changelog':
           viewHistory();
+          break;
+        case 'logging':
+          logs();
           break;
         case 'reset':
           scope.resetBox();
@@ -79,7 +79,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       });
 
       if (scope.box.is_cucumber) {
-
         scope.menu.push({
           name: gettextCatalog.getString('Reboot'),
           icon: 'autorenew',
@@ -106,33 +105,20 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'transfer',
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Delete'),
-        icon: 'delete_forever',
-        type: 'delete'
-      });
-
       if (scope.box.v === '4') {
         scope.menu.push({
           name: gettextCatalog.getString('Operations'),
           icon: 'access_time',
           type: 'operations',
         });
-
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Reset'),
-        //   icon: 'clear',
-        //   type: 'reset',
-        // });
       }
 
       if (scope.box.is_cucumber) {
-        // scope.menu.push({
-        //   name: gettextCatalog.getString('Resync'),
-        //   icon: 'settings_backup_restore',
-        //   disabled: !scope.box.allowed_job,
-        //   type: 'resync',
-        // });
+        scope.menu.push({
+          name: gettextCatalog.getString('Logs'),
+          icon: 'library_books',
+          type: 'logging',
+        });
 
         scope.menu.push({
           name: gettextCatalog.getString('Reset'),
@@ -140,6 +126,16 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           type: 'reset',
         });
       }
+
+      scope.menu.push({
+        name: gettextCatalog.getString('Delete'),
+        icon: 'delete_forever',
+        type: 'delete'
+      });
+    };
+
+    var logs = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/logs?ap_mac=' + scope.box.calledstationid;
     };
 
     var checkZones = function(results) {
@@ -215,6 +211,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       var action = 'reset';
       if (reset === true) {
         scope.resetting = true;
+        scope.box.allowed_job = false;
+        createMenu();
       } else {
         action = 'cancel';
       }
@@ -240,37 +238,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         showToast(err);
         scope.box.state = 'failed';
         scope.resetting = undefined;
-      });
-    };
-
-    scope.resyncBox = function(ev) {
-      var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Resync this Device'))
-      .textContent(gettextCatalog.getString('This will force a complete refresh of it\'s configuration files. A resync will disconnect any wireless clients temporarily'))
-      .ariaLabel(gettextCatalog.getString('Resync Device'))
-      .targetEvent(ev)
-      .ok(gettextCatalog.getString('Resync it'))
-      .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        resyncBox();
-      });
-    };
-
-    var resyncBox = function() {
-      scope.box.state = 'processing';
-      scope.box.allowed_job = false;
-      Box.update({
-        location_id: scope.location.slug,
-        id: scope.box.slug,
-        box: {
-          action: 'resync'
-        }
-      }).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Device resync in progress. Please wait.'));
-      }, function(errors) {
-        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
-        console.log('Could not resync device:', errors);
-        scope.box.state = 'online';
       });
     };
 
@@ -791,13 +758,16 @@ app.directive('splashOnly', ['Box', 'showToast', 'showErrors', 'gettextCatalog',
 
 }]);
 
-app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
+app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', 'showErrors', 'moment', 'gettextCatalog', 'Zone', '$rootScope', '$pusher', '$timeout', '$location', function(Box, $routeParams, $localStorage, showToast, showErrors, moment, gettextCatalog, Zone, $rootScope, $pusher, $timeout, $location) {
 
   var link = function(scope) {
 
     var channel, timer;
 
     scope.location = { slug: $routeParams.id };
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
     scope.timezones = moment.tz.names();
 
     var ht20_channels  = ['auto', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
@@ -822,7 +792,7 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
           {key: 'VHT20', value: 'VHT20' },
           {key: 'VHT40', value: 'VHT40'},
           {key: 'VHT80', value: 'VHT80'},
-          {key: 'VHT160', value: 'VHT160'}
+          // {key: 'VHT160', value: 'VHT160'}
         ];
       } else {
         scope.ht_modes_5 = scope.ht_modes;
@@ -857,8 +827,8 @@ app.directive('editBox', ['Box', '$routeParams', 'showToast', 'showErrors', 'mom
         scope.channels5 = vht40_channels_5;
       } else if (scope.box.ht_mode_5 === 'VHT80') {
         scope.channels5 = vht80_channels_5;
-      } else if (scope.box.ht_mode_5 === 'VHT1600') {
-        scope.channels5 = vht160_channels_5;
+      // } else if (scope.box.ht_mode_5 === 'VHT1600') {
+      //   scope.channels5 = vht160_channels_5;
       }
     };
 
@@ -1481,7 +1451,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
   };
 }]);
 
-app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware', '$cookies', 'menu', 'gettextCatalog', function($routeParams, $location, Box, Firmware, $cookies, menu, gettextCatalog) {
+app.directive('downloadFirmware', ['$routeParams', '$location', '$localStorage', 'Box', 'Firmware', 'Auth', '$cookies', 'menu', 'gettextCatalog', function($routeParams, $location, $localStorage, Box, Firmware, Auth, $cookies, menu, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1491,6 +1461,9 @@ app.directive('downloadFirmware', ['$routeParams', '$location', 'Box', 'Firmware
     menu.sectionName = gettextCatalog.getString('Downloads');
 
     var init = function() {
+      if ($localStorage.user) {
+        scope.white_label = $localStorage.user.custom;
+      }
       Firmware.query({public: true}).$promise.then(function(res) {
         scope.firmwares   = res;
         scope.loading     = undefined;

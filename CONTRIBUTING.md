@@ -1,6 +1,6 @@
 # How to contribute
 
-Here are a few guidelines that we need contributors to follow so that we can 
+Here are a few guidelines that we need contributors to follow so that we can
 have a chance of keeping on top of things.
 
 ## Getting Started
@@ -30,5 +30,5 @@ have a chance of keeping on top of things.
 ## Submitting Changes
 
 * Push your changes to a topic branch in your fork of the repository.
-* Submit a pull request to the repository in the Cucumber Tony organization.
+* Submit a pull request to the repository in the CT organization.
 * We will look at Pull Requests on a regular basis.
