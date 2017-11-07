@@ -315,9 +315,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       if ($scope.brandName && $scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
         // check if there is a special brand intercom id, otherwise just hide it
         if ($scope.brandName.intercom_id) {
-          window.intercomSettings.app_id = $scope.brandName.intercom_id
+          window.intercomSettings.app_id = $scope.brandName.intercom_id;
         } else {
-          window.intercomSettings.hide_default_launcher = true
+          window.intercomSettings.hide_default_launcher = true;
         }
       }
     });
