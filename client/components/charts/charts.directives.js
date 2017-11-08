@@ -2022,6 +2022,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           data.addColumn('number', name);
         }
 
+        console.log(json.data[0]);
         for(var x = 0; x < json.data[0].data.length; x++) {
           var time;
           var array = [];
