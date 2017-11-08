@@ -2004,7 +2004,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         for(var i = 0; i < json.data.length; i++) {
           var name;
           for (var j = 0; j < json.meta.length; j++) {
-            // console.log(json.meta[j], json.data[i].tags)
             if (json.meta[j].interface === json.data[i].tags.interface) {
               var freq = json.meta[j].freq;
               if (freq === '2') {
@@ -2022,7 +2021,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
           data.addColumn('number', name);
         }
 
-        console.log(json.data[0]);
         for(var x = 0; x < json.data[0].data.length; x++) {
           var time;
           var array = [];

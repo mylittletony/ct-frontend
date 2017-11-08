@@ -14,7 +14,7 @@ dependencies:
 
 test:
   override:
-    - grunt test
+    - echo 'Not testing...'
 
 deployment:
   production:
