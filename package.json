@@ -44,6 +44,7 @@
     "passport-polkaspots": "1.0.5",
     "request": "~2.51.0",
     "serve-favicon": "*",
+    "serverless": "^1.24.1",
     "static-favicon": "~1.0.0",
     "sync-exec": "^0.6.2",
     "time-grunt": "^1.2.1",

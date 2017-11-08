@@ -38,7 +38,7 @@
       <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" ><translate>6h</translate></md-button>
       <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" ><translate>1d</translate></md-button>
       <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }" ><translate>7d</translate></md-button>
-      <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" ><translate>30d</translate></md-button>
+      <!-- <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" ><translate>30d</translate></md-button> -->
     </md-button-group>
     <md-menu ng-if="menu">
       <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -60,7 +60,7 @@
 <section ng-if="!loading && !fs">
   <md-subheader class="md-no-sticky">
     <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" ng-class="{ 'box-image': box.device_icon !== 'blank.png' }"/>
-    <!-- <device-meta box="box"></device-meta> -->
+    <device-meta box="box"></device-meta>
   </md-subheader>
 </section>
 
@@ -351,9 +351,9 @@
   <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" ing-if="box.state != 'new'">
     <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" class="clients-charts">
       <div layout="" layout-wrap>
-        <!-- <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
-        <!--   <usage-chart ></usage-chart> -->
-        <!-- </div> -->
+        <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+          <usage-chart ></usage-chart>
+        </div>
         <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'tx'">
           <tx-chart></tx-chart>
         </div>
