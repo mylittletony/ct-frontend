@@ -587,20 +587,26 @@ module.exports = function (grunt) {
       },
       beta: {
         options: {
-          remote: 'git@heroku.com:secure-mesa-9387.git',
+          remote: 'git@heroku.com:secure-mesa-9387.git', // alpha....
           branch: 'master',
           force: true
         }
       },
+      dev: {
+        options: {
+          remote: 'git@heroku.com:thawing-basin-34731.git', // dev egg testing
+          branch: 'master'
+        }
+      },
       master: {
         options: {
-          remote: 'git@heroku.com:sheltered-bayou-9283.git',
+          remote: 'git@heroku.com:sheltered-bayou-9283.git', // basically for resellers
           branch: 'master'
         }
       },
       usa: {
         options: {
-          remote: 'git@heroku.com:limitless-brook-11104.git',
+          remote: 'git@heroku.com:limitless-brook-11104.git', // the main repo
           branch: 'master'
         }
       }
