@@ -39,13 +39,22 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker
-      - run: echo "hello world ${PROJECT_NAME}"
       - run: bash .circleci/setup-heroku.sh
 
       - add_ssh_keys:
           fingerprints:
             - "86:6d:6a:1e:03:e6:a9:68:13:53:6e:6a:0b:dd:8c:17"
+
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run:
+          name: Install DEPS
+          command: sudo npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
 
       - run: |
           if [ "$CIRCLE_BRANCH"  == "master" ]
@@ -54,6 +63,7 @@ jobs:
           else
             grunt build-beta
           fi
+
 workflows:
   version: 2
   build-test-and-deploy:
