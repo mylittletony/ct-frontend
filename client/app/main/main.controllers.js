@@ -440,7 +440,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.id    = results.id;
         $scope.brandName.intercom_id = results.intercom_id;
         $scope.brandName.logo_url = results.logo_url;
-        $scope.brandName.reseller = results.reseller
+        $scope.brandName.reseller = results.reseller;
       }, function() {
         setDefaultImages(sub);
       });
@@ -460,7 +460,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       else if (parts.length === 3) {
         sub = parts[0];
-        if (sub !== 'dashboard' && sub !== 'alpha-preview') {
+        if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg') {
           if (sub !== 'my') {
             getBrand(sub);
           }
