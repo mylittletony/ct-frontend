@@ -514,9 +514,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       menu.isOpen = false;
       scope.fs = { panel: obj.panel };
       loadCharts();
-      // $timeout(function() {
-      //   controller.$scope.$broadcast('loadClientChart', 'device');
-      // },250);
     });
 
     controller.$scope.$on('closeFullScreen', function(val,obj) {
@@ -524,29 +521,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       menu.isOpen = true;
       scope.fs = undefined;
       loadCharts();
-      // $timeout(function() {
-      //   controller.$scope.$broadcast('loadClientChart', 'device');
-      // },250);
     });
-
-    var sortSsids = function() {
-      if (scope.box.metadata && scope.box.metadata.ssids && scope.box.metadata.ssids.length > 0) {
-        if (scope.box.metadata.ssids.length === 1) {
-          scope.box.ssids = scope.box.metadata.ssids[0];
-        } else {
-          var ssids = scope.box.metadata.ssids;
-          if (ssids.length > 2) {
-            var temp = ssids.slice(0,2).join(', ');
-            scope.box.all_ssids = scope.box.metadata.ssids.join(', ');
-            scope.box.ssids = temp + ' and ' + (ssids.length - 2) + ' more.';
-          } else {
-            scope.box.ssids = ssids.slice(0,2).join(' & ');
-          }
-        }
-      } else {
-        scope.box.ssids = gettextCatalog.getString('N/A');
-      }
-    };
 
     var viewOperations = function() {
       $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
@@ -566,16 +541,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     init().then(function() {
-      // loadTput();
-      // loadCharts();
       createMenu();
-      sortSsids();
       loadPusher();
       getZones().then(function() {
         processAlertMessages();
       });
     });
-    // loadCharts();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
@@ -827,8 +798,6 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
         scope.channels5 = vht40_channels_5;
       } else if (scope.box.ht_mode_5 === 'VHT80') {
         scope.channels5 = vht80_channels_5;
-      // } else if (scope.box.ht_mode_5 === 'VHT1600') {
-      //   scope.channels5 = vht160_channels_5;
       }
     };
 
@@ -837,7 +806,6 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
         channel = pusher.subscribe('private-' + scope.box.location_pubsub);
-        console.log('Binding to:', channel.name);
         channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
           console.log('Message received at', new Date().getTime() / 1000);
           processNotification(data.message);
@@ -1742,7 +1710,6 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
         location_id:  box.location_id
       }).$promise.then(function(data) {
         scope.box_data = data.meta[0];
-      }, function() {
       });
     };
 
