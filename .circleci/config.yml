@@ -56,6 +56,10 @@ jobs:
           name: Install DEPS
           command: sudo npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
 
+      - run:
+          name: Install Bower
+          command: npm install && bower install
+
       - run: |
           if [ "$CIRCLE_BRANCH"  == "master" ]
           then
