@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circulate
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run:
+          name: install-npm-wee
+          command: ls && npm install
+
+      - run:
+          name: run-yarn
+          command: yarn build
+
+      - run:
+          name: run-yarn
+          command: pwd && ls && ls dist/
+
+      - run: bash .circleci/setup-heroku.sh
+      - add_ssh_keys:
+          fingerprints:
+            - "86:6d:6a:1e:03:e6:a9:68:13:53:6e:6a:0b:dd:8c:17"
+
+      - deploy:
+          name: Deploy Master to Heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git config --global user.email "you@example.com"
+              git config --global user.name "Your Name"
+              git add --all
+              git commit -am 'Oh update'
+              git push heroku master --force
+            fi
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
