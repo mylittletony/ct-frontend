@@ -131,6 +131,7 @@ module.exports = function (grunt) {
       production: {
         constants: {
           API_END_POINT: 'https://api.ctapp.io/api/v1',
+          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
           API_URL: 'https://api.ctapp.io',
           STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
           AUTH_URL: 'https://id.ctapp.io',
