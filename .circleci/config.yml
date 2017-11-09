@@ -65,7 +65,7 @@ jobs:
           then
             grunt build
           else
-            grunt build-beta
+            grunt build-$CIRCLE_BRANCH
           fi
           git config --global user.email "simon@polkaspots.com"\
           && git config --global user.name "Simon Morley"\
