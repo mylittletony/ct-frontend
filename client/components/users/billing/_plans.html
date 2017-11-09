@@ -4,59 +4,9 @@
       <span class="md-headline" translate>
         Plans
       </span>
-      <span class="md-subhead" ng-if="!user.credit_card_last4 && !user.promo" translate>
-        Add a card to your account before choosing a plan from the list below.
-      </span>
-      <span class="md-subhead" ng-if="!user.credit_card_last4 && user.promo" translate>
-        <b style="font-size: 16px;">Activate your free trial! Enter your card details first, then choose the plan from the list below.</b>
+      <span class="md-subhead" translate>
+        <p>Please contact support about pricing plans.</p>
       </span>
     </md-card-title-text>
   </md-card-title>
-  <md-card-content>
-
-    <md-table-container>
-      <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
-        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
-          <tr md-row>
-            <th md-column><span translate>Name</span></th>
-            <th md-column><span translate>Monthly Cost</span></th>
-            <th hide show-gt-sm md-column><span translate>Cost per Device</span></th>
-            <th hide show-gt-sm md-column><span translate>Free Devices</span></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody md-body>
-          <tr md-row ng-repeat="plan in plans | orderBy: query.order">
-            <td md-cell>
-              <a href="" ng-click="viewPlan(plan.slug)">{{ ::plan.plan_name }}</a>
-            </td>
-            <td md-cell>
-              {{ ::plan.plan_price | currency : curr }}
-            </td>
-            <td hide show-gt-sm md-cell>
-              {{ ::(plan.cost_per_50 / 100 || 0) | currency : curr }}
-            </td>
-            <td hide show-gt-sm md-cell>
-              {{ ::plan.per_ap_allowance || '∞' }}
-            </td>
-            <td md-cell>
-              <md-button disabled="true" ng-if="plan.plan_id === user.plan_id"><translate>YOUR PLAN</translate></md-button>
-              <md-button ng-disabled="!user.stripe_id" ng-click="upgrade(plan)" ng-if="(plan.plan_id != user.plan_id) && plan.upgrading != true && !plan.free">
-                <translate>UPGRADE</translate>
-              </md-button>
-              <span ng-if="plan.upgrading">
-                <md-progress-circular style="margin: 0 0 0 30px;" md-diameter="20px"></md-progress-circular>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </md-table-container>
-  </md-card-content>
-  <md-divider ng-if="!$last"></md-divider>
-  <md-card-actions layout="row" layout-align="left center" style="padding: 20px 20px;">
-    <small>
-      <p><translate>Visit the main site for more information about the plans.</translate> <b><translate>European customers will be charged tax at the local rate. If you have an EU VAT number, please contact support to have the tax removed.</translate></b> <translate>For more information, read the docs here.</translate></p>
-    </small>
-  </md-card-actions>
 </md-card>
