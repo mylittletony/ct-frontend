@@ -11,7 +11,7 @@ then
   grunt build
 else
   echo "Building $CIRCLE_BRANCH branch"
-  grunt build-beta
+  grunt build-$CIRCLE_BRANCH
 fi
 
 rm -rf dist/.git*
