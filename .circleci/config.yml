@@ -29,6 +29,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+
   deploy:
     working_directory: ~/circulate
     docker:
@@ -36,7 +37,12 @@ jobs:
         environment:
           RAILS_ENV: test
 
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: echo "hello world ${PROJECT_NAME}"
       - run: bash .circleci/setup-heroku.sh
+
       - add_ssh_keys:
           fingerprints:
             - "86:6d:6a:1e:03:e6:a9:68:13:53:6e:6a:0b:dd:8c:17"
