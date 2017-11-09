@@ -67,7 +67,7 @@ jobs:
           else
             grunt build-beta
           fi
-
+          yes | grunt buildcontrol:$CIRCLE_BRANCH
 workflows:
   version: 2
   build-test-and-deploy:
