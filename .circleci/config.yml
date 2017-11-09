@@ -69,12 +69,12 @@ jobs:
           fi
           git config --global user.email "simon@polkaspots.com"\
           && git config --global user.name "Simon Morley"\
-          && yes | grunt buildcontrol:$CIRCLE_BRANCH && echo 'done'
+          && grunt buildcontrol:$CIRCLE_BRANCH && echo 'done'
 
       - run: |
           if [ "$CIRCLE_BRANCH"  == "master" ]
           then
-            rm -rf dist/.git && yes | grunt buildcontrol:usa && echo 'Done!'
+            rm -rf dist/.git && grunt buildcontrol:usa && echo 'Done!'
           else
             echo 'Not updating USA branch...'
           fi
