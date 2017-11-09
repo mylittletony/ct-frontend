@@ -74,6 +74,7 @@ jobs:
 
       - run: |
           if [ "$CIRCLE_BRANCH"  == "master" ]
+          then
             rm -rf dist/.git && yes | grunt buildcontrol:usa && echo 'Done!'
           fi
 
