@@ -69,7 +69,9 @@ jobs:
           fi
           git config --global user.email "simon@polkaspots.com"\
           && git config --global user.name "Simon Morley"\
-          && yes | grunt buildcontrol:$CIRCLE_BRANCH
+          && yes | grunt buildcontrol:$CIRCLE_BRANCH \
+          && echo 'Done!'
+
 workflows:
   version: 2
   build-test-and-deploy:
