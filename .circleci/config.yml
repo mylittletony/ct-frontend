@@ -1,0 +1,95 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circulate
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run:
+          name: Install DEPS
+          command: sudo npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
+
+      - run:
+          name: install-npm-wee
+          command: ls && npm install
+
+      - run:
+          name: Should test - please put me back
+          command: echo 'Testing is for losers'
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+
+  deploy:
+    working_directory: ~/circulate
+    docker:
+      - image: circleci/node:4.8.2
+        environment:
+          RAILS_ENV: test
+
+    steps:
+      - checkout
+      - run: bash .circleci/setup-heroku.sh
+
+      - add_ssh_keys:
+          fingerprints:
+            - "86:6d:6a:1e:03:e6:a9:68:13:53:6e:6a:0b:dd:8c:17"
+
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run:
+          name: Install DEPS
+          command: sudo npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
+
+      - run:
+          name: Install Bower
+          command: npm install && bower install
+
+      - run: |
+          if [ "$CIRCLE_BRANCH"  == "master" ]
+          then
+            grunt build
+          else
+            grunt build-$CIRCLE_BRANCH
+          fi
+          git config --global user.email "simon@polkaspots.com"\
+          && git config --global user.name "Simon Morley"\
+          && grunt buildcontrol:$CIRCLE_BRANCH && echo 'done'
+
+      - run: |
+          if [ "$CIRCLE_BRANCH"  == "master" ]
+          then
+            rm -rf dist/.git && grunt buildcontrol:usa && echo 'Done!'
+          else
+            echo 'Not updating USA branch...'
+          fi
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+                - beta
+                - dev

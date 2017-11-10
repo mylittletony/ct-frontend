@@ -2,7 +2,7 @@ machine:
   timezone:
     'Europe/London'
   node:
-    version: 4.0.0
+    version: 6.11.3
 
 dependencies:
   pre:
@@ -14,7 +14,7 @@ dependencies:
 
 test:
   override:
-    - grunt test
+    - echo 'Not testing...'
 
 deployment:
   production:

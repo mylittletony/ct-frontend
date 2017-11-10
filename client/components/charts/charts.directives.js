@@ -1507,11 +1507,6 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     scope.loading = true;
     scope.type  = 'devices.load5';
     var colours = COLOURS.split(' ');
-
-    // Depreciate soon
-    if (ClientDetails.client.version === '3.0') {
-      scope.type  = 'devices.load';
-    }
     var opts = controller.options;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
@@ -1988,6 +1983,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         axis: 'horizontal',
         actions: [ 'dragToZoom', 'rightClickToReset'],
       };
+
       if (scope.fs) {
         opts.height = 600;
       } else {
@@ -2008,7 +2004,6 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         for(var i = 0; i < json.data.length; i++) {
           var name;
           for (var j = 0; j < json.meta.length; j++) {
-            // console.log(json.meta[j], json.data[i].tags)
             if (json.meta[j].interface === json.data[i].tags.interface) {
               var freq = json.meta[j].freq;
               if (freq === '2') {
