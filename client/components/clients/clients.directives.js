@@ -1318,7 +1318,6 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       client.name = scope.client.name;
       client.network_id = scope.client.network_id;
       client.zone_id = scope.client.zone_id;
-      client.blocked = scope.client.blocked;
       client.description = scope.client.description;
       Client.update({
         location_id: scope.location.slug,
