@@ -33,7 +33,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-lastseen',
-      limit:      $routeParams.per || 100,
+      limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
       // sort:       $routeParams.sort || 'lastseen',
@@ -640,8 +640,8 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
       ClientV2.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
-        scope.connected = results.online;
-        scope.total = results.total;
+        scope.connected = results._links.total_entries;
+        scope.total = results._links.total_entries;
         fetchBoxes().then(function() {
           deferred.resolve();
         });
