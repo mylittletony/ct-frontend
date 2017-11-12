@@ -101,6 +101,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
   $httpProvider.interceptors.push('httpRequestInterceptor');
 
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
+  $httpProvider.defaults.headers.common['X-Api-Key'] = 'api-token';
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
