@@ -759,7 +759,7 @@ app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_U
       request: function(config){
         var token = AccessToken.get();
         if ((token) && (apiRegExp.test(config.url))) {
-          // config.headers.Authorization = 'Bearer ' + token;
+          config.headers.Authorization = 'Bearer ' + token;
         }
         return config;
       },
