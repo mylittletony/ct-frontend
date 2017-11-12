@@ -101,7 +101,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
   $httpProvider.interceptors.push('httpRequestInterceptor');
 
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
-  $httpProvider.defaults.headers.common['X-Api-Key'] = 'api-token';
+  // $httpProvider.defaults.headers.common['X-Api-Key'] = 'api-token';
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
@@ -759,7 +759,7 @@ app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_U
       request: function(config){
         var token = AccessToken.get();
         if ((token) && (apiRegExp.test(config.url))) {
-          config.headers.Authorization = 'Bearer ' + token;
+          // config.headers.Authorization = 'Bearer ' + token;
         }
         return config;
       },
