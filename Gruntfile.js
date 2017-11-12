@@ -72,7 +72,8 @@ module.exports = function (grunt) {
       test: {
         constants: {
           API_END_POINT: 'http://api.ctapp.dev:8080/api/v1',
-          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
+          // API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
+          API_END_POINT_V2: 'https://ldn-01.ctapp.io/api/v1',
           API_URL: 'http://api.ctapp.dev:8080',
           STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
           AUTH_URL: 'http://my.ctapp.dev:8080',
