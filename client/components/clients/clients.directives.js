@@ -35,7 +35,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       order:      '-lastseen',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
-      options:    [5,10,25],
+      options:    [5,10,25,50],
       // sort:       $routeParams.sort || 'lastseen',
       // direction:  $routeParams.direction || 'desc',
       start:      $routeParams.start,
