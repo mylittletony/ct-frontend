@@ -640,7 +640,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
       ClientV2.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
-        scope.connected = results._links.total_entries;
+        scope.connected = 0
+        for (var i = 0, len = scope.clients.length; i < len; i++) {
+          console.log(scope.clients[i])
+          if (scope.clients[i].online === true) {
+            scope.connected += 1
+          }
+        }
         scope.total = results._links.total_entries;
         fetchBoxes().then(function() {
           deferred.resolve();
