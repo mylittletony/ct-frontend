@@ -61,7 +61,7 @@ app.run(['$templateCache', function ($templateCache) {
     '<md-button ng-class="{\'active\' : section.active }" \n' +
     '  ui-sref-active="active" ui-sref="{{section.state}}" href=\'{{ section.link }}\' ng-click="focusSection(section)">\n' +
     '  <md-icon md-menu-origin md-font-icon="{{ section.icon }}">{{ section.icon }}</md-icon>'+
-    '  {{section | humanizeDoc}}\n' +
+    '  <md-tooltip md-direction="right">{{section | humanizeDoc}}</md-tooltip>'+
     '</md-button>\n' +
     '');
 }]);

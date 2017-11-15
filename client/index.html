@@ -67,20 +67,38 @@
 
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
+  <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-1dp"
+              md-component-id="left"
+              aria-label="'Main Menu' | translate"
+              md-whiteframe="4"
+              md-is-open="vm.menu.isOpenLeft"
+              md-is-locked-open="$mdMedia('gt-sm')">
+
+    <md-content role="navigation" class="flex" ng-cloak>
+
+      <md-toolbar class="md-table-toolbar md-default">
+        <div class="sidenav md-toolbar-tools">
+          <a class="mimo-logo" href="/#/">
+            <img class="mimo-logo" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/mimo-logo.svg">
+          </a>
+        </div>
+      </md-toolbar>
+
+      <ul class="side-menu">
+        <li ng-repeat="section in vm.menu.sections" class="parent-list-item" iing-class="{'active' : vm.isSelected(section) }">
+          <menu-link section="section" ng-if="section.type == 'link'"></menu-link>
+          <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
+        </li>
+      </ul>
+    </md-content>
+  </md-sidenav>
+
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
     <md-toolbar ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
       <div class="md-toolbar-tools">
-        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
+        <md-button hide-gt-sm id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
-        <h2>
-          <a href="/#/" ng-if="!brandName.logo_url">{{ brandName.name | titleCase }}</a>
-          <a href="/#/" ng-if="brandName.logo_url"><img ng-src="{{brandName.logo_url}}" style="max-height: 24px; max-width: 150px"></a>
-        </h2>
-        <md-divider class="vertical-divider" ng-if="vm.menu.sectionName"></md-divider>
-        <h2>
-          {{ vm.menu.sectionName }}
-        </h2>
         <span flex></span>
         <span hide show-gt-sm ng-if="loggedIn">
 
@@ -90,49 +108,12 @@
             </md-button>
           </span>
 
-          <span ng-if="vm.upgrade">
-            <md-button aria-label="'Open Apps Menu' | translate" ng-click="vm.showUpgrade()">
-              UPGRADE
-            </md-button>
-          </span>
-
-          <md-menu>
-            <md-button aria-label="'Open Apps Menu' | translate" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <md-icon>apps</md-icon>
-            </md-button>
-            <md-menu-content width="4" >
-              <md-menu-item ng-repeat="item in vm.menu.main">
-                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
-                <md-button ing-if="section.type == 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
-                  <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
-                  {{ item.title }}
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
-
-          <!-- <md-menu>
-            <md-button aria-label="'Open Apps Menu' | translate" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <md-icon>assessment</md-icon>
-            </md-button>
-            <md-menu-content width="4" >
-              <md-menu-item ng-repeat="item in vm.menu.reports">
-                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
-                <md-button ing-if="section.type == 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
-                  <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
-                  {{ item.title }}
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu> -->
           <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
-            <a target="_blank" href="http://discuss.cucumberwifi.io">
-              <md-icon>forum</md-icon>
+            <md-tooltip md-direction="bottom">Locations</md-tooltip>
+            <a href="/#/locations">
+              <md-icon>place</md-icon>
             </a>
           </md-button>
-          <!-- <md-button class="md-icon-button" aria-label="'Support' | translate" id="feedbackTrigger">
-            <md-icon>feedback</md-icon>
-          </md-button> -->
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <user-avatar></user-avatar>
@@ -144,39 +125,6 @@
                   <span translate>Account</span>
                 </md-button>
               </md-menu-item>
-              <md-menu-divider></md-menu-divider>
-
-              <md-menu-item ng-if="user && !user.custom">
-                <md-button target="_blank" ng-href="http://docs.cucumberwifi.io" >
-                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">account_balance</md-icon>
-                  <span translate>Documentation</span>
-                </md-button>
-              </md-menu-item>
-
-              <md-menu-item ng-if="user && !user.custom">
-                <md-button target="_blank" ng-href="https://discuss.cucumberwifi.io/" >
-                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">forum</md-icon>
-                  <span translate>Discussions</span>
-                </md-button>
-              </md-menu-item>
-
-              <!-- <md-menu-divider></md-menu-divider> -->
-              <md-menu-item>
-                <md-button href="/#/downloads" ng-click="$mdMenu.hide()">
-                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">get_app</md-icon>
-                  <span translate>Downloads</span>
-                </md-button>
-              </md-menu-item>
-
-              <md-menu-item>
-                <md-button href="/#/apps" ng-click="$mdMenu.hide()">
-                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">build</md-icon>
-                  <span translate>Developer</span>
-                </md-button>
-              </md-menu-item>
-
-              <md-menu-divider></md-menu-divider>
-
               <md-menu-item>
                 <md-button ng-click="logout()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">exit_to_app</md-icon>
@@ -224,51 +172,6 @@
           </md-content>
         </md-sidenav>
 
-        <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-1dp"
-                    md-component-id="left"
-                    aria-label="'Main Menu' | translate"
-                    md-whiteframe="4"
-                    md-is-open="vm.menu.isOpenLeft"
-                    md-is-locked-open="vm.menu.isOpen && $mdMedia('gt-sm')">
-
-          <md-content role="navigation" class="flex" ng-cloak>
-
-            <md-toolbar class="md-table-toolbar md-default">
-              <div class="sidenav md-toolbar-tools">
-                <h2 class="menu-heading menu-subhead">
-                <span>
-                  <md-icon ng-if="vm.menu.locationStateIcon !== undefined" class=".md-default-theme md-warn">{{vm.menu.locationStateIcon}}</md-icon>
-                  <md-tooltip md-direction="bottom">
-                    <span ng-if="vm.menu.locationStateIcon == 'archived'">
-                      This location has been archived
-                    </span>
-                    <span ng-if="vm.menu.locationStateIcon == 'vpn_locked'">
-                      Invisible location
-                    </span>
-                  </md-tooltip>
-                </span>
-                  {{ vm.menu.header }}
-                </h2>
-              </div>
-              <md-divider></md-divider>
-            </md-toolbar>
-
-            <ul class="side-menu">
-              <li ng-repeat="section in vm.menu.sections" class="parent-list-item" iing-class="{'active' : vm.isSelected(section) }">
-                <menu-link section="section" ng-if="section.type == 'link'"></menu-link>
-                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
-                <h2 class="menu-heading menu-subhead" id="heading_{{ section.name | nospace }}" ng-if="section.type == 'subhead'">
-                  {{ section.name }}
-                </h2>
-              </li>
-            </ul>
-          </md-content>
-          <div layout="row" layout-padding layout-align="start end" class="copy" hide show-gt-md>
-            <small>
-              <translate>Privacy Policy - Terms of Service</translate><br>
-              ©2018 CT.<br>Build #{{ commit }}</small>
-          </div>
-        </md-sidenav>
         <md-content class="intercom-foot-pad" flex>
           <div ng-view autoscroll="true" ng-class="{'hidden': notFound}"></div>
           <div style="margin: 30px 40px;" ng-class="{'hidden': !notFound}">
