@@ -65,13 +65,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     var createMenu = function() {
       // menu.header = $scope.location.location_name;
 
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Dashboard'),
-      //   link: '/#/locations/' + $scope.location.slug,
-      //   type: 'link',
-      //   icon: 'dashboard',
-      //   active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
-      // });
+      menu.sections.push({
+        name: gettextCatalog.getString('Dashboard'),
+        link: '/#/locations/' + $scope.location.slug,
+        type: 'link',
+        icon: 'multiline_chart',
+        active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
+      });
 
       menu.sections.push({
         name: gettextCatalog.getString('Devices'),
@@ -89,46 +89,29 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         active: isActive('networks')
       });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Clients'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/clients',
-        icon: 'devices',
-        active: isActive('clients')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Clients'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/clients',
+      //   icon: 'devices',
+      //   active: isActive('clients')
+      // });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Zones'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/zones',
-        icon: 'layers',
-        active: isActive('zones')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Zones'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/zones',
+      //   icon: 'layers',
+      //   active: isActive('zones')
+      // });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Policies'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/group_policies',
-        icon: 'group_work',
-        active: isActive('group_policies')
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Triggers'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/triggers',
-        icon: 'notifications_active',
-        active: isActive('triggers')
-      });
-
-      menu.sections.push({
-        type: 'divider',
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Guest Access'),
-        type: 'subhead',
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Policies'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/group_policies',
+      //   icon: 'group_work',
+      //   active: isActive('group_policies')
+      // });
 
       menu.sections.push({
         name: gettextCatalog.getString('Splash'),
@@ -139,29 +122,28 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: gettextCatalog.getString('vouchers'),
+        name: gettextCatalog.getString('Campaigns'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/vouchers',
-        icon: 'receipt',
-        active: isActive('vouchers')
+        link: '/#/locations/' + $scope.location.slug + '/triggers',
+        icon: 'mood',
+        active: isActive('triggers')
       });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Codes'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/splash_codes',
-        icon: 'vpn_key',
-        active: isActive('splash_codes')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('vouchers'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/vouchers',
+      //   icon: 'receipt',
+      //   active: isActive('vouchers')
+      // });
 
-      menu.sections.push({
-        type: 'divider',
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Audits'),
-        type: 'subhead',
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Codes'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/splash_codes',
+      //   icon: 'vpn_key',
+      //   active: isActive('splash_codes')
+      // });
 
       // menu.sections.push({
       //   name: gettextCatalog.getString('History'),
@@ -175,29 +157,25 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         name: gettextCatalog.getString('Audit'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/audit',
-        icon: 'history',
+        icon: 'library_books',
         active: isActive('audit')
       });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Logging'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/logs',
-        icon: 'library_books',
-        active: isActive('logs')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Logging'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/logs',
+      //   icon: 'library_books',
+      //   active: isActive('logs')
+      // });
 
-      menu.sections.push({
-        type: 'divider',
-      });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Users'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/users',
-        icon: 'people',
-        active: isActive('users')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Users'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/users',
+      //   icon: 'people',
+      //   active: isActive('users')
+      // });
 
       menu.sections.push({
         name: gettextCatalog.getString('Settings'),
