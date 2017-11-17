@@ -37,6 +37,14 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
       });
     };
 
+    scope.deleteAccount = function() {
+      User.destroy({id: id, email: scope.user.email}).$promise.then(function (res) {
+        console.log('hello');
+      }, function() {
+        console.log('hi');
+      });
+    };
+
     scope.update = function(form) {
       form.$setPristine();
       scope.user.plan = undefined;
