@@ -2823,12 +2823,9 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
     var init = function() {
 
       Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
-        Box.get({state: 'offline', per: 25, page: 1}).$promise.then(function(data) {
-          scope.stats     = results.stats;
-          scope.stats.alerts = data._links.total_entries
-          process();
-          scope.loading   = undefined;
-        })
+        scope.stats     = results.stats;
+        process();
+        scope.loading   = undefined;
       });
 
     };
