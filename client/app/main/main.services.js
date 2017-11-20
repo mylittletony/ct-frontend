@@ -16,7 +16,6 @@ var app = angular.module('myApp.services', [
   'myApp.distros.services',
   'myApp.docs.services',
   'myApp.emails.services',
-  'myApp.events.services',
   'myApp.firmwares.services',
   'myApp.forms.services',
   'myApp.geocoder.services',

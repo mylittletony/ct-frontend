@@ -2483,43 +2483,6 @@ app.directive('appStatus', ['statusPage', 'gettextCatalog', function(statusPage,
 
 }]);
 
-app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Shortener,$location) {
-
-  var link = function(scope) {
-
-    scope.loading = true;
-
-    var init = function() {
-      Event.query({object: 'box', level: 2, per: 5}).$promise.then(function(results) {
-        scope.events = results.events;
-        scope.loading = undefined;
-      }, function(error) {
-        scope.loading = undefined;
-      });
-    };
-
-    scope.visitBox = function(s) {
-      Shortener.get({short: s}).$promise.then(function(results) {
-        $location.path(results.url);
-        $location.search({});
-      }, function() {
-        $location.search({});
-      });
-    };
-
-    init();
-
-  };
-
-  return {
-    scope: {
-    },
-    link: link,
-    templateUrl: 'components/locations/show/_warnings.html',
-  };
-
-}]);
-
 app.directive('favourites', ['Location', '$location', function(Location, $location) {
 
   var link = function(scope) {

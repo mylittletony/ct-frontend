@@ -283,14 +283,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
-    when('/events', {
-      templateUrl: 'components/events/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/events/:id', {
-      templateUrl: 'components/events/show.html',
-      resolve: { loginRequired: loginRequired },
-    }).
     when('/locations', {
       templateUrl: 'components/locations/index/list.html',
       resolve: { loginRequired: loginRequired }
