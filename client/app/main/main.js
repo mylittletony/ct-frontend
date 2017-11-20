@@ -273,9 +273,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/boxes', {
-      redirectTo: '/alerts'
-    }).
     when('/distributors/:id', {
       templateUrl: 'components/distros/distro.html',
       resolve: { loginRequired: loginRequired },
