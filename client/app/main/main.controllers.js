@@ -4,7 +4,6 @@ var app = angular.module('myApp.controllers', [
   'myApp.authentications.controller',
   'myApp.brands.controller',
   'myApp.boxes.controller',
-  'myApp.events.controller',
   'myApp.heartbeats.controller',
   'myApp.jobs.controller',
   'myApp.invoices.controller',
@@ -103,13 +102,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       link: '/#/locations',
       type: 'link',
       icon: 'business'
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Events'),
-      link: '/#/events',
-      type: 'link',
-      icon: 'warning'
     });
 
     vm.menuRight.push({
@@ -344,13 +336,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           icon: 'business'
         });
 
-        vm.menu.main.push({
-          title: gettextCatalog.getString('Events'),
-          type: 'link',
-          link: '/#/events',
-          icon: 'warning'
-        });
-
         if ($localStorage.user && ($localStorage.user.custom !== true || $localStorage.user.reseller === true)) {
           vm.menu.main.push({
             title: gettextCatalog.getString('Brands'),
@@ -469,7 +454,8 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         setDefaultImages();
       } else {
-        console.log('Domain error occured');
+        window.location.hostname = 'dashboard.' + host;
+        return;
       }
     }
 

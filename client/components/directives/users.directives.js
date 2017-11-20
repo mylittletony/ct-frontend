@@ -9,7 +9,7 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', '$cookies', function(User, $routeParams, $location, $route, Auth, showToast, showErrors, $window, gettextCatalog, Translate, $cookies) {
+app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', '$cookies', '$mdDialog', function(User, $routeParams, $location, $route, Auth, showToast, showErrors, $window, gettextCatalog, Translate, $cookies, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -34,6 +34,33 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
           scope.user.admin = true;
         }
         scope.loading = undefined;
+      });
+    };
+
+    scope.confirmDelete = function(email) {
+      User.destroy({id: id, email: email}).$promise.then(function() {
+        Auth.logout();
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function DialogController($scope) {
+      $scope.delete = function(email) {
+        scope.confirmDelete(email);
+        $mdDialog.cancel();
+      };
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    DialogController.$inject = ['$scope'];
+
+    scope.deleteAccount = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/show/_delete_account.html',
+        parent: angular.element(document.body),
+        controller: DialogController
       });
     };
 
