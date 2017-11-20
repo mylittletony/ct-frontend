@@ -4,9 +4,6 @@
       <span class="md-headline" translate>
         Plans
       </span>
-      <span class="md-subhead" translate ng-if="plans.length == 0">
-        <p>Please contact support about pricing plans.</p>
-      </span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content ng-if="plans.length > 0">
@@ -48,5 +45,8 @@
         </tbody>
       </table>
     </md-table-container>
+    <span class="md-subhead" translate ng-if="!user.reseller">
+      <p><small class="muted" style="font-size: 75%;" translate>Please sign up for the reseller plan <a href="http://www.ct-networks.io/wifi-for-resellers/">here</a> for extra boxes, splash views and other exciting features.</small></p>
+    </span>
   </md-card-content>
 </md-card>
