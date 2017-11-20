@@ -276,10 +276,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     when('/boxes', {
       redirectTo: '/alerts'
     }).
-    when('/alerts', {
-      templateUrl: 'components/locations/index/alerts.html',
-      resolve: { loginRequired: loginRequired },
-    }).
     when('/distributors/:id', {
       templateUrl: 'components/distros/distro.html',
       resolve: { loginRequired: loginRequired },
