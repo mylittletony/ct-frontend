@@ -99,9 +99,6 @@ describe('Routing', function () {
       expect($route.routes['/locations/:id/group_policies/:group_policy_id/clients'].templateUrl).
                   toEqual('components/views/group_policies/clients.html');
 
-      expect($route.routes['/events'].templateUrl).
-                  toEqual('components/events/index.html');
-
       expect($route.routes['/events/:id'].templateUrl).
                   toEqual('components/events/show.html');
 
