@@ -454,7 +454,8 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         setDefaultImages();
       } else {
-        console.log('Domain error occured');
+        window.location.hostname = 'dashboard.' + host;
+        return;
       }
     }
 
