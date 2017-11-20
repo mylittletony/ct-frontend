@@ -2483,43 +2483,6 @@ app.directive('appStatus', ['statusPage', 'gettextCatalog', function(statusPage,
 
 }]);
 
-app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Shortener,$location) {
-
-  var link = function(scope) {
-
-    scope.loading = true;
-
-    var init = function() {
-      Event.query({object: 'box', level: 2, per: 5}).$promise.then(function(results) {
-        scope.events = results.events;
-        scope.loading = undefined;
-      }, function(error) {
-        scope.loading = undefined;
-      });
-    };
-
-    scope.visitBox = function(s) {
-      Shortener.get({short: s}).$promise.then(function(results) {
-        $location.path(results.url);
-        $location.search({});
-      }, function() {
-        $location.search({});
-      });
-    };
-
-    init();
-
-  };
-
-  return {
-    scope: {
-    },
-    link: link,
-    templateUrl: 'components/locations/show/_warnings.html',
-  };
-
-}]);
-
 app.directive('favourites', ['Location', '$location', function(Location, $location) {
 
   var link = function(scope) {
@@ -2679,94 +2642,6 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
 }]);
 
-app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', 'pagination_labels', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog, pagination_labels) {
-
-  var link = function(scope) {
-
-    scope.loading = true;
-    scope.state = 'offline';
-    menu.isOpen = false;
-    menu.hideBurger = true;
-
-    scope.options = {
-      boundaryLinks: false,
-      largeEditDialog: false,
-      pageSelector: false,
-      rowSelection: false
-    };
-
-    scope.pagination_labels = pagination_labels;
-    scope.query = {
-      order:      'updated_at',
-      filter:     $routeParams.q,
-      limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
-      options:    [5,10,25,50,100],
-      direction:  $routeParams.direction || 'desc'
-    };
-
-    scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      scope.blur();
-    };
-
-    // User permissions //
-    scope.allowed = true;
-
-    var init = function() {
-
-      Box.query({
-        state: scope.state,
-        q: scope.query.filter,
-        page: scope.query.page,
-        per: scope.query.limit,
-      }).$promise.then(function(results) {
-        scope.boxes           = results.boxes;
-        scope._links          = results._links;
-        scope.loading         = undefined;
-      }, function(err) {
-        scope.loading = undefined;
-      });
-    };
-
-    scope.ignore = function(box) {
-      box.ignored = !box.ignored;
-      Box.update({
-        location_id: box.location_slug,
-        id: box.slug,
-        box: {
-          ignored: box.ignored
-        }
-      }).$promise.then(function(res) {
-        var val = box.ignored ? gettextCatalog.getString('muted') : gettextCatalog.getString('unmuted');
-        showToast(gettextCatalog.getString('Box successfully {{val}}.', {val: val}));
-      }, function(errors) {
-      });
-    };
-
-    scope.blur = function() {
-      var hash = {};
-      hash.page = scope.query.page;
-      hash.per = scope.query.limit;
-      hash.q = scope.query.filter;
-      $location.search(hash);
-    };
-
-    init();
-
-  };
-
-  return {
-    scope: {
-      // loading: '='
-    },
-    link: link,
-    templateUrl: 'components/locations/index/_alerts.html'
-  };
-
-}]);
-
 app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
   var link = function(scope) {
@@ -2823,12 +2698,9 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
     var init = function() {
 
       Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
-        Box.get({state: 'offline', per: 25, page: 1}).$promise.then(function(data) {
-          scope.stats     = results.stats;
-          scope.stats.alerts = data._links.total_entries
-          process();
-          scope.loading   = undefined;
-        })
+        scope.stats     = results.stats;
+        process();
+        scope.loading   = undefined;
       });
 
     };
