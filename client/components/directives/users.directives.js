@@ -38,11 +38,12 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
     };
 
     scope.confirmDelete = function(email) {
-      User.destroy({id: id, email: email}).$promise.then(function (res) {
+      User.destroy({id: id, email: email}).$promise.then(function() {
+        Auth.logout();
       }, function(err) {
         showErrors(err);
       });
-    }
+    };
 
     function DialogController($scope) {
       $scope.delete = function(email) {
