@@ -14,7 +14,7 @@
             <th md-column><span translate>Name</span></th>
             <th md-column><span translate>Monthly Cost</span></th>
             <th hide show-gt-sm md-column><span translate>Cost per Device</span></th>
-            <th hide show-gt-sm md-column><span translate>Free Devices</span></th>
+            <th hide show-gt-sm md-column><span translate>Included Devices</span></th>
             <th></th>
           </tr>
         </thead>
@@ -27,7 +27,8 @@
               {{ ::plan.plan_price | currency : curr }}
             </td>
             <td hide show-gt-sm md-cell>
-              {{ ::(plan.cost_per_50 / 100 || 0) | currency : curr }}
+              <span ng-if="plan.per_ap_pricing">{{ ::(plan.cost_per_50 / 100 || 0) | currency : curr }}</span>
+              <span ng-if="!plan.per_ap_pricing">-</span>
             </td>
             <td hide show-gt-sm md-cell>
               {{ ::plan.per_ap_allowance || '∞' }}
@@ -46,7 +47,7 @@
       </table>
     </md-table-container>
     <span class="md-subhead" translate ng-if="!user.reseller">
-      <p><small class="muted" style="font-size: 75%;" translate>Please sign up for the reseller plan <a href="http://www.ct-networks.io/wifi-for-resellers/">here</a> for extra boxes, splash views and other exciting features.</small></p>
+      <p><small class="muted" style="font-size: 75%;" translate>Please sign up for the reseller plan <a href="/#/users/{{user.slug}}/reseller">here</a> for extra boxes, splash views and other exciting features. <a href="http://www.ct-networks.io/wifi-for-resellers/" target="_blank">Read more over here</a>.</small></p>
     </span>
   </md-card-content>
 </md-card>
