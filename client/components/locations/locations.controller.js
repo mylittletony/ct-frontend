@@ -124,9 +124,9 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('Campaigns'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/triggers',
+        link: '/#/locations/' + $scope.location.slug + '/campaigns',
         icon: 'mood',
-        active: isActive('triggers')
+        active: isActive('campaigns')
       });
 
       // menu.sections.push({

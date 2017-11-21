@@ -9,6 +9,7 @@ var app = angular.module('myApp.services', [
   'myApp.brands.services',
   'myApp.brand_users.services',
   'myApp.boxes.services',
+  'myApp.campaigns.services',
   'myApp.codes.services',
   'myApp.clients.services',
   'myApp.group_policies.services',

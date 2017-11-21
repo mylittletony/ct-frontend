@@ -386,18 +386,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/triggers', {
-      templateUrl: 'components/views/triggers/index.html',
+    when('/locations/:id/campaigns', {
+      templateUrl: 'components/campaigns/index/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/triggers/new', {
-      templateUrl: 'components/views/triggers/edit.html',
+    when('/locations/:id/campaigns/new', {
+      templateUrl: 'components/campaigns/edit/edit.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/triggers/:trigger_id', {
-      templateUrl: 'components/views/triggers/edit.html',
+    when('/locations/:id/campaigns/:trigger_id', {
+      templateUrl: 'components/campaigns/edit/edit.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
