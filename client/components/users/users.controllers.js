@@ -71,7 +71,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       });
     }
 
-    if (Auth.currentUser().paid_plan) {
+    if (!Auth.currentUser().paid_plan) {
       menu.sections.push({
         name: gettextCatalog.getString('Splash Views'),
         type: 'link',
