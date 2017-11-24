@@ -249,7 +249,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
 
     scope.go = function(package_type) {
       if (scope.user.credit_card_last4) {
-        scope.package = package_type
+        scope.package = package_type;
         justSub();
       }
     };
