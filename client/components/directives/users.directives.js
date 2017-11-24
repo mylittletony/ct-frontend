@@ -190,6 +190,88 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
   };
 }]);
 
+app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', '$mdDialog', 'STRIPE_KEY', '$rootScope', '$pusher', 'BonusSplashViews', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog, $mdDialog, STRIPE_KEY, $rootScope, $pusher, BonusSplashViews) {
+
+  var link = function( scope, element, attrs ) {
+
+    scope.formatCurrency = {
+      GBP: '£',
+      EUR: '€',
+      USD: '$'
+    };
+
+    scope.packages = [
+      {views: 2500,
+       cost: 15,
+       type: 'small'},
+      {views: 5000,
+       cost: 25,
+       type: 'big'}
+    ];
+
+    var init = function() {
+      User.query({id: $routeParams.id}).$promise.then(function (res) {
+        scope.user = res;
+        scope.loading = undefined;
+      });
+    };
+
+    var save = function() {
+      BonusSplashViews.create({}, {package_type: scope.package
+      }).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Transaction completed successfully.'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function CardController ($scope) {
+      $scope.user = scope.user;
+      $scope.save = function() {
+        $mdDialog.cancel();
+        save();
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    CardController.$inject = ['$scope'];
+
+    var justSub = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/splash_views/_create.html',
+        parent: angular.element(document.body),
+        controller: CardController,
+        clickOutsideToClose: true,
+      });
+    };
+
+    scope.go = function(package_type) {
+      if (scope.user.credit_card_last4) {
+        scope.package = package_type
+        justSub();
+      }
+    };
+
+    if (STRIPE_KEY && window.Stripe) {
+      console.log('Setting Stripe Token');
+      window.Stripe.setPublishableKey(STRIPE_KEY);
+    } else {
+      console.log('Could not set stripe token');
+    }
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    loading: '=',
+    templateUrl: 'components/users/splash_views/_index.html'
+  };
+}]);
+
 app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
