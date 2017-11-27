@@ -6,6 +6,7 @@ var app = angular.module('myApp.services', [
   'myApp.audit.services',
   'myApp.authentications.services',
   'myApp.access-token.services',
+  'myApp.bonus_splash_views.services',
   'myApp.brands.services',
   'myApp.brand_users.services',
   'myApp.boxes.services',
