@@ -57,7 +57,7 @@
                       </tr>
                     </thead>
                     <tbody md-body>
-                      <tr md-row ng-repeat="package in packages">
+                      <tr md-row ng-repeat="package in packages[user.currency]">
                         <td md-cell>
                           {{ package.views }} Views
                         </td>
@@ -76,6 +76,7 @@
                     </tbody>
                   </table>
                 </md-table-container>
+                <p><small class="muted" style="font-size: 75%;" translate ng-if="user.currency == 'GBP'">Prices exclude local VAT rates.</small></p>
               </div>
             </div>
           </md-card-content>
