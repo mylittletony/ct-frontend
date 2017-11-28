@@ -1,41 +1,9 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <!-- Depreciate has_nas -->
-    <md-input-container flex-xs="60" flex-gt-xs="30" style="margin-top: 50px" ng-show="location.has_devices">
-      <label></label>
-      <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
-    </md-input-container>
-    <div flex></div>
-    <md-button class="md-icon-button md-accent" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
-      <md-icon>add_circle</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Add a new device.
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" href="/#/locations/{{ location.slug }}/map" aria-label="{{ 'Map' | translate }}">
-      <md-icon>map</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          View device map.
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
-      <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
-      <md-tooltip md-direction="bottom">
-        <translate>
-          Add location to favourites.
-        </translate>
-      </md-tooltip>
-    </md-button>
-  </div>
-  <md-divider></md-divider>
-</md-toolbar>
 
 <md-content layout-padding>
+  <div style="margin:8px;">
+    <h1>{{location.location_name}}</h1>
+    <h2>Devices</h2>
+  </div>
 
   <div ng-show="location.has_devices == false">
     <div layout="row" layout-align="center center">
@@ -49,9 +17,7 @@
           </md-card-title>
 
           <md-card-content>
-            <p translate>You haven't added any devices yet. <span ng-if="!white_label">Please check through the list of compatible devices <a href='http://docs.cucumberwifi.io/article/78-compatible-devices-access-points' target="_blank">here</a>.</span></p>
-            <p translate>The firmware is available in the downloads section.</p>
-            <p translate>Once you have installed this, add your device(s) to your dashboard. They will provision automatically.</p>
+            <p translate>You haven't added any devices yet.</p>
             <md-button class="md-primary md-raised" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
               <translate>
                 Add Device

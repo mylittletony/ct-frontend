@@ -81,13 +81,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         active: isActive('devices')
       });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Networks'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/networks',
-        icon: 'wifi',
-        active: isActive('networks')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Networks'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/networks',
+      //   icon: 'wifi',
+      //   active: isActive('networks')
+      // });
 
       // menu.sections.push({
       //   name: gettextCatalog.getString('Clients'),

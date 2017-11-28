@@ -5,7 +5,7 @@
       <b>SPLASH REPORTS UNDER MAINTENANCE</b><br><br>
       You won't be able to access your location splash reports for a little while, as we're making a couple of changes. They'll be back soon!
     </md-card-content>
-  </md-card>  
+  </md-card>
   <md-card>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
@@ -163,5 +163,6 @@
     <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
 
     </md-card>
+    <md-button ng-click="addDevice()" class="md-raised"><translate>Add Device</translate></md-button>
   </div>
 </div>

@@ -1618,6 +1618,10 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       }
     };
 
+    scope.addDevice = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+    };
+
     scope.deleteDevices = function() {
       var confirm = $mdDialog.confirm()
         .title(gettextCatalog.getString('Are you sure you want to delete these devices?'))
