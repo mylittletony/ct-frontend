@@ -200,14 +200,41 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
       USD: '$'
     };
 
-    scope.packages = [
-      {views: 2500,
-       cost: 15,
-       type: 'small'},
-      {views: 5000,
-       cost: 25,
-       type: 'big'}
-    ];
+    scope.packages = {
+      GBP: [
+        {views: 2500,
+         cost: 15,
+         type: 'small'},
+        {views: 5000,
+         cost: 25,
+         type: 'big'},
+        {views: 15000,
+         cost: 50,
+         type: 'mega'}
+      ],
+      EUR: [
+        {views: 2500,
+         cost: 20,
+         type: 'small'},
+        {views: 5000,
+         cost: 35,
+         type: 'big'},
+        {views: 15000,
+         cost: 70,
+         type: 'mega'}
+      ],
+      USD: [
+        {views: 2500,
+         cost: 20,
+         type: 'small'},
+        {views: 5000,
+         cost: 35,
+         type: 'big'},
+        {views: 15000,
+         cost: 70,
+         type: 'mega'}
+      ]
+    };
 
     var init = function() {
       User.query({id: $routeParams.id}).$promise.then(function (res) {
