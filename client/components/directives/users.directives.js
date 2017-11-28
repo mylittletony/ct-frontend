@@ -9,7 +9,7 @@ app.directive('userAvatar', [function() {
   };
 }]);
 
-app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', '$cookies', function(User, $routeParams, $location, $route, Auth, showToast, showErrors, $window, gettextCatalog, Translate, $cookies) {
+app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', '$cookies', '$mdDialog', function(User, $routeParams, $location, $route, Auth, showToast, showErrors, $window, gettextCatalog, Translate, $cookies, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -34,6 +34,33 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
           scope.user.admin = true;
         }
         scope.loading = undefined;
+      });
+    };
+
+    scope.confirmDelete = function(email) {
+      User.destroy({id: id, email: email}).$promise.then(function() {
+        Auth.logout();
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function DialogController($scope) {
+      $scope.delete = function(email) {
+        scope.confirmDelete(email);
+        $mdDialog.cancel();
+      };
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    DialogController.$inject = ['$scope'];
+
+    scope.deleteAccount = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/show/_delete_account.html',
+        parent: angular.element(document.body),
+        controller: DialogController
       });
     };
 
@@ -160,6 +187,88 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
     link: link,
     loading: '=',
     templateUrl: 'components/users/reseller/_index.html'
+  };
+}]);
+
+app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', 'showToast', 'showErrors', 'gettextCatalog', '$mdDialog', 'STRIPE_KEY', '$rootScope', '$pusher', 'BonusSplashViews', function(User, $routeParams, $location, Auth, showToast, showErrors, gettextCatalog, $mdDialog, STRIPE_KEY, $rootScope, $pusher, BonusSplashViews) {
+
+  var link = function( scope, element, attrs ) {
+
+    scope.formatCurrency = {
+      GBP: '£',
+      EUR: '€',
+      USD: '$'
+    };
+
+    scope.packages = [
+      {views: 2500,
+       cost: 15,
+       type: 'small'},
+      {views: 5000,
+       cost: 25,
+       type: 'big'}
+    ];
+
+    var init = function() {
+      User.query({id: $routeParams.id}).$promise.then(function (res) {
+        scope.user = res;
+        scope.loading = undefined;
+      });
+    };
+
+    var save = function() {
+      BonusSplashViews.create({}, {package_type: scope.package
+      }).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Transaction completed successfully.'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function CardController ($scope) {
+      $scope.user = scope.user;
+      $scope.save = function() {
+        $mdDialog.cancel();
+        save();
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    CardController.$inject = ['$scope'];
+
+    var justSub = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/splash_views/_create.html',
+        parent: angular.element(document.body),
+        controller: CardController,
+        clickOutsideToClose: true,
+      });
+    };
+
+    scope.go = function(package_type) {
+      if (scope.user.credit_card_last4) {
+        scope.package = package_type;
+        justSub();
+      }
+    };
+
+    if (STRIPE_KEY && window.Stripe) {
+      console.log('Setting Stripe Token');
+      window.Stripe.setPublishableKey(STRIPE_KEY);
+    } else {
+      console.log('Could not set stripe token');
+    }
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    loading: '=',
+    templateUrl: 'components/users/splash_views/_index.html'
   };
 }]);
 

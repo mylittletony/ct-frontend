@@ -279,13 +279,6 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
         icon: 'business',
       });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Events'),
-        link: '/#/events/',
-        type: 'link',
-        icon: 'warning'
-      });
-
     };
 
     createMenu();
