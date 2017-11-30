@@ -1,15 +1,9 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon>track_changes</md-icon>
-    </md-button>
-    <p translate>Inventory Details</p>
-    <div flex></div>
-  </div>
-  <md-divider></md-divider>
-</md-toolbar>
-
 <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="inventories.length == 0">
+
+  <div style="margin:8px;">
+    <h1>{{user.username ? user.username : '&nbsp;'}}</h1>
+    <h2>Inventory</h2>
+  </div>
 
   <md-card>
     <md-card-title>
@@ -29,6 +23,11 @@
 </md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="inventories.length > 0">
+
+  <div style="margin:8px;">
+    <h1>{{user.username ? user.username : 'InsertName &nbsp;'}}</h1>
+    <h2>Inventory</h2>
+  </div>
 
   <div layout="row" layout-align="center center">
     <div flex="100" flex-gt-sm="100">
