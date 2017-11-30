@@ -364,7 +364,7 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
           codes();
           break;
         case 'delete':
-          destroy();
+          scope.destroy();
           break;
       }
     };
@@ -383,7 +383,7 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
       scope.loading = undefined;
     });
 
-    var destroy = function(network) {
+    scope.destroy = function(network) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete Voucher'))
       .textContent(gettextCatalog.getString('Are you sure you want to delete this voucher?'))
@@ -391,12 +391,12 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
       .ok(gettextCatalog.getString('Delete'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        scope.destroy(network);
+        destroyBatch(network);
       }, function() {
       });
     };
 
-    scope.destroy = function() {
+    var destroyBatch = function() {
       Voucher.destroy({id: scope.voucher.unique_id, location_id: scope.location.slug}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug + '/vouchers/');
         showToast(gettextCatalog.getString('Successfully delete voucher.'));

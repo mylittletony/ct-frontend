@@ -335,7 +335,7 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
           sessions();
           break;
         case 'delete':
-          destroy();
+          scope.destroy();
           break;
       }
     };
@@ -356,7 +356,7 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
 
     };
 
-    var destroy = function() {
+    scope.destroy = function() {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete Code'))
       .textContent(gettextCatalog.getString('Are you sure you want to delete this code?'))
@@ -364,12 +364,12 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
       .ok(gettextCatalog.getString('Delete'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        scope.destroy();
+        destroyCode();
       }, function() {
       });
     };
 
-    scope.destroy = function() {
+    var destroyCode = function() {
       SplashCode.destroy({location_id: scope.location.slug, id: scope.splash_code.id}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug + '/splash_codes');
         showToast(gettextCatalog.getString('Code successfully deleted.'));
