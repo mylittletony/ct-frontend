@@ -71,11 +71,11 @@ app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q
         type: 'disable'
       });
 
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Sessions'),
-        icon: 'data_usage',
-        type: 'sessions'
-      });
+      // scope.menuItems.push({
+      //   name: gettextCatalog.getString('Sessions'),
+      //   icon: 'data_usage',
+      //   type: 'sessions'
+      // });
 
       scope.menuItems.push({
         name: gettextCatalog.getString('Delete'),
@@ -402,4 +402,3 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
   };
 
 }]);
-

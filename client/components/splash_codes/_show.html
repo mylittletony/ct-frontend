@@ -1,25 +1,19 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
-    </md-button>
-    <p translate>Splash Codes</p>
-    <md-menu ng-if="menu.length">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-        <md-icon>more_vert</md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item ng-repeat="item in menu">
-          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
-            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-            {{item.name}}
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+<md-content layout-padding layout="row" layout-wrap>
+
+  <div style="padding-left:16px;">
+    <h1>{{location.location_name ? location.location_name : 'InsertLocationName &nbsp;'}}</h1>
+    <h2>View Splash Code</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+  <span flex></span>
+
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back to Splash Codes</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
 
