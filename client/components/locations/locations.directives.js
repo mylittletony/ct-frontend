@@ -1395,30 +1395,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       scope.menuItems = [];
 
       scope.menuItems.push({
-        name: gettextCatalog.getString('Edit'),
-        type: 'edit',
-        icon: 'settings'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Reboot'),
-        type: 'reboot',
-        icon: 'autorenew'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Run Payload'),
-        type: 'payload',
-        icon: 'present_to_all'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Edit Zones'),
-        type: 'zones',
-        icon: 'layers'
-      });
-
-      scope.menuItems.push({
         name: gettextCatalog.getString('Delete'),
         type: 'delete',
         icon: 'delete_forever'

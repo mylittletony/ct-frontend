@@ -1,10 +1,9 @@
 
 <md-content layout-padding>
   <div style="margin:8px;">
-    <h1>{{location.location_name}}</h1>
+    <h1>{{location.location_name ? location.location_name : 'Location'}}</h1>
     <h2>Devices</h2>
   </div>
-
   <div ng-show="location.has_devices == false">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
