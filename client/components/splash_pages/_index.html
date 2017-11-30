@@ -1,19 +1,21 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="splash_pages.length > 0">
+<md-content layout-padding layout="row" layout-wrap>
+
+  <div style="padding-left:16px;">
+    <h1>{{location.location_name ? location.location_name : 'InsertLocationName &nbsp;'}}</h1>
+    <h2>Splash Pages</h2>
+  </div>
+
+  <span flex="" class="flex"></span>
+
+  <div style="padding-right:16px;">
+    <md-input-container flex="100" ng-show="splash_pages.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
       <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{'Filter Splash' | translate }}">
     </md-input-container>
-    <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
-      <md-icon md-font-icon="">layers</md-icon>
-    </md-button>
-    <p ng-if="splash_pages.length === 0" translate>Splash Pages</p>
-    <div flex></div>
-    <splash-new style="md-icon-button md-accent" pages="splash_pages"></splash-new>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
 
@@ -122,5 +124,7 @@
       </md-table-container>
       <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
     </md-card>
+    <splash-new style="md-raised" pages="splash_pages"></splash-new>
+
   </div>
 </md-content>
