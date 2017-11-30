@@ -1,80 +1,32 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
-      <md-icon>arrow_back</md-icon>
-    </md-button>
-    <p translate>Back to Devices</p>
-    <span flex></span>
+<md-content layout-padding layout="row" layout-wrap>
 
-    <md-button id="main" class="md-icon-button" aria-label="{{ 'Settings' | translate }}">
-      <md-icon ng-class="{'official-fw': box.official}" style="outline: 0;" md-font-icon="">star{{box.official ? '' : '_border'}}</md-icon>
-      <md-tooltip md-direction="left">
-        <translate>
-        <span ng-if="box.official == true">Official CT Firmware</span>
-        <span ng-if="box.official == false">Unofficial Firmware</span>
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <upgrade-box box="box"></upgrade-box>
-    <span ng-if="box.state == 'offline'">
-      <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" : "volume_up" }}</md-icon>
-      <md-tooltip md-direction="left">
-      </md-tooltip>
-    </span>
-    <md-button hide show-gt-sm class="md-icon-button" ng-click="refresh()">
-      <md-icon>zoom_out</md-icon>
-      <md-tooltip md-direction="left">
-        <translate>
-          Reset zoom level
-        </translate>
-      </md-tooltip>
-
-    </md-button>
-    </md-switch>
-    <!-- moved it into a tag, the btns are not blank in firefox and chrome -->
-    <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('30m')" ng-class="{ 'active': period === '30m' }"><translate>30m</translate></md-button>
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" ><translate>60m</translate></md-button>
-      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" ><translate>6h</translate></md-button>
-      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" ><translate>1d</translate></md-button>
-      <md-button ng-click="updatePeriod('7d')" ng-class="{ 'active': period === '7d' }" ><translate>7d</translate></md-button>
-      <!-- <md-button ng-click="updatePeriod('30d')" ng-class="{ 'active': period === '30d' }" ><translate>30d</translate></md-button> -->
-    </md-button-group>
-    <md-menu ng-if="menu">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-        <md-icon>more_vert</md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item ng-repeat="item in menu">
-          <md-button ng-disabled="item.disabled" ng-click="menuAction(item.type)" style="display: inline;">
-            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-            {{item.name}}
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-  </div>
-  <md-divider></md-divider>
-</md-toolbar>
-
-<section ng-if="!loading && !fs">
-  <md-subheader class="md-no-sticky">
-    <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" ng-class="{ 'box-image': box.device_icon !== 'blank.png' }"/>
-    <!-- <device-meta box="box"></device-meta> -->
-  </md-subheader>
-</section>
-
-<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
-  <div flex-gt-sm="100" style="margin:8px;">
+  <div style="padding-left:16px;">
     <h1>{{location.location_name ? location.location_name : 'InsertLocationName &nbsp;'}}</h1>
     <h2>{{box.description ? box.description : '&nbsp;'}}</h2>
+  </span>
   </div>
+
+  <span flex></span>
+
+<div>
+  <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+    <md-tooltip md-direction="bottom">Back to Devices</md-tooltip>
+    <md-icon>keyboard_return</md-icon>
+  </md-button>
+</div>
+
+</md-content>
+
+<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
   <div flex-gt-sm="60">
     <md-card>
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>Device Details</span>
-          <span class="md-subheading" translate></span>
+          <span flex></span>
+
+          <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/{{ box.device_icon }}" title="{{ box.machine_type }}" ng-class="{ 'box': box.device_icon !== 'blank.png' }"/>
+
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -136,191 +88,12 @@
         </md-list-item>
       </md-card-content>
     </md-card>
+    <md-button ng-click="transferBox()" class="md-raised">
+      Transfer
+    </md-button>
+    <md-button ng-click="deleteBox()" class="md-raised">
+      Delete
+    </md-button>
+
   </div>
 </md-content>
-
-<!-- <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
-  <div flex ng-if="box.state != 'new'" flex-gt-sm="100" layout="column" style='padding: 0px 0px 0px 0px;'>
-    <div heartbeat-chart ng-if="box.state != 'new'" height="100" target="heartbeats-0" mac="{{box.mac}}" id='heartbeats-0' style='padding: 0px 8px 0px 8px'></div>
-  </div>
-  <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
-    <md-card>
-      <div ng-if="box.state != 'rebooting' && box.state != 'processing' && box.state != 'upgrading'" class="md-card-image" style='height: 5px; background-color: {{box.state | statusColour}}'></div>
-      <md-progress-linear ng-if="box.state == 'rebooting' || box.state == 'processing' || box.state == 'upgrading'" class="md-{{ box.state == 'rebooting' ? 'warn' : box.state == 'upgrading' ? 'accent' : 'warn' }}" md-mode="query"></md-progress-linear>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">{{ box.description | truncate:20 }}</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <md-list>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Status</h3>
-              <p>
-                {{ box.upgrade_processing == true ? 'Upgrade Processing' : (box.state | deviceStatus) }}
-              </p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Last Seen</h3>
-              <p ng-if="box.last_heartbeat">
-                <span am-time-ago="box.last_heartbeat" am-preprocess="unix"></span>
-              </p>
-              <p ng-if="!box.last_heartbeat" translate>
-                Never
-              </p>
-            </div>
-          </md-list-item>
-          <box-speedtest-widget box="box" ng-show="box.v == '3'"></box-speedtest-widget>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Tags</h3>
-              <p translate>
-                {{ box.tags || "No tags" }}
-              </p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <md-button ng-click="rebootBox()" ng-disabled="box.state != 'online'" class="md-raised md-primary">
-                Reboot
-              </md-button>
-            </div>
-          </md-list-item>
-        </md-list>
-      </md-card-content>
-    </md-card>
-
-    <md-card>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline" translate>Network Details</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <md-list>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>WAN IP</h3>
-              <p>{{ box.wan_ip | emptyFilter }}</p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Public IP</h3>
-              <p>{{ box.public_ip | emptyFilter }}</p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Mac Address</h3>
-              <p>{{ ::box.calledstationid }}</p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Uptime</h3>
-              <p ng-if="box.uptime_seconds">
-                {{ box.uptime_seconds | amDurationFormat : 'second' }}
-                <md-tooltip>
-                  {{ box.uptime }}
-                </md-tooltip>
-              </p>
-              <p ng-if="!box.uptime_seconds">{{ (box.uptime | filterUptime) || '-' }}</p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Channel(s)</h3>
-              <md-button ng-click="toggle('splash')" aria-controls="splash" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
-                <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('splash') ? "up" : "down" }}</md-icon>
-              </md-button>
-              <p>
-                <a href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}/edit#channel">{{ ::box.channel || '-' }}<span ng-if="box.dual_band">, {{ ::box.channel_5 }}</a></span>
-              </p>
-            </div>
-          </md-list-item>
-
-          <span ng-if="isOpen('splash')" id="splash" class="menu-toggle-list">
-
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text">
-                <h3 translate>Environment</h3>
-                <p>{{ ::box.development_mode | translateEnvironment }}</p>
-              </div>
-            </md-list-item>
-
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text">
-                <h3>
-                  <translate>Firmware Version</translate>
-                  <md-icon ng-if="::box.next_firmware">info_outline</md-icon>
-                </h3>
-                <p>
-                  {{ ::box.firmware_version }}
-                </p>
-                <md-tooltip ng-if="::box.next_firmware">
-                  <translate>
-                    A firmware upgrade is available.
-                  </translate>
-                </md-tooltip>
-              </div>
-            </md-list-item>
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text">
-                <h3 translate>Created</h3>
-                <p>{{ box.created_at | humanTime }}</p>
-              </div>
-            </md-list-item>
-
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text">
-                <h3 translate>SSH Password</h3>
-                <p>
-                  <span>{{ ::box.ssh_passwd }}</span>
-                </p>
-              </div>
-            </md-list-item>
-
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text">
-                <h3 translate>Serial Number</h3>
-                <p>
-                  <span class="hard-break">{{ ::box.serial_number }}</span>
-                </p>
-              </div>
-            </md-list-item>
-
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text">
-                <h3 translate>Network Location</h3>
-                <p>
-                  <span>{{ ::box.network_location }} ({{ ::box.lucky_dip }})</span>
-                </p>
-              </div>
-            </md-list-item>
-          </span>
-        </md-list>
-      </md-card-content>
-    </md-card>
-  </div>
-
-  <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" ing-if="box.state != 'new'">
-    <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" class="clients-charts">
-      <div layout="" layout-wrap>
-        <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'tx'">
-          <tx-chart></tx-chart>
-        </div>
-        <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'snr'">
-          <interface-chart ></interface-chart>
-        </div>
-        <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'mcs'">
-          <load-chart ></load-chart>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</md-content> -->

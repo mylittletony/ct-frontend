@@ -1,5 +1,13 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
+<md-content layout-padding layout="row" layout-wrap>
+
+  <div style="padding-left:16px;">
+    <h1>{{location.location_name ? location.location_name : 'InsertLocationName &nbsp;'}}</h1>
+    <h2>Vouchers</h2>
+  </div>
+
+  <span flex="" class="flex"></span>
+
+  <div style="padding-right:16px;">
     <form ng-submit="$event.preventDefault()">
       <md-autocomplete
           flex="100"
@@ -37,13 +45,9 @@
       </md-autocomplete>
       <br/>
     </form>
-    <div flex></div>
-    <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
-      <md-icon>add_circle</md-icon>
-    </md-button>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+</md-content>
 
 <form ng-submit="search()" name="myForm">
   <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
@@ -65,7 +69,7 @@
   </md-content>
 
   <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-    <div flex ng-show="vouchers.length > 0 || searching || query.filter">
+    <div flex="100" ng-show="vouchers.length > 0 || searching || query.filter">
       <md-card>
         <md-card-content>
           <md-table-container>
@@ -125,6 +129,11 @@
           <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
         </md-card-content>
       </md-card>
+    </div>
+    <div flex="100">
+      <md-button ng-show="allowed == true" ng-click="create()" class="md-raised">
+        Create
+      </md-button>
     </div>
   </md-content>
 </form>
