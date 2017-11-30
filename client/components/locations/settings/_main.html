@@ -5,7 +5,7 @@
   </div>
   <form name="myForm" submit="update(myForm)">
     <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
+      <div flex="100" flex-gt-sm="100">
 
         <md-card>
           <md-card-title>
@@ -114,14 +114,13 @@
                   <div ng-message="required" translate>You must enter a NAS ID</div>
                 </div>
               </md-input-container>
-            </div>
-            <div flex layout="row">
-              <div flex></div>
-              <md-button class="md-raised md-warn" ng-click="destroy()">
-                <translate>
-                  Delete
-                </translate>
-              </md-button>
+              <div flex="100" flex-gt-sm="50">
+                <md-button class="md-raised md-warn" ng-click="destroy()">
+                  <translate>
+                    Delete
+                  </translate>
+                </md-button>
+              </div>
             </div>
           </md-card-content>
         </md-card>
