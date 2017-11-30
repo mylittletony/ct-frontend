@@ -1,32 +1,45 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <div flex="30">
-      <md-select style="margin:0px" ng-model="selected" ng-change="updateAudit(selected)" required>
-        <md-option ng-repeat="model in audit_models" value="{{model}}">
-          {{model}}
-        </md-option>
-      </md-select>
-    </div>
-    <div layout="row" flex style="margin-top:4px" hide show-gt-xs>
-      <md-datepicker class="picker-smaller" ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
-      <md-datepicker class="picker-smaller" ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
-    </div>
-    <div flex></div>
-    <md-button class="md-primary" hide show-gt-xs aria-label="Filter" ng-click="clearClientFilter()" ng-show="selected == 'Radius Sessions' && query.client_mac" style="min-width: 160px">
-      {{query.client_mac}}
-      <md-icon>clear</md-icon>
-      <md-tooltip>
-        <translate>
-        Clear AP filter
-        </translate>
-      </md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" ng-click="downloadAudit()" ng-show="results.length > 0" hide show-gt-xs>
-      <md-icon>file_download</md-icon>
-    </md-button>
+<md-content layout-padding layout="row" layout-wrap>
+
+  <div style="margin-left:8px;">
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>Audit Logs</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+  <span flex></span>
+
+    <div style="margin-top:20px;margin-right:8px;">
+      <div flex="100">
+        <md-select style="margin:0px" ng-model="selected" ng-change="updateAudit(selected)" required>
+          <md-option ng-repeat="model in audit_models" value="{{model}}">
+            {{model}}
+          </md-option>
+        </md-select>
+      </div>
+
+      <div layout="row" flex style="margin-top:4px" layout-align="end center">
+        <md-datepicker class="picker-smaller" ng-change="setStart()" ng-model="startDate" md-placeholder="{{ 'Start date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+        <md-datepicker class="picker-smaller" ng-change="setEnd()" ng-model="endDate" md-placeholder="{{ 'End date' | translate }}" md-min-date="minDate" md-max-date="maxDate" md-open-on-focus></md-datepicker>
+      </div>
+      <div flex></div>
+      <div layout="row" flex style="margin-top:4px" layout-align="end center">
+      <md-button class="md-primary" aria-label="Filter" ng-click="clearClientFilter()" ng-show="selected == 'Radius Sessions' && query.client_mac" style="min-width: 160px">
+          {{query.client_mac}}
+          <md-icon>clear</md-icon>
+          <md-tooltip>
+            <translate>
+            Clear AP filter
+            </translate>
+          </md-tooltip>
+        </md-button>
+      </div>
+      <div layout="row" flex style="margin-top:4px" layout-align="end center">
+        <md-button class="md-icon-button" ng-click="downloadAudit()" ng-show="results.length > 0" hide show-gt-xs>
+          <md-icon>file_download</md-icon>
+        </md-button>
+      </div>
+    </div>
+
+</md-content>
 
 <md-content layout-padding>
   <div layout="row" layout-align="center center">
