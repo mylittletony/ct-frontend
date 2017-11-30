@@ -341,12 +341,6 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
       });
 
       scope.menu.push({
-        name: gettextCatalog.getString('New'),
-        icon: 'add_circle_outline',
-        type: 'new'
-      });
-
-      scope.menu.push({
         name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete',

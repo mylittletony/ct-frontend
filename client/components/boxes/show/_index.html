@@ -8,12 +8,12 @@
 
   <span flex></span>
 
-<div>
-  <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
-    <md-tooltip md-direction="bottom">Back to Devices</md-tooltip>
-    <md-icon>keyboard_return</md-icon>
-  </md-button>
-</div>
+  <div>
+    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+      <md-tooltip md-direction="bottom">Back to Devices</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
+  </div>
 
 </md-content>
 
@@ -91,7 +91,7 @@
     <md-button ng-click="transferBox()" class="md-raised">
       Transfer
     </md-button>
-    <md-button ng-click="deleteBox()" class="md-raised">
+    <md-button ng-click="destroy()" class="md-raised md-warn">
       Delete
     </md-button>
 
