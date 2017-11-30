@@ -180,19 +180,19 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
         type: 'networks'
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Shop'),
-        icon: 'shopping_basket',
-        type: 'shop',
-        disabled: (parseInt(scope.splash.primary_access_id) !== 2)// && !scope.splash.shop_active
-      });
-
-      scope.menu.push({
-        name: gettextCatalog.getString('Forms'),
-        icon: 'assignment',
-        type: 'register',
-        disabled: parseInt(scope.splash.primary_access_id) !== 8
-      });
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Shop'),
+      //   icon: 'shopping_basket',
+      //   type: 'shop',
+      //   disabled: (parseInt(scope.splash.primary_access_id) !== 2)// && !scope.splash.shop_active
+      // });
+      //
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Forms'),
+      //   icon: 'assignment',
+      //   type: 'register',
+      //   disabled: parseInt(scope.splash.primary_access_id) !== 8
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Duplicate'),
@@ -217,7 +217,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
     scope.action = function(type) {
       switch(type) {
         case 'design':
-          designer();
+          scope.designer();
           break;
         case 'networks':
           networks();
@@ -226,21 +226,21 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
           transfer();
           break;
         case 'copy':
-          duplicate();
+          scope.duplicate();
           break;
         case 'register':
-          register();
+          scope.register();
           break;
         case 'shop':
-          shop();
+          scope.shop();
           break;
         case 'delete':
-          destroy();
+          scope.destroy();
           break;
       }
     };
 
-    var destroy = function() {
+    scope.destroy = function() {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete Splash'))
       .textContent(gettextCatalog.getString('Are you sure you want to delete this splash page?'))
@@ -262,7 +262,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       });
     };
 
-    var duplicate = function() {
+    scope.duplicate = function() {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Duplicate Splash'))
       .textContent(gettextCatalog.getString('Are you sure you want to duplicate this splash page?'))
@@ -428,7 +428,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
         if ($localStorage.user) {
           scope.white_label = $localStorage.user.custom;
         }
-        
+
         createMenu();
         scope.loading = undefined;
       }, function(err) {
@@ -508,11 +508,11 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       }
     };
 
-    var register = function() {
+    scope.register = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/forms';
     };
 
-    var shop = function() {
+    scope.shop = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/store';
     };
 
@@ -520,7 +520,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages';
     };
 
-    var designer = function(id) {
+    scope.designer = function(id) {
       window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/design';
     };
 
