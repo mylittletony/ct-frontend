@@ -1,9 +1,21 @@
+<md-content layout-padding layout="row" layout-wrap>
 
-<md-content layout-padding>
-  <div style="margin:8px;">
-    <h1>{{location.location_name ? location.location_name : 'Location'}}</h1>
+  <div style="padding-left:16px;">
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
     <h2>Devices</h2>
   </div>
+  <span flex="" class="flex"></span>
+  <div style="padding-right:16px;">
+    <md-input-container flex="100" ng-show="location.has_devices">
+      <label></label>
+      <md-icon md-font-icon="search">search</md-icon>
+      <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
+    </md-input-container>
+  </div>
+
+</md-content>
+
+<md-content layout-padding>
   <div ng-show="location.has_devices == false">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="75">
