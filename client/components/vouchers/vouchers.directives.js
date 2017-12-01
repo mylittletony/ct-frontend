@@ -7,6 +7,12 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
 
   var link = function(scope) {
 
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
+
     scope.location = { slug: $routeParams.id };
 
     scope.selected = [];
@@ -314,9 +320,15 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
 
 }]);
 
-app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher', '$rootScope', 'Auth', '$route', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Voucher, $routeParams, $location, $pusher, $rootScope, Auth, $route, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('showVoucher', ['Location', 'Voucher', '$routeParams', '$location', '$pusher', '$rootScope', 'Auth', '$route', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, Voucher, $routeParams, $location, $pusher, $rootScope, Auth, $route, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location  = { slug: $routeParams.id };
 
@@ -508,9 +520,15 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
 
 }]);
 
-app.directive('editVoucher', ['Voucher', '$routeParams', '$location', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Voucher, $routeParams, $location, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('editVoucher', ['Location', 'Voucher', '$routeParams', '$location', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, Voucher, $routeParams, $location, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location  = { slug: $routeParams.id };
 

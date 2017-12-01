@@ -2,9 +2,15 @@
 
 var app = angular.module('myApp.splash_pages.directives', []);
 
-app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', 'pagination_labels', function(SplashPage,$routeParams,$location,showToast,showErrors,$mdDialog,$q, gettextCatalog, pagination_labels) {
+app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$location', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', 'pagination_labels', function(Location,SplashPage,$routeParams,$location,showToast,showErrors,$mdDialog,$q, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location = { slug: $routeParams.id };
 
@@ -160,6 +166,12 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
     scope.slider = {};
     scope.slider.download_speed = 1024;
     scope.slider.upload_speed = 1024;
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location = { slug: $routeParams.id };
 
