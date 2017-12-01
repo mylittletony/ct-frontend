@@ -579,7 +579,11 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
       }
     };
 
-    var init = function() {
+    var getUser = function() {
+      return User.query({id: $routeParams.id}).$promise.then(function (res) {
+        scope.user = res;
+      });
+    },init = function() {
       Invoice.get({
         user_id: user.slug,
         per: scope.query.limit,
@@ -625,7 +629,7 @@ app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors'
       window.location.href = '/#/users/' + user.slug + '/invoices/' + id + '/details';
     };
 
-    init();
+    getUser().then(init);
 
   };
 
@@ -1566,7 +1570,7 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 
 }]);
 
-app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$rootScope', 'pagination_labels', function(Inventory, $routeParams, $location, menu, $rootScope, pagination_labels) {
+app.directive('inventory', ['User', 'Inventory', '$routeParams', '$location', 'menu', '$rootScope', 'pagination_labels', function(User, Inventory, $routeParams, $location, menu, $rootScope, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1596,7 +1600,11 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
       updatePage();
     };
 
-    var init = function() {
+    var getUser = function() {
+      return User.query({id: $routeParams.id}).$promise.then(function (res) {
+        scope.user = res;
+      });
+    },init = function() {
       Inventory.get({id: $routeParams.id, page: scope.query.page, per: scope.query.limit}).$promise.then(function(results) {
         scope.inventories = results.inventories;
         scope._links      = results._links;
@@ -1625,7 +1633,7 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
       init();
     };
 
-    init();
+    getUser().then(init);
 
   };
 
