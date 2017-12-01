@@ -893,3 +893,24 @@ md-bottom-sheet .md-subheader {
   height:auto;
   width:auto;
 }
+
+/*page info*/
+
+.page-meta > div > div > md-select > md-select-value > .md-select-icon {
+  margin: 0 -1px;
+}
+
+.page-meta md-input-container {
+  margin-right: 5px;
+}
+
+.page-meta h1 {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 500;
+}
+
+.page-meta h2 {
+  color: rgba(0, 0, 0, 0.57);
+  font-weight: 400;
+  margin-bottom: 0px;
+}

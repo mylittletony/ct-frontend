@@ -1,4 +1,4 @@
-<md-content layout-padding layout="row" layout-wrap>
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
 
   <div>
     <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
@@ -7,7 +7,7 @@
 
   <span flex></span>
 
-    <div style="margin-top:20px;margin-right:8px;">
+    <div style="margin-top:20px;">
       <div flex="100">
         <md-select style="margin:0px" ng-model="selected" ng-change="updateAudit(selected)" required>
           <md-option ng-repeat="model in audit_models" value="{{model}}">

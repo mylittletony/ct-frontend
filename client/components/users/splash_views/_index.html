@@ -1,11 +1,15 @@
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{user.username ? user.username : '&nbsp;'}}</h1>
+    <h2>Splash Views</h2>
+  </div>
+
+</md-content>
+
 <form name="myForm" ng-submit="update(myForm)">
 
   <md-content class="md-padding" layout="column" layout-gt-sm='column'>
-
-    <div style="margin:8px;">
-      <h1>{{user.username ? user.username : '&nbsp;'}}</h1>
-      <h2>Splash Views</h2>
-    </div>
 
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="100">
