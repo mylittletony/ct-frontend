@@ -2249,7 +2249,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     scope.action = function(type) {
       switch(type) {
         case 'delete':
-          destroy();
+          scope.destroy();
           break;
         case 'transfer':
           transfer();
@@ -2334,7 +2334,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     //   });
     // };
 
-    var destroy = function(ev) {
+    scope.destroy = function(ev) {
       var confirm = $mdDialog.confirm()
         .title(gettextCatalog.getString('Are you sure you want to delete this location?'))
         .textContent(gettextCatalog.getString('You cannot delete a location with session data.'))

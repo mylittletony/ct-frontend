@@ -114,22 +114,26 @@
                   <div ng-message="required" translate>You must enter a NAS ID</div>
                 </div>
               </md-input-container>
-              <div flex="100" flex-gt-sm="50">
-                <md-button class="md-raised md-warn" ng-click="destroy()">
-                  <translate>
-                    Delete
-                  </translate>
-                </md-button>
-              </div>
             </div>
           </md-card-content>
         </md-card>
 
-        <md-button ng-click="update(myForm)" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-          <translate>
-            Save
-          </translate>
-        </md-button>
+        <div flex layout="row">
+
+          <md-button ng-click="update(myForm)" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+            <translate>
+              Save
+            </translate>
+          </md-button>
+
+          <span flex></span>
+
+          <md-button class="md-raised md-warn" ng-click="destroy()">
+            <translate>
+              Delete Location
+            </translate>
+          </md-button>
+        </div>
 
       </div>
     </div>
