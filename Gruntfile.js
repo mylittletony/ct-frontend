@@ -71,17 +71,17 @@ module.exports = function (grunt) {
       },
       test: {
         constants: {
-          API_END_POINT: 'http://api.ctapp.dev:8080/api/v1',
           API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
-          API_URL: 'http://api.ctapp.dev:8080',
+          API_END_POINT: 'https://api.ctapp.io/api/v1',
+          API_URL: 'https://api.ctapp.io',
           STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
-          AUTH_URL: 'http://my.ctapp.dev:8080',
+          AUTH_URL: 'https://api.ctapp.io',
           SLACK_TOKEN: '3540010629.12007999527',
           CHIMP_TOKEN: '531543883634',
           INTERCOM: 'xxx',
           PUSHER: 'xxx',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: []
         }
@@ -91,17 +91,17 @@ module.exports = function (grunt) {
       },
       beta: {
         constants: {
-          API_END_POINT: 'https://beta.ctapp.io/api/v1',
-          API_END_POINT_V2: 'https://ldn-01.ctapp.io/api/v1',
-          API_URL: 'https://beta.ctapp.io',
+          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
+          API_END_POINT: 'https://api.ctapp.io/api/v1',
+          API_URL: 'https://api.ctapp.io',
           STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
-          AUTH_URL: 'https://beta.ctapp.io',
+          AUTH_URL: 'https://api.ctapp.io',
           SLACK_TOKEN: '3540010629.11828901815',
           CHIMP_TOKEN: '279197455989',
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: [
             "pink",
@@ -130,9 +130,8 @@ module.exports = function (grunt) {
       },
       production: {
         constants: {
+          API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
           API_END_POINT: 'https://api.ctapp.io/api/v1',
-          // API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
-          API_END_POINT_V2: 'https://ldn-01.ctapp.io/api/v1',
           API_URL: 'https://api.ctapp.io',
           STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
           AUTH_URL: 'https://id.ctapp.io',
@@ -141,7 +140,7 @@ module.exports = function (grunt) {
           PUSHER: 'f5c774e098156e548079',
           INTERCOM: 'zklfhs87',
           DEBUG: true,
-          COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
+          COLOURS: '#16ac5b #225566 #007788 #0088AA #0088BB #BBCCCC',
           COMMITHASH: commitHash.stdout,
           THEMES: [
             "pink",
@@ -166,6 +165,7 @@ module.exports = function (grunt) {
             "brown",
             "grey",
           ]
+
         }
       }
     },
@@ -590,26 +590,20 @@ module.exports = function (grunt) {
       },
       beta: {
         options: {
-          remote: 'git@heroku.com:secure-mesa-9387.git', // alpha....
+          remote: 'git@heroku.com:secure-mesa-9387.git',
           branch: 'master',
           force: true
         }
       },
-      dev: {
-        options: {
-          remote: 'git@heroku.com:thawing-basin-34731.git', // dev egg testing
-          branch: 'master'
-        }
-      },
       master: {
         options: {
-          remote: 'git@heroku.com:sheltered-bayou-9283.git', // basically for resellers
+          remote: 'git@heroku.com:sheltered-bayou-9283.git',
           branch: 'master'
         }
       },
       usa: {
         options: {
-          remote: 'git@heroku.com:limitless-brook-11104.git', // the main repo
+          remote: 'git@heroku.com:limitless-brook-11104.git',
           branch: 'master'
         }
       }
@@ -827,7 +821,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    // 'all-po',
+    'all-po',
     'cdnify',
     'cssmin',
     'uglify',
@@ -847,7 +841,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    // 'all-po',
+    'all-po',
     'cdnify',
     'cssmin',
     'uglify',

@@ -1,13 +1,11 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="book">book</md-icon>
-    </md-button>
-    <p translate>Resource Quotas</p>
-    <div flex></div>
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{user.username ? user.username : '&nbsp;'}}</h1>
+    <h2>Quotas</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
 
@@ -50,7 +48,7 @@
                   <td md-cell>{{ usage.extra_splash_views || 0 }}</td>
                   <td md-cell>{{ quota.extra_splash_views || 0 }}</td>
                 </tr>
-                <tr md-row>
+                <!-- <tr md-row>
                   <td md-cell><span translate>Zones per location</span></td>
                   <td md-cell><span translate>NA</span></td>
                   <td md-cell>{{ usage.zones || 0 }}</td>
@@ -59,7 +57,7 @@
                   <td md-cell><span translate>Admin Users</span></td>
                   <td md-cell>{{ usage.admins || 0 }}</td>
                   <td md-cell>{{ quota.admins || 0 }}</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </md-table-container>

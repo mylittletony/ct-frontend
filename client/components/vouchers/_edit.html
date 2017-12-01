@@ -1,18 +1,22 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
-    </md-button>
-    <p translate>Back to Voucher</p>
-    <div flex></div>
-    <!-- <md-button ng-show="allowed == true" ng-click="create()" class="md-raised">Create</md-button> -->
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>Edit Voucher</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+  <span flex></span>
+
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back to Vouchers</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
 
   <div ng-include="'components/vouchers/_form.html'"></div>
 
 </md-content>
-

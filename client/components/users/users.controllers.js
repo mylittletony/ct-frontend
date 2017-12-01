@@ -88,29 +88,29 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     //   icon: 'business'
     // });
 
-    menu.sections.push({
-      name: gettextCatalog.getString('Notifications'),
-      type: 'link',
-      link: '/#/users/' + id + '/alerts',
-      icon: 'email',
-      active: isActive('alerts')
-    });
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('Notifications'),
+    //   type: 'link',
+    //   link: '/#/users/' + id + '/alerts',
+    //   icon: 'email',
+    //   active: isActive('alerts')
+    // });
 
-    menu.sections.push({
-      name: gettextCatalog.getString('History'),
-      type: 'link',
-      link: '/#/users/' + id + '/history',
-      icon: 'change_history',
-      active: isActive('history')
-    });
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('History'),
+    //   type: 'link',
+    //   link: '/#/users/' + id + '/history',
+    //   icon: 'change_history',
+    //   active: isActive('history')
+    // });
 
-    menu.sections.push({
-      name: gettextCatalog.getString('Access'),
-      type: 'link',
-      link: '/#/users/' + id + '/sessions',
-      icon: 'pan_tool',
-      active: isActive('sessions')
-    });
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('Access'),
+    //   type: 'link',
+    //   link: '/#/users/' + id + '/sessions',
+    //   icon: 'pan_tool',
+    //   active: isActive('sessions')
+    // });
 
     menu.sections.push({
       name: gettextCatalog.getString('Inventory'),

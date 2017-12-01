@@ -1,25 +1,20 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
-    </md-button>
-    <p translate>Vouchers</p>
-    <md-menu ng-if="menu.length">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-        <md-icon>more_vert</md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item ng-repeat="item in menu">
-          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
-            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-            {{item.name}}
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>View Voucher</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+  <span flex></span>
+
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back to Vouchers</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+</md-content>
+
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
 
@@ -177,9 +172,13 @@
           <md-button ng-disabled="!voucher.pdf_link" class="" href="{{ voucher.csv_link}}" target="_blank"><translate>CSV</translate></md-button>
         </md-card-actions>
       </md-card>
+      <md-button ng-click="edit()" class="md-raised">
+        Edit
+      </md-button>
+      <md-button ng-click="destroy()" class="md-raised md-warn">
+        Delete
+      </md-button>
     </div>
   </div>
 
 </md-content>
-
-

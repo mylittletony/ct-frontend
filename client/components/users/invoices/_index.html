@@ -1,13 +1,11 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="pdf">picture_as_pdf</md-icon>
-    </md-button>
-    <p translate>Invoices</p>
-    <div flex></div>
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{user.username ? user.username : '&nbsp;'}}</h1>
+    <h2>Invoices</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
 

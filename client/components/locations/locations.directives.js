@@ -1395,30 +1395,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       scope.menuItems = [];
 
       scope.menuItems.push({
-        name: gettextCatalog.getString('Edit'),
-        type: 'edit',
-        icon: 'settings'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Reboot'),
-        type: 'reboot',
-        icon: 'autorenew'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Run Payload'),
-        type: 'payload',
-        icon: 'present_to_all'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Edit Zones'),
-        type: 'zones',
-        icon: 'layers'
-      });
-
-      scope.menuItems.push({
         name: gettextCatalog.getString('Delete'),
         type: 'delete',
         icon: 'delete_forever'
@@ -1616,6 +1592,10 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       } else {
         closeDialog();
       }
+    };
+
+    scope.addDevice = function() {
+      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
 
     scope.deleteDevices = function() {
@@ -2269,7 +2249,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     scope.action = function(type) {
       switch(type) {
         case 'delete':
-          destroy();
+          scope.destroy();
           break;
         case 'transfer':
           transfer();
@@ -2354,7 +2334,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     //   });
     // };
 
-    var destroy = function(ev) {
+    scope.destroy = function(ev) {
       var confirm = $mdDialog.confirm()
         .title(gettextCatalog.getString('Are you sure you want to delete this location?'))
         .textContent(gettextCatalog.getString('You cannot delete a location with session data.'))

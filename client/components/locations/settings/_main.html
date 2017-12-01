@@ -1,72 +1,16 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >settings</md-icon>
-    </md-button>
-    <p translate>Settings</p>
-    <div flex></div>
-    <location-settings-menu location="location"></location-settings-menu>
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>Settings</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
   <form name="myForm" submit="update(myForm)">
     <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Overview
-              </span>
-              <span class="md-subhead" ng-if="vm.menu.locationStateIcon == 'archived'">
-                <md-icon>archived</md-icon>
-                <translate>This location has been archived! Splash pages are disabled.</translate>
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <div layout="row" layout-wrap>
-              <md-list-item class="md-3-line" flex="100" flex-gt-sm="{{ showToken ? '100' : '50' }}">
-                <div class="md-list-item-text">
-                  <h3>API Token (<span ng-click="showToken = !showToken">{{ showToken ? "Hide" : "Show" }}</span>)</h3>
-                  <p>
-                    <span ng-if="showToken">{{ location.api_token }}</span>
-                    <span ng-if="!showToken">●●●●●●●●●●●●●●●●●●</span>
-                  </p>
-                </div>
-              </md-list-item>
-              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
-                <div class="md-list-item-text">
-                  <h3 translate>Created On</h3>
-                  <p>{{ location.created_at | humanTime }}</p>
-                </div>
-              </md-list-item>
-              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
-                <div class="md-list-item-text">
-                  <h3 translate>Network Location</h3>
-                  <p>{{ ::location.network_location }} ({{ ::location.lucky_dip }})</p>
-                </div>
-              </md-list-item>
-              <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
-                <div class="md-list-item-text">
-                  <h3 translate>Environment</h3>
-                  <p>{{ ::location.development_mode | titleCase }}</p>
-                </div>
-              </md-list-item>
-              <!-- <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="location.project_name"> -->
-              <!--   <div class="md-list-item-text"> -->
-              <!--     <h3 translate>Project Name</h3> -->
-              <!--     <p>{{ ::location.project_name }}</p> -->
-              <!--   </div> -->
-              <!-- </md-list-item> -->
-            </div>
-          </md-card-content>
-          <md-card-actions layout="row" layout-align="end center">
-            <change-location-token token="location.api_token"></change-location-token>
-          </md-card-actions>
-        </md-card>
+      <div flex="100" flex-gt-sm="100">
 
         <md-card>
           <md-card-title>
@@ -146,18 +90,55 @@
                 </md-select>
               </md-input-container>
               <div flex="100"></div>
-              <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public Location' | translate }}">
-                <span ng-show="location.add_to_global_map" translate>Public Location</span>
-                <span ng-hide="location.add_to_global_map" translate>Private Location</span>
-              </md-switch>
             </div>
           </md-card-content>
         </md-card>
-        <md-button ng-click="update(myForm)" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-          <translate>
-            Save
-          </translate>
-        </md-button>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Danger Zone
+              </span>
+              <span class="md-subhead" translate>
+                Only make changes here if you absolutely positively know what you're doing.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>
+                  <translate>Radius NAS ID</translate>
+                </label>
+                <input ng-model="location.radiusnasid" name="radiusnasid" type="text" md-maxlength="255" md-minlength="10" required>
+                <div ng-messages="myForm.radiusnasid.$error" md-auto-hide="false">
+                  <div ng-message="max" translate>Must be less than 255 characters</div>
+                  <div ng-message="min" translate>Must be greater than 10 characters</div>
+                  <div ng-message="required" translate>You must enter a NAS ID</div>
+                </div>
+              </md-input-container>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <div flex layout="row">
+
+          <md-button ng-click="update(myForm)" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+            <translate>
+              Save
+            </translate>
+          </md-button>
+
+          <span flex></span>
+
+          <md-button class="md-raised md-warn" ng-click="destroy()">
+            <translate>
+              Delete Location
+            </translate>
+          </md-button>
+        </div>
 
       </div>
     </div>

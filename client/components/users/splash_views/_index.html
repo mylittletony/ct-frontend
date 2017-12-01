@@ -1,18 +1,18 @@
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{user.username ? user.username : '&nbsp;'}}</h1>
+    <h2>Splash Views</h2>
+  </div>
+
+</md-content>
+
 <form name="myForm" ng-submit="update(myForm)">
-  <md-toolbar class="md-table-toolbar md-default">
-    <div class="md-toolbar-tools">
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-        <md-icon md-font-icon="arrow_back" >all_inclusive</md-icon>
-      </md-button>
-      <p translate>Splash Views</p>
-      <div flex></div>
-    </div>
-    <md-divider></md-divider>
-  </md-toolbar>
 
   <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+
     <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="60">
+      <div flex="100" flex-gt-sm="100">
 
         <md-card ng-show="!user.credit_card_last4">
           <md-card-title>
