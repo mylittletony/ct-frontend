@@ -1,11 +1,13 @@
 <md-content layout-padding layout="row" layout-wrap>
 
-  <div style="padding-left:16px;">
+  <div>
     <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
     <h2>Devices</h2>
   </div>
+
   <span flex="" class="flex"></span>
-  <div style="padding-right:16px;">
+
+  <div>
     <md-input-container flex="100" ng-show="location.has_devices">
       <label></label>
       <md-icon md-font-icon="search">search</md-icon>
@@ -16,9 +18,9 @@
 </md-content>
 
 <md-content layout-padding>
-  <div ng-show="location.has_devices == false">
+  <span ng-show="location.has_devices == false">
     <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
+      <div flex="100" flex-gt-sm="100">
         <md-card>
           <md-card-title>
             <md-card-title-text>
@@ -53,10 +55,10 @@
         </md-card>
       </div>
     </div>
-  </div>
+  </span>
 
-  <div ng-if="location.has_devices">
+  <span ng-if="location.has_devices">
     <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
-  </div>
+  </span>
 
 </md-content>
