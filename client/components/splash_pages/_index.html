@@ -1,19 +1,21 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="splash_pages.length > 0">
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>Splash Pages</h2>
+  </div>
+
+  <span flex="" class="flex"></span>
+
+  <div>
+    <md-input-container flex="100" ng-show="splash_pages.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
       <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{'Filter Splash' | translate }}">
     </md-input-container>
-    <md-button ng-if="!splash_pages.length" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
-      <md-icon md-font-icon="">layers</md-icon>
-    </md-button>
-    <p ng-if="splash_pages.length === 0" translate>Splash Pages</p>
-    <div flex></div>
-    <splash-new style="md-icon-button md-accent" pages="splash_pages"></splash-new>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
 
@@ -48,8 +50,6 @@
               <th md-column md-order-by="active"><span translate>Active</span></th>
               <th hide show-gt-sm md-column md-order-by="splash_name"><span translate>Name</span></th>
               <th md-column md-order-by="primary_access"><span translate>Type</span></th>
-              <th md-column hide show-gt-sm><span translate>Tags</span></th>
-              <th hide show-gt-sm md-column><span translate>Network</span></th>
               <th hide show-gt-sm md-column md-order-by="weight"><span translate>Weight</span></th>
               <th md-column ng-show="menu.length"><span translate>Action</span></th>
             </tr>
@@ -73,25 +73,6 @@
                 <md-tooltip hide-gt-sm>
                   <translate>Name {{ splash.splash_name }}</translate>
                 </md-tooltip>
-              </td>
-              <td hide show-gt-sm md-cell>
-                <span ng-if="splash.tags && splash.tags.length > 1">
-                  {{ splash.tags.length }} tags
-                  <md-tooltip>
-                    {{ ::splash.tags.join(", ") }}
-                  </md-tooltip>
-                </span>
-                <span ng-if="splash.tags && splash.tags.length <= 1">
-                  {{ ::splash.tags.join(", ") || '-' }}
-                </span>
-              </td>
-              <td hide show-gt-sm md-cell>
-                <span ng-if="splash.networks.length < 1">
-                  <b>No Network</b>
-                  <md-tooltip>Splash must be assigned to a network</md-tooltip>
-                </span>
-                <span ng-if="splash.networks.length == 1">{{ splash.networks[0] }}</span>
-                <span ng-if="splash.networks.length > 1" translate>{{ splash.networks.length }} networks</span>
               </td>
               <td hide show-gt-sm md-cell>
                 {{ splash.weight }}
@@ -122,5 +103,7 @@
       </md-table-container>
       <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
     </md-card>
+    <splash-new style="md-raised" pages="splash_pages"></splash-new>
+
   </div>
 </md-content>

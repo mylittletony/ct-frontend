@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.boxes.directives', []);
 
-app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location', '$mdBottomSheet', 'Zone', 'ZoneListing', '$cookies', 'showToast', 'showErrors', '$mdDialog', '$q', 'ClientDetails', '$timeout', '$rootScope', 'Report', 'menu', 'gettextCatalog', function(Box, $routeParams, Auth, $pusher, $location, $mdBottomSheet, Zone, ZoneListing, $cookies, showToast, showErrors, $mdDialog, $q, ClientDetails, $timeout, $rootScope, Report, menu, gettextCatalog) {
+app.directive('showBox', ['Location', 'Box', '$routeParams', 'Auth', '$pusher', '$location', '$mdBottomSheet', 'Zone', 'ZoneListing', '$cookies', 'showToast', 'showErrors', '$mdDialog', '$q', 'ClientDetails', '$timeout', '$rootScope', 'Report', 'menu', 'gettextCatalog', function(Location, Box, $routeParams, Auth, $pusher, $location, $mdBottomSheet, Zone, ZoneListing, $cookies, showToast, showErrors, $mdDialog, $q, ClientDetails, $timeout, $rootScope, Report, menu, gettextCatalog) {
 
   var link = function(scope,attrs,element,controller) {
 
@@ -14,6 +14,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     scope.zone             = ZoneListing;
     scope.location         = { slug: $routeParams.id };
     scope.period           = $routeParams.period || '6h';
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.setPrefs = function(a) {
       if (prefs[scope.box.slug] === undefined) {

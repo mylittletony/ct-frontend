@@ -101,9 +101,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
   $httpProvider.interceptors.push('httpRequestInterceptor');
 
   $httpProvider.defaults.headers.common['Accept'] = 'application/json';
-  // $httpProvider.defaults.headers.common['X-Api-Key'] = 'api-token';
-  // $httpProvider.defaults.headers.common['X-Api-Key'] = 'api-token';
-  // $httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
   function loginRequired ($location, $q, AccessToken, $rootScope) {
     var deferred = $q.defer();
@@ -276,13 +273,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/boxes', {
-      redirectTo: '/alerts'
-    }).
-    when('/alerts', {
-      templateUrl: 'components/locations/index/alerts.html',
-      resolve: { loginRequired: loginRequired },
-    }).
     when('/distributors/:id', {
       templateUrl: 'components/distros/distro.html',
       resolve: { loginRequired: loginRequired },
@@ -292,14 +282,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/distros/referrals.html',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
-    }).
-    when('/events', {
-      templateUrl: 'components/events/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/events/:id', {
-      templateUrl: 'components/events/show.html',
-      resolve: { loginRequired: loginRequired },
     }).
     when('/locations', {
       templateUrl: 'components/locations/index/list.html',
@@ -635,6 +617,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/users/:id/reseller', {
       templateUrl: 'components/users/reseller/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/users/:id/splash_views', {
+      templateUrl: 'components/users/splash_views/index.html',
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).

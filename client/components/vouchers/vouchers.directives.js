@@ -7,6 +7,12 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
 
   var link = function(scope) {
 
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
+
     scope.location = { slug: $routeParams.id };
 
     scope.selected = [];
@@ -314,9 +320,15 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
 
 }]);
 
-app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher', '$rootScope', 'Auth', '$route', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Voucher, $routeParams, $location, $pusher, $rootScope, Auth, $route, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('showVoucher', ['Location', 'Voucher', '$routeParams', '$location', '$pusher', '$rootScope', 'Auth', '$route', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, Voucher, $routeParams, $location, $pusher, $rootScope, Auth, $route, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location  = { slug: $routeParams.id };
 
@@ -338,12 +350,6 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
         icon: 'receipt',
         type: 'codes',
         disabled: !scope.voucher.completed
-      });
-
-      scope.menu.push({
-        name: gettextCatalog.getString('New'),
-        icon: 'add_circle_outline',
-        type: 'new'
       });
 
       scope.menu.push({
@@ -370,7 +376,7 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
           codes();
           break;
         case 'delete':
-          destroy();
+          scope.destroy();
           break;
       }
     };
@@ -389,7 +395,7 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
       scope.loading = undefined;
     });
 
-    var destroy = function(network) {
+    scope.destroy = function(network) {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete Voucher'))
       .textContent(gettextCatalog.getString('Are you sure you want to delete this voucher?'))
@@ -397,12 +403,12 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
       .ok(gettextCatalog.getString('Delete'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        scope.destroy(network);
+        destroyBatch(network);
       }, function() {
       });
     };
 
-    scope.destroy = function() {
+    var destroyBatch = function() {
       Voucher.destroy({id: scope.voucher.unique_id, location_id: scope.location.slug}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug + '/vouchers/');
         showToast(gettextCatalog.getString('Successfully delete voucher.'));
@@ -514,9 +520,15 @@ app.directive('showVoucher', ['Voucher', '$routeParams', '$location', '$pusher',
 
 }]);
 
-app.directive('editVoucher', ['Voucher', '$routeParams', '$location', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Voucher, $routeParams, $location, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
+app.directive('editVoucher', ['Location', 'Voucher', '$routeParams', '$location', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, Voucher, $routeParams, $location, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location  = { slug: $routeParams.id };
 

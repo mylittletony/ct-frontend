@@ -1,26 +1,19 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" hide show-gt-sm class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
-    </md-button>
-    <p translate>Splash Pages</p>
-    <span flex></span>
-    <md-menu ng-if="menu">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-        <md-icon>more_vert</md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item ng-repeat="item in menu">
-          <md-button ng-disabled="item.disabled" ng-click="action(item.type)">
-            <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-            {{item.name}}
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>{{splash.splash_name}}</h2>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+  <span flex></span>
+
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back to Splash Pages</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+</md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
 
@@ -485,11 +478,20 @@
 
         </md-card-content>
       </md-card>
-
-      <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised md-primary"><translate>Save</translate></md-button>
       <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid" translate>Splash invalid, please check your settings.</p>
-
+      <md-button ng-click="designer()" class="md-raised">
+        Design
+      </md-button>
+      <md-button ng-click="duplicate()" class="md-raised">
+        Duplicate
+      </md-button>
+      <md-button ng-click="destroy()" class="md-raised md-warn">
+        Delete
+      </md-button>
     </div>
+
+    <!-- <md-button ng-disabled="item.disabled" ng-click="action(item.type)"> -->
+
 
     <div class="lock-size" layout="row" layout-align="center center">
       <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" type="submit" class="md-fab md-primary md-fab-bottom-right ">
