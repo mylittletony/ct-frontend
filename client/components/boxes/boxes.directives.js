@@ -1628,7 +1628,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       scope.setup.detecting = true;
       timer = $timeout(function() {
         fetchDiscovered();
-      }, 2000);
+      }, 0);
     } else if (parseInt($routeParams.stage) === 1 || (scope.setup && scope.setup.stage === 1)) {
       scope.setup.next = true;
     }
