@@ -8,7 +8,7 @@ var exports;
 if (process.env.NODE_ENV === 'production') {
 
   api_url = process.env.API_URL || 'https://api.ctapp.io/api/v1'
-  auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
+  auth_url = 'https://id.ctapp.io'
   base_url = process.env.CT_URL || 'dashboard.ctapp.io'
 
   exports = {
