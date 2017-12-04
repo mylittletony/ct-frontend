@@ -135,7 +135,7 @@ module.exports = function (grunt) {
           API_END_POINT_V2: 'https://ldn-01.ctapp.io/api/v1',
           API_URL: 'https://api.ctapp.io',
           STRIPE_KEY: 'pk_live_Fe0qoaafcT68z8OjFYJwg1vC',
-          AUTH_URL: 'https://id.ctapp.io',
+          AUTH_URL: 'https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.ctapp.io',
           SLACK_TOKEN: '3540010629.11828901815',
           CHIMP_TOKEN: '279197455989',
           PUSHER: 'f5c774e098156e548079',
