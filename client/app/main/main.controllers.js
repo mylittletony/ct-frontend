@@ -399,8 +399,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     var setDefaultImages = function(sub) {
       if ($localStorage.brandName) {
         $scope.brandName = $localStorage.brandName;
+      } else {
+        $scope.brandName.name = 'CT';  
       }
-      $scope.brandName.name = 'CT';
     };
 
     function getBrand(sub, cname) {
