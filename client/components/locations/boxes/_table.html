@@ -122,8 +122,11 @@
                   <span ng-if='box.wan_proto === "static"' translate>. Static IP: {{ ::box.wan_ipaddr }}</span>
                 </md-tooltip>
               </td>
-              <td hide show-gt-md md-cell client-chart class="heartbeat-table">
+              <td hide show-gt-md md-cell client-chart class="heartbeat-table" ng-if="box.v == '4'">
                 <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
+              </td>
+              <td hide show-gt-md md-cell ng-if="box.v != '4'">
+                <div><p>Upgrade firmware version<p></div>
               </td>
               <td hide show-gt-sm md-cell>
                 {{ box.v }}
