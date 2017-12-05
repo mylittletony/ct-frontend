@@ -1413,6 +1413,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
     link: link,
     scope: {
       box: '=',
+      prompt: '=',
       ps: '@'
     },
     templateUrl: 'components/boxes/firmware/_upgrade_firmware.html'
