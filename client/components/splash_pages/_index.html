@@ -11,7 +11,7 @@
     <md-input-container flex="100" ng-show="splash_pages.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
       <label></label>
-      <input ng-model="query.filter" md-autofocus placeholder="{{'Filter Splash' | translate }}">
+      <input ng-model="query.filter" md-autofocus placeholder="{{'Search Splash Pages' | translate }}">
     </md-input-container>
   </div>
 
@@ -49,9 +49,8 @@
             <tr md-row>
               <th md-column md-order-by="active"><span translate>Active</span></th>
               <th hide show-gt-sm md-column md-order-by="splash_name"><span translate>Name</span></th>
-              <th md-column md-order-by="primary_access"><span translate>Type</span></th>
-              <th hide show-gt-sm md-column md-order-by="weight"><span translate>Weight</span></th>
-              <th md-column ng-show="menu.length"><span translate>Action</span></th>
+              <th md-column md-order-by="primary_access"><span translate>Login Type</span></th>
+              <th md-column ng-show="menu.length"><span translate>Options</span></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -73,9 +72,6 @@
                 <md-tooltip hide-gt-sm>
                   <translate>Name {{ splash.splash_name }}</translate>
                 </md-tooltip>
-              </td>
-              <td hide show-gt-sm md-cell>
-                {{ splash.weight }}
               </td>
               <td md-cell ng-show="menu.length">
                 <span ng-if="network.state == 'processing'">

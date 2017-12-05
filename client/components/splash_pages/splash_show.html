@@ -84,7 +84,7 @@
 
               <div layout="column">
                 <md-input-container class="md-block">
-                  <label><translate>Newsletter Capture Type</translate></label>
+                  <label><translate>Capture Type</translate></label>
                   <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
                     <md-option ng-repeat="type in newsletter_types" value="{{ type.value }}">
                       {{type.key}}
@@ -126,13 +126,13 @@
             <div flex-gt-sm="40">
 
               <md-switch class="md-accent" ng-model="splash.email_required" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || splash.newsletter_checked">
-                <span ng-if="splash.email_required" translate>Disable Opt-Out</span>
-                <span ng-if="!splash.email_required" translate>Allow Opt-Out</span>
+                <span ng-if="splash.email_required" translate>Opt-Out Disabled</span>
+                <span ng-if="!splash.email_required" translate>Opt-Out Enabled</span>
               </md-switch>
 
               <md-switch class="md-accent" ng-model="splash.newsletter_checked" aria-label="{{ 'Enabled Checked' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || splash.email_required">
-                <translate>Users should opt out</translate>
-                <!-- {{ splash.email_required ? 'Disable' : 'Allow' }} Opt-Out -->
+                <span ng-if="splash.newsletter_checked" translate>Opt-Out By Default</span>
+                <span ng-if="!splash.newsletter_checked" translate>Opt-In By Default</span>
               </md-switch>
 
               <md-switch class="md-accent" ng-model="splash.merge_fields" aria-label="{{ 'Merge Fields' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id != 8 || splash.newsletter_type != 1">
@@ -140,7 +140,8 @@
               </md-switch>
 
               <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1">
-                <translate>MailChimp Single Opt-In</translate>
+                <span ng-if="splash.single_opt_in" translate>Skip MailChimp Confirmation Enabled</span>
+                <span ng-if="!splash.single_opt_in" translate>Skip MailChimp Confirmation Disabled</span>
               </md-switch>
 
             </div>
@@ -370,15 +371,6 @@
                     <div ng-messages="myForm.idle_timeout.$error">
                       <div ng-message="min" translate>Must be greater than 10 minutes.</div>
                       <div ng-message="max" translate>Must be less than 43200 minutes.</div>
-                    </div>
-                  </md-input-container>
-                </div>
-                <div flex-gt-sm="30">
-                  <md-input-container class="md-block">
-                    <label for="weight"><translate>Weight</translate></label>
-                    <input ng-model="splash.weight" placeholder="{{ 'Weight' | translate }}" type='number' name="weight" ng-min='0'></input>
-                    <div ng-messages="myForm.weight.$error">
-                      <div ng-message="min" translate>Must be greater than 0.</div>
                     </div>
                   </md-input-container>
                 </div>
