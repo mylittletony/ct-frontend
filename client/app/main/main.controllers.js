@@ -397,6 +397,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     var setDefaultImages = function(sub) {
+      if ($localStorage.brandName) {
+        $scope.brandName = $localStorage.brandName;
+      }
       $scope.brandName.name = 'CT';
     };
 
@@ -426,6 +429,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.intercom_id = results.intercom_id;
         $scope.brandName.logo_url = results.logo_url;
         $scope.brandName.reseller = results.reseller;
+        $localStorage.brandName = $scope.brandName;
       }, function() {
         setDefaultImages(sub);
       });
@@ -445,7 +449,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       else if (parts.length === 3) {
         sub = parts[0];
-        if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg') {
+        if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg' && sub !== 'peakhaus') {
           if (sub !== 'my') {
             getBrand(sub);
           }
