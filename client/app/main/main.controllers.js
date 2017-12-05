@@ -449,7 +449,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       else if (parts.length === 3) {
         sub = parts[0];
-        if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg' && sub !== 'peakhaus') {
+        if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg') {
           if (sub !== 'my') {
             getBrand(sub);
           }
