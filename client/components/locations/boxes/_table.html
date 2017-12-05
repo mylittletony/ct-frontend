@@ -123,7 +123,8 @@
                 </md-tooltip>
               </td>
               <td hide show-gt-md md-cell client-chart class="heartbeat-table">
-                <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
+                <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}' ng-hide="box.v == '3'"></div>
+                <div ng-hide="box.v == '4'">Please upgrade firmware version</div>
               </td>
               <td hide show-gt-sm md-cell>
                 {{ box.v }}
