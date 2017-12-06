@@ -31,27 +31,12 @@
 
           <md-card-content>
             <p translate>Add your device when you are ready.</p>
-            <md-button class="md-primary md-raised" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
+            <md-button class="md-raised" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
               <translate>
                 Add Device
               </translate>
             </md-button>
           </md-card-content>
-
-          <md-divider ng-if="!$last"></md-divider>
-
-          <md-card-actions layout="row" layout-align="end center">
-            <md-button href="/#/downloads" aria-label="{{ 'Downloads' | translate }}">
-              <translate>
-                Downloads
-              </translate>
-            </md-button>
-            <md-button ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
-              <translate>
-                Add Device
-              </translate>
-            </md-button>
-          </md-card-actions>
         </md-card>
       </div>
     </div>
