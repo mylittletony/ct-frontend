@@ -8,7 +8,7 @@ app.factory('Logs', ['$resource', '$localStorage', 'API_END_POINT_V2',
     if ($localStorage && $localStorage.user && $localStorage.user.api_token) {
       token = $localStorage.user.api_token;
     }
-    return $resource(API_END_POINT_V2 + '/logs',
+    return $resource('https://api.ctapp.io/api/v2/logs',
       {
         'access_token': token
       },
