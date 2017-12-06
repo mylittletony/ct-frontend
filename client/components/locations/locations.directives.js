@@ -1971,7 +1971,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
 }]);
 
-app.directive('locationSettingsMain', ['moment', 'Project', function(moment, Project) {
+app.directive('locationSettingsMain', ['Location', '$location', 'moment', 'Project', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $location, moment, Project, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -1984,6 +1984,29 @@ app.directive('locationSettingsMain', ['moment', 'Project', function(moment, Pro
     scope.back = function() {
       controller.back();
     };
+
+    scope.destroy = function(ev) {
+      var confirm = $mdDialog.confirm()
+        .title(gettextCatalog.getString('Are you sure you want to delete this location?'))
+        .textContent(gettextCatalog.getString('You cannot delete a location with session data.'))
+        .ariaLabel(gettextCatalog.getString('Archive'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('delete'))
+        .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        destroyLocation();
+      });
+    };
+
+    var destroyLocation = function(id) {
+      Location.destroy({id: scope.location.id}).$promise.then(function(results) {
+        $location.path('/');
+        showToast(gettextCatalog.getString('Successfully deleted location.'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
 
     // var setProjectName = function() {
     //   if (scope.projects.length > 0 && scope.location.project_id) {
@@ -2333,28 +2356,6 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     //     showErrors(err);
     //   });
     // };
-
-    scope.destroy = function(ev) {
-      var confirm = $mdDialog.confirm()
-        .title(gettextCatalog.getString('Are you sure you want to delete this location?'))
-        .textContent(gettextCatalog.getString('You cannot delete a location with session data.'))
-        .ariaLabel(gettextCatalog.getString('Archive'))
-        .targetEvent(ev)
-        .ok(gettextCatalog.getString('delete'))
-        .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        destroyLocation();
-      });
-    };
-
-    var destroyLocation = function(id) {
-      Location.destroy({id: scope.location.id}).$promise.then(function(results) {
-        $location.path('/');
-        showToast(gettextCatalog.getString('Successfully deleted location.'));
-      }, function(err) {
-        showErrors(err);
-      });
-    };
 
     var transfer = function() {
       $mdDialog.show({
