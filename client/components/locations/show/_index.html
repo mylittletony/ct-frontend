@@ -11,7 +11,7 @@
     <md-input-container flex="100" ng-show="location.has_devices">
       <label></label>
       <md-icon md-font-icon="search">search</md-icon>
-      <input ng-model="query" md-autofocus placeholder="{{ 'Filter Devices' | translate }}">
+      <input ng-model="query" md-autofocus placeholder="{{ 'Search Devices' | translate }}">
     </md-input-container>
   </div>
 
@@ -24,34 +24,19 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline" translate>Please Add a Device</span>
-              <span class="md-subhead" translate>Manage and monitor all your devices remotely.</span>
+              <span class="md-headline" translate>Getting Started</span>
+              <span class="md-subhead" translate>Add your first device so you can get started building your guest access</span>
             </md-card-title-text>
           </md-card-title>
 
           <md-card-content>
-            <p translate>You haven't added any devices yet.</p>
-            <md-button class="md-primary md-raised" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
+            <p translate>Add your device when you are ready.</p>
+            <md-button class="md-raised" ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
               <translate>
                 Add Device
               </translate>
             </md-button>
           </md-card-content>
-
-          <md-divider ng-if="!$last"></md-divider>
-
-          <md-card-actions layout="row" layout-align="end center">
-            <md-button href="/#/downloads" aria-label="{{ 'Downloads' | translate }}">
-              <translate>
-                Downloads
-              </translate>
-            </md-button>
-            <md-button ng-click="addDevice()" aria-label="{{ 'Add Device' | translate }}">
-              <translate>
-                Add Device
-              </translate>
-            </md-button>
-          </md-card-actions>
         </md-card>
       </div>
     </div>

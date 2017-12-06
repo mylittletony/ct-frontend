@@ -81,14 +81,6 @@
                   </md-option>
                 </md-select>
               </md-input-container>
-              <md-input-container flex="100" flex-gt-sm="50" ng-if="projects.length > 0">
-                <label>Project Name</label>
-                <md-select ng-model="location.project_id">
-                  <md-option ng-repeat="project in projects" ng-value="project.id">
-                    {{project.project_name}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
               <div flex="100"></div>
             </div>
           </md-card-content>

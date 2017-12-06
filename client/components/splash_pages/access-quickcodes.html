@@ -2,7 +2,7 @@
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline" translate>
-        QuickCode Settings 
+        QuickCode Settings
       </span>
     </md-card-title-text>
   </md-card-title>
@@ -11,8 +11,10 @@
 
     <p translate>To use QuickCodes, generate some code in your location settings. They can be generated on the fly for and you can set restrictions, just like vouchers.</p>
 
+    <div flex layout="row">
+      <div flex></div>
+      <md-button href="/#/locations/{{ location.slug }}/splash_codes/new" class="md-raised"><translate>CREATE</translate></md-button>
+    </div>
+
   </md-card-content>
-  <md-card-actions layout="row" layout-align="end center">
-    <md-button href="/#/locations/{{ location.slug }}/splash_codes/new" class="md-primary md-raised"><translate>CREATE</translate></md-button>
-  </md-card-actions>
 </md-card>

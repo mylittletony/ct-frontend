@@ -38,33 +38,6 @@
                 <div ng-message="required" translate>You must give it a name</div>
               </div>
             </md-input-container>
-
-            <md-input-container ng-show="obj.networks.length" ng-hide="newSsid">
-              <label>
-                <translate>Splash SSID (Network)</translate>
-              </label>
-              <md-select ng-model="splash.network_id">
-                <md-option ng-repeat="network in obj.networks" value="{{network.id}}">
-                  {{network.ssid}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-
-            <md-input-container ng-if="newSsid">
-              <label>
-                <translate>SSID Name</translate>
-              </label>
-              <input name="ssid" ng-minlength="5" md-maxlength="32" ng-model="splash.ssid" required>
-              <div ng-messages="myForm.ssid.$error">
-                <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                <div ng-message="minlength" translate>Min 5 characters</div>
-                <div ng-message="required" translate>You must set an SSID</div>
-                <div ng-message="pattern" translate>Invalid SSID</div>
-              </div>
-            </md-input-container>
-            <md-checkbox ng-model="newSsid" aria-label="{{ 'New SSID' | translate }}" ng-hide="obj.zones">
-              <translate>Create a new SSID</translate>
-            </md-checkbox>
           </div>
         </div>
       </md-dialog-content>

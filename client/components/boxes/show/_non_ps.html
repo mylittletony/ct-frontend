@@ -5,6 +5,16 @@
     <form name="myForm">
       <md-input-container class="md-block" flex-gt-sm="80" flex="100">
         <label>
+          <translate>Device Name</translate>
+        </label>
+        <textarea ng-model="box.description" name="description" md-maxlength="180" md-minlength="5" rows="1" required md-select-on-focus></textarea>
+        <div ng-messages="myForm.description.$error">
+          <div ng-message="required" translate>A description is required</div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
+        <label>
           <translate>MAC Address</translate>
         </label>
         <input ng-model="box.calledstationid" name="mac" ng-pattern="/^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/" required>
@@ -21,16 +31,6 @@
         <input name="address" ng-model="box.address" required>
         <div ng-messages="myForm.address.$error" md-auto-hide="false">
           <div ng-message="required" translate>Please enter an address</div>
-        </div>
-      </md-input-container>
-
-      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
-        <label>
-          <translate>Description</translate>
-        </label>
-        <textarea ng-model="box.description" name="description" md-maxlength="180" md-minlength="5" rows="5" required md-select-on-focus></textarea>
-        <div ng-messages="myForm.description.$error">
-          <div ng-message="required" translate>A description is required</div>
         </div>
       </md-input-container>
 
@@ -60,14 +60,6 @@
             {{type.key}}
           </md-option>
         </md-select>
-      </md-input-container>
-
-      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
-        <md-checkbox ng-model="box.tony" aria-label="{{ 'Checkbox 2' | translate }}" class="md-warn md-align-top-left">
-          <translate>
-            CT Box
-          </translate>
-        </md-checkbox>
       </md-input-container>
 
       <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>

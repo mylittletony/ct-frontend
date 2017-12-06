@@ -15,490 +15,429 @@
     </div>
 </md-content>
 
-<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
-
   <form name="myForm" ng-submit="update(myForm)" confirm-on-exit>
 
-    <div flex>
-      <md-card>
-        <div class="md-card-image" style="height: 5px; background-color: {{ color }}"></div>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Splash Settings
-            </span>
-            <span class="md-subhead" ng-if="errors">
-              <md-icon>error</md-icon>
-              Splash not associated with a network. <a href="" ng-click="displayNetworks()">Associate now.</a>
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-          <div flex-gt-sm="40">
-            <div layout="column">
-              <md-input-container class="md-block">
-                <label><translate>Access Type</translate></label>
-                <md-select ng-model="splash.primary_access_id" ng-change="access_name()">
-                  <md-option ng-repeat="type in access_types" value="{{type.id}}">
-                    {{type.id | translateAccessTypeName}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
-            </div>
+    <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
 
-            <div layout="column">
-              <input style="display:none" type="password" name="splash_name"/>
-              <md-input-container class="md-block">
-                <label><translate>Splash Name</translate></label>
-                <input ng-model="splash.splash_name" placeholder="{{ 'Name your splash page' | translate }}" type="text" name="splash_name" md-maxlength='100'>
-                <div ng-messages="myForm.splash_name.$error">
-                  <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
-                </div>
-              </md-input-container>
-            </div>
-          </div>
-
-          <div flex></div>
-
-          <div flex-gt-sm="40" hide show-gt-xs>
-            <div layout="column">
-              <md-list-item class="md-2-line">
-                <div class="md-list-item-text">
-                  <h3 translate>Splash Page Id</h3>
-                  <p>{{ splash.unique_id }}</p>
-                </div>
-              </md-list-item>
-              <md-list-item class="md-2-line">
-                <div class="md-list-item-text">
-                  <h3 translate>Created</h3>
-                  <p>{{ splash.created_at | humanTime }}</p>
-                </div>
-              </md-list-item>
-              <md-list-item class="md-2-line" ng-if="splash.debug">
-                <div class="md-list-item-text">
-                  <h3 translate>Debug Mode</h3>
-                  <p>{{ splash.debug }}</p>
-                </div>
-              </md-list-item>
-              <md-list-item class="md-2-line" ng-if="splash.vsg_host && splash.vsg_enabled">
-                <!-- <img ng-src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/ruckus-wireless.png" class="md-avatar" /> -->
-                <div class="md-list-item-text">
-                  <h3 translate>Ruckus VSZ Host</h3>
-                  <p>{{ splash.vsg_host }}:{{ splash.vsg_port}}</p>
-                </div>
-              </md-list-item>
-            </div>
-          </div>
-
-        </md-card-content>
-      </md-card>
-
-      <div access-types ver='{{ splash.access_type }}'></div>
-
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Email Capture
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-
-        <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-
-          <div flex-gt-sm="40">
-
-            <div layout="column">
-              <md-input-container class="md-block">
-                <label><translate>Newsletter Capture Type</translate></label>
-                <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
-                  <md-option ng-repeat="type in newsletter_types" value="{{ type.value }}">
-                    {{type.key}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
-            </div>
-
-            <div>
-              <md-input-container class="md-block">
-                <label>
-                  <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
-                  <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
-                </label>
-                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
-                <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
-                  <div ng-message="required">
-                    <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
-                    <span ng-if="splash.newsletter_type != 4" translate>You must set an API token.</span>
-                  </div>
-                </div>
-              </md-input-container>
-
-              <md-input-container class="md-block">
-                <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
-                <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
-                <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
-                  <div ng-message="required" translate>You must set a list ID.</div>
-                </div>
-              </md-input-container>
-
-              <small hide show-gt-sm ng-show="splash.newsletter_type == 3"><translate>'Internal Only' saves email in dashboard but doesn't subscribe to external service like MailChimp.</translate></small>
-            </div>
-
-          </div>
-
-          <div flex></div>
-
-          <div flex-gt-sm="40">
-
-            <md-switch class="md-accent" ng-model="splash.email_required" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || splash.newsletter_checked">
-              <span ng-if="splash.email_required" translate>Disable Opt-Out</span>
-              <span ng-if="!splash.email_required" translate>Allow Opt-Out</span>
-            </md-switch>
-
-            <md-switch class="md-accent" ng-model="splash.newsletter_checked" aria-label="{{ 'Enabled Checked' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || splash.email_required">
-              <translate>Users should opt out</translate>
-              <!-- {{ splash.email_required ? 'Disable' : 'Allow' }} Opt-Out -->
-            </md-switch>
-
-            <md-switch class="md-accent" ng-model="splash.merge_fields" aria-label="{{ 'Merge Fields' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id != 8 || splash.newsletter_type != 1">
-              <translate>Merge Registration Fields</translate>
-            </md-switch>
-
-            <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1">
-              <translate>MailChimp Single Opt-In</translate>
-            </md-switch>
-
-          </div>
-
-        </md-card-content>
-      </md-card>
-
-      <md-card ng-hide="splash.primary_access_id == 2">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Access Restrictions
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-
-        <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-
-          <div flex-gt-sm="40">
-
-            <div layout="column">
-              <md-input-container class="md-block">
-                <label><translate>Restriction Type</translate></label>
-                <md-select ng-model="splash.access_restrict" ng-change="updateNews()">
-                  <md-option ng-repeat="type in access_restrict" value="{{ type.value }}">
-                    {{type.key}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
-
-              <md-radio-group ng-model="splash.access_restrict_period" layout="row" style="padding: 10px 0 20px 0;" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'data' || splash.access_restrict === 'none'" ng-disabled="splash.access_restrict === 'none'">
-                <md-radio-button value="daily" class="md-primary"><translate>Daily</translate></md-radio-button>
-                <md-radio-button value="weekly"><translate>Weekly</translate></md-radio-button>
-                <md-radio-button value="monthly"><translate>Monthly</translate></md-radio-button>
-              </md-radio-group>
-            </div>
-
-            <div layout="column" layout-gt-xs="row" layout-wrap ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'data'|| splash.access_restrict === 'none'">
-
-              <div flex-gt-sm="50" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'none'">
+      <div flex-gt-sm="30">
+        <md-card style="min-height:328px;">
+          <div class="md-card-image" style="height: 5px; background-color: {{ color }}"></div>
+          <md-card-title style="max-height:32px;">
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Splash Settings
+              </span>
+              <span class="md-subhead" ng-if="errors">
+                <md-icon>error</md-icon>
+                Splash not associated with a network. <a href="" ng-click="displayNetworks()">Associate now.</a>
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
+            <div flex-gt-sm="100">
+              <div layout="column">
+                <input style="display:none" type="password" name="splash_name"/>
                 <md-input-container class="md-block">
-                  <label><translate>Minutes {{ splash.access_restrict_period | translatableAccessRestrict | titleCase }}</translate></label>
-                  <input ng-model="splash.access_restrict_mins" placeholder="" type='number' name="access_restrict_mins" ng-min="10" ng-max='43200' ng-disabled="splash.access_restrict === 'none'">
-                  <div ng-messages="myForm.access_restrict_mins.$error">
-                    <div ng-message="required" translate>You must set the restrict mins.</div>
-                    <div ng-message="max" translate>Must be less than 43200.</div>
-                    <div ng-message="min" translate>Must be greater than 10.</div>
+                  <label><translate>Splash Name</translate></label>
+                  <input ng-model="splash.splash_name" placeholder="{{ 'Name your splash page' | translate }}" type="text" name="splash_name" md-maxlength='100'>
+                  <div ng-messages="myForm.splash_name.$error">
+                    <div ng-message="md-maxlength" translate>Must be less than 100 characters</div>
                   </div>
                 </md-input-container>
               </div>
-
-              <div flex-gt-sm="50" ng-if="splash.access_restrict === 'data'">
+              <div layout="column">
                 <md-input-container class="md-block">
-                  <label>MB {{ splash.access_restrict_period | translatableAccessRestrict | titleCase }} </label>
-                  <input ng-model="splash.access_restrict_down" placeholder="{{ 'MB Limit' | translate }}" type='text' name="access_restrict_down" ng-max='' ng-min="10" required>
-                  <div ng-messages="myForm.access_restrict_down.$error">
-                    <div ng-message="required" translate>You must set the download restriction.</div>
-                    <div ng-message="min" translate>Must be greater than 10Mb.</div>
-                  </div>
-                </md-input-container>
-              </div>
-
-              <div flex-gt-sm="50">
-                <md-input-container class="md-block">
-                  <label><translate>Timeout Days</translate></label>
-                  <input ng-model="splash.timeout" placeholder="" type='number' name="timeout" ng-max='90' ng-min="0" ng-disabled="splash.access_restrict === 'none'">
-                  <div ng-messages="myForm.timeout.$error">
-                    <div ng-message="max" translate>Must be less than 90.</div>
-                    <div ng-message="min" translate>Must be greater than or equal to 0.</div>
-                  </div>
-                </md-input-container>
-              </div>
-            </div>
-
-            <div layout="column" layout-gt-xs="row" layout-wrap ng-if="splash.access_restrict === 'periodic'">
-
-              <div flex-gt-sm="50">
-                <md-input-container class="md-block">
-                  <label for="available_start"><translate>Start Time</translate></label>
-                  <input ng-model="splash.available_start" placeholder="{{ 'Start' | translate }}"  type='text' name="available_start" ng-pattern="/^([0-9]{2})\:([0-9]{2})$/">
-                </md-input-container>
-              </div>
-
-              <div flex-gt-sm="50">
-                <md-input-container class="md-block">
-                  <label for="available_start"><translate>End Time</translate></label>
-                  <input ng-model="splash.available_end" placeholder="{{ 'End' | translate }}" type='text' name="available_end" ng-pattern="/^([0-9]{2})\:([0-9]{2})$/">
-                </md-input-container>
-              </div>
-
-              <div style="margin-top: -30px;">
-                <p><small><translate>Allowed Days</translate></small></p>
-                <day-selector active="true" days="splash.available_days" array="splash.periodic_days"></day-selector>
-              </div>
-
-              <p translate>Set the start and end times to 00:00 to allow access all day</p>
-
-            </div>
-
-            <div layout="column">
-              <md-input-container class="md-block" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'data'">
-                <label>
-                  <md-icon md-font-icon="star">stars</md-icon>
-                  <span translate>Over-Usage Message</span>
-                </label>
-                <textarea rows=3 ng-model="splash.quota_message" placeholder="{{ 'Message displayed when a customer goes over-limit.' | translate }}" rows="3" ng-disabled="splash.access_restrict === 'periodic'"></textarea>
-              </md-input-container>
-            </div>
-
-          </div>
-
-          <div flex></div>
-
-          <div flex-gt-sm="40">
-
-            <div ng-hide="customSpeeds">
-              <translate>Download Speed {{ (splash.download_speed / 1024) | number }}Mbps</translate>
-              <md-slider md-discrete ng-model="splash.download_speed" step="256" min="0" max="49134" aria-label="download">
-              </md-slider>
-
-              <translate>Upload Speed {{ (splash.upload_speed / 1024) | number }}Mbps</translate>
-              <md-slider md-discrete ng-model="splash.upload_speed" step="256" min="0" max="49134" aria-label="upload">
-              </md-slider>
-
-            </div>
-
-            <div ng-if="customSpeeds" layout="row">
-
-              <md-input-container class="md-block">
-                <label for="splash.download_speed"><translate>Download {{ splash.download_speed | mbps }}</translate></label>
-                <input name="download" type="number" min="0" ng-model="splash.download_speed"></input>
-                <div ng-messages="myForm.download.$error">
-                  <div ng-message="min" translate>Must be greater than or equal to 0.</div>
-                </div>
-              </md-input-container>
-
-              <md-input-container class="md-block">
-                <label for="splash.upload_speed"><translate>Upload {{ splash.upload_speed | mbps }}</translate></label>
-                <input name="upload" type="number" min="0" ng-model="splash.upload_speed"></input>
-                <div ng-messages="myForm.upload.$error">
-                  <div ng-message="min" translate>Must be greater than or equal to 0.</div>
-                </div>
-              </md-input-container>
-
-            </div>
-
-            <small><translate>Speed restrictions not compatible with QuickCodes or Voucher based splash pages.</translate></small>
-
-            <p><a href="" ng-click="customSpeeds = !customSpeeds" translate>Edit values</a></p>
-
-          </div>
-
-        </md-card-content>
-      </md-card>
-
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Access Settings
-            </span>
-          </md-card-title-text>
-
-        </md-card-title>
-
-        <md-card-content layout="column" layout-gt-sm="column">
-          <md-input-container class="md-block">
-            <label><translate>Walled Gardens</translate></label>
-            <md-chips
-              ng-model="splash.walled_gardens_array"
-              placeholder="{{ 'Enter a URL' | translate }}"
-              delete-button-label="{{ 'Remove URL' | translate }}"
-              delete-hint="{{ 'Press delete to remove URL' | translate }}"
-              secondary-placeholder="+URL"></md-chips>
-              <div class="hint">Hit enter after each URL to save multiple addresses</div>
-          </md-input-container>
-
-          <div flex-gt-sm="50"></div>
-        </md-card-content>
-      </md-card>
-
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Advanced Settings
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-
-        <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-
-          <div flex-gt-sm="40">
-            <div layout="column" layout-gt-xs="row" layout-wrap>
-              <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
-                <md-input-container class="md-block">
-                  <label for="available_start"><translate>Show After (mins)</translate></label>
-                  <input ng-model="splash.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" type='number' name="session_timeout" ng-max='43200' ng-min='10'></input>
-                  <div ng-messages="myForm.session_timeout.$error">
-                    <div ng-message="min" translate>Must be greater than 10 minutes.</div>
-                    <div ng-message="max" translate>Must be less than 43200 minutes.</div>
-                  </div>
-                </md-input-container>
-              </div>
-              <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
-                <md-input-container class="md-block">
-                  <label for="available_start"><translate>Idle Timeout (mins)</translate></label>
-                  <input ng-model="splash.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" type='number' name="idle_timeout" ng-max='43200' ng-min='10'></input>
-                  <div ng-messages="myForm.idle_timeout.$error">
-                    <div ng-message="min" translate>Must be greater than 10 minutes.</div>
-                    <div ng-message="max" translate>Must be less than 43200 minutes.</div>
-                  </div>
-                </md-input-container>
-              </div>
-              <div flex-gt-sm="30">
-                <md-input-container class="md-block">
-                  <label for="weight"><translate>Weight</translate></label>
-                  <input ng-model="splash.weight" placeholder="{{ 'Weight' | translate }}" type='number' name="weight" ng-min='0'></input>
-                  <div ng-messages="myForm.weight.$error">
-                    <div ng-message="min" translate>Must be greater than 0.</div>
-                  </div>
-                </md-input-container>
-              </div>
-              <div flex-gt-sm="100">
-                <md-input-container class="md-block">
-                  <label><translate>Redirect URL</translate></label>
-                  <input ng-model="splash.success_url" placeholder="http://my-site.com/awesome" type='url' name="success_url" ng-maximum='255'>
-                  <div ng-messages="myForm.success_url.$error">
-                    <div ng-message="max" translate>Must be less than 255 chars.</div>
-                    <div ng-message="url" translate>Must be a valid URL, including http(s).</div>
-                  </div>
-                </md-input-container>
-              </div>
-              <div flex-gt-sm="100">
-                <md-input-container class="md-block">
-                  <label><translate>Google Analytics</translate></label>
-                  <input ng-model="splash.google_analytics_id" placeholder="UA-57956353-1" type='text' name="google_analytics_id" md-maxlength='15'>
-                  <div ng-messages="myForm.google_analytics_id.$error">
-                    <div ng-message="md-maxlength" translate>Must be less than 15 chars.</div>
-                  </div>
-                </md-input-container>
-              </div>
-
-              <div flex-gt-sm="100">
-                <md-input-container class="md-block">
-                  <label><translate>Timezone</translate></label>
-                  <md-select ng-model="splash.timezone">
-                    <md-option ng-repeat="zone in timezones" value="{{zone}}">
-                      {{zone}}
+                  <label><translate>Login Type</translate></label>
+                  <md-select ng-model="splash.primary_access_id" ng-change="access_name()">
+                    <md-option ng-repeat="type in access_types" value="{{type.id}}">
+                      {{type.id | translateAccessTypeName}}
                     </md-option>
                   </md-select>
                 </md-input-container>
-                <p><small><translate>Set the Timezone to ensure your splash restrictions work correctly.</translate></small></p>
-              </div>
-
-              <div flex-gt-sm="100">
-                <md-input-container class="md-block" flex-gt-sm="100" style="margin: 40px 0 0 0;">
-                  <label>
-                    <translate>Tags</translate>
-                  </label>
-                  <input ng-model="splash.tags" name="tags" placeholder="{{ 'Splash tags' | translate }}" type="text" ng-maxlength="255">
-                  <div ng-messages="myForm.tags.$error">
-                    <div ng-message="ng-maxlength" translate>Must be less than 255 chars.</div>
+                <md-list-item class="md-2-line" ng-if="splash.vsg_host && splash.vsg_enabled">
+                  <!-- <img ng-src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/ruckus-wireless.png" class="md-avatar" /> -->
+                  <div class="md-list-item-text">
+                    <h3 translate>Ruckus VSZ Host</h3>
+                    <p>{{ splash.vsg_host }}:{{ splash.vsg_port}}</p>
                   </div>
-                </md-input-container>
-                <small translate>Filter your splash triggers and actions with tags.</small>
+                </md-list-item>
               </div>
 
             </div>
-          </div>
-          <div flex></div>
-          <div flex-gt-sm="40">
-            <md-switch class="md-accent" ng-model="splash.tagged_logins" aria-label="tagged logins" ng-change="updateLocation()">
-              <span ng-show="splash.tagged_logins" translate>Tagged Logins Enabled</span>
-              <span ng-show="!splash.tagged_logins" translate>Tagged Logins Disabled</span>
-            </md-switch>
+          </md-card-content>
+        </md-card>
+      </div>
 
-            <md-switch class="md-accent" ng-model="splash.vsg_enabled" aria-label="vsg_enabled">
-              <span ng-show="splash.vsg_enabled" translate>Ruckus VSZ Enabled</span>
-              <span ng-show="!splash.vsg_enabled" translate>Ruckus VSZ Disabled</span>
-            </md-switch>
+      <div flex-gt-sm="70">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Email Capture
+              </span>
+            </md-card-title-text>
+          </md-card-title>
 
-            <md-switch class="md-accent" ng-model="splash.powered_by" aria-label="powered_by" ng-if="!white_label">
-              <span ng-show="splash.powered_by" translate>'Powered By' Visible</span>
-              <span ng-show="!splash.powered_by" translate>'Powered By' Hidden</span>
-            </md-switch>
+          <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
 
-            <md-switch class="md-accent" ng-model="splash.active" aria-label="active">
-              <span ng-show="splash.active" translate>Splash Enabled</span>
-              <span ng-show="!splash.active" translate>Splash Disabled</span>
-            </md-switch>
+            <div flex-gt-sm="40">
 
-            <md-switch class="md-accent" ng-model="splash.display_console" aria-label="debug">
-              <span ng-show="splash.display_console" translate>Debug Mode Enabled</span>
-              <span ng-show="!splash.display_console" translate>Debug Mode Disabled</span>
-            </md-switch>
+              <div layout="column">
+                <md-input-container class="md-block">
+                  <label><translate>Capture Type</translate></label>
+                  <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
+                    <md-option ng-repeat="type in newsletter_types" value="{{ type.value }}">
+                      {{type.key}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
 
-            <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
-              <span ng-show="splash.bypass_popup_ios" translate>Bypass iOS Popup Enabled</span>
-              <span ng-show="!splash.bypass_popup_ios" translate>Bypass iOS Popup Disabled</span>
-            </md-switch>
+              <div>
+                <md-input-container class="md-block">
+                  <label>
+                    <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
+                    <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
+                  </label>
+                  <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                  <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
+                    <div ng-message="required">
+                      <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
+                      <span ng-if="splash.newsletter_type != 4" translate>You must set an API token.</span>
+                    </div>
+                  </div>
+                </md-input-container>
 
-            <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
-              <span ng-show="splash.bypass_popup_android" translate>Bypass Android Popup Enabled</span>
-              <span ng-show="!splash.bypass_popup_android" translate>Bypass Android Popup Disabled</span>
-            </md-switch>
+                <md-input-container class="md-block">
+                  <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
+                  <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                  <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
+                    <div ng-message="required" translate>You must set a list ID.</div>
+                  </div>
+                </md-input-container>
 
-          </div>
+                <small hide show-gt-sm ng-show="splash.newsletter_type == 3"><translate>'Internal Only' saves email in dashboard but doesn't subscribe to external service like MailChimp.</translate></small>
+              </div>
 
-        </md-card-content>
-      </md-card>
-      <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid" translate>Splash invalid, please check your settings.</p>
-      <md-button ng-click="designer()" class="md-raised">
-        Design
-      </md-button>
-      <md-button ng-click="duplicate()" class="md-raised">
-        Duplicate
-      </md-button>
-      <md-button ng-click="destroy()" class="md-raised md-warn">
-        Delete
-      </md-button>
+            </div>
+
+            <div flex-gt-sm="10"></div>
+
+            <div flex-gt-sm="40">
+
+              <md-switch class="md-accent" ng-model="splash.email_required" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || splash.newsletter_checked">
+                <span ng-if="splash.email_required" translate>Opt-Out Disabled</span>
+                <span ng-if="!splash.email_required" translate>Opt-Out Enabled</span>
+              </md-switch>
+
+              <md-switch class="md-accent" ng-model="splash.newsletter_checked" aria-label="{{ 'Enabled Checked' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id == 8 || splash.email_required">
+                <span ng-if="splash.newsletter_checked" translate>Opt-Out By Default</span>
+                <span ng-if="!splash.newsletter_checked" translate>Opt-In By Default</span>
+              </md-switch>
+
+              <md-switch class="md-accent" ng-model="splash.merge_fields" aria-label="{{ 'Merge Fields' | translate }}" ng-disabled="!splash.newsletter_active || splash.primary_access_id != 8 || splash.newsletter_type != 1">
+                <translate>Merge Registration Fields</translate>
+              </md-switch>
+
+              <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1">
+                <span ng-if="splash.single_opt_in" translate>Skip MailChimp Confirmation Enabled</span>
+                <span ng-if="!splash.single_opt_in" translate>Skip MailChimp Confirmation Disabled</span>
+              </md-switch>
+
+            </div>
+
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <div flex-gt-sm="100" ng-hide="splash.access_type == 'clickthrough'">
+        <div access-types ver='{{ splash.access_type }}'></div>
+      </div>
+
+      <div flex-gt-sm="100">
+        <md-card ng-hide="splash.primary_access_id == 2">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Usage Limits
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
+
+            <div flex-gt-sm="40">
+
+              <div layout="column">
+                <md-input-container class="md-block">
+                  <label><translate>Limit Type</translate></label>
+                  <md-select ng-model="splash.access_restrict" ng-change="updateNews()">
+                    <md-option ng-repeat="type in access_restrict" value="{{ type.value }}">
+                      {{type.key}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+
+                <md-radio-group ng-model="splash.access_restrict_period" layout="row" style="padding: 10px 0 20px 0;" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'data' || splash.access_restrict === 'none'" ng-disabled="splash.access_restrict === 'none'">
+                  <md-radio-button value="daily" class="md-primary"><translate>Daily</translate></md-radio-button>
+                  <md-radio-button value="weekly"><translate>Weekly</translate></md-radio-button>
+                  <md-radio-button value="monthly"><translate>Monthly</translate></md-radio-button>
+                </md-radio-group>
+              </div>
+
+              <div layout="column" layout-gt-xs="row" layout-wrap ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'data'|| splash.access_restrict === 'none'">
+
+                <div flex-gt-sm="50" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'none'">
+                  <md-input-container class="md-block">
+                    <label><translate>Minutes {{ splash.access_restrict_period | translatableAccessRestrict | titleCase }}</translate></label>
+                    <input ng-model="splash.access_restrict_mins" placeholder="" type='number' name="access_restrict_mins" ng-min="10" ng-max='43200' ng-disabled="splash.access_restrict === 'none'">
+                    <div ng-messages="myForm.access_restrict_mins.$error">
+                      <div ng-message="required" translate>You must set the restrict mins.</div>
+                      <div ng-message="max" translate>Must be less than 43200.</div>
+                      <div ng-message="min" translate>Must be greater than 10.</div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <div flex-gt-sm="50" ng-if="splash.access_restrict === 'data'">
+                  <md-input-container class="md-block">
+                    <label>MB {{ splash.access_restrict_period | translatableAccessRestrict | titleCase }} </label>
+                    <input ng-model="splash.access_restrict_down" placeholder="{{ 'MB Limit' | translate }}" type='text' name="access_restrict_down" ng-max='' ng-min="10" required>
+                    <div ng-messages="myForm.access_restrict_down.$error">
+                      <div ng-message="required" translate>You must set the download restriction.</div>
+                      <div ng-message="min" translate>Must be greater than 10Mb.</div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <div flex-gt-sm="50">
+                  <md-input-container class="md-block">
+                    <label><translate>Timeout Days</translate></label>
+                    <input ng-model="splash.timeout" placeholder="" type='number' name="timeout" ng-max='90' ng-min="0" ng-disabled="splash.access_restrict === 'none'">
+                    <div ng-messages="myForm.timeout.$error">
+                      <div ng-message="max" translate>Must be less than 90.</div>
+                      <div ng-message="min" translate>Must be greater than or equal to 0.</div>
+                    </div>
+                  </md-input-container>
+                </div>
+              </div>
+
+              <div layout="column" layout-gt-xs="row" layout-wrap ng-if="splash.access_restrict === 'periodic'">
+
+                <div flex-gt-sm="50">
+                  <md-input-container class="md-block">
+                    <label for="available_start"><translate>Start Time</translate></label>
+                    <input ng-model="splash.available_start" placeholder="{{ 'Start' | translate }}"  type='text' name="available_start" ng-pattern="/^([0-9]{2})\:([0-9]{2})$/">
+                  </md-input-container>
+                </div>
+
+                <div flex-gt-sm="50">
+                  <md-input-container class="md-block">
+                    <label for="available_start"><translate>End Time</translate></label>
+                    <input ng-model="splash.available_end" placeholder="{{ 'End' | translate }}" type='text' name="available_end" ng-pattern="/^([0-9]{2})\:([0-9]{2})$/">
+                  </md-input-container>
+                </div>
+
+                <div style="margin-top: -30px;">
+                  <p><small><translate>Allowed Days</translate></small></p>
+                  <day-selector active="true" days="splash.available_days" array="splash.periodic_days"></day-selector>
+                </div>
+
+                <p translate>Set the start and end times to 00:00 to allow access all day</p>
+
+              </div>
+
+              <div layout="column">
+                <md-input-container class="md-block" ng-if="splash.access_restrict === 'timed' || splash.access_restrict === 'data'">
+                  <label>
+                    <md-icon md-font-icon="star">stars</md-icon>
+                    <span translate>Over-Usage Message</span>
+                  </label>
+                  <textarea rows=3 ng-model="splash.quota_message" placeholder="{{ 'Message displayed when a customer goes over-limit.' | translate }}" rows="3" ng-disabled="splash.access_restrict === 'periodic'"></textarea>
+                </md-input-container>
+              </div>
+
+            </div>
+
+            <div flex-gt-sm="10"></div>
+
+            <div flex-gt-sm="40">
+
+              <div ng-hide="customSpeeds">
+                <translate>Download Speed {{ (splash.download_speed / 1024) | number }}Mbps</translate>
+                <md-slider md-discrete ng-model="splash.download_speed" step="256" min="0" max="49134" aria-label="download">
+                </md-slider>
+
+                <translate>Upload Speed {{ (splash.upload_speed / 1024) | number }}Mbps</translate>
+                <md-slider md-discrete ng-model="splash.upload_speed" step="256" min="0" max="49134" aria-label="upload">
+                </md-slider>
+
+              </div>
+
+              <div ng-if="customSpeeds" layout="row">
+
+                <md-input-container class="md-block">
+                  <label for="splash.download_speed"><translate>Download {{ splash.download_speed | mbps }}</translate></label>
+                  <input name="download" type="number" min="0" ng-model="splash.download_speed"></input>
+                  <div ng-messages="myForm.download.$error">
+                    <div ng-message="min" translate>Must be greater than or equal to 0.</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <label for="splash.upload_speed"><translate>Upload {{ splash.upload_speed | mbps }}</translate></label>
+                  <input name="upload" type="number" min="0" ng-model="splash.upload_speed"></input>
+                  <div ng-messages="myForm.upload.$error">
+                    <div ng-message="min" translate>Must be greater than or equal to 0.</div>
+                  </div>
+                </md-input-container>
+
+              </div>
+
+              <small><translate>Speed restrictions not compatible with QuickCodes or Voucher based splash pages.</translate></small>
+
+              <p><a href="" ng-click="customSpeeds = !customSpeeds" translate>Edit values</a></p>
+
+            </div>
+
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <div flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Advanced Settings
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
+
+            <div flex-gt-sm="40">
+              <md-input-container class="md-block">
+                <label><translate>Walled Gardens</translate></label>
+                <md-chips
+                  ng-model="splash.walled_gardens_array"
+                  placeholder="{{ 'Enter a URL' | translate }}"
+                  delete-button-label="{{ 'Remove URL' | translate }}"
+                  delete-hint="{{ 'Press delete to remove URL' | translate }}"
+                  secondary-placeholder="+URL"></md-chips>
+                  <div class="hint">Hit enter after each URL to save multiple addresses</div>
+              </md-input-container>
+            </div>
+
+            <div flex-gt-sm="10"></div>
+
+            <div flex-gt-sm="40">
+              <md-input-container class="md-block">
+                <label><translate>Timezone</translate></label>
+                <md-select ng-model="splash.timezone">
+                  <md-option ng-repeat="zone in timezones" value="{{zone}}">
+                    {{zone}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <p><small><translate>Set the Timezone to ensure your splash restrictions work correctly.</translate></small></p>
+            </div>
+
+            <div flex-gt-sm="100">
+              <div flex layout="row">
+                <span flex></span>
+                <md-button ng-click="adAdvanced = !adAdvanced" class="md-secondary md-icon-button">
+                  <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ adAdvanced ? "up" : "down" }}</md-icon>
+                </md-button>
+              </div>
+            </div>
+
+            <div flex-gt-sm="40" ng-show="adAdvanced">
+              <div layout="column" layout-gt-xs="row" layout-wrap>
+                <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
+                  <md-input-container class="md-block">
+                    <label for="available_start"><translate>Show After (mins)</translate></label>
+                    <input ng-model="splash.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" type='number' name="session_timeout" ng-max='43200' ng-min='10'></input>
+                    <div ng-messages="myForm.session_timeout.$error">
+                      <div ng-message="min" translate>Must be greater than 10 minutes.</div>
+                      <div ng-message="max" translate>Must be less than 43200 minutes.</div>
+                    </div>
+                  </md-input-container>
+                </div>
+                <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
+                  <md-input-container class="md-block">
+                    <label for="available_start"><translate>Idle Timeout (mins)</translate></label>
+                    <input ng-model="splash.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" type='number' name="idle_timeout" ng-max='43200' ng-min='10'></input>
+                    <div ng-messages="myForm.idle_timeout.$error">
+                      <div ng-message="min" translate>Must be greater than 10 minutes.</div>
+                      <div ng-message="max" translate>Must be less than 43200 minutes.</div>
+                    </div>
+                  </md-input-container>
+                </div>
+                <div flex-gt-sm="100">
+                  <md-input-container class="md-block">
+                    <label><translate>Redirect URL</translate></label>
+                    <input ng-model="splash.success_url" placeholder="http://my-site.com/awesome" type='url' name="success_url" ng-maximum='255'>
+                    <div ng-messages="myForm.success_url.$error">
+                      <div ng-message="max" translate>Must be less than 255 chars.</div>
+                      <div ng-message="url" translate>Must be a valid URL, including http(s).</div>
+                    </div>
+                  </md-input-container>
+                </div>
+                <div flex-gt-sm="100">
+                  <md-input-container class="md-block">
+                    <label><translate>Google Analytics</translate></label>
+                    <input ng-model="splash.google_analytics_id" placeholder="UA-57956353-1" type='text' name="google_analytics_id" md-maxlength='15'>
+                    <div ng-messages="myForm.google_analytics_id.$error">
+                      <div ng-message="md-maxlength" translate>Must be less than 15 chars.</div>
+                    </div>
+                  </md-input-container>
+                </div>
+              </div>
+            </div>
+            <div flex-gt-sm="10" ng-show="adAdvanced"></div>
+            <div flex-gt-sm="40" ng-show="adAdvanced">
+              <md-switch class="md-accent" ng-model="splash.active" aria-label="active">
+                <span ng-show="splash.active" translate>Splash Enabled</span>
+                <span ng-show="!splash.active" translate>Splash Disabled</span>
+              </md-switch>
+
+              <md-switch class="md-accent" ng-model="splash.display_console" aria-label="debug">
+                <span ng-show="splash.display_console" translate>Debug Mode Enabled</span>
+                <span ng-show="!splash.display_console" translate>Debug Mode Disabled</span>
+              </md-switch>
+
+              <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
+                <span ng-show="splash.bypass_popup_ios" translate>Bypass iOS Popup Enabled</span>
+                <span ng-show="!splash.bypass_popup_ios" translate>Bypass iOS Popup Disabled</span>
+              </md-switch>
+
+              <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
+                <span ng-show="splash.bypass_popup_android" translate>Bypass Android Popup Enabled</span>
+                <span ng-show="!splash.bypass_popup_android" translate>Bypass Android Popup Disabled</span>
+              </md-switch>
+
+            </div>
+          </md-card-content>
+        </md-card>
+        <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid" translate>Splash invalid, please check your settings.</p>
+        <div flex layout="row">
+          <md-button ng-click="designer()" class="md-raised">
+            Designer
+          </md-button>
+          <span flex></span>
+          <md-button ng-click="destroy()" class="md-raised md-warn">
+            Delete
+          </md-button>
+        </div>
+      </div>
+
+      <div class="lock-size" layout="row" layout-align="center center">
+        <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" type="submit" class="md-fab md-primary md-fab-bottom-right ">
+          <md-icon md-font-icon="" >save</md-icon>
+        </md-button>
+      </div>
+
     </div>
-
-    <!-- <md-button ng-disabled="item.disabled" ng-click="action(item.type)"> -->
-
-
-    <div class="lock-size" layout="row" layout-align="center center">
-      <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" type="submit" class="md-fab md-primary md-fab-bottom-right ">
-        <md-icon md-font-icon="" >save</md-icon>
-      </md-button>
-    </div>
-
-  </form>
-
-</md-content>
+  </md-content>
+</form>

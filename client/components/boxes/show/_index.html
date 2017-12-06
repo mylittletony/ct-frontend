@@ -18,7 +18,7 @@
 </md-content>
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
-  <div flex-gt-sm="60">
+  <div flex-gt-sm="50">
     <md-card>
       <md-card-title>
         <md-card-title-text layout="row">
@@ -34,11 +34,11 @@
       </md-card-content>
     </md-card>
   </div>
-  <div flex-gt-sm="40" ng-if='allowed'>
+  <div flex-gt-sm="50" ng-if='allowed'>
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline" translate>Radius Configuration</span>
+          <span class="md-headline" translate>Device Setup</span>
           <span class="md-subheading" translate></span>
         </md-card-title-text>
       </md-card-title>
@@ -88,12 +88,13 @@
         </md-list-item>
       </md-card-content>
     </md-card>
-    <md-button ng-click="transferBox()" class="md-raised">
-      Transfer
-    </md-button>
-    <md-button ng-click="destroy()" class="md-raised md-warn">
-      Delete
-    </md-button>
+
+    <div flex layout="row">
+      <span flex></span>
+      <md-button ng-click="destroy()" class="md-raised md-warn">
+        Delete
+      </md-button>
+    </div>
 
   </div>
 </md-content>

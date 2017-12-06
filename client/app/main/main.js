@@ -47,52 +47,9 @@ app.config(['$locationProvider', function($locationProvider) {
 
 app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES) {
 
-  var $cookies;
-  angular.injector(['ngCookies']).invoke(['$cookies', function(_$cookies_) {
-    $cookies = _$cookies_;
-  }]);
-
-  var theme = $cookies.get('_ctt');
-  var primary, accent;
-
-  if (theme !== undefined && theme !== null && theme !== '') {
-    var p = theme.split('.');
-    primary = p[0];
-    accent = p[1];
-  }
-
-  if (primary === undefined || primary === null || primary === 'undefined') {
-    primary = 'blue';
-  }
-
-  if (accent === undefined || accent === null || accent === 'undefined') {
-    accent = 'blue';
-  }
-
-  if (THEMES.indexOf(primary) === -1) {
-    primary = 'blue';
-  }
-
-  if (THEMES.indexOf(accent) === -1) {
-    primary = 'blue';
-  }
-
   $mdThemingProvider.theme('default')
-    .primaryPalette(primary)
-    .accentPalette(accent, {
-      'default': '500',
-      'hue-1': '50'
-    });
-
-  if (THEMES.length > 0) {
-    for (var i = 0; i < THEMES.length; i++) {
-      $mdThemingProvider.theme(THEMES[i])
-        .primaryPalette(THEMES[i]);
-      // .accentPalette('orange')
-      // .warnPalette('blue');
-    }
-    $mdThemingProvider.alwaysWatchTheme(true);
-  }
+    .primaryPalette('pink')
+    .accentPalette('pink');
 
 }]);
 
