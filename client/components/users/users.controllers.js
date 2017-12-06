@@ -71,15 +71,13 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       });
     }
 
-    if (!Auth.currentUser().paid_plan) {
-      menu.sections.push({
-        name: gettextCatalog.getString('Splash Views'),
-        type: 'link',
-        link: '/#/users/' + id + '/splash_views',
-        icon: 'web',
-        active: isActive('splash_views')
-      });
-    }
+    menu.sections.push({
+      name: gettextCatalog.getString('Splash Views'),
+      type: 'link',
+      link: '/#/users/' + id + '/splash_views',
+      icon: 'web',
+      active: isActive('splash_views')
+    });
 
     // menu.sections.push({
     //   name: gettextCatalog.getString('Locations'),
