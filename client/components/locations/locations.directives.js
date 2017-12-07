@@ -1381,7 +1381,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -1805,19 +1805,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
     };
 
-    var assignClientCounts = function(data) {
-      scope.total_online = 0;
-      for (var i = 0, len = data.meta.length; i < len; i++) {
-        var metaObject = data.meta[i];
-        for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
-          if (scope.boxes[j].calledstationid === metaObject.ap_mac) {
-            scope.boxes[j].clients_online = metaObject.clients;
-            scope.total_online += metaObject.clients;
-          }
-        }
-      }
-    };
-
     var assignDeviceChannels = function(data) {
       for (var i = 0, len = data.meta.length; i < len; i++) {
         var metaObject = data.meta[i];
@@ -1828,26 +1815,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         }
       }
     };
-
-    var boxMetadata = function() {
-      scope.box_macs = '';
-      for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
-          scope.box_macs += scope.boxes[i].calledstationid;
-          scope.box_macs += ',';
-        }
-      }
-      scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
-      Metric.clientstats({
-        type:         'devices.meta',
-        ap_mac:       scope.box_macs,
-        location_id:  scope.boxes[0].location_id
-      }).$promise.then(function(data) {
-        assignClientCounts(data);
-        assignDeviceChannels(data);
-      });
-    };
-
 
     var channel;
     function loadPusher() {
@@ -1885,6 +1852,41 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
     };
 
+    var createCounts = function(results) {
+      scope.total_online = results._links.total_entries;
+      for (var i = 0, len = results.clients.length; i < len; i++) {
+        scope.box_counts[results.clients[i].ap_mac] += 1;
+      }
+    };
+
+    var fetchClients = function() {
+      var deferred = $q.defer();
+      scope.promise = deferred.promise;
+      var now = Math.round(new Date() / 1000);
+      var params = {
+        start: now - 300,
+        end: now,
+        location_id: scope.location.slug,
+        page: 1,
+        per: 50
+      };
+      Client.query(params).$promise.then(function(results) {
+        createCounts(results);
+        deferred.resolve();
+      }, function() {
+        scope.loading_table = undefined;
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var createBoxCounts = function() {
+      scope.box_counts = {};
+      for (var i = 0, len = scope.boxes.length; i < len; i++) {
+        scope.box_counts[scope.boxes[i].calledstationid] = 0;
+      }
+    };
+
     var init = function() {
       scope.deferred = $q.defer();
       Box.query({
@@ -1896,7 +1898,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         scope.boxes           = results.boxes;
         scope._links          = results._links;
         scope.loading         = undefined;
-        boxMetadata();
+        createBoxCounts();
+        fetchClients();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
