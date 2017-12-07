@@ -15,7 +15,7 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <upgrade-box box="box"></upgrade-box>
+    <upgrade-box box="box" ng-if="box.v == 4"></upgrade-box>
     <span ng-if="box.state == 'offline'">
       <md-icon ng-class="{ 'ignored': box.ignored }" ng-click="muteBox()" style="outline: 0;" md-font-icon="">{{ box.ignored ? "volume_off" : "volume_up" }}</md-icon>
       <md-tooltip md-direction="left">
@@ -182,8 +182,9 @@
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap ng-if="(box.is_cucumber) || (!box.is_cucumber && box.last_heartbeat)">
   <div flex ng-if="box.state != 'new'" flex-gt-sm="100" layout="column" style='padding: 0px 0px 0px 0px;'>
-    <upgrade-box box="box" prompt="true" ng-if="box.v != '4'"></upgrade-box>
-    <div heartbeat-chart ng-if="box.state != 'new' && box.v == '4'" height="100" target="heartbeats-0" mac="{{box.mac}}" id='heartbeats-0'></div>
+    <!-- <upgrade-box box="box" prompt="true" ng-if="box.v != '4'"></upgrade-box> -->
+    <div style='padding: 0px 8px 0px 8px' ng-if="box.v != '4'">Box is running an outdated firmware and will be automatically upgraded.</div>
+    <div heartbeat-chart ng-if="box.state != 'new' && box.v == '4'" height="100" target="heartbeats-0" mac="{{box.mac}}" id='heartbeats-0' style='padding: 0px 8px 0px 8px'></div>
   </div>
   <div flex flex-gt-sm="30" layout="column" ng-if="!fs">
     <md-card>
