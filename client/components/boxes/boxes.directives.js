@@ -228,6 +228,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           scope.resetting       = undefined;
         }
       }, function(errors) {
+        console.log(errors);
         var err;
         if (errors && errors.data && errors.data.errors && errors.data.errors.base) {
           err = errors.data.errors.base;
