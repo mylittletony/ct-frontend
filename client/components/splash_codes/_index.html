@@ -1,6 +1,14 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" ng-show="splash_codes.length > 0 || searching || query.filter">
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>Splash Codes</h2>
+  </div>
+
+  <span flex></span>
+
+  <div>
+    <md-input-container flex="100" ng-show="splash_codes.length > 0 || searching || query.filter">
       <md-icon md-font-icon="search">search</md-icon>
       <label></label>
       <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Codes' | translate }}">
@@ -9,13 +17,10 @@
       <md-icon md-font-icon="">graphic_eq</md-icon>
     </md-button>
     <p ng-hide="splash_codes.length > 0 || searching || query.filter" translate>Splash Codes</p>
-    <div flex></div>
-    <md-button ng-show="allowed == true" ng-click="create()" class="md-icon-button md-accent">
-      <md-icon>add_circle</md-icon>
-    </md-button>
   </div>
-  <md-divider></md-divider>
-</md-toolbar>
+
+</md-content>
+
 
 <form ng-submit="search()" name="myForm">
 
@@ -44,7 +49,7 @@
 
   <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
 
-    <div flex ng-show="splash_codes.length > 0 || searching || query.filter">
+    <div flex="100" ng-show="splash_codes.length > 0 || searching || query.filter">
 
       <md-card>
         <md-card-content>
@@ -57,7 +62,7 @@
                 <th hide show-gt-sm md-column md-order-by="type" md-desc><span translate>Restriction</span></th>
                 <th hide show-gt-sm md-column md-order-by="start_date"><span translate>Start Date</span></th>
                 <th hide show-gt-sm md-column md-order-by="expires"><span translate>Expires</span></th>
-                <th md-column><span translate>Action</span></th>
+                <th md-column><span translate>Options</span></th>
               </tr>
             </thead>
             <tbody md-body>
@@ -106,6 +111,11 @@
         <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
         </md-card-content>
       </md-card>
+    </div>
+    <div flex="100">
+      <md-button ng-show="allowed == true" ng-click="create()" class="md-raised">
+        Create
+      </md-button>
     </div>
   </md-content>
 </form>

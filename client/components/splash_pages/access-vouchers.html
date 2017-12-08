@@ -14,20 +14,22 @@
 
     <div layout="column" flex="100" flex-gt-xs="55">
 
-        <md-switch class="md-accent" ng-model="splash.shop_active" aria-label="Enable Shop">
-        <!--Toni, fixme-->
-          <translate>Shop {{ splash.shop_active ? 'Enabled' : 'Disabled' }}</translate>
-        </md-switch>
+      <md-switch class="md-accent" ng-model="splash.shop_active" aria-label="Enable Shop">
+      <!--Toni, fixme-->
+        <translate>Shop {{ splash.shop_active ? 'Enabled' : 'Disabled' }}</translate>
+      </md-switch>
 
-        <md-switch class="md-accent" ng-model="splash.forgot_password_link" aria-label="Forgot Password" ng-disabled="!splash.shop_active">
-          <translate>Forgot Password Link {{ splash.forgot_password_link ? 'Visible' : 'Hidden' }}</translate>
-        </md-switch>
+      <md-switch class="md-accent" ng-model="splash.forgot_password_link" aria-label="Forgot Password" ng-disabled="!splash.shop_active">
+        <translate>Forgot Password Link {{ splash.forgot_password_link ? 'Visible' : 'Hidden' }}</translate>
+      </md-switch>
 
-        <md-switch class="md-accent" ng-model="splash.unified_login_code" aria-label="Unified Login">
-          <translate>Unified Login Code {{ splash.unified_login_code ? 'Enabled' : 'Disabled' }}</translate>
-        </md-switch>
-
-      </div>
+    </div>
+    <div flex layout="row">
+      <div flex></div>
+      <md-button ng-click="shop()" class="md-raised" ng-disabled="!splash.shop_active">
+        Shop
+      </md-button>
+    </div>
 
   </md-card-content>
 

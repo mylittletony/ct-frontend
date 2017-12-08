@@ -144,6 +144,15 @@ app.factory('User', ['$resource', 'API_END_POINT',
           action: 'logout_all',
           id: '@id'
         }
+      },
+      destroy: {
+        method: 'DELETE',
+        isArray: false,
+        dataType: 'json',
+        params: {
+          id: '@id',
+          email: '@email'
+        }
       }
     }
   );

@@ -4,7 +4,6 @@ var app = angular.module('myApp.controllers', [
   'myApp.authentications.controller',
   'myApp.brands.controller',
   'myApp.boxes.controller',
-  'myApp.events.controller',
   'myApp.heartbeats.controller',
   'myApp.jobs.controller',
   'myApp.invoices.controller',
@@ -72,112 +71,60 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     vm.settingsMenu = [];
     vm.menuRight = [];
 
-    // vm.menu.reports.push({
-    //   title: gettextCatalog.getString('Reports'),
-    //   type: 'link',
-    //   link: '/#/reports',
-    //   icon: 'timeline'
-    // });
-
-    // vm.menu.reports.push({
-    //   title: gettextCatalog.getString('Audit'),
-    //   type: 'link',
-    //   link: '/#/audit',
-    //   icon: 'assignment'
-    // });
-
     vm.status = {
       isFirstOpen: true,
       isFirstDisabled: false
     };
 
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Home'),
-      link: '/#/',
-      type: 'link',
-      icon: 'home'
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Locations'),
-      link: '/#/locations',
-      type: 'link',
-      icon: 'business'
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Events'),
-      link: '/#/events',
-      type: 'link',
-      icon: 'warning'
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Reports'),
-      link: '/#/reports',
-      type: 'link',
-      icon: 'timeline'
-    });
-
     // vm.menuRight.push({
-    //   name: gettextCatalog.getString('Audit'),
-    //   link: '/#/audit',
+    //   name: gettextCatalog.getString('Locations'),
+    //   link: '/#/locations',
     //   type: 'link',
-    //   icon: 'assignment'
+    //   icon: 'business'
     // });
-
-    vm.menuRight.push({
-      type: 'divider',
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Developer'),
-      link: '/#/apps',
-      type: 'link',
-      icon: 'android'
-    });
-
-    // Permissions //
-    if ($localStorage.user && !$localStorage.user.custom) {
-      vm.menuRight.push({
-        name: gettextCatalog.getString('Documentation'),
-        link: 'http://docs.cucumberwifi.io',
-        type: 'link',
-        target: '_blank',
-        icon: 'account_balance'
-      });
-
-      vm.menuRight.push({
-        name: gettextCatalog.getString('Discussions'),
-        link: 'https://discuss.cucumberwifi.io',
-        target: '_blank',
-        type: 'link',
-        icon: 'forum'
-      });
-
-      vm.menuRight.push({
-        name: gettextCatalog.getString('Support'),
-        icon: 'get_app',
-        id: 'intercom'
-      });
-    }
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Support'),
-      icon: 'get_app',
-      id: 'intercom'
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Downloads'),
-      link: '/#/downloads',
-      type: 'link',
-      icon: 'get_app'
-    });
-
-    vm.menuRight.push({
-      type: 'divider',
-    });
+    //
+    //
+    // // Permissions //
+    // if ($localStorage.user && !$localStorage.user.custom) {
+    //   vm.menuRight.push({
+    //     name: gettextCatalog.getString('Documentation'),
+    //     link: 'http://docs.cucumberwifi.io',
+    //     type: 'link',
+    //     target: '_blank',
+    //     icon: 'account_balance'
+    //   });
+    //
+    //   vm.menuRight.push({
+    //     name: gettextCatalog.getString('Discussions'),
+    //     link: 'https://discuss.cucumberwifi.io',
+    //     target: '_blank',
+    //     type: 'link',
+    //     icon: 'forum'
+    //   });
+    //
+    //   vm.menuRight.push({
+    //     name: gettextCatalog.getString('Support'),
+    //     icon: 'get_app',
+    //     id: 'intercom'
+    //   });
+    // }
+    //
+    // vm.menuRight.push({
+    //   name: gettextCatalog.getString('Support'),
+    //   icon: 'get_app',
+    //   id: 'intercom'
+    // });
+    //
+    // vm.menuRight.push({
+    //   name: gettextCatalog.getString('Downloads'),
+    //   link: '/#/downloads',
+    //   type: 'link',
+    //   icon: 'get_app'
+    // });
+    //
+    // vm.menuRight.push({
+    //   type: 'divider',
+    // });
 
     vm.showPromo = function(offer) {
       $mdDialog.show({
@@ -337,60 +284,53 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     function menuPush() {
       if (vm.menu.main.length === 0) {
-        vm.menu.main.push({
-          title: gettextCatalog.getString('Locations'),
-          type: 'link',
-          link: '/#/locations',
-          icon: 'business'
-        });
-
-        vm.menu.main.push({
-          title: gettextCatalog.getString('Events'),
-          type: 'link',
-          link: '/#/events',
-          icon: 'warning'
-        });
-
-        if ($localStorage.user && ($localStorage.user.custom !== true || $localStorage.user.reseller === true)) {
-          vm.menu.main.push({
-            title: gettextCatalog.getString('Brands'),
-            type: 'link',
-            link: '/#/brands',
-            icon: 'branding_watermark'
-          });
-
-          vm.menu.main.push({
-            title: gettextCatalog.getString('Users'),
-            type: 'link',
-            link: '/#/users',
-            icon: 'people'
-          });
-
-          vm.menuRight.push({
-            name: gettextCatalog.getString('Brands'),
-            type: 'link',
-            link: '/#/brands',
-            icon: 'branding_watermark'
-          });
-
-          vm.menuRight.push({
-            name: gettextCatalog.getString('Users'),
-            type: 'link',
-            link: '/#/users',
-            icon: 'people'
-          });
-
-          vm.menu.main.push({
-            title: gettextCatalog.getString('Projects'),
-            type: 'link',
-            link: '/#/projects',
-            icon: 'dns'
-          });
-
-          vm.menuRight.push({
-            type: 'divider',
-          });
-        }
+        // vm.menu.main.push({
+        //   title: gettextCatalog.getString('Locations'),
+        //   type: 'link',
+        //   link: '/#/locations',
+        //   icon: 'business'
+        // });
+        //
+        // if ($localStorage.user && ($localStorage.user.custom !== true || $localStorage.user.reseller === true)) {
+        //   vm.menu.main.push({
+        //     title: gettextCatalog.getString('Brands'),
+        //     type: 'link',
+        //     link: '/#/brands',
+        //     icon: 'branding_watermark'
+        //   });
+        //
+        //   vm.menu.main.push({
+        //     title: gettextCatalog.getString('Users'),
+        //     type: 'link',
+        //     link: '/#/users',
+        //     icon: 'people'
+        //   });
+        //
+        //   vm.menuRight.push({
+        //     name: gettextCatalog.getString('Brands'),
+        //     type: 'link',
+        //     link: '/#/brands',
+        //     icon: 'branding_watermark'
+        //   });
+        //
+        //   vm.menuRight.push({
+        //     name: gettextCatalog.getString('Users'),
+        //     type: 'link',
+        //     link: '/#/users',
+        //     icon: 'people'
+        //   });
+        //
+        //   vm.menu.main.push({
+        //     title: gettextCatalog.getString('Projects'),
+        //     type: 'link',
+        //     link: '/#/projects',
+        //     icon: 'dns'
+        //   });
+        //
+        //   vm.menuRight.push({
+        //     type: 'divider',
+        //   });
+        // }
 
         vm.menuRight.push({
           name: gettextCatalog.getString('Profile'),
@@ -399,9 +339,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           icon: 'face'
         });
 
-        vm.menuRight.push({
-          type: 'divider',
-        });
+        // vm.menuRight.push({
+        //   type: 'divider',
+        // });
       }
 
       if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
@@ -469,7 +409,8 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         setDefaultImages();
       } else {
-        console.log('Domain error occured');
+        window.location.hostname = 'dashboard.' + host;
+        return;
       }
     }
 

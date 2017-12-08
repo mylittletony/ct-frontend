@@ -112,7 +112,10 @@ div > md-toolbar:nth-child(1) {
 }
 
 div > md-toolbar:nth-child(1) md-icon {
-  color: #f0476e;
+  /*color: #EF476F;*/
+  background: -webkit-linear-gradient(45deg, #EF476F 10%, #F78C6B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .user-avatar {
@@ -170,6 +173,13 @@ form .url {
 .heartbeat-table {
   width: 100%;
   max-width: 100px;
+}
+
+table.md-table th.md-column span {
+  color: #EF476F;
+  /*background: -webkit-linear-gradient(45deg, #EF476F 10%, #F78C6B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 
 /* Temp fixes to address */
@@ -364,12 +374,19 @@ md-sidenav.md-sidenav-right ul {
 }
 
 .active {
-  border-left: 3px solid #f0476e;
+  border-left: 3px solid #EF476F;
+  -moz-border-image: -moz-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
+  -webkit-border-image: -webkit-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
+  border-image: linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
+  border-image-slice: 1;
   padding-left: 13px!important;
 }
 
 .active md-icon {
-  color: #f0476e!important;
+  color: #EF476F!important;
+  background: -webkit-linear-gradient(45deg, #EF476F 10%, #F78C6B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .bottom-right {
@@ -492,6 +509,7 @@ table.md-table td.with-padding {
 
 table.md-table.md-row-select td.box-icon {
   padding: 2px 5px 0 0px!important;
+  text-align: center;
 }
 
 table.md-table.md-row-select td.box-status {
@@ -892,4 +910,25 @@ md-bottom-sheet .md-subheader {
   font-size: 32px;
   height:auto;
   width:auto;
+}
+
+/*page info*/
+
+.page-meta > div > div > md-select > md-select-value > .md-select-icon {
+  margin: 0 -1px;
+}
+
+.page-meta md-input-container {
+  margin-right: 5px;
+}
+
+.page-meta h1 {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 500;
+}
+
+.page-meta h2 {
+  color: rgba(0, 0, 0, 0.57);
+  font-weight: 400;
+  margin-bottom: 0px;
 }

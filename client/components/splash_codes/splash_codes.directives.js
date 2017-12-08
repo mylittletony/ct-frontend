@@ -2,9 +2,15 @@
 
 var app = angular.module('myApp.splash_codes.directives', []);
 
-app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function(SplashCode,$routeParams,$location,$q,$mdDialog,showToast,showErrors, gettextCatalog, pagination_labels) {
+app.directive('listSplashCodes', ['Location', 'SplashCode', '$routeParams', '$location', '$q', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function(Location,SplashCode,$routeParams,$location,$q,$mdDialog,showToast,showErrors, gettextCatalog, pagination_labels) {
 
   var link = function(scope,element,attrs) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location = { slug: $routeParams.id };
 
@@ -71,11 +77,11 @@ app.directive('listSplashCodes', ['SplashCode', '$routeParams', '$location', '$q
         type: 'disable'
       });
 
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Sessions'),
-        icon: 'data_usage',
-        type: 'sessions'
-      });
+      // scope.menuItems.push({
+      //   name: gettextCatalog.getString('Sessions'),
+      //   icon: 'data_usage',
+      //   type: 'sessions'
+      // });
 
       scope.menuItems.push({
         name: gettextCatalog.getString('Delete'),
@@ -294,9 +300,15 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
 
 }]);
 
-app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(SplashCode,$routeParams,$location,$mdDialog,showToast,showErrors, gettextCatalog) {
+app.directive('showSplashCode', ['Location', 'SplashCode', '$routeParams', '$location', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location,SplashCode,$routeParams,$location,$mdDialog,showToast,showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
 
     scope.location  = {slug: $routeParams.id};
 
@@ -335,7 +347,7 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
           sessions();
           break;
         case 'delete':
-          destroy();
+          scope.destroy();
           break;
       }
     };
@@ -356,7 +368,7 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
 
     };
 
-    var destroy = function() {
+    scope.destroy = function() {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Delete Code'))
       .textContent(gettextCatalog.getString('Are you sure you want to delete this code?'))
@@ -364,12 +376,12 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
       .ok(gettextCatalog.getString('Delete'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        scope.destroy();
+        destroyCode();
       }, function() {
       });
     };
 
-    scope.destroy = function() {
+    var destroyCode = function() {
       SplashCode.destroy({location_id: scope.location.slug, id: scope.splash_code.id}).$promise.then(function(results) {
         $location.path('/locations/' + scope.location.slug + '/splash_codes');
         showToast(gettextCatalog.getString('Code successfully deleted.'));
@@ -402,4 +414,3 @@ app.directive('showSplashCode', ['SplashCode', '$routeParams', '$location', '$md
   };
 
 }]);
-
