@@ -400,11 +400,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       if ($localStorage.brandName) {
         $scope.brandName = $localStorage.brandName;
       } else {
-        $scope.brandName.name = 'CT';  
+        $scope.brandName.name = 'CT';
       }
     };
 
     function getBrand(sub, cname) {
+      var deferred = $q.defer();
       if (Auth.currentUser() && Auth.currentUser().url !== null) {
         sub = Auth.currentUser().url;
       }
@@ -431,9 +432,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.logo_url = results.logo_url;
         $scope.brandName.reseller = results.reseller;
         $localStorage.brandName = $scope.brandName;
+        deferred.resolve();
       }, function() {
+        deferred.reject();
         setDefaultImages(sub);
       });
+      return deferred.promise;
     }
 
     var removeCtCookie = function() {
@@ -452,9 +456,12 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         sub = parts[0];
         if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg') {
           if (sub !== 'my') {
-            getBrand(sub);
+            getBrand(sub).then(function() {
+              if ($scope.brandName.reseller !== true) {
+                window.location.hostname = 'dashboard.' + host;
+              }
+            });
           }
-          window.location.hostname = 'dashboard.' + host;
           return;
         }
         setDefaultImages();
