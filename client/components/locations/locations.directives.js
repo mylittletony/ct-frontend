@@ -1860,30 +1860,18 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
     };
 
     var fetchClients = function() {
-      var deferred = $q.defer();
-      scope.promise = deferred.promise;
-      var now = Math.round(new Date() / 1000);
-      var params = {
-        start: now - 300,
-        end: now,
-        location_id: scope.location.slug,
-        page: 1,
-        per: 50
-      };
-      Client.query(params).$promise.then(function(results) {
-        createCounts(results);
-        deferred.resolve();
-      }, function() {
-        scope.loading_table = undefined;
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-
-    var createBoxCounts = function() {
-      scope.box_counts = {};
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        scope.box_counts[scope.boxes[i].calledstationid] = 0;
+        var box = scope.boxes[i];
+        Metric.clientstats({
+          type:         'devices.meta',
+          ap_mac:       box.calledstationid,
+          location_id:  box.location_id
+        }).$promise.then(function(data) {
+          box.clients_online = data.online;
+          totalCount += parseInt(data.online)
+        }, function(err) {
+          console.log(err)
+        });
       }
     };
 
@@ -1898,7 +1886,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
         scope.boxes           = results.boxes;
         scope._links          = results._links;
         scope.loading         = undefined;
-        createBoxCounts();
         fetchClients();
         scope.deferred.resolve();
       }, function(err) {
