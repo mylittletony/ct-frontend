@@ -425,10 +425,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
 
         scope.networks = results.networks;
         //scope.splash.networks = [];
-        if ($localStorage.user) {
-          scope.white_label = $localStorage.user.custom;
-        }
-        
+
         createMenu();
         scope.loading = undefined;
       }, function(err) {
@@ -574,9 +571,6 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
       form.$setPristine();
       if (scope.splash.ssid) {
         scope.splash.network_id = undefined;
-      }
-      if ($localStorage && $localStorage.user) {
-        scope.splash.powered_by = !$localStorage.user.custom;
       }
       SplashPage.create({
         location_id: scope.location.slug,
