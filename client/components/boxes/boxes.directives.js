@@ -87,6 +87,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         });
 
         scope.menu.push({
+          name: gettextCatalog.getString('Reset'),
+          icon: 'clear',
+          type: 'reset',
+        });
+
+        scope.menu.push({
           type: 'payloads',
           name: gettextCatalog.getString('Payloads'),
           icon: 'present_to_all',
@@ -118,12 +124,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           name: gettextCatalog.getString('Logs'),
           icon: 'library_books',
           type: 'logging',
-        });
-
-        scope.menu.push({
-          name: gettextCatalog.getString('Reset'),
-          icon: 'clear',
-          type: 'reset',
         });
       }
 
