@@ -91,6 +91,14 @@
       </ul>
     </md-content>
     <div layout="row" layout-align="start end">
+      <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
+        <md-tooltip md-direction="right">Locations</md-tooltip>
+        <a href="/#/locations">
+          <md-icon>place</md-icon>
+        </a>
+      </md-button>
+    </div>
+    <div layout="row" layout-align="start end">
       <md-menu md-position-mode="target-right target" md-offset="40 0">
         <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
           <user-avatar></user-avatar>
@@ -120,9 +128,9 @@
   </md-sidenav>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
-    <md-toolbar ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
+    <md-toolbar hide-gt-sm ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
       <div class="md-toolbar-tools">
-        <md-button hide-gt-sm id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
+        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
         <span flex></span>
@@ -134,14 +142,40 @@
             </md-button>
           </span>
 
-          <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
-            <md-tooltip md-direction="bottom">Locations</md-tooltip>
-            <a href="/#/locations">
-              <md-icon>place</md-icon>
-            </a>
-          </md-button>
         </span>
       </div>
+        <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
+          <md-tooltip md-direction="right">Locations</md-tooltip>
+          <a href="/#/locations">
+            <md-icon>place</md-icon>
+          </a>
+        </md-button>
+        <md-menu md-position-mode="target-right target" md-offset="40 0">
+          <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <user-avatar></user-avatar>
+          </md-button>
+          <md-menu-content width="3">
+            <md-menu-item>
+              <md-button ng-href="/#/locations/{{ $scope.location.slug }}/settings" ng-click="$mdMenu.hide()">
+                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">settings</md-icon>
+                <span translate>Settings</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
+                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
+                <span translate>Account</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="logout()">
+                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">exit_to_app</md-icon>
+                <span translate>Logout</span>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
     </md-toolbar>
     <md-content layout="row" flex id="content">
       <section layout="row" flex>
