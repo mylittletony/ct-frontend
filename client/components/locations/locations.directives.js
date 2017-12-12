@@ -1887,6 +1887,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
         }
         scope._links          = results._links;
         scope.loading         = undefined;
+        scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
       });
