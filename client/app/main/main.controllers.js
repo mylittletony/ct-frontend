@@ -457,10 +457,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg') {
           if (sub !== 'my') {
             getBrand(sub).then(function() {
-              if ($scope.brandName.reseller !== true) {
+              if ($scope.brandName.reseller === true) {
+                window.location.hostname = $scope.brandName.url + '.' + host;
+              } else {
                 window.location.hostname = 'dashboard.' + host;
               }
             });
+          } else {
+            window.location.hostname = 'dashboard.' + host;
           }
           return;
         }
