@@ -229,16 +229,9 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         }
       }, function(errors) {
         console.log(errors);
-        var err;
-        if (errors && errors.data && errors.data.errors && errors.data.errors.base) {
-          err = errors.data.errors.base;
-        } else {
-          err = gettextCatalog.getString('Could not reset this device, please try again');
-        }
-        console.log(errors);
-        showToast(err);
         scope.box.state = 'failed';
         scope.resetting = undefined;
+        showErrors(errors)
       });
     };
 
