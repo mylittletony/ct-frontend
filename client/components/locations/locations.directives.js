@@ -1859,27 +1859,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
       }
     };
 
-    var fetchClients = function() {
-      scope.deferred = $q.defer();
-      for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        var box = scope.boxes[i];
-        Metric.clientstats({
-          type:         'devices.meta',
-          ap_mac:       box.calledstationid,
-          location_id:  box.location_id
-        }).$promise.then(function(data) {
-          box.clients_online = data.online;
-          totalCount = totalCount + parseInt(data.online);
-          if (box === scope.boxes[scope.boxes.length - 1]) {
-            scope.deferred.resolve()
-            return scope.deferred.promise;
-          }
-        }, function(err) {
-          console.log(err);
-        });
-      }
-    };
-
     var getClientCount = function(i) {
       Metric.clientstats({
         type:         'devices.meta',
@@ -1891,10 +1870,10 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
       }, function(err) {
         console.log(err);
       });
-    }
+    };
 
     var init = function() {
-      scope.total_online = 0
+      scope.total_online = 0;
       scope.deferred = $q.defer();
       Box.query({
         location_id: scope.location.slug,
