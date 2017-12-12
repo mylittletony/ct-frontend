@@ -49,26 +49,26 @@
     </div>
   </div>
 
-  <div layout="column" class="md-padding">
-    <div flex-md="100" flex-gt-md="100">
-      <splash-bar-chart></splash-bar-chart>
-    </div>
-  </div>
+  <!-- <div layout="column" class="md-padding"> -->
+  <!--   <div flex-md="100" flex-gt-md="100"> -->
+  <!--     <splash-bar-chart></splash-bar-chart> -->
+  <!--   </div> -->
+  <!-- </div> -->
 
-  <div flex layout="row" class="md-padding">
-    <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-      <client-chart location="splash_reports">
-        <clients-conn-chart ></clients-conn-chart>
-      </client-chart>
-    </div>
-    <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-      <reports-pie type="manufacturers" title="{{ 'Manufacturers' | translate }}" render="mans"></reports-pie>
-    </div>
-    <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-      <client-chart location="splash_reports">
-        <dash-usage-chart ></dash-usage-chart>
-      </client-chart>
-    </div>
-  </div>
+  <!-- <div flex layout="row" class="md-padding"> -->
+  <!--   <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'"> -->
+  <!--     <client-chart location="splash_reports"> -->
+  <!--       <clients-conn-chart ></clients-conn-chart> -->
+  <!--     </client-chart> -->
+  <!--   </div> -->
+  <!--   <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'"> -->
+  <!--     <reports-pie type="manufacturers" title="{{ 'Manufacturers' | translate }}" render="mans"></reports-pie> -->
+  <!--   </div> -->
+  <!--   <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'"> -->
+  <!--     <client-chart location="splash_reports"> -->
+  <!--       <dash-usage-chart ></dash-usage-chart> -->
+  <!--     </client-chart> -->
+  <!--   </div> -->
+  <!-- </div> -->
 
 </analytics>

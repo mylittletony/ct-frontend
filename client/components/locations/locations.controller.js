@@ -65,13 +65,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     var createMenu = function() {
       // menu.header = $scope.location.location_name;
 
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Dashboard'),
-      //   link: '/#/locations/' + $scope.location.slug,
-      //   type: 'link',
-      //   icon: 'dashboard',
-      //   active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
-      // });
+      menu.sections.push({
+        name: gettextCatalog.getString('Dashboard'),
+        link: '/#/locations/' + $scope.location.slug,
+        type: 'link',
+        icon: 'dashboard',
+        active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
+      });
 
       menu.sections.push({
         name: gettextCatalog.getString('Devices'),

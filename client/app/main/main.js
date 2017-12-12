@@ -296,8 +296,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
-      // templateUrl: 'components/locations/dashboard/index.html',
-      templateUrl: 'components/locations/show/index.html',
+      templateUrl: 'components/locations/dashboard/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
@@ -567,16 +566,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/locations/:id/splash_reports', {
-    //   templateUrl: 'components/locations/reports/splash.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/wireless_reports', {
-    //   templateUrl: 'components/locations/reports/wireless.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
+    when('/locations/:id/splash_reports', {
+      templateUrl: 'components/locations/reports/splash.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/wireless_reports', {
+      templateUrl: 'components/locations/reports/wireless.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/audit', {
       templateUrl: 'components/locations/audit/index.html',
       controller: 'LocationsCtrl as lc',
