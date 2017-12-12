@@ -1859,23 +1859,21 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
       }
     };
 
-    var fetchClients = function() {
-      for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        var box = scope.boxes[i];
-        Metric.clientstats({
-          type:         'devices.meta',
-          ap_mac:       box.calledstationid,
-          location_id:  box.location_id
-        }).$promise.then(function(data) {
-          box.clients_online = data.online;
-          totalCount += parseInt(data.online)
-        }, function(err) {
-          console.log(err)
-        });
-      }
+    var getClientCount = function(i) {
+      Metric.clientstats({
+        type:         'devices.meta',
+        ap_mac:       scope.boxes[i].calledstationid,
+        location_id:  scope.boxes[i].location_id
+      }).$promise.then(function(data) {
+        scope.boxes[i].clients_online = data.online;
+        scope.total_online = parseInt(scope.total_online) + parseInt(data.online);
+      }, function(err) {
+        console.log(err);
+      });
     };
 
     var init = function() {
+      scope.total_online = 0;
       scope.deferred = $q.defer();
       Box.query({
         location_id: scope.location.slug,
@@ -1884,9 +1882,11 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
         metadata: true
       }).$promise.then(function(results) {
         scope.boxes           = results.boxes;
+        for (var i = 0, len = scope.boxes.length; i < len; i++) {
+          getClientCount(i);
+        }
         scope._links          = results._links;
         scope.loading         = undefined;
-        fetchClients();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
