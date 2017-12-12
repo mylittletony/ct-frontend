@@ -8,7 +8,7 @@ app.factory('Metric', ['$resource', '$localStorage', 'API_END_POINT_V2',
     if ($localStorage && $localStorage.user && $localStorage.user.api_token) {
       token = $localStorage.user.api_token;
     }
-    return $resource(API_END_POINT_V2 + '/metrics',
+    return $resource(API_END_POINT_V2,
       {
         'access_token': token
       },

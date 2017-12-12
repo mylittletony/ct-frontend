@@ -1343,7 +1343,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
     var a, c, timer, formatted, data;
 
-    scope.type = 'client.uniques';
+    scope.type = 'radius.users,radius.new';
     scope.loading = true;
     var colours = COLOURS.split(' ');
 
@@ -1356,8 +1356,15 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     });
 
-    function chart() {
+    var clearChart = function() {
+      if (c) {
+        c.clearChart();
+      }
+      scope.noData = true;
+      scope.loading = undefined;
+    };
 
+    function chart() {
       var params = {
         type: scope.type,
         period: '7d' // can be removed soon when loyalty dynamic
@@ -1376,14 +1383,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         console.log('No data returned for query');
       });
     }
-
-    var clearChart = function() {
-      if (c) {
-        c.clearChart();
-      }
-      scope.noData = true;
-      scope.loading = undefined;
-    };
 
     function drawChart(resp) {
       $timeout.cancel(timer);
@@ -1404,6 +1403,9 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           },
           1: {
             targetAxisIndex: 1, lineWidth: 2.5
+          },
+          2: {
+            targetAxisIndex: 2, lineWidth: 2.5
           }
         };
         opts.vAxes = {
@@ -1443,34 +1445,52 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
         if (data === undefined && resp && resp.data) {
 
+          a = true;
+
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
           data.addColumn('number', 'dummySeries');
-          data.addColumn('number', gettextCatalog.getString('clients'));
 
-          var len = resp.data.length;
-          for(var i = 0; i < len; i++) {
-            var time = new Date(Math.floor(resp.data[i].timestamp));
-            var count = resp.data[i].value;
-            data.addRow([time, null, count]);
+          data = new window.google.visualization.DataTable();
+          data.addColumn('datetime', gettextCatalog.getString('Date'));
+          data.addColumn('number', 'dummySeries');
+
+          for(var x = 0; x < resp.data.length; x++) {
+            data.addColumn('number', resp.data[x].alias);
           }
 
-          var date_formatter = new window.google.visualization.DateFormat({
-            pattern: format
-          });
+          for(x = 0; x < resp.data[0].data.length; x++) {
+            var time;
+            var array = [];
 
-          date_formatter.format(data,0);
+            time = new Date(resp.data[0].data[x].timestamp);
+            array.push(time);
+            array.push(null);
 
-          var formatter = new window.google.visualization.NumberFormat(
-            { pattern: '0' }
-          );
-          formatter.format(data,2);
+            for(var k = 0; k < resp.data.length; k++) {
+              var val = 0;
+              var d = resp.data[k].data[x];
+              if (d && d.value > 0) {
+                val = (d.value);
+              }
+
+              array.push(val);
+            }
+            data.addRow(array);
+          }
+
+          // date_formatter.format(data,0);
+
+          // var formatter = new window.google.visualization.NumberFormat(
+          //   { pattern: '0' }
+          // );
+          // formatter.format(data,2);
         }
 
         // if (window.google && window.google.visualization) {
         c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
 
-        a = true
+        a = true;
         c.draw(data, opts);
 
         scope.noData = undefined;

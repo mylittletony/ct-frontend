@@ -428,7 +428,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       var host  = locationHelper.domain();
       var parts = $location.host().split('.');
       var cname;
-      if (host !== 'ctapp.io' && host !== 'ctapp.dev') {
+      if (host !== 'ctapp.io' && host !== 'ctapp.test') {
         getBrand(host, true);
       }
       else if (parts.length === 3) {
@@ -456,9 +456,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           $scope.user = Auth.currentUser();
           $scope.loggedIn = true;
           menuPush();
-          if ($scope.user.promo !== '') {
-            console.log('Getting promo...');
-          }
         });
       });
     }

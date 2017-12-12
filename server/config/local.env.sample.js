@@ -35,9 +35,9 @@ if (process.env.NODE_ENV === 'production') {
 
 } else {
 
-  api_url = process.env.API_URL || 'http://mywifi.dev:8080/api/v1'
-  auth_url = process.env.AUTH_URL || 'http://mywifi.dev:8080'
-  base_url = process.env.CT_URL || 'my.ctapp.dev:9090'
+  api_url = process.env.API_URL || 'http://mywifi.test:8080/api/v1'
+  auth_url = process.env.AUTH_URL || 'http://mywifi.test:8080'
+  base_url = process.env.CT_URL || 'dashboard.ctapp.test:9090'
 
   exports = {
     callbackURL: "http://" + base_url + "/auth/login/callback",

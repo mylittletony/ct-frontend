@@ -71,11 +71,11 @@ module.exports = function (grunt) {
       },
       test: {
         constants: {
-          API_END_POINT: 'http://api.ctapp.dev:8080/api/v1',
+          API_END_POINT: 'http://api.ctapp.test:8080/api/v1',
           API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
-          API_URL: 'http://api.ctapp.dev:8080',
+          API_URL: 'http://api.ctapp.test:8080',
           STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
-          AUTH_URL: 'http://my.ctapp.dev:8080',
+          AUTH_URL: 'http://dashboard.ctapp.test:8080',
           SLACK_TOKEN: '3540010629.12007999527',
           CHIMP_TOKEN: '531543883634',
           INTERCOM: 'xxx',

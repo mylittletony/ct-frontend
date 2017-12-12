@@ -1108,9 +1108,9 @@ app.directive('userIntegrations', ['User', 'Integration', '$routeParams', '$loca
     var chimp_url;
 
     if (chimp_token === '531543883634') {
-      chimp_url = encodeURIComponent('http://my.ctapp.dev:9090/#/me/integrations/mailchimp');
+      chimp_url = encodeURIComponent('http://dashboard.ctapp.test:9090/#/me/integrations/mailchimp');
     } else {
-      chimp_url = encodeURIComponent('https://my.ctapp.io/#/me/integrations/mailchimp');
+      chimp_url = encodeURIComponent('https://dashboard.ctapp.io/#/me/integrations/mailchimp');
     }
 
     scope.user = Auth.currentUser();

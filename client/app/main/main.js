@@ -748,6 +748,7 @@ app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_U
         var token = AccessToken.get();
         if ((token) && (apiRegExp.test(config.url))) {
           config.headers.Authorization = 'Bearer ' + token;
+          // config.headers['Access-Control-Allow-Credentials'] = true;
         }
         return config;
       },
