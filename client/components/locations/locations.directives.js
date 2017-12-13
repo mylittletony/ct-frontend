@@ -133,7 +133,6 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
       scope.end      = Math.floor(new Date() / 1000);
     }
 
-
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data;
     }, function(err){

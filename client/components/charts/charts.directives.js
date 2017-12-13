@@ -379,13 +379,11 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       var minDateEpoch, maxDateEpoch, minDate, maxDate;
 
       this.setStartEnd = function() {
-
         minDate = moment().utc().subtract(distance, 'seconds').toDate();
         maxDate = moment().utc().toDate();
 
         minDateEpoch = Math.floor(minDate.getTime() / 1000);
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
-
       };
 
       this.v2 = function(params, deferred) {
@@ -416,6 +414,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         this.setStartEnd();
 
         $scope.client = ClientDetails.client;
+        console.log($scope.client);
         this.v2(params, deferred);
         return deferred.promise;
       };
@@ -1480,7 +1479,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               }
 
               for(var k = 0; k < resp.data.length; k++) {
-                var val = 0;
+                let val = 0;
                 var d = resp.data[k].data[x];
                 if (d && d.value > 0) {
                   val = (d.value);
@@ -1500,7 +1499,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
                   min: 0
                 }
               }
-            }
+            };
 
             opts.hAxis = {
               lineWidth: 4,
@@ -2155,6 +2154,51 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     },
     require: '^clientChart',
     templateUrl: 'components/charts/devices/_snr_chart.html',
+  };
+
+}]);
+
+app.directive('radiusStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', '$compile', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails, $compile) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var a, c, timer, formatted, data;
+
+    scope.type = 'radius.stats';
+    scope.loading = true;
+    var colours = COLOURS.split(' ');
+
+    ClientDetails.client.version = '4';
+    ClientDetails.client.ap_mac = undefined;
+
+    function chart() {
+      var params = {
+        type: scope.type,
+        period: '7d' // can be removed soon when loyalty dynamic
+      };
+
+      controller.getStats(params).then(function(res) {
+      }, function() {
+        console.log('No data returned for query');
+      });
+    }
+
+    chart();
+    var timeout = $timeout(function() {
+      chart();
+    }, 1500);
+  };
+
+  return {
+    link: link,
+    scope: {
+      mac: '@',
+      loc: '@',
+      version: '@',
+      render: '@'
+    },
+    require: '^clientChart',
+    templateUrl: 'components/reports/_radius_stats.html',
   };
 
 }]);

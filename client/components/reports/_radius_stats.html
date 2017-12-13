@@ -1,57 +1,49 @@
-<div class="md-padding" layout-gt-xs="row" layout="column">
-  <md-card flex-gt-xs="25">
-    <md-card-content>
-      <md-list-item class="md-2-line">
-        <div class="md-list-item-text">
-          <p translate>Unique Users</p>
-          <h2>{{ stats.splash.uniques || 0 }}</h2>
-        </div>
-      </md-list-item>
-    </md-card-content>
-  </md-card>
-  <md-card flex-gt-xs="25">
-    <md-card-content>
-      <md-list-item class="md-2-line">
-        <div class="md-list-item-text">
-          <p translate>Average Session</p>
-          <h2 translate>{{ (stats.splash.durations.avg / 60) || 0 | number:0 }} Mins</h2>
-        </div>
-      </md-list-item>
-    </md-card-content>
-  </md-card>
-  <md-card flex-gt-xs="25">
-    <md-card-content>
-      <md-list-item class="md-2-line">
-        <div class="md-list-item-text">
-          <p translate>Total Sessions</p>
-          <h2>{{ stats.splash.total_sessions || 0 }}</h2>
-        </div>
-      </md-list-item>
-    </md-card-content>
-  </md-card>
-  <!-- <md-card flex-gt-xs="20">
-    <md-card-content>
-      <md-list-item class="md-2-line">
-        <div class="md-list-item-text">
-          <p translate>Data Transferred</p>
-          <p>{{ (stats.splash.usage.inbound.sum + stats.splash.usage.outbound.sum) | humanData }}</p>
-        </div>
-      </md-list-item>
-    </md-card-content>
-  </md-card> -->
-  <md-card flex-gt-xs="25">
-    <md-card-content>
-      <md-list-item class="md-2-line">
-        <div class="md-list-item-text">
-          <p translate>Vouchers Used</p>
-          <span>
-            <h2 translate>{{ stats.vouchers.activated || 0 }} / {{ stats.vouchers.created || 0 }}</h2>
-            <md-tooltip>
-              <translate>Used/Created</translate>
-            </md-tooltip>
-          </span>
-        </div>
-      </md-list-item>
-    </md-card-content>
-  </md-card>
-</div>
+<!-- <analytics ng-if="!loading"> -->
+  <div class="md-padding" layout-gt-xs="row" layout="column">
+    <md-card flex-gt-xs="25">
+      <md-card-content>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text">
+            <p translate>Unique Users</p>
+            <h2>{{ stats.splash.uniques || 0 }}</h2>
+          </div>
+        </md-list-item>
+      </md-card-content>
+    </md-card>
+    <md-card flex-gt-xs="25">
+      <md-card-content>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text">
+            <p translate>Average Session</p>
+            <h2 translate>{{ (stats.splash.durations.avg / 60) || 0 | number:0 }} Mins</h2>
+          </div>
+        </md-list-item>
+      </md-card-content>
+    </md-card>
+    <md-card flex-gt-xs="25">
+      <md-card-content>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text">
+            <p translate>Total Sessions</p>
+            <h2>{{ stats.splash.total_sessions || 0 }}</h2>
+          </div>
+        </md-list-item>
+      </md-card-content>
+    </md-card>
+    <md-card flex-gt-xs="25">
+      <md-card-content>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text">
+            <p translate>Loyalty</p>
+            <span>
+              <h2 translate>58%</h2>
+              <md-tooltip>
+                <translate>Used/Created</translate>
+              </md-tooltip>
+            </span>
+          </div>
+        </md-list-item>
+      </md-card-content>
+    </md-card>
+  </div>
+<!-- </analytics> -->
