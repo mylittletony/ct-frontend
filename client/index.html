@@ -90,7 +90,7 @@
         </li>
       </ul>
     </md-content>
-    <div hide show-gt-sm layout="row" layout-align="start end">
+    <div hide show-gt-sm layout="row" layout-align="start end" class="sidenav-bottom">
       <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
         <md-tooltip md-direction="right">Locations</md-tooltip>
         <a href="/#/locations">
@@ -98,8 +98,8 @@
         </a>
       </md-button>
     </div>
-    <div hide show-gt-sm layout="row" layout-align="start end">
-      <md-menu md-position-mode="target-right target" md-offset="40 0">
+    <div hide show-gt-sm layout="row" layout-align="start end" class="sidenav-bottom">
+      <md-menu md-position-mode="target-left target" md-offset="60 0">
         <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
           <user-avatar></user-avatar>
         </md-button>
@@ -324,6 +324,8 @@
   <script src="components/payloads/payloads.directives.js"></script>
   <script src="components/payloads/payloads.filters.js"></script>
   <script src="components/payloads/payloads.services.js"></script>
+  <script src="components/people/people.directives.js"></script>
+  <script src="components/people/people.services.js"></script>
   <script src="components/plans/plans.directives.js"></script>
   <script src="components/plans/plans.services.js"></script>
   <script src="components/port_forwards/port_forwards.controller.js"></script>

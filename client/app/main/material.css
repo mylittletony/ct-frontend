@@ -107,8 +107,9 @@ md-table-container::-webkit-scrollbar-thumb {
 
 div > md-toolbar:nth-child(1) {
   background-color: white;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   z-index: 10;
+  border-bottom: 1px solid;
+  border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
 div > md-toolbar:nth-child(1) md-icon {
@@ -325,13 +326,22 @@ md-toolbar.md-table-toolbar .sidenav {
 }
 
 md-sidenav.site-sidenav {
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
 }
 
 md-sidenav.site-sidenav .md-button {
-  min-width: 70px;
+  min-width: 60px;
+}
+
+md-sidenav.site-sidenav .sidenav-bottom .md-button {
+  min-width: 40px;
+  margin: 10px;
+}
+
+md-sidenav.site-sidenav .sidenav-bottom .md-button a {
+  text-decoration: none;
 }
 
 md-sidenav.site-sidenav .md-button md-icon {
@@ -866,6 +876,31 @@ location-boxes table {
   width: 40px;
   margin-top: 5px;
 }
+
+/*top nav styles*/
+
+.top-nav {
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.14), 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
+  z-index: 1;
+  width: 100%;
+  position: relative;
+  background: white;
+}
+
+.top-nav .md-nav-bar {
+  border-bottom: 0px;
+}
+
+.top-nav md-nav-ink-bar {
+  background: -webkit-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%)!important;
+}
+
+.top-nav .md-active ._md-nav-button-text {
+  background: -webkit-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
+
 
 /*toast text style*/
 

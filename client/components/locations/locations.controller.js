@@ -68,9 +68,9 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('People'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/clients',
+        link: '/#/locations/' + $scope.location.slug + '/people',
         icon: 'people',
-        active: isActive('clients')
+        active: isActive('people')
       });
 
       menu.sections.push({
