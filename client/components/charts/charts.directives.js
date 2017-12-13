@@ -1514,16 +1514,10 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           // );
           // formatter.format(data,2);
         }
-        compileTemplate(attrs.render);
-
-        c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
-        // c = new window.google.visualization.BarChart(document.getElementById(attrs.render));
-
-
         a = true;
-
+        compileTemplate(attrs.render);
+        c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
         c.draw(data, opts);
-
 
         scope.noData = undefined;
         scope.loading = undefined;
