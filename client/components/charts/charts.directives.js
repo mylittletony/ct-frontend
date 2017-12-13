@@ -1493,18 +1493,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
           } else {
 
-//             opts.series = {
-//               0: {
-//                 targetAxisIndex: 0, visibleInLegend: true, lineWidth: 1
-//               },
-//               1: {
-//                 // targetAxisIndex: 1, lineWidth: 1.0
-//                 targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 1.5
-//               },
-//               2: {
-//                 lineWidth: 1.0
-//               }
-//             };
             opts.vAxes = {
               0: {
                 format: '0',
@@ -1513,23 +1501,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
                 }
               }
             }
-//               1: {
-//                 textPosition: 'none',
-//                 viewWindow:{
-//                   textPosition: 'none',
-//                   min: 0
-//                 }
-//               },
-//             };
 
             opts.hAxis = {
               lineWidth: 4,
               gridlines: {
-                // count: 10,
                 color: '#f3f3f3',
               },
               minorGridlines: {
-                // count: 2,
                 color: '#f3f3f3',
               },
               format: format
