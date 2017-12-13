@@ -321,7 +321,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           orientation: 'vertical'
         },
         chartArea: {
-          left: '3%',
+          left: '6%',
           top: '3%',
           height: '84%',
           width: '90%'
@@ -1422,47 +1422,12 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
         opts.title = 'none';
         opts.height = '350';
-        opts.colors = ['#225566'];
+        opts.colors = [colours[5]]; //['#225566'];
+        if (attrs.bar === 'true') {
+          opts.colors = ['#4b84e0'];
+        }
         opts.curveType = 'function';
         opts.legend = { position: 'none' };
-        opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 1
-          },
-          1: {
-            targetAxisIndex: 1, lineWidth: 2.5
-          },
-          2: {
-            targetAxisIndex: 2, lineWidth: 2.5
-          }
-        };
-        opts.vAxes = {
-          0: {
-            textPosition: 'none',
-            viewWindow:{
-              max: 10,
-              min: 0
-            }
-          },
-          1: {
-            viewWindow:{
-              min: 0
-            }
-          },
-        };
-
-        opts.hAxis = {
-          lineWidth: 4,
-          gridlines: {
-            count: 10,
-            color: '#f3f3f3',
-          },
-          minorGridlines: {
-            count: 2,
-            color: '#f3f3f3',
-          },
-          format: format
-        };
 
         opts.explorer = {
           maxZoomOut: 0,
@@ -1476,47 +1441,134 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           a = true;
 
           data = new window.google.visualization.DataTable();
-          data.addColumn('datetime', 'Date');
-          data.addColumn('number', 'dummySeries');
 
-          data = new window.google.visualization.DataTable();
-          data.addColumn('datetime', gettextCatalog.getString('Date'));
-          data.addColumn('number', 'dummySeries');
+          opts.vAxes = {};
 
-          for(var x = 0; x < resp.data.length; x++) {
-            data.addColumn('number', resp.data[x].alias);
+          opts.enableInteractivity = true;
+          if (attrs.popular === 'true') {
+            opts.tooltip = { isHtml: true };
+            opts.bar = { groupWidth: '90%' };
+            opts.vAxes = {
+              0: {
+                textPosition: 'none'
+              }
+            };
+            data.addColumn('string', 'Hour');
+            data.addColumn({type: 'string', role: 'tooltip', p: { html: true }});
+          } else {
+            opts.bar = {};
+            data.addColumn('datetime', 'Date');
           }
+          data.addColumn('number', attrs.name);
 
-          for(x = 0; x < resp.data[0].data.length; x++) {
-            var time;
-            var array = [];
+          if (attrs.bar === 'true') {
 
-            time = new Date(resp.data[0].data[x].timestamp);
-            array.push(time);
-            array.push(null);
+            for(var x = 0; x < resp.data[0].data.length; x++) {
+              var val;
+              let array = [];
 
-            for(var k = 0; k < resp.data.length; k++) {
-              var val = 0;
-              var d = resp.data[k].data[x];
-              if (d && d.value > 0) {
-                val = (d.value);
+              if (attrs.popular === 'true') {
+                val = resp.data[0].data[x].hour.toString();
+              } else {
+                val = new Date(resp.data[0].data[x].timestamp);
               }
 
               array.push(val);
+
+              if (attrs.popular === 'true') {
+                array.push('<div style="padding: 20px;"><h3>Popular Hours</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
+              }
+
+              for(var k = 0; k < resp.data.length; k++) {
+                var val = 0;
+                var d = resp.data[k].data[x];
+                if (d && d.value > 0) {
+                  val = (d.value);
+                }
+
+                array.push(val);
+              }
+              data.addRow(array);
             }
-            data.addRow(array);
+
+          } else {
+
+//             opts.series = {
+//               0: {
+//                 targetAxisIndex: 0, visibleInLegend: true, lineWidth: 1
+//               },
+//               1: {
+//                 // targetAxisIndex: 1, lineWidth: 1.0
+//                 targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 1.5
+//               },
+//               2: {
+//                 lineWidth: 1.0
+//               }
+//             };
+            opts.vAxes = {
+              0: {
+                format: '0',
+                viewWindow:{
+                  min: 0
+                }
+              }
+            }
+//               1: {
+//                 textPosition: 'none',
+//                 viewWindow:{
+//                   textPosition: 'none',
+//                   min: 0
+//                 }
+//               },
+//             };
+
+            opts.hAxis = {
+              lineWidth: 4,
+              gridlines: {
+                // count: 10,
+                color: '#f3f3f3',
+              },
+              minorGridlines: {
+                // count: 2,
+                color: '#f3f3f3',
+              },
+              format: format
+            };
+
+
+            for(let x = 0; x < resp.data.length; x++) {
+              data.addColumn('number', resp.data[x].alias);
+            }
+
+            for(let x = 0; x < resp.data[0].data.length; x++) {
+              var time;
+              let array = [];
+
+              time = new Date(resp.data[0].data[x].timestamp);
+              array.push(time);
+              array.push(null);
+
+              for(var k = 0; k < resp.data.length; k++) {
+                var val = 0;
+                var d = resp.data[k].data[x];
+                if (d && d.value > 0) {
+                  val = (d.value);
+                }
+
+                array.push(val);
+              }
+              data.addRow(array);
+            }
           }
-
-          // date_formatter.format(data,0);
-
-          // var formatter = new window.google.visualization.NumberFormat(
-          //   { pattern: '0' }
-          // );
-          // formatter.format(data,2);
         }
+
         a = true;
         compileTemplate(attrs.render);
-        c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
+        if (attrs.bar === 'true') {
+          c = new window.google.visualization.ColumnChart(document.getElementById(attrs.render));
+        } else {
+          c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
+        }
         c.draw(data, opts);
 
         scope.noData = undefined;
@@ -1527,9 +1579,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     var timeout = $timeout(function() {
       window.google.charts.setOnLoadCallback(chart());
     }, 500);
-
-    // $rootScope.$on('locationLoaded', function (event, next, current) {
-    // });
   };
 
   return {
@@ -1541,8 +1590,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       render: '@'
     },
     require: '^clientChart',
-    // template: template
-    // templateUrl: 'components/charts/locations/_clients_chart.html',
   };
 
 }]);
