@@ -66,11 +66,19 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       // menu.header = $scope.location.location_name;
 
       menu.sections.push({
-        name: gettextCatalog.getString('Dashboard'),
-        link: '/#/locations/' + $scope.location.slug,
+        name: gettextCatalog.getString('People'),
         type: 'link',
-        icon: 'multiline_chart',
-        active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
+        link: '/#/locations/' + $scope.location.slug + '/clients',
+        icon: 'people',
+        active: isActive('clients')
+      });
+
+      menu.sections.push({
+        name: gettextCatalog.getString('Splash'),
+        type: 'link',
+        link: '/#/locations/' + $scope.location.slug + '/splash_pages',
+        icon: 'format_paint',
+        active: isActive('splash_pages')
       });
 
       menu.sections.push({
@@ -81,51 +89,11 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         active: isActive('devices')
       });
 
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Networks'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/networks',
-      //   icon: 'wifi',
-      //   active: isActive('networks')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Clients'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/clients',
-      //   icon: 'devices',
-      //   active: isActive('clients')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Zones'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/zones',
-      //   icon: 'layers',
-      //   active: isActive('zones')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Policies'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/group_policies',
-      //   icon: 'group_work',
-      //   active: isActive('group_policies')
-      // });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Splash'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/splash_pages',
-        icon: 'web',
-        active: isActive('splash_pages')
-      });
-
       menu.sections.push({
         name: gettextCatalog.getString('Campaigns'),
         type: 'link',
         link: '/#/locations/' + $scope.location.slug + '/triggers',
-        icon: 'mood',
+        icon: 'email',
         active: isActive('triggers')
       });
 
@@ -153,13 +121,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       //   active: isActive('versions')
       // });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Audit'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/audit',
-        icon: 'library_books',
-        active: isActive('audit')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Audit'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/audit',
+      //   icon: 'library_books',
+      //   active: isActive('audit')
+      // });
 
       // menu.sections.push({
       //   name: gettextCatalog.getString('Logging'),
@@ -177,13 +145,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       //   active: isActive('users')
       // });
 
-      menu.sections.push({
-        name: gettextCatalog.getString('Settings'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/settings',
-        icon: 'settings',
-        active: isActive('settings')
-      });
+      // menu.sections.push({
+      //   name: gettextCatalog.getString('Settings'),
+      //   type: 'link',
+      //   link: '/#/locations/' + $scope.location.slug + '/settings',
+      //   icon: 'settings',
+      //   active: isActive('settings')
+      // });
 
     };
 
