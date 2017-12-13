@@ -1337,13 +1337,14 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
 }]);
 
-app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails) {
+app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', '$compile', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails, $compile) {
 
   var link = function(scope,element,attrs,controller) {
 
     var a, c, timer, formatted, data;
 
-    scope.type = 'radius.users,radius.new';
+    scope.type = attrs.type; //'radius.users';
+    // scope.type = 'radius.users,radius.new';
     scope.loading = true;
     var colours = COLOURS.split(' ');
 
@@ -1356,6 +1357,33 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     });
 
+    var letemplate = function(render) {
+      console.log(render);
+      var a = '<md-card>'+
+      '<md-card-header class="graph-small">'+
+      '<md-card-header-text>'+
+      '<span class="md-subhead" translate>'+attrs.name+'</span>'+
+      '</md-card-header-text>'+
+      '</md-card-header>'+
+      '<md-card-content>'+
+      '<div id="'+ render +'" class="small-chart"></div>'+
+      '<md-card-actions layout="row" layout-align="end center">'+
+      '<small>'+
+      '<span ng-if="noData && !loading" translate>No graph data</span>'+
+      '<span ng-if="loading" translate>Loading chart</span>'+
+      '</small>'+
+      '</md-card-actions>'+
+      '</md-card-content>'+
+      '</md-card>';
+      return a;
+    };
+
+    var compileTemplate = function(render) {
+      var template;
+      template = $compile(letemplate(render))(scope);
+      element.html(template);
+      scope.loading = undefined;
+    };
     var clearChart = function() {
       if (c) {
         c.clearChart();
@@ -1486,12 +1514,16 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           // );
           // formatter.format(data,2);
         }
+        compileTemplate(attrs.render);
 
-        // if (window.google && window.google.visualization) {
-        c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
+        c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
+        // c = new window.google.visualization.BarChart(document.getElementById(attrs.render));
+
 
         a = true;
+
         c.draw(data, opts);
+
 
         scope.noData = undefined;
         scope.loading = undefined;
@@ -1502,6 +1534,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       window.google.charts.setOnLoadCallback(chart());
     }, 500);
 
+    // $rootScope.$on('locationLoaded', function (event, next, current) {
+    // });
   };
 
   return {
@@ -1509,10 +1543,12 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     scope: {
       mac: '@',
       loc: '@',
-      version: '@'
+      version: '@',
+      render: '@'
     },
     require: '^clientChart',
-    templateUrl: 'components/charts/locations/_clients_chart.html',
+    // template: template
+    // templateUrl: 'components/charts/locations/_clients_chart.html',
   };
 
 }]);
