@@ -1459,11 +1459,12 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           }
           data.addColumn('number', attrs.name);
 
+          var array = [];
           if (attrs.bar === 'true') {
 
             for(var x = 0; x < resp.data[0].data.length; x++) {
               var val;
-              var array = [];
+              array = [];
 
               if (attrs.popular === 'true') {
                 val = resp.data[0].data[x].hour.toString();
@@ -1478,7 +1479,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               }
 
               for(var k = 0; k < resp.data.length; k++) {
-                var val = 0;
+                val = 0;
                 var d = resp.data[k].data[x];
                 if (d && d.value > 0) {
                   val = (d.value);
@@ -1512,21 +1513,21 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             };
 
 
-            for(var x = 0; x < resp.data.length; x++) {
+            for(x = 0; x < resp.data.length; x++) {
               data.addColumn('number', resp.data[x].alias);
             }
 
-            for(var x = 0; x < resp.data[0].data.length; x++) {
+            for(y = 0; y < resp.data[0].data.length; y++) {
               var time;
-              var array = [];
+              array = [];
 
-              time = new Date(resp.data[0].data[x].timestamp);
+              time = new Date(resp.data[0].data[y].timestamp);
               array.push(time);
               array.push(null);
 
               for(var k = 0; k < resp.data.length; k++) {
                 var val = 0;
-                var d = resp.data[k].data[x];
+                var d = resp.data[k].data[y];
                 if (d && d.value > 0) {
                   val = (d.value);
                 }
