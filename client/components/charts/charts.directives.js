@@ -1463,7 +1463,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
             for(var x = 0; x < resp.data[0].data.length; x++) {
               var val;
-              let array = [];
+              var array = [];
 
               if (attrs.popular === 'true') {
                 val = resp.data[0].data[x].hour.toString();
@@ -1478,7 +1478,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               }
 
               for(var k = 0; k < resp.data.length; k++) {
-                let val = 0;
+                var val = 0;
                 var d = resp.data[k].data[x];
                 if (d && d.value > 0) {
                   val = (d.value);
@@ -1512,13 +1512,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             };
 
 
-            for(let x = 0; x < resp.data.length; x++) {
+            for(var x = 0; x < resp.data.length; x++) {
               data.addColumn('number', resp.data[x].alias);
             }
 
-            for(let x = 0; x < resp.data[0].data.length; x++) {
+            for(var x = 0; x < resp.data[0].data.length; x++) {
               var time;
-              let array = [];
+              var array = [];
 
               time = new Date(resp.data[0].data[x].timestamp);
               array.push(time);
