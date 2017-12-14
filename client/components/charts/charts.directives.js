@@ -404,6 +404,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       };
 
       this.getStats = function(params) {
+        console.log(params.period);
         var deferred = $q.defer();
         if (params.resource === 'location' ) {
           this.period = params.period || $routeParams.period;
@@ -414,7 +415,6 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
         this.setStartEnd();
 
         $scope.client = ClientDetails.client;
-        console.log($scope.client);
         this.v2(params, deferred);
         return deferred.promise;
       };
@@ -1357,7 +1357,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     });
 
     var letemplate = function(render) {
-      console.log(render);
       var a = '<md-card>'+
       '<md-card-header class="graph-small">'+
       '<md-card-header-text>'+
@@ -1394,7 +1393,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     function chart() {
       var params = {
         type: scope.type,
-        period: '7d' // can be removed soon when loyalty dynamic
+        period: '30d' // can be removed soon when loyalty dynamic
       };
 
       controller.getStats(params).then(function(res) {
@@ -2174,10 +2173,11 @@ app.directive('radiusStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     function chart() {
       var params = {
         type: scope.type,
-        period: '7d' // can be removed soon when loyalty dynamic
+        period: '30d'
       };
 
       controller.getStats(params).then(function(res) {
+        scope.stats = res.data[0].data;
       }, function() {
         console.log('No data returned for query');
       });

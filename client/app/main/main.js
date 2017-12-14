@@ -296,7 +296,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
-      templateUrl: 'components/locations/dashboard/index.html',
+      // templateUrl: 'components/locations/dashboard/index.html',
+      templateUrl: 'components/locations/show/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
@@ -565,6 +566,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/boxes/versions/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/dashboard-test', {
+      // DELETE
+      templateUrl: 'components/locations/dashboard/index.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
     }).
     when('/locations/:id/splash_reports', {
       templateUrl: 'components/locations/reports/splash.html',
