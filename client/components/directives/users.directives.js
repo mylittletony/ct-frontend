@@ -517,7 +517,6 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
     };
 
     if (STRIPE_KEY && window.Stripe) {
-      console.log('Setting Stripe Token');
       window.Stripe.setPublishableKey(STRIPE_KEY);
     } else {
       console.log('Could not set stripe token');

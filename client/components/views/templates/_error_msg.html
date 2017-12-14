@@ -1,6 +1,7 @@
 <md-bottom-sheet class="md-list md-has-header" ng-cloak>
-  <md-subheader class="md-warn"><p><translate>There was a problem processing your request.</translate></p>
-    <ul ng-repeat="error in errors" class="errors"><li>{{ error | translate }}</li></ul>
+  <md-subheader class="md-"><p>There was a problem processing your request.</p>
+    <ul><li>{{ errors }}</li></ul>
+    <!-- <ul ng-repeat="error in errors" class="errors"><li>{{ error }}</li></ul> -->
   </md-subheader>
   <md-button ng-click="close()" class="md-list-item-content" >
     <span class="md-inline-list-icon-label md-warn" translate>Close</span>

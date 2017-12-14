@@ -76,10 +76,9 @@ app.directive('editApp', ['App', '$routeParams', '$location', 'menu', 'showError
 
   var link = function(scope) {
 
-    menu.isOpen = false;
+    menu.isOpen     = false;
     menu.hideBurger = true;
-
-    scope.loading         = true;
+    scope.loading   = true;
 
     var init = function() {
       App.query({id: $routeParams.id}).$promise.then(function(results) {
