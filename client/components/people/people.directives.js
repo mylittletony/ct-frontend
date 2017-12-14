@@ -2,12 +2,18 @@
 
 var app = angular.module('myApp.people.directives', []);
 
-app.directive('listPeople', ['People', 'Network', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Network,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
+app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
+
+    People.get({location_id: $routeParams.id}, function(data) {
+      console.log(data);
     }, function(err){
       console.log(err);
     });
@@ -22,13 +28,19 @@ app.directive('listPeople', ['People', 'Network', 'Location', '$routeParams', '$
 
 }]);
 
-app.directive('displayPerson', ['Network', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(Network, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
+app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data;
     }, function(err){
+      console.log(err);
+    });
+
+    People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
+      console.log(res);
+    }, function(err) {
       console.log(err);
     });
 
