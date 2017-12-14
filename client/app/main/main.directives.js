@@ -31,6 +31,7 @@ var app = angular.module('myApp.directives', [
   'myApp.networks.directives',
   'myApp.operations.directives',
   'myApp.payloads.directives',
+  'myApp.people.directives',
   'myApp.plans.directives',
   'myApp.port_forwards.directives',
   'myApp.projects.directives',

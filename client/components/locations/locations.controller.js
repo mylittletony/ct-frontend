@@ -44,7 +44,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       var split = $location.path().split('/');
       if (split.length >= 4) {
         return ($location.path().split('/')[3] === path);
-      } else if (path === 'devices') {
+      } else if (path === 'people') {
         return true;
       }
     };
@@ -66,11 +66,19 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       // menu.header = $scope.location.location_name;
 
       menu.sections.push({
-        name: gettextCatalog.getString('Dashboard'),
-        link: '/#/locations/' + $scope.location.slug,
+        name: gettextCatalog.getString('People'),
         type: 'link',
-        icon: 'multiline_chart',
-        active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
+        link: '/#/locations/' + $scope.location.slug + '/people',
+        icon: 'people',
+        active: isActive('people')
+      });
+
+      menu.sections.push({
+        name: gettextCatalog.getString('Splash'),
+        type: 'link',
+        link: '/#/locations/' + $scope.location.slug + '/splash_pages',
+        icon: 'format_paint',
+        active: isActive('splash_pages')
       });
 
       menu.sections.push({
@@ -81,108 +89,12 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         active: isActive('devices')
       });
 
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Networks'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/networks',
-      //   icon: 'wifi',
-      //   active: isActive('networks')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Clients'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/clients',
-      //   icon: 'devices',
-      //   active: isActive('clients')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Zones'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/zones',
-      //   icon: 'layers',
-      //   active: isActive('zones')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Policies'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/group_policies',
-      //   icon: 'group_work',
-      //   active: isActive('group_policies')
-      // });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Splash'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/splash_pages',
-        icon: 'web',
-        active: isActive('splash_pages')
-      });
-
       menu.sections.push({
         name: gettextCatalog.getString('Campaigns'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/campaigns',
-        icon: 'mood',
-        active: isActive('campaigns')
-      });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('vouchers'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/vouchers',
-      //   icon: 'receipt',
-      //   active: isActive('vouchers')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Codes'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/splash_codes',
-      //   icon: 'vpn_key',
-      //   active: isActive('splash_codes')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('History'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/versions',
-      //   icon: 'history',
-      //   active: isActive('versions')
-      // });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Audit'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/audit',
-        icon: 'library_books',
-        active: isActive('audit')
-      });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Logging'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/logs',
-      //   icon: 'library_books',
-      //   active: isActive('logs')
-      // });
-
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Users'),
-      //   type: 'link',
-      //   link: '/#/locations/' + $scope.location.slug + '/users',
-      //   icon: 'people',
-      //   active: isActive('users')
-      // });
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Settings'),
-        type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/settings',
-        icon: 'settings',
-        active: isActive('settings')
+        link: '/#/locations/' + $scope.location.slug + '/triggers',
+        icon: 'email',
+        active: isActive('triggers')
       });
 
     };

@@ -1,3 +1,11 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+  </md-nav-bar>
+</div>
+
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
 
   <div>
@@ -11,7 +19,7 @@
     <md-input-container flex="100" ng-show="splash_codes.length > 0 || searching || query.filter">
       <md-icon md-font-icon="search">search</md-icon>
       <label></label>
-      <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Codes' | translate }}">
+      <input ng-model="query.filter" md-autofocus placeholder="{{ 'Search Codes' | translate }}">
     </md-input-container>
     <md-button ng-hide="splash_codes.length > 0 || searching || query.filter" id="main" class="md-icon-button md-primary" aria-label="{{ 'Splash' | translate }}">
       <md-icon md-font-icon="">graphic_eq</md-icon>

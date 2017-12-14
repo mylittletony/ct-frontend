@@ -1,0 +1,548 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+  </md-nav-bar>
+</div>
+
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>Bert Morley</h2>
+  </div>
+
+  <span flex></span>
+
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back to People</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+
+</md-content>
+
+
+<md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
+
+  <div flex-gt-sm="30">
+    <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
+
+      <div flex-xs="100" flex-sm="50" flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <img src="http://ct-networks.io/images/pages/staff/andrew.jpg" style="max-height:120px;border-radius:60px;"></img>
+            <span flex></span>
+            <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
+              <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+            </md-button>
+          </md-card-title>
+          <md-list flex>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3 translate>Name</h3>
+                <p>Bert Morley</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3 translate>Last Seen</h3>
+                <p>12/12/17</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3 translate>First Seen</h3>
+                <p>12/12/12</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </md-card>
+      </div>
+
+      <div flex-xs="100" flex-sm="50" flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>Socials</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-list flex>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3 translate>Email</h3>
+                <p>Bert@ct.io</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3 translate>Facebook</h3>
+                <p>Bert Morley</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3 translate>Google+</h3>
+                <p>Bert Morley</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3 translate>LinkedIn</h3>
+                <p>Bert Morley</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </md-card>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div flex-gt-sm="40">
+    <div layout-gt-sm="row" layout="column" layout-wrap>
+
+      <div flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>Visits</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
+              <img src="https://lh6.googleusercontent.com/-07qNkcH5kiE/UY0TxGZNf9I/AAAAAAAAIdk/50SG0xnQYmk/w850-h519-no/punchcard+2.png" style="width: 100%;height: 100%;"></img>
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <div flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>Engagement</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-table-container>
+            <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+              <thead md-head>
+                <tr md-row>
+                  <th md-column><span translate>Campaign</span></th>
+                  <th md-column><span translate>Result</span></th>
+                  <th md-column><span translate>Options</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row>
+                  <td md-cell>
+                    Encourage Return
+                  </td>
+                  <td md-cell>
+                    <md-icon>check_circle</md-icon>
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    Things & Stuff
+                  </td>
+                  <td md-cell>
+                    <md-icon>highlight_off</md-icon>
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+        </md-card>
+      </div>
+
+    </div>
+  </div>
+
+  <div flex-gt-sm="30">
+    <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
+
+      <div flex-xs="100" flex-sm="50" flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>Devices</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-table-container>
+            <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+              <thead md-head>
+                <tr md-row>
+                  <th md-column><span translate>Mac</span></th>
+                  <th md-column><span translate>Options</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row>
+                  <td md-cell>
+                    11:11:11:11:11:11
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    22:22:22:22:22:22
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    33:33:33:33:33:33
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+        </md-card>
+      </div>
+
+      <div flex-xs="100" flex-sm="50" flex-gt-sm="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>Vouchers Used</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-table-container>
+            <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+              <thead md-head>
+                <tr md-row>
+                  <th md-column><span translate>Voucher</span></th>
+                  <th md-column><span translate>Options</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row>
+                  <td md-cell>
+                    ApplesAndPears74
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    BoatRace27
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    DogAndBone81
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    DustbinLid42
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+        </md-card>
+      </div>
+
+    </div>
+  </div>
+
+  <div flex-gt-sm="100">
+    <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
+
+
+      <span flex></span>
+      <md-button ng-click="destroy()" class="md-raised md-warn">
+        Delete
+      </md-button>
+    </div>
+  </div>
+
+</md-content>
+
+<!-- <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
+
+  <div flex-gt-sm="30">
+    <md-card>
+      <md-card-title>
+        <img src="http://ct-networks.io/images/pages/staff/simon.jpg" style="max-height:120px;border-radius:60px;"></img>
+        <span flex></span>
+        <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
+          <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+        </md-button>
+      </md-card-title>
+      <md-list flex>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3 translate>Name</h3>
+            <p>Bert Morley</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3 translate>Last Seen</h3>
+            <p>12/12/17</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3 translate>First Seen</h3>
+            <p>12/12/12</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-card>
+  </div>
+
+  <div flex-gt-sm="40">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>Graph</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
+        <div flex-gt-sm="40">
+          <img src="https://fakeimg.pl/300x300/ffffff/ff0000/?text=Cool%20Graph"></img>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div flex-gt-sm="30">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>Devices</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-table-container>
+        <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+          <thead md-head>
+            <tr md-row>
+              <th md-column><span translate>Mac</span></th>
+              <th md-column><span translate>Options</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row>
+              <td md-cell>
+                11:11:11:11:11:11
+              </td>
+              <td md-cell>
+                <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+              </td>
+            </tr>
+            <tr md-row>
+              <td md-cell>
+                22:22:22:22:22:22
+              </td>
+              <td md-cell>
+                <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+              </td>
+            </tr>
+            <tr md-row>
+              <td md-cell>
+                33:33:33:33:33:33
+              </td>
+              <td md-cell>
+                <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+              </td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+    </md-card>
+  </div>
+
+  <div flex-gt-sm="30">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>Socials</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-list flex>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3 translate>Email</h3>
+            <p>Bert@ct.io</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3 translate>Facebook</h3>
+            <p>Bert Morley</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3 translate>Google+</h3>
+            <p>Bert Morley</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3 translate>LinkedIn</h3>
+            <p>Bert Morley</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-card>
+  </div>
+
+  <div flex-gt-sm="40">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>Engagement</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-table-container>
+        <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+          <thead md-head>
+            <tr md-row>
+              <th md-column><span translate>Campaign</span></th>
+              <th md-column><span translate>Result</span></th>
+              <th md-column><span translate>Options</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row>
+              <td md-cell>
+                Encourage Return
+              </td>
+              <td md-cell>
+                <md-icon>check_circle</md-icon>
+              </td>
+              <td md-cell>
+                <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+              </td>
+            </tr>
+            <tr md-row>
+              <td md-cell>
+                Things & Stuff
+              </td>
+              <td md-cell>
+                <md-icon>highlight_off</md-icon>
+              </td>
+              <td md-cell>
+                <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+    </md-card>
+  </div>
+
+  <div flex-gt-sm="30">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>Locations Visited</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-table-container>
+        <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+          <thead md-head>
+            <tr md-row>
+              <th md-column><span translate>Location</span></th>
+              <th md-column><span translate>Options</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row>
+              <td md-cell>
+                Coffee Beanz Spitalfields
+              </td>
+              <td md-cell>
+                <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+              </td>
+            </tr>
+            <tr md-row>
+              <td md-cell>
+                Coffee Beanz Shoreditch
+              </td>
+              <td md-cell>
+                <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                </md-button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+    </md-card>
+  </div>
+
+
+</md-content> -->

@@ -1,118 +1,39 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <!-- <form ng-submit="$event.preventDefault()" style="padding-left: 5px; padding-bottom: 15px">
-      <section>
-        <md-autocomplete
-            md-selected-item="selectedItem"
-            ng-enter="updatePage(item.ap_mac)"
-            md-search-text-change="searchTextChange(searchText)"
-            md-no-cache="true"
-            md-search-text="searchText"
-            md-selected-item-change="selectedItemChange(item)"
-            md-items="item in getBoxes(searchText)"
-            md-item-text="item.description"
-            md-min-length="3"
-            md-autofocus="true"
-            md-menu-class="locations-autocomplete"
-            placeholder="{{ 'Search' | translate }}">
-          <md-item-template>
-            <a ng-click="updatePage(item.calledstationid)">
-              <span class="item-title">
-                <md-icon>router</md-icon>
-            <span>&nbsp;{{ item.description }}</span>
-              </span>
-              <span class="item-metadata">
-                {{item.calledstationid}}
-              </span>
-            </a>
-          </md-item-template>
-          <md-not-found translate>
-            No results found.
-          </md-not-found>
-        </md-autocomplete>
-        <md-divider></md-divider>
-      </section>
-    </form> -->
-    <form>
-      <md-input-container flex="100" flex-gt-xs="100" style="margin-top: 50px">
-        <md-icon md-font-icon="search">search</md-icon>
-        <label></label>
-        <input ng-model="query.filter" md-autofocus placeholder="{{ 'Filter Clients' | translate }}">
-      </md-input-container>
-    </form>
-    <div flex></div>
-    <md-menu-bar ng-if="group_policies.length > 0" style="padding: 0">
-      <md-menu>
-        <button ng-click="$mdOpenMenu()">
-          <md-icon>group_work</md-icon>
-        </button>
-        <md-menu-content >
-          <md-menu-item>
-            <md-button ng-click="refresh()" ng-disabled="!policy_id">
-              <translate>
-              Clear Filter
-              </translate>
-            </md-button>
-          </md-menu-item>
-          <md-menu-divider></md-menu-divider>
-          <md-menu-item ng-repeat="policy in group_policies">
-            <md-button ng-class="{ 'active': policy.id == policy_id }" ng-click="updatePolicy(policy.id)">
-              {{ policy.policy_name }}
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </md-menu-bar>
-    <md-menu-bar ng-if="unique_aps.length > 0" style="padding: 0">
-      <md-menu>
-        <button ng-click="$mdOpenMenu()">
-          <md-icon>router</md-icon>
-        </button>
-        <md-menu-content >
-          <md-menu-item>
-            <md-button ng-click="refresh()" ng-disabled="!ap_mac">
-              <translate>
-              Clear Filter
-              </translate>
-            </md-button>
-          </md-menu-item>
-          <md-menu-divider></md-menu-divider>
-          <md-menu-item ng-repeat="box in unique_aps">
-            <md-button ng-class="{ 'active': ap_mac == box.ap_mac }" ng-click="updateAp(box.ap_mac)">
-              {{box.description}}
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </md-menu-bar>
-    <!-- <md-button-group hide show-gt-sm class="md-raised">
-      <md-button ng-click="updatePeriod('now')" ng-class="{ 'active': period === 'now' }" ><translate>NOW</translate></md-button>
-      <md-button ng-click="updatePeriod('60m')" ng-class="{ 'active': period === '60m' }" ><translate>60m</translate></md-button>
-      <md-button ng-click="updatePeriod('6h')" ng-class="{ 'active': period === '6h' }" ><translate>6h</translate></md-button>
-      <md-button ng-click="updatePeriod('12h')" ng-class="{ 'active': period === '12h' }" ><translate>12h</translate></md-button>
-      <md-button ng-click="updatePeriod('1d')" ng-class="{ 'active': period === '1d' }" ><translate>1d</translate></md-button>
-      <md-button ng-click="openMomentRange()" ng-class="{ 'active': period === 'custom' }" hide show-gt-xs>
-       <md-icon md-font-icon="date_range" style="color: rgba(0, 0, 0, 0.87)">date_range</md-icon>
-       <md-tooltip>
-         <translate>
-           Add date range filter
-         </translate>
-       </md-tooltip>
-     </md-button>
-    </md-button-group> -->
-    <md-button ng-click="openColumns()" class="md-icon-button" hide show-gt-xs>
-      <md-icon md-font-icon="settings">settings</md-icon>
-    </md-button>
-    <md-button class='md-icon-button md-accent' ng-click='createClient()'>
-      <md-icon>add_circle</md-icon>
-    </md-button>
-  </div>
-  <md-divider></md-divider>
-</md-toolbar>
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+    <md-nav-item md-nav-click="goto('page1')" name="page1">
+      Clients
+    </md-nav-item>
+    <md-nav-item md-nav-click="goto('page2')" name="page2">
+      Reports
+    </md-nav-item>
+  </md-nav-bar>
+</div>
 
-<md-content layout-padding>
-  <div layout="row" layout-wrap layout-align="space-between start">
-    <div flex="100">
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>People</h2>
+  </div>
+
+  <span flex="" class="flex"></span>
+
+  <div>
+    <md-input-container flex="100">
+      <md-icon md-font-icon="search">search</md-icon>
+      <label></label>
+      <input ng-model="query.filter" md-autofocus placeholder="{{ 'Search People' | translate }}">
+    </md-input-container>
+  </div>
+
+</md-content>
+
+<md-content class="md-padding">
+  <div layout="row" layout-align="center center">
+    <div flex="100" flex-gt-sm="100">
       <md-card>
         <md-card-content>
           <div class="md-toolbar-tools" ng-cloak>
@@ -129,7 +50,6 @@
                   <th md-column hide md-order-by="client_mac" show-gt-sm><a href="" translate>Mac Address</a></th>
                   <th hide show-gt-sm md-column md-order-by="ssid" ng-show="columns.ssid"><a href="" translate>SSID</a></th>
                   <th hide show-gt-sm md-column md-order-by="ap_name" ng-show="columns.ap_name"><a href="" translate>AP Description</a></th>
-                  <!-- <th hide show-gt-sm md-column md-order-by="" ng-show="columns.expected_throughput"><a href="" translate>Expected Tput</a></th> -->
                   <th hide show-gt-sm md-column md-order-by="txbitrate" ng-show="columns.txbitrate"><a href="" translate>Tx Rate</a></th>
                   <th hide show-gt-sm md-column md-order-by="rxbitrate" ng-show="columns.rxbitrate"><a href="" translate>Rx Rate</a></th>
                   <th hide show-gt-sm md-column md-order-by="snr" ng-show="columns.snr"><a href="" translate>SNR</a></th>
@@ -139,9 +59,6 @@
                   <th hide show-gt-sm md-column md-order-by="lastseen" ng-show="columns.lastseen"><a href="" translate>Last Seen</a></th>
                   <th hide show-gt-sm md-column md-order-by="channel" ng-show="columns.channel"><a href="" translate>Channel</a></th>
                   <th hide show-gt-sm md-column md-order-by="capabilities" ng-show="columns.capabilities"><a href="" translate>Frequency</a></th>
-                  <!-- <th hide show-gt-sm md-column md-order-by="manufacturer" ng-show="columns.manufacturer"><a href="" translate>Manufacturer</a></th> -->
-                  <!-- <th hide show-gt-sm md-column md-order-by="" ng-show="columns.splash_username"><a href="" translate>Splash User</a></th> -->
-                  <!-- <th hide show-gt-sm md-column md-order-by="" ng-show="columns.policies"><a href="" translate>Policies</a></th> -->
                   <th md-column translate>Options</th>
                 </tr>
               </thead>
@@ -180,9 +97,6 @@
                   <td hide show-gt-sm md-cell ng-show="columns.ap_name">
                     {{ client.ap_name }}
                   </td md-cell>
-                  <!-- <td hide show-gt-sm md-cell ng-show="columns.expected_throughput"> -->
-                  <!--   <translate>{{ client.expected_throughput || 0}}Mbps</translate> -->
-                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.txbitrate">
                     <translate>{{ client.txbitrate || 0 }}Kbps</translate>
                   </td md-cell>
@@ -219,33 +133,15 @@
                   <td hide show-gt-sm md-cell ng-show="columns.lastseen">
                     {{ client.lastseen | lastSeen }}
                   </td md-cell>
-                  <!-- <td hide show-gt-sm md-cell ng-show="columns.description"> -->
-                  <!--   <a ng-hide="fake" href="/#/locations/{{location.slug}}/boxes/{{client.slug}}">{{ client.description | emptyFilter }}</a> -->
-                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.channel">
                     {{ client.channel }}
                   </td md-cell>
                   <td hide show-gt-sm md-cell ng-show="columns.capabilities">
                     {{ client.channel > 14 ? '5Ghz' : '2.4Ghz' }}
                   </td md-cell>
-                  <!-- <td hide show-gt-sm md-cell ng-show="columns.manufacturer"> -->
-                  <!--   {{ client.manufacturer | emptyFilter }} -->
-                  <!-- </td md-cell> -->
                   <td hide show-gt-sm md-cell ng-show="columns.splash_username">
                     <span ng-show="client.errors"><b translate>Failed</b></span>
                   </td md-cell>
-                  <!-- <td hide show-gt-sm md-cell ng-show="columns.policies"> -->
-                  <!--   <span ng-if="client.policies.length == 0">-</span> -->
-                  <!--   <translate ng-if="client.policies.length == 1"> -->
-                  <!--   <a href="/#/locations/{{ location.slug }}/group_policies/{{ client.policies[0].id}}">{{ client.policies[0].policy_name | titleCase }}</a> -->
-                  <!--   </translate> -->
-                  <!--   <span ng-if="client.policies.length > 1"> -->
-                  <!--     <translate>{{ client.policies.length }} Policies</translate> -->
-                  <!--     <md-tooltip> -->
-                  <!--       {{ client.policies | toString }} -->
-                  <!--     </md-tooltip> -->
-                  <!--   </span> -->
-                  <!-- </td> -->
                   <td md-cell ng-show="menu.length">
                     <span ng-show="client.processing">
                       <md-progress-circular class="md-warn" md-diameter="40"></md-progress-circular>
