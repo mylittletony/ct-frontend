@@ -1517,7 +1517,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               data.addColumn('number', resp.data[x].alias);
             }
 
-            for(y = 0; y < resp.data[0].data.length; y++) {
+            for(var y = 0; y < resp.data[0].data.length; y++) {
               var time;
               array = [];
 
