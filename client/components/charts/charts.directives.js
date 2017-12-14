@@ -284,8 +284,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
 }]);
 
-app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
-
+app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, MetricLambda, Metric, $routeParams, $q, ClientDetails, COLOURS) {
 
   return {
     scope: {
@@ -387,7 +386,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       };
 
       this.v2 = function(params, deferred) {
-        Metric.clientstats({
+        var opts = {
           type:         params.metric_type || params.type,
           ap_mac:       $scope.client.ap_mac || params.ap_mac,
           client_mac:   $scope.client.client_mac,
@@ -396,11 +395,22 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           start_time:   $routeParams.start || minDateEpoch,
           end_time:     $routeParams.end || maxDateEpoch,
           rate:         params.rate,
-        }).$promise.then(function(data) {
-          deferred.resolve(data);
-        }, function() {
-          deferred.reject();
-        });
+        };
+
+        var t = opts.type.split('.')[0];
+        if (t === 'radius' || t === 'splash') {
+          Metric.clientstats(opts).$promise.then(function(data) {
+            deferred.resolve(data);
+          }, function() {
+            deferred.reject();
+          });
+        } else {
+          MetricLambda.clientstats(opts).$promise.then(function(data) {
+            deferred.resolve(data);
+          }, function() {
+            deferred.reject();
+          });
+        }
       };
 
       this.getStats = function(params) {
@@ -1255,7 +1265,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     var chart = function() {
       var params = {
-        metric_type:  'device.heartbeats',
+        metric_type: 'device.heartbeats',
         ap_mac: scope.mac,
         period: $routeParams.period || '6h'
       };
