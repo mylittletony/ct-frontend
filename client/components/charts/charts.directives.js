@@ -1416,12 +1416,12 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       if (window.google && window.google.visualization) {
         var format = gettextCatalog.getString('MMM dd, yyyy');
 
-        colours[1] = colours[0];
+        // colours[1] = colours[0];
         var opts = controller.options;
 
         opts.title = 'none';
         opts.height = '350';
-        opts.colors = [colours[5]]; //['#225566'];
+        opts.colors = [colours[0]]; //['#225566'];
         if (attrs.bar === 'true') {
           opts.colors = ['#4b84e0'];
         }
