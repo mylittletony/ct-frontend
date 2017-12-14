@@ -19,14 +19,17 @@
     <h2>People</h2>
   </div>
 
-  <span flex="" class="flex"></span>
-
 </md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
   <div flex layout="column">
 
     <md-card>
+      <div class="md-toolbar-tools" ng-cloak>
+        <span class="md-subhead" translate>
+          42 Total People. 7 New This Week. </span>
+        </span>
+      </div>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
@@ -49,59 +52,64 @@
                   12/12/12
               </td>
               <td md-cell>
-                <md-button aria-label="{{ 'Open Networks Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                </md-button>
+                <md-menu md-position-mode="target target">
+                  <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
+                  </md-button>
+                  <md-menu-content width="3">
+                    <md-menu-item>
+                      <md-button ng-href="/#/locations/{{ location.slug }}/people/person" ng-click="$mdMenu.hide()">
+                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">pageview</md-icon>
+                        <span translate>View</span>
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                      <md-button ng-click="#">
+                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">delete_forever</md-icon>
+                        <span translate>Delete</span>
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
               </td>
             </tr>
-            <tr md-row>
+            <!-- <tr ng-class="network.highlight ? 'highlight' : ''" md-row ng-repeat="network in filtered = (networks | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
               <td md-cell>
-                  Max Powers
+                <span ng-if="network.tags && network.tags.length > 1">
+                  {{ network.tags.length }} tags
+                </span>
               </td>
               <td md-cell>
-                  12/12/17
+                <span ng-if="network.tags && network.tags.length > 1">
+                  {{ network.tags.length }} tags
+                </span>
               </td>
               <td md-cell>
-                  12/12/12
+                <span ng-if="network.tags && network.tags.length > 1">
+                  {{ network.tags.length }} tags
+                </span>
               </td>
-              <td md-cell>
-                <md-button aria-label="{{ 'Open Networks Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                </md-button>
+              <td md-cell ng-show="menu.length">
+                <span ng-if="network.state == 'processing'">
+                  <md-progress-circular class="md-warn" md-diameter="40"></md-progress-circular>
+                </span>
+                <span ng-if="network.state != 'processing'">
+                  <md-menu>
+                    <md-button aria-label="{{ 'Open Networks Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content width="4" >
+                      <md-menu-item ng-repeat="item in menu">
+                        <md-button ng-click="action(network,item.type)" ng-disabled="network.access_type != 'password' && item.type == 'share'">
+                          <md-icon md-menu-origin md-font-icon="{{ item.icon}}">{{ item.icon }}</md-icon>
+                          <p flex>{{ item.name }}</p>
+                        </md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </md-menu>
+                </span>
               </td>
-            </tr>
-            <tr md-row>
-              <td md-cell>
-                  Mike Hunt
-              </td>
-              <td md-cell>
-                  12/12/17
-              </td>
-              <td md-cell>
-                  12/12/12
-              </td>
-              <td md-cell>
-                <md-button aria-label="{{ 'Open Networks Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                </md-button>
-              </td>
-            </tr>
-            <tr md-row>
-              <td md-cell>
-                  Tony Gourdon
-              </td>
-              <td md-cell>
-                  12/12/17
-              </td>
-              <td md-cell>
-                  12/12/12
-              </td>
-              <td md-cell>
-                <md-button aria-label="{{ 'Open Networks Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                  <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                </md-button>
-              </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </md-table-container>

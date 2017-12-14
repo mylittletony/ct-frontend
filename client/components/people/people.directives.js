@@ -12,15 +12,18 @@ app.directive('listPeople', ['Network', 'Location', '$routeParams', '$mdDialog',
       console.log(err);
     });
 
+  };
+
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
+    scope: {},
     templateUrl: 'components/locations/people/_index.html'
   };
 
 }]);
+
+
+
 
 app.directive('displayPerson', ['Network', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(Network, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
@@ -32,11 +35,15 @@ app.directive('displayPerson', ['Network', 'Location', '$routeParams', '$locatio
       console.log(err);
     });
 
+    scope.back = function() {
+      window.history.back();
+    };
+
+  };
+
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
+    scope: {},
     templateUrl: 'components/locations/people/_show.html'
   };
 
