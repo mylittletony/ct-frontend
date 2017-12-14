@@ -881,9 +881,10 @@ location-boxes table {
 
 .top-nav {
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.14), 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
-  z-index: 1;
+  z-index: 10;
   width: 100%;
-  position: relative;
+  position: fixed;
+  top: 0;
   background: white;
 }
 
@@ -966,4 +967,8 @@ md-bottom-sheet .md-subheader {
   color: rgba(0, 0, 0, 0.57);
   font-weight: 400;
   margin-bottom: 0px;
+}
+
+.page-meta {
+  margin-top: 48px;
 }

@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.people.directives', []);
 
-app.directive('listPeople', ['Network', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(Network,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
+app.directive('listPeople', ['People', 'Network', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Network,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
@@ -12,11 +12,11 @@ app.directive('listPeople', ['Network', 'Location', '$routeParams', '$mdDialog',
       console.log(err);
     });
 
+  };
+
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
+    scope: {},
     templateUrl: 'components/locations/people/_index.html'
   };
 
@@ -32,11 +32,15 @@ app.directive('displayPerson', ['Network', 'Location', '$routeParams', '$locatio
       console.log(err);
     });
 
+    scope.back = function() {
+      window.history.back();
+    };
+
+  };
+
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
+    scope: {},
     templateUrl: 'components/locations/people/_show.html'
   };
 

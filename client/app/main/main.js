@@ -254,7 +254,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/locations/:id', {
       // templateUrl: 'components/locations/dashboard/index.html',
-      templateUrl: 'components/locations/show/index.html',
+      templateUrl: 'components/locations/people/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
@@ -540,12 +540,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/people', {
-      templateUrl: 'components/locations/people/_index.html',
+      templateUrl: 'components/locations/people/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id/people/person', {
-      templateUrl: 'components/locations/people/_show.html',
+      templateUrl: 'components/locations/people/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
