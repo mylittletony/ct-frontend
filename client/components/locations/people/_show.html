@@ -3,12 +3,6 @@
     md-no-ink-bar="disableInkBar"
     md-selected-nav-item="currentNavItem"
     nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-click="goto('page1')" name="page1">
-      People
-    </md-nav-item>
-    <md-nav-item md-nav-click="goto('page2')" name="page2">
-      Reports
-    </md-nav-item>
   </md-nav-bar>
 </div>
 
@@ -39,7 +33,7 @@
       <div flex-xs="100" flex-sm="50" flex-gt-sm="100">
         <md-card>
           <md-card-title>
-            <img src="http://ct-networks.io/images/pages/staff/simon.jpg" style="max-height:120px;border-radius:60px;"></img>
+            <img src="http://ct-networks.io/images/pages/staff/andrew.jpg" style="max-height:120px;border-radius:60px;"></img>
             <span flex></span>
             <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
               <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
@@ -115,13 +109,11 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline" translate>Graph</span>
+              <span class="md-headline" translate>Visits</span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
-            <div flex-gt-sm="40">
-              <img src="https://fakeimg.pl/300x300/ffffff/ff0000/?text=Cool%20Graph"></img>
-            </div>
+              <img src="https://lh6.googleusercontent.com/-07qNkcH5kiE/UY0TxGZNf9I/AAAAAAAAIdk/50SG0xnQYmk/w850-h519-no/punchcard+2.png" style="width: 100%;height: 100%;"></img>
           </md-card-content>
         </md-card>
       </div>
@@ -242,21 +234,21 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline" translate>Locations Visited</span>
+              <span class="md-headline" translate>Vouchers Used</span>
             </md-card-title-text>
           </md-card-title>
           <md-table-container>
             <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
               <thead md-head>
                 <tr md-row>
-                  <th md-column><span translate>Location</span></th>
+                  <th md-column><span translate>Voucher</span></th>
                   <th md-column><span translate>Options</span></th>
                 </tr>
               </thead>
               <tbody md-body>
                 <tr md-row>
                   <td md-cell>
-                    Coffee Beanz Spitalfields
+                    ApplesAndPears74
                   </td>
                   <td md-cell>
                     <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -266,7 +258,7 @@
                 </tr>
                 <tr md-row>
                   <td md-cell>
-                    Coffee Beanz Shoreditch
+                    BoatRace27
                   </td>
                   <td md-cell>
                     <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -274,7 +266,26 @@
                     </md-button>
                   </td>
                 </tr>
-
+                <tr md-row>
+                  <td md-cell>
+                    DogAndBone81
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+                <tr md-row>
+                  <td md-cell>
+                    DustbinLid42
+                  </td>
+                  <td md-cell>
+                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </md-table-container>
@@ -282,6 +293,17 @@
         </md-card>
       </div>
 
+    </div>
+  </div>
+
+  <div flex-gt-sm="100">
+    <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
+
+
+      <span flex></span>
+      <md-button ng-click="destroy()" class="md-raised md-warn">
+        Delete
+      </md-button>
     </div>
   </div>
 
