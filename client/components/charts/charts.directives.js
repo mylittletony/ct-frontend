@@ -1356,7 +1356,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     });
 
     var letemplate = function(render) {
-      var a = '<md-card>'+
+      var a = '<div style=""><md-card>'+
       '<md-card-header class="graph-small">'+
       '<md-card-header-text>'+
       '<span class="md-subhead" translate>'+attrs.name+'</span>'+
@@ -1371,7 +1371,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       '</small>'+
       '</md-card-actions>'+
       '</md-card-content>'+
-      '</md-card>';
+      '</md-card>' +
+      '</div>'
       return a;
     };
 
@@ -1390,6 +1391,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     };
 
     function chart() {
+
       var params = {
         type: scope.type,
         period: '30d' // can be removed soon when loyalty dynamic
@@ -1539,7 +1541,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         }
 
         a = true;
-        compileTemplate(attrs.render);
         if (attrs.bar === 'true') {
           c = new window.google.visualization.ColumnChart(document.getElementById(attrs.render));
         } else {
@@ -1552,9 +1553,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     }
 
+    console.log('rendering to', attrs.render);
+    compileTemplate(attrs.render);
+
     var timeout = $timeout(function() {
       window.google.charts.setOnLoadCallback(chart());
-    }, 500);
+    }, 1500);
+
   };
 
   return {
