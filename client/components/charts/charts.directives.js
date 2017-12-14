@@ -404,7 +404,6 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       };
 
       this.getStats = function(params) {
-        console.log(params.period);
         var deferred = $q.defer();
         if (params.resource === 'location' ) {
           this.period = params.period || $routeParams.period;

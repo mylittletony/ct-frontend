@@ -68,7 +68,6 @@ app.factory('showErrors', ['$mdBottomSheet', 'gettextCatalog', function ($mdBott
         });
       }
     } else if (errors.data && errors.data.message) {
-      alert(123)
       // This should loop through the array and remove the 'keys'
       // The keys don't actually work though since Rails sends full messages
       e.push(errors.data.message);
