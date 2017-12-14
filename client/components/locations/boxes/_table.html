@@ -92,7 +92,7 @@
                 {{ box.calledstationid }}
               </td>
               <td hide show-gt-xs md-cell>
-                {{ box_counts[box.calledstationid] || '-' }}
+                {{ box.clients_online || '-' }}
               </td>
               <td hide show-gt-sm md-cell>
                 <a href="/#/locations/{{ location.slug }}/zones/{{ box.zone_id }}">

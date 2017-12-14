@@ -1858,35 +1858,21 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
       }
     };
 
-    var fetchClients = function() {
-      var deferred = $q.defer();
-      scope.promise = deferred.promise;
-      var now = Math.round(new Date() / 1000);
-      var params = {
-        start: now - 300,
-        end: now,
-        location_id: scope.location.slug,
-        page: 1,
-        per: 50
-      };
-      Client.query(params).$promise.then(function(results) {
-        createCounts(results);
-        deferred.resolve();
-      }, function() {
-        scope.loading_table = undefined;
-        deferred.reject();
+    var getClientCount = function(i) {
+      Metric.clientstats({
+        type:         'devices.meta',
+        ap_mac:       scope.boxes[i].calledstationid,
+        location_id:  scope.boxes[i].location_id
+      }).$promise.then(function(data) {
+        scope.boxes[i].clients_online = data.online;
+        scope.total_online = parseInt(scope.total_online) + parseInt(data.online);
+      }, function(err) {
+        console.log(err);
       });
-      return deferred.promise;
-    };
-
-    var createBoxCounts = function() {
-      scope.box_counts = {};
-      for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        scope.box_counts[scope.boxes[i].calledstationid] = 0;
-      }
     };
 
     var init = function() {
+      scope.total_online = 0;
       scope.deferred = $q.defer();
       Box.query({
         location_id: scope.location.slug,
@@ -1895,10 +1881,11 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
         metadata: true
       }).$promise.then(function(results) {
         scope.boxes           = results.boxes;
+        for (var i = 0, len = scope.boxes.length; i < len; i++) {
+          getClientCount(i);
+        }
         scope._links          = results._links;
         scope.loading         = undefined;
-        createBoxCounts();
-        fetchClients();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
