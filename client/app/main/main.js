@@ -254,7 +254,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/locations/:id', {
       // templateUrl: 'components/locations/dashboard/index.html',
-      templateUrl: 'components/locations/show/index.html',
+      templateUrl: 'components/locations/people/_index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
