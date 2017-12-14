@@ -28,7 +28,7 @@ app.factory('MetricLambda', ['$resource', '$localStorage', 'API_END_POINT_V2',
     if ($localStorage && $localStorage.user && $localStorage.user.api_token) {
       token = $localStorage.user.api_token;
     }
-    return $resource(API_END_POINT_V2,
+    return $resource(API_END_POINT_V2 + '/metrics',
       {
         'access_token': token
       },
