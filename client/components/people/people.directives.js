@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.people.directives', []);
 
-app.directive('listPeople', ['Network', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(Network,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
+app.directive('listPeople', ['People', 'Network', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Network,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
@@ -21,9 +21,6 @@ app.directive('listPeople', ['Network', 'Location', '$routeParams', '$mdDialog',
   };
 
 }]);
-
-
-
 
 app.directive('displayPerson', ['Network', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(Network, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
