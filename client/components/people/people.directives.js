@@ -12,6 +12,8 @@ app.directive('listPeople', ['People', 'Network', 'Location', '$routeParams', '$
       console.log(err);
     });
 
+    scope.currentNavItem = 'people'
+
   };
 
   return {
@@ -31,6 +33,8 @@ app.directive('displayPerson', ['Network', 'Location', '$routeParams', '$locatio
     }, function(err){
       console.log(err);
     });
+
+    scope.currentNavItem = 'people'
 
     scope.back = function() {
       window.history.back();
