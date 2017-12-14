@@ -1406,12 +1406,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
       });
 
       scope.menuItems.push({
-        name: gettextCatalog.getString('Run Payload'),
-        type: 'payload',
-        icon: 'present_to_all'
-      });
-
-      scope.menuItems.push({
         name: gettextCatalog.getString('Edit Zones'),
         type: 'zones',
         icon: 'layers'
