@@ -398,7 +398,7 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
         };
 
         var t = opts.type.split('.')[0];
-        if (t === 'radius' || t === 'splash') {
+        if (t === 'radius' || t === 'splash' || t === 'emails') {
           Metric.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
           }, function() {
