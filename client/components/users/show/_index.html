@@ -3,22 +3,19 @@
     md-no-ink-bar="disableInkBar"
     md-selected-nav-item="currentNavItem"
     nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-click="goto('page4')" name="page4">
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}" name="profile">
       Profile
     </md-nav-item>
-    <md-nav-item md-nav-click="goto('page5')" name="page5">
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/billing" name="billing">
       Billing
     </md-nav-item>
-    <md-nav-item md-nav-click="goto('page6')" name="page6">
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/invoices" name="invoices">
       Invoices
     </md-nav-item>
-    <md-nav-item md-nav-click="goto('page7')" name="page7">
-      Reseller
-    </md-nav-item>
-    <md-nav-item md-nav-click="goto('page8')" name="page8">
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/inventory" name="inventory">
       Inventory
     </md-nav-item>
-    <md-nav-item md-nav-click="goto('page9')" name="page9">
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/quotas" name="quotas">
       Quotas
     </md-nav-item>
   </md-nav-bar>

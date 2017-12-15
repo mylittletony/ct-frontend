@@ -6,6 +6,8 @@ app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 
 
   var link = function(scope, el, attrs, controller) {
 
+    scope.currentNavItem = 'people'
+
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data;
     }, function(err){
@@ -31,6 +33,8 @@ app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 
 app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
+
+    scope.currentNavItem = 'people'
 
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data;

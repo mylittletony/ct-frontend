@@ -12,6 +12,8 @@ app.directive('listSplashCodes', ['Location', 'SplashCode', '$routeParams', '$lo
       console.log(err);
     });
 
+    scope.currentNavItem = 'codes'
+
     scope.location = { slug: $routeParams.id };
 
     scope.options = {

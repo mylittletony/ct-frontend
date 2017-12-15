@@ -12,6 +12,8 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
       console.log(err);
     });
 
+    scope.currentNavItem = 'splash'
+
     scope.location = { slug: $routeParams.id };
 
     scope.options = {
@@ -153,6 +155,8 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
 app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$routeParams', '$filter', '$localStorage', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, Auth, $routeParams, $filter, $localStorage, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
+
+    scope.currentNavItem = 'splash'
 
     var placeholderNewsletterPass =  gettextCatalog.getString('Username and Password'),
         placeholderNewsletterToken = gettextCatalog.getString('Enter your API token');
