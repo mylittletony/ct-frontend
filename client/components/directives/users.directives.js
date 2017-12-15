@@ -13,6 +13,8 @@ app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth'
 
   var link = function( scope, element, attrs ) {
 
+    scope.currentNavItem = 'profile'
+
     var id, locale;
     // Check git history to more vars;
     // scope.locales = [{key: 'Deutsch', value: 'de-DE'}, { key: 'English', value: 'en-GB'}];
@@ -276,6 +278,8 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
   var link = function( scope, element, attrs ) {
 
+    scope.currentNavItem = 'billing'
+
     scope.currencies = { 'US Dollars' : 'USD', 'UK Pounds': 'GBP', 'EUR': 'Euros' };
 
     var formatCurrency = function() {
@@ -517,6 +521,8 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
 app.directive('userInvoices', ['User', '$routeParams', 'showToast', 'showErrors', 'Invoice', '$mdDialog', '$location', 'gettextCatalog', 'pagination_labels', function(User, $routeParams, showToast, showErrors, Invoice, $mdDialog, $location, gettextCatalog, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
+
+    scope.currentNavItem = 'invoices'
 
     scope.selected = [];
     var user = { slug: $routeParams.id };
@@ -973,6 +979,8 @@ app.directive('userPassword', ['User', 'Auth', '$routeParams', '$mdDialog', 'sho
 app.directive('userQuotas', ['Quota', 'showToast', 'gettextCatalog', 'showErrors', '$routeParams', '$localStorage', '$mdDialog', function(Quota,showToast,gettextCatalog,showErrors,$routeParams,$localStorage,$mdDialog) {
 
   var link = function( scope, element, attrs ) {
+
+    scope.currentNavItem = 'quotas'
 
     var init = function() {
       Quota.get({user_id: $routeParams.id}).$promise.then(function(data) {
@@ -1573,6 +1581,8 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
 app.directive('inventory', ['User', 'Inventory', '$routeParams', '$location', 'menu', '$rootScope', 'pagination_labels', function(User, Inventory, $routeParams, $location, menu, $rootScope, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
+
+    scope.currentNavItem = 'inventory'
 
     scope.selected = [];
 
