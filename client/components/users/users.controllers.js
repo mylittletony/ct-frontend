@@ -6,6 +6,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
   function($rootScope, $window, $scope, $routeParams, User, $location, Auth, STRIPE_KEY, $route, locationHelper, AUTH_URL, menu, $cookies, gettextCatalog) {
 
     $scope.loading = true;
+    $scope.location = { slug: $routeParams.id };
 
     function isOpen(section) {
       return menu.isSectionSelected(section);
@@ -28,7 +29,7 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       var split = $location.path().split('/');
       if (split.length >= 4) {
         return ($location.path().split('/')[3] === path);
-      } else if (path === 'dashboard') {
+      } else if (path === 'account') {
         return true;
       }
     };
@@ -37,13 +38,37 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     menu.locationStateIcon = undefined;
     menu.sectionName = Auth.currentUser().username;
 
-    menu.sections = [{
-      name: gettextCatalog.getString('Profile'),
+    menu.sections.push({
+      name: gettextCatalog.getString('People'),
       type: 'link',
-      link: '/#/users/' + id,
-      icon: 'face',
-      active: isActive('dashboard')
-    }];
+      link: '/#/locations/' + $scope.location.slug + '/people',
+      icon: 'people',
+      active: isActive('people')
+    });
+
+    menu.sections.push({
+      name: gettextCatalog.getString('Splash'),
+      type: 'link',
+      link: '/#/locations/' + $scope.location.slug + '/splash_pages',
+      icon: 'format_paint',
+      active: isActive('splash_pages')
+    });
+
+    menu.sections.push({
+      name: gettextCatalog.getString('Devices'),
+      link: '/#/locations/' + $scope.location.slug + '/devices',
+      type: 'link',
+      icon: 'router',
+      active: isActive('devices')
+    });
+
+    menu.sections.push({
+      name: gettextCatalog.getString('Campaigns'),
+      type: 'link',
+      link: '/#/locations/' + $scope.location.slug + '/triggers',
+      icon: 'email',
+      active: isActive('triggers')
+    });
 
   }
 ]);
