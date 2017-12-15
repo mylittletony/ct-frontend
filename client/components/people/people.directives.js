@@ -14,11 +14,11 @@ app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 
       console.log(err);
     });
 
-    People.get({location_id: $routeParams.id}, function(data) {
-      console.log(data);
-    }, function(err){
-      console.log(err);
-    });
+    // People.get({location_id: $routeParams.id}, function(data) {
+    //   console.log(data);
+    // }, function(err){
+    //   console.log(err);
+    // });
 
   };
 
@@ -42,11 +42,11 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
       console.log(err);
     });
 
-    People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
-      console.log(res);
-    }, function(err) {
-      console.log(err);
-    });
+    // People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
+    //   console.log(res);
+    // }, function(err) {
+    //   console.log(err);
+    // });
 
     scope.back = function() {
       window.history.back();
