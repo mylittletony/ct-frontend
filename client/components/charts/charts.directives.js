@@ -1119,7 +1119,7 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
       var drawChartCallback = function() {
 
         if (data === undefined) {
-          var stats = json.stats;
+          var stats = json.data[0].data;
           var len = stats.length;
 
           data = new window.google.visualization.DataTable();
