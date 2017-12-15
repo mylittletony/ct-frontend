@@ -13,7 +13,7 @@ app.factory('People', ['$resource', '$localStorage', 'API_END_POINT',
       {
       get: {
         method: 'GET',
-        isArray: true,
+        // isArray: true,
         dataType: 'json',
         params: {
           q: '@q',

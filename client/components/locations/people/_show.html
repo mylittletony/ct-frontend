@@ -16,7 +16,7 @@
 
   <div>
     <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Bert Morley</h2>
+    <h2>{{ person.username ? person.username : 'Splash Guest'}}</h2>
   </div>
 
   <span flex></span>
@@ -49,19 +49,19 @@
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>Name</h3>
-                <p>Bert Morley</p>
+                <p>{{ person.username ? person.username : 'Splash Guest'}}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>Last Seen</h3>
-                <p>12/12/17</p>
+                <p>{{ person.updated_at }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>First Seen</h3>
-                <p>12/12/12</p>
+                <p>{{ person.created_at }}</p>
               </div>
             </md-list-item>
           </md-list>
@@ -79,25 +79,25 @@
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>Email</h3>
-                <p>Bert@ct.io</p>
+                <p>{{ person.email }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>Facebook</h3>
-                <p>Bert Morley</p>
+                <p>{{ person.social[0].fb_link }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>Google+</h3>
-                <p>Bert Morley</p>
+                <p>{{ person.social[0].g_link }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>LinkedIn</h3>
-                <p>Bert Morley</p>
+                <p>{{ person.social[0].li_link }}</p>
               </div>
             </md-list-item>
           </md-list>
