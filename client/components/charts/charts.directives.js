@@ -405,6 +405,7 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
             deferred.reject();
           });
         } else {
+          // Needs to be removed once we've merged the lambda in
           MetricLambda.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
           }, function() {
