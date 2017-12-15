@@ -4,12 +4,11 @@ var app = angular.module('myApp.people.services', ['ngResource',]);
 
 app.factory('People', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
-    return $resource(API_END_POINT + '/locations/:location_id/people/:id/:action',
+    return $resource(API_END_POINT + '/locations/:location_id/people/:id',
       {
         q: '@q',
         location_id: '@location_id',
-        id: '@id',
-        splash: '@splash'
+        id: '@id'
       },
       {
       get: {
@@ -19,7 +18,6 @@ app.factory('People', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
           q: '@q',
           location_id: '@location_id',
-          splash: '@splash',
         }
       },
       query: {
@@ -34,31 +32,11 @@ app.factory('People', ['$resource', '$localStorage', 'API_END_POINT',
         method: 'PATCH',
         isArray: false
       },
-      create: {
-        method: 'POST',
-        isArray: false,
-      },
       destroy: {
         method: 'DELETE',
         isArray: false,
         params: {
           location_id: '@location_id',
-        }
-      },
-      reset: {
-        method: 'POST',
-        isArray: false,
-        params: {
-          location_id: '@location_id',
-          id: 'reset',
-        }
-      },
-      radtest: {
-        method: 'POST',
-        isArray: false,
-        params: {
-          id: '@id',
-          action: 'radtest'
         }
       }
     });
