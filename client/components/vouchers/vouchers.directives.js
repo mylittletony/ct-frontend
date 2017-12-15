@@ -13,6 +13,8 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       console.log(err);
     });
 
+    scope.currentNavItem = 'vouchers'
+
     scope.location = { slug: $routeParams.id };
 
     scope.selected = [];
@@ -323,6 +325,8 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
 app.directive('showVoucher', ['Location', 'Voucher', '$routeParams', '$location', '$pusher', '$rootScope', 'Auth', '$route', 'menu', 'showToast', 'showErrors', '$mdDialog', 'gettextCatalog', function(Location, Voucher, $routeParams, $location, $pusher, $rootScope, Auth, $route, menu, showToast, showErrors, $mdDialog, gettextCatalog) {
 
   var link = function(scope) {
+
+    scope.currentNavItem = 'vouchers'
 
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data;

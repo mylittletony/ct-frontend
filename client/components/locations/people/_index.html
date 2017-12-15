@@ -3,10 +3,10 @@
     md-no-ink-bar="disableInkBar"
     md-selected-nav-item="currentNavItem"
     nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-click="goto('page1')" name="page1">
+    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/people" name="people">
       People
     </md-nav-item>
-    <md-nav-item md-nav-click="goto('page2')" name="page2">
+    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/people/reports" name="reports">
       Reports
     </md-nav-item>
   </md-nav-bar>

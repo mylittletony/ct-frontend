@@ -2,9 +2,17 @@
 
 var app = angular.module('myApp.codes.directives', []);
 
-app.directive('voucherCodes', ['Code', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function(Code, $routeParams, $location, Client, showToast, showErrors, gettextCatalog, pagination_labels) {
+app.directive('voucherCodes', ['Code', 'Location', '$routeParams', '$location', 'Client', 'showToast', 'showErrors', 'gettextCatalog', 'pagination_labels', function(Code, Location, $routeParams, $location, Client, showToast, showErrors, gettextCatalog, pagination_labels) {
 
   var link = function(scope) {
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
+
+    scope.currentNavItem = 'codes'
 
     scope.location  = { slug: $routeParams.id };
     scope.activated = $routeParams.activated;
