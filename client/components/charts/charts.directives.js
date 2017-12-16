@@ -1086,7 +1086,6 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
 
     var c, timer, json, data;
     scope.loading = true;
-    // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
     var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -1117,11 +1116,9 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     function drawChart(json) {
       $timeout.cancel(timer);
       var drawChartCallback = function() {
-
         if (data === undefined) {
           var stats = json.data[0].data;
           var len = stats.length;
-
           data = new window.google.visualization.DataTable();
           data.addColumn('string', 'state');
           data.addColumn('number', 'count');
