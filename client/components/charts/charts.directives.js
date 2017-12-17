@@ -1483,7 +1483,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               array.push(val);
 
               if (attrs.popular === 'true') {
-                array.push('<div style="padding: 20px;"><h3>Popular Hours</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
+                array.push('<div style="padding: 20px;"><h3>Popular Hours (beta)</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
               }
 
               for(var k = 0; k < resp.data.length; k++) {
