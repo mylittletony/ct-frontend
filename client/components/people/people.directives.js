@@ -2,23 +2,56 @@
 
 var app = angular.module('myApp.people.directives', []);
 
-app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
+app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Location,$location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
-    scope.currentNavItem = 'people'
+    scope.currentNavItem = 'people';
+    scope.query = {
+      limit:      $routeParams.per || 25,
+      page:       $routeParams.page || 1,
+      options:    [5,10,25,50,100]
+    };
 
-    Location.get({id: $routeParams.id}, function(data) {
-      scope.location = data;
-    }, function(err){
-      console.log(err);
-    });
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updatePage();
+    };
 
-    People.get({location_id: $routeParams.id}, function(data) {
-      scope.people = data.people;
-    }, function(err){
-      console.log(err);
-    });
+    scope.updatePage = function(item) {
+      var hash    = {};
+      scope.page  = scope._links.current_page;
+      hash.page   = scope.query.page;
+
+      $location.search(hash);
+      init();
+    };
+
+    var getPeople = function() {
+      var params = {
+        page: scope.query.page,
+        per: scope.query.limit,
+        location_id: $routeParams.id
+      }
+      People.get(params, function(data) {
+        scope.people = data.people;
+        scope._links = data._links;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        getPeople();
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    init();
 
   };
 
@@ -34,23 +67,30 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
 
   var link = function(scope, element, attrs) {
 
-    scope.currentNavItem = 'people'
+    scope.currentNavItem = 'people';
 
-    Location.get({id: $routeParams.id}, function(data) {
-      console.log(data)
-      scope.location = data;
+    var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;
       }, function(err) {
         console.log(err);
       });
-    }, function(err){
-      console.log(err);
-    });
+    };
+
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        getPerson();
+      }, function(err){
+        console.log(err);
+      });
+    };
 
     scope.back = function() {
       window.history.back();
     };
+
+    init();
 
   };
 

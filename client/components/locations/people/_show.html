@@ -55,13 +55,13 @@
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>Last Seen</h3>
-                <p>{{ person.updated_at }}</p>
+                <p>{{ person.updated_at | humanTime }}</p>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
                 <h3 translate>First Seen</h3>
-                <p>{{ person.created_at }}</p>
+                <p>{{ person.created_at | humanTime }}</p>
               </div>
             </md-list-item>
           </md-list>
