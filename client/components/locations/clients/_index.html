@@ -252,8 +252,8 @@
                     </span>
                     <span ng-hide="client.processing">
                       <md-menu>
-                        <mg-button ng-click="$mdOpenMenu($event)">
-                          <md-icon>more_vert</md-icon>
+                        <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                          <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4" >
                           <md-menu-item ng-repeat="item in menu">
