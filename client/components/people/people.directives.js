@@ -2,16 +2,41 @@
 
 var app = angular.module('myApp.people.directives', []);
 
-app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
+app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Location,$location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
     scope.currentNavItem = 'people';
-    console.log($routeParams)
+    scope.query = {
+      limit:      $routeParams.per || 25,
+      page:       $routeParams.page || 1,
+      options:    [5,10,25,50,100]
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updatePage();
+    };
+
+    scope.updatePage = function(item) {
+      var hash    = {};
+      scope.page  = scope._links.current_page;
+      hash.page   = scope.query.page;
+
+      $location.search(hash);
+      init();
+    };
 
     var getPeople = function() {
-      People.get({location_id: $routeParams.id}, function(data) {
+      var params = {
+        page: scope.query.page,
+        per: scope.query.limit,
+        location_id: $routeParams.id
+      }
+      People.get(params, function(data) {
         scope.people = data.people;
+        scope._links = data._links;
       }, function(err){
         console.log(err);
       });
