@@ -91,6 +91,18 @@
                 <country-select country="location.country"></country-select>
               </md-input-container>
             </div>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>Network Type</translate>
+                </label>
+                <md-select ng-model="blah.blah">
+                  <md-option ng-repeat="blah in blah" ng-value="UniFi">
+                    {{zone}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
           </md-card-content>
         </md-card>
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
