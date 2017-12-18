@@ -108,14 +108,14 @@ app.directive('listCampaigns', ['Campaign', 'Location', '$routeParams', '$rootSc
 
 }]);
 
-app.directive('editCampaign', ['Campaign', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', '$mdDialog', function (Campaign, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog, $mdDialog) {
+app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$q', '$routeParams', '$rootScope', '$http', '$location', 'showToast', 'showErrors', '$sce', 'gettextCatalog', '$mdDialog', function (Campaign, Location, Integration, Auth, $q, $routeParams, $rootScope, $http, $location, showToast, showErrors, $sce, gettextCatalog, $mdDialog) {
 
   var link = function(scope,element,attrs) {
 
     scope.campaign = { slug: $routeParams.campaign_id };
     scope.location = {slug: $routeParams.id};
 
-    var init = function() {
+    var getCampaign = function() {
       Campaign.get({
         location_id: scope.location.slug,
         id: scope.campaign.slug
@@ -124,6 +124,15 @@ app.directive('editCampaign', ['Campaign', 'Integration', 'Auth', '$q', '$routeP
         scope.loading = undefined;
       }, function(err) {
         scope.errors = err;
+      });
+    };
+
+    var init = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+        getCampaign();
+      }, function(err){
+        console.log(err);
       });
     };
 

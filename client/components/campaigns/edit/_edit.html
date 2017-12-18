@@ -1,1 +1,19 @@
 {{campaign}}
+
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+
+  <div>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>{{ campaign.attr_1 ? campaign.attr_1 : 'Campaign'}}</h2>
+  </div>
+
+  <span flex></span>
+
+  <div>
+    <md-button id="main" class="md-icon-button md-primary" href="/#/locations/{{location.slug}}/campaigns" aria-label="{{ 'Back to Devices' | translate }}">
+      <md-tooltip md-direction="bottom">Back to Campaigns</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
+  </div>
+
+</md-content>
