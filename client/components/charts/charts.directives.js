@@ -1087,7 +1087,6 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
 
     var c, timer, json, data;
     scope.loading = true;
-    // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
     var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -1118,11 +1117,9 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     function drawChart(json) {
       $timeout.cancel(timer);
       var drawChartCallback = function() {
-
         if (data === undefined) {
-          var stats = json.stats;
+          var stats = json.data[0].data;
           var len = stats.length;
-
           data = new window.google.visualization.DataTable();
           data.addColumn('string', 'state');
           data.addColumn('number', 'count');
@@ -1299,8 +1296,6 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         var colours = {Offline: '#eb0404', Online: '#16ac5b', Unknown: '#e0e0e0'};
         var start_time = Math.floor(data.start_time);
         var end_time = Math.floor(data.end_time);
-
-        console.log(data);
 
         for (i = 0; i < data.data.length; i++) {
           if (data.data[i].timestamp >= start_time) {
@@ -1489,7 +1484,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               array.push(val);
 
               if (attrs.popular === 'true') {
-                array.push('<div style="padding: 20px;"><h3>Popular Hours</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
+                array.push('<div style="padding: 20px;"><h3>Popular Hours (beta)</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
               }
 
               for(var k = 0; k < resp.data.length; k++) {

@@ -1692,14 +1692,14 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
+app.directive('deviceMeta', ['MetricLambda', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(MetricLambda, showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     var load;
 
     var loadMeta = function(box) {
       load = true;
-      Metric.clientstats({
+      MetricLambda.clientstats({
         type:         'devices.meta',
         ap_mac:       box.calledstationid,
         location_id:  box.location_id

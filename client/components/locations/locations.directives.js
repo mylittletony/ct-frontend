@@ -1380,7 +1380,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', 'MetricLambda', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, MetricLambda, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -1853,7 +1853,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
     };
 
     var getClientCount = function(i) {
-      Metric.clientstats({
+      MetricLambda.clientstats({
         type:         'devices.meta',
         ap_mac:       scope.boxes[i].calledstationid,
         location_id:  scope.boxes[i].location_id

@@ -100,10 +100,8 @@
                   <td hide show-gt-sm md-cell>{{ ::(order.merchant_type | titleCase) || '-' }}</td>
                   <td md-cell>
                     <md-menu>
-                      <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                        <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button md-raised md-primary">
-                          more_vert
-                        </md-icon>
+                      <mg-button ng-click="$mdOpenMenu($event)">
+                        <md-icon>more_vert</md-icon>
                       </md-button>
                       <md-menu-content width="4" >
                         <md-menu-item>
