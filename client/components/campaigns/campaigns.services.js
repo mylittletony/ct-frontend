@@ -12,7 +12,7 @@ app.factory('Campaign', ['$resource', '$localStorage', 'API_END_POINT',
       {
       destroy: {
         method: 'DELETE',
-        isArray: true,
+        isArray: false,
         dataType: 'json'
       },
       save: {
