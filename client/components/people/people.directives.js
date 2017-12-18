@@ -7,10 +7,42 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
   var link = function(scope, el, attrs, controller) {
 
     scope.currentNavItem = 'people';
+    scope.location = {slug: $routeParams.id};
     scope.query = {
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100]
+    };
+
+    var removeFromList = function(person) {
+      for (var i = 0, len = scope.people.length; i < len; i++) {
+        if (scope.people[i].id === person.id) {
+          scope.people.splice(i, 1);
+          showToast(gettextCatalog.getString('Person successfully deleted.'));
+          break;
+        }
+      }
+    };
+
+    scope.destroy = function(person) {
+      People.destroy({location_id: scope.location.slug, id: person.slug}).$promise.then(function(results) {
+        removeFromList(person);
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.delete = function(person) {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Delete Person'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this person?'))
+      .ariaLabel(gettextCatalog.getString('Delete Person'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        scope.destroy(person);
+      }, function() {
+      });
     };
 
     scope.onPaginate = function (page, limit) {
@@ -32,8 +64,8 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       var params = {
         page: scope.query.page,
         per: scope.query.limit,
-        location_id: $routeParams.id
-      }
+        location_id: scope.location.slug
+      };
       People.get(params, function(data) {
         scope.people = data.people;
         scope._links = data._links;
@@ -43,7 +75,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     };
 
     var init = function() {
-      Location.get({id: $routeParams.id}, function(data) {
+      Location.get({id: scope.location.slug}, function(data) {
         scope.location = data;
         getPeople();
       }, function(err){
