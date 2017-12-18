@@ -174,9 +174,10 @@ form .url {
 
 table.md-table th.md-column span {
   color: #EF476F;
-  /*background: -webkit-linear-gradient(45deg, #EF476F 10%, #F78C6B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;*/
+}
+
+table.md-table th.md-column span a, table.md-table th.md-column a {
+  text-decoration: none;
 }
 
 /* Temp fixes to address */

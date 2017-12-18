@@ -2,29 +2,32 @@
 
 <div ng-hide="loading" ng-cloak>
 
-  <form ng-submit="blur()">
-    <section>
-      <md-toolbar class="md-table-toolbar md-default">
-        <div class="md-toolbar-tools">
-          <md-input-container flex="100" flex-gt-xs="30" style="margin-top: 50px" >
-            <md-icon md-font-icon="search">search</md-icon>
-            <label></label>
-            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{'Filter Locations' | translate}}">
-          </md-input-container>
-          <div flex></div>
-          <md-button class="md-icon-button md-accent" href="/#/locations/new" aria-label="{{ 'Add Device' | translate }}" hide show-gt-xs>
-            <md-icon>add_circle</md-icon>
-            <md-tooltip md-direction="bottom">
-              <translate>
-                Add a new location.
-              </translate>
-            </md-tooltip>
-          </md-button>
-        </div>
-        <md-divider></md-divider>
-      </md-toolbar>
-    </section>
-  </form>
+
+  <div class="top-nav">
+    <md-nav-bar
+      md-no-ink-bar="disableInkBar"
+      md-selected-nav-item="currentNavItem"
+      nav-bar-aria-label="navigation links">
+    </md-nav-bar>
+  </div>
+
+  <md-content layout-padding layout="row" layout-wrap class="page-meta">
+    <div>
+      <h1>New Location</h1>
+      <h2>Splash Pages</h2>
+    </div>
+
+    <span flex></span>
+
+    <div>
+      <md-input-container flex="100">
+        <md-icon md-font-icon="search">search</md-icon>
+        <label></label>
+        <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{'Search Locations' | translate}}">
+      </md-input-container>
+    </div>
+
+  </md-content>
 
   <md-content class="md-padding" layout="column" layout-gt-sm='column' ng-if="locations.length == 0 && !query.filter" ng-cloak>
     <div layout="row" layout-align="center center">
@@ -125,7 +128,9 @@
             <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{::_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
           </md-card-content>
         </md-card>
-
+        <md-button class="md-raised" href="/#/locations/new" aria-label="{{ 'New Location' | translate }}">
+          New Location
+        </md-button>
       </div>
     </div>
   </md-content>
