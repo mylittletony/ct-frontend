@@ -119,6 +119,13 @@
                 </label>
                 <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
               </md-input-container>
+              <div flex-gt-sm="10"></div>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>Port</translate>
+                </label>
+                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
+              </md-input-container>
             </div>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="40">
@@ -152,33 +159,39 @@
           <md-card-content>
             <div layout="row" layout-wrap>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Primary Radius</h3>
+                <h3 translate>Radius 1</h3>
                 <p>radius-1.ctapp.io</p>
               </div>
               <div flex-gt-sm="10"></div>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Secondary Radius</h3>
+                <h3 translate>Radius 2</h3>
                 <p>radius-2.ctapp.io</p>
               </div>
             </div>
             <div layout="row" layout-wrap>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Authentication Port</h3>
+                <h3 translate>Port Auth</h3>
                 <p>1812</p>
               </div>
               <div flex-gt-sm="10"></div>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Accounting Port</h3>
+                <h3 translate>Port Acc</h3>
                 <p>1813</p>
               </div>
             </div>
             <div layout="row" layout-wrap>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Splash URL</h3>
-                <p>http://app.my-wifi.co</p>
+                <h3 translate>Radius Secret</h3>
+                <p>Shh This Is Secret</p>
               </div>
               <div flex-gt-sm="10"></div>
               <div flex="100" flex-gt-sm="40">
+                <h3 translate>Splash URL</h3>
+                <p>http://app.my-wifi.co</p>
+              </div>
+            </div>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="100">
                 <h3 translate>Walled Gardens</h3>
                 <p>yeah</p>
               </div>
@@ -190,7 +203,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                vSZ Settings
+                Ruckus vSZ Settings
               </span>
               <span class="md-subhead" translate>
                 For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
@@ -199,9 +212,12 @@
           </md-card-title>
           <md-card-content>
             <div layout="row" layout-wrap>
+              <h3>Northbound API</h3>
+            </div>
+            <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
-                  <translate>Hostname</translate>
+                  <translate>Port</translate>
                 </label>
                 <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
               </md-input-container>
@@ -221,6 +237,33 @@
                 <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
               </md-input-container>
             </div>
+            <div layout="row" layout-wrap>
+              <h3>Admin</h3>
+            </div>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>Port</translate>
+                </label>
+                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
+              </md-input-container>
+            </div>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>Username</translate>
+                </label>
+                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
+              </md-input-container>
+              <div flex-gt-sm="10"></div>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>Password</translate>
+                </label>
+                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
+              </md-input-container>
+            </div>
+
           </md-card-content>
         </md-card>
 
@@ -228,7 +271,7 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Ruckus Settings
+                Ruckus Zone Director Settings
               </span>
               <span class="md-subhead" translate>
                 For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
@@ -238,33 +281,39 @@
           <md-card-content>
             <div layout="row" layout-wrap>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Primary Radius</h3>
+                <h3 translate>Radius 1</h3>
                 <p>radius-1.ctapp.io</p>
               </div>
               <div flex-gt-sm="10"></div>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Secondary Radius</h3>
+                <h3 translate>Radius 2</h3>
                 <p>radius-2.ctapp.io</p>
               </div>
             </div>
             <div layout="row" layout-wrap>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Authentication Port</h3>
+                <h3 translate>Port Auth</h3>
                 <p>1812</p>
               </div>
               <div flex-gt-sm="10"></div>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Accounting Port</h3>
+                <h3 translate>Port Acc</h3>
                 <p>1813</p>
               </div>
             </div>
             <div layout="row" layout-wrap>
               <div flex="100" flex-gt-sm="40">
-                <h3 translate>Splash URL</h3>
-                <p>http://app.my-wifi.co</p>
+                <h3 translate>Radius Secret</h3>
+                <p>Shh This Is Secret</p>
               </div>
               <div flex-gt-sm="10"></div>
               <div flex="100" flex-gt-sm="40">
+                <h3 translate>Splash URL</h3>
+                <p>http://app.my-wifi.co</p>
+              </div>
+            </div>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="100">
                 <h3 translate>Walled Gardens</h3>
                 <p>yeah</p>
               </div>
@@ -287,28 +336,79 @@
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
-                  <translate>Hostname</translate>
-                </label>
-                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
-              </md-input-container>
-            </div>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>Username</translate>
-                </label>
-                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
-              </md-input-container>
-              <div flex-gt-sm="10"></div>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>Password</translate>
+                  <translate>API Key</translate>
                 </label>
                 <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
               </md-input-container>
             </div>
           </md-card-content>
         </md-card>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Xirrus Settings
+              </span>
+              <span class="md-subhead" translate>
+                For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>Splash URL</h3>
+                <p>http://app.my-wifi.co</p>
+              </div>
+              <div flex-gt-sm="10"></div>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>Radius Secret</h3>
+                <p>Shh This Is Secret</p>
+              </div>
+            </div>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>Radius 1</h3>
+                <p>radius-1.ctapp.io</p>
+              </div>
+              <div flex-gt-sm="10"></div>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>Radius 2</h3>
+                <p>radius-2.ctapp.io</p>
+              </div>
+            </div>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>Port Auth</h3>
+                <p>1812</p>
+              </div>
+              <div flex-gt-sm="10"></div>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>Port Acc</h3>
+                <p>1813</p>
+              </div>
+            </div>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>Radius Secret</h3>
+                <p>Shhh Secrets</p>
+              </div>
+              <div flex-gt-sm="10"></div>
+              <div flex="100" flex-gt-sm="40">
+                <h3 translate>NAS ID</h3>
+                <p>INSERT_ID</p>
+              </div>
+            </div>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="100">
+                <h3 translate>Walled Gardens</h3>
+                <p>yeah</p>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+
 
         <md-card>
           <md-card-title>
