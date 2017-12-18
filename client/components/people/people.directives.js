@@ -6,19 +6,26 @@ app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 
 
   var link = function(scope, el, attrs, controller) {
 
-    scope.currentNavItem = 'people'
+    scope.currentNavItem = 'people';
 
-    Location.get({id: $routeParams.id}, function(data) {
-      scope.location = data;
-    }, function(err){
-      console.log(err);
-    });
+    var getPeople = function() {
+      People.get({location_id: $routeParams.id}, function(data) {
+        scope.people = data.people;
+      }, function(err){
+        console.log(err);
+      });
+    };
 
-    People.get({location_id: $routeParams.id}, function(data) {
-      scope.people = data.people;
-    }, function(err){
-      console.log(err);
-    });
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        getPeople();
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    init();
 
   };
 
@@ -34,23 +41,30 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
 
   var link = function(scope, element, attrs) {
 
-    scope.currentNavItem = 'people'
+    scope.currentNavItem = 'people';
 
-    Location.get({id: $routeParams.id}, function(data) {
-      console.log(data)
-      scope.location = data;
+    var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;
       }, function(err) {
         console.log(err);
       });
-    }, function(err){
-      console.log(err);
-    });
+    };
+
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        getPerson();
+      }, function(err){
+        console.log(err);
+      });
+    };
 
     scope.back = function() {
       window.history.back();
     };
+
+    init();
 
   };
 
