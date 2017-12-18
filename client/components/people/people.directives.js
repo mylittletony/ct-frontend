@@ -7,6 +7,7 @@ app.directive('listPeople', ['People', 'Location', '$routeParams', '$mdDialog', 
   var link = function(scope, el, attrs, controller) {
 
     scope.currentNavItem = 'people';
+    console.log($routeParams)
 
     var getPeople = function() {
       People.get({location_id: $routeParams.id}, function(data) {
