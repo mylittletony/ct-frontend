@@ -11,7 +11,6 @@
   <div>
     <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
     <h2>{{box.description ? box.description : '&nbsp;'}}</h2>
-  </span>
   </div>
 
   <span flex></span>
@@ -26,7 +25,7 @@
 </md-content>
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
-  <div flex-gt-sm="50">
+  <div flex="100">
     <md-card>
       <md-card-title>
         <md-card-title-text layout="row">
@@ -41,68 +40,11 @@
         <splash-only box="box"></splash-only>
       </md-card-content>
     </md-card>
-  </div>
-  <div flex-gt-sm="50" ng-if='allowed'>
-    <md-card>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline" translate>Device Setup</span>
-          <span class="md-subheading" translate></span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <md-divider></md-divider>
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text">
-            <h3 translate>Primary Radius</h3>
-            <p>radius-1.ctapp.io</p>
-          </div>
-        </md-list-item>
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text">
-            <h3 translate>Secondary Radius</h3>
-            <p>radius-2.ctapp.io</p>
-          </div>
-        </md-list-item>
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text">
-            <h3 translate>Authentication Port</h3>
-            <p>1812</p>
-          </div>
-        </md-list-item>
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text">
-            <h3 translate>Accounting Port</h3>
-            <p>1813</p>
-          </div>
-        </md-list-item>
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text">
-            <h3 translate>Splash URL</h3>
-            <p>http://app.my-wifi.co</p>
-          </div>
-        </md-list-item>
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text">
-            <h3 translate>Walled Gardens</h3>
-            <p>
-              <ct-docs name="walled-gardens">
-                <translate>
-                  View required URLs
-                </translate>
-              </ct-docs>
-            </p>
-          </div>
-        </md-list-item>
-      </md-card-content>
-    </md-card>
-
     <div flex layout="row">
       <span flex></span>
       <md-button ng-click="destroy()" class="md-raised md-warn">
         Delete
       </md-button>
     </div>
-
   </div>
 </md-content>

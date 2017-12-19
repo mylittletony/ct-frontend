@@ -24,44 +24,6 @@
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
-        <label>
-          <translate>Address</translate>
-        </label>
-        <input name="address" ng-model="box.address" required>
-        <div ng-messages="myForm.address.$error" md-auto-hide="false">
-          <div ng-message="required" translate>Please enter an address</div>
-        </div>
-      </md-input-container>
-
-      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
-        <label>
-          <translate>Radius NAS ID</translate>
-        </label>
-        <input ng-model="box.radiusnasid" name="nasid" md-maxlength="150" md-minlength="5" rows="5" required>
-        <div ng-messages="myForm.nasid.$error">
-          <div ng-message="required"></div>
-        </div>
-      </md-input-container>
-
-      <md-input-container class="md-block" flex-gt-sm="80" flex="100">
-        <label>
-          <translate>Radius Secret</translate>
-        </label>
-        <input disabled ng-model="box.radius_secret" required>
-      </md-input-container>
-
-      <md-input-container class="md-block" flex-gt-sm="80" flex>
-        <label>
-          <translate>Device Type</translate>
-        </label>
-        <md-select ng-model="box.machine_type">
-          <md-option ng-repeat="type in machine_types" value="{{type.value}}">
-            {{type.key}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-
       <md-button ng-click="update(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>
     </form>
   </div>
