@@ -397,7 +397,8 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
           rate:         params.rate,
         };
 
-        var t = opts.type.split('.')[0];
+        var t;
+        if (opts && opts.type) { t = opts.type.split('.')[0]; }
         if (t === 'radius' || t === 'splash' || t === 'emails') {
           Metric.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
@@ -1456,7 +1457,10 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             opts.bar = { groupWidth: '90%' };
             opts.vAxes = {
               0: {
-                textPosition: 'none'
+                textPosition: 'none',
+                viewWindow:{
+                  min: 0
+                }
               }
             };
             data.addColumn('string', 'Hour');
