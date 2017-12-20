@@ -886,7 +886,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.caps',
+        metric_type:  'clients.caps',
         resource:     scope.resource,
         period:       '7d' // can be removed soon when loyalty dynamic
       };
@@ -918,17 +918,16 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       opts.colors = colours;
 
       if (data === undefined && formatted) {
+        var js = formatted.data[0].data;
+
         data = new window.google.visualization.DataTable();
         data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
         data.addColumn('number', gettextCatalog.getString('5Ghz'));
 
         var two, five = 0;
-        for (var i in formatted.stats) {
-          if (formatted.stats[i].key === 'two') {
-            two = formatted.stats[i].value;
-          } else if (formatted.stats[i].key === 'five') {
-            five = formatted.stats[i].value;
-          }
+        for (var i in js) {
+          two = (two + js[i].value.two);
+          five = (five + js[i].value.five);
         }
 
         if (two === 0 && five === 0) {
@@ -1349,8 +1348,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
     var a, c, timer, formatted, data;
 
-    scope.type = attrs.type; //'radius.users';
-    // scope.type = 'radius.users,radius.new';
+    // can be csv also if required //
+    scope.type = attrs.type;
     scope.loading = true;
     var colours = COLOURS.split(' ');
 
@@ -1503,7 +1502,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             }
 
           } else {
-
             opts.vAxes = {
               0: {
                 format: '0',
