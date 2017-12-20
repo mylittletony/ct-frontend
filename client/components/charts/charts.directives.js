@@ -923,14 +923,17 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
 
       if (data === undefined && formatted) {
         var js = formatted.data[0].data;
+        
+        console.log(js)
 
         data = new window.google.visualization.DataTable();
         data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
         data.addColumn('number', gettextCatalog.getString('5Ghz'));
 
-        var two, five = 0;
+        var two = 0;
+        var five = 0;
         for (var i in js) {
-          two = (two + js[i].value.two);
+          two =  (two + js[i].value.two);
           five = (five + js[i].value.five);
         }
 
@@ -1566,7 +1569,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     }
 
-    console.log('rendering to', attrs.render);
     compileTemplate(attrs.render);
 
     var timeout = $timeout(function() {
