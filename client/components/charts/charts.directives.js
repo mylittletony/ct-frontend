@@ -924,8 +924,6 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       if (data === undefined && formatted) {
         var js = formatted.data[0].data;
         
-        console.log(js)
-
         data = new window.google.visualization.DataTable();
         data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
         data.addColumn('number', gettextCatalog.getString('5Ghz'));
