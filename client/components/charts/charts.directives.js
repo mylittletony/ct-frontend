@@ -1519,13 +1519,26 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             opts.hAxis = {
               lineWidth: 4,
               gridlines: {
+                count: 10,
                 color: '#f3f3f3',
               },
               minorGridlines: {
+                count: 2,
                 color: '#f3f3f3',
               },
               format: format
             };
+
+            // opts.hAxis = {
+            //   lineWidth: 4,
+            //   gridlines: {
+            //     color: '#f3f3f3',
+            //   },
+            //   minorGridlines: {
+            //     color: '#f3f3f3',
+            //   },
+            //   format: format
+            // };
 
 
             for(x = 0; x < resp.data.length; x++) {
