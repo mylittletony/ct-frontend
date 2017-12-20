@@ -399,7 +399,7 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
 
         var t;
         if (opts && opts.type) { t = opts.type.split('.')[0]; }
-        if (t === 'radius' || t === 'splash' || t === 'emails') {
+        if (t === 'radius' || t === 'splash' || t === 'emails' || t === 'clients.caps' || t === 'clients.uniques') {
           Metric.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
           }, function() {
