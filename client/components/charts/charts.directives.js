@@ -397,16 +397,20 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
           rate:         params.rate,
         };
 
-        var t;
-        if (opts && opts.type) { t = opts.type.split('.')[0]; }
-        if (t === 'radius' || t === 'splash' || t === 'emails' || t === 'clients.caps' || t === 'clients.uniques') {
-          Metric.clientstats(opts).$promise.then(function(data) {
+        // Sort
+        var t = opts.type;
+        if (t === 'devices.meta' || 
+            t === 'devices.tx,device.rx' ||
+            t === 'devices.load5' ||
+            t === 'interfaces.snr' ||
+            t === 'device.heartbeats') {
+          MetricLambda.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
           }, function() {
             deferred.reject();
           });
         } else {
-          MetricLambda.clientstats(opts).$promise.then(function(data) {
+          Metric.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
           }, function() {
             deferred.reject();
