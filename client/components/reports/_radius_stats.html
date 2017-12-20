@@ -3,8 +3,8 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Unique Users</h3>
-          <p>{{ stats.splash.uniques || 0 }}</p>
+          <p translate>New Users</p>
+          <h2>{{ stats.new || 0 | number:0 }}</h2>
         </div>
       </md-list-item>
     </md-card-content>
@@ -13,8 +13,8 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Average Session</h3>
-          <p translate>{{ (stats.splash.durations.avg / 60) | number:0 }} Mins</p>
+          <p translate>Unique Users</p>
+          <h2>{{ stats.uniques || 0 | number:0 }}</h2>
         </div>
       </md-list-item>
     </md-card-content>
@@ -23,8 +23,8 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Total Sessions</h3>
-          <p>{{ stats.splash.total_sessions }}</p>
+          <p translate>Average Session</p>
+          <h2 translate>{{ (stats.duration.avg / 60) || 0 | number:0 }} Mins</h2>
         </div>
       </md-list-item>
     </md-card-content>
@@ -33,18 +33,23 @@
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Data Transferred</h3>
-          <p>{{ (stats.splash.usage.inbound.sum + stats.splash.usage.outbound.sum) | humanData }}</p>
+          <p translate>Total Sessions</p>
+          <h2>{{ stats.sessions || 0 | number:0 }}</h2>
         </div>
       </md-list-item>
     </md-card-content>
   </md-card>
-  <md-card flex-gt-xs="20" hide show-gt-md>
+  <md-card flex-gt-xs="20">
     <md-card-content>
       <md-list-item class="md-2-line">
         <div class="md-list-item-text">
-          <h3 translate>Vouchers</h3>
-          <p translate>{{ stats.vouchers.created }} created, {{ stats.vouchers.activated }} used.</p>
+          <p translate>Returning Users</p>
+          <span>
+            <h2 translate>{{ (stats.loyalty || 0) * 100 | number:0 }}%</h2>
+            <md-tooltip>
+              <translate>Used/Created</translate>
+            </md-tooltip>
+          </span>
         </div>
       </md-list-item>
     </md-card-content>

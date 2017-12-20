@@ -2,13 +2,10 @@
   <md-card-header class="graph-small">
     <md-card-header-text>
       <span class="md-subhead" translate>Device Health</span>
-      <!-- <span class="md-subhead" translate>{{ scope.total || 0 }} Device{{ scope.total == 1 ? '' : 's'}}</span> -->
     </md-card-header-text>
   </md-card-header>
   <md-card-content>
-
     <div id="dash-health-chart" class="small-chart"></div>
-
     <md-card-actions layout="row" layout-align="end center">
       <small>
         <span ng-if="noData && !loading" translate>No graph data</span>

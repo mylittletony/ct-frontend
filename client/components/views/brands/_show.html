@@ -163,7 +163,7 @@
               </md-card-content>
             </md-card>
 
-            <md-card>
+            <md-card ng-if="user.reseller || user.paid_plan">
               <md-card-title>
                 <md-card-title-text>
                   <span class="md-headline">
@@ -171,62 +171,58 @@
                     <translate>Advanced Settings</translate>
                   </span>
                   <span class="md-subhead">
-                    Use your own URL for the dashboard. Premium plans only.
+                    Use your own URL for the dashboard. Premium and reseller plans only.
                   </span>
                 </md-card-title-text>
               </md-card-title>
 
               <md-card-content>
+
                 <div layout="column" layout-gt-xs="row" layout-wrap flex="100" flex-gt-sm="50">
 
-                  <div ng-if="brand.cname_status === 'processing'">
-                    <p translate>Processing domain change</p>
-                    <md-progress-linear md-mode="query"></md-progress-linear>
-                    <p><small translate>Please wait for the update to complete.</small></p>
-                  </div>
-
-                  <md-input-container class="md-block" flex-gt-xs="100" ng-if="brand.cname_status != 'processing'">
+                  <md-input-container class="md-block" flex-gt-xs="100">
                     <label><translate>Custom Domain URL</translate></label>
-                    <input type="text" name="cname" placeholder="{{ 'Enter the URL of your custom domain' | translate }}" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/" ng-disabled="!user.paid_plan">
+                    <input type="text" name="cname" placeholder="{{ 'Enter the URL of your custom domain' | translate }}" ng-model="brand.cname" ng-pattern="/^(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/">
                     <div ng-messages="myForm.cname.$error">
                       <div ng-message="pattern" translate>Please enter a valid URL</div>
                     </div>
                   </md-input-container>
-
-                  <md-input-container class="md-block" flex-gt-sm="50">
-                    <label><translate>Network Location</translate></label>
-                    <md-select ng-model="brand.network_location" required>
-                      <md-option ng-repeat="loc in locations" ng-value="loc">
-                        {{ loc }}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
-                  <md-input-container class="md-block" flex-gt-sm="50">
-                    <label><translate>Default Locale</translate></label>
-                    <md-select ng-model="brand.locale" required>
-                      <md-option ng-repeat="locale in locales" ng-value="locale.value">
-                        {{ locale.key }}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
-                  <p>
-                    <small translate>
-                      Set the default network location. Improve performance of speedtests and job processing.
-                    </small>
-                  </p>
                 </div>
               </md-card-content>
             </md-card>
 
-            <md-card>
+            <md-card ng-if="brand.reseller">
               <md-card-title>
                 <md-card-title-text>
                   <span class="md-headline">
                     <md-icon md-font-icon="android" aria-label="android">star</md-icon>
-                    <translate>Enterprise Features</translate>
+                    <translate>Reseller Settings</translate>
                   </span>
                   <span class="md-subhead">
-                    Adjust the default quotas for your users, only available on Enterprise plans.
+                    Enable this to allow customers to sign up at <b ng-if="brand.cname">{{brand.cname}}/#/create</b><b ng-if="!brand.cname">https://{{brand.url}}.ctapp.io/#/create</b>.
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+
+              <md-card-content>
+
+                <div layout="column" layout-gt-xs="row" layout-wrap flex="100">
+                  <md-switch title="sign_ups" ng-model="brand.sign_ups_enabled" aria-label=" ">
+                    <span translate>Customer Sign-Ups {{ brand.sign_ups_enabled | humanBoolean }}</span>
+                  </md-switch>
+                </div>
+              </md-card-content>
+            </md-card>
+
+            <md-card ng-if="brand.reseller">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">
+                    <md-icon md-font-icon="android" aria-label="android">star</md-icon>
+                    <translate>Quota Settings</translate>
+                  </span>
+                  <span class="md-subhead">
+                    Adjust the default quotas for your users, only available on Reseller plans.
                   </span>
                 </md-card-title-text>
               </md-card-title>
@@ -269,6 +265,54 @@
                   </div>
                 </md-input-container>
 
+              </md-card-content>
+            </md-card>
+
+            <md-card ng-if="brand.reseller">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">
+                    <md-icon md-font-icon="android" aria-label="android">star</md-icon>
+                    <translate>Custom Logo</translate>
+                  </span>
+                  <span class="md-subhead">
+                    Enter the URL of your company logo to display in top-left of dashboard. Only available on Reseller plans.
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+
+              <md-card-content>
+
+                <div layout="column" layout-gt-xs="row" layout-wrap flex="100">
+                  <md-input-container class="md-block" flex-gt-xs="66">
+                    <label><translate>Image Url</translate></label>
+                    <input  type="text" name="logo_url" ng-model="brand.logo_url"></input>
+                  </md-input-container>
+                </div>
+              </md-card-content>
+            </md-card>
+
+            <md-card ng-if="brand.reseller">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">
+                    <md-icon md-font-icon="android" aria-label="android">star</md-icon>
+                    <translate>Custom Intercom App</translate>
+                  </span>
+                  <span class="md-subhead">
+                    Enter your own Intercom app ID to allow your customers to communicate with you through CT. Reseller plans only.
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+
+              <md-card-content>
+
+                <div layout="column" layout-gt-xs="row" layout-wrap flex="100">
+                  <md-input-container class="md-block" flex-gt-xs="50">
+                    <label><translate>Intercom App ID</translate></label>
+                    <input  type="text" name="intercom_id" ng-model="brand.intercom_id"></input>
+                  </md-input-container>
+                </div>
               </md-card-content>
             </md-card>
             <md-button type="submit" ng-click="save(myForm)" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-raised"><translate>Save</translate></md-button>

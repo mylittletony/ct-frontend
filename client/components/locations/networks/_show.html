@@ -6,7 +6,7 @@
     <p translate>Networks</p>
     <span flex></span>
     <md-menu ng-if="menu">
-      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+      <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button md-raised md-primary" ng-click="$mdOpenMenu($event)">
         <md-icon>more_vert</md-icon>
       </md-button>
       <md-menu-content width="4">
@@ -254,6 +254,48 @@
       <md-card>
         <md-card-title>
           <md-card-title-text>
+            <span class="md-headline" translate>Bandwidth Management</span>
+            <span class="md-subhead">
+              <translate>Control your network's bandwidth</translate>
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
+          <div flex-gt-sm="40">
+            <div>
+              <div ng-hide="edit_value">
+                <translate>Download Speed: <span ng-if="network.bandwidth_limit > 0">{{network.bandwidth_limit}} Mbps</span><span ng-if="network.bandwidth_limit == 0">Unlimited</span></translate>
+                <md-slider-container style="padding-bottom:6px;">
+                  <md-slider flex class="md-primary" ng-model="network.bandwidth_limit" step="0.001" min="0" max="50" aria-label="bandwidth">
+                  </md-slider>
+                </md-slider-container>
+              </div>
+              <div ng-if="edit_value">
+                <md-input-container style="margin:0px;padding:0px;">
+                  <translate>Download Speed: <span ng-if="network.bandwidth_limit > 0">{{network.bandwidth_limit}} Mbps</span><span ng-if="network.bandwidth_limit == 0">Unlimited</span></translate>
+                  <input flex type="number" ng-model="network.bandwidth_limit">
+                </md-input-container>
+              </div>
+
+            </div>
+
+            <div>
+              <md-checkbox ng-model="edit_value">
+                Custom value
+              </md-checkbox>
+            </div>
+
+            <div>
+              <p><small>Please note that this is an alpha feature, so may not behave entirely as expected.</small></p>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
             <span class="md-headline" translate>802.1x Radius Settings</span>
             <span class="md-subhead">
               <translate>Enable 802.1x on your network</translate>
@@ -333,6 +375,66 @@
                   <div ng-message="min" translate>Must be greater than 1.</div>
                 </div>
               </md-input-container>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>Splash Settings</span>
+            <span class="md-subhead">
+              <translate>Edit your splash settings</translate>
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
+          <div flex-gt-sm="40">
+              <div>
+                <md-switch class="md-accent" ng-model="network.captive_portal_ps" style="margin-top:0px;padding-bottom:13px;">
+                  <span ng-show="network.captive_portal_ps" translate>Use built-in splash</span>
+                  <span ng-hide="network.captive_portal_ps" translate>Use external splash</span>
+                </md-switch>
+              </div>
+
+              <md-input-container class="md-block" ng-hide="network.captive_portal_ps">
+                <label>
+                  <translate>Splash Page URL</translate>
+                </label>
+                <input ng-model="network.captive_portal_url" ng-disabled="network.captive_portal_ps" name="captive_portal_url" placeholder="{{ 'Splash Page URL' | translate }}" type="url" ng-required="!network.captive_portal_ps">
+                <div ng-messages="myForm.captive_portal_url.$error">
+                  <div ng-message="required" translate>Must have a valid URL.</div>
+                  <div ng-message="url" translate>Must be a valid URL</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container class="md-block" ng-hide="network.captive_portal_ps">
+                <label>
+                  <translate>UAM Secret</translate>
+                </label>
+                <input autocomplete="off" type="{{ showuam == true ? 'text' : 'password' }}" ng-focus="showuam = !showuam" ng-blur="showuam = !showuam" name="xxxsssn" ng-minlength="8" ng-model="network.captive_portal_uamsecret">
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                <label>
+                  <translate>Splash Radius Host 1</translate>
+                </label>
+                <input ng-model="network.radius_host_1" name="radius_host_1" placeholder="{{ 'radius-1.ctapp.io' | translate }}">
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                <label>
+                  <translate>Splash Radius Host 2</translate>
+                </label>
+                <input ng-model="network.radius_host_2" name="radius_host_2" placeholder="{{ 'radius-2.ctapp.io' | translate }}">
+              </md-input-container>
+
+              <div>
+                <p><small>Please do not change these unless you know exactly what you're doing.</small></p>
+              </div>
+
             </div>
           </div>
         </md-card-content>

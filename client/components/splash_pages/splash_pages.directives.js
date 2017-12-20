@@ -144,7 +144,7 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
 
 }]);
 
-app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParams', '$filter', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, $routeParams, $filter, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
+app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$routeParams', '$filter', '$localStorage', 'moment', 'showToast', 'showErrors', '$mdDialog', '$q', 'gettextCatalog', function(SplashPage, Location, Auth, $routeParams, $filter, $localStorage, moment, showToast, showErrors, $mdDialog, $q, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -536,7 +536,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', '$routeParam
 
 }]);
 
-app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams', '$rootScope', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,$location,$routeParams,$rootScope,$mdDialog,showToast,showErrors,gettextCatalog) {
+app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$routeParams', '$rootScope', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,Auth,$location,$routeParams,$rootScope,$mdDialog,$localStorage,showToast,showErrors,gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -548,7 +548,6 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
       return Network.get({location_id: scope.location.slug, splash: true}).$promise.then(function(results) {
         scope.obj.networks = results;
         if (scope.obj.networks.length) {
-          console.log(results)
           scope.splash.network_id = scope.obj.networks[0].id;
           for (var i = 0; i < scope.obj.networks.length; i++) {
             if (scope.obj.networks[i].zones.length) {
@@ -577,9 +576,10 @@ app.directive('splashNew', ['Network', 'SplashPage', '$location', '$routeParams'
         location_id: scope.location.slug,
         splash_page: {
           ssid: scope.splash.ssid,
-          networks: [scope.splash.network_id],
+          network_ids: scope.splash.network_id,
           splash_name: scope.splash.splash_name,
-          primary_access_id: scope.splash.primary_access_id
+          primary_access_id: scope.splash.primary_access_id,
+          powered_by: scope.splash.powered_by
         }
       }).$promise.then(function(results) {
         scope.splash = {};

@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.users.services', ['ngResource',]);
 
-app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'Logout', '$location', 'AccessToken', 'locationHelper', 'AUTH_URL', function($window, $rootScope, $localStorage, $http, $q, Logout, $location, AccessToken, locationHelper, AUTH_URL) {
+app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'Logout', '$location', 'AccessToken', 'locationHelper', 'AUTH_URL', 'Brand', function($window, $rootScope, $localStorage, $http, $q, Logout, $location, AccessToken, locationHelper, AUTH_URL, Brand) {
 
     var user = null;
 
@@ -46,6 +46,18 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       var deferred = $q.defer();
       deferred.resolve(data);
       var sub = locationHelper.subdomain();
+      var domain = locationHelper.domain();
+      if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
+        Brand.query({}, {
+          id: domain,
+          cname: true,
+          type: 'showcase'
+        }).$promise.then(function(results) {
+          sub = results.url;
+          window.location.href = '/auth/login?brand=' + sub + '&return_to=' + 'search';
+          return deferred.promise;
+        });
+      }
       window.location.href = '/auth/login?brand=' + sub + '&return_to=' + 'search';
       return deferred.promise;
     };
@@ -132,6 +144,15 @@ app.factory('User', ['$resource', 'API_END_POINT',
           action: 'logout_all',
           id: '@id'
         }
+      },
+      destroy: {
+        method: 'DELETE',
+        isArray: false,
+        dataType: 'json',
+        params: {
+          id: '@id',
+          email: '@email'
+        }
       }
     }
   );
@@ -185,85 +206,85 @@ app.factory('Inventory', ['$resource', 'API_END_POINT',
 app.factory('Translate', ['$cookies', 'gettextCatalog', 'amMoment', function($cookies, gettextCatalog, amMoment) {
 
   //var supported = {'en_GB': true, 'de_DE': true, 'fr_FR': true, 'it': true, 'ro': true};
-  var supported = {'en_GB': true, 'de_DE': true};
-  var language, userLocale, amLocale;
+  // var supported = {'en_GB': true, 'de_DE': true};
+  // var language, userLocale, amLocale;
 
-  function fixLocale(locale) {
-    if (!locale) {
-      return undefined;
-    }
+  // function fixLocale(locale) {
+  //   if (!locale) {
+  //     return undefined;
+  //   }
 
-    var intermediate = locale.split('-');
-    locale = intermediate[0];
+  //   var intermediate = locale.split('-');
+  //   locale = intermediate[0];
 
-    // To add support for more languages, make sure they're added here
-    if (locale === 'en') {
-      return 'en_GB';
-    } else if (locale === 'de') {
-      return 'de_DE';
-    // } else if (locale === 'fr') {
-    //   return 'fr_FR';
-    // } else if (locale === 'it') {
-    //   return 'it';
-    // } else if (locale === 'ro') {
-    //   return 'ro';
-    } else {
-      return undefined;
-    }
-  }
+  //   // To add support for more languages, make sure they're added here
+  //   if (locale === 'en') {
+  //     return 'en_GB';
+  //   } else if (locale === 'de') {
+  //     return 'de_DE';
+  //   // } else if (locale === 'fr') {
+  //   //   return 'fr_FR';
+  //   // } else if (locale === 'it') {
+  //   //   return 'it';
+  //   // } else if (locale === 'ro') {
+  //   //   return 'ro';
+  //   } else {
+  //     return undefined;
+  //   }
+  // }
 
-  function setLanguage() {
-    if (navigator.languages) {
-      for (var i = 0;  language === undefined && navigator.languages !== null && i < navigator.languages.length; ++i) {
-        var lang = navigator.languages[i].substr(0, 2);
-        language = fixLocale(lang);
-        if (supported[lang]) {
-          language = lang;
-        }
-      }
-    } else {
-      var lang = navigator.language.substr(0, 2);
-      language = fixLocale(lang);
-      if (supported[lang]) {
-        language = lang;
-      }
-    }
-  }
+  // function setLanguage() {
+  //   if (navigator.languages) {
+  //     for (var i = 0;  language === undefined && navigator.languages !== null && i < navigator.languages.length; ++i) {
+  //       var lang = navigator.languages[i].substr(0, 2);
+  //       language = fixLocale(lang);
+  //       if (supported[lang]) {
+  //         language = lang;
+  //       }
+  //     }
+  //   } else {
+  //     var lang = navigator.language.substr(0, 2);
+  //     language = fixLocale(lang);
+  //     if (supported[lang]) {
+  //       language = lang;
+  //     }
+  //   }
+  // }
 
-  var _load = function() {
+  // var _load = function() {
 
-    userLocale =  $cookies.get('locale');
+  //   userLocale =  $cookies.get('locale');
 
-    language = fixLocale(userLocale);
+  //   language = fixLocale(userLocale);
 
-    //if the cookie is empty try if one of
-    //the user's browser language preferences
-    //is supported
-    if (language === undefined) {
-      setLanguage();
-    }
+  //   //if the cookie is empty try if one of
+  //   //the user's browser language preferences
+  //   //is supported
+  //   if (language === undefined) {
+  //     setLanguage();
+  //   }
 
-    //if the user's browser language preferences
-    //are not supported languages
-    //fall back to english
-    if (!supported[language]) {
-      language = 'en_GB';
-    }
+  //   //if the user's browser language preferences
+  //   //are not supported languages
+  //   //fall back to english
+  //   if (!supported[language]) {
+  //     language = 'en_GB';
+  //   }
 
-    //don't forget to add angular moment's
-    //language.json files to index.html
-    //when more language are supported
-    //(for now it's just en and de)
-    var intermediate = language.split('_');
-    amLocale = intermediate[0];
+  //   //don't forget to add angular moment's
+  //   //language.json files to index.html
+  //   //when more language are supported
+  //   //(for now it's just en and de)
+  //   var intermediate = language.split('_');
+  //   amLocale = intermediate[0];
 
-    gettextCatalog.setCurrentLanguage(language);
-    gettextCatalog.loadRemote('/translations/' + language + '.json');
-    amMoment.changeLocale(amLocale);
-  };
+  //   gettextCatalog.setCurrentLanguage(language);
+  //   gettextCatalog.loadRemote('/translations/' + language + '.json');
+  //   amMoment.changeLocale(amLocale);
+  // };
 
   return {
-    load: _load
+    // load: _load
   };
 
 }]);

@@ -15,7 +15,7 @@
       <div layout="row">
         <div flex-gt-sm="100" flex="100">
 
-          <md-input-container flex="100" flex-gt-sm="100" layout="column" ng-if="splash_pages.length > 1">
+          <md-input-container flex="100" flex-gt-sm="100" layout="column" ing-if="splash_pages.length > 1" style="margin-bottom: 40px;">
             <label><translate>Splash Page</translate></label>
             <md-select ng-model="voucher.splash_page_id" ng-disabled="voucher.unique_id" required>
               <md-option ng-repeat="splash in splash_pages" value="{{splash.id}}">
@@ -23,6 +23,7 @@
               </md-option>
             </md-select>
           </md-input-container>
+          <p style="margin-bottom: 40px;"><small ng-if="voucher.splash_page_id == 'external'"><b>Vouchers generated for external splash pages will not work our built-in splash. Create a splash page <a href="/#/locations/{{location.slug}}/splash_pages">here</a>.</b></small></p>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label><translate>Batch Name</translate></label>
@@ -169,18 +170,28 @@
           </div>
         </md-input-container>
 
+        <md-input-container flex="100" flex-gt-sm="30">
+          <label><translate>Voucher Length</translate></label>
+          <input type="number" name="length" ng-model="voucher.length" placeholder="{{ 'Length' | translate }}" ng-min=6 max=50 required></input>
+          <div ng-messages="myForm.length.$error">
+            <div ng-message="min" translate>Must be greater than 6</div>
+            <div ng-message="max" translate>Must be less than 50</div>
+            <div ng-message="required" translate>Required field!</div>
+          </div>
+        </md-input-container>
+
         <div flex="100">
         </div>
 
         <md-input-container flex="100" flex-gt-sm="30">
           <label><translate>Voucher Format</translate></label>
-          <md-select ng-model="voucher.voucher_format" ng-disabled="voucher.unique_id">
+          <md-select ng-model="voucher.voucher_format" ng-disabled="voucher.unique_id || voucher.splash_page_id == 'external'">
             <md-option ng-repeat="type in voucher_formats" value="{{type.value}}">
               {{ type.key }}
             </md-option>
           </md-select>
+          <p ng-if="voucher.splash_page_id == 'external'"><small>Not available when using an external splash</small></p>
         </md-input-container>
-
       </div>
 
       <div layout="column">

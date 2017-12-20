@@ -8,7 +8,7 @@ var exports;
 if (process.env.NODE_ENV === 'production') {
 
   api_url = process.env.API_URL || 'https://api.ctapp.io/api/v1'
-  auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
+  auth_url = 'https://id.ctapp.io'
   base_url = process.env.CT_URL || 'dashboard.ctapp.io'
 
   exports = {
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 } else if (process.env.NODE_ENV === 'beta') {
 
   api_url = process.env.API_URL || 'https://beta.ctapp.io/api/v1'
-  auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
+  auth_url = 'https://id.ctapp.io'
   base_url = process.env.CT_URL || 'dashboard.ctapp.io'
 
   exports = {
@@ -35,9 +35,9 @@ if (process.env.NODE_ENV === 'production') {
 
 } else {
 
-  api_url = process.env.API_URL || 'http://mywifi.dev:8080/api/v1'
-  auth_url = process.env.AUTH_URL || 'http://mywifi.dev:8080'
-  base_url = process.env.CT_URL || 'my.ctapp.dev:9090'
+  api_url = process.env.API_URL || 'http://mywifi.test:8080/api/v1'
+  auth_url = process.env.AUTH_URL || 'http://mywifi.test:8080'
+  base_url = process.env.CT_URL || 'dashboard.ctapp.test:9090'
 
   exports = {
     callbackURL: "http://" + base_url + "/auth/login/callback",

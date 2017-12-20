@@ -13,6 +13,12 @@
           </translate>
         </md-switch>
 
+        <md-switch ng-change="saveCols()" ng-model="columns.ap_name" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="20">
+          <translate>
+            AP Description
+          </translate>
+        </md-switch>
+
         <!-- <md-switch ng-change="saveCols()"ng-model="columns.txbps" ng-click="saveCols()" aria-label="{{ 'Switch 1' | translate }}" layout="row" flex flex-gt-sm="20">
           <translate>
             Txbps

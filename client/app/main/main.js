@@ -30,19 +30,20 @@ app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
-app.config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
-  $mdDateLocaleProvider.formatDate = function(date) {
-    var dd = ("0" + date.getDate()).slice(-2);
-    var mm = ("0" + (date.getMonth() + 1)).slice(-2);
-    var yy = date.getFullYear();
-    var full = mm + '/' + dd + '/' + yy;
-    return moment(full, 'MM/DD/YYYY').format('L');
-  };
-  $mdDateLocaleProvider.parseDate = function(dateString) {
-    var m = moment(dateString, 'L');
-    return m.isValid() ? m.toDate() : new Date(NaN);
-  };
-}]);
+// No more translations
+// app.config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
+//   $mdDateLocaleProvider.formatDate = function(date) {
+//     var dd = ("0" + date.getDate()).slice(-2);
+//     var mm = ("0" + (date.getMonth() + 1)).slice(-2);
+//     var yy = date.getFullYear();
+//     var full = mm + '/' + dd + '/' + yy;
+//     return moment(full, 'MM/DD/YYYY').format('L');
+//   };
+//   $mdDateLocaleProvider.parseDate = function(dateString) {
+//     var m = moment(dateString, 'L');
+//     return m.isValid() ? m.toDate() : new Date(NaN);
+//   };
+// }]);
 
 app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES) {
 
@@ -272,13 +273,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/boxes', {
-      redirectTo: '/alerts'
-    }).
-    when('/alerts', {
-      templateUrl: 'components/locations/index/alerts.html',
-      resolve: { loginRequired: loginRequired },
-    }).
     when('/distributors/:id', {
       templateUrl: 'components/distros/distro.html',
       resolve: { loginRequired: loginRequired },
@@ -288,14 +282,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/distros/referrals.html',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
-    }).
-    when('/events', {
-      templateUrl: 'components/events/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/events/:id', {
-      templateUrl: 'components/events/show.html',
-      resolve: { loginRequired: loginRequired },
     }).
     when('/locations', {
       templateUrl: 'components/locations/index/list.html',
@@ -310,7 +296,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
-      templateUrl: 'components/locations/dashboard/index.html',
+      // templateUrl: 'components/locations/dashboard/index.html',
+      templateUrl: 'components/locations/show/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
@@ -446,6 +433,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/logs', {
+      templateUrl: 'components/locations/logging/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/networks', {
       templateUrl: 'components/locations/networks/index.html',
       controller: 'LocationsCtrl as lc',
@@ -575,6 +567,27 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/dashboard-test', {
+      // DELETE
+      templateUrl: 'components/locations/dashboard/index.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
+    }).
+    when('/locations/:id/splash_reports', {
+      templateUrl: 'components/locations/reports/splash.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/wireless_reports', {
+      templateUrl: 'components/locations/reports/wireless.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/audit', {
+      templateUrl: 'components/locations/audit/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/reports', {
       redirectTo: '/',
       // templateUrl: 'components/reports/wireless.html',
@@ -610,6 +623,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/users/:id/reseller', {
       templateUrl: 'components/users/reseller/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/users/:id/splash_views', {
+      templateUrl: 'components/users/splash_views/index.html',
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
@@ -662,11 +680,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/users/:id/locations', {
-      templateUrl: 'components/users/locations/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
+    // when('/users/:id/locations', {
+    //   templateUrl: 'components/users/locations/index.html',
+    //   controller: 'UsersShowController',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/users/:id/users', {
       templateUrl: 'components/users/users/index.html',
       controller: 'UsersShowController',
@@ -737,6 +755,7 @@ app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_U
         var token = AccessToken.get();
         if ((token) && (apiRegExp.test(config.url))) {
           config.headers.Authorization = 'Bearer ' + token;
+          // config.headers['Access-Control-Allow-Credentials'] = true;
         }
         return config;
       },

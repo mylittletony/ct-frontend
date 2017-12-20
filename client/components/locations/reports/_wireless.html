@@ -1,0 +1,80 @@
+<analytics ng-if="!loading">
+
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <div flex>
+        <md-button  href="/#/locations/{{location.slug}}" style='font-size: 14px'>
+          Overview
+        </md-button>
+        <md-button href="/#/locations/{{location.slug}}/wireless_reports" ng-disabled=true style='font-size: 14px; color: rgba(0, 0, 0, 0.26); background-color: transparent;'>
+          Wireless
+        </md-button>
+        <md-button href="/#/locations/{{location.slug}}/splash_reports" style='font-size: 14px'>
+          Splash
+        </md-button>
+      </div>
+      <md-button class="md-icon-button md-primary" aria-label="Filter" ng-click="clearRangeFilter()" ng-show='dateFiltered'>
+        <md-icon>clear</md-icon>
+        <md-tooltip>
+          <translate>
+          Clear range filter
+          </translate>
+        </md-tooltip>
+      </md-button>
+      <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
+       <md-icon md-font-icon="date_range">date_range</md-icon>
+       <md-tooltip>
+         <translate>
+           Add date range filter
+         </translate>
+       </md-tooltip>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
+        <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Add location to favourites.
+          </translate>
+        </md-tooltip>
+      </md-button>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <!-- <div layout="column" class="md-padding">
+    <div flex-md="100" flex-gt-md="100">
+      <wireless-timeline type="clients" render="sessions" show-gt-sm></wireless-timeline>
+    </div>
+  </div> -->
+
+  <client-chart>
+    <div layout="column" class="md-padding">
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <dash-clients-chart ></dash-clients-chart>
+      </div>
+    </div
+  </client-chart>
+
+  <wireless-stats></wireless-stats>
+
+  <md-content class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
+
+    <div flex-gt-xs="25">
+      <reports-pie hole="0.4" type="capabilities" title="{{ 'Capabilities' | translate }}" render="caps"></reports-pie>
+    </div>
+
+    <div flex-gt-xs="25">
+      <reports-pie resource="wireless" type="manufacturers" title="{{ 'Manufacturers' | translate }}" render="mans"></reports-pie>
+    </div>
+
+    <div flex-gt-xs="25">
+      <reports-pie hole="0.4" tooltip="{{ 'Device' | translate }}" resource="wireless_device" type="popular" title="{{ 'Top Devices' | translate }}" render="popular_aps" subhead="{{ 'Top aps by session count' | translate }}"></reports-pie>
+    </div>
+
+    <div flex-gt-xs="25">
+      <reports-pie hole="0.4" resource="wireless_client" type="popular" title="{{ 'Top Clients' | translate }}" render="popular_clients" subhead="{{ 'Top aps by session count' | translate }}"></reports-pie>
+    </div>
+
+  </md-content>
+
+</analytics>

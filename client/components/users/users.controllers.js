@@ -72,11 +72,19 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     }
 
     menu.sections.push({
-      name: gettextCatalog.getString('Locations'),
+      name: gettextCatalog.getString('Splash Views'),
       type: 'link',
-      link: '/#/users/' + id + '/locations',
-      icon: 'business'
+      link: '/#/users/' + id + '/splash_views',
+      icon: 'web',
+      active: isActive('splash_views')
     });
+
+    // menu.sections.push({
+    //   name: gettextCatalog.getString('Locations'),
+    //   type: 'link',
+    //   link: '/#/users/' + id + '/locations',
+    //   icon: 'business'
+    // });
 
     menu.sections.push({
       name: gettextCatalog.getString('Notifications'),

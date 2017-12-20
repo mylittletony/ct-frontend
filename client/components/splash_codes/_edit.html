@@ -92,6 +92,28 @@
                 </div>
               </md-input-container>
 
+              <md-input-container flex="50">
+                <label>
+                  <translate>Session Timeout (mins)</translate>
+                </label>
+                <input type="number" ng-min="10" ng-max="43200" ng-model="code.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" name="session_timeout" required>
+                <div ng-messages="myForm.session_timeout.$error">
+                  <div ng-message="min" translate>Must be greater than 10 minutes</div>
+                  <div ng-message="max" translate>Must be less than 43200 minutes</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container flex="50">
+                <label>
+                  <translate>Idle Timeout (mins)</translate>
+                </label>
+                <input type="number" ng-min="10" ng-max="43200" ng-model="code.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" name="idle_timeout" required>
+                <div ng-messages="myForm.session_timeout.$error">
+                  <div ng-message="min" translate>Must be greater than 10 minutes</div>
+                  <div ng-message="max" translate>Must be less than 43200 minutes</div>
+                </div>
+              </md-input-container>
+
               <div flex="100">
                 <md-radio-group ng-model="code.period" layout="row" style="margin: -10px 0 10px 0;">
                   <md-radio-button value="daily">
@@ -130,6 +152,7 @@
                 <p translate>Expiration Date</p>
                 <md-datepicker class="picker-wider" name="dateField" ng-model="code.expires" required style="margin: 10px 0 0 -10px;"></md-datepicker>
               </div>
+
             </div>
           </md-card-content>
         </md-card>

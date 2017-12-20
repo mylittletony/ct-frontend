@@ -2,7 +2,17 @@
 
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
-    <div flex></div>
+    <div flex>
+      <md-button  href="/#/locations/{{location.slug}}" ng-disabled=true style='font-size: 14px; color: rgba(0, 0, 0, 0.26); background-color: transparent;'>
+        Overview
+      </md-button>
+      <!-- <md-button href="/#/locations/{{location.slug}}/wireless_reports" style='font-size: 14px'>
+        Wireless
+      </md-button> -->
+      <md-button href="/#/locations/{{location.slug}}/splash_reports" style='font-size: 14px'>
+        Splash
+      </md-button>
+    </div>
     <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
       <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
       <md-tooltip md-direction="bottom">
@@ -20,8 +30,10 @@
   <client-chart>
     <div flex flex-gt-sm="{{fs.panel ? 100 : 100}}" layout="column" class="dashboard-charts">
       <div layout="" layout-wrap>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" iiing-hide="fs && fs.panel != 'usage'">
-          <health-chart ng-if="location.has_devices"></health-chart>
+        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" iiing-hide="fs && fs.panel != 'usage'">
+
+          <!-- <health-chart ng-if="location.has_devices"></health-chart> -->
+
           <div ng-show="location.has_devices == false">
             <div layout="row" layout-align="top top">
               <div flex="100" flex-gt-sm="100">
@@ -34,7 +46,7 @@
                   </md-card-title>
 
                   <md-card-content>
-                    <p translate>You haven't added any devices yet. Please check through the list of compatible devices <a href='http://docs.cucumberwifi.io/article/78-compatible-devices-access-points' target="_blank">here</a>.</p>
+                    <p translate>You haven't added any devices yet. <span ng-if="!white_label">Please check through the list of compatible devices <a href='http://docs.cucumberwifi.io/article/78-compatible-devices-access-points' target="_blank">here</a>.</span></p>
                     <p translate>The firmware is available in the downloads section.</p>
                     <p translate>Once you have installed this, add your device(s) to your dashboard. They will provision automatically.</p>
                     <br>
@@ -62,18 +74,15 @@
             </div>
           </div>
         </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 66}}" ng-hide="fs && fs.panel != 'usage'">
-          <dash-clients-chart ></dash-clients-chart>
+        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+          <dash-clients-chart type="clients.uniques"></dash-clients-chart>
         </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-          <clients-conn-chart ></clients-conn-chart>
-        </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-          <caps-chart ></caps-chart>
-        </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-          <dash-usage-chart ></dash-usage-chart>
-        </div>
+        <!-- <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
+        <!--   <caps-chart ></caps-chart> -->
+        <!-- </div> -->
+        <!-- <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
+        <!--   <dash-usage-chart ></dash-usage-chart> -->
+        <!-- </div> -->
       </div>
     </div>
   </client-chart>

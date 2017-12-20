@@ -84,7 +84,10 @@
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3 translate>Splash Page</h3>
-              <p><a href="/#/locations/{{ location.slug }}/splash_pages/{{ voucher.splash_page_id }}">{{ voucher.splash_page_id }}</a></p>
+              <p>
+                <a ng-if="voucher.splash_page_id !== 'external'" href="/#/locations/{{ location.slug }}/splash_pages/{{ voucher.splash_page_id }}">{{ voucher.splash_page_id }}</a>
+                <span ng-if="voucher.splash_page_id === 'external'">External Splash</span>
+              </p>
             </div>
           </md-list-item>
 
@@ -104,7 +107,7 @@
             </div>
           </md-list-item>
           <div layout="column" layout-gt-sm="column" ng-show="isOpen('more')" id="more" class="menu-toggle-list">
-            
+
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
                 <h3 translate>Session Timeout</h3>
@@ -157,10 +160,10 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
-              Downloads 
+              Downloads
             </span>
             <span class="md-subhead">
-              <p translate>You can download the codes for three months after creation.</p>
+              <p translate>You can download the codes for 30 days after creation.</p>
             </span>
           </md-card-title-text>
         </md-card-title>
@@ -169,7 +172,6 @@
           <span ng-show="voucher.completed" translate>Download your codes using the links below.</span>
         </md-card-content>
         <md-card-actions layout="row">
-          <md-button ng-click='regenerateLink()' ng-disabled='!voucher.completed || voucher.state == "regenerating" || voucher.csv_link'><translate>REGENERATE</translate></md-button>
           <span flex></span>
           <md-button ng-disabled="!voucher.pdf_link" class="" href="{{ voucher.pdf_link}}" target="_blank"><translate>PDF</translate></md-button>
           <md-button ng-disabled="!voucher.pdf_link" class="" href="{{ voucher.csv_link}}" target="_blank"><translate>CSV</translate></md-button>

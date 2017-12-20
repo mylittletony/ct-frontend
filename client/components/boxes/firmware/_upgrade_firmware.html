@@ -1,6 +1,9 @@
-<span ng-if="box.next_firmware && box.allowed_job && !box.upgrade_processing">
+<span ng-if="box.next_firmware && box.allowed_job && !box.upgrade_processing && !prompt">
   <md-button id="main" class="md-icon-button md-warn" ng-click="runUpgrade()" aria-label="{{ 'Settings' | translate }}">
     <md-icon>system_update_alt</md-icon>
     <md-tooltip md-direction="left"><translate>An upgrade is available for this device</translate></md-tooltip>
   </md-button>
 </span>
+<div ng-if="box.next_firmware && box.allowed_job && !box.upgrade_processing && prompt" style='padding: 0px 8px 0px 8px'>
+  <p>Your device is running an outdated firmware - <a href="" ng-click="runUpgrade()">click here to upgrade.</a></p>
+</div>

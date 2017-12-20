@@ -1,0 +1,87 @@
+<form name="myForm" ng-submit="update(myForm)">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
+        <md-icon md-font-icon="arrow_back" >all_inclusive</md-icon>
+      </md-button>
+      <p translate>Splash Views</p>
+      <div flex></div>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="60">
+
+        <md-card ng-show="!user.credit_card_last4">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" >
+                 Missing credit card details
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <div>
+                <p>Add your credit card via the button below to buy extra splash views.</p>
+                <md-button class="md-raised md-primary" href="/#/users/{{ user.slug }}/billing">
+                  <translate>ADD DETAILS</translate>
+                </md-button>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <md-card ng-show="user.credit_card_last4">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" >
+                 Buy More Splash Views
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <div>
+                <p>Choose a package from below to top up your splash view quota.</p>
+                <md-table-container>
+                  <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                    <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                      <tr md-row>
+                        <th md-column><span translate>Package</span></th>
+                        <th md-column><span translate>Cost</span></th>
+                        <th hide show-gt-sm md-column><span translate>Valid for</span></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody md-body>
+                      <tr md-row ng-repeat="package in packages[user.currency]">
+                        <td md-cell>
+                          {{ package.views }} Views
+                        </td>
+                        <td md-cell>
+                          {{formatCurrency[user.currency]}}{{ package.cost }}
+                        </td>
+                        <td hide show-gt-sm md-cell>
+                          30 Days
+                        </td>
+                        <td md-cell>
+                          <md-button ng-disabled="!user.stripe_id" ng-click="go(package.type)">
+                            <translate>BUY PACKAGE</translate>
+                          </md-button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </md-table-container>
+                <p><small class="muted" style="font-size: 75%;" translate ng-if="user.currency == 'GBP'">Prices exclude local VAT rates.</small></p>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
+    </div>
+  </md-content>
+</form>

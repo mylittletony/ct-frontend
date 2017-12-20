@@ -37,7 +37,7 @@
                     <p>{{ (order.total / 100) | currency:order.currency || '$' }}</p>
                   </div>
                 </md-list-item>
-                <md-list-item class="md-2-line" href="/#/locations/{{ order.location_slug }}/clients/{{ order.client_id }}">
+                <md-list-item class="md-2-line" href="/#/locations/{{ order.location_slug }}/clients/{{ order.clientMac }}">
                   <div class="md-list-item-text">
                     <h3 translate>Customer Email</h3>
                     <p>{{ ::(order.email )}}</p>

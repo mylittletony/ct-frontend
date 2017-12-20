@@ -53,6 +53,7 @@ app.factory('showErrors', ['$mdBottomSheet', 'gettextCatalog', function ($mdBott
           gettextCatalog.getString("Channel is invalid")
         ];
     if (errors.data && errors.data.errors) {
+      alert(123192837)
       res = errors.data.errors;
     }
     if (res) {
@@ -71,8 +72,7 @@ app.factory('showErrors', ['$mdBottomSheet', 'gettextCatalog', function ($mdBott
       // The keys don't actually work though since Rails sends full messages
       e.push(errors.data.message);
     } else if (errors && errors.data) {
-      console.log(errors);
-      err = errors.data || gettextCatalog.getString('An unknown error occurred, try again.');
+      err = errors.data || 'An unknown error occurred, try again.';
       e.push(err);
     } else if (errors && errors.message) {
       err = errors.message;

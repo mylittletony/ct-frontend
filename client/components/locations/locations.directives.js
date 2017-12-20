@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -12,6 +12,10 @@ app.directive('locationShow', ['Location', '$routeParams', '$location', 'showToa
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     function updateLocation() {
       Location.update({}, {
@@ -62,7 +66,7 @@ app.directive('locationDashboard', ['Location', '$rootScope', '$compile', functi
 
 }]);
 
-app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$location', '$timeout', 'gettextCatalog', 'showToast', function(Location, $routeParams, $rootScope, $location, $timeout, gettextCatalog, showToast) {
+app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope', '$location', '$timeout', '$localStorage', 'gettextCatalog', 'showToast', function(Location, Auth, $routeParams, $rootScope, $location, $timeout, $localStorage, gettextCatalog, showToast) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -80,6 +84,10 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
       scope.location.is_favourite = !scope.location.is_favourite;
       updateLocation();
     };
+
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     function updateLocation() {
       Location.update({}, {
@@ -106,6 +114,237 @@ app.directive('showDashboard', ['Location', '$routeParams', '$rootScope', '$loca
     },
     link: link,
     templateUrl: 'components/locations/dashboard/_index.html'
+  };
+
+}]);
+
+app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', '$location', '$timeout', 'Location', '$q', 'Locations', '$mdDialog', function(Report, $routeParams, $rootScope, $location, $timeout, Location, $q, Locations, $mdDialog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var timer;
+
+    if ($routeParams.start && $routeParams.end) {
+      scope.start        = $routeParams.start;
+      scope.end          = $routeParams.end;
+      scope.dateFiltered = true;
+    } else {
+      scope.start    = (Math.floor(new Date() / 1000) - 21600);
+      scope.end      = Math.floor(new Date() / 1000);
+    }
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
+    };
+
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
+    function rangeCtrl($scope, startFull, endFull) {
+      $scope.startFull = startFull;
+      $scope.endFull = endFull;
+      $scope.page = 'show';
+      $scope.saveRange = function() {
+        if ($scope.startFull && $scope.endFull) {
+          // converting the moment picker time format - this could really do with some work:
+          var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
+          var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
+          if (startTimestamp > endTimestamp) {
+            showToast(gettextCatalog.getString('Selected range period not valid'));
+          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 2592000) {
+            // check that the selected range period is between five minutes and thirty days
+            showToast(gettextCatalog.getString('Range period should be between five minutes and thirty days'));
+          } else {
+            scope.start = startTimestamp;
+            scope.end = endTimestamp;
+            scope.filtered = true;
+            scope.updatePage();
+            $mdDialog.cancel();
+          }
+        }
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+
+    scope.openMomentRange = function() {
+      if ($routeParams.start && $routeParams.end) {
+        scope.startFull = moment($routeParams.start * 1000).format('MM/DD/YYYY h:mm A');
+        scope.endFull = moment($routeParams.end * 1000).format('MM/DD/YYYY h:mm A');
+      }
+      $mdDialog.show({
+        templateUrl: 'components/locations/clients/_client_date_range.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        locals: {
+          startFull: scope.startFull,
+          endFull:   scope.endFull
+        },
+        controller: rangeCtrl
+      });
+    };
+
+    scope.updatePage = function() {
+      scope.loadingChart  = true;
+      var hash            = {};
+      hash.ap_mac         = scope.ap_mac;
+      hash.interval       = scope.interval;
+      hash.start          = scope.start;
+      hash.end            = scope.end;
+      $location.search(hash);
+      $timeout(function() {
+        scope.loadingChart = undefined;
+      },2000);
+    };
+
+    scope.clearRangeFilter = function() {
+      scope.start = undefined;
+      scope.end = undefined;
+      scope.updatePage();
+    };
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/reports/_splash.html'
+  };
+
+}]);
+
+app.directive('locationWirelessReports', ['Report', '$routeParams', '$rootScope', '$location', '$timeout', 'Location', '$q', 'Locations', '$mdDialog', function(Report, $routeParams, $rootScope, $location, $timeout, Location, $q, Locations, $mdDialog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var timer;
+
+    if ($routeParams.start && $routeParams.end) {
+      scope.start        = $routeParams.start;
+      scope.end          = $routeParams.end;
+      scope.dateFiltered = true;
+    } else {
+      scope.start    = (Math.floor(new Date() / 1000) - 21600);
+      scope.end      = Math.floor(new Date() / 1000);
+    }
+
+
+    Location.get({id: $routeParams.id}, function(data) {
+      scope.location = data;
+    }, function(err){
+      console.log(err);
+    });
+
+    scope.favourite = function() {
+      scope.location.is_favourite = !scope.location.is_favourite;
+      updateLocation();
+    };
+
+    function updateLocation() {
+      Location.update({}, {
+        id: $routeParams.id,
+        location: {
+          favourite: scope.location.is_favourite
+        }
+      }).$promise.then(function(results) {
+        var val = scope.location.is_favourite ? gettextCatalog.getString('added to') : gettextCatalog.getString('removed from');
+        showToast(gettextCatalog.getString('Location {{val}} favourites.', {val: val}));
+      }, function(err) {
+      });
+    }
+
+    function rangeCtrl($scope, startFull, endFull) {
+      $scope.startFull = startFull;
+      $scope.endFull = endFull;
+      $scope.page = 'show';
+      $scope.saveRange = function() {
+        if ($scope.startFull && $scope.endFull) {
+          // converting the moment picker time format - this could really do with some work:
+          var startTimestamp = Math.floor(moment($scope.startFull).utc().toDate().getTime() / 1000);
+          var endTimestamp = Math.floor(moment($scope.endFull).utc().toDate().getTime() / 1000);
+          if (startTimestamp > endTimestamp) {
+            showToast(gettextCatalog.getString('Selected range period not valid'));
+          } else if ((endTimestamp - startTimestamp) < 300 || (endTimestamp - startTimestamp) > 2592000) {
+            // check that the selected range period is between five minutes and thirty days
+            showToast(gettextCatalog.getString('Range period should be between five minutes and thirty days'));
+          } else {
+            scope.start = startTimestamp;
+            scope.end = endTimestamp;
+            scope.filtered = true;
+            scope.updatePage();
+            $mdDialog.cancel();
+          }
+        }
+      };
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+
+    scope.openMomentRange = function() {
+      if ($routeParams.start && $routeParams.end) {
+        scope.startFull = moment($routeParams.start * 1000).format('MM/DD/YYYY h:mm A');
+        scope.endFull = moment($routeParams.end * 1000).format('MM/DD/YYYY h:mm A');
+      }
+      $mdDialog.show({
+        templateUrl: 'components/locations/clients/_client_date_range.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose:true,
+        locals: {
+          startFull: scope.startFull,
+          endFull:   scope.endFull
+        },
+        controller: rangeCtrl
+      });
+    };
+
+    scope.updatePage = function() {
+      scope.loadingChart  = true;
+      var hash            = {};
+      hash.ap_mac         = scope.ap_mac;
+      hash.interval       = scope.interval;
+      hash.start          = scope.start;
+      hash.end            = scope.end;
+      $location.search(hash);
+      $timeout(function() {
+        scope.loadingChart = undefined;
+      },2000);
+    };
+
+    scope.clearRangeFilter = function() {
+      scope.start = undefined;
+      scope.end = undefined;
+      scope.updatePage();
+    };
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/reports/_wireless.html'
   };
 
 }]);
@@ -214,7 +453,245 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, locationHelper, $q, Shortener, $timeout, Box) {
+app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Client, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var params = {};
+
+    scope.startDate = moment().utc().subtract(6, 'days').startOf('day').toDate();
+    scope.endDate = moment().utc().toDate();
+
+    var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
+    var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
+
+    scope.audit_models = ['Radius Sessions', 'Clients', 'Emails', 'Guests', 'Social', 'Sales'];
+
+    var mailerType = {
+      'Radius Sessions': 'radius',
+      'Clients': 'client',
+      'Emails': 'email',
+      'Guests': 'guest',
+      'Social': 'social',
+      'Sales': 'order'
+    };
+
+    scope.selected = 'Radius Sessions' || $routeParams.type;
+
+    scope.query = {
+      page: $routeParams.page || 1,
+      limit: $routeParams.per || 25,
+      start: $routeParams.start || weekAgoEpoch,
+      end: $routeParams.end || nowEpoch
+    };
+
+    var getParams = function() {
+      params = {
+        location_id: scope.location.id,
+        page: scope.query.page,
+        per: scope.query.limit,
+        start: scope.query.start,
+        end: scope.query.end,
+        interval: 'day'
+      };
+    };
+
+    var clearTable = function() {
+      scope.results = [];
+      scope.links = undefined;
+      $location.search();
+      if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
+        showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
+      }
+    };
+
+    var findSessions = function() {
+      getParams();
+      params.client_mac = scope.query.client_mac;
+      Session.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Radius Sessions';
+        scope.results = data.sessions;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findEmails = function() {
+      getParams();
+      Email.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Emails';
+        scope.results = data.emails;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findClients = function() {
+      getParams();
+      Client.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Clients';
+        scope.results = data.clients;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findGuests = function() {
+      getParams();
+      Guest.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Guests';
+        scope.results = data.guests;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findSocial = function() {
+      getParams();
+      Social.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Social';
+        scope.results = data.social;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findOrders = function() {
+      getParams();
+      Order.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Sales';
+        scope.results = data.orders;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var downloadReport = function() {
+      var params = {
+        start: scope.query.start,
+        end: scope.query.end,
+        location_id: scope.location.id,
+        type: mailerType[scope.selected]
+      };
+      Report.create(params).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.updateAudit = function(selected) {
+      switch(selected) {
+        case 'Emails':
+          findEmails();
+          break;
+        case 'Clients':
+          findClients();
+          break;
+        case 'Guests':
+          findGuests();
+          break;
+        case 'Social':
+          findSocial();
+          break;
+        case 'Sales':
+          findOrders();
+          break;
+        default:
+          findSessions();
+          break;
+      }
+    };
+
+    scope.setStart = function() {
+      scope.query.start = new Date(scope.startDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.setEnd = function() {
+      scope.query.end = new Date(scope.endDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.filterSessionsByClient = function(mac) {
+      scope.query.client_mac = mac;
+      findSessions();
+    };
+
+    scope.clearClientFilter = function() {
+      scope.query.client_mac = undefined;
+      findSessions();
+    };
+
+    scope.onPaginate = function(page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.downloadAudit = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Download Report'))
+      .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
+      .ariaLabel(gettextCatalog.getString('Email Report'))
+      .ok(gettextCatalog.getString('Download'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        downloadReport();
+      });
+    };
+
+    var getLocation = function() {
+      var deferred = $q.defer();
+      Location.get({id: $routeParams.id}).$promise.then(function(results) {
+        scope.location = results;
+        deferred.resolve(results.results);
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var init = function() {
+      getLocation().then(function() {
+        getParams();
+        scope.updateAudit(scope.selected);
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/audit/_index.html'
+  };
+
+}]);
+
+app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http', '$location', '$cookies', '$localStorage', 'locationHelper', '$q','Shortener', '$timeout', 'Box', function (Location, $routeParams, $rootScope, $http, $location, $cookies, $localStorage, locationHelper, $q, Shortener, $timeout, Box) {
 
   var link = function(scope,element,attrs) {
 
@@ -222,6 +699,10 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
       scope.querySearch        = querySearch;
       scope.selectedItemChange = selectedItemChange;
       scope.searchTextChange   = searchTextChange;
+
+      if ($localStorage.user) {
+        scope.white_label = $localStorage.user.custom;
+      }
 
       if ($rootScope.loggedIn || (scope.$parent.loggedIn && scope.$parent.loggedOut === undefined)) {
         scope.loggedIn = true;
@@ -752,15 +1233,6 @@ app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialo
           user: user,
         }
       });
-      // var confirm = $mdDialog.confirm()
-      // .title(gettextCatalog.getString('Remove User'))
-      // .textContent(gettextCatalog.getString('Removing a user will prevent them from accessing this location.'))
-      // .ariaLabel(gettextCatalog.getString('Remove'))
-      // .ok(gettextCatalog.getString('remove'))
-      // .cancel(gettextCatalog.getString('Cancel'));
-      // $mdDialog.show(confirm).then(function() {
-      //   revokeAdmin(user);
-      // });
     };
 
     function RevokeController ($scope, user) {
@@ -908,7 +1380,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', 'MetricLambda', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, MetricLambda, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -934,21 +1406,9 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
 
       scope.menuItems.push({
-        name: gettextCatalog.getString('Run Payload'),
-        type: 'payload',
-        icon: 'present_to_all'
-      });
-
-      scope.menuItems.push({
         name: gettextCatalog.getString('Edit Zones'),
         type: 'zones',
         icon: 'layers'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Resync'),
-        type: 'resync',
-        icon: 'settings_backup_restore'
       });
 
       scope.menuItems.push({
@@ -1052,36 +1512,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         console.log('Could not reboot box:', errors);
         box.state = 'online';
         box.processing = undefined;
-      });
-    };
-
-    var resync = function(box,ev) {
-      var confirm = $mdDialog.confirm()
-        .title(gettextCatalog.getString('Resync The Configs for this Device?'))
-        .textContent(gettextCatalog.getString('This will disconnect your clients temporarily.'))
-        .ariaLabel(gettextCatalog.getString('Lucky day'))
-        .targetEvent(ev)
-        .ok(gettextCatalog.getString('Resync it'))
-        .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        resyncBox(box);
-      });
-    };
-
-    var resyncBox = function(box) {
-      box.state = 'processing';
-      Box.update({
-        location_id: scope.location.slug,
-        id: box.slug,
-        box: {
-          action: 'resync'
-        }
-      }).$promise.then(function(res) {
-        showToast(gettextCatalog.getString('Device resynced successfully.'));
-      }, function(errors) {
-        box.state = 'failed';
-        showToast(gettextCatalog.getString('Failed to resync device, please try again.'));
-        console.log('Could not resync device:', errors);
       });
     };
 
@@ -1368,19 +1798,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
     };
 
-    var assignClientCounts = function(data) {
-      scope.total_online = 0;
-      for (var i = 0, len = data.meta.length; i < len; i++) {
-        var metaObject = data.meta[i];
-        for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
-          if (scope.boxes[j].calledstationid === metaObject.ap_mac) {
-            scope.boxes[j].clients_online = metaObject.clients;
-            scope.total_online += metaObject.clients;
-          }
-        }
-      }
-    };
-
     var assignDeviceChannels = function(data) {
       for (var i = 0, len = data.meta.length; i < len; i++) {
         var metaObject = data.meta[i];
@@ -1390,27 +1807,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
           }
         }
       }
-    }
-
-    var boxMetadata = function() {
-      scope.box_macs = '';
-      for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
-          scope.box_macs += scope.boxes[i].calledstationid;
-          scope.box_macs += ',';
-        }
-      }
-      scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
-      Metric.clientstats({
-        type:         'devices.meta',
-        ap_mac:       scope.box_macs,
-        location_id:  scope.boxes[0].location_id
-      }).$promise.then(function(data) {
-        assignClientCounts(data);
-        assignDeviceChannels(data);
-      });
     };
-
 
     var channel;
     function loadPusher() {
@@ -1448,7 +1845,28 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
     };
 
+    var createCounts = function(results) {
+      scope.total_online = results._links.total_entries;
+      for (var i = 0, len = results.clients.length; i < len; i++) {
+        scope.box_counts[results.clients[i].ap_mac] += 1;
+      }
+    };
+
+    var getClientCount = function(i) {
+      MetricLambda.clientstats({
+        type:         'devices.meta',
+        ap_mac:       scope.boxes[i].calledstationid,
+        location_id:  scope.boxes[i].location_id
+      }).$promise.then(function(data) {
+        scope.boxes[i].clients_online = data.online;
+        scope.total_online = parseInt(scope.total_online) + parseInt(data.online);
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
     var init = function() {
+      scope.total_online = 0;
       scope.deferred = $q.defer();
       Box.query({
         location_id: scope.location.slug,
@@ -1457,9 +1875,11 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         metadata: true
       }).$promise.then(function(results) {
         scope.boxes           = results.boxes;
+        for (var i = 0, len = scope.boxes.length; i < len; i++) {
+          getClientCount(i);
+        }
         scope._links          = results._links;
         scope.loading         = undefined;
-        boxMetadata();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
@@ -1650,7 +2070,7 @@ app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 
 }]);
 
-app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
+app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function($timeout, $localStorage) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -1661,6 +2081,9 @@ app.directive('locationSettingsSecurity', ['$timeout', function($timeout) {
 
     scope.ctrl = {};
     scope.ctrl.levels = [1,2,3];
+    if ($localStorage.user) {
+      scope.white_label = $localStorage.user.custom;
+    }
 
     scope.back = function() {
       controller.back();
@@ -2043,43 +2466,6 @@ app.directive('appStatus', ['statusPage', 'gettextCatalog', function(statusPage,
 
 }]);
 
-app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Shortener,$location) {
-
-  var link = function(scope) {
-
-    scope.loading = true;
-
-    var init = function() {
-      Event.query({object: 'box', level: 2, per: 5}).$promise.then(function(results) {
-        scope.events = results.events;
-        scope.loading = undefined;
-      }, function(error) {
-        scope.loading = undefined;
-      });
-    };
-
-    scope.visitBox = function(s) {
-      Shortener.get({short: s}).$promise.then(function(results) {
-        $location.path(results.url);
-        $location.search({});
-      }, function() {
-        $location.search({});
-      });
-    };
-
-    init();
-
-  };
-
-  return {
-    scope: {
-    },
-    link: link,
-    templateUrl: 'components/locations/show/_warnings.html',
-  };
-
-}]);
-
 app.directive('favourites', ['Location', '$location', function(Location, $location) {
 
   var link = function(scope) {
@@ -2239,94 +2625,6 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
 }]);
 
-app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', 'pagination_labels', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog, pagination_labels) {
-
-  var link = function(scope) {
-
-    scope.loading = true;
-    scope.state = 'offline';
-    menu.isOpen = false;
-    menu.hideBurger = true;
-
-    scope.options = {
-      boundaryLinks: false,
-      largeEditDialog: false,
-      pageSelector: false,
-      rowSelection: false
-    };
-
-    scope.pagination_labels = pagination_labels;
-    scope.query = {
-      order:      'updated_at',
-      filter:     $routeParams.q,
-      limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
-      options:    [5,10,25,50,100],
-      direction:  $routeParams.direction || 'desc'
-    };
-
-    scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      scope.blur();
-    };
-
-    // User permissions //
-    scope.allowed = true;
-
-    var init = function() {
-
-      Box.query({
-        state: scope.state,
-        q: scope.query.filter,
-        page: scope.query.page,
-        per: scope.query.limit,
-      }).$promise.then(function(results) {
-        scope.boxes           = results.boxes;
-        scope._links          = results._links;
-        scope.loading         = undefined;
-      }, function(err) {
-        scope.loading = undefined;
-      });
-    };
-
-    scope.ignore = function(box) {
-      box.ignored = !box.ignored;
-      Box.update({
-        location_id: box.location_slug,
-        id: box.slug,
-        box: {
-          ignored: box.ignored
-        }
-      }).$promise.then(function(res) {
-        var val = box.ignored ? gettextCatalog.getString('muted') : gettextCatalog.getString('unmuted');
-        showToast(gettextCatalog.getString('Box successfully {{val}}.', {val: val}));
-      }, function(errors) {
-      });
-    };
-
-    scope.blur = function() {
-      var hash = {};
-      hash.page = scope.query.page;
-      hash.per = scope.query.limit;
-      hash.q = scope.query.filter;
-      $location.search(hash);
-    };
-
-    init();
-
-  };
-
-  return {
-    scope: {
-      // loading: '='
-    },
-    link: link,
-    templateUrl: 'components/locations/index/_alerts.html'
-  };
-
-}]);
-
 app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
   var link = function(scope) {
@@ -2374,7 +2672,7 @@ app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
 }]);
 
-app.directive('homeStatCards', ['Report', function (Report) {
+app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
   var link = function(scope,element,attrs) {
 

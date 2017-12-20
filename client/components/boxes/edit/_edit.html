@@ -83,13 +83,13 @@
           <div hide-xs flex-gt-xs="10"></div>
           <div flex-gt-xs="40" layout="column">
 
-            <md-checkbox ng-model="box.tony" aria-label="{{ 'Cucumber box' | translate }}">
+            <md-checkbox ng-model="box.tony" aria-label="{{ 'CT box' | translate }}" ng-if="!white_label">
               <translate>
-                Cucumber Box
+                CT Box
               </translate>
             </md-checkbox>
 
-            <small translate>Don't disable this unless you're using a splash-only device.</small>
+            <small translate ng-if="!white_label">Don't disable this unless you're using a splash-only device.</small>
 
             <md-switch title="is_monitored" ng-model="box.is_monitored" aria-label=" ">
               <span translate>Alerts {{ box.is_monitored | humanBoolean }}</span>
@@ -97,11 +97,11 @@
 
             <small translate>Disabling alerts will prevent further alerts from this device.</small>
 
-            <md-switch title="ct_modify" ng-model="box.ct_modify" aria-label=" ">
-              <span translate>Cucumber Write Access {{ box.ct_modify | humanBoolean }}</span>
+            <md-switch title="ct_modify" ng-model="box.ct_modify" aria-label=" " ng-if="!white_label">
+              <span translate>CT Write Access {{ box.ct_modify | humanBoolean }}</span>
             </md-switch>
 
-            <small translate>Enabling write access allows Cucumber staff to modify this device. This is overwritten by location write access changes.</small>
+            <small translate ng-if="!white_label">Enabling write access allows CT staff to modify this device. This is overwritten by location write access changes.</small>
 
           </div>
         </div>
@@ -227,51 +227,6 @@
           </div>
         </div>
 
-      </div>
-    </md-card-content>
-  </md-card>
-
-  <md-card>
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline" translate>Logging</span>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content layout-gt-xs="row" layout-wrap>
-      <div flex-gt-xs="50">
-        <div layout="row">
-          <md-input-container class="md-block" flex="80">
-            <label>
-              <translate>Syslog Host</translate>
-            </label>
-            <input ng-model="box.rsyslog_host" name="rsyslog_host" placeholder="{{ 'Remote host address' | translate }}">
-          </md-input-container>
-        </div>
-        <div layout="row" ng-if="box.rsyslog_host">
-          <md-input-container class="md-block" flex-gt-xs="40">
-            <label>
-              <translate>Syslog Port</translate>
-            </label>
-            <input ng-model="box.rsyslog_port" name="rsyslog_port" placeholder="{{ 'Remote Port' | translate }}" type="number"  min="1" max="65535" ng-required="box.rsyslog_host">
-            <div ng-messages="myForm.rsyslog_port.$error">
-              <div ng-message="required" translate>This is required</div>
-              <div ng-message="min" translate>Must be greated than 1</div>
-              <div ng-message="max" translate>Must be less than 65535</div>
-            </div>
-          </md-input-container>
-          <md-input-container class="md-block" flex-gt-xs="40">
-            <label translate>Protocol</label>
-            <md-select ng-model="box.rsyslog_protocol" ng-required="box.rsyslog_host">
-              <md-option value="udp">UDP</md-option>
-              <md-option value="tcp">TCP</md-option>
-            </md-select>
-          </md-input-container>
-        </div>
-        <md-checkbox ng-model="box.debug" aria-label="{{ 'Cucumber Debug' | translate }}">
-          <translate>
-            Enable Debug Mode
-          </translate>
-        </md-checkbox>
       </div>
     </md-card-content>
   </md-card>

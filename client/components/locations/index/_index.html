@@ -60,15 +60,11 @@
         <favourites></favourites>
       </div>
       <div flex-sm="50" flex-md="66" flex-gt-md="66">
-        <periscope></periscope>
         <div layout="column" layout-xs="column" layout-sm='column' iilayout-wrap layout-gt-sm='row'>
-          <!-- <div flex-sm="50" flex-md="50" flex-gt-md="33"> -->
-          <!--   <warnings></warnings> -->
-          <!-- </div> -->
           <div flex-md="50" flex-gt-md="33">
             <dash-inventory></dash-inventory>
           </div>
-          <div flex-md="50" flex-gt-md="33">
+          <div flex-md="50" flex-gt-md="33" ng-if="!white_label">
             <app-status></app-status>
           </div>
         </div>

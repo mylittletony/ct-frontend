@@ -118,23 +118,29 @@
                 </div>
               </md-input-container>
 
-              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label translate>Locale</label>
-                <md-select ng-model="user.locale">
-                  <md-option ng-repeat="locale in locales" value="{{locale.value}}">
-                    {{locale.key}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
+              <!-- <md-input-container class="md-block" flex="100" flex-gt-sm="50"> -->
+              <!--   <label translate>Locale</label> -->
+              <!--   <md-select ng-model="user.locale"> -->
+              <!--     <md-option ng-repeat="locale in locales" value="{{locale.value}}"> -->
+              <!--       {{locale.key}} -->
+              <!--     </md-option> -->
+              <!--   </md-select> -->
+              <!-- </md-input-container> -->
 
             </div>
           </md-card-content>
           <user-password ng-if="user.allowed"></user-password>
         </md-card>
 
-        <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
-          <translate>Save</translate>
-        </md-button>
+        <div flex layout="row">
+          <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
+            <translate>Save</translate>
+          </md-button>
+          <div flex></div>
+          <md-button class="md-raised md-warn" ng-click="deleteAccount()">
+            <translate>Delete account</translate>
+          </md-button>
+        </div>
 
       </div>
 

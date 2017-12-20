@@ -25,16 +25,15 @@
           </md-card-content>
         </div>
         <div ng-hide="cookies">
-
-          <md-card-title>
+          <md-card-title ng-if="!brand || (brand.reseller && brand.sign_ups_enabled)">
             <md-card-title-text>
               <span class="md-headline" translate>
-                Sign-up for {{ ::brand_name }}.
+                Sign-up for <span ng-if="!brand">{{ ::brand_name }}</span><span ng-if="brand">{{ brand.brand_name }}</span>.
               </span>
               <span class="md-subhead" translate>Getting started only takes a moment.</span>
             </md-card-title-text>
           </md-card-title>
-          <md-card-content>
+          <md-card-content ng-if="!brand || (brand.reseller && brand.sign_ups_enabled)">
             <div layout="column">
               <md-input-container class="md-block">
                 <label>
@@ -45,6 +44,17 @@
             </div>
             <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="signup-email md-raised"><translate>Create</translate></md-button>
             <p><b>We promise not to send you spam.</b></p>
+          </md-card-content>
+
+          <md-card-title ng-if="brand && brand.reseller && !brand.sign_ups_enabled">
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Unable to sign up for <span ng-if="!brand">{{ ::brand_name }}</span><span ng-if="brand">{{ brand.brand_name }}</span>.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content ng-if="brand && brand.reseller && !brand.sign_ups_enabled">
+            <p><small>Customer sign-ups are currently disabled. Please get in touch with {{ brand.brand_name }} if you have any questions.</small></p>
           </md-card-content>
         </div>
       </md-card>

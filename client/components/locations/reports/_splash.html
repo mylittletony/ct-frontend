@@ -1,0 +1,68 @@
+<analytics ng-if="!loading">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <div flex>
+        <md-button  href="/#/locations/{{location.slug}}" style='font-size: 14px'>
+          Overview
+        </md-button>
+        <!-- <md-button href="/#/locations/{{location.slug}}/wireless_reports" style='font-size: 14px'>
+          Wireless
+        </md-button> -->
+        <md-button href="/#/locations/{{location.slug}}/splash_reports" ng-disabled=true style='font-size: 14px; color: rgba(0, 0, 0, 0.26); background-color: transparent;'>
+          Splash
+        </md-button>
+      </div>
+      <md-button class="md-icon-button md-primary" aria-label="Filter" ng-click="clearRangeFilter()" ng-show='dateFiltered'>
+        <md-icon>clear</md-icon>
+        <md-tooltip>
+          <translate>
+          Clear range filter
+          </translate>
+        </md-tooltip>
+      </md-button>
+      <md-button ng-click="openMomentRange()" class="md-icon-button" hide show-gt-xs>
+       <md-icon md-font-icon="date_range">date_range</md-icon>
+       <md-tooltip>
+         <translate>
+           Add date range filter
+         </translate>
+       </md-tooltip>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
+        <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
+        <md-tooltip md-direction="bottom">
+          <translate>
+            Add location to favourites.
+          </translate>
+        </md-tooltip>
+      </md-button>
+    </div>
+    <md-divider></md-divider>
+  </md-toolbar>
+
+  <client-chart>
+    <radius-stats render="emails"></radius-stats>
+
+    <div layout="" layout-wrap class="md-padding">
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <dash-clients-chart name="Unique Users" type="radius.users" render="total-users" show-gt-sm></dash-clients-chart>
+      </div>
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <dash-clients-chart name="New Users" type="radius.new" render="new-users" show-gt-sm></dash-clients-chart>
+      </div>
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <dash-clients-chart name="Sessions" type="radius.sessions" render="radius-sessions" show-gt-sm></dash-clients-chart>
+      </div>
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <dash-clients-chart name="Splash Views" type="splash.views" render="splash-views" show-gt-sm></dash-clients-chart>
+      </div>
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <dash-clients-chart name="Popular Hours" type="radius.popular" popular="true" render="popular-hours" bar="true" show-gt-sm></dash-clients-chart>
+      </div>
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+        <dash-clients-chart name="Emails" type="emails.new" bar="true" render="new-emails" show-gt-sm></dash-clients-chart>
+      </div>
+    </div>
+  </client-chart>
+
+</analytics>

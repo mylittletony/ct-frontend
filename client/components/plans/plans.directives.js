@@ -129,7 +129,9 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
                 }
               }
             } else {
-              plan.upgrading = false;
+              if (plan) {
+                plan.upgrading = false;
+              }
               scope.user.subscribing = undefined;
               showErrors({data: data.message.message});
               console.log(data);

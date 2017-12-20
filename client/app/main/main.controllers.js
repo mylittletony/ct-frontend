@@ -4,7 +4,6 @@ var app = angular.module('myApp.controllers', [
   'myApp.authentications.controller',
   'myApp.brands.controller',
   'myApp.boxes.controller',
-  'myApp.events.controller',
   'myApp.heartbeats.controller',
   'myApp.jobs.controller',
   'myApp.invoices.controller',
@@ -68,23 +67,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     vm.menu.main = [];
-    vm.menu.reports = [];
+    // vm.menu.reports = [];
     vm.settingsMenu = [];
     vm.menuRight = [];
-
-    // vm.menu.reports.push({
-    //   title: gettextCatalog.getString('Reports'),
-    //   type: 'link',
-    //   link: '/#/reports',
-    //   icon: 'timeline'
-    // });
-
-    vm.menu.reports.push({
-      title: gettextCatalog.getString('Audit'),
-      type: 'link',
-      link: '/#/audit',
-      icon: 'assignment'
-    });
 
     vm.status = {
       isFirstOpen: true,
@@ -106,24 +91,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
-      name: gettextCatalog.getString('Events'),
-      link: '/#/events',
-      type: 'link',
-      icon: 'warning'
-    });
-
-    vm.menuRight.push({
       name: gettextCatalog.getString('Reports'),
       link: '/#/reports',
       type: 'link',
       icon: 'timeline'
-    });
-
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Audit'),
-      link: '/#/audit',
-      type: 'link',
-      icon: 'assignment'
     });
 
     vm.menuRight.push({
@@ -138,21 +109,29 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     // Permissions //
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Documentation'),
-      link: 'http://docs.cucumberwifi.io',
-      type: 'link',
-      target: '_blank',
-      icon: 'account_balance'
-    });
+    if ($localStorage.user && !$localStorage.user.custom) {
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Documentation'),
+        link: 'http://docs.cucumberwifi.io',
+        type: 'link',
+        target: '_blank',
+        icon: 'account_balance'
+      });
 
-    vm.menuRight.push({
-      name: gettextCatalog.getString('Discussions'),
-      link: 'https://discuss.cucumberwifi.io',
-      target: '_blank',
-      type: 'link',
-      icon: 'forum'
-    });
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Discussions'),
+        link: 'https://discuss.cucumberwifi.io',
+        target: '_blank',
+        type: 'link',
+        icon: 'forum'
+      });
+
+      vm.menuRight.push({
+        name: gettextCatalog.getString('Support'),
+        icon: 'get_app',
+        id: 'intercom'
+      });
+    }
 
     vm.menuRight.push({
       name: gettextCatalog.getString('Support'),
@@ -252,22 +231,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     $scope.$on('login', function(args,event) {
       console.log('Logging in...');
-      var cname = event.data.cname;
-      if ((cname === null || cname === '') && event.data.url !== 'default') {
-        var sub   = locationHelper.subdomain();
-        var host  = locationHelper.domain();
-        // put back when on public //
-        // if (event.data.url && (sub !== event.data.url)) {
-        //   var newUrl = locationHelper.reconstructed(event.data.url);
-        //   var reconstructed = newUrl + '/#/switch?return_to=' + event.path;
-        //   $cookies.put('event', JSON.stringify(event), {'domain': host});
-        //   window.location = reconstructed;
-        // } else {
-          doLogin(event);
-        // }
-      } else {
-        doLogin(event);
-      }
+      doLogin(event);
     });
 
     function doLogin(event) {
@@ -292,16 +256,17 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         }
         $cookies.remove('_ctp');
         $scope.ct_login = undefined;
-        Translate.load();
+        // Translate.load();
       });
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
+      if (Auth.currentUser() && Auth.currentUser().user_hash !== undefined) {
         vm.menu.Intercom = true;
-        var settings = {
+        window.intercomSettings = {
             app_id: INTERCOM,
             user_id: Auth.currentUser().accountId,
+            reseller: Auth.currentUser().reseller,
             email: Auth.currentUser().email,
             name: Auth.currentUser().username,
             created_at: Auth.currentUser().created_at,
@@ -312,12 +277,19 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
             plan_name: Auth.currentUser().plan_name,
             paid_plan: Auth.currentUser().paid_plan,
             locs: Auth.currentUser().locs,
-            version: '2'
+            version: '2',
+            hide_default_launcher: !Auth.currentUser().chat_enabled || false
         };
-        settings.widget = {
-          activator: '#intercom'
-        };
-        window.Intercom('boot', settings);
+      }
+
+      // check for customers from reseller brands who aren't resellers
+      if ($scope.brandName && $scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
+        // check if there is a special brand intercom id, otherwise just hide it
+        if ($scope.brandName.intercom_id) {
+          window.intercomSettings.app_id = $scope.brandName.intercom_id;
+        } else {
+          window.intercomSettings.hide_default_launcher = true;
+        }
       }
     });
 
@@ -343,14 +315,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           icon: 'business'
         });
 
-        vm.menu.main.push({
-          title: gettextCatalog.getString('Events'),
-          type: 'link',
-          link: '/#/events',
-          icon: 'warning'
-        });
-
-        if (Auth.currentUser() && Auth.currentUser().guest === false) {
+        if ($localStorage.user && ($localStorage.user.custom !== true || $localStorage.user.reseller === true)) {
           vm.menu.main.push({
             title: gettextCatalog.getString('Brands'),
             type: 'link',
@@ -389,12 +354,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           vm.menuRight.push({
             type: 'divider',
           });
-
-          if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
-            promos();
-          } else if (Auth.currentUser().paid_plan !== true) {
-            vm.upgrade = true;
-          }
         }
 
         vm.menuRight.push({
@@ -408,13 +367,24 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           type: 'divider',
         });
       }
+
+      if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
+        promos();
+      } else if (Auth.currentUser().paid_plan !== true) {
+        vm.upgrade = true;
+      }
     }
 
     var setDefaultImages = function(sub) {
-      $scope.brandName.name = 'Cucumber';
+      if ($localStorage.brandName) {
+        $scope.brandName = $localStorage.brandName;
+      } else {
+        $scope.brandName.name = 'CT';
+      }
     };
 
     function getBrand(sub, cname) {
+      var deferred = $q.defer();
       if (Auth.currentUser() && Auth.currentUser().url !== null) {
         sub = Auth.currentUser().url;
       }
@@ -425,21 +395,28 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         type: 'showcase'
       }).$promise.then(function(results) {
         // Decide to switch the brand here
-        // Can we turn Cucumber into a variable so we don't just set
+        // Can we turn CT into a variable so we don't just set
         // Maybe use the config files - Simon TBD //
 
         var t = $cookies.get('_ctt');
         // if (t !== results.theme_primary) {
         $cookies.put('_ctt', results.theme_primary + '.' + results.theme_accent);
         // }
-        $scope.brandName.name  = results.brand_name || 'Cucumber';
+        $scope.brandName.name  = results.brand_name || 'CT';
         // Maybe use the config files - Simon TBD //
         $scope.brandName.admin = results.admin;
         $scope.brandName.url   = results.url;
         $scope.brandName.id    = results.id;
+        $scope.brandName.intercom_id = results.intercom_id;
+        $scope.brandName.logo_url = results.logo_url;
+        $scope.brandName.reseller = results.reseller;
+        $localStorage.brandName = $scope.brandName;
+        deferred.resolve();
       }, function() {
+        deferred.reject();
         setDefaultImages(sub);
       });
+      return deferred.promise;
     }
 
     var removeCtCookie = function() {
@@ -451,18 +428,29 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       var host  = locationHelper.domain();
       var parts = $location.host().split('.');
       var cname;
-      if (host !== 'ctapp.io' && host !== 'ctapp.dev') {
+      if (host !== 'ctapp.io' && host !== 'ctapp.test') {
         getBrand(host, true);
       }
       else if (parts.length === 3) {
         sub = parts[0];
-        if (sub !== 'my' && sub !== 'dashboard' ) {
-          getBrand(sub);
+        if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg') {
+          if (sub !== 'my') {
+            getBrand(sub).then(function() {
+              if ($scope.brandName.reseller === true) {
+                window.location.hostname = $scope.brandName.url + '.' + host;
+              } else {
+                window.location.hostname = 'dashboard.' + host;
+              }
+            });
+          } else {
+            window.location.hostname = 'dashboard.' + host;
+          }
           return;
         }
         setDefaultImages();
       } else {
-        console.log('Domain error occured');
+        window.location.hostname = 'dashboard.' + host;
+        return;
       }
     }
 
@@ -472,9 +460,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           $scope.user = Auth.currentUser();
           $scope.loggedIn = true;
           menuPush();
-          if ($scope.user.promo !== '') {
-            console.log('Getting promo...');
-          }
         });
       });
     }
@@ -497,7 +482,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
       getSubdomain();
 
-      Translate.load();
+      // Translate.load();
     }
 
     var setLoggedIn = function(isLoggedIn) {

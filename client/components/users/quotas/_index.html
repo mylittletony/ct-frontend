@@ -33,7 +33,7 @@
                 <tr md-row>
                   <td md-cell><span translate>Boxes</span></td>
                   <td md-cell>{{ usage.boxes || 0 }}</td>
-                  <td md-cell>{{ quota.boxes || 0 }}</td>
+                  <td md-cell>{{ quota.boxes || 0 }}<md-button ng-if="user.reseller" ng-click='editBoxQuota()' style="min-width: 36px"><md-icon style="font-size: 18px">edit</md-icon></md-button></td>
                 </tr>
                 <tr md-row>
                   <td md-cell><span translate>Vouchers</spans></td>
@@ -44,6 +44,11 @@
                   <td md-cell><span translate>Splash Views</span></td>
                   <td md-cell>{{ usage.splash_views || 0 }}</td>
                   <td md-cell>{{ quota.splash_views || 0 }}</td>
+                </tr>
+                <tr md-row>
+                  <td md-cell><span translate>Extra Splash Views</span></td>
+                  <td md-cell>{{ usage.extra_splash_views || 0 }}</td>
+                  <td md-cell>{{ quota.extra_splash_views || 0 }}</td>
                 </tr>
                 <tr md-row>
                   <td md-cell><span translate>Zones per location</span></td>

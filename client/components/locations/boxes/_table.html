@@ -1,6 +1,12 @@
 <loader></loader>
 <div ng-hide="loading">
   <md-card>
+    <md-card-content>
+      <b>SPLASH REPORTS UNDER MAINTENANCE</b><br><br>
+      You won't be able to access your location splash reports for a little while, as we're making a couple of changes. They'll be back soon!
+    </md-card-content>
+  </md-card>
+  <md-card>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
         <p>
@@ -19,12 +25,6 @@
               <md-button ng-click="showZonesDialog()">
                 <md-icon>layers</md-icon>
                 <p flex translate>Edit Zones</p>
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button ng-click="showPayloadDialog($event)">
-                <md-icon>present_to_all</md-icon>
-                <p flex translate>Run Payload</p>
               </md-button>
             </md-menu-item>
             <md-menu-item>
@@ -123,7 +123,7 @@
                 </md-tooltip>
               </td>
               <td hide show-gt-md md-cell client-chart class="heartbeat-table">
-                <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}'></div>
+                <div heartbeat-chart target="heartbeats-{{$index}}" mac="{{box.mac}}" id='heartbeats-{{$index}}' ng-if="box.v == '4'"></div>
               </td>
               <td hide show-gt-sm md-cell>
                 {{ box.v }}

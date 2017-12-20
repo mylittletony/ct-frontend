@@ -1,8 +1,8 @@
-# Welcome To Cucumber
+# Welcome To CT
 
-Cucumber Tony is an orchestration tool for WiFi Devices. It's like mission control for your networks - a single-pane of glass to manage all your devices. (That whole sentence is trademarked btw).
+CT is an orchestration tool for WiFi Devices. It's like mission control for your networks - a single-pane of glass to manage all your devices. (That whole sentence is trademarked btw).
 
-The core of the service is the Cucumber RESTFul API. This portal is currently our beta portal - soon to be production. It communicates with the API to provide a 'nice' interface for controlling your devices.
+The core of the service is the CT RESTFul API. This portal is currently our beta portal - soon to be production. It communicates with the API to provide a 'nice' interface for controlling your devices.
 
 It's proof that anything is possible. Just use your imagination.
 
@@ -12,7 +12,7 @@ It's proof that anything is possible. Just use your imagination.
 
 ## Getting Started
 
-This is a demo portal which acts as an interface to the Cucumber API. It's not production ready and many tests were temporarily removed.
+This is a demo portal which acts as an interface to the CT API. It's not production ready and many tests were temporarily removed.
 
 There's two ways to run the application:
 
@@ -138,7 +138,7 @@ There's now contributing guide available which guides you through how we roll.
 
 MIT License
 
-Copyright (c) 2016 Cucumber Tony Limited
+Copyright (c) 2016 CT Limited
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

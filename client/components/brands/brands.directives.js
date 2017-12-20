@@ -66,7 +66,7 @@ app.directive('newBrand', ['Brand', 'BrandName', '$routeParams', '$location', '$
 
     scope.locations = ['eu-west', 'us-central', 'us-west', 'asia-east'];
     scope.locales = [
-      { key: 'Deutsch', value: 'de-DE' },
+      // { key: 'Deutsch', value: 'de-DE' },
       { key: 'English', value: 'en-GB' }
     ];
 
@@ -115,6 +115,7 @@ app.directive('brand', ['Brand', '$routeParams', '$location', '$rootScope', 'Aut
       Brand.get({id: $routeParams.brand_id}).$promise.then(function(results) {
         scope.brand = results;
         menu.header = results.brand_name;
+        scope.user = Auth.currentUser();
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
