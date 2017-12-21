@@ -788,7 +788,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.usage',
+        metric_type:  'devices.tx,devices.rx',
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
@@ -811,7 +811,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var opts = controller.options;
       opts.explorer = undefined;
-      opts.pieHole = 0.8
+      opts.pieHole = 0.8;
       opts.legend = { position: attrs.legend || 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
@@ -1384,7 +1384,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       '</md-card-actions>'+
       '</md-card-content>'+
       '</md-card>' +
-      '</div>'
+      '</div>';
       return a;
     };
 
@@ -1406,7 +1406,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
       var params = {
         type: scope.type,
-        period: '30d' // can be removed soon when loyalty dynamic
+        // sort me
+        period: '7d' // can be removed soon when loyalty dynamic
       };
 
       controller.getStats(params).then(function(res) {
@@ -1528,18 +1529,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               },
               format: format
             };
-
-            // opts.hAxis = {
-            //   lineWidth: 4,
-            //   gridlines: {
-            //     color: '#f3f3f3',
-            //   },
-            //   minorGridlines: {
-            //     color: '#f3f3f3',
-            //   },
-            //   format: format
-            // };
-
 
             for(x = 0; x < resp.data.length; x++) {
               data.addColumn('number', resp.data[x].alias);

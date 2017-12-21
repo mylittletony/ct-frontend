@@ -80,6 +80,9 @@
         <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
           <caps-chart ></caps-chart>
         </div>
+        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+          <dash-clients-chart name="Inbound Data" type="device.usage"></dash-clients-chart>
+        </div>
         <!-- <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
         <!--   <dash-usage-chart ></dash-usage-chart> -->
         <!-- </div> -->
