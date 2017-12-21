@@ -397,7 +397,7 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
           rate:         params.rate,
         };
 
-        // Sort
+        // Sort me
         var t = opts.type;
         if (t === 'devices.meta' ||
             t === 'devices.tx,devices.rx' ||
