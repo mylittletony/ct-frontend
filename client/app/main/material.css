@@ -326,6 +326,7 @@ md-sidenav.site-sidenav {
   width: 60px;
   min-width: 60px;
   max-width: 60px;
+  z-index: 100;
 }
 
 md-sidenav.site-sidenav .md-button {
@@ -872,6 +873,12 @@ location-boxes table {
 .sidenav .mimo-logo img {
   width: 40px;
   margin-top: 5px;
+}
+
+@media (min-width: 960px) {
+  #locationSidebar {
+    margin-left: 60px;
+  }
 }
 
 /*top nav styles*/

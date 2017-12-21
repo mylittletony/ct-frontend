@@ -91,11 +91,9 @@
       </ul>
     </md-content>
     <div hide show-gt-sm layout="row" layout-align="start end" class="sidenav-bottom">
-      <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
+      <md-button ng-click="toggleLocations()" class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
         <md-tooltip md-direction="right">Locations</md-tooltip>
-        <a href="/#/locations">
           <md-icon>place</md-icon>
-        </a>
       </md-button>
     </div>
     <div hide show-gt-sm layout="row" layout-align="start end" class="sidenav-bottom">
@@ -127,6 +125,27 @@
     </div>
   </md-sidenav>
 
+  <md-sidenav id="locationSidebar" class="md-sidenav-left" md-component-id="locations" md-whiteframe="4">
+    <md-menu-content layout-padding layout="column">
+      <div layout="row">
+          <md-input-container flex="100">
+            <md-icon md-font-icon="search">search</md-icon>
+            <label></label>
+            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{'Search Locations' | translate}}">
+          </md-input-container>
+      </div>
+      <div layout="row">
+        <h1>SOME BLOODY LOCATIONS</h2>
+      </div>
+      <div layout="row" layout-align="end end">
+        <md-button ng-click="" class="md-icon-button md-raised">
+          <md-icon>add</md-icon>
+        </md-button>
+      </div>
+    </md-menu-content>
+  </md-sidenav>
+
+
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
     <md-toolbar hide-gt-sm ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
       <div class="md-toolbar-tools">
@@ -143,11 +162,9 @@
           </span>
 
         </span>
-        <md-button class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
-          <md-tooltip md-direction="right">Locations</md-tooltip>
-          <a href="/#/locations">
+        <md-button ng-click="toggleLocations()" class="md-icon-button" aria-label="'Support' | translate" ng-if="user && !user.custom">
+          <md-tooltip md-direction="bottom">Locations</md-tooltip>
             <md-icon>place</md-icon>
-          </a>
         </md-button>
         <md-menu md-position-mode="target-right target" md-offset="40 0">
           <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
