@@ -104,8 +104,8 @@
           <user-avatar></user-avatar>
         </md-button>
         <md-menu-content width="3">
-          <md-menu-item>
-            <md-button ng-href="/#/locations/{{ location.slug }}/settings" ng-click="$mdMenu.hide()">
+          <md-menu-item ng-if="location_slug">
+            <md-button ng-href="/#/locations/{{ location_slug }}/settings" ng-click="$mdMenu.hide()">
               <md-icon md-menu-align-target style="margin: auto 3px auto 0;">settings</md-icon>
               <span translate>Settings</span>
             </md-button>
@@ -154,8 +154,8 @@
             <user-avatar></user-avatar>
           </md-button>
           <md-menu-content width="3">
-            <md-menu-item>
-              <md-button ng-href="/#/locations/{{ $scope.location.slug }}/settings" ng-click="$mdMenu.hide()">
+            <md-menu-item ng-if="location_slug">
+              <md-button ng-href="/#/locations/{{ location_slug }}/settings" ng-click="$mdMenu.hide()">
                 <md-icon md-menu-align-target style="margin: auto 3px auto 0;">settings</md-icon>
                 <span translate>Settings</span>
               </md-button>

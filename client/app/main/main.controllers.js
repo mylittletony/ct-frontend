@@ -394,6 +394,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       var sub   = locationHelper.subdomain();
       var host  = locationHelper.domain();
       var parts = $location.host().split('.');
+      $scope.location_slug = $location.path().split('/')[2]
       var cname;
       if (host !== 'ctapp.io' && host !== 'ctapp.dev') {
         getBrand(host, true);
