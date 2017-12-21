@@ -78,10 +78,10 @@
           <dash-clients-chart name="Unique Users" render="eggs" type="clients.uniques"></dash-clients-chart>
         </div>
         <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-          <caps-chart ></caps-chart>
+          <caps-chart name="Capabilities" render="clients-caps"></caps-chart>
         </div>
         <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-          <dash-clients-chart name="Inbound Data" render="inbound" type="device.usage"></dash-clients-chart>
+          <caps-chart name="Signal Quality" render="clients-health" type="clients.health"></caps-chart>
         </div>
         <!-- <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
         <!--   <dash-usage-chart ></dash-usage-chart> -->

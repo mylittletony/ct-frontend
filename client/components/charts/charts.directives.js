@@ -875,11 +875,12 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
 }]);
 
-app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
+app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$compile', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, $compile, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
     scope.loading = true;
+    scope.period = $routeParams.period || '7d';
     var c, timer, data, formatted;
     var colours = ['#16ac5b', '#225566'];
 
@@ -887,12 +888,40 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       drawChart();
     });
 
+    var letemplate = function(render) {
+      var a = '<div style=""><md-card>'+
+      '<md-card-header class="graph-small">'+
+      '<md-card-header-text>'+
+      '<span class="md-subhead" translate>'+attrs.name+'</span>'+
+      '</md-card-header-text>'+
+      '</md-card-header>'+
+      '<md-card-content>'+
+      '<div id="'+ render +'" class="small-chart"></div>'+
+      '<md-card-actions layout="row" layout-align="end center">'+
+      '<small>'+
+      '<span ng-if="noData && !loading" translate>No graph data</span>'+
+      '<span ng-if="loading" translate>Loading chart</span>'+
+      '</small>'+
+      '</md-card-actions>'+
+      '</md-card-content>'+
+      '</md-card>' +
+      '</div>';
+      return a;
+    };
+
+    var compileTemplate = function(render) {
+      var template;
+      template = $compile(letemplate(render))(scope);
+      element.html(template);
+      scope.loading = undefined;
+    };
+
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'clients.caps',
+        metric_type:  attrs.type || 'clients.caps',
         resource:     scope.resource,
-        period:       '7d' // can be removed soon when loyalty dynamic
+        period:       scope.period // can be removed soon when loyalty dynamic
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
@@ -928,19 +957,27 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
         data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
         data.addColumn('number', gettextCatalog.getString('5Ghz'));
 
-        var two = 0;
-        var five = 0;
+        var a = 0;
+        var b = 0;
         for (var i in js) {
-          two =  (two + js[i].value.two);
-          five = (five + js[i].value.five);
+          a =  (a + js[i].value[0]);
+          b = (b + js[i].value[1]);
         }
 
-        if (two === 0 && five === 0) {
-          two = 1;
+        if (a === 0 && b === 0) {
+          a = 1;
         }
 
-        data.addRow(['2.4Ghz', two]);
-        data.addRow(['5Ghz', five]);
+        var nameA, nameB;
+        if (scope.type === 'clients.caps') {
+          nameA = '2.4Ghz';
+          nameB = '5Ghz';
+        } else {
+          nameA = 'Good';
+          nameB = 'Bad';
+        }
+        data.addRow([nameA, a]);
+        data.addRow([nameB, b]);
       }
 
       var formatter = new window.google.visualization.NumberFormat(
@@ -949,18 +986,20 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
 
       formatter.format(data, 1);
 
-      c = new window.google.visualization.PieChart(document.getElementById('caps-chart'));
+      c = new window.google.visualization.PieChart(document.getElementById(attrs.render));
       c.draw(data, opts);
 
       scope.noData = undefined;
       scope.loading = undefined;
     }
 
-    window.google.charts.setOnLoadCallback(chart);
+    // window.google.charts.setOnLoadCallback(chart);
+
+    compileTemplate(attrs.render);
 
     timer = setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
-    }, 500);
+    }, 1000);
     $timeout.cancel(timer);
   };
 
@@ -969,10 +1008,12 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
     scope: {
       mac: '@',
       loc: '@',
-      version: '@'
+      version: '@',
+      render: '@',
+      type: '@'
     },
     require: '^clientChart',
-    templateUrl: 'components/charts/locations/_caps_chart.html',
+    // templateUrl: 'components/charts/locations/_caps_chart.html',
   };
 
 }]);
@@ -1354,6 +1395,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     var a, c, timer, formatted, data;
 
     // can be csv also if required //
+    scope.period = $routeParams.period || '7d';
     scope.type = attrs.type;
     scope.loading = true;
     var colours = COLOURS.split(' ');
@@ -1394,6 +1436,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       element.html(template);
       scope.loading = undefined;
     };
+
     var clearChart = function() {
       if (c) {
         c.clearChart();
@@ -1406,8 +1449,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
       var params = {
         type: scope.type,
-        // sort me
-        period: '7d' // can be removed soon when loyalty dynamic
+        period: scope.period
       };
 
       controller.getStats(params).then(function(res) {
@@ -1524,7 +1566,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
                 color: '#f3f3f3',
               },
               minorGridlines: {
-                count: 2,
+                count: 1,
                 color: '#f3f3f3',
               },
               format: format
@@ -1544,9 +1586,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
               for(var k = 0; k < resp.data.length; k++) {
                 var val = 0;
-                var d = resp.data[k].data[y];
+                d = resp.data[k].data[y];
                 if (d && d.value > 0) {
-                  val = (d.value);
+                  if (scope.type === 'device.usage') {
+                    val = d.value / (1000*1000);
+                  } else {
+                    val = d.value;
+                  }
                 }
 
                 array.push(val);
@@ -1556,10 +1602,20 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           }
         }
 
+        var suffix, pattern;
+        if (scope.type === 'device.usage') {
+          suffix = 'Mb';
+          pattern = '###,###';
+        }
+
         a = true;
         if (attrs.bar === 'true') {
           c = new window.google.visualization.ColumnChart(document.getElementById(attrs.render));
         } else {
+          var formatter = new window.google.visualization.NumberFormat(
+            {suffix: suffix, pattern: pattern}
+          );
+          formatter.format(data,2);
           c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
         }
         c.draw(data, opts);
@@ -1573,7 +1629,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
     var timeout = $timeout(function() {
       window.google.charts.setOnLoadCallback(chart());
-    }, 1500);
+    }, 1000);
 
   };
 
