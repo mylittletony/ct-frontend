@@ -879,6 +879,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$c
 
   var link = function(scope,element,attrs,controller) {
 
+    scope.type = attrs.type || 'clients.caps',
     scope.loading = true;
     scope.period = $routeParams.period || '7d';
     var c, timer, data, formatted;
@@ -919,7 +920,6 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$c
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  attrs.type || 'clients.caps',
         resource:     scope.resource,
         period:       scope.period // can be removed soon when loyalty dynamic
       };
@@ -969,6 +969,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$c
         }
 
         var nameA, nameB;
+        console.log(scope.type)
         if (scope.type === 'clients.caps') {
           nameA = '2.4Ghz';
           nameB = '5Ghz';
