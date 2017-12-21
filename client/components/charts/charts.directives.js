@@ -399,7 +399,7 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
 
         // Sort
         var t = opts.type;
-        if (t === 'devices.meta' || 
+        if (t === 'devices.meta' ||
             t === 'devices.tx,device.rx' ||
             t === 'devices.load5' ||
             t === 'interfaces.snr' ||
@@ -923,7 +923,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
 
       if (data === undefined && formatted) {
         var js = formatted.data[0].data;
-        
+
         data = new window.google.visualization.DataTable();
         data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
         data.addColumn('number', gettextCatalog.getString('5Ghz'));
@@ -944,7 +944,7 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       }
 
       var formatter = new window.google.visualization.NumberFormat(
-        {suffix: '%', pattern: ''}
+        {suffix: '', pattern: '###,###'}
       );
 
       formatter.format(data, 1);
