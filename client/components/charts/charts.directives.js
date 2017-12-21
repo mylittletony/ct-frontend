@@ -879,8 +879,8 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$c
 
   var link = function(scope,element,attrs,controller) {
 
-    scope.type = attrs.type || 'clients.caps',
     scope.loading = true;
+    scope.type = attrs.type || 'clients.caps';
     scope.period = $routeParams.period || '7d';
     var c, timer, data, formatted;
     var colours = ['#16ac5b', '#225566'];
@@ -969,7 +969,6 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$c
         }
 
         var nameA, nameB;
-        console.log(scope.type)
         if (scope.type === 'clients.caps') {
           nameA = '2.4Ghz';
           nameB = '5Ghz';
