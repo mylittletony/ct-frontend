@@ -479,6 +479,18 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
 
+    $scope.toggleLocations = function() {
+
+      var locationSidebar = document.getElementById("locationSidebar");
+
+      if (locationSidebar.classList.contains('md-closed')) {
+          $mdSidenav('locations').open();
+      } else {
+          $mdSidenav('locations').close();
+      }
+    }
+
+
 }]);
 
 app.controller( 'ParentCtrl', function ParentCtrl($scope, onlineStatus) {
