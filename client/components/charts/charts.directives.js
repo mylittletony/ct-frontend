@@ -401,6 +401,7 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
         var t = opts.type;
         if (t === 'devices.meta' ||
             t === 'devices.tx,devices.rx' ||
+            t === 'devices.rx,devices.tx' ||
             t === 'devices.load5' ||
             t === 'interfaces.snr' ||
             t === 'device.heartbeats') {
