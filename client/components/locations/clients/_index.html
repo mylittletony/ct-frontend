@@ -259,7 +259,7 @@
                           <md-menu-item ng-repeat="item in menu">
                             <md-button ng-click="menuAction(item.type,client)" ng-disabled="{{ menuDisabled(item.type, client) }}">
                               <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-                          <p flex>{{ item.name }}</p>
+                              <p flex>{{ item.name }}</p>
                             </md-button>
                           </md-menu-item>
                         </md-menu-content>
