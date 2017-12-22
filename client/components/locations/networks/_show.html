@@ -458,6 +458,11 @@
                 <span ng-show="!network.ssid_hidden" translate>SSID Visible</span>
               </md-switch>
               <md-switch ng-disabled="!network.captive_portal_enabled" class="md-accent" ng-model="network.captive_portal_roaming" aria-label="{{ 'Splash Roaming' | translate }}">
+                <md-tooltip>
+                  <translate>
+                    Roaming will not work with multiple splash pages
+                  </translate>
+                </md-tooltip>
                 <span  ng-if="network.captive_portal_roaming == true" translate>Splash Roaming Enabled</span>
                 <span  ng-if="network.captive_portal_roaming != true" translate>Splash Roaming Disabled</span>
               </md-switch>
