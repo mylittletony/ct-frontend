@@ -72,13 +72,13 @@
           </div>
         </div>
         <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-          <dash-clients-chart name="Unique Users" render="eggs" type="clients.uniques"></dash-clients-chart>
+          <dash-clients-chart period="7d" name="Unique Users" render="eggs" type="clients.uniques"></dash-clients-chart>
         </div>
         <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-          <caps-chart name="Capabilities" render="clients-caps"></caps-chart>
+          <caps-chart period="7d" name="Capabilities" render="clients-caps"></caps-chart>
         </div>
         <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-          <caps-chart name="Signal Quality" render="clients-health" type="clients.health"></caps-chart>
+          <caps-chart period="7d" name="Signal Quality" render="clients-health" type="clients.health"></caps-chart>
         </div>
         <!-- <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
         <!--   <dash-usage-chart ></dash-usage-chart> -->
