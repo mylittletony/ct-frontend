@@ -3,15 +3,12 @@
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <div flex>
-      <md-button  href="/#/locations/{{location.slug}}" ng-disabled=true style='font-size: 14px; color: rgba(0, 0, 0, 0.26); background-color: transparent;'>
-        Overview
-      </md-button>
-      <!-- <md-button href="/#/locations/{{location.slug}}/wireless_reports" style='font-size: 14px'>
-        Wireless
-      </md-button> -->
-      <md-button href="/#/locations/{{location.slug}}/splash_reports" style='font-size: 14px'>
-        Splash
-      </md-button>
+      <!-- <md-button  href="/#/locations/{{location.slug}}" ng-disabled=true style='font-size: 14px; color: rgba(0, 0, 0, 0.26); background-color: transparent;'> -->
+      <!--   Overview -->
+      <!-- </md-button> -->
+      <!-- <md-button href="/#/locations/{{location.slug}}/splash_reports" style='font-size: 14px'> -->
+      <!--   Splash -->
+      <!-- </md-button> -->
     </div>
     <md-button class="md-icon-button" ng-click="favourite()" aria-label="{{ 'Favourite' | translate }}">
       <md-icon style="color: #E91E63" md-font-icon="">{{ location.is_favourite ? "favorite" : "favorite_border" }}</md-icon>
