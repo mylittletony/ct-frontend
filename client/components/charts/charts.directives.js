@@ -1629,7 +1629,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
     var timeout = $timeout(function() {
       window.google.charts.setOnLoadCallback(chart());
-    }, 1000);
+    }, 1500);
 
   };
 
