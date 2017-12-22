@@ -1396,7 +1396,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     var a, c, timer, formatted, data;
 
     // can be csv also if required //
-    scope.period = $routeParams.period || '30d';
+    scope.period = $routeParams.period || attrs.period || '30d';
     scope.type = attrs.type;
     scope.loading = true;
     var colours = COLOURS.split(' ');
@@ -1634,7 +1634,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       mac: '@',
       loc: '@',
       version: '@',
-      render: '@'
+      render: '@',
+      period: '@'
     },
     require: '^clientChart',
   };

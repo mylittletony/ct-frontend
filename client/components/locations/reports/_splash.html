@@ -45,7 +45,7 @@
 
     <div layout="" layout-wrap class="md-padding">
       <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-        <dash-clients-chart name="Unique Users" type="radius.users" render="total-users" show-gt-sm></dash-clients-chart>
+        <dash-clients-chart name="Unique Users" type="radius.users" render="total-users" period="{{period}}" show-gt-sm></dash-clients-chart>
       </div>
       <!-- <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
       <!--   <dash-clients-chart name="New Users" type="radius.new" render="new-users" show-gt-sm></dash-clients-chart> -->
