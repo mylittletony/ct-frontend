@@ -75,7 +75,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
                 targetAxisIndex: 1
               },
               2: {
-                targetAxisIndex: 1
+                targetAxisIndex: 2
               }
             },
             vAxes: {
@@ -488,7 +488,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (a === undefined) {
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', gettextCatalog.getString('Date'));
-        data.addColumn('number', 'dummySeries');
+        // data.addColumn('number', 'dummySeries');
         data.addColumn('number', gettextCatalog.getString('Inbound'));
         if (json.multi) {
           data.addColumn('number', gettextCatalog.getString('Outbound'));
@@ -507,7 +507,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             } else {
               outbound = 0;
             }
-            data.addRow([time, null, inbound, outbound]);
+            data.addRow([time, inbound, outbound]);
           }
         }
       }
@@ -521,26 +521,26 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         {suffix: suffix}
       );
       formatter.format(data,2);
-      formatter.format(data,3);
+      // formatter.format(data,3);
 
       opts.colors = colours;
       opts.legend = { position: 'bottom' };
       opts.series = {
         0: {
-          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          targetAxisIndex: 0
         },
         1: {
-          targetAxisIndex: 1
+          targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
         2: {
-          targetAxisIndex: 1
+          targetAxisIndex: 2
         }
       };
       opts.vAxes = {
-        0: {
+        1: {
           textPosition: 'none'
         },
-        1: {
+        0: {
           viewWindow:{
             min: 0
           }
@@ -1344,7 +1344,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         var end_time = Math.floor(data.end_time);
 
         for (i = 0; i < data.data.length; i++) {
-          if (data.data[i].timestamp >= start_time) {
+          if (data && data.data && data.data[i] && (data.data[i].timestamp >= start_time)) {
             break;
           }
         }
@@ -1714,7 +1714,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         if (a === undefined) {
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', gettextCatalog.getString('Date'));
-          data.addColumn('number', 'dummySeries');
+          // data.addColumn('number', 'dummySeries');
           data.addColumn('number', gettextCatalog.getString('Load Average'));
 
           for(var i = 0; i < json.data.length; i++) {
@@ -1723,7 +1723,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
             if (load > 100) {
               load = 100;
             }
-            data.addRow([time, null, load]);
+            data.addRow([time, load]);
           }
         }
 
@@ -1735,18 +1735,18 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%'}
         );
-        formatter.format(data,2);
+        formatter.format(data,1);
 
         opts.colors = colours;
         opts.vAxes = {
-          0: {
+          1: {
             textPosition: 'none',
             viewWindow:{
               max: 10,
               min: 0
             }
           },
-          1: {
+          0: {
             viewWindow:{
               min: 0
             }
@@ -1754,11 +1754,11 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         };
         opts.legend = { position: 'none' };
         opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-          },
           1: {
-            targetAxisIndex: 1
+            targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          },
+          0: {
+            targetAxisIndex: 0
           },
           2: {
             targetAxisIndex: 1
@@ -2043,10 +2043,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
       var opts = controller.options;
       opts.series = {
-        0: {
+        1: {
           targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
-        1: {
+        0: {
           targetAxisIndex: 1, lineWidth: 2.5
         }
       };
@@ -2057,14 +2057,14 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       if (type === 'interfaces.snr' || type === 'clients.snr' ) {
         suffix = 'dB';
         opts.vAxes = {
-          0: {
+          1: {
             textPosition: 'none',
             viewWindow:{
               max: 100,
               min: 0
             }
           },
-          1: {
+          0: {
             viewWindow:{
               min: 0
             }
@@ -2075,10 +2075,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       opts.legend = { position: 'bottom' };
       opts.series = {
         0: {
-          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          targetAxisIndex: 0
         },
         1: {
-          targetAxisIndex: 1
+          targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
         2: {
           targetAxisIndex: 1
@@ -2139,12 +2139,8 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         a = true;
 
         data = new window.google.visualization.DataTable();
-        data.addColumn('datetime', 'Date');
-        data.addColumn('number', 'dummySeries');
-
-        data = new window.google.visualization.DataTable();
         data.addColumn('datetime', gettextCatalog.getString('Date'));
-        data.addColumn('number', 'dummySeries');
+        // data.addColumn('number', 'dummySeries');
 
         for(var i = 0; i < json.data.length; i++) {
           var name;
@@ -2172,7 +2168,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           time = new Date(json.data[0].data[x].timestamp*1000);
           array.push(time);
-          array.push(null);
+          // array.push(null);
 
           for(var k = 0; k < json.data.length; k++) {
             var val = 0;
