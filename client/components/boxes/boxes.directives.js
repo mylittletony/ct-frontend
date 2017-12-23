@@ -487,7 +487,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           scope.box.connection_status_formatted = 'DNS check failed';
           break;
         default:
-          scope.box.connection_status_formatted = `Misc. Problem (` + scope.box.connection_status + `)`;
+          scope.box.connection_status_formatted = 'Misc. Problem (' + scope.box.connection_status + ')';
           break;
       }
     };
