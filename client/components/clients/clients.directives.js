@@ -435,13 +435,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     };
 
     scope.showSixHours = function() {
-      var distance = 60 * 60 * 6
+      var distance = 60 * 60 * 6;
       var min = Math.floor(moment().utc().subtract(distance, 'seconds').toDate().getTime() / 1000);
       var max = Math.floor(moment().utc().toDate().getTime() / 1000);
       scope.query.start = min;
       scope.query.end = max;
       scope.updatePage();
-    }
+    };
 
     var loadPolicies = function() {
       var deferred = $q.defer();
