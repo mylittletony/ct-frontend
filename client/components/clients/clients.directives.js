@@ -638,6 +638,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         deferred.reject();
         return deferred.promise;
       }
+
+      console.log(params)
+
       ClientV2.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
         scope.connected = 0;
@@ -745,7 +748,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return defer.promise;
     };
 
-    getLocation().then(initV2).then(loaded);//.then(getMetrics);
+    getLocation().then(initV2).then(loaded)//.then(getMetrics);
 
     // Otherwise we delay the page load //
     scope.$watch('clients',function(nv){
