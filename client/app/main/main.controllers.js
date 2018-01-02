@@ -266,18 +266,16 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         window.intercomSettings = {
             app_id: INTERCOM,
             user_id: Auth.currentUser().accountId,
-            reseller: Auth.currentUser().reseller,
             email: Auth.currentUser().email,
             name: Auth.currentUser().username,
             created_at: Auth.currentUser().created_at,
             user_hash: Auth.currentUser().user_hash,
             brand_name: Auth.currentUser().url,
             cname: Auth.currentUser().cname,
-            sense_active: Auth.currentUser().sense_active,
-            plan_name: Auth.currentUser().plan_name,
             paid_plan: Auth.currentUser().paid_plan,
+            reseller: Auth.currentUser().reseller,
+            customer_of_reseller: Auth.currentUser().cor,
             locs: Auth.currentUser().locs,
-            version: '2',
             hide_default_launcher: !Auth.currentUser().chat_enabled || false
         };
       }
