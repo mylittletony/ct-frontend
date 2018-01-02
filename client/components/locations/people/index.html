@@ -1,5 +1,6 @@
 <div flex="" layout="column" class="layout-column flex">
-  <div>
-    <list-people></list-people>
+  <loader></loader>
+  <div ng-hide="loading">
+    <list-people loading="loading" ng-cloak></list-people>
   </div>
 </div>

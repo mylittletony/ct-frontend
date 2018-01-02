@@ -69,7 +69,9 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       People.get(params, function(data) {
         scope.people = data.people;
         scope._links = data._links;
+        scope.loading  = undefined;
       }, function(err){
+        scope.loading  = undefined;
         console.log(err);
       });
     };
@@ -89,7 +91,9 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
   return {
     link: link,
-    scope: {},
+    scope: {
+      loading: '='
+    },
     templateUrl: 'components/locations/people/_index.html'
   };
 
