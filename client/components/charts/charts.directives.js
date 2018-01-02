@@ -75,7 +75,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
                 targetAxisIndex: 1
               },
               2: {
-                targetAxisIndex: 1
+                targetAxisIndex: 2
               }
             },
             vAxes: {
@@ -397,16 +397,21 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
           rate:         params.rate,
         };
 
-        var t = opts.type.split('.')[0];
-        if (t === 'radius' || t === 'splash') {
-          Metric.clientstats(opts).$promise.then(function(data) {
+        // Sort me
+        var t = opts.type;
+        if (t === 'devices.meta' ||
+            t === 'devices.tx,devices.rx' ||
+            t === 'devices.rx,devices.tx' ||
+            t === 'devices.load5' ||
+            t === 'interfaces.snr' ||
+            t === 'device.heartbeats') {
+          MetricLambda.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
           }, function() {
             deferred.reject();
           });
         } else {
-          // Needs to be removed once we've merged the lambda in
-          MetricLambda.clientstats(opts).$promise.then(function(data) {
+          Metric.clientstats(opts).$promise.then(function(data) {
             deferred.resolve(data);
           }, function() {
             deferred.reject();
@@ -483,7 +488,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (a === undefined) {
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', gettextCatalog.getString('Date'));
-        data.addColumn('number', 'dummySeries');
+        // data.addColumn('number', 'dummySeries');
         data.addColumn('number', gettextCatalog.getString('Inbound'));
         if (json.multi) {
           data.addColumn('number', gettextCatalog.getString('Outbound'));
@@ -502,7 +507,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             } else {
               outbound = 0;
             }
-            data.addRow([time, null, inbound, outbound]);
+            data.addRow([time, inbound, outbound]);
           }
         }
       }
@@ -516,26 +521,26 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         {suffix: suffix}
       );
       formatter.format(data,2);
-      formatter.format(data,3);
+      // formatter.format(data,3);
 
       opts.colors = colours;
       opts.legend = { position: 'bottom' };
       opts.series = {
         0: {
-          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          targetAxisIndex: 0
         },
         1: {
-          targetAxisIndex: 1
+          targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
         2: {
-          targetAxisIndex: 1
+          targetAxisIndex: 2
         }
       };
       opts.vAxes = {
-        0: {
+        1: {
           textPosition: 'none'
         },
-        1: {
+        0: {
           viewWindow:{
             min: 0
           }
@@ -784,7 +789,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.usage',
+        metric_type:  'devices.tx,devices.rx',
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
@@ -807,7 +812,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var opts = controller.options;
       opts.explorer = undefined;
-      opts.pieHole = 0.8
+      opts.pieHole = 0.8;
       opts.legend = { position: attrs.legend || 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
@@ -871,11 +876,13 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
 }]);
 
-app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
+app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$compile', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, $compile, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
     scope.loading = true;
+    scope.type = attrs.type || 'clients.caps';
+    scope.period = $routeParams.period || '7d';
     var c, timer, data, formatted;
     var colours = ['#16ac5b', '#225566'];
 
@@ -883,12 +890,39 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       drawChart();
     });
 
+    var letemplate = function(render) {
+      var a = '<div style=""><md-card>'+
+      '<md-card-header class="graph-small">'+
+      '<md-card-header-text>'+
+      '<span class="md-subhead" translate>'+attrs.name+'</span>'+
+      '</md-card-header-text>'+
+      '</md-card-header>'+
+      '<md-card-content>'+
+      '<div id="'+ render +'" class="small-chart"></div>'+
+      '<md-card-actions layout="row" layout-align="end center">'+
+      '<small>'+
+      '<span ng-if="noData && !loading" translate>No graph data</span>'+
+      '<span ng-if="loading" translate>Loading chart</span>'+
+      '</small>'+
+      '</md-card-actions>'+
+      '</md-card-content>'+
+      '</md-card>' +
+      '</div>';
+      return a;
+    };
+
+    var compileTemplate = function(render) {
+      var template;
+      template = $compile(letemplate(render))(scope);
+      element.html(template);
+      scope.loading = undefined;
+    };
+
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.caps',
         resource:     scope.resource,
-        period:       '7d' // can be removed soon when loyalty dynamic
+        period:       scope.period // can be removed soon when loyalty dynamic
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
@@ -918,45 +952,55 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       opts.colors = colours;
 
       if (data === undefined && formatted) {
+        var js = formatted.data[0].data;
+
         data = new window.google.visualization.DataTable();
         data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
         data.addColumn('number', gettextCatalog.getString('5Ghz'));
 
-        var two, five = 0;
-        for (var i in formatted.stats) {
-          if (formatted.stats[i].key === 'two') {
-            two = formatted.stats[i].value;
-          } else if (formatted.stats[i].key === 'five') {
-            five = formatted.stats[i].value;
-          }
+        var a = 0;
+        var b = 0;
+        for (var i in js) {
+          a =  (a + js[i].value[0]);
+          b = (b + js[i].value[1]);
         }
 
-        if (two === 0 && five === 0) {
-          two = 1;
+        if (a === 0 && b === 0) {
+          a = 1;
         }
 
-        data.addRow(['2.4Ghz', two]);
-        data.addRow(['5Ghz', five]);
+        var nameA, nameB;
+        if (scope.type === 'clients.caps') {
+          nameA = '2.4Ghz';
+          nameB = '5Ghz';
+        } else {
+          nameA = 'Good';
+          nameB = 'Bad';
+        }
+        data.addRow([nameA, a]);
+        data.addRow([nameB, b]);
       }
 
       var formatter = new window.google.visualization.NumberFormat(
-        {suffix: '%', pattern: ''}
+        {suffix: '', pattern: '###,###'}
       );
 
       formatter.format(data, 1);
 
-      c = new window.google.visualization.PieChart(document.getElementById('caps-chart'));
+      c = new window.google.visualization.PieChart(document.getElementById(attrs.render));
       c.draw(data, opts);
 
       scope.noData = undefined;
       scope.loading = undefined;
     }
 
-    window.google.charts.setOnLoadCallback(chart);
+    // window.google.charts.setOnLoadCallback(chart);
+
+    compileTemplate(attrs.render);
 
     timer = setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
-    }, 500);
+    }, 1000);
     $timeout.cancel(timer);
   };
 
@@ -965,10 +1009,12 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
     scope: {
       mac: '@',
       loc: '@',
-      version: '@'
+      version: '@',
+      render: '@',
+      type: '@'
     },
     require: '^clientChart',
-    templateUrl: 'components/charts/locations/_caps_chart.html',
+    // templateUrl: 'components/charts/locations/_caps_chart.html',
   };
 
 }]);
@@ -1087,7 +1133,6 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
 
     var c, timer, json, data;
     scope.loading = true;
-    // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
     var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -1118,11 +1163,9 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     function drawChart(json) {
       $timeout.cancel(timer);
       var drawChartCallback = function() {
-
         if (data === undefined) {
-          var stats = json.stats;
+          var stats = json.data[0].data;
           var len = stats.length;
-
           data = new window.google.visualization.DataTable();
           data.addColumn('string', 'state');
           data.addColumn('number', 'count');
@@ -1300,10 +1343,8 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         var start_time = Math.floor(data.start_time);
         var end_time = Math.floor(data.end_time);
 
-        console.log(data);
-
         for (i = 0; i < data.data.length; i++) {
-          if (data.data[i].timestamp >= start_time) {
+          if (data && data.data && data.data[i] && (data.data[i].timestamp >= start_time)) {
             break;
           }
         }
@@ -1354,8 +1395,9 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
     var a, c, timer, formatted, data;
 
-    scope.type = attrs.type; //'radius.users';
-    // scope.type = 'radius.users,radius.new';
+    // can be csv also if required //
+    scope.period = $routeParams.period || attrs.period || '30d';
+    scope.type = attrs.type;
     scope.loading = true;
     var colours = COLOURS.split(' ');
 
@@ -1385,7 +1427,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       '</md-card-actions>'+
       '</md-card-content>'+
       '</md-card>' +
-      '</div>'
+      '</div>';
       return a;
     };
 
@@ -1395,6 +1437,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       element.html(template);
       scope.loading = undefined;
     };
+
     var clearChart = function() {
       if (c) {
         c.clearChart();
@@ -1407,25 +1450,19 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
       var params = {
         type: scope.type,
-        period: '30d' // can be removed soon when loyalty dynamic
+        period: scope.period
       };
 
       controller.getStats(params).then(function(res) {
-        if (window.google && window.google.visualization) {
-          drawChart(res);
-        } else {
-          $timeout(function () {
-            drawChart(res);
-          }, 500);
-        }
+        drawChart(res);
       }, function() {
         clearChart();
         console.log('No data returned for query');
       });
+      $timeout.cancel(timer);
     }
 
     function drawChart(resp) {
-      $timeout.cancel(timer);
       if (window.google && window.google.visualization) {
         var format = gettextCatalog.getString('MMM dd, yyyy');
 
@@ -1462,7 +1499,10 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             opts.bar = { groupWidth: '90%' };
             opts.vAxes = {
               0: {
-                textPosition: 'none'
+                textPosition: 'none',
+                viewWindow:{
+                  min: 0
+                }
               }
             };
             data.addColumn('string', 'Hour');
@@ -1489,7 +1529,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               array.push(val);
 
               if (attrs.popular === 'true') {
-                array.push('<div style="padding: 20px;"><h3>Popular Hours</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
+                array.push('<div style="padding: 20px;"><h3>Popular Hours (beta)</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
               }
 
               for(var k = 0; k < resp.data.length; k++) {
@@ -1505,7 +1545,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             }
 
           } else {
-
             opts.vAxes = {
               0: {
                 format: '0',
@@ -1518,14 +1557,15 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             opts.hAxis = {
               lineWidth: 4,
               gridlines: {
+                count: 10,
                 color: '#f3f3f3',
               },
               minorGridlines: {
+                count: 1,
                 color: '#f3f3f3',
               },
               format: format
             };
-
 
             for(x = 0; x < resp.data.length; x++) {
               data.addColumn('number', resp.data[x].alias);
@@ -1541,9 +1581,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
               for(var k = 0; k < resp.data.length; k++) {
                 var val = 0;
-                var d = resp.data[k].data[y];
+                d = resp.data[k].data[y];
                 if (d && d.value > 0) {
-                  val = (d.value);
+                  if (scope.type === 'device.usage') {
+                    val = d.value / (1000*1000);
+                  } else {
+                    val = d.value;
+                  }
                 }
 
                 array.push(val);
@@ -1553,10 +1597,20 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           }
         }
 
+        var suffix, pattern;
+        if (scope.type === 'device.usage') {
+          suffix = 'Mb';
+          pattern = '###,###';
+        }
+
         a = true;
         if (attrs.bar === 'true') {
           c = new window.google.visualization.ColumnChart(document.getElementById(attrs.render));
         } else {
+          var formatter = new window.google.visualization.NumberFormat(
+            {suffix: suffix, pattern: pattern}
+          );
+          formatter.format(data,2);
           c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
         }
         c.draw(data, opts);
@@ -1566,7 +1620,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     }
 
-    console.log('rendering to', attrs.render);
     compileTemplate(attrs.render);
 
     var timeout = $timeout(function() {
@@ -1581,7 +1634,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       mac: '@',
       loc: '@',
       version: '@',
-      render: '@'
+      render: '@',
+      period: '@'
     },
     require: '^clientChart',
   };
@@ -1660,7 +1714,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         if (a === undefined) {
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', gettextCatalog.getString('Date'));
-          data.addColumn('number', 'dummySeries');
+          // data.addColumn('number', 'dummySeries');
           data.addColumn('number', gettextCatalog.getString('Load Average'));
 
           for(var i = 0; i < json.data.length; i++) {
@@ -1669,7 +1723,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
             if (load > 100) {
               load = 100;
             }
-            data.addRow([time, null, load]);
+            data.addRow([time, load]);
           }
         }
 
@@ -1681,18 +1735,18 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%'}
         );
-        formatter.format(data,2);
+        formatter.format(data,1);
 
         opts.colors = colours;
         opts.vAxes = {
-          0: {
+          1: {
             textPosition: 'none',
             viewWindow:{
               max: 10,
               min: 0
             }
           },
-          1: {
+          0: {
             viewWindow:{
               min: 0
             }
@@ -1700,11 +1754,11 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         };
         opts.legend = { position: 'none' };
         opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-          },
           1: {
-            targetAxisIndex: 1
+            targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          },
+          0: {
+            targetAxisIndex: 0
           },
           2: {
             targetAxisIndex: 1
@@ -1989,10 +2043,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
       var opts = controller.options;
       opts.series = {
-        0: {
+        1: {
           targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
-        1: {
+        0: {
           targetAxisIndex: 1, lineWidth: 2.5
         }
       };
@@ -2003,14 +2057,14 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       if (type === 'interfaces.snr' || type === 'clients.snr' ) {
         suffix = 'dB';
         opts.vAxes = {
-          0: {
+          1: {
             textPosition: 'none',
             viewWindow:{
               max: 100,
               min: 0
             }
           },
-          1: {
+          0: {
             viewWindow:{
               min: 0
             }
@@ -2021,10 +2075,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       opts.legend = { position: 'bottom' };
       opts.series = {
         0: {
-          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          targetAxisIndex: 0
         },
         1: {
-          targetAxisIndex: 1
+          targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
         2: {
           targetAxisIndex: 1
@@ -2085,12 +2139,8 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         a = true;
 
         data = new window.google.visualization.DataTable();
-        data.addColumn('datetime', 'Date');
-        data.addColumn('number', 'dummySeries');
-
-        data = new window.google.visualization.DataTable();
         data.addColumn('datetime', gettextCatalog.getString('Date'));
-        data.addColumn('number', 'dummySeries');
+        // data.addColumn('number', 'dummySeries');
 
         for(var i = 0; i < json.data.length; i++) {
           var name;
@@ -2118,7 +2168,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           time = new Date(json.data[0].data[x].timestamp*1000);
           array.push(time);
-          array.push(null);
+          // array.push(null);
 
           for(var k = 0; k < json.data.length; k++) {
             var val = 0;

@@ -123,6 +123,7 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
   var link = function(scope,element,attrs,controller) {
 
     var timer;
+    scope.period = $routeParams.period || '30d';
 
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
@@ -755,7 +756,7 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
             goDevice(item._key);
           break;
         default:
-          console.log(item._index);
+          // console.log(item._index);
           }
         }
       }, 250);
@@ -1380,7 +1381,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', 'MetricLambda', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, MetricLambda, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -1853,15 +1854,13 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Clien
     };
 
     var getClientCount = function(i) {
-      Metric.clientstats({
+      MetricLambda.clientstats({
         type:         'devices.meta',
         ap_mac:       scope.boxes[i].calledstationid,
         location_id:  scope.boxes[i].location_id
       }).$promise.then(function(data) {
         scope.boxes[i].clients_online = data.online;
         scope.total_online = parseInt(scope.total_online) + parseInt(data.online);
-      }, function(err) {
-        console.log(err);
       });
     };
 

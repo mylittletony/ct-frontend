@@ -20,6 +20,7 @@ module.exports = {
             // reasons.  They should be moved inside 'CONFIG' at some time.
             API_END_POINT: 'http://mywifi.test:8080/api/v1',
             API_END_POINT_V2: 'http://dashboard.ctapp:3000/api/v1',
+            // API_END_POINT_V2: 'http://dashboard.ctapp:8000/api/v1',
             // API_END_POINT_V2: 'https://ldn-01.ctapp.io/api/v1/',
             API_URL: 'http://mywifi.test:8080',
             STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',

@@ -231,7 +231,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         console.log(errors);
         scope.box.state = 'failed';
         scope.resetting = undefined;
-        showErrors(errors)
+        showErrors(errors);
       });
     };
 
@@ -466,6 +466,32 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       menu.toggleSelectSection(section);
     };
 
+    var connectionStatus = function() {
+      switch (scope.box.connection_status) {
+        case '9':
+          scope.box.connection_status_formatted = 'OK';
+          break;
+        case '9.1':
+          scope.box.connection_status_formatted = 'NTP failed';
+          break;
+        case '1':
+          scope.box.connection_status_formatted = 'HTTP and DNS check failed';
+          break;
+        case '4':
+          scope.box.connection_status_formatted = 'HTTP check failed';
+          break;
+        case '0':
+          scope.box.connection_status_formatted = 'Communication error';
+          break;
+        case '6':
+          scope.box.connection_status_formatted = 'DNS check failed';
+          break;
+        default:
+          scope.box.connection_status_formatted = 'Misc. Problem (' + scope.box.connection_status + ')';
+          break;
+      }
+    };
+
     var init = function() {
       var deferred = $q.defer();
       Box.get({id: $routeParams.box_id, metadata: true}).$promise.then(function(box) {
@@ -476,6 +502,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           version: box.v
         };
         scope.loading = undefined;
+        connectionStatus();
         poll();
         deferred.resolve();
       }, function() {
@@ -1692,14 +1719,14 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
+app.directive('deviceMeta', ['MetricLambda', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(MetricLambda, showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     var load;
 
     var loadMeta = function(box) {
       load = true;
-      Metric.clientstats({
+      MetricLambda.clientstats({
         type:         'devices.meta',
         ap_mac:       box.calledstationid,
         location_id:  box.location_id

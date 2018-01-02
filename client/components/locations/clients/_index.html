@@ -253,15 +253,13 @@
                     <span ng-hide="client.processing">
                       <md-menu>
                         <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                          <md-button aria-label="{{ 'Open Tools' | translate }}" class="md-icon-button md-raised md-primary">
-                            more_vert
-                          </md-icon>
+                          <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                         </md-button>
                         <md-menu-content width="4" >
                           <md-menu-item ng-repeat="item in menu">
                             <md-button ng-click="menuAction(item.type,client)" ng-disabled="{{ menuDisabled(item.type, client) }}">
                               <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-                          <p flex>{{ item.name }}</p>
+                              <p flex>{{ item.name }}</p>
                             </md-button>
                           </md-menu-item>
                         </md-menu-content>

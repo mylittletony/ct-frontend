@@ -214,6 +214,12 @@
               </p>
             </div>
           </md-list-item>
+          <md-list-item class="md-2-line" ng-if="box.connection_status">
+            <div class="md-list-item-text">
+              <h3 translate>Connection Status</h3>
+              <p>{{ box.connection_status_formatted }}</p>
+            </div>
+          </md-list-item>
           <box-speedtest-widget box="box" ng-show="box.v == '3'"></box-speedtest-widget>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
