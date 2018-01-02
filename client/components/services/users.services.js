@@ -47,7 +47,7 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       deferred.resolve(data);
       var sub = locationHelper.subdomain();
       var domain = locationHelper.domain();
-      if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
+      if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
         Brand.query({}, {
           id: domain,
           cname: true,
@@ -67,7 +67,18 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       AccessToken.del();
       delete $localStorage.user;
       var sub = locationHelper.subdomain();
-      window.location.href = AUTH_URL + '/logout?brand=' + sub;
+      var domain = locationHelper.domain();
+      if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
+        Brand.query({}, {
+          id: domain,
+          cname: true,
+          type: 'showcase'
+        }).$promise.then(function(results) {
+          window.location.href = AUTH_URL + '/logout?brand=' + results.url;
+        });
+      } else {
+        window.location.href = AUTH_URL + '/logout?brand=' + sub;
+      }
     };
 
     return {
