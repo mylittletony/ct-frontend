@@ -44,7 +44,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       var split = $location.path().split('/');
       if (split.length >= 4) {
         return ($location.path().split('/')[3] === path);
-      } else if (path === 'devices') {
+      } else if (path === 'dashboard') {
         return true;
       }
     };
@@ -65,18 +65,17 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     var createMenu = function() {
       // menu.header = $scope.location.location_name;
 
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Dashboard'),
-      //   link: '/#/locations/' + $scope.location.slug,
-      //   type: 'link',
-      //   icon: 'dashboard',
-      //   active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
-      // });
+      menu.sections.push({
+        name: gettextCatalog.getString('Dashboard'),
+        link: '/#/locations/' + $scope.location.slug,
+        type: 'link',
+        icon: 'dashboard',
+        active: isActive('dashboard') || isActive('client_reports') || isActive('splash_reports')
+      });
 
       menu.sections.push({
         name: gettextCatalog.getString('Devices'),
-        link: '/#/locations/' + $scope.location.slug,
-        // link: '/#/locations/' + $scope.location.slug + '/devices',
+        link: '/#/locations/' + $scope.location.slug + '/devices',
         type: 'link',
         icon: 'router',
         active: isActive('devices')

@@ -123,6 +123,7 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
   var link = function(scope,element,attrs,controller) {
 
     var timer;
+    scope.period = $routeParams.period || '30d';
 
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
@@ -755,7 +756,7 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
             goDevice(item._key);
           break;
         default:
-          console.log(item._index);
+          // console.log(item._index);
           }
         }
       }, 250);
@@ -1860,8 +1861,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'MetricLambda', 
       }).$promise.then(function(data) {
         scope.boxes[i].clients_online = data.online;
         scope.total_online = parseInt(scope.total_online) + parseInt(data.online);
-      }, function(err) {
-        console.log(err);
       });
     };
 
