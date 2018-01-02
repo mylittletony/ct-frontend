@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.clients.directives', []);
 
-app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPolicy', 'Box', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', 'Auth', function(Client, ClientV2, Location, Report, GroupPolicy, Box, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter, Auth) {
+app.directive('clients', ['Client', 'ClientV2', 'Metric', 'Location', 'Report', 'GroupPolicy', 'Box', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', 'Auth', function(Client, ClientV2, Metric, Location, Report, GroupPolicy, Box, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter, Auth) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -630,16 +630,11 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       params.access_token = Auth.currentUser().api_token;
       params.location_id = scope.location.id;
       params.client_type = 'clients.list';
-      params.end_time = scope.query.end;
-      params.start_time = scope.query.start;
-      // params.meta = true;
 
       if (params.access_token === undefined || params.access_token === '') {
         deferred.reject();
         return deferred.promise;
       }
-
-      console.log(params)
 
       ClientV2.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
@@ -665,12 +660,12 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     };
 
     var formatMetrics = function(val) {
-      for (var i = 0, len = scope.clients.length; i < len; i++) {
-        if (scope.clients[i].client_mac === val.client_mac) {
+      for (var i = 0; i < scope.clients.length; i++) {
+        if (scope.clients[i].online && scope.clients[i].client_mac === val[0].data[0].client_mac) {
           var tx, rx, snr;
-          var metrics = val.metrics;
+          var metrics = val[0].data[0].data;
           if (metrics && metrics.length >= 0) {
-            for (var j = 0, lenn = metrics.length; j < lenn; j++) {
+            for (var j = 0; j < metrics.length; j++) {
               var data = metrics[j].data;
               if (data.length !== 0) {
                 var v, key;
@@ -701,18 +696,33 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
     };
 
+    // if we put the interval back, you can remove this badboy
+    var distance = 600;
+    var minDateEpoch, maxDateEpoch, minDate, maxDate;
+
+    var setStartEnd = function() {
+      minDate = moment().utc().subtract(distance, 'seconds').toDate();
+      maxDate = moment().utc().toDate();
+
+      minDateEpoch = Math.floor(minDate.getTime() / 1000);
+      maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+    };
+
     var fetchMetrics = function(val) {
+
+      setStartEnd();
+
       var deferred = $q.defer();
       var params = getParams();
+
       params.access_token = Auth.currentUser().api_token;
-      params.location_id = scope.location.id;
-      params.client_type = 'clients.metrics';
-      params.end_time = $routeParams.end;
-      params.start_time = $routeParams.start;
-      params.client_mac = val;
-      // params.meta = true;
-      ClientV2.query(params).$promise.then(function(results) {
-        formatMetrics(results);
+      params.location_id  = scope.location.id;
+      params.type         = 'clients.metrics';
+      params.end_time     = $routeParams.end || maxDateEpoch;
+      params.start_time   = $routeParams.start || minDateEpoch;
+      params.client_mac   = val;
+
+      Metric.clientstats(params).$promise.then(function(results) {
         deferred.resolve(results);
       }, function() {
         deferred.reject();
@@ -720,7 +730,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    var done;
     var getMetrics = function() {
+      if (done) {
+        return;
+      }
+
+      done = true;
       var defer = $q.defer();
       var promises = [];
 
@@ -731,7 +747,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
 
       angular.forEach(scope.clients, function(value){
-        promises.push(fetchMetrics(value.client_mac));
+        if (value.online === true) {
+          promises.push(fetchMetrics(value.client_mac));
+        }
       });
 
       $q.all(promises).then(function(val) {
@@ -748,7 +766,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return defer.promise;
     };
 
-    getLocation().then(initV2).then(loaded)//.then(getMetrics);
+    getLocation().then(initV2).then(loaded).then(getMetrics);
 
     // Otherwise we delay the page load //
     scope.$watch('clients',function(nv){
