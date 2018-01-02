@@ -108,7 +108,9 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
     var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;
+        scope.loading  = undefined;
       }, function(err) {
+        scope.loading  = undefined;
         console.log(err);
       });
     };
@@ -132,7 +134,9 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
 
   return {
     link: link,
-    scope: {},
+    scope: {
+      loading: '='
+    },
     templateUrl: 'components/locations/people/_show.html'
   };
 
