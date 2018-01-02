@@ -79,7 +79,10 @@ app.directive('loader', function() {
     replace: true,
     template:
       '<div ng-show=\'loading\'>'+
-      '<div style="margin-top: 40px;" layout="row" layout-sm="column" layout-align="center center">'+
+      '<div class="top-nav">'+
+        '<md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links"></md-nav-bar>'+
+      '</div>'+
+      '<div style="margin-top: 100px;" layout="row" layout-sm="column" layout-align="center center">'+
       '<md-progress-circular md-mode="indeterminate"></md-progress-circular>'+
       '</div>'+
       '</div>'
