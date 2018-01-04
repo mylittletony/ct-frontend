@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$timeout', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $timeout, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -34,10 +34,15 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
 
+    $timeout(function() {
+      scope.loading = undefined
+    },1500);
+
   };
 
   return {
     link: link,
+    loading: '=',
     templateUrl: 'components/locations/show/_index.html'
   };
 
