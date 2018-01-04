@@ -43,6 +43,10 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     var isActive = function(path) {
       var split = $location.path().split('/');
       if (split.length >= 4) {
+        if (path === 'splash_pages'){
+          var page = $location.path().split('/')[3]
+          return (page === path || page === 'vouchers' || page === 'splash_codes')
+        }
         return ($location.path().split('/')[3] === path);
       } else if (path === 'people') {
         return true;
