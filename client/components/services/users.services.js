@@ -48,6 +48,9 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       var sub = locationHelper.subdomain();
       var domain = locationHelper.domain();
       if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
+        if (sub) {
+          domain = sub + '.' + domain;
+        }
         Brand.query({}, {
           id: domain,
           cname: true,
@@ -69,6 +72,9 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       var sub = locationHelper.subdomain();
       var domain = locationHelper.domain();
       if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
+        if (sub) {
+          domain = sub + '.' + domain;
+        }
         Brand.query({}, {
           id: domain,
           cname: true,
