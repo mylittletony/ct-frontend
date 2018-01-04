@@ -19,8 +19,19 @@ var app = angular.module('myApp', [
   'pusher-angular',
   'config',
   'gettext',
-  'moment-picker'
+  'moment-picker',
+  'color.picker'
 ]);
+
+app.config(function($provide) {
+    $provide.decorator('ColorPickerOptions', function($delegate) {
+        var options = angular.copy($delegate);
+        options.required = true;
+        options.format = 'rgb';
+        return options;
+    });
+});
+
 
 app.config(['$compileProvider', 'DEBUG', function ($compileProvider,DEBUG) {
   $compileProvider.debugInfoEnabled(DEBUG);
