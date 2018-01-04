@@ -36,8 +36,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Metric', 'Location', 'Report', 
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50],
-      // sort:       $routeParams.sort || 'lastseen',
-      // direction:  $routeParams.direction || 'desc',
       start:      $routeParams.start,
       end:        $routeParams.end,
       v:          $routeParams.v
@@ -58,66 +56,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Metric', 'Location', 'Report', 
     scope.start           = $routeParams.start;
     scope.end             = $routeParams.end;
     scope.client_mac      = $routeParams.client_mac;
-    // scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
-    // scope.location        = { slug: $routeParams.id };
     scope.sort            = $routeParams.sort;
     scope.direction       = $routeParams.direction;
 
     var view = function(id) {
       $location.path('/locations/' + scope.location.slug + '/clients/' + id);
     };
-
-    // var setInterval = function() {
-    //   switch(scope.period) {
-    //     case '5m':
-    //       interval = '10s';
-    //       scope.query.distance = 60*5;
-    //       break;
-    //     case '30m':
-    //       interval = '1m';
-    //       scope.query.distance = 60*30;
-    //       break;
-    //     case '1d':
-    //       interval = '30m';
-    //       scope.query.distance = 60*60*24;
-    //       break;
-    //     case '6h':
-    //       interval = '30s';
-    //       scope.query.distance = 60*60*6;
-    //       break;
-    //     case '7d':
-    //       interval = '1h';
-    //       scope.query.distance = 60*60*24*7;
-    //       break;
-    //     case '14d':
-    //       interval = '1h';
-    //       scope.query.distance = 60*60*24*14;
-    //       break;
-    //     case '30d':
-    //       interval = '1h';
-    //       scope.query.distance = 60*60*24*30;
-    //       break;
-    //     case '1yr':
-    //       interval = '1yr';
-    //       scope.query.distance = 60*60*24*365;
-    //       break;
-    //     default:
-    //       interval = '60s';
-    //       scope.query.distance = 60*60*6;
-    //   }
-    // };
-
-    // scope.start = $routeParams.start;
-    // scope.end = $routeParams.end;
-
-    // scope.table = {
-    //   autoSelect: true,
-    //   boundaryLinks: false,
-    //   largeEditDialog: false,
-    //   pageSelector: false,
-    //   rowSelection: true
-    // };
 
     scope.refresh = function() {
       scope.policy_id = undefined;
@@ -661,34 +606,39 @@ app.directive('clients', ['Client', 'ClientV2', 'Metric', 'Location', 'Report', 
 
     var formatMetrics = function(val) {
       for (var i = 0; i < scope.clients.length; i++) {
-        if (scope.clients[i].online && scope.clients[i].client_mac === val[0].data[0].client_mac) {
-          var tx, rx, snr;
-          var metrics = val[0].data[0].data;
-          if (metrics && metrics.length >= 0) {
-            for (var j = 0; j < metrics.length; j++) {
-              var data = metrics[j].data;
-              if (data.length !== 0) {
-                var v, key;
-                if (metrics[j].series_type === 'clients.tx' || metrics[j].series_type === 'clients.rx') {
-                  if (metrics[j].series_type === 'clients.tx') {
-                    key = 'txbitrate';
-                  } else if (metrics[j].series_type === 'clients.rx') {
-                    key = 'rxbitrate';
+        if (scope.clients[i].online) {
+          for (var k = 0; k < val.length; k++) {
+            if (scope.clients[i].client_mac !== val[k].data[0].client_mac) {
+              continue;
+            }
+            var tx, rx, snr;
+            var metrics = val[k].data[0].data;
+            if (metrics && metrics.length >= 0) {
+              for (var j = 0; j < metrics.length; j++) {
+                var data = metrics[j].data;
+                if (data.length !== 0) {
+                  var v, key;
+                  if (metrics[j].series_type === 'clients.tx' || metrics[j].series_type === 'clients.rx') {
+                    if (metrics[j].series_type === 'clients.tx') {
+                      key = 'txbitrate';
+                    } else if (metrics[j].series_type === 'clients.rx') {
+                      key = 'rxbitrate';
+                    }
+                    v = data[data.length-1].value;
+                    v = Math.round(v * 100) / 100;
+                  } else if (metrics[j].series_type === 'clients.snr' || metrics[j].series_type === 'clients.mcs' || metrics[j].series_type === 'clients.signal') {
+                    if (metrics[j].series_type === 'clients.snr') {
+                      key = 'snr';
+                    } else if (metrics[j].series_type === 'clients.mcs') {
+                      key = 'mcs';
+                    } else if (metrics[j].series_type === 'clients.signal') {
+                      key = 'signal';
+                    }
+                    v = data[data.length-1].value;
+                    v = Math.round(v);
                   }
-                  v = data[data.length-1].value;
-                  v = Math.round(v * 100) / 100;
-                } else if (metrics[j].series_type === 'clients.snr' || metrics[j].series_type === 'clients.mcs' || metrics[j].series_type === 'clients.signal') {
-                  if (metrics[j].series_type === 'clients.snr') {
-                    key = 'snr';
-                  } else if (metrics[j].series_type === 'clients.mcs') {
-                    key = 'mcs';
-                  } else if (metrics[j].series_type === 'clients.signal') {
-                    key = 'signal';
-                  }
-                  v = data[data.length-1].value;
-                  v = Math.round(v);
+                  scope.clients[i][key] = v;
                 }
-                scope.clients[i][key] = v;
               }
             }
           }
