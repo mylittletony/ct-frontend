@@ -427,6 +427,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       var parts = $location.host().split('.');
       var cname;
       if (host !== 'ctapp.io' && host !== 'ctapp.test') {
+        if (sub) {
+          host = sub + '.' + host;
+        }
         getBrand(host, true);
       }
       else if (parts.length === 3) {
