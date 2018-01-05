@@ -1,7 +1,31 @@
 <form name="myForm">
 
-  <div ng-hide='splash.splash.updating'>
-    <p translate>Splash Designer</p>
+  <div ng-hide='splash.splash.updating' layout="row" layout-align="space-between center">
+    <div>
+      <p translate>Splash Designer</p>
+    </div>
+    <div>
+      <md-menu>
+        <md-button aria-label="{{ 'Open sessions menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+        </md-button>
+        <md-menu-content width="3" >
+          <splash-templates></splash-templates>
+          <md-menu-item>
+            <md-button ng-click="splash.preview()">
+              <md-icon>pageview</md-icon>
+              <p flex translate>Full Preview</p>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button href="">
+              <md-icon>format_paint</md-icon>
+              <p flex translate>Advanced/Basic</p>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
   </div>
 
   <div ng-show='splash.splash.updating'>
@@ -691,12 +715,9 @@
     </md-card>
   </div>
 
-  <div class="splash-design-buttons">
+  <div layout="row" layout-align="space-around center" class="splash-design-buttons">
     <md-button ng-click="splash.back()" aria-label="{{'Back' | translate }}" class="md-fab md-raised md-mini">
       <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
-    </md-button>
-    <md-button ng-click="splash.preview()" aria-label="{{'Preview' | translate }}" class="md-fab md-raised md-mini">
-      <md-icon md-font-icon="pageview">pageview</md-icon>
     </md-button>
     <md-button ng-click="splash.save(splash.splash,myForm)" aria-label="{{'Save' | translate}}" class="md-fab md-raised md-primary md-mini">
       <md-icon md-font-icon="save">save</md-icon>
