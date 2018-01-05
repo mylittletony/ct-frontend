@@ -983,6 +983,27 @@ md-bottom-sheet .md-subheader {
   margin-top: 48px;
 }
 
+/*colour picker*/
+
+.color-picker-wrapper {
+  border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+  padding-bottom: 5px;
+}
+
+.color-picker-swatch {
+  border-radius: 30px;
+  border-width: 1px!important;
+}
+
+.color-picker-input-wrapper input {
+  border: 0px;
+  outline: 0px;
+}
+
+.color-picker-input {
+  min-width: 200px;
+}
+
 /*general changes*/
 
 .md-subhead a {
