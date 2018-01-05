@@ -2718,3 +2718,53 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
   };
 
 }]);
+
+app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+    scope.location = { slug: $routeParams.id };
+
+    var openDialog = function(network) {
+      $mdDialog.show({
+        templateUrl: 'components/locations/settings/_unifi_setup.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+          loading: scope.loading,
+          network: scope.network
+        }
+      });
+    };
+
+    function DialogController($scope,loading,network) {
+      $scope.loading = loading;
+      $scope.network = network;
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    
+    DialogController.$inject = ['$scope', 'loading', 'network'];
+
+    scope.init = function() {
+      openDialog();
+    };
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    template:
+      '<span>' +
+      '<md-card-actions layout="row" layout-align="end center">' +
+      '<md-button ng-click="init()">Setup</md-button>' +
+      '</md-card-actions>' +
+      '</span>'
+  };
+
+}]);

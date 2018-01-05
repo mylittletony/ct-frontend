@@ -1,0 +1,78 @@
+<md-dialog aria-label="{{ 'Site Setup' | translate }}"  ng-cloak>
+  <form name="myForm" class="ssid-form" id="new-ssid-form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Site Setup</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex="auto" layout="column">
+          <p translate>Select your site and create an SSID within your controller.</p>
+        </div>
+        <div flex="auto" layout="column">
+          <div ng-show='loading'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+          <span ng-hide="loading" layout="column">
+            <md-input-container>
+              <label>
+                <translate>Site</translate>
+              </label>
+              <md-select ng-model="blah.site">
+                <md-option ng-repeat="zone in zones" value="ye">
+                  Testificate
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container>
+              <label>
+                <translate>SSID</translate>
+              </label>
+              <input name="ssid" md-maxlength="32" ng-model="blah.ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
+              <div ng-messages="myForm.ssid.$error">
+                <div ng-message="md-maxlength" translate>Max 32 characters</div>
+                <div ng-message="required" translate>You must set an SSID</div>
+                <div ng-message="pattern" translate>Invalid characters in SSID</div>
+                <div ng-message="ssidValidator" translate>SSID is too large, emojis take up more space!</div>
+              </div>
+            </md-input-container>
+            <md-input-container ng-if="blah.access_type == 'password'">
+              <label>
+                <translate>Password</translate>
+              </label>
+              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="blah.password" ng-pattern="/^[^[\]\'\\]+$/" required>
+              <div ng-messages="myForm.password.$error">
+                <div ng-message="md-maxlength" translate>Max 32 characters</div>
+                <div ng-message="minlength" translate>Min 8 characters</div>
+                <div ng-message="required" translate>You must set a password</div>
+                <div ng-message="pattern" translate>Invalid characters in password</div>
+              </div>
+            </md-input-container>
+            <md-radio-group ng-model="blah.access_type" layout="row">
+              <md-radio-button value="password" class="md-primary">
+                <translate>
+                  Password
+                </translate>
+              </md-radio-button>
+              <md-radio-button value="open">
+                <translate>
+                  Open
+                </translate>
+              </md-radio-button>
+            </md-radio-group>
+          </span>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex="auto"></span>
+      <md-button ng-click="close()" translate>
+        Close
+      </md-button>
+      <md-button class="md-raised" ng-click="ye" translate>
+        Save
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

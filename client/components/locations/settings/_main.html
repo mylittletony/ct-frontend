@@ -41,30 +41,78 @@
                 <label>
                   <translate>Hostname</translate>
                 </label>
-                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
+                <input ng-model="blah.hostname" type="text" md-maxlength='255'required></input>
               </md-input-container>
               <div flex-gt-sm="10"></div>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>Port</translate>
-                </label>
-                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
-              </md-input-container>
             </div>
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
                   <translate>Username</translate>
                 </label>
-                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
+                <input ng-model="blah.username" type="text" md-maxlength='255'required></input>
               </md-input-container>
               <div flex-gt-sm="10"></div>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
                   <translate>Password</translate>
                 </label>
-                <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
+                <input ng-model="blah.password" type="text" md-maxlength='255'required></input>
               </md-input-container>
+            </div>
+            <div layout="row" layout-wrap>
+              <span flex></span>
+              <md-button class="" ng-click="blah">
+                <translate>
+                  Validate
+                </translate>
+              </md-button>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Site Setup
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+
+            <p translate>Now that your UniFi controller is connected, you need to setup your site.</p>
+            <p translate>Click setup and work through the quick steps.</p>
+
+            <unifi-setup></unifi-setup>
+          </md-card-content>
+        </md-card>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text layout="row">
+              <div>
+                <div class="md-headline" translate>UniFi Site</div>
+              </div>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>Site</translate>
+                </label>
+                <input ng-model="blah.site" type="text" disabled></input>
+              </md-input-container>
+              <div flex-gt-sm="10"></div>
+            </div>
+            <div layout="row" layout-wrap>
+              <span flex></span>
+              <md-button class="" ng-click="sync">
+                <translate>
+                  Sync Devices
+                </translate>
+              </md-button>
             </div>
           </md-card-content>
         </md-card>
