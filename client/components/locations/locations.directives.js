@@ -2746,7 +2746,7 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
         $mdDialog.cancel();
       };
     }
-    
+
     DialogController.$inject = ['$scope', 'loading', 'network'];
 
     scope.init = function() {
@@ -2760,11 +2760,9 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
     scope: {
     },
     template:
-      '<span>' +
       '<md-card-actions layout="row" layout-align="end center">' +
       '<md-button ng-click="init()">Setup</md-button>' +
-      '</md-card-actions>' +
-      '</span>'
+      '</md-card-actions>'
   };
 
 }]);
