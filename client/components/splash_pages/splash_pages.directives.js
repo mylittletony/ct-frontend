@@ -1226,7 +1226,8 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compil
         clickOutsideToClose: true,
         controller: DialogController,
         locals: {
-          loading: scope.loading        }
+          loading: scope.loading
+        }
       });
     };
 
