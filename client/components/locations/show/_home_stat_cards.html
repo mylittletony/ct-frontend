@@ -21,7 +21,7 @@
       <div layout="row">
         <div flex="50" style="padding-left:20px;" class="home-stat-stat">
           <span ng-if="loading"><h1 translate>0</h1></span>
-          <span ng-if="!loading"><h1 translate>{{ ::online }}</h1></span>
+          <span ng-if="!loading"><h1 translate>{{ online || 0 }}</h1></span>
           <p>Devices Online</p>
         </div>
         <div flex="50" class="home-stat-icon">
