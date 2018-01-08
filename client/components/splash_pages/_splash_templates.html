@@ -1,4 +1,4 @@
-<md-dialog aria-label="{{ 'Site Setup' | translate }}"  flex="80" ng-cloak>
+<md-dialog aria-label="{{ 'Site Setup' | translate }}" ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2 translate>Splash Template</h2>
@@ -6,9 +6,9 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
-        <md-radio-group ng-model="splash.template">
 
-        <div layout="row" layout-align="space-around center" layout-wrap>
+        <md-radio-group ng-model="splash.template">
+          <div layout="row" layout-align="space-around center" layout-wrap>
             <div flex="100" flex-gt-xs="30">
               <md-card>
                 <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
@@ -51,17 +51,102 @@
                 </md-card-actions>
               </md-card>
             </div>
-        </div>
-      </md-radio-group>
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template Four</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template4"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template Five</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template5"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template Six</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template6"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
+
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template Seven</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template7"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template Eight</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template8"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
+            <div flex="100" flex-gt-xs="30">
+                <md-card>
+                  <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                  </md-content>
+                  <md-card-actions layout="row" layout-align="space-between center">
+                    <div>
+                      <p>Template Nine</p>
+                    </div>
+                    <div>
+                      <md-radio-button value="template9"></md-radio-button>
+                    </div>
+                  </md-card-actions>
+                </md-card>
+              </div>
+
+          </div>
+        </md-radio-group>
 
       </div>
     </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <span flex="auto"></span>
+    <md-dialog-actions layout="row" layout-align="end center">
       <md-button ng-click="close()" translate>
         Close
       </md-button>
-      <md-button class="md-raised" ng-click="ye" translate>
+      <md-button class="md-raised" ng-click="showConfirm()" translate>
         Apply
       </md-button>
     </md-dialog-actions>

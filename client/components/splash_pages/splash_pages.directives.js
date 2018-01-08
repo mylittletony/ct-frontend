@@ -1219,20 +1219,18 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compil
 
     scope.location = { slug: $routeParams.id };
 
-    var openDialog = function(network) {
+    var openDialog = function() {
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_splash_templates.html',
         parent: angular.element(document.body),
         clickOutsideToClose: true,
         controller: DialogController,
         locals: {
-          loading: scope.loading,
-          network: scope.network
-        }
+          loading: scope.loading        }
       });
     };
 
-    function DialogController($scope,loading,network) {
+    function DialogController($scope,loading) {
       $scope.loading = loading;
       $scope.network = network;
 
@@ -1241,7 +1239,7 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compil
       };
     }
 
-    DialogController.$inject = ['$scope', 'loading', 'network'];
+    DialogController.$inject = ['$scope', 'loading'];
 
     scope.init = function() {
       openDialog();
