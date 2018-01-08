@@ -6,9 +6,54 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
-        <div flex="auto" layout="column">
-          <h1>A BUNCH OF TEMPLATES AND STUFF</h1>
+        <md-radio-group ng-model="splash.template">
+
+        <div layout="row" layout-align="space-around center" layout-wrap>
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template One</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template1"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template Two</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template2"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
+            <div flex="100" flex-gt-xs="30">
+              <md-card>
+                <md-content class="md-card-image" style="background-image:url(http://www.ct-networks.io/images/pages/splash.jpg);min-height:180px;background-size:cover;">
+                </md-content>
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <p>Template Three</p>
+                  </div>
+                  <div>
+                    <md-radio-button value="template3"></md-radio-button>
+                  </div>
+                </md-card-actions>
+              </md-card>
+            </div>
         </div>
+      </md-radio-group>
+
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
@@ -21,3 +66,9 @@
       </md-button>
     </md-dialog-actions>
 </md-dialog>
+
+<style>
+md-radio-button {
+  margin-bottom: 0px!important;
+}
+</style>
