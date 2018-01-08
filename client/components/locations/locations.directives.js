@@ -2217,11 +2217,11 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
         icon: 'security'
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Splash'),
-        type: 'splash',
-        icon: 'web'
-      });
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Splash'),
+      //   type: 'splash',
+      //   icon: 'web'
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Analytics'),
