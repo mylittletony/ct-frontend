@@ -1,5 +1,9 @@
 <style>
 
+  .intercom-foot-pad {
+    padding: 0px!important;
+  }
+
   .dc {
     font-family: {{ splash.font_family }}!important;
   }
@@ -63,6 +67,8 @@
     border-radius: {{ splash.button_radius }};
     background-color: {{splash.button_colour}};
     border-color: {{ splash.button_border_colour }};
+    border-radius: {{splash.button_radius}};
+    box-shadow: {{splash.button_shadow ? '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);' : '0 0px 0px rgba(0,0,0,0.0)'}};
   }
 
   small, .small {
@@ -93,6 +99,8 @@
     margin: 0 auto;
     width: 95%;
     min-height: 400px;
+    border-radius: {{splash.container_radius}};
+    box-shadow: {{splash.container_shadow ? '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);' : '0 0px 0px rgba(0,0,0,0.0)'}};
   }
 
   .banner {

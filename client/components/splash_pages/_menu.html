@@ -2,7 +2,7 @@
 
   <div ng-hide='splash.splash.updating' layout="row" layout-align="space-between center">
     <div>
-      <p translate>Splash Designer</p>
+      <p translate>{{ scope.designerAdvanced ? "Advanced" : "Basic" }} Splash Designer </p>
     </div>
     <div>
       <md-menu>
@@ -18,9 +18,9 @@
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button href="">
+            <md-button ng-click="designerAdvanced = !designerAdvanced">
               <md-icon>format_paint</md-icon>
-              <p flex translate>Advanced/Basic</p>
+              <p flex translate>{{ scope.designerAdvanced ? "Advanced" : "Basic" }}</p>
             </md-button>
           </md-menu-item>
         </md-menu-content>
@@ -398,12 +398,28 @@
               <color-picker ng-model="splash.splash.btn_font_colour"></color-picker>
             </md-input-container>
           </div>
-          <div flex="100" flex-gt-sm="100">
+          <div flex="100" flex-gt-sm="50">
             <md-input-container class="md-block">
               <label>
                 <translate>Font Size</translate>
               </label>
               <input type="text" ng-model="splash.splash.btn_font_size" required>
+            </md-input-container>
+          </div>
+          <div flex="100" flex-gt-xs="50">
+            <md-input-container class="md-block">
+              <label>
+                <translate>Corner Radius</translate>
+              </label>
+              <input type="text" ng-model="splash.splash.button_radius" required>
+            </md-input-container>
+          </div>
+          <div flex="100" flex-gt-xs="100">
+            <md-input-container class="md-block" style="margin-top: 0px;">
+              <md-switch ng-model="splash.splash.button_shadow" aria-label="button_shadow" style="margin: 0px 0 20px 0">
+                <span ng-show="splash.splash.button_shadow == true" translate>Shadow Enabled</span>
+                <span ng-show="splash.splash.button_shadow == false" translate>Shadow Disabled</span>
+              </md-switch>
             </md-input-container>
           </div>
         </div>
@@ -577,6 +593,22 @@
                 <translate>Padding</translate>
               </label>
               <input type="text" ng-model="splash.splash.container_inner_padding" required>
+            </md-input-container>
+          </div>
+          <div flex="100" flex-gt-xs="50">
+            <md-input-container class="md-block">
+              <label>
+                <translate>Corner Radius</translate>
+              </label>
+              <input type="text" ng-model="splash.splash.container_radius" required>
+            </md-input-container>
+          </div>
+          <div flex="100" flex-gt-xs="100">
+            <md-input-container class="md-block" style="margin-top: 0px;">
+              <md-switch ng-model="splash.splash.container_shadow" aria-label="container_shadow" style="margin: 0px 0 20px 0">
+                <span ng-show="splash.splash.container_shadow == true" translate>Shadow Enabled</span>
+                <span ng-show="splash.splash.container_shadow == false" translate>Shadow Disabled</span>
+              </md-switch>
             </md-input-container>
           </div>
         </div>
