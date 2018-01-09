@@ -2095,6 +2095,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
           metadata: {
             unifi_site_name: 'hello312',
             unifi_site_desc: 'Hello',
+            ssid: 'test ssid'
           }
         }
       }, function(results) {
