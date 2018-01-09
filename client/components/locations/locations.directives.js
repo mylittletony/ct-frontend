@@ -2217,22 +2217,16 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
         icon: 'security'
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Splash'),
-        type: 'splash',
-        icon: 'web'
-      });
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Splash'),
+      //   type: 'splash',
+      //   icon: 'web'
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Analytics'),
         type: 'analytics',
         icon: 'trending_up'
-      });
-
-      scope.menu.push({
-        name: gettextCatalog.getString('Transfer'),
-        type: 'transfer',
-        icon: 'transform'
       });
 
       scope.menu.push({
@@ -2252,9 +2246,6 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       switch(type) {
         case 'delete':
           destroy();
-          break;
-        case 'transfer':
-          transfer();
           break;
         case 'archive':
           archive();
@@ -2353,35 +2344,6 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       Location.destroy({id: scope.location.id}).$promise.then(function(results) {
         $location.path('/');
         showToast(gettextCatalog.getString('Successfully deleted location.'));
-      }, function(err) {
-        showErrors(err);
-      });
-    };
-
-    var transfer = function() {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_transfer.html',
-        clickOutsideToClose: true,
-        parent: angular.element(document.body),
-        controller: TransferController,
-      });
-    };
-
-    var TransferController = function($scope){
-      $scope.transfer = function(account_id) {
-        $mdDialog.cancel();
-        transferLocation(account_id);
-      };
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    };
-    TransferController.$inject = ['$scope'];
-
-    var transferLocation = function(accountId) {
-      Location.transfer({accountId: accountId, id: scope.location.slug}).$promise.then(function(results) {
-        $location.path('/').search('tfer=true');
-        showToast(gettextCatalog.getString('Location successfully transferred.'));
       }, function(err) {
         showErrors(err);
       });

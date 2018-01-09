@@ -606,41 +606,48 @@ app.directive('clients', ['Client', 'ClientV2', 'Metric', 'Location', 'Report', 
 
     var formatMetrics = function(val) {
       for (var i = 0; i < scope.clients.length; i++) {
-        if (scope.clients[i].online) {
-          for (var k = 0; k < val.length; k++) {
-            if (scope.clients[i].client_mac !== val[k].data[0].client_mac) {
+        if (scope.clients[i].online !== true) {
+          continue;
+        }
+
+        for (var k = 0; k < val.length; k++) {
+          if (scope.clients[i].client_mac !== val[k].data[0].client_mac) {
+            continue;
+          }
+          var tx, rx, snr;
+          var metrics = val[k].data[0].data;
+
+          if (metrics && metrics.length === 0) {
+            continue;
+          }
+
+          for (var j = 0; j < metrics.length; j++) {
+            var data = metrics[j].data;
+            if (data.length === 0) {
               continue;
             }
-            var tx, rx, snr;
-            var metrics = val[k].data[0].data;
-            if (metrics && metrics.length >= 0) {
-              for (var j = 0; j < metrics.length; j++) {
-                var data = metrics[j].data;
-                if (data.length !== 0) {
-                  var v, key;
-                  if (metrics[j].series_type === 'clients.tx' || metrics[j].series_type === 'clients.rx') {
-                    if (metrics[j].series_type === 'clients.tx') {
-                      key = 'txbitrate';
-                    } else if (metrics[j].series_type === 'clients.rx') {
-                      key = 'rxbitrate';
-                    }
-                    v = data[data.length-1].value;
-                    v = Math.round(v * 100) / 100;
-                  } else if (metrics[j].series_type === 'clients.snr' || metrics[j].series_type === 'clients.mcs' || metrics[j].series_type === 'clients.signal') {
-                    if (metrics[j].series_type === 'clients.snr') {
-                      key = 'snr';
-                    } else if (metrics[j].series_type === 'clients.mcs') {
-                      key = 'mcs';
-                    } else if (metrics[j].series_type === 'clients.signal') {
-                      key = 'signal';
-                    }
-                    v = data[data.length-1].value;
-                    v = Math.round(v);
-                  }
-                  scope.clients[i][key] = v;
-                }
+
+            var v, key;
+            if (metrics[j].series_type === 'clients.tx' || metrics[j].series_type === 'clients.rx') {
+              if (metrics[j].series_type === 'clients.tx') {
+                key = 'txbitrate';
+              } else if (metrics[j].series_type === 'clients.rx') {
+                key = 'rxbitrate';
               }
+              v = data[data.length-1].value;
+              v = Math.round(v * 100) / 100;
+            } else if (metrics[j].series_type === 'clients.snr' || metrics[j].series_type === 'clients.mcs' || metrics[j].series_type === 'clients.signal') {
+              if (metrics[j].series_type === 'clients.snr') {
+                key = 'snr';
+              } else if (metrics[j].series_type === 'clients.mcs') {
+                key = 'mcs';
+              } else if (metrics[j].series_type === 'clients.signal') {
+                key = 'signal';
+              }
+              v = data[data.length-1].value;
+              v = Math.round(v);
             }
+            scope.clients[i][key] = v;
           }
         }
       }
