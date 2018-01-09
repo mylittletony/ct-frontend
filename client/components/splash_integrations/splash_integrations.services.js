@@ -15,13 +15,22 @@ app.factory('SplashIntegration', ['$resource', '$localStorage', 'API_END_POINT',
         params: {
         }
       },
-      unifi_authenticate: {
+      create: {
         method: 'POST',
         isArray: false,
         params: {
+          location_id: '@location_id',
+          splash_integration: '@splash_integration'
+        }
+      },
+      update: {
+        method: 'PATCH',
+        isArray: false,
+        params: {
+          location_id: '@location_id',
           id: '@id',
           splash_integration: '@splash_integration'
         }
-      }
+      },
     });
   }]);
