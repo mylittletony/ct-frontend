@@ -2028,6 +2028,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
     var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
+        scope.fetchSites();
       });
       Project.get({}).$promise.then(function(results) {
         scope.projects = results.projects;
@@ -2062,6 +2063,16 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
           showErrors(error);
         });
       }
+    };
+
+    scope.fetchSites = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'unifi_sites'
+      }).$promise.then(function(results) {
+        scope.unifi_sites =  results;
+      });
     };
 
     init();
@@ -2757,170 +2768,32 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
 
     scope.location = { slug: $routeParams.id };
 
-    var unifiController = function() {
+    var openDialog = function(network) {
       $mdDialog.show({
-        templateUrl: 'components/locations/settings/_unifi_setup_controller.html',
+        templateUrl: 'components/locations/settings/_unifi_setup.html',
         parent: angular.element(document.body),
-        clickOutsideToClose: false,
+        clickOutsideToClose: true,
         controller: DialogController,
         locals: {
-          loading: scope.loading
+          loading: scope.loading,
+          network: scope.network
         }
       });
     };
 
-    var unifiSite = function() {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_unifi_setup_site.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose: false,
-        controller: DialogController,
-        locals: {
-          loading: scope.loading
-        }
-      });
-    };
-
-    function DialogController($scope,loading) {
+    function DialogController($scope,loading,network) {
       $scope.loading = loading;
+      $scope.network = network;
 
       $scope.close = function() {
         $mdDialog.cancel();
       };
-      $scope.next = function() {
-        unifiSite();
-      };
-      $scope.save = function() {
-        $mdDialog.cancel();
-      };
-      $scope.back = function() {
-        unifiController();
-      };
-
     }
 
-    DialogController.$inject = ['$scope', 'loading'];
-
-    scope.init = function() {
-      unifiController();
-    };
-
-  };
-
-  return {
-    link: link,
-    scope: {
-    },
-    template:
-      '<md-card-actions layout="row" layout-align="end center">' +
-      '<md-button ng-click="init()">Setup</md-button>' +
-      '</md-card-actions>'
-  };
-
-}]);
-
-app.directive('vszSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
-
-  var link = function(scope, element, attrs) {
-
-    scope.location = { slug: $routeParams.id };
-
-    var openDialog = function() {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_vsz_setup.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose: false,
-        controller: DialogController,
-        locals: {
-          loading: scope.loading
-        }
-      });
-    };
-
-    function DialogController($scope,loading) {
-      $scope.loading = loading;
-
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-      $scope.save = function() {
-        $mdDialog.cancel();
-      };
-
-    }
-
-    DialogController.$inject = ['$scope', 'loading'];
+    DialogController.$inject = ['$scope', 'loading', 'network'];
 
     scope.init = function() {
       openDialog();
-    };
-
-  };
-
-  return {
-    link: link,
-    scope: {
-    },
-    template:
-      '<md-card-actions layout="row" layout-align="end center">' +
-      '<md-button ng-click="init()">Setup</md-button>' +
-      '</md-card-actions>'
-  };
-
-}]);
-
-app.directive('merakiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
-
-  var link = function(scope, element, attrs) {
-
-    scope.location = { slug: $routeParams.id };
-
-    var merakiApi = function() {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_meraki_setup_api.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose: false,
-        controller: DialogController,
-        locals: {
-          loading: scope.loading
-        }
-      });
-    };
-
-    var merakiNetwork = function() {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_meraki_setup_network.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose: false,
-        controller: DialogController,
-        locals: {
-          loading: scope.loading
-        }
-      });
-    };
-
-    function DialogController($scope,loading) {
-      $scope.loading = loading;
-
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-      $scope.next = function() {
-        merakiNetwork();
-      };
-      $scope.save = function() {
-        $mdDialog.cancel();
-      };
-      $scope.back = function() {
-        merakiApi();
-      };
-
-    }
-
-    DialogController.$inject = ['$scope', 'loading'];
-
-    scope.init = function() {
-      merakiApi();
     };
 
   };

@@ -4,7 +4,7 @@ var app = angular.module('myApp.splash_integrations.services', ['ngResource',]);
 
 app.factory('SplashIntegration', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
-    return $resource(API_END_POINT + '/splash_integrations/:id',
+    return $resource(API_END_POINT + '/locations/:location_id/splash_integrations/:id',
       {
       },
       {
@@ -32,5 +32,13 @@ app.factory('SplashIntegration', ['$resource', '$localStorage', 'API_END_POINT',
           splash_integration: '@splash_integration'
         }
       },
+      integration_action: {
+        method: 'GET',
+        isArray: false,
+        dataType: 'json',
+        params: {
+          action: '@action'
+        }
+      }
     });
   }]);
