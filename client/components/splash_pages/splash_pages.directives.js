@@ -1231,13 +1231,34 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compil
       });
     };
 
+    var showConfirm = function() {
+      $mdDialog.show({
+        templateUrl: 'components/splash_pages/_template_confirm.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+          loading: scope.loading
+        }
+      });
+    }
+
     function DialogController($scope,loading) {
       $scope.loading = loading;
-      $scope.network = network;
 
       $scope.close = function() {
         $mdDialog.cancel();
       };
+      $scope.next = function() {
+        showConfirm();
+      };
+      $scope.save = function() {
+        $mdDialog.cancel();
+      };
+      $scope.back = function() {
+        openDialog();
+      };
+
     }
 
     DialogController.$inject = ['$scope', 'loading'];
