@@ -2035,19 +2035,33 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     };
 
-    scope.unifi_authenticate = function() {
+    scope.update = function() {
+
+      /////////////// !!!!!!!!!!!!!!!!!!!!!!!!! zak
+      scope.integration.type = 'unifi';
+      /////////////// @@@@@@@@@@@@@@@@@@@@@@@@@ ahhh
+
       // returns 200 if authenticated with unifi or unauthorized 401 if not
-      SplashIntegration.unifi_authenticate({
-        id: scope.integration.id,
-        splash_integration: {
-          host: scope.integration.host,
-          username: scope.integration.username,
-          password: scope.integration.password
-        }}).$promise.then(function(results) {
-        showToast(gettextCatalog.getString(results.message));
-      }, function(error) {
-        showErrors(error);
-      });
+      if (scope.integration.new_record) {
+        SplashIntegration.create({}, {
+          location_id: $routeParams.id,
+          splash_integration: scope.integration
+        }).$promise.then(function(results) {
+          showToast(gettextCatalog.getString(results.message));
+        }, function(error) {
+          showErrors(error);
+        });
+      } else {
+        SplashIntegration.update({}, {
+          id: scope.integration.id,
+          location_id: $routeParams.id,
+          splash_integration: scope.integration
+        }).$promise.then(function(results) {
+          showToast(gettextCatalog.getString(results.message));
+        }, function(error) {
+          showErrors(error);
+        });
+      }
     };
 
     init();
