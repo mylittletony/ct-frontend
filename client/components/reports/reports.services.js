@@ -136,17 +136,17 @@ app.factory('Report', ['$resource', '$localStorage', 'API_END_POINT',
       //     ap_mac: '@ap_mac'
       //   }
       // },
-      // create: {
-      //   method:'POST',
-      //   isArray: false,
-      //   params: {
-      //     location_id: '@location_id',
-      //     start: '@start',
-      //     end: '@end',
-      //     type: '@type',
-      //     interval: 'day'
-      //   }
-      // },
+      create: {
+        method:'POST',
+        isArray: false,
+        params: {
+          location_id: '@location_id',
+          start: '@start',
+          end: '@end',
+          type: '@type',
+          interval: 'day'
+        }
+      }
     });
   }]);
 
