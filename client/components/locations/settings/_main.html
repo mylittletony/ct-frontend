@@ -24,8 +24,33 @@
           <md-card-title>
             <md-card-title-text layout="row">
               <div>
+                <div class="md-headline">UniFi Settings</div>
+                <div class="md-subhead">
+                  For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
+                </div>
+              </div>
+              <span flex></span>
+              <div>
+                <img src="https://i.imgur.com/2lHBnpb.png" style="max-height:50px;max-width:200px;"/>
+              </div>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <p>To get started, click on setup and work through the quick steps.</p>
+            </div>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <unifi-setup></unifi-setup>
+          </md-card-actions>
+        </md-card>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text layout="row">
+              <div>
                 <div class="md-headline" translate>UniFi Settings</div>
-                <div class="md-subhead" translate>
+                <div class="md-subhead">
                   For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                 </div>
               </div>
@@ -39,95 +64,37 @@
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
-                  <translate>Hostname</translate>
+                  Hostname
                 </label>
-                <input ng-model="blah.hostname" type="text" md-maxlength='255'required></input>
-              </md-input-container>
-              <div flex-gt-sm="10"></div>
-            </div>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>Username</translate>
-                </label>
-                <input ng-model="blah.username" type="text" md-maxlength='255'required></input>
+                <input ng-model="blah.hostname" type="text" disabled></input>
               </md-input-container>
               <div flex-gt-sm="10"></div>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
-                  <translate>Password</translate>
-                </label>
-                <input ng-model="blah.password" type="text" md-maxlength='255'required></input>
-              </md-input-container>
-            </div>
-
-          </md-card-content>
-          <md-card-actions layout="row" layout-align="space-between center">
-              <md-button class="md-warn" ng-click="blah">
-                <translate>
-                  Delete
-                </translate>
-              </md-button>
-              <md-button class="" ng-click="blah">
-                <translate>
-                  Save
-                </translate>
-              </md-button>
-          </md-card-actions>
-        </md-card>
-
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Site Setup
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-
-            <p translate>Now that your UniFi controller is connected, you need to setup your site.</p>
-            <p translate>Click setup and work through the quick steps.</p>
-
-          </md-card-content>
-          <unifi-setup></unifi-setup>
-        </md-card>
-
-        <md-card>
-          <md-card-title>
-            <md-card-title-text layout="row">
-              <div>
-                <div class="md-headline" translate>UniFi Site</div>
-              </div>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>Site</translate>
+                  Site
                 </label>
                 <input ng-model="blah.site" type="text" disabled></input>
               </md-input-container>
-              <div flex-gt-sm="10"></div>
             </div>
           </md-card-content>
-          <md-card-actions layout="row" layout-align="end center">
+          <md-card-actions layout="row" layout-align="space-between center">
+              <md-button class="md-warn" ng-click="blah" disabled>
+                Delete
+              </md-button>
               <md-button class="" ng-click="blah">
-                <translate>
-                  Import Devices
-                </translate>
+                Import Devices
               </md-button>
           </md-card-actions>
-
         </md-card>
+
+
 
         <md-card>
           <md-card-title>
             <md-card-title-text layout="row">
               <div>
-                <div class="md-headline" translate>Meraki Settings</div>
-                <div class="md-subhead" translate>
+                <div class="md-headline">Meraki Settings</div>
+                <div class="md-subhead">
                   For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                 </div>
               </div>
@@ -139,53 +106,82 @@
           </md-card-title>
           <md-card-content>
             <div layout="row" layout-wrap>
-              <div flex="100" flex-gt-sm="40">
-                <h3 translate>Radius 1</h3>
-                <p>radius-1.ctapp.io</p>
-              </div>
-              <div flex-gt-sm="10"></div>
-              <div flex="100" flex-gt-sm="40">
-                <h3 translate>Radius 2</h3>
-                <p>radius-2.ctapp.io</p>
-              </div>
-            </div>
-            <div layout="row" layout-wrap>
-              <div flex="100" flex-gt-sm="40">
-                <h3 translate>Port Auth</h3>
-                <p>1812</p>
-              </div>
-              <div flex-gt-sm="10"></div>
-              <div flex="100" flex-gt-sm="40">
-                <h3 translate>Port Acc</h3>
-                <p>1813</p>
-              </div>
-            </div>
-            <div layout="row" layout-wrap>
-              <div flex="100" flex-gt-sm="40">
-                <h3 translate>Radius Secret</h3>
-                <p>Shh This Is Secret</p>
-              </div>
-              <div flex-gt-sm="10"></div>
-              <div flex="100" flex-gt-sm="40">
-                <h3 translate>Splash URL</h3>
-                <p>http://app.my-wifi.co</p>
-              </div>
-            </div>
-            <div layout="row" layout-wrap>
-              <div flex="100" flex-gt-sm="100">
-                <h3 translate>Walled Gardens</h3>
-                <p>yeah</p>
-              </div>
+              <p>To get started, click on setup and work through the quick steps.</p>
             </div>
           </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <meraki-setup></meraki-setup>
+          </md-card-actions>
         </md-card>
 
         <md-card>
           <md-card-title>
             <md-card-title-text layout="row">
               <div>
-                <div class="md-headline" translate>Ruckus VSZ Settings</div>
-                <div class="md-subhead" translate>
+                <div class="md-headline" translate>UniFi Settings</div>
+                <div class="md-subhead">
+                  For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
+                </div>
+              </div>
+              <span flex></span>
+              <div>
+                <img src="https://i.imgur.com/A07NZSr.png" style="max-height:50px;max-width:200px;"/>
+              </div>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  Organisation
+                </label>
+                <input ng-model="blah.hostname" type="text" disabled></input>
+              </md-input-container>
+            </div>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="space-between center">
+              <md-button class="md-warn" ng-click="blah" disabled>
+                Delete
+              </md-button>
+              <md-button class="" ng-click="blah">
+                Import Devices
+              </md-button>
+          </md-card-actions>
+        </md-card>
+
+
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text layout="row">
+              <div>
+                <div class="md-headline">Ruckus VSZ Settings</div>
+                <div class="md-subhead">
+                  For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
+                </div>
+              </div>
+              <span flex></span>
+              <div>
+                <img src="https://i.imgur.com/1vN067Z.png" style="max-height:50px;max-width:200px;"/>
+              </div>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <p>To get started, click on setup and work through the quick steps.</p>
+            </div>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <vsz-setup></vsz-setup>
+          </md-card-actions>
+        </md-card>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text layout="row">
+              <div>
+                <div class="md-headline">Ruckus VSZ Settings</div>
+                <div class="md-subhead">
                   For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                 </div>
               </div>
@@ -199,84 +195,24 @@
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
-                  <translate>Hostname</translate>
+                  Hostname
                 </label>
-                <input ng-model="blah.hostname" type="text" md-maxlength='255'required></input>
+                <input ng-model="blah.hostname" type="text" disabled></input>
               </md-input-container>
               <div flex-gt-sm="10"></div>
-            </div>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>VSZ Username</translate>
-                </label>
-                <input ng-model="blah.username" type="text" md-maxlength='255'required></input>
-              </md-input-container>
-              <div flex-gt-sm="10"></div>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>VSZ Password</translate>
-                </label>
-                <input ng-model="blah.password" type="text" md-maxlength='255'required></input>
-              </md-input-container>
-            </div>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>SSID</translate>
-                </label>
-                <input name="ssid" md-maxlength="32" ng-model="blah.ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
-                <div ng-messages="myForm.ssid.$error">
-                  <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                  <div ng-message="required" translate>You must set an SSID</div>
-                  <div ng-message="pattern" translate>Invalid characters in SSID</div>
-                  <div ng-message="ssidValidator" translate>SSID is too large, emojis take up more space!</div>
-                </div>
-              </md-input-container>
-              <div flex-gt-sm="10"></div>
-              <md-input-container flex="100" flex-gt-sm="40" ng-if="blah.access_type == 'password'">
-                <label>
-                  <translate>SSID Password</translate>
-                </label>
-                <input name="password" ng-minlength="8" md-maxlength="32" ng-model="blah.password" ng-pattern="/^[^[\]\'\\]+$/" required>
-                <div ng-messages="myForm.password.$error">
-                  <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                  <div ng-message="minlength" translate>Min 8 characters</div>
-                  <div ng-message="required" translate>You must set a password</div>
-                  <div ng-message="pattern" translate>Invalid characters in password</div>
-                </div>
-              </md-input-container>
-            </div>
-            <div layout="row" layout-wrap>
-              <div flex="100" flex-gt-sm="40">
-                <md-radio-group ng-model="blah.access_type" layout="row">
-                  <md-radio-button value="password" class="md-primary">
-                    <translate>
-                      Password
-                    </translate>
-                  </md-radio-button>
-                  <md-radio-button value="open">
-                    <translate>
-                      Open
-                    </translate>
-                  </md-radio-button>
-                </md-radio-group>
-              </div>
             </div>
           </md-card-content>
           <md-card-actions layout="row" layout-align="space-between center">
-              <md-button class="md-warn" ng-click="blah">
-                <translate>
-                  Delete
-                </translate>
-              </md-button>
-              <md-button class="" ng-click="blah">
-                <translate>
-                  Save
-                </translate>
-              </md-button>
+            <md-button class="md-warn" ng-click="blah" disabled>
+              Delete
+            </md-button>
+            <md-button class="" ng-click="blah">
+              Import Devices
+            </md-button>
           </md-card-actions>
         </md-card>
+
+
 
         <md-card>
           <md-card-title>
@@ -340,8 +276,8 @@
           <md-card-title>
             <md-card-title-text layout="row">
               <div>
-                <div class="md-headline" translate>CT Networks Settings</div>
-                <div class="md-subhead" translate>
+                <div class="md-headline">CT Networks Settings</div>
+                <div class="md-subhead">
                   For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                 </div>
               </div>
@@ -355,7 +291,7 @@
             <div layout="row" layout-wrap>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
-                  <translate>API Key</translate>
+                  API Key
                 </label>
                 <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
               </md-input-container>

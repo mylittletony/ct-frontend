@@ -1,0 +1,51 @@
+<md-dialog aria-label="{{ 'UniFi Setup' | translate }}"  ng-cloak>
+  <form name="myForm" class="ssid-form" id="new-ssid-form">
+    <md-toolbar>
+      <div class="md-toolbar-tools" layout-align="space-between center">
+        <h2 translate>UniFi Setup</h2>
+        <h2>1/2</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex="auto" layout="column">
+          <p translate>Enter your controller details.</p>
+        </div>
+        <div flex="auto" layout="column">
+          <div ng-show='loading'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+          <span ng-hide="loading" layout="column">
+            <md-input-container>
+              <label>
+                <translate>Hostname</translate>
+              </label>
+              <input ng-model="blah.hostname" type="text" md-maxlength='255'required></input>
+            </md-input-container>
+            <md-input-container>
+              <label>
+                <translate>Username</translate>
+              </label>
+              <input ng-model="blah.username" type="text" md-maxlength='255'required></input>
+            </md-input-container>
+            <md-input-container>
+              <label>
+                <translate>Password</translate>
+              </label>
+              <input ng-model="blah.password" type="text" md-maxlength='255'required></input>
+            </md-input-container>
+          </span>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex="auto"></span>
+      <md-button ng-click="close()" translate>
+        Cancel
+      </md-button>
+      <md-button class="md-raised" ng-click="next()" translate>
+        Next
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

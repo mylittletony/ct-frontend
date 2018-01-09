@@ -1,0 +1,63 @@
+<md-dialog aria-label="{{ 'Meraki Setup' | translate }}"  ng-cloak>
+  <form name="myForm" class="ssid-form" id="new-ssid-form">
+    <md-toolbar>
+      <div class="md-toolbar-tools" layout-align="space-between center">
+        <h2 translate>Meraki Setup</h2>
+        <h2>2/2</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex="auto" layout="column">
+          <p translate>Enter your controller details.</p>
+        </div>
+        <div flex="auto" layout="column">
+          <div ng-show='loading'>
+            <md-progress-linear md-mode="query"></md-progress-linear>
+          </div>
+          <span ng-hide="loading" layout="column">
+            <md-input-container>
+              <label>
+                <translate>Organisation</translate>
+              </label>
+              <md-select ng-model="blah.organisation">
+                <md-option ng-repeat="zone in zones" value="ye">
+                  Testificate
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container>
+              <label>
+                <translate>Network</translate>
+              </label>
+              <md-select ng-model="blah.networks">
+                <md-option ng-repeat="zone in zones" value="ye">
+                  Testificate
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container>
+              <label>
+                <translate>SSID</translate>
+              </label>
+              <md-select ng-model="blah.organisation">
+                <md-option ng-repeat="zone in zones" value="ye">
+                  Testificate
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </span>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex="auto"></span>
+      <md-button ng-click="close()" translate>
+        Cancel
+      </md-button>
+      <md-button class="md-raised" ng-click="save()" translate>
+        Save
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

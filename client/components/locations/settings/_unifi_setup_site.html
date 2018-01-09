@@ -1,8 +1,9 @@
-<md-dialog aria-label="{{ 'Site Setup' | translate }}"  ng-cloak>
+<md-dialog aria-label="{{ 'UniFi Setup' | translate }}"  ng-cloak>
   <form name="myForm" class="ssid-form" id="new-ssid-form">
     <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2 translate>Site Setup</h2>
+      <div class="md-toolbar-tools" layout-align="space-between center">
+        <h2 translate>UniFi Setup</h2>
+        <h2>2/2</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
@@ -37,7 +38,7 @@
                 <div ng-message="ssidValidator" translate>SSID is too large, emojis take up more space!</div>
               </div>
             </md-input-container>
-            <md-input-container ng-if="blah.access_type == 'password'">
+            <!-- <md-input-container ng-if="blah.access_type == 'password'">
               <label>
                 <translate>Password</translate>
               </label>
@@ -60,17 +61,17 @@
                   Open
                 </translate>
               </md-radio-button>
-            </md-radio-group>
+            </md-radio-group> -->
           </span>
         </div>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex="auto"></span>
-      <md-button ng-click="close()" translate>
-        Close
+      <md-button ng-click="back()" translate>
+        Back
       </md-button>
-      <md-button class="md-raised" ng-click="ye" translate>
+      <md-button class="md-raised" ng-click="save()" translate>
         Save
       </md-button>
     </md-dialog-actions>
