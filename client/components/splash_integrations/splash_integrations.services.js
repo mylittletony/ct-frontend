@@ -34,7 +34,7 @@ app.factory('SplashIntegration', ['$resource', '$localStorage', 'API_END_POINT',
       },
       integration_action: {
         method: 'GET',
-        isArray: false,
+        isArray: true,
         dataType: 'json',
         params: {
           action: '@action'
