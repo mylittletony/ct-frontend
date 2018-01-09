@@ -1976,7 +1976,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
 }]);
 
-app.directive('locationSettingsMain', ['Location', '$location', 'moment', 'Project', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $location, moment, Project, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$location', '$routeParams', 'moment', 'Project', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, SplashIntegration, $location, $routeParams, moment, Project, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -2026,9 +2026,27 @@ app.directive('locationSettingsMain', ['Location', '$location', 'moment', 'Proje
 
     // Needs test
     var init = function() {
+      SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
+        scope.integration = results;
+      });
       Project.get({}).$promise.then(function(results) {
         scope.projects = results.projects;
         // setProjectName();
+      });
+    };
+
+    scope.unifi_authenticate = function() {
+      // returns 200 if authenticated with unifi or unauthorized 401 if not
+      SplashIntegration.unifi_authenticate({
+        id: scope.integration.id,
+        splash_integration: {
+          host: scope.integration.host,
+          username: scope.integration.username,
+          password: scope.integration.password
+        }}).$promise.then(function(results) {
+        showToast(gettextCatalog.getString(results.message));
+      }, function(error) {
+        showErrors(error);
       });
     };
 

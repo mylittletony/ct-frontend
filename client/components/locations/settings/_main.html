@@ -41,7 +41,7 @@
                 <label>
                   <translate>Hostname</translate>
                 </label>
-                <input ng-model="blah.hostname" type="text" md-maxlength='255'required></input>
+                <input ng-model="integration.host" type="text" md-maxlength='255'required></input>
               </md-input-container>
               <div flex-gt-sm="10"></div>
             </div>
@@ -50,14 +50,14 @@
                 <label>
                   <translate>Username</translate>
                 </label>
-                <input ng-model="blah.username" type="text" md-maxlength='255'required></input>
+                <input ng-model="integration.username" type="text" md-maxlength='255'required></input>
               </md-input-container>
               <div flex-gt-sm="10"></div>
               <md-input-container flex="100" flex-gt-sm="40">
                 <label>
                   <translate>Password</translate>
                 </label>
-                <input ng-model="blah.password" type="text" md-maxlength='255'required></input>
+                <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
               </md-input-container>
             </div>
 
@@ -68,7 +68,7 @@
                   Delete
                 </translate>
               </md-button>
-              <md-button class="" ng-click="blah">
+              <md-button class="" ng-click="unifi_authenticate()">
                 <translate>
                   Save
                 </translate>
