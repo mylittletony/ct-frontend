@@ -2032,10 +2032,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         scope.updateSite();
         scope.fetchBoxes();
       });
-      Project.get({}).$promise.then(function(results) {
-        scope.projects = results.projects;
-        // setProjectName();
-      });
     };
 
     scope.update = function() {
