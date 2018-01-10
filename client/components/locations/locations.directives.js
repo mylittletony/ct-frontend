@@ -2029,8 +2029,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
         scope.fetchSites();
-        scope.updateSite();
-        scope.fetchBoxes();
+        // scope.fetchBoxes();
       });
     };
 
@@ -2070,6 +2069,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         action: 'unifi_sites'
       }).$promise.then(function(results) {
         scope.unifi_sites =  results;
+        scope.createUnifiSetup();
       });
     };
 
@@ -2083,19 +2083,20 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     };
 
-    scope.updateSite = function() {
+    scope.createUnifiSetup = function() {
       SplashIntegration.update({},{
         id: scope.integration.id,
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            unifi_site_name: 'hello312',
-            unifi_site_desc: 'Hello',
+            unifi_site_name: scope.unifi_sites[0].name,
+            unifi_site_id: scope.unifi_sites[0].id,
             ssid: 'test ssid'
           }
         }
       }, function(results) {
-        console.log(results);
+      }, function(error) {
+        showErrors(error);
       });
     };
 
