@@ -2039,8 +2039,23 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
     var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
+        scope.integration.metadata = {};
       });
     };
+
+// vsz save
+    scope.saveVsz = function() {
+      scope.integration.type = 'vsz'
+      SplashIntegration.create({}, {
+        location_id: $routeParams.id,
+        splash_integration: scope.integration
+      }).$promise.then(function(results) {
+        scope.integration.id = results.id;
+        showToast('Successfully validated UniFi integration');
+      }, function(error) {
+        showErrors(error);
+      });
+    }
 
     var saveUnifi = function() {
       SplashIntegration.create({}, {
@@ -2055,7 +2070,9 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     }
 
-    var updateUnifi = function() {
+// vsz ssid save
+    var createSetup = function() {
+      scope.integration.action = 'create_setup'
       SplashIntegration.update({}, {
         id: scope.integration.id,
         location_id: $routeParams.id,
@@ -2064,7 +2081,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         console.log(results)
         showToast(gettextCatalog.getString('Successfully updated integration settings'));
         // dont need to do this every time
-        fetchSites();
       }, function(error) {
         showErrors(error);
       });
