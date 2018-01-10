@@ -2012,97 +2012,105 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     };
 
-    var getIntegration = function() {
+
+    // var setProjectName = function() {
+    //   if (scope.projects.length > 0 && scope.location.project_id) {
+    //     for (var i = 0, len = scope.projects.length; i < len; i++) {
+    //       if (scope.location.project_id === scope.projects[i].id) {
+    //         scope.location.project_name = scope.projects[i].project_name;
+    //         break;
+    //       }
+    //     }
+    //   }
+    // };
+
+    // Needs test
+    var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
-          // scope.fetchSites();
-      }, function() {
-        console.log(123123123)
+        // scope.fetchSites();
+        scope.fetchBoxes();
       });
     };
 
-    getIntegration()
+    scope.update = function() {
 
-    var createUnifi = function(integration) {
-      integration.type = 'unifi';
-      return true
+      /////////////// !!!!!!!!!!!!!!!!!!!!!!!!! zak
+      scope.integration.type = 'unifi';
+      /////////////// @@@@@@@@@@@@@@@@@@@@@@@@@ ahhh
 
-      showErrors('asdfasdf');
-
-
-      // SplashIntegration.create({}, {
-      //   location_id: $routeParams.id,
-      //   splash_integration: integration
-      // }).$promise.then(function(results) {
-      //   showToast(gettextCatalog.getString(results.message));
-      // }, function(error) {
-      //   showErrors(error);
-      // });
-    }
-
-    var updateUnifi = function() {
-      SplashIntegration.update({}, {
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: scope.integration
-      }).$promise.then(function(results) {
-        showToast(gettextCatalog.getString(results.message));
-      }, function(error) {
-        showErrors(error);
-      });
-    }
-
-    scope.update = function(integration) {
       // returns 200 if authenticated with unifi or unauthorized 401 if not
       if (scope.integration.new_record) {
-        createUnifi(integration);
-        console.log('unifi-create');
-        return;
+        SplashIntegration.create({}, {
+          location_id: $routeParams.id,
+          splash_integration: scope.integration
+        }).$promise.then(function(results) {
+          showToast(gettextCatalog.getString(results.message));
+        }, function(error) {
+          showErrors(error);
+        });
+      } else {
+        SplashIntegration.update({}, {
+          id: scope.integration.id,
+          location_id: $routeParams.id,
+          splash_integration: scope.integration
+        }).$promise.then(function(results) {
+          showToast(gettextCatalog.getString(results.message));
+        }, function(error) {
+          showErrors(error);
+        });
       }
-
-      updateUnifi();
-      console.log('unifi-update');
     };
 
-    // SplashIntegration.integration_action({
-    //   id: scope.integration.id,
-    //   location_id: $routeParams.id,
-    //   action: 'unifi_sites'
-    // }).$promise.then(function(results) {
-    //   scope.unifi_sites =  results;
-    // });
-
-    var init = function() {
-      scope.integration = { new_record: true };
-      // SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
-      //   scope.integration = results;
-      //   });
-      // };
-    };
-
-    scope.fetchBoxes = function() {
+    scope.fetchSites = function() {
       SplashIntegration.integration_action({
         id: scope.integration.id,
         location_id: $routeParams.id,
-        action: 'unifi_boxes'
+        action: 'unifi_sites'
       }).$promise.then(function(results) {
-        scope.unifi_boxes =  results;
+        scope.unifi_sites =  results;
+        // scope.createUnifiSetup();
       });
     };
 
-    scope.updateSite = function() {
+    // scope.fetchBoxes = function() {
+    //   SplashIntegration.integration_action({
+    //     id: scope.integration.id,
+    //     location_id: $routeParams.id,
+    //     action: 'unifi_boxes'
+    //   }).$promise.then(function(results) {
+    //     scope.unifi_boxes =  results;
+    //     console.log(results)
+    //   });
+    // };
+
+    scope.addBoxes = function() {
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          action: 'import_boxes'
+        }
+      }, function(results) {
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    scope.createUnifiSetup = function() {
       SplashIntegration.update({},{
         id: scope.integration.id,
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            unifi_site_name: 'hello312',
-            unifi_site_desc: 'Hello',
+            unifi_site_name: scope.unifi_sites[0].name,
+            unifi_site_id: scope.unifi_sites[0].id,
             ssid: 'test ssid'
           }
         }
       }, function(results) {
-        console.log(results);
+      }, function(error) {
+        showErrors(error);
       });
     };
 
@@ -2793,85 +2801,50 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
 }]);
 
-// app.directive('unifiSetup', ['SplashIntegration', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(SplashIntegration, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
-//
-//   var link = function(scope, element, attrs) {
-//
-//     scope.location = { slug: $routeParams.id };
-//
-//     var unifiController = function(network) {
-//       $mdDialog.show({
-//         templateUrl: 'components/locations/settings/_unifi_setup_controller.html',
-//         parent: angular.element(document.body),
-//         clickOutsideToClose: true,
-//         controller: DialogController,
-//         locals: {
-//           loading: scope.loading,
-//           network: scope.network
-//         }
-//       });
-//     };
-//
-//     var unifiSite = function(network) {
-//       $mdDialog.show({
-//         templateUrl: 'components/locations/settings/_unifi_setup_site.html',
-//         parent: angular.element(document.body),
-//         clickOutsideToClose: true,
-//         controller: DialogController,
-//         locals: {
-//           loading: scope.loading,
-//           network: scope.network
-//         }
-//       });
-//     };
-//
-//     function DialogController($scope,loading,network) {
-//       $scope.loading = loading;
-//       $scope.network = network;
-//
-//       $scope.close = function() {
-//         $mdDialog.cancel();
-//       };
-//       $scope.next = function() {
-//         unifiSite();
-//       };
-//       $scope.back = function() {
-//         unifiController();
-//       };
-//       $scope.save = function() {
-//         $mdDialog.cancel();
-//       };
-//     }
-//
-//     DialogController.$inject = ['$scope', 'loading', 'network'];
-//
-//     scope.init = function() {
-//       unifiController();
-//     };
-//
-//     var getIntegration = function() {
-//       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
-//         scope.integration = results;
-//           // scope.fetchSites();
-//       }, function() {
-//
-//         console.log(123123123)
-//       });
-//     };
-//
-//     alert(scope.egg)
-//     // getIntegration()
-//
-//   };
-//
-//   return {
-//     link: link,
-//     scope: {
-//     },
-//     template:
-//       '<md-card-actions layout="row" layout-align="end center">' +
-//       '<md-button ng-click="init()">Setup</md-button>' +
-//       '</md-card-actions>'
-//   };
-//
-// }]);
+app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+    scope.location = { slug: $routeParams.id };
+
+    var openDialog = function(network) {
+      $mdDialog.show({
+        templateUrl: 'components/locations/settings/_unifi_setup.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+          loading: scope.loading,
+          network: scope.network
+        }
+      });
+    };
+
+    function DialogController($scope,loading,network) {
+      $scope.loading = loading;
+      $scope.network = network;
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+
+    DialogController.$inject = ['$scope', 'loading', 'network'];
+
+    scope.init = function() {
+      openDialog();
+    };
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    template:
+      '<md-card-actions layout="row" layout-align="end center">' +
+      '<md-button ng-click="init()">Setup</md-button>' +
+      '</md-card-actions>'
+  };
+
+}]);
