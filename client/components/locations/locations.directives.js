@@ -2025,64 +2025,54 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
     // };
 
     // Needs test
-    var init = function() {
-      SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
-        scope.integration = results;
-        // scope.fetchSites();
-        scope.fetchBoxes();
-      });
-    };
 
-    scope.update = function() {
-
-      /////////////// !!!!!!!!!!!!!!!!!!!!!!!!! zak
-      scope.integration.type = 'unifi';
-      /////////////// @@@@@@@@@@@@@@@@@@@@@@@@@ ahhh
-
-      // returns 200 if authenticated with unifi or unauthorized 401 if not
-      if (scope.integration.new_record) {
-        SplashIntegration.create({}, {
-          location_id: $routeParams.id,
-          splash_integration: scope.integration
-        }).$promise.then(function(results) {
-          showToast(gettextCatalog.getString(results.message));
-        }, function(error) {
-          showErrors(error);
-        });
-      } else {
-        SplashIntegration.update({}, {
-          id: scope.integration.id,
-          location_id: $routeParams.id,
-          splash_integration: scope.integration
-        }).$promise.then(function(results) {
-          showToast(gettextCatalog.getString(results.message));
-        }, function(error) {
-          showErrors(error);
-        });
-      }
-    };
-
-    scope.fetchSites = function() {
+    var fetchSites = function() {
       SplashIntegration.integration_action({
         id: scope.integration.id,
         location_id: $routeParams.id,
         action: 'unifi_sites'
       }).$promise.then(function(results) {
         scope.unifi_sites =  results;
-        // scope.createUnifiSetup();
       });
     };
 
-    // scope.fetchBoxes = function() {
-    //   SplashIntegration.integration_action({
-    //     id: scope.integration.id,
-    //     location_id: $routeParams.id,
-    //     action: 'unifi_boxes'
-    //   }).$promise.then(function(results) {
-    //     scope.unifi_boxes =  results;
-    //     console.log(results)
-    //   });
-    // };
+    var init = function() {
+      SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
+        scope.integration = results;
+      });
+    };
+
+    var saveUnifi = function() {
+      SplashIntegration.create({}, {
+        location_id: $routeParams.id,
+        splash_integration: scope.integration
+      }).$promise.then(function(results) {
+        showToast(gettextCatalog.getString(results.message));
+        fetchSites();
+      }, function(error) {
+        showErrors(error);
+      });
+    }
+
+    var updateUnifi = function() {
+      SplashIntegration.update({}, {
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: scope.integration
+      }).$promise.then(function(results) {
+        showToast(gettextCatalog.getString(results.message));
+        fetchSites();
+      }, function(error) {
+        showErrors(error);
+      });
+    }
+    scope.update = function() {
+      if (scope.integration.new_record) {
+        saveUnifi();
+      } else {
+        updateUnifi();
+      }
+    };
 
     scope.addBoxes = function() {
       SplashIntegration.update({},{
@@ -2092,23 +2082,32 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
           action: 'import_boxes'
         }
       }, function(results) {
+        if (results.bla) {
+          // in the event some boxes didnt import, EWlan will return and object saying how _many
+          // had issues
+
+        }
+        showToast('Successfully imported ' + results.boxes + ' box(es)');
       }, function(error) {
         showErrors(error);
       });
     };
 
-    scope.createUnifiSetup = function() {
+    scope.createUnifiSetup = function(site, ssid) {
+      site = JSON.parse(site);
       SplashIntegration.update({},{
         id: scope.integration.id,
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            unifi_site_name: scope.unifi_sites[0].name,
-            unifi_site_id: scope.unifi_sites[0].id,
-            ssid: 'test ssid'
-          }
+            unifi_site_name:  site.name,
+            unifi_site_id:    site.id,
+            ssid:             ssid
+          },
+          action: 'create_setup'
         }
       }, function(results) {
+        showToast('Successfully created UniFi setup');
       }, function(error) {
         showErrors(error);
       });

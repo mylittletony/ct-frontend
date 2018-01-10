@@ -35,17 +35,17 @@ if (process.env.NODE_ENV === 'production') {
 
 } else {
 
-  api_url = process.env.API_URL || 'https://api.ctapp.io/api/v1'
-  auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
-  base_url = process.env.CT_URL || 'dashboard.ctapp.io:9090'
+  api_url = process.env.API_URL || 'http://mywifi.test:8080/api/v1'
+  auth_url = process.env.AUTH_URL || 'http://mywifi.test:8080'
+  base_url = process.env.CT_URL || 'dashboard.ctapp.test:9090'
 
   exports = {
     callbackURL: "http://" + base_url + "/auth/login/callback",
     authorizationURL: auth_url + "/oauth/authorize",
     profileURL: api_url + "/me.json",
     tokenURL: auth_url + "/oauth/token",
-    APP_ID: "ba34b75eb5ec4e04e9062fa6233fc37dab92e038b75b09e5f7dc66606a1afb86",
-    APP_SECRET: "da7a4e927c6b1c13a221cdac843337f08591cda23b9dd6eb8da03225911c3223",
+    APP_ID: "e2fd310846f27f0e6390fb65a528443a480a45d993a2a8412f25158376629b5f",
+    APP_SECRET: "68556927b3bfd8675fe2489b96864fda167e5c2aa96147f06a6123da405b71fe",
     baseURL: "http://" + base_url,
     DEBUG: ''
   }

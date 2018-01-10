@@ -18,11 +18,11 @@ module.exports = {
             },
             // FIXME! These constants are outside of 'CONFIG' for historical
             // reasons.  They should be moved inside 'CONFIG' at some time.
-            API_END_POINT: 'https://api.ctapp.io/api/v1',
+            API_END_POINT: 'http://mywifi.test:8080/api/v1',
             API_END_POINT_V2: 'https://api.ctapp.io/api/v2',
-            API_URL: 'https://api.ctapp.io',
+            API_URL: 'http://mywifi.test:8080',
             STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
-            AUTH_URL: 'https://api.ctapp.io',
+            AUTH_URL: 'http://mywifi.test:8080',
             SLACK_TOKEN: '3540010629.12007999527',
             CHIMP_TOKEN: '531543883634',
             INTERCOM: 'z0kiwroa',
