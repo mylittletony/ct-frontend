@@ -2039,6 +2039,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
     var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
+        scope.addBoxes()
       });
     };
 
@@ -2082,12 +2083,9 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
           action: 'import_boxes'
         }
       }, function(results) {
-        if (results.bla) {
-          // in the event some boxes didnt import, EWlan will return and object saying how _many
-          // had issues
-
+        if (results.failed) {
         }
-        showToast('Successfully imported ' + results.boxes + ' box(es)');
+        showToast('Successfully imported ' + results.success + ' box(es)');
       }, function(error) {
         showErrors(error);
       });
