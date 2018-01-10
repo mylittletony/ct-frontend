@@ -15,3 +15,4 @@ dist/
 **/.DS_Store
 *.mo
 npm-debug.log
+*.swp
