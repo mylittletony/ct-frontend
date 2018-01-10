@@ -2028,8 +2028,8 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
     var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
-        scope.fetchSites();
-        // scope.fetchBoxes();
+        // scope.fetchSites();
+        scope.fetchBoxes();
       });
     };
 
@@ -2069,17 +2069,31 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         action: 'unifi_sites'
       }).$promise.then(function(results) {
         scope.unifi_sites =  results;
-        scope.createUnifiSetup();
+        // scope.createUnifiSetup();
       });
     };
 
-    scope.fetchBoxes = function() {
-      SplashIntegration.integration_action({
+    // scope.fetchBoxes = function() {
+    //   SplashIntegration.integration_action({
+    //     id: scope.integration.id,
+    //     location_id: $routeParams.id,
+    //     action: 'unifi_boxes'
+    //   }).$promise.then(function(results) {
+    //     scope.unifi_boxes =  results;
+    //     console.log(results)
+    //   });
+    // };
+
+    scope.addBoxes = function() {
+      SplashIntegration.update({},{
         id: scope.integration.id,
         location_id: $routeParams.id,
-        action: 'unifi_boxes'
-      }).$promise.then(function(results) {
-        scope.unifi_boxes =  results;
+        splash_integration: {
+          action: 'import_boxes'
+        }
+      }, function(results) {
+      }, function(error) {
+        showErrors(error);
       });
     };
 
