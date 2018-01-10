@@ -15,10 +15,13 @@
 
 </md-content>
 
+{{ integration }}
+
 <md-content class="md-padding" layout="column" layout-gt-sm='column'>
   <form name="myForm" submit="update(myForm)">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="100">
+
         <md-card ng-if="integration.new_record == true">
           <md-card-title>
             <md-card-title-text layout="row">
@@ -67,7 +70,7 @@
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline">UniFi Settings</div>
+                  <div class="md-headline">UniFi Settings 1/3</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -113,7 +116,7 @@
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline" translate>UniFi Settings</div>
+                  <div class="md-headline" translate>UniFi Settings 2/3</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -158,11 +161,11 @@
             </md-card-actions>
           </md-card>
 
-          <md-card ng-if="integration.new_record == false">
+          <md-card>
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline" translate>UniFi Settings</div>
+                  <div class="md-headline" translate>UniFi Settings 3/3</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -207,7 +210,7 @@
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline">Meraki Settings</div>
+                  <div class="md-headline">Meraki Settings 1/3</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -220,19 +223,79 @@
             </md-card-title>
             <md-card-content>
               <div layout="row" layout-wrap>
-                <p>To get started, click on setup and work through the quick steps.</p>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>API Key</translate>
+                  </label>
+                  <input ng-model="blah.api" type="text" md-maxlength='255'required></input>
+                </md-input-container>
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-                <meraki-setup></meraki-setup>
+              <md-button class="" ng-click="merakiye()">Validate</md-button>
             </md-card-actions>
           </md-card>
 
-          <md-card ng-if="integration.new_record == false">
+          <md-card>
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline" translate>UniFi Settings</div>
+                  <div class="md-headline">Meraki Settings 2/3</div>
+                  <div class="md-subhead">
+                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
+                  </div>
+                </div>
+                <span flex></span>
+                <div>
+                  <img src="https://i.imgur.com/A07NZSr.png" style="max-height:50px;max-width:200px;"/>
+                </div>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>Organisation</translate>
+                  </label>
+                  <md-select ng-model="blah.organisation">
+                    <md-option ng-repeat="zone in zones" value="ye">
+                      Testificate
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+                <span flex="100" flex-gt-sm="10"></span>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>Network</translate>
+                  </label>
+                  <md-select ng-model="blah.networks">
+                    <md-option ng-repeat="zone in zones" value="ye">
+                      Testificate
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>SSID</translate>
+                  </label>
+                  <md-select ng-model="blah.organisation">
+                    <md-option ng-repeat="zone in zones" value="ye">
+                      Testificate
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button class="" ng-click="merakiye()">Save</md-button>
+            </md-card-actions>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text layout="row">
+                <div>
+                  <div class="md-headline" translate>Meraki Settings 3/3</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -250,6 +313,13 @@
                     Organisation
                   </label>
                   <input ng-model="blah.hostname" type="text" disabled></input>
+                </md-input-container>
+                <span flex="100" flex-gt-sm="10"></span>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    Network
+                  </label>
+                  <input ng-model="blah.network" type="text" disabled></input>
                 </md-input-container>
               </div>
             </md-card-content>
@@ -269,7 +339,7 @@
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline">Ruckus VSZ Settings</div>
+                  <div class="md-headline">Ruckus VSZ Settings 1/2</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -282,11 +352,45 @@
             </md-card-title>
             <md-card-content>
               <div layout="row" layout-wrap>
-                <p>To get started, click on setup and work through the quick steps.</p>
+                <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>VSZ Hostname</translate>
+                </label>
+                <input ng-model="blah.hostname" type="text" md-maxlength='255'required></input>
+              </md-input-container>
+              </div>
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>VSZ Username</translate>
+                  </label>
+                  <input ng-model="blah.username" type="text" md-maxlength='255'required></input>
+                </md-input-container>
+                <span flex="100" flex-gt-sm="10"></span>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>VSZ Password</translate>
+                  </label>
+                  <input ng-model="blah.password" type="text" md-maxlength='255'required></input>
+                </md-input-container>
+              </div>
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    SSID
+                  </label>
+                  <input name="ssid" md-maxlength="32" ng-model="blah.ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
+                  <div ng-messages="myForm.ssid.$error">
+                    <div ng-message="md-maxlength">Max 32 characters</div>
+                    <div ng-message="required">You must set an SSID</div>
+                    <div ng-message="pattern">Invalid characters in SSID</div>
+                    <div ng-message="ssidValidator">SSID is too large, emojis take up more space!</div>
+                  </div>
+                </md-input-container>
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-                <vsz-setup></vsz-setup>
+              <md-button ng-click="update()">Validate</md-button>
             </md-card-actions>
           </md-card>
 
@@ -294,7 +398,7 @@
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline">Ruckus VSZ Settings</div>
+                  <div class="md-headline">Ruckus VSZ Settings 2/2</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>

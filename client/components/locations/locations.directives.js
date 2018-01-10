@@ -2039,7 +2039,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
     var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
-        scope.addBoxes()
       });
     };
 
@@ -2048,7 +2047,8 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         location_id: $routeParams.id,
         splash_integration: scope.integration
       }).$promise.then(function(results) {
-        showToast(gettextCatalog.getString(results.message));
+        scope.integration.id = results.id;
+        showToast('Successfully validated UniFi integration');
         fetchSites();
       }, function(error) {
         showErrors(error);
@@ -2061,18 +2061,17 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         location_id: $routeParams.id,
         splash_integration: scope.integration
       }).$promise.then(function(results) {
-        showToast(gettextCatalog.getString(results.message));
+        console.log(results)
+        showToast(gettextCatalog.getString('Successfully updated integration settings'));
+        // dont need to do this every time
         fetchSites();
       }, function(error) {
         showErrors(error);
       });
     }
+
     scope.update = function() {
-      if (scope.integration.new_record) {
-        saveUnifi();
-      } else {
-        updateUnifi();
-      }
+      scope.integration.new_record ? saveUnifi() : updateUnifi();
     };
 
     scope.addBoxes = function() {
@@ -2106,6 +2105,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         }
       }, function(results) {
         showToast('Successfully created UniFi setup');
+        console.log(results)
       }, function(error) {
         showErrors(error);
       });
