@@ -2080,6 +2080,32 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       // };
     };
 
+    scope.fetchBoxes = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'unifi_boxes'
+      }).$promise.then(function(results) {
+        scope.unifi_boxes =  results;
+      });
+    };
+
+    scope.updateSite = function() {
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            unifi_site_name: 'hello312',
+            unifi_site_desc: 'Hello',
+            ssid: 'test ssid'
+          }
+        }
+      }, function(results) {
+        console.log(results);
+      });
+    };
+
     init();
   };
 
