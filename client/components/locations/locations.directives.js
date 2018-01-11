@@ -2040,8 +2040,29 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
           case 'vsz':
             scope.vsz_zones = results;
             break;
+          case 'meraki':
+            scope.meraki_orgs = [ { name: 'Peabody', id: 'long-id'} ];
+            break;
         }
       });
+    };
+
+    scope.orgSelected = function() {
+      console.log(scope.meraki_orgs)
+      scope.fetchNetworks();
+    };
+
+    scope.fetchNetworks = function() {
+      scope.meraki_networks = [ { network_name: 'Bumfluff', network_id: '24'} ];
+    };
+
+    scope.netSelected = function() {
+      console.log(scope.meraki_networks)
+      scope.fetchSsid();
+    };
+
+    scope.fetchSsid = function() {
+      scope.meraki_ssids = [ { ssid_name: 'Will Young & Rod Stewart', ssid_id: '42'} ];
     };
 
     var init = function() {
@@ -2089,6 +2110,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         fetchSites();
       }, function(error) {
         showErrors(error);
+        console.log(error)
       });
     }
 

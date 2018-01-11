@@ -268,9 +268,10 @@
                   <label>
                     <translate>Organisation</translate>
                   </label>
-                  <md-select ng-model="meraki_oraganisation">
-                    <md-option ng-repeat="organisation in meraki_organisations" value="{{organisation}}">
-                      {{organisation.name}}
+
+                  <md-select ng-change="orgSelected()" ng-model="meraki_org">
+                    <md-option ng-repeat="org in meraki_orgs" value="{{org}}">
+                      {{org.name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
@@ -279,9 +280,9 @@
                   <label>
                     <translate>Network</translate>
                   </label>
-                  <md-select ng-model="meraki_network">
+                  <md-select ng-change="netSelected()" ng-model="meraki_network">
                     <md-option ng-repeat="network in meraki_networks" value="{{network}}">
-                      {{network.name}}
+                      {{network.network_name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
@@ -291,7 +292,7 @@
                   </label>
                   <md-select ng-model="meraki_ssid">
                     <md-option ng-repeat="ssid in meraki_ssids" value="{{ssid}}">
-                      {{ssid.name}}
+                      {{ssid.ssid_name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
