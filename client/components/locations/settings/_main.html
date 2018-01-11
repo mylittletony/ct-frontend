@@ -237,12 +237,13 @@
                   <label>
                     <translate>API Key</translate>
                   </label>
-                  <input ng-model="blah.api" type="text" md-maxlength='255'required></input>
+                  <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
                 </md-input-container>
+                <span flex-gt-sm="10"></span>
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button class="" ng-click="merakiye()">Validate</md-button>
+              <md-button class="" ng-click="update()">Validate</md-button>
             </md-card-actions>
           </md-card>
 
@@ -267,9 +268,9 @@
                   <label>
                     <translate>Organisation</translate>
                   </label>
-                  <md-select ng-model="blah.organisation">
-                    <md-option ng-repeat="zone in zones" value="ye">
-                      Testificate
+                  <md-select ng-model="meraki_oraganisation">
+                    <md-option ng-repeat="organisation in meraki_organisations" value="{{organisation}}">
+                      {{organisation.name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
@@ -278,9 +279,9 @@
                   <label>
                     <translate>Network</translate>
                   </label>
-                  <md-select ng-model="blah.networks">
-                    <md-option ng-repeat="zone in zones" value="ye">
-                      Testificate
+                  <md-select ng-model="meraki_network">
+                    <md-option ng-repeat="network in meraki_networks" value="{{network}}">
+                      {{network.name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
@@ -288,9 +289,9 @@
                   <label>
                     <translate>SSID</translate>
                   </label>
-                  <md-select ng-model="blah.organisation">
-                    <md-option ng-repeat="zone in zones" value="ye">
-                      Testificate
+                  <md-select ng-model="meraki_ssid">
+                    <md-option ng-repeat="ssid in meraki_ssids" value="{{ssid}}">
+                      {{ssid.name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
