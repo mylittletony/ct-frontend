@@ -217,6 +217,16 @@
             <div ng-message="required" translate>Button text required.</div>
           </div>
         </md-input-container>
+        <md-input-container class="md-block">
+          <label>
+            <translate>Registration Button Text</translate>
+          </label>
+          <input name="button_text" type="text" require md-maxlength="30" ng-model="splash.splash.reg_btn_text" required>
+          <div ng-messages="myForm.button_text.$error">
+            <div ng-message="md-maxlength" translate>Must be less than 15 characters.</div>
+            <div ng-message="required" translate>Registration button text required.</div>
+          </div>
+        </md-input-container>
       </md-card-content>
     </md-card>
   </div>
@@ -640,6 +650,18 @@
               <div ng-messages="myForm.button_text.$error">
                 <div ng-message="md-maxlength" translate>Must be less than 15 characters.</div>
                 <div ng-message="required" translate>Button text required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex="100">
+            <md-input-container class="md-block">
+              <label>
+                <translate>Registration Button Text</translate>
+              </label>
+              <input name="button_text" type="text" require md-maxlength="30" ng-model="splash.splash.reg_btn_text" required>
+              <div ng-messages="myForm.button_text.$error">
+                <div ng-message="md-maxlength" translate>Must be less than 15 characters.</div>
+                <div ng-message="required" translate>Registration button text required.</div>
               </div>
             </md-input-container>
           </div>
