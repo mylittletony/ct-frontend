@@ -2069,22 +2069,23 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     }
 
-    var createSetup = function() {
-      scope.integration.action = 'create_setup'
+    var updateUnifi = function() {
       SplashIntegration.update({}, {
         id: scope.integration.id,
         location_id: $routeParams.id,
         splash_integration: scope.integration
       }).$promise.then(function(results) {
         console.log(results)
-        showToast(gettextCatalog.getString('Successfully updated integration settings'));
+        showToast(gettextCatalog.getString('Successfully updated and validated integration'));
         // dont need to do this every time
+        fetchSites();
       }, function(error) {
         showErrors(error);
       });
     }
 
     scope.update = function() {
+      scope.integration.action = 'validate'
       scope.integration.new_record ? saveUnifi() : updateUnifi();
     };
 
