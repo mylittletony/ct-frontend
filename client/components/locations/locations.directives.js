@@ -2041,28 +2041,56 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
             scope.vsz_zones = results;
             break;
           case 'meraki':
-            scope.meraki_orgs = [ { name: 'Peabody', id: 'long-id'} ];
+            scope.meraki = {};
+            scope.integration.metadata = {};
+            scope.meraki_orgs = results;
             break;
         }
       });
     };
 
-    scope.orgSelected = function() {
-      console.log(scope.meraki_orgs)
-      scope.fetchNetworks();
+    scope.orgSelected = function(org) {
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.meraki.network = undefined;
+      scope.meraki_networks = [];
+      scope.integration.metadata.organisation = org;
+      updateMeraki(function() {
+        fetchNetworks();
+      });
     };
 
-    scope.fetchNetworks = function() {
-      scope.meraki_networks = [ { network_name: 'Bumfluff', network_id: '24'} ];
+    var fetchNetworks = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_networks'
+      }).$promise.then(function(results) {
+        console.log(results)
+        scope.meraki_networks = results;
+        }
+      );
     };
 
-    scope.netSelected = function() {
-      console.log(scope.meraki_networks)
-      scope.fetchSsid();
+    scope.netSelected = function(network) {
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.integration.metadata.network = network;
+      updateMeraki(function() {
+        fetchSsid();
+      });
     };
 
-    scope.fetchSsid = function() {
-      scope.meraki_ssids = [ { ssid_name: 'Will Young & Rod Stewart', ssid_id: '42'} ];
+    var fetchSsid = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_ssids'
+      }).$promise.then(function(results) {
+        console.log(results)
+        scope.meraki_ssids = results;
+        }
+      );
     };
 
     var init = function() {
@@ -2111,6 +2139,20 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       }, function(error) {
         showErrors(error);
         console.log(error)
+      });
+    }
+
+    var updateMeraki = function(cb) {
+      SplashIntegration.update({}, {
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: scope.integration
+      }).$promise.then(function(results) {
+        console.log(results)
+        return cb();
+      }, function(error) {
+        console.log(error)
+        return cb();
       });
     }
 
@@ -2170,6 +2212,26 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         }
       }, function(results) {
         showToast('Successfully created UniFi setup');
+        console.log(results)
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    scope.createMerakiSetup = function(ssid) {
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            ssid:         ssid,
+            organisation: scope.meraki.org,
+            network:      scope.meraki.network
+          },
+          action: 'create_setup'
+        }
+      }, function(results) {
+        showToast('Successfully created Meraki setup');
         console.log(results)
       }, function(error) {
         showErrors(error);

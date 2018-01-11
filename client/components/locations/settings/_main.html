@@ -252,6 +252,7 @@
               <md-card-title-text layout="row">
                 <div>
                   <div class="md-headline">Meraki Settings 2/3</div>
+                  {{ meraki }}
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -269,8 +270,8 @@
                     <translate>Organisation</translate>
                   </label>
 
-                  <md-select ng-change="orgSelected()" ng-model="meraki_org">
-                    <md-option ng-repeat="org in meraki_orgs" value="{{org}}">
+                  <md-select ng-change="orgSelected(meraki.org)" ng-model="meraki.org">
+                    <md-option ng-repeat="org in meraki_orgs" value="{{org.id}}">
                       {{org.name}}
                     </md-option>
                   </md-select>
@@ -280,9 +281,9 @@
                   <label>
                     <translate>Network</translate>
                   </label>
-                  <md-select ng-change="netSelected()" ng-model="meraki_network">
-                    <md-option ng-repeat="network in meraki_networks" value="{{network}}">
-                      {{network.network_name}}
+                  <md-select ng-change="netSelected(meraki.network)" ng-model="meraki.network">
+                    <md-option ng-repeat="network in meraki_networks" value="{{network.id}}">
+                      {{network.name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
@@ -290,16 +291,16 @@
                   <label>
                     <translate>SSID</translate>
                   </label>
-                  <md-select ng-model="meraki_ssid">
-                    <md-option ng-repeat="ssid in meraki_ssids" value="{{ssid}}">
-                      {{ssid.ssid_name}}
+                  <md-select ng-model="meraki.ssid">
+                    <md-option ng-repeat="ssid in meraki_ssids" value="{{ssid.number}}">
+                      {{ssid.name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button class="" ng-click="merakiye()">Save</md-button>
+              <md-button class="" ng-click="createMerakiSetup(meraki.ssid)">Save</md-button>
             </md-card-actions>
           </md-card>
 
