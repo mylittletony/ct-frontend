@@ -396,7 +396,7 @@
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button ng-click="saveVsz()">Validate</md-button>
+              <md-button ng-click="update()">Validate</md-button>
             </md-card-actions>
           </md-card>
 
@@ -432,7 +432,7 @@
                   <label>
                     SSID
                   </label>
-                  <input name="ssid" md-maxlength="32" ng-model="integration.metadata.ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
+                  <input name="ssid" md-maxlength="32" ng-model="ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
                   <div ng-messages="myForm.ssid.$error">
                     <div ng-message="md-maxlength">Max 32 characters</div>
                     <div ng-message="required">You must set an SSID</div>
@@ -443,7 +443,7 @@
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button ng-click="createSetup()">Save</md-button>
+              <md-button ng-click="createVszSetup(vsz_zone,ssid)">Save</md-button>
             </md-card-actions>
           </md-card>
 

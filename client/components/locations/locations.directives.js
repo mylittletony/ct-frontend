@@ -2030,9 +2030,17 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       SplashIntegration.integration_action({
         id: scope.integration.id,
         location_id: $routeParams.id,
-        action: 'unifi_sites'
+        action: 'fetch_settings'
       }).$promise.then(function(results) {
-        scope.unifi_sites =  results;
+        console.log(results)
+        switch(scope.integration.type) {
+          case 'unifi':
+            scope.unifi_sites = results;
+            break;
+          case 'vsz':
+            scope.vsz_zones = results;
+            break;
+        }
       });
     };
 
@@ -2042,34 +2050,34 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         scope.integration.metadata = {};
       });
     };
+    //
+    // scope.saveVsz = function() {
+    //   scope.integration.type = 'vsz'
+    //   SplashIntegration.create({}, {
+    //     location_id: $routeParams.id,
+    //     splash_integration: scope.integration
+    //   }).$promise.then(function(results) {
+    //     scope.integration.id = results.id;
+    //     showToast('Successfully validated VSZ integration');
+    //   }, function(error) {
+    //     showErrors(error);
+    //   });
+    // }
 
-    scope.saveVsz = function() {
-      scope.integration.type = 'vsz'
+    var save = function() {
       SplashIntegration.create({}, {
         location_id: $routeParams.id,
         splash_integration: scope.integration
       }).$promise.then(function(results) {
         scope.integration.id = results.id;
-        showToast('Successfully validated VSZ integration');
-      }, function(error) {
-        showErrors(error);
-      });
-    }
-
-    var saveUnifi = function() {
-      SplashIntegration.create({}, {
-        location_id: $routeParams.id,
-        splash_integration: scope.integration
-      }).$promise.then(function(results) {
-        scope.integration.id = results.id;
-        showToast('Successfully validated UniFi integration');
+        showToast('Successfully validated integration');
         fetchSites();
       }, function(error) {
         showErrors(error);
       });
     }
 
-    var updateUnifi = function() {
+    var update = function() {
       SplashIntegration.update({}, {
         id: scope.integration.id,
         location_id: $routeParams.id,
@@ -2086,7 +2094,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
 
     scope.update = function() {
       scope.integration.action = 'validate'
-      scope.integration.new_record ? saveUnifi() : updateUnifi();
+      scope.integration.new_record ? save() : update();
     };
 
     scope.addBoxes = function() {
@@ -2125,6 +2133,27 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         showErrors(error);
       });
     };
+
+    scope.createVszSetup = function(site, ssid) {
+      site = JSON.parse(site);
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            zoneUUID:  site.id,
+            ssid:      ssid
+          },
+          action: 'create_setup'
+        }
+      }, function(results) {
+        showToast('Successfully created UniFi setup');
+        console.log(results)
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
 
     init();
   };
