@@ -85,9 +85,13 @@
               <div layout="row" layout-wrap>
                 <md-input-container flex="100" flex-gt-sm="40">
                   <label>
-                    Hostname
+                    <translate>Hostname</translate>
                   </label>
-                  <input ng-model="integration.host" type="text"></input>
+                  <input ng-model="integration.host" name="unifi_hostname" type="url" required></input>
+                  <div ng-messages="myForm.unifi_hostname.$error">
+                    <div ng-message="required" translate>Must have a valid URL.</div>
+                    <div ng-message="url" translate>Must be a valid URL</div>
+                  </div>
                 </md-input-container>
                 <div flex-gt-sm="10"></div>
               </div>
@@ -101,9 +105,15 @@
                 <div flex-gt-sm="10"></div>
                 <md-input-container flex="100" flex-gt-sm="40">
                   <label>
-                    Password
+                    <translate>Password</translate>
                   </label>
-                  <input ng-model="integration.password" type="text" ></input>
+                  <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="integration.password" ng-pattern="FilterPattern" required>
+                  <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
+                    <div ng-message="md-maxlength" translate>Max 32 characters</div>
+                    <div ng-message="minlength" translate>Min 8 characters</div>
+                    <div ng-message="required" translate>You must set a password</div>
+                    <div ng-message="pattern" translate>Invalid characters in password</div>
+                  </div>
                 </md-input-container>
               </div>
             </md-card-content>
@@ -339,7 +349,7 @@
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline">Ruckus VSZ Settings 1/2</div>
+                  <div class="md-headline">Ruckus VSZ Settings 1/3</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -356,7 +366,11 @@
                 <label>
                   <translate>VSZ Hostname</translate>
                 </label>
-                <input ng-model="integration.host" type="text" md-maxlength='255'required></input>
+                <input ng-model="integration.host" name="vsz_hostname" type="url" required></input>
+                <div ng-messages="myForm.vsz_hostname.$error">
+                  <div ng-message="required" translate>Must have a valid URL.</div>
+                  <div ng-message="url" translate>Must be a valid URL</div>
+                </div>
               </md-input-container>
               </div>
               <div layout="row" layout-wrap>
@@ -369,12 +383,51 @@
                 <span flex="100" flex-gt-sm="10"></span>
                 <md-input-container flex="100" flex-gt-sm="40">
                   <label>
-                    <translate>VSZ Password</translate>
+                    <translate>Password</translate>
                   </label>
-                  <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
+                  <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="integration.password" ng-pattern="FilterPattern" required>
+                  <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
+                    <div ng-message="md-maxlength" translate>Max 32 characters</div>
+                    <div ng-message="minlength" translate>Min 8 characters</div>
+                    <div ng-message="required" translate>You must set a password</div>
+                    <div ng-message="pattern" translate>Invalid characters in password</div>
+                  </div>
                 </md-input-container>
               </div>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button ng-click="saveVsz()">Validate</md-button>
+            </md-card-actions>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text layout="row">
+                <div>
+                  <div class="md-headline">Ruckus VSZ Settings 2/3</div>
+                  <div class="md-subhead">
+                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
+                  </div>
+                </div>
+                <span flex></span>
+                <div>
+                  <img src="https://i.imgur.com/1vN067Z.png" style="max-height:50px;max-width:200px;"/>
+                </div>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
               <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>Zone</translate>
+                  </label>
+                  <md-select ng-model="vsz_zone">
+                    <md-option ng-repeat="zone in vsz_zones" value="{{zone}}">
+                      {{zone.name}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+                <div flex-gt-sm="10"></div>
                 <md-input-container flex="100" flex-gt-sm="40">
                   <label>
                     SSID
@@ -390,7 +443,7 @@
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button ng-click="saveVsz()">Validate</md-button>
+              <md-button ng-click="createSetup()">Save</md-button>
             </md-card-actions>
           </md-card>
 
@@ -398,7 +451,7 @@
             <md-card-title>
               <md-card-title-text layout="row">
                 <div>
-                  <div class="md-headline">Ruckus VSZ Settings 2/2</div>
+                  <div class="md-headline">Ruckus VSZ Settings 3/3</div>
                   <div class="md-subhead">
                     For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
                   </div>
@@ -415,9 +468,15 @@
                   <label>
                     Hostname
                   </label>
-                  <input ng-model="blah.hostname" type="text" disabled></input>
+                  <input ng-model="integration.host" type="text" disabled></input>
                 </md-input-container>
                 <div flex-gt-sm="10"></div>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    Zone
+                  </label>
+                  <input ng-model="blah.zone" type="text" disabled></input>
+                </md-input-container>
               </div>
             </md-card-content>
             <md-card-actions layout="row" layout-align="space-between center">

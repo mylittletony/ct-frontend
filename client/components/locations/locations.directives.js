@@ -2043,7 +2043,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     };
 
-// vsz save
     scope.saveVsz = function() {
       scope.integration.type = 'vsz'
       SplashIntegration.create({}, {
@@ -2051,7 +2050,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         splash_integration: scope.integration
       }).$promise.then(function(results) {
         scope.integration.id = results.id;
-        showToast('Successfully validated UniFi integration');
+        showToast('Successfully validated VSZ integration');
       }, function(error) {
         showErrors(error);
       });
@@ -2070,7 +2069,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     }
 
-// vsz ssid save
     var createSetup = function() {
       scope.integration.action = 'create_setup'
       SplashIntegration.update({}, {
