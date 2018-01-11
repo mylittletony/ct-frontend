@@ -8,7 +8,7 @@ var exports;
 if (process.env.NODE_ENV === 'production') {
 
   api_url = process.env.API_URL || 'https://api.ctapp.io/api/v1'
-  auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
+  auth_url = 'https://id.ctapp.io'
   base_url = process.env.CT_URL || 'dashboard.ctapp.io'
 
   exports = {
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 } else if (process.env.NODE_ENV === 'beta') {
 
   api_url = process.env.API_URL || 'https://beta.ctapp.io/api/v1'
-  auth_url = process.env.AUTH_URL || 'https://id.ctapp.io'
+  auth_url = 'https://id.ctapp.io'
   base_url = process.env.CT_URL || 'dashboard.ctapp.io'
 
   exports = {
@@ -44,8 +44,8 @@ if (process.env.NODE_ENV === 'production') {
     authorizationURL: auth_url + "/oauth/authorize",
     profileURL: api_url + "/me.json",
     tokenURL: auth_url + "/oauth/token",
-    APP_ID: "e2fd310846f27f0e6390fb65a528443a480a45d993a2a8412f25158376629b5f",
-    APP_SECRET: "68556927b3bfd8675fe2489b96864fda167e5c2aa96147f06a6123da405b71fe",
+    APP_ID: "955c8408048c3492d8cb65c18ba698d7abdd61cc96598b0759d4f5fd5eab24cb",
+    APP_SECRET: "984a0f04950a39da941539397a32183a44d43d7a84da0e099fbbe819020baeda",
     baseURL: "http://" + base_url,
     DEBUG: ''
   }

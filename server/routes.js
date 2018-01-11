@@ -46,7 +46,6 @@ module.exports = function(app) {
 
    app.get('/translations/:lang', function(req, res) {
      res.status(status).json({});
-     // res.sendFile(path.join(__dirname, '/translations/' + req.params.lang));
   });
 
   app.route('/*')
