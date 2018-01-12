@@ -2931,39 +2931,9 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
 }]);
 
-app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrationSelect', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
-
-    scope.location = { slug: $routeParams.id };
-
-    var openDialog = function(network) {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_unifi_setup.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose: true,
-        controller: DialogController,
-        locals: {
-          loading: scope.loading,
-          network: scope.network
-        }
-      });
-    };
-
-    function DialogController($scope,loading,network) {
-      $scope.loading = loading;
-      $scope.network = network;
-
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    }
-
-    DialogController.$inject = ['$scope', 'loading', 'network'];
-
-    scope.init = function() {
-      openDialog();
-    };
 
   };
 
@@ -2971,10 +2941,97 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
     link: link,
     scope: {
     },
-    template:
-      '<md-card-actions layout="row" layout-align="end center">' +
-      '<md-button ng-click="init()">Setup</md-button>' +
-      '</md-card-actions>'
+    templateUrl: 'components/locations/new/_integration.html'
+  };
+
+}]);
+
+app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_unifi_auth.html'
+  };
+
+}]);
+
+app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_unifi_setup.html'
+  };
+
+}]);
+
+app.directive('vszAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_vsz_auth.html'
+  };
+
+}]);
+
+app.directive('vszSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_vsz_setup.html'
+  };
+
+}]);
+
+app.directive('merakiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_meraki_auth.html'
+  };
+
+}]);
+
+app.directive('merakiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_meraki_setup.html'
   };
 
 }]);

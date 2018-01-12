@@ -1,0 +1,69 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+  </md-nav-bar>
+</div>
+
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+  <div>
+    <h1>New Location</h1>
+  </div>
+  <span flex></span>
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+</md-content>
+
+<form name="myForm" ng-submit="save(myForm,location)">
+
+  <div layout="row" layout-align="center center">
+
+    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Authorise Your UniFi Controller
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="45">
+            <label>
+              <translate>Hostname</translate>
+            </label>
+            <input ng-model="integration.host" type="text" md-maxlength='255'required></input>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-xs="45">
+            <label>
+              <translate>Username</translate>
+            </label>
+            <input ng-model="integration.username" type="text" md-maxlength='255'required></input>
+          </md-input-container>
+          <span flex-gt-xs="10"></span>
+          <md-input-container flex="100" flex-gt-xs="45">
+            <label>
+              <translate>Password</translate>
+            </label>
+            <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
+          </md-input-container>
+        </div>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+            Next
+        </md-button>
+      </md-card-actions>
+
+    </md-card>
+
+  </div>
+
+</form>

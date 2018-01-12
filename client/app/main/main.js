@@ -263,6 +263,34 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/locations/new/index.html',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/new/integration', {
+      templateUrl: 'components/locations/new/integration.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/new/integration/unifi/auth', {
+      templateUrl: 'components/locations/new/unifi_auth.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/new/integration/unifi/setup', {
+      templateUrl: 'components/locations/new/unifi_setup.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/new/integration/vsz/auth', {
+      templateUrl: 'components/locations/new/vsz_auth.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/new/integration/vsz/setup', {
+      templateUrl: 'components/locations/new/vsz_setup.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/new/integration/meraki/auth', {
+      templateUrl: 'components/locations/new/meraki_auth.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/new/integration/meraki/setup', {
+      templateUrl: 'components/locations/new/meraki_setup.html',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id', {
       // templateUrl: 'components/locations/dashboard/index.html',
       templateUrl: 'components/locations/people/index.html',
