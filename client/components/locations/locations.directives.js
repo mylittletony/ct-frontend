@@ -2946,13 +2946,36 @@ app.directive('integrationSelect', ['$routeParams', '$location', '$http', '$comp
 
 }]);
 
-app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrations', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
   };
 
+  var controller = function($scope) {
+
+    this.scope = $scope;
+
+    this.egg = function() {
+      alert(123);
+    };
+
+  };
+
   return {
+    controller: controller
+  };
+
+}]);
+
+app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs, controller) {
+    controller.egg();
+  };
+
+  return {
+    require: '^integrations',
     link: link,
     scope: {
     },
