@@ -22,7 +22,7 @@
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="100">
 
-        <md-card ng-if="integration.new_record == true">
+        <md-card>
           <md-card-title>
             <md-card-title-text layout="row">
               <div>
@@ -40,7 +40,7 @@
                 <label>
                   <translate>Integration Type</translate>
                 </label>
-                <md-select ng-model="integration.type">
+                <md-select ng-change="integSelected()" ng-model="integration.type">
                   <md-option value="unifi">
                     UniFi
                   </md-option>
@@ -65,592 +65,95 @@
           </md-card-content>
         </md-card>
 
-        <span ng-if="integration.type == 'unifi'">
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline">UniFi Settings 1/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/2lHBnpb.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Integration Details
+              </span>
+              <span class="md-subhead">
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="100" flex-gt-sm="40">
+                <label>
+                  <translate>Integration Type</translate>
+                </label>
+                <input ng-model="integration.type" name="unifi_hostname" type="text" disabled></input>
+              </md-input-container>
+            </div>
+
+            <span ng-if="integration.type == 'unifi'">
               <div layout="row" layout-wrap>
                 <md-input-container flex="100" flex-gt-sm="40">
                   <label>
                     <translate>Hostname</translate>
                   </label>
-                  <input ng-model="integration.host" name="unifi_hostname" type="url" required></input>
-                  <div ng-messages="myForm.unifi_hostname.$error">
-                    <div ng-message="required" translate>Must have a valid URL.</div>
-                    <div ng-message="url" translate>Must be a valid URL</div>
-                  </div>
-                </md-input-container>
-                <div flex-gt-sm="10"></div>
-              </div>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    Username
-                  </label>
-                  <input ng-model="integration.username" type="text" ></input>
-                </md-input-container>
-                <div flex-gt-sm="10"></div>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    <translate>Password</translate>
-                  </label>
-                  <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="integration.password" ng-pattern="FilterPattern" required>
-                  <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
-                    <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                    <div ng-message="minlength" translate>Min 8 characters</div>
-                    <div ng-message="required" translate>You must set a password</div>
-                    <div ng-message="pattern" translate>Invalid characters in password</div>
-                  </div>
+                  <input ng-model="integration.host" type="text" md-maxlength='255'required></input>
                 </md-input-container>
               </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button ng-click="update()">Validate</md-button>
-            </md-card-actions>
-          </md-card>
-
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline" translate>UniFi Settings 2/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/2lHBnpb.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
               <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
+                <md-input-container flex="100" flex-gt-xs="40">
                   <label>
-                    <translate>Site</translate>
-                  </label>
-                  <md-select ng-model="unifi_site">
-                    <md-option ng-repeat="site in unifi_sites" value="{{site}}">
-                      {{site.name}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-                <div flex-gt-sm="10"></div>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    <translate>SSID</translate>
-                  </label>
-                  <input name="ssid" md-maxlength="32" ng-model="ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
-                  <div ng-messages="myForm.ssid.$error">
-                    <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                    <div ng-message="required" translate>You must set an SSID</div>
-                    <div ng-message="pattern" translate>Invalid characters in SSID</div>
-                    <div ng-message="ssidValidator" translate>SSID is too large, emojis take up more space!</div>
-                  </div>
-                </md-input-container>
-              </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button class="" ng-click="createUnifiSetup(unifi_site, ssid)">
-                  Save
-                </md-button>
-            </md-card-actions>
-          </md-card>
-
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline" translate>UniFi Settings 3/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/2lHBnpb.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    Hostname
-                  </label>
-                  <input ng-model="integration.host" type="text" disabled></input>
-                </md-input-container>
-                <div flex-gt-sm="10"></div>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    Site
-                  </label>
-                  <input ng-model="integration.site" type="text" disabled></input>
-                </md-input-container>
-              </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="space-between center">
-                <md-button class="md-warn" ng-click="blah" disabled>
-                  Delete
-                </md-button>
-                <md-button class="" ng-click="addBoxes()">
-                  Import Devices
-                </md-button>
-            </md-card-actions>
-          </md-card>
-
-        </span>
-
-        <span ng-if="integration.type == 'meraki'">
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline">Meraki Settings 1/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/A07NZSr.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    <translate>API Key</translate>
-                  </label>
-                  <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
-                </md-input-container>
-                <span flex-gt-sm="10"></span>
-              </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button class="" ng-click="update()">Validate</md-button>
-            </md-card-actions>
-          </md-card>
-
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline">Meraki Settings 2/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/A07NZSr.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    <translate>Organisation</translate>
-                  </label>
-                  <md-select ng-model="meraki_oraganisation">
-                    <md-option ng-repeat="organisation in meraki_organisations" value="{{organisation}}">
-                      {{organisation.name}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-                <span flex="100" flex-gt-sm="10"></span>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    <translate>Network</translate>
-                  </label>
-                  <md-select ng-model="meraki_network">
-                    <md-option ng-repeat="network in meraki_networks" value="{{network}}">
-                      {{network.name}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    <translate>SSID</translate>
-                  </label>
-                  <md-select ng-model="meraki_ssid">
-                    <md-option ng-repeat="ssid in meraki_ssids" value="{{ssid}}">
-                      {{ssid.name}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-              </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button class="" ng-click="merakiye()">Save</md-button>
-            </md-card-actions>
-          </md-card>
-
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline" translate>Meraki Settings 3/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/A07NZSr.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    Organisation
-                  </label>
-                  <input ng-model="blah.hostname" type="text" disabled></input>
-                </md-input-container>
-                <span flex="100" flex-gt-sm="10"></span>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    Network
-                  </label>
-                  <input ng-model="blah.network" type="text" disabled></input>
-                </md-input-container>
-              </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="space-between center">
-                <md-button class="md-warn" ng-click="blah" disabled>
-                  Delete
-                </md-button>
-                <md-button class="" ng-click="blah">
-                  Import Devices
-                </md-button>
-            </md-card-actions>
-          </md-card>
-        </span>
-
-        <span ng-if="integration.type == 'vsz'">
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline">Ruckus VSZ Settings 1/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/1vN067Z.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                <label>
-                  <translate>VSZ Hostname</translate>
-                </label>
-                <input ng-model="integration.host" name="vsz_hostname" type="url" required></input>
-                <div ng-messages="myForm.vsz_hostname.$error">
-                  <div ng-message="required" translate>Must have a valid URL.</div>
-                  <div ng-message="url" translate>Must be a valid URL</div>
-                </div>
-              </md-input-container>
-              </div>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    <translate>VSZ Username</translate>
+                    <translate>Username</translate>
                   </label>
                   <input ng-model="integration.username" type="text" md-maxlength='255'required></input>
                 </md-input-container>
-                <span flex="100" flex-gt-sm="10"></span>
-                <md-input-container flex="100" flex-gt-sm="40">
+                <span flex-gt-xs="10"></span>
+                <md-input-container flex="100" flex-gt-xs="40">
                   <label>
                     <translate>Password</translate>
                   </label>
-                  <input autocomplete="off" type="{{ showpassword == true ? 'text' : 'password' }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" name="xxxn" ng-minlength="8" md-maxlength="32" ng-model="integration.password" ng-pattern="FilterPattern" required>
-                  <div ng-messages="myForm.xxxn.$error" md-auto-hide="false">
-                    <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                    <div ng-message="minlength" translate>Min 8 characters</div>
-                    <div ng-message="required" translate>You must set a password</div>
-                    <div ng-message="pattern" translate>Invalid characters in password</div>
-                  </div>
+                  <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
                 </md-input-container>
               </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button ng-click="update()">Validate</md-button>
-            </md-card-actions>
-          </md-card>
+            </span>
 
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline">Ruckus VSZ Settings 2/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/1vN067Z.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
+            <span ng-if="integration.type == 'Meraki'">
               <div layout="row" layout-wrap>
                 <md-input-container flex="100" flex-gt-sm="40">
                   <label>
-                    <translate>Zone</translate>
+                    <translate>Hostname</translate>
                   </label>
-                  <md-select ng-model="vsz_zone">
-                    <md-option ng-repeat="zone in vsz_zones" value="{{zone}}">
-                      {{zone.name}}
-                    </md-option>
-                  </md-select>
+                  <input ng-model="integration.host" type="text" md-maxlength='255'required></input>
                 </md-input-container>
-                <div flex-gt-sm="10"></div>
-                <md-input-container flex="100" flex-gt-sm="40">
+              </div>
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-xs="40">
                   <label>
-                    SSID
+                    <translate>Username</translate>
                   </label>
-                  <input name="ssid" md-maxlength="32" ng-model="ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
-                  <div ng-messages="myForm.ssid.$error">
-                    <div ng-message="md-maxlength">Max 32 characters</div>
-                    <div ng-message="required">You must set an SSID</div>
-                    <div ng-message="pattern">Invalid characters in SSID</div>
-                    <div ng-message="ssidValidator">SSID is too large, emojis take up more space!</div>
-                  </div>
+                  <input ng-model="integration.username" type="text" md-maxlength='255'required></input>
                 </md-input-container>
-              </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button ng-click="createVszSetup(vsz_zone,ssid)">Save</md-button>
-            </md-card-actions>
-          </md-card>
-
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline">Ruckus VSZ Settings 3/3</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/1vN067Z.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
+                <span flex-gt-xs="10"></span>
+                <md-input-container flex="100" flex-gt-xs="40">
                   <label>
-                    Hostname
+                    <translate>Password</translate>
                   </label>
-                  <input ng-model="integration.host" type="text" disabled></input>
+                  <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
                 </md-input-container>
-                <div flex-gt-sm="10"></div>
-                <md-input-container flex="100" flex-gt-sm="40">
+              </div>
+            </span>
+
+            <span ng-if="integration.type == 'vsz'">
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-xs="40">
                   <label>
-                    Zone
+                    <translate>API Token</translate>
                   </label>
-                  <input ng-model="blah.zone" type="text" disabled></input>
+                  <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
                 </md-input-container>
               </div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="space-between center">
-              <md-button class="md-warn" ng-click="blah" disabled>
-                Delete
-              </md-button>
-              <md-button class="" ng-click="blah">
-                Import Devices
-              </md-button>
-            </md-card-actions>
-          </md-card>
-        </span>
+            </span>
 
-        <span ng-if="integration.type == 'zonedirector'">
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline" translate>Ruckus ZoneDirector Settings</div>
-                  <div class="md-subhead" translate>
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/1vN067Z.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Radius 1</h3>
-                  <p>radius-1.ctapp.io</p>
-                </div>
-                <div flex-gt-sm="10"></div>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Radius 2</h3>
-                  <p>radius-2.ctapp.io</p>
-                </div>
-              </div>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Port Auth</h3>
-                  <p>1812</p>
-                </div>
-                <div flex-gt-sm="10"></div>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Port Acc</h3>
-                  <p>1813</p>
-                </div>
-              </div>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Radius Secret</h3>
-                  <p>Shh This Is Secret</p>
-                </div>
-                <div flex-gt-sm="10"></div>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Splash URL</h3>
-                  <p>http://app.my-wifi.co</p>
-                </div>
-              </div>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="100">
-                  <h3 translate>Walled Gardens</h3>
-                  <p>yeah</p>
-                </div>
-              </div>
-            </md-card-content>
-          </md-card>
-        </span>
 
-        <span ng-if="integration.type == 'ct'">
-          <md-card>
-            <md-card-title>
-              <md-card-title-text layout="row">
-                <div>
-                  <div class="md-headline">CT Networks Settings</div>
-                  <div class="md-subhead">
-                    For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                  </div>
-                </div>
-                <span flex></span>
-                <div>
-                  <img src="https://i.imgur.com/1C7ZJQj.png" style="max-height:50px;max-width:200px;"/>
-                </div>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <md-input-container flex="100" flex-gt-sm="40">
-                  <label>
-                    API Key
-                  </label>
-                  <input ng-model="blah.blah" type="text" md-maxlength='255'required></input>
-                </md-input-container>
-              </div>
-            </md-card-content>
-          </md-card>
-        </span>
 
-        <span ng-if="integration.type == 'xirrus'">
-          <md-card>
-            <md-card-title>
-              <md-card-title-text>
-                <md-card-title-text layout="row">
-                  <div>
-                    <div class="md-headline" translate>Xirrus Settings</div>
-                    <div class="md-subhead" translate>
-                      For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
-                    </div>
-                  </div>
-                  <span flex></span>
-                  <div>
-                    <img src="https://i.imgur.com/CmgxugR.png" style="max-height:50px;max-width:200px;"/>
-                  </div>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Splash URL</h3>
-                  <p>http://app.my-wifi.co</p>
-                </div>
-                <div flex-gt-sm="10"></div>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Radius Secret</h3>
-                  <p>Shh This Is Secret</p>
-                </div>
-              </div>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Radius 1</h3>
-                  <p>radius-1.ctapp.io</p>
-                </div>
-                <div flex-gt-sm="10"></div>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Radius 2</h3>
-                  <p>radius-2.ctapp.io</p>
-                </div>
-              </div>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Port Auth</h3>
-                  <p>1812</p>
-                </div>
-                <div flex-gt-sm="10"></div>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Port Acc</h3>
-                  <p>1813</p>
-                </div>
-              </div>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>Radius Secret</h3>
-                  <p>Shhh Secrets</p>
-                </div>
-                <div flex-gt-sm="10"></div>
-                <div flex="100" flex-gt-sm="40">
-                  <h3 translate>NAS ID</h3>
-                  <p>INSERT_ID</p>
-                </div>
-              </div>
-              <div layout="row" layout-wrap>
-                <div flex="100" flex-gt-sm="100">
-                  <h3 translate>Walled Gardens</h3>
-                  <p>yeah</p>
-                </div>
-              </div>
-            </md-card-content>
-          </md-card>
-        </span>
+
+          </md-card-content>
+        </md-card>
 
         <md-card>
           <md-card-title>
@@ -727,35 +230,6 @@
                     {{zone}}
                   </md-option>
                 </md-select>
-              </md-input-container>
-            </div>
-          </md-card-content>
-        </md-card>
-
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Danger Zone
-              </span>
-              <span class="md-subhead" translate>
-                Only make changes here if you absolutely positively know what you're doing.
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-
-          <md-card-content>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="50">
-                <label>
-                  <translate>Radius NAS ID</translate>
-                </label>
-                <input ng-model="location.radiusnasid" name="radiusnasid" type="text" md-maxlength="255" md-minlength="10" required>
-                <div ng-messages="myForm.radiusnasid.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 255 characters</div>
-                  <div ng-message="min" translate>Must be greater than 10 characters</div>
-                  <div ng-message="required" translate>You must enter a NAS ID</div>
-                </div>
               </md-input-container>
             </div>
           </md-card-content>

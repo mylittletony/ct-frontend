@@ -2012,6 +2012,11 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     };
 
+    scope.integSelected = function() {
+      scope.integration.host = undefined;
+      scope.integration.username = undefined;
+      scope.integration.password = undefined;
+    };
 
     // var setProjectName = function() {
     //   if (scope.projects.length > 0 && scope.location.project_id) {
@@ -2040,14 +2045,65 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
           case 'vsz':
             scope.vsz_zones = results;
             break;
+          case 'meraki':
+            scope.meraki = {};
+            scope.integration.metadata = {};
+            scope.meraki.ssid = undefined;
+            scope.meraki_ssids = [];
+            scope.meraki.network = undefined;
+            scope.meraki_networks = [];
+            scope.meraki_orgs = results;
+            break;
         }
       });
+    };
+
+    scope.orgSelected = function(org) {
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.meraki.network = undefined;
+      scope.meraki_networks = [];
+      scope.integration.metadata.organisation = org;
+      updateMeraki(function() {
+        fetchNetworks();
+      });
+    };
+
+    var fetchNetworks = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_networks'
+      }).$promise.then(function(results) {
+        scope.meraki_networks = results;
+        }
+      );
+    };
+
+    scope.netSelected = function(network) {
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.integration.metadata.network = network;
+      updateMeraki(function() {
+        fetchSsid();
+      });
+    };
+
+    var fetchSsid = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_ssids'
+      }).$promise.then(function(results) {
+        scope.meraki_ssids = results;
+        }
+      );
     };
 
     var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
-        scope.integration.metadata = {};
+        // scope.integration.metadata = {};
       });
     };
     //
@@ -2089,6 +2145,21 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         fetchSites();
       }, function(error) {
         showErrors(error);
+        console.log(error);
+      });
+    }
+
+    var updateMeraki = function(cb) {
+      SplashIntegration.update({}, {
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: scope.integration
+      }).$promise.then(function(results) {
+        console.log(results)
+        return cb();
+      }, function(error) {
+        console.log(error)
+        return cb();
       });
     }
 
@@ -2148,6 +2219,24 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         }
       }, function(results) {
         showToast('Successfully created UniFi setup');
+        console.log(results)
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    scope.createMerakiSetup = function(ssid) {
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            ssid: ssid
+          },
+          action: 'create_setup'
+        }
+      }, function(results) {
+        showToast('Successfully created Meraki setup');
         console.log(results)
       }, function(error) {
         showErrors(error);
@@ -2842,39 +2931,9 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
 }]);
 
-app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrationSelect', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
-
-    scope.location = { slug: $routeParams.id };
-
-    var openDialog = function(network) {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_unifi_setup.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose: true,
-        controller: DialogController,
-        locals: {
-          loading: scope.loading,
-          network: scope.network
-        }
-      });
-    };
-
-    function DialogController($scope,loading,network) {
-      $scope.loading = loading;
-      $scope.network = network;
-
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    }
-
-    DialogController.$inject = ['$scope', 'loading', 'network'];
-
-    scope.init = function() {
-      openDialog();
-    };
 
   };
 
@@ -2882,10 +2941,97 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
     link: link,
     scope: {
     },
-    template:
-      '<md-card-actions layout="row" layout-align="end center">' +
-      '<md-button ng-click="init()">Setup</md-button>' +
-      '</md-card-actions>'
+    templateUrl: 'components/locations/new/_integration.html'
+  };
+
+}]);
+
+app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_unifi_auth.html'
+  };
+
+}]);
+
+app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_unifi_setup.html'
+  };
+
+}]);
+
+app.directive('vszAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_vsz_auth.html'
+  };
+
+}]);
+
+app.directive('vszSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_vsz_setup.html'
+  };
+
+}]);
+
+app.directive('merakiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_meraki_auth.html'
+  };
+
+}]);
+
+app.directive('merakiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_meraki_setup.html'
   };
 
 }]);

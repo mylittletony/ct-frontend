@@ -1,0 +1,77 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+  </md-nav-bar>
+</div>
+
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+  <div>
+    <h1>New Location</h1>
+  </div>
+  <span flex></span>
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+</md-content>
+
+<form name="myForm" ng-submit="save(myForm,location)">
+
+  <div layout="row" layout-align="center center">
+
+    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Setup Meraki Integration
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="45">
+            <label>
+              <translate>Organisation</translate>
+            </label>
+            <md-select ng-change="orgSelected(meraki.org)" ng-model="meraki.org">
+              <md-option ng-repeat="org in meraki_orgs" value="{{org.id}}">
+                {{org.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <span flex="100" flex-gt-sm="10"></span>
+          <md-input-container flex="100" flex-gt-sm="45">
+            <label>
+              <translate>Network</translate>
+            </label>
+            <md-select ng-change="netSelected(meraki.network)" ng-model="meraki.network">
+              <md-option ng-repeat="network in meraki_networks" value="{{network.id}}">
+                {{network.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex="100" flex-gt-sm="45">
+            <label>
+              <translate>SSID</translate>
+            </label>
+            <md-select ng-model="meraki.ssid">
+              <md-option ng-repeat="ssid in meraki_ssids" value="{{ssid.number}}">
+                {{ssid.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Create
+        </md-button>
+      </md-card-actions>
+    </md-card>
+
+  </div>
+
+</form>
