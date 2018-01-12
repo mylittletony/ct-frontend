@@ -734,35 +734,6 @@
           </md-card-content>
         </md-card>
 
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Danger Zone
-              </span>
-              <span class="md-subhead" translate>
-                Only make changes here if you absolutely positively know what you're doing.
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-
-          <md-card-content>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="50">
-                <label>
-                  <translate>Radius NAS ID</translate>
-                </label>
-                <input ng-model="location.radiusnasid" name="radiusnasid" type="text" md-maxlength="255" md-minlength="10" required>
-                <div ng-messages="myForm.radiusnasid.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 255 characters</div>
-                  <div ng-message="min" translate>Must be greater than 10 characters</div>
-                  <div ng-message="required" translate>You must enter a NAS ID</div>
-                </div>
-              </md-input-container>
-            </div>
-          </md-card-content>
-        </md-card>
-
         <div flex layout="row">
 
           <md-button class="md-raised md-warn" ng-click="destroy()">
