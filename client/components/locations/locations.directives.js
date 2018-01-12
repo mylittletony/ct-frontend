@@ -996,7 +996,7 @@ app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 's
       Location.save({
         location: location,
       }).$promise.then(function(results) {
-        $location.path('/locations/' + results.slug);
+        $location.path('/locations/' + results.slug + '/integration/');
         $location.search({gs: true});
         menu.isOpen = true;
         menu.hideBurger = false;
@@ -2946,9 +2946,79 @@ app.directive('integrationSelect', ['$routeParams', '$location', '$http', '$comp
 
 }]);
 
-app.directive('integrations', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrations', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, SplashIntegration) {
 
   var link = function(scope, element, attrs) {
+
+    scope.integSelected = function() {
+      scope.integration.host = undefined;
+      scope.integration.username = undefined;
+      scope.integration.password = undefined;
+    };
+
+    var fetchSites = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'fetch_settings'
+      }).$promise.then(function(results) {
+        console.log(results)
+        switch(scope.integration.type) {
+          case 'unifi':
+            scope.unifi_sites = results;
+            break;
+          case 'vsz':
+            scope.vsz_zones = results;
+            break;
+          case 'meraki':
+            scope.meraki = {};
+            scope.integration.metadata = {};
+            scope.meraki.ssid = undefined;
+            scope.meraki_ssids = [];
+            scope.meraki.network = undefined;
+            scope.meraki_networks = [];
+            scope.meraki_orgs = results;
+            break;
+        }
+      });
+    };
+
+    scope.addBoxes = function() {
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          action: 'import_boxes'
+        }
+      }, function(results) {
+        if (results.failed) {
+        }
+        showToast('Successfully imported ' + results.success + ' box(es)');
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    scope.createUnifiSetup = function(site, ssid) {
+      site = JSON.parse(site);
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            unifi_site_name:  site.name,
+            unifi_site_id:    site.id,
+            ssid:             ssid
+          },
+          action: 'create_setup'
+        }
+      }, function(results) {
+        showToast('Successfully created UniFi setup');
+        console.log(results)
+      }, function(error) {
+        showErrors(error);
+      });
+    };
 
   };
 
@@ -2956,10 +3026,40 @@ app.directive('integrations', ['$routeParams', '$location', '$http', '$compile',
 
     this.scope = $scope;
 
-    this.egg = function() {
-      alert(123);
+    this.fetch = function(cb) {
+      SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
+        return cb(results)
+      });
     };
 
+    this.save = function(integration) {
+      SplashIntegration.create({}, {
+        location_id: $routeParams.id,
+        splash_integration: integration
+      }).$promise.then(function(results) {
+        // scope.integration.id = results.id;
+        showToast('Successfully validated integration');
+        // fetchSites();
+      }, function(error) {
+        showErrors(error);
+      });
+    }
+
+    this.update = function(integration) {
+      SplashIntegration.update({}, {
+        id: integration.id,
+        location_id: $routeParams.id,
+        splash_integration: integration
+      }).$promise.then(function(results) {
+        console.log(results)
+        showToast(gettextCatalog.getString('Successfully updated and validated integration'));
+        // dont need to do this every time
+        // fetchSites();
+      }, function(error) {
+        showErrors(error);
+        console.log(error);
+      });
+    }
   };
 
   return {
@@ -2971,7 +3071,18 @@ app.directive('integrations', ['$routeParams', '$location', '$http', '$compile',
 app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
-    controller.egg();
+
+    scope.update = function() {
+      scope.integration.action = 'validate'
+      scope.integration.new_record ? controller.save(scope.integration) : controller.update(scope.integration);
+    };
+
+    controller.fetch(function(integration) {
+      console.log(integration);
+      scope.integration = integration;
+      scope.integration.type = 'unifi';
+    })
+
   };
 
   return {

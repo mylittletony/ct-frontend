@@ -8,7 +8,8 @@
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
   <div>
-    <h1>New Location</h1>
+    <h1>{{location.location_name ? location.location_name : 'FIX ME'}}</h1>
+    <h2>UniFi Authorisation</h2>
   </div>
   <span flex></span>
     <div>
@@ -57,7 +58,8 @@
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        <!-- <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid"> -->
+        <md-button ng-click="update()">
             Next
         </md-button>
       </md-card-actions>
