@@ -2012,6 +2012,11 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     };
 
+    scope.integSelected = function() {
+      scope.integration.host = undefined;
+      scope.integration.username = undefined;
+      scope.integration.password = undefined;
+    };
 
     // var setProjectName = function() {
     //   if (scope.projects.length > 0 && scope.location.project_id) {

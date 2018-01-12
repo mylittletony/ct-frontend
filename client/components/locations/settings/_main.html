@@ -40,7 +40,7 @@
                 <label>
                   <translate>Integration Type</translate>
                 </label>
-                <md-select ng-model="integration.type">
+                <md-select ng-change="integSelected()" ng-model="integration.type">
                   <md-option value="unifi">
                     UniFi
                   </md-option>
