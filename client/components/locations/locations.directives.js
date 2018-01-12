@@ -2048,6 +2048,10 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
           case 'meraki':
             scope.meraki = {};
             scope.integration.metadata = {};
+            scope.meraki.ssid = undefined;
+            scope.meraki_ssids = [];
+            scope.meraki.network = undefined;
+            scope.meraki_networks = [];
             scope.meraki_orgs = results;
             break;
         }
@@ -2071,7 +2075,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         location_id: $routeParams.id,
         action: 'meraki_networks'
       }).$promise.then(function(results) {
-        console.log(results)
         scope.meraki_networks = results;
         }
       );
@@ -2092,7 +2095,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         location_id: $routeParams.id,
         action: 'meraki_ssids'
       }).$promise.then(function(results) {
-        console.log(results)
         scope.meraki_ssids = results;
         }
       );
@@ -2101,7 +2103,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
     var init = function() {
       SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
         scope.integration = results;
-        scope.integration.metadata = {};
+        // scope.integration.metadata = {};
       });
     };
     //
@@ -2143,7 +2145,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         fetchSites();
       }, function(error) {
         showErrors(error);
-        console.log(error)
+        console.log(error);
       });
     }
 
@@ -2229,9 +2231,7 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            ssid:         ssid,
-            organisation: scope.meraki.org,
-            network:      scope.meraki.network
+            ssid: ssid
           },
           action: 'create_setup'
         }
