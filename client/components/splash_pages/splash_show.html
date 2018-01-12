@@ -82,10 +82,19 @@
                 </div>
               </md-list-item>
               <md-list-item class="md-2-line" ng-if="splash.vsg_host && splash.vsg_enabled">
-                <!-- <img ng-src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/ruckus-wireless.png" class="md-avatar" /> -->
                 <div class="md-list-item-text">
                   <h3 translate>Ruckus VSZ Host</h3>
                   <p>{{ splash.vsg_host }}:{{ splash.vsg_port}}</p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" ng-if="splash.meraki_enabled">
+                <div class="md-list-item-text">
+                  <p translate><b>Meraki Enabled</b></p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" ng-if="splash.unifi_enabled">
+                <div class="md-list-item-text">
+                  <p translate><b>UniFi Enabled</b></p>
                 </div>
               </md-list-item>
             </div>
@@ -450,11 +459,6 @@
             <md-switch class="md-accent" ng-model="splash.tagged_logins" aria-label="tagged logins" ng-change="updateLocation()">
               <span ng-show="splash.tagged_logins" translate>Tagged Logins Enabled</span>
               <span ng-show="!splash.tagged_logins" translate>Tagged Logins Disabled</span>
-            </md-switch>
-
-            <md-switch class="md-accent" ng-model="splash.vsg_enabled" aria-label="vsg_enabled">
-              <span ng-show="splash.vsg_enabled" translate>Ruckus VSZ Enabled</span>
-              <span ng-show="!splash.vsg_enabled" translate>Ruckus VSZ Disabled</span>
             </md-switch>
 
             <md-switch class="md-accent" ng-model="splash.powered_by" aria-label="powered_by">
