@@ -23,7 +23,7 @@
 
   <div layout="row" layout-align="center center">
 
-    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
+    <md-card flex="100" flex-gt-xs="50" flex-gt-md="30">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
@@ -33,7 +33,7 @@
       </md-card-title>
       <md-card-content>
         <div layout="row" layout-wrap>
-          <md-input-container flex="100" flex-gt-sm="45">
+          <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>Organisation</translate>
             </label>
@@ -43,8 +43,9 @@
               </md-option>
             </md-select>
           </md-input-container>
-          <span flex="100" flex-gt-sm="10"></span>
-          <md-input-container flex="100" flex-gt-sm="45">
+        </div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>Network</translate>
             </label>
@@ -54,7 +55,9 @@
               </md-option>
             </md-select>
           </md-input-container>
-          <md-input-container flex="100" flex-gt-sm="45">
+        </div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>SSID</translate>
             </label>
@@ -64,7 +67,8 @@
               </md-option>
             </md-select>
           </md-input-container>
-        </div>      </md-card-content>
+        </div>
+      </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
           Create
