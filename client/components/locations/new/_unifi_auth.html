@@ -20,15 +20,15 @@
     </div>
 </md-content>
 
+{{ integration }}
+
 <form name="myForm" ng-submit="save(myForm,location)">
-
   <div layout="row" layout-align="center center">
-
     <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
-            Authorise Your UniFi Controller
+            Connect to your UniFi controller
           </span>
         </md-card-title-text>
       </md-card-title>
@@ -58,14 +58,10 @@
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <!-- <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid"> -->
-        <md-button ng-click="update()">
-            Next
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Next
         </md-button>
       </md-card-actions>
-
     </md-card>
-
   </div>
-
 </form>
