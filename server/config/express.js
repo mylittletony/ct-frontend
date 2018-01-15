@@ -21,10 +21,6 @@ var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
 
-console.log('-----------------')
-console.log(config.root);
-console.log('-----------------')
-
 module.exports = function(app) {
   var env = app.get('env');
 
@@ -98,12 +94,7 @@ module.exports = function(app) {
       raw = JSON.parse(req.session.passport.user._raw)
     }
     catch(e) {}
-
-    if (raw.cname) {
-      res.redirect('https://'+ raw.cname +'/#/login?token=' + req.session.accessToken);
-    } else {
-      res.redirect(process.env.baseURL + '/#/login?token=' + req.session.accessToken);
-    }
+    res.redirect(process.env.baseURL + '/#/login?token=' + req.session.accessToken);
 
   }, function() {
   });
@@ -131,5 +122,4 @@ module.exports = function(app) {
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
-
 };
