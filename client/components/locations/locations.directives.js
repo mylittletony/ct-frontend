@@ -2934,7 +2934,7 @@ app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$h
 
     scope.location = {slug: $routeParams.id};
     scope.save = function(type) {
-      $location.path('/locations/' + $routeParams.id + '/integration/' + type + '/auth');
+      $location.path($routeParams.id + '/integration/' + type + '/auth');
       // $location.search({gs: true});
     };
 
@@ -3069,13 +3069,13 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
 
     var create = function() {
       controller.save(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/unifi/setup');
+        $location.path($routeParams.id + '/integration/unifi/setup');
       });
     };
 
     var update = function() {
       controller.update(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/unifi/setup');
+        $location.path($routeParams.id + '/integration/unifi/setup');
       });
     }
 
@@ -3141,7 +3141,7 @@ app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '
         showToast('Successfully created UniFi setup');
         console.log(results)
         // @zak create the landing page
-        $location.path('/locations/' + $routeParams.id + '/integration/completed');
+        $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
         showErrors(error);
       });
@@ -3155,7 +3155,7 @@ app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '
 
     controller.fetch().then(function(integration) {
       if(integration.new_record) {
-        $location.path('/locations/' + $routeParams.id + '/integration/unifi/auth');
+        $location.path($routeParams.id + '/integration/unifi/auth');
       } else {
         scope.integration = integration;
         fetchSites();
@@ -3191,13 +3191,13 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$co
 
     var create = function() {
       controller.save(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/vsz/setup');
+        $location.path($routeParams.id + '/integration/vsz/setup');
       });
     };
 
     var update = function() {
       controller.update(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/vsz/setup');
+        $location.path($routeParams.id + '/integration/vsz/setup');
       });
     }
 
@@ -3265,7 +3265,7 @@ app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$c
         showToast('Successfully created Ruckus VSZ setup');
         console.log(results)
         // @zak create the landing page
-        $location.path('/locations/' + $routeParams.id + '/integration/completed');
+        $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
         showErrors(error);
       });
@@ -3279,7 +3279,7 @@ app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$c
 
     controller.fetch().then(function(integration) {
       if(integration.new_record) {
-        $location.path('/locations/' + $routeParams.id + '/integration/vsz/auth');
+        $location.path($routeParams.id + '/integration/vsz/auth');
       } else {
         scope.integration = integration;
         fetchSites();
@@ -3316,13 +3316,13 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
 
     var create = function() {
       controller.save(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/meraki/setup');
+        $location.path($routeParams.id + '/integration/meraki/setup');
       });
     };
 
     var update = function() {
       controller.update(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/meraki/setup');
+        $location.path($routeParams.id + '/integration/meraki/setup');
       });
     }
 
@@ -3389,7 +3389,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
         showToast('Successfully created Meraki setup');
         console.log(results)
         // @zak create the landing page
-        $location.path('/locations/' + $routeParams.id + '/integration/completed');
+        $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
         showErrors(error);
       });
@@ -3466,7 +3466,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
 
     controller.fetch().then(function(integration) {
       if(integration.new_record) {
-        $location.path('/locations/' + $routeParams.id + '/integration/meraki/auth');
+        $location.path($routeParams.id + '/integration/meraki/auth');
       } else {
         scope.integration = integration;
         fetchSites();
