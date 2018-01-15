@@ -15,7 +15,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     menu.isOpen = false;
 
     scope.brand_name = 'CT WiFi';
-    scope.user = {}
+    scope.user = {};
 
     var brandCheck = function() {
       Brand.query({
@@ -88,12 +88,12 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var setStage = function(stage) {
       if (stage === 1) {
-        if (scope.brand_url) {
-          $location.hash('user');
-        } else {
-          $location.hash('brand');
-          scope.checkBrand();
-        }
+        // if (scope.brand_url) {
+        $location.hash('user');
+        // } else {
+        //   $location.hash('brand');
+        //   scope.checkBrand();
+        // }
       } else if (stage === 2) {
         $location.hash('user');
       } else if (stage === 3) {
@@ -203,7 +203,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     var getMe = function(data) {
       Me.get({}).$promise.then(function(res) {
         var search = {};
-        var loginArgs = { data: res, search: search, path: '/locations/' + data.location_id + '/devices'};
+        var loginArgs = { data: res, search: search, path: '/locations/' + data.location_slug + '/devices'};
         var domain = locationHelper.domain();
         Holding.destroy({id: data.id}).$promise.then(function(data) {
           login(domain, loginArgs);
