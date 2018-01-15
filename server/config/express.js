@@ -101,17 +101,6 @@ module.exports = function(app) {
 
     if (raw.cname) {
       res.redirect('https://'+ raw.cname +'/#/login?token=' + req.session.accessToken);
-    // } else if (raw.url !== 'default') {
-    //   // We need to adjust the config file so we just use a domain
-    //   // Right now, this is dumb
-    //   if (env === 'production') {
-    //     url = 'https://'+ raw.url +'.ctapp.io';
-    //   } else {
-    //     url = 'http://'+ raw.url +'.ctapp.dev:9090';
-    //   }
-    //   res.redirect(url + '/#/login?token=' + req.session.accessToken);
-    // } else if (raw.url !== 'default' && env === 'production') {
-    //   res.redirect('https://'+ raw.url +'.ctapp.io/#/login?token=' + req.session.accessToken);
     } else {
       res.redirect(process.env.baseURL + '/#/login?token=' + req.session.accessToken);
     }
@@ -133,8 +122,6 @@ module.exports = function(app) {
     app.set('appPath', config.root + '/public');
     app.use(morgan('dev'));
   }
-
-  console.log(123, config)
 
   if ('development' === env || 'test' === env) {
     app.use(require('connect-livereload')());

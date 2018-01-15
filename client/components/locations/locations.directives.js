@@ -109,7 +109,7 @@ app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope'
 
     scope.addDevice = function() {
       window.mixpanel.track('Add box');
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+      window.location.href = '/#/' + scope.location.slug + '/boxes/new';
     };
   };
 
@@ -972,7 +972,7 @@ app.directive('locationShortlist', function() {
   };
 });
 
-app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', function(Location, Project, $location, menu, showErrors, showToast, $routeParams, gettextCatalog) {
+app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -1012,37 +1012,37 @@ app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 's
       }
     };
 
-    var project;
-    var setProjects = function(projects) {
-      for (var i = 0, len = projects.length; i < len; i++) {
-        if (projects[i].type === 'rw' ) {
-          scope.projects.push(projects[i]);
-          if (project && projects[i].project_name === project) {
-            scope.location.project_id = projects[i].id;
-          }
-        }
-      }
-    };
+    // var project;
+    // var setProjects = function(projects) {
+    //   for (var i = 0, len = projects.length; i < len; i++) {
+    //     if (projects[i].type === 'rw' ) {
+    //       scope.projects.push(projects[i]);
+    //       if (project && projects[i].project_name === project) {
+    //         scope.location.project_id = projects[i].id;
+    //       }
+    //     }
+    //   }
+    // };
 
-    var setProject = function(projects) {
-      project = $routeParams.project;
-      if (projects.length > 0) {
-        scope.projects = [];
-        setProjects(projects);
-        if ((scope.projects.length === 1) ||
-            (scope.projects.length > 1 && !scope.location.project_id)) {
-          scope.location.project_id = scope.projects[0].id;
-        }
-      }
-    };
+    // var setProject = function(projects) {
+    //   project = $routeParams.project;
+    //   if (projects.length > 0) {
+    //     scope.projects = [];
+    //     setProjects(projects);
+    //     if ((scope.projects.length === 1) ||
+    //         (scope.projects.length > 1 && !scope.location.project_id)) {
+    //       scope.location.project_id = scope.projects[0].id;
+    //     }
+    //   }
+    // };
 
     var init = function() {
-      Project.get({}).$promise.then(function(results) {
-        setProject(results.projects);
+      // Project.get({}).$promise.then(function(results) {
+      //   setProject(results.projects);
         scope.loading = undefined;
-      }, function(err) {
-        scope.loading = undefined;
-      });
+      // }, function(err) {
+      //   scope.loading = undefined;
+      // });
     };
 
     init();

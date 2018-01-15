@@ -3,10 +3,10 @@
     md-no-ink-bar="disableInkBar"
     md-selected-nav-item="currentNavItem"
     nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/people" name="people">
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/people" name="people">
       People
     </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/people/reports" name="reports">
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/people/reports" name="reports">
       Reports
     </md-nav-item>
   </md-nav-bar>
@@ -57,7 +57,7 @@
           <tbody md-body>
             <tr md-row ng-repeat="person in people">
               <td md-cell>
-                <a href="/#/locations/{{ location.slug }}/people/{{ person.slug }}">{{ person.username ? person.username : 'Splash Guest'}}</a>
+                <a href="/#/{{ location.slug }}/people/{{ person.slug }}">{{ person.username ? person.username : 'Splash Guest'}}</a>
               </td>
               <td md-cell>
                 {{ person.updated_at | humanDate }}
@@ -72,7 +72,7 @@
                   </md-button>
                   <md-menu-content width="3">
                     <md-menu-item>
-                      <md-button ng-href="/#/locations/{{ location.slug }}/people/{{ person.slug}}">
+                      <md-button ng-href="/#/{{ location.slug }}/people/{{ person.slug}}">
                         <md-icon md-menu-align-target style="margin: auto 3px auto 0;">pageview</md-icon>
                         <span translate>View</span>
                       </md-button>

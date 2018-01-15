@@ -109,373 +109,303 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/locations', {
-      templateUrl: 'components/locations/index/list.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/new', {
+    when('/new', {
       templateUrl: 'components/locations/new/index.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
+      redirectTo: '/:id'
+    }).
+    when('/:id', {
       templateUrl: 'components/locations/people/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
-    when('/locations/:id/integration', {
+    when('/:id/integration', {
       templateUrl: 'components/locations/new/integration.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/integration/unifi/auth', {
+    when('/:id/integration/unifi/auth', {
       templateUrl: 'components/locations/new/unifi_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/integration/unifi/setup', {
+    when('/:id/integration/unifi/setup', {
       templateUrl: 'components/locations/new/unifi_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/integration/vsz/auth', {
+    when('/:id/integration/vsz/auth', {
       templateUrl: 'components/locations/new/vsz_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/integration/vsz/setup', {
+    when('/:id/integration/vsz/setup', {
       templateUrl: 'components/locations/new/vsz_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/integration/meraki/auth', {
+    when('/:id/integration/meraki/auth', {
       templateUrl: 'components/locations/new/meraki_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/integration/meraki/setup', {
+    when('/:id/integration/meraki/setup', {
       templateUrl: 'components/locations/new/meraki_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/devices', {
+    when('/:id/devices', {
       templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
-    when('/locations/:id/map', {
+    when('/:id/map', {
       templateUrl: 'components/locations/show/map.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
     }).
-    when('/locations/:id/clients', {
-      templateUrl: 'components/locations/clients/index.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/clients/:client_id', {
-      templateUrl: 'components/locations/clients/show.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-      reloadOnSearch: false,
-    }).
-    when('/locations/:id/clients/:client_id/codes', {
-      templateUrl: 'components/locations/clients/codes.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/clients/:client_id/codes/:username', {
-      templateUrl: 'components/locations/clients/show_code.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/clients/:client_id/codes/:username/sessions', {
-      templateUrl: 'components/locations/clients/sessions.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/clients/:client_id/orders/:order_id', {
-      templateUrl: 'components/locations/clients/show_order.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/clients/:client_id/social/:social_id', {
-      templateUrl: 'components/locations/clients/social.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/clients/:client_id/sessions', {
-      templateUrl: 'components/locations/clients/sessions.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/group_policies', {
-      templateUrl: 'components/views/group_policies/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/group_policies/:group_policy_id', {
-      templateUrl: 'components/views/group_policies/show.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/group_policies/:group_policy_id/clients', {
-      templateUrl: 'components/views/group_policies/clients.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/campaigns', {
+    // when('/:id/clients', {
+    //   templateUrl: 'components/locations/clients/index.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    // when('/:id/clients/:client_id', {
+    //   templateUrl: 'components/locations/clients/show.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    //   reloadOnSearch: false,
+    // }).
+    // when('/locations/:id/clients/:client_id/codes', {
+    //   templateUrl: 'components/locations/clients/codes.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    // when('/locations/:id/clients/:client_id/codes/:username', {
+    //   templateUrl: 'components/locations/clients/show_code.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    // when('/locations/:id/clients/:client_id/codes/:username/sessions', {
+    //   templateUrl: 'components/locations/clients/sessions.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    // when('/locations/:id/clients/:client_id/orders/:order_id', {
+    //   templateUrl: 'components/locations/clients/show_order.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    // when('/locations/:id/clients/:client_id/social/:social_id', {
+    //   templateUrl: 'components/locations/clients/social.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    // when('/locations/:id/clients/:client_id/sessions', {
+    //   templateUrl: 'components/locations/clients/sessions.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    // when('/locations/:id/group_policies', {
+    //   templateUrl: 'components/views/group_policies/index.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/locations/:id/group_policies/:group_policy_id', {
+    //   templateUrl: 'components/views/group_policies/show.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/locations/:id/group_policies/:group_policy_id/clients', {
+    //   templateUrl: 'components/views/group_policies/clients.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    when('/:id/campaigns', {
       templateUrl: 'components/campaigns/index/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/campaigns/new', {
+    when('/:id/campaigns/new', {
       templateUrl: 'components/campaigns/edit/edit.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/campaigns/:campaign_id', {
+    when('/:id/campaigns/:campaign_id', {
       templateUrl: 'components/campaigns/edit/edit.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    when('/locations/:id/triggers/:trigger_id/trigger_history', {
-      templateUrl: 'components/views/triggers/history/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/triggers/:trigger_id/trigger_history/:trigger_history_id', {
-      templateUrl: 'components/views/triggers/history/show.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/users', {
+    // when('/:id/triggers/:trigger_id/trigger_history', {
+    //   templateUrl: 'components/views/triggers/history/index.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/locations/:id/triggers/:trigger_id/trigger_history/:trigger_history_id', {
+    //   templateUrl: 'components/views/triggers/history/show.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    when('/:id/users', {
       templateUrl: 'components/locations/users/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/settings', {
+    when('/:id/settings', {
       templateUrl: 'components/locations/settings/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/settings/notifications', {
+    when('/:id/settings/notifications', {
       templateUrl: 'components/locations/settings/notifications.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/settings/security', {
-      templateUrl: 'components/locations/settings/security.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/settings/devices', {
+    // when('/:id/settings/security', {
+    //   templateUrl: 'components/locations/settings/security.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    when('/:id/settings/devices', {
       templateUrl: 'components/locations/settings/devices.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/settings/splash', {
+    when('/:id/settings/splash', {
       templateUrl: 'components/locations/settings/splash.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/settings/analytics', {
+    when('/:id/settings/analytics', {
       templateUrl: 'components/locations/settings/analytics.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/versions', {
+    when('/:id/versions', {
       templateUrl: 'components/locations/versions/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/logs', {
-      templateUrl: 'components/locations/logging/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/networks', {
-      templateUrl: 'components/locations/networks/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/zones', {
-      templateUrl: 'components/zones/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired },
-      reloadOnSearch: false,
-    }).
-    when('/locations/:id/zones/:zone_id', {
-      templateUrl: 'components/zones/show.html',
-      // controller: 'ZonesCtrlShow',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/networks/:network_id', {
-      templateUrl: 'components/locations/networks/show.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc',
-    }).
-    when('/locations/:id/splash_codes', {
+    // when('/:id/logs', {
+    //   templateUrl: 'components/locations/logging/index.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/locations/:id/networks', {
+    //   templateUrl: 'components/locations/networks/index.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/locations/:id/zones', {
+    //   templateUrl: 'components/zones/index.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired },
+    //   reloadOnSearch: false,
+    // }).
+    // when('/locations/:id/zones/:zone_id', {
+    //   templateUrl: 'components/zones/show.html',
+    //   // controller: 'ZonesCtrlShow',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/locations/:id/networks/:network_id', {
+    //   templateUrl: 'components/locations/networks/show.html',
+    //   resolve: { loginRequired: loginRequired },
+    //   controller: 'LocationsCtrl as lc',
+    // }).
+    when('/:id/splash_codes', {
       controller: 'LocationsCtrl as lc',
       templateUrl: 'components/splash_codes/index.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_codes/new', {
+    when('/:id/splash_codes/new', {
       templateUrl: 'components/splash_codes/new.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_codes/:splash_code_id', {
+    when('/:id/splash_codes/:splash_code_id', {
       controller: 'LocationsCtrl as lc',
       templateUrl: 'components/splash_codes/show.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_codes/:splash_code_id/sessions/:username', {
+    when('/:id/splash_codes/:splash_code_id/sessions/:username', {
       controller: 'LocationsCtrl as lc',
       templateUrl: 'components/splash_codes/sessions.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_pages', {
+    when('/:id/splash_pages', {
       controller: 'LocationsCtrl as lc',
       templateUrl: 'components/splash_pages/index.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_pages/new', {
+    when('/:id/splash_pages/new', {
       templateUrl: 'components/splash_pages/new.html',
       controller: 'SplashPagesCtrlNew',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_pages/:splash_page_id/design', {
+    when('/:id/splash_pages/:splash_page_id/design', {
       templateUrl: 'components/splash_pages/design.html',
       controller: 'SplashPagesDesignCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_pages/:splash_page_id/store', {
+    when('/:id/splash_pages/:splash_page_id/store', {
       templateUrl: 'components/splash_pages/store.html',
       reloadOnSearch: false,
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_pages/:splash_page_id/forms', {
+    when('/:id/splash_pages/:splash_page_id/forms', {
       templateUrl: 'components/splash_pages/forms.html',
       reloadOnSearch: false,
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/splash_pages/:splash_page_id', {
+    when('/:id/splash_pages/:splash_page_id', {
       templateUrl: 'components/splash_pages/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/downloads', {
-      templateUrl: 'components/downloads/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/locations/:id/boxes/new', {
-      redirectTo: '/locations/:id/devices/new'
-    }).
-    when('/locations/:id/devices/new', {
+    // when('/downloads', {
+    //   templateUrl: 'components/downloads/index.html',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
+    // when('/locations/:id/boxes/new', {
+    //   redirectTo: '/locations/:id/devices/new'
+    // }).
+    when('/:id/devices/new', {
       templateUrl: 'components/boxes/new/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    when('/locations/:id/boxes/:box_id', {
+    when('/:id/boxes/:box_id', {
       redirectTo: '/locations/:id/devices/:box_id',
     }).
-    when('/locations/:id/devices/:box_id', {
+    when('/:id/devices/:box_id', {
       templateUrl: 'components/boxes/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false,
     }).
-    when('/locations/:id/boxes/:box_id/edit', {
+    when('/:id/boxes/:box_id/edit', {
       redirectTo: '/locations/:id/devices/:box_id/edit',
     }).
-    when('/locations/:id/devices/:box_id/edit', {
+    when('/:id/devices/:box_id/edit', {
       templateUrl: 'components/boxes/edit/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/boxes/:box_id/payloads', {
-      redirectTo: '/locations/:id/devices/:box_id/payloads',
-    }).
-    when('/locations/:id/devices/:box_id/payloads', {
-      templateUrl: 'components/boxes/payloads/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/devices/:box_id/operations', {
-      templateUrl: 'components/views/operations/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/devices/:box_id/operations/:operation_id', {
-      templateUrl: 'components/views/operations/show.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/boxes/:box_id/versions', {
-      redirectTo: '/locations/:id/devices/:box_id/versions',
-    }).
-    when('/locations/:id/devices/:box_id/versions', {
-      templateUrl: 'components/boxes/versions/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    // when('/locations/:id/splash_reports', {
-    //   templateUrl: 'components/locations/reports/splash.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/wireless_reports', {
-    //   templateUrl: 'components/locations/reports/wireless.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    when('/locations/:id/audit', {
+    when('/:id/audit', {
       templateUrl: 'components/locations/audit/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/people', {
+    when('/:id/people', {
       templateUrl: 'components/locations/people/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/people/:person_id', {
+    when('/:id/people/:person_id', {
       templateUrl: 'components/locations/people/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/reports', {
-      redirectTo: '/',
-      // templateUrl: 'components/reports/wireless.html',
-      // controller: 'ReportsCtrl as rc',
-      // reloadOnSearch: false,
-      // resolve: { loginRequired: loginRequired }
-    }).
-    when('/reports/radius', {
-      redirectTo: '/',
-      // templateUrl: 'components/reports/radius.html',
-      // controller: 'ReportsCtrl as rc',
-      // reloadOnSearch: false,
-      // resolve: { loginRequired: loginRequired }
-    }).
-    when('/users', {
-      templateUrl: 'components/users/index/index.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id', {
-      templateUrl: 'components/users/show/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/sessions', {
-      templateUrl: 'components/users/sessions/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/me', {
       templateUrl: 'components/users/show/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/reseller', {
-      templateUrl: 'components/users/reseller/index.html',
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
@@ -533,11 +463,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/users/:id/locations', {
-    //   templateUrl: 'components/users/locations/index.html',
-    //   controller: 'UsersShowController',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/users/:id/users', {
       templateUrl: 'components/users/users/index.html',
       controller: 'UsersShowController',
@@ -558,33 +483,33 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/vouchers', {
+    when('/:id/vouchers', {
       templateUrl: 'components/vouchers/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
       // reloadOnSearch: false
     }).
-    when('/locations/:id/vouchers/new', {
+    when('/:id/vouchers/new', {
       templateUrl: 'components/vouchers/new.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/vouchers/:voucher_id/edit', {
+    when('/:id/vouchers/:voucher_id/edit', {
       templateUrl: 'components/vouchers/edit.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/vouchers/:voucher_id', {
+    when('/:id/vouchers/:voucher_id', {
       templateUrl: 'components/vouchers/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/vouchers/:voucher_id/codes', {
+    when('/:id/vouchers/:voucher_id/codes', {
       templateUrl: 'components/codes/vouchers_index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/vouchers/:voucher_id/codes/:username', {
+    when('/:id/vouchers/:voucher_id/codes/:username', {
       templateUrl: 'components/codes/voucher_sessions.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
