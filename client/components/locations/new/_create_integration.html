@@ -1,0 +1,69 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+  </md-nav-bar>
+</div>
+
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+  <div>
+    <h1>{{location.location_name ? location.location_name : 'FIX ME'}}</h1>
+    <h2>Integration Setup</h2>
+  </div>
+  <span flex></span>
+    <div>
+      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+        <md-tooltip md-direction="bottom">Back</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+</md-content>
+
+<form name="myForm" ng-submit="save(type)">
+  <div layout="row" layout-align="center center">
+    <md-card flex="100" flex-gt-xs="50" flex-gt-md="30">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Select Integration Type
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="100">
+            <label>
+              <translate>Integration Type</translate>
+            </label>
+            <md-select ng-model="type">
+              <md-option value="unifi">
+                UniFi
+              </md-option>
+              <md-option value="meraki">
+                Meraki
+              </md-option>
+              <md-option value="vsz">
+                Ruckus VSZ
+              </md-option>
+              <md-option value="zonedirector">
+                Ruckus ZoneDirector
+              </md-option>
+              <md-option value="ct">
+                CT Networks
+              </md-option>
+              <md-option value="xirrus">
+                Xirrus
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Next
+        </md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</form>
