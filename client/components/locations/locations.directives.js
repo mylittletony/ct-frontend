@@ -3240,7 +3240,7 @@ app.directive('vszSetup', ['$routeParams', '$location', '$http', '$compile', '$m
         splash_integration: {
           metadata: {
             vsz_zone_name:  site.name,
-            zoneUUID:    site.id,
+            zoneUUID:       site.id,
             ssid:           ssid
           },
           action: 'create_setup'
@@ -3317,7 +3317,7 @@ app.directive('merakiAuth', ['$routeParams', '$location', '$http', '$compile', '
     controller.fetch().then(function(integration) {
       console.log(integration);
       scope.integration = integration;
-      scope.integration.type = 'vsz';
+      scope.integration.type = 'meraki';
     }, function(err) { console.log(err); })
 
   };
@@ -3336,22 +3336,20 @@ app.directive('merakiSetup', ['$routeParams', '$location', '$http', '$compile', 
 
   var link = function(scope, element, attrs, controller) {
 
-    scope.save = function(form,site,ssid) {
+    scope.save = function(form,meraki) {
       // Set form pristine @zak //
       // Set form pristine @zak //
       // Set form pristine @zak //
       // Set form pristine @zak //
       // and make sure to disable the button //
-      console.log(site)
-      site = JSON.parse(site);
       SplashIntegration.update({},{
         id: scope.integration.id,
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            vsz_zone_name:  site.name,
-            zoneUUID:    site.id,
-            ssid:           ssid
+            meraki_organization:   meraki.org,
+            meraki_network:        meraki.network,
+            ssid:                  meraki.ssid
           },
           action: 'create_setup'
         }
@@ -3365,9 +3363,72 @@ app.directive('merakiSetup', ['$routeParams', '$location', '$http', '$compile', 
       });
     };
 
+    var updateMeraki = function(cb) {
+      SplashIntegration.update({}, {
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: scope.integration
+      }).$promise.then(function(results) {
+        console.log(results)
+        return cb();
+      }, function(error) {
+        console.log(error)
+        return cb();
+      });
+    }
+
     var fetchSites = function() {
-      controller.fetchSites(scope.integration).then(function(sites) {
-        scope.vsz_zones = sites;
+      controller.fetchSites(scope.integration).then(function(results) {
+        scope.meraki = {};
+        scope.integration.metadata = {};
+        scope.meraki.ssid = undefined;
+        scope.meraki_ssids = [];
+        scope.meraki.network = undefined;
+        scope.meraki_networks = [];
+        scope.meraki_orgs = results;
+      });
+    };
+
+    var fetchNetworks = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_networks'
+      }).$promise.then(function(results) {
+        scope.meraki_networks = results;
+        }
+      );
+    };
+
+    scope.orgSelected = function(org) {
+      console.log('org selected')
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.meraki.network = undefined;
+      scope.meraki_networks = [];
+      scope.integration.metadata.organisation = org;
+      updateMeraki(function() {
+        fetchNetworks();
+      });
+    };
+
+    var fetchSsid = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_ssids'
+      }).$promise.then(function(results) {
+        scope.meraki_ssids = results;
+        }
+      );
+    };
+
+    scope.netSelected = function(network) {
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.integration.metadata.network = network;
+      updateMeraki(function() {
+        fetchSsid();
       });
     };
 
