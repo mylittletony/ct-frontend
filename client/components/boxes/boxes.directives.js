@@ -141,7 +141,7 @@ app.directive('showBox', ['Location', 'Box', '$routeParams', 'Auth', '$pusher', 
     };
 
     var logs = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/logs?ap_mac=' + scope.box.calledstationid;
+      window.location.href = '/#/' + scope.location.slug + '/logs?ap_mac=' + scope.box.calledstationid;
     };
 
     var checkZones = function(results) {
@@ -183,7 +183,7 @@ app.directive('showBox', ['Location', 'Box', '$routeParams', 'Auth', '$pusher', 
     var ZoneAlertCtrl = function($scope, $mdBottomSheet, prefs) {
       $scope.add = function() {
         $mdBottomSheet.hide();
-        $location.path('/locations/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
+        $location.path('/' + scope.location.slug + '/zones').search({ap_mac: scope.box.calledstationid, box_id: scope.box.id});
       };
       $scope.cancel = function() {
         prefs();
@@ -193,11 +193,11 @@ app.directive('showBox', ['Location', 'Box', '$routeParams', 'Auth', '$pusher', 
     ZoneAlertCtrl.$inject = ['$scope','$mdBottomSheet','prefs'];
 
     var editBox = function() {
-      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/edit');
+      $location.path('/' + scope.location.slug + '/devices/' + scope.box.slug + '/edit');
     };
 
     scope.payloads = function() {
-      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/payloads');
+      $location.path('/' + scope.location.slug + '/devices/' + scope.box.slug + '/payloads');
     };
 
     scope.resetBox = function(ev) {
@@ -291,7 +291,7 @@ app.directive('showBox', ['Location', 'Box', '$routeParams', 'Auth', '$pusher', 
 
     var deleteBox = function() {
       Box.destroy({id: scope.box.slug}).$promise.then(function(results) {
-        $location.path('/locations/' + scope.location.slug);
+        $location.path('/' + scope.location.slug);
         showToast(gettextCatalog.getString('Box successfully deleted'));
       }, function(errors) {
         console.log(errors);
@@ -354,7 +354,7 @@ app.directive('showBox', ['Location', 'Box', '$routeParams', 'Auth', '$pusher', 
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/devices';
+      window.location.href = '/#/' + scope.location.slug + '/devices';
     };
 
     var channel;
@@ -530,11 +530,11 @@ app.directive('showBox', ['Location', 'Box', '$routeParams', 'Auth', '$pusher', 
     });
 
     var viewOperations = function() {
-      $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
+      $location.path('/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
     };
 
     var viewHistory = function() {
-      $location.path('/locations/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
+      $location.path('/' + scope.location.slug + '/boxes/' + scope.box.slug + '/versions');
     };
 
     // We've remove the pusher notifications since the volume was getting too high
@@ -681,7 +681,7 @@ app.directive('boxPayloads', ['Box', 'Payload', 'showToast', 'showErrors', '$rou
     }
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug;
+      window.location.href = '/#/' + scope.location.slug + '/boxes/' + scope.box.slug;
     };
 
     init();
@@ -870,7 +870,7 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + scope.box.slug;
+      window.location.href = '/#/' + scope.location.slug + '/boxes/' + scope.box.slug;
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -1615,14 +1615,14 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
 
     var redirect = function(slug) {
       if (scope.selected.length === 0) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + slug;
+      window.location.href = '/#/' + scope.location.slug + '/boxes/' + slug;
       } else {
         scope.back();
       }
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes';
+      window.location.href = '/#/' + scope.location.slug + '/boxes';
     };
 
     scope.manualBox = function() {
