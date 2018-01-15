@@ -885,6 +885,14 @@ app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog'
 
   var link = function( scope, element, attrs ) {
 
+    var logout = function() {
+      User.logout_all({id: $routeParams.id}).$promise.then(function(results) {
+        var sub = locationHelper.subdomain();
+        window.location.href = AUTH_URL + '/logout';
+      }, function(err) {
+      });
+    };
+
     scope.logout = function() {
       var confirm = $mdDialog.confirm()
       .title(gettextCatalog.getString('Logout?'))
@@ -895,14 +903,6 @@ app.directive('userLogoutAll', ['User', '$routeParams', '$location', '$mdDialog'
       $mdDialog.show(confirm).then(function() {
         logout();
       }, function() {
-      });
-    };
-
-    var logout = function() {
-      User.logout_all({id: $routeParams.id}).$promise.then(function(results) {
-        var sub = locationHelper.subdomain();
-        window.location.href = AUTH_URL + '/logout?brand=' + sub;
-      }, function(err) {
       });
     };
 
@@ -1372,13 +1372,12 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', 'paginati
 
 }]);
 
-app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', 'BrandName', '$q', 'BrandUser', 'showErrors', 'showToast', 'Auth', 'pagination_labels', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, BrandName, $q, BrandUser, showErrors, showToast, Auth, pagination_labels) {
+app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', '$q', 'showErrors', 'showToast', 'Auth', 'pagination_labels', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, $q, showErrors, showToast, Auth, pagination_labels) {
 
   var link = function( scope, element, attrs ) {
 
     menu.isOpen = false;
     menu.hideBurger = true;
-    scope.brand = { id: $routeParams.brand_id };
 
     if (Auth.currentUser()) {
       scope.super = Auth.currentUser().super;
@@ -1450,19 +1449,6 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       }
     };
 
-    var edit = function(user) {
-      $mdDialog.show({
-        templateUrl: 'components/users/brand_users/_edit.html',
-        parent: angular.element(document.body),
-        controller: DialogController,
-        clickOutsideToClose: true,
-        locals: {
-          user: user,
-          roles: scope.roles
-        }
-      });
-    };
-
     function DialogController ($scope, user, roles) {
       $scope.user = user;
       $scope.roles = roles;
@@ -1488,38 +1474,6 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       });
     };
 
-    var updateRole = function(user) {
-      BrandUser.update({}, {
-        id: user.id,
-        brand_user: {
-          role_id: user.brand_user.role_id
-        },
-        brand_id: scope.brand.id
-      }).$promise.then(function(results) {
-        showToast('User successfully updated.');
-      }, function(err) {
-        showErrors(err);
-        scope.loading = undefined;
-      });
-    };
-
-    var removeUser = function(user) {
-      BrandUser.destroy({
-        id: user.brand_user.id,
-        brand_user: {
-          role_id: user.brand_user.role_id
-        },
-        brand_id: scope.brand.id
-      }).$promise.then(function(results) {
-        user.brand_user = undefined;
-        // removeFromList(user.id);
-        showToast('User successfully updated.');
-      }, function(err) {
-        showErrors(err);
-        scope.loading = undefined;
-      });
-    };
-
     var removeFromList = function(id) {
       for (var i = 0, len = scope.users.length; i < len; i++) {
         if (scope.users[i].id === id) {
@@ -1529,26 +1483,9 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
       }
     };
 
-    var fetchBrand = function() {
-      if (!scope.brand.id && BrandName && BrandName.admin === true) {
-        scope.brand = BrandName;
-      }
-    };
-
-    scope.search = function() {
-      var hash = {};
-      hash.q = scope.query.filter;
-
-      $location.search(hash);
-      init();
-    };
-
     var init = function() {
-      fetchBrand();
-
       var params = {
         page: scope.query.page,
-        brand_id: scope.brand.id,
         per: scope.query.limit,
         q: scope.query.filter
       };
@@ -1562,6 +1499,14 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
         scope.loading = undefined;
       });
 
+    };
+
+    scope.search = function() {
+      var hash = {};
+      hash.q = scope.query.filter;
+
+      $location.search(hash);
+      init();
     };
 
     init();

@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.users.services', ['ngResource',]);
 
-app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'Logout', '$location', 'AccessToken', 'locationHelper', 'AUTH_URL', 'Brand', function($window, $rootScope, $localStorage, $http, $q, Logout, $location, AccessToken, locationHelper, AUTH_URL, Brand) {
+app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'Logout', '$location', 'AccessToken', 'locationHelper', 'AUTH_URL', function($window, $rootScope, $localStorage, $http, $q, Logout, $location, AccessToken, locationHelper, AUTH_URL) {
 
     var user = null;
 
@@ -47,18 +47,18 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       deferred.resolve(data);
       var sub = locationHelper.subdomain();
       var domain = locationHelper.domain();
-      if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
-        Brand.query({}, {
-          id: domain,
-          cname: true,
-          type: 'showcase'
-        }).$promise.then(function(results) {
-          sub = results.url;
-          window.location.href = '/auth/login?brand=' + sub + '&return_to=' + 'search';
-          return deferred.promise;
-        });
-      }
-      window.location.href = '/auth/login?brand=' + sub + '&return_to=' + 'search';
+      // if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
+      //   Brand.query({}, {
+      //     id: domain,
+      //     cname: true,
+      //     type: 'showcase'
+      //   }).$promise.then(function(results) {
+      //     sub = results.url;
+      //     window.location.href = '/auth/login?brand=' + sub + '&return_to=' + 'search';
+      //     return deferred.promise;
+      //   });
+      // }
+      window.location.href = '/auth/login?return_to=' + 'search';
       return deferred.promise;
     };
 
@@ -67,7 +67,7 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       AccessToken.del();
       delete $localStorage.user;
       var sub = locationHelper.subdomain();
-      window.location.href = AUTH_URL + '/logout?brand=' + sub;
+      window.location.href = AUTH_URL + '/logout';
     };
 
     return {
