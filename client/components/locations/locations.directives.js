@@ -2928,14 +2928,25 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
 
 }]);
 
-app.directive('integrationSelect', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
+    scope.location = {slug: $routeParams.id};
     scope.save = function(type) {
-      $location.path('/locations/' + $routeParams.id + '/integration/' + type + '/auth');
+      $location.path($routeParams.id + '/integration/' + type + '/auth');
       // $location.search({gs: true});
     };
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    locationName();
 
   };
 
@@ -2994,10 +3005,8 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         location_id: $routeParams.id,
         splash_integration: integration
       }).$promise.then(function(results) {
-        // scope.integration.id = results.id;
         showToast('Successfully validated integration');
         deferred.resolve(results);
-        // fetchSites();
       }, function(error) {
         deferred.reject();
         showErrors(error);
@@ -3016,8 +3025,6 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         console.log(results)
         showToast('Successfully updated and validated integration');
         deferred.resolve(results);
-        // dont need to do this every time
-        // fetchSites();
       }, function(error) {
         showErrors(error);
         deferred.reject();
@@ -3034,24 +3041,6 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         action: 'fetch_settings'
       }).$promise.then(function(results) {
         deferred.resolve(results);
-        // console.log(results)
-        // switch(scope.integration.type) {
-        //   case 'unifi':
-        //     scope.unifi_sites = results;
-        //     break;
-        //   case 'vsz':
-        //     scope.vsz_zones = results;
-        //     break;
-        //   case 'meraki':
-        //     scope.meraki = {};
-        //     scope.integration.metadata = {};
-        //     scope.meraki.ssid = undefined;
-        //     scope.meraki_ssids = [];
-        //     scope.meraki.network = undefined;
-        //     scope.meraki_networks = [];
-        //     scope.meraki_orgs = results;
-        //     break;
-        // }
       });
       return deferred.promise;
     };
@@ -3064,29 +3053,35 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
 
 }]);
 
-app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
     var create = function() {
       controller.save(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/unifi/setup');
+        $location.path($routeParams.id + '/integration/unifi/setup');
       });
     };
 
     var update = function() {
       controller.update(scope.integration).then(function(results) {
-        $location.path('/locations/' + $routeParams.id + '/integration/unifi/setup');
+        $location.path($routeParams.id + '/integration/unifi/setup');
       });
     }
 
     scope.save = function(form) {
 
-      // Set form pristine @zak //
-      // Set form pristine @zak //
-      // Set form pristine @zak //
-      // Set form pristine @zak //
-      // and make sure to disable the button //
+      scope.myForm.$setPristine();
 
       scope.integration.action = 'validate'
       if (scope.integration.new_record) {
@@ -3097,10 +3092,11 @@ app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$
     };
 
     controller.fetch().then(function(integration) {
-      console.log(integration);
       scope.integration = integration;
       scope.integration.type = 'unifi';
     }, function(err) { console.log(err); })
+
+    locationName();
 
   };
 
@@ -3113,17 +3109,22 @@ app.directive('unifiAuth', ['$routeParams', '$location', '$http', '$compile', '$
 
 }]);
 
-app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
 
   var link = function(scope, element, attrs, controller) {
 
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
     scope.save = function(form,site,ssid) {
-      // Set form pristine @zak //
-      // Set form pristine @zak //
-      // Set form pristine @zak //
-      // Set form pristine @zak //
-      // and make sure to disable the button //
-      console.log(site)
+      scope.myForm.$setPristine();
       site = JSON.parse(site);
       SplashIntegration.update({},{
         id: scope.integration.id,
@@ -3140,7 +3141,7 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
         showToast('Successfully created UniFi setup');
         console.log(results)
         // @zak create the landing page
-        $location.path('/locations/' + $routeParams.id + '/integration/completed');
+        $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
         showErrors(error);
       });
@@ -3154,12 +3155,14 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
 
     controller.fetch().then(function(integration) {
       if(integration.new_record) {
-        $location.path('/locations/' + $routeParams.id + '/integration/unifi/auth');
+        $location.path($routeParams.id + '/integration/unifi/auth');
       } else {
         scope.integration = integration;
         fetchSites();
       }
     })
+
+    locationName();
 
   };
 
@@ -3172,13 +3175,56 @@ app.directive('unifiSetup', ['$routeParams', '$location', '$http', '$compile', '
 
 }]);
 
-app.directive('vszAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
-  var link = function(scope, element, attrs) {
+  var link = function(scope, element, attrs, controller) {
+
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    var create = function() {
+      controller.save(scope.integration).then(function(results) {
+        $location.path($routeParams.id + '/integration/vsz/setup');
+      });
+    };
+
+    var update = function() {
+      controller.update(scope.integration).then(function(results) {
+        $location.path($routeParams.id + '/integration/vsz/setup');
+      });
+    }
+
+    scope.save = function(form) {
+
+      scope.myForm.$setPristine();
+
+      scope.integration.action = 'validate'
+      if (scope.integration.new_record) {
+        create();
+      } else {
+        update();
+      }
+    };
+
+    controller.fetch().then(function(integration) {
+      console.log(integration);
+      scope.integration = integration;
+      scope.integration.type = 'vsz';
+    }, function(err) { console.log(err); })
+
+    locationName();
 
   };
 
   return {
+    require: '^integrations',
     link: link,
     scope: {
     },
@@ -3187,13 +3233,65 @@ app.directive('vszAuth', ['$routeParams', '$location', '$http', '$compile', '$md
 
 }]);
 
-app.directive('vszSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
 
-  var link = function(scope, element, attrs) {
+  var link = function(scope, element, attrs, controller) {
+
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    scope.save = function(form,site,ssid) {
+      scope.myForm.$setPristine();
+      site = JSON.parse(site);
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            vsz_zone_name:  site.name,
+            zoneUUID:       site.id,
+            ssid:           ssid
+          },
+          action: 'create_setup'
+        }
+      }, function(results) {
+        showToast('Successfully created Ruckus VSZ setup');
+        console.log(results)
+        // @zak create the landing page
+        $location.path($routeParams.id + '/integration/completed');
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    var fetchSites = function() {
+      controller.fetchSites(scope.integration).then(function(sites) {
+        scope.vsz_zones = sites;
+      });
+    };
+
+    controller.fetch().then(function(integration) {
+      if(integration.new_record) {
+        $location.path($routeParams.id + '/integration/vsz/auth');
+      } else {
+        scope.integration = integration;
+        fetchSites();
+      }
+    })
+
+    locationName();
 
   };
 
   return {
+    require: '^integrations',
     link: link,
     scope: {
     },
@@ -3202,13 +3300,56 @@ app.directive('vszSetup', ['$routeParams', '$location', '$http', '$compile', '$m
 
 }]);
 
-app.directive('merakiAuth', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
-  var link = function(scope, element, attrs) {
+  var link = function(scope, element, attrs, controller) {
+
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    var create = function() {
+      controller.save(scope.integration).then(function(results) {
+        $location.path($routeParams.id + '/integration/meraki/setup');
+      });
+    };
+
+    var update = function() {
+      controller.update(scope.integration).then(function(results) {
+        $location.path($routeParams.id + '/integration/meraki/setup');
+      });
+    }
+
+    scope.save = function(form) {
+
+      scope.myForm.$setPristine();
+
+      scope.integration.action = 'validate'
+      if (scope.integration.new_record) {
+        create();
+      } else {
+        update();
+      }
+    };
+
+    controller.fetch().then(function(integration) {
+      console.log(integration);
+      scope.integration = integration;
+      scope.integration.type = 'meraki';
+    }, function(err) { console.log(err); })
+
+    locationName();
 
   };
 
   return {
+    require: '^integrations',
     link: link,
     scope: {
     },
@@ -3217,13 +3358,127 @@ app.directive('merakiAuth', ['$routeParams', '$location', '$http', '$compile', '
 
 }]);
 
-app.directive('merakiSetup', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
 
-  var link = function(scope, element, attrs) {
+  var link = function(scope, element, attrs, controller) {
+
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    scope.save = function(form,meraki) {
+      scope.myForm.$setPristine();
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            meraki_organization:   meraki.org,
+            meraki_network:        meraki.network,
+            ssid:                  meraki.ssid
+          },
+          action: 'create_setup'
+        }
+      }, function(results) {
+        showToast('Successfully created Meraki setup');
+        console.log(results)
+        // @zak create the landing page
+        $location.path($routeParams.id + '/integration/completed');
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    var updateMeraki = function(cb) {
+      SplashIntegration.update({}, {
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: scope.integration
+      }).$promise.then(function(results) {
+        console.log(results)
+        return cb();
+      }, function(error) {
+        console.log(error)
+        return cb();
+      });
+    }
+
+    var fetchSites = function() {
+      controller.fetchSites(scope.integration).then(function(results) {
+        scope.meraki = {};
+        scope.integration.metadata = {};
+        scope.meraki.ssid = undefined;
+        scope.meraki_ssids = [];
+        scope.meraki.network = undefined;
+        scope.meraki_networks = [];
+        scope.meraki_orgs = results;
+      });
+    };
+
+    var fetchNetworks = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_networks'
+      }).$promise.then(function(results) {
+        scope.meraki_networks = results;
+        }
+      );
+    };
+
+    scope.orgSelected = function(org) {
+      console.log('org selected')
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.meraki.network = undefined;
+      scope.meraki_networks = [];
+      scope.integration.metadata.organisation = org;
+      updateMeraki(function() {
+        fetchNetworks();
+      });
+    };
+
+    var fetchSsid = function() {
+      SplashIntegration.integration_action({
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        action: 'meraki_ssids'
+      }).$promise.then(function(results) {
+        scope.meraki_ssids = results;
+        }
+      );
+    };
+
+    scope.netSelected = function(network) {
+      scope.meraki.ssid = undefined;
+      scope.meraki_ssids = [];
+      scope.integration.metadata.network = network;
+      updateMeraki(function() {
+        fetchSsid();
+      });
+    };
+
+    controller.fetch().then(function(integration) {
+      if(integration.new_record) {
+        $location.path($routeParams.id + '/integration/meraki/auth');
+      } else {
+        scope.integration = integration;
+        fetchSites();
+      }
+    })
+
+    locationName();
 
   };
 
   return {
+    require: '^integrations',
     link: link,
     scope: {
     },

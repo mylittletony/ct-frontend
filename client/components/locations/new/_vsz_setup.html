@@ -8,7 +8,8 @@
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
   <div>
-    <h1>New Location</h1>
+    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
+    <h2>Ruckus VSZ Setup</h2>
   </div>
   <span flex></span>
     <div>
@@ -19,10 +20,8 @@
     </div>
 </md-content>
 
-<form name="myForm" ng-submit="save(myForm,location)">
-
+<form name="myForm" ng-submit="save(myForm,vsz_zone,ssid)">
   <div layout="row" layout-align="center center">
-
     <md-card flex="100" flex-gt-xs="50" flex-gt-md="30">
       <md-card-title>
         <md-card-title-text>
@@ -65,7 +64,5 @@
         </md-button>
       </md-card-actions>
     </md-card>
-
   </div>
-
 </form>
