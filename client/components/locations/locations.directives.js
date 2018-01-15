@@ -109,7 +109,7 @@ app.directive('showDashboard', ['Location', 'Auth', '$routeParams', '$rootScope'
 
     scope.addDevice = function() {
       window.mixpanel.track('Add box');
-      window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
+      window.location.href = '/#/' + scope.location.slug + '/boxes/new';
     };
   };
 

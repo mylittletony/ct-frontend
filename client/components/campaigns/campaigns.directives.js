@@ -91,7 +91,7 @@ app.directive('listCampaigns', ['Campaign', 'Location', '$routeParams', '$rootSc
     };
 
     scope.create = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/campaigns/new';
+      window.location.href = '/#/' + scope.location.slug + '/campaigns/new';
     };
 
     init();

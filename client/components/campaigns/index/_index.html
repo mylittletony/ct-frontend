@@ -38,7 +38,7 @@
           <tbody md-body>
             <tr md-row ng-repeat="campaign in campaigns">
               <td md-cell>
-                <a href="/#/locations/{{ location.slug }}/campaigns/{{ campaign.slug }}">{{ campaign.attr_1 || '-' }}</a>
+                <a href="/#/{{ location.slug }}/campaigns/{{ campaign.slug }}">{{ campaign.attr_1 || '-' }}</a>
               </td>
               <td md-cell>
                 {{ campaign.attr_2 ? campaign.attr_2.length > 25 ? campaign.attr_2.substring(0,22) + '...' : campaign.attr_2 : '-' }}
@@ -56,7 +56,7 @@
                   </md-button>
                   <md-menu-content width="3">
                     <md-menu-item>
-                      <md-button ng-href="/#/locations/{{ location.slug }}/campaigns/{{ campaign.slug}}">
+                      <md-button ng-href="/#/{{ location.slug }}/campaigns/{{ campaign.slug}}">
                         <md-icon md-menu-align-target style="margin: auto 3px auto 0;">pageview</md-icon>
                         <span translate>View</span>
                       </md-button>

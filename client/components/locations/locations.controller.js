@@ -72,7 +72,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('People'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/people',
+        link: '/#/' + $scope.location.slug + '/people',
         icon: 'people',
         active: isActive('people')
       });
@@ -80,14 +80,14 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('Splash'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/splash_pages',
+        link: '/#/' + $scope.location.slug + '/splash_pages',
         icon: 'format_paint',
         active: isActive('splash_pages')
       });
 
       menu.sections.push({
         name: gettextCatalog.getString('Devices'),
-        link: '/#/locations/' + $scope.location.slug + '/devices',
+        link: '/#/' + $scope.location.slug + '/devices',
         type: 'link',
         icon: 'router',
         active: isActive('devices')
@@ -96,7 +96,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('Campaigns'),
         type: 'link',
-        link: '/#/locations/' + $scope.location.slug + '/campaigns',
+        link: '/#/' + $scope.location.slug + '/campaigns',
         icon: 'email',
         active: isActive('campaigns')
       });
@@ -104,7 +104,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     };
 
     $scope.addDevice = function() {
-      window.location.href = '/#/locations/' + $scope.location.slug + '/boxes/new';
+      window.location.href = '/#/' + $scope.location.slug + '/boxes/new';
     };
 
     var setLocationStateIcon = function(location) {
@@ -131,7 +131,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
           if (path.length === 4) {
             suffix = '/' + path[path.length-1];
           }
-          $location.path('/locations/' + data.slug + suffix).replace();
+          $location.path('/' + data.slug + suffix).replace();
         }
         menu.header = data.location_name;
         menu.sectionName = gettextCatalog.getString('Location');
@@ -190,7 +190,7 @@ app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
 
       menu.sections.push({
         name: gettextCatalog.getString('Locations'),
-        link: '/#/locations/',
+        link: '/#/',
         type: 'link',
         icon: 'business',
       });
