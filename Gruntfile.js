@@ -586,28 +586,16 @@ module.exports = function (grunt) {
         connectCommits: false,
         message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
       },
-      beta: {
+      master: {
         options: {
-          remote: 'git@heroku.com:secure-mesa-9387.git', // alpha....
+          remote: 'git@heroku.com:mimo-labs.git',
           branch: 'master',
           force: true
         }
       },
-      dev: {
-        options: {
-          remote: 'git@heroku.com:thawing-basin-34731.git', // dev egg testing
-          branch: 'master'
-        }
-      },
-      master: {
-        options: {
-          remote: 'git@heroku.com:sheltered-bayou-9283.git', // basically for resellers
-          branch: 'master'
-        }
-      },
       usa: {
         options: {
-          remote: 'git@heroku.com:limitless-brook-11104.git', // the main repo
+          remote: 'git@heroku.com:xxx-brook-11104.git',
           branch: 'master'
         }
       }

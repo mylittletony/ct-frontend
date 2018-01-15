@@ -972,14 +972,13 @@ app.directive('locationShortlist', function() {
   };
 });
 
-app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', 'BrandName', function(Location, Project, $location, menu, showErrors, showToast, $routeParams, gettextCatalog, BrandName) {
+app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', function(Location, Project, $location, menu, showErrors, showToast, $routeParams, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
     scope.loading = true;
     menu.isOpen = false;
     menu.hideBurger = true;
-    scope.brand = BrandName;
     scope.location  = {
       add_to_global_map: false,
       location_name: $routeParams.name
@@ -992,7 +991,6 @@ app.directive('newLocationForm', ['Location', 'Project', '$location', 'menu', 's
     };
 
     var updateCT = function(location) {
-      location.brand_id = scope.brand.id;
       Location.save({
         location: location,
       }).$promise.then(function(results) {

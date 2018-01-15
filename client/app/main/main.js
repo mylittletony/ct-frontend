@@ -41,27 +41,10 @@ app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
-// No more translations
-// app.config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
-//   $mdDateLocaleProvider.formatDate = function(date) {
-//     var dd = ("0" + date.getDate()).slice(-2);
-//     var mm = ("0" + (date.getMonth() + 1)).slice(-2);
-//     var yy = date.getFullYear();
-//     var full = mm + '/' + dd + '/' + yy;
-//     return moment(full, 'MM/DD/YYYY').format('L');
-//   };
-//   $mdDateLocaleProvider.parseDate = function(dateString) {
-//     var m = moment(dateString, 'L');
-//     return m.isValid() ? m.toDate() : new Date(NaN);
-//   };
-// }]);
-
 app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES) {
-
   $mdThemingProvider.theme('default')
     .primaryPalette('pink')
     .accentPalette('pink');
-
 }]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
@@ -97,131 +80,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
   $routeProvider.
     when('/', {
-      templateUrl: 'components/locations/index/index.html',
+      templateUrl: 'components/locations/index/list.html',
+      // templateUrl: 'components/locations/index/index.html',
       controller: 'HomeCtrl'
-    }).
-    when('/hey', {
-      templateUrl: 'components/locations/index/_unauthed.html',
-    }).
-    when('/brand-404', {
-      templateUrl: 'components/home/brand-not-found.html',
     }).
     when('/404', {
       templateUrl: 'components/home/404.html',
     }).
-    when('/projects', {
-      templateUrl: 'components/views/projects/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/projects/:id', {
-      controller: 'ProjectsController',
-      templateUrl: 'components/views/projects/show.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/projects/:id/locations', {
-      controller: 'ProjectsController',
-      templateUrl: 'components/views/projects/locations.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands', {
-      templateUrl: 'components/views/brands/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands/new', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/brands/new.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands/:brand_id', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/brands/show.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands/:brand_id/triggers', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/triggers/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands/:brand_id/triggers/new', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/triggers/edit.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands/:brand_id/triggers/:trigger_id', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/triggers/edit.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/brands/:brand_id/theme', {
-      controller: 'BrandsController',
-      templateUrl: 'components/views/brands/theme/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/apps', {
-      templateUrl: 'components/apps/index.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/apps/new', {
-      templateUrl: 'components/apps/new.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/apps/:id', {
-      templateUrl: 'components/apps/show.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/apps/:id/edit', {
-      templateUrl: 'components/apps/new.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/audit', {
-      templateUrl: 'components/audit/sessions/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/audit/emails', {
-      templateUrl: 'components/audit/emails/index.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/audit/social', {
-      templateUrl: 'components/audit/social/index.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/audit/guests', {
-      templateUrl: 'components/audit/guests/index.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/audit/guests/:id', {
-      templateUrl: 'components/audit/guests/show.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/audit/sales', {
-      templateUrl: 'components/audit/sales/index.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/audit/sales/:id', {
-      templateUrl: 'components/audit/sales/show.html',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/login', {
       controller: 'AuthenticationsController',
       templateUrl: 'components/home/hello.html',
-    }).
-    when('/switch', {
-      templateUrl: 'components/home/switching.html',
-      controller: function($location, $rootScope, $cookies, locationHelper, CTLogin) {
-        var event = $cookies.get('event');
-        if (event) {
-          event = JSON.parse($cookies.get('event'));
-          var domain = locationHelper.domain();
-          $cookies.remove('event', {domain: domain});
-          if (event && event.data ) {
-            var loginEvent = 'login';
-            var loginArgs = {data: event.data, path: event.path, search: event.search};
-            $rootScope.$broadcast(loginEvent, loginArgs);
-          }
-        } else {
-          $location.path('/');
-        }
-      }
     }).
     when('/register', {
       templateUrl: 'components/registrations/index.html',
@@ -241,22 +109,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/distributors/:id', {
-      templateUrl: 'components/distros/distro.html',
-      resolve: { loginRequired: loginRequired },
-      reloadOnSearch: false
-    }).
-    when('/referrals', {
-      templateUrl: 'components/distros/referrals.html',
-      resolve: { loginRequired: loginRequired },
-      reloadOnSearch: false
-    }).
     when('/locations', {
       templateUrl: 'components/locations/index/list.html',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/map', {
-      templateUrl: 'components/locations/map/index.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/new', {
@@ -264,7 +118,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/locations/:id', {
-      // templateUrl: 'components/locations/dashboard/index.html',
       templateUrl: 'components/locations/people/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'

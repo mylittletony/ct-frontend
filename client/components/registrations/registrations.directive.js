@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.registrations.directives', []);
 
-app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$routeParams', '$location', '$cookies', 'menu', 'gettextCatalog', function(Holding, User, Brand, locationHelper, $routeParams, $location, $cookies, menu, gettextCatalog) {
+app.directive('createHolding', ['Holding', 'User', 'locationHelper', '$routeParams', '$location', '$cookies', 'menu', 'gettextCatalog', function(Holding, User, locationHelper, $routeParams, $location, $cookies, menu, gettextCatalog) {
 
   var link = function( scope, element, attrs ) {
 
@@ -14,25 +14,8 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     menu.isOpenLeft = false;
     menu.isOpen = false;
 
-    scope.brand_name = 'CT WiFi';
-    scope.user = {}
-
-    var brandCheck = function() {
-      Brand.query({
-        id: subdomain + domain,
-        type: 'showcase',
-        cname: true
-      }).$promise.then(function(results) {
-        if (results.reseller) {
-          scope.brand = results;
-        }
-      }, function() {
-      });
-    };
-
-    if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
-      brandCheck();
-    }
+    scope.brand_name = 'MIMO';
+    scope.user = {};
 
     var cookies = $cookies.get('_cth', { domain: domain });
     if (cookies) {
@@ -47,9 +30,6 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
       var expires     = new Date(ts);
       var holding_account = {};
       holding_account.email = scope.user.email;
-      if (scope.brand) {
-        holding_account.brand = scope.brand.id;
-      }
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
       Holding.create(holding_account).$promise.then(function(data) {
       }, function() {
@@ -72,7 +52,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
 
 }]);
 
-app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'BrandName', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'Brand', 'gettextCatalog','$timeout', function(Holding, $routeParams, $location, $rootScope, BrandName, locationHelper, $cookies, menu, Me, showErrors, showToast, Brand, gettextCatalog, $timeout) {
+app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'gettextCatalog','$timeout', function(Holding, $routeParams, $location, $rootScope, locationHelper, $cookies, menu, Me, showErrors, showToast, gettextCatalog, $timeout) {
 
   var link = function( scope, element, attrs ) {
 
@@ -88,12 +68,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var setStage = function(stage) {
       if (stage === 1) {
-        if (scope.brand_url) {
-          $location.hash('user');
-        } else {
-          $location.hash('brand');
-          scope.checkBrand();
-        }
+        alert(123);
       } else if (stage === 2) {
         $location.hash('user');
       } else if (stage === 3) {
@@ -105,22 +80,22 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     };
 
     var setHeadings = function() {
-      if ($location.hash() === 'done') {
-        scope.title = gettextCatalog.getString('Your dashboard is being created.');
-        scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
-      } else if ($location.hash() === 'brand') {
-        scope.title = gettextCatalog.getString('What web address do you want for your dashboard?');
-        scope.subhead = gettextCatalog.getString('Choose the address you\'ll use to sign-in.');
-      } else if ($location.hash() === 'user') {
-        scope.title = gettextCatalog.getString('What should we call you?');
-        scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
-      } else if ($location.hash() === 'confirm') {
-        scope.title = gettextCatalog.getString('Last Stage');
-        scope.subhead = gettextCatalog.getString('By clicking create dashboard, you\'re agreeing to our terms of use. You can read these at cucumberwifi.io/terms');
-      } else if (!scope.creatingAccount) {
-        scope.title = gettextCatalog.getString('What do you want to call your first network?');
-        scope.subhead = gettextCatalog.getString('This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'');
-      }
+      // if ($location.hash() === 'done') {
+      //   scope.title = gettextCatalog.getString('Your dashboard is being created.');
+      //   scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
+      // } else if ($location.hash() === 'brand') {
+      //   scope.title = gettextCatalog.getString('What web address do you want for your dashboard?');
+      //   scope.subhead = gettextCatalog.getString('Choose the address you\'ll use to sign-in.');
+      // } else if ($location.hash() === 'user') {
+      //   scope.title = gettextCatalog.getString('What should we call you?');
+      //   scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
+      // } else if ($location.hash() === 'confirm') {
+      //   scope.title = gettextCatalog.getString('Last Stage');
+      //   scope.subhead = gettextCatalog.getString('By clicking create dashboard, you\'re agreeing to our terms of use. You can read these at cucumberwifi.io/terms');
+      // } else if (!scope.creatingAccount) {
+      //   scope.title = gettextCatalog.getString('What do you want to call your first network?');
+      //   scope.subhead = gettextCatalog.getString('This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'');
+      // }
     };
 
     var cookies = $cookies.get('_cth', { domain: domain });
@@ -131,25 +106,25 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     }
     setStage();
 
-    scope.brandName = BrandName;
-    if (scope.brandName.name === 'CT WiFi') {
-      scope.brandName.name = gettextCatalog.getString('My Awesome Company');
-    }
+    // scope.brandName = BrandName;
+    // if (scope.brandName.name === 'CT WiFi') {
+    //   scope.brandName.name = gettextCatalog.getString('My Awesome Company');
+    // }
 
-    scope.checkBrand = function(form) {
-      scope.invalid_brand = undefined;
-      if (scope.holding.url) {
-        Brand.query({
-          id: scope.holding.url,
-          type: 'showcase',
-          check: true
-        }).$promise.then(function(results) {
-          scope.invalid_brand = true;
-        }, function() {
-          scope.brandOk = true;
-        });
-      }
-    };
+    // scope.checkBrand = function(form) {
+    //   scope.invalid_brand = undefined;
+    //   if (scope.holding.url) {
+    //     Brand.query({
+    //       id: scope.holding.url,
+    //       type: 'showcase',
+    //       check: true
+    //     }).$promise.then(function(results) {
+    //       scope.invalid_brand = true;
+    //     }, function() {
+    //       scope.brandOk = true;
+    //     });
+    //   }
+    // };
 
     var init = function() {
       Holding.get({id: $routeParams.id}).$promise.then(function(data) {
@@ -184,10 +159,10 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       }
       Holding.update({id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
         scope.errors = undefined;
-        var timer = $timeout(function() {
-          $timeout.cancel(timer);
-          scope.switchBrand(data);
-        }, 5000);
+        // var timer = $timeout(function() {
+        //   $timeout.cancel(timer);
+        //   scope.switchBrand(data);
+        // }, 5000);
 
       }, function(err) {
         showErrors(err);
@@ -195,10 +170,10 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       });
     };
 
-    scope.switchBrand = function(data) {
-      $cookies.put('_cta', data.token, {domain: '.' + domain});
-      getMe(data);
-    };
+    // scope.switchBrand = function(data) {
+    //   $cookies.put('_cta', data.token, {domain: '.' + domain});
+    //   getMe(data);
+    // };
 
     var getMe = function(data) {
       Me.get({}).$promise.then(function(res) {
