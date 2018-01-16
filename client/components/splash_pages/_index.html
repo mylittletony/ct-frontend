@@ -1,28 +1,7 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_pages" name="splash">
-      Splash Pages
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/vouchers" name="vouchers">
-      Vouchers
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_codes" name="codes">
-      Codes
-    </md-nav-item>
-  </md-nav-bar>
-</div>
+<splash-menu-top></splash-menu-top>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-
-  <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Splash Pages</h2>
-  </div>
-
   <span flex="" class="flex"></span>
-
   <div>
     <md-input-container flex="100" ng-show="splash_pages.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
@@ -30,7 +9,6 @@
       <input ng-model="query.filter" md-autofocus placeholder="{{'Search Splash Pages' | translate }}">
     </md-input-container>
   </div>
-
 </md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
@@ -42,16 +20,54 @@
         <md-card-title-text>
           <span class="md-headline">
             <!-- <md-icon md-font-icon=""></md-icon> -->
-            <translate>Get Started</translate>
+            <translate>Get Started with Splash Pages</translate>
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p translate>Create a Splash Page to control your guest's access.</p>
+        <div layout="row" layout-align="center center">
+          <div flex="100" flex-gt-xs="50" flex-gt-md="100">
+            <p translate>Welcome your customers when they arrive. Capture their email address. Display special offers.</p>
+          </div>
+        </div>
       </md-card-content>
-      <md-card-actions layout="row" layout-align="end center">
+      <md-card-actions layout="row" layout-align="left center">
         <splash-new style="md-raised" pages="splash_pages"></splash-new>
       </md-card-actions>
+    </md-card>
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            <translate>What are splash pages?</translate>
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="row" layout-align="center center">
+          <div flex="100" flex-gt-xs="50" flex-gt-md="20">
+            <p translate>Create a Splash Page to control your guest's access.</p>
+          </div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="70">
+            <img style="max-width: 90%;" src="http://www.ct-networks.io/images/community/splash-pages/boxpark.png"></img>
+          </div>
+        </div>
+        <div layout="row" layout-align="center center">
+          <md-divider></md-divider>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="20">
+            <p translate>Create a Splash Page to control your guest's access.</p>
+          </div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="30">
+            <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
+          </div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="40">
+            <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
+          </div>
+        </div>
+      </md-card-content>
     </md-card>
 
   </div>
@@ -75,7 +91,7 @@
                 <md-icon md-menu-origin md-font-icon="">{{ (!splash.networks || splash.networks.length == 0) ? "error" : splash.active ? "check_circle" : "cancel" }}</md-icon>
               </td>
               <td hide show-gt-sm md-cell>
-                <a href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}">
+                <a href="/#/{{ location.slug }}/splash_pages/{{ splash.id }}">
                   <span ng-if="splash.splash_name">{{splash.splash_name}}</span>
                   <span ng-if="!splash.splash_name" translate>{{'No name' | truncate:20}}</span>
                 </a>

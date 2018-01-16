@@ -121,9 +121,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
-    when('/:id/welcome', {
+    when('/:id/guide', {
       templateUrl: 'components/locations/welcome/index.html',
-      resolve: { loginRequired: loginRequired }
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
     }).
     when('/:id/integration', {
       templateUrl: 'components/locations/new/integration.html',
@@ -337,9 +338,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/splash_pages/index.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/splash_pages/new', {
-      templateUrl: 'components/splash_pages/new.html',
-      controller: 'SplashPagesCtrlNew',
+    when('/:id/splash_pages/guide', {
+      controller: 'LocationsCtrl as lc',
+      templateUrl: 'components/splash_pages/guide.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/splash_pages/:splash_page_id/design', {

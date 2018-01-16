@@ -175,7 +175,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     var getMe = function(data) {
       Me.get({}).$promise.then(function(res) {
         var search = {};
-        var loginArgs = { data: res, search: search, path: '/' + data.location_slug + '/welcome'};
+        var loginArgs = { data: res, search: search, path: '/' + data.location_slug + '/guide'};
         var domain = locationHelper.domain();
         $location.hash('');
         Holding.destroy({id: data.id}).$promise.then(function(data) {

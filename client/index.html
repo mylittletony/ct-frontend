@@ -79,7 +79,7 @@
 
       <md-toolbar class="md-table-toolbar md-default">
         <div class="sidenav md-toolbar-tools">
-          <a class="mimo-logo" href="/#/">
+          <a class="mimo-logo" ng-click="home()">
             <img class="mimo-logo" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/mimo-logo.svg">
           </a>
         </div>
@@ -360,18 +360,7 @@
   <!-- endinjector -->
   <!-- endbuild -->
 
-  <script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Roboto:500,400,300,700:latin,latin-ext' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })(); </script>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
 
   <!-- This should be a template so it's not just CT -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KQ7WSH"

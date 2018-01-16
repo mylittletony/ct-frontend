@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
 }
 
@@ -741,7 +741,7 @@ md-card.highlight-section {
 
 .emojionearea .emojionearea-editor {
   color: rgba(0,0,0,0.87) !important;
-  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  font-family: Source Sans Pro, "Helvetica Neue", sans-serif !important;
   font-size: 16px !important;
   font-stretch: normal !important;
   font-style: normal !important;
@@ -800,7 +800,7 @@ location-boxes table {
 }
 
 [heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(3) > text {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: normal;
 }
 

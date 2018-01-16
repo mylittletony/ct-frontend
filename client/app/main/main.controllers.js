@@ -22,6 +22,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $scope.commit     = COMMITHASH;
     $scope.ct_login   = CTLogin;
 
+    $scope.home = function() {
+      if ($routeParams.id) { $location.path('/' + $routeParams.id); }
+    };
+
     function isOpen(section) {
       return (menu.isSectionSelected(section) && menu.isOpen());
     }

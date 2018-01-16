@@ -1012,37 +1012,8 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
       }
     };
 
-    // var project;
-    // var setProjects = function(projects) {
-    //   for (var i = 0, len = projects.length; i < len; i++) {
-    //     if (projects[i].type === 'rw' ) {
-    //       scope.projects.push(projects[i]);
-    //       if (project && projects[i].project_name === project) {
-    //         scope.location.project_id = projects[i].id;
-    //       }
-    //     }
-    //   }
-    // };
-
-    // var setProject = function(projects) {
-    //   project = $routeParams.project;
-    //   if (projects.length > 0) {
-    //     scope.projects = [];
-    //     setProjects(projects);
-    //     if ((scope.projects.length === 1) ||
-    //         (scope.projects.length > 1 && !scope.location.project_id)) {
-    //       scope.location.project_id = scope.projects[0].id;
-    //     }
-    //   }
-    // };
-
     var init = function() {
-      // Project.get({}).$promise.then(function(results) {
-      //   setProject(results.projects);
-        scope.loading = undefined;
-      // }, function(err) {
-      //   scope.loading = undefined;
-      // });
+      scope.loading = undefined;
     };
 
     init();
@@ -1973,7 +1944,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
 }]);
 
-app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$location', '$routeParams', 'moment', 'Project', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, SplashIntegration, $location, $routeParams, moment, Project, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$location', '$routeParams', 'moment', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, SplashIntegration, $location, $routeParams, moment, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -2009,239 +1980,6 @@ app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$locati
       });
     };
 
-    scope.integSelected = function() {
-      scope.integration.host = undefined;
-      scope.integration.username = undefined;
-      scope.integration.password = undefined;
-    };
-
-    // var setProjectName = function() {
-    //   if (scope.projects.length > 0 && scope.location.project_id) {
-    //     for (var i = 0, len = scope.projects.length; i < len; i++) {
-    //       if (scope.location.project_id === scope.projects[i].id) {
-    //         scope.location.project_name = scope.projects[i].project_name;
-    //         break;
-    //       }
-    //     }
-    //   }
-    // };
-
-    // Needs test
-
-    var fetchSites = function() {
-      SplashIntegration.integration_action({
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        action: 'fetch_settings'
-      }).$promise.then(function(results) {
-        console.log(results)
-        switch(scope.integration.type) {
-          case 'unifi':
-            scope.unifi_sites = results;
-            break;
-          case 'vsz':
-            scope.vsz_zones = results;
-            break;
-          case 'meraki':
-            scope.meraki = {};
-            scope.integration.metadata = {};
-            scope.meraki.ssid = undefined;
-            scope.meraki_ssids = [];
-            scope.meraki.network = undefined;
-            scope.meraki_networks = [];
-            scope.meraki_orgs = results;
-            break;
-        }
-      });
-    };
-
-    scope.orgSelected = function(org) {
-      scope.meraki.ssid = undefined;
-      scope.meraki_ssids = [];
-      scope.meraki.network = undefined;
-      scope.meraki_networks = [];
-      scope.integration.metadata.organisation = org;
-      updateMeraki(function() {
-        fetchNetworks();
-      });
-    };
-
-    var fetchNetworks = function() {
-      SplashIntegration.integration_action({
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        action: 'meraki_networks'
-      }).$promise.then(function(results) {
-        scope.meraki_networks = results;
-        }
-      );
-    };
-
-    scope.netSelected = function(network) {
-      scope.meraki.ssid = undefined;
-      scope.meraki_ssids = [];
-      scope.integration.metadata.network = network;
-      updateMeraki(function() {
-        fetchSsid();
-      });
-    };
-
-    var fetchSsid = function() {
-      SplashIntegration.integration_action({
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        action: 'meraki_ssids'
-      }).$promise.then(function(results) {
-        scope.meraki_ssids = results;
-        }
-      );
-    };
-
-    var init = function() {
-      SplashIntegration.query({location_id: $routeParams.id}).$promise.then(function(results) {
-        scope.integration = results;
-        // scope.integration.metadata = {};
-      });
-    };
-    //
-    // scope.saveVsz = function() {
-    //   scope.integration.type = 'vsz'
-    //   SplashIntegration.create({}, {
-    //     location_id: $routeParams.id,
-    //     splash_integration: scope.integration
-    //   }).$promise.then(function(results) {
-    //     scope.integration.id = results.id;
-    //     showToast('Successfully validated VSZ integration');
-    //   }, function(error) {
-    //     showErrors(error);
-    //   });
-    // }
-
-    var save = function() {
-      SplashIntegration.create({}, {
-        location_id: $routeParams.id,
-        splash_integration: scope.integration
-      }).$promise.then(function(results) {
-        scope.integration.id = results.id;
-        showToast('Successfully validated integration');
-        fetchSites();
-      }, function(error) {
-        showErrors(error);
-      });
-    };
-
-    var update = function() {
-      SplashIntegration.update({}, {
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: scope.integration
-      }).$promise.then(function(results) {
-        console.log(results)
-        showToast(gettextCatalog.getString('Successfully updated and validated integration'));
-        // dont need to do this every time
-        fetchSites();
-      }, function(error) {
-        showErrors(error);
-        console.log(error);
-      });
-    }
-
-    var updateMeraki = function(cb) {
-      SplashIntegration.update({}, {
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: scope.integration
-      }).$promise.then(function(results) {
-        console.log(results)
-        return cb();
-      }, function(error) {
-        console.log(error)
-        return cb();
-      });
-    }
-
-    scope.update = function() {
-      scope.integration.action = 'validate'
-      scope.integration.new_record ? save() : update();
-    };
-
-    scope.addBoxes = function() {
-      SplashIntegration.update({},{
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: {
-          action: 'import_boxes'
-        }
-      }, function(results) {
-        if (results.failed) {
-        }
-        showToast('Successfully imported ' + results.success + ' box(es)');
-      }, function(error) {
-        showErrors(error);
-      });
-    };
-
-    scope.createUnifiSetup = function(site, ssid) {
-      site = JSON.parse(site);
-      SplashIntegration.update({},{
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: {
-          metadata: {
-            unifi_site_name:  site.name,
-            unifi_site_id:    site.id,
-            ssid:             ssid
-          },
-          action: 'create_setup'
-        }
-      }, function(results) {
-        showToast('Successfully created UniFi setup');
-        console.log(results)
-      }, function(error) {
-        showErrors(error);
-      });
-    };
-
-    scope.createVszSetup = function(site, ssid) {
-      site = JSON.parse(site);
-      SplashIntegration.update({},{
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: {
-          metadata: {
-            zoneUUID:  site.id,
-            ssid:      ssid
-          },
-          action: 'create_setup'
-        }
-      }, function(results) {
-        showToast('Successfully created UniFi setup');
-        console.log(results)
-      }, function(error) {
-        showErrors(error);
-      });
-    };
-
-    scope.createMerakiSetup = function(ssid) {
-      SplashIntegration.update({},{
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: {
-          metadata: {
-            ssid: ssid
-          },
-          action: 'create_setup'
-        }
-      }, function(results) {
-        showToast('Successfully created Meraki setup');
-        console.log(results)
-      }, function(error) {
-        showErrors(error);
-      });
-    };
-
-
-    init();
   };
 
   return {
@@ -2307,7 +2045,6 @@ app.directive('locationSettingsNotifications', ['$timeout', function($timeout) {
 app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function($timeout, $localStorage) {
 
   var link = function( scope, element, attrs, controller ) {
-
 
     scope.update = function (form) {
       controller.update(form);
@@ -3483,6 +3220,22 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
     scope: {
     },
     templateUrl: 'components/locations/new/_meraki_setup.html'
+  };
+
+}]);
+
+app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+
+  var link = function(scope, element, attrs, controller) {
+    scope.location = { slug: $routeParams.id };
+
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/welcome/_index.html'
   };
 
 }]);

@@ -42,12 +42,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     var isActive = function(path) {
       var split = $location.path().split('/');
-      if (split.length >= 4) {
+      console.log(split)
+      if (split.length >= 3) {
         if (path === 'splash_pages'){
-          var page = $location.path().split('/')[3]
-          return (page === path || page === 'vouchers' || page === 'splash_codes')
+          var page = $location.path().split('/')[2];
+          return (page === path || page === 'vouchers' || page === 'splash_codes');
         }
-        return ($location.path().split('/')[3] === path);
+        return ($location.path().split('/')[2] === path);
       } else if (path === 'people') {
         return true;
       }
@@ -86,14 +87,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
 
       menu.sections.push({
-        name: gettextCatalog.getString('Devices'),
-        link: '/#/' + $scope.location.slug + '/devices',
-        type: 'link',
-        icon: 'router',
-        active: isActive('devices')
-      });
-
-      menu.sections.push({
         name: gettextCatalog.getString('Campaigns'),
         type: 'link',
         link: '/#/' + $scope.location.slug + '/campaigns',
@@ -101,10 +94,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         active: isActive('campaigns')
       });
 
-    };
-
-    $scope.addDevice = function() {
-      window.location.href = '/#/' + $scope.location.slug + '/boxes/new';
     };
 
     var setLocationStateIcon = function(location) {
@@ -153,14 +142,12 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       });
     };
 
-    $rootScope.$on('$locationChangeStart', function (event, next, current) {
-      // menu.archived = undefined;
-      // menu.header = '';
-    });
-
     init();
     createMenu();
 
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      menu.sections = [];
+    });
 }]);
 
 app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
