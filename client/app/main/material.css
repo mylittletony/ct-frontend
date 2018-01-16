@@ -966,6 +966,8 @@ md-bottom-sheet .md-subheader {
 
 .page-meta md-input-container {
   margin-right: 5px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 .page-meta h1 {
@@ -981,6 +983,7 @@ md-bottom-sheet .md-subheader {
 
 .page-meta {
   margin-top: 48px;
+  padding-bottom: 0px;
 }
 
 /*colour picker*/
