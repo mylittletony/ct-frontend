@@ -1040,3 +1040,7 @@ md-bottom-sheet .md-subheader {
   background-image: -webkit-linear-gradient(transparent 94%,#3b78e7 94%);
   background-image: linear-gradient(transparent 94%,#3b78e7 94%);
 }
+
+.payment-portal md-tabs-canvas {
+  display: none;
+}
