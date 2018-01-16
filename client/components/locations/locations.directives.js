@@ -3228,7 +3228,6 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
   var link = function(scope, element, attrs, controller) {
     scope.location = { slug: $routeParams.id };
-
   };
 
   return {
@@ -3238,4 +3237,56 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
     templateUrl: 'components/locations/welcome/_index.html'
   };
 
+}]);
+
+app.directive('integrationComplete', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs, controller) {
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    var create = function() {
+      controller.save(scope.integration).then(function(results) {
+        $location.path($routeParams.id + '/integration/meraki/setup');
+      });
+    };
+
+    var update = function() {
+      controller.update(scope.integration).then(function(results) {
+        $location.path($routeParams.id + '/integration/meraki/setup');
+      });
+    }
+
+    scope.save = function(form) {
+
+      scope.myForm.$setPristine();
+
+      scope.integration.action = 'validate'
+      if (scope.integration.new_record) {
+        create();
+      } else {
+        update();
+      }
+    };
+
+    controller.fetch().then(function(integration) {
+      console.log(integration);
+      scope.integration = integration;
+      scope.integration.type = 'meraki';
+    }, function(err) { console.log(err); })
+  };
+
+  return {
+    require: '^integrations',
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/locations/new/_integration_complete.html'
+  };
 }]);

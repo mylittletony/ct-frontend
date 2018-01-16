@@ -154,6 +154,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/locations/new/meraki_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/:id/integration/completed', {
+      templateUrl: 'components/locations/new/integration_complete.html',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/:id/devices', {
       templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
