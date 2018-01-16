@@ -2,29 +2,29 @@
 
 var app = angular.module('myApp.locations.controller', []);
 
-app.controller('LocationsCtrlShort', ['$scope', '$routeParams', '$filter', 'Location', 'Data',
-  function($scope, $routeParams, $filter, Location, Data) {
+// app.controller('LocationsCtrlShort', ['$scope', '$routeParams', '$filter', 'Location', 'Data',
+//   function($scope, $routeParams, $filter, Location, Data) {
 
-    $scope.location = {};
+//     $scope.location = {};
 
-    $scope.getLocation = function(val) {
-      return Location.shortquery({q: val}).$promise.then(function (res) {
-        $scope.locations = res;
-      });
-    };
+//     $scope.getLocation = function(val) {
+//       return Location.shortquery({q: val}).$promise.then(function (res) {
+//         $scope.locations = res;
+//       });
+//     };
 
-    $scope.selectLocation = function(item) {
-      $scope.selected = {};
-      $scope.selected.item = item;
-      $scope.data.selected = item;
-      $scope.data = Data;
-    };
+//     $scope.selectLocation = function(item) {
+//       $scope.selected = {};
+//       $scope.selected.item = item;
+//       $scope.data.selected = item;
+//       $scope.data = Data;
+//     };
 
-    $scope.getLocation();
+//     $scope.getLocation();
 
-  }
+//   }
 
-]);
+// ]);
 
 app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache', 'gettextCatalog', 'ClientDetails',
   function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache, gettextCatalog, ClientDetails) {
@@ -42,7 +42,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     var isActive = function(path) {
       var split = $location.path().split('/');
-      console.log(split)
       if (split.length >= 3) {
         if (path === 'splash_pages'){
           var page = $location.path().split('/')[2];
@@ -66,9 +65,9 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     menu.hideBurger = false;
 
     menu.sections = [];
-    //fixme translations: check if the menu names are used in the logic
+
+    var guide = '/guide';
     var createMenu = function() {
-      // menu.header = $scope.location.location_name;
 
       menu.sections.push({
         name: gettextCatalog.getString('People'),
@@ -81,7 +80,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('Splash'),
         type: 'link',
-        link: '/#/' + $scope.location.slug + '/splash_pages',
+        link: '/#/' + $scope.location.slug + '/splash_pages' + guide,
         icon: 'format_paint',
         active: isActive('splash_pages')
       });
@@ -128,9 +127,13 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         $scope.location = data;
         window.moment.tz.setDefault($scope.location.timezone);
 
-        var params = {id: data.id, location_name: data.location_name};
+        var params = {id: data.id, location_name: data.location_name, slug: data.slug};
         var json = JSON.stringify(params);
         $cookies.put('_ctlid', json);
+
+        if (data.paid) {
+          guide = '';
+        }
 
         // Used to check for location name change
         // Will refresh the page if a change is detected
@@ -139,50 +142,36 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
         ClientDetails.client.location_id = data.id;
         $rootScope.$broadcast('locationLoaded');
+
+        createMenu();
       });
     };
 
     init();
-    createMenu();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       menu.sections = [];
     });
 }]);
 
-app.controller('HomeCtrl', ['$scope', 'menu', '$mdSidenav', 'gettextCatalog',
-  function($scope, menu, $mdSidenav, gettextCatalog) {
+app.controller('HomeCtrl', ['$scope', '$cookies', '$location', 'Location', function($scope, $cookies, $location, Location) {
 
-    $scope.loading = true;
-    menu.archived = undefined;
-    menu.header = '';
-    menu.locationStateIcon = undefined;
+  var getLocation = function() {
+    Location.query({}).$promise.then(function(results) {
+      $location.path('/' + results.locations[0].slug);
+    });
+  };
 
-    function isOpen(section) {
-      return menu.isSectionSelected(section);
+  var cookies = $cookies.get('_ctlid-----');
+  if (!cookies) {
+    getLocation();
+  } else {
+    var location = JSON.parse(cookies);
+    if (location && location.slug) {
+      $location.path('/' + location.slug);
+    } else {
+      getLocation();
     }
+  }
 
-    function toggleOpen(section) {
-      menu.toggleSelectSection(section);
-    }
-
-    var vm = this;
-
-    menu.isOpen = false;
-    menu.hideBurger = false;
-    menu.sections = [{}];
-    menu.sectionName = gettextCatalog.getString('Home');
-    //fixme translations: check if the names are used in the logic
-    var createMenu = function() {
-
-      menu.sections.push({
-        name: gettextCatalog.getString('Locations'),
-        link: '/#/',
-        type: 'link',
-        icon: 'business',
-      });
-
-    };
-
-    createMenu();
 }]);

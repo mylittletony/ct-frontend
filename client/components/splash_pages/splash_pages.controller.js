@@ -54,5 +54,4 @@ app.controller('SplashPagesDesignCtrl', ['$location', '$scope', '$routeParams', 
       menu.sections = [];
     });
   }
-
 ]);

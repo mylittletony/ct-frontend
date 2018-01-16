@@ -1329,8 +1329,6 @@ app.directive('splashMenuTop', [function() {
 
   return {
     link: link,
-    scope: {
-    },
     templateUrl: 'components/splash_pages/_splash_menu_top.html'
   };
 

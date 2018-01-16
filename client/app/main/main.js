@@ -80,8 +80,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
   $routeProvider.
     when('/', {
-      templateUrl: 'components/locations/index/list.html',
+      // templateUrl: 'components/locations/index/list.html',
       // templateUrl: 'components/locations/index/index.html',
+      templateUrl: 'components/home/hello.html',
       controller: 'HomeCtrl'
     }).
     when('/404', {
