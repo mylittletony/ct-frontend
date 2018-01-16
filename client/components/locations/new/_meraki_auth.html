@@ -7,10 +7,6 @@
 </div>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-  <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Meraki Authorisation</h2>
-  </div>
   <span flex></span>
     <div>
       <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
@@ -22,7 +18,7 @@
 
 <form name="myForm" ng-submit="save(myForm,location)">
   <div layout="row" layout-align="center center">
-    <md-card flex="100" flex-gt-xs="50" flex-gt-md="30">
+    <md-card flex="100" flex-gt-xs="50" flex-gt-md="40">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>

@@ -15,14 +15,7 @@
 </div>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-
-  <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Splash Pages</h2>
-  </div>
-
-  <span flex="" class="flex"></span>
-
+  <span flex></span>
   <div>
     <md-input-container flex="100" ng-show="splash_pages.length > 0">
       <md-icon md-font-icon="search">search</md-icon>
@@ -30,7 +23,6 @@
       <input ng-model="query.filter" md-autofocus placeholder="{{'Search Splash Pages' | translate }}">
     </md-input-container>
   </div>
-
 </md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
