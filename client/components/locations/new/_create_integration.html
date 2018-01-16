@@ -9,98 +9,68 @@
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
 </md-content>
 
-<div layout="row" layout-align="center center">
-  <md-card flex="100" flex-gt-xs="80" flex-gt-md="70">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline" translate>
-          Select Integration Type
-        </span>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-      <div layout="row" layout-align="space-around center" layout-wrap>
-
-        <md-card flex="100" flex-gt-xs="30">
-              <span class="md-subhead" translate>
-                UniFi
-              </span>
-          <md-card-content>
-          </md-card-content>
-        </md-card>
-
-        <md-card flex="100" flex-gt-xs="30">
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Ruckus VSZ
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-          </md-card-content>
-        </md-card>
-
-        <md-card flex="100" flex-gt-xs="30">
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Meraki
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-          </md-card-content>
-        </md-card>
-      </div>
-    </md-card-content>
-    <md-card-actions layout="row" layout-align="end center">
-      <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-        Next
-      </md-button>
-    </md-card-actions>
-  </md-card>
-</div>
-
-
 <form name="myForm" ng-submit="save(type)">
   <div layout="row" layout-align="center center">
-    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
+    <md-card flex="100" flex-gt-xs="80" flex-gt-md="70">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
             Select Integration Type
           </span>
+          <span class="md-subhead">
+            Select the integration below and provide the details needed to get MIMO up and running with your guest WiFi.
+          </spam>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <div layout="row" layout-wrap>
-          <md-input-container flex="100" flex-gt-sm="100">
-            <label>
-              <translate>Integration Type</translate>
-            </label>
-            <md-select ng-model="type">
-              <md-option value="unifi">
-                UniFi
-              </md-option>
-              <md-option value="meraki">
-                Meraki
-              </md-option>
-              <md-option value="vsz">
-                Ruckus VSZ
-              </md-option>
-              <md-option value="zonedirector">
-                Ruckus ZoneDirector
-              </md-option>
-              <md-option value="ct">
-                CT Networks
-              </md-option>
-              <md-option value="xirrus">
-                Xirrus
-              </md-option>
-            </md-select>
-          </md-input-container>
+        <md-radio-group ng-model="type">
+
+        <div layout="row" layout-align="space-around center" class="integration-cards" layout-wrap>
+            <md-card flex="100" flex-gt-xs="30">
+              <md-card-content flex layout-align="left center">
+                <div flex layout="row" layout-align="center center" class="int-pic">
+                  <img src="https://i.imgur.com/2lHBnpb.png">
+                </div>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="space-between center">
+                <div>
+                </div>
+                <div>
+                  <md-radio-button value="unifi"></md-radio-button>
+                </div>
+              </md-card-actions>
+            </md-card>
+            <md-card flex="100" flex-gt-xs="30">
+              <md-card-content flex layout-align="left center">
+                <div flex layout="row" layout-align="center center" class="int-pic">
+                  <img src="https://i.imgur.com/1vN067Z.png"/>
+                </div>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="space-between center">
+                <div>
+                </div>
+                <div>
+                  <md-radio-button value="vsz"></md-radio-button>
+                </div>
+              </md-card-actions>
+            </md-card>
+            <md-card flex="100" flex-gt-xs="30">
+              <md-card-content flex layout-align="left center">
+                <div flex layout="row" layout-align="center center" class="int-pic">
+                  <img src="https://i.imgur.com/A07NZSr.png"/>
+                </div>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="space-between center">
+                <div>
+                </div>
+                <div>
+                  <md-radio-button value="meraki"></md-radio-button>
+                </div>
+              </md-card-actions>
+            </md-card>
         </div>
+      </md-radio-group>
+
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
