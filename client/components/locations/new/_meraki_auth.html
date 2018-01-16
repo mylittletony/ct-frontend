@@ -36,7 +36,10 @@
             <label>
               <translate>API Key</translate>
             </label>
-            <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
+            <input ng-model="integration.password" type="password" name="api" md-maxlength='255'required></input>
+            <div ng-messages="myForm.api.$error">
+              <div ng-message="required">You must enter an API Key</div>
+            </div>
           </md-input-container>
         </div>
       </md-card-content>
