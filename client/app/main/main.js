@@ -121,6 +121,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
+    when('/:id/welcome', {
+      templateUrl: 'components/locations/welcome/index.html',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/:id/integration', {
       templateUrl: 'components/locations/new/integration.html',
       resolve: { loginRequired: loginRequired }

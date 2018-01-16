@@ -1,7 +1,6 @@
 'use strict';
 
 var app = angular.module('myApp.services', [
-  'myApp.apps.services',
   'myApp.audit.services',
   'myApp.authentications.services',
   'myApp.access-token.services',

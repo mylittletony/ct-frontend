@@ -68,18 +68,18 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       isFirstDisabled: false
     };
 
-    vm.showPromo = function(offer) {
-      $mdDialog.show({
-        controller: TrialController,
-        templateUrl: 'components/views/main/promos.tmpl.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose:true,
-        locals: {
-          offer: offer
-        },
-        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-      });
-    };
+    // vm.showPromo = function(offer) {
+    //   $mdDialog.show({
+    //     controller: TrialController,
+    //     templateUrl: 'components/views/main/promos.tmpl.html',
+    //     parent: angular.element(document.body),
+    //     clickOutsideToClose:true,
+    //     locals: {
+    //       offer: offer
+    //     },
+    //     fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    //   });
+    // };
 
     function TrialController($scope, $mdDialog, $sce, offer) {
       $scope.offer = $sce.trustAsHtml(offer);
@@ -201,18 +201,18 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
     });
 
-    function promos() {
-      User.promos({}, {
-        action: 'promos',
-        id: Auth.currentUser().slug
-      }).$promise.then(function(results) {
-        vm.promos = results;
-      }, function() {
-        if (Auth.currentUser().paid_plan !== true) {
-          vm.upgrade = true;
-        }
-      });
-    }
+    // function promos() {
+    //   User.promos({}, {
+    //     action: 'promos',
+    //     id: Auth.currentUser().slug
+    //   }).$promise.then(function(results) {
+    //     vm.promos = results;
+    //   }, function() {
+    //     if (Auth.currentUser().paid_plan !== true) {
+    //       vm.upgrade = true;
+    //     }
+    //   });
+    // }
 
     function menuPush() {
       if (vm.menu.main.length === 0) {
@@ -226,11 +226,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
       }
 
-      if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
-        promos();
-      } else if (Auth.currentUser().paid_plan !== true) {
-        vm.upgrade = true;
-      }
+      // if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
+      //   promos();
+      // } else if (Auth.currentUser().paid_plan !== true) {
+      //   vm.upgrade = true;
+      // }
     }
 
     var setDefaultImages = function(sub) {
@@ -246,9 +246,9 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           $scope.user = Auth.currentUser();
           $scope.loggedIn = true;
           menuPush();
-          if ($scope.user.promo !== '') {
-            console.log('Getting promo...');
-          }
+          // if ($scope.user.promo !== '') {
+          //   console.log('Getting promo...');
+          // }
         });
       });
     }
