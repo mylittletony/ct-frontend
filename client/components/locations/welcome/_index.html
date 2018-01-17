@@ -74,10 +74,11 @@
     </md-card-title>
     <md-card-content>
     <md-content>
+      {{ location.setup }}
       <md-list flex>
         <md-subheader class="md-no-sticky">Connect to your access points</md-subheader>
         <md-list-item class="md-2-line" href="/#/{{location.slug}}/splash_pages/guide">
-          <img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />
+          <img ng-src="{{location.setup.splash ? '/not-done' : '/done' }}" />
           <div class="md-list-item-text">
             <p>
               Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
@@ -90,7 +91,7 @@
         <md-divider ></md-divider>
         <md-subheader class="md-no-sticky">3 line item, long paragraph (see on mobile)</md-subheader>
         <md-list-item class="md-3-line md-long-text" href="/#/{{ location.slug }}/integration">
-          <img ng-src="{{todos[0].face}}?25" class="md-avatar" alt="{{todos[0].who}}" />
+          <img ng-src="{{location.setup.integration ? '/not-done' : '/done' }}" />
           <div class="md-list-item-text">
             <p>
               Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
