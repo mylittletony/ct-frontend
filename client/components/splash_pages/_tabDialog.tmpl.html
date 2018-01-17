@@ -1,0 +1,79 @@
+<md-dialog aria-label="Subscribe to a plan">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Free Trial Subscription</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom class="payment-portal">
+        <md-tab label="one">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Choose your plan</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+          </md-content>
+        </md-tab>
+        <md-tab label="two">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Estimate number of users</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+            <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+          </md-content>
+        </md-tab>
+        <md-tab label="three">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Start your trial</h1>
+            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+
+            <form name="form" stripe-form="stripeCallback">
+              <div flex="100">
+                <h3 translate>Update or add your credit card</h3>
+              </div>
+              <md-input-container class="md-block" flex="100">
+                <label translate>Card Number</label>
+                <input type='text' ng-model='number' placeholder="{{ 'Card Number' | translate }}" payments-format='card' payments-validate='card' name='card' value=''/>
+                <div ng-messages="form.card.$error">
+                  <div ng-message="card" translate>Card number invalid</div>
+                </div>
+              </md-input-container>
+              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+                <label for='expiry' translate>Expiry Date</label>
+                <input type='text' ng-model='expiry' placeholder="{{ 'Expiration' | translate }}" payments-format='expiry' payments-validate='expiry' name='expiry'/>
+                <div ng-messages="form.expiry.$error">
+                  <div ng-message="expiry" translate>Invalid expiry date</div>
+                </div>
+              </md-input-container>
+              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+                <label for='cvc' translate>Security Code</label>
+                <input type='text' ng-model='cvc' placeholder='CVC' payments-validate='cvc' payments-format='cvc' name='cvc'/>
+                <div ng-messages="form.cvc.$error">
+                  <div ng-message="expiry" translate>Invalid CVC</div>
+                </div>
+              </md-input-container>
+              <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/powered_by_stripe_3x.png" style="width: 150px; height: 33px;"/>
+            </form>
+        </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="back()" ng-if="selectedIndex > 0">
+        Back
+      </md-button>
+      <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex < 2">
+        Next
+      </md-button>
+      <md-button ng-click="pay()" style="margin-right:20px;" ng-if="selectedIndex == 2">
+        Make Payment
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+

@@ -3,26 +3,22 @@
     md-no-ink-bar="disableInkBar"
     md-selected-nav-item="currentNavItem"
     nav-bar-aria-label="navigation links">
+    <md-nav-item md-nav-href="/#/{{ location.slug }}" name="people">
+      People
+    </md-nav-item>
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/people/reports" name="reports">
+      Reports
+    </md-nav-item>
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/guide" name="guide">
+      Getting Started
+    </md-nav-item>
   </md-nav-bar>
 </div>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-<!--   <div flex="100"> -->
-<!--     <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1> -->
   <div flex="100">
     <h2>Getting Started with MIMO</h2>
   </div>
-<!--   </div> -->
-<!--   <div flex="100" flex-gt-xs="50" flex-gt-md="20"> -->
-<!--     MIMO Products -->
-
-<!--   </div> -->
-<!--   <div flex="100" flex-gt-xs="50" flex-gt-md="20"> -->
-<!--     Splash Only -->
-<!--   </div> -->
-<!--   <div flex="100" flex-gt-xs="50" flex-gt-md="20"> -->
-<!--     Splash Only -->
-<!--   </div> -->
 
   <div flex="30">
     <h4>MIMO Products</h4>
@@ -40,7 +36,7 @@
     <md-card-content>
     </md-card-content>
     <md-card-actions layout="row" layout-align="left center">
-      <md-button type="submit" class="md-raised md-primary" href="/#/{{ location.slug }}/splash_pages/guide">
+      <md-button type="submit" class="md-raised md-primary" ng-click="visitSplash(location.paid)">
         Get Welcome
       </md-button>
     </md-card-actions>
