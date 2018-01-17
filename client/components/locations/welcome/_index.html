@@ -17,110 +17,125 @@
   </div>
 
   <md-content layout-padding layout="row" layout-wrap class="page-meta">
-    <div flex="100">
-      <h2>Getting Started with MIMO</h2>
+    <div layout="row" layout-wrap>
+      <div flex="100">
+        <h2>Getting Started with MIMO</h2>
+      </div>
     </div>
 
-    <span ng-show="location.paid == false" layout="row" flex="100">
-      <div flex="30">
+    <div ng-show="location.paid == false" layout="row" flex="100">
+      <div flex="40">
         <h4>MIMO Products</h4>
         <p>To use MIMO's full features, choose a suitable plan and add to your subscription.</p>
       </div>
-      <md-card flex="30">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Splash
-            </span>
-            <p>Engage with your customers, capture emails. Send campaigns and more.</p>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="left center">
-          <get-with-the-plan></get-with-the-plan>
-        </md-card-actions>
-      </md-card>
-      <md-card flex="30">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Engage
-            </span>
-            <p>Engage with your customers, capture emails. Send campaigns and more.</p>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="left center">
-          <md-button type="submit" class="md-raised md-primary" ng-disabled="myForm.$pristine || myForm.$invalid">
-            Get Engage
-          </md-button>
-        </md-card-actions>
-      </md-card>
-    </span>
-
-    <div flex="30">
-      <h4>Setup the basics</h4>
-      <p>Connect your Wireless Access Points and customise your splash page.</p>
+      <div flex="30">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Splash
+              </span>
+              <p>Engage with your customers, capture emails. Send campaigns and more.</p>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <get-with-the-plan></get-with-the-plan>
+          </md-card-actions>
+        </md-card>
+      </div>
+      <div flex="30">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Engage
+              </span>
+              <p>Engage with your customers, capture emails. Send campaigns and more.</p>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="myForm.$pristine || myForm.$invalid">
+              Get Engage
+            </md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
     </div>
-    <md-card flex="60">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline" translate>
-            Get Integrated
-          </span>
-          <p>Customise your splash pages and connect to your wireless access points.</p>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <md-content>
-          <md-list flex>
-            <md-subheader class="md-no-sticky">Connect to your access points</md-subheader>
-            <md-list-item class="md-2-line" href="/#/{{location.slug}}/splash_pages/guide">
-              <img ng-src="{{location.setup.splash ? '/not-done' : '/done' }}" />
-              <div class="md-list-item-text">
-                <p>
-                  Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
-                  Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
-                  velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                </p>
-                <h2></h2>
-              </div>
-            </md-list-item>
-            <md-divider ></md-divider>
-            <md-subheader class="md-no-sticky">3 line item, long paragraph (see on mobile)</md-subheader>
-            <md-list-item class="md-3-line md-long-text" href="/#/{{ location.slug }}/integration">
-              <img ng-src="{{location.setup.integration ? '/not-done' : '/done' }}" />
-              <div class="md-list-item-text">
-                <p>
-                  Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
-                  Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
-                  velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                </p>
-              </div>
-            </md-list-item>
-            <!-- <md-divider ></md-divider> -->
-          </md-list>
-        </md-content></md-card-content>
-    </md-card>
 
-    <md-card flex="100">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline" translate>
-            What is MIMO?
-          </span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content  layout="row">
-        <div flex="30">
-          <p>Engage with your customers, capture emails. Send campaigns and more.</p>
-        </div>
-        <div flex="60">
-          <img style="max-width: 99%;" src="http://d33v4339jhl8k0.cloudfront.net/docs/assets/565c910d90336053e408db48/images/577a4bce903360258a10e4b2/file-e8wZ0JdCJo.gif"></img>
-        </div>
-      </md-card-content>
-    </md-card>
+    <div layout="row" layout-wrap>
+      <div flex="35">
+        <h4>Setup the basics</h4>
+        <p>Connect your Wireless Access Points and customise your splash page.</p>
+      </div>
+      <span flex="5"></span>
+      <div flex="60">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Get Integrated
+              </span>
+              <p>Customise your splash pages and connect to your wireless access points.</p>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <md-content>
+              <md-list flex>
+                <md-subheader class="md-no-sticky">Connect to your access points</md-subheader>
+                <md-list-item class="md-2-line" href="/#/{{location.slug}}/splash_pages/guide">
+                  <img ng-src="{{location.setup.splash ? '/not-done' : '/done' }}" />
+                  <div class="md-list-item-text">
+                    <p>
+                      Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+                      Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+                      velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                    </p>
+                    <h2></h2>
+                  </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+                <md-subheader class="md-no-sticky">3 line item, long paragraph (see on mobile)</md-subheader>
+                <md-list-item class="md-3-line md-long-text" href="/#/{{ location.slug }}/integration">
+                  <img ng-src="{{location.setup.integration ? '/not-done' : '/done' }}" />
+                  <div class="md-list-item-text">
+                    <p>
+                      Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+                      Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+                      velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                    </p>
+                  </div>
+                </md-list-item>
+                <!-- <md-divider ></md-divider> -->
+              </md-list>
+            </md-content></md-card-content>
+        </md-card>
+      </div>
+    </div>
+
+    <div layout="row" layout-wrap>
+      <div flex="100">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                What is MIMO?
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content  layout="row">
+            <div flex="30">
+              <p>Engage with your customers, capture emails. Send campaigns and more.</p>
+            </div>
+            <div flex="60">
+              <img style="max-width: 99%;" src="http://d33v4339jhl8k0.cloudfront.net/docs/assets/565c910d90336053e408db48/images/577a4bce903360258a10e4b2/file-e8wZ0JdCJo.gif"></img>
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
+    </div>
   </md-content>
 </div>
