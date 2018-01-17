@@ -42,6 +42,9 @@
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Validate
+        </md-button>
+        <md-button ng-click="next()" class="md-raised" ng-disabled="validated !== true">
           Next
         </md-button>
       </md-card-actions>
