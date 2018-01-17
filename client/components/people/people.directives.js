@@ -139,7 +139,6 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
 app.directive('peopleNav', [function() {
 
   var link = function(scope, element, attrs) {
-
   };
 
   return {
