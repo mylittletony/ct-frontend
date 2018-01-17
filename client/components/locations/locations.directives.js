@@ -2617,6 +2617,7 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         location_id: $routeParams.id,
         splash_integration: integration
       }).$promise.then(function(results) {
+        // $scope.validated = true;
         showToast('Successfully validated integration');
         deferred.resolve(results);
       }, function(error) {
@@ -2634,11 +2635,9 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         location_id: $routeParams.id,
         splash_integration: integration
       }).$promise.then(function(results) {
-        console.log(results)
         showToast('Successfully updated and validated integration');
         deferred.resolve(results);
       }, function(error) {
-        showErrors(error);
         deferred.reject();
         console.log(error);
       });
@@ -2656,7 +2655,6 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
       });
       return deferred.promise;
     };
-
   };
 
   return {
@@ -2680,27 +2678,29 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
     };
 
     var create = function() {
-      controller.save(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/unifi/setup');
+      controller.save(scope.integration).then(function() {
+        scope.validated = true;
       });
     };
 
     var update = function() {
-      controller.update(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/unifi/setup');
+      controller.update(scope.integration).then(function() {
+        scope.validated = true;
       });
     }
 
     scope.save = function(form) {
-
       scope.myForm.$setPristine();
-
       scope.integration.action = 'validate'
       if (scope.integration.new_record) {
         create();
       } else {
         update();
       }
+    };
+
+    scope.next = function(results) {
+      $location.path($routeParams.id + '/integration/unifi/setup');
     };
 
     controller.fetch().then(function(integration) {
@@ -2802,27 +2802,29 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$co
     };
 
     var create = function() {
-      controller.save(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/vsz/setup');
+      controller.save(scope.integration).then(function() {
+        scope.validated = true;
       });
     };
 
     var update = function() {
-      controller.update(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/vsz/setup');
+      controller.update(scope.integration).then(function() {
+        scope.validated = true;
       });
     }
 
     scope.save = function(form) {
-
       scope.myForm.$setPristine();
-
       scope.integration.action = 'validate'
       if (scope.integration.new_record) {
         create();
       } else {
         update();
       }
+    };
+
+    scope.next = function(results) {
+      $location.path($routeParams.id + '/integration/vsz/setup');
     };
 
     controller.fetch().then(function(integration) {
@@ -2927,27 +2929,29 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
     };
 
     var create = function() {
-      controller.save(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/meraki/setup');
+      controller.save(scope.integration).then(function() {
+        scope.validated = true;
       });
     };
 
     var update = function() {
-      controller.update(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/meraki/setup');
+      controller.update(scope.integration).then(function() {
+        scope.validated = true;
       });
-    };
+    }
 
     scope.save = function(form) {
-
       scope.myForm.$setPristine();
-
       scope.integration.action = 'validate';
       if (scope.integration.new_record) {
         create();
       } else {
         update();
       }
+    };
+
+    scope.next = function(results) {
+      $location.path($routeParams.id + '/integration/meraki/setup');
     };
 
     controller.fetch().then(function(integration) {
