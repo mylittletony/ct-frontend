@@ -3102,6 +3102,7 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
     scope.visitSplash = function(paid) {
       $location.path('/' + scope.location.slug + '/splash_pages' + (paid ? '' : '/guide'));
     };
+    scope.currentNavItem = 'guide'
   };
 
   return {

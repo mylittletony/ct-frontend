@@ -1268,6 +1268,7 @@ app.directive('splashGuide', ['Location', '$routeParams', '$location', '$http', 
 
   var link = function(scope, element, attrs, controller) {
     scope.location = { slug: $routeParams.id };
+    scope.currentNavItem = 'guide'
   };
 
   return {

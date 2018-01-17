@@ -868,6 +868,7 @@ location-boxes table {
 
 .sidenav .mimo-logo {
   margin: auto;
+  cursor: pointer;
 }
 
 .sidenav .mimo-logo img {
