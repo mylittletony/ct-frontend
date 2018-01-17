@@ -2549,6 +2549,12 @@ app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$h
       // $location.search({gs: true});
     };
 
+
+    scope.setUnifi = function() {
+      type = 'unifi';
+      scope.save();
+    }
+
     var locationName = function() {
       Location.get({id: scope.location.slug}, function(data) {
         scope.location = data;
