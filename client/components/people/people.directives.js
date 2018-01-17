@@ -140,7 +140,6 @@ app.directive('peopleNav', [function() {
 
   return {
     link: link,
-    scope: { location: '=' },
     templateUrl: 'components/locations/people/_nav.html'
   };
 
