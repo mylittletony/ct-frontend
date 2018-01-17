@@ -621,7 +621,6 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
       $scope.obj = obj;
       $scope.obj.loading = true;
       $scope.splash = splash;
-      // $scope.newSsid = true;
 
       getNetworks().then(getSplashPages);
 
@@ -635,9 +634,6 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
     DialogController.$inject = ['$scope','obj','splash'];
 
     scope.style = attrs.style;
-    // if (attrs.create) {
-    //   scope.open();
-    // }
 
   };
 
@@ -1268,6 +1264,10 @@ app.directive('splashGuide', ['Location', '$routeParams', '$location', '$http', 
 
   var link = function(scope, element, attrs, controller) {
     scope.location = { slug: $routeParams.id };
+
+    scope.createSplash = function() {
+    };
+
   };
 
   return {
