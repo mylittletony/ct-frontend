@@ -158,7 +158,11 @@ app.controller('HomeCtrl', ['$scope', '$cookies', '$location', 'Location', funct
 
   var getLocation = function() {
     Location.query({}).$promise.then(function(results) {
-      $location.path('/' + results.locations[0].slug);
+      if (results && results.locations && results.locations.length > 0) {
+        $location.path('/' + results.locations[0].slug);
+      } else {
+        $location.path('/new');
+      }
     });
   };
 

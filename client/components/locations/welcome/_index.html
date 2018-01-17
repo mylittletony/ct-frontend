@@ -20,44 +20,44 @@
     <h2>Getting Started with MIMO</h2>
   </div>
 
-  <div flex="30">
-    <h4>MIMO Products</h4>
-    <p>To use MIMO's full features, choose a suitable plan and add to your subscription.</p>
-  </div>
-  <md-card flex="30">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline" translate>
-          Splash
-        </span>
-        <p>Engage with your customers, capture emails. Send campaigns and more.</p>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-    </md-card-content>
-    <md-card-actions layout="row" layout-align="left center">
-      <md-button type="submit" class="md-raised md-primary" ng-click="visitSplash(location.paid)">
-        Get Welcome
-      </md-button>
-    </md-card-actions>
-  </md-card>
-  <md-card flex="30">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline" translate>
-          Engage
-        </span>
-        <p>Engage with your customers, capture emails. Send campaigns and more.</p>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-    </md-card-content>
-    <md-card-actions layout="row" layout-align="left center">
-      <md-button type="submit" class="md-raised md-primary" ng-disabled="myForm.$pristine || myForm.$invalid">
-        Get Engage
-      </md-button>
-    </md-card-actions>
-  </md-card>
+  <span ng-show="location.paid == false" layout="row" flex="100">
+    <div flex="30">
+      <h4>MIMO Products</h4>
+      <p>To use MIMO's full features, choose a suitable plan and add to your subscription.</p>
+    </div>
+    <md-card flex="30">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Splash
+          </span>
+          <p>Engage with your customers, capture emails. Send campaigns and more.</p>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="left center">
+        <get-with-the-plan></get-with-the-plan>
+      </md-card-actions>
+    </md-card>
+    <md-card flex="30">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Engage
+          </span>
+          <p>Engage with your customers, capture emails. Send campaigns and more.</p>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="left center">
+        <md-button type="submit" class="md-raised md-primary" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Get Engage
+        </md-button>
+      </md-card-actions>
+    </md-card>
+  </span>
 
   <div flex="30">
     <h4>Setup the basics</h4>

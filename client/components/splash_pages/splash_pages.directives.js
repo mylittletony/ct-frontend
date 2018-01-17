@@ -1268,49 +1268,6 @@ app.directive('splashGuide', ['Location', '$routeParams', '$location', '$http', 
 
   var link = function(scope, element, attrs, controller) {
     scope.location = { slug: $routeParams.id };
-
-    scope.signUp = function(ev) {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'components/splash_pages/_tabDialog.tmpl.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      })
-        .then(function(answer) {
-          $scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          $scope.status = 'You cancelled the dialog.';
-        });
-    };
-
-    function DialogController($scope, $mdDialog) {
-      $scope.selectedIndex = 0;
-
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-
-      $scope.back = function() {
-        if ($scope.selectedIndex > 0) {
-          $scope.selectedIndex--;
-        }
-      };
-
-      $scope.next = function() {
-        if ($scope.selectedIndex < 3) {
-          $scope.selectedIndex++;
-        }
-      };
-
-      $scope.pay = function() {
-        alert('wohooohoooo!')
-      };
-    };
   };
 
   return {

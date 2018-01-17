@@ -110,7 +110,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/new', {
+    when('/new-location', {
       templateUrl: 'components/locations/new/index.html',
       resolve: { loginRequired: loginRequired }
     }).
@@ -165,11 +165,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
-    when('/:id/map', {
-      templateUrl: 'components/locations/show/map.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired },
-    }).
+    // when('/:id/map', {
+    //   templateUrl: 'components/locations/show/map.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
     // when('/:id/clients', {
     //   templateUrl: 'components/locations/clients/index.html',
     //   resolve: { loginRequired: loginRequired },
@@ -233,6 +233,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/:id/campaigns/new', {
       templateUrl: 'components/campaigns/edit/edit.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/campaigns/guide', {
+      templateUrl: 'components/campaigns/guide.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).

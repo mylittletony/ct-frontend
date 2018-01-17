@@ -846,80 +846,81 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
 //   };
 // });
 
-// app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$routeParams', 'gettextCatalog', function(Location, $location, menu, showErrors, showToast, $routeParams, gettextCatalog) {
+app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors', 'showToast', '$timeout', 'gettextCatalog', function(Location, $location, menu, showErrors, showToast, $timeout, gettextCatalog) {
 
-//   var link = function( scope, element, attrs ) {
+  var link = function( scope, element, attrs ) {
 
-//     scope.loading = true;
-//     menu.isOpen = false;
-//     menu.hideBurger = true;
-//     scope.location  = {
-//       add_to_global_map: false,
-//       location_name: $routeParams.name
-//     };
+    menu.isOpen = false;
+    menu.hideBurger = true;
+    scope.location  = {
+      add_to_global_map: false,
+    };
 
-//     scope.save = function(form, location) {
-//       form.$setPristine();
-//       scope.location.creating = true;
-//       updateCT(location);
-//     };
+    scope.save = function(form, location) {
+      form.$setPristine();
+      scope.location.creating = true;
+      updateCT(location);
+    };
 
-//     var updateCT = function(location) {
-//       Location.save({
-//         location: location,
-//       }).$promise.then(function(results) {
-//         $location.path('/locations/' + results.slug + '/integration/');
-//         menu.isOpen = true;
-//         menu.hideBurger = false;
-//         showToast(gettextCatalog.getString('Location successfully created.'));
-//       }, function(err) {
-//         showErrors(err);
-//       });
-//     };
+    var complete = function(slug) {
+      var timer = $timeout(function() {
+        $timeout.cancel(timer);
+        $location.path('/' + slug + '/guide');
+        showToast(gettextCatalog.getString('Location successfully created.'));
+      }, 2000);
+    };
 
-//     scope.back = function() {
-//       if (scope.location.id) {
-//         window.location.href = '/#/locations/' + scope.location.slug;
-//       } else {
-//         $location.path('/');
-//         $location.search({});
-//       }
-//     };
+    var updateCT = function(location) {
+      scope.loading = true;
+      Location.save({
+        location: location,
+      }).$promise.then(function(results) {
+        menu.isOpen = true;
+        menu.hideBurger = false;
+        complete(results.slug);
+      }, function(err) {
+        var msg = err.data.message[0];
+        scope.loading = undefined;
+        if (msg === 'Over free quota') {
+          scope.over_quota = 'Hey, you\'re going to need a paid plan to do that.';
+        } else if (msg === 'Over quota') {
+          scope.over_quota = 'Please drop us a line and ask for a quota increase.';
+        } else {
+          showErrors(err);
+        }
+      });
+    };
 
-//     var init = function() {
-//       scope.loading = undefined;
-//     };
+    scope.over_quota = 'Hey, you\'re going to need a paid plan to do that.';
+  };
 
-//     init();
-//   };
+  return {
+    link: link,
+    restrict: 'E',
+    scope: {
+      // accountId: '@'
+    },
+    templateUrl: 'components/locations/new/_index.html'
+  };
 
-//   return {
-//     link: link,
-//     restrict: 'E',
-//     scope: {
-//       // accountId: '@'
-//     },
-//     templateUrl: 'components/locations/new/_index.html'
-//   };
+}]);
 
-// }]);
+app.directive('newLocationCreating', ['Location', '$location', function(Location, $location) {
 
-// app.directive('newLocationCreating', ['Location', '$location', function(Location, $location) {
+  var link = function( scope, element, attrs ) {
+    scope.locationFinalised = function() {
+      scope.location.attr_generated = true;
+      $location.path('/locations/' + scope.location.slug);
+      scope.newLocationModal();
+    };
+  };
 
-//   var link = function( scope, element, attrs ) {
-//     scope.locationFinalised = function() {
-//       scope.location.attr_generated = true;
-//       $location.path('/locations/' + scope.location.slug);
-//       scope.newLocationModal();
-//     };
-//   };
+  return {
+    link: link,
+    templateUrl: 'components/locations/show/attr-generated.html'
+  };
 
-//   return {
-//     link: link,
-//     templateUrl: 'components/locations/show/attr-generated.html'
-//   };
-
-// }]);
+}]);
 
 // app.directive('locationAdmins', ['Location', 'Invite', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$pusher', '$rootScope', '$timeout', 'gettextCatalog', 'pagination_labels', function(Location, Invite, $routeParams, $mdDialog, showToast, showErrors, $pusher, $rootScope, $timeout, gettextCatalog, pagination_labels) {
 
@@ -2935,13 +2936,13 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
       controller.update(scope.integration).then(function(results) {
         $location.path($routeParams.id + '/integration/meraki/setup');
       });
-    }
+    };
 
     scope.save = function(form) {
 
       scope.myForm.$setPristine();
 
-      scope.integration.action = 'validate'
+      scope.integration.action = 'validate';
       if (scope.integration.new_record) {
         create();
       } else {
@@ -2953,7 +2954,7 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
       console.log(integration);
       scope.integration = integration;
       scope.integration.type = 'meraki';
-    }, function(err) { console.log(err); })
+    }, function(err) { console.log(err); });
 
     locationName();
 
@@ -2998,7 +2999,6 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
         }
       }, function(results) {
         showToast('Successfully created Meraki setup');
-        console.log(results)
         // @zak create the landing page
         $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
@@ -3014,7 +3014,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
       }).$promise.then(function(results) {
         return cb();
       }, function(error) {
-        console.log(error)
+        console.log(error);
         return cb();
       });
     }
@@ -3043,7 +3043,6 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
     };
 
     scope.orgSelected = function(org) {
-      console.log('org selected')
       scope.meraki.ssid = undefined;
       scope.meraki_ssids = [];
       scope.meraki.network = undefined;
@@ -3081,7 +3080,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
         scope.integration = integration;
         fetchSites();
       }
-    })
+    });
 
     locationName();
 
@@ -3112,6 +3111,69 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
 }]);
 
+app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs, controller) {
+
+    scope.signUp = function(ev) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'components/locations/_signup.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      })
+        .then(function(answer) {
+          $scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+    };
+
+    function DialogController($scope, $mdDialog) {
+      $scope.selectedIndex = 0;
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.back = function() {
+        if ($scope.selectedIndex > 0) {
+          $scope.selectedIndex--;
+        }
+      };
+
+      $scope.next = function() {
+        if ($scope.selectedIndex < 3) {
+          $scope.selectedIndex++;
+        }
+      };
+
+      $scope.pay = function() {
+        alert('wohooohoooo!')
+      };
+    }
+  };
+
+  var template =
+    '<md-button type="submit" class="md-raised md-primary" ng-click="signUp()">' +
+    'Sign-up now' +
+    '</md-button>';
+
+
+  return {
+    link: link,
+    scope: {
+      message: '@'
+    },
+    template: template
+  };
+}]);
+
 app.directive('integrationComplete', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
@@ -3134,13 +3196,11 @@ app.directive('integrationComplete', ['Location', '$routeParams', '$location', '
       controller.update(scope.integration).then(function(results) {
         $location.path($routeParams.id + '/integration/meraki/setup');
       });
-    }
+    };
 
     scope.save = function(form) {
-
       scope.myForm.$setPristine();
-
-      scope.integration.action = 'validate'
+      scope.integration.action = 'validate';
       if (scope.integration.new_record) {
         create();
       } else {
@@ -3152,7 +3212,7 @@ app.directive('integrationComplete', ['Location', '$routeParams', '$location', '
       console.log(integration);
       scope.integration = integration;
       scope.integration.type = 'meraki';
-    }, function(err) { console.log(err); })
+    }, function(err) { console.log(err); });
   };
 
   return {
