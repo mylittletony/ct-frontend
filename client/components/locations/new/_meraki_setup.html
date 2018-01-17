@@ -16,7 +16,7 @@
   <span flex></span>
 </md-content>
 
-<form name="myForm" ng-submit="save(myForm,meraki)">
+<form name="myForm" ng-submit="save(meraki)">
   <div layout="row" layout-align="center center">
     <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
       <md-card-title>
@@ -40,7 +40,7 @@
             </md-select>
           </md-input-container>
         </div>
-        <div layout="row" layout-wrap>
+        <div layout="row" layout-wrap ng-if="meraki_networks.length > 0">
           <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>Network</translate>
@@ -52,7 +52,7 @@
             </md-select>
           </md-input-container>
         </div>
-        <div layout="row" layout-wrap>
+        <div layout="row" layout-wrap ng-if="meraki_ssids.length > 0">
           <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>SSID</translate>

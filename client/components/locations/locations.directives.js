@@ -2951,7 +2951,6 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
     };
 
     controller.fetch().then(function(integration) {
-      console.log(integration);
       scope.integration = integration;
       scope.integration.type = 'meraki';
     }, function(err) { console.log(err); });
@@ -2984,29 +2983,27 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
       });
     };
 
-    scope.save = function(form,meraki) {
-      scope.myForm.$setPristine();
+    scope.save = function(meraki) {
       SplashIntegration.update({},{
         id: scope.integration.id,
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            meraki_organization:   meraki.org,
-            meraki_network:        meraki.network,
-            ssid:                  meraki.ssid
+            ssid:         meraki.ssid,
+            organisation: scope.meraki.org,
+            network:      scope.meraki.network
           },
           action: 'create_setup'
         }
       }, function(results) {
         showToast('Successfully created Meraki setup');
-        // @zak create the landing page
-        $location.path($routeParams.id + '/integration/completed');
+        $location.path('/' + $routeParams.id + '/integration/completed');
       }, function(error) {
         showErrors(error);
       });
     };
 
-    var updateMeraki = function(cb) {
+    var update = function(cb) {
       SplashIntegration.update({}, {
         id: scope.integration.id,
         location_id: $routeParams.id,
@@ -3017,7 +3014,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
         console.log(error);
         return cb();
       });
-    }
+    };
 
     var fetchSites = function() {
       controller.fetchSites(scope.integration).then(function(results) {
@@ -3048,7 +3045,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
       scope.meraki.network = undefined;
       scope.meraki_networks = [];
       scope.integration.metadata.organisation = org;
-      updateMeraki(function() {
+      update(function() {
         fetchNetworks();
       });
     };
@@ -3068,7 +3065,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
       scope.meraki.ssid = undefined;
       scope.meraki_ssids = [];
       scope.integration.metadata.network = network;
-      updateMeraki(function() {
+      update(function() {
         fetchSsid();
       });
     };

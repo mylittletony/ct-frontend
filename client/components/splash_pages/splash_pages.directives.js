@@ -134,9 +134,6 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
 
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
     templateUrl: 'components/splash_pages/_index.html'
   };
 
@@ -1264,7 +1261,7 @@ app.directive('splashGuide', ['Location', '$routeParams', '$location', '$http', 
 
   var link = function(scope, element, attrs, controller) {
     scope.location = { slug: $routeParams.id };
-    scope.currentNavItem = 'guide'
+    scope.currentNavItem = 'guide';
 
     scope.createSplash = function() {
     };
@@ -1273,8 +1270,6 @@ app.directive('splashGuide', ['Location', '$routeParams', '$location', '$http', 
 
   return {
     link: link,
-    scope: {
-    },
     templateUrl: 'components/splash_pages/_guide.html'
   };
 }]);
@@ -1287,6 +1282,7 @@ app.directive('splashMenuTop', [function() {
 
   return {
     link: link,
+    scope: { location: '=' },
     templateUrl: 'components/splash_pages/_splash_menu_top.html'
   };
 

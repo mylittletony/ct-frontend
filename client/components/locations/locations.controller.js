@@ -162,7 +162,7 @@ app.controller('HomeCtrl', ['$scope', '$cookies', '$location', 'Location', funct
         var location = results.locations[0];
         $location.path('/' + location.slug + (location.paid ? '' : '/guide'));
       } else {
-        $location.path('/new');
+        $location.path('/new-location');
       }
     });
   };

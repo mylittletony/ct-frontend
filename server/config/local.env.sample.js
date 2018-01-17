@@ -44,8 +44,8 @@ if (process.env.NODE_ENV === 'production') {
     authorizationURL: auth_url + "/oauth/authorize",
     profileURL: api_url + "/me.json",
     tokenURL: auth_url + "/oauth/token",
-    APP_ID: "21616404fa3f89975d034bb802fbdcba8d5d98ad03c94768cdd0aa34bbe141ef",
-    APP_SECRET: "1fa9a683f0401614c908ab30f57e539717668a981eef68724590279ffc26c6a9",
+    APP_ID: "3aebdc2304e986b2a34d6b3dd2b8b426ae95d5d5a67b2a645af7f69709bdfff5",
+    APP_SECRET: "d8f902f6ed8b0c934f9916a977b603e75e12a7545c0ba7d05dfe024305ed93a5",
     baseURL: "http://" + base_url,
     DEBUG: ''
   }
