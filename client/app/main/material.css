@@ -1036,6 +1036,22 @@ md-bottom-sheet .md-subheader {
 
 /*general changes*/
 
+md-card {
+  border-radius: 8px;
+}
+
+md-card .md-card-image {
+  border-radius: 8px 8px 0 0;
+}
+
+md-dialog {
+  border-radius: 8px;
+}
+
+.md-button {
+  border-radius: 8px;
+}
+
 .md-subhead a {
   font-weight: 500;
   text-decoration: none;
