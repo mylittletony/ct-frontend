@@ -326,7 +326,7 @@ md-sidenav.site-sidenav {
   width: 60px;
   min-width: 60px;
   max-width: 60px;
-  z-index: 100;
+  z-index: 65;
 }
 
 md-sidenav.site-sidenav .md-button {
