@@ -9,7 +9,7 @@
     <md-nav-item md-nav-href="/#/{{ location.slug }}/people/reports" name="reports">
       Reports
     </md-nav-item>
-    <md-nav-item md-nav-href="/#/{{ location.slug }}/guide" name="guide">
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/guide" name="guide" ng-show="location.setup.splash == false || location.setup.integrations == false">
       Getting Started
     </md-nav-item>
   </md-nav-bar>

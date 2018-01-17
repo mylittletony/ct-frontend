@@ -1,22 +1,6 @@
 <div ng-show="!loading">
-  <div class="top-nav">
-    <md-nav-bar
-       md-no-ink-bar="disableInkBar"
-       md-selected-nav-item="currentNavItem"
-       nav-bar-aria-label="navigation links">
-      <md-nav-item md-nav-href="/#/{{ location.slug }}" name="people">
-        People
-      </md-nav-item>
-      <md-nav-item md-nav-href="/#/{{ location.slug }}/people/reports" name="reports">
-        Reports
-      </md-nav-item>
-      <md-nav-item md-nav-href="/#/{{ location.slug }}/guide" name="guide">
-        Getting Started
-      </md-nav-item>
-    </md-nav-bar>
-  </div>
-
-  <md-content layout="row" layout-wrap class="md-padding page-meta">
+  <people-nav location="location"></people-nav>
+  <md-content layout-padding layout="row" layout-wrap class="page-meta">
     <div flex="100">
       <h2>Getting Started with MIMO</h2>
     </div>

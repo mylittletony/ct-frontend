@@ -85,9 +85,6 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
     templateUrl: 'components/locations/people/_index.html'
   };
 
@@ -139,11 +136,11 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
 app.directive('peopleNav', [function() {
 
   var link = function(scope, element, attrs) {
-
   };
 
   return {
     link: link,
+    scope: { location: '=' },
     templateUrl: 'components/locations/people/_nav.html'
   };
 
