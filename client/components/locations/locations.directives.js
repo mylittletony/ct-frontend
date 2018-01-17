@@ -2824,7 +2824,7 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$co
     };
 
     scope.next = function(results) {
-      $location.path($routeParams.id + '/integration/unifi/setup');
+      $location.path($routeParams.id + '/integration/vsz/setup');
     };
 
     controller.fetch().then(function(integration) {
@@ -2951,7 +2951,7 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
     };
 
     scope.next = function(results) {
-      $location.path($routeParams.id + '/integration/unifi/setup');
+      $location.path($routeParams.id + '/integration/meraki/setup');
     };
 
     controller.fetch().then(function(integration) {
