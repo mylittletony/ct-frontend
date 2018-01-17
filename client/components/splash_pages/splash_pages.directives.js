@@ -294,7 +294,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
     var transfer = function() {
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_transfer.html',
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         parent: angular.element(document.body),
         controller: TransferController,
       });
@@ -334,7 +334,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_networks.html',
         parent: angular.element(document.body),
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         controller: NetworksController,
         locals: {
           splash: scope.splash
@@ -598,7 +598,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
         templateUrl: 'components/splash_pages/_form.html',
         parent: angular.element(document.body),
         controller: DialogController,
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         locals: {
           obj: scope.obj,
           splash: scope.splash
@@ -992,7 +992,7 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
     var add = function() {
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_store_product.html',
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         parent: angular.element(document.body),
         controller: ProductsController,
       });

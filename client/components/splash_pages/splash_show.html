@@ -135,8 +135,9 @@
                   <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
                   <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
                 </label>
-                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z]*$/" ng-trim="false">
                 <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
+                  <div ng-message="pattern" translate>Invalid characters in key.</div>
                   <div ng-message="required">
                     <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
                     <span ng-if="splash.newsletter_type != 4" translate>You must set an API token.</span>
@@ -146,8 +147,9 @@
 
               <md-input-container class="md-block">
                 <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
-                <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z]*$/" ng-trim="false">
                 <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
+                  <div ng-message="pattern" translate>Invalid characters in list ID.</div>
                   <div ng-message="required" translate>You must set a list ID.</div>
                 </div>
               </md-input-container>
