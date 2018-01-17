@@ -1,25 +1,19 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_pages" name="splash">
-      Splash Pages
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/vouchers" name="vouchers">
-      Vouchers
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_codes" name="codes">
-      Codes
-    </md-nav-item>
-  </md-nav-bar>
-</div>
+<splash-menu-top></splash-menu-top>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-  <span flex></span>
   <div>
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
       <md-tooltip md-direction="bottom">Back to Splash Pages</md-tooltip>
       <md-icon>keyboard_return</md-icon>
+    </md-button>
+  </div>
+
+  <span flex></span>
+
+  <div>
+    <md-button ng-click="designer()" class="md-fab md-mini">
+      <md-tooltip md-direction="bottom">Splash Designer</md-tooltip>
+      <md-icon>format_paint</md-icon>
     </md-button>
   </div>
 </md-content>
@@ -402,18 +396,13 @@
           </div>
 
         </md-card-content>
-
+        <md-card-actions ng-show="adAdvanced">
+          <md-button ng-click="destroy()" class="md-raised md-warn">
+            Delete
+          </md-button>
+        </md-card-actions>
       </md-card>
       <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid" translate>Splash invalid, please check your settings.</p>
-      <div flex layout="row">
-        <md-button ng-click="destroy()" class="md-raised md-warn">
-          Delete
-        </md-button>
-        <span flex></span>
-        <md-button ng-click="designer()" class="md-raised">
-          Splash Designer
-        </md-button>
-      </div>
     </div>
 
     <div class="lock-size" layout="row" layout-align="center center">
