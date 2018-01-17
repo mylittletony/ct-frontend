@@ -1029,6 +1029,10 @@ md-bottom-sheet .md-subheader {
   transform: translate(-50%, -50%);
 }
 
+.int-select {
+  cursor: pointer;
+}
+
 /*general changes*/
 
 .md-subhead a {
