@@ -3099,14 +3099,30 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
 app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
 
   var link = function(scope, element, attrs, controller) {
+
+    scope.loading = true;
+
     scope.visitSplash = function(paid) {
       $location.path('/' + scope.location.slug + '/splash_pages' + (paid ? '' : '/guide'));
     };
-    scope.currentNavItem = 'guide'
+    scope.currentNavItem = 'guide';
+
+    scope.$watch('location',function(nv){
+      if (nv !== undefined && scope.location.setup) {
+        if (scope.location.setup && scope.location.setup.splash && scope.location.setup.integrations) {
+          $location.path('/' + scope.location.slug);
+        } else {
+          scope.loading = undefined;
+        }
+      }
+    });
   };
 
   return {
     link: link,
+    scope: {
+      location: '='
+    },
     templateUrl: 'components/locations/welcome/_index.html'
   };
 
