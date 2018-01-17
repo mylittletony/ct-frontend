@@ -868,6 +868,7 @@ location-boxes table {
 
 .sidenav .mimo-logo {
   margin: auto;
+  cursor: pointer;
 }
 
 .sidenav .mimo-logo img {
@@ -1027,6 +1028,10 @@ md-bottom-sheet .md-subheader {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.int-select {
+  cursor: pointer;
 }
 
 /*general changes*/
