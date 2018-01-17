@@ -36,16 +36,16 @@ if (process.env.NODE_ENV === 'production') {
 } else {
 
   api_url = process.env.API_URL || 'http://mywifi.test:8080/api/v1'
-  auth_url = process.env.AUTH_URL || 'http://mywifi.test:8080'
-  base_url = process.env.CT_URL || 'dashboard.ctapp.test:9090'
+  auth_url = process.env.AUTH_URL || 'http://id.mimo.test:8080'
+  base_url = process.env.CT_URL || 'app.mimo.test:9090'
 
   exports = {
     callbackURL: "http://" + base_url + "/auth/login/callback",
     authorizationURL: auth_url + "/oauth/authorize",
     profileURL: api_url + "/me.json",
     tokenURL: auth_url + "/oauth/token",
-    APP_ID: "955c8408048c3492d8cb65c18ba698d7abdd61cc96598b0759d4f5fd5eab24cb",
-    APP_SECRET: "984a0f04950a39da941539397a32183a44d43d7a84da0e099fbbe819020baeda",
+    APP_ID: "3a0eeda23761adbca5c6aa280fdf9fd4356ac9aa44824181b26ebe1690bcbe7e",
+    APP_SECRET: "ae6a6aa46f4dcac171e11344792b3db209bd7949455b01bf106d75e15e51c345",
     baseURL: "http://" + base_url,
     DEBUG: ''
   }
