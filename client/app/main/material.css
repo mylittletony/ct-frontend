@@ -1047,3 +1047,7 @@ md-bottom-sheet .md-subheader {
 .payment-portal md-tabs-canvas {
   display: none;
 }
+
+.splash-settings md-divider {
+  border-top-width:1px!important;
+}
