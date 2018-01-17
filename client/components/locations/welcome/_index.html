@@ -73,29 +73,35 @@
       </md-card-title-text>
     </md-card-title>
     <md-card-content>
-      <md-checkbox
-              ng-model="data.cb2"
-              aria-label="Checkbox 2"
-              ng-true-value="'yup'"
-              ng-false-value="'nope'"
-              class="md-warn md-align-top-left" flex>
-        Checkbox 2 (md-warn)  <br/>
-        <span class="ipsum">
-          Duis placerat lectus et justo mollis, nec sodales orci congue. Vestibulum semper non urna ac suscipit.
-          Vestibulum tempor, ligula id laoreet hendrerit, massa augue iaculis magna,
-          sit amet dapibus tortor ligula non nibh.
-        </span>
-        <br/>
-        {{ data.cb2 }}
-      </md-checkbox>
-      </div>
-      </div>
-      <div flex-gt-sm="50">
-        <md-checkbox ng-disabled="true" aria-label="Disabled checkbox" ng-model="data.cb3">
-          Checkbox: Disabled
-        </md-checkbox>
-      </div>
-    </md-card-content>
+    <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Connect to your access points</md-subheader>
+        <md-list-item class="md-2-line" ng-click="eggs()">
+          <img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />
+          <div class="md-list-item-text">
+            <p>
+              Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+              Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+              velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+            <h2></h2>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">3 line item, long paragraph (see on mobile)</md-subheader>
+        <md-list-item class="md-3-line md-long-text" ng-click="eggs()">
+          <img ng-src="{{todos[0].face}}?25" class="md-avatar" alt="{{todos[0].who}}" />
+          <div class="md-list-item-text">
+            <p>
+              Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+              Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+              velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+          </div>
+        </md-list-item>
+        <!-- <md-divider ></md-divider> -->
+      </md-list>
+    </md-content></md-card-content>
   </md-card>
 
   <md-card flex="100">

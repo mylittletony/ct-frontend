@@ -159,7 +159,8 @@ app.controller('HomeCtrl', ['$scope', '$cookies', '$location', 'Location', funct
   var getLocation = function() {
     Location.query({}).$promise.then(function(results) {
       if (results && results.locations && results.locations.length > 0) {
-        $location.path('/' + results.locations[0].slug);
+        var location = results.locations[0];
+        $location.path('/' + location.slug + (location.paid ? '' : '/guide'));
       } else {
         $location.path('/new');
       }
