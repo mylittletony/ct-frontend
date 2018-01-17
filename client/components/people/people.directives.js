@@ -77,16 +77,10 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     };
 
     var init = function() {
-      Location.get({id: scope.location.slug}, function(data) {
-        scope.location = data;
-        getPeople();
-      }, function(err){
-        console.log(err);
-      });
+      getPeople();
     };
 
     init();
-
   };
 
   return {

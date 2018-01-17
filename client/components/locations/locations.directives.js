@@ -890,8 +890,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
         }
       });
     };
-
-    scope.over_quota = 'Hey, you\'re going to need a paid plan to do that.';
   };
 
   return {
