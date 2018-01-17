@@ -148,3 +148,30 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
   };
 
 }]);
+
+app.directive('campGuide', [function() {
+
+  var link = function(scope, element, attrs) {
+
+    scope.loading = undefined;
+
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/campaigns/_guide.html'
+  };
+}]);
+
+app.directive('campNav', [function() {
+
+  var link = function(scope, element, attrs) {
+
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/campaigns/_nav.tmpl.html'
+  };
+
+}]);

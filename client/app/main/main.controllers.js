@@ -23,7 +23,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $scope.ct_login   = CTLogin;
 
     $scope.home = function() {
-      if ($routeParams.id) { $location.path('/' + $routeParams.id); }
+      if ($routeParams.id) {
+        $location.path('/' + $routeParams.id);
+      } else {
+        $location.path('/');
+      }
     };
 
     function isOpen(section) {
