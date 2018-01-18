@@ -1074,6 +1074,6 @@ md-dialog {
 }
 
 .check-mark {
-  max-width: 50px;
-  margin: 5px;
+  max-width: 40px;
+  margin-right: 5px;
 }
