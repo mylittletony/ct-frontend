@@ -1034,6 +1034,33 @@ md-bottom-sheet .md-subheader {
   cursor: pointer;
 }
 
+/*guide pages*/
+
+.check-mark {
+  max-width: 40px;
+  margin-right: 15px;
+}
+
+.guide-card md-content, .guide-card .md-subheader {
+  background-color: rgb(255,255,255);
+}
+
+/*location sidebar*/
+
+.location-sidebar-top {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.location-sidebar-top md-input-container {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.location-sidebar-top p {
+  color: rgba(0, 0, 0, 0.87);
+}
+
 /*general changes*/
 
 md-card {

@@ -98,9 +98,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/create', {
       templateUrl: 'components/registrations/create.html',
-      // controller: function($rootScope) {
-      //   $rootScope.$broadcast('intercom', {hi: 'simon'});
-      // },
       resolve: { loggedIn: loggedIn }
     }).
     when('/success', {

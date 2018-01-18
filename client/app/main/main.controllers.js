@@ -318,7 +318,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       } else {
           $mdSidenav('locations').close();
       }
-    }
+
+      $rootScope.$on('$routeChangeStart', function (event, next, current) {
+        $mdSidenav('locations').close();
+      });
+    };
 
 
 }]);

@@ -57,34 +57,30 @@
           <p>Connect your Wireless Access Points and customise your splash page.</p>
         </div>
         <div flex="100" flex-gt-sm="60">
-          <md-card>
+          <md-card class="guide-card">
             <md-card-title>
               <md-card-title-text>
                 <span class="md-headline" translate>
-                  Get Integrated
+                  Getting Started
                 </span>
-                <p>Customise your splash pages and connect to your wireless access points.</p>
+                <p>There's a few things to do. Customise your splash pages and connect to your wireless access points.</p>
               </md-card-title-text>
             </md-card-title>
             <md-card-content>
               <md-content>
                 <md-list flex>
-                  <md-subheader class="md-no-sticky">Connect to your access points</md-subheader>
+                  <md-subheader class="md-no-sticky"><b>Customise your splash pages</b></md-subheader>
                   <md-list-item class="md-2-line" href="/#/{{location.slug}}/splash_pages/guide">
-                    <img ng-src="{{location.setup.splash ? '/not-done' : '/done' }}" />
+                    <img class="check-mark" ng-src="{{location.setup.splash ? 'https://s3-eu-west-1.amazonaws.com/mimo-labs/images/checked.svg' : 'https://s3-eu-west-1.amazonaws.com/mimo-labs/images/unchecked.svg' }}" />
                     <div class="md-list-item-text">
-                      <p>
-                        Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
-                        Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
-                        velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                      <p>Welcome your guests with a beautiful, branded splash page. Capture emails, social details and keep them engaged.
                       </p>
-                      <h2></h2>
                     </div>
                   </md-list-item>
-                  <md-divider ></md-divider>
-                  <md-subheader class="md-no-sticky">3 line item, long paragraph (see on mobile)</md-subheader>
-                  <md-list-item class="md-3-line md-long-text" href="/#/{{ location.slug }}/integration">
-                    <img ng-src="{{location.setup.integration ? '/not-done' : '/done' }}" />
+                  <md-divider style="margin: 20px 0;"></md-divider>
+                  <md-subheader class="md-no-sticky"><b>Connect MIMO to your access points</b></md-subheader>
+                  <md-list-item class="md-2-line" href="/#/{{ location.slug }}/integration">
+                    <img class="check-mark" ng-src="{{location.setup.integrations ? 'https://s3-eu-west-1.amazonaws.com/mimo-labs/images/checked.svg' : 'https://s3-eu-west-1.amazonaws.com/mimo-labs/images/unchecked.svg' }}" />
                     <div class="md-list-item-text">
                       <p>
                         Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.

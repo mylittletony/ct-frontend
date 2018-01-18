@@ -16,11 +16,7 @@ module.exports = {
             // reasons.  They should be moved inside 'CONFIG' at some time.
             API_END_POINT: 'http://mimo.test:8080/api/v1',
             API_END_POINT_V2: 'http://dashboard.ctapp:3000/api/v1',
-<<<<<<< HEAD
-            API_URL: 'http://mywifi.test:8080',
-=======
             API_URL: 'http://mimo.test:8080',
->>>>>>> 0069c66b029e1da50e22123a39c2cd41c8c7fd26
             STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
             AUTH_URL: 'http://id.mimo.test:8080',
             SLACK_TOKEN: '3540010629.12007999527',
