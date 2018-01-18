@@ -61,13 +61,18 @@
           </md-input-container>
         </div>
       </md-card-content>
-      <md-card-actions layout="row" layout-align="end center">
-        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-          Validate
-        </md-button>
-        <md-button ng-click="next()" class="md-raised" ng-disabled="validated !== true">
-          Next
-        </md-button>
+      <md-card-actions layout="row" layout-align="space-between center">
+        <div>
+          <p ng-if="validated == true">Integration Successfully Validated</p>
+        </div>
+        <div>
+          <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+            Test Integration
+          </md-button>
+          <md-button ng-click="next()" class="md-raised" ng-disabled="validated !== true">
+            Next
+          </md-button>
+        </div>
       </md-card-actions>
     </md-card>
   </div>

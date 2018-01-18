@@ -1072,3 +1072,8 @@ md-dialog {
 .splash-settings md-divider {
   border-top-width:1px!important;
 }
+
+.check-mark {
+  max-width: 40px;
+  margin-right: 15px;
+}
