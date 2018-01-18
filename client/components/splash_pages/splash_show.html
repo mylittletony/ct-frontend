@@ -57,15 +57,7 @@
                   </md-option>
                 </md-select>
               </md-input-container>
-              <md-list-item class="md-2-line" ng-if="splash.vsg_host && splash.vsg_enabled">
-                <!-- <img ng-src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/ruckus-wireless.png" class="md-avatar" /> -->
-                <div class="md-list-item-text">
-                  <h3 translate>Ruckus VSZ Host</h3>
-                  <p>{{ splash.vsg_host }}:{{ splash.vsg_port}}</p>
-                </div>
-              </md-list-item>
             </div>
-
           </div>
         </md-card-content>
       </md-card>
@@ -82,9 +74,7 @@
         </md-card-title>
 
         <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-
           <div flex-gt-sm="40">
-
             <div layout="column">
               <md-input-container class="md-block">
                 <label><translate>Capture Type</translate></label>
