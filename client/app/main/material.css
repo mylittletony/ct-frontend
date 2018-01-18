@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
 }
 
@@ -326,7 +326,7 @@ md-sidenav.site-sidenav {
   width: 60px;
   min-width: 60px;
   max-width: 60px;
-  z-index: 100;
+  z-index: 65;
 }
 
 md-sidenav.site-sidenav .md-button {
@@ -741,7 +741,7 @@ md-card.highlight-section {
 
 .emojionearea .emojionearea-editor {
   color: rgba(0,0,0,0.87) !important;
-  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  font-family: Source Sans Pro, "Helvetica Neue", sans-serif !important;
   font-size: 16px !important;
   font-stretch: normal !important;
   font-style: normal !important;
@@ -800,7 +800,7 @@ location-boxes table {
 }
 
 [heartbeat-chart]> div > div:nth-child(1) > div > svg > g:nth-child(3) > text {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: normal;
 }
 
@@ -868,6 +868,7 @@ location-boxes table {
 
 .sidenav .mimo-logo {
   margin: auto;
+  cursor: pointer;
 }
 
 .sidenav .mimo-logo img {
@@ -885,7 +886,7 @@ location-boxes table {
 
 .top-nav {
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.14), 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
-  z-index: 9;
+  z-index: 21;
   width: 100%;
   position: fixed;
   top: 0;
@@ -966,6 +967,8 @@ md-bottom-sheet .md-subheader {
 
 .page-meta md-input-container {
   margin-right: 5px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 .page-meta h1 {
@@ -981,6 +984,7 @@ md-bottom-sheet .md-subheader {
 
 .page-meta {
   margin-top: 48px;
+  padding-bottom: 0px;
 }
 
 /*colour picker*/
@@ -1004,7 +1008,49 @@ md-bottom-sheet .md-subheader {
   min-width: 200px;
 }
 
+/*integration*/
+
+.integration-cards {
+  align-items:stretch;
+}
+
+.int-pic {
+  position:relative;
+  min-height:80px;
+  height:100%;
+}
+
+.int-pic img {
+  max-height: 60px;
+  max-width: 100%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.int-select {
+  cursor: pointer;
+}
+
 /*general changes*/
+
+md-card {
+  border-radius: 8px;
+}
+
+md-card .md-card-image {
+  border-radius: 8px 8px 0 0;
+}
+
+md-dialog {
+  border-radius: 8px;
+}
+
+.md-button {
+  border-radius: 8px;
+}
 
 .md-subhead a {
   font-weight: 500;
@@ -1017,4 +1063,12 @@ md-bottom-sheet .md-subheader {
   text-decoration: none;
   background-image: -webkit-linear-gradient(transparent 94%,#3b78e7 94%);
   background-image: linear-gradient(transparent 94%,#3b78e7 94%);
+}
+
+.payment-portal md-tabs-canvas {
+  display: none;
+}
+
+.splash-settings md-divider {
+  border-top-width:1px!important;
 }

@@ -8,26 +8,23 @@
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
   <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Meraki Setup</h2>
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back' | translate }}">
+      <md-tooltip md-direction="bottom">Back</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
   </div>
   <span flex></span>
-    <div>
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
-        <md-tooltip md-direction="bottom">Back</md-tooltip>
-        <md-icon>keyboard_return</md-icon>
-      </md-button>
-    </div>
 </md-content>
 
-<form name="myForm" ng-submit="save(myForm,meraki)">
+<form name="myForm" ng-submit="save(meraki)">
   <div layout="row" layout-align="center center">
-    <md-card flex="100" flex-gt-xs="50" flex-gt-md="30">
+    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
-            Setup Meraki Integration
+            Step 2: Setup Meraki Integration
           </span>
+          <span class="md-subhead">Now that your MIMO location has Meraki API access, you'll need to specify which network you want the guest network to be broadcast from. If your organisation is showing, but no networks or SSIDs can be selected after, ensure you have enabled API access within that organisation.</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -43,7 +40,7 @@
             </md-select>
           </md-input-container>
         </div>
-        <div layout="row" layout-wrap>
+        <div layout="row" layout-wrap ng-if="meraki_networks.length > 0">
           <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>Network</translate>
@@ -55,7 +52,7 @@
             </md-select>
           </md-input-container>
         </div>
-        <div layout="row" layout-wrap>
+        <div layout="row" layout-wrap ng-if="meraki_ssids.length > 0">
           <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>SSID</translate>

@@ -80,8 +80,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
   $routeProvider.
     when('/', {
-      templateUrl: 'components/locations/index/list.html',
+      // templateUrl: 'components/locations/index/list.html',
       // templateUrl: 'components/locations/index/index.html',
+      templateUrl: 'components/home/hello.html',
       controller: 'HomeCtrl'
     }).
     when('/404', {
@@ -109,7 +110,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
-    when('/new', {
+    when('/new-location', {
       templateUrl: 'components/locations/new/index.html',
       resolve: { loginRequired: loginRequired }
     }).
@@ -118,6 +119,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/:id', {
       templateUrl: 'components/locations/people/index.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
+    }).
+    when('/:id/guide', {
+      templateUrl: 'components/locations/welcome/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
@@ -149,17 +155,21 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/locations/new/meraki_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/:id/integration/completed', {
+      templateUrl: 'components/locations/new/integration_complete.html',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/:id/devices', {
       templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
-    when('/:id/map', {
-      templateUrl: 'components/locations/show/map.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired },
-    }).
+    // when('/:id/map', {
+    //   templateUrl: 'components/locations/show/map.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired },
+    // }).
     // when('/:id/clients', {
     //   templateUrl: 'components/locations/clients/index.html',
     //   resolve: { loginRequired: loginRequired },
@@ -223,6 +233,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/:id/campaigns/new', {
       templateUrl: 'components/campaigns/edit/edit.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/campaigns/guide', {
+      templateUrl: 'components/campaigns/guide.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
@@ -333,9 +348,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/splash_pages/index.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/splash_pages/new', {
-      templateUrl: 'components/splash_pages/new.html',
-      controller: 'SplashPagesCtrlNew',
+    when('/:id/splash_pages/guide', {
+      controller: 'LocationsCtrl as lc',
+      templateUrl: 'components/splash_pages/guide.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/splash_pages/:splash_page_id/design', {

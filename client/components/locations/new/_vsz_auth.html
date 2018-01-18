@@ -8,16 +8,12 @@
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
   <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Ruckus VSZ Authorisation</h2>
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back' | translate }}">
+      <md-tooltip md-direction="bottom">Back</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
   </div>
   <span flex></span>
-    <div>
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
-        <md-tooltip md-direction="bottom">Back</md-tooltip>
-        <md-icon>keyboard_return</md-icon>
-      </md-button>
-    </div>
 </md-content>
 
 <form name="myForm" ng-submit="save(myForm,location)">
@@ -26,8 +22,9 @@
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
-            Authorise Your Ruckus VSZ
+            Step 1: Authorise Your Ruckus VSZ
           </span>
+          <span class="md-subhead">You'll need to give your MIMO location access to your VSZ before you can use your splash page. Enter the hostname of your VSZ and then the username & password you use to login.</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -36,7 +33,11 @@
             <label>
               <translate>Hostname</translate>
             </label>
-            <input ng-model="integration.host" type="text" md-maxlength='255'required></input>
+            <input ng-model="integration.host" name="host" type="url" md-maxlength='255'required></input>
+            <div ng-messages="myForm.host.$error" >
+              <div ng-message="url" translate>Must be a valid URL</div>
+              <div ng-message="required" translate>You must enter a valid URL.</div>
+            </div>
           </md-input-container>
         </div>
         <div layout="row" layout-wrap>
@@ -51,13 +52,22 @@
             <label>
               <translate>Password</translate>
             </label>
-            <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
+            <input ng-model="integration.password" type="password" name="password" ng-minlength="8" md-maxlength='32' ng-pattern="/^[^[\]\'\\]+$/" required></input>
+            <div ng-messages="myForm.password.$error">
+              <div ng-message="md-maxlength">Max 32 characters</div>
+              <div ng-message="minlength">Min 8 characters</div>
+              <div ng-message="required">You must set a password</div>
+              <div ng-message="pattern">Invalid characters in password</div>
+            </div>
           </md-input-container>
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-            Next
+          Validate
+        </md-button>
+        <md-button ng-click="next()" class="md-raised" ng-disabled="validated !== true">
+          Next
         </md-button>
       </md-card-actions>
     </md-card>

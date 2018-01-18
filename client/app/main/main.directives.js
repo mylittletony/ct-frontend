@@ -3,8 +3,6 @@
 /* Controllers */
 
 var app = angular.module('myApp.directives', [
-
-  'myApp.apps.directives',
   'myApp.boxes.directives',
   'myApp.campaigns.directives',
   'myApp.codes.directives',

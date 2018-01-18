@@ -1,24 +1,6 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-no-ink-bar="disableInkBar"
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/{{ location.slug }}/people" name="people">
-      People
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/{{ location.slug }}/people/reports" name="reports">
-      Reports
-    </md-nav-item>
-  </md-nav-bar>
-</div>
+<people-nav location="location"></people-nav>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-
-  <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>People</h2>
-  </div>
-
 </md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>

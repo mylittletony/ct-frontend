@@ -33,16 +33,6 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
       // direction:  $routeParams.direction || 'desc'
     };
 
-    // scope.onPaginate = function (page, limit) {
-    //   scope.query.page = page;
-    //   scope.query.limit = limit;
-    //   scope.updatePage();
-    // };
-
-    // scope.updatePage = function(item) {
-
-    // };
-
     var createMenu = function() {
 
       // user permissions //
@@ -114,11 +104,11 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
     };
 
     var designer = function(id) {
-      $location.path('/locations/' + scope.location.slug + '/splash_pages/' + id + '/design');
+      $location.path('/' + scope.location.slug + '/splash_pages/' + id + '/design');
     };
 
     var edit = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + id;
+      window.location.href = '/#/' + scope.location.slug + '/splash_pages/' + id;
     };
 
     var init = function() {
@@ -127,7 +117,7 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
       scope.promise = deferred.promise;
       SplashPage.get({location_id: scope.location.slug}).$promise.then(function(results) {
         if (id % 1 === 0 && results.location && results.location.slug) {
-          $location.path('/locations/' + results.location.slug + '/splash_pages/new').replace().notify(false);
+          $location.path('/' + results.location.slug + '/splash_pages/new').replace().notify(false);
         }
         scope.cloned_id = $routeParams.new;
         scope.splash_pages = results.splash_pages;
@@ -144,9 +134,6 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
 
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
     templateUrl: 'components/splash_pages/_index.html'
   };
 
@@ -525,19 +512,19 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
     };
 
     scope.register = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/forms';
+      window.location.href = '/#/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/forms';
     };
 
     scope.shop = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/store';
+      window.location.href = '/#/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/store';
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages';
+      window.location.href = '/#/' + scope.location.slug + '/splash_pages';
     };
 
     scope.designer = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/design';
+      window.location.href = '/#/' + scope.location.slug + '/splash_pages/' + scope.splash.id + '/design';
     };
 
     init();
@@ -604,11 +591,10 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
           powered_by: scope.splash.powered_by
         }
       }).$promise.then(function(results) {
-        scope.splash = {};
         $mdDialog.cancel();
-        results.highlight = true;
-        scope.pages.push(results);
-        showToast(gettextCatalog.getString('Splash created successfully'));
+        // window.location.href = '/#/' + $routeParams.id + '/splash_pages/' + results.id + '/design?wizard=yas';
+        $location.path('/' + $routeParams.id + '/splash_pages/' + results.id + '/design');
+        $location.search({wizard: 'yas'});
       }, function(err) {
         $mdDialog.cancel();
         showErrors(err);
@@ -620,7 +606,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
         templateUrl: 'components/splash_pages/_form.html',
         parent: angular.element(document.body),
         controller: DialogController,
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         locals: {
           obj: scope.obj,
           splash: scope.splash
@@ -632,7 +618,6 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
       $scope.obj = obj;
       $scope.obj.loading = true;
       $scope.splash = splash;
-      // $scope.newSsid = true;
 
       getNetworks().then(getSplashPages);
 
@@ -646,9 +631,6 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
     DialogController.$inject = ['$scope','obj','splash'];
 
     scope.style = attrs.style;
-    // if (attrs.create) {
-    //   scope.open();
-    // }
 
   };
 
@@ -787,18 +769,6 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
     scope.saveAndContinue = function() {
       scope.update(scope.splash);
     };
-
-    // scope.align_logo = function(align) {
-    //   scope.splash.logo_position = align;
-    // };
-
-    // scope.align_container = function(align) {
-    //   scope.splash.container_float = align;
-    // };
-
-    // scope.align_text = function(align) {
-    //   scope.splash.container_text_align = align;
-    // };
 
     scope.swapToWelcome = function() {
       if (scope.welcomeEditing === undefined) {
@@ -1195,7 +1165,7 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + scope.splash.id;
+      window.location.href = '/#/' + scope.location.slug + '/splash_pages/' + scope.splash.id;
     };
 
     init();
@@ -1213,17 +1183,17 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
 
 }]);
 
-app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('splashTemplates', ['$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $rootScope, $timeout, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
     scope.location = { slug: $routeParams.id };
 
-    var openDialog = function() {
+    scope.openDialog = function() {
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_splash_templates.html',
         parent: angular.element(document.body),
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         controller: DialogController,
         locals: {
           loading: scope.loading
@@ -1235,13 +1205,13 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compil
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_template_confirm.html',
         parent: angular.element(document.body),
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         controller: DialogController,
         locals: {
           loading: scope.loading
         }
       });
-    }
+    };
 
     function DialogController($scope,loading) {
       $scope.loading = loading;
@@ -1258,15 +1228,18 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compil
       $scope.back = function() {
         openDialog();
       };
-
     }
 
     DialogController.$inject = ['$scope', 'loading'];
 
-    scope.init = function() {
-      openDialog();
-    };
+    var timer = $timeout(function() {
+      $timeout.cancel(timer);
+      if ($location.search().wizard === 'yas') { scope.openDialog(); }
+    }, 1500);
 
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      $mdDialog.cancel();
+    });
   };
 
   return {
@@ -1275,11 +1248,42 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$http', '$compil
     },
     template:
       '<md-menu-item>' +
-      '<md-button ng-click="init()">' +
+      '<md-button ng-click="openDialog()">' +
       '<md-icon>view_carousel</md-icon>' +
       '<p flex translate>Templates</p>' +
       '</md-button>' +
       '</md-menu-item>'
+  };
+
+}]);
+
+app.directive('splashGuide', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+
+  var link = function(scope, element, attrs, controller) {
+    scope.location = { slug: $routeParams.id };
+    scope.currentNavItem = 'guide';
+
+    scope.createSplash = function() {
+    };
+
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/splash_pages/_guide.html'
+  };
+}]);
+
+app.directive('splashMenuTop', [function() {
+
+  var link = function(scope, element, attrs, controller) {
+    // scope.location = { slug: $routeParams.id };
+  };
+
+  return {
+    link: link,
+    scope: { location: '=' },
+    templateUrl: 'components/splash_pages/_splash_menu_top.html'
   };
 
 }]);

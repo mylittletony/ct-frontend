@@ -8,26 +8,22 @@
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
   <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Meraki Authorisation</h2>
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back' | translate }}">
+      <md-tooltip md-direction="bottom">Back</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
   </div>
   <span flex></span>
-    <div>
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
-        <md-tooltip md-direction="bottom">Back</md-tooltip>
-        <md-icon>keyboard_return</md-icon>
-      </md-button>
-    </div>
 </md-content>
-
 <form name="myForm" ng-submit="save(myForm,location)">
   <div layout="row" layout-align="center center">
-    <md-card flex="100" flex-gt-xs="50" flex-gt-md="30">
+    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
-            Authorise Your Meraki
+            Step 1: Authorise Your Meraki
           </span>
+          <span class="md-subhead">You'll need to give your MIMO location API access to your Meraki before you can continue. Retrieve your Meraki account's API key and enter it below.</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -36,12 +32,18 @@
             <label>
               <translate>API Key</translate>
             </label>
-            <input ng-model="integration.password" type="text" md-maxlength='255'required></input>
+            <input ng-model="integration.password" type="password" name="api" md-maxlength='255'required></input>
+            <div ng-messages="myForm.api.$error">
+              <div ng-message="required">You must enter an API Key</div>
+            </div>
           </md-input-container>
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Validate
+        </md-button>
+        <md-button ng-click="next()" class="md-raised" ng-disabled="validated !== true">
           Next
         </md-button>
       </md-card-actions>

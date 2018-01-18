@@ -1,34 +1,13 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_pages" name="splash">
-      Splash Pages
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/vouchers" name="vouchers">
-      Vouchers
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_codes" name="codes">
-      Codes
-    </md-nav-item>
-  </md-nav-bar>
-</div>
+<splash-menu-top></splash-menu-top>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-
   <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>View Voucher Codes</h2>
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back to Voucher' | translate }}">
+      <md-tooltip md-direction="bottom">Back to Voucher</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
   </div>
-
   <span flex></span>
-
-    <div>
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
-        <md-tooltip md-direction="bottom">Back to Voucher</md-tooltip>
-        <md-icon>keyboard_return</md-icon>
-      </md-button>
-    </div>
 </md-content>
 
 <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>

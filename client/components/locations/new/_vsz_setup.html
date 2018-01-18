@@ -8,26 +8,23 @@
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
   <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Ruckus VSZ Setup</h2>
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back' | translate }}">
+      <md-tooltip md-direction="bottom">Back</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
   </div>
   <span flex></span>
-    <div>
-      <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Back to Devices' | translate }}">
-        <md-tooltip md-direction="bottom">Back</md-tooltip>
-        <md-icon>keyboard_return</md-icon>
-      </md-button>
-    </div>
 </md-content>
 
 <form name="myForm" ng-submit="save(myForm,vsz_zone,ssid)">
   <div layout="row" layout-align="center center">
-    <md-card flex="100" flex-gt-xs="50" flex-gt-md="30">
+    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
-            Setup Ruckus VSZ Integration
+            Step 2: Setup Ruckus VSZ Integration
           </span>
+          <span class="md-subhead">Now that your MIMO location can access your VSZ, you'll need to specify which zone you want the guest network to be broadcast from. Select your zone, and then give your guest network an SSID.</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>

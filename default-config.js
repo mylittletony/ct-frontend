@@ -7,10 +7,6 @@ var commitHash = exec('git log --pretty=format:"%h" -n 1');
 var commitDate = exec('git log --pretty=format:"%ci" -n 1');
 module.exports = {
     frontend: {
-        // All these constants are exposed as is in the angular application.
-        // Therefore you should never put any sensitive information like
-        // passwords or secrets in here.
-        //
         constants: {
             CONFIG: {
                 // Everything here is injected as $rootScope.CONFIG into
@@ -18,9 +14,13 @@ module.exports = {
             },
             // FIXME! These constants are outside of 'CONFIG' for historical
             // reasons.  They should be moved inside 'CONFIG' at some time.
-            API_END_POINT: 'http://mywifi.test:8080/api/v1',
+            API_END_POINT: 'http://mimo.test:8080/api/v1',
             API_END_POINT_V2: 'http://dashboard.ctapp:3000/api/v1',
+<<<<<<< HEAD
             API_URL: 'http://mywifi.test:8080',
+=======
+            API_URL: 'http://mimo.test:8080',
+>>>>>>> 0069c66b029e1da50e22123a39c2cd41c8c7fd26
             STRIPE_KEY: 'pk_test_E3rGjKckx4EUL65pXgv6zUed',
             AUTH_URL: 'http://id.mimo.test:8080',
             SLACK_TOKEN: '3540010629.12007999527',
@@ -58,15 +58,6 @@ module.exports = {
     // Server configuration.
     server: {
         env: {
-            // Required!
-            //APP_ID: 'put your app id here!',
-            // Required!
-            //APP_SECRET: 'put your app secret here!',
-            // Required!
-            //BASE_URL: 'https://url.of.your.server',
-            // Required!
-            // callbackURL: 'https://url.of.your.server/auth/login/callback',
-            // Debugging?
             DEBUG: false,
         }
     }

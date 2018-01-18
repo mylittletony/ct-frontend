@@ -15,8 +15,8 @@ app.controller('SplashPagesDesignCtrl', ['$location', '$scope', '$routeParams', 
 
     var isActive = function(path) {
       var split = $location.path().split('/');
-      if (split.length >= 4) {
-        return ($location.path().split('/')[3] === path);
+      if (split.length >= 3) {
+        return ($location.path().split('/')[2] === path);
       } else if (path === 'splash_pages') {
         return true;
       }
@@ -25,7 +25,7 @@ app.controller('SplashPagesDesignCtrl', ['$location', '$scope', '$routeParams', 
     menu.sections.push({
       name: gettextCatalog.getString('People'),
       type: 'link',
-      link: '/#/locations/' + $scope.location.slug + '/people',
+      link: '/#/' + $scope.location.slug + '/people',
       icon: 'people',
       active: isActive('people')
     });
@@ -33,23 +33,15 @@ app.controller('SplashPagesDesignCtrl', ['$location', '$scope', '$routeParams', 
     menu.sections.push({
       name: gettextCatalog.getString('Splash'),
       type: 'link',
-      link: '/#/locations/' + $scope.location.slug + '/splash_pages',
+      link: '/#/' + $scope.location.slug + '/splash_pages',
       icon: 'format_paint',
       active: isActive('splash_pages')
     });
 
     menu.sections.push({
-      name: gettextCatalog.getString('Devices'),
-      link: '/#/locations/' + $scope.location.slug + '/devices',
-      type: 'link',
-      icon: 'router',
-      active: isActive('devices')
-    });
-
-    menu.sections.push({
       name: gettextCatalog.getString('Campaigns'),
       type: 'link',
-      link: '/#/locations/' + $scope.location.slug + '/triggers',
+      link: '/#/' + $scope.location.slug + '/triggers',
       icon: 'email',
       active: isActive('triggers')
     });
@@ -59,8 +51,7 @@ app.controller('SplashPagesDesignCtrl', ['$location', '$scope', '$routeParams', 
       menu.hideMainNav = undefined;
       menu.hideToolbar = undefined;
       menu.isOpen = true;
+      menu.sections = [];
     });
-
   }
-
 ]);

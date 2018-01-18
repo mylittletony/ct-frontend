@@ -8,14 +8,7 @@
 </div>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
-
-  <div>
-    <h1>{{location.location_name ? location.location_name : '&nbsp;'}}</h1>
-    <h2>Devices</h2>
-  </div>
-
-  <span flex="" class="flex"></span>
-
+  <span flex></span>
   <div>
     <md-input-container flex="100" ng-show="location.has_devices">
       <label></label>
@@ -23,7 +16,6 @@
       <input ng-model="query" md-autofocus placeholder="{{ 'Search Devices' | translate }}">
     </md-input-container>
   </div>
-
 </md-content>
 
 <md-content class="md-padding">

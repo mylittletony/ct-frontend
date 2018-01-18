@@ -77,23 +77,14 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     };
 
     var init = function() {
-      Location.get({id: scope.location.slug}, function(data) {
-        scope.location = data;
-        getPeople();
-      }, function(err){
-        console.log(err);
-      });
+      getPeople();
     };
 
     init();
-
   };
 
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
     templateUrl: 'components/locations/people/_index.html'
   };
 
@@ -138,6 +129,18 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
       loading: '='
     },
     templateUrl: 'components/locations/people/_show.html'
+  };
+
+}]);
+
+app.directive('peopleNav', [function() {
+
+  var link = function(scope, element, attrs) {
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/locations/people/_nav.html'
   };
 
 }]);
