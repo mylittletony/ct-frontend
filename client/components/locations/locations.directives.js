@@ -2549,7 +2549,6 @@ app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$h
     };
 
     controller.fetch().then(function(integration) {
-      console.log(integration);
       if (integration && integration.active) {
         $location.path('/' + $routeParams.id + '/settings/integrations');
       } else {
@@ -2683,11 +2682,11 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
       controller.update(scope.integration).then(function() {
         scope.validated = true;
       });
-    }
+    };
 
     scope.save = function(form) {
       scope.myForm.$setPristine();
-      scope.integration.action = 'validate'
+      scope.integration.action = 'validate';
       if (scope.integration.new_record) {
         create();
       } else {
@@ -2701,6 +2700,10 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
 
     controller.fetch().then(function(integration) {
       scope.integration = integration;
+      if (integration && integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
+        return;
+      }
       scope.integration.type = 'unifi';
     }, function(err) { console.log(err); })
 
@@ -2747,7 +2750,6 @@ app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '
         }
       }, function(results) {
         showToast('Successfully created UniFi setup');
-        console.log(results)
         // @zak create the landing page
         $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
@@ -2764,11 +2766,13 @@ app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '
     controller.fetch().then(function(integration) {
       if(integration.new_record) {
         $location.path($routeParams.id + '/integration/unifi/auth');
+      } else if (integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
       } else {
         scope.integration = integration;
         fetchSites();
       }
-    })
+    });
 
     locationName();
 
@@ -2807,11 +2811,11 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$co
       controller.update(scope.integration).then(function() {
         scope.validated = true;
       });
-    }
+    };
 
     scope.save = function(form) {
       scope.myForm.$setPristine();
-      scope.integration.action = 'validate'
+      scope.integration.action = 'validate';
       if (scope.integration.new_record) {
         create();
       } else {
@@ -2824,10 +2828,12 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$co
     };
 
     controller.fetch().then(function(integration) {
-      console.log(integration);
+      if (integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
+      }
       scope.integration = integration;
       scope.integration.type = 'vsz';
-    }, function(err) { console.log(err); })
+    }, function(err) { console.log(err); });
 
     locationName();
 
@@ -2890,11 +2896,13 @@ app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$c
     controller.fetch().then(function(integration) {
       if(integration.new_record) {
         $location.path($routeParams.id + '/integration/vsz/auth');
+      } else if (integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
       } else {
         scope.integration = integration;
         fetchSites();
       }
-    })
+    });
 
     locationName();
 
@@ -3073,6 +3081,8 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
     controller.fetch().then(function(integration) {
       if(integration.new_record) {
         $location.path($routeParams.id + '/integration/meraki/auth');
+      } else if (integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
       } else {
         scope.integration = integration;
         fetchSites();
@@ -3192,40 +3202,27 @@ app.directive('integrationComplete', ['Location', '$routeParams', '$location', '
 
   var link = function(scope, element, attrs, controller) {
 
-    var locationName = function() {
-      Location.get({id: scope.location.slug}, function(data) {
-        scope.location = data;
-      }, function(err){
-        console.log(err);
-      });
-    };
+    scope.loading = true;
+    scope.location = { slug: $routeParams.id };
 
-    var create = function() {
-      controller.save(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/meraki/setup');
-      });
-    };
-
-    var update = function() {
-      controller.update(scope.integration).then(function(results) {
-        $location.path($routeParams.id + '/integration/meraki/setup');
-      });
-    };
-
-    scope.save = function(form) {
-      scope.myForm.$setPristine();
-      scope.integration.action = 'validate';
-      if (scope.integration.new_record) {
-        create();
-      } else {
-        update();
+    var setType = function() {
+      switch (scope.integration.type) {
+        case 'unifi':
+          scope.type = 'UniFi';
+          break;
+        case 'meraki':
+          scope.type = 'Meraki';
+          break;
+        case 'vsz':
+          scope.type = 'Ruckus VSZ';
+          break;
       }
     };
 
     controller.fetch().then(function(integration) {
-      console.log(integration);
       scope.integration = integration;
-      scope.integration.type = 'meraki';
+      setType();
+      scope.loading = undefined;
     }, function(err) { console.log(err); });
   };
 
@@ -3281,23 +3278,23 @@ app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$ht
     };
 
     scope.onPaginate = function (page, limit, val) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      scope.query.sort = val || $routeParams.sort;
-      scope.blur();
+      // scope.query.page = page;
+      // scope.query.limit = limit;
+      // scope.query.sort = val || $routeParams.sort;
+      // scope.blur();
     };
 
     scope.blur = function() {
-      var hash = {};
-      hash.page = scope.query.page;
-      hash.per = scope.query.limit;
-      hash.sort = scope.query.sort;
-      hash.direction = scope.query.direction;
-      hash.q = scope.query.filter;
-      if (scope.user_id) {
-        hash.user_id = scope.user_id;
-      }
-      $location.search(hash);
+      // var hash = {};
+      // hash.page = scope.query.page;
+      // hash.per = scope.query.limit;
+      // hash.sort = scope.query.sort;
+      // hash.direction = scope.query.direction;
+      // hash.q = scope.query.filter;
+      // if (scope.user_id) {
+      //   hash.user_id = scope.user_id;
+      // }
+      // $location.search(hash);
     };
 
     var filterLocationOwners = function() {
@@ -3308,6 +3305,10 @@ app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$ht
           }
         }
       }
+    };
+
+    scope.newLocation = function() {
+      $location.path('/new-location');
     };
 
     var init = function() {
@@ -3322,7 +3323,7 @@ app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$ht
         scope.total_locs  = results._links.total_entries;
         scope.locations   = results.locations;
         scope._links      = results._links;
-        filterLocationOwners();
+        // filterLocationOwners();
         scope.searching   = undefined;
         scope.loading     = undefined;
       }, function() {
@@ -3331,7 +3332,7 @@ app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$ht
       });
     };
 
-    init();
+    // init();
   };
 
   return {
