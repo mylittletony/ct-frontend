@@ -1817,7 +1817,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
 
 }]);
 
-app.directive('locationSettingsMain', ['Location', 'SplashIntegration', '$location', '$routeParams', 'moment', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, SplashIntegration, $location, $routeParams, moment, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('locationSettingsMain', ['Location', '$location', '$routeParams', 'moment', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $location, $routeParams, moment, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -2540,32 +2540,28 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
 
 app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
-  var link = function(scope, element, attrs) {
+  var link = function(scope, element, attrs, controller) {
 
-    scope.location = {slug: $routeParams.id};
+    scope.loading = true;
+
     scope.save = function(type) {
       $location.path($routeParams.id + '/integration/' + type + '/auth');
-      // $location.search({gs: true});
     };
 
-
-
-    var locationName = function() {
-      Location.get({id: scope.location.slug}, function(data) {
-        scope.location = data;
-      }, function(err){
-        console.log(err);
-      });
-    };
-
-    locationName();
-
+    controller.fetch().then(function(integration) {
+      console.log(integration);
+      if (integration && integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
+      } else {
+        scope.loading = undefined;
+      }
+    });
   };
 
   return {
+    require: '^integrations',
     link: link,
-    scope: {
-    },
+    scope: {},
     templateUrl: 'components/locations/new/_create_integration.html'
   };
 
@@ -2626,7 +2622,7 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
       });
 
       return deferred.promise;
-    }
+    };
 
     this.update = function(integration) {
       var deferred = $q.defer();
@@ -2642,7 +2638,7 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         console.log(error);
       });
       return deferred.promise;
-    }
+    };
 
     this.fetchSites = function(integration) {
       var deferred = $q.defer();
@@ -3097,7 +3093,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
 
 }]);
 
-app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
