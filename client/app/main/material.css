@@ -2,10 +2,10 @@
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 1.2em;
+  /* font-size: 1.2em; */
 }
 
-@media all and (min-width: 1280px) {
+@media only screen and (-webkit-min-device-pixel-ratio: 1), (min-width: 1280px) {
   body {
     font-size: 2.2vmin;
   }
@@ -36,6 +36,40 @@ body {
 
   table.md-table td.md-cell {
     font-size: 1.9vmin;
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
+  body {
+    font-size: 1.2em;
+  }
+
+  .md-headline {
+    font-size: 1em;
+  }
+
+  .md-subhead, md-card md-card-title md-card-title-text .md-subhead {
+    font-size: 1.2em;
+  }
+
+  md-list-item.md-2-line .md-list-item-text p, md-list-item.md-2-line > .md-no-style .md-list-item-text p, md-list-item.md-3-line .md-list-item-text p, md-list-item.md-3-line > .md-no-style .md-list-item-text p {
+    font-size: 1em;
+  }
+
+  md-list .md-subheader {
+    font-size: 1em;
+  }
+
+  .md-button {
+    font-size: 0.8em;
+  }
+
+  table.md-table th.md-column {
+    font-size: 1em;
+  }
+
+  table.md-table td.md-cell {
+    font-size: 0.8em;
   }
 }
 
