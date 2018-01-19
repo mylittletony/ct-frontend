@@ -1,6 +1,38 @@
+/*fonts*/
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
+}
+
+@media all and (min-width: 1280px) {
+  body {
+    font-size: 2.2vmin;
+  }
+
+  .md-headline {
+    font-size: 3.2vmin;
+  }
+
+  md-list-item.md-2-line .md-list-item-text p, md-list-item.md-2-line > .md-no-style .md-list-item-text p, md-list-item.md-3-line .md-list-item-text p, md-list-item.md-3-line > .md-no-style .md-list-item-text p {
+    font-size: 1.9vmin;
+  }
+
+  md-list .md-subheader {
+    font-size: 1.9vmin;
+  }
+
+  .md-button {
+    font-size: 1.9vmin;
+  }
+
+  table.md-table th.md-column {
+    font-size: 1.9vmin;
+  }
+
+  table.md-table td.md-cell {
+    font-size: 1.9vmin;
+  }
 }
 
 /* Temp fixes to address */
