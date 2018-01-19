@@ -51,7 +51,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
         holding_account.brand = scope.brand.id;
       }
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
-      Holding.create(holding_account).$promise.then(function(data) {
+      Holding.create({},holding_account).$promise.then(function(data) {
       }, function() {
         scope.clearCookies();
       });
@@ -182,7 +182,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       if (scope.brand_url) {
         scope.user.url = scope.brand_url;
       }
-      Holding.update({id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
+      Holding.update({},{id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
         scope.errors = undefined;
         var timer = $timeout(function() {
           $timeout.cancel(timer);
