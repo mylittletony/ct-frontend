@@ -14,6 +14,10 @@ body {
     font-size: 3.2vmin;
   }
 
+  .md-subhead, md-card md-card-title md-card-title-text .md-subhead {
+    font-size: 2vmin;
+  }
+
   md-list-item.md-2-line .md-list-item-text p, md-list-item.md-2-line > .md-no-style .md-list-item-text p, md-list-item.md-3-line .md-list-item-text p, md-list-item.md-3-line > .md-no-style .md-list-item-text p {
     font-size: 1.9vmin;
   }
