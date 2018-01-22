@@ -189,9 +189,9 @@
                 </tr>
               </thead>
               <tbody md-body>
-                <tr md-row>
+                <tr md-row ng-repeat="client in person.clients">
                   <td md-cell>
-                    11:11:11:11:11:11
+                    {{client.client_mac}}
                   </td>
                   <td md-cell>
                     <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -199,28 +199,6 @@
                     </md-button>
                   </td>
                 </tr>
-                <tr md-row>
-                  <td md-cell>
-                    22:22:22:22:22:22
-                  </td>
-                  <td md-cell>
-                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
-                  </td>
-                </tr>
-                <tr md-row>
-                  <td md-cell>
-                    33:33:33:33:33:33
-                  </td>
-                  <td md-cell>
-                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
-                  </td>
-                </tr>
-
-
               </tbody>
             </table>
           </md-table-container>
