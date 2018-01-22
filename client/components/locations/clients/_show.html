@@ -69,11 +69,11 @@
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
               <h3 translate>Device Name</h3>
-              <p>{{ client.name || client.device_name | truncate:30 }} </p>
+              <p>{{ client.description || client.device_name | truncate:30 }} </p>
               <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                 <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
               </md-button>
-              <md-tooltip ng-if="client.name">
+              <md-tooltip ng-if="client.description">
                 <translate>
                   Original name: {{ client.device_name }}
                 </translate>
