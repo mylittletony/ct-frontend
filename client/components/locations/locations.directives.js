@@ -3308,7 +3308,7 @@ app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$ht
     };
 
     scope.newLocation = function() {
-      $location.path('/new-location');
+      window.location.href = '/#/new-location';
     };
 
     var init = function() {
@@ -3332,7 +3332,7 @@ app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$ht
       });
     };
 
-    // init();
+    init();
   };
 
   return {
