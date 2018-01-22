@@ -11,7 +11,7 @@
           <label>
             <translate>Client Name</translate>
           </label>
-          <input name="device_name" md-maxlength="30" minlength="5" ng-model="client.name" required>
+          <input name="device_name" md-maxlength="30" minlength="5" ng-model="client.description" required>
           <div ng-messages="myForm.device_name.$error">
             <div ng-message="required" translate>Please enter a name</div>
             <div ng-message="md-maxlength" translate>Must be less than 30 characters</div>
