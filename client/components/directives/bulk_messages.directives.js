@@ -15,19 +15,6 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
       });
     };
 
-    scope.compose = function(ev) {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'components/views/bulk_messages/_compose.tmpl.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      })
-        .then(function(answer) {
-        }, function() {
-        });
-    };
-
     function DialogController($scope, $mdDialog) {
 
       scope.message = {};
@@ -60,6 +47,19 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
       };
     }
 
+    scope.compose = function(ev) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'components/views/bulk_messages/_compose.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      })
+        .then(function(answer) {
+        }, function() {
+        });
+    };
+
   };
 
   var template =
@@ -72,31 +72,31 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
 }]);
 
-app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
+app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,People,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
-    var person = {};
-
-    var fetchPerson = function() {
-      People.query({location_id: $routeParams.id, id: $routeParams.person_id}).$promise.then(function(res) {
-        person = res;
-        fetchMessages();
-      }, function(err) {
-        console.log(err);
-      });
-    };
+    scope.person = {};
+    scope.location = {slug: $routeParams.id};
 
     var fetchMessages = function() {
-
       BulkMessage.index({}, {
-        person_id:    person.id || $routeParams.person_id,
-        location_id:  $routeParams.id,
+        person_id:    scope.person.id || $routeParams.person_id,
+        location_id:  scope.location.slug,
         start:        $routeParams.start,
         end:          $routeParams.end
       }).$promise.then(function(results) {
         scope.loading = undefined;
         scope.messages = results.messages;
+      });
+    };
+
+    var fetchPerson = function() {
+      People.query({location_id: scope.location.slug, id: $routeParams.person_slug}).$promise.then(function(res) {
+        scope.person = res;
+        fetchMessages();
+      }, function(err) {
+        console.log(err);
       });
     };
 
@@ -116,6 +116,15 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'BulkMessageActivi
       fetchMessages();
     }
 
+    // BulkMessageActivity.index({}, {
+    //   location_id:  $routeParams.id,
+    //   start:        $routeParams.start,
+    //   end:          $routeParams.end
+    // }).$promise.then(function(results) {
+    //   scope.loading = undefined;
+    //   console.log(results)
+    // });
+
   };
 
   return {
@@ -127,3 +136,44 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'BulkMessageActivi
   };
 
 }]);
+
+// app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
+//
+//   var link = function( scope, element, attrs ) {
+//
+//     var person = {};
+//
+//     var activity = function() {
+//       BulkMessageActivity.index({}, {
+//         location_id:  $routeParams.id,
+//         message_id: scope.message.message_id
+//       }).$promise.then(function(results) {
+//         scope.loading = undefined;
+//         scope.activity = results.activity;
+//       });
+//     };
+//
+//     var init = function() {
+//       BulkMessage.get({}, {
+//         message_id:   $routeParams.message_id,
+//         location_id:  $routeParams.id,
+//       }).$promise.then(function(results) {
+//         scope.loading = undefined;
+//         scope.message = results;
+//         activity();
+//       });
+//     };
+//
+//     init();
+//
+//   };
+//
+//   return {
+//     link: link,
+//     scope: {
+//       loading: '='
+//     },
+//     templateUrl: 'components/views/bulk_messages/_show.html'
+//   };
+//
+// }]);

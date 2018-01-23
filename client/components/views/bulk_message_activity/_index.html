@@ -35,29 +35,29 @@
             <tr md-row>
               <th md-column md-order-by="description" md-desc>
                 <span translate>
-                  Recipient
+                  Created at
                 </span>
               </th>
-              <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Content</span></th>
+              <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Event</span></th>
+              <th md-column><span translate>Message ID</span></th>
               <th md-column><span translate>Person ID</span></th>
-              <th md-column><span translate>Date Sent</span></th>
             </tr>
           </thead>
           <tbody md-body>
-            <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="message in filtered = ( messages | filter: filter | orderBy: query.order)">
+            <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="activity in filtered = ( activity | filter: filter | orderBy: query.order)">
               <td md-cell>
                 <a ng-click="query(message.person_id)">
-                  {{ message.to_email }}</span>
+                  {{ activity.created_at | humanTime }}
                 </a>
               </td>
               <td hide show-gt-xs md-cell>
-                <a href="/#/{{location.slug}}/people/{{person.slug ? person.slug + '/' : ''}}messages/{{message.message_id}}">{{ message.subject | truncate:50 }}</a>
+                {{ activity.event | titleCase }}
               </td>
               <td hide show-gt-xs md-cell>
-                {{ message.person_id }}
+                {{ activity.message_id }}
               </td>
               <td hide show-gt-xs md-cell>
-                {{ message.created_at | humanTime }}
+                {{ activity.person_id }}
               </td>
               <td md-cell>
                 <md-menu>
@@ -66,9 +66,9 @@
                   </md-button>
                   <md-menu-content width="3" >
                     <md-menu-item>
-                      <md-button href="/#/{{location.slug}}/people/{{person.slug ? person.slug + '/' : ''}}messages/{{message.message_id}}">
+                      <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
                         <md-icon>pageview</md-icon>
-                        <p flex translate>View</p>
+                    <p flex translate>View</p>
                       </md-button>
                     </md-menu-item>
                     <md-menu-item ng-repeat="item in menuItems">

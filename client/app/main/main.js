@@ -431,6 +431,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/:id/people/messages/:message_id', {
+      templateUrl: 'components/views/bulk_message_activity/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/people/message_activity', {
+      templateUrl: 'components/views/bulk_message_activity/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/:id/people/:person_id', {
       templateUrl: 'components/locations/people/show.html',
       controller: 'LocationsCtrl as lc',
@@ -438,6 +448,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/:id/people/:person_slug/messages', {
       templateUrl: 'components/views/bulk_messages/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/people/:person_slug/messages/:message_id', {
+      templateUrl: 'components/views/bulk_message_activity/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/people/:person_slug/message_activity', {
+      templateUrl: 'components/views/bulk_message_activity/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
