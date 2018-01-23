@@ -72,13 +72,25 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
 }]);
 
-app.directive('bulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$location', function($routeParams,BulkMessage,$mdDialog,$location) {
+app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,People,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
-    var init = function() {
+    var person = {};
+
+    var fetchPerson = function() {
+      People.query({location_id: $routeParams.id, id: $routeParams.person_id}).$promise.then(function(res) {
+        person = res;
+        fetchMessages();
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    var fetchMessages = function() {
+
       BulkMessage.index({}, {
-        q:            $routeParams.q,
+        q:            person.id || $routeParams.q,
         location_id:  $routeParams.id,
         start:        $routeParams.start,
         end:          $routeParams.end
@@ -88,54 +100,22 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$loc
       });
     };
 
-    scope.query = function(query) {
+    scope.query = function(person_id) {
       var hash            = {};
-      hash.q              = query;
+      hash.q              = person_id;
       hash.per            = $routeParams.per || 100;
       hash.start          = $routeParams.start;
       hash.end            = $routeParams.end;
       $location.search(hash);
-      init();
+      fetchMessages();
     };
 
-    init();
-  };
+    if ($routeParams.person_id) {
+      fetchPerson();
+    } else {
+      fetchMessages();
+    }
 
-  return {
-    link: link,
-    scope: {
-      loading: '='
-    },
-    templateUrl: 'components/views/bulk_messages/_index.html'
-  };
-
-}]);
-
-app.directive('userBulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$location', function($routeParams,BulkMessage,$mdDialog,$location) {
-
-  var link = function( scope, element, attrs ) {
-
-    var init = function() {
-      BulkMessage.index({}, {
-        location_id:  $routeParams.id,
-        person_id:    $routeParams.person_id
-      }).$promise.then(function(results) {
-        scope.loading = undefined;
-        scope.messages = results.messages;
-      });
-    };
-
-    scope.query = function(query) {
-      var hash            = {};
-      hash.q              = query;
-      hash.per            = $routeParams.per || 100;
-      hash.start          = $routeParams.start;
-      hash.end            = $routeParams.end;
-      $location.search(hash);
-      init();
-    };
-
-    init();
   };
 
   return {
