@@ -72,7 +72,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
 }]);
 
-app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,People,$mdDialog,$location) {
+app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
@@ -90,7 +90,7 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
     var fetchMessages = function() {
 
       BulkMessage.index({}, {
-        q:            person.id || $routeParams.q,
+        person_id:    person.id || $routeParams.person_id,
         location_id:  $routeParams.id,
         start:        $routeParams.start,
         end:          $routeParams.end
@@ -102,7 +102,7 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
 
     scope.query = function(person_id) {
       var hash            = {};
-      hash.q              = person_id;
+      hash.person_id      = person_id;
       hash.per            = $routeParams.per || 100;
       hash.start          = $routeParams.start;
       hash.end            = $routeParams.end;
@@ -110,7 +110,7 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
       fetchMessages();
     };
 
-    if ($routeParams.person_id) {
+    if ($routeParams.person_slug) {
       fetchPerson();
     } else {
       fetchMessages();

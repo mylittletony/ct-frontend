@@ -6,6 +6,7 @@ var app = angular.module('myApp.services', [
   'myApp.access-token.services',
   'myApp.boxes.services',
   'myApp.bulk_messages.services',
+  'myApp.bulk_message_activity.services',
   'myApp.campaigns.services',
   'myApp.codes.services',
   'myApp.clients.services',
