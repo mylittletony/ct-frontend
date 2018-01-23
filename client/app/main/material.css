@@ -975,7 +975,8 @@ location-boxes table {
 }
 
 .top-nav md-nav-ink-bar {
-  background: -webkit-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%)!important;
+  /*background: -webkit-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%)!important;*/
+  display: none!important;
 }
 
 .top-nav .md-active ._md-nav-button-text {

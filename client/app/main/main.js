@@ -268,6 +268,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/:id/settings/integration', {
+      templateUrl: 'components/locations/settings/integration.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/settings/device_list', {
+      templateUrl: 'components/locations/settings/device_list.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     // when('/:id/settings/security', {
     //   templateUrl: 'components/locations/settings/security.html',
     //   controller: 'LocationsCtrl as lc',
