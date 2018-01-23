@@ -14,7 +14,16 @@ app.factory('BulkMessage', ['$resource', 'API_END_POINT',
         method: 'POST',
         isArray: false,
         dataType: 'json'
-      }
+      },
+      index: {
+        method: 'GET',
+        isArray: false,
+        dataType: 'json',
+        params: {
+          q: '@q',
+          location_id: '@location_id'
+        }
+      },
     });
   }]);
 
