@@ -70,12 +70,6 @@
           <md-list flex>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="column">
-                <h3 translate>Email</h3>
-                <p>{{ person.email }}</p>
-              </div>
-            </md-list-item>
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text" layout="column">
                 <h3 translate>Facebook</h3>
                 <p>{{ person.social[0].fb_link }}</p>
               </div>
@@ -120,46 +114,26 @@
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline" translate>Engagement</span>
+              <span class="md-headline" translate>Contact</span>
             </md-card-title-text>
           </md-card-title>
           <md-table-container>
             <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
               <thead md-head>
                 <tr md-row>
-                  <th md-column><span translate>Campaign</span></th>
-                  <th md-column><span translate>Result</span></th>
-                  <th md-column><span translate>Options</span></th>
+                  <th md-column><span translate>Email</span></th>
+                  <th md-column><span translate>Active</span></th>
                 </tr>
               </thead>
               <tbody md-body>
-                <tr md-row>
+                <tr md-row ng-repeat="email in person.emails">
                   <td md-cell>
-                    Encourage Return
+                    {{email.username}}
                   </td>
                   <td md-cell>
-                    <md-icon>check_circle</md-icon>
-                  </td>
-                  <td md-cell>
-                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
+                    <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == true">Marked as spam</md-tooltip></md-icon>
                   </td>
                 </tr>
-                <tr md-row>
-                  <td md-cell>
-                    Things & Stuff
-                  </td>
-                  <td md-cell>
-                    <md-icon>highlight_off</md-icon>
-                  </td>
-                  <td md-cell>
-                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
-                  </td>
-                </tr>
-
               </tbody>
             </table>
           </md-table-container>
@@ -189,9 +163,9 @@
                 </tr>
               </thead>
               <tbody md-body>
-                <tr md-row>
+                <tr md-row ng-repeat="client in person.clients">
                   <td md-cell>
-                    11:11:11:11:11:11
+                    {{client.client_mac}}
                   </td>
                   <td md-cell>
                     <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -199,28 +173,6 @@
                     </md-button>
                   </td>
                 </tr>
-                <tr md-row>
-                  <td md-cell>
-                    22:22:22:22:22:22
-                  </td>
-                  <td md-cell>
-                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
-                  </td>
-                </tr>
-                <tr md-row>
-                  <td md-cell>
-                    33:33:33:33:33:33
-                  </td>
-                  <td md-cell>
-                    <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
-                  </td>
-                </tr>
-
-
               </tbody>
             </table>
           </md-table-container>
