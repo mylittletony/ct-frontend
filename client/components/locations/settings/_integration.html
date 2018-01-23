@@ -160,7 +160,7 @@
               </md-input-container>
             </div>
           </md-card-content>
-          <md-card-actions layout="row" layout-align="space-between center">
+          <md-card-actions layout="row" layout-align="end center">
             <div>
               <p ng-if="validated == true">Integration Successfully Validated</p>
             </div>
@@ -168,27 +168,10 @@
               <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
                 Test Integration
               </md-button>
-              <md-button ng-click="next()" class="md-raised" ng-disabled="validated !== true">
-                Next
-              </md-button>
             </div>
           </md-card-actions>
         </md-card>
       </form>
-
-      <div flex layout="row">
-        <md-button class="md-raised md-warn" ng-click="destroy()">
-          <translate>
-            Delete Location
-          </translate>
-        </md-button>
-        <span flex></span>
-        <md-button ng-click="update(myForm)" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
-          <translate>
-            Save
-          </translate>
-        </md-button>
-      </div>
 
     </div>
   </div>
