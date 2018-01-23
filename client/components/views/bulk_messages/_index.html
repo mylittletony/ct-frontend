@@ -44,7 +44,7 @@
                   </md-button>
                   <md-menu-content width="3" >
                     <md-menu-item>
-                      <md-button href="/#/{{location.slug}}/people/{{person.slug ? person.slug + '/' : ''}}messages/{{message.message_id}}">
+                      <md-button href="/#/{{location.slug}}/{{person.slug ? 'people/' + person.slug + '/messages' : 'campaigns/messages'}}/{{message.message_id}}">
                         <md-icon>pageview</md-icon>
                         <p flex translate>View</p>
                       </md-button>
