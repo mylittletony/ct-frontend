@@ -149,9 +149,8 @@ app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageAct
       }).$promise.then(function(results) {
         scope.loading = undefined;
         scope.activity = results.message_activity;
-        console.log(results)
       });
-    }
+    };
 
     var init = function() {
       BulkMessage.get({}, {

@@ -4,7 +4,7 @@ var app = angular.module('myApp.bulk_message_activity.services', ['ngResource',]
 
 app.factory('BulkMessageActivity', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
-    return $resource(API_END_POINT + '/locations/:location_id/bulk_message_activity',
+    return $resource(API_END_POINT + '/locations/:location_id/bulk_message_activity/:message_id',
       {
         q: '@q',
         location_id: '@location_id',
@@ -13,6 +13,12 @@ app.factory('BulkMessageActivity', ['$resource', 'API_END_POINT',
       },
       {
       index: {
+        method: 'GET',
+        isArray: false,
+        dataType: 'json'
+      },
+      {
+      show: {
         method: 'GET',
         isArray: false,
         dataType: 'json'
