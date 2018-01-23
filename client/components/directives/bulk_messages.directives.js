@@ -30,7 +30,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
     function DialogController($scope, $mdDialog) {
 
-      scope.message = {}
+      scope.message = {};
 
       $scope.selectedIndex = 0;
 
