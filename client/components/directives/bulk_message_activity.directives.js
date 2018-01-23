@@ -6,15 +6,18 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
 
   var link = function( scope, element, attrs ) {
 
+    scope.location = {slug: $routeParams.id};
+    scope.person = {slug: $routeParams.person_slug};
+
     BulkMessageActivity.index({}, {
-      location_id:  $routeParams.id,
+      location_id:  scope.location.slug,
       start:        $routeParams.start,
       end:          $routeParams.end,
       message_id:   $routeParams.message_id,
-      person_id:    $routeParams.person_id
+      person_id:    $routeParams.person_slug
     }).$promise.then(function(results) {
       scope.loading = undefined;
-      scope.activity = results.activity
+      scope.activity = results.activity;
     });
     scope.loading = undefined;
 
