@@ -19,4 +19,3 @@ app.factory('BulkMessageActivity', ['$resource', 'API_END_POINT',
       }
     });
   }]);
-

@@ -57,7 +57,11 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
     }).$promise.then(function(results) {
       scope.loading = undefined;
       console.log(results)
-      scope.activity = results.message_activity;
+      if ($routeParams.message_id) {
+        scope.activity = results.message_activity;
+      } else {
+        scope.activity = results;
+      }
     });
     scope.loading = undefined;
 
