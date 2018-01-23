@@ -29,71 +29,96 @@
     </md-toolbar>
 
     <md-card-content>
-      {{ message }}
+      <div><b>message stuff:</b></div>
+      <div>{{message.to_name}}</div>
+      <div>{{message.to_email}}</div>
+      <div>{{message.client_mac}}</div>
+      <div>{{message.from_name}}</div>
+      <div>{{message.from_email}}</div>
+      <div>{{message.subject}}</div>
+      <div>{{message.content}}</div>
     </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <div flex></div>
+        <md-menu ng-if="selected.length">
+          <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-fab md-mini md-warn" ng-click="$mdOpenMenu($event)">
+            <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+          </md-button>
+          <md-menu-content width="4" >
+            <md-menu-item>
+              <md-button ng-click="deleteDevices()">
+                <md-icon>delete_forever</md-icon>
+            <p flex translate>Delete Devices</p>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+    </md-toolbar>
+
     <md-card-content>
-      {{ activity }}
+      <div><b>activity stuff:</b></div>
+      <md-table-container>
+        <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-column md-order-by="description" md-desc>
+                <span translate>
+                  Created at
+                </span>
+              </th>
+              <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Event</span></th>
+              <th md-column><span translate>Message ID</span></th>
+              <th md-column><span translate>Person ID</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="activity in filtered = ( activity | filter: filter | orderBy: query.order)">
+              <td md-cell>
+                <a ng-click="query(message.person_id)">
+                  {{ activity.created_at | humanTime }}
+                </a>
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ activity.event | titleCase }}
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ activity.message_id }}
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ activity.person_id }}
+              </td>
+              <td md-cell>
+                <md-menu>
+                  <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                  </md-button>
+                  <md-menu-content width="3" >
+                    <md-menu-item>
+                      <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
+                        <md-icon>pageview</md-icon>
+                    <p flex translate>View</p>
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-repeat="item in menuItems">
+                      <md-button ng-click="action(box,item.type)" ng-disabled="{{ disabled(box,item.type) }}">
+                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
+                        <p flex>{{ ::item.name }}</p>
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
     </md-card-content>
-      <!-- <md-table-container> -->
-      <!--   <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise"> -->
-      <!--     <thead md-head md-order="query.order" md-on-reorder="logOrder"> -->
-      <!--       <tr md-row> -->
-      <!--         <th md-column md-order-by="description" md-desc> -->
-      <!--           <span translate> -->
-      <!--             Recipient -->
-      <!--           </span> -->
-      <!--         </th> -->
-      <!--         <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Content</span></th> -->
-      <!--         <th md-column><span translate>Person ID</span></th> -->
-      <!--         <th md-column><span translate>Date Sent</span></th> -->
-      <!--       </tr> -->
-      <!--     </thead> -->
-      <!--     <tbody md-body> -->
-      <!--       <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="message in filtered = ( messages | filter: filter | orderBy: query.order)"> -->
-      <!--         <td md-cell> -->
-      <!--           <a ng-click="query(message.person_id)"> -->
-      <!--             {{ message.to_email }}</span> -->
-      <!--           </a> -->
-      <!--         </td> -->
-      <!--         <td hide show-gt-xs md-cell> -->
-      <!--           {{ message.subject | truncate:50 }} -->
-      <!--         </td> -->
-      <!--         <td hide show-gt-xs md-cell> -->
-      <!--           {{ message.person_id }} -->
-      <!--         </td> -->
-      <!--         <td hide show-gt-xs md-cell> -->
-      <!--           {{ message.message_id }} -->
-      <!--         </td> -->
-      <!--         <td hide show-gt-xs md-cell> -->
-      <!--           {{ message.created_at | humanTime }} -->
-      <!--         </td> -->
-      <!--         <td md-cell> -->
-      <!--           <md-menu> -->
-      <!--             <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)"> -->
-      <!--               <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon> -->
-      <!--             </md-button> -->
-      <!--             <md-menu-content width="3" > -->
-      <!--               <md-menu-item> -->
-      <!--                 <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}"> -->
-      <!--                   <md-icon>pageview</md-icon> -->
-      <!--               <p flex translate>View</p> -->
-      <!--                 </md-button> -->
-      <!--               </md-menu-item> -->
-      <!--               <md-menu-item ng-repeat="item in menuItems"> -->
-      <!--                 <md-button ng-click="action(box,item.type)" ng-disabled="{{ disabled(box,item.type) }}"> -->
-      <!--                   <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon> -->
-      <!--                   <p flex>{{ ::item.name }}</p> -->
-      <!--                 </md-button> -->
-      <!--               </md-menu-item> -->
-      <!--             </md-menu-content> -->
-      <!--           </md-menu> -->
-      <!--         </td> -->
-      <!--       </tr> -->
-      <!--     </tbody> -->
-      <!--   </table> -->
-      <!-- </md-table-container> -->
-    </md-card-content>
-    <!-- <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination> -->
+    <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
 
   </md-card>
   </div>

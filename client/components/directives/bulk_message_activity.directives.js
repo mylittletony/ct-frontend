@@ -6,59 +6,39 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
 
   var link = function( scope, element, attrs ) {
 
-    // var person = {};
-    //
-    // var fetchPerson = function() {
-    //   People.query({location_id: $routeParams.id, id: $routeParams.person_id}).$promise.then(function(res) {
-    //     person = res;
-    //     fetchMessages();
-    //   }, function(err) {
-    //     console.log(err);
-    //   });
-    // };
-    //
-    // var fetchMessages = function() {
-    //
-    //   BulkMessage.index({}, {
-    //     person_id:    person.id || $routeParams.person_id,
-    //     location_id:  $routeParams.id,
-    //     start:        $routeParams.start,
-    //     end:          $routeParams.end
-    //   }).$promise.then(function(results) {
-    //     scope.loading = undefined;
-    //     scope.messages = results.messages;
-    //   });
-    // };
-    //
-    // scope.query = function(person_id) {
-    //   var hash            = {};
-    //   hash.person_id      = person_id;
-    //   hash.per            = $routeParams.per || 100;
-    //   hash.start          = $routeParams.start;
-    //   hash.end            = $routeParams.end;
-    //   $location.search(hash);
-    //   fetchMessages();
-    // };
-    //
-    // if ($routeParams.person_slug) {
-    //   fetchPerson();
-    // } else {
-    //   fetchMessages();
-    // }
+    scope.location = {slug: $routeParams.id};
+    scope.person = {slug: $routeParams.person_slug};
 
-    console.log($routeParams.message_id);
+    var fetchMessageActivity = function() {
+      BulkMessageActivity.index({}, {
+        location_id:  scope.location.slug,
+        start:        $routeParams.start,
+        end:          $routeParams.end,
+        message_id:   $routeParams.message_id,
+        person_id:    scope.person.id
+      }).$promise.then(function(results) {
+        scope.loading = undefined;
+        scope.activity = results.activity;
+      });
+    }
 
-    BulkMessageActivity.index({}, {
-      location_id:  $routeParams.id,
-      start:        $routeParams.start,
-      end:          $routeParams.end,
-      message_id:   $routeParams.message_id,
-      person_id:    $routeParams.person_id
-    }).$promise.then(function(results) {
-      scope.loading = undefined;
-      scope.activity = results.message_activity;
-    });
-    scope.loading = undefined;
+    var fetchPerson = function() {
+      People.query({}, {
+          location_id: scope.location.slug,
+          id: $routeParams.person_slug
+        }).$promise.then(function(res) {
+        scope.person = res;
+        fetchMessageActivity();
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    if ($routeParams.person_slug) {
+      fetchPerson();
+    } else {
+      fetchMessageActivity();
+    }
 
   };
 

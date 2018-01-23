@@ -17,14 +17,22 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
   function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, locationHelper, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, $mdDialog) {
 
-    var domain = 'ctapp.io';
+    var domain = 'mimo.today';
 
-    $scope.commit     = COMMITHASH;
-    $scope.ct_login   = CTLogin;
+    $scope.commit = COMMITHASH;
+    $scope.ct_login = CTLogin;
 
     $scope.home = function() {
       if ($routeParams.id) {
         $location.path('/' + $routeParams.id);
+      } else {
+        $location.path('/');
+      }
+    };
+
+    $scope.settings = function() {
+      if ($routeParams.id) {
+        $location.path('/' + $routeParams.id + '/settings');
       } else {
         $location.path('/');
       }
@@ -88,42 +96,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     //     fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
     //   });
     // };
-
-    function TrialController($scope, $mdDialog, $sce, offer) {
-      $scope.offer = $sce.trustAsHtml(offer);
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-
-      $scope.upgrade = function() {
-        $mdDialog.hide();
-        $location.path('/users/' + Auth.currentUser().slug + '/billing');
-        $location.search({trial: 'y'});
-      };
-    }
-
-    vm.showUpgrade = function() {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'components/views/main/upgrade.tmpl.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose:true,
-        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-      });
-    };
-
-    function DialogController($scope, $mdDialog) {
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-
-      $scope.upgrade = function() {
-        $mdDialog.hide();
-        $location.path('/users/' + Auth.currentUser().slug + '/billing');
-      };
-    }
-
-    $scope.toggleOpen = toggleOpen;
 
     $scope.$on('logout', function(args) {
       logout().then(function(response) {
@@ -209,36 +181,15 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       }
     });
 
-    // function promos() {
-    //   User.promos({}, {
-    //     action: 'promos',
-    //     id: Auth.currentUser().slug
-    //   }).$promise.then(function(results) {
-    //     vm.promos = results;
-    //   }, function() {
-    //     if (Auth.currentUser().paid_plan !== true) {
-    //       vm.upgrade = true;
-    //     }
-    //   });
-    // }
-
     function menuPush() {
       if (vm.menu.main.length === 0) {
-
         vm.menuRight.push({
           name: gettextCatalog.getString('Profile'),
           link: '/#/me',
           type: 'link',
           icon: 'face'
         });
-
       }
-
-      // if (Auth.currentUser().promo !== '' && Auth.currentUser().promo !== null && Auth.currentUser().promo !== undefined) {
-      //   promos();
-      // } else if (Auth.currentUser().paid_plan !== true) {
-      //   vm.upgrade = true;
-      // }
     }
 
     var setDefaultImages = function(sub) {
@@ -289,20 +240,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $scope.logout = function() {
       Auth.logout();
     };
-
-    // $scope.onlineStatus = onlineStatus;
-    // if ( $scope.loggedIn ) {
-      // $scope.$watch('onlineStatus.isOnline()', function(online) {
-      //   $scope.online_status_string = online ? 'online' : 'offline';
-      //   if ($scope.online_status_string === 'offline') {
-      //     $scope.open('md');
-      //   } else if ($scope.online_status_string === 'online' ){
-      //     // if ($scope.modalInstance !== undefined) {
-      //     //   $scope.modalInstance.close();
-      //     // }
-      //   }
-      // });
-    // }
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       routeChangeStart();

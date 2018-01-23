@@ -268,13 +268,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/settings/integration', {
+    when('/:id/settings/integrations', {
       templateUrl: 'components/locations/settings/integration.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/settings/device_list', {
       templateUrl: 'components/locations/show/_index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/settings/campaigns', {
+      templateUrl: 'components/locations/settings/campaigns.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
@@ -426,7 +431,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/people/bulk_message_activity', {
+    when('/:id/people/messages/:message_id', {
+      templateUrl: 'components/views/bulk_messages/show.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/people/message_activity', {
       templateUrl: 'components/views/bulk_message_activity/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }

@@ -17,19 +17,6 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
       });
     };
 
-    scope.compose = function(ev) {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'components/views/bulk_messages/_compose.tmpl.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      })
-        .then(function(answer) {
-        }, function() {
-        });
-    };
-
     function DialogController($scope, $mdDialog) {
 
       scope.message = {};
@@ -62,6 +49,19 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
       };
     }
 
+    scope.compose = function(ev) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'components/views/bulk_messages/_compose.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      })
+        .then(function(answer) {
+        }, function() {
+        });
+    };
+
   };
 
   var template =
@@ -78,26 +78,27 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
 
   var link = function( scope, element, attrs ) {
 
-    var person = {};
-
-    var fetchPerson = function() {
-      People.query({location_id: $routeParams.id, id: $routeParams.person_id}).$promise.then(function(res) {
-        person = res;
-        fetchMessages();
-      }, function(err) {
-        console.log(err);
-      });
-    };
+    scope.person = {};
+    scope.location = {slug: $routeParams.id};
 
     var fetchMessages = function() {
       BulkMessage.index({}, {
-        person_id:    person.id || $routeParams.person_id,
-        location_id:  $routeParams.id,
+        person_id:    scope.person.id || $routeParams.person_id,
+        location_id:  scope.location.slug,
         start:        $routeParams.start,
         end:          $routeParams.end
       }).$promise.then(function(results) {
         scope.loading = undefined;
         scope.messages = results.messages;
+      });
+    };
+
+    var fetchPerson = function() {
+      People.query({location_id: scope.location.slug, id: $routeParams.person_slug}).$promise.then(function(res) {
+        scope.person = res;
+        fetchMessages();
+      }, function(err) {
+        console.log(err);
       });
     };
 
@@ -150,7 +151,7 @@ app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageAct
         message_id: scope.message.message_id
       }).$promise.then(function(results) {
         scope.loading = undefined;
-        scope.activity = results.message_activity;
+        scope.activity = results.activity;
       });
     };
 
@@ -164,16 +165,6 @@ app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageAct
         activity();
       });
     };
-
-    // scope.query = function(person_id) {
-    //   var hash            = {};
-    //   hash.person_id      = person_id;
-    //   hash.per            = $routeParams.per || 100;
-    //   hash.start          = $routeParams.start;
-    //   hash.end            = $routeParams.end;
-    //   $location.search(hash);
-    //   fetchMessages();
-    // };
 
     init();
 
