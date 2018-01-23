@@ -8,16 +8,14 @@ app.factory('BulkMessageActivity', ['$resource', 'API_END_POINT',
       {
         q: '@q',
         location_id: '@location_id',
+        person_id: '@person_id',
+        message_id: '@message_id'
       },
       {
       index: {
         method: 'GET',
         isArray: false,
-        dataType: 'json',
-        params: {
-          q: '@q',
-          location_id: '@location_id'
-        }
+        dataType: 'json'
       },
     });
   }]);

@@ -88,7 +88,6 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
     };
 
     var fetchMessages = function() {
-
       BulkMessage.index({}, {
         person_id:    person.id || $routeParams.person_id,
         location_id:  $routeParams.id,
@@ -116,14 +115,14 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
       fetchMessages();
     }
 
-    BulkMessageActivity.index({}, {
-      location_id:  $routeParams.id,
-      start:        $routeParams.start,
-      end:          $routeParams.end
-    }).$promise.then(function(results) {
-      scope.loading = undefined;
-      console.log(results)
-    });
+    // BulkMessageActivity.index({}, {
+    //   location_id:  $routeParams.id,
+    //   start:        $routeParams.start,
+    //   end:          $routeParams.end
+    // }).$promise.then(function(results) {
+    //   scope.loading = undefined;
+    //   console.log(results)
+    // });
 
   };
 
@@ -133,6 +132,58 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
       loading: '='
     },
     templateUrl: 'components/views/bulk_messages/_index.html'
+  };
+
+}]);
+
+app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
+
+  var link = function( scope, element, attrs ) {
+
+    var person = {};
+
+    var activity = function() {
+      BulkMessageActivity.index({}, {
+        location_id:  $routeParams.id,
+        message_id: scope.message.message_id
+      }).$promise.then(function(results) {
+        scope.loading = undefined;
+        scope.activity = results.message_activity;
+        console.log(results)
+      });
+    }
+
+    var init = function() {
+      BulkMessage.get({}, {
+        message_id:   $routeParams.message_id,
+        location_id:  $routeParams.id,
+      }).$promise.then(function(results) {
+        scope.loading = undefined;
+        scope.message = results;
+        activity();
+      });
+    };
+
+    // scope.query = function(person_id) {
+    //   var hash            = {};
+    //   hash.person_id      = person_id;
+    //   hash.per            = $routeParams.per || 100;
+    //   hash.start          = $routeParams.start;
+    //   hash.end            = $routeParams.end;
+    //   $location.search(hash);
+    //   fetchMessages();
+    // };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/bulk_messages/_show.html'
   };
 
 }]);
