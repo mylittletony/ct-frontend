@@ -431,11 +431,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/people/message_activity/:message_id', {
-      templateUrl: 'components/views/bulk_message_activity/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/:id/people/:person_id', {
       templateUrl: 'components/locations/people/show.html',
       controller: 'LocationsCtrl as lc',
@@ -452,11 +447,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/people/:person_slug/message_activity', {
-      templateUrl: 'components/views/bulk_message_activity/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/:id/people/:person_slug/message_activity/:message_id', {
       templateUrl: 'components/views/bulk_message_activity/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
