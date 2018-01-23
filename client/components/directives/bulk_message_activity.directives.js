@@ -46,8 +46,6 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
     //   fetchMessages();
     // }
 
-    console.log($routeParams.message_id);
-
     BulkMessageActivity.index({}, {
       location_id:  $routeParams.id,
       start:        $routeParams.start,
@@ -56,7 +54,7 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
       person_id:    $routeParams.person_id
     }).$promise.then(function(results) {
       scope.loading = undefined;
-      scope.activity = results.message_activity;
+      scope.activity = results.activity
     });
     scope.loading = undefined;
 
