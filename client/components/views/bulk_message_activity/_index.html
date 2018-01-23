@@ -40,7 +40,6 @@
               </th>
               <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Event</span></th>
               <th md-column><span translate>Message ID</span></th>
-              <th md-column><span translate>Person ID</span></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -54,9 +53,6 @@
               <td hide show-gt-xs md-cell>
                 <a href="/#/{{location.slug}}/people/{{person.slug ? person.slug + '/' : ''}}messages/{{activity.message_id}}">{{ activity.message_id }}</a>
               </td>
-              <td hide show-gt-xs md-cell>
-                {{ activity.person_id }}
-              </td>
               <td md-cell>
                 <md-menu>
                   <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -64,15 +60,9 @@
                   </md-button>
                   <md-menu-content width="3" >
                     <md-menu-item>
-                      <md-button href="/#/locations/{{ location.slug }}/devices/{{ box.slug }}">
+                      <md-button href="/#/{{location.slug}}/people/{{person.slug ? person.slug + '/' : ''}}messages/{{activity.message_id}}">
                         <md-icon>pageview</md-icon>
                     <p flex translate>View</p>
-                      </md-button>
-                    </md-menu-item>
-                    <md-menu-item ng-repeat="item in menuItems">
-                      <md-button ng-click="action(box,item.type)" ng-disabled="{{ disabled(box,item.type) }}">
-                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
-                        <p flex>{{ ::item.name }}</p>
                       </md-button>
                     </md-menu-item>
                   </md-menu-content>
