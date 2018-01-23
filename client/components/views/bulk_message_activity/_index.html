@@ -46,15 +46,13 @@
           <tbody md-body>
             <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="activity in filtered = ( activity | filter: filter | orderBy: query.order)">
               <td md-cell>
-                <a ng-click="query(message.person_id)">
-                  {{ activity.created_at | humanTime }}
-                </a>
+                {{ activity.created_at | humanTime }}
               </td>
               <td hide show-gt-xs md-cell>
                 {{ activity.event | titleCase }}
               </td>
               <td hide show-gt-xs md-cell>
-                {{ activity.message_id }}
+                <a href="/#/{{location.slug}}/people/{{person.slug ? person.slug + '/' : ''}}messages/{{activity.message_id}}">{{ activity.message_id }}</a>
               </td>
               <td hide show-gt-xs md-cell>
                 {{ activity.person_id }}

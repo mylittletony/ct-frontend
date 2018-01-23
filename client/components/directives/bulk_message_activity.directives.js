@@ -6,8 +6,11 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
 
   var link = function( scope, element, attrs ) {
 
+    scope.location = {slug: $routeParams.id};
+    scope.person = {slug: $routeParams.person_slug};
+
     BulkMessageActivity.index({}, {
-      location_id:  $routeParams.id,
+      location_id:  scope.location.slug,
       start:        $routeParams.start,
       end:          $routeParams.end,
       message_id:   $routeParams.message_id,
