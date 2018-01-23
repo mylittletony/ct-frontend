@@ -29,7 +29,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
     };
 
     function DialogController($scope, $mdDialog) {
-      
+
       scope.message = {}
 
       $scope.selectedIndex = 0;
@@ -62,12 +62,51 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
   };
 
-  var template = 
-    '<div><md-button ng-click="compose()" class=\'md-raised md-primary\'>SEND</md-button></div>'
+  var template =
+    '<div><md-button ng-click="compose()" class=\'md-raised md-primary\'>SEND</md-button></div>';
 
   return {
     link: link,
     template: template
-  }
+  };
+
+}]);
+
+app.directive('bulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$location', function($routeParams,BulkMessage,$mdDialog,$location) {
+
+  var link = function( scope, element, attrs ) {
+
+    var init = function() {
+      BulkMessage.index({}, {
+        q:            $routeParams.q,
+        location_id:  $routeParams.id,
+        start:        $routeParams.start,
+        end:          $routeParams.end
+      }).$promise.then(function(results) {
+        scope.loading = undefined;
+        scope.messages = results.messages;
+      });
+    };
+
+    scope.query = function(query) {
+      var hash            = {};
+      hash.q              = query;
+      hash.per            = $routeParams.per || 100;
+      hash.start          = $routeParams.start;
+      hash.end            = $routeParams.end;
+      $location.search(hash);
+      init();
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/bulk_messages/_index.html'
+  };
 
 }]);
