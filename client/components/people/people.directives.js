@@ -144,3 +144,32 @@ app.directive('peopleNav', [function() {
   };
 
 }]);
+
+app.directive('peopleReports', ['People', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+    scope.currentNavItem = 'people';
+
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        scope.loading = undefined;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/people/_reports.html'
+  };
+
+}]);
