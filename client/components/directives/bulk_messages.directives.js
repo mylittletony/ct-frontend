@@ -72,7 +72,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
 }]);
 
-app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
+app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,People,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
@@ -115,6 +115,15 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'BulkMessageActivi
     } else {
       fetchMessages();
     }
+
+    BulkMessageActivity.index({}, {
+      location_id:  $routeParams.id,
+      start:        $routeParams.start,
+      end:          $routeParams.end
+    }).$promise.then(function(results) {
+      scope.loading = undefined;
+      console.log(results)
+    });
 
   };
 
