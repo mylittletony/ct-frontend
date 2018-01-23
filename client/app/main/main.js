@@ -274,7 +274,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/settings/device_list', {
-      templateUrl: 'components/locations/settings/device_list.html',
+      templateUrl: 'components/locations/show/_index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).

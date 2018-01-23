@@ -985,6 +985,16 @@ location-boxes table {
   -webkit-text-fill-color: transparent!important;
 }
 
+.top-nav .md-active {
+  border-bottom: 3px solid #EF476F;
+  -moz-border-image: -moz-linear-gradient(80deg, #EF476F 10%, #F78C6B 100%);
+  -webkit-border-image: -webkit-linear-gradient(80deg, #EF476F 10%, #F78C6B 100%);
+  border-image: linear-gradient(80deg, #EF476F 10%, #F78C6B 100%);
+  border-image-slice: 1;
+  padding-bottom: 9px!important;
+}
+
+
 
 /*toast text style*/
 

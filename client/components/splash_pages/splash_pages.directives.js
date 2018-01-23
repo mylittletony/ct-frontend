@@ -12,7 +12,7 @@ app.directive('listSplash', ['Location', 'SplashPage', '$routeParams', '$locatio
       console.log(err);
     });
 
-    scope.currentNavItem = 'splash'
+    scope.currentNavItem = 'splash';
 
     scope.location = { slug: $routeParams.id };
 
