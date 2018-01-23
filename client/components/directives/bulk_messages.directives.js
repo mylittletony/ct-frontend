@@ -9,6 +9,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
     var send = function(message) {
       BulkMessage.create({}, {
         location_id: $routeParams.id,
+        person_id: $routeParams.person_id,
         bulk_message: message
       }).$promise.then(function(msg) {
         showToast('Message queued, please wait.');
