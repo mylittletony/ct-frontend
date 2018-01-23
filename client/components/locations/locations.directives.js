@@ -1227,539 +1227,131 @@ app.directive('newLocationCreating', ['Location', '$location', function(Location
 //   };
 // }]);
 
-// app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
-
-//   var link = function( scope, element, attrs ) {
-//     scope.selected = [];
-//     scope.location = {
-//       slug: $routeParams.id
-//     };
-
-//     // User Permissions //
-//     var createMenu = function() {
-
-//       scope.menuItems = [];
-
-//       scope.menuItems.push({
-//         name: gettextCatalog.getString('Delete'),
-//         type: 'delete',
-//         icon: 'delete_forever'
-//       });
-//     };
-
-//     createMenu();
-
-//     scope.options = {
-//       boundaryLinks: false,
-//       pageSelector: false,
-//       rowSelection: true
-//     };
-
-//     scope.pagination_labels = pagination_labels;
-//     scope.query = {
-//       order:          '-last_heartbeat',
-//       limit:          $routeParams.per || 25,
-//       page:           $routeParams.page || 1,
-//       options:        [5,10,25,50,100],
-//       direction:      $routeParams.direction || 'desc'
-//     };
-
-//     scope.onPaginate = function (page, limit) {
-//       scope.query.page = page;
-//       scope.query.limit = limit;
-//       search();
-//     };
-
-//     var search = function() {
-//       var hash            = {};
-//       hash.page           = scope.query.page;
-//       hash.per            = scope.query.limit;
-//       $location.search(hash);
-//       init();
-//     };
-
-//     scope.disabled = function(box,type) {
-//       if (type === 'edit' || type === 'delete' || type === 'view' || type === 'zones') {
-//         return false;
-//       } else if (type === 'ignore' && !box.allowed_job) {
-//         return false;
-//       } else {
-//         return !box.allowed_job;
-//       }
-//     };
-
-//     scope.action = function(box,type) {
-//       switch(type) {
-//         case 'reboot':
-//           reboot(box, 1);
-//           break;
-//         case 'payload':
-//           payload(box);
-//           break;
-//         case 'zones':
-//           zones(box);
-//           break;
-//         case 'resync':
-//           resync(box);
-//           break;
-//         case 'delete':
-//           destroy(box);
-//           break;
-//         case 'edit':
-//           edit(box.slug);
-//           break;
-//         default:
-//       }
-//     };
-
-//     scope.allowedMenu = function(box) {
-//       return !box.allowed_job;
-//     };
-
-//     var reboot = function(box,ev) {
-//       var confirm = $mdDialog.confirm()
-//         .title(gettextCatalog.getString('Would you like to reboot this device?'))
-//         .textContent(gettextCatalog.getString('Rebooting will disconnect your clients.\nA reboot takes about 60 seconds to complete'))
-//         .ariaLabel(gettextCatalog.getString('Lucky day'))
-//         .targetEvent(ev)
-//         .ok(gettextCatalog.getString('Reboot it'))
-//         .cancel(gettextCatalog.getString('Cancel'));
-//       $mdDialog.show(confirm).then(function() {
-//         rebootBox(box);
-//       });
-//     };
-
-//     var rebootBox = function(box) {
-//       box.state = 'processing';
-//       box.allowed_job = false;
-
-//       Box.update({id: box.slug, box: {action: 'reboot'}}).$promise.then(function(results) {
-//         box.state = 'rebooting';
-//         showToast(gettextCatalog.getString('Box successfully rebooted.'));
-//       }, function(errors) {
-//         showToast(gettextCatalog.getString('Failed to reboot box, please try again.'));
-//         console.log('Could not reboot box:', errors);
-//         box.state = 'online';
-//         box.processing = undefined;
-//       });
-//     };
-
-//     var destroy = function(box,ev) {
-//       var confirm = $mdDialog.confirm()
-//         .title(gettextCatalog.getString('Delete This Device Permanently?'))
-//         .textContent(gettextCatalog.getString('Please be careful, this cannot be reversed.'))
-//         .ariaLabel(gettextCatalog.getString('Lucky day'))
-//         .targetEvent(ev)
-//         .ok(gettextCatalog.getString('Delete it'))
-//         .cancel(gettextCatalog.getString('Cancel'));
-//       $mdDialog.show(confirm).then(function() {
-//         deleteBox(box);
-//         showToast(gettextCatalog.getString('Deleted device with mac {{address}}', {address: box.calledstationid}));
-//       });
-//     };
-
-//     var deleteBox = function(box) {
-//       box.processing  = true;
-//       box.allowed_job = false;
-//       Box.destroy({id: box.slug}).$promise.then(function(results) {
-//         removeFromList(box);
-//       }, function(errors) {
-//         box.processing  = undefined;
-//         showToast(gettextCatalog.getString('Failed to delete this box, please try again.'));
-//         console.log('Could not delete this box:', errors);
-//       });
-//     };
-
-//     var payload = function(box,event) {
-//       scope.selected.push(box);
-//       scope.showPayloadDialog(event);
-//     };
-
-//     var closeDialog = function() {
-//       $mdDialog.cancel();
-//     };
-
-//     function DialogController($scope, items) {
-//       $scope.items = items;
-//       $scope.cancel = function() {
-//         $mdDialog.cancel();
-//       };
-//       $scope.runCommand = function(command) {
-//         runCommand(command);
-//       };
-//     }
-//     DialogController.$inject = ['$scope', 'items'];
-
-//     scope.showPayloadDialog = function(ev) {
-//       $mdDialog.show({
-//         templateUrl: 'components/locations/boxes/dialog.html',
-//         parent: angular.element(document.body),
-//         targetEvent: ev,
-//         clickOutsideToClose:true,
-//         locals: {
-//           items: scope.selected // not working
-//         },
-//         controller: DialogController
-//       });
-//     };
-
-//     var selection = [];
-//     var formatIds = function() {
-//       angular.forEach(scope.selected, function(k,v) {
-//         selection.push(k.slug);
-//         k.processing = true;
-//       });
-//     };
-
-//     var createPayload = function(ids, command) {
-//       LocationPayload.create({}, {
-//         location_id: scope.location.slug,
-//         payload: {
-//           save:       command.save,
-//           box_ids:    ids,
-//           command_id: command.selected,
-//           upgrade:    command.upgrade
-//         }
-//       }).$promise.then(function() {
-//         closeDialog();
-//         selection = [];
-//         scope.selected = [];
-//         showToast(gettextCatalog.getString('Payload sent successfully.'));
-//       }, function(errors) {
-//         closeDialog();
-//         showToast(gettextCatalog.getString('Payload could not be sent.'));
-//       });
-//     };
-
-//     var runCommand = function(command) {
-//       formatIds();
-//       if (selection.length > 0) {
-//         createPayload(selection, command);
-//       } else {
-//         closeDialog();
-//       }
-//     };
-
-//     scope.addDevice = function() {
-//       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
-//     };
-
-//     scope.deleteDevices = function() {
-//       var confirm = $mdDialog.confirm()
-//         .title(gettextCatalog.getString('Are you sure you want to delete these devices?'))
-//         .textContent(gettextCatalog.getString('This cannot be undone.'))
-//         .ariaLabel(gettextCatalog.getString('Delete'))
-//         .ok(gettextCatalog.getString('delete'))
-//         .cancel(gettextCatalog.getString('Cancel'));
-//       $mdDialog.show(confirm).then(function() {
-//         deleteDevices();
-//       });
-
-//     };
-
-//     var deleteDevices = function(ev) {
-//       for (var i = 0, len = scope.selected.length; i < len; i++) {
-//         deleteBox(scope.selected[i]);
-//         var devices = 'devices';
-//         if (scope.selected.length === 1) {
-//           devices = 'device';
-//         }
-//         showToast(gettextCatalog.getPlural(scope.selected.length,'Deleted 1 device', 'Deleted {{$count}} devices', {}));
-//       }
-//     };
-
-//     var removeFromList = function(box) {
-//       scope.selected = [];
-//       for (var i = 0, len = scope.boxes.length; i < len; i++) {
-//         if (scope.boxes[i].id === box.id) {
-//           if (!scope.selected.length) {
-//           }
-//           scope.boxes.splice(i, 1);
-//           break;
-//         }
-//       }
-//     };
-
-//     var zones = function(box) {
-//       scope.selected.push(box);
-//       scope.showZonesDialog();
-//     };
-
-//     scope.showZonesDialog = function(ev) {
-//       $mdDialog.show({
-//         templateUrl: 'components/locations/boxes/zones.html',
-//         parent: angular.element(document.body),
-//         targetEvent: ev,
-//         clickOutsideToClose:true,
-//         controller: ZonesDialogController,
-//         locals: {
-//           selected: scope.selected
-//         }
-//       });
-//     };
-
-//     function ZonesDialogController($scope,selected) {
-
-//       $scope.loading = true;
-//       $scope.selected = selected;
-//       var t = {}, a = [];
-
-//       Zone.get({location_id: scope.location.slug}).$promise.then(function(results) {
-
-//         $scope.zones = results.zones;
-
-//         if (results.zones.length) {
-//           // Must be called remove !! //
-//           var z = { id: 'remove', zone_name: gettextCatalog.getString('No Zone') };
-
-//           results.zones.unshift(z);
-
-//           // Loop through the zones so we can set the zone_id for display //
-//           for(var i = 0, l = $scope.selected.length; i < l; ++i){
-//             var n, id;
-//             if ($scope.selected[i].zone_name) {
-//               n  = $scope.selected[i].metadata.zone_name;
-//               id = $scope.selected[i].zone_id;
-//             } else {
-//               n = 'null';
-//               id = 'remove';
-//             }
-
-//             if (t[n] !== 1) {
-//               t[n] = 1;
-//               a.push(id);
-//             }
-//           }
-
-//           if (a.length === 1) {
-//             $scope.zone_id = a[0];
-//           }
-//         }
-
-//         $scope.loading = undefined;
-
-//       }, function() {
-//         $scope.loading = undefined;
-//       });
-
-//       $scope.createZone = function() {
-//         $mdDialog.cancel();
-//         window.location.href = '/#/locations/' + scope.location.slug + '/zones?add=true';
-//       };
-
-//       $scope.cancel = function() {
-//         $mdDialog.cancel();
-//       };
-
-//       $scope.execute = function(zone_id) {
-//         $mdDialog.cancel();
-//         editZones($scope.zones,zone_id);
-//       };
-
-//     }
-//     ZonesDialogController.$inject = ['$scope', 'selected'];
-
-//     var editZones = function(zones,zone_id) {
-
-//       // Loop through the zones so we can update the metadata //
-//       var len, zone_name, i;
-//       if (zone_id !== 'remove') {
-//         for (i = 0, len = zones.length; i < len; i++) {
-//           if (zones[i].id === zone_id) {
-//             zone_name = zones[i].zone_name;
-//             break;
-//           }
-//         }
-//       }
-
-//       // Loop through the selected boxes and update //
-//       for (i = 0, len = scope.selected.length; i < len; i++) {
-//         var box = scope.selected[i];
-//         // if (box.metadata === undefined) {
-//         //   box.metadata = {};
-//         // }
-//         box.zone_name = zone_name;
-//         box.zone_id = zone_id;
-//         updateZone(box);
-//       }
-
-//       // Write a message to the screen, yeah //
-//       var devices = gettextCatalog.getString('device zones'),
-//         selectedLength = scope.selected.length;
-//       if (scope.selected.length === 1) {
-//         devices = gettextCatalog.getString('device zone');
-//       }
-//       showToast(gettextCatalog.getPlural(scope.selected.length, '1 device zone', '{{$count}} device zones'));
-//       scope.selected = [];
-//     };
-
-//     var edit = function(slug) {
-//       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + slug + '/edit';
-//     };
-
-//     var view = function(slug) {
-//       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/' + slug;
-//     };
-
-//     var updateZone = function(box) {
-//       if (box.zone_id === 'remove') {
-//         box.zone_id = ''; // Must not be undefined
-//       }
-//       Box.update({
-//         location_id: scope.location.slug,
-//         id: box.slug,
-//         box: {
-//           zone_id: box.zone_id
-//         }
-//       }).$promise.then(function(res) {
-//       }, function(errors) {
-//         // showErrors(errors);
-//       });
-//     };
-
-//     var update = function(box) {
-//       Box.update({
-//         location_id: scope.location.slug,
-//         id: box.slug,
-//         box: {
-//           description: box.description
-//         }
-//       }).$promise.then(function(res) {
-//         showToast(gettextCatalog.getString('Device description updated.'));
-//       }, function(errors) {
-//         showErrors(errors);
-//       });
-//     };
-
-//     var assignClientCounts = function(data) {
-//       scope.total_online = 0;
-//       for (var i = 0, len = data.meta.length; i < len; i++) {
-//         var metaObject = data.meta[i];
-//         for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
-//           if (scope.boxes[j].calledstationid === metaObject.ap_mac) {
-//             scope.boxes[j].clients_online = metaObject.clients;
-//             scope.total_online += metaObject.clients;
-//           }
-//         }
-//       }
-//     };
-
-//     var assignDeviceChannels = function(data) {
-//       for (var i = 0, len = data.meta.length; i < len; i++) {
-//         var metaObject = data.meta[i];
-//         for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
-//           if (metaObject.ssids && scope.boxes[j].calledstationid === metaObject.ap_mac) {
-//             scope.boxes[j].channel = metaObject.ssids[0].channel;
-//           }
-//         }
-//       }
-//     };
-
-//     var boxMetadata = function() {
-//       scope.box_macs = '';
-//       for (var i = 0, len = scope.boxes.length; i < len; i++) {
-//         if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
-//           scope.box_macs += scope.boxes[i].calledstationid;
-//           scope.box_macs += ',';
-//         }
-//       }
-//       scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
-//       Metric.clientstats({
-//         type:         'devices.meta',
-//         ap_mac:       scope.box_macs,
-//         location_id:  scope.boxes[0].location_id
-//       }).$promise.then(function(data) {
-//         assignClientCounts(data);
-//         assignDeviceChannels(data);
-//       });
-//     };
-
-
-//     var channel;
-//     function loadPusher() {
-//       if (scope.pusherLoaded === undefined && typeof client !== 'undefined') {
-//         scope.pusherLoaded = true;
-//         var pusher = $pusher(client);
-//         channel = pusher.subscribe('private-' + attrs.token);
-//         console.log('Binding to:', channel.name);
-//         for( var i = 0; i < scope.boxes.length; ++i ) {
-//           channelBind(i);
-//         }
-//       }
-//     }
-
-//     var channelBind = function(i) {
-//       channel.bind('boxes_' + scope.boxes[i].pubsub_token, function(data) {
-//         updateBox(data.message);
-//       });
-//     };
-
-//     var updateBox = function(data) {
-//       data = JSON.parse(data);
-//       angular.forEach(scope.boxes, function(value, key) {
-//         if (parseInt(data.id) === value.id) {
-//           var box = scope.boxes[key];
-//           box.calledstationid = data.calledstationid;
-//           // box.wan_proto       = data.wan_proto;
-//           box.description     = data.description;
-//           box.last_heartbeat  = data.last_heartbeat;
-//           box.state           = data.state;
-//           box.wan_ip          = data.wan_ip;
-//           scope.boxes[key]    = box;
-//           console.log('Updated', box.pubsub_token + ' at ' + new Date().getTime());
-//         }
-//       });
-//     };
-
-//     var init = function() {
-//       scope.deferred = $q.defer();
-//       Box.query({
-//         location_id: scope.location.slug,
-//         page: scope.query.page,
-//         per:  scope.query.limit,
-//         metadata: true
-//       }).$promise.then(function(results) {
-//         scope.boxes           = results.boxes;
-//         scope._links          = results._links;
-//         scope.loading         = undefined;
-//         boxMetadata();
-//         scope.deferred.resolve();
-//       }, function(err) {
-//         scope.loading = undefined;
-//       });
-//       return scope.deferred.promise;
-//     };
-
-//     // We've remove the pusher notifications since the volume was getting too high
-//     var poller;
-//     var poll = function() {
-//       poller = $timeout(function() {
-//         console.log('Refreshing devices');
-//         init();
-//       }, 30000);
-//     };
-
-//     init().then(loadPusher);
-
-//     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-//       if (channel) {
-//         channel.unbind();
-//       }
-//       $timeout.cancel(poller);
-//     });
-
-//   };
-//   return {
-//     link: link,
-//     scope: {
-//       filter: '=',
-//       loading: '=',
-//       token: '@'
-//     },
-//     templateUrl: 'components/locations/boxes/_table.html'
-//   };
-
-// }]);
+app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'showToast', 'showErrors', '$q', '$mdEditDialog', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, showToast, showErrors, $q, $mdEditDialog, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+
+  var link = function( scope, element, attrs ) {
+    scope.selected = [];
+    scope.location = {
+      slug: $routeParams.id
+    };
+
+    // User Permissions //
+    var createMenu = function() {
+
+      scope.menuItems = [];
+
+      scope.menuItems.push({
+        name: gettextCatalog.getString('Delete'),
+        type: 'delete',
+        icon: 'delete_forever'
+      });
+    };
+
+    createMenu();
+
+    scope.options = {
+      boundaryLinks: false,
+      pageSelector: false,
+      rowSelection: true
+    };
+
+    scope.pagination_labels = pagination_labels;
+    scope.query = {
+      order:          '-last_heartbeat',
+      limit:          $routeParams.per || 25,
+      page:           $routeParams.page || 1,
+      options:        [5,10,25,50,100],
+      direction:      $routeParams.direction || 'desc'
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      search();
+    };
+
+    var search = function() {
+      var hash            = {};
+      hash.page           = scope.query.page;
+      hash.per            = scope.query.limit;
+      $location.search(hash);
+      init();
+    };
+
+    scope.disabled = function(box,type) {
+      if (type === 'edit' || type === 'delete' || type === 'view' || type === 'zones') {
+        return false;
+      } else if (type === 'ignore' && !box.allowed_job) {
+        return false;
+      } else {
+        return !box.allowed_job;
+      }
+    };
+
+    scope.allowedMenu = function(box) {
+      return !box.allowed_job;
+    };
+
+    var boxMetadata = function() {
+      scope.box_macs = '';
+      for (var i = 0, len = scope.boxes.length; i < len; i++) {
+        if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
+          scope.box_macs += scope.boxes[i].calledstationid;
+          scope.box_macs += ',';
+        }
+      }
+      scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
+    };
+
+    var init = function() {
+      scope.deferred = $q.defer();
+      Box.query({
+        location_id: scope.location.slug,
+        page: scope.query.page,
+        per:  scope.query.limit,
+        metadata: true
+      }).$promise.then(function(results) {
+        scope.boxes           = results.boxes;
+        scope._links          = results._links;
+        scope.loading         = undefined;
+        boxMetadata();
+        scope.deferred.resolve();
+      }, function(err) {
+        scope.loading = undefined;
+      });
+      return scope.deferred.promise;
+    };
+
+    // We've remove the pusher notifications since the volume was getting too high
+    var poller;
+    var poll = function() {
+      poller = $timeout(function() {
+        console.log('Refreshing devices');
+        init();
+      }, 30000);
+    };
+
+    init();
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      if (channel) {
+        channel.unbind();
+      }
+      $timeout.cancel(poller);
+    });
+
+  };
+  return {
+    link: link,
+    scope: {
+      filter: '=',
+      loading: '=',
+      token: '@'
+    },
+    templateUrl: 'components/locations/boxes/_table.html'
+  };
+
+}]);
 
 app.directive('locationSettings', ['Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', 'moment', 'gettextCatalog', function(Location, $location, $routeParams, $mdDialog, showToast, showErrors, moment, gettextCatalog) {
 
