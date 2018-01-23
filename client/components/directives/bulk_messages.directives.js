@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.bulk_messages.directives', []);
 
-app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', function($routeParams,BulkMessage,$mdDialog) {
+app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 'showToast', 'showErrors', function($routeParams,BulkMessage,$mdDialog, showToast, showErrors) {
 
   var link = function( scope, element, attrs ) {
 
@@ -11,7 +11,9 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
         location_id: $routeParams.id,
         bulk_message: message
       }).$promise.then(function(msg) {
-        console.log(msg);
+        showToast('Message queued, please wait.');
+      }, function(err) {
+        showErrors(err);
       });
     };
 

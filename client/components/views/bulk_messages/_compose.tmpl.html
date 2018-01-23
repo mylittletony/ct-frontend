@@ -1,8 +1,8 @@
-<md-dialog aria-label="Subscribe to a plan">
-  <form>
+<form name="myForm" ng-submit="send(message)">
+  <md-dialog aria-label="Subscribe to a plan">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Free Trial Subscription</h2>
+        <h2>Send Manual Message</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -10,50 +10,38 @@
       </div>
     </md-toolbar>
     <md-dialog-content style="max-width:800px;max-height:810px; ">
-      <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom class="payment-portal">
-        <md-tab label="one">
-          <md-content class="md-padding">
-            <h1 class="md-display-2">Write a message</h1>
-            <form name="myForm" ng-submit="save(message)">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-            <md-input-container>
-              <label><translate>Name</translate></label>
-              <input ng-model="message.email" type='email' name="email" required md-autofocus>
-              <div ng-messages="myForm.email.$error">
-                <div ng-message="required" translate>You must enter an email</div>
-              </div>
-            </md-input-container>
-            <md-input-container>
-              <label><translate>Name</translate></label>
-              <input ng-model="message.message" type='text' name="text" required>
-              <div ng-messages="myForm.message.$error">
-                <div ng-message="required" translate>You must enter a message</div>
-              </div>
-            </md-input-container>
-          </md-content>
-        </md-tab>
-        <md-tab label="two">
-          <md-content class="md-padding">
-            <h1 class="md-display-2">Estimate number of users</h1>
-            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-          </md-content>
-        </md-tab>
-      </md-tabs>
+      <md-content layout-gt-sm="column" layout-padding>
+        <p>Send a manual message to this customer. If they have multiple email addresses, your message will be sent to all the active ones.</p>
+          <!-- <md-input-container> -->
+          <!--   <label><translate>To Email</translate></label> -->
+          <!--   <input ng-model="message.to_email" type='email' name="email" required md-autofocus> -->
+          <!--   <div ng-messages="myForm.email.$error"> -->
+          <!--     <div ng-message="required" translate>You must enter an email</div> -->
+          <!--     <div ng-message="email" translate>You must enter an email</div> -->
+          <!--   </div> -->
+          <!-- </md-input-container> -->
+          <md-input-container>
+            <label><translate>Subject</translate></label>
+            <input ng-model="message.subject" type='text' name="subject" required>
+            <div ng-messages="myForm.message.$error">
+              <div ng-message="required" translate>You must enter a message</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label><translate>Message</translate></label>
+            <textarea ng-model="message.content" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+            <div ng-messages="myForm.message.$error">
+              <div ng-message="required" translate>You must enter a message</div>
+            </div>
+          </md-input-container>
+      </md-content>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <!-- <md-button ng-click="back()" ng-if="selectedIndex > 0"> -->
-      <!--   Back -->
-      <!-- </md-button> -->
-      <!-- <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex < 2"> -->
-      <!--   Next -->
-      <!-- </md-button> -->
-      <md-button ng-click="send(message)" style="margin-right:20px;" ing-if="selectedIndex == 2">
+      <md-button style="margin-right:20px;" type="submit" ng-disabled="myForm.$invalid || myForm.$pristine">
         Send
       </md-button>
     </md-dialog-actions>
-  </form>
-</md-dialog>
-
-
+  </md-dialog>
+</form>
