@@ -79,7 +79,7 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
     var person = {};
 
     var fetchPerson = function() {
-      People.query({location_id: $routeParams.id, id: $routeParams.person_id}).$promise.then(function(res) {
+      People.query({location_id: $routeParams.id, id: $routeParams.person_slug}).$promise.then(function(res) {
         person = res;
         fetchMessages();
       }, function(err) {
