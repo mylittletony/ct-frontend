@@ -11,10 +11,10 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
       start:        $routeParams.start,
       end:          $routeParams.end,
       message_id:   $routeParams.message_id,
-      person_id:    $routeParams.person_id
+      person_id:    $routeParams.person_slug
     }).$promise.then(function(results) {
       scope.loading = undefined;
-      scope.activity = results.activity
+      scope.activity = results.activity;
     });
     scope.loading = undefined;
 
