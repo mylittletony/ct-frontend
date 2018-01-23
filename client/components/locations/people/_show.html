@@ -24,6 +24,7 @@
 
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
+
   <div flex-gt-sm="30">
     <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
 
@@ -248,6 +249,9 @@
   <div flex-gt-sm="100">
     <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
       <send-bulk-message ng-show="person.emails"></send-bulk-message>
+
+      <md-button href="/#/{{location.slug}}/people/{{person.slug}}/messages">messages</md-button>
+      <md-button href="/#/{{location.slug}}/people/{{person.slug}}/message_activity">message activity</md-button>
 
       <span flex></span>
       <md-button ng-click="" class="md-raised md-warn">
