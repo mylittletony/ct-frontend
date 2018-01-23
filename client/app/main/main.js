@@ -426,7 +426,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/people/bulk_message_activity', {
+    when('/:id/people/message_activity', {
       templateUrl: 'components/views/bulk_message_activity/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
