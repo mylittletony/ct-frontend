@@ -228,6 +228,21 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/:id/campaigns/messages', {
+      templateUrl: 'components/views/bulk_messages/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/campaigns/messages/:message_id', {
+      templateUrl: 'components/views/bulk_messages/show.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/campaigns/message_activity', {
+      templateUrl: 'components/views/bulk_message_activity/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/:id/campaigns/new', {
       templateUrl: 'components/campaigns/edit/edit.html',
       controller: 'LocationsCtrl as lc',
@@ -426,18 +441,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/people/messages', {
-      templateUrl: 'components/views/bulk_messages/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/:id/people/messages/:message_id', {
-      templateUrl: 'components/views/bulk_messages/show.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/:id/people/message_activity', {
       templateUrl: 'components/views/bulk_message_activity/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/people/reports', {
+      templateUrl: 'components/locations/people/reports.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
