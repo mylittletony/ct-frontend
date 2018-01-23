@@ -24,7 +24,6 @@
 
 
 <md-content class="md-padding" layout-gt-sm="row" layout="column" layout-wrap>
-
   <div flex-gt-sm="30">
     <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
 
@@ -131,7 +130,7 @@
                     {{email.username}}
                   </td>
                   <td md-cell>
-                    <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == true">Marked as spam</md-tooltip></md-icon>
+                    <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == false && email.comments">{{ email.comments }}</md-tooltip></md-icon>
                   </td>
                 </tr>
               </tbody>
@@ -248,9 +247,7 @@
 
   <div flex-gt-sm="100">
     <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
-      <md-button ng-click="" class="md-raised">
-        Engage
-      </md-button>
+      <send-bulk-message ng-show="person.emails"></send-bulk-message>
 
       <span flex></span>
       <md-button ng-click="" class="md-raised md-warn">
@@ -258,5 +255,6 @@
       </md-button>
     </div>
   </div>
+
 
 </md-content>
