@@ -1822,6 +1822,7 @@ app.directive('locationSettingsMain', ['Location', '$location', '$routeParams', 
   var link = function( scope, element, attrs, controller ) {
 
     scope.timezones = moment.tz.names();
+    scope.currentNavItem = 'location';
 
     scope.update = function (form) {
       controller.update(form);
@@ -3339,6 +3340,47 @@ app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$ht
     link: link,
     templateUrl: 'components/locations/show/_location_sidebar.html',
     scope: {}
+  };
+
+}]);
+
+app.directive('locationSettingsNav', ['Location', function(Location) {
+
+  var link = function(scope, element, attrs, controller) {
+    scope.loading = true;
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/locations/settings/_nav.html'
+  };
+
+}]);
+
+app.directive('integrationSettings', ['Location', function(Location) {
+
+  var link = function(scope, element, attrs, controller) {
+    scope.loading = true;
+    scope.currentNavItem = 'integration';
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/locations/settings/_integration.html'
+  };
+
+}]);
+
+app.directive('integrationDevices', ['Location', function(Location) {
+
+  var link = function(scope, element, attrs, controller) {
+    scope.loading = true;
+    scope.currentNavItem = 'devices';
+  };
+
+  return {
+    link: link,
+    templateUrl: 'components/locations/settings/_device_list.html'
   };
 
 }]);
