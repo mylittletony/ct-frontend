@@ -16,13 +16,7 @@ app.factory('BulkMessageActivity', ['$resource', 'API_END_POINT',
         method: 'GET',
         isArray: false,
         dataType: 'json'
-      },
-      {
-      show: {
-        method: 'GET',
-        isArray: false,
-        dataType: 'json'
-      },
+      }
     });
   }]);
 
