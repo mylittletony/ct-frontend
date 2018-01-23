@@ -1,0 +1,48 @@
+<location-settings-nav></location-settings-nav>
+
+<md-content class="md-padding page-meta" layout="column" layout-gt-sm='column'>
+  <form name="myForm" submit="update(myForm)">
+    <div layout="row" layout-align="center center">
+      <div flex="100" flex-gt-sm="100">
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text layout="row">
+              <div>
+                <div class="md-headline">Devices</div>
+                <div class="md-subhead">
+                  For instructions, read our docs <a ng-href="http://docs.mimo.today" target="_blank">here</a>.
+                </div>
+              </div>
+              <span flex></span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <h1>list of devices and stuff</h1>
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <div flex layout="row">
+
+          <md-button class="md-raised md-warn" ng-click="destroy()">
+            <translate>
+              Delete Location
+            </translate>
+          </md-button>
+
+          <span flex></span>
+
+          <md-button ng-click="update(myForm)" type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+            <translate>
+              Save
+            </translate>
+          </md-button>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
+</md-content>
