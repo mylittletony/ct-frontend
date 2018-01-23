@@ -30,7 +30,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
     function DialogController($scope, $mdDialog) {
 
-      scope.message = {}
+      scope.message = {};
 
       $scope.selectedIndex = 0;
 
@@ -72,13 +72,25 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', fu
 
 }]);
 
-app.directive('bulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$location', function($routeParams,BulkMessage,$mdDialog,$location) {
+app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
-    var init = function() {
+    var person = {};
+
+    var fetchPerson = function() {
+      People.query({location_id: $routeParams.id, id: $routeParams.person_id}).$promise.then(function(res) {
+        person = res;
+        fetchMessages();
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    var fetchMessages = function() {
+
       BulkMessage.index({}, {
-        q:            $routeParams.q,
+        person_id:    person.id || $routeParams.person_id,
         location_id:  $routeParams.id,
         start:        $routeParams.start,
         end:          $routeParams.end
@@ -88,17 +100,22 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$loc
       });
     };
 
-    scope.query = function(query) {
+    scope.query = function(person_id) {
       var hash            = {};
-      hash.q              = query;
+      hash.person_id      = person_id;
       hash.per            = $routeParams.per || 100;
       hash.start          = $routeParams.start;
       hash.end            = $routeParams.end;
       $location.search(hash);
-      init();
+      fetchMessages();
     };
 
-    init();
+    if ($routeParams.person_slug) {
+      fetchPerson();
+    } else {
+      fetchMessages();
+    }
+
   };
 
   return {

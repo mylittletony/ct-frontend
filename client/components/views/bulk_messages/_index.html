@@ -35,22 +35,26 @@
             <tr md-row>
               <th md-column md-order-by="description" md-desc>
                 <span translate>
-                  Name
+                  Recipient
                 </span>
               </th>
-              <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Mac</span></th>
-              <th md-column><span translate>Options</span></th>
+              <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Content</span></th>
+              <th md-column><span translate>Person ID</span></th>
+              <th md-column><span translate>Date Sent</span></th>
             </tr>
           </thead>
           <tbody md-body>
             <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="message in filtered = ( messages | filter: filter | orderBy: query.order)">
               <td md-cell>
-                <a ng-click="query(message.to_email)">
+                <a ng-click="query(message.person_id)">
                   {{ message.to_email }}</span>
                 </a>
               </td>
               <td hide show-gt-xs md-cell>
                 {{ message.subject | truncate:50 }}
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ message.person_id }}
               </td>
               <td hide show-gt-xs md-cell>
                 {{ message.created_at | humanTime }}

@@ -6,7 +6,7 @@ app.factory('BulkMessage', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
     return $resource(API_END_POINT + '/locations/:location_id/bulk_messages',
       {
-        q: '@q',
+        person_id: '@person_id',
         location_id: '@location_id',
       },
       {
@@ -20,7 +20,7 @@ app.factory('BulkMessage', ['$resource', 'API_END_POINT',
         isArray: false,
         dataType: 'json',
         params: {
-          q: '@q',
+          person_id: '@person_id',
           location_id: '@location_id'
         }
       },
