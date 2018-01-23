@@ -45,12 +45,15 @@
           <tbody md-body>
             <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="message in filtered = ( messages | filter: filter | orderBy: query.order)">
               <td md-cell>
-                <a ng-click="query(message.to_email)">
+                <a ng-click="query(message.person_id)">
                   {{ message.to_email }}</span>
                 </a>
               </td>
               <td hide show-gt-xs md-cell>
                 {{ message.subject | truncate:50 }}
+              </td>
+              <td hide show-gt-xs md-cell>
+                {{ message.person_id }}
               </td>
               <td hide show-gt-xs md-cell>
                 {{ message.created_at | humanTime }}
