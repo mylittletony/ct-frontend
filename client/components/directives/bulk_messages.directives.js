@@ -110,3 +110,40 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$loc
   };
 
 }]);
+
+app.directive('userBulkMessages', ['$routeParams', 'BulkMessage', '$mdDialog', '$location', function($routeParams,BulkMessage,$mdDialog,$location) {
+
+  var link = function( scope, element, attrs ) {
+
+    var init = function() {
+      BulkMessage.index({}, {
+        location_id:  $routeParams.id,
+        person_id:    $routeParams.person_id
+      }).$promise.then(function(results) {
+        scope.loading = undefined;
+        scope.messages = results.messages;
+      });
+    };
+
+    scope.query = function(query) {
+      var hash            = {};
+      hash.q              = query;
+      hash.per            = $routeParams.per || 100;
+      hash.start          = $routeParams.start;
+      hash.end            = $routeParams.end;
+      $location.search(hash);
+      init();
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/bulk_messages/_index.html'
+  };
+
+}]);
