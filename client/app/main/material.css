@@ -5,7 +5,8 @@ body {
   /* font-size: 1.2em; */
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1), (min-width: 1280px) {
+/*@media only screen and (-webkit-min-device-pixel-ratio: 1), (min-width: 1280px) {*/
+@media only screen (min-width: 1280px) {
   body {
     font-size: 2.2vmin;
   }
@@ -39,7 +40,7 @@ body {
   }
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
+/*@media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
   body {
     font-size: 1.2em;
   }
@@ -71,7 +72,7 @@ body {
   table.md-table td.md-cell {
     font-size: 0.8em;
   }
-}
+}*/
 
 /* Temp fixes to address */
 
