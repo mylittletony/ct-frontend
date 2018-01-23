@@ -137,43 +137,43 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
 
 }]);
 
-// app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
-//
-//   var link = function( scope, element, attrs ) {
-//
-//     var person = {};
-//
-//     var activity = function() {
-//       BulkMessageActivity.index({}, {
-//         location_id:  $routeParams.id,
-//         message_id: scope.message.message_id
-//       }).$promise.then(function(results) {
-//         scope.loading = undefined;
-//         scope.activity = results.activity;
-//       });
-//     };
-//
-//     var init = function() {
-//       BulkMessage.get({}, {
-//         message_id:   $routeParams.message_id,
-//         location_id:  $routeParams.id,
-//       }).$promise.then(function(results) {
-//         scope.loading = undefined;
-//         scope.message = results;
-//         activity();
-//       });
-//     };
-//
-//     init();
-//
-//   };
-//
-//   return {
-//     link: link,
-//     scope: {
-//       loading: '='
-//     },
-//     templateUrl: 'components/views/bulk_messages/_show.html'
-//   };
-//
-// }]);
+app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
+
+  var link = function( scope, element, attrs ) {
+
+    var person = {};
+
+    var activity = function() {
+      BulkMessageActivity.index({}, {
+        location_id:  $routeParams.id,
+        message_id: scope.message.message_id
+      }).$promise.then(function(results) {
+        scope.loading = undefined;
+        scope.activity = results.activity;
+      });
+    };
+
+    var init = function() {
+      BulkMessage.get({}, {
+        message_id:   $routeParams.message_id,
+        location_id:  $routeParams.id,
+      }).$promise.then(function(results) {
+        scope.loading = undefined;
+        scope.message = results;
+        activity();
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/views/bulk_messages/_show.html'
+  };
+
+}]);
