@@ -1,67 +1,67 @@
 <splash-menu-top location="location"></splash-menu-top>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-</md-content>
-
-<md-content class="md-padding" layout="row" layout-wrap>
-  <div flex="30">
-    <h3><translate>Get Started with Splash Pages</translate></h3>
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
+  <div flex="100" flex-gt-md="90" ng-show="location.paid == false">
+    <div layout="row" layout-wrap>
+      <div flex="100" flex-gt-sm="40">
+        <h2>Getting Started with Splash Pages</h2>
+      </div>
+      <div flex="100" flex-gt-xs="100" flex-gt-sm="60">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Start your free trial today.
+              </span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <get-with-the-plan></get-with-the-plan>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
   </div>
-  <md-card flex="60">
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline">
-        </span>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-      <div layout="row" layout-align="">
-        <div flex="100">
-          <h4 translate>Start your free trial today.</h4>
-          <p translate>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-      </div>
-    </md-card-content>
-    <md-card-actions layout="row" layout-align="left center">
-      <get-with-the-plan></get-with-the-plan>
-    </md-card-actions>
-  </md-card>
-</md-content>
 
-<md-content class="md-padding" layout="row" layout-wrap>
-  <md-card>
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline">
-          <translate>What are splash pages?</translate>
-        </span>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-      <div layout="row" layout-align="center center">
-        <div flex="100" flex-gt-xs="50" flex-gt-md="20">
-          <p translate>Create a Splash Page to control your guest's access.</p>
-          <p translate>Welcome your customers when they arrive. Capture their email address. Display special offers.</p>
+  <div flex="100" flex-gt-md="90">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            <translate>What are splash pages?</translate>
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="row" layout-align="center center">
+          <div flex="100" flex-gt-xs="50" flex-gt-md="20">
+            <p translate>Create a Splash Page to control your guest's access.</p>
+            <p translate>Welcome your customers when they arrive. Capture their email address. Display special offers.</p>
+          </div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="70">
+            <img style="max-width: 90%;" src="http://www.ct-networks.io/images/community/splash-pages/boxpark.png"></img>
+          </div>
         </div>
-        <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
-        <div flex="100" flex-gt-xs="50" flex-gt-md="70">
-          <img style="max-width: 90%;" src="http://www.ct-networks.io/images/community/splash-pages/boxpark.png"></img>
+        <div layout="row" layout-align="center center">
+          <md-divider></md-divider>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="20">
+            <p translate>Welcome your customers back, capture emails, promote special offers.</p>
+            <splash-new style="md-raised" pages="splash_pages"></splash-new>
+          </div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="30">
+            <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
+          </div>
+          <div flex="100" flex-gt-xs="50" flex-gt-md="40">
+            <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
+          </div>
         </div>
-      </div>
-      <div layout="row" layout-align="center center">
-        <md-divider></md-divider>
-        <div flex="100" flex-gt-xs="50" flex-gt-md="20">
-          <p translate>Welcome your customers back, capture emails, promote special offers.</p>
-          <splash-new style="md-raised" pages="splash_pages"></splash-new>
-        </div>
-        <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
-        <div flex="100" flex-gt-xs="50" flex-gt-md="30">
-          <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
-        </div>
-        <div flex="100" flex-gt-xs="50" flex-gt-md="40">
-          <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
-        </div>
-      </div>
-    </md-card-content>
-  </md-card>
+      </md-card-content>
+    </md-card>
+  </div>
+
 </md-content>
