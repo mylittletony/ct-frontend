@@ -6,8 +6,7 @@ app.factory('Metric', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
     var token;
     if ($localStorage && $localStorage.user && $localStorage.user.api_token) {
-      // token = $localStorage.user.api_token;
-      token = 'e6415bd34ce5b1689ac761ad92ad5682'
+      token = $localStorage.user.api_token;
     }
     if (API_END_POINT === 'http://mywifi.test:8080/api/v1') {
       API_END_POINT = 'http://dashboard.ctapp:8000/api/v1'
