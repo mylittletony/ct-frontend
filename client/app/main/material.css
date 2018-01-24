@@ -962,6 +962,7 @@ location-boxes table {
   position: fixed;
   top: 0;
   background: white;
+  overflow-x: scroll;
 }
 
 @media (max-width: 959px) {
