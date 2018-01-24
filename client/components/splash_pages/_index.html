@@ -1,85 +1,84 @@
 <splash-menu-top location="location"></splash-menu-top>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-</md-content>
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="!integration.type">
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+    <div ng-show="splash_pages.length == 0">
+      <md-card flex="100">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              <translate>Get Started with Splash Pages</translate>
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p translate>Welcome your customers when they arrive. Capture their email address. Display special offers.</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="left center">
+          <splash-new style="md-raised" pages="splash_pages"></splash-new>
+        </md-card-actions>
+      </md-card>
+    </div>
 
-<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
-  <div ng-show="splash_pages.length == 0">
-    <md-card flex="100">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">
-            <translate>Get Started with Splash Pages</translate>
-          </span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <p translate>Welcome your customers when they arrive. Capture their email address. Display special offers.</p>
-      </md-card-content>
-      <md-card-actions layout="row" layout-align="left center">
-        <splash-new style="md-raised" pages="splash_pages"></splash-new>
-      </md-card-actions>
-    </md-card>
-  </div>
-
-  <div ng-show="splash_pages.length > 0" flex="100">
-    <md-card>
-      <md-table-container>
-        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
-          <thead md-head md-order="query.order" md-on-reorder="logOrder">
-            <tr md-row>
-              <th md-column md-order-by="active"><span translate>Active</span></th>
-              <th hide show-gt-sm md-column md-order-by="splash_name"><span translate>Name</span></th>
-              <th md-column md-order-by="primary_access"><span translate>Login Type</span></th>
-              <th md-column ng-show="menu.length"><span translate>Options</span></th>
-            </tr>
-          </thead>
-          <tbody md-body>
-            <tr ng-class="splash.highlight ? 'highlight' : ''" md-row ng-repeat="splash in filtered = (splash_pages | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
-              <td md-cell>
-                <md-icon md-menu-origin md-font-icon="">{{ (!splash.networks || splash.networks.length == 0) ? "error" : splash.active ? "check_circle" : "cancel" }}</md-icon>
-              </td>
-              <td hide show-gt-sm md-cell>
-                <a href="/#/{{ location.slug }}/splash_pages/{{ splash.id }}">
-                  <span ng-if="splash.splash_name">{{splash.splash_name}}</span>
-                  <span ng-if="!splash.splash_name" translate>{{'No name' | truncate:20}}</span>
-                </a>
-                <md-tooltip>
-                  <translate>Created {{ splash.created_at | humanTime }}</translate>
-                </md-tooltip>
-              </td>
-              <td md-cell>
-                {{ splash.primary_access | translatablePrimaryAccess}}
-                <md-tooltip hide-gt-sm>
-                  <translate>Name {{ splash.splash_name }}</translate>
-                </md-tooltip>
-              </td>
-              <td md-cell ng-show="menu.length">
-                <span ng-if="network.state == 'processing'">
-                  <md-progress-circular class="md-warn" md-diameter="40"></md-progress-circular>
-                </span>
-                <span ng-if="splash.state != 'processing'">
-                  <md-menu>
-                    <md-button aria-label="{{ 'Open Splash Menu' | translate}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                    </md-button>
-                    <md-menu-content width="4" >
-                      <md-menu-item ng-repeat="item in menu">
-                        <md-button ng-click="action(splash.id,item.type)" ng-disabled="false">
-                          <md-icon md-menu-origin md-font-icon="{{ item.icon}}">{{ item.icon }}</md-icon>
-                          <p flex>{{ item.name }}</p>
-                        </md-button>
-                      </md-menu-item>
-                    </md-menu-content>
-                  </md-menu>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </md-table-container>
-      <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-    </md-card>
-    <splash-new style="md-raised" pages="splash_pages"></splash-new>
+    <div ng-show="splash_pages.length > 0" flex="100">
+      <md-card>
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder="logOrder">
+              <tr md-row>
+                <th md-column md-order-by="active"><span translate>Active</span></th>
+                <th hide show-gt-sm md-column md-order-by="splash_name"><span translate>Name</span></th>
+                <th md-column md-order-by="primary_access"><span translate>Login Type</span></th>
+                <th md-column ng-show="menu.length"><span translate>Options</span></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-class="splash.highlight ? 'highlight' : ''" md-row ng-repeat="splash in filtered = (splash_pages | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
+                <td md-cell>
+                  <md-icon md-menu-origin md-font-icon="">{{ (!splash.networks || splash.networks.length == 0) ? "error" : splash.active ? "check_circle" : "cancel" }}</md-icon>
+                </td>
+                <td hide show-gt-sm md-cell>
+                  <a href="/#/{{ location.slug }}/splash_pages/{{ splash.id }}">
+                    <span ng-if="splash.splash_name">{{splash.splash_name}}</span>
+                    <span ng-if="!splash.splash_name" translate>{{'No name' | truncate:20}}</span>
+                  </a>
+                  <md-tooltip>
+                    <translate>Created {{ splash.created_at | humanTime }}</translate>
+                  </md-tooltip>
+                </td>
+                <td md-cell>
+                  {{ splash.primary_access | translatablePrimaryAccess}}
+                  <md-tooltip hide-gt-sm>
+                    <translate>Name {{ splash.splash_name }}</translate>
+                  </md-tooltip>
+                </td>
+                <td md-cell ng-show="menu.length">
+                  <span ng-if="network.state == 'processing'">
+                    <md-progress-circular class="md-warn" md-diameter="40"></md-progress-circular>
+                  </span>
+                  <span ng-if="splash.state != 'processing'">
+                    <md-menu>
+                      <md-button aria-label="{{ 'Open Splash Menu' | translate}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                      </md-button>
+                      <md-menu-content width="4" >
+                        <md-menu-item ng-repeat="item in menu">
+                          <md-button ng-click="action(splash.id,item.type)" ng-disabled="false">
+                            <md-icon md-menu-origin md-font-icon="{{ item.icon}}">{{ item.icon }}</md-icon>
+                            <p flex>{{ item.name }}</p>
+                          </md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+        <md-table-pagination ng-if="_links.total_entries" md-limit="query.limit" md-page="query.page" md-total="{{_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+      </md-card>
+      <splash-new style="md-raised" pages="splash_pages"></splash-new>
+    </div>
   </div>
 </md-content>

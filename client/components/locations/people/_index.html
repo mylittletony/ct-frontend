@@ -1,11 +1,7 @@
 <people-nav location="location"></people-nav>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-</md-content>
-
-<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-  <div flex layout="column">
-
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="!integration.type">
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <md-card>
       <div class="md-toolbar-tools" ng-cloak>
         <span class="md-subhead" translate>
