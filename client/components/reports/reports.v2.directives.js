@@ -1098,51 +1098,51 @@ app.directive('wirelessStats', ['Report', '$routeParams', '$location', 'Location
 
 }]);
 
-app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location', '$timeout', function(Report, $routeParams, $location, Location, $timeout) {
-
-  var link = function( scope, element, attrs, controller ) {
-
-    var init = function() {
-
-      scope.stats = {};
-      scope.start = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
-      scope.end   = $routeParams.end || Math.floor(new Date() / 1000);
-
-      var params = {
-        resource: 'splash',
-        type: 'splash_stats',
-        interval: 'hour',
-        location_id: $routeParams.id,
-        start: scope.start,
-        end: scope.end
-        // period: $routeParams.period || '7d'
-      };
-
-      // Get the splash stats
-      controller.get(params).then(function(results) {
-        scope.stats.splash = results.stats;
-
-        // Get the voucher stats
-        params.type = 'voucher_stats';
-        controller.get(params).then(function(results) {
-          scope.stats.vouchers = results.stats;
-        });
-      });
-    };
-
-    init();
-  };
-
-  return {
-    link: link,
-    scope: {
-      type: '@',
-      title: '@',
-      render: '@',
-      subhead: '@'
-    },
-    require: '^analytics',
-    templateUrl: 'components/reports/_radius_stats.html',
-  };
-
-}]);
+// app.directive('radiusStats', ['Report', '$routeParams', '$location', 'Location', '$timeout', function(Report, $routeParams, $location, Location, $timeout) {
+//
+//   var link = function( scope, element, attrs, controller ) {
+//
+//     var init = function() {
+//
+//       scope.stats = {};
+//       scope.start = $routeParams.start || (Math.floor(new Date() / 1000) - 604800);
+//       scope.end   = $routeParams.end || Math.floor(new Date() / 1000);
+//
+//       var params = {
+//         resource: 'splash',
+//         type: 'splash_stats',
+//         interval: 'hour',
+//         location_id: $routeParams.id,
+//         start: scope.start,
+//         end: scope.end
+//         // period: $routeParams.period || '7d'
+//       };
+//
+//       // Get the splash stats
+//       controller.get(params).then(function(results) {
+//         scope.stats.splash = results.stats;
+//
+//         // Get the voucher stats
+//         params.type = 'voucher_stats';
+//         controller.get(params).then(function(results) {
+//           scope.stats.vouchers = results.stats;
+//         });
+//       });
+//     };
+//
+//     init();
+//   };
+//
+//   return {
+//     link: link,
+//     scope: {
+//       type: '@',
+//       title: '@',
+//       render: '@',
+//       subhead: '@'
+//     },
+//     require: '^analytics',
+//     templateUrl: 'components/reports/_radius_stats.html',
+//   };
+//
+// }]);
