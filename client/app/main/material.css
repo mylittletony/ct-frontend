@@ -1047,11 +1047,11 @@ md-bottom-sheet .md-subheader {
   margin: 0 -1px;
 }
 
-.page-meta md-input-container {
+/*.page-meta md-input-container {
   margin-right: 5px;
   margin-bottom: 0px;
   margin-top: 0px;
-}
+}*/
 
 .page-meta h1 {
   color: rgba(0, 0, 0, 0.87);
@@ -1158,7 +1158,7 @@ md-dialog {
 }
 
 .md-button {
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .md-subhead a {
