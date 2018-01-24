@@ -131,9 +131,9 @@
   </md-sidenav>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
-    <md-toolbar hide-gt-sm ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
+    <md-toolbar class="mob-top-nav" hide-gt-sm ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
       <div class="md-toolbar-tools">
-        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
+        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen(main)" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
         <span flex></span>
