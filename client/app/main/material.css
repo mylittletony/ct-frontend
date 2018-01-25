@@ -1197,43 +1197,61 @@ md-card.b-pn, md-card.b-db, md-card.b-bl, md-card.b-or, md-card.b-gr, md-card.b-
   position: relative;
 }
 
-md-card.b-pn::after, md-card.b-db::after, md-card.b-bl::after, md-card.b-or::after, md-card.b-gr::after, md-card.b-yl::after, md-card.b-pr::after {
+/*md-card.b-pn::after, md-card.b-db::after, md-card.b-bl::after, md-card.b-or::after, md-card.b-gr::after, md-card.b-yl::after, md-card.b-pr::after {
   content:'';
   width: 40%;
   height: 4px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 -10px -10px;
   position: absolute;
   top: 0%;
   left: 50%;
   transform: translateX(-50%) translateY(0%);
+}*/
+
+md-card.b-pn::after, md-card.b-db::after, md-card.b-bl::after, md-card.b-or::after, md-card.b-gr::after, md-card.b-yl::after, md-card.b-pr::after {
+  content:'';
+  width: 30px;
+  height: 30px;
+  border-radius: 4px 0 0 0;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateX(0%) translateY(0%);
 }
 
 md-card.b-pn::after {
-  background: #f0476e;
+  background: linear-gradient(135deg, #f0476e 20px, rgba(0,0,0,0) 0) top left;
+  /*background: #f0476e;*/
 }
 
 md-card.b-db::after {
-  background: #485b88;
+  background: linear-gradient(135deg, #485b88 20px, rgba(0,0,0,0) 0) top left;
+  /*background: #485b88;*/
 }
 
 md-card.b-bl::after {
-  background: #0088bb;
+  background: linear-gradient(135deg, #0088bb 20px, rgba(0,0,0,0) 0) top left;
+  /*background: #0088bb;*/
 }
 
 md-card.b-or::after {
-  background: #f78c6b;
+  background: linear-gradient(135deg, #f78c6b 20px, rgba(0,0,0,0) 0) top left;
+  /*background: #f78c6b;*/
 }
 
 md-card.b-gr::after {
-  background: #17ac5b;
+  background: linear-gradient(135deg, #17ac5b 20px, rgba(0,0,0,0) 0) top left;
+  /*background: #17ac5b;*/
 }
 
 md-card.b-yl::after {
-  background: #ffd165;
+  background: linear-gradient(135deg, #ffd165 20px, rgba(0,0,0,0) 0) top left;
+  /*background: #ffd165;*/
 }
 
 md-card.b-pr::after {
-  background: #8e2d56;
+  background: linear-gradient(135deg, #8e2d56 20px, rgba(0,0,0,0) 0) top left;
+  /*background: #8e2d56;*/
 }
 
 md-card .md-card-image {
