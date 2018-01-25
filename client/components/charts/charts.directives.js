@@ -1560,7 +1560,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             opts.pieSliceText = 'none';
             opts.height = '350';
 
-            data.addColumn('string', 'type');
+            data.addColumn('string', 'key');
           } else {
             opts.bar = {};
             data.addColumn('datetime', 'Date');
