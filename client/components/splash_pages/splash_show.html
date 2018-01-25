@@ -78,6 +78,7 @@
             <div layout="column">
               <md-input-container class="md-block">
                 <label><translate>Capture Type</translate></label>
+                <p>newsletter type:{{splash.newsletter_type}}</p>
                 <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
                   <md-option ng-repeat="type in newsletter_types" value="{{ type.value }}">
                     {{type.key}}
@@ -87,7 +88,7 @@
             </div>
 
             <div>
-              <md-input-container class="md-block">
+              <md-input-container class="md-block" ng-hide="splash.newsletter_type == 0 || splash.newsletter_type == 3">
                 <label>
                   <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
                   <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
@@ -102,7 +103,7 @@
                 </div>
               </md-input-container>
 
-              <md-input-container class="md-block">
+              <md-input-container class="md-block" ng-hide="splash.newsletter_type == 0 || splash.newsletter_type == 3">
                 <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
                 <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z]*$/" ng-trim="false">
                 <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
@@ -134,7 +135,7 @@
               <translate>Merge Registration Fields</translate>
             </md-switch>
 
-            <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1">
+            <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1" ng-show="splash.newsletter_type == 1">
               <span ng-if="splash.single_opt_in" translate>Skip MailChimp Confirmation Enabled</span>
               <span ng-if="!splash.single_opt_in" translate>Skip MailChimp Confirmation Disabled</span>
             </md-switch>
