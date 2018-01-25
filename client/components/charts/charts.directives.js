@@ -812,7 +812,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var opts = controller.options;
       opts.explorer = undefined;
-      opts.pieHole = 0.8
+      opts.pieHole = 0.8;
       opts.legend = { position: attrs.legend || 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
@@ -1747,7 +1747,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
              {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
              {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
              {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]}
-      }
+      };
 
       // !!!! add this back when we have real data !!!!
 
@@ -1757,7 +1757,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       //   clearChart();
       //   console.log('No data returned for query');
       // });
-      drawChart(fakeStats[scope.type])
+      drawChart(fakeStats[scope.type]);
 
       $timeout.cancel(timer);
     }
@@ -1857,7 +1857,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             }
 
           } else if (attrs.pie === 'true') {
-            var total
             var arr = [];
 
             for (var i = 0; i < resp.data[0].data.length; i++) {
