@@ -78,7 +78,6 @@
             <div layout="column">
               <md-input-container class="md-block">
                 <label><translate>Capture Type</translate></label>
-                <p>newsletter type:{{splash.newsletter_type}}</p>
                 <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
                   <md-option ng-repeat="type in newsletter_types" value="{{ type.value }}">
                     {{type.key}}
