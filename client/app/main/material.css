@@ -1017,11 +1017,56 @@ location-boxes table {
   -webkit-text-fill-color: transparent!important;
 }
 
+people-nav .top-nav .md-active ._md-nav-button-text {
+  background: -webkit-linear-gradient(25deg, #0088bb 10%, #0acffe 100%)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
+
+splash-nav .top-nav .md-active ._md-nav-button-text {
+  background: -webkit-linear-gradient(25deg, #17ac5b 10%, #9be15d 100%)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
+
+camp-nav .top-nav .md-active ._md-nav-button-text {
+  background: -webkit-linear-gradient(25deg, #8e2d56 10%, #c471f5 100%)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
+
 .top-nav .md-active {
   border-bottom: 3px solid #EF476F;
   -moz-border-image: -moz-linear-gradient(80deg, #EF476F 10%, #F78C6B 100%);
   -webkit-border-image: -webkit-linear-gradient(80deg, #EF476F 10%, #F78C6B 100%);
   border-image: linear-gradient(80deg, #EF476F 10%, #F78C6B 100%);
+  border-image-slice: 1;
+  padding-bottom: 9px!important;
+}
+
+people-nav .top-nav .md-active {
+  border-bottom: 3px solid #0088bb;
+  -moz-border-image: -moz-linear-gradient(80deg, #0088bb 10%, #0acffe 100%);
+  -webkit-border-image: -webkit-linear-gradient(80deg, #0088bb 10%, #0acffe 100%);
+  border-image: linear-gradient(80deg, #0088bb 10%, #0acffe 100%);
+  border-image-slice: 1;
+  padding-bottom: 9px!important;
+}
+
+splash-nav .top-nav .md-active {
+  border-bottom: 3px solid #17ac5b;
+  -moz-border-image: -moz-linear-gradient(80deg, #17ac5b 10%, #9be15d 100%);
+  -webkit-border-image: -webkit-linear-gradient(80deg, #17ac5b 10%, #9be15d 100%);
+  border-image: linear-gradient(80deg, #17ac5b 10%, #9be15d 100%);
+  border-image-slice: 1;
+  padding-bottom: 9px!important;
+}
+
+camp-nav .top-nav .md-active {
+  border-bottom: 3px solid #8e2d56;
+  -moz-border-image: -moz-linear-gradient(80deg, #8e2d56 10%, #c471f5 100%);
+  -webkit-border-image: -webkit-linear-gradient(80deg, #8e2d56 10%, #c471f5 100%);
+  border-image: linear-gradient(80deg, #8e2d56 10%, #c471f5 100%);
   border-image-slice: 1;
   padding-bottom: 9px!important;
 }
