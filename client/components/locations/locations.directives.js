@@ -2858,6 +2858,10 @@ app.directive('integrationSettings', ['Location', '$routeParams', '$location', '
       }
     };
 
+    scope.openDoc = function(){
+      window.open('http://google.com');
+    };
+
     controller.fetch().then(function(integration) {
       scope.integration = integration;
     }, function(err) { console.log(err); })
