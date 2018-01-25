@@ -458,24 +458,25 @@ md-sidenav.md-sidenav-right ul {
 }
 
 li:nth-child(1) .active {
-  border-left: 3px solid #EF476F;
-  -moz-border-image: -moz-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
-  -webkit-border-image: -webkit-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
-  border-image: linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
-}
-
-li:nth-child(2) .active {
   border-left: 3px solid #0088bb;
   -moz-border-image: -moz-linear-gradient(25deg, #0088bb 10%, #0acffe 100%);
   -webkit-border-image: -webkit-linear-gradient(25deg, #0088bb 10%, #0acffe 100%);
   border-image: linear-gradient(25deg, #0088bb 10%, #0acffe 100%);
+
 }
 
-li:nth-child(3) .active {
+li:nth-child(2) .active {
   border-left: 3px solid #17ac5b;
   -moz-border-image: -moz-linear-gradient(25deg, #17ac5b 10%, #9be15d 100%);
   -webkit-border-image: -webkit-linear-gradient(25deg, #17ac5b 10%, #9be15d 100%);
   border-image: linear-gradient(25deg, #17ac5b 10%, #9be15d 100%);
+}
+
+li:nth-child(3) .active {
+  border-left: 3px solid #8e2d56;
+  -moz-border-image: -moz-linear-gradient(25deg, #8e2d56 10%, #c471f5 100%);
+  -webkit-border-image: -webkit-linear-gradient(25deg, #8e2d56 10%, #c471f5 100%);
+  border-image: linear-gradient(25deg, #8e2d56 10%, #c471f5 100%);
 }
 
 .active md-icon {
@@ -484,18 +485,18 @@ li:nth-child(3) .active {
 }
 
 li:nth-child(1) .active md-icon {
-  color: #EF476F!important;
-  background: -webkit-linear-gradient(45deg, #EF476F 10%, #F78C6B 100%);
-}
-
-li:nth-child(2) .active md-icon {
   color: #0088bb!important;
   background: -webkit-linear-gradient(45deg, #0088bb 10%, #0acffe 100%);
 }
 
-li:nth-child(3) .active md-icon {
+li:nth-child(2) .active md-icon {
   color: #17ac5b!important;
   background: -webkit-linear-gradient(45deg, #17ac5b 10%, #9be15d 100%);
+}
+
+li:nth-child(3) .active md-icon {
+  color: #8e2d56!important;
+  background: -webkit-linear-gradient(45deg, #8e2d56 10%, #c471f5 100%);
 }
 
 .bottom-right {
@@ -1220,38 +1221,31 @@ md-card.b-pn::after, md-card.b-db::after, md-card.b-bl::after, md-card.b-or::aft
 }
 
 md-card.b-pn::after {
-  background: linear-gradient(135deg, #f0476e 20px, rgba(0,0,0,0) 0) top left;
-  /*background: #f0476e;*/
+  background: linear-gradient(135deg, #f0476e 7px, rgba(0,0,0,0) 0) top left;
 }
 
 md-card.b-db::after {
-  background: linear-gradient(135deg, #485b88 20px, rgba(0,0,0,0) 0) top left;
-  /*background: #485b88;*/
+  background: linear-gradient(135deg, #485b88 7px, rgba(0,0,0,0) 0) top left;
 }
 
 md-card.b-bl::after {
-  background: linear-gradient(135deg, #0088bb 20px, rgba(0,0,0,0) 0) top left;
-  /*background: #0088bb;*/
+  background: linear-gradient(135deg, #0088bb 7px, rgba(0,0,0,0) 0) top left;
 }
 
 md-card.b-or::after {
-  background: linear-gradient(135deg, #f78c6b 20px, rgba(0,0,0,0) 0) top left;
-  /*background: #f78c6b;*/
+  background: linear-gradient(135deg, #f78c6b 7px, rgba(0,0,0,0) 0) top left;
 }
 
 md-card.b-gr::after {
-  background: linear-gradient(135deg, #17ac5b 20px, rgba(0,0,0,0) 0) top left;
-  /*background: #17ac5b;*/
+  background: linear-gradient(135deg, #17ac5b 7px, rgba(0,0,0,0) 0) top left;
 }
 
 md-card.b-yl::after {
-  background: linear-gradient(135deg, #ffd165 20px, rgba(0,0,0,0) 0) top left;
-  /*background: #ffd165;*/
+  background: linear-gradient(135deg, #ffd165 7px, rgba(0,0,0,0) 0) top left;
 }
 
 md-card.b-pr::after {
-  background: linear-gradient(135deg, #8e2d56 20px, rgba(0,0,0,0) 0) top left;
-  /*background: #8e2d56;*/
+  background: linear-gradient(135deg, #8e2d56 7px, rgba(0,0,0,0) 0) top left;
 }
 
 md-card .md-card-image {
