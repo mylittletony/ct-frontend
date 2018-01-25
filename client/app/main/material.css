@@ -1193,32 +1193,47 @@ md-card {
   border-radius: 4px;
 }
 
-.b-pn {
-  border-top: 2px solid #f0476e;
+md-card.b-pn, md-card.b-db, md-card.b-bl, md-card.b-or, md-card.b-gr, md-card.b-yl, md-card.b-pr {
+  position: relative;
 }
 
-.b-db {
-  border-top: 2px solid #485b88;
+md-card.b-pn::after, md-card.b-db::after, md-card.b-bl::after, md-card.b-or::after, md-card.b-gr::after, md-card.b-yl::after, md-card.b-pr::after {
+  content:'';
+  width: 40%;
+  height: 4px;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0%);
 }
 
-.b-bl {
-  border-top: 2px solid #0088bb;
+md-card.b-pn::after {
+  background: #f0476e;
 }
 
-.b-or {
-  border-top: 2px solid #f78c6b;
+md-card.b-db::after {
+  background: #485b88;
 }
 
-.b-gr {
-  border-top: 2px solid #17ac5b;
+md-card.b-bl::after {
+  background: #0088bb;
 }
 
-.b-yl {
-  border-top: 2px solid #ffd165;
+md-card.b-or::after {
+  background: #f78c6b;
 }
 
-.b-pr {
-  border-top: 2px solid #8e2d56;
+md-card.b-gr::after {
+  background: #17ac5b;
+}
+
+md-card.b-yl::after {
+  background: #ffd165;
+}
+
+md-card.b-pr::after {
+  background: #8e2d56;
 }
 
 md-card .md-card-image {
