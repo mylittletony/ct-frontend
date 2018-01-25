@@ -1623,6 +1623,47 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
              {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
              {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
              {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
+         'emails.sent': {
+          location_id: 4255,
+          start_time: 1514292024,
+          end_time: 1516884024,
+          interval: 'day',
+          data:[
+            {
+              name: 'emails.sent',
+              alias: 'Sent Emails',
+              data: [
+              {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
+              {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
 
         'radius.sessions': {
          location_id: 4255,
@@ -2606,6 +2647,61 @@ app.directive('radiusStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     },
     require: '^clientChart',
     templateUrl: 'components/reports/_radius_stats.html',
+  };
+
+}]);
+
+app.directive('emailStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', '$compile', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails, $compile) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    scope.type = 'email.stats';
+
+    function chart() {
+      var params = {
+        type: scope.type,
+        period: '30d'
+      };
+
+      // put this back in when we have data
+      //
+      // controller.getStats(params).then(function(res) {
+      //   scope.stats = res.data[0].data;
+      // }, function() {
+      //   console.log('No data returned for query');
+      // });
+
+      // !!!!! fake data !!!!!
+      scope.stats = {
+        total: Math.floor((Math.random() * 100) + 500),
+        opened: Math.floor((Math.random() * 50) + 400),
+        reputation: Math.floor((Math.random() * 20) + 80),
+        breakdown: {
+          delivered: Math.floor((Math.random() * 10) + 90),
+          opened: Math.floor((Math.random() * 30) + 50),
+          clicked: Math.floor((Math.random() * 30) + 60),
+          bounced: Math.floor((Math.random() * 10) + 1),
+          spam: Math.floor((Math.random() * 20) + 1)
+        }
+      }
+    }
+
+    chart();
+    var timeout = $timeout(function() {
+      chart();
+    }, 1500);
+  };
+
+  return {
+    link: link,
+    scope: {
+      mac: '@',
+      loc: '@',
+      version: '@',
+      render: '@'
+    },
+    require: '^clientChart',
+    templateUrl: 'components/campaigns/reports/_email_stats.html',
   };
 
 }]);
