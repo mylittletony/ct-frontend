@@ -1010,7 +1010,6 @@ location-boxes table {
   }
 }
 
-
 /*toast text style*/
 
 md-bottom-sheet .md-subheader {
@@ -1161,15 +1160,43 @@ md-bottom-sheet .md-subheader {
 /*general changes*/
 
 md-card {
-  border-radius: 8px;
+  border-radius: 4px;
+}
+
+.b-pn {
+  border-top: 2px solid #f0476e;
+}
+
+.b-db {
+  border-top: 2px solid #485b88;
+}
+
+.b-bl {
+  border-top: 2px solid #0088bb;
+}
+
+.b-or {
+  border-top: 2px solid #f78c6b;
+}
+
+.b-gr {
+  border-top: 2px solid #17ac5b;
+}
+
+.b-yl {
+  border-top: 2px solid #ffd165;
+}
+
+.b-pr {
+  border-top: 2px solid #8e2d56;
 }
 
 md-card .md-card-image {
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px 4px 0 0;
 }
 
 md-dialog {
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .md-button {
