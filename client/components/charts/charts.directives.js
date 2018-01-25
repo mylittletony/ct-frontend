@@ -1415,12 +1415,92 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         period: scope.period
       };
 
-      controller.getStats(params).then(function(res) {
-        drawChart(res);
-      }, function() {
-        clearChart();
-        console.log('No data returned for query');
-      });
+      var genders = {
+       location_id: 4255,
+       start_time: 1514292024,
+       end_time: 1516884024,
+       interval: 'day',
+       data:[
+         {
+           name: 'social.genders',
+           data: [
+           {key: 'male', value: Math.floor((Math.random() * 60) + 1)},
+           {key: 'female', value: Math.floor((Math.random() * 70) + 1)}]}]};
+
+      var countries = {
+        location_id: 4255,
+        start_time: 1514292024,
+        end_time: 1516884024,
+        interval: 'day',
+        data:[
+          {
+            name: 'social.genders',
+            data: [
+            {key: 'UK', value: Math.floor((Math.random() * 80) + 1)},
+            {key: 'Ireland', value: Math.floor((Math.random() * 20) + 1)},
+            {key: 'France', value: Math.floor((Math.random() * 10) + 1)},
+            {key: 'Egypt', value: Math.floor((Math.random() * 3) + 1)},
+            {key: 'Belarus', value: Math.floor((Math.random() * 3) + 1)},
+            {key: 'Portugal', value: Math.floor((Math.random() * 10) + 1)}]}]};
+
+      var people = {
+       location_id: 4255,
+       start_time: 1514292024,
+       end_time: 1516884024,
+       interval: 'day',
+       data:[
+         {
+           name: 'emails.new',
+           alias: 'New Emails',
+           unit: 'ms',
+           data: [
+           {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
+           {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]};
+
+      if (scope.type === 'people.new') {
+        drawChart(people);
+      } else if (scope.type === 'social.genders') {
+        drawChart(genders);
+      } else if (scope.type === 'social.countries') {
+        drawChart(countries);
+      } else {
+        controller.getStats(params).then(function(res) {
+          drawChart(res);
+        }, function() {
+          clearChart();
+          console.log('No data returned for query');
+        });
+      }
+
       $timeout.cancel(timer);
     }
 
@@ -1433,19 +1513,23 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
         opts.title = 'none';
         opts.height = '350';
-        opts.colors = [colours[0]]; //['#225566'];
-        if (attrs.bar === 'true') {
-          opts.colors = ['#4b84e0'];
-        }
-        opts.curveType = 'function';
-        opts.legend = { position: 'none' };
-
         opts.explorer = {
           maxZoomOut: 0,
           keepInBounds: true,
           axis: 'none',
           actions: [],
         };
+        opts.colors = [colours[0]]; //['#225566'];
+        if (attrs.pie === 'true') {
+          opts.explorer = undefined;
+          opts.colors = colours;
+        }
+
+        if (attrs.bar === 'true') {
+          opts.colors = ['#4b84e0'];
+        }
+        opts.curveType = 'function';
+        opts.legend = { position: 'none' };
 
         if (data === undefined && resp && resp.data) {
 
@@ -1469,6 +1553,14 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             };
             data.addColumn('string', 'Hour');
             data.addColumn({type: 'string', role: 'tooltip', p: { html: true }});
+          } else if (attrs.pie === 'true') {
+            opts.pieHole = 0.8;
+            opts.legend = { position: 'bottom' };
+            opts.title = 'none';
+            opts.pieSliceText = 'none';
+            opts.height = '350';
+
+            data.addColumn('string', 'type');
           } else {
             opts.bar = {};
             data.addColumn('datetime', 'Date');
@@ -1505,6 +1597,21 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               }
               data.addRow(array);
             }
+
+          } else if (attrs.pie === 'true') {
+            var total
+            var arr = [];
+
+            for (var i = 0; i < resp.data[0].data.length; i++) {
+              var key = resp.data[0].data[i].key;
+              var value = resp.data[0].data[i].value;
+              if (key !== 'total') {
+                arr.push([key, value]);
+              }
+            }
+
+            data.addRows(arr);
+
 
           } else {
             opts.vAxes = {
@@ -1568,6 +1675,15 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         a = true;
         if (attrs.bar === 'true') {
           c = new window.google.visualization.ColumnChart(document.getElementById(attrs.render));
+        } else if (attrs.pie === 'true') {
+          var formatter = new window.google.visualization.NumberFormat(
+            {suffix: '', pattern: '###,###'}
+          );
+
+          formatter.format(data, 1);
+
+          c = new window.google.visualization.PieChart(document.getElementById(attrs.render));
+
         } else {
           var formatter = new window.google.visualization.NumberFormat(
             {suffix: suffix, pattern: pattern}
