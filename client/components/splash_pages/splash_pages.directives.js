@@ -1274,7 +1274,7 @@ app.directive('splashGuide', ['Location', '$routeParams', '$location', '$http', 
   };
 }]);
 
-app.directive('splashMenuTop', [function() {
+app.directive('splashNav', [function() {
 
   var link = function(scope, element, attrs, controller) {
     // scope.location = { slug: $routeParams.id };

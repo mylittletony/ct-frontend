@@ -1,9 +1,9 @@
-<splash-menu-top location="location"></splash-menu-top>
+<splash-nav location="location"></splash-nav>
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="!integration.type">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <div ng-show="splash_pages.length == 0">
-      <md-card flex="100">
+      <md-card flex="100" class="b-gr">
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">
@@ -21,7 +21,7 @@
     </div>
 
     <div ng-show="splash_pages.length > 0" flex="100">
-      <md-card>
+      <md-card class="b-gr">
         <md-table-container>
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="logOrder">

@@ -1373,7 +1373,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     });
 
     var letemplate = function(render) {
-      var a = '<div style=""><md-card>'+
+      var a = '<div style=""><md-card class="b-bl">'+
       '<md-card-header class="graph-small">'+
       '<md-card-header-text>'+
       '<span class="md-subhead" translate>'+attrs.name+'</span>'+

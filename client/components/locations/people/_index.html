@@ -2,18 +2,18 @@
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="!integration.type">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
-    <md-card>
-      <analytics ng-if="!loading">
-        <client-chart>
-          <div layout="" layout-wrap class="md-padding">
-            <div flex="100" flex-gt-sm="100" ng-hide="fs && fs.panel != 'usage'">
-              <dash-clients-chart name="People Connected" type="people.new" bar="true" render="new-people" show-gt-sm></dash-clients-chart>
-            </div>
+
+    <analytics ng-if="!loading">
+      <client-chart>
+        <div layout="row" layout-wrap>
+          <div flex="100" flex-gt-sm="100" ng-hide="fs && fs.panel != 'usage'">
+            <dash-clients-chart name="People Connected" type="people.new" bar="true" render="new-people" show-gt-sm></dash-clients-chart>
           </div>
-        </client-chart>
-      </analytics>
-    </md-card>
-    <md-card>
+        </div>
+      </client-chart>
+    </analytics>
+
+    <md-card class="b-bl">
       <div class="md-toolbar-tools" ng-cloak>
         <span class="md-subhead" translate>
           You have a total of {{ _links.total_entries || 0 }} {{ _links.total_entries == 1 ? 'person' : 'people' }}.
