@@ -453,19 +453,49 @@ md-sidenav.md-sidenav-right ul {
 }
 
 .active {
+  padding-left: 13px!important;
+  border-image-slice: 1!important;
+}
+
+li:nth-child(1) .active {
   border-left: 3px solid #EF476F;
   -moz-border-image: -moz-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
   -webkit-border-image: -webkit-linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
   border-image: linear-gradient(25deg, #EF476F 10%, #F78C6B 100%);
-  border-image-slice: 1;
-  padding-left: 13px!important;
+}
+
+li:nth-child(2) .active {
+  border-left: 3px solid #0088bb;
+  -moz-border-image: -moz-linear-gradient(25deg, #0088bb 10%, #0acffe 100%);
+  -webkit-border-image: -webkit-linear-gradient(25deg, #0088bb 10%, #0acffe 100%);
+  border-image: linear-gradient(25deg, #0088bb 10%, #0acffe 100%);
+}
+
+li:nth-child(3) .active {
+  border-left: 3px solid #17ac5b;
+  -moz-border-image: -moz-linear-gradient(25deg, #17ac5b 10%, #9be15d 100%);
+  -webkit-border-image: -webkit-linear-gradient(25deg, #17ac5b 10%, #9be15d 100%);
+  border-image: linear-gradient(25deg, #17ac5b 10%, #9be15d 100%);
 }
 
 .active md-icon {
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
+
+li:nth-child(1) .active md-icon {
   color: #EF476F!important;
   background: -webkit-linear-gradient(45deg, #EF476F 10%, #F78C6B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+}
+
+li:nth-child(2) .active md-icon {
+  color: #0088bb!important;
+  background: -webkit-linear-gradient(45deg, #0088bb 10%, #0acffe 100%);
+}
+
+li:nth-child(3) .active md-icon {
+  color: #17ac5b!important;
+  background: -webkit-linear-gradient(45deg, #17ac5b 10%, #9be15d 100%);
 }
 
 .bottom-right {
