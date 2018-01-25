@@ -1443,6 +1443,27 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
             {key: 'Belarus', value: Math.floor((Math.random() * 3) + 1)},
             {key: 'Portugal', value: Math.floor((Math.random() * 10) + 1)}]}]};
 
+      var ages = {
+        location_id: 4255,
+        start_time: 1514292024,
+        end_time: 1516884024,
+        interval: 'day',
+        data:[
+          {
+            name: 'social.genders',
+            data: [
+            {key: '20', value: Math.floor((Math.random() * 80) + 1)},
+            {key: '21', value: Math.floor((Math.random() * 20) + 1)},
+            {key: '22', value: Math.floor((Math.random() * 10) + 1)},
+            {key: '23', value: Math.floor((Math.random() * 3) + 1)},
+            {key: '24', value: Math.floor((Math.random() * 3) + 1)},
+            {key: '25', value: Math.floor((Math.random() * 10) + 1)},
+            {key: '26', value: Math.floor((Math.random() * 80) + 1)},
+            {key: '27', value: Math.floor((Math.random() * 20) + 1)},
+            {key: '28', value: Math.floor((Math.random() * 10) + 1)},
+            {key: '29', value: Math.floor((Math.random() * 3) + 1)},
+            {key: '30', value: Math.floor((Math.random() * 3) + 1)}]}]};
+
       var people = {
        location_id: 4255,
        start_time: 1514292024,
@@ -1450,9 +1471,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
        interval: 'day',
        data:[
          {
-           name: 'emails.new',
-           alias: 'New Emails',
-           unit: 'ms',
+           name: 'people.new',
+           alias: 'New People',
            data: [
            {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
            {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
@@ -1486,12 +1506,58 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
            {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
            {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]};
 
+           var emails = {
+            location_id: 4255,
+            start_time: 1514292024,
+            end_time: 1516884024,
+            interval: 'day',
+            data:[
+              {
+                name: 'emails.new',
+                alias: 'New Emails',
+                data: [
+                {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
+                {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]};
+
       if (scope.type === 'people.new') {
         drawChart(people);
+      } else if (scope.type === 'emails.new') {
+        drawChart(emails);
       } else if (scope.type === 'social.genders') {
         drawChart(genders);
       } else if (scope.type === 'social.countries') {
         drawChart(countries);
+      } else if (scope.type === 'social.ages') {
+        drawChart(ages);
       } else {
         controller.getStats(params).then(function(res) {
           drawChart(res);

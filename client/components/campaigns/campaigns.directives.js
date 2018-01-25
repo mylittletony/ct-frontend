@@ -175,3 +175,32 @@ app.directive('campNav', [function() {
   };
 
 }]);
+
+app.directive('campaignReports', ['Campaign', 'Location', '$routeParams', function(Campaign, Location, $routeParams) {
+
+  var link = function(scope, element, attrs) {
+
+    scope.currentNavItem = 'people';
+
+    var init = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        scope.loading = undefined;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/campaigns/reports/_reports.html'
+  };
+
+}]);
