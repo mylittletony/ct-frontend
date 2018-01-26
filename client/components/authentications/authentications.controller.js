@@ -28,15 +28,15 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
       }, function(err) {
         console.log('CTME Auth 401');
         $cookies.remove('_mta' );
-        if ($localStorage.user) {
-          $localStorage.user.refresh = undefined;
+        if ($localStorage.mimo_user) {
+          $localStorage.mimo_user.refresh = undefined;
         }
         login();
       });
     };
 
     if ($routeParams.token) {
-      delete $localStorage.user;
+      delete $localStorage.mimo_user;
       $cookies.put('_mta', $routeParams.token, { domain: domain });
       $timeout(function() {
         getMe();

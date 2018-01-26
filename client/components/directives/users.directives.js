@@ -986,7 +986,7 @@ app.directive('userQuotas', ['Quota', 'showToast', 'gettextCatalog', 'showErrors
       Quota.get({user_id: $routeParams.id}).$promise.then(function(data) {
         scope.quota = data.quota;
         scope.usage = data.usage;
-        scope.user = $localStorage.user;
+        scope.user = $localStorage.mimo_user;
         scope.loading = undefined;
       });
     };

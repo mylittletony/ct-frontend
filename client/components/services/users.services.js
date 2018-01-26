@@ -7,7 +7,7 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
     var user = null;
 
     var readStoredUser = function () {
-      var storedUser = $localStorage.user;
+      var storedUser = $localStorage.mimo_user;
       user = storedUser;
       try {
         if(storedUser) {
@@ -23,13 +23,13 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
     };
 
     var saveUser = function(userToSave) {
-      $localStorage.user = userToSave;
+      $localStorage.mimo_user = userToSave;
     };
 
     var refresh = function(data) {
       var deferred = $q.defer();
       AccessToken.set(data.access_token);
-      $localStorage.user.refresh = data.refresh_token;
+      $localStorage.mimo_user.refresh = data.refresh_token;
       deferred.resolve();
       return deferred.promise;
     };
@@ -65,7 +65,7 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
     var logout = function() {
       var deferred = $q.defer();
       AccessToken.del();
-      delete $localStorage.user;
+      delete $localStorage.mimo_user;
       var sub = locationHelper.subdomain();
       window.location.href = AUTH_URL + '/logout';
     };

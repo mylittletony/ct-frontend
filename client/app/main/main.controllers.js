@@ -108,7 +108,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
     var logout = function(args) {
       var deferred = $q.defer();
-      var user = $localStorage.user;
+      var user = $localStorage.mimo_user;
       var path = $location.path();
       AccessToken.del();
       if ( user && user.refresh ) {

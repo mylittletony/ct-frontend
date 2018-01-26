@@ -13,8 +13,8 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
       updateLocation();
     };
 
-    if ($localStorage.user) {
-      scope.white_label = $localStorage.user.custom;
+    if ($localStorage.mimo_user) {
+      scope.white_label = $localStorage.mimo_user.custom;
     }
 
     function updateLocation() {
@@ -454,7 +454,7 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
 //       scope.results = [];
 //       scope.links = undefined;
 //       $location.search();
-//       if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
+//       if (scope.query.end - scope.query.start > 604800 && $localStorage.mimo_user && !$localStorage.mimo_user.paid_plan) {
 //         showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
 //       }
 //     };
@@ -654,8 +654,8 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
 //       scope.selectedItemChange = selectedItemChange;
 //       scope.searchTextChange   = searchTextChange;
 
-//       if ($localStorage.user) {
-//         scope.white_label = $localStorage.user.custom;
+//       if ($localStorage.mimo_user) {
+//         scope.white_label = $localStorage.mimo_user.custom;
 //       }
 
 //       if ($rootScope.loggedIn || (scope.$parent.loggedIn && scope.$parent.loggedOut === undefined)) {
@@ -1511,8 +1511,8 @@ app.directive('locationSettingsSecurity', ['$timeout', '$localStorage', function
 
     scope.ctrl = {};
     scope.ctrl.levels = [1,2,3];
-    if ($localStorage.user) {
-      scope.white_label = $localStorage.user.custom;
+    if ($localStorage.mimo_user) {
+      scope.white_label = $localStorage.mimo_user.custom;
     }
 
     scope.back = function() {

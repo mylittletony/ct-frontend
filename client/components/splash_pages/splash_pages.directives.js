@@ -428,8 +428,8 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
 
         scope.networks = results.networks;
         //scope.splash.networks = [];
-        if ($localStorage.user) {
-          scope.white_label = $localStorage.user.custom;
+        if ($localStorage.mimo_user) {
+          scope.white_label = $localStorage.mimo_user.custom;
         }
 
         createMenu();
@@ -578,8 +578,8 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
       if (scope.splash.ssid) {
         scope.splash.network_id = undefined;
       }
-      if ($localStorage && $localStorage.user) {
-        scope.splash.powered_by = !$localStorage.user.custom;
+      if ($localStorage && $localStorage.mimo_user) {
+        scope.splash.powered_by = !$localStorage.mimo_user.custom;
       }
       SplashPage.create({
         location_id: scope.location.slug,
