@@ -2725,6 +2725,8 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
 
   var link = function(scope, element, attrs, controller) {
 
+    scope.label = attrs.label || 'Free Trial';
+
     scope.signUp = function(ev) {
       $mdDialog.show({
         controller: DialogController,
@@ -2764,14 +2766,14 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
       };
 
       $scope.pay = function() {
-        alert('wohooohoooo!')
+        alert('wohooohoooo!');
       };
     }
   };
 
   var template =
     '<md-button type="submit" class="md-raised md-primary" ng-click="signUp()">' +
-    'Sign-up now' +
+    '{{label}}' +
     '</md-button>';
 
 
