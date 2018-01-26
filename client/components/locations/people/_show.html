@@ -182,39 +182,9 @@
                     </tr>
                   </thead>
                   <tbody md-body>
-                    <tr md-row>
+                    <tr md-row ng-repeat="radcheck in person.radchecks">
                       <td md-cell>
-                        ApplesAndPears74
-                      </td>
-                      <td md-cell>
-                        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                        </md-button>
-                      </td>
-                    </tr>
-                    <tr md-row>
-                      <td md-cell>
-                        BoatRace27
-                      </td>
-                      <td md-cell>
-                        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                        </md-button>
-                      </td>
-                    </tr>
-                    <tr md-row>
-                      <td md-cell>
-                        DogAndBone81
-                      </td>
-                      <td md-cell>
-                        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                        </md-button>
-                      </td>
-                    </tr>
-                    <tr md-row>
-                      <td md-cell>
-                        DustbinLid42
+                        {{radcheck.username_human}}
                       </td>
                       <td md-cell>
                         <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
