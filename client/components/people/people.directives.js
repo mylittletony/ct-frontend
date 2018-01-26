@@ -112,12 +112,12 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
           username: scope.person.username
         }
       }).$promise.then(function(results) {
-        scope.person = results
-        scope.edit_username = false
+        scope.person = results;
+        scope.edit_username = false;
       }, function(error) {
         showErrors(error);
       });
-    }
+    };
 
     var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
