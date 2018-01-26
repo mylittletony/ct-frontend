@@ -35,26 +35,26 @@ app.factory('AccessToken', ['$cookies', '$q', function($cookies, $q) {
   };
 
   var set = function(token) {
-    $cookies.put('_cta', token, { domain: domain() });
+    $cookies.put('_mta', token, { domain: domain() });
     return true;
   };
 
   var del = function() {
     var d = domain();
-    $cookies.remove('_cta', { domain: d });
-    $cookies.remove('_cta');
+    $cookies.remove('_mta', { domain: d });
+    $cookies.remove('_mta');
   };
 
   var get = function() {
     var ls;
-    
+
     //prefere url token to cookie
     var params = document.location.href.match(/[?&]token=([0-9a-f]+)/);
     if (params) {
       ls = params[1];
       set(ls);
     } else {
-      ls = $cookies.get('_cta', { domain: domain() });
+      ls = $cookies.get('_mta', { domain: domain() });
     }
 
     return ls;

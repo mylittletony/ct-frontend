@@ -9,7 +9,7 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
     $scope.ct_login.active       = true;
 
     var domain = '.' + locationHelper.domain();
-    var cookie = $cookies.get('_cta', {domain: domain});
+    var cookie = $cookies.get('_mta', {domain: domain});
     var sub    = locationHelper.subdomain();
 
     var login = function(token, search) {
@@ -27,7 +27,7 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
         $scope.ct_login.active = undefined;
       }, function(err) {
         console.log('CTME Auth 401');
-        $cookies.remove('_cta' );
+        $cookies.remove('_mta' );
         if ($localStorage.user) {
           $localStorage.user.refresh = undefined;
         }
@@ -37,7 +37,7 @@ app.controller('AuthenticationsController', ['$scope', '$rootScope', '$cookies',
 
     if ($routeParams.token) {
       delete $localStorage.user;
-      $cookies.put('_cta', $routeParams.token, { domain: domain });
+      $cookies.put('_mta', $routeParams.token, { domain: domain });
       $timeout(function() {
         getMe();
       }, 500);

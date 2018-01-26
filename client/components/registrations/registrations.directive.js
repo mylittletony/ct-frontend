@@ -152,7 +152,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     };
 
    var switchBrand = function(data) {
-      $cookies.put('_cta', data.token, {domain: '.' + domain});
+      $cookies.put('_mta', data.token, {domain: '.' + domain});
       getMe(data);
     };
 
