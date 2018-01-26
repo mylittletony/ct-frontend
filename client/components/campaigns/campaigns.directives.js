@@ -76,7 +76,6 @@ app.directive('listCampaigns', ['Campaign', 'Location', '$routeParams', '$rootSc
         scope._links   = results._links;
         scope.loading  = undefined;
       }, function(err) {
-        console.log(err);
         scope.loading = undefined;
       });
     };
