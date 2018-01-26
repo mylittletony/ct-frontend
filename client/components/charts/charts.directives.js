@@ -1496,7 +1496,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               {hour: '19', value: Math.floor((Math.random() * 7) + 1)},
               {hour: '20', value: Math.floor((Math.random() * 5) + 1)},
               {hour: '21', value: Math.floor((Math.random() * 5) + 1)},
-              {hour: '22', value: Math.floor((Math.random() * 4) + 1)}]}]},
+              {hour: '22', value: Math.floor((Math.random() * 4) + 1)},
+              {hour: '23', value: Math.floor((Math.random() * 4) + 1)}]}]},
 
         'people.new': {
          location_id: 4255,
