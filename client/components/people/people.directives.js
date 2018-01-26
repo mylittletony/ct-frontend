@@ -25,7 +25,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     };
 
     scope.destroy = function(person) {
-      People.destroy({location_id: scope.location.slug, id: person.slug}).$promise.then(function(results) {
+      People.destroy({location_id: scope.location.slug, id: person.id}).$promise.then(function(results) {
         removeFromList(person);
       }, function(err) {
         showErrors(err);

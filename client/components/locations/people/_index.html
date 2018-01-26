@@ -47,7 +47,7 @@
           <tbody md-body>
             <tr md-row ng-repeat="person in people">
               <td md-cell>
-                <a href="/#/{{ location.slug }}/people/{{ person.slug }}">{{ person.username ? person.username : 'Splash Guest'}}</a>
+                <a href="/#/{{ location.slug }}/people/{{ person.id }}">{{ person.username ? person.username : 'Splash Guest'}}</a>
               </td>
               <td md-cell>
                 {{ person.updated_at | humanDate }}
@@ -62,7 +62,7 @@
                   </md-button>
                   <md-menu-content width="3">
                     <md-menu-item>
-                      <md-button ng-href="/#/{{ location.slug }}/people/{{ person.slug}}">
+                      <md-button ng-href="/#/{{ location.slug }}/people/{{ person.id}}">
                         <md-icon md-menu-align-target style="margin: auto 3px auto 0;">pageview</md-icon>
                         <span translate>View</span>
                       </md-button>
