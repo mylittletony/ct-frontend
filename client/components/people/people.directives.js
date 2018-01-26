@@ -96,6 +96,29 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
 
     scope.currentNavItem = 'people';
 
+    scope.editName = function(editState) {
+      if (editState === true) {
+        scope.edit_username = false;
+      } else {
+        scope.edit_username = true;
+      }
+    };
+
+    scope.saveUsername = function() {
+      People.update({}, {
+        location_id: scope.location.slug,
+        id: scope.person.id,
+        person: {
+          username: scope.person.username
+        }
+      }).$promise.then(function(results) {
+        scope.person = results
+        scope.edit_username = false
+      }, function(error) {
+        showErrors(error);
+      });
+    }
+
     var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;

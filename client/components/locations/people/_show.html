@@ -19,7 +19,7 @@
               <md-card-title>
                 <img src="http://ct-networks.io/images/pages/staff/andrew.jpg" style="max-height:120px;border-radius:60px;"></img>
                 <span flex></span>
-                <md-button ng-click="editName()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
+                <md-button ng-click="editName(edit_username)" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                   <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
                 </md-button>
               </md-card-title>
@@ -27,7 +27,11 @@
                 <md-list-item class="md-2-line">
                   <div class="md-list-item-text" layout="column">
                     <h3 translate>Name</h3>
-                    <p>{{ person.username ? person.username : 'Splash Guest'}}</p>
+                    <p ng-if="edit_username != true">{{ person.username ? person.username : 'Splash Guest'}}</p>
+                    <div layout="row">
+                      <input type="text" ng-model="person.username" ng-if="edit_username == true"></input>
+                      <md-button ng-if="edit_username == true" ng-click="saveUsername()"><md-icon>check</md-icon></md-button>
+                    </div>
                   </div>
                 </md-list-item>
                 <md-list-item class="md-2-line">
@@ -184,7 +188,7 @@
                   <tbody md-body>
                     <tr md-row ng-repeat="radcheck in person.radchecks">
                       <td md-cell>
-                        {{radcheck.username_human}}
+                        {{radcheck.username}}
                       </td>
                       <td md-cell>
                         <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
