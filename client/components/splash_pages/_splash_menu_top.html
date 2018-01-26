@@ -15,5 +15,7 @@
     <md-nav-item md-nav-href="/#/{{ location.slug }}/splash_pages/guide" name="guide" class="getting-started-button" ng-show="location.setup.splash == false || location.setup.integrations == false">
       Getting Started
     </md-nav-item>
+    <div flex='40'></div>
+    <get-with-the-plan ng-if="!location.paid"></get-with-the-plan>
   </md-nav-bar>
 </div>
