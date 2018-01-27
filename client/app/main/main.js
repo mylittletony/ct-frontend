@@ -162,67 +162,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
-    // when('/:id/map', {
-    //   templateUrl: 'components/locations/show/map.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired },
-    // }).
-    // when('/:id/clients', {
-    //   templateUrl: 'components/locations/clients/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
-    // when('/:id/clients/:client_id', {
-    //   templateUrl: 'components/locations/clients/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    //   reloadOnSearch: false,
-    // }).
-    // when('/locations/:id/clients/:client_id/codes', {
-    //   templateUrl: 'components/locations/clients/codes.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
-    // when('/locations/:id/clients/:client_id/codes/:username', {
-    //   templateUrl: 'components/locations/clients/show_code.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
-    // when('/locations/:id/clients/:client_id/codes/:username/sessions', {
-    //   templateUrl: 'components/locations/clients/sessions.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
-    // when('/locations/:id/clients/:client_id/orders/:order_id', {
-    //   templateUrl: 'components/locations/clients/show_order.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
-    // when('/locations/:id/clients/:client_id/social/:social_id', {
-    //   templateUrl: 'components/locations/clients/social.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
-    // when('/locations/:id/clients/:client_id/sessions', {
-    //   templateUrl: 'components/locations/clients/sessions.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
-    // when('/locations/:id/group_policies', {
-    //   templateUrl: 'components/views/group_policies/index.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/group_policies/:group_policy_id', {
-    //   templateUrl: 'components/views/group_policies/show.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/group_policies/:group_policy_id/clients', {
-    //   templateUrl: 'components/views/group_policies/clients.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/:id/campaigns', {
       templateUrl: 'components/campaigns/index/index.html',
       controller: 'LocationsCtrl as lc',
