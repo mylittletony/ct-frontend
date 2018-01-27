@@ -11,7 +11,7 @@
           Please wait while we load the plan.
         </div>
         <div flex="100" ng-if="!loading">
-          <h3 translate>{{ ::plan.plan_name }} Plan</h3>
+          <h3 translate>{{ ::plan.plan_name }}</h3>
           <md-list-item class="md-2-line">
             <div class="md-list-item-text">
               <h3 translate>Plan Description</h3>
@@ -33,7 +33,7 @@
               <p translate>{{ (plan.plan_price || 0) | currency : curr }} per month.</p>
             </div>
           </md-list-item>
-          <md-list-item class="md-2-line">
+          <md-list-item class="md-2-line" ng-if="plan.per_ap_pricing">
             <div class="md-list-item-text">
               <h3 translate>Additional Device Costs</h3>
               <p translate>{{ plan.cost_per_50 / 100 | currency : currency }} monthly for each addition device added.</p>
