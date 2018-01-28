@@ -15,7 +15,7 @@ app.factory('Campaign', ['$resource', '$localStorage', 'API_END_POINT',
         isArray: false,
         dataType: 'json'
       },
-      save: {
+      create: {
         method:'POST',
         isArray: false,
       },
