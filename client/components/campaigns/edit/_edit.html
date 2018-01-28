@@ -181,7 +181,10 @@
           </md-card-title>
           <md-card-content>
             <div layout="column" layout-wrap flex="100" flex-gt-sm="20">
-              <md-input-container>
+              <md-switch ng-model="campaign.active" aria-label="Switch 1">
+                Campaign Active
+              </md-switch>
+              <md-input-container ng-show="campaign.active">
                 <label>State</label>
                 <md-select ng-model="campaign.state">
                   <md-option ng-repeat="state in states" ng-value="state">
@@ -189,10 +192,8 @@
                   </md-option>
                 </md-select>
               </md-input-container>
-              <md-switch ng-model="campaign.active" aria-label="Switch 1">
-                Campaign Active (running)
-              </md-switch>
             </div>
+            <p>After the campaign has been set live and made active, you will not be able to edit things.</p>
           </md-card-content>
         </md-card>
       </div>
