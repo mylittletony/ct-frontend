@@ -112,7 +112,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
   var link = function(scope,element,attrs) {
 
     scope.campaign = { slug: $routeParams.campaign_id };
-    scope.location = {slug: $routeParams.id};
+    // scope.location = {slug: $routeParams.id};
 
     scope.available_options = [];
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
@@ -276,7 +276,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
 
     var getCampaign = function() {
       Campaign.get({
-        location_id: scope.location.slug,
+        location_id: $routeParams.id,
         id: scope.campaign.slug
       }).$promise.then(function(results) {
         scope.campaign = results;
@@ -301,16 +301,11 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
     };
 
     var init = function() {
-      Location.get({id: scope.location.slug}, function(data) {
-        scope.location = data;
-        if ($routeParams.campaign_id) {
-          getCampaign();
-        } else {
-          buildCampaign();
-        }
-      }, function(err){
-        console.log(err);
-      });
+      if ($routeParams.campaign_id) {
+        getCampaign();
+      } else {
+        buildCampaign();
+      }
     };
 
     init();
@@ -319,7 +314,8 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
   return {
     link: link,
     scope: {
-      loading: '='
+      loading: '=',
+      location: '='
     },
     templateUrl: 'components/campaigns/edit/_edit.html'
   };

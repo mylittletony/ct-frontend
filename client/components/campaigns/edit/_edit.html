@@ -30,7 +30,29 @@
                 <div ng-messages="myForm.campaign_name.$error" md-auto-hide="false">
                   <div ng-message="max" translate>Must be less than 100 characters</div>
                   <div ng-message="min" translate>Must be greater than 5 characters</div>
-                  <div ng-message="required" translate>Please enter a location name.</div>
+                  <div ng-message="required" translate>Please enter a campaign name.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>
+                  <translate>Who's it from</translate>
+                </label>
+                <input md-autofocus ng-model="campaign.from_name" name="from_name" placeholder="{{ 'Enter a name' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
+                <div ng-messages="myForm.from_name.$error" md-auto-hide="false">
+                  <div ng-message="max" translate>Must be less than 100 characters</div>
+                  <div ng-message="min" translate>Must be greater than 5 characters</div>
+                  <div ng-message="required" translate>Please enter a name.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-sm="50">
+                <label>
+                  <translate>From email</translate>
+                </label>
+                <input md-autofocus ng-model="campaign.from_email" name="from_email" placeholder="{{ 'Enter a email' | translate }}" type="email" ng-minlength="5" md-maxlength='100' required>
+                <div ng-messages="myForm.from_email.$error" md-auto-hide="false">
+                  <div ng-message="max" translate>Must be less than 100 characters</div>
+                  <div ng-message="min" translate>Must be greater than 5 characters</div>
+                  <div ng-message="required" translate>Please enter an email.</div>
                 </div>
               </md-input-container>
             </div>
@@ -214,4 +236,3 @@
     </div>
   </md-content>
 </form>
-
