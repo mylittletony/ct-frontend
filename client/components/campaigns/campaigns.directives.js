@@ -117,41 +117,42 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
     scope.available_options = [];
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
     scope.available_options.push({value: 'updated_at', name: 'Last seen', desc: 'The last time they were seen on your network'});
-    scope.available_options.push({value: 'logins', name: 'Number of logins', desc: 'Total number of logins through your network'});
+    scope.available_options.push({value: 'logins_count', name: 'Number of logins', desc: 'Total number of logins through your network'});
+
+    scope.states = ['draft', 'live'];
 
     scope.addRule = function() {
-      if (!scope.campaign.predicates) {
-        scope.campaign.predicates = [];
+      if (!scope.campaign.holding_predicates) {
+        scope.campaign.holding_predicates = [];
       }
-      scope.focusedCard = scope.campaign.predicates.length;
+      scope.focusedCard = scope.campaign.holding_predicates.length;
       scope.showChooser = true;
     };
 
     scope.onSelect = function(index) {
       scope.showChooser = undefined;
-      // scope.predicate.rel_value = 7;
       var pred = { value: '', operator: 'rel_gte' };
       switch(index) {
         case 0:
           pred.name = 'First seen';
           pred.attribute = 'created_at';
-          // pred.type = 'date';
+          pred.operator = 'rel_gte';
           break;
         case 1:
           pred.name = 'Last seen';
           pred.attribute = 'updated_at';
-          // pred.type = 'date';
+          pred.operator = 'rel_gte';
           break;
         case 2:
           pred.name = 'Number of logins';
-          pred.attribute = 'logins';
+          pred.attribute = 'login_count';
+          pred.operator = '_gte';
           break;
       }
-      scope.campaign.predicates.push(pred);
+      scope.campaign.holding_predicates.push(pred);
     };
 
     scope.showCard = function(index) {
-      console.log(index);
       scope.focusedCard = index;
     };
 
@@ -180,16 +181,71 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
         }
       } else {
         switch(predicate.operator) {
-          case 'gte':
+          case '_gte':
             return `More than ${predicate.value} logins.`;
-          case 'lte':
+          case '_lte':
             return `Less than ${predicate.value} logins.`;
         }
       }
     };
 
     scope.removePredicate = function(index) {
-      scope.campaign.predicates.splice(index, 1);
+      scope.campaign.holding_predicates.splice(index, 1);
+    };
+
+    scope.setRules = function() {
+      switch(scope.campaign.template) {
+        case 'signed_up_now':
+          scope.campaign.holding_predicates = [];
+          scope.campaign.holding_predicates.push({operator: 'rel_lte', rel_value: 1, attribute: 'created_at'});
+          break;
+        case 'signed_up_30':
+          scope.campaign.holding_predicates = [];
+          scope.campaign.holding_predicates.push({operator: 'rel_eq', rel_value: 30, attribute: 'created_at'});
+          break;
+        case 'last_seen_30':
+          scope.campaign.holding_predicates = [];
+          scope.campaign.holding_predicates.push({operator: 'rel_eq', rel_value: 30, attribute: 'updated_at'});
+          break;
+        case 'custom':
+          scope.campaign.holding_predicates = [];
+          break;
+      }
+    };
+
+    scope.save = function(form) {
+      scope.focusedCard = undefined;
+      var predicates = [];
+      for(var i = 0; i < scope.campaign.holding_predicates.length; i++) {
+        var predicate = {};
+        var rule = scope.campaign.holding_predicates[i];
+        var type = rule.operator.split('_');
+        if (type[0] === 'abs') {
+          predicate.value = rule.abs_value;
+        } else if (type[0] === 'rel') {
+          predicate.value = rule.rel_value;
+        } else {
+          predicate.value = rule._value;
+        }
+
+        if ((type[0] === 'abs') && (rule.attribute === 'created_at' || rule.attribute === 'updated_at')) {
+          predicate.type = 'date';
+        }
+
+        if (predicate.type === 'date') {
+          predicate.value = Math.floor(predicate.value.getTime() / 1000);
+        }
+
+        predicate.operator = type[1];
+        predicate.attribute = rule.attribute;
+        predicates.push(predicate);
+      }
+      scope.campaign.predicates = predicates;
+      console.log(scope.campaign)
+    };
+
+    scope.hideOthers = function() {
+      scope.focusedCard = undefined;
     };
 
     var getCampaign = function() {
@@ -207,8 +263,13 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
     var buildCampaign = function() {
       scope.campaign = {};
       scope.campaign.template = 'signed_up_now';
-      scope.campaign.template = 'custom'; // remove
+      // scope.campaign.template = 'custom'; // remove
+      scope.campaign.holding_predicates = [];
+      scope.campaign.holding_predicates.push({operator: 'rel_lte', rel_value: 1, attribute: 'created_at'});
       scope.campaign.predicate_type = 'and';
+      scope.campaign.title = 'Thanks for stopping by';
+      scope.campaign.content = 'Hey {{ FirstName }}, thanks again!';
+      scope.campaign.state = 'draft';
       scope.loading = undefined;
     };
 
