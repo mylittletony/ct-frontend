@@ -22,11 +22,9 @@ var app = angular.module('myApp.services', [
   'myApp.main.services',
   'myApp.menu.services',
   'myApp.metrics.services',
-  'myApp.networks.services',
   'myApp.pagination_labels.services',
   'myApp.people.services',
   'myApp.plans.services',
-  'myApp.port_forwards.services',
   'myApp.quotas.services',
   'myApp.reports.services',
   'myApp.registrations.services',
@@ -35,6 +33,5 @@ var app = angular.module('myApp.services', [
   'myApp.splash_pages.services',
   'myApp.subscriptions.services',
   'myApp.users.services',
-  'myApp.upgrades.services',
   'myApp.vouchers.services',
 ]);

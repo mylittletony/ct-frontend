@@ -5,7 +5,6 @@ var app = angular.module('myApp.controllers', [
   'myApp.boxes.controller',
   'myApp.invoices.controller',
   'myApp.locations.controller',
-  'myApp.port_forwards.controller',
   'myApp.reports.controller',
   'myApp.splash_pages.controller',
   'myApp.registrations.controller',

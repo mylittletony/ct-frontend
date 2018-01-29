@@ -814,11 +814,6 @@ table tr td, table.print-friendly tr th {
   margin-top: -30px;
 }
 
-.emojionearea, .emojionearea.form-control {
-  box-shadow: none !important;
-  border-width: 0 0 1px 0 !important;
-}
-
 pre .list-unstyled {
   list-style: none;
   margin: 0px 0 -40px -40px;
@@ -835,22 +830,6 @@ md-card.highlight-section {
 
 #new-ssid-form.ssid-form {
   height: 100%;
-}
-
-.emojionearea.emojionearea-inline>.emojionearea-editor {
-  position: initial !important;
-}
-
-.emojionearea .emojionearea-editor {
-  color: rgba(0,0,0,0.87) !important;
-  font-family: Source Sans Pro, "Helvetica Neue", sans-serif !important;
-  font-size: 16px !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  font-variant-caps: : normal !important;
-  font-variant-ligatures: : normal !important;
-  font-variant-numeric: : normal !important;
-  font-weight: : normal !important;
 }
 
 .google-visualization-tooltip {
