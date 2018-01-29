@@ -21,19 +21,6 @@
         </span>
       </div>
       <span flex><span>
-      <!-- <md-menu ng-if="selected.length">
-        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-fab md-mini md-warn" ng-click="$mdOpenMenu($event)">
-          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-        </md-button>
-        <md-menu-content width="4" >
-          <md-menu-item>
-            <md-button ng-click="deleteDevices()">
-              <md-icon>delete_forever</md-icon>
-              <p flex translate>Delete People</p>
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu> -->
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
           <thead md-head md-order="query.order" md-on-reorder="logOrder">
