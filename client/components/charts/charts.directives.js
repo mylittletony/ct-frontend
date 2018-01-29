@@ -1791,15 +1791,14 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
              {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]}
       };
 
-      // !!!! add this back when we have real data !!!!
-
-      // controller.getStats(params).then(function(res) {
-      //   drawChart(res);
-      // }, function() {
-      //   clearChart();
-      //   console.log('No data returned for query');
-      // });
-      drawChart(fakeStats[scope.type]);
+      controller.getStats(params).then(function(res) {
+        drawChart(res);
+      }, function() {
+        // clearChart();
+        // console.log('No data returned for query');
+        drawChart(fakeStats[scope.type]);
+        scope.fake_data = true;
+      });
 
       $timeout.cancel(timer);
     }
@@ -2658,33 +2657,32 @@ app.directive('emailStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
 
     scope.type = 'email.stats';
 
+    var fakeData = {
+      total: Math.floor((Math.random() * 100) + 500),
+      opened: Math.floor((Math.random() * 50) + 400),
+      reputation: Math.floor((Math.random() * 20) + 80),
+      breakdown: {
+        delivered: Math.floor((Math.random() * 10) + 90),
+        opened: Math.floor((Math.random() * 30) + 50),
+        clicked: Math.floor((Math.random() * 30) + 60),
+        bounced: Math.floor((Math.random() * 10) + 1),
+        spam: Math.floor((Math.random() * 20) + 1)
+      }
+    };
+
     function chart() {
       var params = {
         type: scope.type,
         period: '30d'
       };
 
-      // put this back in when we have data
-      //
-      // controller.getStats(params).then(function(res) {
-      //   scope.stats = res.data[0].data;
-      // }, function() {
-      //   console.log('No data returned for query');
-      // });
-
-      // !!!!! fake data !!!!!
-      scope.stats = {
-        total: Math.floor((Math.random() * 100) + 500),
-        opened: Math.floor((Math.random() * 50) + 400),
-        reputation: Math.floor((Math.random() * 20) + 80),
-        breakdown: {
-          delivered: Math.floor((Math.random() * 10) + 90),
-          opened: Math.floor((Math.random() * 30) + 50),
-          clicked: Math.floor((Math.random() * 30) + 60),
-          bounced: Math.floor((Math.random() * 10) + 1),
-          spam: Math.floor((Math.random() * 20) + 1)
-        }
-      }
+      controller.getStats(params).then(function(res) {
+        scope.stats = res.data[0].data;
+      }, function() {
+        scope.stats = fakeData;
+        scope.fake_data = true
+        // console.log('No data returned for query');
+      });
     }
 
     chart();
