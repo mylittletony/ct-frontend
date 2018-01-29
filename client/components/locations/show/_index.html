@@ -28,11 +28,8 @@
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="location.has_devices">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
-    eggs{{integration}}
-
+    <div>
+      <md-button class="md-raised" ng-click="addBoxes()">Add Boxes</md-button>
+    </div>
   </div>
-  <div>
-    <md-button class="md-raised" ng-click="addBoxes()">Add Boxes</md-button>
-  </div>
-
 </md-content>

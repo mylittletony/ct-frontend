@@ -6,6 +6,7 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
 
   var link = function(scope,element,attrs,controller) {
 
+    scope.currentNavItem = 'devices';
     var channel;
 
     scope.favourite = function() {
