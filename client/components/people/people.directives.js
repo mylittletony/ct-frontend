@@ -172,7 +172,7 @@ app.directive('peopleReports', ['People', 'Location', '$routeParams', '$location
 
   var link = function(scope, element, attrs) {
 
-    scope.currentNavItem = 'people';
+    scope.currentNavItem = 'reports';
 
     var init = function() {
       Location.get({id: $routeParams.id}, function(data) {

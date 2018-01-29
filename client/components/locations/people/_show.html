@@ -2,12 +2,40 @@
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
-    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back to People' | translate }}">
-      <md-tooltip md-direction="bottom">Back to People</md-tooltip>
-      <md-icon>keyboard_return</md-icon>
-    </md-button>
-    <span flex></span>
+    <div layout="row" layout-align="space-between center" layout-wrap>
+        <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back to People' | translate }}">
+          <md-tooltip md-direction="bottom">Back to People</md-tooltip>
+          <md-icon>keyboard_return</md-icon>
+        </md-button>
+
+        <md-menu>
+          <md-button aria-label="{{ 'Open sessions menu' | translate }}" class="md-fab md-raised md-primary md-mini" ng-click="$mdOpenMenu($event)">
+            <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+          </md-button>
+          <md-menu-content width="3">
+            <md-menu-item>
+              <md-button ng-href="/#/{{location.slug}}/people/{{person.id}}/messages">
+                <p flex translate>Messages</p>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-href="/#/{{location.slug}}/people/{{person.id}}/message_activity">
+                <p flex translate>Message Activity</p>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item ng-show="person.emails">
+              <send-bulk-message></send-bulk-message>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="">
+                <p flex translate>Delete</p>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+    </div>
   </div>
+
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <div layout="row" layout-wrap>
 
@@ -204,20 +232,6 @@
             </md-card>
           </div>
 
-        </div>
-      </div>
-
-      <div flex="100" flex-gt-sm="100">
-        <div layout="row" layout-wrap>
-          <send-bulk-message ng-show="person.emails"></send-bulk-message>
-
-          <md-button href="/#/{{location.slug}}/people/{{person.id}}/messages">messages</md-button>
-          <md-button href="/#/{{location.slug}}/people/{{person.id}}/message_activity">message activity</md-button>
-
-          <span flex></span>
-          <md-button ng-click="" class="md-raised md-warn">
-            Delete
-          </md-button>
         </div>
       </div>
 
