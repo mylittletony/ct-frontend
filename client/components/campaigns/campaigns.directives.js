@@ -173,20 +173,41 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
     var isNumber = function(number) {
       if (Number.isInteger(number / 1)) {
         return true;
-      };
+      }
     };
 
     scope.human = function(predicate) {
+      var phrase;
       if (predicate.attribute === 'login_count') {
-        return `${predicate.operator === 'gte' ? 'More' : 'Less'} than ${predicate.value} logins.`;
+        if (predicate.operator === 'gte') {
+          phrase = 'More than';
+        } else {
+          phrase = 'Less than';
+        }
+        return phrase + ' ' + predicate.value + ' logins';
       }
 
       if (scope.campaign.relative || isNumber(predicate.value)) {
-        return `${predicate.operator === 'gte' ? 'More than' : predicate.operator === 'lte' ? 'Less than' : 'Exactly' } ${predicate.value} days ago.`;
+        if (predicate.operator === 'gte') {
+          phrase = 'More than';
+        } else if (predicate.operator === 'lte') {
+          phrase = 'Less than';
+        } else {
+          phrase = 'Exactly';
+        }
+
+        return phrase + ' ' + predicate.value + ' days ago';
       }
 
-      // Absolute
-      return `${predicate.operator === 'gte' ? 'After' : predicate.operator === 'lte' ? 'Before' : 'On' } the ${predicate.value}.`;
+      if (predicate.operator === 'gte') {
+        phrase = 'After';
+      } else if (predicate.operator === 'lte') {
+        phrase = 'Before';
+      } else {
+        phrase = 'On';
+      }
+
+      return phrase + ' the ' + predicate.value;
     };
 
     scope.removePredicate = function(index) {
@@ -262,6 +283,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
 
     scope.hideOthers = function() {
       scope.focusedCard = undefined;
+      scope.showChooser = undefined;
     };
 
     var getCampaign = function() {

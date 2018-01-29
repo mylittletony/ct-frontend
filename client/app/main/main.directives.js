@@ -1,7 +1,5 @@
 'use strict';
 
-/* Controllers */
-
 var app = angular.module('myApp.directives', [
   'myApp.boxes.directives',
   'myApp.bulk_messages.directives',

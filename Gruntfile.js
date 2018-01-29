@@ -603,7 +603,6 @@ module.exports = function (grunt) {
 
     concurrent: {
       server: [
-        'sass',
       ],
       test: [
         'sass',
@@ -903,7 +902,6 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:test',
-        // 'injector:sass',
         'autoprefixer',
         'karma'
       ]);
@@ -915,7 +913,6 @@ module.exports = function (grunt) {
         'env:all',
         'env:test',
         'concurrent:test',
-        // 'injector:sass',
         'wiredep',
         'autoprefixer',
         'express:dev',
@@ -929,9 +926,6 @@ module.exports = function (grunt) {
       'test:client'
     ]);
   });
-
-  // grunt.loadNpmTasks('grunt-sass');
-  // grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', [
     'newer:jshint',
