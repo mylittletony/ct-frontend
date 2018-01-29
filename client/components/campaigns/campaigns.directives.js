@@ -317,6 +317,7 @@ app.directive('campGuide', [function() {
   var link = function(scope, element, attrs) {
 
     scope.loading = undefined;
+    scope.currentNavItem = 'guide';
 
   };
 
@@ -343,7 +344,7 @@ app.directive('campaignReports', ['Campaign', 'Location', '$routeParams', functi
 
   var link = function(scope, element, attrs) {
 
-    scope.currentNavItem = 'people';
+    scope.currentNavItem = 'reports';
 
     var init = function() {
       Location.get({id: $routeParams.id}, function(data) {
