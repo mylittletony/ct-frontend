@@ -83,19 +83,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       isFirstDisabled: false
     };
 
-    // vm.showPromo = function(offer) {
-    //   $mdDialog.show({
-    //     controller: TrialController,
-    //     templateUrl: 'components/views/main/promos.tmpl.html',
-    //     parent: angular.element(document.body),
-    //     clickOutsideToClose:true,
-    //     locals: {
-    //       offer: offer
-    //     },
-    //     fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-    //   });
-    // };
-
     $scope.$on('logout', function(args) {
       logout().then(function(response) {
         $route.reload();
@@ -112,6 +99,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       AccessToken.del();
       if ( user && user.refresh ) {
         var host  = locationHelper.domain();
+        // Save the path
         $cookies.put('_ctp', JSON.stringify(path) );
         RefreshToken.refresh(user.refresh, path).then(function(response) {
           Auth.refresh(response).then(function(a){
@@ -243,7 +231,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       routeChangeStart();
     });
-
 
     $scope.toggleLocations = function() {
 
