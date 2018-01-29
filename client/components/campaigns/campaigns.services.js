@@ -37,3 +37,17 @@ app.factory('Campaign', ['$resource', '$localStorage', 'API_END_POINT',
       }
     });
   }]);
+
+app.factory('CampaignValidate', ['$resource', 'API_END_POINT',
+  function($resource, API_END_POINT){
+    return $resource(API_END_POINT + '/campaign-validate',
+      {
+        secret: '@secret',
+      },
+      {
+      update: {
+        method:'POST',
+        isArray: false
+      }
+    });
+  }]);

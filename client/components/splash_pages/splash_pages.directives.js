@@ -542,7 +542,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
 
 }]);
 
-app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$routeParams', '$rootScope', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,Auth,$location,$routeParams,$rootScope,$mdDialog,$localStorage,showToast,showErrors,gettextCatalog) {
+app.directive('splashNew', ['SplashPage', 'Auth', '$location', '$routeParams', '$rootScope', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(SplashPage,Auth,$location,$routeParams,$rootScope,$mdDialog,$localStorage,showToast,showErrors,gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -550,21 +550,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
     scope.splash = {};
     scope.location = { slug: $routeParams.id };
 
-    var getNetworks = function() {
-      return Network.get({location_id: scope.location.slug, splash: true}).$promise.then(function(results) {
-        scope.obj.networks = results;
-        if (scope.obj.networks.length) {
-          scope.splash.network_id = scope.obj.networks[0].id;
-          for (var i = 0; i < scope.obj.networks.length; i++) {
-            if (scope.obj.networks[i].zones.length) {
-              scope.obj.zones = true;
-              break;
-            }
-          }
-        }
-      });
-    },
-    getSplashPages = function() {
+    var getSplashPages = function() {
       return SplashPage.get({location_id: scope.location.slug }).$promise.then(function(results) {
         scope.obj.access_types = results.access_types;
         scope.splash.primary_access_id = scope.obj.access_types[0].id;
@@ -619,7 +605,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
       $scope.obj.loading = true;
       $scope.splash = splash;
 
-      getNetworks().then(getSplashPages);
+      getSplashPages();
 
       $scope.save = function(form) {
         create(form);
@@ -714,7 +700,7 @@ app.directive('splashDesignerForm', ['$compile', function($compile) {
 
 }]);
 
-app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$routeParams', '$q', 'menu', 'designer', '$timeout', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', function(Location, SplashPage, SplashPageForm, $routeParams, $q, menu, designer, $timeout, showToast, showErrors, $rootScope, gettextCatalog) {
+app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$route', '$routeParams', '$q', 'menu', 'designer', '$timeout', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', function(Location, SplashPage, SplashPageForm, $route, $routeParams, $q, menu, designer, $timeout, showToast, showErrors, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -750,7 +736,12 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
         splash_page: splash
       }).$promise.then(function(res) {
         scope.splash.updating = undefined;
-        form.$setPristine();
+        scope.splash = res.splash_page;
+        if (form) {
+          form.$setPristine();
+        } else {
+          $route.reload();
+        }
         showToast(gettextCatalog.getString('Layout successfully updated.'));
       }, function(err) {
         showErrors(err);
@@ -1183,12 +1174,9 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
 
 }]);
 
-app.directive('splashTemplates', ['$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function($routeParams, $location, $rootScope, $timeout, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(SplashPage, designer, $routeParams, $location, $rootScope, $timeout, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
-
-    scope.location = { slug: $routeParams.id };
-    scope.splash_page = { id: $routeParams.splash_page_id};
 
     var SplashTemplates = {
       "material_red": {
@@ -1889,14 +1877,15 @@ app.directive('splashTemplates', ['$routeParams', '$location', '$rootScope', '$t
         controller: DialogController,
         locals: {
           loading: scope.loading,
-          template: template
         }
       });
     };
 
     var updateSplash = function() {
+      scope.location = { slug: $routeParams.id };
+      scope.splash_page = { id: $routeParams.splash_page_id};
       var fullTemplate = SplashTemplates[scope.template];
-
+      designer.save(fullTemplate)
     };
 
     function DialogController($scope,loading) {

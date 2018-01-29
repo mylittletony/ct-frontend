@@ -18,7 +18,7 @@
     </md-card-content>
     <md-divider></md-divider>
     <md-card-actions layout="row" layout-align="left center">
-      <get-with-the-plan></get-with-the-plan>
+      <get-with-the-plan ng-if="!location.paid"></get-with-the-plan>
     </md-card-actions>
   </md-card>
 </div>
