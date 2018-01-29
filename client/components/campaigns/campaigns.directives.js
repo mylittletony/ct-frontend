@@ -401,7 +401,7 @@ app.directive('validateCampaignEmail', ['CampaignValidate', '$routeParams', '$ti
       CampaignValidate.update({
         secret: $routeParams.secret
       }).$promise.then(function(results) {
-        scope.message = 'Cool, your email was validated. Party hard.';
+        scope.message = 'Cool, your email was validated. <br><br>Remember to party hard.';
         scope.loading = undefined;
       }, function(err) {
         scope.message = 'Could not validate the token, please try again later.';
