@@ -6,5 +6,6 @@ var app = angular.module('myApp.filters', [
   'myApp.main.filters',
   'myApp.menu.filters',
   'myApp.messages.filters',
-  'myApp.splash_pages.filters',
+  'myApp.campaigns.filters',
+  'myApp.splash_pages.filters'
 ]);

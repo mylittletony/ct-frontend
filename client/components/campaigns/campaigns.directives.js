@@ -176,39 +176,39 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       }
     };
 
-    scope.human = function(predicate) {
-      var phrase;
-      if (predicate.attribute === 'login_count') {
-        if (predicate.operator === 'gte') {
-          phrase = 'More than';
-        } else {
-          phrase = 'Less than';
-        }
-        return phrase + ' ' + predicate.value + ' logins';
-      }
+    // scope.human = function(predicate) {
+    //   var phrase;
+    //   if (predicate.attribute === 'login_count') {
+    //     if (predicate.operator === 'gte') {
+    //       phrase = 'More than';
+    //     } else {
+    //       phrase = 'Less than';
+    //     }
+    //     return phrase + ' ' + predicate.value + ' logins';
+    //   }
 
-      if (scope.campaign.relative || isNumber(predicate.value)) {
-        if (predicate.operator === 'gte') {
-          phrase = 'More than';
-        } else if (predicate.operator === 'lte') {
-          phrase = 'Less than';
-        } else {
-          phrase = 'Exactly';
-        }
+    //   if (scope.campaign.relative || isNumber(predicate.value)) {
+    //     if (predicate.operator === 'gte') {
+    //       phrase = 'More than';
+    //     } else if (predicate.operator === 'lte') {
+    //       phrase = 'Less than';
+    //     } else {
+    //       phrase = 'Exactly';
+    //     }
 
-        return phrase + ' ' + predicate.value + ' days ago';
-      }
+    //     return phrase + ' ' + predicate.value + ' days ago';
+    //   }
 
-      if (predicate.operator === 'gte') {
-        phrase = 'After';
-      } else if (predicate.operator === 'lte') {
-        phrase = 'Before';
-      } else {
-        phrase = 'On';
-      }
+    //   if (predicate.operator === 'gte') {
+    //     phrase = 'After';
+    //   } else if (predicate.operator === 'lte') {
+    //     phrase = 'Before';
+    //   } else {
+    //     phrase = 'On';
+    //   }
 
-      return phrase + ' the ' + predicate.value;
-    };
+    //   return phrase + ' the ' + predicate.value;
+    // };
 
     scope.removePredicate = function(index) {
       scope.campaign.holding_predicates.splice(index, 1);

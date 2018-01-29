@@ -44,13 +44,15 @@
               </td>
               <td md-cell>
                 <b><a href="/#/{{ location.slug }}/campaigns/{{ campaign.id }}">{{ campaign.campaign_name }}</a></b>
-                <p><small>{{ campaign.predicates }}</small>
-                <md-tooltip>
-                  {{ campaign.from_name}} ({{ campaign.from_email }})
-                </md-tooltip>
+                <ul ng-repeat="predicate in campaign.predicates">
+                  <li><small>{{ predicate | humanPredicate }}</small></li>
+                </ul>
               </td>
               <td md-cell>
                 {{ campaign.created_at | humanTimeShortest }}
+                <md-tooltip>
+                  {{ campaign.from_name}} ({{ campaign.from_email }})
+                </md-tooltip>
               </td>
               <td md-cell>
                 {{ campaign.stats.processed || 0 }}
