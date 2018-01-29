@@ -162,6 +162,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
     }).
+    when('/campaign-validate', {
+      templateUrl: 'components/locations/campaigns/validate.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
+    }).
     when('/:id/campaigns', {
       templateUrl: 'components/campaigns/index/index.html',
       controller: 'LocationsCtrl as lc',
