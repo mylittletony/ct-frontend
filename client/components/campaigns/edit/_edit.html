@@ -55,6 +55,7 @@
                   <div ng-message="required" translate>Please enter an email.</div>
                 </div>
               </md-input-container>
+              <p>You will need to validate your `from email` before sending a campaign</p>
             </div>
           </md-card-content>
         </md-card>
@@ -71,7 +72,7 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <span ng-show="campaign.id === ''">
+            <span ng-show="!campaign.id">
               <p>People who match these rules:</p>
               <md-radio-group ng-click="setRules()" ng-model="campaign.template">
                 <md-radio-button value="signed_up_now" class="md-primary">Just signed up</md-radio-button>
@@ -81,10 +82,10 @@
               </md-radio-group>
             </span>
 
-            <span ng-show="campaign.template == 'custom' || campaign.id != ''">
-              <hr>
+            <span ng-show="campaign.template == 'custom' || campaign.id">
+              <hr ng-show="!campaign.id">
               <p>People who:</p>
-              <md-radio-group ng-disabled="campaign.id != ''" ng-model="campaign.predicate_type">
+              <md-radio-group ng-disabled="campaign.id" ng-model="campaign.predicate_type">
                 <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
                 <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
               </md-radio-group>
@@ -96,7 +97,7 @@
                       <span class="md-headline" translate>
                         {{ name(predicate.attribute) }}
                       </span>
-                      <md-switch ng-model="campaign.relative" aria-label="Switch 1" ng-show="focusedCard == $index">
+                      <md-switch ng-model="campaign.relative" aria-label="Switch 1" ng-show="focusedCard == $index && predicate.attribute != 'login_count'">
                         {{ campaign.relative ? 'Relative' : 'Absolute' }}
                       </md-switch>
                     </md-card-title-text>
@@ -112,11 +113,11 @@
                           <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
                           <md-radio-button value="eq" class="md-primary">Exactly</md-radio-button>
                           <md-input-container flex="100" flex-gt-sm="100">
-                            <input ng-model="predicate.value" name="rel_value" placeholder="Days ago" type="number" xxxng-min="0">
-                            <!-- <div ng-messages="myForm.value.$error" md-auto-hide="false"> -->
-                            <!--   <div ng-message="min" translate>Must be more than 0</div> -->
-                            <!--   <div ng-message="required" translate>Please enter a number of days.</div> -->
-                            <!-- </div> -->
+                            <input ng-model="predicate.value" name="value" placeholder="Days ago" type="number" ng-min="1" required>
+                            <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                              <div ng-message="min" translate>Must be more than 0</div>
+                              <div ng-message="required" translate>Please enter a number of days.</div>
+                            </div>
                           </md-input-container>
                         </span>
 
@@ -125,7 +126,10 @@
                           <md-radio-button value="lte" class="md-primary">Before</md-radio-button>
                           <md-rarule.operatorton value="eq" class="md-primary">On</md-radio-button>
                           <md-input-container flex="100" flex-gt-sm="100">
-                            <input ng-model="predicate.value" name="value" placeholder="Date" type="date">
+                            <input ng-model="predicate.value" name="value" placeholder="Date" type="date" required>
+                            <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                              <div ng-message="required" translate>Please enter a date.</div>
+                            </div>
                           </md-input-container>
                         </span>
                       </md-radio-group>
@@ -134,7 +138,7 @@
                         <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
                         <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
                         <md-input-container flex="100" flex-gt-sm="100">
-                          <input ng-model="predicate.value" name="value" placeholder="Count" type="number" ng-min="0">
+                          <input ng-model="predicate.value" name="value" placeholder="Count" type="number" ng-min="0" required>
                           <div ng-messages="myForm.value.$error" md-auto-hide="false">
                             <div ng-message="min" translate>Must be more than 0</div>
                             <div ng-message="required" translate>Please enter a number of days.</div>
@@ -143,7 +147,7 @@
                       </md-radio-group>
                     </span>
                   </md-card-content>
-                  <md-card-actions layout="row" layout-align="end center" ng-show="campaign.id == ''">
+                  <md-card-actions layout="row" layout-align="end center" ng-hide="campaign.id">
                     <md-icon ng-click="removePredicate($index)">delete</md-icon>
                   </md-card-actions>
                 </md-card>
@@ -160,7 +164,7 @@
               </md-list>
               <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser || campaign.id">Add a rule</md-button>
             </span>
-            <p ng-hide="campaign.template == 'custom'">Include a section here that explains what each one is unless custom</p>
+            <!-- <p ng-hide="campaign.template == 'custom'">Include a section here that explains what each one is unless custom</p> -->
           </md-card-content>
         </md-card>
       </div>
