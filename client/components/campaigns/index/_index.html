@@ -1,11 +1,7 @@
 <camp-nav></camp-nav>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-</md-content>
-<md-button class="md-raised" href="/#/{{ location.slug}}/campaigns/new">NEW</md-button>
-<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-  <div flex layout="column">
-
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <md-card>
       <div class="md-toolbar-tools" ng-cloak>
         <span class="md-subhead" translate>
@@ -34,7 +30,7 @@
                 <md-icon md-menu-origin md-font-icon="">{{ campaign.active && campaign.state == 'live' ? "check_circle" : "cancel" }}
                 </md-icon>
                 <md-tooltip>
-                  State: 
+                  State:
                   <span ng-if="campaign.active && campaign.state == 'live'">
                     Running (campaign live)
                   </span>
@@ -101,5 +97,8 @@
       </md-table-container>
       <md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="query.options" md-total="{{::_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
     </md-card>
+    <div>
+      <md-button class="md-raised" href="/#/{{ location.slug}}/campaigns/new">NEW</md-button>
+    </div>
   </div>
 </md-content>
