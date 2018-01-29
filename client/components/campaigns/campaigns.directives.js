@@ -8,6 +8,7 @@ app.directive('listCampaigns', ['Campaign', 'Location', '$routeParams', '$rootSc
 
     scope.location = {};
     scope.location.slug = $routeParams.id;
+    scope.currentNavItem = 'people';
 
     scope.pagination_labels = pagination_labels;
     scope.query = {
