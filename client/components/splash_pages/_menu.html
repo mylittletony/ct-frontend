@@ -334,8 +334,8 @@
           </label>
           <input type="text" ng-model="splash.splash.background_image_name"></input>
         </md-input-container>
-        <md-switch ng-model="ctrl.nothing" aria-label="{{ 'Switch 2' | translate }}" ng-click="edit_bg_url = !edit_bg_url" style="margin-bottom: -20px">
-          <span translate> Edit Background URL</span>
+        <md-switch aria-label="{{ 'Switch 2' | translate }}" ng-click="edit_bg_url = !edit_bg_url" style="margin-bottom: -20px">
+          <span translate>Edit Background URL</span>
         </md-switch>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
@@ -395,9 +395,9 @@
             <md-radio-button value="right"><translate>Right</translate></md-radio-button>
           </md-radio-group>
         </div>
-        <md-switch ng-model="ctrl.nothing" aria-label="{{ 'Switch 1' | translate }}" ng-click="edit_image_url = !edit_image_url" style="margin-bottom: -20px">
-          <span ng-if="splash.splash.header_image_type == 1" translate> Edit Logo URL</span>
-          <span ng-if="splash.splash.header_image_type != 1" translate> Edit Banner URL</span>
+        <md-switch aria-label="{{ 'Switch 1' | translate }}" ng-click="edit_image_url = !edit_image_url" style="margin-bottom: -20px">
+          <span ng-if="splash.splash.header_image_type == 1" translate>Edit Logo URL</span>
+          <span ng-if="splash.splash.header_image_type != 1" translate>Edit Banner URL</span>
         </md-switch>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
