@@ -10,11 +10,9 @@ app.factory('RefreshToken', ['$q', '$http', function($q, $http) {
       method: 'GET',
       url: '/auth/refreshToken',
       params: {token: token}
-    }).
-    success(function(msg) {
+    }).then(function(msg) {
       deferred.resolve(msg);
-    }).
-    error(function(err,a) {
+    }, function(err) {
       deferred.reject(err);
     });
     return deferred.promise;
@@ -47,7 +45,7 @@ app.factory('AccessToken', ['$cookies', '$q', function($cookies, $q) {
 
   var get = function() {
     var ls;
-    
+
     //prefere url token to cookie
     var params = document.location.href.match(/[?&]token=([0-9a-f]+)/);
     if (params) {
