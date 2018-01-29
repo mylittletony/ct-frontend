@@ -328,12 +328,23 @@
         <p translate>
           Upload a background image. Please note, large images will delay page load times.
         </p>
+        <md-input-container class="md-block" ng-show="edit_bg_url">
+          <label>
+            <translate>Image URL</translate>
+          </label>
+          <input type="text" ng-model="splash.splash.background_image_name"></input>
+        </md-input-container>
+        <md-switch ng-model="ctrl.nothing" aria-label="{{ 'Switch 2' | translate }}" ng-click="edit_bg_url = !edit_bg_url" style="margin-bottom: -20px">
+          <span translate> Edit Background URL</span>
+        </md-switch>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button class="md-warn" ng-disabled="!splash.splash.background_image_name" aria-label="{{ 'delete' | translate }}" ng-click="splash.deleteBg(splash.splash,myForm)">
-          <translate>Delete</translate>
-        </md-button>
-        <filepicker attribute="splash.splash.background_image_name" type="10" uploading="splash.splash.bg_uploading"></filepicker>
+        <span ng-hide="edit_bg_url">
+          <md-button class="md-warn" ng-disabled="!splash.splash.background_image_name" aria-label="{{ 'delete' | translate }}" ng-click="splash.deleteBg(splash.splash,myForm)">
+            <translate>Delete</translate>
+          </md-button>
+          <filepicker attribute="splash.splash.background_image_name" type="10" uploading="splash.splash.bg_uploading"></filepicker>
+        </span>
       </md-card-actions>
     </md-card>
   </div>
