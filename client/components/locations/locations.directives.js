@@ -6,6 +6,7 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
 
   var link = function(scope,element,attrs,controller) {
 
+    scope.currentNavItem = 'devices';
     var channel;
 
     scope.favourite = function() {
@@ -38,9 +39,18 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
       scope.loading = undefined
     },1500);
 
+    controller.fetch().then(function(integration) {
+      scope.integration = integration;
+    }, function(err) { console.log(err); })
+
+    scope.addBoxes = function() {
+      controller.addBoxes(scope.integration)
+    };
+
   };
 
   return {
+    require: '^integrations',
     link: link,
     loading: '=',
     templateUrl: 'components/locations/show/_index.html'
@@ -2162,22 +2172,6 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
       scope.integration.password = undefined;
     };
 
-    scope.addBoxes = function() {
-      SplashIntegration.update({},{
-        id: scope.integration.id,
-        location_id: $routeParams.id,
-        splash_integration: {
-          action: 'import_boxes'
-        }
-      }, function(results) {
-        if (results.failed) {
-        }
-        showToast('Successfully imported ' + results.success + ' box(es)');
-      }, function(error) {
-        showErrors(error);
-      });
-    };
-
   };
 
   var controller = function($scope) {
@@ -2236,6 +2230,25 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
       });
       return deferred.promise;
     };
+
+    this.addBoxes = function(integration) {
+      var deferred = $q.defer();
+      SplashIntegration.update({},{
+        id: integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          action: 'import_boxes'
+        }
+      }, function(results) {
+        if (results.failed) {
+        }
+        showToast('Successfully imported ' + results.success + ' box(es)');
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+
   };
 
   return {

@@ -542,7 +542,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
 
 }]);
 
-app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$routeParams', '$rootScope', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(Network,SplashPage,Auth,$location,$routeParams,$rootScope,$mdDialog,$localStorage,showToast,showErrors,gettextCatalog) {
+app.directive('splashNew', ['SplashPage', 'Auth', '$location', '$routeParams', '$rootScope', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(SplashPage,Auth,$location,$routeParams,$rootScope,$mdDialog,$localStorage,showToast,showErrors,gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -550,21 +550,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
     scope.splash = {};
     scope.location = { slug: $routeParams.id };
 
-    var getNetworks = function() {
-      return Network.get({location_id: scope.location.slug, splash: true}).$promise.then(function(results) {
-        scope.obj.networks = results;
-        if (scope.obj.networks.length) {
-          scope.splash.network_id = scope.obj.networks[0].id;
-          for (var i = 0; i < scope.obj.networks.length; i++) {
-            if (scope.obj.networks[i].zones.length) {
-              scope.obj.zones = true;
-              break;
-            }
-          }
-        }
-      });
-    },
-    getSplashPages = function() {
+    var getSplashPages = function() {
       return SplashPage.get({location_id: scope.location.slug }).$promise.then(function(results) {
         scope.obj.access_types = results.access_types;
         scope.splash.primary_access_id = scope.obj.access_types[0].id;
@@ -619,7 +605,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
       $scope.obj.loading = true;
       $scope.splash = splash;
 
-      getNetworks().then(getSplashPages);
+      getSplashPages();
 
       $scope.save = function(form) {
         create(form);
@@ -1973,7 +1959,7 @@ app.directive('splashNav', [function() {
   return {
     link: link,
     scope: { location: '=' },
-    templateUrl: 'components/splash_pages/_splash_menu_top.html'
+    templateUrl: 'components/splash_pages/_nav.html'
   };
 
 }]);
