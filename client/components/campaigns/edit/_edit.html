@@ -66,12 +66,12 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Choose Your Audience
+                <span ng-show="campaign.state == 'draft'">Choose</span> Your Audience
               </span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <span iiing-show="campaign.id">
+            <span ng-show="campaign.id === ''">
               <p>People who match these rules:</p>
               <md-radio-group ng-click="setRules()" ng-model="campaign.template">
                 <md-radio-button value="signed_up_now" class="md-primary">Just signed up</md-radio-button>
@@ -81,11 +81,10 @@
               </md-radio-group>
             </span>
 
-            <span ng-show="campaign.template == 'custom'">
+            <span ng-show="campaign.template == 'custom' || campaign.id != ''">
               <hr>
-
               <p>People who:</p>
-              <md-radio-group ng-model="campaign.predicate_type">
+              <md-radio-group ng-disabled="campaign.id != ''" ng-model="campaign.predicate_type">
                 <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
                 <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
               </md-radio-group>
@@ -95,7 +94,7 @@
                   <md-card-title>
                     <md-card-title-text>
                       <span class="md-headline" translate>
-                        {{ predicate.name }}
+                        {{ name(predicate.attribute) }}
                       </span>
                       <md-switch ng-model="campaign.relative" aria-label="Switch 1" ng-show="focusedCard == $index">
                         {{ campaign.relative ? 'Relative' : 'Absolute' }}
@@ -144,7 +143,7 @@
                       </md-radio-group>
                     </span>
                   </md-card-content>
-                  <md-card-actions layout="row" layout-align="end center">
+                  <md-card-actions layout="row" layout-align="end center" ng-show="campaign.id == ''">
                     <md-icon ng-click="removePredicate($index)">delete</md-icon>
                   </md-card-actions>
                 </md-card>
@@ -159,7 +158,7 @@
                   </div>
                 </md-list-item>
               </md-list>
-              <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser">Add a rule</md-button>
+              <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser || campaign.id">Add a rule</md-button>
             </span>
             <p ng-hide="campaign.template == 'custom'">Include a section here that explains what each one is unless custom</p>
           </md-card-content>
@@ -213,7 +212,10 @@
               <md-switch ng-model="campaign.active" aria-label="Switch 1">
                 Campaign Active
               </md-switch>
-              <md-input-container ng-show="campaign.active">
+              <span ng-if="campaign.hard_state == 'live' && campaign.active">
+                <h4>Campaign running...</h4>
+              </span>
+              <md-input-container ng-show="campaign.active && campaign.hard_state != 'live'">
                 <label>State</label>
                 <md-select ng-model="campaign.state">
                   <md-option ng-repeat="state in states" ng-value="state">
@@ -222,7 +224,7 @@
                 </md-select>
               </md-input-container>
             </div>
-            <p>After the campaign has been set live and made active, you will not be able to edit things.</p>
+            <p ng-hide="campaign.hard_state == 'live'">After the campaign has been set live and made active, you will not be able to edit things.</p>
           </md-card-content>
         </md-card>
       </div>

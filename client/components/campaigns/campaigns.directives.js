@@ -156,15 +156,31 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       scope.focusedCard = index;
     };
 
-    // var rel = ['rel_gte', 'rel_lte', 'rel_eq'];
-    // var abs = ['abs_gte', 'abs_lte', 'abs_eq'];
+    scope.name = function(attribute) {
+      switch(attribute) {
+        case 'created_at':
+          return 'First seen';
+        case 'updated_at':
+          return 'Last seen';
+        case 'login_count':
+          return 'Number of logins';
+        default:
+          return attribute;
+      }
+    };
+
+    var isNumber = function(number) {
+      if (Number.isInteger(number / 1)) {
+        return true;
+      };
+    };
 
     scope.human = function(predicate) {
       if (predicate.attribute === 'login_count') {
         return `${predicate.operator === 'gte' ? 'More' : 'Less'} than ${predicate.value} logins.`;
       }
 
-      if (scope.campaign.relative) {
+      if (scope.campaign.relative || isNumber(predicate.value)) {
         return `${predicate.operator === 'gte' ? 'More than' : predicate.operator === 'lte' ? 'Less than' : 'Exactly' } ${predicate.value} days ago.`;
       }
 
@@ -218,6 +234,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       }).$promise.then(function(results) {
         console.log(results);
         scope.campaign.id = results.id;
+        scope.campaign.hard_state = results.state;
         showToast(gettextCatalog.getString('Campaign successfully updated.'));
       }, function(err) {
         showErrors(err);
@@ -238,34 +255,6 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
     scope.save = function(form) {
       form.$setPristine();
       scope.focusedCard = undefined;
-      // var predicates = [];
-      // for(var i = 0; i < scope.campaign.holding_predicates.length; i++) {
-      //   var predicate = {};
-      //   var rule = scope.campaign.holding_predicates[i];
-
-      //   consolel
-      //   // var type = rule.operator.split('_');
-      //   // if (type[0] === 'abs') {
-      //   //   predicate.value = rule.abs_value;
-      //   // } else if (type[0] === 'rel') {
-      //   //   predicate.value = rule.rel_value;
-      //   // } else {
-      //   //   predicate.value = rule._value;
-      //   // }
-
-      //   // if ((type[0] === 'abs') && (rule.attribute === 'created_at' || rule.attribute === 'updated_at')) {
-      //   //   predicate.type = 'date';
-      //   // }
-
-      //   if (rule.type === 'date') {
-      //     predicate.type = 'date';
-      //     predicate.value = Math.floor(predicate.value.getTime() / 1000);
-      //   }
-
-      //   predicate.operator = rule.operator;
-      //   predicate.attribute = rule.attribute;
-      //   predicates.push(predicate);
-      // }
       scope.campaign.predicates = scope.campaign.holding_predicates;
       save();
     };
@@ -280,6 +269,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
         id: scope.campaign.slug
       }).$promise.then(function(results) {
         scope.campaign = results;
+        scope.campaign.hard_state = results.state;
         scope.campaign.holding_predicates = results.predicates;
         scope.loading = undefined;
       }, function(err) {
