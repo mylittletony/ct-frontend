@@ -16,7 +16,7 @@
     <md-card class="b-bl">
       <div class="md-toolbar-tools" ng-cloak>
         <span class="md-subhead" translate>
-          You have a total of {{ _links.total_entries || 0 }} {{ _links.total_entries == 1 ? 'person' : 'people' }}.
+          {{ _links.total_entries || 0 }} {{ _links.total_entries == 1 ? 'person' : 'people' }} connected. {{_links.this_week}} connected this week.
           <!-- There have been 7 new this week. -->
         </span>
       </div>
