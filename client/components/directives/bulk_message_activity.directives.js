@@ -8,6 +8,7 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
 
     scope.location = {slug: $routeParams.id};
     scope.person = {slug: $routeParams.person_slug};
+    scope.currentNavItem = 'activity';
 
     var fetchMessageActivity = function() {
       BulkMessageActivity.index({}, {
