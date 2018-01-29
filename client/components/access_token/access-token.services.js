@@ -10,11 +10,9 @@ app.factory('RefreshToken', ['$q', '$http', function($q, $http) {
       method: 'GET',
       url: '/auth/refreshToken',
       params: {token: token}
-    }).
-    success(function(msg) {
+    }).then(function(msg) {
       deferred.resolve(msg);
-    }).
-    error(function(err,a) {
+    }, function(err) {
       deferred.reject(err);
     });
     return deferred.promise;

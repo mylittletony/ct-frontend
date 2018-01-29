@@ -391,3 +391,38 @@ app.directive('campaignReports', ['Campaign', 'Location', '$routeParams', functi
   };
 
 }]);
+
+
+app.directive('validateCampaignEmail', ['CampaignValidate', '$routeParams', '$timeout', '$location', function (CampaignValidate, $routeParams, $timeout, $location) {
+
+  var link = function(scope) {
+    var timeout;
+    var validateCampaign = function() {
+      CampaignValidate.update({
+        secret: $routeParams.secret
+      }).$promise.then(function(results) {
+        scope.message = 'Cool, your email was validated. Party hard.';
+        scope.loading = undefined;
+      }, function(err) {
+        scope.message = 'Could not validate the token, please try again later.';
+        scope.loading = undefined;
+      });
+    };
+
+    scope.message = 'Cool, your email was validated. Party hard.';
+    if ($routeParams.secret) {
+      validateCampaign();
+    } else {
+      $location.path('/');
+      $location.search({});
+    }
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/campaigns/_validate.html'
+  };
+}]);

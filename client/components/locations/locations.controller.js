@@ -2,30 +2,6 @@
 
 var app = angular.module('myApp.locations.controller', []);
 
-// app.controller('LocationsCtrlShort', ['$scope', '$routeParams', '$filter', 'Location', 'Data',
-//   function($scope, $routeParams, $filter, Location, Data) {
-
-//     $scope.location = {};
-
-//     $scope.getLocation = function(val) {
-//       return Location.shortquery({q: val}).$promise.then(function (res) {
-//         $scope.locations = res;
-//       });
-//     };
-
-//     $scope.selectLocation = function(item) {
-//       $scope.selected = {};
-//       $scope.selected.item = item;
-//       $scope.data.selected = item;
-//       $scope.data = Data;
-//     };
-
-//     $scope.getLocation();
-
-//   }
-
-// ]);
-
 app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$location', 'Box', '$filter', '$pusher', '$rootScope', '$route', 'menu', '$mdSidenav', '$cookies', 'LocationCache', 'gettextCatalog', 'ClientDetails',
   function($scope, $routeParams, Location, $location, Box, $filter, $pusher, $rootScope, $route, menu, $mdSidenav, $cookies, LocationCache, gettextCatalog, ClientDetails) {
 
@@ -67,8 +43,8 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     menu.sections = [];
 
     var guide = '/guide';
-    var createMenu = function() {
 
+    var createMenu = function() {
       menu.sections.push({
         name: gettextCatalog.getString('People'),
         type: 'link',
@@ -92,7 +68,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         icon: 'email',
         active: isActive('campaigns')
       });
-
     };
 
     var setLocationStateIcon = function(location) {
@@ -167,7 +142,7 @@ app.controller('HomeCtrl', ['$scope', '$cookies', '$location', 'Location', funct
     });
   };
 
-  var cookies = $cookies.get('_ctlid-----');
+  var cookies = $cookies.get('_ctlid');
   if (!cookies) {
     getLocation();
   } else {

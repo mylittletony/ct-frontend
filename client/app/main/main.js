@@ -80,8 +80,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
   $routeProvider.
     when('/', {
-      // templateUrl: 'components/locations/index/list.html',
-      // templateUrl: 'components/locations/index/index.html',
       templateUrl: 'components/home/hello.html',
       controller: 'HomeCtrl'
     }).
@@ -106,6 +104,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     when('/create/:id', {
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
+    }).
+    when('/campaign-validate', {
+      templateUrl: 'components/campaigns/validate.html',
+      // resolve: { loginRequired: false }
+      // resolve: { loggedIn: loggedIn }
     }).
     when('/new-location', {
       templateUrl: 'components/locations/new/index.html',
@@ -161,11 +164,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
-    }).
-    when('/campaign-validate', {
-      templateUrl: 'components/locations/campaigns/validate.html',
-      resolve: { loginRequired: loginRequired },
-      controller: 'LocationsCtrl as lc'
     }).
     when('/:id/campaigns', {
       templateUrl: 'components/campaigns/index/index.html',
