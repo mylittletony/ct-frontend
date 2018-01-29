@@ -35,33 +35,9 @@
                 <div ng-message="md-maxlength" translate>Max 32 characters</div>
                 <div ng-message="required" translate>You must set an SSID</div>
                 <div ng-message="pattern" translate>Invalid characters in SSID</div>
-                <div ng-message="ssidValidator" translate>SSID is too large, emojis take up more space!</div>
+                <div ng-message="ssidValidator" translate>SSID is too large!</div>
               </div>
             </md-input-container>
-            <!-- <md-input-container ng-if="blah.access_type == 'password'">
-              <label>
-                <translate>Password</translate>
-              </label>
-              <input name="password" ng-minlength="8" md-maxlength="32" ng-model="blah.password" ng-pattern="/^[^[\]\'\\]+$/" required>
-              <div ng-messages="myForm.password.$error">
-                <div ng-message="md-maxlength" translate>Max 32 characters</div>
-                <div ng-message="minlength" translate>Min 8 characters</div>
-                <div ng-message="required" translate>You must set a password</div>
-                <div ng-message="pattern" translate>Invalid characters in password</div>
-              </div>
-            </md-input-container>
-            <md-radio-group ng-model="blah.access_type" layout="row">
-              <md-radio-button value="password" class="md-primary">
-                <translate>
-                  Password
-                </translate>
-              </md-radio-button>
-              <md-radio-button value="open">
-                <translate>
-                  Open
-                </translate>
-              </md-radio-button>
-            </md-radio-group> -->
           </span>
         </div>
       </div>

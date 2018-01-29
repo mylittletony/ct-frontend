@@ -1,236 +1,213 @@
 <camp-nav></camp-nav>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-</md-content>
-
-<md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-  <div flex layout="column">
-  </div>
-</md-content>
-
 <form name="myForm" ng-submit="save(myForm)">
-  <md-content class="md-padding" layout="column" layout-gt-sm='column'>
-    <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Create your Campaign
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="100">
-                <label>
-                  <translate>Campaign Name</translate>
-                </label>
-                <input md-autofocus ng-model="campaign.campaign_name" name="campaign_name" placeholder="{{ 'Enter a title' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
-                <div ng-messages="myForm.campaign_name.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 100 characters</div>
-                  <div ng-message="min" translate>Must be greater than 5 characters</div>
-                  <div ng-message="required" translate>Please enter a campaign name.</div>
-                </div>
-              </md-input-container>
-              <md-input-container flex="100" flex-gt-sm="50">
-                <label>
-                  <translate>Who's it from</translate>
-                </label>
-                <input md-autofocus ng-model="campaign.from_name" name="from_name" placeholder="{{ 'Enter a name' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
-                <div ng-messages="myForm.from_name.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 100 characters</div>
-                  <div ng-message="min" translate>Must be greater than 5 characters</div>
-                  <div ng-message="required" translate>Please enter a name.</div>
-                </div>
-              </md-input-container>
-              <md-input-container flex="100" flex-gt-sm="50">
-                <label>
-                  <translate>From email</translate>
-                </label>
-                <input md-autofocus ng-model="campaign.from_email" name="from_email" placeholder="{{ 'Enter a email' | translate }}" type="email" ng-minlength="5" md-maxlength='100' required>
-                <div ng-messages="myForm.from_email.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 100 characters</div>
-                  <div ng-message="min" translate>Must be greater than 5 characters</div>
-                  <div ng-message="required" translate>Please enter an email.</div>
-                </div>
-              </md-input-container>
-            </div>
-          </md-card-content>
-        </md-card>
-      </div>
-    </div>
-    <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                <span ng-show="campaign.state == 'draft'">Choose</span> Your Audience
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <span ng-show="campaign.id === ''">
-              <p>People who match these rules:</p>
-              <md-radio-group ng-click="setRules()" ng-model="campaign.template">
-                <md-radio-button value="signed_up_now" class="md-primary">Just signed up</md-radio-button>
-                <md-radio-button value="signed_up_30" class="md-primary">Signed-up 30 days ago</md-radio-button>
-                <md-radio-button value="last_seen_30">Not seen for 30 days</md-radio-button>
-                <md-radio-button value="custom">Custom</md-radio-button>
-              </md-radio-group>
+  <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
+    <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+      <md-card flex="100">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>
+              Create your Campaign
             </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="row" layout-wrap>
+            <md-input-container flex="100" flex-gt-sm="100">
+              <label>
+                <translate>Campaign Name</translate>
+              </label>
+              <input md-autofocus ng-model="campaign.campaign_name" name="campaign_name" placeholder="{{ 'Enter a title' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
+              <div ng-messages="myForm.campaign_name.$error" md-auto-hide="false">
+                <div ng-message="max" translate>Must be less than 100 characters</div>
+                <div ng-message="min" translate>Must be greater than 5 characters</div>
+                <div ng-message="required" translate>Please enter a campaign name.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="45">
+              <label>
+                <translate>Who's it from</translate>
+              </label>
+              <input md-autofocus ng-model="campaign.from_name" name="from_name" placeholder="{{ 'Enter a name' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
+              <div ng-messages="myForm.from_name.$error" md-auto-hide="false">
+                <div ng-message="max" translate>Must be less than 100 characters</div>
+                <div ng-message="min" translate>Must be greater than 5 characters</div>
+                <div ng-message="required" translate>Please enter a name.</div>
+              </div>
+            </md-input-container>
+            <span flex-gt-sm="10"></span>
+            <md-input-container flex="100" flex-gt-sm="45">
+              <label>
+                <translate>From email</translate>
+              </label>
+              <input md-autofocus ng-model="campaign.from_email" name="from_email" placeholder="{{ 'Enter a email' | translate }}" type="email" ng-minlength="5" md-maxlength='100' required>
+              <div ng-messages="myForm.from_email.$error" md-auto-hide="false">
+                <div ng-message="max" translate>Must be less than 100 characters</div>
+                <div ng-message="min" translate>Must be greater than 5 characters</div>
+                <div ng-message="required" translate>Please enter an email.</div>
+              </div>
+            </md-input-container>
+          </div>
+        </md-card-content>
+      </md-card>
+      <md-card flex="100">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>
+              <span ng-show="campaign.state == 'draft'">Choose</span> Your Audience
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <span ng-show="campaign.id === ''">
+            <p>People who match these rules:</p>
+            <md-radio-group ng-click="setRules()" ng-model="campaign.template">
+              <md-radio-button value="signed_up_now" class="md-primary">Just signed up</md-radio-button>
+              <md-radio-button value="signed_up_30" class="md-primary">Signed-up 30 days ago</md-radio-button>
+              <md-radio-button value="last_seen_30">Not seen for 30 days</md-radio-button>
+              <md-radio-button value="custom">Custom</md-radio-button>
+            </md-radio-group>
+          </span>
 
-            <span ng-show="campaign.template == 'custom' || campaign.id != ''">
-              <hr>
-              <p>People who:</p>
-              <md-radio-group ng-disabled="campaign.id != ''" ng-model="campaign.predicate_type">
-                <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
-                <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
-              </md-radio-group>
+          <span ng-show="campaign.template == 'custom' || campaign.id != ''">
+            <hr>
+            <p>People who:</p>
+            <md-radio-group ng-disabled="campaign.id != ''" ng-model="campaign.predicate_type">
+              <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
+              <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
+            </md-radio-group>
 
-              <span ng-repeat="predicate in campaign.holding_predicates">
-                <md-card flex="100">
-                  <md-card-title>
-                    <md-card-title-text>
-                      <span class="md-headline" translate>
-                        {{ name(predicate.attribute) }}
-                      </span>
-                      <md-switch ng-model="campaign.relative" aria-label="Switch 1" ng-show="focusedCard == $index">
-                        {{ campaign.relative ? 'Relative' : 'Absolute' }}
-                      </md-switch>
-                    </md-card-title-text>
-                  </md-card-title>
-                  <md-card-content>
-                    <span ng-hide="focusedCard == $index">
-                      <span ng-click="showCard($index)">{{ human(predicate) }}</span>
+            <span ng-repeat="predicate in campaign.holding_predicates">
+              <md-card flex="100">
+                <md-card-title>
+                  <md-card-title-text>
+                    <span class="md-headline" translate>
+                      {{ name(predicate.attribute) }}
                     </span>
-                    <span ng-show="focusedCard == $index">
-                      <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'created_at' || predicate.attribute == 'updated_at'">
-                        <span ng-if="campaign.relative == true">
-                          <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
-                          <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
-                          <md-radio-button value="eq" class="md-primary">Exactly</md-radio-button>
-                          <md-input-container flex="100" flex-gt-sm="100">
-                            <input ng-model="predicate.value" name="rel_value" placeholder="Days ago" type="number" xxxng-min="0">
-                            <!-- <div ng-messages="myForm.value.$error" md-auto-hide="false"> -->
-                            <!--   <div ng-message="min" translate>Must be more than 0</div> -->
-                            <!--   <div ng-message="required" translate>Please enter a number of days.</div> -->
-                            <!-- </div> -->
-                          </md-input-container>
-                        </span>
-
-                        <span ng-if="campaign.relative == false">
-                          <md-radio-button value="gte" class="md-primary">After</md-radio-button>
-                          <md-radio-button value="lte" class="md-primary">Before</md-radio-button>
-                          <md-rarule.operatorton value="eq" class="md-primary">On</md-radio-button>
-                          <md-input-container flex="100" flex-gt-sm="100">
-                            <input ng-model="predicate.value" name="value" placeholder="Date" type="date">
-                          </md-input-container>
-                        </span>
-                      </md-radio-group>
-
-                      <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'login_count'">
+                    <md-switch ng-model="campaign.relative" aria-label="Switch 1" ng-show="focusedCard == $index">
+                      {{ campaign.relative ? 'Relative' : 'Absolute' }}
+                    </md-switch>
+                  </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                  <span ng-hide="focusedCard == $index">
+                    <span ng-click="showCard($index)">{{ human(predicate) }}</span>
+                  </span>
+                  <span ng-show="focusedCard == $index">
+                    <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'created_at' || predicate.attribute == 'updated_at'">
+                      <span ng-if="campaign.relative == true">
                         <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
                         <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
+                        <md-radio-button value="eq" class="md-primary">Exactly</md-radio-button>
                         <md-input-container flex="100" flex-gt-sm="100">
-                          <input ng-model="predicate.value" name="value" placeholder="Count" type="number" ng-min="0">
-                          <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                            <div ng-message="min" translate>Must be more than 0</div>
-                            <div ng-message="required" translate>Please enter a number of days.</div>
-                          </div>
+                          <input ng-model="predicate.value" name="rel_value" placeholder="Days ago" type="number" xxxng-min="0">
+                          <!-- <div ng-messages="myForm.value.$error" md-auto-hide="false"> -->
+                          <!--   <div ng-message="min" translate>Must be more than 0</div> -->
+                          <!--   <div ng-message="required" translate>Please enter a number of days.</div> -->
+                          <!-- </div> -->
                         </md-input-container>
-                      </md-radio-group>
-                    </span>
-                  </md-card-content>
-                  <md-card-actions layout="row" layout-align="end center" ng-show="campaign.id == ''">
-                    <md-icon ng-click="removePredicate($index)">delete</md-icon>
-                  </md-card-actions>
-                </md-card>
-              </span>
+                      </span>
 
-              <md-list flex ng-show="showChooser">
-                <md-subheader class="md-no-sticky">Person data</md-subheader>
-                <md-list-item class="md-2-line" ng-repeat="item in available_options" ng-click="onSelect($index)">
-                  <div class="md-list-item-text" layout="column">
-                    <h3>{{ item.name }}</h3>
-                    <p>{{ item.desc }}</p>
-                  </div>
-                </md-list-item>
-              </md-list>
-              <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser || campaign.id">Add a rule</md-button>
+                      <span ng-if="campaign.relative == false">
+                        <md-radio-button value="gte" class="md-primary">After</md-radio-button>
+                        <md-radio-button value="lte" class="md-primary">Before</md-radio-button>
+                        <md-rarule.operatorton value="eq" class="md-primary">On</md-radio-button>
+                        <md-input-container flex="100" flex-gt-sm="100">
+                          <input ng-model="predicate.value" name="value" placeholder="Date" type="date">
+                        </md-input-container>
+                      </span>
+                    </md-radio-group>
+
+                    <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'login_count'">
+                      <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
+                      <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
+                      <md-input-container flex="100" flex-gt-sm="100">
+                        <input ng-model="predicate.value" name="value" placeholder="Count" type="number" ng-min="0">
+                        <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                          <div ng-message="min" translate>Must be more than 0</div>
+                          <div ng-message="required" translate>Please enter a number of days.</div>
+                        </div>
+                      </md-input-container>
+                    </md-radio-group>
+                  </span>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center" ng-show="campaign.id == ''">
+                  <md-icon ng-click="removePredicate($index)">delete</md-icon>
+                </md-card-actions>
+              </md-card>
             </span>
-            <p ng-hide="campaign.template == 'custom'">Include a section here that explains what each one is unless custom</p>
-          </md-card-content>
-        </md-card>
-      </div>
-    </div>
-    <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Message Content
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <div layout="column">
-              <md-input-container flex="100" flex-gt-sm="100">
-                <label>
-                  <translate>Message Subject</translate>
-                </label>
-                <input ng-focus="hideOthers()" ng-model="campaign.title" name="campaign_title" placeholder="{{ 'Enter a title' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
-                <div ng-messages="myForm.campaign_title.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 100 characters</div>
-                  <div ng-message="min" translate>Must be greater than 5 characters</div>
-                  <div ng-message="required" translate>Please enter a location name.</div>
+
+            <md-list flex ng-show="showChooser">
+              <md-subheader class="md-no-sticky">Person data</md-subheader>
+              <md-list-item class="md-2-line" ng-repeat="item in available_options" ng-click="onSelect($index)">
+                <div class="md-list-item-text" layout="column">
+                  <h3>{{ item.name }}</h3>
+                  <p>{{ item.desc }}</p>
                 </div>
-              </md-input-container>
-              <md-input-container class="md-block" style="min-height: 200">
-                <label>Message Content</label>
-                <textarea ng-focus="hideOthers()" ng-model="campaign.content" rows="10"></textarea>
-              </md-input-container>
-            </div>
-          </md-card-content>
-        </md-card>
-      </div>
-    </div>
-    <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
-        <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Set Campaign Live
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <div layout="column" layout-wrap flex="100" flex-gt-sm="20">
-              <md-switch ng-model="campaign.active" aria-label="Switch 1">
-                Campaign Active
-              </md-switch>
-              <span ng-if="campaign.hard_state == 'live' && campaign.active">
-                <h4>Campaign running...</h4>
-              </span>
-              <md-input-container ng-show="campaign.active && campaign.hard_state != 'live'">
-                <label>State</label>
-                <md-select ng-model="campaign.state">
-                  <md-option ng-repeat="state in states" ng-value="state">
-                    {{state}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
-            </div>
-            <p ng-hide="campaign.hard_state == 'live'">After the campaign has been set live and made active, you will not be able to edit things.</p>
-          </md-card-content>
-        </md-card>
-      </div>
-    </div>
-    <div layout="row" layout-align="center center">
-      <div flex="100" flex-gt-sm="75">
+              </md-list-item>
+            </md-list>
+            <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser || campaign.id">Add a rule</md-button>
+          </span>
+          <p ng-hide="campaign.template == 'custom'">Include a section here that explains what each one is unless custom</p>
+        </md-card-content>
+      </md-card>
+      <md-card flex="100">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>
+              Message Content
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="column">
+            <md-input-container flex="100" flex-gt-sm="100">
+              <label>
+                <translate>Message Subject</translate>
+              </label>
+              <input ng-focus="hideOthers()" ng-model="campaign.title" name="campaign_title" placeholder="{{ 'Enter a title' | translate }}" type="text" ng-minlength="5" md-maxlength='100' required>
+              <div ng-messages="myForm.campaign_title.$error" md-auto-hide="false">
+                <div ng-message="max" translate>Must be less than 100 characters</div>
+                <div ng-message="min" translate>Must be greater than 5 characters</div>
+                <div ng-message="required" translate>Please enter a location name.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" style="min-height: 200">
+              <label>Message Content</label>
+              <textarea ng-focus="hideOthers()" ng-model="campaign.content" rows="10"></textarea>
+            </md-input-container>
+          </div>
+        </md-card-content>
+      </md-card>
+      <md-card flex="100">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>
+              Set Campaign Live
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="column" layout-wrap flex="100" flex-gt-sm="20">
+            <md-switch ng-model="campaign.active" aria-label="Switch 1">
+              Campaign Active
+            </md-switch>
+            <span ng-if="campaign.hard_state == 'live' && campaign.active">
+              <h4>Campaign running...</h4>
+            </span>
+            <md-input-container ng-show="campaign.active && campaign.hard_state != 'live'">
+              <label>State</label>
+              <md-select ng-model="campaign.state">
+                <md-option ng-repeat="state in states" ng-value="state">
+                  {{state}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <p ng-hide="campaign.hard_state == 'live'">After the campaign has been set live and made active, you will not be able to edit things.</p>
+        </md-card-content>
+      </md-card>
+      <div flex="100">
         <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
           Save
         </md-button>
