@@ -38,7 +38,7 @@
                 <a href="/#/{{ location.slug }}/people/{{ person.id }}">{{ person.username ? person.username : 'Splash Guest'}}</a>
               </td>
               <td md-cell>
-                {{ person.email }}
+                {{ person.email || 'NA' }}
               </td>
               <td md-cell>
                 {{ person.updated_at | humanDate }}
