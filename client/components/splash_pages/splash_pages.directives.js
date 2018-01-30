@@ -1908,13 +1908,12 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
 
     DialogController.$inject = ['$scope', 'loading'];
 
-    var timer = $timeout(function() {
-      $timeout.cancel(timer);
-      if ($location.search().wizard === 'yas') { scope.openDialog(); }
-    }, 1500);
-
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       $mdDialog.cancel();
+      if ($location.search().wizard === 'yas') {
+        scope.openDialog();
+        $location.search({});
+      }
     });
   };
 
