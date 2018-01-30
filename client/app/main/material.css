@@ -1027,12 +1027,12 @@ camp-nav .top-nav .md-active {
 
 /*top trial link styles*/
 
-get-with-the-plan {
+.top-nav get-with-the-plan {
   margin-right: 130px;
 }
 
 @media (max-width: 959px) {
-  get-with-the-plan {
+  .top-nav get-with-the-plan {
     margin-right: 0px;
   }
 }
