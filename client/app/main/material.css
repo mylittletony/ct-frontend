@@ -521,7 +521,7 @@ md-button-group > .md-button {
 }
 
 .muted {
-  color: #607D8B;
+  color: rgba(0, 0, 0, 0.50);
 }
 
 .offline {
@@ -1027,12 +1027,12 @@ camp-nav .top-nav .md-active {
 
 /*top trial link styles*/
 
-get-with-the-plan {
+.top-nav get-with-the-plan {
   margin-right: 130px;
 }
 
 @media (max-width: 959px) {
-  get-with-the-plan {
+  .top-nav get-with-the-plan {
     margin-right: 0px;
   }
 }
@@ -1157,6 +1157,17 @@ md-bottom-sheet .md-subheader {
 .int-select {
   cursor: pointer;
 }
+
+.integration-type img {
+  max-height: 60px;
+}
+
+@media (max-width: 959px) {
+  .integration-type img {
+    max-height: 40px;
+  }
+}
+
 
 /*guide pages*/
 

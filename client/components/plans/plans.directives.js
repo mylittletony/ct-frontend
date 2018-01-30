@@ -112,7 +112,6 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     };
 
     var channel;
-
     var subscribe = function(key) {
       if (typeof client !== 'undefined') {
         var pusher = $pusher(client);
