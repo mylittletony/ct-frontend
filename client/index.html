@@ -130,16 +130,8 @@
         <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen(main)" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
+        <get-with-the-plan ng-if="!location.paid" label="Free Trial"></get-with-the-plan>
         <span flex></span>
-        <span ng-if="loggedIn">
-
-          <span ng-if="vm.promos">
-            <md-button aria-label="'Open Apps Menu' | translate" ng-click="vm.showPromo(vm.promos.promo.value)">
-              {{ vm.promos.promo.key }}
-            </md-button>
-          </span>
-
-        </span>
         <md-button ng-click="toggleLocations()" class="md-icon-button" aria-label="'Locations' | translate" ng-if="user">
           <md-tooltip md-direction="bottom">Locations</md-tooltip>
             <md-icon>place</md-icon>
