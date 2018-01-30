@@ -35,8 +35,9 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
       window.location.href = '/#/locations/' + scope.location.slug + '/boxes/new';
     };
 
-    $timeout(function() {
-      scope.loading = undefined
+    var timer = $timeout(function() {
+      scope.loading = undefined;
+      $timeout.cancel(timer);
     },1500);
 
     controller.fetch().then(function(integration) {
@@ -1335,7 +1336,7 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
 }]);
 
-app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'STRIPE_KEY', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, STRIPE_KEY) {
+app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$mdDialog', '$timeout', 'showErrors', 'gettextCatalog', 'STRIPE_KEY', function(Location, $routeParams, $location, $http, $mdDialog, $timeout, showErrors, gettextCatalog, STRIPE_KEY) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -1352,6 +1353,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
         window.Stripe.setPublishableKey(STRIPE_KEY);
       } else {
         console.log('Could not set stripe token');
+        return;
       }
 
       $mdDialog.show({
@@ -1365,9 +1367,16 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
       });
     };
 
-    var createSubscription = function(card) {
+    var createSubscription = function(card,dialog) {
       scope.location.paid = true;
       console.log(card);
+
+      var timer = $timeout(function() {
+        scope.loading = undefined;
+        $timeout.cancel(timer);
+        dialog.cancel();
+      },5000);
+
     };
 
     function DialogController($scope, $mdDialog) {
@@ -1398,7 +1407,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
           showErrors({data: result.error.message});
         } else {
           $scope.selectedIndex = 3;
-          createSubscription(result.id);
+          createSubscription(result.id, $mdDialog);
         }
       };
     }
