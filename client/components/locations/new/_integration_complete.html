@@ -44,10 +44,13 @@
         </div>
         <h3>What's next?</h3>
         <div ng-show="integration.type == 'unifi' || integration.type == 'vsz'">
-          <p>It can take a few minutes for your {{ type }} to sync all the settings. Once you see '{{integration.ssid}}' in your list of available networks, connect to it. You should be redirected to a splash page immediately.</p><p>If you can't see the network, please check your {{ type }}'s settings (and be patient)!</p>
+          <p>It can take a few minutes for your {{ type }} to sync all the settings. Once you see '{{integration.ssid}}' in your list of available networks, connect to it. You should be redirected to a splash page immediately.</p>
+          <p>You'll find your splash password in your splash page settings within MIMO.</p>
+          <p>If you can't see the network, please check your {{ type }}'s settings (and be patient)!</p>
         </div>
         <div ng-show="integration.type == 'meraki'">
           <p>Once you've completed the setup, connect to your guest SSID. You should be automatically directed.</p>
+          <p>You'll find your splash password in your splash page settings within MIMO.</p>
         </div>
         <p>While you're waiting, why not customise your splash page?</p>
       </div>
