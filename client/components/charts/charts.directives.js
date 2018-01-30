@@ -1474,7 +1474,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           console.log('No data returned for query');
         });
       } else {
-        if (attrs.bar === 'true') {
+        if (scope.type === 'radius.popular') {
           drawChart(fakeBarChart());
         } else if (attrs.pie === 'true') {
           drawChart(fakePieChart(scope.type));
@@ -1482,7 +1482,6 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           drawChart(fakeLineChart());
         }
       }
-
       $timeout.cancel(timer);
     }
 
