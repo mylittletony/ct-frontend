@@ -12,7 +12,7 @@
     <md-nav-item md-nav-href="/#/{{ location.slug }}/guide" name="guide" ng-show="location.setup.splash == false || location.setup.integrations == false">
       Getting Started
     </md-nav-item>
-    <div flex='50'></div>
-    <get-with-the-plan location="location" ng-if="!location.paid" label="Free Trial"></get-with-the-plan>
+    <span flex></span>
+    <get-with-the-plan hide show-gt-sm ng-show="location.paid == false" location="location" label="Free Trial"></get-with-the-plan>
   </md-nav-bar>
 </div>

@@ -15,7 +15,7 @@
     <md-nav-item md-nav-href="/#/{{ location.slug }}/campaigns/guide" name="guide">
       Getting Started
     </md-nav-item>
-    <div flex='40'></div>
-    <get-with-the-plan ng-show="location.paid == false" location="location"></get-with-the-plan>
+    <span flex></span>
+    <get-with-the-plan hide show-gt-sm ng-show="location.paid == false" location="location" label="Free Trial"></get-with-the-plan>
   </md-nav-bar>
 </div>
