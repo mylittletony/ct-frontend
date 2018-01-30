@@ -129,7 +129,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/:id/integration', {
       templateUrl: 'components/locations/new/integration.html',
-      resolve: { loginRequired: loginRequired }
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
     }).
     when('/:id/integration/unifi/auth', {
       templateUrl: 'components/locations/new/unifi_auth.html',
@@ -265,38 +266,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/versions', {
-      templateUrl: 'components/locations/versions/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    // when('/:id/logs', {
-    //   templateUrl: 'components/locations/logging/index.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/networks', {
-    //   templateUrl: 'components/locations/networks/index.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/zones', {
-    //   templateUrl: 'components/zones/index.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired },
-    //   reloadOnSearch: false,
-    // }).
-    // when('/locations/:id/zones/:zone_id', {
-    //   templateUrl: 'components/zones/show.html',
-    //   // controller: 'ZonesCtrlShow',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    // when('/locations/:id/networks/:network_id', {
-    //   templateUrl: 'components/locations/networks/show.html',
-    //   resolve: { loginRequired: loginRequired },
-    //   controller: 'LocationsCtrl as lc',
-    // }).
     when('/:id/splash_codes', {
       controller: 'LocationsCtrl as lc',
       templateUrl: 'components/splash_codes/index.html',
@@ -460,21 +429,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     when('/me/integrations/:id', {
       templateUrl: 'components/users/integrations/setup.html',
       controller: 'UsersIntegrationsController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/me/integrations', {
-      templateUrl: 'components/users/integrations/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/alerts', {
-      templateUrl: 'components/users/alerts/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/integrations', {
-      templateUrl: 'components/users/integrations/index.html',
-      controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
     when('/users/:id/users', {

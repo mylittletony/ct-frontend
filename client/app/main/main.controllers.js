@@ -233,7 +233,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     $scope.toggleLocations = function() {
-
       var locationSidebar = document.getElementById("locationSidebar");
 
       if (locationSidebar.classList.contains('md-closed')) {
