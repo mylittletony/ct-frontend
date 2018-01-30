@@ -521,7 +521,7 @@ md-button-group > .md-button {
 }
 
 .muted {
-  color: #607D8B;
+  color: rgba(0, 0, 0, 0.50);
 }
 
 .offline {
