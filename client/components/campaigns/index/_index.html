@@ -2,7 +2,7 @@
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
 
-  <div flex="100" flex-gt-md="60" flex-gt-lg="50" ng-show="!campaign">
+  <div flex="100" flex-gt-md="60" flex-gt-lg="50" ng-if="!campaigns">
     <md-card flex="100" class="b-pr">
       <md-card-title>
         <md-card-title-text>
@@ -21,7 +21,7 @@
   </div>
 
 
-  <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-show="campaign">
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-if="campaigns">
     <md-card class="b-pr">
       <div class="md-toolbar-tools" ng-cloak>
         <span class="md-subhead" translate>
@@ -42,6 +42,7 @@
               <th md-column><span translate>Clicked</span></th>
               <th md-column><span translate>Bounced</span></th>
               <th md-column><span translate>Spam</span></th>
+              <th md-column><span translate>Options</span></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -62,10 +63,10 @@
                   </span>
                 </md-tooltip>
               </td>
-              <td md-cell>
-                <b><a href="/#/{{ location.slug }}/campaigns/{{ campaign.id }}">{{ campaign.campaign_name }}</a></b>
+              <td md-cell class="predicates">
+                <div><b><a href="/#/{{ location.slug }}/campaigns/{{ campaign.id }}">{{ campaign.campaign_name }}</a></b></div>
                 <ul ng-repeat="predicate in campaign.predicates">
-                  <li><small>{{ predicate | humanPredicate }}</small></li>
+                  <li><small class="muted">{{ predicate | humanPredicate }}</small></li>
                 </ul>
               </td>
               <td md-cell>
