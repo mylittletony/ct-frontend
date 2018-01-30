@@ -1696,3 +1696,173 @@ app.directive('campaignSettings', ['Location', function(Location) {
   };
 
 }]);
+
+app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Email, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var params = {};
+
+    scope.startDate = moment().utc().subtract(6, 'days').startOf('day').toDate();
+    scope.endDate = moment().utc().toDate();
+
+    var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
+    var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
+
+    scope.audit_models = ['Radius Sessions', 'Emails'];
+
+    var mailerType = {
+      'Radius Sessions': 'radius',
+      'Emails': 'email'
+    };
+
+    scope.selected = 'Radius Sessions' || $routeParams.type;
+
+    scope.query = {
+      page: $routeParams.page || 1,
+      limit: $routeParams.per || 25,
+      start: $routeParams.start || weekAgoEpoch,
+      end: $routeParams.end || nowEpoch
+    };
+
+    var getParams = function() {
+      params = {
+        location_id: scope.location.id,
+        page: scope.query.page,
+        per: scope.query.limit,
+        start: scope.query.start,
+        end: scope.query.end,
+        interval: 'day'
+      };
+    };
+
+    var clearTable = function() {
+      scope.results = [];
+      scope.links = undefined;
+      $location.search();
+      if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
+        showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
+      }
+    };
+
+    var findSessions = function() {
+      getParams();
+      params.client_mac = scope.query.client_mac;
+      Session.query(params).$promise.then(function(data, err) {
+        scope.selected = 'Radius Sessions';
+        scope.results = data.sessions;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var findEmails = function() {
+      getParams();
+      Email.get(params).$promise.then(function(data, err) {
+        scope.selected = 'Emails';
+        scope.results = data.emails;
+        scope.links = data._links;
+        $location.search();
+      }, function(err) {
+        console.log(err);
+        clearTable();
+      });
+    };
+
+    var downloadReport = function() {
+      var params = {
+        start: scope.query.start,
+        end: scope.query.end,
+        location_id: scope.location.id,
+        type: mailerType[scope.selected]
+      };
+      Report.create(params).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.updateAudit = function(selected) {
+      switch(selected) {
+        case 'Emails':
+          findEmails();
+          break;
+        default:
+          findSessions();
+          break;
+      }
+    };
+
+    scope.setStart = function() {
+      scope.query.start = new Date(scope.startDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.setEnd = function() {
+      scope.query.end = new Date(scope.endDate).getTime() / 1000;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.filterSessionsByClient = function(mac) {
+      scope.query.client_mac = mac;
+      findSessions();
+    };
+
+    scope.clearClientFilter = function() {
+      scope.query.client_mac = undefined;
+      findSessions();
+    };
+
+    scope.onPaginate = function(page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      scope.updateAudit(scope.selected);
+    };
+
+    scope.downloadAudit = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Download Report'))
+      .textContent(gettextCatalog.getString('Please note this is a beta feature. Reports are sent via email.'))
+      .ariaLabel(gettextCatalog.getString('Email Report'))
+      .ok(gettextCatalog.getString('Download'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        downloadReport();
+      });
+    };
+
+    var getLocation = function() {
+      var deferred = $q.defer();
+      Location.get({id: $routeParams.id}).$promise.then(function(results) {
+        scope.location = results;
+        deferred.resolve(results.results);
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    var init = function() {
+      getLocation().then(function() {
+        getParams();
+        scope.updateAudit(scope.selected);
+      });
+    };
+
+    init();
+
+  };
+
+  return {
+    link: link,
+    scope: {
+      loading: '='
+    },
+    templateUrl: 'components/locations/audit/_index.html'
+  };
+
+}]);

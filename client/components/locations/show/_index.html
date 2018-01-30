@@ -29,7 +29,8 @@
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
     <div>
-      <md-button class="md-raised" ng-click="addBoxes()">Add Boxes</md-button>
+      <md-button ng-disabled="!integration.type" class="md-raised" ng-click="addBoxes()">Add Boxes</md-button>
+      <small class="muted">No integration found.</small>
     </div>
   </div>
 </md-content>
