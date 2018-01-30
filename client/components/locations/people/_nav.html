@@ -13,6 +13,6 @@
       Getting Started
     </md-nav-item>
     <span flex></span>
-    <get-with-the-plan hide show-gt-sm ng-if="!location.paid" label="Free Trial"></get-with-the-plan>
+    <get-with-the-plan hide show-gt-sm ng-show="location.paid == false" location="location" label="Free Trial"></get-with-the-plan>
   </md-nav-bar>
 </div>
