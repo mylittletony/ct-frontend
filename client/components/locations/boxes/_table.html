@@ -1,13 +1,21 @@
 <div ng-hide="loading">
   <md-card class="b-or">
     <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline" translate>
-          Devices Added
-        </span>
-        <span class="md-subhead">
-          These are the devices we detected during your integration setup.
-        </span>
+      <md-card-title-text layout="row">
+        <div>
+          <div class="md-headline" translate>
+            Devices Added
+          </div>
+          <div class="md-subhead">
+            These are the devices added during your last update.
+          </div>
+        </div>
+        <span flex></span>
+        <div class="integration-type">
+          <img ng-if="integration.type == 'unifi'" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/logos/ubiquiti-logo.png">
+          <img ng-if="integration.type == 'meraki'" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/logos/meraki-logo.png">
+          <img ng-if="integration.type == 'vsz'" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/logos/ruckus-logo.png">
+        </div>
       </md-card-title-text>
     </md-card-title>
     <md-card-content>
