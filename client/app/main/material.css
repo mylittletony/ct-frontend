@@ -1158,6 +1158,17 @@ md-bottom-sheet .md-subheader {
   cursor: pointer;
 }
 
+.integration-type img {
+  max-height: 60px;
+}
+
+@media (max-width: 959px) {
+  .integration-type img {
+    max-height: 40px;
+  }
+}
+
+
 /*guide pages*/
 
 .check-mark {
