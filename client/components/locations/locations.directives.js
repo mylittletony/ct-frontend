@@ -1475,6 +1475,10 @@ app.directive('integrationSettings', ['Location', '$routeParams', '$location', '
     scope.location = {slug: $routeParams.id};
     scope.currentNavItem = 'integrations';
 
+    scope.openDoc = function(){
+      window.open('http://google.com');
+    };
+
     var locationName = function() {
       Location.get({id: scope.location.slug}, function(data) {
         scope.location = data;
@@ -1503,10 +1507,6 @@ app.directive('integrationSettings', ['Location', '$routeParams', '$location', '
       } else {
         update();
       }
-    };
-
-    scope.openDoc = function(){
-      window.open('http://google.com');
     };
 
     controller.fetch().then(function(integration) {
