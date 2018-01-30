@@ -1408,387 +1408,62 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     };
 
+    var fakeLineChart = function() {
+      var fullData = {data:[{data: []}]};
+      var today = moment().utc().startOf('day').toDate().getTime();
+      for (var i = 0; i < 30; i++) {
+        var day = {};
+        day.timestamp = today - (i * 86400000);
+        day.value = Math.floor((Math.random() * 30) + 2);
+        fullData.data[0].data.push(day);
+      }
+      return fullData;
+    };
+
+    var fakeBarChart = function() {
+      var fullData = {data:[{data: []}]};
+      for (var i = 0; i < 24; i++) {
+        var hour = {hour: String(i)};
+        if (i > 9 && i < 18) {
+          hour.value =  Math.floor((Math.random() * 2000) + 10000 - ((Math.abs(14-i) * 2000)));
+        } else {
+          hour.value =  Math.floor((Math.random() * 500) + 2000 - ((Math.abs(14-i) * 200)));
+        }
+        fullData.data[0].data.push(hour);
+      }
+      return(fullData);
+    };
+
+    var fakePieChart = function(type) {
+      var fullData = {data:[{data: []}]};
+      var keys;
+      if (type === 'social.genders') {
+        keys = ['male', 'female', 'other'];
+      } else if (type === 'social.countries') {
+        keys = ['UK', 'Ireland', 'France', 'USA', 'Australia', 'China'];
+      } else {
+        keys = ['18-24', '25-34', '35-44', '45-54', '55+'];
+      }
+      keys.forEach(function(key) {
+        var base;
+        if (key === 'UK') {
+          base = 10000;
+        } else if (key === 'other') {
+          base = 0;
+        } else {
+          base = 2000;
+        }
+        var group = {key: key, value: Math.floor((Math.random() * 1000) + base)};
+        fullData.data[0].data.push(group);
+      });
+      return fullData;
+    };
+
     function chart() {
 
       var params = {
         type: scope.type,
         period: scope.period
-      };
-
-      var fakeStats = {
-        'social.genders': {
-          location_id: 4255,
-          start_time: 1514292024,
-          end_time: 1516884024,
-          interval: 'day',
-          data:[
-           {
-             name: 'social.genders',
-             data: [
-             {key: 'male', value: Math.floor((Math.random() * 60) + 1)},
-             {key: 'female', value: Math.floor((Math.random() * 70) + 1)}]}]},
-
-        'social.countries': {
-          location_id: 4255,
-          start_time: 1514292024,
-          end_time: 1516884024,
-          interval: 'day',
-          data:[
-            {
-              name: 'social.genders',
-              data: [
-              {key: 'UK', value: Math.floor((Math.random() * 80) + 1)},
-              {key: 'Ireland', value: Math.floor((Math.random() * 20) + 1)},
-              {key: 'France', value: Math.floor((Math.random() * 10) + 1)},
-              {key: 'Egypt', value: Math.floor((Math.random() * 3) + 1)},
-              {key: 'Belarus', value: Math.floor((Math.random() * 3) + 1)},
-              {key: 'Portugal', value: Math.floor((Math.random() * 10) + 1)}]}]},
-
-        'social.ages': {
-          location_id: 4255,
-          start_time: 1514292024,
-          end_time: 1516884024,
-          interval: 'day',
-          data:[
-            {
-              name: 'social.ages',
-              data: [
-              {key: '20', value: Math.floor((Math.random() * 80) + 1)},
-              {key: '21', value: Math.floor((Math.random() * 20) + 1)},
-              {key: '22', value: Math.floor((Math.random() * 10) + 1)},
-              {key: '23', value: Math.floor((Math.random() * 3) + 1)},
-              {key: '24', value: Math.floor((Math.random() * 3) + 1)},
-              {key: '25', value: Math.floor((Math.random() * 10) + 1)},
-              {key: '26', value: Math.floor((Math.random() * 80) + 1)},
-              {key: '27', value: Math.floor((Math.random() * 20) + 1)},
-              {key: '28', value: Math.floor((Math.random() * 10) + 1)},
-              {key: '29', value: Math.floor((Math.random() * 3) + 1)},
-              {key: '30', value: Math.floor((Math.random() * 3) + 1)}]}]},
-
-        'radius.popular': {
-          location_id: 4255,
-          start_time: 1514292024,
-          end_time: 1516884024,
-          interval: 'day',
-          data:[
-            {
-              name: 'radius.popular',
-              data: [
-              {hour: '0', value: Math.floor((Math.random() * 3) + 1)},
-              {hour: '1', value: Math.floor((Math.random() * 2) + 1)},
-              {hour: '2', value: Math.floor((Math.random() * 2) + 1)},
-              {hour: '3', value: Math.floor((Math.random() * 1) + 1)},
-              {hour: '4', value: Math.floor((Math.random() * 1) + 1)},
-              {hour: '5', value: Math.floor((Math.random() * 2) + 1)},
-              {hour: '6', value: Math.floor((Math.random() * 2) + 1)},
-              {hour: '7', value: Math.floor((Math.random() * 3) + 1)},
-              {hour: '8', value: Math.floor((Math.random() * 4) + 1)},
-              {hour: '9', value: Math.floor((Math.random() * 5) + 1)},
-              {hour: '10', value: Math.floor((Math.random() * 7) + 1)},
-              {hour: '11', value: Math.floor((Math.random() * 9) + 1)},
-              {hour: '12', value: Math.floor((Math.random() * 10) + 1)},
-              {hour: '13', value: Math.floor((Math.random() * 12) + 1)},
-              {hour: '14', value: Math.floor((Math.random() * 20) + 1)},
-              {hour: '15', value: Math.floor((Math.random() * 20) + 1)},
-              {hour: '16', value: Math.floor((Math.random() * 15) + 1)},
-              {hour: '17', value: Math.floor((Math.random() * 12) + 1)},
-              {hour: '18', value: Math.floor((Math.random() * 10) + 1)},
-              {hour: '19', value: Math.floor((Math.random() * 7) + 1)},
-              {hour: '20', value: Math.floor((Math.random() * 5) + 1)},
-              {hour: '21', value: Math.floor((Math.random() * 5) + 1)},
-              {hour: '22', value: Math.floor((Math.random() * 4) + 1)},
-              {hour: '23', value: Math.floor((Math.random() * 4) + 1)}]}]},
-
-        'people.new': {
-         location_id: 4255,
-         start_time: 1514292024,
-         end_time: 1516884024,
-         interval: 'day',
-         data:[
-           {
-             name: 'people.new',
-             alias: 'New People',
-             data: [
-             {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
-
-        'splash.views': {
-         location_id: 4255,
-         start_time: 1514292024,
-         end_time: 1516884024,
-         interval: 'day',
-         data:[
-           {
-             name: 'splash.views',
-             alias: 'Splash Views',
-             data: [
-             {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
-
-        'emails.new': {
-         location_id: 4255,
-         start_time: 1514292024,
-         end_time: 1516884024,
-         interval: 'day',
-         data:[
-           {
-             name: 'emails.new',
-             alias: 'New Emails',
-             data: [
-             {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
-         'emails.sent': {
-          location_id: 4255,
-          start_time: 1514292024,
-          end_time: 1516884024,
-          interval: 'day',
-          data:[
-            {
-              name: 'emails.sent',
-              alias: 'Sent Emails',
-              data: [
-              {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
-              {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
-
-        'radius.sessions': {
-         location_id: 4255,
-         start_time: 1514292024,
-         end_time: 1516884024,
-         interval: 'day',
-         data:[
-           {
-             name: 'radius.sessions',
-             alias: 'Radius Sessions',
-             data: [
-             {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
-       'radius.users': {
-        location_id: 4255,
-        start_time: 1514292024,
-        end_time: 1516884024,
-        interval: 'day',
-        data:[
-          {
-            name: 'radius.users',
-            alias: 'Radius Users',
-            data: [
-            {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
-            {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]},
-        'radius.new': {
-         location_id: 4255,
-         start_time: 1514292024,
-         end_time: 1516884024,
-         interval: 'day',
-         data:[
-           {
-             name: 'radius.new',
-             alias: 'Radius New Users',
-             data: [
-             {timestamp: 1514246400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514332800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514419200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514505600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514592000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514678400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514764800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514851200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1514937600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515024000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515110400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515196800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515283200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515369600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515456000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515542400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515628800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515715200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515801600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515888000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1515974400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516060800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516147200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516233600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516320000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516406400000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516492800000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516579200000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516665600000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516752000000, value: Math.floor((Math.random() * 30) + 1)},
-             {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]}
       };
 
       if (attrs.fake !== 'true') {
@@ -1799,7 +1474,13 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           console.log('No data returned for query');
         });
       } else {
-        drawChart(fakeStats[scope.type]);
+        if (attrs.bar === 'true') {
+          drawChart(fakeBarChart());
+        } else if (attrs.pie === 'true') {
+          drawChart(fakePieChart(scope.type));
+        } else {
+          drawChart(fakeLineChart());
+        }
       }
 
       $timeout.cancel(timer);
