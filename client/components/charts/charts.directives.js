@@ -1791,14 +1791,16 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
              {timestamp: 1516838400000, value: Math.floor((Math.random() * 30) + 1)}]}]}
       };
 
-      controller.getStats(params).then(function(res) {
-        drawChart(res);
-      }, function() {
-        // clearChart();
-        // console.log('No data returned for query');
+      if (attrs.fake !== 'true') {
+        controller.getStats(params).then(function(res) {
+          drawChart(res);
+        }, function() {
+          clearChart();
+          console.log('No data returned for query');
+        });
+      } else {
         drawChart(fakeStats[scope.type]);
-        scope.fake_data = true;
-      });
+      }
 
       $timeout.cancel(timer);
     }
@@ -2618,17 +2620,31 @@ app.directive('radiusStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
 
+    var fakeData = {
+      loyalty: ((Math.floor(Math.random() * 40) + 60) / 100),
+      sessions: (Math.floor(Math.random() * 10000) + 60),
+      new: (Math.floor(Math.random() * 5) + 5),
+      uniques: (Math.floor(Math.random() * 10) + 10),
+      duration: {
+        avg: (Math.floor(Math.random() * 4000) + 2000)
+      }
+    };
+
     function chart() {
       var params = {
         type: scope.type,
         period: '30d'
       };
 
-      controller.getStats(params).then(function(res) {
-        scope.stats = res.data[0].data;
-      }, function() {
-        console.log('No data returned for query');
-      });
+      if (attrs.fake !== 'true') {
+        controller.getStats(params).then(function(res) {
+          scope.stats = res.data[0].data;
+        }, function() {
+          console.log('No data returned for query');
+        });
+      } else {
+        scope.stats = fakeData;
+      }
     }
 
     chart();
@@ -2676,13 +2692,16 @@ app.directive('emailStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
         period: '30d'
       };
 
-      controller.getStats(params).then(function(res) {
-        scope.stats = res.data[0].data;
-      }, function() {
+      if (attrs.fake !== 'true') {
+        controller.getStats(params).then(function(res) {
+          scope.stats = res.data[0].data;
+        }, function() {
+          console.log('No data returned for query');
+        });
+      } else {
         scope.stats = fakeData;
-        scope.fake_data = true
-        // console.log('No data returned for query');
-      });
+      }
+
     }
 
     chart();
