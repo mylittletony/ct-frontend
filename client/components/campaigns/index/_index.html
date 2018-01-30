@@ -1,8 +1,28 @@
 <camp-nav></camp-nav>
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
-  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
-    <md-card>
+
+  <div flex="100" flex-gt-md="60" flex-gt-lg="50" ng-show="!campaign">
+    <md-card flex="100" class="b-pr">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">
+            <translate>Get Started with Campaigns</translate>
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <p translate>Set up your own custom campaigns to interact with your end users.</p>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="left center">
+        <md-button class="md-raised md-primary" href="/#/{{ location.slug}}/campaigns/new">Create</md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+
+
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-show="campaign">
+    <md-card class="b-pr">
       <div class="md-toolbar-tools" ng-cloak>
         <span class="md-subhead" translate>
           {{ _links.total_entries || 0 }} campaign(s).
