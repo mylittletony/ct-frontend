@@ -1196,6 +1196,21 @@ md-bottom-sheet .md-subheader {
   color: rgba(0, 0, 0, 0.87);
 }
 
+/*campaign*/
+
+.predicates div {
+  padding-top: 15px;
+}
+
+.predicates ul {
+  padding-left: 15px;
+  margin-top: 0px;
+}
+
+.predicates li {
+  color: rgba(0, 0, 0, 0.50);
+}
+
 /*general changes*/
 
 md-card {
