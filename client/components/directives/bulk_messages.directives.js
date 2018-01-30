@@ -80,7 +80,8 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
   };
 
   var template =
-    '<md-button ng-click="compose()" class=\'md-raised md-primary\'>SEND</md-button>';
+
+    '<md-menu-item><md-button ng-click="compose()">Send Message</md-button></md-menu-item>';
 
   return {
     link: link,

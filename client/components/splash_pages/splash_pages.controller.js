@@ -41,9 +41,9 @@ app.controller('SplashPagesDesignCtrl', ['$location', '$scope', '$routeParams', 
     menu.sections.push({
       name: gettextCatalog.getString('Campaigns'),
       type: 'link',
-      link: '/#/' + $scope.location.slug + '/triggers',
+      link: '/#/' + $scope.location.slug + '/campaigns',
       icon: 'email',
-      active: isActive('triggers')
+      active: isActive('campaigns')
     });
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {

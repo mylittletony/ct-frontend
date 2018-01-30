@@ -44,26 +44,25 @@
 </md-content>
 
 <form ng-submit="search()" name="myForm">
-  <md-content class="md-padding" layout="column" layout-gt-sm='row' ng-show="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
-    <md-card>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline" translate>
-            Get Started
-          </span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <p translate>Create some vouchers for your splash pages.</p>
+  <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
+    <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>
+              Get Started
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p translate>Create some vouchers for your splash pages.</p>
+        </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-show="allowed == true" ng-click="create()"><translate>Create</translate></md-button>
         </md-card-actions>
-      </md-card-content>
-    </md-card>
-  </md-content>
-
-  <md-content class="md-padding" layout="column" layout-gt-sm='row' layout-wrap>
-    <div flex="100" ng-show="vouchers.length > 0 || searching || query.filter">
+      </md-card>
+    </div>
+    <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-show="vouchers.length > 0 || searching || query.filter">
       <md-card>
         <md-card-content>
           <md-table-container>
@@ -124,7 +123,7 @@
         </md-card-content>
       </md-card>
     </div>
-    <div flex="100">
+    <div flex="100" flex-gt-md="90" flex-gt-lg="80">
       <md-button ng-show="allowed == true" ng-click="create()" class="md-raised">
         Create
       </md-button>

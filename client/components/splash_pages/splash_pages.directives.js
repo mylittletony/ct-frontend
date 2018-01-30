@@ -1960,7 +1960,6 @@ app.directive('splashNav', [function() {
 
   return {
     link: link,
-    scope: { location: '=' },
     templateUrl: 'components/splash_pages/_nav.html'
   };
 
