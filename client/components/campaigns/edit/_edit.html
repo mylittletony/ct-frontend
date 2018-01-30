@@ -85,7 +85,7 @@
                 <md-card-title>
                   <md-card-title-text>
                     <span class="md-headline" translate>
-                      {{ name(predicate.attribute) }}
+                      {{ predicate | humanPredicate }}
                     </span>
                     <md-switch ng-model="campaign.relative" aria-label="Switch 1" ng-show="focusedCard == $index && predicate.attribute != 'login_count'">
                       {{ campaign.relative ? 'Relative' : 'Absolute' }}
