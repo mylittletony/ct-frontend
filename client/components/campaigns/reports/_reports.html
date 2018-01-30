@@ -1,16 +1,19 @@
 <camp-nav location="location"></camp-nav>
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+    <div style="background-color: yellow; margin: 4px; padding: 2px; font-weight: bold; text-align: center;" ng-if="!location.paid">
+      The chart below is populated with example data. To access real data about your location, start your free trial or sign up to a paid plan.
+    </div>
     <analytics ng-if="!loading">
       <client-chart>
 
-        <email-stats></email-stats>
+        <email-stats fake="{{!location.paid}}"></email-stats>
         <div layout="" layout-wrap class="md-padding">
           <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-            <dash-clients-chart name="Emails Captured" type="emails.new" bar="true" render="new-emails" show-gt-sm></dash-clients-chart>
+            <dash-clients-chart name="Emails Captured" type="emails.new" bar="true" render="new-emails" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
           </div>
           <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-            <dash-clients-chart name="Emails Sent" type="emails.sent" bar="true" render="sent-emails" show-gt-sm></dash-clients-chart>
+            <dash-clients-chart name="Emails Sent" type="emails.sent" bar="true" render="sent-emails" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
           </div>
         </div>
       </client-chart>
