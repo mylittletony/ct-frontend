@@ -11,12 +11,130 @@
     </md-toolbar>
     <md-dialog-content style="max-width:600px;max-height:810px; ">
       <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom class="payment-portal">
+
         <md-tab label="one">
+          <md-content class="md-padding">
+            <h2>Choose a plan that suits you</h2>
+            <md-radio-group ng-model="user.plan" layout="row">
+              <md-radio-button value="splash" class="md-primary">Splash</md-radio-button>
+              <md-radio-button value="engage">Engage</md-radio-button>
+            </md-radio-group>
+            <p><b>{{ user.plan == 'splash' ? '$19.99' : '$79.99' }}</b> per month. Includes 250 people!</p>
+            <md-table-container>
+              <table md-table md-progress="promise">
+                <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                  <tr md-row>
+                    <th md-column><span></spam></th>
+                    <th md-column><span translate>Splash</span></th>
+                    <th md-column><span translate>Engage</span></th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr>
+                    <td md-cell>
+                      Beautiful splash pages
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td md-cell>
+                      Unlimited devices
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td md-cell>
+                      Unlimited integrations
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td md-cell>
+                      Data capture
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td md-cell>
+                      MailChimp connector
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td md-cell>
+                      Automated campaigns
+                    </td>
+                    <td md-cell>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td md-cell>
+                      Outbound messaging
+                    </td>
+                    <td md-cell>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td md-cell>
+                      Audience targetting
+                    </td>
+                    <td md-cell>
+                    </td>
+                    <td md-cell>
+                      <md-icon>check</md-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </md-content>
+        </md-tab>
+
+        <md-tab label="two">
+          <md-content class="md-padding">
+            <h2>Estimate number of users</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper./p>
+              <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+              <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+          </md-content>
+        </md-tab>
+
+        <md-tab label="three">
           <md-content class="md-padding" layout='row' flex layout-wrap>
-            <!-- <h1 class="md-display-2">Choose your plan</h1> -->
-            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p> -->
             <h2>Enter payment details</h2>
             <p>Cancel any time in the first 14 days and you won't be charged. The free trial includes all the features of the plan you've selected.</p>
+            <h3><b>{{ user.plan == 'splash' ? '$19.99' : '$79.99' }}</b> per month.</h3>
 
             <md-input-container class="md-block" flex="100">
               <label translate>Card Number</label>
@@ -42,20 +160,7 @@
             <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/powered_by_stripe_3x.png" style="width: 150px; height: 33px;"/>
           </md-content>
         </md-tab>
-        <md-tab label="two">
-          <md-content class="md-padding">
-            <h1 class="md-display-2">Estimate number of users</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper./p>
-            <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
-            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-          </md-content>
-        </md-tab>
-        <md-tab label="three">
-          <md-content class="md-padding">
-            <h1 class="md-display-2">Start your trial</h1>
 
-          </md-content>
-        </md-tab>
         <md-tab label="four">
           <md-content class="md-padding">
             <h1 class="md-display-2">You're all set! High-fives!</h1>
@@ -68,16 +173,16 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <!-- <md-button ng-click="back()" ng-if="selectedIndex > 0"> -->
-      <!--   Back -->
-      <!-- </md-button> -->
+      <md-button ng-click="back()" ng-if="selectedIndex > 0 && selectedIndex != 3">
+        Back
+      </md-button>
       <md-button ng-click="cancel()" ng-if="selectedIndex == 3">
         Close
       </md-button>
-      <!-- <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex < 2"> -->
-      <!--   Next -->
-      <!-- </md-button> -->
-      <md-button type="submit" style="margin-right:20px;" ng-if="selectedIndex == 0">
+      <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex <= 1">
+        Next
+      </md-button>
+      <md-button type="submit" style="margin-right:20px;" ng-if="selectedIndex == 2" ng-disabled="form.$pristine || form.$invalid" class="md-raised md-primary">
         Start Trial
       </md-button>
     </md-dialog-actions>

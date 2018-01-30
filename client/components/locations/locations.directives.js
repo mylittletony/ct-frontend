@@ -1368,19 +1368,18 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
     };
 
     var createSubscription = function(card,dialog) {
-      scope.location.paid = true;
-      console.log(card);
-
-      var timer = $timeout(function() {
-        scope.loading = undefined;
-        $timeout.cancel(timer);
-        dialog.cancel();
-      },5000);
+      // scope.location.paid = true;
+      // var timer = $timeout(function() {
+      //   scope.loading = undefined;
+      //   $timeout.cancel(timer);
+      //   dialog.cancel();
+      // },5000);
 
     };
 
     function DialogController($scope, $mdDialog) {
       $scope.selectedIndex = 0;
+      $scope.user = { plan: 'engage' };
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -1403,16 +1402,15 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
       };
 
       $scope.stripeCallback = function (code, result) {
+        console.log(result, code);
         if (result.error) {
           showErrors({data: result.error.message});
         } else {
-          $scope.selectedIndex = 3;
+          $scope.next();
           createSubscription(result.id, $mdDialog);
         }
       };
     }
-
-    console.log(scope.location)
   };
 
   var template =
