@@ -10,47 +10,54 @@
       </div>
     </md-toolbar>
     <md-dialog-content style="max-width:800px;max-height:810px; ">
-      <md-content layout-gt-sm="column" layout-padding>
-        <p>Send a manual message to this customer. If they have multiple email addresses, your message will be sent to all the active ones.</p>
-        <p ng-show="valid != true">
-          <b>
-            You are required to confirm any from emails. Please enter a valid address.
-          </b>
-        </p>
-        <md-input-container>
-          <label><translate>From Name</translate></label>
-          <input ng-model="message.from_name" type='string' name="name" required md-autofocus>
-          <div ng-messages="myForm.name.$error">
-            <div ng-message="required" translate>You must enter a name</div>
+      <md-content layout-padding>
+        <div layout="row" layout-wrap>
+          <div flex="100">
+            <p>Send a manual message to this customer. If they have multiple email addresses, your message will be sent to all the active ones.</p>
+            <p ng-show="valid != true">
+              <b>
+                You are required to confirm any from emails. Please enter a valid address.
+              </b>
+            </p>
           </div>
-        </md-input-container>
-        <md-input-container>
-          <label><translate>From Email</translate></label>
-          <input ng-blur="validateEmail(message.from_email)" ng-model="message.from_email" type='email' name="email" required>
-          <div ng-messages="myForm.email.$error">
-            <div ng-message="required" translate>You must enter an email</div>
-            <div ng-message="email" translate>You must enter a valid email</div>
+          <md-input-container flex="100" flex-gt-sm="45">
+            <label><translate>From Name</translate></label>
+            <input ng-model="message.from_name" type='string' name="name" required md-autofocus>
+            <div ng-messages="myForm.name.$error">
+              <div ng-message="required" translate>You must enter a name</div>
+            </div>
+          </md-input-container>
+          <span flex-gt-sm="10"></span>
+          <md-input-container flex="100" flex-gt-sm="45">
+            <label><translate>From Email</translate></label>
+            <input ng-blur="validateEmail(message.from_email)" ng-model="message.from_email" type='email' name="email" required>
+            <div ng-messages="myForm.email.$error">
+              <div ng-message="required" translate>You must enter an email</div>
+              <div ng-message="email" translate>You must enter a valid email</div>
+            </div>
+          </md-input-container>
+          <div flex="100" ng-show="valid == false">
+            <p style="margin:0px;">
+              If you have just added <b>{{ message.from_email }}</b>, a confirmation email has been sent to you.
+            </p>
           </div>
-          <p ng-show="valid == false">
-            If you have just added <b>{{ message.from_email }}</b>, a confirmation email has been sent to you.
-          </p>
-        </md-input-container>
-        <span ng-show="valid">
-          <md-input-container>
+        </div>
+        <div layout="row" layout-wrap ng-show="valid">
+          <md-input-container flex="100">
             <label><translate>Subject</translate></label>
             <input ng-model="message.subject" type='text' name="subject" required>
             <div ng-messages="myForm.message.$error">
               <div ng-message="required" translate>You must enter a message</div>
             </div>
           </md-input-container>
-          <md-input-container>
+          <md-input-container flex="100">
             <label><translate>Message</translate></label>
             <textarea ng-model="message.content" md-maxlength="150" rows="5" md-select-on-focus></textarea>
             <div ng-messages="myForm.message.$error">
               <div ng-message="required" translate>You must enter a message</div>
             </div>
           </md-input-container>
-        </span>
+        </div>
       </md-content>
     </md-dialog-content>
 
