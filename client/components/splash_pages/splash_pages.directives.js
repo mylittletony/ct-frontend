@@ -1908,13 +1908,16 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
 
     DialogController.$inject = ['$scope', 'loading'];
 
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      $mdDialog.cancel();
-      if ($location.search().wizard === 'yas') {
-        scope.openDialog();
-        $location.search({});
-      }
-    });
+    //
+    // disabled because when we do this automatic templates pop-up it never closes:
+    //
+    // $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    //   $mdDialog.cancel();
+    //   if ($location.search().wizard === 'yas') {
+    //     scope.openDialog();
+    //     $location.search({});
+    //   }
+    // });
   };
 
   return {
