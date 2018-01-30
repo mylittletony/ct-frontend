@@ -170,46 +170,6 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       }
     };
 
-    var isNumber = function(number) {
-      if (Number.isInteger(number / 1)) {
-        return true;
-      }
-    };
-
-    scope.human = function(predicate) {
-      var phrase;
-      if (predicate.attribute === 'login_count') {
-        if (predicate.operator === 'gte') {
-          phrase = 'More than';
-        } else {
-          phrase = 'Less than';
-        }
-        return phrase + ' ' + predicate.value + ' logins';
-      }
-
-      if (scope.campaign.relative || isNumber(predicate.value)) {
-        if (predicate.operator === 'gte') {
-          phrase = 'More than';
-        } else if (predicate.operator === 'lte') {
-          phrase = 'Less than';
-        } else {
-          phrase = 'Exactly';
-        }
-
-        return phrase + ' ' + predicate.value + ' days ago';
-      }
-
-      if (predicate.operator === 'gte') {
-        phrase = 'After';
-      } else if (predicate.operator === 'lte') {
-        phrase = 'Before';
-      } else {
-        phrase = 'On';
-      }
-
-      return phrase + ' the ' + predicate.value;
-    };
-
     scope.removePredicate = function(index) {
       scope.campaign.holding_predicates.splice(index, 1);
     };
@@ -401,7 +361,7 @@ app.directive('validateCampaignEmail', ['CampaignValidate', '$routeParams', '$ti
       CampaignValidate.update({
         secret: $routeParams.secret
       }).$promise.then(function(results) {
-        scope.message = 'Cool, your email was validated. Party hard.';
+        scope.message = 'Cool, your email was validated. <br><br>Remember to party hard.';
         scope.loading = undefined;
       }, function(err) {
         scope.message = 'Could not validate the token, please try again later.';

@@ -12,14 +12,30 @@
     <md-dialog-content style="max-width:800px;max-height:810px; ">
       <md-content layout-gt-sm="column" layout-padding>
         <p>Send a manual message to this customer. If they have multiple email addresses, your message will be sent to all the active ones.</p>
-          <!-- <md-input-container> -->
-          <!--   <label><translate>To Email</translate></label> -->
-          <!--   <input ng-model="message.to_email" type='email' name="email" required md-autofocus> -->
-          <!--   <div ng-messages="myForm.email.$error"> -->
-          <!--     <div ng-message="required" translate>You must enter an email</div> -->
-          <!--     <div ng-message="email" translate>You must enter an email</div> -->
-          <!--   </div> -->
-          <!-- </md-input-container> -->
+        <p ng-show="valid != true">
+          <b>
+            You are required to confirm any from emails. Please enter a valid address.
+          </b>
+        </p>
+        <md-input-container>
+          <label><translate>From Name</translate></label>
+          <input ng-model="message.from_name" type='string' name="name" required md-autofocus>
+          <div ng-messages="myForm.name.$error">
+            <div ng-message="required" translate>You must enter a name</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label><translate>From Email</translate></label>
+          <input ng-blur="validateEmail(message.from_email)" ng-model="message.from_email" type='email' name="email" required>
+          <div ng-messages="myForm.email.$error">
+            <div ng-message="required" translate>You must enter an email</div>
+            <div ng-message="email" translate>You must enter a valid email</div>
+          </div>
+          <p ng-show="valid == false">
+            If you have just added <b>{{ message.from_email }}</b>, a confirmation email has been sent to you.
+          </p>
+        </md-input-container>
+        <span ng-show="valid">
           <md-input-container>
             <label><translate>Subject</translate></label>
             <input ng-model="message.subject" type='text' name="subject" required>
@@ -34,12 +50,13 @@
               <div ng-message="required" translate>You must enter a message</div>
             </div>
           </md-input-container>
+        </span>
       </md-content>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button style="margin-right:20px;" type="submit" ng-disabled="myForm.$invalid || myForm.$pristine">
+      <md-button style="margin-right:20px;" type="submit" ng-disabled="myForm.$invalid || myForm.$pristine || !valid ">
         Send
       </md-button>
     </md-dialog-actions>

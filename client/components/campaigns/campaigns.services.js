@@ -34,6 +34,14 @@ app.factory('Campaign', ['$resource', '$localStorage', 'API_END_POINT',
       update: {
         method:'PATCH',
         isArray: false
+      },
+      validate: {
+        method:'GET',
+        isArray: false,
+        params: {
+          action: 'validate',
+          email: '@email'
+        }
       }
     });
   }]);

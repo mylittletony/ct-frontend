@@ -19,7 +19,8 @@
           </span>
           <span class="md-subhead">
             Select an integration below to get started with MIMO.
-            </spam>
+            <span ng-show="!location.paid"><b>You will need to start a 14-day trial in order to create an integration</b>.</span>
+            </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -55,6 +56,9 @@
             </md-card-actions>
           </md-card>
         </div>
+        <md-card-actions layout="row" layout-align="end end">
+          <get-with-the-plan label='Start Trial'></get-with-the-plan>
+        </md-card-actions>
       </md-card-content>
     </md-card>
   </div>

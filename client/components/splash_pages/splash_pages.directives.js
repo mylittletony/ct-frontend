@@ -1958,7 +1958,7 @@ app.directive('splashNav', [function() {
   return {
     link: link,
     scope: { location: '=' },
-    templateUrl: 'components/splash_pages/_splash_menu_top.html'
+    templateUrl: 'components/splash_pages/_nav.html'
   };
 
 }]);

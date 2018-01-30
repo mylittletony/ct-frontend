@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.bulk_messages.directives', []);
 
-app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 'showToast', 'showErrors', function($routeParams,BulkMessage,$mdDialog, showToast, showErrors) {
+app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 'showToast', 'showErrors', 'Campaign', function($routeParams,BulkMessage,$mdDialog, showToast, showErrors, Campaign) {
 
   var link = function( scope, element, attrs ) {
 
@@ -18,7 +18,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
       });
     };
 
-    function DialogController($scope, $mdDialog) {
+    function DialogController($scope, valid) {
 
       scope.message = {};
 
@@ -48,7 +48,19 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
         $scope.cancel();
         send(message);
       };
+
+      $scope.validateEmail = function(email) {
+        Campaign.validate({}, {
+          location_id: $routeParams.id,
+          email: email
+        }).$promise.then(function(msg) {
+          $scope.valid = true;
+        }, function(err) {
+          $scope.valid = false;
+        });
+      };
     }
+    DialogController.$inject = ['$scope', 'valid'];
 
     scope.compose = function(ev) {
       $mdDialog.show({
@@ -56,11 +68,13 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
         templateUrl: 'components/views/bulk_messages/_compose.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
-        clickOutsideToClose:true
-      })
-        .then(function(answer) {
-        }, function() {
-        });
+        clickOutsideToClose:true,
+        locals: {
+          valid: false
+        }
+      }).then(function(answer) {
+      }, function() {
+      });
     };
 
   };
