@@ -7,7 +7,7 @@
       <client-chart>
         <div layout="row" layout-wrap>
           <div flex="100" flex-gt-sm="100" ng-hide="fs && fs.panel != 'usage'">
-            <dash-clients-chart name="New People" type="people.new" bar="true" render="new-people" show-gt-sm></dash-clients-chart>
+            <dash-clients-chart name="New People" type="people.new" bar="true" render="new-people" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
           </div>
         </div>
       </client-chart>
