@@ -1335,25 +1335,35 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
 }]);
 
-app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'STRIPE_KEY', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, STRIPE_KEY) {
 
   var link = function(scope, element, attrs, controller) {
 
     scope.label = attrs.label || 'Free Trial';
 
     scope.signUp = function(ev) {
+      console.log(scope.location);
+      if (STRIPE_KEY && window.Stripe) {
+        console.log('Setting Stripe Token');
+        window.Stripe.setPublishableKey(STRIPE_KEY);
+      } else {
+        console.log('Could not set stripe token');
+      }
+
       $mdDialog.show({
         controller: DialogController,
         templateUrl: 'components/locations/_signup.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true
-      })
-        .then(function(answer) {
-          $scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          $scope.status = 'You cancelled the dialog.';
-        });
+      }).then(function(answer) {
+      }, function() {
+      });
+    };
+
+    var createSubscription = function(card) {
+      scope.location.paid = true;
+      console.log(card);
     };
 
     function DialogController($scope, $mdDialog) {
@@ -1379,22 +1389,30 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
         }
       };
 
-      $scope.pay = function() {
-        alert('wohooohoooo!');
+      $scope.stripeCallback = function (code, result) {
+        if (result.error) {
+          showErrors({data: result.error.message});
+        } else {
+          $scope.selectedIndex = 3;
+          createSubscription(result.id);
+        }
       };
     }
+
+    console.log(scope.location)
   };
 
   var template =
     '<md-button type="submit" class="md-raised md-primary" ng-click="signUp()">' +
-    '{{label}}' +
+    '{{ label }}' +
     '</md-button>';
 
 
   return {
     link: link,
     scope: {
-      message: '@'
+      message: '@',
+      location: '='
     },
     template: template
   };

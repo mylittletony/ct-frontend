@@ -1,5 +1,5 @@
 <md-dialog aria-label="Subscribe to a plan">
-  <form>
+  <form name="form" stripe-form="stripeCallback">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Free Trial Subscription</h2>
@@ -18,30 +18,28 @@
             <h2>Enter payment details</h2>
             <p>Cancel any time in the first 14 days and you won't be charged. The free trial includes all the features of the plan you've selected.</p>
 
-            <form name="form" stripe-form="stripeCallback">
-              <md-input-container class="md-block" flex="100">
-                <label translate>Card Number</label>
-                <input type='text' ng-model='number' placeholder="{{ 'Card Number' | translate }}" payments-format='card' payments-validate='card' name='card' value=''/>
-                <div ng-messages="form.card.$error">
-                  <div ng-message="card" translate>Card number invalid</div>
-                </div>
-              </md-input-container>
-              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label for='expiry' translate>Expiry Date</label>
-                <input type='text' ng-model='expiry' placeholder="{{ 'Expiration' | translate }}" payments-format='expiry' payments-validate='expiry' name='expiry'/>
-                <div ng-messages="form.expiry.$error">
-                  <div ng-message="expiry" translate>Invalid expiry date</div>
-                </div>
-              </md-input-container>
-              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label for='cvc' translate>Security Code</label>
-                <input type='text' ng-model='cvc' placeholder='CVC' payments-validate='cvc' payments-format='cvc' name='cvc'/>
-                <div ng-messages="form.cvc.$error">
-                  <div ng-message="expiry" translate>Invalid CVC</div>
-                </div>
-              </md-input-container>
-              <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/powered_by_stripe_3x.png" style="width: 150px; height: 33px;"/>
-            </form>
+            <md-input-container class="md-block" flex="100">
+              <label translate>Card Number</label>
+              <input type='text' ng-model='number' placeholder="{{ 'Card Number' | translate }}" payments-format='card' payments-validate='card' name='card' value=''/>
+              <div ng-messages="form.card.$error">
+                <div ng-message="card" translate>Card number invalid</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+              <label for='expiry' translate>Expiry Date</label>
+              <input type='text' ng-model='expiry' placeholder="{{ 'Expiration' | translate }}" payments-format='expiry' payments-validate='expiry' name='expiry'/>
+              <div ng-messages="form.expiry.$error">
+                <div ng-message="expiry" translate>Invalid expiry date</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+              <label for='cvc' translate>Security Code</label>
+              <input type='text' ng-model='cvc' placeholder='CVC' payments-validate='cvc' payments-format='cvc' name='cvc'/>
+              <div ng-messages="form.cvc.$error">
+                <div ng-message="expiry" translate>Invalid CVC</div>
+              </div>
+            </md-input-container>
+            <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/powered_by_stripe_3x.png" style="width: 150px; height: 33px;"/>
           </md-content>
         </md-tab>
         <md-tab label="two">
@@ -55,35 +53,13 @@
         <md-tab label="three">
           <md-content class="md-padding">
             <h1 class="md-display-2">Start your trial</h1>
-            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
 
-            <form name="form" stripe-form="stripeCallback">
-              <div flex="100">
-                <h3 translate>Update or add your credit card</h3>
-              </div>
-              <md-input-container class="md-block" flex="100">
-                <label translate>Card Number</label>
-                <input type='text' ng-model='number' placeholder="{{ 'Card Number' | translate }}" payments-format='card' payments-validate='card' name='card' value=''/>
-                <div ng-messages="form.card.$error">
-                  <div ng-message="card" translate>Card number invalid</div>
-                </div>
-              </md-input-container>
-              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label for='expiry' translate>Expiry Date</label>
-                <input type='text' ng-model='expiry' placeholder="{{ 'Expiration' | translate }}" payments-format='expiry' payments-validate='expiry' name='expiry'/>
-                <div ng-messages="form.expiry.$error">
-                  <div ng-message="expiry" translate>Invalid expiry date</div>
-                </div>
-              </md-input-container>
-              <md-input-container class="md-block" flex="100" flex-gt-sm="50">
-                <label for='cvc' translate>Security Code</label>
-                <input type='text' ng-model='cvc' placeholder='CVC' payments-validate='cvc' payments-format='cvc' name='cvc'/>
-                <div ng-messages="form.cvc.$error">
-                  <div ng-message="expiry" translate>Invalid CVC</div>
-                </div>
-              </md-input-container>
-              <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/powered_by_stripe_3x.png" style="width: 150px; height: 33px;"/>
-            </form>
+          </md-content>
+        </md-tab>
+        <md-tab label="four">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Woohooo</h1>
+
           </md-content>
         </md-tab>
       </md-tabs>
@@ -91,16 +67,18 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="back()" ng-if="selectedIndex > 0">
-        Back
+      <!-- <md-button ng-click="back()" ng-if="selectedIndex > 0"> -->
+      <!--   Back -->
+      <!-- </md-button> -->
+      <md-button ng-click="cancel()" ng-if="selectedIndex == 3">
+        Close
       </md-button>
-      <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex < 2">
-        Next
-      </md-button>
-      <md-button ng-click="pay()" style="margin-right:20px;" ng-if="selectedIndex == 2">
-        Make Payment
+      <!-- <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex < 2"> -->
+      <!--   Next -->
+      <!-- </md-button> -->
+      <md-button type="submit" style="margin-right:20px;" ng-if="selectedIndex == 0">
+        Start Trial
       </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
-
