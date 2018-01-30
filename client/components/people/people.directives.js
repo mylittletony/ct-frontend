@@ -60,6 +60,15 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       init();
     };
 
+    var getLocation = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+        scope.loading = undefined;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
     var getPeople = function() {
       var params = {
         page: scope.query.page,
@@ -77,6 +86,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     };
 
     var init = function() {
+      getLocation();
       getPeople();
     };
 
