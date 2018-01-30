@@ -1336,13 +1336,15 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
 }]);
 
-app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$mdDialog', '$timeout', 'showErrors', 'gettextCatalog', 'STRIPE_KEY', function(Location, $routeParams, $location, $http, $mdDialog, $timeout, showErrors, gettextCatalog, STRIPE_KEY) {
+app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subscription', '$mdDialog', '$timeout', '$pusher', 'gettextCatalog', 'STRIPE_KEY', 'Auth', function(Location, $routeParams, $location, Subscription, $mdDialog, $timeout, $pusher, gettextCatalog, STRIPE_KEY, Auth) {
 
   var link = function(scope, element, attrs, controller) {
 
+    var key = Auth.currentUser().key;
     scope.label = attrs.label || 'Free Trial';
 
     scope.signUp = function(ev) {
+
       if (!scope.location) {
         console.log('Kindly send a location in bromie');
         return;
@@ -1361,25 +1363,21 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
         templateUrl: 'components/locations/_signup.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
-        clickOutsideToClose:true
+        clickOutsideToClose: false
       }).then(function(answer) {
       }, function() {
       });
     };
 
-    var createSubscription = function(card,dialog) {
-      // scope.location.paid = true;
-      // var timer = $timeout(function() {
-      //   scope.loading = undefined;
-      //   $timeout.cancel(timer);
-      //   dialog.cancel();
-      // },5000);
-
+    var convertToPaid = function() {
+      scope.location.paid = true;
     };
+
+    var channel;
 
     function DialogController($scope, $mdDialog) {
       $scope.selectedIndex = 0;
-      $scope.user = { plan: 'engage' };
+      $scope.plan = 'engage-20180130';
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -1390,24 +1388,62 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
       };
 
       $scope.back = function() {
+        $scope.errors = undefined;
         if ($scope.selectedIndex > 0) {
           $scope.selectedIndex--;
         }
       };
 
       $scope.next = function() {
-        if ($scope.selectedIndex < 3) {
+        if ($scope.selectedIndex < 4) {
           $scope.selectedIndex++;
         }
       };
 
+      var subscribe = function() {
+        if (typeof client !== 'undefined') {
+          var pusher = $pusher(client);
+          if (!key) {
+            return;
+          }
+
+          channel = pusher.subscribe(key);
+          channel.bind('sub_completed', function(data) {
+            if (data.message.success === true) {
+              convertToPaid();
+              $scope.success = true;
+              $scope.selectedIndex = 4;
+              var timer = $timeout(function() {
+                $mdDialog.cancel();
+                $timeout.cancel(timer);
+              },2500);
+            } else {
+              $scope.errors = data.message.message;
+            }
+          });
+        }
+      };
+
+      var upgrade = function(card) {
+        subscribe();
+        Subscription.create({plan_id: $scope.plan, card: card}).$promise.then(function(data) {
+          $scope.selectedIndex = 3;
+        }, function(err) {
+          $scope.subscribing = undefined;
+          $scope.errors = err.data.message;
+        });
+      };
+
+      var createSubscription = function(card) {
+        upgrade(card);
+      };
+
       $scope.stripeCallback = function (code, result) {
-        console.log(result, code);
         if (result.error) {
           showErrors({data: result.error.message});
         } else {
           $scope.next();
-          createSubscription(result.id, $mdDialog);
+          createSubscription(result.id);
         }
       };
     }
