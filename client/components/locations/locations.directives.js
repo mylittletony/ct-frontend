@@ -730,7 +730,7 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
 
 }]);
 
-app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -763,7 +763,7 @@ app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$h
 
 }]);
 
-app.directive('integrations', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'SplashIntegration', '$q', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, SplashIntegration, $q) {
+app.directive('integrations', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'SplashIntegration', '$q', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, SplashIntegration, $q) {
 
   var link = function(scope, element, attrs) {
 
@@ -858,7 +858,7 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
 
 }]);
 
-app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -920,7 +920,7 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
 
 }]);
 
-app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -987,7 +987,7 @@ app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '
 
 }]);
 
-app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -1049,7 +1049,7 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$co
 
 }]);
 
-app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -1118,7 +1118,7 @@ app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$c
 
 }]);
 
-app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -1177,7 +1177,7 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
 
 }]);
 
-app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -1303,7 +1303,7 @@ app.directive('merakiSetup', ['Location', '$routeParams', '$location', '$http', 
 
 }]);
 
-app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -1335,14 +1335,18 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
 }]);
 
-app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'STRIPE_KEY', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog, STRIPE_KEY) {
+app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'STRIPE_KEY', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, STRIPE_KEY) {
 
   var link = function(scope, element, attrs, controller) {
 
     scope.label = attrs.label || 'Free Trial';
 
     scope.signUp = function(ev) {
-      console.log(scope.location);
+      if (!scope.location) {
+        console.log('Kindly send a location in bromie');
+        return;
+      }
+
       if (STRIPE_KEY && window.Stripe) {
         console.log('Setting Stripe Token');
         window.Stripe.setPublishableKey(STRIPE_KEY);
@@ -1418,7 +1422,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', '$http
   };
 }]);
 
-app.directive('integrationComplete', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrationComplete', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
@@ -1455,7 +1459,7 @@ app.directive('integrationComplete', ['Location', '$routeParams', '$location', '
   };
 }]);
 
-app.directive('integrationSettings', ['Location', '$routeParams', '$location', '$http', '$compile', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $compile, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('integrationSettings', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
 
