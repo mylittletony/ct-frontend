@@ -1,0 +1,39 @@
+<md-dialog>
+  <form name="myForm" ng-submit="save(email)">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Change of Plan</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="ssid-form">
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <h3 translate>Looks like there's been a change of plan.</h3>
+          <p translate>Type the word <b>MIMO</b> in the box to confirm you want to change plans.</b>.</p>
+        </div>
+        <div flex layout="column">
+          <md-input-container>
+            <label>
+              <translate>Confirmation</translate>
+            </label>
+            <input name="yes" model="yes" md-maxlength="32" ng-model="yes" required>
+          </md-input-container>
+        </div>
+        <p translate><b>Your subscription will be updated in a jiffy!</b></p>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+        Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised md-warn" ng-disabled="myForm.$pristine || myForm.$invalid || (yes != 'MIMO')" type="submit">
+        <translate>
+        SAVE
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
