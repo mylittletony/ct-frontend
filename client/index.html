@@ -191,7 +191,10 @@
           <md-tooltip md-direction="bottom">Settings</md-tooltip>
           <md-icon>settings</md-icon>
         </md-button>
-
+        <md-button iing-if="location_slug" class="md-icon-button" ng-click="settings('/audit')">
+          <md-tooltip md-direction="right">Audit</md-tooltip>
+          <md-icon>list</md-icon>
+        </md-button>
         <md-menu md-position-mode="target-right target" md-offset="40 0">
           <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
             <user-avatar></user-avatar>
