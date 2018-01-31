@@ -2,13 +2,13 @@
   <md-nav-bar
     md-selected-nav-item="currentNavItem"
     nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_pages" name="splash">
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/splash_pages" name="splash">
       Splash Pages
     </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/vouchers" name="vouchers">
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/vouchers" name="vouchers">
       Vouchers
     </md-nav-item>
-    <md-nav-item md-nav-href="/#/locations/{{ location.slug }}/splash_codes" name="codes">
+    <md-nav-item md-nav-href="/#/{{ location.slug }}/splash_codes" name="codes">
       Codes
     </md-nav-item>
   </md-nav-bar>
@@ -89,7 +89,7 @@
             <div class="md-list-item-text">
               <h3 translate>Splash Page</h3>
               <p>
-                <a ng-if="voucher.splash_page_id !== 'external'" href="/#/locations/{{ location.slug }}/splash_pages/{{ voucher.splash_page_id }}">{{ voucher.splash_page_id }}</a>
+                <a ng-if="voucher.splash_page_id !== 'external'" href="/#/{{ location.slug }}/splash_pages/{{ voucher.splash_page_id }}">{{ voucher.splash_page_id }}</a>
                 <span ng-if="voucher.splash_page_id === 'external'">External Splash</span>
               </p>
             </div>

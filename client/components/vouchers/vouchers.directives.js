@@ -4,7 +4,6 @@ var app = angular.module('myApp.vouchers.directives', []);
 
 app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', 'gettextCatalog', 'pagination_labels', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout, gettextCatalog, pagination_labels) {
 
-
   var link = function(scope) {
 
     Location.get({id: $routeParams.id}, function(data) {
@@ -13,7 +12,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       console.log(err);
     });
 
-    scope.currentNavItem = 'vouchers'
+    scope.currentNavItem = 'vouchers';
 
     scope.location = { slug: $routeParams.id };
 
@@ -209,19 +208,19 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
     };
 
     scope.create = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/new';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/new';
     };
 
     var view = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + id;
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + id;
     };
 
     var edit = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + id + '/edit';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + id + '/edit';
     };
 
     var codes = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + id + '/codes';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + id + '/codes';
     };
 
     init();
@@ -297,7 +296,7 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
     scope.save = function(form) {
       form.$setPristine();
       Voucher.create({location_id: scope.location.slug, voucher: scope.voucher}).$promise.then(function(results) {
-        $location.path('/locations/'+ scope.location.slug + '/vouchers/' + results.unique_id);
+        $location.path('/'+ scope.location.slug + '/vouchers/' + results.unique_id);
         showToast(gettextCatalog.getString('Voucher created successfully'));
       }, function(err) {
         showErrors(err);
@@ -305,7 +304,7 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers';
     };
 
     init();
@@ -414,7 +413,7 @@ app.directive('showVoucher', ['Location', 'Voucher', '$routeParams', '$location'
 
     var destroyBatch = function() {
       Voucher.destroy({id: scope.voucher.unique_id, location_id: scope.location.slug}).$promise.then(function(results) {
-        $location.path('/locations/' + scope.location.slug + '/vouchers/');
+        $location.path('/' + scope.location.slug + '/vouchers/');
         showToast(gettextCatalog.getString('Successfully delete voucher.'));
       }, function(err) {
         showErrors(err);
@@ -491,19 +490,19 @@ app.directive('showVoucher', ['Location', 'Voucher', '$routeParams', '$location'
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers';
     };
 
     var newVoucher = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/new';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/new';
     };
 
     var codes = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/codes';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/codes';
     };
 
     scope.edit = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/edit';
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/edit';
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -554,7 +553,7 @@ app.directive('editVoucher', ['Location', 'Voucher', '$routeParams', '$location'
         id: $routeParams.voucher_id,
         voucher: scope.voucher
       }).$promise.then(function(results) {
-        $location.path('/locations/'+ scope.location.slug + '/vouchers/' + results.unique_id);
+        $location.path('/'+ scope.location.slug + '/vouchers/' + results.unique_id);
         showToast('Voucher successfully updated');
       }, function(err) {
         showErrors(err);
@@ -591,7 +590,7 @@ app.directive('editVoucher', ['Location', 'Voucher', '$routeParams', '$location'
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id;
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id;
     };
 
     init();

@@ -25,15 +25,6 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     menu.isOpen = isOpen;
     menu.hideBurger = false;
 
-    var isActive = function(path) {
-      var split = $location.path().split('/');
-      if (split.length >= 4) {
-        return ($location.path().split('/')[3] === path);
-      } else if (path === 'account') {
-        return true;
-      }
-    };
-
     menu.header = undefined;
     menu.locationStateIcon = undefined;
     menu.sectionName = Auth.currentUser().username;

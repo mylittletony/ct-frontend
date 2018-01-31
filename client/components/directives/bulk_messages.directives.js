@@ -160,6 +160,7 @@ app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageAct
   var link = function( scope, element, attrs ) {
 
     var person = {};
+    scope.location = {slug: $routeParams.id}
 
     var activity = function() {
       BulkMessageActivity.index({}, {
