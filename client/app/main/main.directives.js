@@ -24,7 +24,8 @@ var app = angular.module('myApp.directives', [
   'myApp.reports.v2.directives',
   'myApp.splash_codes.directives',
   'myApp.splash_pages.directives',
-  'myApp.users.directives'
+  'myApp.users.directives',
+  'myApp.vouchers.directives'
 ]);
 
 app.directive('formErrors', [function () {

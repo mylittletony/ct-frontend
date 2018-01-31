@@ -25,50 +25,9 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
     menu.isOpen = isOpen;
     menu.hideBurger = false;
 
-    var isActive = function(path) {
-      var split = $location.path().split('/');
-      if (split.length >= 4) {
-        return ($location.path().split('/')[3] === path);
-      } else if (path === 'account') {
-        return true;
-      }
-    };
-
     menu.header = undefined;
     menu.locationStateIcon = undefined;
     menu.sectionName = Auth.currentUser().username;
-
-    menu.sections.push({
-      name: gettextCatalog.getString('People'),
-      type: 'link',
-      link: '/#/locations/' + $scope.location.slug + '/people',
-      icon: 'people',
-      active: isActive('people')
-    });
-
-    menu.sections.push({
-      name: gettextCatalog.getString('Splash'),
-      type: 'link',
-      link: '/#/locations/' + $scope.location.slug + '/splash_pages',
-      icon: 'format_paint',
-      active: isActive('splash_pages')
-    });
-
-    menu.sections.push({
-      name: gettextCatalog.getString('Devices'),
-      link: '/#/locations/' + $scope.location.slug + '/devices',
-      type: 'link',
-      icon: 'router',
-      active: isActive('devices')
-    });
-
-    menu.sections.push({
-      name: gettextCatalog.getString('Campaigns'),
-      type: 'link',
-      link: '/#/locations/' + $scope.location.slug + '/triggers',
-      icon: 'email',
-      active: isActive('triggers')
-    });
 
   }
 ]);
