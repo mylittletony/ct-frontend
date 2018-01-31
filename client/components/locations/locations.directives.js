@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$timeout', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $timeout, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$timeout', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, $localStorage, showToast, menu, $timeout, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -42,12 +42,13 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
 
     controller.fetch().then(function(integration) {
       scope.integration = integration;
-    }, function(err) { console.log(err); })
+    }, function(err) { console.log(err); });
 
     scope.addBoxes = function() {
-      controller.addBoxes(scope.integration)
+      controller.addBoxes(scope.integration).then(function() {
+        $route.reload();
+      });
     };
-
   };
 
   return {
@@ -170,43 +171,51 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       direction:      $routeParams.direction || 'desc'
     };
 
-    scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      search();
-    };
-
-    var search = function() {
-      var hash            = {};
-      hash.page           = scope.query.page;
-      hash.per            = scope.query.limit;
-      $location.search(hash);
-      init();
-    };
-
-    scope.disabled = function(box,type) {
-      if (type === 'edit' || type === 'delete' || type === 'view' || type === 'zones') {
-        return false;
-      } else if (type === 'ignore' && !box.allowed_job) {
-        return false;
-      } else {
-        return !box.allowed_job;
-      }
-    };
-
-    scope.allowedMenu = function(box) {
-      return !box.allowed_job;
-    };
-
-    var boxMetadata = function() {
-      scope.box_macs = '';
+    var removeFromList = function(box) {
+      scope.selected = [];
       for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
-          scope.box_macs += scope.boxes[i].calledstationid;
-          scope.box_macs += ',';
+        if (scope.boxes[i].id === box.id) {
+          if (!scope.selected.length) {
+          }
+          scope.boxes.splice(i, 1);
+          break;
         }
       }
-      scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
+    };
+
+    var deleteBox = function(box) {
+      box.processing  = true;
+      box.allowed_job = false;
+      Box.destroy({id: box.slug}).$promise.then(function(results) {
+        removeFromList(box);
+      }, function(errors) {
+        box.processing  = undefined;
+        showToast(gettextCatalog.getString('Failed to delete this box, please try again.'));
+        console.log('Could not delete this box:', errors);
+      });
+    };
+
+    var destroy = function(box,ev) {
+      var confirm = $mdDialog.confirm()
+        .title(gettextCatalog.getString('Delete This Device Permanently?'))
+        .textContent(gettextCatalog.getString('Please be careful, this cannot be reversed.'))
+        .ariaLabel(gettextCatalog.getString('Lucky day'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Delete it'))
+        .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        deleteBox(box);
+        showToast(gettextCatalog.getString('Deleted device with mac {{address}}', {address: box.calledstationid}));
+      });
+    };
+
+    scope.action = function(box,type) {
+      switch(type) {
+        case 'delete':
+          destroy(box);
+          break;
+        default:
+      }
     };
 
     var init = function() {
@@ -220,7 +229,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
         scope.boxes           = results.boxes;
         scope._links          = results._links;
         scope.loading         = undefined;
-        boxMetadata();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
@@ -228,13 +236,18 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       return scope.deferred.promise;
     };
 
-    // We've remove the pusher notifications since the volume was getting too high
-    var poller;
-    var poll = function() {
-      poller = $timeout(function() {
-        console.log('Refreshing devices');
-        init();
-      }, 30000);
+    var search = function() {
+      var hash            = {};
+      hash.page           = scope.query.page;
+      hash.per            = scope.query.limit;
+      $location.search(hash);
+      init();
+    };
+
+    scope.onPaginate = function (page, limit) {
+      scope.query.page = page;
+      scope.query.limit = limit;
+      search();
     };
 
     init();
@@ -842,15 +855,22 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
           action: 'import_boxes'
         }
       }, function(results) {
-        if (results.failed) {
+        if (results.success > 0) {
+          showToast(results.success + ' boxes imported. ' + results.failed.length + ' failed to import (added to another location).');
+          deferred.resolve();
+        } else if (results.success === 0 && results.failed === 0) {
+          showToast('Couldn\'nt import any boxes!!!');
+          deferred.reject();
+        } else if (results.success === 0 ) {
+          showToast(results.failed.length + ' boxes failed to import - already added to a location.');
+          deferred.reject();
         }
-        showToast('Successfully imported ' + results.success + ' box(es)');
       }, function(error) {
         showErrors(error);
+        deferred.reject();
       });
+      return deferred.promise;
     };
-
-
   };
 
   return {
@@ -1669,19 +1689,19 @@ app.directive('locationSettingsNav', ['Location', function(Location) {
 
 }]);
 
-app.directive('integrationDevices', ['Location', function(Location) {
+// app.directive('integrationDevices', ['Location', function(Location) {
 
-  var link = function(scope, element, attrs, controller) {
-    scope.loading = true;
-    scope.currentNavItem = 'devices';
-  };
+//   var link = function(scope, element, attrs, controller) {
+//     scope.loading = true;
+//     scope.currentNavItem = 'devices';
+//   };
 
-  return {
-    link: link,
-    templateUrl: 'components/locations/settings/_device_list.html'
-  };
+//   return {
+//     link: link,
+//     templateUrl: 'components/locations/settings/_device_list.html'
+//   };
 
-}]);
+// }]);
 
 app.directive('campaignSettings', ['Location', function(Location) {
 

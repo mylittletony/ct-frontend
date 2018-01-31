@@ -65,16 +65,8 @@ app.filter('deviceStatus',['gettextCatalog', function(gettextCatalog) {
       switch(state) {
         case 'online':
           return gettextCatalog.getString('Device online');
-        case 'processing':
-          return gettextCatalog.getString('Processing job');
-        case 'offline':
-          return gettextCatalog.getString('Device offline');
-        case 'upgrading':
-          return gettextCatalog.getString('Device upgrading');
-        case 'new':
-          return gettextCatalog.getString('New device');
         default:
-          // default
+          return gettextCatalog.getString('Device not available');
       }}
   };
 }]);

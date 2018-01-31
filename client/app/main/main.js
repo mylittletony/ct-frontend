@@ -112,8 +112,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/campaign-validate', {
       templateUrl: 'components/campaigns/validate.html',
-      // resolve: { loginRequired: false }
-      // resolve: { loggedIn: loggedIn }
+    }).
+    when('/me', {
+      templateUrl: 'components/users/show/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
     }).
     when('/new-location', {
       templateUrl: 'components/locations/new/index.html',
@@ -211,58 +214,33 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    // when('/:id/triggers/:trigger_id/trigger_history', {
-    //   templateUrl: 'components/views/triggers/history/index.html',
+    // when('/:id/users', {
+    //   templateUrl: 'components/locations/users/index.html',
     //   controller: 'LocationsCtrl as lc',
     //   resolve: { loginRequired: loginRequired }
     // }).
-    // when('/locations/:id/triggers/:trigger_id/trigger_history/:trigger_history_id', {
-    //   templateUrl: 'components/views/triggers/history/show.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
-    when('/:id/users', {
-      templateUrl: 'components/locations/users/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/:id/settings', {
       templateUrl: 'components/locations/settings/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/settings/notifications', {
-      templateUrl: 'components/locations/settings/notifications.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
+    // when('/:id/settings/notifications', {
+    //   templateUrl: 'components/locations/settings/notifications.html',
+    //   controller: 'LocationsCtrl as lc',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/:id/settings/integrations', {
       templateUrl: 'components/locations/settings/integration.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/settings/device_list', {
-      templateUrl: 'components/locations/show/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    // when('/:id/settings/security', {
-    //   templateUrl: 'components/locations/settings/security.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/:id/settings/devices', {
-      templateUrl: 'components/locations/settings/devices.html',
+      templateUrl: 'components/locations/show/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/settings/splash', {
       templateUrl: 'components/locations/settings/splash.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/:id/settings/analytics', {
-      templateUrl: 'components/locations/settings/analytics.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
@@ -318,13 +296,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/downloads', {
-    //   templateUrl: 'components/downloads/index.html',
-    //   resolve: { loginRequired: loginRequired },
-    // }).
-    // when('/locations/:id/boxes/new', {
-    //   redirectTo: '/locations/:id/devices/new'
-    // }).
     when('/:id/devices/new', {
       templateUrl: 'components/boxes/new/index.html',
       resolve: { loginRequired: loginRequired },
