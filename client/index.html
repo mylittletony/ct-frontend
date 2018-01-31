@@ -63,7 +63,7 @@
 
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
-  <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-1dp"
+  <md-sidenav id="mainSidebar" class="site-sidenav md-sidenav-left md-whiteframe-1dp"
               md-component-id="left"
               aria-label="'Main Menu' | translate"
               md-whiteframe="4"
@@ -178,7 +178,7 @@
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
     <md-toolbar class="mob-top-nav" hide-gt-sm ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
       <div class="md-toolbar-tools">
-        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen(main)" aria-label="'Settings' | translate">
+        <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleSidenav()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
         <get-with-the-plan ng-if="!location.paid" label="Free Trial"></get-with-the-plan>
