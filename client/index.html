@@ -86,10 +86,14 @@
         </li>
       </ul>
     </md-content>
-    <div hide show-gt-sm layout="row" layout-align="start end" class="sidenav-bottom">
+    <div hide show-gt-sm layout="column" layout-align="start end" class="sidenav-bottom">
       <md-button ng-click="toggleLocations()" class="md-icon-button" aria-label="'Locations' | translate" ng-if="user">
         <md-tooltip md-direction="right">Locations</md-tooltip>
-          <md-icon>place</md-icon>
+        <md-icon>place</md-icon>
+      </md-button>
+      <md-button iing-if="location_slug" class="md-icon-button" ng-click="settings()">
+        <md-tooltip md-direction="right">Settings</md-tooltip>
+        <md-icon>settings</md-icon>
       </md-button>
     </div>
     <div hide show-gt-sm layout="row" layout-align="start end" class="sidenav-bottom">
@@ -98,12 +102,6 @@
           <user-avatar></user-avatar>
         </md-button>
         <md-menu-content width="3">
-          <md-menu-item iing-if="location_slug">
-            <md-button ng-click="settings()">
-              <md-icon md-menu-align-target style="margin: auto 3px auto 0;">settings</md-icon>
-              <span translate>Settings</span>
-            </md-button>
-          </md-menu-item>
           <md-menu-item>
             <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
               <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
@@ -137,18 +135,16 @@
           <md-tooltip md-direction="bottom">Locations</md-tooltip>
             <md-icon>place</md-icon>
         </md-button>
+        <md-button iing-if="location_slug" class="md-icon-button" ng-click="settings()">
+          <md-tooltip md-direction="bottom">Settings</md-tooltip>
+          <md-icon>settings</md-icon>
+        </md-button>
 
         <md-menu md-position-mode="target-right target" md-offset="40 0">
           <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
             <user-avatar></user-avatar>
           </md-button>
           <md-menu-content width="3">
-            <md-menu-item ing-if="location_slug">
-              <md-button ng-href="/#/locations/{{ location_slug }}/settings" ng-click="$mdMenu.hide()">
-                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">settings</md-icon>
-                <span translate>Settings</span>
-              </md-button>
-            </md-menu-item>
             <md-menu-item>
               <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
                 <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
