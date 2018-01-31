@@ -175,15 +175,15 @@ app.directive('listSplashCodes', ['Location', 'SplashCode', '$routeParams', '$lo
     };
 
     scope.create = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes/new';
+      window.location.href = '/#/' + scope.location.slug + '/splash_codes/new';
     };
 
     var view = function(id) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes/' + id;
+      window.location.href = '/#/' + scope.location.slug + '/splash_codes/' + id;
     };
 
     var sessions = function(code) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes/' + code.id + '/sessions/' + code.username;
+      window.location.href = '/#/' + scope.location.slug + '/splash_codes/' + code.id + '/sessions/' + code.username;
     };
 
     init();
@@ -259,7 +259,7 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
     scope.save = function(form) {
       form.$setPristine();
       SplashCode.create({location_id: scope.location.slug, splash_code: scope.code}).$promise.then(function(results) {
-        $location.path('/locations/' + scope.location.slug + '/splash_codes/' + results.id);
+        $location.path('/' + scope.location.slug + '/splash_codes/' + results.id);
         showToast(gettextCatalog.getString('Successfully generated password'));
       }, function(err) {
         showErrors(err);
@@ -286,7 +286,7 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
     }
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes';
+      window.location.href = '/#/' + scope.location.slug + '/splash_codes';
     };
 
     init();
@@ -385,7 +385,7 @@ app.directive('showSplashCode', ['Location', 'SplashCode', '$routeParams', '$loc
 
     var destroyCode = function() {
       SplashCode.destroy({location_id: scope.location.slug, id: scope.splash_code.id}).$promise.then(function(results) {
-        $location.path('/locations/' + scope.location.slug + '/splash_codes');
+        $location.path('/' + scope.location.slug + '/splash_codes');
         showToast(gettextCatalog.getString('Code successfully deleted.'));
       }, function(err) {
         showErrors(err);
@@ -393,15 +393,15 @@ app.directive('showSplashCode', ['Location', 'SplashCode', '$routeParams', '$loc
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes';
+      window.location.href = '/#/' + scope.location.slug + '/splash_codes';
     };
 
     var sessions = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes/' + scope.splash_code.id + '/sessions/' + scope.splash_code.username;
+      window.location.href = '/#/' + scope.location.slug + '/splash_codes/' + scope.splash_code.id + '/sessions/' + scope.splash_code.username;
     };
 
     var newCode = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes/new';
+      window.location.href = '/#/' + scope.location.slug + '/splash_codes/new';
     };
 
     scope.init();
