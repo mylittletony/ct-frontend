@@ -22,7 +22,7 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
     $scope.ct_login = CTLogin;
 
     $scope.home = function() {
-      if ($routeParams.id) {
+      if ($routeParams.id && $location.path().split('/')[1] !== 'users') {
         $location.path('/' + $routeParams.id);
       } else {
         $location.path('/');
@@ -30,8 +30,10 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
     };
 
     $scope.settings = function() {
-      if ($routeParams.id) {
+      if ($routeParams.id && $location.path().split('/')[1] !== 'users') {
         $location.path('/' + $routeParams.id + '/settings');
+      } else if ($scope.locations) {
+        $location.path('/' + $scope.locations[0].slug);
       } else {
         $location.path('/');
       }
