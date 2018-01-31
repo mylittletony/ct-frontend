@@ -19,14 +19,12 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
       }
     };
 
-    scope.planPrice = function(price, period) {
-      var formatted;
-      if ( period === 'monthly') {
-        formatted = price;
-      } else {
-        formatted = (price / 12);
-      }
-      return formatted;
+    var cancel = function(email) {
+      User.destroy({id: scope.user.id, email: email}).$promise.then(function() {
+        Auth.logout();
+      }, function(err) {
+        showErrors(err);
+      });
     };
 
     var getPlan = function(id) {
@@ -37,18 +35,6 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
        deferred.reject();
       });
       return deferred.promise;
-    };
-
-    scope.viewPlan = function(id) {
-      $mdDialog.show({
-        locals: {
-          plan_id: id,
-          currency: scope.curr
-        },
-        templateUrl: 'components/users/billing/_show.html',
-        controller: DialogController,
-        clickOutsideToClose: true
-      });
     };
 
     function DialogController($scope, plan_id, currency) {
@@ -68,6 +54,28 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     }
     DialogController.$inject = ['$scope', 'plan_id'];
 
+    function CancelController ($scope,user) {
+      $scope.user = user;
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function(email) {
+        $mdDialog.cancel();
+        cancel(email);
+      };
+    }
+    CancelController.$inject = ['$scope', 'user'];
+
+    function ChangeController ($scope) {
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function() {
+        $mdDialog.cancel();
+        upgrade();
+      };
+    }
+    ChangeController.$inject = ['$scope'];
     var upgrade = function() {
       scope.user.subscribing = true;
       Subscription.create({plan_id: scope.user.new_plan}).$promise.then(function(data) {
@@ -110,11 +118,25 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
       }
     };
 
-    var cancel = function(email) {
-      User.destroy({id: scope.user.id, email: email}).$promise.then(function() {
-        Auth.logout();
-      }, function(err) {
-        showErrors(err);
+    scope.planPrice = function(price, period) {
+      var formatted;
+      if ( period === 'monthly') {
+        formatted = price;
+      } else {
+        formatted = (price / 12);
+      }
+      return formatted;
+    };
+
+    scope.viewPlan = function(id) {
+      $mdDialog.show({
+        locals: {
+          plan_id: id,
+          currency: scope.curr
+        },
+        templateUrl: 'components/users/billing/_show.html',
+        controller: DialogController,
+        clickOutsideToClose: true
       });
     };
 
@@ -122,36 +144,13 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
       $mdDialog.show({
         templateUrl: 'components/users/billing/_cancel_dialog.html',
         parent: angular.element(document.body),
-        controller: DialogController,
+        controller: CancelController,
         clickOutsideToClose: true,
         locals: {
           user: scope.user
         }
       });
     };
-
-    function DialogController ($scope,user) {
-      $scope.user = user;
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-      $scope.save = function(email) {
-        $mdDialog.cancel();
-        cancel(email);
-      };
-    }
-    DialogController.$inject = ['$scope', 'user'];
-
-    function ChangeController ($scope) {
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-      $scope.save = function() {
-        $mdDialog.cancel();
-        upgrade();
-      };
-    }
-    ChangeController.$inject = ['$scope'];
 
     scope.changePlan = function(id) {
       $mdDialog.show({

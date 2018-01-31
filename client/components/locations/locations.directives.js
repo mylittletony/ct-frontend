@@ -1378,7 +1378,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
 
     var channel;
 
-    function DialogController($scope, plans) {
+    function DoucheController($scope, plans) {
       $scope.selectedIndex = 0;
       $scope.plans = plans;
       $scope.plan = plans[0];
@@ -1415,27 +1415,29 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       };
 
       var subscribe = function() {
-        if (typeof client !== 'undefined') {
-          var pusher = $pusher(client);
-          if (!key) {
-            return;
-          }
-
-          channel = pusher.subscribe(key);
-          channel.bind('sub_completed', function(data) {
-            if (data.message.success === true) {
-              convertToPaid();
-              $scope.success = true;
-              $scope.selectedIndex = 4;
-              var timer = $timeout(function() {
-                $mdDialog.cancel();
-                $timeout.cancel(timer);
-              },2500);
-            } else {
-              $scope.errors = data.message.message;
-            }
-          });
+        if (typeof client === 'undefined') {
+          return;
         }
+
+        var pusher = $pusher(client);
+        if (!key) {
+          return;
+        }
+
+        channel = pusher.subscribe(key);
+        channel.bind('sub_completed', function(data) {
+          if (data.message.success === true) {
+            convertToPaid();
+            $scope.success = true;
+            $scope.selectedIndex = 4;
+            var timer = $timeout(function() {
+              $mdDialog.cancel();
+              $timeout.cancel(timer);
+            },2500);
+          } else {
+            $scope.errors = data.message.message;
+          }
+        });
       };
 
       var upgrade = function(card) {
@@ -1461,7 +1463,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
         }
       };
     }
-    DialogController.$inject = ['$scope', 'plans'];
+    DoucheController.$inject = ['$scope', 'plans'];
 
     scope.signUp = function(ev) {
 
