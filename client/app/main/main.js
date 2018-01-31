@@ -105,6 +105,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
+    when('/me', {
+      templateUrl: 'components/users/show/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/campaign-validate', {
       templateUrl: 'components/campaigns/validate.html',
     }).

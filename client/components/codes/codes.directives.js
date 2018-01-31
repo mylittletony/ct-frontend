@@ -133,11 +133,11 @@ app.directive('voucherCodes', ['Code', 'Location', '$routeParams', '$location', 
     };
 
     scope.back = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id;
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id;
     };
 
     var sessions = function(username) {
-      window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/codes/' + username;
+      window.location.href = '/#/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/codes/' + username;
     };
 
     scope.init();
@@ -285,7 +285,7 @@ app.directive('codesShow', ['Code', '$routeParams', '$location', function(Code, 
       '<p>Password: <a href=\'\' ng-click=\'showPassy = !showPassy\' ><span ng-show=\'showPassy\'><b>{{ code.password }}</b></span><span ng-hide=\'showPassy\'>*********</span></a> (click to {{ showPassy ? \'hide\' : \'reveal\'}})</p>'+
       '<ul class=\'no-bullet\'>'+
       '<li>Activated: <span ng-hide=\'code.date_activated\'>Not used</span><span ng-show=\'code.date_activated\'>{{ code.date_activated | humanTime }}</span></li>' +
-      '<li>Location: <a href=\'/#/locations/{{ code.location_slug }}\'>{{ code.location_name }}</a></li>'+
+      '<li>Location: <a href=\'/#/{{ code.location_slug }}\'>{{ code.location_name }}</a></li>'+
       '</ul>'+
       '<p ng-show=\'code.date_activated\'><a href=\'/#/reports/sessions?username={{code.username}}\' class=\'button tiny\'>View History</a></p>'+
       '<p ng-hide=\'code.date_activated\'>No history available.</p>'+
@@ -465,13 +465,13 @@ app.directive('clientUsage', ['Client', '$routeParams', 'Session', '$location', 
 
     scope.back = function() {
       if (scope.splash_code.id) {
-        window.location.href = '/#/locations/' + scope.location.slug + '/splash_codes/' + scope.splash_code.id;
+        window.location.href = '/#/' + scope.location.slug + '/splash_codes/' + scope.splash_code.id;
       } else if (scope.voucher.unique_id) {
-        window.location.href = '/#/locations/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/codes';
+        window.location.href = '/#/' + scope.location.slug + '/vouchers/' + scope.voucher.unique_id + '/codes';
       } else if (scope.code.username) {
-        window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id + '/codes';
+        window.location.href = '/#/' + scope.location.slug + '/clients/' + scope.client.id + '/codes';
       } else {
-        window.location.href = '/#/locations/' + scope.location.slug + '/clients/' + scope.client.id;
+        window.location.href = '/#/' + scope.location.slug + '/clients/' + scope.client.id;
       }
     };
 

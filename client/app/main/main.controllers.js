@@ -12,9 +12,9 @@ var app = angular.module('myApp.controllers', [
   'myApp.vouchers.controller'
 ]);
 
-app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'locationHelper', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate', 'COMMITHASH', '$mdDialog',
+app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage', '$window', '$location', '$routeParams', 'AccessToken', 'RefreshToken', 'Auth', 'API_END_POINT', '$pusher', '$route', 'onlineStatus', '$cookies', 'locationHelper', 'CTLogin', 'User', 'Me', 'AUTH_URL', 'menu', 'designer', '$mdSidenav', '$mdMedia', '$q', 'INTERCOM', 'PUSHER', 'gettextCatalog', 'Translate', 'COMMITHASH', '$mdDialog',
 
-  function ($rootScope, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, locationHelper, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, $mdDialog) {
+  function ($rootScope, Location, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, locationHelper, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, $mdDialog) {
 
     var domain = 'mimo.today';
 
@@ -22,7 +22,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $scope.ct_login = CTLogin;
 
     $scope.home = function() {
-      if ($routeParams.id) {
+      if ($routeParams.id && $location.path().split('/')[1] !== 'users') {
         $location.path('/' + $routeParams.id);
       } else {
         $location.path('/');
@@ -30,8 +30,10 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     };
 
     $scope.settings = function() {
-      if ($routeParams.id) {
+      if ($routeParams.id && $location.path().split('/')[1] !== 'users') {
         $location.path('/' + $routeParams.id + '/settings');
+      } else if ($scope.locations) {
+        $location.path('/' + $scope.locations[0].slug);
       } else {
         $location.path('/');
       }
@@ -232,11 +234,31 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       routeChangeStart();
     });
 
+    var getLocations = function() {
+      Location.query({
+      }).$promise.then(function(results) {
+        // scope.total_locs  = results._links.total_entries;
+        $scope.locations   = results.locations;
+        // scope._links      = results._links;
+        // // filterLocationOwners();
+        // scope.searching   = undefined;
+        // scope.loading     = undefined;
+      }, function() {
+        // scope.loading   = undefined;
+        // scope.searching = undefined;
+      });
+    };
+
+    $scope.newLocation = function() {
+      window.location.href = '/#/new-location';
+    };
+
     $scope.toggleLocations = function() {
       var locationSidebar = document.getElementById("locationSidebar");
 
       if (locationSidebar.classList.contains('md-closed')) {
           $mdSidenav('locations').open();
+          getLocations();
       } else {
           $mdSidenav('locations').close();
       }
