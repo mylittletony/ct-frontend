@@ -4,7 +4,6 @@ var app = angular.module('myApp.vouchers.directives', []);
 
 app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', '$q', '$timeout', 'gettextCatalog', 'pagination_labels', function(Voucher, Location, SplashPage, $location, $routeParams, showToast, showErrors, $mdDialog, $q, $timeout, gettextCatalog, pagination_labels) {
 
-
   var link = function(scope) {
 
     Location.get({id: $routeParams.id}, function(data) {
@@ -13,7 +12,7 @@ app.directive('listVouchers', ['Voucher', 'Location', 'SplashPage', '$location',
       console.log(err);
     });
 
-    scope.currentNavItem = 'vouchers'
+    scope.currentNavItem = 'vouchers';
 
     scope.location = { slug: $routeParams.id };
 
