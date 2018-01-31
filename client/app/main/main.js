@@ -403,11 +403,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/locations/:id/settings/notifications', {
-      templateUrl: 'components/locations/settings/notifications.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/locations/:id/settings/security', {
       templateUrl: 'components/locations/settings/security.html',
       controller: 'LocationsCtrl as lc',
