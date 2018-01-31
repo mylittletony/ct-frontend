@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.locations.directives', []);
 
-app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$timeout', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, Auth, $routeParams, $location, $localStorage, showToast, menu, $timeout, $pusher, $route, $rootScope, gettextCatalog) {
+app.directive('locationShow', ['Location', '$routeParams', '$location', '$localStorage', 'showToast', 'menu', '$timeout', '$pusher', '$route', '$rootScope', 'gettextCatalog', function(Location, $routeParams, $location, $localStorage, showToast, menu, $timeout, $pusher, $route, $rootScope, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -42,12 +42,13 @@ app.directive('locationShow', ['Location', 'Auth', '$routeParams', '$location', 
 
     controller.fetch().then(function(integration) {
       scope.integration = integration;
-    }, function(err) { console.log(err); })
+    }, function(err) { console.log(err); });
 
     scope.addBoxes = function() {
-      controller.addBoxes(scope.integration)
+      controller.addBoxes(scope.integration).then(function() {
+        $route.reload();
+      });
     };
-
   };
 
   return {
@@ -854,15 +855,22 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
           action: 'import_boxes'
         }
       }, function(results) {
-        if (results.failed) {
+        if (results.success > 0) {
+          showToast(results.success + ' boxes imported. ' + results.failed.length + ' failed to import (added to another location).');
+          deferred.resolve();
+        } else if (results.success === 0 && results.failed === 0) {
+          showToast('Couldn\'nt import any boxes!!!');
+          deferred.reject();
+        } else if (results.success === 0 ) {
+          showToast(results.failed.length + ' boxes failed to import - already added to a location.');
+          deferred.reject();
         }
-        showToast('Successfully imported ' + results.success + ' box(es)');
       }, function(error) {
         showErrors(error);
+        deferred.reject();
       });
+      return deferred.promise;
     };
-
-
   };
 
   return {
