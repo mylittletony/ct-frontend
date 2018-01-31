@@ -270,6 +270,20 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
       });
     };
 
+    $scope.toggleSidenav = function() {
+      var locationSidebar = document.getElementById("mainSidebar");
+
+      if (locationSidebar.classList.contains('md-closed')) {
+          $mdSidenav('left').open();
+      } else {
+          $mdSidenav('left').close();
+      }
+
+      $rootScope.$on('$routeChangeStart', function (event, next, current) {
+        $mdSidenav('left').close();
+      });
+    };
+
 
 }]);
 
