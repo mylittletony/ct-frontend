@@ -105,6 +105,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/registrations/flow.html',
       resolve: { loggedIn: loggedIn }
     }).
+    when('/me', {
+      templateUrl: 'components/users/show/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/campaign-validate', {
       templateUrl: 'components/campaigns/validate.html',
       // resolve: { loginRequired: false }
@@ -380,11 +385,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     when('/:id/people/:person_slug/message_activity', {
       templateUrl: 'components/views/bulk_message_activity/index.html',
       controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/me', {
-      templateUrl: 'components/users/show/index.html',
-      controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
     when('/users/:id/splash_views', {
