@@ -1,25 +1,4 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-no-ink-bar="disableInkBar"
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}" name="profile">
-      Profile
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/billing" name="billing">
-      Billing
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/invoices" name="invoices">
-      Invoices
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/inventory" name="inventory">
-      Inventory
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/quotas" name="quotas">
-      Quotas
-    </md-nav-item>
-  </md-nav-bar>
-</div>
+<user-nav user="user"></user-nav>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
 </md-content>
@@ -132,16 +111,6 @@
                   <div ng-message="md-maxlength" translate>Max 100 characters</div>
                 </div>
               </md-input-container>
-
-              <!-- <md-input-container class="md-block" flex="100" flex-gt-sm="50"> -->
-              <!--   <label translate>Locale</label> -->
-              <!--   <md-select ng-model="user.locale"> -->
-              <!--     <md-option ng-repeat="locale in locales" value="{{locale.value}}"> -->
-              <!--       {{locale.key}} -->
-              <!--     </md-option> -->
-              <!--   </md-select> -->
-              <!-- </md-input-container> -->
-
             </div>
           </md-card-content>
           <user-password ng-if="user.allowed"></user-password>
@@ -152,7 +121,7 @@
             <translate>Save</translate>
           </md-button>
           <div flex></div>
-          <md-button class="md-raised md-warn" ng-click="deleteAccount()">
+          <md-button ng-click="deleteAccount()">
             <translate>Delete account</translate>
           </md-button>
         </div>

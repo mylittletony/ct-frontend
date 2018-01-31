@@ -102,6 +102,12 @@
           <user-avatar></user-avatar>
         </md-button>
         <md-menu-content width="3">
+          <md-menu-item iing-if="location_slug">
+            <md-button ng-click="settings('/audit')">
+              <md-icon md-menu-align-target style="margin: auto 3px auto 0;">list</md-icon>
+              <span translate>Audit</span>
+            </md-button>
+          </md-menu-item>
           <md-menu-item>
             <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
               <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
@@ -120,7 +126,55 @@
   </md-sidenav>
 
   <md-sidenav id="locationSidebar" class="md-sidenav-left" md-component-id="locations" md-whiteframe="4" ng-if="user">
-    <location-sidebar></location-sidebar>
+    <div class="location-sidebar-top" layout="row" layout-wrap>
+      <div flex="100">
+        <form ng-submit="blur()">
+          <md-input-container flex="100">
+            <md-icon md-font-icon="search">search</md-icon>
+            <label></label>
+            <input ng-blur="blur()" ng-model="query.filter" md-autofocus placeholder="{{'Filter Locations' | translate}}">
+          </md-input-container>
+        </form>
+      </div>
+    </div>
+    <div class="location-sidebar-top" layout="row" layout-align="space-between center">
+      <div>
+        <p translate translate-n="{{ ::_links.total_entries }}" translate-plural="{{ ::_links.total_entries }} Locations">1 Location</p>
+      </div>
+      <div>
+        <md-button ng-click="newLocation()" class="md-icon-button md-raised">
+          <md-icon>add</md-icon>
+        </md-button>
+      </div>
+    </div>
+
+    <div layout="row" layout-wrap>
+      <div flex="100">
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="locations">
+            <thead md-head>
+              <tr md-row class="md-table-headers-row">
+                <th md-column><a href="" ng-click='sort("state", query.direction)' translate>State</a></th>
+                <th md-column><span translate><a href="" ng-click='sort("location_name", query.direction)' translate>Name</a></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row md-select="location" ng-repeat="location in filtered = (locations | filter: query.filter)">
+                <td md-cell>
+                  <md-icon md-menu-origin ng-if="location.state != 'archived'" class="s48">check_circle</md-icon>
+                  <md-icon md-menu-origin ng-if="location.state == 'archived'" class="s48">archived</md-icon>
+                </td>
+                <td md-cell>
+                  <a href="/#/locations/{{ location.slug}}">
+                    {{ ::location.location_name | truncate:20 }}
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </div>
+    </div>
   </md-sidenav>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">

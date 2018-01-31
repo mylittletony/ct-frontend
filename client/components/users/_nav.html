@@ -1,0 +1,16 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}" name="profile">
+      Profile
+    </md-nav-item>
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/billing" name="billing">
+      Billing
+    </md-nav-item>
+    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/invoices" name="invoices">
+      Invoices
+    </md-nav-item>
+  </md-nav-bar>
+</div>

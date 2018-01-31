@@ -1586,100 +1586,100 @@ app.directive('integrationSettings', ['Location', '$routeParams', '$location', '
 
 }]);
 
-app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', 'pagination_labels', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog, pagination_labels) {
-
-  var link = function(scope,element,attrs) {
-
-    menu.isOpenLeft = false;
-    menu.isOpen = false;
-    menu.hideBurger = true;
-    menu.sectionName = gettextCatalog.getString('Locations');
-
-    if ($routeParams.user_id) {
-      scope.user_id = parseInt($routeParams.user_id);
-    }
-
-    scope.options = {
-      boundaryLinks: false,
-      largeEditDialog: false,
-      pageSelector: false,
-      rowSelection: false
-    };
-
-    scope.pagination_labels = pagination_labels;
-    scope.query = {
-      order:      'updated_at',
-      filter:     $routeParams.q,
-      limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
-      options:    [5,10,25,50,100],
-      direction:  $routeParams.direction || 'desc',
-      sort:  $routeParams.sort || 'updated_at'
-    };
-
-    scope.sort = function(val, reverse) {
-      if (scope.query.direction === 'asc') {
-        scope.query.direction = 'desc';
-      } else {
-        scope.query.direction = 'asc';
-      }
-      var page = $routeParams.page || 1;
-      var limit = $routeParams.per || 25;
-      scope.onPaginate(page, limit, val);
-    };
-
-    scope.onPaginate = function (page, limit, val) {
-    };
-
-    scope.blur = function() {
-    };
-
-    var filterLocationOwners = function() {
-      if (scope.user_id && scope.locations.length > 0) {
-        for (var i = 0, len = scope.locations.length; i < len; i++) {
-          if (scope.locations[i].user_id === scope.user_id) {
-            scope.locations[i].owner = true;
-          }
-        }
-      }
-    };
-
-    scope.newLocation = function() {
-      window.location.href = '/#/new-location';
-    };
-
-    var init = function() {
-      Location.query({
-        q: scope.query.filter,
-        page: scope.query.page,
-        per: scope.query.limit,
-        sort: scope.query.sort,
-        direction: scope.query.direction,
-        user_id: scope.user_id
-      }).$promise.then(function(results) {
-        scope.total_locs  = results._links.total_entries;
-        scope.locations   = results.locations;
-        scope._links      = results._links;
-        // filterLocationOwners();
-        scope.searching   = undefined;
-        scope.loading     = undefined;
-      }, function() {
-        scope.loading   = undefined;
-        scope.searching = undefined;
-      });
-    };
-
-    // simon removed
-    // init();
-  };
-
-  return {
-    link: link,
-    templateUrl: 'components/locations/show/_location_sidebar.html',
-    scope: {}
-  };
-
-}]);
+// app.directive('locationSidebar', ['Location', '$routeParams', '$rootScope', '$http', '$location', 'menu', 'locationHelper', '$q','Shortener', 'gettextCatalog', 'pagination_labels', function (Location, $routeParams, $rootScope, $http, $location, menu, locationHelper, $q, Shortener, gettextCatalog, pagination_labels) {
+//
+//   var link = function(scope,element,attrs) {
+//
+//     menu.isOpenLeft = false;
+//     menu.isOpen = false;
+//     menu.hideBurger = true;
+//     menu.sectionName = gettextCatalog.getString('Locations');
+//
+//     if ($routeParams.user_id) {
+//       scope.user_id = parseInt($routeParams.user_id);
+//     }
+//
+//     scope.options = {
+//       boundaryLinks: false,
+//       largeEditDialog: false,
+//       pageSelector: false,
+//       rowSelection: false
+//     };
+//
+//     scope.pagination_labels = pagination_labels;
+//     scope.query = {
+//       order:      'updated_at',
+//       filter:     $routeParams.q,
+//       limit:      $routeParams.per || 25,
+//       page:       $routeParams.page || 1,
+//       options:    [5,10,25,50,100],
+//       direction:  $routeParams.direction || 'desc',
+//       sort:  $routeParams.sort || 'updated_at'
+//     };
+//
+//     scope.sort = function(val, reverse) {
+//       if (scope.query.direction === 'asc') {
+//         scope.query.direction = 'desc';
+//       } else {
+//         scope.query.direction = 'asc';
+//       }
+//       var page = $routeParams.page || 1;
+//       var limit = $routeParams.per || 25;
+//       scope.onPaginate(page, limit, val);
+//     };
+//
+//     scope.onPaginate = function (page, limit, val) {
+//     };
+//
+//     scope.blur = function() {
+//     };
+//
+//     var filterLocationOwners = function() {
+//       if (scope.user_id && scope.locations.length > 0) {
+//         for (var i = 0, len = scope.locations.length; i < len; i++) {
+//           if (scope.locations[i].user_id === scope.user_id) {
+//             scope.locations[i].owner = true;
+//           }
+//         }
+//       }
+//     };
+//
+//     scope.newLocation = function() {
+//       window.location.href = '/#/new-location';
+//     };
+//
+//     var init = function() {
+//       Location.query({
+//         q: scope.query.filter,
+//         page: scope.query.page,
+//         per: scope.query.limit,
+//         sort: scope.query.sort,
+//         direction: scope.query.direction,
+//         user_id: scope.user_id
+//       }).$promise.then(function(results) {
+//         scope.total_locs  = results._links.total_entries;
+//         scope.locations   = results.locations;
+//         scope._links      = results._links;
+//         // filterLocationOwners();
+//         scope.searching   = undefined;
+//         scope.loading     = undefined;
+//       }, function() {
+//         scope.loading   = undefined;
+//         scope.searching = undefined;
+//       });
+//     };
+//
+//     // simon removed
+//     // init();
+//   };
+//
+//   return {
+//     link: link,
+//     templateUrl: 'components/locations/show/_location_sidebar.html',
+//     scope: {}
+//   };
+//
+// }]);
 
 app.directive('locationSettingsNav', ['Location', function(Location) {
 
@@ -1691,35 +1691,6 @@ app.directive('locationSettingsNav', ['Location', function(Location) {
     link: link,
     templateUrl: 'components/locations/settings/_nav.html'
   };
-
-}]);
-
-// app.directive('integrationDevices', ['Location', function(Location) {
-
-//   var link = function(scope, element, attrs, controller) {
-//     scope.loading = true;
-//     scope.currentNavItem = 'devices';
-//   };
-
-//   return {
-//     link: link,
-//     templateUrl: 'components/locations/settings/_device_list.html'
-//   };
-
-// }]);
-
-app.directive('campaignSettings', ['Location', function(Location) {
-
-  var link = function(scope, element, attrs, controller) {
-    scope.loading = true;
-    scope.currentNavItem = 'campaigns';
-  };
-
-  return {
-    link: link,
-    templateUrl: 'components/locations/settings/_campaigns.html'
-  };
-
 }]);
 
 app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Email, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {

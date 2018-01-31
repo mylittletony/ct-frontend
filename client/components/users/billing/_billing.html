@@ -9,7 +9,6 @@
     </md-card-title>
     <md-card-content>
       <div layout="row" layout-wrap>
-
         <md-input-container flex="100" flex-gt-sm="100">
           <label translate>Company Name</label>
           <input type="text" name="billing_name" ng-model='user.billing_name' placeholder="{{ 'Your company name' | translate }}" md-maxlength="255">
@@ -39,15 +38,13 @@
           <textarea type="text" name="billing_email" ng-model='user.billing_email' placeholder="{{ 'Add additional billing email addresses' | translate }}"></textarea>
         </md-input-container>
 
-        <div flex="100">
-          <p translate>
-            Billing Currency {{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})
-          </p>
-          <small>Your currency was set automatically when your account was created. If you think it's wrong, please contact support.</small>
-        </div>
       </div>
     </md-card-content>
   </md-card>
+
+  <user-credit-card user="user"></user-credit-card>
+
+  <!-- <md-button class="md-raised" ng-if="!cancelling && user.subscription_active" type="submit" ng-click="cancel()"><translate>cancel plan</translate></md-button> -->
 
   <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
     <translate>Save</translate>
