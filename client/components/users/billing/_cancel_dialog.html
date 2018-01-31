@@ -1,28 +1,39 @@
-<md-dialog aria-label="Cancel Account" ng-cloak flex="100" flex-sm="50" flex-gt-sm="30">
-  <form name="form" ng-submit="save()">
-    <md-toolbar class="md-primary">
+<md-dialog>
+  <form name="myForm" ng-submit="save(email)">
+    <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2 translate>Cancel Your Account</h2>
+        <h2 translate>Delete Account</h2>
       </div>
     </md-toolbar>
-    <md-dialog-content>
-      <div class="md-dialog-content" layout="row" layout-wrap>
-        <div flex="100">
-          <p translate>Sorry to see you want to cancel your account.</p>
+    <md-dialog-content class="ssid-form">
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <h3 translate>Sorry to see you go.</h3>
+          <p translate>Please enter account email address to confirm. <b>Your account will be immediately destroyed</b>.</p>
         </div>
-        <md-input-container class="md-block" ng-model="user.reason" md-maxlength="255" ng-minlength="5" flex="100">
-          <label translate>Tell Us What We Did Wrong</label>
-          <textarea md-autofocus ng-model='reason' required></textarea>
-        </md-input-container>
-        <p translate>Cancelling is immediate. No further charges will be applied to your account.</p>
+        <div flex layout="column">
+          <md-input-container>
+            <label>
+              <translate>Email Address</translate>
+            </label>
+            <input name="email" model="email" md-maxlength="32" ng-model="email" required>
+          </md-input-container>
+        </div>
+        <p translate>Cancelling is immediate! No further charges will be applied to your account. <b>Your locations and data will be destroyed</b>.</p>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="close()">
-        <translate>Close</translate>
+        <translate>
+        Close
+        </translate>
       </md-button>
-      <md-button type="submit" ng-disabled="form.$pristine || form.$invalid" class="md-raised md-wardn"><translate>CANCEL ACCOUNT</translate></md-button>
+      <md-button class="md-raised md-warn" ng-disabled="myForm.$pristine || myForm.$invalid || (email != user.email)" type="submit">
+        <translate>
+        DELETE
+        </translate>
+      </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

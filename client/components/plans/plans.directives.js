@@ -2,19 +2,12 @@
 
 var app = angular.module('myApp.plans.directives', []);
 
-app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$q', '$pusher', 'Subscription', 'showToast', '$rootScope', 'showErrors', function(Plan, $routeParams, $location, $mdDialog, $q, $pusher, Subscription, showToast, $rootScope, showErrors) {
+app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$q', '$pusher', 'Subscription', 'User', 'Auth', 'showToast', '$rootScope', 'showErrors', function(Plan, $routeParams, $location, $mdDialog, $q, $pusher, Subscription, User, Auth, showToast, $rootScope, showErrors) {
 
   function link(scope) {
 
     var plan;
     scope.loading = true;
-
-    scope.$watch('user',function(nv){
-      if (nv !== undefined && scope.curr === undefined) {
-        currency(scope.user.currency);
-        init();
-      }
-    });
 
     var currency = function(curr) {
       if (curr === 'GBP') {
@@ -75,40 +68,25 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     }
     DialogController.$inject = ['$scope', 'plan_id'];
 
-    scope.upgrade = function(p) {
-      plan = p;
-      $mdDialog.show({
-        locals: {
-          plan: plan,
-          currency: scope.curr
-        },
-        templateUrl: 'components/users/billing/_upgrade.html',
-        controller: UpgradeController,
-        clickOutsideToClose: true
-      });
-    };
-
-    function UpgradeController($scope, plan, currency) {
-      $scope.plan = plan;
-      $scope.currency = currency;
-      $scope.upgrade = function() {
-        $mdDialog.cancel();
-        plan.upgrading = true;
-        upgrade(plan.slug);
-      };
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    }
-    UpgradeController.$inject = ['$scope', 'plan', 'currency'];
-
-    var upgrade = function(id) {
+    var upgrade = function() {
       scope.user.subscribing = true;
-      Subscription.create({plan_id: id}).$promise.then(function(data) {
+      Subscription.create({plan_id: scope.user.new_plan}).$promise.then(function(data) {
       }, function(err) {
         scope.user.subscribing = undefined;
         scope.user.errors = err.data.message;
       });
+    };
+
+    var doThePlansThing = function() {
+      for (var i=0; i < scope.plans.length; i++) {
+        if (scope.user.plan_id === scope.plans[i].plan_id) {
+          scope.user.active_plan = scope.plans[i].unique_id;
+          scope.user.new_plan    = scope.plans[i].unique_id;
+          scope.user.plan_name   = scope.plans[i].plan_name;
+          scope.user.plan_price  = scope.plans[i].plan_price;
+          break;
+        }
+      }
     };
 
     var channel;
@@ -122,29 +100,75 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
               scope.user.plan_id = data.message.plan_id;
               scope.user.subscribing = undefined;
               showToast(data.message.msg);
-              for (var i = 0; i < scope.plans.length; i++) {
-                if (scope.plans[i].plan_id === data.message.plan_id) {
-                  scope.plans[i].upgrading = undefined;
-                }
-              }
+              doThePlansThing();
             } else {
-              plan.upgrading = false;
               scope.user.subscribing = undefined;
-              showErrors({data: data.message.message});
-              console.log(data);
+              showErrors({data: [data.message.message]});
             }
           });
         }
       }
     };
 
+    var cancel = function(email) {
+      User.destroy({id: scope.user.id, email: email}).$promise.then(function() {
+        Auth.logout();
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.cancel = function(form) {
+      $mdDialog.show({
+        templateUrl: 'components/users/billing/_cancel_dialog.html',
+        parent: angular.element(document.body),
+        controller: DialogController,
+        clickOutsideToClose: true,
+        locals: {
+          user: scope.user
+        }
+      });
+    };
+
+    function DialogController ($scope,user) {
+      $scope.user = user;
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function(email) {
+        $mdDialog.cancel();
+        cancel(email);
+      };
+    }
+    DialogController.$inject = ['$scope', 'user'];
+
+    function ChangeController ($scope) {
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function() {
+        $mdDialog.cancel();
+        upgrade();
+      };
+    }
+    ChangeController.$inject = ['$scope'];
+
+    scope.changePlan = function(id) {
+      $mdDialog.show({
+        templateUrl: 'components/users/plans/_change_dialog.html',
+        parent: angular.element(document.body),
+        controller: ChangeController,
+        clickOutsideToClose: true
+      });
+    };
+
     var init = function() {
       Plan.query({
         period: 'monthly',
         user_id: $routeParams.id,
-        enterprise: scope.user.enterprise
       }).$promise.then(function(data) {
         scope.plans = data.plans;
+        doThePlansThing();
         subscribe(scope.user.key);
       });
     };
@@ -152,6 +176,13 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
         channel.unbind();
+      }
+    });
+
+    scope.$watch('user',function(nv){
+      if (nv !== undefined && scope.curr === undefined) {
+        currency(scope.user.currency);
+        init();
       }
     });
 
