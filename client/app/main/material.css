@@ -804,10 +804,6 @@ md-card.highlight-section {
   padding: 0 24px 0 12px !important;
 }
 
-location-boxes md-table-container {
-  overflow: visible !important;
-}
-
 location-boxes table {
   overflow: visible !important;
 }
@@ -1021,7 +1017,7 @@ camp-nav .top-nav .md-active {
 
 @media (max-width: 959px) {
   .md-button.md-fab.doc-link {
-    right: 110px;
+    right: 160px;
   }
 }
 
