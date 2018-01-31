@@ -2,10 +2,30 @@
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline" translate>
-        Plans
+        What's the Plan?
       </span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content>
+    <span ng-show="user.subscribing != true && user.errors">
+      <h1>Problem changing plan :(</h1>
+      <h3>{{ user.errors }}</h3>
+      <hr>
+    </span>
+    <span ng-show="user.subscribing == true">
+      <h3>Hey, there's been a change of plan. The elves are adjusting your settings. They won't be long.</h3>
+    </span>
+    <span ng-show="!user.subscribing">
+      <p>You're on the outrageously amazing <b>{{ user.plan_name }} plan</b>! This costs {{ user.plan_price | currency : curr }} per month and includes 250 people.</p>
+      <br>
+      <md-radio-group ng-model="user.new_plan">
+        <span ng-repeat="plan in plans">
+          <md-radio-button value="{{ plan.unique_id }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
+        </span>
+      </md-radio-group>
+      <p>For more information about how the plans work, please visit the mimo site <a href="http://get.mimo.today">here</a>.</p>
+      <md-button ng-click="changePlan(user.active_plan)" class="md-raised md-primary" ng-disabled="user.active_plan == user.new_plan">Change Plan</md-button>
+      <p><small>Click <a href ng-click="cancel()"><translate>here</translate></a> to cancel your subscription and delete your account.</small></p>
+    </span>
   </md-card-content>
 </md-card>
