@@ -1,19 +1,19 @@
 <location-settings-nav></location-settings-nav>
 
-<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="location.has_devices == false">
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="!integration.type">
   <div flex="100" flex-gt-md="60" flex-gt-lg="50">
     <md-card class="b-or">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
-            No Devices Found
+            No Integration Found
           </span>
           <span class="md-subhead">
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p>There are no devices assosciated with this location.</p>
+        <p>An integration is needed before you can add devices.</p>
         <p>Please ensure that you have set up your integration correctly, see [INSERT DOC LINK] for more information.</p>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
@@ -25,12 +25,39 @@
   </div>
 </md-content>
 
-<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="location.has_devices">
-  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
-    <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
-    <div>
-      <md-button ng-disabled="!integration.type" class="md-raised" ng-click="addBoxes()">Add Boxes</md-button>
-      <small class="muted">You need to configure an integration before you can add boxes.</small>
+<span ng-if="integration.type">
+  <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="location.has_devices == false">
+    <div flex="100" flex-gt-md="60" flex-gt-lg="50">
+      <md-card class="b-or">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" translate>
+              No Devices Found
+            </span>
+            <span class="md-subhead">
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p>There are no devices assosciated with this location.</p>
+          <p>Please ensure that you have set up your integration correctly, see [INSERT DOC LINK] for more information.</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-href="/#/{{ location.slug }}/integration">
+            Create Integration
+          </md-button>
+        </md-card-actions>
+      </md-card>
     </div>
-  </div>
-</md-content>
+  </md-content>
+
+  <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="location.has_devices">
+    <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+      <location-boxes filter="query" loading="loading" token="{{location.pubsub_token}}" streaming="location.streamingUpdates"></location-boxes>
+      <div>
+        <md-button ng-disabled="!integration.type" class="md-raised" ng-click="addBoxes()">Add Boxes</md-button>
+        <small class="muted">You need to configure an integration before you can add boxes.</small>
+      </div>
+    </div>
+  </md-content>
+</span>
