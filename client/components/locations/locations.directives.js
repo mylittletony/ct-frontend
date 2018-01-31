@@ -136,7 +136,7 @@ app.directive('newLocationCreating', ['Location', '$location', function(Location
 
 app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', '$mdDialog', '$mdMedia', 'showToast', 'showErrors', '$q', '$mdEditDialog', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, $routeParams, $mdDialog, $mdMedia, showToast, showErrors, $q, $mdEditDialog, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
-  var link = function( scope, element, attrs ) {
+  var link = function( scope, element, attrs, controller ) {
     scope.selected = [];
     scope.location = {
       slug: $routeParams.id
@@ -250,10 +250,15 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', '$routeParams', 
       search();
     };
 
+    controller.fetch().then(function(integration) {
+      scope.integration = integration;
+    }, function(err) { console.log(err); });
+
     init();
 
   };
   return {
+    require: '^integrations',
     link: link,
     scope: {
       filter: '=',
