@@ -353,8 +353,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/users/:id/splash_views', {
-      templateUrl: 'components/users/splash_views/index.html',
+    when('/users/:id', {
+      templateUrl: 'components/users/show/index.html',
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
@@ -368,16 +368,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/me/inventory', {
-      templateUrl: 'components/users/inventories/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/inventory', {
-      templateUrl: 'components/users/inventories/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
     when('/users/:id/invoices/:invoice_id', {
       templateUrl: 'components/users/invoices/show.html',
       resolve: { loginRequired: loginRequired }
@@ -387,21 +377,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       // controller: 'InvoicesShowController',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/me/integrations/:id', {
-      templateUrl: 'components/users/integrations/setup.html',
-      controller: 'UsersIntegrationsController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/users', {
-      templateUrl: 'components/users/users/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/users/:id/usage', {
-      templateUrl: 'components/users/usage/index.html',
-      controller: 'UsersShowController',
-      resolve: { loginRequired: loginRequired }
-    }).
+    // when('/users/:id/users', {
+    //   templateUrl: 'components/users/users/index.html',
+    //   controller: 'UsersShowController',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
+    // when('/users/:id/usage', {
+    //   templateUrl: 'components/users/usage/index.html',
+    //   controller: 'UsersShowController',
+    //   resolve: { loginRequired: loginRequired }
+    // }).
     when('/users/:id/history', {
       templateUrl: 'components/users/history/index.html',
       controller: 'UsersShowController',

@@ -1,25 +1,4 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-no-ink-bar="disableInkBar"
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}" name="profile">
-      Profile
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/billing" name="billing">
-      Billing
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/invoices" name="invoices">
-      Invoices
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/inventory" name="inventory">
-      Inventory
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/users/{{ user.slug }}/quotas" name="quotas">
-      Quotas
-    </md-nav-item>
-  </md-nav-bar>
-</div>
+<user-nav user="user"></user-nav>
 
 <md-content layout-padding layout="row" layout-wrap class="page-meta">
 </md-content>
@@ -78,16 +57,25 @@
                 </p>
               </div>
             </md-list-item>
+            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3 translate>
+                  Billing Currency
+                </h3>
+                <p>
+                  <b>{{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})</b>
+                  Please contact support to change this.
+                </p>
+              </div>
+            </md-list-item>
           </div>
+
         </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-          <user-credit-card user="user"></user-credit-card>
-        </md-card-actions>
       </md-card>
       <user-plans user="user"></user-plans>
-      <user-coupon key="{{user.key}}" coupons="user.active_coupons"></user-coupon>
-      <user-cancel user="user" ng-if="user.subscription_active"></user-cancel>
       <user-billing-settings user="user"></user-billing-settings>
+      <!-- <user-coupon key="{{user.key}}" coupons="user.active_coupons"></user-coupon> -->
+      <!-- <user-cancel user="user" ng-if="user.subscription_active"></user-cancel> -->
     </div>
   </div>
 </md-content>

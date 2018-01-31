@@ -6,48 +6,6 @@
       </span>
     </md-card-title-text>
   </md-card-title>
-  <md-card-content ng-if="plans.length > 0">
-    <md-table-container>
-      <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
-        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
-          <tr md-row>
-            <th md-column><span translate>Name</span></th>
-            <th md-column><span translate>Monthly Cost</span></th>
-            <th hide show-gt-sm md-column><span translate>Cost per Device</span></th>
-            <th hide show-gt-sm md-column><span translate>Included Devices</span></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody md-body>
-          <tr md-row ng-repeat="plan in plans | orderBy: query.order">
-            <td md-cell>
-              <a href="" ng-click="viewPlan(plan.slug)">{{ ::plan.plan_name }}</a>
-            </td>
-            <td md-cell>
-              {{ ::plan.plan_price | currency : curr }}
-            </td>
-            <td hide show-gt-sm md-cell>
-              <span ng-if="plan.per_ap_pricing">{{ ::(plan.cost_per_50 / 100 || 0) | currency : curr }}</span>
-              <span ng-if="!plan.per_ap_pricing">-</span>
-            </td>
-            <td hide show-gt-sm md-cell>
-              {{ ::plan.per_ap_allowance || '∞' }}
-            </td>
-            <td md-cell>
-              <md-button disabled="true" ng-if="plan.plan_id === user.plan_id"><translate>YOUR PLAN</translate></md-button>
-              <md-button ng-disabled="!user.stripe_id" ng-click="upgrade(plan)" ng-if="(plan.plan_id != user.plan_id) && plan.upgrading != true && !plan.free">
-                <translate>UPGRADE</translate>
-              </md-button>
-              <span ng-if="plan.upgrading">
-                <md-progress-circular style="margin: 0 0 0 30px;" md-diameter="20px"></md-progress-circular>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </md-table-container>
-    <span class="md-subhead" translate ng-if="!user.reseller">
-      <p><small class="muted" style="font-size: 75%;" translate>Please sign up for the reseller plan <a href="/#/users/{{user.slug}}/reseller">here</a> for extra boxes, splash views and other exciting features. <a href="http://www.ct-networks.io/wifi-for-resellers/" target="_blank">Read more over here</a>.</small></p>
-    </span>
+  <md-card-content>
   </md-card-content>
 </md-card>

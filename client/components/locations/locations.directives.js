@@ -1686,35 +1686,6 @@ app.directive('locationSettingsNav', ['Location', function(Location) {
     link: link,
     templateUrl: 'components/locations/settings/_nav.html'
   };
-
-}]);
-
-// app.directive('integrationDevices', ['Location', function(Location) {
-
-//   var link = function(scope, element, attrs, controller) {
-//     scope.loading = true;
-//     scope.currentNavItem = 'devices';
-//   };
-
-//   return {
-//     link: link,
-//     templateUrl: 'components/locations/settings/_device_list.html'
-//   };
-
-// }]);
-
-app.directive('campaignSettings', ['Location', function(Location) {
-
-  var link = function(scope, element, attrs, controller) {
-    scope.loading = true;
-    scope.currentNavItem = 'campaigns';
-  };
-
-  return {
-    link: link,
-    templateUrl: 'components/locations/settings/_campaigns.html'
-  };
-
 }]);
 
 app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Email, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {

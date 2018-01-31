@@ -1213,7 +1213,6 @@ app.directive('userVersions', ['Version', '$routeParams', '$location', 'paginati
     },
     templateUrl: 'components/users/history/_index.html'
   };
-
 }]);
 
 app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootScope', 'gettextCatalog', '$mdDialog', '$q', 'showErrors', 'showToast', 'Auth', 'pagination_labels', function(User, $routeParams, $location, menu, $rootScope, gettextCatalog, $mdDialog, $q, showErrors, showToast, Auth, pagination_labels) {
@@ -1364,84 +1363,15 @@ app.directive('listUsers', ['User', '$routeParams', '$location', 'menu', '$rootS
     },
     templateUrl: 'components/users/index/_index.html'
   };
-
 }]);
 
-app.directive('inventory', ['User', 'Inventory', '$routeParams', '$location', 'menu', '$rootScope', 'pagination_labels', function(User, Inventory, $routeParams, $location, menu, $rootScope, pagination_labels) {
+app.directive('userNav', ['Location', function(Location) {
 
-  var link = function( scope, element, attrs ) {
-
-    scope.currentNavItem = 'inventory'
-
-    scope.selected = [];
-
-    scope.options = {
-      autoSelect: true,
-      boundaryLinks: false,
-      largeEditDialog: false,
-      pageSelector: false,
-      rowSelection: false
-    };
-
-    scope.pagination_labels = pagination_labels;
-    scope.query = {
-      filter:     $routeParams.q,
-      order:      'created_at',
-      limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
-      options:    [5,10,25,50,100],
-      direction:  $routeParams.direction || 'desc'
-    };
-
-    scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      updatePage();
-    };
-
-    var getUser = function() {
-      return User.query({id: $routeParams.id}).$promise.then(function (res) {
-        scope.user = res;
-      });
-    },init = function() {
-      Inventory.get({id: $routeParams.id, page: scope.query.page, per: scope.query.limit}).$promise.then(function(results) {
-        scope.inventories = results.inventories;
-        scope._links      = results._links;
-        scope.loading     = undefined;
-        summary();
-      }, function(err) {
-        scope.loading = undefined;
-      });
-    };
-
-    var summary = function() {
-      Inventory.show({id: $routeParams.id}).$promise.then(function(results) {
-        scope.summary = results;
-      }, function(err) {
-        console.log(err);
-      });
-
-    };
-
-    var updatePage = function() {
-      var hash        = {};
-      hash.per        = scope.query.limit;
-      hash.page       = scope.query.page;
-
-      $location.search(hash);
-      init();
-    };
-
-    getUser().then(init);
-
+  var link = function(scope, element, attrs, controller) {
   };
 
   return {
     link: link,
-    scope: {
-      loading: '='
-    },
-    templateUrl: 'components/users/inventories/_index.html'
+    templateUrl: 'components/users/_nav.html'
   };
-
 }]);
