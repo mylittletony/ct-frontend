@@ -16,7 +16,7 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
 
   function ($rootScope, Location, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, locationHelper, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, $mdDialog) {
 
-    var domain = 'mimo.today';
+    var domain = 'ohmimo.com';
 
     $scope.commit = COMMITHASH;
     $scope.ct_login = CTLogin;
@@ -150,25 +150,14 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && Auth.currentUser().user_hash !== undefined) {
-        vm.menu.Intercom = true;
-        window.intercomSettings = {
-            app_id: INTERCOM,
-            user_id: Auth.currentUser().accountId,
-            reseller: Auth.currentUser().reseller,
-            email: Auth.currentUser().email,
-            name: Auth.currentUser().username,
-            created_at: Auth.currentUser().created_at,
-            user_hash: Auth.currentUser().user_hash,
-            brand_name: Auth.currentUser().url,
-            cname: Auth.currentUser().cname,
-            sense_active: Auth.currentUser().sense_active,
-            plan_name: Auth.currentUser().plan_name,
-            paid_plan: Auth.currentUser().paid_plan,
-            locs: Auth.currentUser().locs,
-            version: '2',
-            hide_default_launcher: !Auth.currentUser().chat_enabled || false
-        };
+      if (Auth.currentUser() && INTERCOM && INTERCOM !== '' && INTERCOM !== undefined) {
+        var user = Auth.currentUser();
+        window.analytics.identify(user.accountId, {
+          name:  user.username,
+          email: user.email,
+          plan:  user.plan_name,
+          createdAt: user.created_at
+        });
       }
     });
 

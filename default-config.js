@@ -21,7 +21,7 @@ module.exports = {
             AUTH_URL: 'http://id.mimo.test:8080',
             SLACK_TOKEN: '3540010629.12007999527',
             CHIMP_TOKEN: '531543883634',
-            INTERCOM: 'z0kiwroa',
+            INTERCOM: '',
             PUSHER: 'f5c774e098156e548079',
             DEBUG: true,
             COLOURS: '#009688 #FF5722 #03A9F4 #607D8B #F44336 #00BCD4',
