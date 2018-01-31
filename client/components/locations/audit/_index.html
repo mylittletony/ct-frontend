@@ -76,7 +76,12 @@
               <tbody md-body>
                 <tr md-row md-select="email" ng-repeat="result in results | filter: filter.search | orderBy: query.order">
                   <td hide show-gt-xs md-cell ng-show="selected == 'Emails'">
-                    <md-icon>{{ result.added ? "check" : "" }}</md-icon>
+                    <md-icon>{{ result.active === false || result.unsubscribed === true ? "thumb_down" : "thumb_up" }}
+                      <md-tooltip>
+                        <span ng-if="result.active === false" translate>Email address is inactive</span>
+                        <span ng-if="result.unsubscribed === true" translate>Email address unsubscibed</span>
+                      </md-tooltip>
+                    </md-icon>
                   </td>
                   <td md-cell ng-show="selected == 'Sales'" style="padding: 0px 24px 0px 24px">
                     <md-icon md-menu-origin>{{ result.state == 'success' ? 'check_circle' : (result.state === 'pending') ? 'cached' : 'delete' }}</md-icon>
