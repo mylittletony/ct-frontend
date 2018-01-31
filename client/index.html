@@ -104,6 +104,12 @@
               <span translate>Settings</span>
             </md-button>
           </md-menu-item>
+          <md-menu-item iing-if="location_slug">
+            <md-button ng-click="settings('/audit')">
+              <md-icon md-menu-align-target style="margin: auto 3px auto 0;">list</md-icon>
+              <span translate>Audit</span>
+            </md-button>
+          </md-menu-item>
           <md-menu-item>
             <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
               <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>

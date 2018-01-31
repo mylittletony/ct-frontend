@@ -29,11 +29,13 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
       }
     };
 
-    $scope.settings = function() {
+    $scope.settings = function(request) {
+      var path = request || '/settings';
       if ($routeParams.id && $location.path().split('/')[1] !== 'users') {
-        $location.path('/' + $routeParams.id + '/settings');
-      } else if ($scope.locations) {
-        $location.path('/' + $scope.locations[0].slug);
+        $location.path('/' + $routeParams.id + path);
+      } else if ($cookies.get('_ctlid')) {
+        var location = JSON.parse($cookies.get('_ctlid'));
+        $location.path('/' + location.slug + path);
       } else {
         $location.path('/');
       }
