@@ -1361,48 +1361,37 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
 }]);
 
-app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subscription', '$mdDialog', '$timeout', '$pusher', 'gettextCatalog', 'STRIPE_KEY', 'Auth', 'showErrors', function(Location, $routeParams, $location, Subscription, $mdDialog, $timeout, $pusher, gettextCatalog, STRIPE_KEY, Auth, showErrors) {
+app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subscription', '$mdDialog', '$timeout', '$pusher', 'gettextCatalog', 'STRIPE_KEY', 'Auth', 'showErrors', '$route', 'Plan', function(Location, $routeParams, $location, Subscription, $mdDialog, $timeout, $pusher, gettextCatalog, STRIPE_KEY, Auth, showErrors, $route, Plan) {
 
   var link = function(scope, element, attrs, controller) {
 
     var key = Auth.currentUser().key;
     scope.label = attrs.label || 'Free Trial';
 
-    scope.signUp = function(ev) {
-
-      if (!scope.location) {
-        console.log('Kindly send a location in bromie');
-        return;
-      }
-
-      if (STRIPE_KEY && window.Stripe) {
-        console.log('Setting Stripe Token');
-        window.Stripe.setPublishableKey(STRIPE_KEY);
-      } else {
-        console.log('Could not set stripe token');
-        return;
-      }
-
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'components/locations/_signup.tmpl.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose: false
-      }).then(function(answer) {
-      }, function() {
-      });
-    };
-
     var convertToPaid = function() {
-      scope.location.paid = true;
+      if (scope.location) {
+        scope.location.paid = true;
+      } else {
+        $route.reload();
+      }
     };
 
     var channel;
 
-    function DialogController($scope, $mdDialog) {
+    function DialogController($scope, plans) {
       $scope.selectedIndex = 0;
-      $scope.plan = 'engage-20180130';
+      $scope.plans = plans;
+      $scope.plan = plans[0];
+      $scope.plan_id = $scope.plan.slug;
+
+      $scope.setPlan = function(plan_id) {
+        for (var i=0; i < plans.length; i++) {
+          if (plan_id === plans[i].slug) {
+            $scope.plan = plans[i];
+            break;
+          }
+        }
+      };
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -1451,7 +1440,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
 
       var upgrade = function(card) {
         subscribe();
-        Subscription.create({plan_id: $scope.plan, card: card}).$promise.then(function(data) {
+        Subscription.create({plan_id: $scope.plan_id, card: card}).$promise.then(function(data) {
           $scope.selectedIndex = 3;
         }, function(err) {
           $scope.subscribing = undefined;
@@ -1472,6 +1461,45 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
         }
       };
     }
+    DialogController.$inject = ['$scope', 'plans'];
+
+    scope.signUp = function(ev) {
+
+      if (!scope.location) {
+        console.log('Kindly send a location in unless you\'re in the user section, in which case you don\'t care.');
+      }
+
+      if (STRIPE_KEY && window.Stripe) {
+        console.log('Setting Stripe Token');
+        window.Stripe.setPublishableKey(STRIPE_KEY);
+      } else {
+        console.log('Could not set stripe token');
+        return;
+      }
+
+      var loadPlans = function() {
+        Plan.query({
+          period: 'monthly',
+          user_id: $routeParams.id,
+        }).$promise.then(function(data) {
+          $mdDialog.show({
+            controller: DialogController,
+            templateUrl: 'components/locations/_signup.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            locals: {
+              plans: data.plans
+            }
+          }, function() {
+            alert('Problem loading the plans, try again.');
+          });
+        });
+      };
+
+      loadPlans();
+    };
+
   };
 
   var template =
