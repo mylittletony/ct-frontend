@@ -95,6 +95,10 @@
         <md-tooltip md-direction="right">Settings</md-tooltip>
         <md-icon>settings</md-icon>
       </md-button>
+      <md-button iing-if="location_slug" class="md-icon-button" ng-click="settings('/audit')">
+        <md-tooltip md-direction="right">Audit</md-tooltip>
+        <md-icon>list</md-icon>
+      </md-button>
     </div>
     <div hide show-gt-sm layout="row" layout-align="start end" class="sidenav-bottom">
       <md-menu md-position-mode="target-left target" md-offset="60 0">
@@ -102,12 +106,6 @@
           <user-avatar></user-avatar>
         </md-button>
         <md-menu-content width="3">
-          <md-menu-item iing-if="location_slug">
-            <md-button ng-click="settings('/audit')">
-              <md-icon md-menu-align-target style="margin: auto 3px auto 0;">list</md-icon>
-              <span translate>Audit</span>
-            </md-button>
-          </md-menu-item>
           <md-menu-item>
             <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
               <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
