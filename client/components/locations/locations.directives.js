@@ -1361,7 +1361,7 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
 }]);
 
-app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subscription', '$mdDialog', '$timeout', '$pusher', 'gettextCatalog', 'STRIPE_KEY', 'Auth', function(Location, $routeParams, $location, Subscription, $mdDialog, $timeout, $pusher, gettextCatalog, STRIPE_KEY, Auth) {
+app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subscription', '$mdDialog', '$timeout', '$pusher', 'gettextCatalog', 'STRIPE_KEY', 'Auth', 'showErrors', function(Location, $routeParams, $location, Subscription, $mdDialog, $timeout, $pusher, gettextCatalog, STRIPE_KEY, Auth, showErrors) {
 
   var link = function(scope, element, attrs, controller) {
 

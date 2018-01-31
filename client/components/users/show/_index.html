@@ -113,17 +113,14 @@
               </md-input-container>
             </div>
           </md-card-content>
-          <user-password ng-if="user.allowed"></user-password>
         </md-card>
 
         <div flex layout="row">
           <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="update(myForm)">
             <translate>Save</translate>
           </md-button>
+          <user-password ng-if="user.allowed"></user-password>
           <div flex></div>
-          <md-button ng-click="deleteAccount()">
-            <translate>Delete account</translate>
-          </md-button>
         </div>
 
       </div>
