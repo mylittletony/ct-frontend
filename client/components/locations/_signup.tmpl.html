@@ -15,11 +15,12 @@
         <md-tab label="one">
           <md-content class="md-padding">
             <h2>Choose a plan that suits you</h2>
-            <md-radio-group ng-model="plan" layout="row">
-              <md-radio-button value="splash-20180130" class="md-primary">Splash</md-radio-button>
-              <md-radio-button value="engage-20180130">Engage</md-radio-button>
+            <md-radio-group ng-model="plan_id" ng-click="setPlan(plan_id)">
+              <span ng-repeat="plan in plans">
+                <md-radio-button value="{{ plan.unique_id }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
+              </span>
             </md-radio-group>
-            <p><b>{{ plan == 'splash-20180130' ? '$19.99' : '$79.99' }}</b> per month. Includes 250 people!</p>
+            <p><b>All plans include 250 people!</b></p>
             <md-table-container>
               <table md-table md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="logOrder">
@@ -131,8 +132,8 @@
         <md-tab label="three">
           <md-content class="md-padding" layout='row' flex layout-wrap>
             <h2>Enter payment details</h2>
-            <p>Cancel any time in the first 14 days and you won't be charged. The free trial includes all the features of the plan you've selected.</p>
-            <h3><b>{{ plan == 'splash-20180130' ? '$19.99' : '$79.99' }}</b> per month.</h3>
+            <p><b>Cancel any time in the first 14 days and you won't be charged</b>. The free trial includes all the features of the plan you've selected.</p>
+            <h3><b>{{ plan.plan_price | currency : curr }}</b> per month.</h3>
 
             <md-input-container class="md-block" flex="100">
               <label translate>Card Number</label>

@@ -6,7 +6,10 @@
       </span>
     </md-card-title-text>
   </md-card-title>
-  <md-card-content>
+  <md-card-content ng-show="user.subscription_active == false">
+    <get-with-the-plan></get-with-the-plan>
+  </md-card-content>
+  <md-card-content ng-show="user.credit_card_last4 && user.subscription_active">
     <span ng-show="user.subscribing != true && user.errors">
       <h1>Problem changing plan :(</h1>
       <h3>{{ user.errors }}</h3>
