@@ -391,13 +391,19 @@
               </md-button>
             </md-card-actions>
           </md-card>
-          <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid" translate>Splash invalid, please check your settings.</p>
         </div>
-
-        <div class="lock-size" layout="row" layout-align="center center">
-          <md-button aria-label="menu" ng-hide="myForm.$invalid || myForm.$pristine" type="submit" class="md-fab md-primary md-fab-bottom-right ">
-            <md-icon md-font-icon="" >save</md-icon>
-          </md-button>
+        <div flex-gt-sm="100">
+          <div layout="row" layout-wrap>
+            <div>
+              <p style="padding: 0 0 0 10px;" ng-show="myForm.$invalid" translate>Splash invalid, please check your settings.</p>
+            </div>
+            <span flex></span>
+            <div>
+              <md-button aria-label="menu" ng-disabled="myForm.$invalid || myForm.$pristine" type="submit" class="md-raised">
+                Save
+              </md-button>
+            </div>
+          </div>
         </div>
 
       </div>
