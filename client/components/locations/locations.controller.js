@@ -42,9 +42,10 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     menu.sections = [];
 
-    var guide = '/guide';
 
     var createMenu = function() {
+      var guide = '/guide';
+      
       menu.sections.push({
         name: gettextCatalog.getString('People'),
         type: 'link',
