@@ -38,7 +38,11 @@ laksdjflakjsdflkajsdf
             <tbody md-body>
               <tr ng-class="splash.highlight ? 'highlight' : ''" md-row ng-repeat="splash in filtered = (splash_pages | filter: query.filter | filter: band | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit)">
                 <td md-cell>
-                  <md-icon md-menu-origin md-font-icon="">{{ (!splash.networks || splash.networks.length == 0) ? "error" : splash.active ? "check_circle" : "cancel" }}</md-icon>
+                  <md-icon md-menu-origin md-font-icon="">{{ splash.active ? "check_circle" : "cancel" }}
+                    <md-tooltip>
+                      <span ng-if="splash.active != true">Splash Page disabled</span>
+                    </md-tooltip>
+                  </md-icon>
                 </td>
                 <td hide show-gt-sm md-cell>
                   <a href="/#/{{ location.slug }}/splash_pages/{{ splash.id }}">
