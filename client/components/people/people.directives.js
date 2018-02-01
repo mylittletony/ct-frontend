@@ -140,7 +140,7 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
     var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;
-        setProfilePhoto(res.social);
+        setProfilePhoto();
         scope.loading  = undefined;
       }, function(err) {
         scope.loading  = undefined;
