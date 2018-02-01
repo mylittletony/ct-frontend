@@ -1,6 +1,6 @@
 <splash-nav location="location"></splash-nav>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
+<md-content layout-padding layout="row" layout-wrap class="page-meta" ng-hide="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
   <span flex></span>
   <div style="margin-top:18px;">
     <form ng-submit="$event.preventDefault()">
@@ -45,7 +45,7 @@
 
 <form ng-submit="search()" name="myForm">
   <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
-    <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-show="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
+    <div flex="100" flex-gt-md="60" flex-gt-lg="50" ng-show="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
       <md-card>
         <md-card-title>
           <md-card-title-text>
@@ -123,7 +123,7 @@
         </md-card-content>
       </md-card>
     </div>
-    <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+    <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-hide="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
       <md-button ng-show="allowed == true" ng-click="create()" class="md-raised">
         Create
       </md-button>
