@@ -1379,9 +1379,10 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
     var channel;
 
     function DoucheController($scope, plans) {
+      console.log(plans)
       $scope.selectedIndex = 0;
       $scope.plans = plans;
-      $scope.plan = plans[0];
+      $scope.plan  = plans[1];
       $scope.plan_id = $scope.plan.slug;
 
       $scope.setPlan = function(plan_id) {
