@@ -15,15 +15,18 @@
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline" translate>
-            Select Integration Type
+            Get integrated, woo!
           </span>
           <span class="md-subhead">
-            Select an integration below to get started with MIMO.
-            <span ng-show="!location.paid"><b>You will need to start a 14-day trial in order to create an integration</b>.</span>
-            </span>
+          </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
+        <p>Select an integration below to get started with MIMO.</p>
+        <span ng-show="!location.paid"><h3>Start a 14-day free trial in order to create an integration</h3>
+          <get-with-the-plan location="location" label='Start Trial'></get-with-the-plan>
+          <md-divider style="margin: 20px"></md-divider>
+        </span>
         <div layout="row" layout-align="space-around center" class="integration-cards" layout-wrap>
           <md-card class="int-select" flex="100" flex-gt-xs="30" ng-click="save('unifi')">
             <md-card-content flex layout-align="left center">
@@ -56,9 +59,6 @@
             </md-card-actions>
           </md-card>
         </div>
-        <md-card-actions layout="row" layout-align="end end" ng-show="location.paid == false">
-          <get-with-the-plan location="location" label='Start Trial'></get-with-the-plan>
-        </md-card-actions>
       </md-card-content>
     </md-card>
   </div>

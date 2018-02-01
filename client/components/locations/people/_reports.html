@@ -1,8 +1,8 @@
 <people-nav location="location"></people-nav>
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
-    <div class="example-data" ng-if="!location.paid">
-      The charts below are populated with example data. To access real data about your location, start your free trial or sign up to a paid plan.
+    <div class="example-data" ng-show="location.paid == false">
+      The charts below are populated with example data. To access real data about your location, start your free trial!
     </div>
     <analytics ng-if="!loading">
       <client-chart>
