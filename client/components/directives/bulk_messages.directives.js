@@ -96,6 +96,7 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
 
     scope.person = {};
     scope.location = {slug: $routeParams.id};
+    scope.currentNavItem = 'messages';
 
     var fetchMessages = function() {
       BulkMessage.index({}, {
@@ -161,6 +162,7 @@ app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageAct
 
     var person = {};
     scope.location = {slug: $routeParams.id}
+    scope.currentNavItem = 'messages';
 
     var activity = function() {
       BulkMessageActivity.index({}, {

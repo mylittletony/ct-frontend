@@ -119,6 +119,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
     };
 
     scope.campaign = { slug: $routeParams.campaign_id };
+    scope.currentNavItem = 'campaigns';
 
     scope.available_options = [];
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
