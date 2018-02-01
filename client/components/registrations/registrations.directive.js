@@ -81,20 +81,17 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var setHeadings = function() {
       if ($location.hash() === 'done') {
-        scope.title = gettextCatalog.getString('Your dashboard is being created.');
-        scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
-      } else if ($location.hash() === 'brand') {
-        scope.title = gettextCatalog.getString('What web address do you want for your dashboard?');
-        scope.subhead = gettextCatalog.getString('Choose the address you\'ll use to sign-in.');
+        scope.title = gettextCatalog.getString('The elves are making your MIMO dashboard.');
+        scope.subhead = gettextCatalog.getString('They won\'t be long, please wait about 3 seconds.');
       } else if ($location.hash() === 'user') {
-        scope.title = gettextCatalog.getString('What should we call you?');
-        scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
+        scope.title = gettextCatalog.getString('Step 2 - what\'s your name?');
+        scope.subhead = gettextCatalog.getString('It\'s a pleasure to meet you!');
       } else if ($location.hash() === 'confirm') {
-        scope.title = gettextCatalog.getString('Last Stage');
-        scope.subhead = gettextCatalog.getString('By clicking create dashboard, you\'re agreeing to our terms of use. You can read these at oh-mimo.com/terms');
+        scope.title = gettextCatalog.getString('Step 3 - nearly done, phew!');
+        scope.subhead = gettextCatalog.getString('By signing-up, you\'re agreeing to our terms of use. Read these at oh-mimo.com/terms');
       } else if (!scope.creatingAccount) {
-        scope.title = gettextCatalog.getString('What do you want to call your first location?');
-        scope.subhead = gettextCatalog.getString('This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'');
+        scope.title = gettextCatalog.getString('Step 1 (of 3) - create a location');
+        scope.subhead = gettextCatalog.getString('MIMO organises everything into locations. Each location can have multiple access points. It\'s really quite simple. Go ahead and create your first one.');
       }
     };
 
@@ -164,7 +161,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         var timer = $timeout(function() {
           $timeout.cancel(timer);
           switchBrand(data);
-        }, 5000);
+        }, 4000);
 
       }, function(err) {
         showErrors(err);

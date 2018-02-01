@@ -1,63 +1,58 @@
-<form name="myForm" ng-submit="create()">
-  <div layout="row" layout-align="center center" class="md-padding">
-    <div flex="100" flex-gt-sm="50">
+<div style="padding-top: 14%">
+  <form name="myForm" ng-submit="create()">
+    <div layout="row" layout-align="center center" class="md-padding">
+      <div flex="100" flex-gt-sm="50">
+        <md-card>
+          <div ng-show="cookies">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline" translate>
+                  OH MIMO! That's gone well.
+                </span>
+                <span class="md-subhead" translate>
+                  We've sent a super-secret code to your email. Go forth and open this email, then click the link you'll find inside. If it doesn't arrive, check that pesky spam folder.
+                </span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <p><small><translate>Didn't get the invite?&nbsp;</translate> <a href="" ng-click="clearCookies()" translate>Resend it now</a>.</small></p>
+            </md-card-content>
+          </div>
+          <div ng-hide="cookies">
+            <md-card-title ng-if="!brand || (brand.reseller && brand.sign_ups_enabled)">
+              <md-card-title-text>
+                <span class="md-headline" translate>
+                  Sign-up for <span ng-if="!brand">{{ ::brand_name }}</span><span ng-if="brand">{{ brand.brand_name }}</span>.
+                </span>
+                <span class="md-subhead" translate>Start your engines, you're nearly there. MIMO is an engagement tool that helps build better customer relationships.</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content ng-if="!brand || (brand.reseller && brand.sign_ups_enabled)">
+              <div layout="column">
+                <md-input-container class="md-block">
+                  <label>
+                    <translate>What's your work email?</translate>
+                  </label>
+                  <input required ng-model="user.email" type="email">
+                </md-input-container>
+              </div>
+              <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="signup-email md-raised"><translate>Get Started</translate></md-button>
+              <p><small>Hello friend, we're looking forward to getting to know you.</small></p>
+            </md-card-content>
 
-      <md-card>
-
-        <div ng-show="cookies">
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Thank You!
-              </span>
-              <span class="md-subhead" translate>
-                A confirmation has been sent to your email
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <p translate>Please click the link in the email to confirm your account.</p>
-            <h3>
-              <md-icon>email</md-icon>
-              {{ cookies.u.email }}
-            </h3>
-            <p><small><translate>Didn't get the invite?&nbsp;</translate> <a href="" ng-click="clearCookies()" translate>Resend it now</a>.</small></p>
-          </md-card-content>
-        </div>
-        <div ng-hide="cookies">
-          <md-card-title ng-if="!brand || (brand.reseller && brand.sign_ups_enabled)">
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Sign-up for <span ng-if="!brand">{{ ::brand_name }}</span><span ng-if="brand">{{ brand.brand_name }}</span>.
-              </span>
-              <span class="md-subhead" translate>Getting started only takes a moment.</span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content ng-if="!brand || (brand.reseller && brand.sign_ups_enabled)">
-            <div layout="column">
-              <md-input-container class="md-block">
-                <label>
-                  <translate>Enter Your Email</translate>
-                </label>
-                <input required ng-model="user.email" type="email">
-              </md-input-container>
-            </div>
-            <md-button type="submit" ng-disabled="myForm.$invalid || myForm.$pristine" class="signup-email md-raised"><translate>Create</translate></md-button>
-            <p><b>We promise not to send you spam.</b></p>
-          </md-card-content>
-
-          <md-card-title ng-if="brand && brand.reseller && !brand.sign_ups_enabled">
-            <md-card-title-text>
-              <span class="md-headline" translate>
-                Unable to sign up for <span ng-if="!brand">{{ ::brand_name }}</span><span ng-if="brand">{{ brand.brand_name }}</span>.
-              </span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content ng-if="brand && brand.reseller && !brand.sign_ups_enabled">
-            <p><small>Customer sign-ups are currently disabled. Please get in touch with {{ brand.brand_name }} if you have any questions.</small></p>
-          </md-card-content>
-        </div>
-      </md-card>
+            <md-card-title ng-if="brand && brand.reseller && !brand.sign_ups_enabled">
+              <md-card-title-text>
+                <span class="md-headline" translate>
+                  Unable to sign up for <span ng-if="!brand">{{ ::brand_name }}</span><span ng-if="brand">{{ brand.brand_name }}</span>.
+                </span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content ng-if="brand && brand.reseller && !brand.sign_ups_enabled">
+              <p><small>Customer sign-ups are currently disabled. Please get in touch with {{ brand.brand_name }} if you have any questions.</small></p>
+            </md-card-content>
+          </div>
+        </md-card>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
