@@ -1485,7 +1485,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
           user_id: $routeParams.id,
         }).$promise.then(function(data) {
           $mdDialog.show({
-            controller: DialogController,
+            controller: DoucheController,
             templateUrl: 'components/locations/_signup.tmpl.html',
             parent: angular.element(document.body),
             targetEvent: ev,

@@ -9,128 +9,136 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:600px;max-height:810px; ">
+    <md-dialog-content style="max-width:500px;max-height:810px; ">
       <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom class="payment-portal">
 
         <md-tab label="one">
-          <md-content class="md-padding">
-            <h2>Choose a plan that suits you</h2>
-            <md-radio-group ng-model="plan_id" ng-click="setPlan(plan_id)">
-              <span ng-repeat="plan in plans">
-                <md-radio-button value="{{ plan.unique_id }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
-              </span>
-            </md-radio-group>
-            <p><b>All plans include 250 people!</b></p>
-            <md-table-container>
-              <table md-table md-progress="promise">
-                <thead md-head md-order="query.order" md-on-reorder="logOrder">
-                  <tr md-row>
-                    <th md-column><span></spam></th>
-                    <th md-column><span translate>Splash</span></th>
-                    <th md-column><span translate>Engage</span></th>
-                  </tr>
-                </thead>
-                <tbody md-body>
-                  <tr>
-                    <td md-cell>
-                      Beautiful splash pages
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td md-cell>
-                      Unlimited devices
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td md-cell>
-                      Unlimited integrations
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td md-cell>
-                      Data capture
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td md-cell>
-                      MailChimp connector
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td md-cell>
-                      Automated campaigns
-                    </td>
-                    <td md-cell>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td md-cell>
-                      Outbound messaging
-                    </td>
-                    <td md-cell>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td md-cell>
-                      Audience targetting
-                    </td>
-                    <td md-cell>
-                    </td>
-                    <td md-cell>
-                      <md-icon>check</md-icon>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </md-table-container>
+          <md-content layout-padding layout='row' flex layout-wrap>
+            <div flex="100">
+              <h2>Choose a plan that suits you</h2>
+            </div>
+            <div flex="100">
+              <md-radio-group ng-model="plan_id" ng-click="setPlan(plan_id)">
+                <span ng-repeat="plan in plans">
+                  <md-radio-button value="{{ plan.unique_id }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
+                </span>
+              </md-radio-group>
+            </div>
+            <div flex="100">
+              <p><b>All plans include 250 people!</b></p>
+            </div>
+            <div flex="100">
+              <md-table-container>
+                <table md-table md-progress="promise">
+                  <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                    <tr md-row>
+                      <th md-column><span></spam></th>
+                      <th md-column><span translate>Splash</span></th>
+                      <th md-column><span translate>Engage</span></th>
+                    </tr>
+                  </thead>
+                  <tbody md-body>
+                    <tr>
+                      <td md-cell>
+                        Beautiful splash pages
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td md-cell>
+                        Unlimited devices
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td md-cell>
+                        Unlimited integrations
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td md-cell>
+                        Data capture
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td md-cell>
+                        MailChimp connector
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td md-cell>
+                        Automated campaigns
+                      </td>
+                      <td md-cell>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td md-cell>
+                        Outbound messaging
+                      </td>
+                      <td md-cell>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td md-cell>
+                        Audience targetting
+                      </td>
+                      <td md-cell>
+                      </td>
+                      <td md-cell>
+                        <md-icon>check</md-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+            </div>
           </md-content>
         </md-tab>
 
         <md-tab label="two">
-          <md-content class="md-padding">
+          <md-content layout-padding layout='row' flex layout-wrap>
             <h2>Estimate number of users</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
           </md-content>
         </md-tab>
 
         <md-tab label="three">
-          <md-content class="md-padding" layout='row' flex layout-wrap>
+          <md-content layout-padding layout='row' flex layout-wrap>
             <h2>Enter payment details</h2>
             <p><b>Cancel any time in the first 14 days and you won't be charged</b>. The free trial includes all the features of the plan you've selected.</p>
             <h3><b>{{ plan.plan_price | currency : curr }}</b> per month.</h3>
@@ -142,14 +150,15 @@
                 <div ng-message="card" translate>Card number invalid</div>
               </div>
             </md-input-container>
-            <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+            <md-input-container class="md-block" flex="100" flex-gt-sm="45">
               <label for='expiry' translate>Expiry Date</label>
               <input type='text' ng-model='expiry' placeholder="{{ 'Expiration' | translate }}" payments-format='expiry' payments-validate='expiry' name='expiry'/>
               <div ng-messages="form.expiry.$error">
                 <div ng-message="expiry" translate>Invalid expiry date</div>
               </div>
             </md-input-container>
-            <md-input-container class="md-block" flex="100" flex-gt-sm="50">
+            <span flex-gt-sm="10"></span>
+            <md-input-container class="md-block" flex="100" flex-gt-sm="45">
               <label for='cvc' translate>Security Code</label>
               <input type='text' ng-model='cvc' placeholder='CVC' payments-validate='cvc' payments-format='cvc' name='cvc'/>
               <div ng-messages="form.cvc.$error">
@@ -161,7 +170,7 @@
         </md-tab>
 
         <md-tab label="four">
-          <md-content class="md-padding">
+          <md-content layout-padding layout='row' flex layout-wrap>
             <h1 class="md-display-2">Processing Payment</h1>
             <p>Please wait while we process your payment and create your subscription.</p>
             <p ng-hide="errors">Do not close this window! It might take a few seconds. Tick tock.</p>
@@ -173,7 +182,7 @@
         </md-tab>
 
         <md-tab label="five">
-          <md-content class="md-padding">
+          <md-content layout-padding layout='row' flex layout-wrap>
             <h1 class="md-display-2">You're all set! High-fives!</h1>
             <p>We're just adding the finishing touches to your MIMO account. You'll be on your way soon.</p>
             <p>Thanks for signing up for MIMO today!</p>
