@@ -931,7 +931,7 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
         return;
       }
       scope.integration.type = 'unifi';
-    }, function(err) { console.log(err); })
+    }, function(err) { console.log(err); });
 
     locationName();
 
@@ -1105,7 +1105,7 @@ app.directive('vszSetup', ['Location', '$routeParams', '$location', '$http', '$m
         }
       }, function(results) {
         showToast('Successfully created Ruckus VSZ setup');
-        console.log(results)
+        console.log(results);
         // @zak create the landing page
         $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
@@ -1168,7 +1168,7 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
       controller.update(scope.integration).then(function() {
         scope.validated = true;
       });
-    }
+    };
 
     scope.save = function(form) {
       scope.myForm.$setPristine();
@@ -1600,7 +1600,7 @@ app.directive('integrationSettings', ['Location', '$routeParams', '$location', '
 
     controller.fetch().then(function(integration) {
       scope.integration = integration;
-    }, function(err) { console.log(err); })
+    }, function(err) { console.log(err); });
 
     locationName();
 
@@ -1736,6 +1736,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$rout
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
 
     scope.audit_models = ['Radius Sessions', 'Emails'];
+    scope.loading = true;
 
     var mailerType = {
       'Radius Sessions': 'radius',
@@ -1778,6 +1779,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$rout
         scope.selected = 'Radius Sessions';
         scope.results = data.sessions;
         scope.links = data._links;
+        scope.loading = undefined;
         $location.search();
       }, function(err) {
         console.log(err);
@@ -1791,6 +1793,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$rout
         scope.selected = 'Emails';
         scope.results = data.emails;
         scope.links = data._links;
+        scope.loading = undefined;
         $location.search();
       }, function(err) {
         console.log(err);
@@ -1813,6 +1816,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$rout
     };
 
     scope.updateAudit = function(selected) {
+      scope.loading = true;
       switch(selected) {
         case 'Emails':
           findEmails();
@@ -1886,7 +1890,6 @@ app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$rout
   return {
     link: link,
     scope: {
-      loading: '='
     },
     templateUrl: 'components/locations/audit/_index.html'
   };
