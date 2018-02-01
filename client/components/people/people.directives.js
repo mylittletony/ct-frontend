@@ -123,6 +123,7 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
         }
       }).$promise.then(function(results) {
         scope.person = results;
+        setProfilePhoto();
         scope.edit_username = false;
       }, function(error) {
         showErrors(error);
