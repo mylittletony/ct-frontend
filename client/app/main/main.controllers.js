@@ -152,20 +152,12 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
     $scope.$on('intercom', function(args,event) {
       if (Auth.currentUser()) { //&& INTERCOM && INTERCOM !== '' && INTERCOM !== undefined) {
         var user = Auth.currentUser();
-        _cio.identify({
-           id: user.accountId, 
-           email: user.email,            
-           created_at: user.created_at / 1000, 
-           paid_plan: user.paid_plan,     
-           username: user.username,      
-           plan_name: user.plan_name     
-         });
-        // window.analytics.identify(user.accountId, {
-        //   name:  user.username,
-        //   email: user.email,
-        //   plan:  user.plan_name,
-        //   createdAt: user.created_at
-        // });
+        window.analytics.identify(user.accountId, {
+          name:  user.username,
+          email: user.email,
+          plan:  user.plan_name,
+          createdAt: user.created_at
+        });
       }
     });
 

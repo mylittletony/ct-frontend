@@ -1,8 +1,8 @@
-<div flex="100" layout="column" class="layout-column flex" ng-cloak>
+<div flex="100" layout="column" class="layout-column flex" ng-cloak style="padding-top: 14%;">
   <form name="myForm" class="flow">
     <md-content class="md-padding" layout="column" layout-gt-sm='column'>
       <div layout="row" layout-align="center center">
-        <div flex="100" flex-gt-sm="40">
+        <div flex="100" flex-gt-sm="60">
           <md-card>
             <md-card-title>
               <md-card-title-text>
@@ -20,21 +20,21 @@
                     <br><br>
                     <md-input-container layout="row" flex class="md-block">
                       <label for="company_name">
-                        <translate>Location Name</translate>
+                        <translate>What's the name of your business</translate>
                       </label>
-                      <input type="text" name="location_name" ng-model="holding.company_name" placeholder="{{ 'Name your first location' | translate }}" md-maxlength="25" ng-minlength="5" autofocus required>
+                      <input type="text" name="location_name" ng-model="holding.company_name" placeholder="Sammy's Sandwiches" md-maxlength="50" ng-minlength="5" autofocus required>
                       <div ng-messages="myForm.company_name.$error" md-auto-hide="false">
                         <div ng-message="required" translate>A location name is required.</div>
-                        <div ng-message="md-maxlength" translate>Name should be less than 25 characters.</div>
+                        <div ng-message="md-maxlength" translate>Name should be less than 50 characters.</div>
                         <div ng-message="minlength" translate>Name should be at least characters.</div>
                       </div>
                     </md-input-container>
 
                     <md-input-container layout="row" flex class="md-block">
                       <label for="address">
-                        <translate>Location Address</translate>
+                        <translate>Where is your business</translate>
                       </label>
-                      <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the location' | translate }}" md-maxlength=255 ng-minlength=5 required>
+                      <input type="text" name="address" ng-model="holding.address" placeholder="{{ '1 Endless Road, London E8' | translate }}" md-maxlength=255 ng-minlength=5 required>
                       <div ng-messages="myForm.address.$error" md-auto-hide="false">
                         <div ng-message="required" translate>A location address is required.</div>
                         <div ng-message="md-maxlength" translate>Address should be less than 255 characters.</div>
@@ -69,7 +69,7 @@
                       <label for="username">
                         <translate>Username</translate>
                       </label>
-                      <input type="text" name="username" ng-model="holding.username" placeholder="Steve Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
+                      <input type="text" name="username" ng-model="holding.username" placeholder="Eggy McEgg-Pants" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
                       <div ng-messages="myForm.username.$error" md-auto-hide="false">
                         <div ng-message="required" translate>A username is required.</div>
                         <div ng-message="md-maxlength" translate>Username should be less than 25 characters.</div>
@@ -110,7 +110,7 @@
                 <translate>Save</translate>
               </md-button>
               <md-button ng-if="stage=='confirm'" ng-click="update('fin')" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary">
-                <translate>Create Dashboard</translate>
+                <translate>Lets GO!!</translate>
               </md-button>
             </md-card-actions>
           </md-card>
