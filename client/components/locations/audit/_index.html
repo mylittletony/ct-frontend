@@ -47,6 +47,9 @@
 
         </div>
         <div layout="column" flex="100">
+          <loader></loader>
+        </div>
+        <div layout="column" flex="100" ng-hide="loading">
           <md-table-container>
             <table ng-if="results.length > 0" ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
               <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
