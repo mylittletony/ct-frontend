@@ -55,8 +55,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         splash_guide = '/guide';
       }
 
-      console.log(people_guide)
-
       menu.sections.push({
         name: gettextCatalog.getString('People'),
         type: 'link',
