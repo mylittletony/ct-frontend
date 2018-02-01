@@ -31,6 +31,7 @@
               <th md-column><span translate>Email</span></th>
               <th md-column><span translate>Last Seen</span></th>
               <th md-column><span translate>First Seen</span></th>
+              <th md-column><span translate>Visits</span></th>
               <th md-column><span translate>Options</span></th>
             </tr>
           </thead>
@@ -47,6 +48,9 @@
               </td>
               <td md-cell>
                 {{ person.created_at | humanDate }}
+              </td>
+              <td md-cell>
+                {{ person.login_count || 1 }}
               </td>
               <td md-cell>
                 <md-menu md-position-mode="target target">
