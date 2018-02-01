@@ -223,6 +223,10 @@ table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2)
   padding: 0 24px 0 24px;
 }
 
+table.md-table td.md-cell:last-child, table.md-table th.md-column:last-child {
+  padding: 0 24px 0 24px;
+}
+
 /* Temp fixes to address */
 
 .ng-hide.ng-hide-animate{
@@ -1220,6 +1224,24 @@ md-bottom-sheet .md-subheader {
 }
 
 /*general changes*/
+
+.example-data {
+  background-color: #ffe9b4;
+  margin: 7px;
+  padding: 10px;
+  /*font-weight: bold;*/
+  text-align: center;
+  border: solid 1px #ffd165;
+  border-radius: 4px;
+}
+
+.md-button.md-primary.md-raised {
+  background-color: #f0466e;
+}
+
+md-toolbar:not(.md-menu-toolbar) {
+  background-color: #f0466e;
+}
 
 md-card {
   border-radius: 4px;

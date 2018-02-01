@@ -204,6 +204,7 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
   var link = function(scope,element,attrs) {
 
     scope.location  = {slug: $routeParams.id};
+    scope.currentNavItem = 'codes';
 
     var date = new Date();
     var today_date = new Date(date);
@@ -313,6 +314,7 @@ app.directive('showSplashCode', ['Location', 'SplashCode', '$routeParams', '$loc
     });
 
     scope.location  = {slug: $routeParams.id};
+    scope.currentNavItem = 'codes';
 
     var createMenu = function() {
 
