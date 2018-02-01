@@ -181,7 +181,7 @@
         <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleSidenav()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
-        <get-with-the-plan ng-if="location && !location.paid" label="Free Trial"></get-with-the-plan>
+        <get-with-the-plan ng-show="location.paid == false" label="Free Trial"></get-with-the-plan>
         <span flex></span>
         <md-button ng-click="toggleLocations()" class="md-icon-button" aria-label="'Locations' | translate" ng-if="user">
           <md-tooltip md-direction="bottom">Locations</md-tooltip>

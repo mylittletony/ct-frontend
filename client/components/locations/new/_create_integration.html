@@ -24,7 +24,7 @@
       <md-card-content>
         <p>Select an integration below to get started with MIMO.</p>
         <span ng-show="!location.paid"><h3>Start a 14-day free trial in order to create an integration</h3>
-          <get-with-the-plan location="location" label='Start Trial'></get-with-the-plan>
+          <get-with-the-plan location="location" ng-show="location.paid == false" label='Start Trial'></get-with-the-plan>
           <md-divider style="margin: 20px"></md-divider>
         </span>
         <div layout="row" layout-align="space-around center" class="integration-cards" layout-wrap>
