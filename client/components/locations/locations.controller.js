@@ -46,7 +46,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
     var createMenu = function() {
       var campaigns_guide = '';
       var splash_guide = '';
-      var people_guide = '';
       if ($scope.location.setup.campaigns === false) {
         campaigns_guide = '/guide';
       }
@@ -115,10 +114,6 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         var params = {id: data.id, location_name: data.location_name, slug: data.slug};
         var json = JSON.stringify(params);
         $cookies.put('_ctlid', json);
-
-        if (data.paid) {
-          guide = '';
-        }
 
         // Used to check for location name change
         // Will refresh the page if a change is detected
