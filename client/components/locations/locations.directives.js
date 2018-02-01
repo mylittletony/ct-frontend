@@ -1379,7 +1379,11 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
     var channel;
 
     function DoucheController($scope, plans) {
-      console.log(plans)
+      if (!plans) {
+        alert('No plans, contact the MIMO team!');
+        return;
+      }
+
       $scope.selectedIndex = 0;
       $scope.plans = plans;
       $scope.plan  = plans[1];

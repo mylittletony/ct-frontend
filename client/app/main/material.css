@@ -1346,3 +1346,8 @@ md-list .md-subheader {
 td.activePlan {
   background: #ffe9b4;
 }
+
+table#plans td.md-cell {
+  padding: 8px 24px;
+  font-size: 14px;
+}
