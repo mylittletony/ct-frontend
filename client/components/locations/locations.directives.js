@@ -1341,13 +1341,13 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
     scope.currentNavItem = 'guide';
 
     scope.$watch('location',function(nv){
-      // if (nv !== undefined && scope.location.setup) {
-      //   if (scope.location.setup && scope.location.setup.splash && scope.location.setup.integrations) {
-      //     $location.path('/' + scope.location.slug);
-      //   } else {
+      if (nv !== undefined && scope.location.setup) {
+        if (scope.location.setup && scope.location.setup.splash && scope.location.setup.integrations) {
+          $location.path('/' + scope.location.slug);
+        } else {
           scope.loading = undefined;
-      //   }
-      // }
+        }
+      }
     });
   };
 
