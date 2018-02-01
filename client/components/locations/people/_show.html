@@ -66,6 +66,12 @@
                 </md-list-item>
                 <md-list-item class="md-2-line">
                   <div class="md-list-item-text" layout="column">
+                    <h3 translate>Visits</h3>
+                    <p>{{ person.login_count || 1 }}</p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <div class="md-list-item-text" layout="column">
                     <h3 translate>Last Seen</h3>
                     <p>{{ person.updated_at | humanDate }}</p>
                   </div>
