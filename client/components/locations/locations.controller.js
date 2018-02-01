@@ -42,9 +42,19 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
 
     menu.sections = [];
 
-    var guide = '/guide';
 
     var createMenu = function() {
+      var campaigns_guide = '';
+      var splash_guide = '';
+      var people_guide = '';
+      if ($scope.location.setup.campaigns === false) {
+        campaigns_guide = '/guide';
+      }
+
+      if ($scope.location.setup.splash === false || $scope.location.setup.integrations === false || $scope.location.paid === false) {
+        splash_guide = '/guide';
+      }
+
       menu.sections.push({
         name: gettextCatalog.getString('People'),
         type: 'link',
@@ -56,7 +66,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('Splash'),
         type: 'link',
-        link: '/#/' + $scope.location.slug + '/splash_pages' + guide,
+        link: '/#/' + $scope.location.slug + '/splash_pages' + splash_guide,
         icon: 'format_paint',
         active: isActive('splash_pages')
       });
@@ -64,7 +74,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
       menu.sections.push({
         name: gettextCatalog.getString('Campaigns'),
         type: 'link',
-        link: '/#/' + $scope.location.slug + '/campaigns',
+        link: '/#/' + $scope.location.slug + '/campaigns' + campaigns_guide,
         icon: 'email',
         active: isActive('campaigns')
       });

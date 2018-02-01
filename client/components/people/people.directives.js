@@ -60,10 +60,19 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       init();
     };
 
+    var checkForGuide = function() {
+      var setup = scope.location.setup;
+      if ($location.path().split('/')[2] !== 'people' && (setup.splash === false || setup.integrations === false || scope.location.paid === false)) {
+        $location.path('/' + scope.location.slug + '/guide');
+      } else {
+        getPeople();
+      }
+    };
+
     var getLocation = function() {
       Location.get({id: $routeParams.id}, function(data) {
         scope.location = data;
-        scope.loading = undefined;
+        checkForGuide();
       }, function(err){
         console.log(err);
       });
@@ -87,7 +96,6 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
     var init = function() {
       getLocation();
-      getPeople();
     };
 
     init();
