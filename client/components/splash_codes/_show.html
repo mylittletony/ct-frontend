@@ -1,134 +1,127 @@
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-  <div>
-    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back to Splash Codes' | translate }}">
-      <md-tooltip md-direction="bottom">Back to Splash Codes</md-tooltip>
-      <md-icon>keyboard_return</md-icon>
-    </md-button>
+<splash-nav location="location"></splash-nav>
+
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
+  <div flex="100" flex-gt-md="60" flex-gt-lg="50">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Code Details
+          </span>
+          <span class="md-subhead">
+            <span ng-show="((splash_code.valid == false) && (splash_code.started == true))"><b translate>This code has expired. Please create another.</b></span>
+            <span ng-show="splash_code.started == false"><b translate>This code hasn't started yet.</b></span>
+            <span ng-show="splash_code.valid == true"><b translate>This code is valid.</b></span>
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+
+        <div layout="row" layout-wrap>
+          <div flex="100" flex-gt-sm="50">
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Password</h3>
+                <p>{{ splash_code.password }}</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Validity</h3>
+                <p translate>{{ splash_code.volume }} mins, {{ splash_code.simultaneous_use }} simultaneous users</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Session Timeout</h3>
+                <p translate>{{ splash_code.session_timeout }} mins</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Idle Timeout</h3>
+                <p translate>{{ splash_code.idle_timeout }} mins</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 ng-if="splash_code.started === true" translate>Started</h3>
+                <h3 ng-if="splash_code.started === false" translate>Starts</h3>
+                <p>{{ splash_code.start_date | humanTime }}</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 ng-if="splash_code.valid === true || splash_code.started === false" translate>Expires</h3>
+                <h3 ng-if="splash_code.valid === false && splash_code.started === true" translate>Expired</h3>
+                <p>{{ splash_code.expires | humanTime }}</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Access Restriction</h3>
+                <p ng-if="splash_code.period === 'all'" translate>All time</p>
+                <p ng-if="splash_code.period !== 'all'" translate>Daily</p>
+              </div>
+            </md-list-item>
+
+          </div>
+          <div flex="100" flex-gt-sm="50">
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Speeds</h3>
+                <p>
+                  {{ (splash_code.download_speed / 1024) | number:0 }}Mbps
+                  <md-icon md-font-icon="" >arrow_downward</md-icon>
+                  {{ (splash_code.upload_speed / 1024) | number:0 }}Mbps
+                  <md-icon md-font-icon="" >arrow_upward</md-icon>
+                </p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Splash Page</h3>
+                <p><a href="/#/{{location.slug}}/splash_pages/{{ splash_code.splash_page_id}}" translate>{{ splash_code.splash_page_id || "Unnamed Splash" }}</a></p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Created</h3>
+                <p>{{ splash_code.created_at | humanTime }}</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Created By</h3>
+                <p>{{ splash_code.created_by }}</p>
+              </div>
+            </md-list-item>
+
+          </div>
+
+        </div>
+
+      </md-card-content>
+
+      <md-card-actions layout="row" style="padding-left: 20px">
+        <md-switch ng-model="splash_code.active" ng-change="update()" aria-label="{{ 'Active' | translate }}" class="md-primary">
+          <span ng-if="splash_code.active === true" translate>Code Active</span>
+          <span ng-if="splash_code.active === false" translate>Code Disabled</span>
+        </md-switch>
+      </md-card-actions>
+
+    </md-card>
   </div>
-  <span flex></span>
-</md-content>
-
-<md-content class="md-padding" layout="column" layout-gt-sm='column'>
-
-  <md-card>
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-headline" translate>
-          Code Details
-        </span>
-        <span class="md-subhead">
-          <span ng-show="((splash_code.valid == false) && (splash_code.started == true))"><b translate>This code has expired. Please create another.</b></span>
-          <span ng-show="splash_code.started == false"><b translate>This code hasn't started yet.</b></span>
-          <span ng-show="splash_code.valid == true"><b translate>This code is valid.</b></span>
-        </span>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-
-      <div layout="row" layout-wrap>
-        <div flex="100" flex-gt-sm="50">
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Password</h3>
-              <p>{{ splash_code.password }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Validity</h3>
-              <p translate>{{ splash_code.volume }} mins, {{ splash_code.simultaneous_use }} simultaneous users</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Session Timeout</h3>
-              <p translate>{{ splash_code.session_timeout }} mins</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Idle Timeout</h3>
-              <p translate>{{ splash_code.idle_timeout }} mins</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 ng-if="splash_code.started === true" translate>Started</h3>
-              <h3 ng-if="splash_code.started === false" translate>Starts</h3>
-              <p>{{ splash_code.start_date | humanTime }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 ng-if="splash_code.valid === true || splash_code.started === false" translate>Expires</h3>
-              <h3 ng-if="splash_code.valid === false && splash_code.started === true" translate>Expired</h3>
-              <p>{{ splash_code.expires | humanTime }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Access Restriction</h3>
-              <p ng-if="splash_code.period === 'all'" translate>All time</p>
-              <p ng-if="splash_code.period !== 'all'" translate>Daily</p>
-            </div>
-          </md-list-item>
-
-        </div>
-        <div flex="100" flex-gt-sm="50">
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Speeds</h3>
-              <p>
-                {{ (splash_code.download_speed / 1024) | number:0 }}Mbps
-                <md-icon md-font-icon="" >arrow_downward</md-icon>
-                {{ (splash_code.upload_speed / 1024) | number:0 }}Mbps
-                <md-icon md-font-icon="" >arrow_upward</md-icon>
-              </p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Splash Page</h3>
-              <p><a href="/#/{{location.slug}}/splash_pages/{{ splash_code.splash_page_id}}" translate>{{ splash_code.splash_page_id || "Unnamed Splash" }}</a></p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Created</h3>
-              <p>{{ splash_code.created_at | humanTime }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Created By</h3>
-              <p>{{ splash_code.created_by }}</p>
-            </div>
-          </md-list-item>
-
-        </div>
-
-      </div>
-
-    </md-card-content>
-
-    <md-card-actions layout="row" style="padding-left: 20px">
-      <md-switch ng-model="splash_code.active" ng-change="update()" aria-label="{{ 'Active' | translate }}" class="md-primary">
-        <span ng-if="splash_code.active === true" translate>Code Active</span>
-        <span ng-if="splash_code.active === false" translate>Code Disabled</span>
-      </md-switch>
-    </md-card-actions>
-
-  </md-card>
-  <div flex-gt-sm="50">
+  <div flex="100" flex-gt-md="60" flex-gt-lg="50">
     <md-button ng-click="destroy()" class="md-raised md-warn">
       Delete
     </md-button>
