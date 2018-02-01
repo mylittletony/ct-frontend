@@ -8,7 +8,7 @@ app.factory('Metric', ['$resource', '$localStorage', 'API_END_POINT',
     if ($localStorage && $localStorage.mimo_user && $localStorage.mimo_user.api_token) {
       token = $localStorage.mimo_user.api_token;
     }
-    if (API_END_POINT === 'http://mywifi.test:8080/api/v1') {
+    if (API_END_POINT === 'http://mimo.test:8080/api/v1') {
       API_END_POINT = 'http://dashboard.ctapp:8000/api/v1';
     }
     return $resource(API_END_POINT + '/metrics',
