@@ -103,26 +103,6 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     }
     setStage();
 
-    // scope.brandName = BrandName;
-    // if (scope.brandName.name === 'CT WiFi') {
-    //   scope.brandName.name = gettextCatalog.getString('My Awesome Company');
-    // }
-
-    // scope.checkBrand = function(form) {
-    //   scope.invalid_brand = undefined;
-    //   if (scope.holding.url) {
-    //     Brand.query({
-    //       id: scope.holding.url,
-    //       type: 'showcase',
-    //       check: true
-    //     }).$promise.then(function(results) {
-    //       scope.invalid_brand = true;
-    //     }, function() {
-    //       scope.brandOk = true;
-    //     });
-    //   }
-    // };
-
     var init = function() {
       Holding.get({id: $routeParams.id}).$promise.then(function(data) {
         if (data.brand_id && data.brand_url) {

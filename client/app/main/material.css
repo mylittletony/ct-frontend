@@ -1313,6 +1313,15 @@ md-dialog {
   border-radius: 4px;
 }
 
+a {
+  color: rgb(71, 90, 136);
+}
+
+md-list .md-subheader {
+  font-size: 16px;
+  color: rgb(71, 90, 136);
+}
+
 .md-subhead a {
   font-weight: 500;
   text-decoration: none;
