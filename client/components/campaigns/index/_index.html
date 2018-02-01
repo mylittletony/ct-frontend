@@ -15,7 +15,7 @@
         <p translate>Set up your own custom campaigns to interact with your end users.</p>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button href="/#/{{ location.slug}}/campaigns/new">Create</md-button>
+        <md-button class="md-raised md-primary" href="/#/{{ location.slug}}/campaigns/new">Create</md-button>
       </md-card-actions>
     </md-card>
   </div>
@@ -121,7 +121,7 @@
       <md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="query.options" md-total="{{::_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
     </md-card>
     <div>
-      <md-button class="md-raised" href="/#/{{ location.slug}}/campaigns/new">NEW</md-button>
+      <md-button class="md-raised md-primary" href="/#/{{ location.slug}}/campaigns/new">NEW</md-button>
     </div>
   </div>
 </md-content>

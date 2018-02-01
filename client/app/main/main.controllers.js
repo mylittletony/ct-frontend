@@ -16,7 +16,7 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
 
   function ($rootScope, Location, $scope, $localStorage, $window, $location, $routeParams, AccessToken, RefreshToken, Auth, API, $pusher, $route, onlineStatus, $cookies, locationHelper, CTLogin, User, Me, AUTH_URL, menu, designer, $mdSidenav, $mdMedia, $q, INTERCOM, PUSHER, gettextCatalog, Translate, COMMITHASH, $mdDialog) {
 
-    var domain = 'ohmimo.com';
+    var domain = 'oh-mimo.com';
 
     $scope.commit = COMMITHASH;
     $scope.ct_login = CTLogin;
@@ -150,14 +150,22 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && INTERCOM && INTERCOM !== '' && INTERCOM !== undefined) {
+      if (Auth.currentUser()) { //&& INTERCOM && INTERCOM !== '' && INTERCOM !== undefined) {
         var user = Auth.currentUser();
-        window.analytics.identify(user.accountId, {
-          name:  user.username,
-          email: user.email,
-          plan:  user.plan_name,
-          createdAt: user.created_at
-        });
+        _cio.identify({
+           id: user.accountId, 
+           email: user.email,            
+           created_at: user.created_at / 1000, 
+           paid_plan: user.paid_plan,     
+           username: user.username,      
+           plan_name: user.plan_name     
+         });
+        // window.analytics.identify(user.accountId, {
+        //   name:  user.username,
+        //   email: user.email,
+        //   plan:  user.plan_name,
+        //   createdAt: user.created_at
+        // });
       }
     });
 

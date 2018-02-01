@@ -14,36 +14,49 @@ app.filter('humanPredicate', [ 'gettextCatalog', function(gettextCatalog) {
       return;
     } 
     
-    var phrase;
+    var phrase, attr;
+
+    switch(predicate.attribute) {
+      case 'created_at':
+        attr = 'Signed up';
+        break;
+      case 'updated_at':
+        attr = 'Last seen';
+        break;
+      case 'login_count':
+        attr = 'Logins';
+        break;
+    }
+
     if (predicate.attribute === 'login_count') {
       if (predicate.operator === 'gte') {
-        phrase = 'More than';
+        phrase = 'more than';
       } else {
-        phrase = 'Less than';
+        phrase = 'less than';
       }
-      return phrase + ' ' + predicate.value + ' logins';
+      return attr + ' ' + phrase + ' ' + predicate.value + ' logins';
     }
 
     if (isNumber(predicate.value)) {
       if (predicate.operator === 'gte') {
-        phrase = 'More than';
+        phrase = 'more than';
       } else if (predicate.operator === 'lte') {
-        phrase = 'Less than';
+        phrase = 'less than';
       } else {
-        phrase = 'Exactly';
+        phrase = 'exactly';
       }
 
-      return phrase + ' ' + predicate.value + ' days ago';
+      return attr + ' ' + phrase + ' ' + predicate.value + ' days ago';
     }
 
     if (predicate.operator === 'gte') {
-      phrase = 'After';
+      phrase = 'after';
     } else if (predicate.operator === 'lte') {
-      phrase = 'Before';
+      phrase = 'before';
     } else {
-      phrase = 'On';
+      phrase = 'on';
     }
 
-    return phrase + ' the ' + predicate.value;
+    return attr + ' ' + phrase + ' the ' + predicate.value;
   };
 }]);

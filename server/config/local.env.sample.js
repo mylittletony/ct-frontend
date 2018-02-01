@@ -8,8 +8,8 @@ var exports;
 if (process.env.NODE_ENV === 'production') {
 
   api_url   = 'https://api.ctapp.io/api/v1'
-  auth_url  = 'https://id.mimo.today'
-  base_url  = 'app.mimo.today'
+  auth_url  = 'https://id.oh-mimo.com'
+  base_url  = 'app.oh-mimo.com'
 
   exports = {
     callbackURL: 'https://' + base_url + '/auth/login/callback',
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 } else if (process.env.NODE_ENV === 'beta') {
 
   api_url   = 'https://beta.ctapp.io/api/v1'
-  auth_url  = 'https://id.mimo.today'
+  auth_url  = 'https://id.oh-mimo.com'
   base_url  = 'dashboard.ctapp.io'
 
   exports = {

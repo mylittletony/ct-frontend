@@ -75,7 +75,7 @@
           <span ng-show="campaign.template == 'custom' || campaign.id">
             <hr ng-show="!campaign.id">
             <p>People who:</p>
-            <md-radio-group ng-disabled="campaign.id" ng-model="campaign.predicate_type">
+            <md-radio-group ng-disabled="campaign.id && campaign.state == 'live'" ng-model="campaign.predicate_type">
               <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
               <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
             </md-radio-group>
@@ -87,18 +87,18 @@
                     <span class="md-headline" translate>
                       {{ predicate | humanPredicate }}
                     </span>
-                    <md-switch ng-model="campaign.relative" aria-label="Switch 1" ng-show="focusedCard == $index && predicate.attribute != 'login_count'">
-                      {{ campaign.relative ? 'Relative' : 'Absolute' }}
+                    <md-switch ng-model="predicate.relative" aria-label="Switch 1" ng-show="focusedCard == $index && predicate.attribute != 'login_count'">
+                      {{ predicate.relative ? 'Relative' : 'Absolute' }}
                     </md-switch>
                   </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
                   <span ng-hide="focusedCard == $index">
-                    <span ng-click="showCard($index)">{{ human(predicate) }}</span>
+                    <span ng-click="showCard($index)">{{ predicate | humanPredicate }}</span>
                   </span>
                   <span ng-show="focusedCard == $index">
                     <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'created_at' || predicate.attribute == 'updated_at'">
-                      <span ng-if="campaign.relative == true">
+                      <span ng-if="predicate.relative == true">
                         <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
                         <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
                         <md-radio-button value="eq" class="md-primary">Exactly</md-radio-button>
@@ -111,10 +111,10 @@
                         </md-input-container>
                       </span>
 
-                      <span ng-if="campaign.relative == false">
+                      <span ng-if="predicate.relative == false">
                         <md-radio-button value="gte" class="md-primary">After</md-radio-button>
                         <md-radio-button value="lte" class="md-primary">Before</md-radio-button>
-                        <md-rarule.operatorton value="eq" class="md-primary">On</md-radio-button>
+                        <md-radio-button value="eq" class="md-primary">On</md-radio-button>
                         <md-input-container flex="100" flex-gt-sm="100">
                           <input ng-model="predicate.value" name="value" placeholder="Date" type="date" required>
                           <div ng-messages="myForm.value.$error" md-auto-hide="false">
@@ -152,7 +152,7 @@
                 </div>
               </md-list-item>
             </md-list>
-            <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser || campaign.id">Add a rule</md-button>
+            <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser || (campaign.id && campaign.state == 'live')">Add a rule</md-button>
           </span>
           <!-- <p ng-hide="campaign.template == 'custom'">Include a section here that explains what each one is unless custom</p> -->
         </md-card-content>
@@ -184,6 +184,7 @@
               <label>Message Content</label>
               <textarea ng-focus="hideOthers()" ng-model="campaign.content" rows="10"></textarea>
             </md-input-container>
+            <p>You can insert any html in the content field. Dynamic variables must be wrapped in {{}} brackets. Find more in the <a href="https://oh-mimo.zendesk.com/hc/en-us/articles/360000562574-Dynamic-Campaign-Fields-and-HTML">docs</a>.</p>
           </div>
         </md-card-content>
       </md-card>

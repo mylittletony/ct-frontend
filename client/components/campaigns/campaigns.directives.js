@@ -30,8 +30,8 @@ app.directive('listCampaigns', ['Campaign', 'Location', '$routeParams', '$rootSc
       }
     };
 
-    scope.destroy = function(campaign) {
-      Campaign.destroy({location_id: scope.location.slug, id: campaign.slug}).$promise.then(function(results) {
+    var destroy = function(campaign) {
+      Campaign.destroy({location_id: scope.location.slug, id: campaign.id}).$promise.then(function(results) {
         removeFromList(campaign);
       }, function(err) {
         showErrors(err);
@@ -46,7 +46,7 @@ app.directive('listCampaigns', ['Campaign', 'Location', '$routeParams', '$rootSc
       .ok(gettextCatalog.getString('Delete'))
       .cancel(gettextCatalog.getString('Cancel'));
       $mdDialog.show(confirm).then(function() {
-        scope.destroy(campaign);
+        destroy(campaign);
       }, function() {
       });
     };
@@ -112,8 +112,13 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
 
   var link = function(scope,element,attrs) {
 
+    var isNumber = function(number) {
+      if (Number.isInteger(number / 1)) {
+        return true;
+      }
+    };
+
     scope.campaign = { slug: $routeParams.campaign_id };
-    // scope.location = {slug: $routeParams.id};
 
     scope.available_options = [];
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
@@ -253,6 +258,16 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       }).$promise.then(function(results) {
         scope.campaign = results;
         scope.campaign.hard_state = results.state;
+
+        var len = results.predicates.length;
+        for (var i=0; i < len; i++) {
+          if (isNumber(scope.campaign.predicates[i].value)) {
+            results.predicates[i].relative = true;
+            continue;
+          }
+          results.predicates[i].relative = false;
+        }
+
         scope.campaign.holding_predicates = results.predicates;
         scope.loading = undefined;
       }, function(err) {
@@ -265,10 +280,10 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       scope.campaign.relative = true;
       scope.campaign.template = 'signed_up_now';
       scope.campaign.holding_predicates = [];
-      scope.campaign.holding_predicates.push({operator: 'lte', value: 1, attribute: 'created_at'});
+      scope.campaign.holding_predicates.push({operator: 'lte', value: 1, attribute: 'created_at', relative: true});
       scope.campaign.predicate_type = 'and';
-      scope.campaign.title = 'Thanks for stopping by';
-      scope.campaign.content = 'Hey {{ FirstName }}, thanks again!';
+      scope.campaign.title = 'Thanks for being awesome';
+      scope.campaign.content = 'Hey {{ Username }}, thanks for joining us!';
       scope.campaign.state = 'draft';
       scope.loading = undefined;
     };
