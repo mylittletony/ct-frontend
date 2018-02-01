@@ -21,7 +21,7 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
         scope.loading = undefined;
         scope.activity = results.activity;
       });
-    }
+    };
 
     var fetchPerson = function() {
       People.query({}, {
