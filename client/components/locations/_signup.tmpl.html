@@ -20,16 +20,14 @@
             <div flex="100">
               <md-radio-group ng-model="plan_id" ng-click="setPlan(plan_id)">
                 <span ng-repeat="plan in plans">
-                  <md-radio-button value="{{ plan.unique_id }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
+                  <md-radio-button value="{{ plan.slug }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
                 </span>
               </md-radio-group>
             </div>
-            <div flex="100">
-              <p><b>All plans include 250 people!</b></p>
-            </div>
+            <p style="margin: 0;"><b>All plans include 250 people!</b></p>
             <div flex="100">
               <md-table-container>
-                <table md-table md-progress="promise">
+                <table md-table md-progress="promise" id="plans">
                   <thead md-head md-order="query.order" md-on-reorder="logOrder">
                     <tr md-row>
                       <th md-column><span></spam></th>
@@ -42,10 +40,10 @@
                       <td md-cell>
                         Beautiful splash pages
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
@@ -53,10 +51,10 @@
                       <td md-cell>
                         Unlimited devices
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
@@ -64,10 +62,10 @@
                       <td md-cell>
                         Unlimited integrations
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
@@ -75,10 +73,10 @@
                       <td md-cell>
                         Data capture
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
@@ -86,10 +84,10 @@
                       <td md-cell>
                         MailChimp connector
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
@@ -97,9 +95,9 @@
                       <td md-cell>
                         Automated campaigns
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
@@ -107,9 +105,9 @@
                       <td md-cell>
                         Outbound messaging
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
@@ -117,9 +115,9 @@
                       <td md-cell>
                         Audience targetting
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
                       </td>
-                      <td md-cell>
+                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
                         <md-icon>check</md-icon>
                       </td>
                     </tr>

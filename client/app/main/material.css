@@ -1342,3 +1342,12 @@ md-list .md-subheader {
 .splash-settings md-divider {
   border-top-width:1px!important;
 }
+
+td.activePlan {
+  background: #ffe9b4;
+}
+
+table#plans td.md-cell {
+  padding: 8px 24px;
+  font-size: 14px;
+}
