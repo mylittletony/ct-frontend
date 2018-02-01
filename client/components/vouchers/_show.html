@@ -1,194 +1,170 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-href="/#/{{ location.slug }}/splash_pages" name="splash">
-      Splash Pages
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/{{ location.slug }}/vouchers" name="vouchers">
-      Vouchers
-    </md-nav-item>
-    <md-nav-item md-nav-href="/#/{{ location.slug }}/splash_codes" name="codes">
-      Codes
-    </md-nav-item>
-  </md-nav-bar>
-</div>
+<splash-nav location="location"></splash-nav>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-  <div>
-    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back to Vouchers' | translate }}">
-      <md-tooltip md-direction="bottom">Back to Vouchers</md-tooltip>
-      <md-icon>keyboard_return</md-icon>
-    </md-button>
-  </div>
-  <span flex></span>
-</md-content>
-
-
-<md-content class="md-padding" layout="column" layout-gt-sm='column'>
-
-  <div layout="row" layout-wrap>
-    <div flex="100" flex-gt-sm="50">
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Voucher Details
-            </span>
-            <span class="md-subhead">
-              <span ng-hide="voucher.completed == true">
-                <md-progress-linear md-mode="query"></md-progress-linear>
-                <translate>
-                  Vouchers generating, please wait.
-                </translate>
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+    <div layout="row" layout-wrap>
+      <div flex="100" flex-gt-sm="40">
+        <md-card class="b-gr">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Voucher Details
               </span>
-            </span>
-            <span ng-if="!voucher.is_active" translate>
-              Voucher batch disabled.
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Batch Name</h3>
-              <p>{{ voucher.batch_name }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Description</h3>
-              <p>{{ voucher.batch_description }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line" ng-show="voucher.access_type == 1">
-            <div class="md-list-item-text">
-              <h3 translate>Validity Minutes</h3>
-              <p>{{ voucher.validity_minutes }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line" ng-show="voucher.access_type == 2">
-            <div class="md-list-item-text">
-              <h3 translate>Data Usage</h3>
-              <p>{{ voucher.access_restrict_data }}Mb</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Quantity</h3>
-              <p>{{ voucher.quantity }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Splash Page</h3>
-              <p>
-                <a ng-if="voucher.splash_page_id !== 'external'" href="/#/{{ location.slug }}/splash_pages/{{ voucher.splash_page_id }}">{{ voucher.splash_page_id }}</a>
-                <span ng-if="voucher.splash_page_id === 'external'">External Splash</span>
-              </p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>Created</h3>
-              <p>{{ voucher.created_at | humanTime }}</p>
-            </div>
-          </md-list-item>
-
-          <md-list-item class="md-2-line">
-            <div class="md-list-item-text">
-              <h3 translate>More Details</h3>
-              <md-button ng-click="toggle('more')" aria-controls="more" class="md-secondary md-icon-button" aria-label="call">
-                <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('more') ? "up" : "down" }}</md-icon>
-              </md-button>
-            </div>
-          </md-list-item>
-          <div layout="column" layout-gt-sm="column" ng-show="isOpen('more')" id="more" class="menu-toggle-list">
+              <span class="md-subhead">
+                <span ng-hide="voucher.completed == true">
+                  <md-progress-linear md-mode="query"></md-progress-linear>
+                  <translate>
+                    Vouchers generating, please wait.
+                  </translate>
+                </span>
+              </span>
+              <span ng-if="!voucher.is_active" translate>
+                Voucher batch disabled.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
 
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3 translate>Session Timeout</h3>
-                <p>{{ voucher.session_timeout }}mins</p>
+                <h3 translate>Batch Name</h3>
+                <p>{{ voucher.batch_name }}</p>
               </div>
             </md-list-item>
 
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3 translate>Idle Timeout</h3>
-                <p>{{ voucher.idle_timeout }}mins</p>
+                <h3 translate>Description</h3>
+                <p>{{ voucher.batch_description }}</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line" ng-show="voucher.access_type == 1">
+              <div class="md-list-item-text">
+                <h3 translate>Validity Minutes</h3>
+                <p>{{ voucher.validity_minutes }}</p>
+              </div>
+            </md-list-item>
+
+            <md-list-item class="md-2-line" ng-show="voucher.access_type == 2">
+              <div class="md-list-item-text">
+                <h3 translate>Data Usage</h3>
+                <p>{{ voucher.access_restrict_data }}Mb</p>
               </div>
             </md-list-item>
 
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3 translate>Simultaneous Users</h3>
-                <p>{{ voucher.simultaneous_use }}</p>
+                <h3 translate>Quantity</h3>
+                <p>{{ voucher.quantity }}</p>
               </div>
             </md-list-item>
 
             <md-list-item class="md-2-line">
               <div class="md-list-item-text">
-                <h3 translate>Format</h3>
-                <p>{{ voucher.voucher_format }}</p>
-              </div>
-            </md-list-item>
-
-            <md-list-item class="md-2-line">
-              <div class="md-list-item-text">
-                <h3 translate>Speeds</h3>
+                <h3 translate>Splash Page</h3>
                 <p>
-                  {{ (voucher.download_speed / 1024) | number:0 }}Mbps
-                  <md-icon md-font-icon="" >arrow_downward</md-icon>
-                  {{ (voucher.upload_speed / 1024) | number:0 }}Mbps
-                  <md-icon md-font-icon="" >arrow_upward</md-icon>
+                  <a ng-if="voucher.splash_page_id !== 'external'" href="/#/{{ location.slug }}/splash_pages/{{ voucher.splash_page_id }}">{{ voucher.splash_page_id }}</a>
+                  <span ng-if="voucher.splash_page_id === 'external'">External Splash</span>
                 </p>
               </div>
             </md-list-item>
 
-          </div>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>Created</h3>
+                <p>{{ voucher.created_at | humanTime }}</p>
+              </div>
+            </md-list-item>
 
-        </md-card-content>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3 translate>More Details</h3>
+                <md-button ng-click="toggle('more')" aria-controls="more" class="md-secondary md-icon-button" aria-label="call">
+                  <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('more') ? "up" : "down" }}</md-icon>
+                </md-button>
+              </div>
+            </md-list-item>
+            <div layout="column" layout-gt-sm="column" ng-show="isOpen('more')" id="more" class="menu-toggle-list">
 
-      </md-card>
-    </div>
+              <md-list-item class="md-2-line">
+                <div class="md-list-item-text">
+                  <h3 translate>Session Timeout</h3>
+                  <p>{{ voucher.session_timeout }}mins</p>
+                </div>
+              </md-list-item>
 
-    <div flex="100" flex-gt-sm="50">
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Downloads
-            </span>
-            <span class="md-subhead">
-              <p translate>You can download the codes for three months after creation.</p>
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          <span ng-hide="voucher.completed" translate>Your codes have not generated yet, please wait.</span>
-          <span ng-show="voucher.completed" translate>Download your codes using the links below.</span>
-        </md-card-content>
-        <md-card-actions layout="row">
-          <md-button ng-click='regenerateLink()' ng-disabled='!voucher.completed || voucher.state == "regenerating" || voucher.csv_link'><translate>REGENERATE</translate></md-button>
-          <span flex></span>
-          <md-button ng-disabled="!voucher.pdf_link" class="" href="{{ voucher.pdf_link}}" target="_blank"><translate>PDF</translate></md-button>
-          <md-button ng-disabled="!voucher.pdf_link" class="" href="{{ voucher.csv_link}}" target="_blank"><translate>CSV</translate></md-button>
-        </md-card-actions>
-      </md-card>
-      <md-button ng-click="edit()" class="md-raised">
-        Edit
-      </md-button>
-      <md-button ng-click="destroy()" class="md-raised md-warn">
-        Delete
-      </md-button>
+              <md-list-item class="md-2-line">
+                <div class="md-list-item-text">
+                  <h3 translate>Idle Timeout</h3>
+                  <p>{{ voucher.idle_timeout }}mins</p>
+                </div>
+              </md-list-item>
+
+              <md-list-item class="md-2-line">
+                <div class="md-list-item-text">
+                  <h3 translate>Simultaneous Users</h3>
+                  <p>{{ voucher.simultaneous_use }}</p>
+                </div>
+              </md-list-item>
+
+              <md-list-item class="md-2-line">
+                <div class="md-list-item-text">
+                  <h3 translate>Format</h3>
+                  <p>{{ voucher.voucher_format }}</p>
+                </div>
+              </md-list-item>
+
+              <md-list-item class="md-2-line">
+                <div class="md-list-item-text">
+                  <h3 translate>Speeds</h3>
+                  <p>
+                    {{ (voucher.download_speed / 1024) | number:0 }}Mbps
+                    <md-icon md-font-icon="" >arrow_downward</md-icon>
+                    {{ (voucher.upload_speed / 1024) | number:0 }}Mbps
+                    <md-icon md-font-icon="" >arrow_upward</md-icon>
+                  </p>
+                </div>
+              </md-list-item>
+
+            </div>
+
+          </md-card-content>
+
+        </md-card>
+      </div>
+
+      <div flex="100" flex-gt-sm="60">
+        <md-card class="b-gr">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Downloads
+              </span>
+              <span class="md-subhead">
+                <p translate>You can download the codes for three months after creation.</p>
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <span ng-hide="voucher.completed" translate>Your codes have not generated yet, please wait.</span>
+            <span ng-show="voucher.completed" translate>Download your codes using the links below.</span>
+          </md-card-content>
+          <md-card-actions layout="row">
+            <md-button ng-click='regenerateLink()' ng-disabled='!voucher.completed || voucher.state == "regenerating" || voucher.csv_link'><translate>REGENERATE</translate></md-button>
+            <span flex></span>
+            <md-button ng-disabled="!voucher.pdf_link" class="" href="{{ voucher.pdf_link}}" target="_blank"><translate>PDF</translate></md-button>
+            <md-button ng-disabled="!voucher.pdf_link" class="" href="{{ voucher.csv_link}}" target="_blank"><translate>CSV</translate></md-button>
+          </md-card-actions>
+        </md-card>
+        <md-button ng-click="edit()" class="md-raised">
+          Edit
+        </md-button>
+        <md-button ng-click="destroy()" class="md-raised md-warn">
+          Delete
+        </md-button>
+      </div>
+
     </div>
   </div>
-
 </md-content>

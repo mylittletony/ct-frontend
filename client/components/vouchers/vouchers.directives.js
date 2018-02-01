@@ -241,6 +241,7 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
 
   var link = function(scope) {
 
+    scope.currentNavItem = 'vouchers';
     scope.voucher   = {};
     scope.location  = { slug: $routeParams.id };
 
@@ -533,6 +534,7 @@ app.directive('editVoucher', ['Location', 'Voucher', '$routeParams', '$location'
       console.log(err);
     });
 
+    scope.currentNavItem = 'vouchers';
     scope.location  = { slug: $routeParams.id };
 
     scope.access_types                = [{ key: gettextCatalog.getString('Time'), value: 1}, {key: gettextCatalog.getString('Data'), value: 2}];

@@ -1,23 +1,7 @@
-<div class="top-nav">
-  <md-nav-bar
-    md-no-ink-bar="disableInkBar"
-    md-selected-nav-item="currentNavItem"
-    nav-bar-aria-label="navigation links">
-  </md-nav-bar>
-</div>
+<splash-nav location="location"></splash-nav>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta">
-  <div>
-    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back to Vouchers' | translate }}">
-      <md-tooltip md-direction="bottom">Back to Vouchers</md-tooltip>
-      <md-icon>keyboard_return</md-icon>
-    </md-button>
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
+  <div flex="100" flex-gt-md="60" flex-gt-lg="50">
+    <div ng-include="'components/vouchers/_form.html'"></div>
   </div>
-  <span flex></span>
-</md-content>
-
-<md-content class="md-padding" layout="column" layout-gt-sm='column' layout-wrap>
-
-  <div ng-include="'components/vouchers/_form.html'"></div>
-
 </md-content>
