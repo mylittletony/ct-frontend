@@ -129,8 +129,8 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
       });
     };
 
-    var setProfilePhoto = function(social) {
-      if (social[0].facebook_id) {
+    var setProfilePhoto = function() {
+      if (scope.person.social && scope.person.social[0].facebook_id) {
         scope.person.profile_photo = 'https://graph.facebook.com/' + social[0].facebook_id + '/picture?type=large';
       } else {
         scope.person.profile_photo = 'https://s3-eu-west-1.amazonaws.com/mimo-labs/images/mimo-logo.svg';
@@ -140,9 +140,7 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
     var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;
-        if (res.social) {
-          setProfilePhoto(res.social);
-        }
+        setProfilePhoto();
         scope.loading  = undefined;
       }, function(err) {
         scope.loading  = undefined;

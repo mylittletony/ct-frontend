@@ -297,7 +297,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
         location: $scope.location
       }, function(data) {
         if (slug !== data.slug) {
-          $location.path('/locations/' + data.slug + '/settings');
+          $location.path('/' + data.slug + '/settings');
         }
         showToast(gettextCatalog.getString('Successfully updated location.'));
       }, function(err) {
@@ -306,7 +306,7 @@ app.directive('locationSettings', ['Location', '$location', '$routeParams', '$md
     };
 
     this.back = function() {
-      window.location.href = '/#/locations/' + slug + '/settings';
+      window.location.href = '/#/' + slug + '/settings';
     };
 
     init();
@@ -711,23 +711,23 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
     };
 
     var security = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/settings/security';
+      window.location.href = '/#/' + scope.location.slug + '/settings/security';
     };
 
     var notifications = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/settings/notifications';
+      window.location.href = '/#/' + scope.location.slug + '/settings/notifications';
     };
 
     var devices = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/settings/devices';
+      window.location.href = '/#/' + scope.location.slug + '/settings/devices';
     };
 
     var splash = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/settings/splash';
+      window.location.href = '/#/' + scope.location.slug + '/settings/splash';
     };
 
     var analytics = function() {
-      window.location.href = '/#/locations/' + scope.location.slug + '/settings/analytics';
+      window.location.href = '/#/' + scope.location.slug + '/settings/analytics';
     };
 
     // user permissions //

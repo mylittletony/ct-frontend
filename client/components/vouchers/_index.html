@@ -49,7 +49,7 @@
 <form ng-submit="search()" name="myForm">
   <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
     <div flex="100" flex-gt-md="60" flex-gt-lg="50">
-      <md-card>
+      <md-card class="b-gr">
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" translate>
@@ -68,7 +68,7 @@
   </md-content>
   <md-content layout-padding layout="row" layout-wrap layout-align="center center">
     <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-show="vouchers.length > 0 || searching || query.filter">
-      <md-card>
+      <md-card class="b-gr">
         <md-card-content>
           <md-table-container>
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
