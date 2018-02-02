@@ -83,38 +83,23 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     menu.isOpenLeft = false;
     menu.isOpen = false;
 
-    scope.loading = true;
     scope.stage = $location.hash();
-
-    var setStage = function(stage) {
-      if (stage === 1) {
-        // if (scope.brand_url) {
-        $location.hash('user');
-        // } else {
-        //   $location.hash('brand');
-        //   scope.checkBrand();
-        // }
-      } else if (stage === 2) {
-        $location.hash('user');
-      } else if (stage === 3) {
-        $location.hash('confirm');
-      } else if (stage === 'fin') {
-        save();
-      }
-      setHeadings();
+    scope.holding = {
+      id: $routeParams.id
     };
+    scope.loading = true;
 
     var setHeadings = function() {
-      if ($location.hash() === 'done') {
+      if (scope.stage === 4) {
         scope.title = gettextCatalog.getString('Your dashboard is being created.');
         scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
-      } else if ($location.hash() === 'brand') {
+      } else if (scope.stage === 'brand') {
         scope.title = gettextCatalog.getString('What web address do you want for your dashboard?');
         scope.subhead = gettextCatalog.getString('Choose the address you\'ll use to sign-in.');
-      } else if ($location.hash() === 'user') {
+      } else if (scope.stage === 'user') {
         scope.title = gettextCatalog.getString('What should we call you?');
         scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
-      } else if ($location.hash() === 'confirm') {
+      } else if (scope.stage === 'confirm') {
         scope.title = gettextCatalog.getString('Last Stage');
         scope.subhead = gettextCatalog.getString('By clicking create dashboard, you\'re agreeing to our terms of use. You can read these at cucumberwifi.io/terms');
       } else if (!scope.creatingAccount) {
@@ -123,81 +108,52 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       }
     };
 
-    var cookies = $cookies.get('_cth', { domain: domain });
-    if (cookies) {
-      scope.holding = JSON.parse(cookies);
-    } else {
-      scope.holding = {};
-    }
-    setStage();
+    setHeadings();
 
-    scope.brandName = BrandName;
-    if (scope.brandName.name === 'CT WiFi') {
-      scope.brandName.name = gettextCatalog.getString('My Awesome Company');
-    }
-
-    scope.checkBrand = function(form) {
-      scope.invalid_brand = undefined;
-      if (scope.holding.url) {
-        Brand.query({
-          id: scope.holding.url,
-          type: 'showcase',
-          check: true
-        }).$promise.then(function(results) {
-          scope.invalid_brand = true;
-        }, function() {
-          scope.brandOk = true;
-        });
+    var setStage = function() {
+      if (scope.stage === 1) {
+        $location.hash('user');
+      } else if (scope.stage === 2) {
+        $location.hash('user');
+      } else if (scope.stage === 3) {
+        $location.hash('confirm');
       }
+      setHeadings();
     };
 
     var init = function() {
-      Holding.get({id: $routeParams.id}).$promise.then(function(data) {
-        if (data.brand_id && data.brand_url) {
-          scope.brand_url = data.brand_url;
-        }
+      Holding.get({}, {id: scope.holding.id}).$promise.then(function(data) {
+        scope.holding = data;
         scope.loading = undefined;
       }, function(err) {
         $cookies.remove('_cth', { domain: domain });
+        $cookies.remove('_cttid', { domain: domain });
         $location.path('/create');
       });
     };
 
-    var setCookies = function() {
-      var now         = new Date();
-      var ts          = now.setDate(now.getDate() + 1);
-      var expires     = new Date(ts);
-      $cookies.put('_cth', JSON.stringify(scope.user), { domain: domain, expires: expires } );
-    };
-
     scope.update = function(stage) {
-      scope.user = scope.holding;
-      setCookies();
-      setStage(stage);
+      scope.stage = stage;
+      setStage();
+      if (scope.stage === 4) { scope.holding.finalised = true; }
+      save();
     };
 
     var save = function() {
-      $location.hash('done');
-      scope.creatingAccount = true;
-      if (scope.brand_url) {
-        scope.user.url = scope.brand_url;
-      }
-      Holding.update({},{id: $routeParams.id, holding_account: scope.user, v2: true}).$promise.then(function(data) {
+      Holding.update({}, {id: $routeParams.id, holding_account: scope.holding}).$promise.then(function(data) {
         scope.errors = undefined;
-        var timer = $timeout(function() {
-          $timeout.cancel(timer);
-          scope.switchBrand(data);
-        }, 5000);
-
+        if (scope.holding.finalised) {
+          $cookies.put('_cta', data.token, {domain: '.' + domain});
+          var timer = $timeout(function() {
+            $timeout.cancel(timer);
+            getMe(data);
+          }, 3000);
+        }
       }, function(err) {
+        setHeadings();
         showErrors(err);
         scope.updating = undefined;
       });
-    };
-
-    scope.switchBrand = function(data) {
-      $cookies.put('_cta', data.token, {domain: '.' + domain});
-      getMe(data);
     };
 
     var getMe = function(data) {
