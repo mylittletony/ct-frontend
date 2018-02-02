@@ -1,4 +1,5 @@
-<camp-nav></camp-nav>
+<camp-nav ng-show="!person.id"></camp-nav>
+<people-nav location="location" ng-show="person.id"></people-nav>
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
   <div flex-gt-sm="100">
@@ -88,7 +89,7 @@
           </table>
         </md-table-container>
       </md-card-content>
-      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+      <md-table-pagination md-limit="500" md-limit-options="[500]" md-page="1" md-total="{{activity.length}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
 
     </md-card>
   </div>

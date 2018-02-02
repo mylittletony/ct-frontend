@@ -1,27 +1,9 @@
-<camp-nav></camp-nav>
+<camp-nav ng-show="!person.id"></camp-nav>
+<people-nav location="location" ng-show="person.id"></people-nav>
 
-<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta">
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" style="padding-bottom: 55px">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <md-card>
-      <md-toolbar class="md-table-toolbar md-default">
-        <div class="md-toolbar-tools">
-          <div flex></div>
-          <md-menu ng-if="selected.length">
-            <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-fab md-mini md-warn" ng-click="$mdOpenMenu($event)">
-              <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-            </md-button>
-            <md-menu-content width="4" >
-              <md-menu-item>
-                <md-button ng-click="deleteDevices()">
-                  <md-icon>delete_forever</md-icon>
-              <p flex translate>Delete Devices</p>
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
-        </div>
-      </md-toolbar>
-
       <md-card-content>
         <md-table-container>
           <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
@@ -52,7 +34,7 @@
                       <md-menu-item>
                         <md-button href="/#/{{location.slug}}/{{person.id ? 'people/' + person.id + '/' : 'campaigns/'}}messages/{{activity.message_id}}">
                           <md-icon>pageview</md-icon>
-                      <p flex translate>View</p>
+                      <p flex translate>View Message</p>
                         </md-button>
                       </md-menu-item>
                     </md-menu-content>
@@ -63,7 +45,7 @@
           </table>
         </md-table-container>
       </md-card-content>
-      <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+      <md-table-pagination md-limit="500" md-limit-options="[500]" md-page="1" md-total="{{activity.length}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
 
     </md-card>
   </div>

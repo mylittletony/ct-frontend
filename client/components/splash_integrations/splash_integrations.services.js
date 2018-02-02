@@ -6,6 +6,9 @@ app.factory('SplashIntegration', ['$resource', '$localStorage', 'API_END_POINT',
   function($resource, $localStorage, API_END_POINT){
     return $resource(API_END_POINT + '/locations/:location_id/splash_integrations/:id',
       {
+        location_id: '@location_id',
+        id: '@id',
+        splash_integration: '@splash_integration'
       },
       {
       query: {
@@ -31,6 +34,10 @@ app.factory('SplashIntegration', ['$resource', '$localStorage', 'API_END_POINT',
           id: '@id',
           splash_integration: '@splash_integration'
         }
+      },
+      destroy: {
+        method: 'DELETE',
+        isArray: false
       },
       integration_action: {
         method: 'GET',

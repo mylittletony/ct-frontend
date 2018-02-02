@@ -1,6 +1,6 @@
 <location-settings-nav></location-settings-nav>
 
-<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="!integration.type">
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="integration && !integration.type" ng-cloak>
   <div flex="100" flex-gt-md="60" flex-gt-lg="50">
     <md-card class="b-or">
       <md-card-title>
@@ -13,7 +13,7 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p>You can currently connect MIMO to your <b>UniFi, Ruckus VSZ and Meraki</b> devices. MIMO provides beautifully simple splash pages and advanced customer engagement tools.</p>
+        <p>Connect MIMO to your <b>UniFi, Ruckus VSZ and Meraki</b> devices. MIMO provides beautifully simple splash pages and advanced customer engagement tools.</p>
         <p>Getting started takes less than 2 minutes - we'll configure everything for you.</p>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
@@ -25,7 +25,31 @@
   </div>
 </md-content>
 
-<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="integration.type">
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="integration && integration.type && integration.active == false" ng-cloak>
+  <div flex="100" flex-gt-md="60" flex-gt-lg="50">
+    <md-card class="b-or">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Incompleted Setup
+          </span>
+          <span class="md-subhead">
+          </span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <p>You haven't finished the setup of your {{ integration.type | integrationType }} integration.</p>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-href="/#/{{ location.slug }}/integration/{{ integration.type}}/auth" class="md-primary md-raised">
+          Complete Setup
+        </md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</md-content>
+
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="integration.type && integration.active">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <div layout="row" layout-align="center center">
       <div flex="100" flex-gt-sm="100">
@@ -37,9 +61,7 @@
                 <span class="md-headline" translate>
                   Integration Details
                 </span>
-                <span class="md-subhead">
-                  Make changes to your auth settings below and revalidate your integration.
-                </span>
+                <p>You cannot change the integration type once it's been created. To add a new integration, delete the current one first.</p>
               </md-card-title-text>
             </md-card-title>
 
@@ -159,6 +181,9 @@
               <div>
                 <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
                   Test Integration
+                </md-button>
+                <md-button ng-click="destroy()" class="md-raised md-warn">
+                  Delete Integration
                 </md-button>
               </div>
             </md-card-actions>
