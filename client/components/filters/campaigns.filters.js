@@ -12,15 +12,15 @@ app.filter('humanPredicate', [ 'gettextCatalog', function(gettextCatalog) {
   return function(predicate) {
     if (predicate === '' || predicate === undefined || predicate === null) {
       return;
-    } 
-    
+    }
+
     var phrase, attr;
 
     switch(predicate.attribute) {
       case 'created_at':
         attr = 'Signed up';
         break;
-      case 'updated_at':
+      case 'last_seen':
         attr = 'Last seen';
         break;
       case 'login_count':
