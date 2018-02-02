@@ -63,30 +63,34 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     menu.isOpenLeft = false;
     menu.isOpen = false;
 
-    scope.loading = true;
     scope.stage = $location.hash();
-
-    var setStage = function(stage) {
-      if (stage === 1) {
-        $location.hash('user');
-      } else if (stage === 2) {
-        $location.hash('user');
-      } else if (stage === 3) {
-        $location.hash('confirm');
-      } else if (stage === 'fin') {
-        save();
-      }
-      setHeadings();
+    scope.holding = {
+      id: $routeParams.id
     };
+    scope.loading = true;
+
+    // if ($routeParams.id) {
+    //   var now         = new Date();
+    //   var ts          = now.setDate(now.getDate() + 1);
+    //   var expires     = new Date(ts);
+    //   $cookies.put('_cttid', $routeParams.id, { domain: domain, expires: expires } );
+    // } else {
+    //   var cookie = $cookies.get('_cttid', { domain: domain });
+    //   if (cookie) {
+    //     scope.holding.id = cookie;
+    //   } else {
+    //     $location.path('/create');
+    //   }
+    // }
 
     var setHeadings = function() {
-      if ($location.hash() === 'done') {
+      if (scope.stage === 4) {
         scope.title = gettextCatalog.getString('The elves are making your MIMO dashboard.');
         scope.subhead = gettextCatalog.getString('They won\'t be long, please wait about 3 seconds.');
-      } else if ($location.hash() === 'user') {
+      } else if (scope.stage === 'user') {
         scope.title = gettextCatalog.getString('Step 2 - what\'s your name?');
         scope.subhead = gettextCatalog.getString('It\'s a pleasure to meet you!');
-      } else if ($location.hash() === 'confirm') {
+      } else if (scope.stage === 'confirm') {
         scope.title = gettextCatalog.getString('Step 3 - nearly done, phew!');
         scope.subhead = gettextCatalog.getString('By signing-up, you\'re agreeing to our terms of use. Read these at oh-mimo.com/terms');
       } else if (!scope.creatingAccount) {
@@ -95,67 +99,21 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       }
     };
 
-    var cookies = $cookies.get('_cth', { domain: domain });
-    if (cookies) {
-      scope.holding = JSON.parse(cookies);
-    } else {
-      scope.holding = {};
-    }
-    setStage();
+    setHeadings();
 
-    var init = function() {
-      Holding.get({id: $routeParams.id}).$promise.then(function(data) {
-        if (data.brand_id && data.brand_url) {
-          scope.brand_url = data.brand_url;
-        }
-        scope.loading = undefined;
-      }, function(err) {
-        $cookies.remove('_cth', { domain: domain });
-        $location.path('/create');
-      });
-    };
-
-    var setCookies = function() {
-      var now         = new Date();
-      var ts          = now.setDate(now.getDate() + 1);
-      var expires     = new Date(ts);
-      $cookies.put('_cth', JSON.stringify(scope.user), { domain: domain, expires: expires } );
-    };
-
-    scope.update = function(stage) {
-      scope.user = scope.holding;
-      setCookies();
-      setStage(stage);
-    };
-
-   var switchBrand = function(data) {
-      $cookies.put('_mta', data.token, {domain: '.' + domain});
-      getMe(data);
-    };
-
-    var save = function() {
-      $location.hash('done');
-      scope.creatingAccount = true;
-      Holding.update({},{id: $routeParams.id, holding_account: scope.user}).$promise.then(function(data) {
-        scope.errors = undefined;
-        var timer = $timeout(function() {
-          $timeout.cancel(timer);
-          switchBrand(data);
-        }, 4000);
-
-      }, function(err) {
-        showErrors(err);
-        scope.updating = undefined;
-      });
+    var login = function(domain, loginArgs) {
+      $cookies.remove('_cth', { domain: domain });
+      $cookies.remove('_cttid', { domain: domain });
+      $rootScope.$broadcast('login', loginArgs);
     };
 
     var getMe = function(data) {
       Me.get({}).$promise.then(function(res) {
         var search = {};
         var loginArgs = { data: res, search: search, path: '/' + data.location_slug + '/guide'};
+
         var domain = locationHelper.domain();
-        $location.hash('');
-        Holding.destroy({id: data.id}).$promise.then(function(data) {
+        Holding.destroy({}, {id: $routeParams.id}).$promise.then(function(data) {
           login(domain, loginArgs);
         }, function() {
           login(domain, loginArgs);
@@ -164,13 +122,52 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       });
     };
 
-    var login = function(domain, loginArgs) {
-      $cookies.remove('_cth', { domain: domain });
-      $rootScope.$broadcast('login', loginArgs);
+    var save = function() {
+      Holding.update({}, {id: $routeParams.id, holding_account: scope.holding}).$promise.then(function(data) {
+        scope.errors = undefined;
+        if (scope.holding.finalised) {
+          $cookies.put('_mta', data.token, {domain: '.' + domain});
+          var timer = $timeout(function() {
+            $timeout.cancel(timer);
+            getMe(data);
+          }, 3000);
+        }
+      }, function(err) {
+        setHeadings();
+        showErrors(err);
+        scope.updating = undefined;
+      });
     };
 
-    scope.back = function() {
-      window.history.back();
+
+    var setStage = function() {
+      if (scope.stage === 1) {
+        $location.hash('user');
+      } else if (scope.stage === 2) {
+        $location.hash('user');
+      } else if (scope.stage === 3) {
+        $location.hash('confirm');
+      }
+      setHeadings();
+    };
+
+    var init = function() {
+      Holding.get({}, {id: scope.holding.id}).$promise.then(function(data) {
+        console.log(data);
+        scope.holding = data;
+        scope.loading = undefined;
+      }, function(err) {
+        $cookies.remove('_cth', { domain: domain });
+        $cookies.remove('_cttid', { domain: domain });
+        $location.path('/create');
+      });
+    };
+
+    scope.update = function(stage) {
+      scope.stage = stage;
+      setStage();
+      if (scope.stage === 4) { scope.holding.finalised = true; }
+      save();
     };
 
     init();

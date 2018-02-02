@@ -1,3 +1,5 @@
+alksdjflaksdjf
+{{ holding }}
 <div flex="100" layout="column" class="layout-column flex" ng-cloak style="padding-top: 14%;">
   <form name="myForm" class="flow">
     <md-content class="md-padding" layout="column" layout-gt-sm='column'>
@@ -81,7 +83,7 @@
                       <label for="password">
                         <translate>Password</translate>
                       </label>
-                      <input type="password" placeholder="Top secret password" name="password" ng-minlength="5" ng-model="holding.password" md-minlength=8 required>
+                      <input type="password" placeholder="Top secret password" name="password" ng-minlength="5" ng-model="holding.temp_password" md-minlength=8 required>
                       <md-icon>lock</md-icon>
                       <div ng-messages="myForm.password.$error" md-auto-hide="false">
                         <div ng-message="required" translate>A password is required.</div>
@@ -109,7 +111,7 @@
               <md-button ng-if="stage == 'user'" type="submit" ng-click="update(3)" ng-disabled="myForm.$invalid" class="md-raised md-primary">
                 <translate>Save</translate>
               </md-button>
-              <md-button ng-if="stage=='confirm'" ng-click="update('fin')" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary">
+              <md-button ng-if="stage=='confirm'" ng-click="update(4)" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary">
                 <translate>Lets GO!!</translate>
               </md-button>
             </md-card-actions>

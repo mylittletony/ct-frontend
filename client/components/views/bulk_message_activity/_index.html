@@ -10,7 +10,7 @@
               <tr md-row>
                 <th md-column md-order-by="description" md-desc>
                   <span translate>
-                    Created at
+                    Timestamp
                   </span>
                 </th>
                 <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Event</span></th>
@@ -23,6 +23,7 @@
                 </td>
                 <td hide show-gt-xs md-cell>
                   {{ activity.event | titleCase }}
+                  <md-tooltip ng-show="activity.useragent">{{ activity.useragent }}</md-tooltip>
                 </td>
                 <td md-cell>
                   <md-menu>
