@@ -1391,7 +1391,9 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
 
   var link = function(scope, element, attrs, controller) {
 
-    var key = Auth.currentUser().key;
+    if (Auth.currentUser()) {
+      var key = Auth.currentUser().key;
+    }
     scope.label = attrs.label || 'Free Trial';
 
     var convertToPaid = function() {
