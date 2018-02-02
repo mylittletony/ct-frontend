@@ -333,17 +333,17 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/people/:person_slug/messages', {
+    when('/:id/people/:person_id/messages', {
       templateUrl: 'components/views/bulk_messages/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/people/:person_slug/messages/:message_id', {
+    when('/:id/people/:person_id/messages/:message_id', {
       templateUrl: 'components/views/bulk_messages/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/people/:person_slug/message_activity', {
+    when('/:id/people/:person_id/message_activity', {
       templateUrl: 'components/views/bulk_message_activity/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
