@@ -1683,6 +1683,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$rout
     var clearTable = function() {
       scope.results = [];
       scope.links = undefined;
+      scope.loading = undefined;
       $location.search();
       if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
         showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
