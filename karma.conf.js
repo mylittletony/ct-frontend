@@ -44,7 +44,6 @@ module.exports = function(config) {
       'client/bower_components/moment-timezone/moment-timezone.js',
       'client/bower_components/angular-moment/angular-moment.min.js',
       'client/bower_components/angular-moment-picker/src/angular-moment-picker.js',
-      'client/bower_components/emojionearea/dist/emojionearea.min.js',
       'client/scripts/config.js',
       'client/app/app.js',
       'client/app/**/*.js',

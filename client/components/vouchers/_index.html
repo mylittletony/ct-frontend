@@ -1,6 +1,6 @@
 <splash-nav location="location"></splash-nav>
 
-<md-content layout-padding layout="row" layout-wrap class="page-meta" layout-align="center center" ng-hide="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
+<!-- <md-content layout-padding layout="row" layout-wrap class="page-meta" layout-align="center center" ng-hide="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
     <div layout="row" layout-wrap layout-align="end center">
       <span flex></span>
@@ -29,7 +29,7 @@
                 </span>
                 <span class="item-metadata">
                   <span class="item-metastat">
-                    <!-- Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span> -->
+                    Found {{ ::item._score || 0 }} record<span ng-if='item._score != 1'>s</span>
                   </span>
                 </span>
               </a>
@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-</md-content>
+</md-content> -->
 
 <form ng-submit="search()" name="myForm">
   <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-show="vouchers.length == 0 && !query.filter && !searching && myForm.$pristine">
@@ -66,7 +66,7 @@
       </md-card>
     </div>
   </md-content>
-  <md-content layout-padding layout="row" layout-wrap layout-align="center center">
+  <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta"">
     <div flex="100" flex-gt-md="90" flex-gt-lg="80" ng-show="vouchers.length > 0 || searching || query.filter">
       <md-card class="b-gr">
         <md-card-content>
