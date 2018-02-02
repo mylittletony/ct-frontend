@@ -21,7 +21,10 @@
             <tbody md-body>
               <tr md-row md-select="box" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="message in filtered = ( messages | filter: filter | orderBy: query.order)">
                 <td md-cell>
-                  <a ng-click="query(message.person_id)">
+                  <a ng-click="query(message.person_id)" ng-show="!person.id">
+                    {{ message.to_email }}</span>
+                  </a>
+                  <a href="/#/{{location.slug}}/{{person.id ? 'people/' + person.id + '/messages' : 'campaigns/messages'}}/{{message.message_id}}" ng-show="person.id">
                     {{ message.to_email }}</span>
                   </a>
                 </td>
