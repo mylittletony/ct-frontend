@@ -938,6 +938,10 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
       $location.path($routeParams.id + '/integration/unifi/setup');
     };
 
+    scope.back = function(results) {
+      $location.path($routeParams.id + '/integration');
+    };
+
     controller.fetch().then(function(integration) {
       scope.integration = integration;
       if (integration && integration.active) {
@@ -1065,6 +1069,10 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$md
 
     scope.next = function(results) {
       $location.path($routeParams.id + '/integration/vsz/setup');
+    };
+
+    scope.back = function(results) {
+      $location.path($routeParams.id + '/integration');
     };
 
     controller.fetch().then(function(integration) {
@@ -1196,6 +1204,10 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
 
     scope.next = function(results) {
       $location.path($routeParams.id + '/integration/meraki/setup');
+    };
+
+    scope.back = function(results) {
+      $location.path($routeParams.id + '/integration');
     };
 
     controller.fetch().then(function(integration) {
@@ -1683,6 +1695,7 @@ app.directive('locationAudit', ['Session', 'Email', 'Location', 'Report', '$rout
     var clearTable = function() {
       scope.results = [];
       scope.links = undefined;
+      scope.loading = undefined;
       $location.search();
       if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
         showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
