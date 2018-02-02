@@ -97,7 +97,7 @@
                     <span ng-click="showCard($index)">{{ predicate | humanPredicate }}</span>
                   </span>
                   <span ng-show="focusedCard == $index">
-                    <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'created_at' || predicate.attribute == 'updated_at'">
+                    <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'created_at' || predicate.attribute == 'last_seen'">
                       <span ng-if="predicate.relative == true">
                         <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
                         <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>

@@ -123,7 +123,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
 
     scope.available_options = [];
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
-    scope.available_options.push({value: 'updated_at', name: 'Last seen', desc: 'The last time they were seen on your network'});
+    scope.available_options.push({value: 'last_seen', name: 'Last seen', desc: 'The last time they were seen on your network'});
     scope.available_options.push({value: 'logins_count', name: 'Number of logins', desc: 'Total number of logins through your network'});
 
     scope.states = ['draft', 'live'];
@@ -147,7 +147,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
           break;
         case 1:
           pred.name = 'Last seen';
-          pred.attribute = 'updated_at';
+          pred.attribute = 'last_seen';
           pred.operator = 'gte';
           break;
         case 2:
@@ -167,7 +167,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       switch(attribute) {
         case 'created_at':
           return 'First seen';
-        case 'updated_at':
+        case 'last_seen':
           return 'Last seen';
         case 'login_count':
           return 'Number of logins';
@@ -192,7 +192,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
           break;
         case 'last_seen_30':
           scope.campaign.holding_predicates = [];
-          scope.campaign.holding_predicates.push({operator: 'rel_eq', rel_value: 30, attribute: 'updated_at'});
+          scope.campaign.holding_predicates.push({operator: 'rel_eq', rel_value: 30, attribute: 'last_seen'});
           break;
         case 'custom':
           scope.campaign.holding_predicates = [];
@@ -284,7 +284,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       scope.campaign.holding_predicates.push({
         operator: 'lte',
         value: 1,
-        attribute: 'created_at', 
+        attribute: 'created_at',
         relative: true
       });
       scope.campaign.predicate_type = 'and';
