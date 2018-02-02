@@ -137,8 +137,11 @@
                     </md-radio-group>
                   </span>
                 </md-card-content>
-                <md-card-actions layout="row" layout-align="end center" ng-hide="campaign.id">
-                  <md-icon ng-click="removePredicate($index)">delete</md-icon>
+                <md-card-actions layout-align="end end" ng-hide="(campaign.id && campaign.state == 'live')">
+                  <small>
+                    <md-icon style="font-size: 18px; margin-right: -5px; color: rgb(208, 216, 221);" ng-click="removePredicate($index)">delete</md-icon>
+                    <span style="color: rgb(167, 171, 174);">Remove Rule</span>
+                  </small>
                 </md-card-actions>
               </md-card>
             </span>
@@ -154,7 +157,6 @@
             </md-list>
             <md-button class="md-raised" ng-click="addRule()" ng-hide="showChooser || (campaign.id && campaign.state == 'live')">Add a rule</md-button>
           </span>
-          <!-- <p ng-hide="campaign.template == 'custom'">Include a section here that explains what each one is unless custom</p> -->
         </md-card-content>
       </md-card>
     </div>

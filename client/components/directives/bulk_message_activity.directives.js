@@ -2,12 +2,12 @@
 
 var app = angular.module('myApp.bulk_message_activity.directives', []);
 
-app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessageActivity,People,$mdDialog,$location) {
+app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'People', 'Location', '$mdDialog', '$location', function($routeParams,BulkMessageActivity,People, Location,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
     scope.location = {slug: $routeParams.id};
-    scope.person = {slug: $routeParams.person_slug};
+    scope.person = {id: $routeParams.person_id};
     scope.currentNavItem = 'activity';
 
     var fetchMessageActivity = function() {
@@ -26,17 +26,23 @@ app.directive('bulkMessageActivity', ['$routeParams', 'BulkMessageActivity', 'Pe
     var fetchPerson = function() {
       People.query({}, {
           location_id: scope.location.slug,
-          id: $routeParams.person_slug
+          id: $routeParams.person_id
         }).$promise.then(function(res) {
         scope.person = res;
         fetchMessageActivity();
       }, function(err) {
         console.log(err);
       });
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
     };
 
-    if ($routeParams.person_slug) {
+    if ($routeParams.person_id) {
       fetchPerson();
+      scope.currentNavItem = 'people';
     } else {
       fetchMessageActivity();
     }

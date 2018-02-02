@@ -13,7 +13,7 @@
               <span class="md-headline" translate>
                 Start your free trial today.
               </span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>To use campaigns, you will need an active subscription. Start your 14 day trial now.</p>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
@@ -26,41 +26,30 @@
     </div>
   </div>
 
-  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
-    <md-card class="b-pr">
+  <div flex="100" flex-gt-md="90">
+    <md-card class="b-gr">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">
-            <translate>What are splash pages?</translate>
+            <translate>What are Campaigns?</translate>
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <div layout="row" layout-align="center center">
-          <div flex="100" flex-gt-xs="50" flex-gt-md="20">
-            <p translate>Create a Splash Page to control your guest's access.</p>
-            <p translate>Welcome your customers when they arrive. Capture their email address. Display special offers.</p>
+          <div flex="100" flex-gt-sm="45" flex-gt-md="30">
+            <p translate>Campaigns allow you to use your captured data to engage with customers and drive retention.</p>
+            <p translate>Encourage authentic data and loyal customers with the reward of discounts and deals.</p>
           </div>
-          <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
-          <div flex="100" flex-gt-xs="50" flex-gt-md="70">
-            <img style="max-width: 90%;" src="http://www.ct-networks.io/images/community/splash-pages/boxpark.png"></img>
-          </div>
-        </div>
-        <div layout="row" layout-align="center center">
-          <md-divider></md-divider>
-          <div flex="100" flex-gt-xs="50" flex-gt-md="20">
-            <p translate>Welcome your customers back, capture emails, promote special offers.</p>
-            <splash-new style="md-raised" pages="splash_pages"></splash-new>
-          </div>
-          <div flex="100" flex-gt-xs="50" flex-gt-md="10"></div>
-          <div flex="100" flex-gt-xs="50" flex-gt-md="30">
-            <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
-          </div>
-          <div flex="100" flex-gt-xs="50" flex-gt-md="40">
-            <img style="max-width: 90%;" src="https://i.imgur.com/AvbIGOh.png"></img>
+          <div flex></div>
+          <div flex="100" flex-gt-sm="45" flex-gt-md="60">
+            <img style="max-width: 90%;" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/campaign-showcase.jpg"></img>
           </div>
         </div>
       </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button class="md-raised md-primary" ng-href="/#/{{location.slug}}/campaigns/new">Create</md-button>
+      </md-card-actions>
     </md-card>
   </div>
 
