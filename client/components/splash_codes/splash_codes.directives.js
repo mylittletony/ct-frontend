@@ -199,7 +199,7 @@ app.directive('listSplashCodes', ['Location', 'SplashCode', '$routeParams', '$lo
 
 }]);
 
-app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routeParams', '$location', 'showToast', 'showErrors', 'gettextCatalog', function(SplashCode,SplashPage,Code,$routeParams,$location,showToast,showErrors, gettextCatalog) {
+app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', 'Location', '$routeParams', '$location', 'showToast', 'showErrors', 'gettextCatalog', function(SplashCode,SplashPage,Code,Location,$routeParams,$location,showToast,showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs) {
 
@@ -231,10 +231,6 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
       offset:           offset
     };
 
-    var init = function() {
-      getSplash(scope.location.slug);
-    };
-
     function getSplash(slug) {
       SplashPage.query({location_id: scope.location.slug}).$promise.then(function(results) {
         if (results && results.splash_pages) {
@@ -256,6 +252,19 @@ app.directive('createSplashCode', ['SplashCode', 'SplashPage', 'Code', '$routePa
         // no error handling here yet //
       });
     }
+
+    function getLocation() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    }
+
+    var init = function() {
+      getSplash(scope.location.slug);
+      getLocation();
+    };
 
     scope.save = function(form) {
       form.$setPristine();
