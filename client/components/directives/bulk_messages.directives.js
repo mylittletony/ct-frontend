@@ -90,7 +90,7 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
 
 }]);
 
-app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,People,$mdDialog,$location) {
+app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', 'Location', '$mdDialog', '$location', function($routeParams,BulkMessage,People,Location,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
@@ -111,8 +111,14 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
     };
 
     var fetchPerson = function() {
-      People.query({location_id: scope.location.slug, id: $routeParams.person_slug}).$promise.then(function(res) {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+      People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;
+        scope.currentNavItem = 'people';
         fetchMessages();
       }, function(err) {
         console.log(err);
@@ -129,7 +135,7 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
       fetchMessages();
     };
 
-    if ($routeParams.person_slug) {
+    if ($routeParams.person_id) {
       fetchPerson();
     } else {
       fetchMessages();
@@ -156,12 +162,12 @@ app.directive('bulkMessages', ['$routeParams', 'BulkMessage', 'People', '$mdDial
 
 }]);
 
-app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,$mdDialog,$location) {
+app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageActivity', 'People', 'Location', '$mdDialog', '$location', function($routeParams,BulkMessage,BulkMessageActivity,People,Location,$mdDialog,$location) {
 
   var link = function( scope, element, attrs ) {
 
-    var person = {};
-    scope.location = {slug: $routeParams.id}
+    scope.person = {id: $routeParams.person_id};
+    scope.location = {slug: $routeParams.id};
     scope.currentNavItem = 'messages';
 
     var activity = function() {
@@ -174,7 +180,19 @@ app.directive('bulkMessageShow', ['$routeParams', 'BulkMessage', 'BulkMessageAct
       });
     };
 
+    var getLocation = function() {
+      Location.get({id: $routeParams.id}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
     var init = function() {
+      if (scope.person.id) {
+        getLocation();
+        scope.currentNavItem = 'people';
+      }
       BulkMessage.get({}, {
         message_id:   $routeParams.message_id,
         location_id:  $routeParams.id,
