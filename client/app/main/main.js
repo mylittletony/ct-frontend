@@ -214,21 +214,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc',
     }).
-    // when('/:id/users', {
-    //   templateUrl: 'components/locations/users/index.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/:id/settings', {
       templateUrl: 'components/locations/settings/index.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/:id/settings/notifications', {
-    //   templateUrl: 'components/locations/settings/notifications.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
     when('/:id/settings/integrations', {
       templateUrl: 'components/locations/settings/integration.html',
       controller: 'LocationsCtrl as lc',

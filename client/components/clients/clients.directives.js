@@ -198,20 +198,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
           type: 'view',
           icon: 'pageview'
         });
-
-        // Removed short-term while testing
-        // scope.clientsMenu.push({
-        //   name: gettextCatalog.getString('Disconnect'),
-        //   type: 'disconnect',
-        //   icon: 'block'
-        // });
-
-        // scope.clientsMenu.push({
-        //   name: gettextCatalog.getString('Logout'),
-        //   type: 'logout',
-        //   icon: 'exit_to_app'
-        // });
-
       }
     };
 
@@ -220,13 +206,6 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
         case 'view':
           view(client.client_mac);
           break;
-        // case 'disconnect':
-        //   client.processing = true;
-        //   alert('I will disconnect the client');
-        //   break;
-        // case 'logout':
-        //   logout(client);
-        //   break;
       }
     };
 
