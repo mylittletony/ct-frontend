@@ -48,9 +48,6 @@
                 <md-button ng-if="edit_username !== true" ng-click="editName(edit_username)" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
                   <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
                 </md-button>
-                <md-button ng-if="edit_username === true" ng-click="saveUsername()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
-                  <md-icon md-font-icon="mode_edit">save</md-icon>
-                </md-button>
               </md-card-title>
               <md-list flex>
                 <md-list-item class="md-2-line">
@@ -60,6 +57,9 @@
                     <div layout="row">
                       <form ng-submit="saveUsername()">
                         <input type="text" ng-model="person.username" ng-if="edit_username === true"></input>
+                        <md-button ng-if="edit_username === true" ng-click="saveUsername()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
+                          <md-icon md-font-icon="mode_edit">save</md-icon>
+                        </md-button>
                       </form>
                     </div>
                   </div>
