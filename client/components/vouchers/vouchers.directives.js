@@ -285,8 +285,6 @@ app.directive('newVoucher', ['Voucher', 'Location', 'SplashPage', '$location', '
             scope.voucher.splash_page_id = scope.splash_pages[0].id;
           }
         }
-        var s = { id: 'external', splash_name: 'External Splash Page' };
-        scope.splash_pages.push(s);
         replaceUniqueId();
         scope.loading = undefined;
       }, function(err) {

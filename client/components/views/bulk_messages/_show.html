@@ -16,7 +16,7 @@
               <md-list-item class="md-2-line">
                 <div class="md-list-item-text" layout="column">
                   <h3 translate>To:</h3>
-                  <p>{{message.to_name}} ({{message.to_email}})</p>
+                  <p>{{message.to_email}}</p>
                 </div>
               </md-list-item>
               <md-list-item class="md-2-line">
@@ -60,12 +60,10 @@
               <tr md-row>
                 <th md-column md-order-by="description" md-desc>
                   <span translate>
-                    Created at
+                    Timestamp
                   </span>
                 </th>
                 <th md-column hide show-gt-xs md-order-by="calledstationid"><span translate>Event</span></th>
-                <th md-column><span translate>Message ID</span></th>
-                <th md-column><span translate>Person ID</span></th>
               </tr>
             </thead>
             <tbody md-body>
@@ -77,12 +75,7 @@
                 </td>
                 <td hide show-gt-xs md-cell>
                   {{ activity.event | titleCase }}
-                </td>
-                <td hide show-gt-xs md-cell>
-                  {{ activity.message_id }}
-                </td>
-                <td hide show-gt-xs md-cell>
-                  {{ activity.person_id }}
+                  <md-tooltip ng-show="activity.useragent">{{ activity.useragent }}</md-tooltip>
                 </td>
               </tr>
             </tbody>
