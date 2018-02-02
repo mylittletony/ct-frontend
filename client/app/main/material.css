@@ -263,11 +263,7 @@ md-toolbar md-autocomplete {
 }
 
 .login {
-  background: #455A64; /* Old browsers */
-  background: -moz-linear-gradient(top,  #455A64 0%, #37474F 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #455A64 0%,#37474F 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #455A64 0%,#37474F 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#455A64', endColorstr='#37474F',GradientType=0 ); /* IE6-9 */
+  background: #475a87; /* Old browsers */
   z-index: 1000000000;
 }
 
@@ -1055,14 +1051,6 @@ camp-nav .top-nav .md-active {
 md-bottom-sheet .md-subheader {
   white-space: normal;
   line-height: 26px;
-}
-
-/*new ssid dialog*/
-
-@media (max-width: 600px) {
-  .emojionearea-button {
-    display: none;
-  }
 }
 
 @media (min-width: 600px) {
