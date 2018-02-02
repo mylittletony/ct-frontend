@@ -1394,6 +1394,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
     if (Auth.currentUser()) {
       var key = Auth.currentUser().key;
     }
+
     scope.label = attrs.label || 'Free Trial';
 
     var convertToPaid = function() {
@@ -1406,6 +1407,60 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
 
     var channel;
 
+    var calculate = function(people,plan_price) {
+      var val;
+      plan_price = parseInt(plan_price);
+      if (people <= 250) {
+        return plan_price;
+      }
+
+      function thousand(num) {
+        val = ((num - 250) / 50) * 4;
+        return val + plan_price;
+      }
+
+      if (people <= 1000) {
+        return thousand(people);
+      }
+
+      if (people <= 5000) {
+        var max = thousand(1000);
+        // val = ((people - 1000) / 500);
+        // val = max + (val * 10);
+        // return val + plan_price;
+        if (people <= 1500) {
+          return max + 10;
+        }
+
+        if (people <= 2000) {
+          return max + 20;
+        }
+
+        if (people <= 2500) {
+          return max + 30;
+        }
+
+        if (people <= 3000) {
+          return max + 40;
+        }
+
+        if (people <= 3500) {
+          return max + 50;
+        }
+
+        if (people <= 4000) {
+          return max + 60;
+        }
+
+        if (people <= 4500) {
+          return max + 70;
+        }
+
+      }
+
+      return 0;
+    };
+
     function DoucheController($scope, plans) {
       if (!plans) {
         alert('No plans, contact the MIMO team!');
@@ -1416,6 +1471,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       $scope.plans = plans;
       $scope.plan  = plans[1];
       $scope.plan_id = $scope.plan.slug;
+      $scope.people = 250;
 
       $scope.setPlan = function(plan_id) {
         for (var i=0; i < plans.length; i++) {
@@ -1445,6 +1501,10 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
         if ($scope.selectedIndex < 4) {
           $scope.selectedIndex++;
         }
+      };
+
+      $scope.price = function() {
+        return calculate($scope.people, $scope.plan.plan_price);
       };
 
       var subscribe = function() {

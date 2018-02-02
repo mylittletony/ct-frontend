@@ -69,20 +69,6 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     };
     scope.loading = true;
 
-    // if ($routeParams.id) {
-    //   var now         = new Date();
-    //   var ts          = now.setDate(now.getDate() + 1);
-    //   var expires     = new Date(ts);
-    //   $cookies.put('_cttid', $routeParams.id, { domain: domain, expires: expires } );
-    // } else {
-    //   var cookie = $cookies.get('_cttid', { domain: domain });
-    //   if (cookie) {
-    //     scope.holding.id = cookie;
-    //   } else {
-    //     $location.path('/create');
-    //   }
-    // }
-
     var setHeadings = function() {
       if (scope.stage === 4) {
         scope.title = gettextCatalog.getString('The elves are making your MIMO dashboard.');
@@ -139,7 +125,6 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       });
     };
 
-
     var setStage = function() {
       if (scope.stage === 1) {
         $location.hash('user');
@@ -153,7 +138,6 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     var init = function() {
       Holding.get({}, {id: scope.holding.id}).$promise.then(function(data) {
-        console.log(data);
         scope.holding = data;
         scope.loading = undefined;
       }, function(err) {
@@ -168,6 +152,10 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       setStage();
       if (scope.stage === 4) { scope.holding.finalised = true; }
       save();
+    };
+
+    scope.back = function() {
+      window.history.back();
     };
 
     init();
