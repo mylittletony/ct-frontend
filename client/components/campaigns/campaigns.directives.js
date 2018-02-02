@@ -138,7 +138,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
 
     scope.onSelect = function(index) {
       scope.showChooser = undefined;
-      var pred = { value: '', operator: 'gte' };
+      var pred = { value: '', operator: 'gte', relative: true };
       switch(index) {
         case 0:
           pred.name = 'First seen';
@@ -281,7 +281,12 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       scope.campaign.relative = true;
       scope.campaign.template = 'signed_up_now';
       scope.campaign.holding_predicates = [];
-      scope.campaign.holding_predicates.push({operator: 'lte', value: 1, attribute: 'created_at', relative: true});
+      scope.campaign.holding_predicates.push({
+        operator: 'lte',
+        value: 1,
+        attribute: 'created_at', 
+        relative: true
+      });
       scope.campaign.predicate_type = 'and';
       scope.campaign.title = 'Thanks for being awesome';
       scope.campaign.content = 'Hey {{ Username }}, thanks for joining us!';
