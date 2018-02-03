@@ -40,20 +40,9 @@
             </md-list-item>
             <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
               <div class="md-list-item-text">
-                <h3 translate>Subscription Created</h3>
+                <h3 translate>Account Created</h3>
                 <p>
-                  {{ user.period_started | humanTime }}
-                </p>
-              </div>
-            </md-list-item>
-            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="user.enterprise">
-              <div class="md-list-item-text">
-                <h3 translate>
-                  <md-icon md-font-icon="arrow_back">star</md-icon>
-                  Enterprise Customer
-                </h3>
-                <p>
-                  Enterprise plans enabled
+                  {{ user.created_at | humanTime }}
                 </p>
               </div>
             </md-list-item>
@@ -63,8 +52,9 @@
                   Billing Currency
                 </h3>
                 <p>
-                  <b>{{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})</b>
-                  Please contact support to change this.
+                  <b>
+                    {{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})
+                    Please contact support to change this</b>.
                 </p>
               </div>
             </md-list-item>
@@ -74,8 +64,6 @@
       </md-card>
       <user-plans user="user"></user-plans>
       <user-billing-settings user="user"></user-billing-settings>
-      <!-- <user-coupon key="{{user.key}}" coupons="user.active_coupons"></user-coupon> -->
-      <!-- <user-cancel user="user" ng-if="user.subscription_active"></user-cancel> -->
     </div>
   </div>
 </md-content>
