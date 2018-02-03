@@ -84,13 +84,10 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     menu.isOpen = false;
 
     scope.stage = $location.hash();
-    scope.holding = {
-      id: $routeParams.id
-    };
     scope.loading = true;
 
     var setHeadings = function() {
-      if (scope.stage === 4) {
+      if (scope.stage === 'done') {
         scope.title = gettextCatalog.getString('Your dashboard is being created.');
         scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
       } else if (scope.stage === 'brand') {
@@ -110,19 +107,14 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     setHeadings();
 
-    var setStage = function() {
-      if (scope.stage === 1) {
-        $location.hash('user');
-      } else if (scope.stage === 2) {
-        $location.hash('user');
-      } else if (scope.stage === 3) {
-        $location.hash('confirm');
-      }
+    var setStage = function(stage) {
+      scope.stage = stage;
+      $location.hash(stage);
       setHeadings();
     };
 
     var init = function() {
-      Holding.get({}, {id: scope.holding.id}).$promise.then(function(data) {
+      Holding.get({}, {id: $routeParams.id}).$promise.then(function(data) {
         scope.holding = data;
         scope.loading = undefined;
       }, function(err) {
@@ -134,21 +126,28 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
 
     scope.update = function(stage) {
       scope.stage = stage;
-      setStage();
-      if (scope.stage === 4) { scope.holding.finalised = true; }
+      setStage(stage);
+      if (scope.stage === 'done') { scope.holding.finalised = true; }
       save();
     };
 
+    var finalised = function(data) {
+      if (scope.holding.finalised) {
+        $cookies.put('_cta', data.token, {domain: '.' + domain});
+        var timer = $timeout(function() {
+          $timeout.cancel(timer);
+          getMe(data);
+        }, 3000);
+      }
+    }
+
     var save = function() {
-      Holding.update({}, {id: $routeParams.id, holding_account: scope.holding}).$promise.then(function(data) {
+      Holding.update({}, {
+        id: $routeParams.id,
+        holding_account: scope.holding
+      }).$promise.then(function(data) {
         scope.errors = undefined;
-        if (scope.holding.finalised) {
-          $cookies.put('_cta', data.token, {domain: '.' + domain});
-          var timer = $timeout(function() {
-            $timeout.cancel(timer);
-            getMe(data);
-          }, 3000);
-        }
+        finalised(data);
       }, function(err) {
         setHeadings();
         showErrors(err);

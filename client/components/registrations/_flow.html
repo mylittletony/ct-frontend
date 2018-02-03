@@ -100,16 +100,13 @@
                   <translate>Back</translate>
                 </md-button>
               </md-card-icon-actions>
-              <md-button ng-if="!stage && stage != 'done'" type="submit" ng-click="update(1)" ng-disabled="myForm.$invalid" class="signup-flow md-raised md-primary">
+              <md-button ng-if="!stage && stage != 'done'" type="submit" ng-click="update('user')" ng-disabled="myForm.$invalid" class="signup-flow md-raised md-primary">
                 <translate>Save</translate>
               </md-button>
-              <md-button ng-if="stage=='brand' "type="submit" ng-click="update(2)" ng-disabled="brandOk !== true || myForm.$invalid" class="md-raised md-primary">
+              <md-button ng-if="stage == 'user'" type="submit" ng-click="update('confirm')" ng-disabled="myForm.$invalid" class="md-raised md-primary">
                 <translate>Save</translate>
               </md-button>
-              <md-button ng-if="stage == 'user'" type="submit" ng-click="update(3)" ng-disabled="myForm.$invalid" class="md-raised md-primary">
-                <translate>Save</translate>
-              </md-button>
-              <md-button ng-if="stage=='confirm'" ng-click="update(4)" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary">
+              <md-button ng-if="stage=='confirm'" ng-click="update('done')" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary">
                 <translate>Create Dashboard</translate>
               </md-button>
             </md-card-actions>
