@@ -1456,6 +1456,10 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
           return max + 70;
         }
 
+        if (people < 5000) {
+          return max + 80;
+        }
+
       }
 
       return 0;
