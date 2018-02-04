@@ -1407,15 +1407,24 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
 
     var channel;
 
-    var calculate = function(people,plan_price) {
+    var calculate = function(people,plan) {
       var val;
-      plan_price = parseInt(plan_price);
+      var base_1 = 4;
+      var base_2 = 10;
+      var plan_price = parseInt(plan.plan_price);
+      var currency = plan.currency;
+
+      if (plan.currency === 'GBP') {
+        base_1 = 3;
+        base_2 = 8;
+      }
+
       if (people <= 250) {
         return plan_price;
       }
 
       function thousand(num) {
-        val = ((num - 250) / 50) * 4;
+        val = ((num - 250) / 50) * base_1;
         return val + plan_price;
       }
 
@@ -1429,31 +1438,31 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
         // val = max + (val * 10);
         // return val + plan_price;
         if (people <= 1500) {
-          return max + 10;
+          return max + base_2;
         }
 
         if (people <= 2000) {
-          return max + 20;
+          return max + 2*base_2;
         }
 
         if (people <= 2500) {
-          return max + 30;
+          return max + 3*base_2;
         }
 
         if (people <= 3000) {
-          return max + 40;
+          return max + 4*base_2;
         }
 
         if (people <= 3500) {
-          return max + 50;
+          return max + 5*base_2;
         }
 
         if (people <= 4000) {
-          return max + 60;
+          return max + 6*base_2;
         }
 
         if (people <= 4500) {
-          return max + 70;
+          return max + 7*base_2;
         }
 
         if (people < 5000) {
@@ -1476,6 +1485,18 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       $scope.plan  = plans[1];
       $scope.plan_id = $scope.plan.slug;
       $scope.people = 250;
+      
+      var currency = function(curr) {
+        if (curr === 'GBP') {
+          $scope.curr = '£';
+        } else if (curr === 'EUR' ) {
+          $scope.curr = '€';
+        } else {
+          $scope.curr = '$';
+        }
+      };
+
+      console.log(plans)
 
       $scope.setPlan = function(plan_id) {
         for (var i=0; i < plans.length; i++) {
@@ -1485,6 +1506,8 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
           }
         }
       };
+
+      currency($scope.plan.currency);
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -1508,7 +1531,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       };
 
       $scope.price = function() {
-        return calculate($scope.people, $scope.plan.plan_price);
+        return calculate($scope.people, $scope.plan);
       };
 
       var subscribe = function() {

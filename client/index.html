@@ -41,23 +41,32 @@
   <!-- endinjector -->
   <!-- endbuild -->
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-  <script type="text/javascript">
-    window.google.charts.load('current', {'packages':['corechart', 'timeline']});
-  </script>
-
   <style type="text/css">
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
       display: none !important;
     }
   </style>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W6CQJJK');</script>
+  <!-- End Google Tag Manager -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript">
+    window.google.charts.load('current', {'packages':['corechart', 'timeline']});
+  </script>
+
 </head>
 
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
+
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6CQJJK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 

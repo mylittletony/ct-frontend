@@ -36,6 +36,9 @@
               <div ng-message="email" translate>You must enter a valid email</div>
             </div>
           </md-input-container>
+          <div flex="100" ng-show="error">
+            <h4>{{ error }}</h4>
+          </div>
           <div flex="100" ng-show="valid == false">
             <p style="margin:0px;">
               If you have just added <b>{{ message.from_email }}</b>, a confirmation email has been sent to you.

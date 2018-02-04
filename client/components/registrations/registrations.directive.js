@@ -64,15 +64,13 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     menu.isOpen = false;
 
     scope.stage = $location.hash();
-    scope.holding = {
-      id: $routeParams.id
-    };
     scope.loading = true;
 
     var setHeadings = function() {
-      if (scope.stage === 4) {
+      console.log(scope.stage, 981273);
+      if (scope.stage === 'done') {
         scope.title = gettextCatalog.getString('The elves are making your MIMO dashboard.');
-        scope.subhead = gettextCatalog.getString('They won\'t be long, please wait about 3 seconds.');
+        scope.subhead = gettextCatalog.getString('Dance like nobody\'s watching you. Sing a little too.');
       } else if (scope.stage === 'user') {
         scope.title = gettextCatalog.getString('Step 2 - what\'s your name?');
         scope.subhead = gettextCatalog.getString('It\'s a pleasure to meet you!');
@@ -99,7 +97,9 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         var loginArgs = { data: res, search: search, path: '/' + data.location_slug + '/guide'};
 
         var domain = locationHelper.domain();
-        Holding.destroy({}, {id: $routeParams.id}).$promise.then(function(data) {
+        Holding.destroy({}, {
+          id: scope.holding.token
+        }).$promise.then(function(data) {
           login(domain, loginArgs);
         }, function() {
           login(domain, loginArgs);
@@ -108,16 +108,23 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       });
     };
 
+    var finalise = function(data) {
+      if (scope.holding.finalised) {
+        $cookies.put('_mta', data.token, {domain: '.' + domain});
+        var timer = $timeout(function() {
+          $timeout.cancel(timer);
+          getMe(data);
+        }, 3000);
+      }
+    };
+
     var save = function() {
-      Holding.update({}, {id: $routeParams.id, holding_account: scope.holding}).$promise.then(function(data) {
+      Holding.update({}, {
+        id: $routeParams.id,
+        holding_account: scope.holding
+      }).$promise.then(function(data) {
         scope.errors = undefined;
-        if (scope.holding.finalised) {
-          $cookies.put('_mta', data.token, {domain: '.' + domain});
-          var timer = $timeout(function() {
-            $timeout.cancel(timer);
-            getMe(data);
-          }, 3000);
-        }
+        finalise(data);
       }, function(err) {
         setHeadings();
         showErrors(err);
@@ -126,19 +133,15 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     };
 
     var setStage = function() {
-      if (scope.stage === 1) {
-        $location.hash('user');
-      } else if (scope.stage === 2) {
-        $location.hash('user');
-      } else if (scope.stage === 3) {
-        $location.hash('confirm');
-      }
+      $location.hash(scope.stage);
       setHeadings();
     };
 
     var init = function() {
-      Holding.get({}, {id: scope.holding.id}).$promise.then(function(data) {
-        scope.holding = data;
+      Holding.get({}, {
+        id: $routeParams.id
+      }).$promise.then(function(results) {
+        scope.holding = results;
         scope.loading = undefined;
       }, function(err) {
         $cookies.remove('_cth', { domain: domain });
@@ -150,7 +153,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     scope.update = function(stage) {
       scope.stage = stage;
       setStage();
-      if (scope.stage === 4) { scope.holding.finalised = true; }
+      if (scope.stage === 'done') { scope.holding.finalised = true; }
       save();
     };
 
@@ -158,7 +161,9 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       window.history.back();
     };
 
-    init();
+    if (!scope.holding) {
+      init();
+    }
   };
 
   return {

@@ -56,6 +56,11 @@ app.directive('sendBulkMessage', ['$routeParams', 'BulkMessage', '$mdDialog', 's
         }).$promise.then(function(msg) {
           $scope.valid = true;
         }, function(err) {
+          if (err && err.data && err.data.message) {
+            console.log(err);
+            $scope.error = err.data.message[0];
+            return;
+          } 
           $scope.valid = false;
         });
       };

@@ -24,7 +24,7 @@
                 </span>
               </md-radio-group>
             </div>
-            <p style="margin: 0;"><b>All plans include 250 people!</b></p>
+            <p style="margin: 0;"><b>The Engage Plan includes 100,000 monthly emails!</b></p>
             <div flex="100">
               <md-table-container>
                 <table md-table md-progress="promise" id="plans">
@@ -82,17 +82,6 @@
                     </tr>
                     <tr>
                       <td md-cell>
-                        MailChimp connector
-                      </td>
-                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
-                        <md-icon>check</md-icon>
-                      </td>
-                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
-                        <md-icon>check</md-icon>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td md-cell>
                         Automated campaigns
                       </td>
                       <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
@@ -121,17 +110,6 @@
                         <md-icon>check</md-icon>
                       </td>
                     </tr>
-                    <tr>
-                      <td md-cell>
-                        Monthly emails
-                      </td>
-                      <td md-cell ng-class="plan.plan_name == 'Splash' ? 'activePlan' : ''">
-                        0
-                      </td>
-                      <td md-cell ng-class="plan.plan_name == 'Engage' ? 'activePlan' : ''">
-                        100,000
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </md-table-container>
@@ -142,23 +120,22 @@
         <md-tab label="two">
           <md-content layout-padding layout='column' flex layout-wrap>
             <h2>Estimate number of users</h2>
-            <p>With MIMO, you're billed by people, not access points. A person is someone who uses your public WiFi network.</p>
-            <p>With engage, you can send up to 100,000 emails per month!</p>
-            <h3>{{ people | number }} People</h3>
+            <p>With MIMO, you're billed by number people - the individual users of your WiFi network. You can add unlimited access points and locations.</p>
+            <h3>Upto {{ people | number }} People</h3>
             <md-slider-container>
-              <md-slider flex max="5000" step="50" min="250" ng-model="people" aria-label="red" id="red-slider">
+              <md-slider flex max="5000" step="50" min="0" ng-model="people" aria-label="red" id="red-slider">
               </md-slider>
             </md-slider-container>
-            <h2 ng-show="people < 5000">Cost per month ${{ price() }}</h2>
+            <h2 ng-show="people < 5000">Cost per month {{ curr }}{{ price() }}<span ng-if="curr === '£'"> (plus VAT)</span></h2>
             <h2 ng-show="people >= 5000">Contact us for enterprise pricing.</h2>
           </md-content>
         </md-tab>
 
         <md-tab label="three">
           <md-content layout-padding layout='row' flex layout-wrap>
-            <h2>Enter payment details</h2>
+            <h2 style="margin-bottom: 0px;">Enter payment details</h2>
             <p><b>Cancel any time in the first 14 days and you won't be charged</b>. The free trial includes all the features of the plan you've selected.</p>
-            <h3><b>{{ plan.plan_price | currency : curr }}</b> per month.</h3>
+            <h3 style="margin-top: 0px;"><b>Expected cost per month: {{ plan.plan_price | currency : curr }}</b>.</h3>
 
             <md-input-container class="md-block" flex="100">
               <label translate>Card Number</label>
@@ -182,6 +159,7 @@
                 <div ng-message="expiry" translate>Invalid CVC</div>
               </div>
             </md-input-container>
+            <p style="margin-top: -40px;"><small><b>If your currency is wrong, please contact support. It cannot be changed later.</b></small></p>
             <img src="https://d3e9l1phmgx8f2.cloudfront.net/images/logos/powered_by_stripe_3x.png" style="width: 150px; height: 33px;"/>
           </md-content>
         </md-tab>
@@ -200,7 +178,7 @@
 
         <md-tab label="five">
           <md-content layout-padding layout='row' flex layout-wrap>
-            <h1 class="md-display-2">You're all set! High-fives!</h1>
+            <h2>You're all set! High-fives!</h2>
             <p>We're just adding the finishing touches to your MIMO account. You'll be on your way soon.</p>
             <p>Thanks for signing up for MIMO today!</p>
           </md-content>
@@ -211,11 +189,11 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="back()" ng-if="selectedindex > 0 && (selectedindex != 3 || errors)">
-        back
-      </md-button>
       <md-button ng-click="cancel()" ng-if="selectedIndex != 3">
         Close
+      </md-button>
+      <md-button ng-click="back()" ng-if="(selectedindex != 3 && selectedIndex != 0) || errors">
+        back
       </md-button>
       <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex <= 1">
         Next

@@ -103,7 +103,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/create/:id', {
       templateUrl: 'components/registrations/flow.html',
-      resolve: { loggedIn: loggedIn }
+      resolve: { loggedIn: loggedIn },
+      reloadOnSearch: false
     }).
     when('/me', {
       templateUrl: 'components/users/show/index.html',
