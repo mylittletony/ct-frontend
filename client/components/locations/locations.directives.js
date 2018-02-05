@@ -550,6 +550,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       getParams();
       Guest.get(params).$promise.then(function(data, err) {
         scope.selected = 'Guests';
+        scope.guest_columns = Object.keys(data.guests[0].registration_data);
         scope.results = data.guests;
         scope.links = data._links;
         $location.search();

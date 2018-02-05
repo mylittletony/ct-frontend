@@ -57,6 +57,7 @@
                   <th hide show-gt-sm md-column ng-show="selected == 'Emails'"><span translate>Type</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Sales'"><span translate>Voucher</span></th>
                   <th hide show-gt-xs md-column ng-show="selected == 'Sales'"><span translate>Total</span></th>
+                  <th hide show-gt-xs md-column ng-show="selected == 'Guests'" ng-repeat="column in guest_columns"><span translate>{{column}}</span></th>
                   <th hide show-gt-sm md-column ng-show="selected == 'Emails' || selected ==  'Guests' || selected ==  'Sales' || selected == 'Clients'"><span translate>Created</span></th>
                   <th hide show-gt-md md-column ng-show="selected == 'Sales' || selected == 'Guests'"><span translate>Mac</span></th>
                   <th hide show-gt-sm md-column ng-show="selected == 'Sales'"><span translate>Merchant</span></th>
@@ -145,6 +146,7 @@
                   </td>
                   <td hide show-gt-md md-cell ng-show="selected == 'Sales'">{{ ::(result.vouchers | truncate:20) }}</td>
                   <td hide show-gt-xs md-cell ng-show="selected == 'Sales'">{{ result.total / 100 | currency:result.currency }}</td>
+                  <td hide show-gt-md md-cell ng-show="selected == 'Guests'" ng-repeat="field in guest_columns">{{ result.registration_data[field] }}</td>
                   <td hide show-gt-sm md-cell ng-show="selected == 'Emails' || selected == 'Guests' || selected == 'Sales' || selected == 'Clients'">
                     {{ ::(result.created_at | humanTimeShort ) }}
                   </td>
