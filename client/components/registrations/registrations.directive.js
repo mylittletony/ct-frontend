@@ -61,7 +61,6 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
       scope.cookies = undefined;
       $cookies.remove('_cth', { domain: domain });
     };
-
   };
 
   return {
@@ -69,7 +68,6 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     scope: {},
     templateUrl: 'components/registrations/_create.html'
   };
-
 }]);
 
 app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'BrandName', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'Brand', 'gettextCatalog','$timeout', function(Holding, $routeParams, $location, $rootScope, BrandName, locationHelper, $cookies, menu, Me, showErrors, showToast, Brand, gettextCatalog, $timeout) {
