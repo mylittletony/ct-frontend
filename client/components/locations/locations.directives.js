@@ -1368,7 +1368,7 @@ app.directive('gettingStarted', ['Location', '$routeParams', '$location', '$http
 
     scope.$watch('location',function(nv){
       if (nv !== undefined && scope.location.setup) {
-        if (scope.location.setup && scope.location.setup.splash && scope.location.setup.integrations) {
+        if (scope.location.setup && scope.location.setup.splash && scope.location.setup.integrations && scope.location.paid) {
           $location.path('/' + scope.location.slug);
         } else {
           scope.loading = undefined;
@@ -1485,7 +1485,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       $scope.plan  = plans[1];
       $scope.plan_id = $scope.plan.slug;
       $scope.people = 250;
-      
+
       var currency = function(curr) {
         if (curr === 'GBP') {
           $scope.curr = '£';
