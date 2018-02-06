@@ -189,7 +189,7 @@
         <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleSidenav()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
-        <span show-sm>
+        <span show-sm ng-if="!user">
           <div class="sidenav md-toolbar-tools">
             <a class="mimo-logo">
               <img class="mimo-logo" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/mimo-logo.svg">

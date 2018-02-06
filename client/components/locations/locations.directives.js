@@ -1485,7 +1485,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       $scope.plan  = plans[1];
       $scope.plan_id = $scope.plan.slug;
       $scope.people = 250;
-      
+
       var currency = function(curr) {
         if (curr === 'GBP') {
           $scope.curr = '£';
@@ -1495,8 +1495,6 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
           $scope.curr = '$';
         }
       };
-
-      console.log(plans)
 
       $scope.setPlan = function(plan_id) {
         for (var i=0; i < plans.length; i++) {
@@ -1535,10 +1533,12 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       };
 
       var subscribe = function() {
+        console.log('Client', client);
         if (typeof client === 'undefined') {
           return;
         }
 
+        console.log('Key', key)
         var pusher = $pusher(client);
         if (!key) {
           return;
