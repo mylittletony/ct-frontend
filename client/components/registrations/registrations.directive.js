@@ -49,6 +49,11 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     }
 
     scope.create = function() {
+      var c = $cookies.get('_cth');
+      if (c) {
+        console.log('Preventing dup');
+        return;
+      }
       scope.invited   = true;
       scope.cookies   = { d: new Date().getTime(), u: scope.user };
       var now         = new Date();
