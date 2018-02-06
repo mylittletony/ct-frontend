@@ -71,14 +71,6 @@ jobs:
           && git config --global user.name "Simon Morley"\
           && grunt buildcontrol:$CIRCLE_BRANCH && echo 'done'
 
-      - run: |
-          if [ "$CIRCLE_BRANCH"  == "master" ]
-          then
-            rm -rf dist/.git && grunt buildcontrol:usa && echo 'Done!'
-          else
-            echo 'Not updating USA branch...'
-          fi
-
 workflows:
   version: 2
   build-test-and-deploy:

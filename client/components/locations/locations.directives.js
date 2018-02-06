@@ -1533,12 +1533,10 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       };
 
       var subscribe = function() {
-        console.log('Client', client);
         if (typeof client === 'undefined') {
           return;
         }
 
-        console.log('Key', key)
         var pusher = $pusher(client);
         if (!key) {
           return;
@@ -1563,10 +1561,8 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       var upgrade = function(card) {
         subscribe();
         Subscription.create({plan_id: $scope.plan_id, card: card}).$promise.then(function(data) {
-          console.log('data', data);
           $scope.selectedIndex = 3;
         }, function(err) {
-          console.log('er', err)
           $scope.subscribing = undefined;
           $scope.errors = err.data.message;
         });
@@ -1577,12 +1573,11 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       };
 
       $scope.stripeCallback = function (code, result) {
-        console.log(123, code, result)
+        $scope.errors = undefined;
+        $scope.next();
         if (result.error) {
-          showErrors({data: result.error.message});
+          $scope.errors = result.error.message;
         } else {
-          console.log('as', result);
-          $scope.next();
           createSubscription(result.id);
         }
       };
