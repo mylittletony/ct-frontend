@@ -1563,8 +1563,10 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       var upgrade = function(card) {
         subscribe();
         Subscription.create({plan_id: $scope.plan_id, card: card}).$promise.then(function(data) {
+          console.log('data', data);
           $scope.selectedIndex = 3;
         }, function(err) {
+          console.log('er', err)
           $scope.subscribing = undefined;
           $scope.errors = err.data.message;
         });
@@ -1578,6 +1580,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
         if (result.error) {
           showErrors({data: result.error.message});
         } else {
+          console.log('as', result);
           $scope.next();
           createSubscription(result.id);
         }
