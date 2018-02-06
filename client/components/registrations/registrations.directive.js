@@ -31,7 +31,12 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     };
 
     if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
-      var cname = subdomain + '.' + domain;
+      var cname;
+      if (subdomain) {
+        cname = subdomain + '.' + domain;
+      } else {
+        cname = domain;
+      }
       brandCheck(cname, true);
     } else if (subdomain !== 'my' && subdomain !== 'dashboard') {
       brandCheck(subdomain);
