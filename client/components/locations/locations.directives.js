@@ -1577,6 +1577,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
       };
 
       $scope.stripeCallback = function (code, result) {
+        console.log(123, code, result)
         if (result.error) {
           showErrors({data: result.error.message});
         } else {
