@@ -17,11 +17,11 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     scope.brand_name = 'CT WiFi';
     scope.user = {};
 
-    var brandCheck = function() {
+    var brandCheck = function(id,cname) {
       Brand.query({
-        id: subdomain + domain,
+        id: id,
         type: 'showcase',
-        cname: true
+        cname: cname
       }).$promise.then(function(results) {
         if (results.reseller) {
           scope.brand = results;
@@ -30,8 +30,11 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
       });
     };
 
-    if (domain !== 'ctapp.io' || domain !== 'ctapp.dev') {
-      brandCheck();
+    if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
+      var cname = subdomain + '.' + domain;
+      brandCheck(cname, true);
+    } else if (subdomain !== 'my' && subdomain !== 'dashboard') {
+      brandCheck(subdomain);
     }
 
     var cookies = $cookies.get('_cth', { domain: domain });
