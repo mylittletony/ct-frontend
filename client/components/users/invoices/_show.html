@@ -28,8 +28,8 @@
           <tbody md-body>
             <tr md-row ng-repeat="line in filtered = (results.lines | filter: query.filter | orderBy: query.direction)">
               <td md-cell>
-                {{ ::line.plan_name }} Plan <br>
-                <small>{{ line.period_start * 1000 | amDateFormat:'MMMM Do YYYY' }} - {{ line.period_end * 1000 | amDateFormat:'MMMM Do YYYY' }}</small>
+                {{ line.plan_name || line.description }} <br>
+                <small ng-show="line.plan_name">{{ line.period_start * 1000 | amDateFormat:'MMMM Do YYYY' }} - {{ line.period_end * 1000 | amDateFormat:'MMMM Do YYYY' }}</small>
               </td>
               <td md-cell>{{ (line.amount / 100) | currency : results.invoice.currency_f }}</td>
             </tr>
@@ -38,7 +38,7 @@
               <td md-cell>{{ results.invoice.subtotal / 100 | currency : results.invoice.currency_f }}</td>
             </tr>
             <tr md-row>
-              <td md-cell style="text-align: right;"><translate>Tax at {{ invoice.tax_percent }}%</translate></td>
+              <td md-cell style="text-align: right;"><translate>Tax at {{ results.invoice.tax_percent }}%</translate></td>
               <td md-cell>{{ results.invoice.tax / 100 | currency : results.invoice.currency_f }}</td>
             </tr>
             <tr md-row>
@@ -53,8 +53,7 @@
           <div class="md-list-item-text" layout="column">
             <h3 translate>Cucumber Tony Limited</h3>
             <h4 translate>
-              83 Rivington Street<br>
-              London EC2A 3AY
+              4-5 Bonhill Street, Shoreditch. London EC2A 4BX
             </h4>
             <p>
               <translate>Company Number: 09332205</translate><br>

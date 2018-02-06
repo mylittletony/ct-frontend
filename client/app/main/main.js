@@ -261,9 +261,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/create', {
       templateUrl: 'components/registrations/create.html',
-      // controller: function($rootScope) {
-      //   $rootScope.$broadcast('intercom', {hi: 'simon'});
-      // },
       resolve: { loggedIn: loggedIn }
     }).
     when('/success', {
@@ -271,7 +268,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/create/:id', {
       templateUrl: 'components/registrations/flow.html',
-      resolve: { loggedIn: loggedIn }
+      resolve: { loggedIn: loggedIn },
+      reloadOnSearch: false
     }).
     when('/distributors/:id', {
       templateUrl: 'components/distros/distro.html',
@@ -400,11 +398,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/locations/:id/settings', {
       templateUrl: 'components/locations/settings/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/settings/notifications', {
-      templateUrl: 'components/locations/settings/notifications.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
