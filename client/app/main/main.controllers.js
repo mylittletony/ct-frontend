@@ -292,16 +292,17 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     function promos() {
-      User.promos({}, {
-        action: 'promos',
-        id: Auth.currentUser().slug
-      }).$promise.then(function(results) {
-        vm.promos = results;
-      }, function() {
-        if (Auth.currentUser().paid_plan !== true) {
-          vm.upgrade = true;
-        }
-      });
+      // put me back if we run a promos!
+      // User.promos({}, {
+      //   action: 'promos',
+      //   id: Auth.currentUser().slug
+      // }).$promise.then(function(results) {
+      //   vm.promos = results;
+      // }, function() {
+      //   if (Auth.currentUser().paid_plan !== true) {
+      //     vm.upgrade = true;
+      //   }
+      // });
     }
 
     function menuPush() {

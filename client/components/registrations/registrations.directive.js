@@ -8,6 +8,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
 
     var domain = locationHelper.domain();
     var subdomain = locationHelper.subdomain();
+    scope.loading = true;
 
     menu.hideToolbar = false;
     menu.hideBurger = true;
@@ -61,9 +62,23 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
     };
 
     scope.clearCookies = function() {
-      scope.cookies = undefined;
+      $location.search({});
+      scope.loaded    = true;
+      scope.email     = undefined;
+      scope.loading   = undefined;
+      scope.cookies   = undefined;
       $cookies.remove('_cth', { domain: domain });
     };
+
+    if ($routeParams.email) {
+      scope.email = true;
+      scope.user.email = $routeParams.email;
+      scope.create();
+    } else {
+      scope.loading = undefined;
+      scope.loaded = true;
+    }
+
   };
 
   return {
