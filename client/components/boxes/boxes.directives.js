@@ -786,6 +786,9 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
           {key: 'VHT80', value: 'VHT80'},
           // {key: 'VHT160', value: 'VHT160'}
         ];
+        if (scope.box.dual_band && scope.box.ht_mode_5 !== 'VHT20' && scope.box.ht_mode_5 !== 'VHT40' && scope.box.ht_mode_5 !== 'VHT80') {
+          scope.box.ht_mode_5 = 'VHT20';
+        }
       } else {
         scope.ht_modes_5 = scope.ht_modes;
       }
