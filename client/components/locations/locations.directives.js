@@ -1492,8 +1492,6 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
         }
       };
 
-      console.log(plans)
-
       $scope.setPlan = function(plan_id) {
         for (var i=0; i < plans.length; i++) {
           if (plan_id === plans[i].slug) {
@@ -1537,6 +1535,7 @@ app.directive('getWithThePlan', ['Location', '$routeParams', '$location', 'Subsc
 
         var pusher = $pusher(client);
         if (!key) {
+          console.log('No key!!');
           return;
         }
 

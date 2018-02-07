@@ -166,7 +166,7 @@
 
         <md-tab label="four">
           <md-content layout-padding layout='row' flex layout-wrap>
-            <h1 class="md-display-2">Processing Payment</h1>
+            <h1>Processing Payment</h1>
             <p>Please wait while we process your payment and create your subscription.</p>
             <p ng-hide="errors">Do not close this window! It might take a few seconds. Tick tock.</p>
             <span ng-show="errors">
@@ -192,7 +192,7 @@
       <md-button ng-click="cancel()" ng-if="selectedIndex != 3">
         Close
       </md-button>
-      <md-button ng-click="back()" ng-if="(selectedindex != 3 && selectedIndex != 0) || errors">
+      <md-button ng-click="back()" ng-if="selectedindex != 3 || selectedIndex != 0)">
         back
       </md-button>
       <md-button ng-click="next()" style="margin-right:20px;" ng-if="selectedIndex <= 1">
