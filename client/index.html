@@ -68,6 +68,9 @@
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
+    <div class="locked-account" ng-show="user.locked">
+      Your account is locked due to a billing issue. If you think this is an error, please contact support.<br>Otherwise <a href='/#/users/{{user.slug}}/billing' style="color: white">sign up here.</a>
+    </div>
     <md-toolbar ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
       <div class="md-toolbar-tools">
         <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleOpen()" aria-label="'Settings' | translate">
