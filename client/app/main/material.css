@@ -823,3 +823,14 @@ md-bottom-sheet .md-subheader {
   height:auto;
   width:auto;
 }
+
+.locked-account {
+  background-color: #ff007f;
+  margin: 7px;
+  padding: 80px 0px;
+  /* font-weight: bold; */
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
