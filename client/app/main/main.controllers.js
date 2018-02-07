@@ -150,7 +150,7 @@ app.controller('MainCtrl', ['$rootScope', 'Location', '$scope', '$localStorage',
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser()) { //&& INTERCOM && INTERCOM !== '' && INTERCOM !== undefined) {
+      if (Auth.currentUser()) && INTERCOM && INTERCOM !== '' && INTERCOM !== undefined) {
         var user = Auth.currentUser();
         window.analytics.identify(user.accountId, {
           name:  user.username,
