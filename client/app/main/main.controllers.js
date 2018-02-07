@@ -263,21 +263,22 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     $scope.$on('intercom', function(args,event) {
       if (Auth.currentUser() && Auth.currentUser().user_hash !== undefined) {
         vm.menu.Intercom = true;
+        var user = Auth.currentUser();
         window.intercomSettings = {
             app_id: INTERCOM,
-            user_id: Auth.currentUser().accountId,
-            email: Auth.currentUser().email,
-            name: Auth.currentUser().username,
-            locked: Auth.currentUser().locked,
-            created_at: Auth.currentUser().created_at,
-            user_hash: Auth.currentUser().user_hash,
-            brand_name: Auth.currentUser().url,
-            cname: Auth.currentUser().cname,
-            paid_plan: Auth.currentUser().paid_plan,
-            reseller: Auth.currentUser().reseller,
-            customer_of_reseller: Auth.currentUser().cor,
-            locs: Auth.currentUser().locs,
-            hide_default_launcher: !Auth.currentUser().chat_enabled || false
+            user_id: user.accountId,
+            email: user.email,
+            name: user.username,
+            locked: user.locked,
+            created_at: user.created_at,
+            user_hash: user.user_hash,
+            brand_name: user.url,
+            cname: user.cname,
+            paid_plan: user.paid_plan,
+            reseller: user.reseller,
+            customer_of_reseller: user.cor,
+            locs: user.locs,
+            hide_default_launcher: !user.chat_enabled || false
         };
       }
 
