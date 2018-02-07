@@ -187,8 +187,8 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     };
 
     if (!scope.holding) {
-      let timer = $timeout(function() {
-        $timeout.cancel(timer);
+      var ttimer = $timeout(function() {
+        $timeout.cancel(ttimer);
         getGA();
       }, 500);
     }
