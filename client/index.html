@@ -41,23 +41,32 @@
   <!-- endinjector -->
   <!-- endbuild -->
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-  <script type="text/javascript">
-    window.google.charts.load('current', {'packages':['corechart', 'timeline']});
-  </script>
-
   <style type="text/css">
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
       display: none !important;
     }
   </style>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W6CQJJK');</script>
+  <!-- End Google Tag Manager -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript">
+    window.google.charts.load('current', {'packages':['corechart', 'timeline']});
+  </script>
+
 </head>
 
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
+
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6CQJJK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
@@ -66,7 +75,8 @@
               aria-label="'Main Menu' | translate"
               md-whiteframe="4"
               md-is-open="vm.menu.isOpenLeft"
-              md-is-locked-open="$mdMedia('gt-sm')">
+              md-is-locked-open="$mdMedia('gt-sm')"
+              ng-show="user">
 
     <md-content role="navigation" class="flex" ng-cloak>
 
@@ -179,39 +189,48 @@
         <md-button id="main" ng-if="!vm.menu.hideBurger" class="md-icon-button" ng-click="toggleSidenav()" aria-label="'Settings' | translate">
           <md-icon>menu</md-icon>
         </md-button>
+        <span show-sm ng-if="!user">
+          <div class="sidenav md-toolbar-tools">
+            <a class="mimo-logo">
+              <img class="mimo-logo" src="https://s3-eu-west-1.amazonaws.com/mimo-labs/images/mimo-logo.svg">
+            </a>
+          </div>
+        </span>
         <get-with-the-plan ng-show="location.paid == false" label="Free Trial"></get-with-the-plan>
         <span flex></span>
         <md-button ng-click="toggleLocations()" class="md-icon-button" aria-label="'Locations' | translate" ng-if="user">
           <md-tooltip md-direction="bottom">Locations</md-tooltip>
-            <md-icon>place</md-icon>
+          <md-icon>place</md-icon>
         </md-button>
-        <md-button iing-if="location_slug" class="md-icon-button" ng-click="settings()">
-          <md-tooltip md-direction="bottom">Settings</md-tooltip>
-          <md-icon>settings</md-icon>
-        </md-button>
-        <md-button iing-if="location_slug" class="md-icon-button" ng-click="settings('/audit')">
-          <md-tooltip md-direction="right">Audit</md-tooltip>
-          <md-icon>list</md-icon>
-        </md-button>
-        <md-menu md-position-mode="target-right target" md-offset="40 0">
-          <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-            <user-avatar></user-avatar>
+        <span ng-if="user">
+          <md-button class="md-icon-button" ng-click="settings()">
+            <md-tooltip md-direction="bottom">Settings</md-tooltip>
+            <md-icon>settings</md-icon>
           </md-button>
-          <md-menu-content width="3">
-            <md-menu-item>
-              <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
-                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
-                <span translate>Account</span>
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button ng-click="logout()">
-                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">exit_to_app</md-icon>
-                <span translate>Logout</span>
-              </md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
+          <md-button iing-if="location_slug" class="md-icon-button" ng-click="settings('/audit')">
+            <md-tooltip md-direction="right">Audit</md-tooltip>
+            <md-icon>list</md-icon>
+          </md-button>
+          <md-menu md-position-mode="target-right target" md-offset="40 0">
+            <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+              <user-avatar></user-avatar>
+            </md-button>
+            <md-menu-content width="3">
+              <md-menu-item>
+                <md-button ng-href="/#/me" ng-click="$mdMenu.hide()">
+                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">face</md-icon>
+                  <span translate>Account</span>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="logout()">
+                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">exit_to_app</md-icon>
+                  <span translate>Logout</span>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </span>
 
       </div>
     </md-toolbar>
@@ -370,14 +389,6 @@
   <!-- endbuild -->
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
-
-  <!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KQ7WSH" -->
-  <!--     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
-  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': -->
-  <!--   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], -->
-  <!--     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= -->
-  <!--       '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); -->
-  <!-- })(window,document,'script','dataLayer','GTM-KQ7WSH');</script> -->
 
   <script>
     !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";

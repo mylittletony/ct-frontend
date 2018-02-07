@@ -8,6 +8,7 @@ app.directive('createHolding', ['Holding', 'User', 'locationHelper', '$routePara
 
     var domain = locationHelper.domain();
     var subdomain = locationHelper.subdomain();
+    scope.loading = true;
 
     menu.hideToolbar = false;
     menu.hideBurger = true;
@@ -23,6 +24,12 @@ app.directive('createHolding', ['Holding', 'User', 'locationHelper', '$routePara
     }
 
     scope.create = function() {
+      var c = $cookies.get('_cth');
+      if (c) {
+        console.log('Preventing dup');
+        return;
+      }
+
       scope.invited   = true;
       scope.cookies   = { d: new Date().getTime(), u: scope.user };
       var now         = new Date();
@@ -38,9 +45,22 @@ app.directive('createHolding', ['Holding', 'User', 'locationHelper', '$routePara
     };
 
     scope.clearCookies = function() {
+      $location.search({});
+      scope.loaded = true;
+      scope.email = undefined;
+      scope.loading = undefined;
       scope.cookies = undefined;
       $cookies.remove('_cth', { domain: domain });
     };
+
+    if ($routeParams.email) {
+      scope.email = true;
+      scope.user.email = $routeParams.email;
+      scope.create();
+    } else {
+      scope.loading = undefined;
+      scope.loaded = true;
+    }
 
   };
 
@@ -70,7 +90,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       console.log(scope.stage, 981273);
       if (scope.stage === 'done') {
         scope.title = gettextCatalog.getString('The elves are making your MIMO dashboard.');
-        scope.subhead = gettextCatalog.getString('They won\'t be long, please wait about 3 seconds.');
+        scope.subhead = gettextCatalog.getString('Dance like nobody\'s watching you. Sing a little too.');
       } else if (scope.stage === 'user') {
         scope.title = gettextCatalog.getString('Step 2 - what\'s your name?');
         scope.subhead = gettextCatalog.getString('It\'s a pleasure to meet you!');
@@ -116,11 +136,11 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
           getMe(data);
         }, 3000);
       }
-    }
+    };
 
     var save = function() {
       Holding.update({}, {
-        id: $routeParams.id, 
+        id: $routeParams.id,
         holding_account: scope.holding
       }).$promise.then(function(data) {
         scope.errors = undefined;

@@ -592,12 +592,6 @@ module.exports = function (grunt) {
           branch: 'master',
           force: true
         }
-      },
-      usa: {
-        options: {
-          remote: 'git@heroku.com:xxx-brook-11104.git',
-          branch: 'master'
-        }
       }
     },
 
