@@ -1,10 +1,23 @@
 <form name="myForm" ng-submit="create()">
   <div layout="row" layout-align="center center" class="md-padding">
     <div flex="100" flex-gt-sm="50">
-
       <md-card>
-
-        <div ng-show="cookies">
+        <div ng-show="email">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Hello Friend, Thanks for Signing Up!
+              </span>
+              <span class="md-subhead" translate>
+                We've sent a super-secret code to your email. Go forth and open this email, then click the link you'll find inside. If it doesn't arrive, check that pesky spam folder.
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <p><small><translate>Didn't get the invite?&nbsp;</translate> <a href="" ng-click="clearCookies()" translate>Resend it now</a>.</small></p>
+          </md-card-content>
+        </div>
+        <div ng-show="cookies && !email">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
@@ -24,7 +37,7 @@
             <p><small><translate>Didn't get the invite?&nbsp;</translate> <a href="" ng-click="clearCookies()" translate>Resend it now</a>.</small></p>
           </md-card-content>
         </div>
-        <div ng-hide="cookies">
+        <div ng-show="!cookies && loaded">
           <md-card-title ng-if="!brand || (brand.reseller && brand.sign_ups_enabled)">
             <md-card-title-text>
               <span class="md-headline" translate>
