@@ -37,7 +37,7 @@
                 <div class="md-list-item-text">
                   <h3 translate>Plan</h3>
                   <p>
-                    <span ng-show="user.plan.plan_price < 1" translate>You're on the free plan.</span>
+                    <span ng-show="user.plan.plan_price < 1" translate>You're on the free plan. Things can only get better!</span>
                     <span ng-show="user.plan.plan_price > 0" translate>You're on the {{ ::user.plan.plan_name }} Plan which costs {{ ::user.currency == 'USD' ? '$' : '£'}}{{ ::user.plan.plan_price | number:2 }} and is billed {{ ::user.plan.billing_period }}.</span></p>
                 </div>
               </md-list-item>
@@ -51,7 +51,7 @@
                 <div class="md-list-item-text">
                   <h3 translate>Subscription Status</h3>
                   <p ng-if="user.subscription_active == true" translate> Active </p>
-                  <p ng-if="user.subscription_active == false" translate> Free User</p>
+                  <p ng-if="user.subscription_active == false" translate> Free User (go on, sign-up)</p>
                 </div>
               </md-list-item>
               <md-list-item class="md-2-line" flex="100" flex-gt-sm="50" ng-if="!user.plan && user.invited_by">

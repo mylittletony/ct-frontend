@@ -83,26 +83,8 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     menu.isOpenLeft = false;
     menu.isOpen = false;
 
-    scope.stage = $location.hash();
+    scope.data = { cb1: true };
     scope.loading = true;
-
-    var setHeadings = function() {
-      if (scope.stage === 'done') {
-        scope.title = gettextCatalog.getString('The elves are making your MIMO dashboard.');
-        scope.subhead = gettextCatalog.getString('Dance like nobody\'s watching you. Sing a little too.');
-      } else if (scope.stage === 'user') {
-        scope.title = gettextCatalog.getString('Step 2 - what\'s your name?');
-        scope.subhead = gettextCatalog.getString('It\'s a pleasure to meet you!');
-      } else if (scope.stage === 'confirm') {
-        scope.title = gettextCatalog.getString('Step 3 - nearly done, phew!');
-        scope.subhead = gettextCatalog.getString('By signing-up, you\'re agreeing to our terms of use. Read these at oh-mimo.com/terms');
-      } else if (!scope.creatingAccount) {
-        scope.title = gettextCatalog.getString('Step 1 (of 3) - create a location');
-        scope.subhead = gettextCatalog.getString('MIMO organises everything into locations. Each location can have multiple access points. It\'s really quite simple. Go ahead and create your first one.');
-      }
-    };
-
-    setHeadings();
 
     var login = function(domain, loginArgs) {
       $cookies.remove('_cth', { domain: domain });
@@ -114,26 +96,28 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       Me.get({}).$promise.then(function(res) {
         var search = {};
         var loginArgs = { data: res, search: search, path: '/' + data.location_slug + '/guide'};
-
         var domain = locationHelper.domain();
-        Holding.destroy({}, {
-          id: scope.holding.token
-        }).$promise.then(function(data) {
-          login(domain, loginArgs);
-        }, function() {
-          login(domain, loginArgs);
-        });
+        login(domain, loginArgs);
         $rootScope.$broadcast('login', loginArgs);
       });
     };
 
     var finalise = function(data) {
-      if (scope.holding.finalised) {
-        $cookies.put('_mta', data.token, {domain: '.' + domain});
-        var timer = $timeout(function() {
-          $timeout.cancel(timer);
-          getMe(data);
-        }, 3000);
+      var timer = $timeout(function() {
+        $timeout.cancel(timer);
+        getMe(data);
+      }, 1000);
+    };
+
+    var fin = function(data) {
+      for (var i = 1; i <= 4; i++) {
+        setTimeout(function(x) { return function() {
+          scope.data['cb' + x] = true;
+          scope.$apply();
+          if (x === 4) {
+            finalise(data);
+          }
+        }; }(i), (Math.floor(Math.random() * 2000) + 1000)*(i));
       }
     };
 
@@ -142,18 +126,13 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         id: $routeParams.id,
         holding_account: scope.holding
       }).$promise.then(function(data) {
+        $cookies.put('_mta', data.token, {domain: '.' + domain});
         scope.errors = undefined;
-        finalise(data);
+        fin(data);
       }, function(err) {
-        setHeadings();
         showErrors(err);
         scope.updating = undefined;
       });
-    };
-
-    var setStage = function() {
-      $location.hash(scope.stage);
-      setHeadings();
     };
 
     var init = function(clientID) {
@@ -171,14 +150,8 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     };
 
     scope.update = function(stage) {
-      scope.stage = stage;
-      setStage();
-      if (scope.stage === 'done') { scope.holding.finalised = true; }
+      scope.finalised = true;
       save();
-    };
-
-    scope.back = function() {
-      window.history.back();
     };
 
     var getGA = function() {
@@ -186,12 +159,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       init(clientID);
     };
 
-    if (!scope.holding) {
-      var ttimer = $timeout(function() {
-        $timeout.cancel(ttimer);
-        getGA();
-      }, 500);
-    }
+    getGA();
   };
 
   return {
