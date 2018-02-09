@@ -1929,12 +1929,9 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
     scope: {
     },
     template:
-      '<md-menu-item>' +
-      '<md-button ng-click="openDialog()">' +
-      '<md-icon>view_carousel</md-icon>' +
-      '<p flex translate>Templates</p>' +
-      '</md-button>' +
-      '</md-menu-item>'
+      '<md-button ng-click="openDialog()" aria-label="{{\'Back\' | translate }}" class="md-fab md-raised md-mini">' +
+      '<md-icon md-font-icon="view_carousel">view_carousel</md-icon>' +
+      '</md-button>'
   };
 
 }]);

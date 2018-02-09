@@ -10,7 +10,6 @@
           <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
         </md-button>
         <md-menu-content width="3" >
-          <splash-templates></splash-templates>
           <md-menu-item>
             <md-button ng-click="splash.preview()">
               <md-icon>pageview</md-icon>
@@ -21,12 +20,6 @@
             <md-button ng-click="splash.designerAdvanced = !splash.designerAdvanced">
               <md-icon>format_paint</md-icon>
               <p flex translate>{{ splash.designerAdvanced ? "Basic" : "Advanced" }}</p>
-            </md-button>
-          </md-menu-item>
-          <md-menu-item>
-            <md-button ng-click="splash.editSettings()">
-              <md-icon>settings</md-icon>
-              <p flex translate>Settings</p>
             </md-button>
           </md-menu-item>
         </md-menu-content>
@@ -1058,8 +1051,9 @@
 </span>
 
   <div layout="row" layout-align="space-around center" class="splash-design-buttons">
-    <md-button ng-click="splash.back()" aria-label="{{'Back' | translate }}" class="md-fab md-raised md-mini">
-      <md-icon md-font-icon="arrow_back" >arrow_back</md-icon>
+    <splash-templates></splash-templates>
+    <md-button ng-click="splash.editSettings()" aria-label="{{'Back' | translate }}" class="md-fab md-raised md-mini">
+      <md-icon md-font-icon="settings">settings</md-icon>
     </md-button>
     <md-button ng-click="splash.save(splash.splash,myForm)" aria-label="{{'Save' | translate}}" class="md-fab md-raised md-primary md-mini">
       <md-icon md-font-icon="save">save</md-icon>
