@@ -151,7 +151,7 @@
             <md-card-title>
               <md-card-title-text flex layout="row">
                 <span class="md-headline" translate>
-                  Advanced
+                  Advanced Settings
                 </span>
                 <span flex></span>
                 <md-button ng-click="adAdvanced = !adAdvanced" class="md-secondary md-icon-button">
@@ -160,6 +160,54 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-content layout="column" layout-gt-sm="row" layout-wrap class="splash-settings" ng-show="adAdvanced">
+              <div flex-gt-sm="100">
+                <div layout="column" layout-gt-sm="row" layout-wrap>
+                  <div flex-gt-sm="40">
+                    <div layout="column" layout-gt-xs="row" layout-wrap>
+                      <div flex-gt-sm="100">
+                        <md-input-container class="md-block">
+                          <label><translate>Timezone</translate></label>
+                          <md-select ng-model="splash.timezone">
+                            <md-option ng-repeat="zone in timezones" value="{{zone}}">
+                              {{zone}}
+                            </md-option>
+                          </md-select>
+                        </md-input-container>
+                        <p><small><translate>Set the Timezone to ensure your splash restrictions work correctly.</translate></small></p>
+                      </div>
+                      <div flex-gt-sm="100">
+                        <md-input-container class="md-block">
+                          <label><translate>Google Analytics</translate></label>
+                          <input ng-model="splash.google_analytics_id" placeholder="UA-57956353-1" type='text' name="google_analytics_id" md-maxlength='15'>
+                          <div ng-messages="myForm.google_analytics_id.$error">
+                            <div ng-message="md-maxlength" translate>Must be less than 15 chars.</div>
+                          </div>
+                        </md-input-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div flex-gt-sm="10"></div>
+                  <div flex-gt-sm="40">
+                    <md-switch class="md-accent" ng-model="splash.active" aria-label="active">
+                      <span ng-show="splash.active" translate>Splash Enabled</span>
+                      <span ng-show="!splash.active" translate>Splash Disabled</span>
+                    </md-switch>
+                    <md-switch class="md-accent" ng-model="splash.display_console" aria-label="debug">
+                      <span ng-show="splash.display_console" translate>Debug Mode Enabled</span>
+                      <span ng-show="!splash.display_console" translate>Debug Mode Disabled</span>
+                    </md-switch>
+                    <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
+                      <span ng-show="splash.bypass_popup_ios" translate>Bypass iOS Popup Enabled</span>
+                      <span ng-show="!splash.bypass_popup_ios" translate>Bypass iOS Popup Disabled</span>
+                    </md-switch>
+                    <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
+                      <span ng-show="splash.bypass_popup_android" translate>Bypass Android Popup Enabled</span>
+                      <span ng-show="!splash.bypass_popup_android" translate>Bypass Android Popup Disabled</span>
+                    </md-switch>
+                  </div>
+                </div>
+              </div>
+
               <md-divider flex-gt-sm="100"></md-divider>
               <div flex-gt-sm="100">
                 <h2 class="md-headline">Access Settings</h2>
@@ -341,59 +389,6 @@
                 </div>
               </div>
 
-              <div flex-gt-sm="100">
-                <div layout="column" layout-gt-sm="row" layout-wrap>
-                  <md-divider flex-gt-sm="100"></md-divider>
-                  <div flex-gt-sm="100">
-                    <h2 class="md-headline">Advanced Settings</h2>
-                  </div>
-                </div>
-                <div layout="column" layout-gt-sm="row" layout-wrap>
-                  <div flex-gt-sm="40">
-                    <div layout="column" layout-gt-xs="row" layout-wrap>
-                      <div flex-gt-sm="100">
-                        <md-input-container class="md-block">
-                          <label><translate>Timezone</translate></label>
-                          <md-select ng-model="splash.timezone">
-                            <md-option ng-repeat="zone in timezones" value="{{zone}}">
-                              {{zone}}
-                            </md-option>
-                          </md-select>
-                        </md-input-container>
-                        <p><small><translate>Set the Timezone to ensure your splash restrictions work correctly.</translate></small></p>
-                      </div>
-                      <div flex-gt-sm="100">
-                        <md-input-container class="md-block">
-                          <label><translate>Google Analytics</translate></label>
-                          <input ng-model="splash.google_analytics_id" placeholder="UA-57956353-1" type='text' name="google_analytics_id" md-maxlength='15'>
-                          <div ng-messages="myForm.google_analytics_id.$error">
-                            <div ng-message="md-maxlength" translate>Must be less than 15 chars.</div>
-                          </div>
-                        </md-input-container>
-                      </div>
-                    </div>
-                  </div>
-                  <div flex-gt-sm="10"></div>
-                  <div flex-gt-sm="40">
-                    <md-switch class="md-accent" ng-model="splash.active" aria-label="active">
-                      <span ng-show="splash.active" translate>Splash Enabled</span>
-                      <span ng-show="!splash.active" translate>Splash Disabled</span>
-                    </md-switch>
-                    <md-switch class="md-accent" ng-model="splash.display_console" aria-label="debug">
-                      <span ng-show="splash.display_console" translate>Debug Mode Enabled</span>
-                      <span ng-show="!splash.display_console" translate>Debug Mode Disabled</span>
-                    </md-switch>
-                    <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
-                      <span ng-show="splash.bypass_popup_ios" translate>Bypass iOS Popup Enabled</span>
-                      <span ng-show="!splash.bypass_popup_ios" translate>Bypass iOS Popup Disabled</span>
-                    </md-switch>
-                    <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
-                      <span ng-show="splash.bypass_popup_android" translate>Bypass Android Popup Enabled</span>
-                      <span ng-show="!splash.bypass_popup_android" translate>Bypass Android Popup Disabled</span>
-                    </md-switch>
-                  </div>
-                </div>
-              </div>
 
             </md-card-content>
             <md-card-actions ng-show="adAdvanced">

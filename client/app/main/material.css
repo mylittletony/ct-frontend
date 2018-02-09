@@ -1235,6 +1235,10 @@ md-bottom-sheet .md-subheader {
   background-color: #f0466e;
 }
 
+.md-button.md-primary.md-raised[disabled] {
+  background-color: rgba(0,0,0,0.12);
+}
+
 md-toolbar:not(.md-menu-toolbar) {
   background-color: #f0466e;
 }
@@ -1346,4 +1350,31 @@ td.activePlan {
 table#plans td.md-cell {
   padding: 8px 24px;
   font-size: 14px;
+}
+
+.advanced-line small {
+  overflow: hidden;
+  text-align: center;
+  line-height: 37px;
+}
+
+.advanced-line small:before,
+.advanced-line small:after {
+  background-color: rgb(224, 224, 224);
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.advanced-line small:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+.advanced-line small:after {
+  left: 0.5em;
+  margin-right: -50%;
 }
