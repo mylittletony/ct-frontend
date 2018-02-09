@@ -1412,6 +1412,33 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     };
 
+    var breakdownChart = function() {
+      var fullData = {data: {}};
+      var types = ['opened', 'processed', 'delivered', 'clicked'];
+      types.forEach(function(type) {
+        fullData.data[type] = {};
+        var multiplier;
+        var base;
+        for (var i = 0; i < 7; i++) {
+          if (type === 'processed') {
+            multiplier = 10;
+            base = 30;
+          } else if (type === 'delivered') {
+            multiplier = 10;
+            base = 20;
+          } else if (type === 'clicked') {
+            multiplier = 5;
+            base = 10;
+          } else {
+            multiplier = 5;
+            base = 5;
+          }
+          fullData.data[type]['0' + String(i + 2)] = Math.floor(Math.random() * multiplier + base);
+        }
+      });
+      return fullData;
+    };
+
     var fakeLineChart = function() {
       var fullData = {data:[{data: []}]};
       var today = moment().utc().startOf('day').toDate().getTime();
@@ -1480,6 +1507,8 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       } else {
         if (scope.type === 'radius.popular') {
           drawChart(fakeBarChart());
+        } else if (scope.type ==='emails.breakdown') {
+          drawChart(breakdownChart());
         } else if (attrs.pie === 'true') {
           drawChart(fakePieChart(scope.type));
         } else {
@@ -1620,32 +1649,62 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
               format: format
             };
 
-            for(x = 0; x < resp.data.length; x++) {
-              data.addColumn('number', resp.data[x].alias);
-            }
+            if (attrs.type === 'emails.breakdown') {
 
-            for(var y = 0; y < resp.data[0].data.length; y++) {
-              var time;
-              array = [];
+              opts.hAxis.gridlines.count = 5;
+              opts.colors = COLOURS.split(' ');
 
-              time = new Date(resp.data[0].data[y].timestamp);
-              array.push(time);
-              array.push(null);
+              data.addColumn('number', 'processed');
+              data.addColumn('number', 'delivered');
+              data.addColumn('number', 'clicked');
+              data.addColumn('number', 'opened');
 
-              for(var k = 0; k < resp.data.length; k++) {
-                var val = 0;
-                d = resp.data[k].data[y];
-                if (d && d.value > 0) {
-                  if (scope.type === 'device.usage') {
-                    val = d.value / (1000*1000);
-                  } else {
-                    val = d.value;
-                  }
-                }
+              var fullArray = [];
+              var today = moment().utc().startOf('day').unix();
+              var i = 0;
 
-                array.push(val);
+              for (key in resp.data.clicked) {
+                var row = [];
+                row.push(new Date((today - (86400 * i))*1000));
+                row.push(null);
+                row.push(resp.data.processed[key]);
+                row.push(resp.data.delivered[key]);
+                row.push(resp.data.clicked[key]);
+                row.push(resp.data.opened[key]);
+                i += 1;
+                fullArray.push(row);
               }
-              data.addRow(array);
+
+              data.addRows(fullArray);
+
+            } else {
+              for(x = 0; x < resp.data.length; x++) {
+                data.addColumn('number', resp.data[x].alias);
+              }
+
+              for(var y = 0; y < resp.data[0].data.length; y++) {
+                var time;
+                array = [];
+
+                time = new Date(resp.data[0].data[y].timestamp);
+                array.push(time);
+                array.push(null);
+
+                for(var k = 0; k < resp.data.length; k++) {
+                  var val = 0;
+                  d = resp.data[k].data[y];
+                  if (d && d.value > 0) {
+                    if (scope.type === 'device.usage') {
+                      val = d.value / (1000*1000);
+                    } else {
+                      val = d.value;
+                    }
+                  }
+
+                  array.push(val);
+                }
+                data.addRow(array);
+              }
             }
           }
         }
@@ -1668,6 +1727,11 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
           c = new window.google.visualization.PieChart(document.getElementById(attrs.render));
 
+        } else if (attrs.type === 'emails.breakdown') {
+          var formatter = new window.google.visualization.DateFormat({
+            pattern: gettextCatalog.getString('MMM dd, yyyy')
+          });
+          c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
         } else {
           var formatter = new window.google.visualization.NumberFormat(
             {suffix: suffix, pattern: pattern}

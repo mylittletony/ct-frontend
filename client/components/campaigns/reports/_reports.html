@@ -13,7 +13,7 @@
             <dash-clients-chart name="Emails Captured" type="emails.new" bar="true" render="new-emails" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
           </div>
           <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
-            <dash-clients-chart name="Emails Sent" type="emails.sent" bar="true" render="sent-emails" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
+            <dash-clients-chart name="Emails Breakdown" type="emails.breakdown" render="emails-breakdown" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
           </div>
         </div>
       </client-chart>
