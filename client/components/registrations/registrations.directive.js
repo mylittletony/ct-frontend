@@ -87,7 +87,6 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     scope.loading = true;
 
     var setHeadings = function() {
-      console.log(scope.stage, 981273);
       if (scope.stage === 'done') {
         scope.title = gettextCatalog.getString('The elves are making your MIMO dashboard.');
         scope.subhead = gettextCatalog.getString('Dance like nobody\'s watching you. Sing a little too.');
@@ -157,9 +156,10 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       setHeadings();
     };
 
-    var init = function() {
+    var init = function(clientID) {
       Holding.get({}, {
-        id: $routeParams.id
+        id: $routeParams.id,
+        client_id: clientID
       }).$promise.then(function(results) {
         scope.holding = results;
         scope.loading = undefined;
@@ -181,8 +181,16 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
       window.history.back();
     };
 
+    var getGA = function() {
+      var clientID = $cookies.get('_ga');
+      init(clientID);
+    };
+
     if (!scope.holding) {
-      init();
+      var ttimer = $timeout(function() {
+        $timeout.cancel(ttimer);
+        getGA();
+      }, 500);
     }
   };
 
