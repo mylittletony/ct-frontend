@@ -50,7 +50,7 @@ app.controller('LocationsCtrl', ['$scope', '$routeParams', 'Location', '$locatio
         campaigns_guide = '/guide';
       }
 
-      if ($scope.location.setup.splash === false || $scope.location.setup.integrations === false || $scope.location.paid === false) {
+      if ($scope.location.setup.splash === false && $scope.location.paid === false) {
         splash_guide = '/guide';
       }
 
