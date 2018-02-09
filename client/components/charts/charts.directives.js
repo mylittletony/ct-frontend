@@ -782,7 +782,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     scope.loading = true;
     var c, timer, data, json;
     ClientDetails.client.version = '4';
-    var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
+    var colours = ['#ff5723', '#ff5723', '#ff5723', '#ff5723', '#ff5723'];
     var formatted = { usage: { inbound: 1 } };
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -1365,7 +1365,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     scope.period = $routeParams.period || attrs.period || '30d';
     scope.type = attrs.type;
     scope.loading = true;
-    var colours = COLOURS.split(' ');
+    var colours = ['#17ac5b', '#0088bb', '#ffd165', '#485b88', '#f78c6b', '#8e2d56'];
 
     ClientDetails.client.version = '4';
     ClientDetails.client.ap_mac = undefined;
@@ -1511,7 +1511,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
         }
 
         if (attrs.bar === 'true') {
-          opts.colors = ['#4b84e0'];
+          opts.colors = ['#0088bb'];
         }
         opts.curveType = 'function';
         opts.legend = { position: 'none' };

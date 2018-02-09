@@ -795,6 +795,10 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
       return menu.isSectionSelected(section);
     };
 
+    designer.editSettings = function () {
+      window.location = window.location.href.replace('/design','');
+    }
+
     designer.fonts = [
       '"Helvetica Neue",sans-serif', 'Arial, "Helvetica Neue", Helvetica, sans-serif', 'Baskerville, "Times New Roman", Times, serif', 'Century Gothic", "Apple Gothic", sans-serif"', '"Copperplate Light", "Copperplate Gothic Light", serif', '"Courier New", Courier, monospace, Futura, "Century Gothic", AppleGothic, sans-serif"', 'Garamond, "Hoefler Text", "Times New Roman", Times, serif"', 'Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif', 'Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif', 'Helvetica, Arial, sans-serif', '"Helvetica Neue", Arial, Helvetica, sans-serif', 'Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif"', '"Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif', '"Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif"', 'Verdana, Geneva, Tahoma, sans-serif', '"Deck Light"'];
 
@@ -1925,12 +1929,9 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
     scope: {
     },
     template:
-      '<md-menu-item>' +
-      '<md-button ng-click="openDialog()">' +
-      '<md-icon>view_carousel</md-icon>' +
-      '<p flex translate>Templates</p>' +
-      '</md-button>' +
-      '</md-menu-item>'
+      '<md-button ng-click="openDialog()" aria-label="{{\'Back\' | translate }}" class="md-fab md-raised md-mini">' +
+      '<md-icon md-font-icon="view_carousel">view_carousel</md-icon>' +
+      '</md-button>'
   };
 
 }]);
