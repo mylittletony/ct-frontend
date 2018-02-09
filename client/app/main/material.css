@@ -385,6 +385,15 @@ md-sidenav.site-sidenav .sidenav-bottom .md-button a {
   text-decoration: none;
 }
 
+md-sidenav.site-sidenav .sidenav-bottom .md-button md-icon {
+  color: #485b88;
+}
+
+md-sidenav.site-sidenav .sidenav-bottom .md-button:hover md-icon {
+  color: #5a72a9;
+  transition: 0.2s;
+}
+
 md-sidenav.site-sidenav .md-button md-icon {
   margin: auto;
 }
