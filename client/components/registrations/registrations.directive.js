@@ -117,7 +117,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
           if (x === 4) {
             finalise(data);
           }
-        }; }(i), (Math.floor(Math.random() * 2000) + 1000)*(i));
+        }; }(i), (1250)*(i));
       }
     };
 
