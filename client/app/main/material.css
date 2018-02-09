@@ -1352,6 +1352,12 @@ table#plans td.md-cell {
   font-size: 14px;
 }
 
+.advanced-line {
+  cursor: pointer;
+  outline-color: transparent;
+  outline-style: none;
+}
+
 .advanced-line small {
   overflow: hidden;
   text-align: center;
