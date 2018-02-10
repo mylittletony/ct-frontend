@@ -76,6 +76,7 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
       };
     }
     ChangeController.$inject = ['$scope'];
+
     var upgrade = function() {
       scope.user.subscribing = true;
       Subscription.create({plan_id: scope.user.new_plan}).$promise.then(function(data) {
