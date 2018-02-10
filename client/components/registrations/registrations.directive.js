@@ -23,6 +23,12 @@ app.directive('createHolding', ['Holding', 'User', 'locationHelper', '$routePara
       scope.cookies = JSON.parse(cookies);
     }
 
+    var partner_id = $cookies.get('mimo_pid', { domain: domain });
+    if ($routeParams.partner_id) {
+      partner_id = $routeParams.partner_id;
+      $cookies.put('mimo_pid', partner_id, { domain: domain });
+    }
+
     scope.create = function() {
       var c = $cookies.get('_cth');
       if (c) {
@@ -35,8 +41,11 @@ app.directive('createHolding', ['Holding', 'User', 'locationHelper', '$routePara
       var now         = new Date();
       var ts          = now.setDate(now.getDate() + 1);
       var expires     = new Date(ts);
+
       var holding_account = {};
       holding_account.email = scope.user.email;
+      holding_account.partner_id = partner_id;
+
       $cookies.put('_cth', JSON.stringify(scope.cookies), { domain: domain, expires: expires } );
       Holding.create({},holding_account).$promise.then(function(data) {
       }, function() {
