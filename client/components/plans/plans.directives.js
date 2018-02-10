@@ -89,8 +89,8 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     var doThePlansThing = function() {
       for (var i=0; i < scope.plans.length; i++) {
         if (scope.user.plan_id === scope.plans[i].plan_id) {
-          scope.user.active_plan = scope.plans[i].unique_id;
-          scope.user.new_plan    = scope.plans[i].unique_id;
+          scope.user.active_plan = scope.plans[i].slug;
+          scope.user.new_plan    = scope.plans[i].slug;
           scope.user.plan_name   = scope.plans[i].plan_name;
           scope.user.plan_price  = scope.plans[i].plan_price;
           break;
