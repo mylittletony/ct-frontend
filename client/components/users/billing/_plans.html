@@ -23,7 +23,7 @@
       <br>
       <md-radio-group ng-model="user.new_plan">
         <span ng-repeat="plan in plans">
-          <md-radio-button value="{{ plan.unique_id }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
+          <md-radio-button value="{{ plan.slug }}" class="md-primary">{{plan.plan_name}} - {{ plan.plan_price | currency : curr }} per month</md-radio-button>
         </span>
       </md-radio-group>
       <p>For more information about how the plans work, please visit the mimo site <a href="http://get.mimo.today">here</a>.</p>
