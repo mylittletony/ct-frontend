@@ -120,7 +120,7 @@
 
               <div flex-gt-sm="100">
                 <md-checkbox ng-disabled="true" aria-label="Disabled checkbox" ng-model="user.delete_protection">
-                  Delete Protection {{ user.delete_protection ? 'Enabled' : 'Disabled'}}
+                  Deletion Protection {{ user.delete_protection == false ? 'Disabled' : 'Enabled' }}
                   <md-tooltip>Protect your account from accidental deletion. Can be enabled by CT upon request.</md-tooltip>
                 </md-checkbox>
               </div>
