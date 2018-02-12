@@ -185,7 +185,7 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Email'
       getSocials();
       getGuests();
       getEmails();
-      getCodes();
+      // getCodes();
       getClients();
     };
 
