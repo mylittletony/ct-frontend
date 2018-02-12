@@ -108,7 +108,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
 }]);
 
-app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, Guest, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
+app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Email', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, Guest, Email, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -151,9 +151,20 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', '$route
       });
     };
 
+    var getEmails = function() {
+      Email.get({
+        person_id: scope.person.id,
+        location_id: scope.location.id
+      }).$promise.then(function(results) {
+        scope.person.emails = results.emails;
+      }, function(err) {
+      });
+    };
+
     var getRelations = function() {
       getSocials();
       getGuests();
+      getEmails();
     };
 
     scope.saveUsername = function() {
