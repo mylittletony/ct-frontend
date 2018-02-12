@@ -1445,7 +1445,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       for (var i = 0; i < 30; i++) {
         var day = {};
         day.timestamp = today - (i * 86400000);
-        day.value = Math.floor((Math.random() * 30) + 2);
+        day.value = Math.floor((Math.random() * 15) + 15);
         fullData.data[0].data.push(day);
       }
       return fullData;
