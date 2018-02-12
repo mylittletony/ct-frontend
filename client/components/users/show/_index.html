@@ -118,14 +118,12 @@
                 </div>
               </md-input-container>
 
-              <!-- <md-input-container class="md-block" flex="100" flex-gt-sm="50"> -->
-              <!--   <label translate>Locale</label> -->
-              <!--   <md-select ng-model="user.locale"> -->
-              <!--     <md-option ng-repeat="locale in locales" value="{{locale.value}}"> -->
-              <!--       {{locale.key}} -->
-              <!--     </md-option> -->
-              <!--   </md-select> -->
-              <!-- </md-input-container> -->
+              <div flex-gt-sm="100">
+                <md-checkbox ng-disabled="true" aria-label="Disabled checkbox" ng-model="user.delete_protection">
+                  Deletion Protection {{ user.delete_protection == false ? 'Disabled' : 'Enabled' }}
+                  <md-tooltip>Protect your account from accidental deletion. Can be enabled by CT upon request.</md-tooltip>
+                </md-checkbox>
+              </div>
 
             </div>
           </md-card-content>
@@ -137,7 +135,7 @@
             <translate>Save</translate>
           </md-button>
           <div flex></div>
-          <md-button class="md-raised md-warn" ng-click="deleteAccount()">
+          <md-button class="md-raised md-warn" ng-click="deleteAccount()" ng-disabled="user.delete_protection">
             <translate>Delete account</translate>
           </md-button>
         </div>
