@@ -108,7 +108,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
 }]);
 
-app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
+app.directive('displayPerson', ['People', 'Location', 'Social', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -138,6 +138,22 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
       });
     };
 
+    var getSocials = function() {
+      Social.get({
+        person_id: scope.person.id,
+        location_id: scope.location.id
+      }).$promise.then(function(results) {
+        scope.person.social = results.social
+        setProfilePhoto();
+      }, function(err) {
+        console.log(err)
+      });
+    };
+
+    var getRelations = function() {
+      getSocials();
+    };
+
     var setProfilePhoto = function() {
       if (scope.person.social && scope.person.social[0].facebook_id) {
         scope.person.profile_photo = 'https://graph.facebook.com/' + scope.person.social[0].facebook_id + '/picture?type=large';
@@ -149,7 +165,7 @@ app.directive('displayPerson', ['People', 'Location', '$routeParams', '$location
     var getPerson = function() {
       People.query({location_id: scope.location.slug, id: $routeParams.person_id}).$promise.then(function(res) {
         scope.person = res;
-        setProfilePhoto();
+        getRelations();
         scope.loading  = undefined;
       }, function(err) {
         scope.loading  = undefined;
