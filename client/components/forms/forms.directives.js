@@ -10,6 +10,7 @@ app.directive('listForms', ['Form', 'FormListing', 'Location', '$routeParams', '
 
     scope.location  = { slug: $routeParams.id };
     scope.splash    = { id: $routeParams.splash_page_id, location_id: $routeParams.id };
+    scope.currentNavItem = 'splash';
 
     var onDrag;
     var drake = window.dragula({
