@@ -108,7 +108,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
 }]);
 
-app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Email', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, Guest, Email, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
+app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Email', 'Code', 'Client', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, Guest, Email, Code, Client, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -161,10 +161,32 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Email'
       });
     };
 
+    var getCodes = function() {
+      Code.get({
+        person_id: scope.person.id,
+        location_id: scope.location.id
+      }).$promise.then(function(results) {
+        scope.person.codes = results.codes;
+      }, function(err) {
+      });
+    };
+
+    var getClients = function() {
+      Client.query({
+        person_id: scope.person.id,
+        location_id: scope.location.id
+      }).$promise.then(function(results) {
+        scope.person.clients = results.clients;
+      }, function(err) {
+      });
+    };
+
     var getRelations = function() {
       getSocials();
       getGuests();
       getEmails();
+      getCodes();
+      getClients();
     };
 
     scope.saveUsername = function() {
