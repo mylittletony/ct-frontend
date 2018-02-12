@@ -108,7 +108,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
 }]);
 
-app.directive('displayPerson', ['People', 'Location', 'Social', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
+app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, Guest, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -122,6 +122,40 @@ app.directive('displayPerson', ['People', 'Location', 'Social', '$routeParams', 
       }
     };
 
+    var setProfilePhoto = function() {
+      if (scope.person.social && scope.person.social[0].facebook_id) {
+        scope.person.profile_photo = 'https://graph.facebook.com/' + scope.person.social[0].facebook_id + '/picture?type=large';
+      } else {
+        scope.person.profile_photo = 'https://s3-eu-west-1.amazonaws.com/mimo-labs/images/mimo-logo.svg';
+      }
+    };
+
+    var getSocials = function() {
+      Social.get({
+        person_id: scope.person.id,
+        location_id: scope.location.id
+      }).$promise.then(function(results) {
+        scope.person.social = results.social;
+        setProfilePhoto();
+      }, function(err) {
+      });
+    };
+
+    var getGuests = function() {
+      Guest.get({
+        person_id: scope.person.id,
+        location_id: scope.location.id
+      }).$promise.then(function(results) {
+        scope.person.guests = results.guests;
+      }, function(err) {
+      });
+    };
+
+    var getRelations = function() {
+      getSocials();
+      getGuests();
+    };
+
     scope.saveUsername = function() {
       People.update({}, {
         location_id: scope.location.slug,
@@ -131,35 +165,11 @@ app.directive('displayPerson', ['People', 'Location', 'Social', '$routeParams', 
         }
       }).$promise.then(function(results) {
         scope.person = results;
-        setProfilePhoto();
+        getRelations();
         scope.edit_username = false;
       }, function(error) {
         showErrors(error);
       });
-    };
-
-    var getSocials = function() {
-      Social.get({
-        person_id: scope.person.id,
-        location_id: scope.location.id
-      }).$promise.then(function(results) {
-        scope.person.social = results.social
-        setProfilePhoto();
-      }, function(err) {
-        console.log(err)
-      });
-    };
-
-    var getRelations = function() {
-      getSocials();
-    };
-
-    var setProfilePhoto = function() {
-      if (scope.person.social && scope.person.social[0].facebook_id) {
-        scope.person.profile_photo = 'https://graph.facebook.com/' + scope.person.social[0].facebook_id + '/picture?type=large';
-      } else {
-        scope.person.profile_photo = 'https://s3-eu-west-1.amazonaws.com/mimo-labs/images/mimo-logo.svg';
-      }
     };
 
     var getPerson = function() {
