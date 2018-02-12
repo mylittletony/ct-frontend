@@ -777,7 +777,7 @@ app.directive('integrationSelect', ['Location', '$routeParams', '$location', '$h
       location: '=',
       loading: '='
     },
-    templateUrl: 'components/locations/new/_create_integration.html'
+    templateUrl: 'components/locations/integrations/_create_integration.html'
   };
 
 }]);
@@ -831,8 +831,8 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         showToast('Successfully deleted integration');
         deferred.resolve(results);
       }, function(error) {
-        deferred.reject();
-        console.log(error);
+        deferred.reject(error);
+        showErrors(error);
       });
       return deferred.promise;
     };
@@ -847,8 +847,8 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
         showToast('Successfully updated and validated integration');
         deferred.resolve(results);
       }, function(error) {
-        deferred.reject();
-        console.log(error);
+        deferred.reject(error);
+        showErrors(error);
       });
       return deferred.promise;
     };
@@ -898,6 +898,141 @@ app.directive('integrations', ['Location', '$routeParams', '$location', '$http',
 
 }]);
 
+app.directive('cloudtraxAuth', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs, controller) {
+
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    var create = function() {
+      controller.save(scope.integration).then(function() {
+        scope.validated = true;
+      });
+    };
+
+    var update = function() {
+      controller.update(scope.integration).then(function() {
+        scope.validated = true;
+      }, function(error) {
+        // console.log(error)
+        // showErrors(error);
+      });
+    };
+
+    scope.save = function(form) {
+      scope.myForm.$setPristine();
+      scope.integration.action = 'validate';
+      if (scope.integration.new_record) {
+        create();
+      } else {
+        update();
+      }
+    };
+
+    scope.next = function(results) {
+      $location.path($routeParams.id + '/integration/_cloudtrax/setup');
+    };
+
+    scope.back = function(results) {
+      $location.path($routeParams.id + '/integration');
+    };
+
+    controller.fetch().then(function(integration) {
+      scope.integration = integration;
+      if (integration && integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
+        return;
+      }
+      scope.integration.type = 'cloudtrax';
+    }, function(err) { console.log(err); });
+
+    locationName();
+
+  };
+
+  return {
+    require: '^integrations',
+    link: link,
+    scope: {},
+    templateUrl: 'components/locations/integrations/_cloudtrax_auth.html'
+  };
+
+}]);
+
+app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+
+  var link = function(scope, element, attrs, controller) {
+
+    scope.location = {slug: $routeParams.id};
+
+    var locationName = function() {
+      Location.get({id: scope.location.slug}, function(data) {
+        scope.location = data;
+      }, function(err){
+        console.log(err);
+      });
+    };
+
+    scope.save = function(form,site,ssid) {
+      scope.myForm.$setPristine();
+      site = JSON.parse(site);
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            unifi_site_name:  site.name,
+            unifi_site_id:    site.id,
+            ssid:             ssid
+          },
+          action: 'create_setup'
+        }
+      }, function(results) {
+        showToast('Successfully created UniFi setup');
+        // @zak create the landing page
+        $location.path($routeParams.id + '/integration/completed');
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    var fetchSites = function() {
+      controller.fetchSites(scope.integration).then(function(sites) {
+        scope.unifi_sites = sites;
+      });
+    };
+
+    controller.fetch().then(function(integration) {
+      if(integration.new_record) {
+        $location.path($routeParams.id + '/integration/cloudtrax/auth');
+      } else if (integration.active) {
+        $location.path('/' + $routeParams.id + '/settings/integrations');
+      } else {
+        scope.integration = integration;
+        fetchSites();
+      }
+    });
+
+    locationName();
+
+  };
+
+  return {
+    require: '^integrations',
+    link: link,
+    scope: {},
+    templateUrl: 'components/locations/integrations/_cloudtrax_setup.html'
+  };
+
+}]);
 app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs, controller) {
@@ -959,7 +1094,7 @@ app.directive('unifiAuth', ['Location', '$routeParams', '$location', '$http', '$
     require: '^integrations',
     link: link,
     scope: {},
-    templateUrl: 'components/locations/new/_unifi_auth.html'
+    templateUrl: 'components/locations/integrations/_unifi_auth.html'
   };
 
 }]);
@@ -1026,7 +1161,7 @@ app.directive('unifiSetup', ['Location', '$routeParams', '$location', '$http', '
     require: '^integrations',
     link: link,
     scope: {},
-    templateUrl: 'components/locations/new/_unifi_setup.html'
+    templateUrl: 'components/locations/integrations/_unifi_setup.html'
   };
 
 }]);
@@ -1092,7 +1227,7 @@ app.directive('vszAuth', ['Location', '$routeParams', '$location', '$http', '$md
     link: link,
     scope: {
     },
-    templateUrl: 'components/locations/new/_vsz_auth.html'
+    templateUrl: 'components/locations/integrations/_vsz_auth.html'
   };
 
 }]);
@@ -1224,7 +1359,7 @@ app.directive('merakiAuth', ['Location', '$routeParams', '$location', '$http', '
     link: link,
     scope: {
     },
-    templateUrl: 'components/locations/new/_meraki_auth.html'
+    templateUrl: 'components/locations/integrations/_meraki_auth.html'
   };
 
 }]);

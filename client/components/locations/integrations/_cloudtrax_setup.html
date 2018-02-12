@@ -1,0 +1,64 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+  </md-nav-bar>
+</div>
+
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+  <div>
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back' | translate }}">
+      <md-tooltip md-direction="bottom">Back</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
+  </div>
+  <span flex></span>
+</md-content>
+<form name="myForm" ng-submit="save(myForm,unifi_site,ssid)">
+  <div layout="row" layout-align="center center">
+    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Step 2: Setup CloudTrax Integration
+          </span>
+          <span class="md-subhead">Now that MIMO can access your controller, choose which site you want the guest network to be added to. Select your site, and give your guest network an SSID.</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="100">
+            <label>
+              <translate>Site</translate>
+            </label>
+            <md-select ng-model="unifi_site">
+              <md-option ng-repeat="site in unifi_sites" value="{{site}}">
+                {{site.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="100">
+            <label>
+              <translate>SSID</translate>
+            </label>
+            <input name="ssid" md-maxlength="32" ng-model="ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
+            <div ng-messages="myForm.ssid.$error">
+              <div ng-message="md-maxlength" translate>Max 32 characters</div>
+              <div ng-message="required" translate>You must set an SSID</div>
+              <div ng-message="pattern" translate>Invalid characters in SSID</div>
+              <div ng-message="ssidValidator" translate>SSID is too large</div>
+            </div>
+          </md-input-container>
+        </div>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+          Create
+        </md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</form>
