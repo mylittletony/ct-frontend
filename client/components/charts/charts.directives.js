@@ -1445,7 +1445,7 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       for (var i = 0; i < 30; i++) {
         var day = {};
         day.timestamp = today - (i * 86400000);
-        day.value = Math.floor((Math.random() * 30) + 2);
+        day.value = Math.floor((Math.random() * 15) + 15);
         fullData.data[0].data.push(day);
       }
       return fullData;
@@ -1584,46 +1584,56 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
           var array = [];
           if (attrs.bar === 'true') {
 
-            for(var x = 0; x < resp.data[0].data.length; x++) {
-              var val;
-              array = [];
+            if (resp.data[0].data) {
+              for(var x = 0; x < resp.data[0].data.length; x++) {
+                var val;
+                array = [];
 
-              if (attrs.popular === 'true') {
-                val = resp.data[0].data[x].hour.toString();
-              } else {
-                val = new Date(resp.data[0].data[x].timestamp);
-              }
-
-              array.push(val);
-
-              if (attrs.popular === 'true') {
-                array.push('<div style="padding: 20px;"><h3>Popular Hours (beta)</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
-              }
-
-              for(var k = 0; k < resp.data.length; k++) {
-                val = 0;
-                var d = resp.data[k].data[x];
-                if (d && d.value > 0) {
-                  val = (d.value);
+                if (attrs.popular === 'true') {
+                  val = resp.data[0].data[x].hour.toString();
+                } else {
+                  val = new Date(resp.data[0].data[x].timestamp);
                 }
 
                 array.push(val);
+
+                if (attrs.popular === 'true') {
+                  array.push('<div style="padding: 20px;"><h3>Popular Hours (beta)</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
+                }
+
+                for(var k = 0; k < resp.data.length; k++) {
+                  val = 0;
+                  var d = resp.data[k].data[x];
+                  if (d && d.value > 0) {
+                    val = (d.value);
+                  }
+
+                  array.push(val);
+                }
+                data.addRow(array);
               }
-              data.addRow(array);
+            } else {
+              clearChart();
+              return;
             }
 
           } else if (attrs.pie === 'true') {
-            var arr = [];
+            if (resp.data[0].data.length > 0) {
+              var arr = [];
 
-            for (var i = 0; i < resp.data[0].data.length; i++) {
-              var key = resp.data[0].data[i].key;
-              var value = resp.data[0].data[i].value;
-              if (key !== 'total') {
-                arr.push([key, value]);
+              for (var i = 0; i < resp.data[0].data.length; i++) {
+                var key = resp.data[0].data[i].key;
+                var value = resp.data[0].data[i].value;
+                if (key !== 'total') {
+                  arr.push([key, value]);
+                }
               }
-            }
 
-            data.addRows(arr);
+              data.addRows(arr);
+            } else {
+              clearChart();
+              return;
+            }
 
 
           } else {
