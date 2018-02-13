@@ -47,6 +47,11 @@ app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES)
     .accentPalette('pink');
 }]);
 
+app.config(function() {
+  tinyMCE.baseURL = '/bower_components/tinymce';
+  tinyMCE.suffix = '.min';
+})
+
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
   $httpProvider.interceptors.push('httpRequestInterceptor');
