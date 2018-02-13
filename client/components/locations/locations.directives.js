@@ -967,11 +967,12 @@ app.directive('cloudtraxAuth', ['Location', '$routeParams', '$location', '$http'
 
 }]);
 
-app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration) {
+app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', '$route', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration, $route) {
 
   var link = function(scope, element, attrs, controller) {
 
     scope.location = {slug: $routeParams.id};
+    scope.ct = { };
 
     var locationName = function() {
       Location.get({id: scope.location.slug}, function(data) {
@@ -981,7 +982,7 @@ app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http
       });
     };
 
-    scope.save = function(form,site,ssid) {
+    scope.save = function(form) {
       scope.myForm.$setPristine();
       site = JSON.parse(site);
       SplashIntegration.update({},{
@@ -989,9 +990,9 @@ app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            unifi_site_name:  site.name,
-            unifi_site_id:    site.id,
-            ssid:             ssid
+            // unifi_site_name:  site.name,
+            // unifi_site_id:    site.id,
+            ssid: ct.ssid
           },
           action: 'create_setup'
         }
@@ -1004,9 +1005,30 @@ app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http
       });
     };
 
+    scope.createNetwork = function(form, network) {
+      scope.myForm.$setPristine();
+      SplashIntegration.update({},{
+        id: scope.integration.id,
+        location_id: $routeParams.id,
+        splash_integration: {
+          metadata: {
+            network: ct.network_name
+          },
+          action: 'create_network'
+        }
+      }, function(results) {
+        showToast('Successfully created network');
+        $route.reload();
+        // @zak create the landing page
+        // $location.path($routeParams.id + '/integration/completed');
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
     var fetchSites = function() {
       controller.fetchSites(scope.integration).then(function(sites) {
-        scope.unifi_sites = sites;
+        scope.cloudtrax_networks = sites;
       });
     };
 

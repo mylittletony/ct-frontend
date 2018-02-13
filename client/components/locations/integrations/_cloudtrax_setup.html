@@ -15,7 +15,7 @@
   </div>
   <span flex></span>
 </md-content>
-<form name="myForm" ng-submit="save(myForm,unifi_site,ssid)">
+<form name="myForm" ing-submit="save(myForm,cloudtrax_site,ssid)">
   <div layout="row" layout-align="center center">
     <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
       <md-card-title>
@@ -23,28 +23,41 @@
           <span class="md-headline" translate>
             Step 2: Setup CloudTrax Integration
           </span>
-          <span class="md-subhead">Now that MIMO can access your controller, choose which site you want the guest network to be added to. Select your site, and give your guest network an SSID.</span>
+          <span class="md-subhead">Now that MIMO can access your controller, choose which networ you want the guest network to be added to.</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <div layout="row" layout-wrap>
-          <md-input-container flex="100" flex-gt-sm="100">
+          <p ng-show="cloudtrax_networks.length == 0">
+            We couldn't find any CloudTrax networks. Please create one now. 
+          </p>
+          <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_networks.length == 0">
             <label>
-              <translate>Site</translate>
+              <translate>Network Name</translate>
             </label>
-            <md-select ng-model="unifi_site">
-              <md-option ng-repeat="site in unifi_sites" value="{{site}}">
-                {{site.name}}
+            <input name="network_name" md-maxlength="32" ng-model="ct.network_name" required>
+            <div ng-messages="myForm.network_name.$error">
+              <div ng-message="md-maxlength" translate>Max 32 characters</div>
+              <div ng-message="required" translate>You must set a name</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_networks.length">
+            <label>
+              <translate>CloudTrax Network</translate>
+            </label>
+            <md-select ng-model="ct.network">
+              <md-option ng-repeat="network in cloudtrax_networks" value="{{network}}">
+                {{network.name}}
               </md-option>
             </md-select>
           </md-input-container>
         </div>
         <div layout="row" layout-wrap>
-          <md-input-container flex="100" flex-gt-sm="100">
+          <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_networks">
             <label>
               <translate>SSID</translate>
             </label>
-            <input name="ssid" md-maxlength="32" ng-model="ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
+            <input name="ssid" md-maxlength="32" ng-model="ct.ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
             <div ng-messages="myForm.ssid.$error">
               <div ng-message="md-maxlength" translate>Max 32 characters</div>
               <div ng-message="required" translate>You must set an SSID</div>
@@ -55,7 +68,10 @@
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+        <md-button ng-click="save(myForm,ct)" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="cloudtrax_networks.length > 0">
+          Create
+        </md-button>
+        <md-button ng-click="createNetwork(myForm,ct)" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="cloudtrax_networks.length == 0">
           Create
         </md-button>
       </md-card-actions>
