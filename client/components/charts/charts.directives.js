@@ -2452,7 +2452,7 @@ app.directive('emailStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     function chart() {
       var params = {
         type: scope.type,
-        period: '30d'
+        period: $routeParams.period || '7d'
       };
 
       if (attrs.fake !== 'true') {

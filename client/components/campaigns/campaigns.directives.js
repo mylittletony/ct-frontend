@@ -344,11 +344,12 @@ app.directive('campNav', [function() {
 
 }]);
 
-app.directive('campaignReports', ['Campaign', 'Location', '$routeParams', function(Campaign, Location, $routeParams) {
+app.directive('campaignReports', ['Campaign', 'Location', '$routeParams', '$location', function(Campaign, Location, $routeParams, $location) {
 
   var link = function(scope, element, attrs) {
 
     scope.currentNavItem = 'reports';
+    scope.period = $routeParams.period || '7d';
 
     var init = function() {
       Location.get({id: $routeParams.id}, function(data) {
@@ -357,6 +358,14 @@ app.directive('campaignReports', ['Campaign', 'Location', '$routeParams', functi
       }, function(err){
         console.log(err);
       });
+    };
+
+    scope.changePeriod = function() {
+      var hash    = {};
+      hash.period   = scope.period;
+
+      $location.search(hash);
+      init();
     };
 
     init();
