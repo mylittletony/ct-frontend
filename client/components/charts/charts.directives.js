@@ -332,7 +332,6 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
 
       var distance;
       this.setInterval = function() {
-        console.log(this.period)
         switch(this.period) {
           case '5m':
             this.interval = '10s';

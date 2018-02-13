@@ -11,6 +11,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     scope.query = {
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
+      filter:     $routeParams.q,
       options:    [5,10,25,50,100]
     };
 
@@ -51,11 +52,16 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.updatePage();
     };
 
+    scope.peopleSearch = function() {
+      scope.updatePage();
+    };
+
     var getPeople = function() {
       var params = {
         page: scope.query.page,
         per: scope.query.limit,
-        location_id: scope.location.slug
+        location_id: scope.location.slug,
+        q: scope.query.filter
       };
       People.get(params, function(data) {
         scope.people = data.people;
@@ -91,8 +97,8 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
     scope.updatePage = function(item) {
       var hash    = {};
-      scope.page  = scope._links.current_page;
       hash.page   = scope.query.page;
+      hash.q   = scope.query.filter;
 
       $location.search(hash);
       init();
