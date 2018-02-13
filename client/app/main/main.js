@@ -20,7 +20,8 @@ var app = angular.module('myApp', [
   'config',
   'gettext',
   'moment-picker',
-  'color.picker'
+  'color.picker',
+  'ui.tinymce'
 ]);
 
 app.config(function($provide) {

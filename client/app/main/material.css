@@ -1384,3 +1384,54 @@ table#plans td.md-cell {
   left: 0.5em;
   margin-right: -50%;
 }
+
+/*WYSIWYG*/
+
+.tinymcelabel {
+  font-size: 12px;
+  padding-left: 2px;
+  color: rgba(0,0,0,0.54);
+}
+
+.mce-container * {
+  color: rgba(0,0,0,0.9)!important;
+  font-family: 'Source Sans Pro', sans-serif!important;
+}
+
+.mce-container.mce-toolbar-grp {
+  background-color: transparent!important;
+}
+
+.mce-panel, .mce-btn {
+  background-color: white!important;
+}
+
+.mce-btn:hover {
+  background-color:#F5F5F5!important;
+  border-color: transparent!important;
+}
+
+.mce-ico {
+  color: rgba(0,0,0,0.7)!important;
+  font-family: 'tinymce',Arial!important;
+}
+
+.mce-edit-area {
+  border-bottom: 1px solid rgb(224, 224, 224)!important;
+  border-top: 1px solid rgb(224, 224, 224)!important;
+}
+
+.mce-statusbar {
+  border-top: 0px solid rgb(224, 224, 224)!important;
+  background: transparent!important;
+}
+
+.mce-tinymce.mce-container.mce-panel {
+  border: 1px solid rgb(224, 224, 224)!important;
+  border-radius: 4px;
+  margin-left: 2px;
+  margin-top: 10px;
+}
+
+
+/*WYSIWYG*/
