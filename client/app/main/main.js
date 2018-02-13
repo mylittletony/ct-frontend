@@ -137,36 +137,44 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc'
     }).
     when('/:id/integration', {
-      templateUrl: 'components/locations/new/integration.html',
+      templateUrl: 'components/locations/integrations/integration.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
     when('/:id/integration/unifi/auth', {
-      templateUrl: 'components/locations/new/unifi_auth.html',
+      templateUrl: 'components/locations/integrations/unifi_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/integration/unifi/setup', {
-      templateUrl: 'components/locations/new/unifi_setup.html',
+      templateUrl: 'components/locations/integrations/unifi_setup.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/integration/_cloudtrax/auth', {
+      templateUrl: 'components/locations/integrations/cloudtrax_auth.html',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/:id/integration/_cloudtrax/setup', {
+      templateUrl: 'components/locations/integrations/cloudtrax_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/integration/vsz/auth', {
-      templateUrl: 'components/locations/new/vsz_auth.html',
+      templateUrl: 'components/locations/integrations/vsz_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/integration/vsz/setup', {
-      templateUrl: 'components/locations/new/vsz_setup.html',
+      templateUrl: 'components/locations/integrations/vsz_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/integration/meraki/auth', {
-      templateUrl: 'components/locations/new/meraki_auth.html',
+      templateUrl: 'components/locations/integrations/meraki_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/integration/meraki/setup', {
-      templateUrl: 'components/locations/new/meraki_setup.html',
+      templateUrl: 'components/locations/integrations/meraki_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/integration/completed', {
-      templateUrl: 'components/locations/new/integration_complete.html',
+      templateUrl: 'components/locations/integrations/integration_complete.html',
       resolve: { loginRequired: loginRequired }
     }).
     when('/:id/devices', {

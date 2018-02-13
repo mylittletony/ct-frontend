@@ -1,0 +1,65 @@
+<div class="top-nav">
+  <md-nav-bar
+    md-no-ink-bar="disableInkBar"
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+  </md-nav-bar>
+</div>
+
+<md-content layout-padding layout="row" layout-wrap class="page-meta">
+  <div>
+    <md-button id="main" class="md-fab md-mini md-raised" ng-click="back()" aria-label="{{ 'Back' | translate }}">
+      <md-tooltip md-direction="bottom">Back</md-tooltip>
+      <md-icon>keyboard_return</md-icon>
+    </md-button>
+  </div>
+  <span flex></span>
+</md-content>
+<form name="myForm" ng-submit="save(myForm)">
+  <div layout="row" layout-align="center center">
+    <md-card flex="100" flex-gt-xs="60" flex-gt-md="60">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline" translate>
+            Step 1: Connect to Cloudtrax
+          </span>
+          <p>You'll need a Cloudtrax API key and secret to get started. The <a href="https://oh-mimo.zendesk.com/hc/en-us/articles/360000911673-Obtaining-your-CloudTrax-API-credentials" target="_blank">following</a> guide explains how to create them. The full setup instructions are <a href="https://oh-mimo.zendesk.com/hc/en-us/articles/360000911853" target="_blank">here</a>.</p>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="100">
+            <label>
+              <translate>API Key</translate>
+            </label>
+            <input ng-model="integration.username" name="key" type="text" md-maxlength='255'required></input>
+            <div ng-messages="myForm.key.$error" >
+              <div ng-message="required" translate>You must enter a valid key.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-xs="100">
+            <label>
+              <translate>Secret</translate>
+            </label>
+            <input ng-model="integration.password" type="password" md-maxlength='255'required></input>
+          </md-input-container>
+        </div>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="space-between center">
+        <div>
+          <p ng-if="validated == true">Integration Successfully Validated</p>
+        </div>
+        <div>
+          <md-button type="submit" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid">
+            Test Integration
+          </md-button>
+          <md-button ng-click="next()" class="md-raised" ng-disabled="validated !== true">
+            Next
+          </md-button>
+        </div>
+      </md-card-actions>
+    </md-card>
+  </div>
+</form>
