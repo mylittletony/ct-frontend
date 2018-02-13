@@ -30,7 +30,6 @@ module.exports = function(config) {
       'client/bower_components/pusher-angular/pusher.min.js',
       'client/bower_components/pusher-angular/lib/pusher-angular.js',
       'client/bower_components/ngstorage/ngStorage.js',
-      'client/bower_components/angular-scroll-glue/src/scrollglue.js',
       'client/bower_components/foundation/css/foundation.css',
       'client/bower_components/angular-foundation/template/**/*.html',
       'client/bower_components/ngStorage/ngStorage.js',

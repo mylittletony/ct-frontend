@@ -68,7 +68,7 @@
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
-    <div class="locked-account" ng-show="user.locked">
+    <div class="locked-account" ng-show="user.locked && user.guest !== true">
       Your account is locked due to a billing issue. If you think this is an error, please contact support.<br>Otherwise <a href='/#/users/{{user.slug}}/billing' style="color: white">sign up here.</a>
     </div>
     <md-toolbar ng-hide="vm.menu.hideToolbar" md-theme="{{ theme }}">
@@ -324,7 +324,6 @@
   <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
   <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
   <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
-  <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
   <script src="bower_components/emojione/lib/js/emojione.js"></script>
   <script src="bower_components/jquery-textcomplete/dist/jquery.textcomplete.js"></script>
   <script src="bower_components/emojionearea/dist/emojionearea.js"></script>
