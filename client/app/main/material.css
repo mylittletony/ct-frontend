@@ -1387,12 +1387,6 @@ table#plans td.md-cell {
 
 /*WYSIWYG*/
 
-.tinymcelabel {
-  font-size: 12px;
-  padding-left: 2px;
-  color: rgba(0,0,0,0.54);
-}
-
 .mce-container * {
   color: rgba(0,0,0,0.9)!important;
   font-family: 'Source Sans Pro', sans-serif!important;
@@ -1432,6 +1426,5 @@ table#plans td.md-cell {
   margin-left: 2px;
   margin-top: 10px;
 }
-
 
 /*WYSIWYG*/
