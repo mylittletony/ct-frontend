@@ -13,7 +13,7 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        <p>Connect MIMO to your <b>UniFi, Ruckus VSZ and Meraki</b> devices. MIMO provides beautifully simple splash pages and advanced customer engagement tools.</p>
+        <p>Connect MIMO to your <b>UniFi, CloudTrax, Ruckus VSZ and Meraki</b> devices. MIMO provides beautifully simple splash pages and advanced customer engagement tools.</p>
         <p>Getting started takes less than 2 minutes - we'll configure everything for you.</p>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
@@ -41,6 +41,9 @@
         <p>You haven't finished the setup of your {{ integration.type | integrationType }} integration.</p>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-click="destroy()" class="md-raised">
+          Delete Integration
+        </md-button>
         <md-button ng-href="/#/{{ location.slug }}/integration/{{ integration.type}}/auth" class="md-primary md-raised">
           Complete Setup
         </md-button>
@@ -153,6 +156,39 @@
               </div>
             </md-card-content>
 
+            <md-card-content ng-if="integration.type == 'cloudtrax'">
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-sm="40">
+                  <label>
+                    <translate>Integration Type</translate>
+                  </label>
+                  <input value="CloudTrax / OpenMesh" disabled></input>
+                </md-input-container>
+              </div>
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-sm="100">
+                  <label>
+                    <translate>API Key</translate>
+                  </label>
+                  <input ng-model="integration.username" type="password" name="key" md-maxlength='255'required></input>
+                  <div ng-messages="myForm.key.$error">
+                    <div ng-message="required">You must enter an API Key</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-sm="100">
+                  <label>
+                    <translate>API Secret</translate>
+                  </label>
+                  <input ng-model="integration.secret" type="password" name="secret" md-maxlength='255'required></input>
+                  <div ng-messages="myForm.secret.$error">
+                    <div ng-message="required">You must enter an API Secret</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </md-card-content>
+
             <md-card-content ng-if="integration.type == 'meraki'">
               <div layout="row" layout-wrap>
                 <md-input-container flex="100" flex-gt-sm="40">
@@ -174,6 +210,7 @@
                 </md-input-container>
               </div>
             </md-card-content>
+
             <md-card-actions layout="row" layout-align="end center">
               <div>
                 <p ng-if="validated == true">Integration Successfully Validated</p>

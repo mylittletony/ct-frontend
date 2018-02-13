@@ -938,7 +938,7 @@ app.directive('cloudtraxAuth', ['Location', '$routeParams', '$location', '$http'
     };
 
     scope.next = function(results) {
-      $location.path($routeParams.id + '/integration/_cloudtrax/setup');
+      $location.path($routeParams.id + '/integration/cloudtrax/setup');
     };
 
     scope.back = function(results) {
@@ -967,10 +967,11 @@ app.directive('cloudtraxAuth', ['Location', '$routeParams', '$location', '$http'
 
 }]);
 
-app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', '$route', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration, $route) {
+app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', 'SplashIntegration', '$route', '$timeout', function(Location, $routeParams, $location, $http, $mdDialog, showToast, showErrors, gettextCatalog, SplashIntegration, $route, $timeout) {
 
   var link = function(scope, element, attrs, controller) {
 
+    scope.loading = true;
     scope.location = {slug: $routeParams.id};
     scope.ct = { };
 
@@ -984,7 +985,11 @@ app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http
 
     var fetchSites = function() {
       controller.fetchSites(scope.integration).then(function(sites) {
-        scope.cloudtrax_networks = sites;
+        var timer = $timeout(function() {
+          scope.loading = undefined;
+          scope.cloudtrax_networks = sites;
+          $timeout.cancel(timer);
+        },1500);
       });
     };
 
@@ -1017,9 +1022,8 @@ app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http
         location_id: $routeParams.id,
         action: 'cloudtrax_ssids'
       }).$promise.then(function(results) {
-        console.log(results);
         scope.cloudtrax_ssids = results;
-        }
+      }
       );
     };
 
@@ -1037,10 +1041,7 @@ app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http
         }
       }, function(results) {
         showToast('Successfully created network');
-        // Sort this
-        // $route.reload();
-        // @zak create the landing page
-        // $location.path($routeParams.id + '/integration/completed');
+        $route.reload();
       }, function(error) {
         showErrors(error);
       });
@@ -1057,37 +1058,34 @@ app.directive('cloudtraxSetup', ['Location', '$routeParams', '$location', '$http
         }
       }, function(results) {
         fetchSsids();
-        // showToast('Successfully created network');
-        // Sort this
-        // $route.reload();
-        // @zak create the landing page
-        // $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
         showErrors(error);
       });
     };
 
     scope.finalise = function() {
+      var ssid = JSON.parse(scope.ct.ct_ssid);
       scope.myForm.$setPristine();
       SplashIntegration.update({},{
         id: scope.integration.id,
         location_id: $routeParams.id,
         splash_integration: {
           metadata: {
-            ssid: scope.ct.ssid,
-            ssid_id: scope.ct.ssid_id
+            ssid:    scope.ct.ssid,
+            ssid_id: ssid.id
           },
-          action: 'create_network'
+          action: 'create_setup'
         }
       }, function(results) {
         showToast('Successfully enabled network');
-        // Sort this
-        // $route.reload();
-        // @zak create the landing page
         $location.path($routeParams.id + '/integration/completed');
       }, function(error) {
         showErrors(error);
       });
+    };
+
+    scope.setSsid = function() {
+      scope.ct.ssid = JSON.parse(scope.ct.ct_ssid).ssid;
     };
 
     controller.fetch().then(function(integration) {

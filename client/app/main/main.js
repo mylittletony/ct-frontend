@@ -150,11 +150,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/locations/integrations/unifi_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/integration/_cloudtrax/auth', {
+    when('/:id/integration/cloudtrax/auth', {
       templateUrl: 'components/locations/integrations/cloudtrax_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/integration/_cloudtrax/setup', {
+    when('/:id/integration/cloudtrax/setup', {
       templateUrl: 'components/locations/integrations/cloudtrax_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
