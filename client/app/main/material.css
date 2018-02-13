@@ -1392,6 +1392,10 @@ table#plans td.md-cell {
   font-family: 'Source Sans Pro', sans-serif!important;
 }
 
+.mce-container.mce-toolbar-grp {
+  background-color: transparent!important;
+}
+
 .mce-panel, .mce-btn {
   background-color: white!important;
 }
