@@ -186,6 +186,7 @@
               </div>
             </md-input-container>
             <span ng-if="tinymceOptions">
+              <span class="tinymcelabel">Message Body *</span>
               <textarea ui-tinymce="tinymceOptions" ng-model="campaign.content"></textarea>
             </span>
             <p>You can insert any html in the content field. Dynamic variables must be wrapped in {{}} brackets. Find more in the <a href="https://oh-mimo.zendesk.com/hc/en-us/articles/360000562574-Dynamic-Campaign-Fields-and-HTML" target='_blank'>docs</a>.</p>
