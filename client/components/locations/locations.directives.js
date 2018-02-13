@@ -110,7 +110,6 @@ app.directive('newLocationForm', ['Location', '$location', 'menu', 'showErrors',
     link: link,
     restrict: 'E',
     scope: {
-      // accountId: '@'
     },
     templateUrl: 'components/locations/new/_index.html'
   };
