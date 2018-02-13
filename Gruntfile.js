@@ -568,21 +568,6 @@ module.exports = function (grunt) {
             'package.json',
             'server/**/*'
           ]
-        },{
-          expand: true,
-          cwd: 'bower_components/tinymce-dist/themes/modern/',
-          src: ['**'],
-          dest: '<%= yeoman.dist %>/core/themes/modern/'
-        }, {
-          expand: true,
-          cwd: 'bower_components/tinymce-dist/skins/',
-          src: ['**'],
-          dest: '<%= yeoman.dist %>/core/skins/'
-        }, {
-          expand: true,
-          cwd: 'bower_components/tinymce-dist/plugins/link/',
-          src: ['**'],
-          dest: '<%= yeoman.dist %>/core/plugins/link/'
         }]
       },
       styles: {
