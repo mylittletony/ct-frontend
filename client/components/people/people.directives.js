@@ -51,13 +51,20 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.updatePage();
     };
 
-    scope.updatePage = function(item) {
-      var hash    = {};
-      scope.page  = scope._links.current_page;
-      hash.page   = scope.query.page;
-
-      $location.search(hash);
-      init();
+    var getPeople = function() {
+      var params = {
+        page: scope.query.page,
+        per: scope.query.limit,
+        location_id: scope.location.slug
+      };
+      People.get(params, function(data) {
+        scope.people = data.people;
+        scope._links = data._links;
+        scope.loading  = undefined;
+      }, function(err){
+        scope.loading  = undefined;
+        console.log(err);
+      });
     };
 
     var checkForGuide = function() {
@@ -78,24 +85,17 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       });
     };
 
-    var getPeople = function() {
-      var params = {
-        page: scope.query.page,
-        per: scope.query.limit,
-        location_id: scope.location.slug
-      };
-      People.get(params, function(data) {
-        scope.people = data.people;
-        scope._links = data._links;
-        scope.loading  = undefined;
-      }, function(err){
-        scope.loading  = undefined;
-        console.log(err);
-      });
-    };
-
     var init = function() {
       getLocation();
+    };
+
+    scope.updatePage = function(item) {
+      var hash    = {};
+      scope.page  = scope._links.current_page;
+      hash.page   = scope.query.page;
+
+      $location.search(hash);
+      init();
     };
 
     init();
@@ -164,7 +164,7 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Email'
     var getCodes = function() {
       Code.get({
         person_id: scope.person.id,
-        location_id: scope.location.id
+        location_id: scope.location.slug
       }).$promise.then(function(results) {
         scope.person.codes = results.codes;
       }, function(err) {
@@ -185,7 +185,7 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Email'
       getSocials();
       getGuests();
       getEmails();
-      // getCodes();
+      getCodes();
       getClients();
     };
 
