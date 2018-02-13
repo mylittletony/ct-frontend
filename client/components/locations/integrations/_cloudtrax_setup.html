@@ -29,7 +29,7 @@
       <md-card-content>
         <div layout="row" layout-wrap>
           <p ng-show="cloudtrax_networks.length == 0">
-            We couldn't find any CloudTrax networks. Please create one now.
+            We couldn't find any CloudTrax networks. Please create one now. <a href="https://oh-mimo.zendesk.com/hc/en-us/articles/360000927653">Help</a>
           </p>
           <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_networks.length == 0">
             <label>
@@ -45,22 +45,33 @@
             <label>
               <translate>CloudTrax Network</translate>
             </label>
-            <md-select ng-model="ct.network">
-              <md-option ng-repeat="network in cloudtrax_networks" value="{{network}}">
+            <md-select ng-change="saveNetworkID(network_id)" ng-model="network_id">
+              <md-option ng-repeat="network in cloudtrax_networks" value="{{network.id}}">
                 {{network.name}}
               </md-option>
             </md-select>
           </md-input-container>
         </div>
         <div layout="row" layout-wrap>
-          <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_networks">
+          <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_ssids.length">
             <label>
-              <translate>SSID</translate>
+              <translate>CloudTrax SSID</translate>
             </label>
-            <input name="ssid" md-maxlength="32" ng-model="ct.ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid required>
+            <md-select ing-change="saveNetworkID(network_id)" ng-model="ct.ssid_id">
+              <md-option ng-repeat="ssid in cloudtrax_ssids" value="{{ssid.id}}">
+                {{ssid.ssid}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="100" ng-if="ct.ssid_id">
+            <label>
+              <translate>Rename SSID</translate>
+            </label>
+            <input name="ssid" md-maxlength="32" ng-model="ct.ssid" ng-pattern="/^[^[\]\'\\]+$/" class="ssid-input" ssid>
             <div ng-messages="myForm.ssid.$error">
               <div ng-message="md-maxlength" translate>Max 32 characters</div>
-              <div ng-message="required" translate>You must set an SSID</div>
               <div ng-message="pattern" translate>Invalid characters in SSID</div>
               <div ng-message="ssidValidator" translate>SSID is too large</div>
             </div>
@@ -68,10 +79,13 @@
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="save(myForm,ct)" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="cloudtrax_networks.length > 0">
+        <md-button ng-click="save(myForm,ct)" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="cloudtrax_networks.length > 0 && !ct.ssid_id">
           Create
         </md-button>
         <md-button ng-click="createNetwork(myForm,ct)" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="cloudtrax_networks.length == 0">
+          Create
+        </md-button>
+        <md-button ng-click="finalise()" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="ct.ssid_id">
           Create
         </md-button>
       </md-card-actions>
