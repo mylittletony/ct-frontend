@@ -123,7 +123,7 @@
                   <tbody md-body>
                     <tr md-row ng-repeat="email in person.emails">
                       <td md-cell>
-                        {{email.username}}
+                        {{email.email}}
                       </td>
                       <td md-cell>
                         <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == false && email.comments">{{ email.comments }}</md-tooltip></md-icon>
