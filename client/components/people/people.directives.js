@@ -261,6 +261,8 @@ app.directive('peopleReports', ['People', 'Location', '$routeParams', '$location
 
     scope.currentNavItem = 'reports';
 
+    scope.period = $routeParams.period || '7d';
+
     var init = function() {
       Location.get({id: $routeParams.id}, function(data) {
         scope.location = data;
@@ -268,6 +270,14 @@ app.directive('peopleReports', ['People', 'Location', '$routeParams', '$location
       }, function(err){
         console.log(err);
       });
+    };
+
+    scope.changePeriod = function() {
+      var hash    = {};
+      hash.period   = scope.period;
+
+      $location.search(hash);
+      init();
     };
 
     init();
