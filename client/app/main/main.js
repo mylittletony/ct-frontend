@@ -14,14 +14,12 @@ var app = angular.module('myApp', [
   'angularMoment',
   'ngMaterial',
   'md.data.table',
-  'luegg.directives',
   'minicolors',
   'pusher-angular',
   'config',
   'gettext',
   'moment-picker',
-  'color.picker',
-  'ui.tinymce'
+  'color.picker'
 ]);
 
 app.config(function($provide) {
