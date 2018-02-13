@@ -130,7 +130,7 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
 
     scope.tinymceOptions = {
       selector: 'textarea',
-      height: 200,
+      height: 300,
       menubar: false,
       plugins: [
         'advlist autolink lists link image charmap print preview anchor textcolor',
