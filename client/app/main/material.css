@@ -1352,39 +1352,6 @@ table#plans td.md-cell {
   font-size: 14px;
 }
 
-.advanced-line {
-  cursor: pointer;
-  outline-color: transparent;
-  outline-style: none;
-}
-
-.advanced-line small {
-  overflow: hidden;
-  text-align: center;
-  line-height: 37px;
-}
-
-.advanced-line small:before,
-.advanced-line small:after {
-  background-color: rgb(224, 224, 224);
-  content: "";
-  display: inline-block;
-  height: 1px;
-  position: relative;
-  vertical-align: middle;
-  width: 50%;
-}
-
-.advanced-line small:before {
-  right: 0.5em;
-  margin-left: -50%;
-}
-
-.advanced-line small:after {
-  left: 0.5em;
-  margin-right: -50%;
-}
-
 /*WYSIWYG*/
 
 .mce-container * {
