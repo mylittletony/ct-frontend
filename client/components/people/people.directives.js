@@ -59,11 +59,6 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.updatePage();
     };
 
-    scope.savePredicate = function() {
-      scope.focusedCard = undefined;
-      scope.updatePage();
-    };
-
     scope.onSelect = function(index) {
       scope.showChooser = undefined;
       var pred = { value: '', operator: 'gte', relative: true };
@@ -87,6 +82,11 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.query.predicates.push(pred);
     };
 
+    scope.savePredicate = function() {
+      scope.focusedCard = undefined;
+      scope.updatePage();
+    };
+
     scope.addRule = function() {
       if (!scope.query.predicates) {
         scope.query.predicates = [];
@@ -95,15 +95,22 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.showChooser = true;
     };
 
+    scope.removePredicate = function(index) {
+      scope.query.predicates.splice(index, 1);
+      scope.updatePage();
+    };
+
     var getPeople = function() {
       var params = {
         page: scope.query.page,
         per: scope.query.limit,
         location_id: scope.location.slug,
-        q: scope.query.filter,
-        // predicate_type: scope.query.predicate_type,
-        // predicates: scope.query.predicates
+        q: scope.query.filter
       };
+      if (scope.query.predicates.length > 0) {
+        params.predicate_type = scope.query.predicate_type;
+        params.predicates = scope.query.predicates;
+      }
       People.get(params, function(data) {
         scope.people = data.people;
         scope._links = data._links;
