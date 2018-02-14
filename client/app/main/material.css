@@ -1460,7 +1460,7 @@ table#plans td.md-cell {
 
 .mce-foot {
   border-top: 1px solid rgb(224, 224, 224)!important;
-  border-radius: 4px;
+  border-radius: 0px 0px 4px 4px;
 }
 
 .mce-combobox input, .mce-textbox {
