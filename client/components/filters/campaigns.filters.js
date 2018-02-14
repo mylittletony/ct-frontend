@@ -30,9 +30,9 @@ app.filter('humanPredicate', [ 'gettextCatalog', function(gettextCatalog) {
 
     if (predicate.attribute === 'login_count') {
       if (predicate.operator === 'gte') {
-        phrase = 'more than';
-      } else {
         phrase = 'less than';
+      } else {
+        phrase = 'more than';
       }
       return attr + ' ' + phrase + ' ' + predicate.value + ' logins';
     }
