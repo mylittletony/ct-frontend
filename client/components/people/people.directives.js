@@ -9,13 +9,13 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     scope.currentNavItem = 'people';
     scope.location = {slug: $routeParams.id};
     scope.query = {
-      limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
-      filter:     $routeParams.q,
-      options:    [5,10,25,50,100]
+      limit:          $routeParams.per || 25,
+      page:           $routeParams.page || 1,
+      filter:         $routeParams.q,
+      options:        [5,10,25,50,100],
+      predicate_type: $routeParams.predicate_type || 'and',
+      predicates:     $routeParams.predicates || []
     };
-    scope.query.predicate_type = 'and';
-
 
     scope.available_options = [];
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
@@ -61,7 +61,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
     scope.savePredicate = function() {
       scope.focusedCard = undefined;
-      console.log(scope.query.predicates);
+      scope.updatePage();
     };
 
     scope.onSelect = function(index) {
@@ -71,12 +71,12 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
         case 0:
           pred.name = 'First seen';
           pred.attribute = 'created_at';
-          pred.operator = 'gte';
+          pred.operator = 'lte';
           break;
         case 1:
           pred.name = 'Last seen';
           pred.attribute = 'last_seen';
-          pred.operator = 'gte';
+          pred.operator = 'lte';
           break;
         case 2:
           pred.name = 'Number of logins';
@@ -100,7 +100,9 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
         page: scope.query.page,
         per: scope.query.limit,
         location_id: scope.location.slug,
-        q: scope.query.filter
+        q: scope.query.filter,
+        // predicate_type: scope.query.predicate_type,
+        // predicates: scope.query.predicates
       };
       People.get(params, function(data) {
         scope.people = data.people;
@@ -138,6 +140,8 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       var hash    = {};
       hash.page   = scope.query.page;
       hash.q   = scope.query.filter;
+      hash.predicate_type = scope.query.predicate_type;
+      hash.predicates = scope.query.predicates;
 
       $location.search(hash);
       init();

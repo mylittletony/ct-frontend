@@ -156,12 +156,12 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
         case 0:
           pred.name = 'First seen';
           pred.attribute = 'created_at';
-          pred.operator = 'gte';
+          pred.operator = 'lte';
           break;
         case 1:
           pred.name = 'Last seen';
           pred.attribute = 'last_seen';
-          pred.operator = 'gte';
+          pred.operator = 'lte';
           break;
         case 2:
           pred.name = 'Number of logins';

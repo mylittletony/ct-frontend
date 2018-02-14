@@ -30,18 +30,18 @@ app.filter('humanPredicate', [ 'gettextCatalog', function(gettextCatalog) {
 
     if (predicate.attribute === 'login_count') {
       if (predicate.operator === 'gte') {
-        phrase = 'less than';
-      } else {
         phrase = 'more than';
+      } else {
+        phrase = 'less than';
       }
-      return attr + ' ' + phrase + ' ' + predicate.value + ' logins';
+      return attr + ' ' + phrase + ' ' + (predicate.value || 0) + ' logins';
     }
 
     if (isNumber(predicate.value)) {
       if (predicate.operator === 'gte') {
-        phrase = 'more than';
-      } else if (predicate.operator === 'lte') {
         phrase = 'less than';
+      } else if (predicate.operator === 'lte') {
+        phrase = 'more than';
       } else {
         phrase = 'exactly';
       }
