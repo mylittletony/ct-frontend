@@ -108,8 +108,10 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
         q: scope.query.filter
       };
       if (scope.query.predicates.length > 0) {
-        params.predicate_type = scope.query.predicate_type;
-        params.predicates = scope.query.predicates;
+        params.audience = {
+          predicates: scope.query.predicates,
+          predicate_type: scope.query.predicate_type
+        };
       }
       People.get(params, function(data) {
         scope.people = data.people;
