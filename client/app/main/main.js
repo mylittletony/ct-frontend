@@ -180,7 +180,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/:id/integration/completed', {
       templateUrl: 'components/locations/integrations/integration_complete.html',
-      resolve: { loginRequired: loginRequired }
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
     }).
     when('/:id/devices', {
       templateUrl: 'components/locations/show/index.html',

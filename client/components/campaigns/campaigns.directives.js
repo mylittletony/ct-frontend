@@ -197,15 +197,15 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Auth', '$
       switch(scope.campaign.template) {
         case 'signed_up_now':
           scope.campaign.holding_predicates = [];
-          scope.campaign.holding_predicates.push({operator: 'rel_lte', rel_value: 1, attribute: 'created_at'});
+          scope.campaign.holding_predicates.push({operator: 'lte', value: 1, attribute: 'created_at'});
           break;
         case 'signed_up_30':
           scope.campaign.holding_predicates = [];
-          scope.campaign.holding_predicates.push({operator: 'rel_eq', rel_value: 30, attribute: 'created_at'});
+          scope.campaign.holding_predicates.push({operator: 'eq', value: 30, attribute: 'created_at'});
           break;
         case 'last_seen_30':
           scope.campaign.holding_predicates = [];
-          scope.campaign.holding_predicates.push({operator: 'rel_eq', rel_value: 30, attribute: 'last_seen'});
+          scope.campaign.holding_predicates.push({operator: 'eq', value: 30, attribute: 'last_seen'});
           break;
         case 'custom':
           scope.campaign.holding_predicates = [];
