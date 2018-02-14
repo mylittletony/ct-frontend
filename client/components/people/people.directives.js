@@ -52,10 +52,6 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.updatePage();
     };
 
-    scope.peopleSearch = function() {
-      scope.updatePage();
-    };
-
     var getPeople = function() {
       var params = {
         page: scope.query.page,
