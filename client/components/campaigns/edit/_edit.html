@@ -128,8 +128,8 @@
                     </md-radio-group>
 
                     <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'login_count'">
-                      <md-radio-button value="lte" class="md-primary">More than</md-radio-button>
-                      <md-radio-button value="gte" class="md-primary">Less than</md-radio-button>
+                      <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
+                      <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
                       <md-input-container flex="100" flex-gt-sm="100">
                         <input ng-model="predicate.value" name="value" placeholder="Count" type="number" ng-min="0" required>
                         <div ng-messages="myForm.value.$error" md-auto-hide="false">
