@@ -14,13 +14,13 @@ var app = angular.module('myApp', [
   'angularMoment',
   'ngMaterial',
   'md.data.table',
-  'luegg.directives',
   'minicolors',
   'pusher-angular',
   'config',
   'gettext',
   'moment-picker',
-  'color.picker'
+  'color.picker',
+  'ui.tinymce'
 ]);
 
 app.config(function($provide) {
@@ -45,6 +45,11 @@ app.config(['$mdThemingProvider', 'THEMES', function($mdThemingProvider, THEMES)
   $mdThemingProvider.theme('default')
     .primaryPalette('pink')
     .accentPalette('pink');
+}]);
+
+app.config([function() {
+  tinyMCE.baseURL = '/bower_components/tinymce';
+  tinyMCE.suffix = '.min';
 }]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
@@ -149,11 +154,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/locations/integrations/unifi_setup.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/integration/_cloudtrax/auth', {
+    when('/:id/integration/cloudtrax/auth', {
       templateUrl: 'components/locations/integrations/cloudtrax_auth.html',
       resolve: { loginRequired: loginRequired }
     }).
-    when('/:id/integration/_cloudtrax/setup', {
+    when('/:id/integration/cloudtrax/setup', {
       templateUrl: 'components/locations/integrations/cloudtrax_setup.html',
       resolve: { loginRequired: loginRequired }
     }).

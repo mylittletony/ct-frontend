@@ -1,21 +1,6 @@
 'use strict';
 
 /* Filters */
-
-    var setType = function() {
-      switch (scope.integration.type) {
-        case 'unifi':
-          scope.type = 'UniFi';
-          break;
-        case 'meraki':
-          scope.type = 'Meraki';
-          break;
-        case 'vsz':
-          scope.type = 'Ruckus VSZ';
-          break;
-      }
-    };
-
 var app = angular.module('myApp.locations.filters', []);
 
 app.filter('integrationType', function() {
@@ -29,9 +14,10 @@ app.filter('integrationType', function() {
         return 'UniFi';
       case 'meraki':
         return 'Meraki';
+      case 'cloudtrax':
+        return 'CloudTrax';
       case 'vsz':
         return 'Ruckus VSZ';
-        break;
     }
   };
 });

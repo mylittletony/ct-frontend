@@ -23,7 +23,9 @@
           <span class="md-headline" translate>
             Step 2: Setup CloudTrax Integration
           </span>
-          <span class="md-subhead">Now that MIMO can access your controller, choose which network you want the guest network to be added to.</span>
+          <p>Now that MIMO can access your controller, choose which network you want the guest network to be added to.</p>
+          <p ng-show="loading"><b>Oh my, we're loading your CloudTrax networks, one second homie</b></p>
+
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
@@ -43,7 +45,7 @@
           </md-input-container>
           <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_networks.length">
             <label>
-              <translate>CloudTrax Network</translate>
+              <translate>Choose your CloudTrax Network</translate>
             </label>
             <md-select ng-change="saveNetworkID(network_id)" ng-model="network_id">
               <md-option ng-repeat="network in cloudtrax_networks" value="{{network.id}}">
@@ -55,17 +57,17 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="100" flex-gt-sm="100" ng-if="cloudtrax_ssids.length">
             <label>
-              <translate>CloudTrax SSID</translate>
+              <translate>Enable MIMO on CloudTrax SSID</translate>
             </label>
-            <md-select ing-change="saveNetworkID(network_id)" ng-model="ct.ssid_id">
-              <md-option ng-repeat="ssid in cloudtrax_ssids" value="{{ssid.id}}">
-                {{ssid.ssid}}
+            <md-select ng-change="setSsid()" ng-model="ct.ct_ssid">
+              <md-option ng-repeat="ssid in cloudtrax_ssids" value="{{ssid}}">
+                {{ssid.ssid}} (SSID {{ssid.id}})
               </md-option>
             </md-select>
           </md-input-container>
         </div>
-        <div layout="row" layout-wrap>
-          <md-input-container flex="100" flex-gt-sm="100" ng-if="ct.ssid_id">
+        <div layout="row" layout-wrap  ng-if="ct.ct_ssid">
+          <md-input-container flex="100" flex-gt-sm="100">
             <label>
               <translate>Rename SSID</translate>
             </label>
@@ -76,17 +78,15 @@
               <div ng-message="ssidValidator" translate>SSID is too large</div>
             </div>
           </md-input-container>
+          <p style='margin-top: -30px;'>You can rename the SSID if you want. No biggie if you want to leave as is.</p>
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="save(myForm,ct)" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="cloudtrax_networks.length > 0 && !ct.ssid_id">
-          Create
-        </md-button>
         <md-button ng-click="createNetwork(myForm,ct)" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="cloudtrax_networks.length == 0">
-          Create
+          Create Network
         </md-button>
-        <md-button ng-click="finalise()" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="ct.ssid_id">
-          Create
+        <md-button ng-click="finalise()" class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-show="ct.ssid">
+          Save
         </md-button>
       </md-card-actions>
     </md-card>
