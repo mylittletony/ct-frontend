@@ -14,6 +14,13 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       filter:     $routeParams.q,
       options:    [5,10,25,50,100]
     };
+    scope.query.predicate_type = 'and';
+
+
+    scope.available_options = [];
+    scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
+    scope.available_options.push({value: 'last_seen', name: 'Last seen', desc: 'The last time they were seen on your network'});
+    scope.available_options.push({value: 'logins_count', name: 'Number of logins', desc: 'Total number of logins through your network'});
 
     var removeFromList = function(person) {
       for (var i = 0, len = scope.people.length; i < len; i++) {
@@ -50,6 +57,42 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.query.page = page;
       scope.query.limit = limit;
       scope.updatePage();
+    };
+
+    scope.savePredicate = function() {
+      scope.focusedCard = undefined;
+      console.log(scope.query.predicates);
+    };
+
+    scope.onSelect = function(index) {
+      scope.showChooser = undefined;
+      var pred = { value: '', operator: 'gte', relative: true };
+      switch(index) {
+        case 0:
+          pred.name = 'First seen';
+          pred.attribute = 'created_at';
+          pred.operator = 'gte';
+          break;
+        case 1:
+          pred.name = 'Last seen';
+          pred.attribute = 'last_seen';
+          pred.operator = 'gte';
+          break;
+        case 2:
+          pred.name = 'Number of logins';
+          pred.attribute = 'login_count';
+          pred.operator = 'gte';
+          break;
+      }
+      scope.query.predicates.push(pred);
+    };
+
+    scope.addRule = function() {
+      if (!scope.query.predicates) {
+        scope.query.predicates = [];
+      }
+      scope.focusedCard = scope.query.predicates.length;
+      scope.showChooser = true;
     };
 
     var getPeople = function() {
