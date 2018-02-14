@@ -1869,6 +1869,7 @@ app.directive('integrationComplete', ['Location', '$routeParams', '$location', '
     require: '^integrations',
     link: link,
     scope: {
+      loading: '='
     },
     templateUrl: 'components/locations/integrations/_integration_complete.html'
   };
