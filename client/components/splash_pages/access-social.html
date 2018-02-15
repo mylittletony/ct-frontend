@@ -17,9 +17,6 @@
       <md-checkbox ng-model="splash.g_login_on" name="g_login_on" type="checkbox">
         <translate>Google+</translate>
       </md-checkbox>
-      <md-checkbox ng-model="splash.li_login_on" name="li_login_on" type="checkbox">
-        <translate>LinkedIn</translate>
-      </md-checkbox>
       <md-checkbox ng-model="splash.backup_vouchers" name="backup_vouchers" type="checkbox">
         <translate>Vouchers</translate>
       </md-checkbox>
@@ -53,24 +50,6 @@
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block">
-        <label translate>Facebook App ID</label>
-        <input ng-model="splash.fb_app_id" name="fb_app_id" placeholder="{{ 'Enter your App ID' | translate }}" type="text" ng-disabled="splash.fb_use_ps" ng-required='!splash.fb_use_ps'>
-        <div ng-messages="myForm.fb_app_id.$error" md-auto-hide="false">
-          <div ng-message="required" translate>Required when using your own App.</div>
-        </div>
-      </md-input-container>
-
-      <div>
-        <md-input-container class="md-block">
-          <label translate>Checkin Message</label>
-          <textarea ng-model="splash.fb_checkin_msg" md-maxlength="255" ng-minlength="5" name="fb_checkin_msg" rows=3 placeholder="{{'Enter a checkin message for the user to edit' | translate }}"></textarea>
-          <div ng-messages="myForm.fb_checkin_msg.$error">
-            <div ng-message="md-maxlength" translate>Max 255 characters.</div>
-          </div>
-        </md-input-container>
-      </div>
-
     </div>
 
     <div flex-gt-sm="10"></div>
@@ -81,9 +60,6 @@
       </md-switch>
       <md-switch class="md-accent" ng-model="splash.fb_checkin" aria-label="FB Checkin">
         <translate>Allow Checkin {{ splash.fb_checkin ? 'Enabled' : 'Disabled' }}</translate>
-      </md-switch>
-      <md-switch class="md-accent" ng-model="splash.fb_use_ps" aria-label="FB Use CT" ng-true-value="0" ng-false-value="1">
-        <translate>Use Your Own Facebook App</translate>
       </md-switch>
     </div>
 
@@ -129,49 +105,6 @@
       <md-switch class="md-accent" ng-model="splash.g_use_ps" aria-label="{{ 'Google Use CT' | translate }}" ng-true-value="0" ng-false-value="1">
         <translate>Use Your Own Google App</translate>
       </md-switch>
-    </div>
-
-  </md-card-content>
-</md-card>
-
-<md-card class="b-gr" ng-show="splash.li_login_on">
-  <md-card-title>
-    <md-card-title-text>
-      <span class="md-headline" translate>
-        LinkedIn+ Settings
-      </span>
-      <span class="md-subhead" translate>
-        For LinkedIn, you must enable secure captive portal in your network settings otherwise the icon won't appear.
-      </span>
-
-    </md-card-title-text>
-  </md-card-title>
-
-  <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-    <div flex-gt-sm="40">
-      <md-input-container class="md-block">
-        <label translate>LinkedIn Api Key</label>
-        <input ng-model="splash.li_api_key" ng-focus="liKey = !liKey" ng-blur="liKey = !liKey" name="li_api_key" placeholder="{{ 'Enter your LinkedIn API Key' | translate }}" type='{{ liKey ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
-        <div ng-messages="myForm.li_api_key.$error" md-auto-hide="false">
-          <div ng-message="md-maxlength">LinkedIn API key required.</div>
-        </div>
-      </md-input-container>
-      <md-input-container class="md-block">
-        <label translate>LinkedIn Api Secret</label>
-        <input ng-model="splash.li_api_secret" ng-focus="liSecret = !liSecret" ng-blur="liSecret = !liSecret" name="li_api_secret" placeholder="{{ 'Enter your LinkedIn Secret' | translate }}" type='{{ liSecret ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
-        <div ng-messages="myForm.li_api_secret.$error" md-auto-hide="false">
-          <div ng-message="md-maxlength" translate>API secret required when using your own App.</div>
-        </div>
-      </md-input-container>
-
-    </div>
-
-    <div flex-gt-sm="10"></div>
-
-    <div flex-gt-sm="40">
-        <md-switch class="md-accent" ng-model="splash.li_use_ps" aria-label="{{ 'LinkedIn Use CT' | translate }}" ng-true-value="0" ng-false-value="1">
-          <translate>Use Your Own LinkedIn App</translate>
-        </md-switch>
     </div>
 
   </md-card-content>
