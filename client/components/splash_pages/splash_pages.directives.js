@@ -1185,8 +1185,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
     var SplashTemplates = {
       "material_red": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/material-red.jpg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/ri25tvzERHStdU8M7Xqf",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1260,8 +1260,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "material_yellow": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/material-yellow.jpg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/BN4oXIckRTO9gLkzHCtV",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1335,8 +1335,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "material_green": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/material-green.jpg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/gw3sOHJaRsWmoh2xvEZH",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1410,8 +1410,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "material_blue": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/material-blue.jpg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/Vwz1OICvQPCCs65IfLn0",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1485,8 +1485,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "desk_template": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/desk.jpg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/eGRm1Cl5RbSL50CSZDhp",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1560,8 +1560,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "camp_template": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/camping.jpeg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/KJYufz8WQuGihmYykoL8",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1635,8 +1635,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "coffee_template": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/coffee.jpeg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/elgpN7xBSeTwpWhgnmZ2",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1710,8 +1710,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "hotel_template": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-light.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/hotel.jpg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/WXp2g8uQtmoUSsUlajIC",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/3MW4nWTSeGfCEBlkblOF",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,
@@ -1785,8 +1785,8 @@ app.directive('splashTemplates', ['SplashPage', 'designer', '$routeParams', '$lo
       },
       "shop_template": {
         "terms_url": null,
-        "logo_file_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/acme-dark.png",
-        "background_image_name": "https://s3-eu-west-1.amazonaws.com/mimo-labs/images/splash/shopping.jpeg",
+        "logo_file_name": "https://d247kqobagyqjh.cloudfront.net/api/file/ixyDccX5QqCzDPSReaHT",
+        "background_image_name": "https://d247kqobagyqjh.cloudfront.net/api/file/n1UGUJ0SmyY7s4ZBNxbn",
         "location_image_name": null,
         "location_image_name_svg": null,
         "header_image_name": null,

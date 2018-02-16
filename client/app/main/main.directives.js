@@ -130,7 +130,7 @@ app.directive('filepicker', ['$compile', '$cookies', function ($compile, $cookie
         options = { width: 851, height: 315, fit: 'scale' };
       }
       else if ( attrs.type === '10') { // bg image
-        options = { width: 1200 };
+        options = { width: 2400 };
       }
 
       else if ( attrs.type === '20') { // bg image
