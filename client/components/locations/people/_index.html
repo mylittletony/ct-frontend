@@ -28,7 +28,7 @@
                     <span class="md-headline" translate>
                       {{ predicate | humanPredicate }}
                     </span>
-                    <md-switch ng-model="predicate.relative" aria-label="Switch 1" ng-show="focusedCard == $index && predicate.attribute != 'login_count'">
+                    <md-switch ng-model="predicate.relative" aria-label="Switch 1" ng-show="focusedCard == $index && (predicate.attribute == 'created_at' || predicate.attribute == 'last_seen')">
                       {{ predicate.relative ? 'Relative' : 'Absolute' }}
                     </md-switch>
                   </md-card-title-text>
@@ -76,6 +76,13 @@
                         </div>
                       </md-input-container>
                     </md-radio-group>
+
+                    <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'email'">
+                      <input ng-model="predicate.value" name="value" placeholder="Email Address" size="30" type="email" required>
+                      <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                        <div ng-message="required" translate>Please enter an email address.</div>
+                      </div>
+                    </md-input-container>
                     <div>
                       <md-button class="md-raised" ng-click="savePredicate()">Save</md-button>
                     </div>

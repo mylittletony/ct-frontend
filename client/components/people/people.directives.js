@@ -21,6 +21,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
     scope.available_options.push({value: 'last_seen', name: 'Last seen', desc: 'The last time they were seen on your network'});
     scope.available_options.push({value: 'logins_count', name: 'Number of logins', desc: 'Total number of logins through your network'});
+    scope.available_options.push({value: 'email', name: 'Email Address', desc: 'People associated with an email address on your network'});
 
     var removeFromList = function(person) {
       for (var i = 0, len = scope.people.length; i < len; i++) {
@@ -77,6 +78,11 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
           pred.name = 'Number of logins';
           pred.attribute = 'login_count';
           pred.operator = 'gte';
+          break;
+        case 3:
+          pred.name = 'Email Address';
+          pred.attribute = 'email';
+          pred.operator = 'eq';
           break;
       }
       scope.query.predicates.push(pred);
