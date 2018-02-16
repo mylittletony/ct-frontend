@@ -42,8 +42,8 @@
     <div flex-gt-sm="40">
 
       <md-input-container class="md-block">
-        <label translate>Facebook Page ID (numeric)</label>
-        <input ng-model="splash.fb_page_id" name="fb_page_id" placeholder="{{'Facebook Page ID' | translate }}" type="text" ng-required="splash.fb_redirect_to_page || splash.fb_checkin" ng-pattern="/^-?\d+\.?\d*$/">
+        <label translate>Redirect to Facebook Page</label>
+        <input ng-model="splash.fb_page_id" name="fb_page_id" placeholder="{{'Enter your Facebook Page Name or ID' | translate }}" type="text" ng-required="splash.fb_redirect_to_page || splash.fb_checkin" xxng-pattern="/^-?\d+\.?\d*$/">
         <div ng-messages="myForm.fb_page_id.$error" md-auto-hide="false">
           <div ng-message="required" translate>Page ID required</div>
           <div ng-message="pattern" translate>Invalid Page ID</div>
