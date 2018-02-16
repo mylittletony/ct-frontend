@@ -90,6 +90,20 @@
                         <div ng-message="required" translate>Please enter a username.</div>
                       </div>
                     </md-input-container>
+
+                    <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'first_name'">
+                      <input ng-model="predicate.value" name="value" placeholder="First Name" size="20" type="text" required>
+                      <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                        <div ng-message="required" translate>Please enter a name.</div>
+                      </div>
+                    </md-input-container>
+
+                    <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'last_name'">
+                      <input ng-model="predicate.value" name="value" placeholder="Last Name" size="20" type="text" required>
+                      <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                        <div ng-message="required" translate>Please enter a name.</div>
+                      </div>
+                    </md-input-container>
                     <div>
                       <md-button class="md-raised" ng-click="savePredicate()">Save</md-button>
                     </div>

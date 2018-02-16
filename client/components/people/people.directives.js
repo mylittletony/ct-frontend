@@ -21,8 +21,10 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
     scope.available_options.push({value: 'last_seen', name: 'Last seen', desc: 'The last time they were seen on your network'});
     scope.available_options.push({value: 'logins_count', name: 'Number of logins', desc: 'Total number of logins through your network'});
-    scope.available_options.push({value: 'email', name: 'Email Address', desc: 'People associated with an email address on your network'});
-    scope.available_options.push({value: 'username', name: 'Username', desc: 'People\'s usernames on your network'});
+    scope.available_options.push({value: 'email', name: 'Email Address', desc: 'Users associated with an email address on your network'});
+    scope.available_options.push({value: 'username', name: 'Username', desc: 'Usernames on your network'});
+    scope.available_options.push({value: 'first_name', name: 'First Name', desc: 'First names of users on your network'});
+    scope.available_options.push({value: 'last_name', name: 'Last Name', desc: 'Last names of users on your network'});
 
     var removeFromList = function(person) {
       for (var i = 0, len = scope.people.length; i < len; i++) {
@@ -88,6 +90,16 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
         case 4:
           pred.name = 'Username';
           pred.attribute = 'username';
+          pred.operator = 'eq';
+          break;
+        case 5:
+          pred.name = 'First Name';
+          pred.attribute = 'first_name';
+          pred.operator = 'eq';
+          break;
+        case 6:
+          pred.name = 'Last Name';
+          pred.attribute = 'last_name';
           pred.operator = 'eq';
           break;
       }
