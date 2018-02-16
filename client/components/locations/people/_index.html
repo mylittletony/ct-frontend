@@ -162,10 +162,10 @@
                 {{ person.email || 'NA' }}
               </td>
               <td md-cell>
-                {{ person.last_seen | humanDate }}
+                {{ person.last_seen | humanTimeShortest }}
               </td>
               <td md-cell>
-                {{ person.created_at | humanDate }}
+                {{ person.created_at | humanTimeShortest }}
               </td>
               <td md-cell>
                 {{ person.login_count || 1 }}
