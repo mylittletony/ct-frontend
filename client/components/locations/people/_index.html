@@ -170,7 +170,7 @@
           <tbody md-body>
             <tr md-row ng-repeat="person in people">
               <td md-cell>
-                <a href="/#/{{ location.slug }}/people/{{ person.id }}">{{ person.username ? person.username : 'Splash Guest'}}</a>
+                <a href="/#/{{ location.slug }}/people/{{ person.id }}">{{ person.first_name || person.last_name ? person.first_name + ' ' + person.last_name : person.username || 'Splash Guest'}}</a>
               </td>
               <td md-cell>
                 {{ person.email || 'NA' }}
