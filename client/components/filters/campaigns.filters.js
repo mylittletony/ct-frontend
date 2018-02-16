@@ -29,9 +29,12 @@ app.filter('humanPredicate', [ 'gettextCatalog', function(gettextCatalog) {
       case 'email':
         attr = 'Email address';
         break;
+      case 'username':
+        attr = 'Username';
+        break;
     }
 
-    if (predicate.attribute === 'email') {
+    if (predicate.attribute === 'email' || predicate.attribute === 'username') {
       return attr + ' matches ' + predicate.value;
     }
 

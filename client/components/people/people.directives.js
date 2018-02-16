@@ -22,6 +22,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
     scope.available_options.push({value: 'last_seen', name: 'Last seen', desc: 'The last time they were seen on your network'});
     scope.available_options.push({value: 'logins_count', name: 'Number of logins', desc: 'Total number of logins through your network'});
     scope.available_options.push({value: 'email', name: 'Email Address', desc: 'People associated with an email address on your network'});
+    scope.available_options.push({value: 'username', name: 'Username', desc: 'People\'s usernames on your network'});
 
     var removeFromList = function(person) {
       for (var i = 0, len = scope.people.length; i < len; i++) {
@@ -82,6 +83,11 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
         case 3:
           pred.name = 'Email Address';
           pred.attribute = 'email';
+          pred.operator = 'eq';
+          break;
+        case 4:
+          pred.name = 'Username';
+          pred.attribute = 'username';
           pred.operator = 'eq';
           break;
       }
