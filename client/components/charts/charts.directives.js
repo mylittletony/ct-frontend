@@ -41,7 +41,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
     function drawChart() {
 
       var drawChartCallback = function() {
-        // For the tests mainly, not sure why this has started causing a failure
         if (window.google && window.google.visualization) {
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', 'Date');
@@ -2479,5 +2478,4 @@ app.directive('emailStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
     require: '^clientChart',
     templateUrl: 'components/campaigns/reports/_email_stats.html',
   };
-
 }]);
