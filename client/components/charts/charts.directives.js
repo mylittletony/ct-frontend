@@ -2428,7 +2428,7 @@ app.directive('emailStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'g
 
   var link = function(scope,element,attrs,controller) {
 
-    scope.type = 'email.stats';
+    scope.type = 'emails.stats';
 
     var fakeData = {
       total: Math.floor((Math.random() * 100) + 500),
