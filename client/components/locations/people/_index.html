@@ -119,7 +119,12 @@
             </span>
 
             <md-list flex ng-show="showChooser">
-              <md-subheader class="md-no-sticky">Person data</md-subheader>
+              <md-subheader class="md-no-sticky">
+                <div flex layout="row">
+                  <div flex>Person data</div>
+                  <div><a href="" ng-click="cancelRule()">Cancel</a></div>
+                </div>
+              </md-subheader>
               <md-list-item class="md-2-line" ng-repeat="item in available_options" ng-click="onSelect($index)">
                 <div class="md-list-item-text" layout="column">
                   <h3>{{ item.name }}</h3>

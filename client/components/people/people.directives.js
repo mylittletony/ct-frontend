@@ -63,6 +63,11 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.updatePage();
     };
 
+    scope.cancelRule = function() {
+      scope.showChooser = undefined;
+      scope.focusedCard = undefined;
+    };
+
     scope.onSelect = function(index) {
       scope.showChooser = undefined;
       var pred = { value: '', operator: 'gte', relative: true };
@@ -121,6 +126,7 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
 
     scope.removePredicate = function(index) {
       scope.query.predicates.splice(index, 1);
+      scope.focusedCard = undefined;
       scope.updatePage();
     };
 
