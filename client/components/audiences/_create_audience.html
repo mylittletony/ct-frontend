@@ -1,0 +1,47 @@
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Save Audience</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Name your audience.</p>
+        </div>
+        <div flex layout="column">
+          <md-input-container>
+            <label>
+              <translate>Name</translate>
+            </label>
+            <input name="ssid" md-maxlength="32" ng-model="audience.name" class="ssid-input" required>
+            <div ng-messages="myForm.audience.$error">
+              <div ng-message="md-maxlength" translate>Max 32 characters</div>
+              <div ng-message="required" translate>You must name your audience</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div>
+          Conditions:
+          <span ng-repeat="predicate in query.predicates">
+            <md-list-item><i>{{predicate | humanPredicate}}</i></md-list-item>
+          </span>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="save()">
+        <translate>
+          Save
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

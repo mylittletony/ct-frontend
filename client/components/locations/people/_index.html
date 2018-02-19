@@ -133,7 +133,7 @@
               </md-list-item>
             </md-list>
             <md-button class="md-raised" ng-click="addRule()" ng-show="focusedCard == undefined">Add a rule</md-button>
-            <md-button class="md-raised md-primary" ng-click="addRule()" ng-show="focusedCard == undefined && query.predicates.length > 0">
+            <md-button class="md-raised md-primary" ng-click="saveAudience()" ng-show="focusedCard == undefined && query.predicates.length > 0">
               Save audience
               <md-tooltip>
                 Save user filter for quick searches and creating campaigns.

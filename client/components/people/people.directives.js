@@ -116,6 +116,37 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.updatePage();
     };
 
+    function DialogController($scope,location, query) {
+      $scope.location = location;
+      $scope.query = query;
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.save = function() {
+        console.log($scope);
+        $mdDialog.cancel();
+      };
+    }
+
+    DialogController.$inject = ['$scope', 'location', 'query'];
+
+    scope.openDialog = function() {
+      $mdDialog.show({
+        templateUrl: 'components/audiences/_create_audience.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+          location: scope.location,
+          query: scope.query
+        }
+      });
+    };
+
+    scope.saveAudience = function() {
+      scope.openDialog(scope.location, scope.query);
+    };
+
     scope.addRule = function() {
       if (!scope.query.predicates) {
         scope.query.predicates = [];
