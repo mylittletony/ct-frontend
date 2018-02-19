@@ -5,162 +5,6 @@ new_audiencenew_audience<people-nav location="location"></people-nav>
     <div class="example-data" ng-show="location.paid == false">
       The chart below is populated with example data. To access real data about your location, start your free trial today!
     </div>
-    <div flex="100" flex-gt-md="90" flex-gt-lg="80">
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" translate>
-              Filter people
-            </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          <md-radio-group ng-model="selected_audience" ng-repeat="audience in audiences" ng-disabled="new_audience">
-            <md-radio-button ng-click="filterByAudience($index)" value="{{audience.id}}" class="md-primary">
-              {{audience.name}}
-              <small ng-show="selected_audience == audience.id" ng-repeat="predicate in audience.predicates">
-                <br>{{predicate | humanPredicate}}
-              </small>
-            </md-radio-button>
-          </md-radio-group>
-          <md-button class="md-raised" ng-show="new_audience == undefined" ng-click="newAudienceForm()">
-            Create filter
-          </md-button>
-          <div ng-if="new_audience">
-            <md-radio-group ng-model="query.predicate_type">
-              <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
-              <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
-            </md-radio-group>
-          </div>
-          <span ng-show="selected_audience == undefined">
-            <span ng-repeat="predicate in query.predicates">
-              <md-card flex="100">
-                <md-card-title>
-                  <md-card-title-text>
-                    <span class="md-headline" translate>
-                      {{ predicate | humanPredicate }}
-                    </span>
-                    <md-switch ng-model="predicate.relative" aria-label="Switch 1" ng-show="focusedCard == $index && (predicate.attribute == 'created_at' || predicate.attribute == 'last_seen')">
-                      {{ predicate.relative ? 'Relative' : 'Absolute' }}
-                    </md-switch>
-                  </md-card-title-text>
-                </md-card-title>
-                <md-card-content>
-                  <span ng-hide="focusedCard == $index">
-                    <span ng-click="showCard($index)">{{ predicate | humanPredicate }}</span>
-                  </span>
-                  <span ng-show="focusedCard == $index">
-                    <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'created_at' || predicate.attribute == 'last_seen'">
-                      <span ng-if="predicate.relative == true">
-                        <md-radio-button value="lte" class="md-primary">More than</md-radio-button>
-                        <md-radio-button value="gte" class="md-primary">Less than</md-radio-button>
-                        <md-radio-button value="eq" class="md-primary">Exactly</md-radio-button>
-                        <md-input-container flex="100" flex-gt-sm="100">
-                          <input ng-model="predicate.value" name="value" placeholder="Days ago" type="number" ng-min="1" required>
-                          <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                            <div ng-message="min" translate>Must be more than 0</div>
-                            <div ng-message="required" translate>Please enter a number of days.</div>
-                          </div>
-                        </md-input-container>
-                      </span>
-
-                      <span ng-if="predicate.relative == false">
-                        <md-radio-button value="gte" class="md-primary">After</md-radio-button>
-                        <md-radio-button value="lte" class="md-primary">Before</md-radio-button>
-                        <md-radio-button value="eq" class="md-primary">On</md-radio-button>
-                        <md-input-container flex="100" flex-gt-sm="100">
-                          <input ng-model="predicate.value" name="value" placeholder="Date" type="date" required>
-                          <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                            <div ng-message="required" translate>Please enter a date.</div>
-                          </div>
-                        </md-input-container>
-                      </span>
-                    </md-radio-group>
-
-                    <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'login_count'">
-                      <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
-                      <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
-                      <md-input-container flex="100" flex-gt-sm="100">
-                        <input ng-model="predicate.value" name="value" placeholder="Count" type="number" ng-min="0" required>
-                        <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                          <div ng-message="min" translate>Must be more than 0</div>
-                          <div ng-message="required" translate>Please enter a number of days.</div>
-                        </div>
-                      </md-input-container>
-                    </md-radio-group>
-
-                    <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'email'">
-                      <input ng-model="predicate.value" name="value" placeholder="Email Address" size="30" type="email" required>
-                      <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>Please enter an email address.</div>
-                      </div>
-                    </md-input-container>
-
-                    <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'username'">
-                      <input ng-model="predicate.value" name="value" placeholder="Username" size="20" type="text" required>
-                      <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>Please enter a username.</div>
-                      </div>
-                    </md-input-container>
-
-                    <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'first_name'">
-                      <input ng-model="predicate.value" name="value" placeholder="First Name" size="20" type="text" required>
-                      <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>Please enter a name.</div>
-                      </div>
-                    </md-input-container>
-
-                    <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'last_name'">
-                      <input ng-model="predicate.value" name="value" placeholder="Last Name" size="20" type="text" required>
-                      <div ng-messages="myForm.value.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>Please enter a name.</div>
-                      </div>
-                    </md-input-container>
-                    <div>
-                      <md-button class="md-raised" ng-click="savePredicate()">Save</md-button>
-                    </div>
-                  </span>
-                </md-card-content>
-                <md-card-actions layout-align="end end">
-                  <small>
-                    <md-icon style="font-size: 18px; margin-right: -5px; color: rgb(208, 216, 221);" ng-click="removePredicate($index)">delete</md-icon>
-                    <span style="color: rgb(167, 171, 174);">Remove Rule</span>
-                  </small>
-                </md-card-actions>
-              </md-card>
-            </span>
-
-            <md-list flex ng-show="showChooser">
-              <md-subheader class="md-no-sticky">
-                <div flex layout="row">
-                  <div flex>Person data</div>
-                  <div><a href="" ng-click="cancelRule()">Cancel</a></div>
-                </div>
-              </md-subheader>
-              <md-list-item class="md-2-line" ng-repeat="item in available_options" ng-click="onSelect($index)">
-                <div class="md-list-item-text" layout="column">
-                  <h3>{{ item.name }}</h3>
-                  <p>{{ item.desc }}</p>
-                </div>
-              </md-list-item>
-            </md-list>
-            <md-button class="md-raised" ng-click="addRule()" ng-show="focusedCard == undefined && new_audience">Add a rule</md-button>
-            <md-button class="md-raised" ng-click="cancelAudience()" ng-show="new_audience">Cancel</md-button>
-            <md-button class="md-raised md-primary" ng-click="saveAudience()" ng-show="focusedCard == undefined && query.predicates.length > 0">
-              Save audience
-              <md-tooltip>
-                Save user filter for quick searches and creating campaigns.
-              </md-tooltip>
-            </md-button>
-          </span>
-        </md-card-content>
-      </md-card>
-    </div>
-    <form ng-submit="updatePage()">
-      <md-input-container>
-        <input ng-model="query.filter" placeholder="{{ 'search' | translate }}"></input>
-      </md-input-container>
-    </form>
     <analytics ng-if="!loading">
       <client-chart>
         <div layout="row" layout-wrap>
@@ -170,70 +14,229 @@ new_audiencenew_audience<people-nav location="location"></people-nav>
         </div>
       </client-chart>
     </analytics>
+    <div layout="row">
+      <div flex="30">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline" translate>
+                Filter people
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <form ng-submit="updatePage()">
+              <md-input-container>
+                <input ng-model="query.filter" placeholder="{{ 'search' | translate }}"></input>
+              </md-input-container>
+            </form>
+            <md-radio-group ng-model="selected_audience" ng-repeat="audience in audiences" ng-disabled="new_audience">
+              <md-radio-button ng-click="filterByAudience($index)" value="{{audience.id}}" class="md-primary">
+                {{audience.name}}
+                <small ng-show="selected_audience == audience.id" ng-repeat="predicate in audience.predicates">
+                  <br>{{predicate | humanPredicate}}
+                </small>
+              </md-radio-button>
+            </md-radio-group>
+            <md-button class="md-raised" ng-show="new_audience == undefined" ng-click="newAudienceForm()">
+              Create filter
+            </md-button>
+            <div ng-if="new_audience">
+              <md-radio-group ng-model="query.predicate_type">
+                <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
+                <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
+              </md-radio-group>
+            </div>
+            <span ng-show="selected_audience == undefined">
+              <span ng-repeat="predicate in query.predicates">
+                <md-card flex="100">
+                  <md-card-title>
+                    <md-card-title-text>
+                      <span class="md-headline" translate>
+                        {{ predicate | humanPredicate }}
+                      </span>
+                      <md-switch ng-model="predicate.relative" aria-label="Switch 1" ng-show="focusedCard == $index && (predicate.attribute == 'created_at' || predicate.attribute == 'last_seen')">
+                        {{ predicate.relative ? 'Relative' : 'Absolute' }}
+                      </md-switch>
+                    </md-card-title-text>
+                  </md-card-title>
+                  <md-card-content>
+                    <span ng-hide="focusedCard == $index">
+                      <span ng-click="showCard($index)">{{ predicate | humanPredicate }}</span>
+                    </span>
+                    <span ng-show="focusedCard == $index">
+                      <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'created_at' || predicate.attribute == 'last_seen'">
+                        <span ng-if="predicate.relative == true">
+                          <md-radio-button value="lte" class="md-primary">More than</md-radio-button>
+                          <md-radio-button value="gte" class="md-primary">Less than</md-radio-button>
+                          <md-radio-button value="eq" class="md-primary">Exactly</md-radio-button>
+                          <md-input-container flex="100" flex-gt-sm="100">
+                            <input ng-model="predicate.value" name="value" placeholder="Days ago" type="number" ng-min="1" required>
+                            <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                              <div ng-message="min" translate>Must be more than 0</div>
+                              <div ng-message="required" translate>Please enter a number of days.</div>
+                            </div>
+                          </md-input-container>
+                        </span>
 
-    <md-card class="b-bl">
-      <div class="md-toolbar-tools" ng-cloak>
-        <span class="md-subhead" translate>
-          {{ _links.total_entries || 0 }} {{ _links.total_entries == 1 ? 'person' : 'people' }} connected. {{_links.this_week || 0}} connected this week.
-          <!-- There have been 7 new this week. -->
-        </span>
+                        <span ng-if="predicate.relative == false">
+                          <md-radio-button value="gte" class="md-primary">After</md-radio-button>
+                          <md-radio-button value="lte" class="md-primary">Before</md-radio-button>
+                          <md-radio-button value="eq" class="md-primary">On</md-radio-button>
+                          <md-input-container flex="100" flex-gt-sm="100">
+                            <input ng-model="predicate.value" name="value" placeholder="Date" type="date" required>
+                            <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                              <div ng-message="required" translate>Please enter a date.</div>
+                            </div>
+                          </md-input-container>
+                        </span>
+                      </md-radio-group>
+
+                      <md-radio-group ng-model="predicate.operator" ng-if="predicate.attribute == 'login_count'">
+                        <md-radio-button value="gte" class="md-primary">More than</md-radio-button>
+                        <md-radio-button value="lte" class="md-primary">Less than</md-radio-button>
+                        <md-input-container flex="100" flex-gt-sm="100">
+                          <input ng-model="predicate.value" name="value" placeholder="Count" type="number" ng-min="0" required>
+                          <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                            <div ng-message="min" translate>Must be more than 0</div>
+                            <div ng-message="required" translate>Please enter a number of days.</div>
+                          </div>
+                        </md-input-container>
+                      </md-radio-group>
+
+                      <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'email'">
+                        <input ng-model="predicate.value" name="value" placeholder="Email Address" size="30" type="email" required>
+                        <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                          <div ng-message="required" translate>Please enter an email address.</div>
+                        </div>
+                      </md-input-container>
+
+                      <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'username'">
+                        <input ng-model="predicate.value" name="value" placeholder="Username" size="20" type="text" required>
+                        <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                          <div ng-message="required" translate>Please enter a username.</div>
+                        </div>
+                      </md-input-container>
+
+                      <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'first_name'">
+                        <input ng-model="predicate.value" name="value" placeholder="First Name" size="20" type="text" required>
+                        <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                          <div ng-message="required" translate>Please enter a name.</div>
+                        </div>
+                      </md-input-container>
+
+                      <md-input-container flex="100" flex-gt-sm="100" ng-if="predicate.attribute == 'last_name'">
+                        <input ng-model="predicate.value" name="value" placeholder="Last Name" size="20" type="text" required>
+                        <div ng-messages="myForm.value.$error" md-auto-hide="false">
+                          <div ng-message="required" translate>Please enter a name.</div>
+                        </div>
+                      </md-input-container>
+                      <div>
+                        <md-button class="md-raised" ng-click="savePredicate()">Save</md-button>
+                      </div>
+                    </span>
+                  </md-card-content>
+                  <md-card-actions layout-align="end end">
+                    <small>
+                      <md-icon style="font-size: 18px; margin-right: -5px; color: rgb(208, 216, 221);" ng-click="removePredicate($index)">delete</md-icon>
+                      <span style="color: rgb(167, 171, 174);">Remove Rule</span>
+                    </small>
+                  </md-card-actions>
+                </md-card>
+              </span>
+
+              <md-list flex ng-show="showChooser">
+                <md-subheader class="md-no-sticky">
+                  <div flex layout="row">
+                    <div flex>Person data</div>
+                    <div><a href="" ng-click="cancelRule()">Cancel</a></div>
+                  </div>
+                </md-subheader>
+                <md-list-item class="md-2-line" ng-repeat="item in available_options" ng-click="onSelect($index)">
+                  <div class="md-list-item-text" layout="column">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.desc }}</p>
+                  </div>
+                </md-list-item>
+              </md-list>
+              <md-button class="md-raised" ng-click="addRule()" ng-show="focusedCard == undefined && new_audience">Add a rule</md-button>
+              <md-button class="md-raised" ng-click="cancelAudience()" ng-show="new_audience">Cancel</md-button>
+              <md-button class="md-raised md-primary" ng-click="saveAudience()" ng-show="focusedCard == undefined && query.predicates.length > 0">
+                Save audience
+                <md-tooltip>
+                  Save user filter for quick searches and creating campaigns.
+                </md-tooltip>
+              </md-button>
+            </span>
+          </md-card-content>
+        </md-card>
       </div>
-      <span flex><span>
-      <md-table-container>
-        <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
-          <thead md-head md-order="query.order" md-on-reorder="logOrder">
-            <tr md-row>
-              <th md-column><span translate>Name</span></th>
-              <th md-column><span translate>Email</span></th>
-              <th md-column><span translate>Last Seen</span></th>
-              <th md-column><span translate>First Seen</span></th>
-              <th md-column><span translate>Visits</span></th>
-              <th md-column><span translate>Options</span></th>
-            </tr>
-          </thead>
-          <tbody md-body>
-            <tr md-row ng-repeat="person in people">
-              <td md-cell>
-                <a href="/#/{{ location.slug }}/people/{{ person.id }}">{{ person.first_name || person.last_name ? person.first_name + ' ' + person.last_name : person.username || 'Splash Guest'}}</a>
-              </td>
-              <td md-cell>
-                {{ person.email || 'NA' }}
-              </td>
-              <td md-cell>
-                {{ person.last_seen | humanTimeShortest }}
-              </td>
-              <td md-cell>
-                {{ person.created_at | humanTimeShortest }}
-              </td>
-              <td md-cell>
-                {{ person.login_count || 1 }}
-              </td>
-              <td md-cell>
-                <md-menu md-position-mode="target target">
-                  <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
-                  </md-button>
-                  <md-menu-content width="3">
-                    <md-menu-item>
-                      <md-button ng-href="/#/{{ location.slug }}/people/{{ person.id}}">
-                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">pageview</md-icon>
-                        <span translate>View</span>
+      <div flex="70">
+        <md-card class="b-bl">
+          <div class="md-toolbar-tools" ng-cloak>
+            <span class="md-subhead" translate>
+              {{ _links.total_entries || 0 }} {{ _links.total_entries == 1 ? 'person' : 'people' }} connected. {{_links.this_week || 0}} connected this week.
+              <!-- There have been 7 new this week. -->
+            </span>
+          </div>
+          <span flex><span>
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+              <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th md-column><span translate>Name</span></th>
+                  <th md-column><span translate>Email</span></th>
+                  <th md-column><span translate>Last Seen</span></th>
+                  <th md-column><span translate>First Seen</span></th>
+                  <th md-column><span translate>Visits</span></th>
+                  <th md-column><span translate>Options</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row ng-repeat="person in people">
+                  <td md-cell>
+                    <a href="/#/{{ location.slug }}/people/{{ person.id }}">{{ person.first_name || person.last_name ? person.first_name + ' ' + person.last_name : person.username || 'Splash Guest'}}</a>
+                  </td>
+                  <td md-cell>
+                    {{ person.email || 'NA' }}
+                  </td>
+                  <td md-cell>
+                    {{ person.last_seen | humanTimeShortest }}
+                  </td>
+                  <td md-cell>
+                    {{ person.created_at | humanTimeShortest }}
+                  </td>
+                  <td md-cell>
+                    {{ person.login_count || 1 }}
+                  </td>
+                  <td md-cell>
+                    <md-menu md-position-mode="target target">
+                      <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
                       </md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                      <md-button ng-click="delete(person)">
-                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">delete_forever</md-icon>
-                        <span translate>Delete</span>
-                      </md-button>
-                    </md-menu-item>
-                  </md-menu-content>
-                </md-menu>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </md-table-container>
-      <md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="query.options" md-total="{{::_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
-    </md-card>
+                      <md-menu-content width="3">
+                        <md-menu-item>
+                          <md-button ng-href="/#/{{ location.slug }}/people/{{ person.id}}">
+                            <md-icon md-menu-align-target style="margin: auto 3px auto 0;">pageview</md-icon>
+                            <span translate>View</span>
+                          </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                          <md-button ng-click="delete(person)">
+                            <md-icon md-menu-align-target style="margin: auto 3px auto 0;">delete_forever</md-icon>
+                            <span translate>Delete</span>
+                          </md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="query.options" md-total="{{::_links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+        </md-card>
+      </div>
+    </div>
   </div>
 </md-content>
