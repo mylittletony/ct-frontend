@@ -8,13 +8,15 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
 
     scope.currentNavItem = 'people';
     scope.location = {slug: $routeParams.id};
+    scope.selected_audience = $routeParams.selected_audience;
+    scope.new_audience = $routeParams.new_audience;
     scope.query = {
-      limit:          $routeParams.per || 25,
-      page:           $routeParams.page || 1,
-      filter:         $routeParams.q,
-      options:        [5,10,25,50,100],
-      predicate_type: $routeParams.predicate_type || 'and',
-      predicates:     $routeParams.predicates || []
+      limit:            $routeParams.per || 25,
+      page:             $routeParams.page || 1,
+      filter:           $routeParams.q,
+      options:          [5,10,25,50,100],
+      predicate_type:   $routeParams.predicate_type || 'and',
+      predicates:       $routeParams.predicates || [],
     };
 
     scope.available_options = [];
@@ -55,6 +57,22 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
         scope.destroy(person);
       }, function() {
       });
+    };
+
+    scope.newAudienceForm = function() {
+      scope.query.predicates = [];
+      scope.query.predicate_type = 'and';
+      scope.selected_audience = undefined;
+      scope.new_audience = true;
+    };
+
+    scope.filterByAudience = function(index) {
+      scope.new_audience = undefined;
+      var audience = scope.audiences[index];
+      scope.selected_audience = audience.id;
+      scope.query.predicates = audience.predicates;
+      scope.query.predicate_type = audience.predicate_type;
+      scope.updatePage();
     };
 
     scope.onPaginate = function (page, limit) {
@@ -162,6 +180,15 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       scope.openDialog(scope.location, scope.query);
     };
 
+    scope.cancelAudience = function() {
+      scope.query.predicates = [];
+      scope.query.predicate_type = undefined;
+      scope.focusedCard = undefined;
+      scope.showChooser = undefined;
+      scope.new_audience = undefined;
+      scope.updatePage();
+    };
+
     scope.addRule = function() {
       if (!scope.query.predicates) {
         scope.query.predicates = [];
@@ -174,6 +201,14 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       scope.query.predicates.splice(index, 1);
       scope.focusedCard = undefined;
       scope.updatePage();
+    };
+
+    var getAudiences = function() {
+      Audience.query({location_id: scope.location.slug}, function(data) {
+        scope.audiences = data.audiences;
+      }, function(err) {
+        console.log(err);
+      });
     };
 
     var getPeople = function() {
@@ -204,6 +239,7 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       if ($location.path().split('/')[2] !== 'people' && (setup.splash === false || setup.integrations === false || scope.location.paid === false)) {
         $location.path('/' + scope.location.slug + '/guide');
       } else {
+        getAudiences();
         getPeople();
       }
     };
@@ -227,6 +263,8 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       hash.q   = scope.query.filter;
       hash.predicate_type = scope.query.predicate_type;
       hash.predicates = scope.query.predicates;
+      hash.selected_audience = scope.selected_audience;
+      hash.new_audience = scope.new_audience;
 
       $location.search(hash);
       init();

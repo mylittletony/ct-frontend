@@ -1,4 +1,4 @@
-<people-nav location="location"></people-nav>
+new_audiencenew_audience<people-nav location="location"></people-nav>
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="!integration.type" style="padding-bottom: 45px">
   <div flex="100" flex-gt-md="90" flex-gt-lg="80">
@@ -15,12 +15,24 @@
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
-          <span>
+          <md-radio-group ng-model="selected_audience" ng-repeat="audience in audiences" ng-disabled="new_audience">
+            <md-radio-button ng-click="filterByAudience($index)" value="{{audience.id}}" class="md-primary">
+              {{audience.name}}
+              <small ng-show="selected_audience == audience.id" ng-repeat="predicate in audience.predicates">
+                <br>{{predicate | humanPredicate}}
+              </small>
+            </md-radio-button>
+          </md-radio-group>
+          <md-button class="md-raised" ng-show="new_audience == undefined" ng-click="newAudienceForm()">
+            Create filter
+          </md-button>
+          <div ng-if="new_audience">
             <md-radio-group ng-model="query.predicate_type">
               <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
               <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
             </md-radio-group>
-
+          </div>
+          <span ng-show="selected_audience == undefined">
             <span ng-repeat="predicate in query.predicates">
               <md-card flex="100">
                 <md-card-title>
@@ -132,7 +144,8 @@
                 </div>
               </md-list-item>
             </md-list>
-            <md-button class="md-raised" ng-click="addRule()" ng-show="focusedCard == undefined">Add a rule</md-button>
+            <md-button class="md-raised" ng-click="addRule()" ng-show="focusedCard == undefined && new_audience">Add a rule</md-button>
+            <md-button class="md-raised" ng-click="cancelAudience()" ng-show="focusedCard == undefined && new_audience">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="saveAudience()" ng-show="focusedCard == undefined && query.predicates.length > 0">
               Save audience
               <md-tooltip>

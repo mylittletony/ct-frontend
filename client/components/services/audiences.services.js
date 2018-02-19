@@ -14,6 +14,10 @@ app.factory('Audience', ['$resource', 'API_END_POINT',
         method: 'POST',
         isArray: false,
         dataType: 'json'
-      }
+      },
+      query: {
+        method:'GET',
+        isArray: false
+      },
     });
   }]);
