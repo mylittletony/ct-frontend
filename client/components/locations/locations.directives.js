@@ -1858,6 +1858,7 @@ app.directive('integrationComplete', ['Location', '$routeParams', '$location', '
 
     scope.loading = true;
     scope.location = { slug: $routeParams.id };
+    scope.currentNavItem = 'integrations';
 
     controller.fetch().then(function(integration) {
       scope.integration = integration;
