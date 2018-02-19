@@ -117,10 +117,8 @@
               <div flex-gt-sm="40">
 
                 <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1" ng-show="splash.newsletter_type == 1">
-                  <span ng-if="splash.single_opt_in" translate>Skip MailChimp Confirmation Enabled</span>
-                  <span ng-if="!splash.single_opt_in" translate>Skip MailChimp Confirmation Disabled</span>
+                  <span translate>Skip MailChimp Confirmation</span>
                 </md-switch>
-
               </div>
 
             </md-card-content>
@@ -176,9 +174,9 @@
                 </div>
               </div>
 
-              <span>
+              <span style="cursor:pointer;outline:none;"ng-click="adAdvanced = !adAdvanced">
                 Advanced Settings
-                <md-button ng-click="adAdvanced = !adAdvanced" class="md-secondary md-icon-button">
+                <md-button class="md-secondary md-icon-button">
                   <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ adAdvanced ? "up" : "down" }}</md-icon>
                 </md-button>
               </span>
@@ -388,6 +386,8 @@
                       <span ng-show="splash.active" translate>Splash Enabled</span>
                       <span ng-show="!splash.active" translate>Splash Disabled</span>
                     </md-switch>
+                    <small ng-show="splash.active">Guests will be able to sign-in.</small>
+                    <small ng-show="!splash.active">Guests will not be able to sign-in.</small>
                   </div>
                 </div>
               </div>
