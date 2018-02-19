@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.people.directives', []);
 
-app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Location,$location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
+app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$routeParams', '$mdDialog', 'showToast', 'showErrors', '$q','pagination_labels', 'gettextCatalog', function(People,Location,Audience,$location,$routeParams,$mdDialog,showToast,showErrors,$q, pagination_labels, gettextCatalog) {
 
   var link = function(scope, el, attrs, controller) {
 
@@ -116,19 +116,35 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
       scope.updatePage();
     };
 
-    function DialogController($scope,location, query) {
+    scope.createAudience = function(name) {
+      Audience.create({}, {
+        location_id: scope.location.slug,
+        audience: {
+          name: name,
+          predicate_type: scope.query.predicate_type,
+          predicates: scope.query.predicates
+        }
+      }).$promise.then(function() {
+        showToast(gettextCatalog.getString('Audience saved.'));
+        $mdDialog.cancel();
+      }, function(error) {
+        showErrors(error);
+      });
+    };
+
+    function DialogController($scope, query) {
       $scope.location = location;
       $scope.query = query;
       $scope.close = function() {
         $mdDialog.cancel();
       };
       $scope.save = function() {
-        console.log($scope);
+        scope.createAudience($scope.audience.name);
         $mdDialog.cancel();
       };
     }
 
-    DialogController.$inject = ['$scope', 'location', 'query'];
+    DialogController.$inject = ['$scope', 'query'];
 
     scope.openDialog = function() {
       $mdDialog.show({
@@ -137,7 +153,6 @@ app.directive('listPeople', ['People', 'Location', '$location', '$routeParams', 
         clickOutsideToClose: true,
         controller: DialogController,
         locals: {
-          location: scope.location,
           query: scope.query
         }
       });
