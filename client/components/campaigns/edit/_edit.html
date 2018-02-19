@@ -71,6 +71,14 @@
               <md-radio-button value="signed_up_now" class="md-primary">Just signed up</md-radio-button>
               <md-radio-button value="signed_up_30" class="md-primary">Signed-up 30 days ago</md-radio-button>
               <md-radio-button value="last_seen_30">Not seen for 30 days</md-radio-button>
+              <span ng-repeat="audience in audiences">
+                <md-radio-button value="audience_{{$index}}" class="md-primary">
+                  {{audience.name}}
+                  <small ng-show="selected_audience == audience.id" ng-repeat="predicate in audience.predicates">
+                    <br>{{predicate | humanPredicate}}
+                  </small>
+                </md-radio-button>
+              </span>
               <md-radio-button value="custom">Custom</md-radio-button>
             </md-radio-group>
           </span>
