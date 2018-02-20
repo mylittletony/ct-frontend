@@ -234,7 +234,7 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
           predicate_type: scope.query.predicate_type
         }
       }).$promise.then(function(results) {
-        showToast(gettextCatalog.getString('Campaign successfully updated.'));
+        showToast(gettextCatalog.getString('Audience successfully updated.'));
         getAudiences().then(function() {
           scope.selected_audience = results.id;
         });

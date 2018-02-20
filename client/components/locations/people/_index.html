@@ -26,7 +26,7 @@
                 </md-option>
               </md-select>
               <div ng-if="query.predicates.length > 0 || new_audience">
-                <md-radio-group ng-model="query.predicate_type">
+                <md-radio-group ng-model="query.predicate_type" ng-change="savePredicate()">
                   <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
                   <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
                 </md-radio-group>
