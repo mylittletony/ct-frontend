@@ -66,12 +66,22 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       scope.new_audience = true;
     };
 
-    scope.filterByAudience = function(index) {
+    scope.filterByAudience = function(id) {
+      if (id === undefined) {
+        scope.selected_audience = undefined;
+        scope.query.predicates = [];
+      } else {
+        var audience;
+        for (var i = 0, len = scope.audiences.length; i < len; i++) {
+          if (scope.audiences[i].id === id) {
+            audience = scope.audiences[i];
+          }
+        }
+        scope.query.predicates = audience.predicates;
+        scope.query.predicate_type = audience.predicate_type;
+        scope.selected_audience = audience.id;
+      }
       scope.new_audience = undefined;
-      var audience = scope.audiences[index];
-      scope.selected_audience = audience.id;
-      scope.query.predicates = audience.predicates;
-      scope.query.predicate_type = audience.predicate_type;
       scope.updatePage();
     };
 
@@ -135,11 +145,15 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
     };
 
     var getAudiences = function() {
+      var deferred = $q.defer();
       Audience.query({location_id: scope.location.slug}, function(data) {
         scope.audiences = data.audiences;
+        deferred.resolve();
       }, function(err) {
         console.log(err);
+        deferred.reject();
       });
+      return deferred.promise;
     };
 
     var removeAudienceFromList = function(audience) {
@@ -175,9 +189,10 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
         }
       }).$promise.then(function(data) {
         showToast(gettextCatalog.getString('Audience saved.'));
-        getAudiences();
+        getAudiences().then(function() {
+          scope.selected_audience = data.id;
+        });
         scope.new_audience = undefined;
-        scope.selected_audience = data.id;
         $mdDialog.cancel();
       }, function(error) {
         showErrors(error);
@@ -210,8 +225,30 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       });
     };
 
+    var updateAudience = function(audience_id) {
+      Audience.update({}, {
+        location_id: $routeParams.id,
+        id: audience_id,
+        audience: {
+          predicates: scope.query.predicates,
+          predicate_type: scope.query.predicate_type
+        }
+      }).$promise.then(function(results) {
+        showToast(gettextCatalog.getString('Campaign successfully updated.'));
+        getAudiences().then(function() {
+          scope.selected_audience = results.id;
+        });
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
     scope.saveAudience = function() {
-      scope.openDialog(scope.location, scope.query);
+      if (scope.selected_audience) {
+        updateAudience(scope.selected_audience);
+      } else {
+        scope.openDialog(scope.location, scope.query);
+      }
     };
 
     scope.cancelAudience = function() {

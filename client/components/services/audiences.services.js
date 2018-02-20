@@ -19,6 +19,10 @@ app.factory('Audience', ['$resource', 'API_END_POINT',
         method:'GET',
         isArray: false
       },
+      update: {
+        method:'PATCH',
+        isArray: false
+      },
       destroy: {
         method: 'DELETE',
         isArray: false,
