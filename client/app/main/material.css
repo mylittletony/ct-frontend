@@ -1204,6 +1204,10 @@ md-bottom-sheet .md-subheader {
   color: rgba(0, 0, 0, 0.87);
 }
 
+.locations > thead > tr > th > a {
+  color: #EF476F;
+}
+
 /*campaign*/
 
 .predicates div {
@@ -1350,6 +1354,16 @@ td.activePlan {
 table#plans td.md-cell {
   padding: 8px 24px;
   font-size: 14px;
+}
+
+.splash-table td.md-cell:nth-of-type(1) {
+  width: 60px;
+  text-align: center;
+}
+
+table a {
+  font-weight: 600;
+  color: rgb(71, 90, 136);
 }
 
 /*WYSIWYG*/

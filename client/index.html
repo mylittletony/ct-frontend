@@ -167,13 +167,13 @@
             <thead md-head>
               <tr md-row class="md-table-headers-row">
                 <th md-column><a href="" ng-click='sort("state", query.direction)' translate>State</a></th>
-                <th md-column><span translate><a href="" ng-click='sort("location_name", query.direction)' translate>Name</a></th>
+                <th md-column><a href="" ng-click='sort("location_name", query.direction)' translate>Name</a></th>
               </tr>
             </thead>
             <tbody md-body>
               <tr md-row md-select="location" ng-repeat="location in filtered = (locations | filter: query.filter)">
                 <td md-cell>
-                  <md-icon md-menu-origin ng-if="location.state != 'archived'" class="s48">check_circle</md-icon>
+                  <md-icon md-menu-origin ng-if="location.state != 'archived'" class="s48">check</md-icon>
                   <md-icon md-menu-origin ng-if="location.state == 'archived'" class="s48">archived</md-icon>
                 </td>
                 <td md-cell>

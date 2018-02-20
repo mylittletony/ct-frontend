@@ -62,11 +62,9 @@
           </md-input-container>
         </div>
       </md-card-content>
-      <md-card-actions layout="row" layout-align="space-between center">
+      <md-card-actions layout="row" layout-align="end center">
         <div>
-          <p ng-if="validated == true">Integration Successfully Validated</p>
-        </div>
-        <div>
+          <md-icon ng-if="validated == true" md-menu-origin md-font-icon="" style="color:#17ac5b;padding-right:10px;">check_circle</md-icon>
           <md-button type="submit" class="md-raised" ng-disabled="myForm.$invalid">
             Test Integration
           </md-button>
