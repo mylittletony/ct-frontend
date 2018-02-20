@@ -140,8 +140,10 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
     };
 
     scope.savePredicate = function() {
-      scope.focusedCard = undefined;
-      scope.updatePage();
+      if (scope.query.predicates && scope.query.predicates.length > 0) {
+        scope.focusedCard = undefined;
+        scope.updatePage();
+      }
     };
 
     var getAudiences = function() {
