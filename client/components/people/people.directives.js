@@ -134,6 +134,14 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       scope.updatePage();
     };
 
+    var getAudiences = function() {
+      Audience.query({location_id: scope.location.slug}, function(data) {
+        scope.audiences = data.audiences;
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
     scope.createAudience = function(name) {
       Audience.create({}, {
         location_id: scope.location.slug,
@@ -142,8 +150,11 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
           predicate_type: scope.query.predicate_type,
           predicates: scope.query.predicates
         }
-      }).$promise.then(function() {
+      }).$promise.then(function(data) {
         showToast(gettextCatalog.getString('Audience saved.'));
+        getAudiences();
+        scope.new_audience = undefined;
+        scope.selected_audience = data.id;
         $mdDialog.cancel();
       }, function(error) {
         showErrors(error);
@@ -201,14 +212,6 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       scope.query.predicates.splice(index, 1);
       scope.focusedCard = undefined;
       scope.updatePage();
-    };
-
-    var getAudiences = function() {
-      Audience.query({location_id: scope.location.slug}, function(data) {
-        scope.audiences = data.audiences;
-      }, function(err) {
-        console.log(err);
-      });
     };
 
     var getPeople = function() {

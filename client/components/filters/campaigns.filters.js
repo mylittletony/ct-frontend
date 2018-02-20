@@ -41,7 +41,7 @@ app.filter('humanPredicate', [ 'gettextCatalog', function(gettextCatalog) {
     }
 
     if (['email', 'username', 'first_name', 'last_name'].includes(predicate.attribute)) {
-      return attr + ' matches ' + predicate.value;
+      return attr + ' matches "' + predicate.value + '"';
     }
 
     if (predicate.attribute === 'login_count') {
