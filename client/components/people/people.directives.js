@@ -142,6 +142,29 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       });
     };
 
+    var removeAudienceFromList = function(audience) {
+      for (var i = 0, len = scope.audiences.length; i < len; i++) {
+        if (scope.audiences[i].id === audience.id) {
+          scope.audiences.splice(i, 1);
+          showToast(gettextCatalog.getString('Audience successfully deleted.'));
+          if (scope.selected_audience === audience.id) {
+            scope.query.predicates = [];
+            scope.selected_audience = undefined;
+            scope.updatePage();
+          }
+          break;
+        }
+      }
+    };
+
+    scope.destroyAudience = function(audience) {
+      Audience.destroy({location_id: scope.location.slug, id: audience.id}).$promise.then(function(results) {
+        removeAudienceFromList(audience);
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
     scope.createAudience = function(name) {
       Audience.create({}, {
         location_id: scope.location.slug,

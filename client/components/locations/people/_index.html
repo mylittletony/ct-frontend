@@ -31,12 +31,22 @@ new_audiencenew_audience<people-nav location="location"></people-nav>
               </md-input-container>
             </form>
             <md-radio-group ng-model="selected_audience" ng-repeat="audience in audiences" ng-disabled="new_audience">
-              <md-radio-button ng-click="filterByAudience($index)" value="{{audience.id}}" class="md-primary">
-                {{audience.name}}
-                <small ng-show="selected_audience == audience.id" ng-repeat="predicate in audience.predicates">
-                  <br>{{predicate | humanPredicate}}
-                </small>
-              </md-radio-button>
+              <div layout="row">
+                <div flex="90">
+                  <md-radio-button ng-click="filterByAudience($index)" value="{{audience.id}}" class="md-primary">
+                    {{audience.name}}
+                    <small ng-show="selected_audience == audience.id" ng-repeat="predicate in audience.predicates">
+                      <br>{{predicate | humanPredicate}}
+                    </small>
+                  </md-radio-button>
+                </div>
+                <div flex="10">
+                  <a href="" ng-click="destroyAudience(audience)">
+                    <md-icon>clear</md-icon>
+                    <md-tooltip>Delete Audience</md-tooltip>
+                  </a>
+                </div>
+              </div>
             </md-radio-group>
             <md-button class="md-raised" ng-show="new_audience == undefined" ng-click="newAudienceForm()">
               Create filter
