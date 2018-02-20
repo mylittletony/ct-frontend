@@ -5,15 +5,6 @@ new_audiencenew_audience<people-nav location="location"></people-nav>
     <div class="example-data" ng-show="location.paid == false">
       The chart below is populated with example data. To access real data about your location, start your free trial today!
     </div>
-    <analytics ng-if="!loading">
-      <client-chart>
-        <div layout="row" layout-wrap>
-          <div flex="100" flex-gt-sm="100" ng-hide="fs && fs.panel != 'usage'">
-            <dash-clients-chart name="New People" type="people.new" bar="true" render="new-people" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
-          </div>
-        </div>
-      </client-chart>
-    </analytics>
     <div layout="row">
       <div flex="25">
         <md-card class="b-bl">
@@ -25,11 +16,6 @@ new_audiencenew_audience<people-nav location="location"></people-nav>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <form ng-submit="updatePage()">
-              <md-input-container>
-                <input ng-model="query.filter" placeholder="{{ 'search' | translate }}"></input>
-              </md-input-container>
-            </form>
             <md-radio-group ng-model="selected_audience" ng-repeat="audience in audiences" ng-disabled="new_audience">
               <div layout="row">
                 <div flex="90">
@@ -182,12 +168,30 @@ new_audiencenew_audience<people-nav location="location"></people-nav>
         </md-card>
       </div>
       <div flex="75">
+        <analytics ng-if="!loading">
+          <client-chart>
+            <div layout="row" layout-wrap>
+              <div flex="100" flex-gt-sm="100" ng-hide="fs && fs.panel != 'usage'">
+                <dash-clients-chart name="New People" type="people.new" bar="true" render="new-people" fake="{{!location.paid}}" show-gt-sm></dash-clients-chart>
+              </div>
+            </div>
+          </client-chart>
+        </analytics>
         <md-card class="b-bl">
-          <div class="md-toolbar-tools" ng-cloak>
+          <div class="md-toolbar-tools" ng-cloak layout="row">
             <span class="md-subhead" translate>
-              {{ _links.total_entries || 0 }} {{ _links.total_entries == 1 ? 'person' : 'people' }} connected. {{_links.this_week || 0}} connected this week.
               <!-- There have been 7 new this week. -->
             </span>
+            <div flex="75">
+              {{ _links.total_entries || 0 }} {{ _links.total_entries == 1 ? 'person' : 'people' }} connected. {{_links.this_week || 0}} connected this week.
+            </div>
+            <div flex="25">
+              <form ng-submit="updatePage()">
+                <md-input-container style="margin: 10px 0px 0px 0px">
+                  <input ng-model="query.filter" placeholder="{{ 'search' | translate }}"></input>
+                </md-input-container>
+              </form>
+            </div>
           </div>
           <span flex><span>
           <md-table-container>
