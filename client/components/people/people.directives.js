@@ -156,12 +156,12 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       return deferred.promise;
     };
 
-    var removeAudienceFromList = function(audience) {
+    var removeAudienceFromList = function(audience_id) {
       for (var i = 0, len = scope.audiences.length; i < len; i++) {
-        if (scope.audiences[i].id === audience.id) {
+        if (scope.audiences[i].id === audience_id) {
           scope.audiences.splice(i, 1);
           showToast(gettextCatalog.getString('Audience successfully deleted.'));
-          if (scope.selected_audience === audience.id) {
+          if (scope.selected_audience === audience_id) {
             scope.query.predicates = [];
             scope.selected_audience = undefined;
             scope.updatePage();
@@ -171,9 +171,9 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       }
     };
 
-    scope.destroyAudience = function(audience) {
-      Audience.destroy({location_id: scope.location.slug, id: audience.id}).$promise.then(function(results) {
-        removeAudienceFromList(audience);
+    scope.destroyAudience = function(audience_id) {
+      Audience.destroy({location_id: scope.location.slug, id: audience_id}).$promise.then(function(results) {
+        removeAudienceFromList(audience_id);
       }, function(err) {
         showErrors(err);
       });
