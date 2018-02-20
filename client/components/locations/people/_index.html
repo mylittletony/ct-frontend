@@ -1,7 +1,7 @@
 <people-nav location="location"></people-nav>
 
 <md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" ng-if="!integration.type" style="padding-bottom: 45px">
-  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+  <div flex="100">
     <div class="example-data" ng-show="location.paid == false">
       The chart below is populated with example data. To access real data about your location, start your free trial today!
     </div>
@@ -27,7 +27,7 @@
               </md-select>
               <span hide show-gt-sm>
                 <div ng-if="query.predicates.length > 0 || new_audience">
-                  <md-radio-group ng-model="query.predicate_type">
+                  <md-radio-group ng-model="query.predicate_type" ng-change="savePredicate()">
                     <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>
                     <md-radio-button value="or" class="md-primary">match any of these rules</md-radio-button>
                   </md-radio-group>
