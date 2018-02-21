@@ -85,11 +85,17 @@
 
           <span ng-show="campaign.template == 'custom' || campaign.id">
             <hr ng-show="!campaign.id">
-            <md-select ng-model="selected_audience" ng-change="filterByAudience(selected_audience)" aria-label="audience">
-              <md-option ng-repeat="audience in audiences" ng-value="audience.id">
-                {{audience.name}}
-              </md-option>
-            </md-select>
+            <md-input-container ng-show="audiences.length > 0">
+              <label>Saved Audiences</label>
+              <md-select ng-model="selected_audience" ng-change="setAudiencePredicates(selected_audience)" aria-label="audience">
+                <md-option ng-value="'no_filter'">
+                  None
+                </md-option>
+                <md-option ng-repeat="audience in audiences" ng-value="audience.id">
+                  {{audience.name}}
+                </md-option>
+              </md-select>
+            </md-input-container>
             <p>People who:</p>
             <md-radio-group ng-disabled="campaign.id && campaign.state == 'live'" ng-model="campaign.predicate_type">
               <md-radio-button value="and" class="md-primary">match all these rules</md-radio-button>

@@ -172,6 +172,23 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Audience'
       scope.campaign.holding_predicates.push(pred);
     };
 
+    scope.setAudiencePredicates = function(audience_id) {
+      if (audience_id === 'no_filter' || audience_id === undefined) {
+        scope.campaign.holding_predicates = [];
+        scope.campaign.predicate_type = 'and';
+      } else {
+        var audience;
+        for (var i = 0, len = scope.audiences.length; i < len; i++) {
+          if (scope.audiences[i].id === audience_id) {
+            audience = scope.audiences[i];
+            scope.campaign.holding_predicates = audience.predicates;
+            scope.campaign.predicate_type = audience.predicate_type;
+            return;
+          }
+        }
+      }
+    };
+
     scope.showCard = function(index) {
       scope.focusedCard = index;
     };
@@ -194,29 +211,22 @@ app.directive('editCampaign', ['Campaign', 'Location', 'Integration', 'Audience'
     };
 
     scope.setRules = function() {
-      if (scope.campaign.template.substring(0,8) === 'audience') {
-        var audience_index = scope.campaign.template.split('_')[1];
-        var audience = scope.audiences[audience_index];
-        scope.campaign.holding_predicates = audience.predicates;
-        scope.campaign.predicate_type = audience.predicate_type;
-      } else {
-        switch(scope.campaign.template) {
-          case 'signed_up_now':
-            scope.campaign.holding_predicates = [];
-            scope.campaign.holding_predicates.push({operator: 'lte', value: 1, attribute: 'created_at'});
-            break;
-          case 'signed_up_30':
-            scope.campaign.holding_predicates = [];
-            scope.campaign.holding_predicates.push({operator: 'eq', value: 30, attribute: 'created_at'});
-            break;
-          case 'last_seen_30':
-            scope.campaign.holding_predicates = [];
-            scope.campaign.holding_predicates.push({operator: 'eq', value: 30, attribute: 'last_seen'});
-            break;
-          case 'custom':
-            scope.campaign.holding_predicates = [];
-            break;
-        }
+      switch(scope.campaign.template) {
+        case 'signed_up_now':
+          scope.campaign.holding_predicates = [];
+          scope.campaign.holding_predicates.push({operator: 'lte', value: 1, attribute: 'created_at'});
+          break;
+        case 'signed_up_30':
+          scope.campaign.holding_predicates = [];
+          scope.campaign.holding_predicates.push({operator: 'eq', value: 30, attribute: 'created_at'});
+          break;
+        case 'last_seen_30':
+          scope.campaign.holding_predicates = [];
+          scope.campaign.holding_predicates.push({operator: 'eq', value: 30, attribute: 'last_seen'});
+          break;
+        case 'custom':
+          scope.campaign.holding_predicates = [];
+          break;
       }
     };
 
