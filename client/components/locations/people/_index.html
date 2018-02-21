@@ -6,12 +6,16 @@
       The chart below is populated with example data. To access real data about your location, start your free trial today!
     </div>
     <div layout="row" layout-wrap>
-      <div flex="100" flex-gt-sm="25">
+
+      <div flex="100" flex-gt-sm="25" hide show-gt-sm>
+      </div>
+
+      <div flex="100" flex-gt-sm="25" class="people-filter">
         <md-card class="b-bl">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" translate>
-                Filter people
+                Filter People
               </span>
             </md-card-title-text>
           </md-card-title>
@@ -170,6 +174,7 @@
           </md-card-content>
         </md-card>
       </div>
+
       <div flex="100" flex-gt-sm="75">
         <analytics ng-if="!loading" hide show-gt-sm>
           <client-chart>
