@@ -19,8 +19,14 @@
           <md-card-content>
             <div layout="column">
               <md-select ng-model="selected_audience" ng-change="filterByAudience(selected_audience)" aria-label="audience">
-                <md-option ng-value="undefined">
+                <md-option ng-value="'no_filter'">
                   No Filter
+                </md-option>
+                <md-option ng-value="'last_seen_30_days'">
+                  Seen in last 30 days
+                </md-option>
+                <md-option ng-value="'signed_up_30_days'">
+                  Signed up in last 30 days
                 </md-option>
                 <md-option ng-repeat="audience in audiences" ng-value="audience.id">
                   {{audience.name}}
@@ -155,7 +161,7 @@
                     </md-list-item>
                   </md-list>
                   <div layout="row">
-                    <md-button class="md-raised" ng-click="addRule()" ng-show="focusedCard == undefined && (new_audience == true || selected_audience != undefined)">Add a rule</md-button>
+                    <md-button class="md-raised" ng-click="addRule()" ng-show="focusedCard == undefined && (new_audience == true || selected_audience != 'no_filter')">Add a rule</md-button>
                     <md-button class="md-raised" ng-click="cancelAudience()" ng-show="new_audience">Cancel</md-button>
                   </div>
                   <div layout="row">
@@ -165,7 +171,7 @@
                         Save user filter for quick searches and creating campaigns.
                       </md-tooltip>
                     </md-button>
-                    <md-button class="md-raised md-primary" ng-click="destroyAudience(selected_audience)" ng-show="focusedCard == undefined && selected_audience">
+                    <md-button class="md-raised md-primary" ng-click="destroyAudience(selected_audience)" ng-show="focusedCard == undefined && selected_audience != 'no_filter'">
                       Delete
                       <md-tooltip>
                         Delete this audience of users.
