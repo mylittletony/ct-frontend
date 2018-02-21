@@ -1467,8 +1467,18 @@ table a {
 @media (min-width: 960px) {
   .people-filter {
     position:fixed;
-    width:calc(25% - 26px);
-    width:-moz-calc(25% - 26px);
-    width:-webkit-calc(25% - 26px);
+    width:calc(30% - 31px);
+    width:-moz-calc(30% - 31px);
+    width:-webkit-calc(30% - 31px);
+  }
+  .people-filter md-card {
+    max-height: 88vh;
+    overflow: auto;
+  }
+  .people-filter md-card.b-bl::after {
+    background: linear-gradient(135deg, #0088bb 7px, rgba(0,0,0,0) 0) top left;
+    position: fixed;
+    left: 90px;
+    top: 78px;
   }
 }
