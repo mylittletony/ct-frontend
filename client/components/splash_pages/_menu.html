@@ -272,7 +272,7 @@
         </md-input-container>
         <md-input-container class="md-block">
           <label>
-            <translate>Google+</translate>
+            <translate>Google+ Page</translate>
           </label>
           <input type='text' ng-model="splash.splash.google_name" placeholder="Google" name="google" md-maxlength='50'></input>
           <div ng-messages="myForm.google.$error">
@@ -285,6 +285,24 @@
           </label>
           <input type='text' ng-model="splash.splash.linkedin_name" placeholder="LinkedIn" name="linkedin" md-maxlength='50'></input>
           <div ng-messages="myForm.linkedin.$error">
+            <div ng-message="md-maxlength" translate>Must be less than 50 characters.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>
+            <translate>Instagram Page</translate>
+          </label>
+          <input type='text' ng-model="splash.splash.instagram_name" placeholder="Instagram" name="instagram" md-maxlength='50'></input>
+          <div ng-messages="myForm.instagram.$error">
+            <div ng-message="md-maxlength" translate>Must be less than 50 characters.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>
+            <translate>Pinterest Page</translate>
+          </label>
+          <input type='text' ng-model="splash.splash.pinterest_name" placeholder="Pinterest" name="pinterest" md-maxlength='50'></input>
+          <div ng-messages="myForm.pinterest.$error">
             <div ng-message="md-maxlength" translate>Must be less than 50 characters.</div>
           </div>
         </md-input-container>
