@@ -36,6 +36,10 @@ app.directive('listPeople', ['People', 'Location', 'Audience', '$location', '$ro
       predicates:       $routeParams.predicates || lastSeenDefault
     };
 
+    scope.showCard = function(index) {
+      scope.focusedCard = index;
+    };
+
     scope.available_options = [];
     scope.available_options.push({value: 'created_at', name: 'First seen', desc: 'When the user first signed in through your WiFi network'});
     scope.available_options.push({value: 'last_seen', name: 'Last seen', desc: 'The last time they were seen on your network'});
