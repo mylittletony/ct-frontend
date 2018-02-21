@@ -1473,12 +1473,8 @@ table a {
   }
   .people-filter md-card {
     max-height: 88vh;
-    overflow: auto;
   }
-  .people-filter md-card.b-bl::after {
-    background: linear-gradient(135deg, #0088bb 7px, rgba(0,0,0,0) 0) top left;
-    position: fixed;
-    left: 90px;
-    top: 78px;
+  .people-filter md-card md-card-content {
+    overflow: auto;
   }
 }
