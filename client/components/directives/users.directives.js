@@ -2,13 +2,6 @@
 
 var app = angular.module('myApp.users.directives', []);
 
-app.directive('userAvatar', [function() {
-  return {
-    replace: true,
-    template: '<md-icon><img class=\'user-avatar\' src="https://www.gravatar.com/avatar/{{user.gravatar}}?s=25" ng-if=\'user.gravatar\'></img><span ng-if=\'!user.gravatar\'>face</span></md-icon>'
-  };
-}]);
-
 app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', '$cookies', '$mdDialog', function(User, $routeParams, $location, $route, Auth, showToast, showErrors, $window, gettextCatalog, Translate, $cookies, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
@@ -850,7 +843,7 @@ app.directive('userSessions', ['User', '$routeParams', '$location', 'pagination_
 
     scope.pagination_labels = pagination_labels;
     scope.query = {
-      order:      'updated_at',
+      order:      'created_at',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],
