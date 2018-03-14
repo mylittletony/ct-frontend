@@ -24,7 +24,6 @@
               <th hide show-gt-sm md-column md-order-by="role_id"><translate>Project Role</translate></th>
               <th hide show-gt-md md-column><translate>Created</translate></th>
               <th hide show-gt-md md-column><translate>Last Seen</translate></th>
-              <th md-column ng-show="menu.length"><translate>Action</translate></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -54,21 +53,6 @@
               </td>
               <td hide show-gt-md md-cell>
                 {{ ::(user.last_sign_in_at | humanTime) }}
-              </td>
-              <td md-cell ng-show="menu.length">
-                <md-menu>
-                  <md-button aria-label="{{ 'Open Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                  </md-button>
-                  <md-menu-content width="4">
-                    <md-menu-item ng-repeat="item in menu">
-                      <md-button ng-click="menuAction(item.type, user)">
-                        <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ ::item.icon }}">{{ ::item.icon }}</md-icon>
-                        <p flex>{{ ::item.name }}</p>
-                      </md-button>
-                    </md-menu-item>
-                  </md-menu-content>
-                </md-menu>
               </td>
             </tr>
           </tbody>
