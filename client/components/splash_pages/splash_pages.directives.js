@@ -201,12 +201,6 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       });
 
       scope.menu.push({
-        name: gettextCatalog.getString('Transfer'),
-        icon: 'transform',
-        type: 'transfer'
-      });
-
-      scope.menu.push({
         name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
@@ -221,9 +215,6 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
           break;
         case 'networks':
           networks();
-          break;
-        case 'transfer':
-          transfer();
           break;
         case 'copy':
           duplicate();
@@ -289,41 +280,6 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       }, function(err) {
         showErrors(err);
       });
-    };
-
-    var transfer = function() {
-      $mdDialog.show({
-        templateUrl: 'components/splash_pages/_transfer.html',
-        clickOutsideToClose: false,
-        parent: angular.element(document.body),
-        controller: TransferController,
-      });
-    };
-
-    var TransferController = function($scope) {
-      $scope.loading = true;
-
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-
-      var deferred = $q.defer();
-      Location.shortquery({}).$promise.then(function (res) {
-        if (res.length > 1) {
-          $scope.locations = res;
-          deferred.resolve();
-        }
-        $scope.loading = undefined;
-        deferred.reject();
-      }, function() {
-        $scope.loading = undefined;
-        deferred.reject();
-      });
-
-      $scope.transfer = function(id) {
-        $mdDialog.cancel();
-        dupSplash(id, gettextCatalog.getString('Splash Page Successfully Transferred.'), true);
-      };
     };
 
     scope.displayNetworks = function() {

@@ -7,12 +7,12 @@ app.factory('designer', ['$location', '$rootScope', function ($location, $rootSc
   // var splash = {s: {}};
 
   var self;
-  
+
   var save = function() {
   }
 
   return {
-    splash: {}, 
+    splash: {},
     save: save
   };
 
@@ -83,8 +83,6 @@ app.factory('SplashPage', ['$resource', 'API_END_POINT',
         params: {
           location_id: '@location_id',
           id: '@id',
-          destroy: '@destroy',
-          copy_to: '@copy_to',
           action: 'duplicate'
         }
       },
