@@ -20,8 +20,6 @@
             <tr md-row>
               <th md-column md-order-by="username"><translate>Username</translate></th>
               <th hide show-gt-xs md-column md-order-by="email"><translate>Email</translate></th>
-              <th hide show-gt-sm md-column md-order-by="role_id"><translate>Brand Role</translate></th>
-              <th hide show-gt-sm md-column md-order-by="role_id"><translate>Project Role</translate></th>
               <th hide show-gt-md md-column><translate>Created</translate></th>
               <th hide show-gt-md md-column><translate>Last Seen</translate></th>
               <th hide show-gt-md md-column><translate>Locations</translate></th>
@@ -42,12 +40,6 @@
               </td>
               <td hide show-gt-xs md-cell>
                 {{ ::user.email }}
-              </td>
-              <td hide show-gt-sm md-cell>
-                {{ user.brand_user.role_id | roleFilter }}
-              </td>
-              <td hide show-gt-sm md-cell>
-                {{ user.project_user.role_id | roleFilter }}
               </td>
               <td hide show-gt-md md-cell>
                 {{ ::(user.created_at | humanTime) }}
