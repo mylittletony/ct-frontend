@@ -28,8 +28,12 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
       var split = $location.path().split('/');
       if (split.length >= 4) {
         return ($location.path().split('/')[3] === path);
-      } else if (path === 'dashboard') {
-        return true;
+      } else {
+        if (['splash_views', 'billing'].includes($location.path().split('/')[2])) {
+          return ($location.path().split('/')[2] === path);
+        } else if (path === 'dashboard') {
+          return true;
+        }
       }
     };
 
