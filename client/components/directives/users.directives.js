@@ -2,13 +2,6 @@
 
 var app = angular.module('myApp.users.directives', []);
 
-app.directive('userAvatar', [function() {
-  return {
-    replace: true,
-    template: '<md-icon><img class=\'user-avatar\' src="https://www.gravatar.com/avatar/{{user.gravatar}}?s=25" ng-if=\'user.gravatar\'></img><span ng-if=\'!user.gravatar\'>face</span></md-icon>'
-  };
-}]);
-
 app.directive('showUser', ['User', '$routeParams', '$location', '$route', 'Auth', 'showToast', 'showErrors', '$window', 'gettextCatalog', 'Translate', '$cookies', '$mdDialog', function(User, $routeParams, $location, $route, Auth, showToast, showErrors, $window, gettextCatalog, Translate, $cookies, $mdDialog) {
 
   var link = function( scope, element, attrs ) {
@@ -194,6 +187,14 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
 
   var link = function( scope, element, attrs ) {
 
+    var id;
+
+    if ($location.path() === '/me/splash_views' || Auth.currentUser().slug === $routeParams.id) {
+      id = Auth.currentUser().slug;
+    } else {
+      id = $routeParams.id;
+    }
+
     scope.formatCurrency = {
       GBP: '£',
       EUR: '€',
@@ -237,7 +238,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
     };
 
     var init = function() {
-      User.query({id: $routeParams.id}).$promise.then(function (res) {
+      User.query({id: id}).$promise.then(function (res) {
         scope.user = res;
         scope.loading = undefined;
       });
@@ -303,7 +304,15 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
   var link = function( scope, element, attrs ) {
 
+    var id;
+
     scope.currencies = { 'US Dollars' : 'USD', 'UK Pounds': 'GBP', 'EUR': 'Euros' };
+
+    if ($location.path() === '/me/billing' || Auth.currentUser().slug === $routeParams.id) {
+      id = Auth.currentUser().slug;
+    } else {
+      id = $routeParams.id;
+    }
 
     var formatCurrency = function() {
       if (scope.user && scope.user.plan) {
@@ -322,7 +331,7 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
     };
 
     var init = function() {
-      User.query({id: $routeParams.id}).$promise.then(function (res) {
+      User.query({id: id}).$promise.then(function (res) {
         scope.user = res;
         if (scope.user.slug === Auth.currentUser().slug) {
           scope.user.allowed = true;
@@ -850,7 +859,7 @@ app.directive('userSessions', ['User', '$routeParams', '$location', 'pagination_
 
     scope.pagination_labels = pagination_labels;
     scope.query = {
-      order:      'updated_at',
+      order:      'created_at',
       limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
       options:    [5,10,25,50,100],

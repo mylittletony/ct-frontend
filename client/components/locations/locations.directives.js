@@ -462,6 +462,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
 
     scope.startDate = moment().utc().subtract(6, 'days').startOf('day').toDate();
     scope.endDate = moment().utc().toDate();
+    scope.loading = true;
 
     var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
@@ -501,6 +502,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       scope.results = [];
       scope.links = undefined;
       $location.search();
+      scope.loading = undefined;
       if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
         showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
       }
@@ -514,6 +516,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.sessions;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -527,6 +530,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.emails;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -540,6 +544,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.clients;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -556,6 +561,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.guests;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -569,6 +575,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.social;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -582,6 +589,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.orders;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -603,6 +611,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
     };
 
     scope.updateAudit = function(selected) {
+      scope.loading = true
       switch(selected) {
         case 'Emails':
           findEmails();

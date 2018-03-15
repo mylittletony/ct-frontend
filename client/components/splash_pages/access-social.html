@@ -17,9 +17,6 @@
       <md-checkbox ng-model="splash.g_login_on" name="g_login_on" type="checkbox">
         <translate>Google+</translate>
       </md-checkbox>
-      <md-checkbox ng-model="splash.li_login_on" name="li_login_on" type="checkbox">
-        <translate>LinkedIn</translate>
-      </md-checkbox>
       <md-checkbox ng-model="splash.backup_vouchers" name="backup_vouchers" type="checkbox">
         <translate>Vouchers</translate>
       </md-checkbox>
@@ -143,52 +140,6 @@
   </md-card-content>
 </md-card>
 
-<md-card ng-show="splash.li_login_on">
-  <md-card-title>
-    <md-card-title-text>
-      <span class="md-headline" translate>
-        LinkedIn+ Settings
-      </span>
-      <span class="md-subhead" translate>
-        For LinkedIn, you must enable secure captive portal in your network settings otherwise the icon won't appear.
-      </span>
-
-    </md-card-title-text>
-  </md-card-title>
-
-  <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-    <div flex="40">
-      <div layout="column">
-        <md-input-container class="md-block">
-          <label translate>LinkedIn Api Key</label>
-          <input ng-model="splash.li_api_key" ng-focus="liKey = !liKey" ng-blur="liKey = !liKey" name="li_api_key" placeholder="{{ 'Enter your LinkedIn API Key' | translate }}" type='{{ liKey ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
-          <div ng-messages="myForm.li_api_key.$error" md-auto-hide="false">
-            <div ng-message="md-maxlength">LinkedIn API key required.</div>
-          </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-          <label translate>LinkedIn Api Secret</label>
-          <input ng-model="splash.li_api_secret" ng-focus="liSecret = !liSecret" ng-blur="liSecret = !liSecret" name="li_api_secret" placeholder="{{ 'Enter your LinkedIn Secret' | translate }}" type='{{ liSecret ? "text" : "password" }}' ng-required="splash.li_login_on" ng-disabled="!splash.li_login_on">
-          <div ng-messages="myForm.li_api_secret.$error" md-auto-hide="false">
-            <div ng-message="md-maxlength" translate>API secret required when using your own App.</div>
-          </div>
-        </md-input-container>
-      </div>
-
-    </div>
-
-    <div flex></div>
-
-    <div flex="40">
-      <div layout="column">
-        <md-switch class="md-accent" ng-model="splash.li_use_ps" aria-label="{{ 'LinkedIn Use CT' | translate }}" ng-true-value="0" ng-false-value="1">
-          <translate>Use Your Own LinkedIn App</translate>
-        </md-switch>
-      </div>
-    </div>
-
-  </md-card-content>
-</md-card>
 
 <!--                 <div class="small-10 columns" ng-if="splash.fb_redirect_to_page || splash.fb_checkin"> -->
 <!--                   <label for="fb_page_id">Facebook Page ID (numeric)</label> -->
