@@ -20,10 +20,9 @@
             <tr md-row>
               <th md-column md-order-by="username"><translate>Username</translate></th>
               <th hide show-gt-xs md-column md-order-by="email"><translate>Email</translate></th>
-              <th hide show-gt-sm md-column md-order-by="role_id"><translate>Brand Role</translate></th>
-              <th hide show-gt-sm md-column md-order-by="role_id"><translate>Project Role</translate></th>
               <th hide show-gt-md md-column><translate>Created</translate></th>
               <th hide show-gt-md md-column><translate>Last Seen</translate></th>
+              <th hide show-gt-md md-column><translate>Locations</translate></th>
             </tr>
           </thead>
           <tbody md-body>
@@ -42,17 +41,28 @@
               <td hide show-gt-xs md-cell>
                 {{ ::user.email }}
               </td>
-              <td hide show-gt-sm md-cell>
-                {{ user.brand_user.role_id | roleFilter }}
-              </td>
-              <td hide show-gt-sm md-cell>
-                {{ user.project_user.role_id | roleFilter }}
-              </td>
               <td hide show-gt-md md-cell>
                 {{ ::(user.created_at | humanTime) }}
               </td>
               <td hide show-gt-md md-cell>
                 {{ ::(user.last_sign_in_at | humanTime) }}
+              </td>
+              <td hide show-gt-md md-cell>
+                <md-menu>
+                  <md-button aria-label="{{ 'Open Locations Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
+                  </md-button>
+                  <md-menu-content width="4" >
+                    <md-menu-item ng-repeat="location in user.locations" ng-show="user.locations.length > 0">
+                      <md-button href="/#/locations/{{location.slug}}">
+                        <p flex>{{location.location_name}}</p>
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-show="user.locations.length == 0">
+                      <p flex>No associated locations</p>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
               </td>
             </tr>
           </tbody>
