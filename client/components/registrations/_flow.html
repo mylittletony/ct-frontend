@@ -1,113 +1,73 @@
-<div flex="100" layout="column" class="layout-column flex" ng-cloak>
+<div flex="100" layout="column" class="layout-column flex" ng-cloak style="padding-top: 14%;">
   <form name="myForm" class="flow">
     <md-content class="md-padding" layout="column" layout-gt-sm='column'>
       <div layout="row" layout-align="center center">
-        <div flex="100" flex-gt-sm="40">
+        <div flex="100" flex-gt-sm="60">
           <md-card>
             <md-card-title>
               <md-card-title-text>
-                <span class="md-headline">{{ title }}</span>
-                <span class="md-subhead">{{ subhead }}</span>
+                <span ng-show="finalised" class="md-headline">Creating your account.</span>
+                <span ng-show="!finalised" class="md-headline">Thanks for signing-up! Let's finalise a few things.</span>
+                <span ng-show="!finalised" style="margin-bottom: 40px;" class="md-subhead">Secure your account before you can go forth.</span>
               </md-card-title-text>
             </md-card-title>
             <md-card-content>
-              <div ng-if='stage === "done"'>
-                <md-progress-linear md-mode="query"></md-progress-linear>
+              <div ng-show='finalised == true' flex layout="column">
+                <md-progress-linear md-mode="query" ng-show='!data.cb4'></md-progress-linear>
+                <p>We're busy creating your account...</p>
+                <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1" ng-disabled='true'>
+                  Creating location
+                </md-checkbox>
+                <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-disabled='true'>
+                  Updating user profile
+                </md-checkbox>
+                <md-checkbox ng-model="data.cb3" aria-label="Checkbox 3" ng-disabled='true'>
+                  Validating settings
+                </md-checkbox>
+                <md-checkbox ng-model="data.cb4" aria-label="Checkbox 4" ng-disabled='true'>
+                  Authorising new user
+                </md-checkbox>
+                <h3 ng-show="data.cb4">All done, sending you on your way!</h3>
               </div>
-              <div ng-if="stage !== 'done'">
-                <div ng-if="!stage">
-                  <div layout="column" flex-gt-sm="100">
-                    <br><br>
-                    <md-input-container layout="row" flex class="md-block">
-                      <label for="company_name">
-                        <translate>Location Name</translate>
-                      </label>
-                      <input type="text" name="location_name" ng-model="holding.company_name" placeholder="{{ 'Name your first location' | translate }}" md-maxlength="25" ng-minlength="5" autofocus required>
-                      <div ng-messages="myForm.company_name.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>A location name is required.</div>
-                        <div ng-message="md-maxlength" translate>Name should be less than 25 characters.</div>
-                        <div ng-message="minlength" translate>Name should be at least characters.</div>
-                      </div>
-                    </md-input-container>
-
-                    <md-input-container layout="row" flex class="md-block">
-                      <label for="address">
-                        <translate>Location Address</translate>
-                      </label>
-                      <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the location' | translate }}" md-maxlength=255 ng-minlength=5 required>
-                      <div ng-messages="myForm.address.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>A location address is required.</div>
-                        <div ng-message="md-maxlength" translate>Address should be less than 255 characters.</div>
-                        <div ng-message="minlength" translate>Address should be between 5 and 255 characters.</div>
-                      </div>
-                    </md-input-container>
+              <div layout="column" flex-gt-sm="100" ng-show="!finalised">
+                <md-input-container layout="row" flex class="md-block">
+                  <label for="username">
+                    <translate>Username</translate>
+                  </label>
+                  <input autofocus type="text" placeholder="Your Name" name="username" ng-minlength="5" ng-model="holding.username" md-minlength=8 required>
+                  <md-icon>face</md-icon>
+                  <div ng-messages="myForm.username.$error" md-auto-hide="false">
+                    <div ng-message="required" translate>A username is required.</div>
+                    <div ng-message="md-minlength" translate>Username should be less than 25 characters.</div>
+                    <div ng-message="minlength" translate>Username should be at least 8 characters.</div>
                   </div>
-                </div>
-                <div ng-if="stage=='brand'">
-                  <div layout="column" flex-gt-md="100">
-                    <div layout="row">
-                      <div flex-gt-md=85 flex=75>
-                        <md-input-container md-no-float layout="row" flex class="md-block">
-                          <input type="text" name="url" ng-change="checkBrand()" ng-model="holding.url" placeholder="{{ 'my-wifi-dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" class="align-right" autofocus required>
-                          <div ng-messages="myForm.url.$error" md-auto-hide="false">
-                            <div ng-message="required" translate>The URL is required.</div>
-                            <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div>
-                            <div ng-message="pattern" translate>Lowercase, letters only.</div>
-                            <div ng-message="minlength" translate>URL should be at least 5 characters.</div>
-                          </div>
-                        </md-input-container>
-                      </div>
-                      <span flex-gt-md=15 flex=25 class="url">.ctapp.io</span>
-                    </div>
-                    <p ng-show="invalid_brand" style="margin-top: -30px; color: rgb(221,44,0);" translate><small><b>Brand URL has already been taken, try again. URLs must be unique.</b></small></p>
-                    <p>Keep it short, sweet & memorable. You can change it later.</p>
+                </md-input-container>
+                <md-input-container layout="row" flex class="md-block">
+                  <label for="password">
+                    <translate>Password</translate>
+                  </label>
+                  <input autofocus type="password" placeholder="Top secret password" name="password" ng-minlength="5" ng-model="holding.password" md-minlength=8 required temp-ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+                  <md-icon>lock</md-icon>
+                  <div ng-messages="myForm.password.$error" md-auto-hide="false">
+                    <div ng-message="required" translate>A password is required.</div>
+                    <div ng-message="md-minlength" translate>Password should be less than 25 characters.</div>
+                    <div ng-message="minlength" translate>Password should be at least 8 characters.</div>
+                    <div ng-message="pattern" translate>Must include one upper case letter, a special character and number.</div>
                   </div>
-                </div>
-                <div ng-if="stage=='user'">
-                  <div layout="column" flex-gt-sm="100">
-                    <md-input-container layout="row" flex class="md-block">
-                      <label for="username">
-                        <translate>Username</translate>
-                      </label>
-                      <input type="text" name="username" ng-model="holding.username" placeholder="Steve Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required>
-                      <div ng-messages="myForm.username.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>A username is required.</div>
-                        <div ng-message="md-maxlength" translate>Username should be less than 25 characters.</div>
-                        <div ng-message="pattern" translate>Number and letters only.</div>
-                        <div ng-message="minlength" translate>Username should be at least 5 characters.</div>
-                      </div>
-                    </md-input-container>
-                    <md-input-container layout="row" flex class="md-block">
-                      <label for="password">
-                        <translate>Password</translate>
-                      </label>
-                      <input type="password" placeholder="Top secret password" name="password" ng-minlength="5" ng-model="holding.temp_password" md-minlength=8 required>
-                      <md-icon>lock</md-icon>
-                      <div ng-messages="myForm.password.$error" md-auto-hide="false">
-                        <div ng-message="required" translate>A password is required.</div>
-                        <div ng-message="md-minlength" translate>Password should be less than 25 characters.</div>
-                        <div ng-message="minlength" translate>Password should be at least 8 characters.</div>
-                      </div>
-                    </md-input-container>
-                  </div>
-                </div>
+                </md-input-container>
+                <md-input-container layout="row" flex class="md-block">
+                  <label for="password">
+                    <translate>Optional phone number</translate>
+                  </label>
+                  <input type="number" placeholder="In case you lose your details" name="phone" ng-minlength="5" ng-model="holding.phone" md-minlength=8>
+                  <md-icon>phone</md-icon>
+                </md-input-container>
               </div>
             </md-card-content>
-            <md-divider ng-if="!$last"></md-divider>
-            <md-card-actions layout="row" layout-align="start center">
-              <md-card-icon-actions>
-                <md-button ng-if="stage && stage !== 'done'" ng-click="back()">
-                  <translate>Back</translate>
-                </md-button>
-              </md-card-icon-actions>
-              <md-button ng-if="!stage && stage != 'done'" type="submit" ng-click="update('user')" ng-disabled="myForm.$invalid" class="signup-flow md-raised md-primary">
-                <translate>Save</translate>
-              </md-button>
-              <md-button ng-if="stage == 'user'" type="submit" ng-click="update('confirm')" ng-disabled="myForm.$invalid" class="md-raised md-primary">
-                <translate>Save</translate>
-              </md-button>
-              <md-button ng-if="stage=='confirm'" ng-click="update('done')" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary">
-                <translate>Create Dashboard</translate>
+            <md-divider ng-show="!finalised"></md-divider>
+            <md-card-actions ng-show="!finalised" layout="row" layout-align="end center">
+              <md-button ng-click="update('done')" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary complete-18020714">
+                <translate>Create</translate>
               </md-button>
             </md-card-actions>
           </md-card>
@@ -116,3 +76,121 @@
     </md-content>
   </form>
 </div>
+<!-- <div flex="100" layout="column" class="layout-column flex" ng-cloak> -->
+<!--   <form name="myForm" class="flow"> -->
+<!--     <md-content class="md-padding" layout="column" layout-gt-sm='column'> -->
+<!--       <div layout="row" layout-align="center center"> -->
+<!--         <div flex="100" flex-gt-sm="40"> -->
+<!--           <md-card> -->
+<!--             <md-card-title> -->
+<!--               <md-card-title-text> -->
+<!--                 <span class="md-headline">{{ title }}</span> -->
+<!--                 <span class="md-subhead">{{ subhead }}</span> -->
+<!--               </md-card-title-text> -->
+<!--             </md-card-title> -->
+<!--             <md-card-content> -->
+<!--               <div ng-if='stage === "done"'> -->
+<!--                 <md-progress-linear md-mode="query"></md-progress-linear> -->
+<!--               </div> -->
+<!--               <div ng-if="stage !== 'done'"> -->
+<!--                 <div ng-if="!stage"> -->
+<!--                   <div layout="column" flex-gt-sm="100"> -->
+<!--                     <br><br> -->
+<!--                     <md-input-container layout="row" flex class="md-block"> -->
+<!--                       <label for="company_name"> -->
+<!--                         <translate>Location Name</translate> -->
+<!--                       </label> -->
+<!--                       <input type="text" name="location_name" ng-model="holding.company_name" placeholder="{{ 'Name your first location' | translate }}" md-maxlength="25" ng-minlength="5" autofocus required> -->
+<!--                       <div ng-messages="myForm.company_name.$error" md-auto-hide="false"> -->
+<!--                         <div ng-message="required" translate>A location name is required.</div> -->
+<!--                         <div ng-message="md-maxlength" translate>Name should be less than 25 characters.</div> -->
+<!--                         <div ng-message="minlength" translate>Name should be at least characters.</div> -->
+<!--                       </div> -->
+<!--                     </md-input-container> -->
+
+<!--                     <md-input-container layout="row" flex class="md-block"> -->
+<!--                       <label for="address"> -->
+<!--                         <translate>Location Address</translate> -->
+<!--                       </label> -->
+<!--                       <input type="text" name="address" ng-model="holding.address" placeholder="{{ 'Where is the location' | translate }}" md-maxlength=255 ng-minlength=5 required> -->
+<!--                       <div ng-messages="myForm.address.$error" md-auto-hide="false"> -->
+<!--                         <div ng-message="required" translate>A location address is required.</div> -->
+<!--                         <div ng-message="md-maxlength" translate>Address should be less than 255 characters.</div> -->
+<!--                         <div ng-message="minlength" translate>Address should be between 5 and 255 characters.</div> -->
+<!--                       </div> -->
+<!--                     </md-input-container> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div ng-if="stage=='brand'"> -->
+<!--                   <div layout="column" flex-gt-md="100"> -->
+<!--                     <div layout="row"> -->
+<!--                       <div flex-gt-md=85 flex=75> -->
+<!--                         <md-input-container md-no-float layout="row" flex class="md-block"> -->
+<!--                           <input type="text" name="url" ng-change="checkBrand()" ng-model="holding.url" placeholder="{{ 'my-wifi-dashboard' | translate }}" ng-maxlength=25 ng-minlength=5 ng-pattern="/^[a-z-_\d]*$/" class="align-right" autofocus required> -->
+<!--                           <div ng-messages="myForm.url.$error" md-auto-hide="false"> -->
+<!--                             <div ng-message="required" translate>The URL is required.</div> -->
+<!--                             <div ng-message="md-maxlength" translate>Should be between 5 and 25 characters.</div> -->
+<!--                             <div ng-message="pattern" translate>Lowercase, letters only.</div> -->
+<!--                             <div ng-message="minlength" translate>URL should be at least 5 characters.</div> -->
+<!--                           </div> -->
+<!--                         </md-input-container> -->
+<!--                       </div> -->
+<!--                       <span flex-gt-md=15 flex=25 class="url">.ctapp.io</span> -->
+<!--                     </div> -->
+<!--                     <p ng-show="invalid_brand" style="margin-top: -30px; color: rgb(221,44,0);" translate><small><b>Brand URL has already been taken, try again. URLs must be unique.</b></small></p> -->
+<!--                     <p>Keep it short, sweet & memorable. You can change it later.</p> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div ng-if="stage=='user'"> -->
+<!--                   <div layout="column" flex-gt-sm="100"> -->
+<!--                     <md-input-container layout="row" flex class="md-block"> -->
+<!--                       <label for="username"> -->
+<!--                         <translate>Username</translate> -->
+<!--                       </label> -->
+<!--                       <input type="text" name="username" ng-model="holding.username" placeholder="Steve Smith" md-maxlength=25 ng-minlength=5 ng-pattern="/^[^-\s][A-Za-z0-9\ \\\'\\s]*$/" md-autofocus required> -->
+<!--                       <div ng-messages="myForm.username.$error" md-auto-hide="false"> -->
+<!--                         <div ng-message="required" translate>A username is required.</div> -->
+<!--                         <div ng-message="md-maxlength" translate>Username should be less than 25 characters.</div> -->
+<!--                         <div ng-message="pattern" translate>Number and letters only.</div> -->
+<!--                         <div ng-message="minlength" translate>Username should be at least 5 characters.</div> -->
+<!--                       </div> -->
+<!--                     </md-input-container> -->
+<!--                     <md-input-container layout="row" flex class="md-block"> -->
+<!--                       <label for="password"> -->
+<!--                         <translate>Password</translate> -->
+<!--                       </label> -->
+<!--                       <input type="password" placeholder="Top secret password" name="password" ng-minlength="5" ng-model="holding.temp_password" md-minlength=8 required> -->
+<!--                       <md-icon>lock</md-icon> -->
+<!--                       <div ng-messages="myForm.password.$error" md-auto-hide="false"> -->
+<!--                         <div ng-message="required" translate>A password is required.</div> -->
+<!--                         <div ng-message="md-minlength" translate>Password should be less than 25 characters.</div> -->
+<!--                         <div ng-message="minlength" translate>Password should be at least 8 characters.</div> -->
+<!--                       </div> -->
+<!--                     </md-input-container> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </md-card-content> -->
+<!--             <md-divider ng-if="!$last"></md-divider> -->
+<!--             <md-card-actions layout="row" layout-align="start center"> -->
+<!--               <md-card-icon-actions> -->
+<!--                 <md-button ng-if="stage && stage !== 'done'" ng-click="back()"> -->
+<!--                   <translate>Back</translate> -->
+<!--                 </md-button> -->
+<!--               </md-card-icon-actions> -->
+<!--               <md-button ng-if="!stage && stage != 'done'" type="submit" ng-click="update('user')" ng-disabled="myForm.$invalid" class="signup-flow md-raised md-primary"> -->
+<!--                 <translate>Save</translate> -->
+<!--               </md-button> -->
+<!--               <md-button ng-if="stage == 'user'" type="submit" ng-click="update('confirm')" ng-disabled="myForm.$invalid" class="md-raised md-primary"> -->
+<!--                 <translate>Save</translate> -->
+<!--               </md-button> -->
+<!--               <md-button ng-if="stage=='confirm'" ng-click="update('done')" type="submit" ng-disabled="myForm.$invalid" class="signup-complete md-raised md-primary"> -->
+<!--                 <translate>Create Dashboard</translate> -->
+<!--               </md-button> -->
+<!--             </md-card-actions> -->
+<!--           </md-card> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </md-content> -->
+<!--   </form> -->
+<!-- </div> -->
