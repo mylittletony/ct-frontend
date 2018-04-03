@@ -61,6 +61,16 @@
                 </p>
               </div>
             </md-list-item>
+            <md-list-item class="md-2-line" flex="100" ng-if="user.enterprise">
+              <div class="md-list-item-text">
+                <h3 translate>
+                  Billing Currency {{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})
+                </h3>
+                <p>
+                  Your currency was set automatically when your account was created. If you think it's wrong, please contact support.
+                </p>
+              </div>
+            </md-list-item>
           </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
