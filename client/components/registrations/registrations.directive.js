@@ -202,10 +202,8 @@ app.directive('successSignup', ['Holding', '$routeParams', '$location', function
 
   var link = function( scope, element, attrs ) {
   };
-
   return {
     link: link,
     scope: {}
   };
-
 }]);
