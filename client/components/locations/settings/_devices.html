@@ -22,7 +22,7 @@
 
           <md-card-content>
             <div layout="row" layout-wrap>
-              <md-input-container flex="100" flex-gt-sm="50">
+              <!-- <md-input-container flex="100" flex-gt-sm="50">
                 <label>
                   <translate>Send Offline Alert After (mins)</translate>
                 </label>
@@ -32,18 +32,7 @@
                   <div ng-message="min" translate>Must be greater than 5 minutes</div>
                   <div ng-message="required" translate>You must enter an alert interval.</div>
                 </div>
-              </md-input-container>
-              <md-input-container flex="100" flex-gt-sm="50">
-                <label>
-                  <translate>Automatic Reboot Interval (mins)</translate>
-                </label>
-                <input type="number" min="0" max="255" name="connect_timeout" ng-model="location.connect_timeout" placeholder="10" required/>
-                <div ng-messages="myForm.connect_timeout.$error" md-auto-hide="false">
-                  <div ng-message="max" translate>Must be less than 255 minutes</div>
-                  <div ng-message="min" translate>Must be greater than 0 minutes</div>
-                  <div ng-message="required" translate>You must enter a reboot interval.</div>
-                </div>
-              </md-input-container>
+              </md-input-container> -->
               <md-input-container flex="100" flex-gt-sm="50">
                 <label>
                   <translate>Radius NAS ID</translate>
