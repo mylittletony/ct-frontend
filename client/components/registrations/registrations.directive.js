@@ -155,9 +155,7 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
         id: $routeParams.id,
         holding_account: scope.holding
       }).$promise.then(function(data) {
-        console.log(data)
         $cookies.put('_cta', data.token, {domain: '.' + domain});
-        console.log('aaaaaaaaa', domain);
         scope.errors = undefined;
         fin(data);
       }, function(err) {
