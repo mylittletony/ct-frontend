@@ -214,10 +214,17 @@
 
 </style>
 
-<div class="designer" ng-hide="loading">
-  <div class="dc design-container">
-    <div class="splash-container md-padding">
-      <splash-design ver='{{ splash.design_id }}'></splash-design>
+<div layout="row">
+  <div flex="75" hide show-gt-xs >
+    <div class="designer" ng-hide="loading">
+      <div class="dc design-container">
+        <div class="splash-container md-padding">
+          <splash-design ver='{{ splash.design_id }}'></splash-design>
+        </div>
+      </div>
     </div>
+  </div>
+  <div flex="100" flex-gt-xs="25" class="design-sidebar" style="">
+    <design-menu ver="designer"></design-menu>
   </div>
 </div>

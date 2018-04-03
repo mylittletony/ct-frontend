@@ -300,6 +300,30 @@ md-card-header.graph-small {
   padding-top: 20px;
 }
 
+splash-designer .design-sidebar {
+  min-width: 350px;
+  max-height: 100vh!important;
+  overflow: scroll;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.design-sidebar md-tabs {
+  height: calc(100vh - 100px);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+@media (max-width: 960px) {
+  .design-sidebar md-tabs {
+    height: calc(100vh - 150px);
+  }
+  splash-designer .design-sidebar {
+    height: calc(100vh - 50px);
+  }
+  .designer {
+    height: calc(100vh - 50px)!important;
+  }
+}
+
 md-toolbar.md-table-toolbar .sidenav {
   padding: 0px;
 }
