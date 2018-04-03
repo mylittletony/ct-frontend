@@ -306,8 +306,6 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
     var id;
 
-    scope.currencies = { 'US Dollars' : 'USD', 'UK Pounds': 'GBP', 'EUR': 'Euros' };
-
     if ($location.path() === '/me/billing' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
     } else {
@@ -318,7 +316,7 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
       if (scope.user && scope.user.plan) {
         switch(scope.user.plan.currency) {
           case 'GBP':
-            scope.user.plan.currency_symbol = '$';
+            scope.user.plan.currency_symbol = '£';
             break;
           case 'EUR':
             scope.user.plan.currency_symbol = '€';
