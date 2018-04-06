@@ -111,13 +111,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'transfer',
       });
 
-      if (scope.box.v === '4') {
-        scope.menu.push({
-          name: gettextCatalog.getString('Operations'),
-          icon: 'access_time',
-          type: 'operations',
-        });
-      }
+      scope.menu.push({
+        name: gettextCatalog.getString('Operations'),
+        icon: 'access_time',
+        type: 'operations',
+      });
 
       if (scope.box.is_cucumber) {
         scope.menu.push({
@@ -606,12 +604,7 @@ app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $rou
     };
 
     var compileTemplate = function(version) {
-      var template;
-      if (parseInt(version) === 4) {
-        template = $compile('<list-messages></list-messages>')(scope);
-      } else {
-        template = $compile('<box-payloads></box-payloads>')(scope);
-      }
+      var template = $compile('<list-messages></list-messages>')(scope);
       element.html(template);
       scope.loading = undefined;
     };

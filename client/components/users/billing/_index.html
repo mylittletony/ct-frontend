@@ -38,7 +38,7 @@
             <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
               <div class="md-list-item-text">
                 <h3 translate>Plan</h3>
-                <p>{{ ::user.plan.plan_name }}&nbsp;<translate>Plan.</translate> <span ng-show="user.plan.plan_price > 0">{{ ::user.plan.plan_price | number:2 | currency:user.plan.currency_symbol }} {{ ::user.plan.billing_period }}</span></p>
+                <p>{{ ::user.plan.plan_name }}&nbsp;<translate>Plan.</translate> <span ng-show="user.plan.plan_price > 0">{{ ::user.plan.plan_price | number:2 | currency:user.plan.currency_symbol }} {{ ::user.plan.billing_period }}</span><span ng-show="user.grandfather_plan">&nbsp;(Grandfathered Plan)</span></p>
                 <p>Tax Rate: {{ ::user.tax_rate | number :1 }}%</span></p>
               </div>
             </md-list-item>
@@ -58,6 +58,16 @@
                 </h3>
                 <p>
                   Enterprise plans enabled
+                </p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" flex="100" flex-gt-sm="50">
+              <div class="md-list-item-text">
+                <h3 translate>
+                  Billing Currency {{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})
+                </h3>
+                <p>
+                  Your currency was set automatically when your account was created. If you think it's wrong, please contact support.
                 </p>
               </div>
             </md-list-item>
