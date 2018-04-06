@@ -87,6 +87,96 @@
                 </div>
               </md-card-content>
             </md-card>
+
+            <md-card ng-if="splash.backup_password">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>
+                    Password Settings
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content>
+                <div layout="row">
+                  <div flex flex-gt-sm="100">
+                    <input style="display:none" type="password" name="password"/>
+                    <md-input-container class="md-block">
+                      <label>
+                        <translate>Splash Password</translate>
+                      </label>
+                      <input ng-model="splash.password" placeholder="{{'Splash Password' | translate}}" type="{{ show || showPass ? 'text' : 'password' }}" ng-focus="showPass = !showPass" ng-blur="showPass = !showPass" name="password" md-maxlength='25' ng-minlength="4" ng-pattern="/^[a-zA-Z0-9_-]+$/" required>
+                      <div ng-messages="myForm.password.$error">
+                        <div ng-message="md-maxlength" translate>Must be less than 25 characters</div>
+                        <div ng-message="minlength" translate>Must be more than 4 characters</div>
+                        <div ng-message="required" translate>A valid password is required</div>
+                      </div>
+                    </md-input-container>
+                    <md-switch class="md-accent" ng-model="splash.passwd_auto_gen" aria-label="{{ 'Password Auto Gen' | translate }}" style="margin: 0 0 30px 0;">
+                      <span translate>Auto Password Change</span>
+                    </md-switch>
+                    <md-input-container class="md-block" ng-show="splash.passwd_auto_gen">
+                      <label>
+                        <translate>Password Changed Email Recipient</translate>
+                      </label>
+                      <input ng-disabled="!splash.passwd_auto_gen" ng-model="splash.passwd_change_email" placeholder="{{ 'Send password to this email' | translate }}" type="email" name="email" ng-required="splash.passwd_auto_gen == true">
+                      <div ng-messages="myForm.email.$error" md-auto-hide="false">
+                        <div ng-message="required" translate>Recipient email required when using auto change.</div>
+                        <div ng-message="email" translate>Must be a valid email address</div>
+                      </div>
+                    </md-input-container>
+                    <div flex ng-show="splash.passwd_auto_gen">
+                      <day-selector active="splash.passwd_auto_gen" days="splash.passwd_change_day" array="splash.userdays"></day-selector>
+                    </div>
+                  </div>
+                </div>
+              </md-card-content>
+            </md-card>
+
+            <md-card ng-if="splash.backup_voucher">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>
+                    Voucher Settings
+                  </span>
+                  <span class="md-subhead">
+                    <p translate>Vouchers have their own rules. When you create a batch of vouchers, you also create the policies which limit speed, time etc.</p>
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content>
+                <div layout="column" flex="100">
+                  <md-switch class="md-accent" ng-model="splash.shop_active" aria-label="Enable Shop">
+                    <translate>Shop {{ splash.shop_active ? 'Enabled' : 'Disabled' }}</translate>
+                  </md-switch>
+                  <md-switch class="md-accent" ng-model="splash.forgot_password_link" aria-label="Forgot Password" ng-disabled="!splash.shop_active">
+                    <translate>Forgot Password Link</translate>
+                  </md-switch>
+                  <md-switch class="md-accent" ng-model="splash.unified_login_code" aria-label="Unified Login">
+                    <translate>Unified Login Code</translate>
+                  </md-switch>
+                </div>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-disabled="!splash.shop_active" href="/#/locations/{{ location.slug }}/splash_pages/{{ splash.id }}/store" class="md-primary md-raised"><translate>Shop</translate></md-button>
+              </md-card-actions>
+            </md-card>
+
+            <md-card ng-if="splash.backup_codes">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>
+                    QuickCode Settings
+                  </span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content>
+                <p translate>To use QuickCodes, generate some code in your location settings. They can be generated on the fly for and you can set restrictions, just like vouchers.</p>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="end center">
+                <md-button href="/#/locations/{{ location.slug }}/splash_codes/new" class="md-primary md-raised"><translate>CREATE</translate></md-button>
+              </md-card-actions>
+            </md-card>
+
           </div>
 
           <md-button class="md-no-style" ng-click="toggle('redirectUrl')" aria-controls="theme">
@@ -1127,25 +1217,23 @@
           <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
           <md-tooltip md-direction="bottom">Options</md-tooltip>
         </md-button>
-        <md-menu-content width="2">
+        <md-menu-content width="3">
           <md-menu-item>
             <md-button>
+              <md-icon md-font-icon="wifi">wifi</md-icon>
               Networks
             </md-button>
           </md-menu-item>
           <md-menu-item>
             <md-button>
-              Shop
-            </md-button>
-          </md-menu-item>
-          <md-menu-item>
-            <md-button>
-              Forms
-            </md-button>
-          </md-menu-item>
-          <md-menu-item>
-            <md-button>
+              <md-icon md-font-icon="content_copy">content_copy</md-icon>
               Duplicate
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-href="/#/locations/{{ location.slug }}/splash_pages/">
+              <md-icon md-font-icon="arrow_back">arrow_back</md-icon>
+              Return
             </md-button>
           </md-menu-item>
         </md-menu-content>
