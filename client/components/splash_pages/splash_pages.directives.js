@@ -647,71 +647,38 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
 
 }]);
 
-app.directive('splashDesignerForm', ['$compile', function($compile) {
+app.directive('splashDesignerForm', ['SplashPage', 'Location', '$compile', function(SplashPage, Location, $compile) {
 
   var link = function(scope,element,attrs) {
 
     var leform;
 
+    scope.splash = angular.fromJson(scope.s);
+
     var init = function() {
       switch(attrs.access) {
-      case '1':
-        leform = '<input type="password" class="design-input" placeholder="What\'s the password?">';
-        break;
-      case '2':
-        leform =
-          '<label>Enter your username</label><br>'+
-          '<input style="display:none" type="text" name="fakeinput"/>'+
-          '<input style="display:none" type="password" name="fakeinput"/>'+
-          '<input type="text" class="design-input" disabled placeholder="What\'s your username"><br>' +
-          '<label>Enter your password</label><br>'+
-          '<input type="password" class="design-input" disabled placeholder="What\'s the password"><br>' +
-          '<button class=\'btn\'>{{ btn_text }}</button>';
-          break;
-      case '3':
-        leform =
-          '<button class=\'btn\'>{{ btn_text }}</button>';
-          break;
-      case '7':
-        leform =
-          '<p class=\'btn social des-facebook\'>Facebook</p>';
-        break;
-      case '8':
-        leform =
-          '<p><small>Your other fields will show on the live page.</small></p>' +
-          '<label>Enter your username</label><br>'+
-          '<input style="display:none" type="text" name="fakeinput"/>'+
-          '<input style="display:none" type="password" name="fakeinput"/>'+
-          '<input type="text" class="design-input" disabled placeholder="What\'s your username"><br>' +
-          '<label>Enter your password</label><br>'+
-          '<input type="password" class="design-input" disabled placeholder="What\'s the password"><br>' +
-          '<button class=\'btn\'>{{ btn_text }}</button>';
-          break;
       default:
         leform =
-          '<button>{{ btn_text }}</button>';
-          // default code block
+          '<span ng-show=\'splash.fb_login_on\'><a class=\'social des-facebook\'>Continue with Facebook</a><br></span>'+
+          '<span ng-show=\'splash.g_login_on\'><a class=\'social des-google\'>Continue with Google</a><br></span>'+
+          '<span ng-show=\'splash.tw_login_on\'><a class=\'social des-twitter\'>Continue with Twitter</a><br></span>'+
+          '<span ng-show=\'splash.backup_sms\'><a class=\'social des-sms\'>Continue with SMS</a><br></span>'+
+          '<span ng-show=\'splash.backup_email\'><a class=\'social des-email\'>Continue with Email</a><br></span>'+
+          '<span ng-show=\'splash.backup_password\'><a class=\'social des-password\'>Continue with Password</a><br></span>'+
+          '<span ng-show=\'splash.backup_voucher\'><a class=\'social des-voucher\'>Continue with Voucher</a><br></span>'+
+          '<span ng-show=\'splash.backup_codes\'><a class=\'social des-codes\'>Continue with Quick Codes</a><br></span>'
       }
       var template = $compile('<div>' + leform + '</div>')(scope);
       var compileForm = function() {};
       element.html(template);
     };
 
-    attrs.$observe('btntext', function(id) {
-      if (id !== '') {
-        scope.btn_text = attrs.btntext;
-        init();
-      }
-    });
+    init();
 
   };
 
   return {
     link: link,
-    scope: {
-      access: '@',
-      btntext: '@'
-    }
   };
 
 }]);

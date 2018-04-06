@@ -13,22 +13,9 @@
           <div ng-if="logicTypeAccordian || isOpen('loginType')" id="loginType" class="menu-toggle-list" layout="column">
             <md-card>
               <md-card-content>
-                <md-input-container class="md-block">
-                  <label><translate>Access Type</translate></label>
-                  <md-select ng-model="splash.primary_access_id" ng-change="access_name()">
-                    <md-option ng-repeat="type in access_types" value="{{type.id}}">
-                      {{type.id | translateAccessTypeName}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-              </md-card-content>
-            </md-card>
-
-            <md-card>
-              <md-card-content>
                 <div layout="row" layout-wrap>
                   <div flex="100">
-                    <p style="margin-top:0px;">What information do you want to capture?</p>
+                    <p style="margin-top:0px;">What login types do you want to offer?</p>
                   </div>
                   <div flex="50">
                     <md-checkbox ng-model="splash.fb_login_on" name="fb_login_on" type="checkbox">
@@ -46,9 +33,33 @@
                     </md-checkbox>
                   </div>
                   <div flex="50">
+                    <md-checkbox ng-model="splash.backup_sms" name="backup_sms" type="checkbox">
+                      <translate>SMS</translate>
+                    </md-checkbox>
+                  </div>
+                  <div flex="50">
                     <md-checkbox ng-model="splash.backup_email" name="backup_email" type="checkbox">
                       <translate>Email</translate>
                     </md-checkbox>
+                  </div>
+                  <div flex="50">
+                    <md-checkbox ng-model="splash.backup_password" name="backup_password" type="checkbox">
+                      <translate>Password</translate>
+                    </md-checkbox>
+                  </div>
+                  <div flex="50">
+                    <md-checkbox ng-model="splash.backup_voucher" name="backup_voucher" type="checkbox">
+                      <translate>Voucher</translate>
+                    </md-checkbox>
+                  </div>
+                  <div flex="50">
+                    <md-checkbox ng-model="splash.backup_codes" name="backup_codes" type="checkbox">
+                      <translate>Quick Codes</translate>
+                    </md-checkbox>
+                  </div>
+
+                  <div flex="100" ng-show="splash.backup_sms">
+                    <p>Please be aware that SMS usage is charged separately to your subscribed plan. <a href="https://docs.oh-mimo.com/splash-pages/sms-messages-otp" target="_blank">See here for more information.</a></p>
                   </div>
                   <div flex="100" ng-show="splash.fb_login_on">
                     <md-switch class="md-accent" ng-model="splash.fb_checkin" aria-label="FB Checkin">
@@ -76,57 +87,6 @@
                 </div>
               </md-card-content>
             </md-card>
-          </div>
-
-          <md-button class="md-no-style" ng-click="toggle('integrations')" aria-controls="theme">
-            <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('integrations') ? "up" : "down" }}</md-icon>
-            <translate>Newsletter Capture</translate>
-          </md-button>
-
-          <div ng-if="isOpen('integrations')" id="integrations" class="menu-toggle-list" layout="column">
-            <md-card>
-              <md-card-content>
-                <md-input-container class="md-block">
-                  <label><translate>Capture Type</translate></label>
-                  <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
-                    <md-option ng-repeat="type in integrations" value="{{ type.value }}">
-                      {{type.key}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-
-                <md-input-container class="md-block" ng-hide="splash.newsletter_type == 0 || splash.newsletter_type == 3">
-                  <label>
-                    <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
-                    <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
-                  </label>
-                  <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z-_]*$/" ng-trim="false">
-                  <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
-                    <div ng-message="pattern" translate>Invalid characters in key.</div>
-                    <div ng-message="required">
-                      <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
-                      <span ng-if="splash.newsletter_type != 4" translate>You must set an API token.</span>
-                    </div>
-                  </div>
-                </md-input-container>
-
-                <md-input-container class="md-block" ng-hide="splash.newsletter_type == 0 || splash.newsletter_type == 3">
-                  <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
-                  <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z-_]*$/" ng-trim="false">
-                  <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
-                    <div ng-message="pattern" translate>Invalid characters in list ID.</div>
-                    <div ng-message="required" translate>You must set a list ID.</div>
-                  </div>
-                </md-input-container>
-
-                <small hide show-gt-sm ng-show="splash.newsletter_type == 3"><translate>'Internal Only' saves email in dashboard but doesn't subscribe to external service like MailChimp.</translate></small>
-                <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1" ng-show="splash.newsletter_type == 1">
-                  <span translate>Skip MailChimp Confirmation</span>
-                </md-switch>
-
-              </md-card-content>
-            </md-card>
-
           </div>
 
           <md-button class="md-no-style" ng-click="toggle('redirectUrl')" aria-controls="theme">
@@ -325,6 +285,57 @@
                     <div class="hint">Hit enter after each URL to save multiple addresses</div>
                 </md-input-container>
             </md-card>
+          </div>
+
+          <md-button class="md-no-style" ng-click="toggle('integrations')" aria-controls="theme">
+            <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('integrations') ? "up" : "down" }}</md-icon>
+            <translate>Integrations</translate>
+          </md-button>
+
+          <div ng-if="isOpen('integrations')" id="integrations" class="menu-toggle-list" layout="column">
+            <md-card>
+              <md-card-content>
+                <md-input-container class="md-block">
+                  <label><translate>Integration Type</translate></label>
+                  <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
+                    <md-option ng-repeat="type in integrations" value="{{ type.value }}">
+                      {{type.key}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" ng-hide="splash.newsletter_type == 0 || splash.newsletter_type == 3">
+                  <label>
+                    <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
+                    <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
+                  </label>
+                  <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z-_]*$/" ng-trim="false">
+                  <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
+                    <div ng-message="pattern" translate>Invalid characters in key.</div>
+                    <div ng-message="required">
+                      <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
+                      <span ng-if="splash.newsletter_type != 4" translate>You must set an API token.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" ng-hide="splash.newsletter_type == 0 || splash.newsletter_type == 3">
+                  <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
+                  <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z-_]*$/" ng-trim="false">
+                  <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
+                    <div ng-message="pattern" translate>Invalid characters in list ID.</div>
+                    <div ng-message="required" translate>You must set a list ID.</div>
+                  </div>
+                </md-input-container>
+
+                <small hide show-gt-sm ng-show="splash.newsletter_type == 3"><translate>'Internal Only' saves email in dashboard but doesn't subscribe to external service like MailChimp.</translate></small>
+                <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1" ng-show="splash.newsletter_type == 1">
+                  <span translate>Skip MailChimp Confirmation</span>
+                </md-switch>
+
+              </md-card-content>
+            </md-card>
+
           </div>
 
           <md-button class="md-no-style" ng-click="toggle('details')" aria-controls="theme">
