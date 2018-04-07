@@ -1724,7 +1724,7 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
       load = true;
       // MetricLambda.clientstats({
       Metric.clientstats({
-        type:         'devices.meta',
+        type:         'device.meta',
         ap_mac:       box.calledstationid,
         location_id:  box.location_id
       }).$promise.then(function(data) {
