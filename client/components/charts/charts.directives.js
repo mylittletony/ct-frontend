@@ -399,24 +399,24 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
 
         // Sort me
         var t = opts.type;
-        if (t === 'devices.meta' ||
-            t === 'devices.tx,devices.rx' ||
-            t === 'devices.rx,devices.tx' ||
-            t === 'devices.load5' ||
-            t === 'interfaces.snr' ||
-            t === 'device.heartbeats') {
-          MetricLambda.clientstats(opts).$promise.then(function(data) {
-            deferred.resolve(data);
-          }, function() {
-            deferred.reject();
-          });
-        } else {
-          Metric.clientstats(opts).$promise.then(function(data) {
-            deferred.resolve(data);
-          }, function() {
-            deferred.reject();
-          });
-        }
+        // if (t === 'devices.meta' ||
+        //     t === 'devices.tx,devices.rx' ||
+        //     t === 'devices.rx,devices.tx' ||
+        //     t === 'devices.load5' ||
+        //     t === 'interfaces.snr' ||
+        //     t === 'device.heartbeats') {
+        //   MetricLambda.clientstats(opts).$promise.then(function(data) {
+        //     deferred.resolve(data);
+        //   }, function() {
+        //     deferred.reject();
+        //   });
+        // } else {
+        Metric.clientstats(opts).$promise.then(function(data) {
+          deferred.resolve(data);
+        }, function() {
+          deferred.reject();
+        });
+        // }
       };
 
       this.getStats = function(params) {
