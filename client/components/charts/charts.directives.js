@@ -1714,12 +1714,12 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         if (a === undefined) {
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', gettextCatalog.getString('Date'));
-          // data.addColumn('number', 'dummySeries');
           data.addColumn('number', gettextCatalog.getString('Load Average'));
 
-          for(var i = 0; i < json.data.length; i++) {
-            time = new Date(json.data[i].timestamp*1000);
-            var load = (json.data[i].value*100);
+          for(var i = 0; i < json.data[0].data.length; i++) {
+            var d = json.data[0].data[i];
+            time = new Date(d.timestamp);
+            var load = (d.value*100);
             if (load > 100) {
               load = 100;
             }
