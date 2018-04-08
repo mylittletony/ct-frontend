@@ -1650,7 +1650,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     var c, timer, json;
     var rate = 'false';
     scope.loading = true;
-    scope.type  = 'devices.load5';
+    scope.type  = 'device.load';
     var colours = COLOURS.split(' ');
     var opts = controller.options;
 
