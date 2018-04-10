@@ -1867,7 +1867,7 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'MetricLambda', 
 
     var getClientCount = function(i) {
       MetricLambda.clientstats({
-        type:         'devices.meta',
+        type:         'device.meta',
         ap_mac:       scope.boxes[i].calledstationid,
         location_id:  scope.boxes[i].location_id
       }).$promise.then(function(data) {

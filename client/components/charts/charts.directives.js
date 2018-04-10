@@ -399,24 +399,24 @@ app.directive('clientChart', ['Report', 'MetricLambda', 'Metric', '$routeParams'
 
         // Sort me
         var t = opts.type;
-        if (t === 'devices.meta' ||
-            t === 'devices.tx,devices.rx' ||
-            t === 'devices.rx,devices.tx' ||
-            t === 'devices.load5' ||
-            t === 'interfaces.snr' ||
-            t === 'device.heartbeats') {
-          MetricLambda.clientstats(opts).$promise.then(function(data) {
-            deferred.resolve(data);
-          }, function() {
-            deferred.reject();
-          });
-        } else {
-          Metric.clientstats(opts).$promise.then(function(data) {
-            deferred.resolve(data);
-          }, function() {
-            deferred.reject();
-          });
-        }
+        // if (t === 'devices.meta' ||
+        //     t === 'devices.tx,devices.rx' ||
+        //     t === 'devices.rx,devices.tx' ||
+        //     t === 'devices.load5' ||
+        //     t === 'interfaces.snr' ||
+        //     t === 'device.heartbeats') {
+        //   MetricLambda.clientstats(opts).$promise.then(function(data) {
+        //     deferred.resolve(data);
+        //   }, function() {
+        //     deferred.reject();
+        //   });
+        // } else {
+        Metric.clientstats(opts).$promise.then(function(data) {
+          deferred.resolve(data);
+        }, function() {
+          deferred.reject();
+        });
+        // }
       };
 
       this.getStats = function(params) {
@@ -1650,7 +1650,7 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     var c, timer, json;
     var rate = 'false';
     scope.loading = true;
-    scope.type  = 'devices.load5';
+    scope.type  = 'device.load';
     var colours = COLOURS.split(' ');
     var opts = controller.options;
 
@@ -1714,12 +1714,12 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         if (a === undefined) {
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', gettextCatalog.getString('Date'));
-          // data.addColumn('number', 'dummySeries');
           data.addColumn('number', gettextCatalog.getString('Load Average'));
 
-          for(var i = 0; i < json.data.length; i++) {
-            time = new Date(json.data[i].timestamp*1000);
-            var load = (json.data[i].value*100);
+          for(var i = 0; i < json.data[0].data.length; i++) {
+            var d = json.data[0].data[i];
+            time = new Date(d.timestamp);
+            var load = (d.value*100);
             if (load > 100) {
               load = 100;
             }
