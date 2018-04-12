@@ -19,6 +19,7 @@ var app = angular.module('myApp', [
   'pusher-angular',
   'config',
   'gettext',
+  'color.picker',
   'moment-picker'
 ]);
 

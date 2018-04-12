@@ -812,53 +812,253 @@
 
           <md-button class="md-no-style" ng-click="toggle('btn')" aria-controls="theme">
             <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('btn') ? "up" : "down" }}</md-icon>
-            <translate>Login Button</translate>
+            <translate>Buttons</translate>
           </md-button>
 
-          <div ng-show="isOpen('btn')" id="btn" class="menu-toggle-list" layout="column">
+          <div ng-if="isOpen('btn')" id="btn" class="menu-toggle-list" layout="column">
+
             <md-card>
               <md-card-title>
-                <md-card-title-text>
-                  <span class="md-headline" translate>Login Button</span>
+                <md-card-title-text layout="row" layout-align="space-between center">
+                  <span class="md-headline" translate>General Button Styles</span>
                 </md-card-title-text>
               </md-card-title>
               <md-card-content>
                 <div layout="row" layout-wrap>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100" flex-gt-sm="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>Button Colour</translate>
                       </label>
-                      <input minicolors type="text" ng-model="splash.button_colour" required>
+                      <color-picker ng-model="splash.button_colour"></color-picker>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100" flex-gt-sm="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>Border Colour</translate>
                       </label>
-                      <input minicolors type="text" ng-model="splash.button_border_colour" required>
+                      <color-picker ng-model="splash.button_border_colour"></color-picker>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
-                    <md-input-container class="md-block">
-                      <label>
-                        <translate>Font Size</translate>
-                      </label>
-                      <input type="text" ng-model="splash.btn_font_size" required>
-                    </md-input-container>
-                  </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100" flex-gt-sm="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>Text Colour</translate>
                       </label>
-                      <input minicolors type="text" ng-model="splash.btn_font_colour" required>
+                      <color-picker ng-model="splash.btn_font_colour"></color-picker>
+                    </md-input-container>
+                  </div>
+                  <div flex="100" flex-gt-sm="100">
+                    <small class="muted label">Corner Radius</small>
+                    <md-radio-group class="label" ng-model="splash.button_radius" layout="row" layout-wrap>
+                      <md-radio-button aria-label="square" value="0px">Square</md-radio-button>
+                      <md-radio-button aria-label="soft" value="8px">Soft</md-radio-button>
+                      <md-radio-button aria-label="round" value="9001px">Round</md-radio-button>
+                    </md-radio-group>
+                  </div>
+                  <div flex="100" flex-gt-xs="100">
+                    <md-input-container class="md-block">
+                      <small class="muted label">Drop Shadow</small>
+                      <md-switch ng-model="splash.button_shadow" aria-label="button_shadow" style="margin: 0px 0 20px 0">
+                        <span ng-show="splash.button_shadow == true" translate>Shadow Enabled</span>
+                        <span ng-show="splash.button_shadow == false" translate>Shadow Disabled</span>
+                      </md-switch>
                     </md-input-container>
                   </div>
                 </div>
               </md-card-content>
             </md-card>
+
+            <md-card ng-show="splash.backup_sms || splash.backup_email">
+              <md-card-title>
+                <md-card-title-text layout="row" layout-align="space-between center">
+                  <span class="md-headline" translate>Login Button Styles</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content>
+                <div layout="row" layout-wrap>
+                  <span ng-show="splash.backup_sms">
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>SMS Button Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.sms_button_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>SMS Border Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.sms_button_border_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>SMS Text Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.sms_btn_font_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-xs="100">
+                      <md-input-container class="md-block" style="margin-top:0px;">
+                        <small class="muted label">SMS Icon</small>
+                        <md-switch ng-model="splash.sms_button_icon" aria-label="button_icon" style="margin: 0px 0 20px 0">
+                          <span ng-show="splash.sms_button_icon == true" translate>Dark</span>
+                          <span ng-show="splash.sms_button_icon == false" translate>Light</span>
+                        </md-switch>
+                      </md-input-container>
+                    </div>
+                  </span>
+                  <span ng-show="splash.backup_email">
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Email Button Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.email_button_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Email Border Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.email_button_border_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Email Text Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.email_btn_font_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-xs="100">
+                      <md-input-container class="md-block" style="margin-top:0px;">
+                        <small class="muted label">Email Icon</small>
+                        <md-switch ng-model="splash.email_button_icon" aria-label="button_icon" style="margin: 0px 0 20px 0">
+                          <span ng-show="splash.email_button_icon == true" translate>Dark</span>
+                          <span ng-show="splash.email_button_icon == false" translate>Light</span>
+                        </md-switch>
+                      </md-input-container>
+                    </div>
+                  </span>
+                  <span ng-show="splash.backup_password">
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Password Button Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.password_button_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Password Border Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.password_button_border_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Password Text Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.password_btn_font_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-xs="100">
+                      <md-input-container class="md-block" style="margin-top:0px;">
+                        <small class="muted label">Password Icon</small>
+                        <md-switch ng-model="splash.password_button_icon" aria-label="button_icon" style="margin: 0px 0 20px 0">
+                          <span ng-show="splash.password_button_icon == true" translate>Dark</span>
+                          <span ng-show="splash.password_button_icon == false" translate>Light</span>
+                        </md-switch>
+                      </md-input-container>
+                    </div>
+                  </span>
+                  <span ng-show="splash.backup_voucher">
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Voucher Button Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.voucher_button_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Voucher Border Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.voucher_button_border_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Voucher Text Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.voucher_btn_font_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-xs="100">
+                      <md-input-container class="md-block" style="margin-top:0px;">
+                        <small class="muted label">Voucher Icon</small>
+                        <md-switch ng-model="splash.voucher_button_icon" aria-label="button_icon" style="margin: 0px 0 20px 0">
+                          <span ng-show="splash.voucher_button_icon == true" translate>Dark</span>
+                          <span ng-show="splash.voucher_button_icon == false" translate>Light</span>
+                        </md-switch>
+                      </md-input-container>
+                    </div>
+                  </span>
+                  <span ng-show="splash.backup_codes">
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Codes Button Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.codes_button_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Codes Border Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.codes_button_border_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-sm="100">
+                      <md-input-container class="md-block">
+                        <label>
+                          <translate>Codes Text Colour</translate>
+                        </label>
+                        <color-picker ng-model="splash.codes_btn_font_colour"></color-picker>
+                      </md-input-container>
+                    </div>
+                    <div flex="100" flex-gt-xs="100">
+                      <md-input-container class="md-block" style="margin-top:0px;">
+                        <small class="muted label">Codes Icon</small>
+                        <md-switch ng-model="splash.codes_button_icon" aria-label="button_icon" style="margin: 0px 0 20px 0">
+                          <span ng-show="splash.codes_button_icon == true" translate>Dark</span>
+                          <span ng-show="splash.codes_button_icon == false" translate>Light</span>
+                        </md-switch>
+                      </md-input-container>
+                    </div>
+                  </span>
+
+
+                </div>
+              </md-card-content>
+            </md-card>
+
           </div>
 
           <md-button class="md-no-style" ng-click="toggle('input')" aria-controls="theme">
