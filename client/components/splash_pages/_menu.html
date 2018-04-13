@@ -582,19 +582,19 @@
                   <label>
                     <translate>Body Background Colour</translate>
                   </label>
-                  <input minicolors="customSettings" type="text" ng-model="splash.body_background_colour" required>
+                  <color-picker ng-model="splash.body_background_colour"></color-picker>
                 </md-input-container>
                 <md-input-container class="md-block">
                   <label>
                     <translate>Container Colour</translate>
                   </label>
-                  <input minicolors="customSettings" type="text" ng-model="splash.container_colour" required>
+                  <color-picker ng-model="splash.container_colour"></color-picker>
                 </md-input-container>
                 <md-input-container class="md-block">
                   <label>
                     <translate>Border Colour</translate>
                   </label>
-                  <input minicolors="customSettings" type="text" ng-model="splash.border_colour" required>
+                  <color-picker ng-model="splash.border_colour"></color-picker>
                 </md-input-container>
                 <translate>Opacity {{ splash.container_transparency * 100}}%</translate>
                 <md-slider flex min="0" max="1" step="0.1" ng-model="splash.container_transparency" aria-label="red">
@@ -741,7 +741,7 @@
                   </md-select>
                 </md-input-container>
                 <div layout="row" layout-wrap>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>H1 Size</translate>
@@ -749,15 +749,15 @@
                       <input type="text" ng-model="splash.heading_text_size" required>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>H1 Colour</translate>
                       </label>
-                      <input minicolors type="text" ng-model="splash.heading_text_colour" required>
+                      <color-picker ng-model="splash.heading_text_colour"></color-picker>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>H2 Size</translate>
@@ -765,15 +765,15 @@
                       <input type="text" ng-model="splash.heading_2_text_size" required>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>H2 Colour</translate>
                       </label>
-                      <input minicolors type="text" ng-model="splash.heading_2_text_colour" required>
+                      <color-picker ng-model="splash.heading_2_text_colour"></color-picker>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>H3 Size</translate>
@@ -781,15 +781,15 @@
                       <input type="text" ng-model="splash.heading_3_text_size" required>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>H3 Colour</translate>
                       </label>
-                      <input minicolors type="text" ng-model="splash.heading_3_text_colour" required>
+                      <color-picker ng-model="splash.heading_3_text_colour"></color-picker>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>Body Size</translate>
@@ -797,12 +797,12 @@
                       <input type="text" ng-model="splash.body_font_size" required>
                     </md-input-container>
                   </div>
-                  <div flex="100" flex-gt-sm="50">
+                  <div flex="100">
                     <md-input-container class="md-block">
                       <label>
                         <translate>Body Colour</translate>
                       </label>
-                      <input minicolors type="text" ng-model="splash.body_text_colour" required>
+                      <color-picker ng-model="splash.body_text_colour"></color-picker>
                     </md-input-container>
                   </div>
                 </div>
@@ -1078,19 +1078,19 @@
                   <label>
                     <translate>Border Colour</translate>
                   </label>
-                  <input minicolors="customSettings" type="text" ng-model="splash.input_border_colour" required>
+                  <color-picker ng-model="splash.input_border_colour"></color-picker>
                 </md-input-container>
                 <md-input-container class="md-block">
                   <label>
                     <translate>Background Colour</translate>
                   </label>
-                  <input minicolors="customSettings" type="text" ng-model="splash.input_background" required>
+                  <color-picker ng-model="splash.input_background"></color-picker>
                 </md-input-container>
                 <md-input-container class="md-block">
                   <label>
                     <translate>Text Colour</translate>
                   </label>
-                  <input minicolors="customSettings" type="text" ng-model="splash.input_text_colour" required>
+                  <color-picker ng-model="splash.input_text_colour"></color-picker>
                 </md-input-container>
                 <div layout="row" layout-wrap>
                   <div flex="100" flex-gt-xs="50">

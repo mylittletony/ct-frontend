@@ -790,3 +790,12 @@ app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_U
     };
   }
 ]);
+
+app.config(function($provide) {
+    $provide.decorator('ColorPickerOptions', function($delegate) {
+        var options = angular.copy($delegate);
+        options.required = true;
+        options.format = 'rgb';
+        return options;
+    });
+});
