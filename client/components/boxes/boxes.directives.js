@@ -1715,15 +1715,15 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('deviceMeta', ['MetricLambda', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(MetricLambda, showErrors, showToast, Speedtest, gettextCatalog) {
+app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     var load;
 
     var loadMeta = function(box) {
       load = true;
-      MetricLambda.clientstats({
-        type:         'devices.meta',
+      Metric.clientstats({
+        type:         'device.meta',
         ap_mac:       box.calledstationid,
         location_id:  box.location_id
       }).$promise.then(function(data) {

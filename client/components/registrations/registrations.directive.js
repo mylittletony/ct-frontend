@@ -98,7 +98,7 @@ app.directive('createHolding', ['Holding', 'User', 'Brand', 'locationHelper', '$
   };
 }]);
 
-app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'BrandName', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'Brand', 'gettextCatalog','$timeout', function(Holding, $routeParams, $location, $rootScope, BrandName, locationHelper, $cookies, menu, Me, showErrors, showToast, Brand, gettextCatalog, $timeout) {
+app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope', 'locationHelper', '$cookies', 'menu', 'Me', 'showErrors', 'showToast', 'gettextCatalog','$timeout', function(Holding, $routeParams, $location, $rootScope, locationHelper, $cookies, menu, Me, showErrors, showToast, gettextCatalog, $timeout) {
 
   var link = function( scope, element, attrs ) {
 
@@ -109,39 +109,67 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     menu.isOpenLeft = false;
     menu.isOpen = false;
 
-    scope.stage = $location.hash();
+    scope.data = { cb1: true };
     scope.loading = true;
 
-    var setHeadings = function() {
-      if (scope.stage === 'done') {
-        scope.title = gettextCatalog.getString('Your dashboard is being created.');
-        scope.subhead = gettextCatalog.getString('You\'ll be on your way soon, please wait.');
-      } else if (scope.stage === 'brand') {
-        scope.title = gettextCatalog.getString('What web address do you want for your dashboard?');
-        scope.subhead = gettextCatalog.getString('Choose the address you\'ll use to sign-in.');
-      } else if (scope.stage === 'user') {
-        scope.title = gettextCatalog.getString('What should we call you?');
-        scope.subhead = gettextCatalog.getString('You can call me Alice. Nice to meet you.');
-      } else if (scope.stage === 'confirm') {
-        scope.title = gettextCatalog.getString('Last Stage');
-        scope.subhead = gettextCatalog.getString('By clicking create dashboard, you\'re agreeing to our terms of use. You can read these at cucumberwifi.io/terms');
-      } else if (!scope.creatingAccount) {
-        scope.title = gettextCatalog.getString('What do you want to call your first network?');
-        scope.subhead = gettextCatalog.getString('This is usually the name of the place you want to install your access points. Something descriptive like \'London Office\' or \'Beach House.\'');
+    var login = function(domain, loginArgs) {
+      $cookies.remove('_cth', { domain: domain });
+      $cookies.remove('_cttid', { domain: domain });
+      $rootScope.$broadcast('login', loginArgs);
+    };
+
+    var getMe = function(data) {
+      Me.get({}).$promise.then(function(res) {
+        var search = {};
+        var loginArgs = { data: res, search: search, path: '/locations/' + data.location_slug};
+        var domain = locationHelper.domain();
+        login(domain, loginArgs);
+        $rootScope.$broadcast('login', loginArgs);
+      });
+    };
+
+    var finalise = function(data) {
+      var timer = $timeout(function() {
+        $timeout.cancel(timer);
+        getMe(data);
+      }, 1000);
+    };
+
+    var fin = function(data) {
+      for (var i = 1; i <= 4; i++) {
+        setTimeout(function(x) { return function() {
+          scope.data['cb' + x] = true;
+          scope.$apply();
+          if (x === 4) {
+            finalise(data);
+          }
+        }; }(i), (1250)*(i));
       }
     };
 
-    setHeadings();
-
-    var setStage = function(stage) {
-      scope.stage = stage;
-      $location.hash(stage);
-      setHeadings();
+    var save = function() {
+      if (!scope.holding.username) {
+        scope.holding.username = scope.holding.email;
+      }
+      Holding.update({}, {
+        id: $routeParams.id,
+        holding_account: scope.holding
+      }).$promise.then(function(data) {
+        $cookies.put('_cta', data.token, {domain: '.' + domain});
+        scope.errors = undefined;
+        fin(data);
+      }, function(err) {
+        showErrors(err);
+        scope.updating = undefined;
+      });
     };
 
-    var init = function() {
-      Holding.get({}, {id: $routeParams.id}).$promise.then(function(data) {
-        scope.holding = data;
+    var init = function(clientID) {
+      Holding.get({}, {
+        id: $routeParams.id,
+        client_id: clientID
+      }).$promise.then(function(results) {
+        scope.holding = results;
         scope.loading = undefined;
       }, function(err) {
         $cookies.remove('_cth', { domain: domain });
@@ -151,60 +179,16 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     };
 
     scope.update = function(stage) {
-      scope.stage = stage;
-      setStage(stage);
-      if (scope.stage === 'done') { scope.holding.finalised = true; }
+      scope.finalised = true;
       save();
     };
 
-    var finalised = function(data) {
-      if (scope.holding.finalised) {
-        $cookies.put('_cta', data.token, {domain: '.' + domain});
-        var timer = $timeout(function() {
-          $timeout.cancel(timer);
-          getMe(data);
-        }, 3000);
-      }
-    }
-
-    var save = function() {
-      Holding.update({}, {
-        id: $routeParams.id,
-        holding_account: scope.holding
-      }).$promise.then(function(data) {
-        scope.errors = undefined;
-        finalised(data);
-      }, function(err) {
-        setHeadings();
-        showErrors(err);
-        scope.updating = undefined;
-      });
+    var getGA = function() {
+      var clientID = $cookies.get('_ga');
+      init(clientID);
     };
 
-    var getMe = function(data) {
-      Me.get({}).$promise.then(function(res) {
-        var search = {};
-        var loginArgs = { data: res, search: search, path: '/locations/' + data.location_slug + '/devices'};
-        var domain = locationHelper.domain();
-        Holding.destroy({id: data.id}).$promise.then(function(data) {
-          login(domain, loginArgs);
-        }, function() {
-          login(domain, loginArgs);
-        });
-        $rootScope.$broadcast('login', loginArgs);
-      });
-    };
-
-    var login = function(domain, loginArgs) {
-      $cookies.remove('_cth', { domain: domain });
-      $rootScope.$broadcast('login', loginArgs);
-    };
-
-    scope.back = function() {
-      window.history.back();
-    };
-
-    init();
+    getGA();
   };
 
   return {
@@ -212,18 +196,14 @@ app.directive('buildFlow', ['Holding', '$routeParams', '$location', '$rootScope'
     scope: {},
     templateUrl: 'components/registrations/_flow.html'
   };
-
 }]);
 
 app.directive('successSignup', ['Holding', '$routeParams', '$location', function(Holding, $routeParams, $location) {
 
   var link = function( scope, element, attrs ) {
-
   };
-
   return {
     link: link,
     scope: {}
   };
-
 }]);

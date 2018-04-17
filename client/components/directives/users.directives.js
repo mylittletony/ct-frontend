@@ -367,99 +367,99 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
 }]);
 
-app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'showToast', 'showErrors', '$rootScope', '$route', '$mdDialog', 'gettextCatalog', function(User, $routeParams, $location, $pusher, showToast, showErrors, $rootScope, $route, $mdDialog, gettextCatalog) {
+// app.directive('userCoupon', ['User', '$routeParams', '$location', '$pusher', 'showToast', 'showErrors', '$rootScope', '$route', '$mdDialog', 'gettextCatalog', function(User, $routeParams, $location, $pusher, showToast, showErrors, $rootScope, $route, $mdDialog, gettextCatalog) {
 
-  var link = function( scope, element, attrs ) {
+//   var link = function( scope, element, attrs ) {
 
-    scope.user = { slug: $routeParams.id };
+//     scope.user = { slug: $routeParams.id };
 
-    scope.addCoupon = function() {
-      $mdDialog.show({
-        templateUrl: 'components/users/billing/_coupon.html',
-        parent: angular.element(document.body),
-        controller: DialogController,
-        clickOutsideToClose: true,
-        locals: {
-          user: scope.user
-        }
-      });
-    };
+//     scope.addCoupon = function() {
+//       $mdDialog.show({
+//         templateUrl: 'components/users/billing/_coupon.html',
+//         parent: angular.element(document.body),
+//         controller: DialogController,
+//         clickOutsideToClose: true,
+//         locals: {
+//           user: scope.user
+//         }
+//       });
+//     };
 
-    function DialogController ($scope, user) {
-      $scope.user = user;
-      $scope.save = function() {
-        $mdDialog.cancel();
-        save();
-      };
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    }
-    DialogController.$inject = ['$scope', 'user'];
+//     function DialogController ($scope, user) {
+//       $scope.user = user;
+//       $scope.save = function() {
+//         $mdDialog.cancel();
+//         save();
+//       };
+//       $scope.close = function() {
+//         $mdDialog.cancel();
+//       };
+//     }
+//     DialogController.$inject = ['$scope', 'user'];
 
-    var save = function(user) {
-      User.update({}, {
-        id: scope.user.slug,
-        user: scope.user
-      }).$promise.then(function(results) {
-        scope.user.coupon_code = undefined;
-        scope.user.adding_coupon = results.adding_coupon;
-      }, function(err) {
-        showErrors(err);
-      });
-    };
+//     var save = function(user) {
+//       User.update({}, {
+//         id: scope.user.slug,
+//         user: scope.user
+//       }).$promise.then(function(results) {
+//         scope.user.coupon_code = undefined;
+//         scope.user.adding_coupon = results.adding_coupon;
+//       }, function(err) {
+//         showErrors(err);
+//       });
+//     };
 
-    var channel;
+//     var channel;
 
-    function loadPusher(key) {
-      if (typeof client !== 'undefined' && scope.pusherLoaded === undefined) {
-        scope.pusherLoaded = true;
-        var pusher = $pusher(client);
-        channel = pusher.subscribe('private-' + key);
-        channel.bind('users_general', function(data) {
-          var msg;
-          try{
-            msg = JSON.parse(data.message);
-          } catch(e) {
-            msg = data.message;
-          }
+//     function loadPusher(key) {
+//       if (typeof client !== 'undefined' && scope.pusherLoaded === undefined) {
+//         scope.pusherLoaded = true;
+//         var pusher = $pusher(client);
+//         channel = pusher.subscribe('private-' + key);
+//         channel.bind('users_general', function(data) {
+//           var msg;
+//           try{
+//             msg = JSON.parse(data.message);
+//           } catch(e) {
+//             msg = data.message;
+//           }
 
-          scope.user.adding_coupon = undefined;
-          if (msg.status === false || msg.status === 'false') {
-            showErrors(msg.message);
-          } else if (msg.status) {
-            scope.coupons.push(msg.coupon);
-            showToast(gettextCatalog.getString('Coupon added successfully.'));
-          }
+//           scope.user.adding_coupon = undefined;
+//           if (msg.status === false || msg.status === 'false') {
+//             showErrors(msg.message);
+//           } else if (msg.status) {
+//             scope.coupons.push(msg.coupon);
+//             showToast(gettextCatalog.getString('Coupon added successfully.'));
+//           }
 
-        });
-      }
-    }
+//         });
+//       }
+//     }
 
-    attrs.$observe('key', function(val){
-      if (val !== '' && !channel ) {
-        loadPusher(attrs.key);
-      }
-    });
+//     attrs.$observe('key', function(val){
+//       if (val !== '' && !channel ) {
+//         loadPusher(attrs.key);
+//       }
+//     });
 
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      if (channel) {
-        channel.unbind();
-      }
-    });
+//     $rootScope.$on('$routeChangeStart', function (event, next, current) {
+//       if (channel) {
+//         channel.unbind();
+//       }
+//     });
 
-  };
+//   };
 
-  return {
-    link: link,
-    scope: {
-      coupons: '=',
-      key: '@'
-    },
-    templateUrl: 'components/users/billing/_add_coupon.html',
-  };
+//   return {
+//     link: link,
+//     scope: {
+//       coupons: '=',
+//       key: '@'
+//     },
+//     templateUrl: 'components/users/billing/_add_coupon.html',
+//   };
 
-}]);
+// }]);
 
 app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showErrors', '$rootScope', '$route', '$mdDialog', 'STRIPE_KEY', '$pusher', function(User, $routeParams, showToast, showErrors, $rootScope, $route, $mdDialog, STRIPE_KEY, $pusher) {
 

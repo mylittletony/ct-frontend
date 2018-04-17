@@ -22,7 +22,8 @@ app.factory('Holding', ['$resource', 'API_END_POINT',
     return $resource(API_END_POINT + '/holding_accounts/:id',
       {
         id: '@id',
-        holding_account: '@holding_account'
+        holding_account: '@holding_account',
+        v: '2'
       },
       {
       create: {
