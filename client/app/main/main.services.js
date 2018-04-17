@@ -45,6 +45,7 @@ var app = angular.module('myApp.services', [
   'myApp.reports.services',
   'myApp.resellers.services',
   'myApp.registrations.services',
+  'myApp.sms.services',
   'myApp.splash_codes.services',
   'myApp.splash_pages.services',
   'myApp.subscriptions.services',
