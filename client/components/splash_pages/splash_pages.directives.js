@@ -683,7 +683,7 @@ app.directive('splashDesignerForm', ['SplashPage', 'Location', '$compile', funct
 
 }]);
 
-app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$route', '$routeParams', '$q', 'menu', '$location', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', function(Location, SplashPage, SplashPageForm, $route, $routeParams, $q, menu , $location, showToast, showErrors, $rootScope, gettextCatalog) {
+app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$route', '$routeParams', '$q', 'menu', '$location', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', '$mdDialog', 'moment', function(Location, SplashPage, SplashPageForm, $route, $routeParams, $q, menu , $location, showToast, showErrors, $rootScope, gettextCatalog, $mdDialog, moment) {
 
   var link = function(scope,element,attrs) {
 
@@ -691,6 +691,81 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
     menu.isOpen = false;
     scope.splash = { id: $routeParams.splash_page_id };
     scope.location = { slug: $routeParams.id };
+    scope.timezones = moment.tz.names();
+
+    scope.networks = function() {
+      $mdDialog.show({
+        templateUrl: 'components/splash_pages/_networks.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: NetworksController,
+        locals: {
+          splash: scope.splash
+        }
+      });
+    };
+
+    var NetworksController = function($scope, splash) {
+      $scope.loading = true;
+      $scope.splash = splash;
+      // $scope.pristine = true;
+      $scope.networks = scope.networks;
+      $scope.selected = [];
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+
+      angular.forEach(scope.splash.networks, function (active) {
+        angular.forEach($scope.networks, function (value, index) {
+          if (value.id === active) {
+            $scope.selected.push($scope.networks[index]);
+          }
+        });
+      });
+
+      $scope.loading = undefined;
+
+      $scope.update = function() {
+        $scope.splash.networks = [];
+        for (var i = 0; i < $scope.selected.length; i++) {
+          $scope.splash.networks.push($scope.selected[i].id);
+        }
+        $mdDialog.cancel();
+        updateCT();
+      };
+
+    };
+    NetworksController.$inject = ['$scope', 'splash'];
+
+    var dupSplash = function(copy_to,msg,destroy) {
+      SplashPage.duplicate({
+        location_id: scope.location.slug,
+        id: scope.splash.id,
+        copy_to: copy_to,
+        destroy: destroy
+      }).$promise.then(function(results) {
+        showToast(msg || gettextCatalog.getString('Splash Page Duplicated.'));
+        if (msg) {
+          scope.back();
+        }
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.duplicate = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Duplicate Splash'))
+      .textContent(gettextCatalog.getString('Are you sure you want to duplicate this splash page?'))
+      .ariaLabel(gettextCatalog.getString('Duplicate Splash'))
+      .ok(gettextCatalog.getString('Duplicate'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        dupSplash();
+      }, function() {
+      });
+    };
 
     var setDefaults = function() {
       scope.uploadLogo = (scope.splash.header_image_name === null && scope.splash.logo_file_name === null);
