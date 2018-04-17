@@ -529,6 +529,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
 
     var clearTable = function() {
       scope.results = [];
+      scope.people = [];
       scope.links = undefined;
       $location.search();
       scope.loading = undefined;
