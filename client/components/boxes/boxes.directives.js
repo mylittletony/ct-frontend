@@ -1722,7 +1722,6 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
 
     var loadMeta = function(box) {
       load = true;
-      // MetricLambda.clientstats({
       Metric.clientstats({
         type:         'device.meta',
         ap_mac:       box.calledstationid,
