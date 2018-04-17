@@ -552,9 +552,33 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
       });
     };
 
+    var getPeopleParams = function() {
+      params = {
+        page: scope.query.page,
+        per: scope.query.limit,
+        location_id: scope.location.slug,
+        audience: {
+          predicate_type: 'and',
+          predicates: [
+            {
+              operator: 'gte',
+              relative: false,
+              attribute: 'last_seen',
+              value: scope.query.start * 1000
+            },
+            {
+              operator: 'lte',
+              relative: false,
+              attribute: 'last_seen',
+              value: scope.query.end * 1000
+            }
+          ]
+        }
+      };
+    };
+
     var findPeople = function() {
-      getParams();
-      params.location_id = scope.location.slug;
+      getPeopleParams();
       People.get(params, function(data) {
         scope.people = data.people;
         scope.links = data._links;

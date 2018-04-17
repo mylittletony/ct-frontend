@@ -1,0 +1,256 @@
+<people-nav location="location"></people-nav>
+
+<md-content layout-padding layout="row" layout-wrap layout-align="center center" class="page-meta" style="margin-bottom:0px;">
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+    <div layout="row" layout-align="space-between center" layout-wrap>
+      <md-button id="main" class="md-fab md-mini md-raised" href="/#/locations/{{location.slug}}/audit" aria-label="{{ 'Back to People' | translate }}">
+        <md-tooltip md-direction="bottom">Back to Audits</md-tooltip>
+        <md-icon>keyboard_return</md-icon>
+      </md-button>
+    </div>
+  </div>
+
+  <div flex="100" flex-gt-md="90" flex-gt-lg="80">
+    <div layout="row" layout-wrap>
+
+      <div flex="100" flex-gt-sm="30">
+        <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
+
+          <div flex="100">
+            <md-card class="people-prof b-bl">
+              <md-card-title>
+                <img src="{{person.profile_photo || 'https://d247kqobagyqjh.cloudfront.net/api/file/Ny9J0MsTtus0xk3e43rh'}}" class="people-avatar"></img>
+                <span flex></span>
+              </md-card-title>
+              <md-card-content>
+                <md-list flex layout="column" layout-gt-xs="row" layout-gt-sm="column">
+                  <md-list-item class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                      <h3 translate>Name</h3>
+                      <p ng-if="edit_username !== true">{{ person.username ? person.username : 'Splash Guest'}}</p>
+                      <div layout="row">
+                        <form ng-submit="saveUsername()">
+                          <md-input-container style="margin:0px;" class="md-block">
+                            <input type="text" ng-model="person.username" ng-if="edit_username === true"></input>
+                          </md-input-container>
+                          <md-button ng-if="edit_username === true" ng-click="saveUsername()" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
+                            <md-icon md-font-icon="mode_edit">save</md-icon>
+                          </md-button>
+                          <md-button ng-if="edit_username !== true" ng-click="editName(edit_username)" aria-controls="{{'splash' | translate }}" class="md-secondary md-icon-button" aria-label="{{ 'call' | translate }}">
+                            <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+                          </md-button>
+                        </form>
+                      </div>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                      <h3 translate>Visits</h3>
+                      <p>{{ person.login_count || 1 }}</p>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                      <h3 translate>Last Seen</h3>
+                      <p>{{ person.last_seen | humanDate }}</p>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                      <h3 translate>First Seen</h3>
+                      <p>{{ person.created_at | humanDate }}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+              </md-card-content>
+            </md-card>
+          </div>
+        </div>
+      </div>
+
+
+      <div flex="100" flex-gt-sm="35">
+        <div layout="row" layout-wrap>
+
+          <!-- <div flex-gt-sm="100">
+            <md-card class="b-bl">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>Visits</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
+                  <img src="https://lh6.googleusercontent.com/-07qNkcH5kiE/UY0TxGZNf9I/AAAAAAAAIdk/50SG0xnQYmk/w850-h519-no/punchcard+2.png" style="width: 100%;height: 100%;"></img>
+              </md-card-content>
+            </md-card>
+          </div> -->
+
+          <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
+            <md-card class="people-email b-bl">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>Email</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-table-container>
+                <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                  <thead md-head>
+                    <tr md-row>
+                      <th md-column><span translate>Email</span></th>
+                      <th md-column><span translate>Active</span></th>
+                    </tr>
+                  </thead>
+                  <tbody md-body>
+                    <tr md-row ng-repeat="email in person.emails">
+                      <td md-cell>
+                        {{email.email}}
+                      </td>
+                      <td md-cell>
+                        <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == false && email.comments">{{ email.comments }}</md-tooltip></md-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+              <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+            </md-card>
+          </div>
+
+          <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
+            <md-card class="people-socials b-bl">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>Socials</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-list flex>
+                <md-list-item class="md-2-line">
+                  <img src="https://d247kqobagyqjh.cloudfront.net/api/file/WUhzu2zRTremUtlXxALC" style="border-radius:0px;" class="person-social"/>
+                  <div class="md-list-item-text">
+                    <h3>Facebook</h3>
+                    <p ng-show="!person.social[0].fb_link">No Profile</p>
+                    <p><a href="{{person.social[0].fb_link}}" ng-show="person.social[0].fb_link && location.demo !== true" target="_blank">View Profile</a></p>
+                    <p><a href="" ng-show="person.social[0].fb_link && location.demo === true" target="_blank">
+                      <span>
+                        View Profile
+                        <md-tooltip>
+                          You are currently viewing demo data
+                        </md-tooltip>
+                      </span>
+                    </a></p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <img src="https://d247kqobagyqjh.cloudfront.net/api/file/K3YDlqzUQzIavvIEkesC" style="border-radius:0px;" class="person-social"/>
+                  <div class="md-list-item-text" layout="column">
+                    <h3 translate>Google+</h3>
+                    <p ng-show="!person.social[0].g_link">No Profile</p>
+                    <p><a href="{{person.social[0].g_link}}" ng-show="person.social[0].g_link && location.demo !== true" target="_blank">View Profile</a></p>
+                    <p><a href="" ng-show="person.social[0].g_link && location.demo === true" target="_blank">
+                      <span>
+                        View Profile
+                        <md-tooltip>
+                          You are currently viewing demo data
+                        </md-tooltip>
+                      </span>
+                    </a></p>
+                  </div>
+                </md-list-item>
+                <md-list-item class="md-2-line">
+                  <img src="https://d247kqobagyqjh.cloudfront.net/api/file/PdwjF22TTiqOHvzQcksA" style="border-radius:0px;" class="person-social"/>
+                  <div class="md-list-item-text" layout="column">
+                    <h3 translate>Twitter</h3>
+                    <p ng-show="!person.social[0].tw_url">No Profile</p>
+                    <p><a href="{{person.social[0].tw_url}}" ng-show="person.social[0].tw_url && location.demo !== true" target="_blank">View Profile</a></p>
+                    <p><a href="" ng-show="person.social[0].tw_url && location.demo === true" target="_blank">
+                      <span>
+                        View Profile
+                        <md-tooltip>
+                          You are currently viewing demo data
+                        </md-tooltip>
+                      </span>
+                    </a></p>
+                  </div>
+                </md-list-item>
+              </md-list>
+            </md-card>
+          </div>
+
+        </div>
+      </div>
+
+      <div flex="100" flex-gt-sm="35">
+        <div layout="row" layout-wrap>
+
+          <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
+            <md-card class="people-devices b-bl">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>Devices</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-table-container>
+                <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                  <thead md-head>
+                    <tr md-row>
+                      <th md-column><span translate>Mac</span></th>
+                      <th md-column><span translate>Options</span></th>
+                    </tr>
+                  </thead>
+                  <tbody md-body>
+                    <tr md-row ng-repeat="client in person.clients">
+                      <td md-cell>
+                        {{client.client_mac}}
+                      </td>
+                      <td md-cell>
+                        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                        </md-button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+              <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+            </md-card>
+          </div>
+
+          <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
+            <md-card class="people-sms b-bl">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>SMS Numbers</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-table-container>
+                <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                  <thead md-head>
+                    <tr md-row>
+                      <th md-column><span translate>Number</span></th>
+                      <th md-column><span translate>Options</span></th>
+                    </tr>
+                  </thead>
+                  <tbody md-body>
+                    <tr md-row ng-repeat="sms in person.sms">
+                      <td md-cell>
+                        {{sms.number}}
+                      </td>
+                      <td md-cell>
+                        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
+                        </md-button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+              <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+            </md-card>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</md-content>
