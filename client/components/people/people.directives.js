@@ -2,11 +2,9 @@
 
 var app = angular.module('myApp.people.directives', []);
 
-app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Sms', 'Email', 'Client', '$q', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, Guest, Sms, Email, Client, $q, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
+app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Sms', 'Email', 'Client', 'PersonTimeline', 'PersonTimelinePortal', '$q', '$routeParams', '$location', '$http', '$compile', '$rootScope', '$timeout', '$pusher', 'showToast', 'showErrors', 'menu', '$mdDialog', 'gettextCatalog', function(People, Location, Social, Guest, Sms, Email, Client, PersonTimeline, PersonTimelinePortal, $q, $routeParams, $location, $http, $compile, $rootScope, $timeout, $pusher, showToast, showErrors, menu, $mdDialog, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
-
-    scope.currentNavItem = 'people';
 
     scope.editName = function(editState) {
       if (editState === true) {
@@ -114,13 +112,42 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Sms', 
       });
     };
 
-    var init = function() {
-      Location.get({id: $routeParams.id}, function(data) {
-        scope.location = data;
-        getPerson();
-      }, function(err){
+    var getTimeline = function() {
+      PersonTimeline.query({location_id: scope.location.slug, person_id: $routeParams.person_id}).$promise.then(function(res) {
+        scope.timelines = res.timelines;
+      }, function(err) {
         console.log(err);
       });
+    };
+
+    var getPortalTimeline = function() {
+      menu.hideBurger = true;
+      scope.portal_request = true;
+      if ($routeParams.code) {
+        PersonTimelinePortal.query({person_id: $routeParams.person_id, code: $routeParams.code}).$promise.then(function(res) {
+          scope.timelines = res.timelines;
+          scope.loading = undefined;
+        }, function(err) {
+          scope.error_message = err.data.message[0];
+          scope.loading = undefined;
+        });
+      } else {
+        scope.error_message = 'Unable to authenticate timeline request';
+      }
+    };
+
+    var init = function() {
+      if ($routeParams.id) {
+        Location.get({id: $routeParams.id}, function(data) {
+          scope.location = data;
+          getPerson();
+          getTimeline();
+        }, function(err){
+          console.log(err);
+        });
+      } else {
+        getPortalTimeline();
+      }
     };
 
     scope.back = function() {

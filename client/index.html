@@ -224,7 +224,7 @@
           </md-content>
         </md-sidenav>
 
-        <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-1dp"
+        <md-sidenav ng-show="user" class="site-sidenav md-sidenav-left md-whiteframe-1dp"
                     md-component-id="left"
                     aria-label="'Main Menu' | translate"
                     md-whiteframe="4"
@@ -414,6 +414,7 @@
   <script src="components/payloads/payloads.services.js"></script>
   <script src="components/people/people.directives.js"></script>
   <script src="components/people/people.services.js"></script>
+  <script src="components/person_timelines/person_timeline.services.js"></script>
   <script src="components/plans/plans.directives.js"></script>
   <script src="components/plans/plans.services.js"></script>
   <script src="components/port_forwards/port_forwards.controller.js"></script>
