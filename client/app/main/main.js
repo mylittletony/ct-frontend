@@ -189,7 +189,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       resolve: { loginRequired: loginRequired },
     }).
     when('/timeline/:person_id', {
-      templateUrl: 'components/locations/people/show.html'
+      templateUrl: 'components/people/timeline.html'
     }).
     when('/apps', {
       templateUrl: 'components/apps/index.html',

@@ -14,6 +14,59 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Sms', 
       }
     };
 
+    var downloadTimeline = function(email) {
+      PersonTimelinePortal.download({person_id: $routeParams.person_id, code: $routeParams.code, email: email}).$promise.then(function(res) {
+        showToast(gettextCatalog.getString('Data timeline report on the way to you shortly.'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    var destroyPerson = function() {
+      PersonTimelinePortal.destroy({person_id: $routeParams.person_id, code: $routeParams.code}).$promise.then(function(res) {
+        scope.timelines = undefined;
+        scope.portal_request = undefined;
+        scope.error_message = 'Data successfully deleted';
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function DialogController($scope) {
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.confirm = function(email) {
+        downloadTimeline($scope.email);
+        $mdDialog.cancel();
+      };
+    }
+
+    DialogController.$inject = ['$scope'];
+
+    scope.confirmDownload = function() {
+      $mdDialog.show({
+        templateUrl: 'components/locations/people/_timeline_download.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+        }
+      });
+    };
+
+    scope.confirmDestroy = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Delete all data'))
+      .textContent(gettextCatalog.getString('All your login data here will be destroyed.'))
+      .ariaLabel(gettextCatalog.getString('Delete Data'))
+      .ok(gettextCatalog.getString('Confirm'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        destroyPerson();
+      });
+    };
+
     var setProfilePhoto = function() {
       if (scope.person.social && scope.person.social.length > 0) {
         if (scope.person.social[0].facebook_id) {
@@ -164,6 +217,116 @@ app.directive('displayPerson', ['People', 'Location', 'Social', 'Guest', 'Sms', 
       loading: '='
     },
     templateUrl: 'components/locations/people/_show.html'
+  };
+
+}]);
+
+
+
+app.directive('personTimeline', ['PersonTimeline', 'PersonTimelinePortal', '$routeParams', '$timeout', '$mdDialog', 'showToast', 'gettextCatalog', 'showErrors', function(PersonTimeline, PersonTimelinePortal, $routeParams, $timeout, $mdDialog, showToast, gettextCatalog, showErrors) {
+
+  var link = function(scope, element, attrs) {
+
+    scope.person = {slug: $routeParams.person_id};
+    scope.location = {slug: $routeParams.id};
+
+    var downloadTimeline = function(email) {
+      PersonTimelinePortal.download({person_id: $routeParams.person_id, code: $routeParams.code, email: email}).$promise.then(function(res) {
+        showToast(gettextCatalog.getString('Data timeline report on the way to you shortly.'));
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    var destroyPerson = function() {
+      PersonTimelinePortal.destroy({person_id: $routeParams.person_id, code: $routeParams.code}).$promise.then(function(res) {
+        scope.timelines = undefined;
+        scope.portal_request = undefined;
+        scope.error_message = 'Data successfully deleted';
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function DialogController($scope) {
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+      $scope.confirm = function(email) {
+        downloadTimeline($scope.email);
+        $mdDialog.cancel();
+      };
+    }
+
+    DialogController.$inject = ['$scope'];
+
+    scope.confirmDownload = function() {
+      $mdDialog.show({
+        templateUrl: 'components/people/_timeline_download.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DialogController,
+        locals: {
+        }
+      });
+    };
+
+    scope.confirmDestroy = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Delete all data'))
+      .textContent(gettextCatalog.getString('All your login data here will be destroyed.'))
+      .ariaLabel(gettextCatalog.getString('Delete Data'))
+      .ok(gettextCatalog.getString('Confirm'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        destroyPerson();
+      });
+    };
+
+    var getTimeline = function() {
+      PersonTimeline.query({location_id: scope.location.slug, person_id: $routeParams.person_id}).$promise.then(function(res) {
+        scope.timelines = res.timelines;
+        scope.loading = undefined;
+      }, function(err) {
+        console.log(err);
+        scope.loading = undefined;
+      });
+    };
+
+    var portalTimelineRequest = function() {
+      scope.portal_request = true;
+      if ($routeParams.code) {
+        PersonTimelinePortal.query({person_id: $routeParams.person_id, code: $routeParams.code}).$promise.then(function(res) {
+          scope.timelines = res.timelines;
+          scope.loading = undefined;
+        }, function(err) {
+          scope.error_message = err.data.message[0];
+          scope.loading = undefined;
+        });
+      } else {
+        scope.error_message = 'Unable to authenticate timeline request';
+      }
+    };
+
+    var init = function() {
+      var t = $timeout(function() {
+        if ($routeParams.id) {
+          getTimeline();
+        } else {
+          portalTimelineRequest();
+        }
+        $timeout.cancel(t);
+      }, 250);
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+    scope: {
+    },
+    templateUrl: 'components/people/_timeline.html'
   };
 
 }]);

@@ -254,13 +254,5 @@
     </div>
   </div>
 
-  <div ng-show="portal_request && error_message">
-    <p>{{error_message}}</p>
-  </div>
-
-  <div ng-repeat="timeline in timelines">
-    <md-card>
-      {{timeline}}
-    </md-card>
-  </div>
+  <person-timeline></person-timeline>
 </md-content>
