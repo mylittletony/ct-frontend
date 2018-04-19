@@ -4,7 +4,6 @@ var app = angular.module('myApp.controllers', [
   'myApp.authentications.controller',
   'myApp.brands.controller',
   'myApp.boxes.controller',
-  'myApp.events.controller',
   'myApp.heartbeats.controller',
   'myApp.jobs.controller',
   'myApp.invoices.controller',
@@ -72,20 +71,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     vm.settingsMenu = [];
     vm.menuRight = [];
 
-    // vm.menu.reports.push({
-    //   title: gettextCatalog.getString('Reports'),
-    //   type: 'link',
-    //   link: '/#/reports',
-    //   icon: 'timeline'
-    // });
-
-    // vm.menu.reports.push({
-    //   title: gettextCatalog.getString('Audit'),
-    //   type: 'link',
-    //   link: '/#/audit',
-    //   icon: 'assignment'
-    // });
-
     vm.status = {
       isFirstOpen: true,
       isFirstDisabled: false
@@ -106,25 +91,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     });
 
     vm.menuRight.push({
-      name: gettextCatalog.getString('Events'),
-      link: '/#/events',
-      type: 'link',
-      icon: 'warning'
-    });
-
-    vm.menuRight.push({
       name: gettextCatalog.getString('Reports'),
       link: '/#/reports',
       type: 'link',
       icon: 'timeline'
     });
-
-    // vm.menuRight.push({
-    //   name: gettextCatalog.getString('Audit'),
-    //   link: '/#/audit',
-    //   type: 'link',
-    //   icon: 'assignment'
-    // });
 
     vm.menuRight.push({
       type: 'divider',
@@ -290,50 +261,50 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && (Auth.currentUser().chat_enabled !== false && Auth.currentUser().user_hash !== undefined)) {
+      if (Auth.currentUser() && Auth.currentUser().user_hash !== undefined) {
         vm.menu.Intercom = true;
-        var intercom_id;
-        if ($scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
-          intercom_id = $scope.brandName.intercom_id;
+        var user = Auth.currentUser();
+        window.intercomSettings = {
+            app_id: INTERCOM,
+            user_id: user.accountId,
+            email: user.email,
+            name: user.username,
+            locked: user.locked,
+            created_at: user.created_at,
+            user_hash: user.user_hash,
+            brand_name: user.url,
+            cname: user.cname,
+            paid_plan: user.paid_plan,
+            reseller: user.reseller,
+            customer_of_reseller: user.cor,
+            locs: user.locs,
+            hide_default_launcher: !user.chat_enabled || false
+        };
+      }
+
+      // check for customers from reseller brands who aren't resellers
+      if ($scope.brandName && $scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
+        // check if there is a special brand intercom id, otherwise just hide it
+        if ($scope.brandName.intercom_id) {
+          window.intercomSettings.app_id = $scope.brandName.intercom_id;
         } else {
-          intercom_id = INTERCOM
-        }
-        if (intercom_id !== undefined) {
-          var settings = {
-              app_id: intercom_id,
-              user_id: Auth.currentUser().accountId,
-              reseller: Auth.currentUser().reseller,
-              email: Auth.currentUser().email,
-              name: Auth.currentUser().username,
-              created_at: Auth.currentUser().created_at,
-              user_hash: Auth.currentUser().user_hash,
-              brand_name: Auth.currentUser().url,
-              cname: Auth.currentUser().cname,
-              sense_active: Auth.currentUser().sense_active,
-              plan_name: Auth.currentUser().plan_name,
-              paid_plan: Auth.currentUser().paid_plan,
-              locs: Auth.currentUser().locs,
-              version: '2'
-          };
-          settings.widget = {
-            activator: '#intercom'
-          };
-          window.Intercom('boot', settings);
+          window.intercomSettings.hide_default_launcher = true;
         }
       }
     });
 
     function promos() {
-      User.promos({}, {
-        action: 'promos',
-        id: Auth.currentUser().slug
-      }).$promise.then(function(results) {
-        vm.promos = results;
-      }, function() {
-        if (Auth.currentUser().paid_plan !== true) {
-          vm.upgrade = true;
-        }
-      });
+      // put me back if we run a promos!
+      // User.promos({}, {
+      //   action: 'promos',
+      //   id: Auth.currentUser().slug
+      // }).$promise.then(function(results) {
+      //   vm.promos = results;
+      // }, function() {
+      //   if (Auth.currentUser().paid_plan !== true) {
+      //     vm.upgrade = true;
+      //   }
+      // });
     }
 
     function menuPush() {
@@ -343,13 +314,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           type: 'link',
           link: '/#/locations',
           icon: 'business'
-        });
-
-        vm.menu.main.push({
-          title: gettextCatalog.getString('Events'),
-          type: 'link',
-          link: '/#/events',
-          icon: 'warning'
         });
 
         if ($localStorage.user && ($localStorage.user.custom !== true || $localStorage.user.reseller === true)) {
@@ -413,10 +377,15 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     }
 
     var setDefaultImages = function(sub) {
-      $scope.brandName.name = 'CT';
+      if ($localStorage.brandName) {
+        $scope.brandName = $localStorage.brandName;
+      } else {
+        $scope.brandName.name = 'CT';
+      }
     };
 
     function getBrand(sub, cname) {
+      var deferred = $q.defer();
       if (Auth.currentUser() && Auth.currentUser().url !== null) {
         sub = Auth.currentUser().url;
       }
@@ -441,10 +410,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
         $scope.brandName.id    = results.id;
         $scope.brandName.intercom_id = results.intercom_id;
         $scope.brandName.logo_url = results.logo_url;
-        $scope.brandName.reseller = results.reseller
+        $scope.brandName.reseller = results.reseller;
+        $localStorage.brandName = $scope.brandName;
+        deferred.resolve();
       }, function() {
+        deferred.reject();
         setDefaultImages(sub);
       });
+      return deferred.promise;
     }
 
     var removeCtCookie = function() {
@@ -456,21 +429,32 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       var host  = locationHelper.domain();
       var parts = $location.host().split('.');
       var cname;
-      if (host !== 'ctapp.io' && host !== 'ctapp.dev') {
+      if (host !== 'ctapp.io' && host !== 'ctapp.test') {
+        if (sub) {
+          host = sub + '.' + host;
+        }
         getBrand(host, true);
       }
       else if (parts.length === 3) {
         sub = parts[0];
-        if (sub !== 'dashboard' && sub !== 'alpha-preview') {
+        if (sub !== 'dashboard' && sub !== 'alpha-preview' && sub !== 'dev-egg') {
           if (sub !== 'my') {
-            getBrand(sub);
+            getBrand(sub).then(function() {
+              if ($scope.brandName.reseller === true) {
+                window.location.hostname = $scope.brandName.url + '.' + host;
+              } else {
+                window.location.hostname = 'dashboard.' + host;
+              }
+            });
+          } else {
+            window.location.hostname = 'dashboard.' + host;
           }
-          window.location.hostname = 'dashboard.' + host;
           return;
         }
         setDefaultImages();
       } else {
-        console.log('Domain error occured');
+        window.location.hostname = 'dashboard.' + host;
+        return;
       }
     }
 
@@ -480,9 +464,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
           $scope.user = Auth.currentUser();
           $scope.loggedIn = true;
           menuPush();
-          if ($scope.user.promo !== '') {
-            console.log('Getting promo...');
-          }
         });
       });
     }

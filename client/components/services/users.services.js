@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.users.services', ['ngResource',]);
 
-app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'Logout', '$location', 'AccessToken', 'locationHelper', 'AUTH_URL', function($window, $rootScope, $localStorage, $http, $q, Logout, $location, AccessToken, locationHelper, AUTH_URL) {
+app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'Logout', '$location', 'AccessToken', 'locationHelper', 'AUTH_URL', 'Brand', function($window, $rootScope, $localStorage, $http, $q, Logout, $location, AccessToken, locationHelper, AUTH_URL, Brand) {
 
     var user = null;
 
@@ -46,6 +46,21 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       var deferred = $q.defer();
       deferred.resolve(data);
       var sub = locationHelper.subdomain();
+      var domain = locationHelper.domain();
+      if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
+        if (sub) {
+          domain = sub + '.' + domain;
+        }
+        Brand.query({}, {
+          id: domain,
+          cname: true,
+          type: 'showcase'
+        }).$promise.then(function(results) {
+          sub = results.url;
+          window.location.href = '/auth/login?brand=' + sub + '&return_to=' + 'search';
+          return deferred.promise;
+        });
+      }
       window.location.href = '/auth/login?brand=' + sub + '&return_to=' + 'search';
       return deferred.promise;
     };
@@ -55,7 +70,21 @@ app.factory('Auth', ['$window', '$rootScope', '$localStorage', '$http', '$q', 'L
       AccessToken.del();
       delete $localStorage.user;
       var sub = locationHelper.subdomain();
-      window.location.href = AUTH_URL + '/logout?brand=' + sub;
+      var domain = locationHelper.domain();
+      if (domain !== 'ctapp.io' && domain !== 'ctapp.test') {
+        if (sub) {
+          domain = sub + '.' + domain;
+        }
+        Brand.query({}, {
+          id: domain,
+          cname: true,
+          type: 'showcase'
+        }).$promise.then(function(results) {
+          window.location.href = AUTH_URL + '/logout?brand=' + results.url;
+        });
+      } else {
+        window.location.href = AUTH_URL + '/logout?brand=' + sub;
+      }
     };
 
     return {
@@ -131,6 +160,15 @@ app.factory('User', ['$resource', 'API_END_POINT',
         params: {
           action: 'logout_all',
           id: '@id'
+        }
+      },
+      destroy: {
+        method: 'DELETE',
+        isArray: false,
+        dataType: 'json',
+        params: {
+          id: '@id',
+          email: '@email'
         }
       }
     }

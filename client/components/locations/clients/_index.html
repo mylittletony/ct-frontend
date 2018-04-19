@@ -152,10 +152,10 @@
                   </td md-cell>
                   <td md-cell ng-show="columns.device_name">
                     <span ng-if="!client.id">
-                      <a href="/#/locations/{{ location.slug }}/clients/{{ client.client_mac }}">{{ client.name || client.device_name | emptyFilter | truncate:20 }}</a><br>
+                      <a href="/#/locations/{{ location.slug }}/clients/{{ client.client_mac }}">{{ client.description || client.device_name | emptyFilter | truncate:20 }}</a><br>
                     </span>
                     <span ng-if="client.id">
-                      <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.name || client.device_name | emptyFilter | truncate:20 }}</a><br>
+                      <a href="/#/locations/{{ location.slug }}/clients/{{ client.id }}">{{ client.description || client.device_name | emptyFilter | truncate:20 }}</a><br>
                     </span>
                     <span hide show-sm>
                       <small>{{ client.client_mac }}</small>
@@ -259,7 +259,7 @@
                           <md-menu-item ng-repeat="item in menu">
                             <md-button ng-click="menuAction(item.type,client)" ng-disabled="{{ menuDisabled(item.type, client) }}">
                               <md-icon ng-if="item.icon" md-menu-origin md-font-icon="{{ item.icon }}">{{ item.icon }}</md-icon>
-                          <p flex>{{ item.name }}</p>
+                              <p flex>{{ item.name }}</p>
                             </md-button>
                           </md-menu-item>
                         </md-menu-content>

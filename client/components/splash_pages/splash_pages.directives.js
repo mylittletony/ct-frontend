@@ -201,12 +201,6 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       });
 
       scope.menu.push({
-        name: gettextCatalog.getString('Transfer'),
-        icon: 'transform',
-        type: 'transfer'
-      });
-
-      scope.menu.push({
         name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
@@ -221,9 +215,6 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
           break;
         case 'networks':
           networks();
-          break;
-        case 'transfer':
-          transfer();
           break;
         case 'copy':
           duplicate();
@@ -291,41 +282,6 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       });
     };
 
-    var transfer = function() {
-      $mdDialog.show({
-        templateUrl: 'components/splash_pages/_transfer.html',
-        clickOutsideToClose: true,
-        parent: angular.element(document.body),
-        controller: TransferController,
-      });
-    };
-
-    var TransferController = function($scope) {
-      $scope.loading = true;
-
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-
-      var deferred = $q.defer();
-      Location.shortquery({}).$promise.then(function (res) {
-        if (res.length > 1) {
-          $scope.locations = res;
-          deferred.resolve();
-        }
-        $scope.loading = undefined;
-        deferred.reject();
-      }, function() {
-        $scope.loading = undefined;
-        deferred.reject();
-      });
-
-      $scope.transfer = function(id) {
-        $mdDialog.cancel();
-        dupSplash(id, gettextCatalog.getString('Splash Page Successfully Transferred.'), true);
-      };
-    };
-
     scope.displayNetworks = function() {
       networks();
     };
@@ -334,7 +290,7 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_networks.html',
         parent: angular.element(document.body),
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         controller: NetworksController,
         locals: {
           splash: scope.splash
@@ -425,9 +381,6 @@ app.directive('locationSplashPagesShow', ['SplashPage', 'Location', 'Auth', '$ro
 
         scope.networks = results.networks;
         //scope.splash.networks = [];
-        if ($localStorage.user) {
-          scope.white_label = $localStorage.user.custom;
-        }
 
         createMenu();
         scope.loading = undefined;
@@ -575,9 +528,6 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
       if (scope.splash.ssid) {
         scope.splash.network_id = undefined;
       }
-      if ($localStorage && $localStorage.user) {
-        scope.splash.powered_by = !$localStorage.user.custom;
-      }
       SplashPage.create({
         location_id: scope.location.slug,
         splash_page: {
@@ -604,7 +554,7 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
         templateUrl: 'components/splash_pages/_form.html',
         parent: angular.element(document.body),
         controller: DialogController,
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         locals: {
           obj: scope.obj,
           splash: scope.splash
@@ -1186,7 +1136,7 @@ app.directive('splashStore', ['SplashPage', '$routeParams', '$http', '$location'
     var add = function() {
       $mdDialog.show({
         templateUrl: 'components/splash_pages/_store_product.html',
-        clickOutsideToClose: true,
+        clickOutsideToClose: false,
         parent: angular.element(document.body),
         controller: ProductsController,
       });

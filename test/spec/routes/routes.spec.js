@@ -58,8 +58,10 @@ describe('Routing', function () {
                   toEqual('components/locations/new/index.html');
 
       expect($route.routes['/locations/:id'].controller).toBe('LocationsCtrl as lc');
+      // expect($route.routes['/locations/:id'].templateUrl).
+      //             toEqual('components/locations/dashboard/index.html');
       expect($route.routes['/locations/:id'].templateUrl).
-                  toEqual('components/locations/dashboard/index.html');
+                  toEqual('components/locations/show/index.html');
 
       expect($route.routes['/locations/:id/devices'].templateUrl).
                   toEqual('components/locations/show/index.html');
@@ -96,9 +98,6 @@ describe('Routing', function () {
 
       expect($route.routes['/locations/:id/group_policies/:group_policy_id/clients'].templateUrl).
                   toEqual('components/views/group_policies/clients.html');
-
-      expect($route.routes['/events'].templateUrl).
-                  toEqual('components/events/index.html');
 
       expect($route.routes['/events/:id'].templateUrl).
                   toEqual('components/events/show.html');

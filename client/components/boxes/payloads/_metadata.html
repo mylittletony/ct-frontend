@@ -1,5 +1,5 @@
 <b>
-  <translate>{{ box_data.clients || 0 }} connected.</translate>
+  <translate>{{ box_data.online || 0 }} connected. {{ box_data.uniques || 0 }} users today.</translate>
   <span hide show-gt-sm>SSID<span ng-if="box_data.ssids.length != 1">s</span>: <span ng-if="box_data.ssids.length == 1">{{ box_data.ssids[0].ssid }}</span> <span ng-if="box_data.ssids.length != 1">{{ box_data.ssids.length }}</span>
     <md-tooltip ng-if="box_data.ssids.length != 1">
       <translate>Broadcasting {{ box_data.ssids.length }} SSIDs:

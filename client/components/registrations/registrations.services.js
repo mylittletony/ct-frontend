@@ -20,35 +20,27 @@ app.factory('Registration', ['$resource', 'API_END_POINT',
 app.factory('Holding', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
     return $resource(API_END_POINT + '/holding_accounts/:id',
-      {},
+      {
+        id: '@id',
+        holding_account: '@holding_account',
+        v: '2'
+      },
       {
       create: {
         method: 'POST',
         isArray: false,
-        params: {
-        }
       },
       get: {
         method: 'GET',
         isArray: false,
-        params: {
-          id: '@id'
-        }
       },
       update: {
         method: 'PATCH',
-        isArray: false,
-        params: {
-          id: '@id',
-          holding_account: '@holding_account'
-        }
+        isArray: false
       },
       destroy: {
         method: 'DELETE',
         isArray: false,
-        params: {
-          id: '@id'
-        }
       }
     });
   }]);

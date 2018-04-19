@@ -6,9 +6,6 @@
       <md-button  href="/#/locations/{{location.slug}}" ng-disabled=true style='font-size: 14px; color: rgba(0, 0, 0, 0.26); background-color: transparent;'>
         Overview
       </md-button>
-      <!-- <md-button href="/#/locations/{{location.slug}}/wireless_reports" style='font-size: 14px'>
-        Wireless
-      </md-button> -->
       <md-button href="/#/locations/{{location.slug}}/splash_reports" style='font-size: 14px'>
         Splash
       </md-button>
@@ -30,8 +27,10 @@
   <client-chart>
     <div flex flex-gt-sm="{{fs.panel ? 100 : 100}}" layout="column" class="dashboard-charts">
       <div layout="" layout-wrap>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" iiing-hide="fs && fs.panel != 'usage'">
+        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" iiing-hide="fs && fs.panel != 'usage'">
+
           <health-chart ng-if="location.has_devices"></health-chart>
+
           <div ng-show="location.has_devices == false">
             <div layout="row" layout-align="top top">
               <div flex="100" flex-gt-sm="100">
@@ -72,18 +71,18 @@
             </div>
           </div>
         </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 66}}" ng-hide="fs && fs.panel != 'usage'">
-          <dash-clients-chart ></dash-clients-chart>
+        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+          <dash-clients-chart period="7d" name="Unique Users" render="eggs" type="clients.uniques"></dash-clients-chart>
         </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-          <clients-conn-chart ></clients-conn-chart>
+        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+          <caps-chart period="7d" name="Capabilities" render="clients-caps"></caps-chart>
         </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-          <caps-chart ></caps-chart>
+        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
+          <caps-chart period="7d" name="Signal Quality" render="clients-health" type="clients.health"></caps-chart>
         </div>
-        <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 33}}" ng-hide="fs && fs.panel != 'usage'">
-          <dash-usage-chart ></dash-usage-chart>
-        </div>
+        <!-- <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
+        <!--   <dash-usage-chart ></dash-usage-chart> -->
+        <!-- </div> -->
       </div>
     </div>
   </client-chart>

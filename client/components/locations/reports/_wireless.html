@@ -49,7 +49,7 @@
 
   <client-chart>
     <div layout="column" class="md-padding">
-      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 66}}" ng-hide="fs && fs.panel != 'usage'">
+      <div flex="100" flex-gt-sm="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'">
         <dash-clients-chart ></dash-clients-chart>
       </div>
     </div
@@ -57,7 +57,7 @@
 
   <wireless-stats></wireless-stats>
 
-  <!-- <md-content class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
+  <md-content class="md-padding" layout="column" layout-wrap layout-gt-xs='row'>
 
     <div flex-gt-xs="25">
       <reports-pie hole="0.4" type="capabilities" title="{{ 'Capabilities' | translate }}" render="caps"></reports-pie>
@@ -75,6 +75,6 @@
       <reports-pie hole="0.4" resource="wireless_client" type="popular" title="{{ 'Top Clients' | translate }}" render="popular_clients" subhead="{{ 'Top aps by session count' | translate }}"></reports-pie>
     </div>
 
-  </md-content> -->
+  </md-content>
 
 </analytics>

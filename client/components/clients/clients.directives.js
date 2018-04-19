@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.clients.directives', []);
 
-app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPolicy', 'Box', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', 'Auth', function(Client, ClientV2, Location, Report, GroupPolicy, Box, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter, Auth) {
+app.directive('clients', ['Client', 'ClientV2', 'Metric', 'Location', 'Report', 'GroupPolicy', 'Box', '$location', '$routeParams', '$cookies', '$pusher', '$route', '$mdDialog', '$mdBottomSheet', '$q', 'showErrors', 'showToast', '$rootScope', 'gettextCatalog', 'pagination_labels', '$filter', 'Auth', function(Client, ClientV2, Metric, Location, Report, GroupPolicy, Box, $location, $routeParams, $cookies, $pusher, $route, $mdDialog, $mdBottomSheet, $q, showErrors, showToast, $rootScope, gettextCatalog, pagination_labels, $filter, Auth) {
 
   var link = function( scope, element, attrs, controller ) {
 
@@ -33,11 +33,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.pagination_labels = pagination_labels;
     scope.query = {
       order:      '-lastseen',
-      limit:      $routeParams.per || 100,
+      limit:      $routeParams.per || 25,
       page:       $routeParams.page || 1,
-      options:    [5,10,25,50,100],
-      // sort:       $routeParams.sort || 'lastseen',
-      // direction:  $routeParams.direction || 'desc',
+      options:    [5,10,25,50],
       start:      $routeParams.start,
       end:        $routeParams.end,
       v:          $routeParams.v
@@ -58,66 +56,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     scope.start           = $routeParams.start;
     scope.end             = $routeParams.end;
     scope.client_mac      = $routeParams.client_mac;
-    // scope.period          = $routeParams.period || '6h';
     scope.policy_id       = $routeParams.policy_id;
-    // scope.location        = { slug: $routeParams.id };
     scope.sort            = $routeParams.sort;
     scope.direction       = $routeParams.direction;
 
     var view = function(id) {
       $location.path('/locations/' + scope.location.slug + '/clients/' + id);
     };
-
-    // var setInterval = function() {
-    //   switch(scope.period) {
-    //     case '5m':
-    //       interval = '10s';
-    //       scope.query.distance = 60*5;
-    //       break;
-    //     case '30m':
-    //       interval = '1m';
-    //       scope.query.distance = 60*30;
-    //       break;
-    //     case '1d':
-    //       interval = '30m';
-    //       scope.query.distance = 60*60*24;
-    //       break;
-    //     case '6h':
-    //       interval = '30s';
-    //       scope.query.distance = 60*60*6;
-    //       break;
-    //     case '7d':
-    //       interval = '1h';
-    //       scope.query.distance = 60*60*24*7;
-    //       break;
-    //     case '14d':
-    //       interval = '1h';
-    //       scope.query.distance = 60*60*24*14;
-    //       break;
-    //     case '30d':
-    //       interval = '1h';
-    //       scope.query.distance = 60*60*24*30;
-    //       break;
-    //     case '1yr':
-    //       interval = '1yr';
-    //       scope.query.distance = 60*60*24*365;
-    //       break;
-    //     default:
-    //       interval = '60s';
-    //       scope.query.distance = 60*60*6;
-    //   }
-    // };
-
-    // scope.start = $routeParams.start;
-    // scope.end = $routeParams.end;
-
-    // scope.table = {
-    //   autoSelect: true,
-    //   boundaryLinks: false,
-    //   largeEditDialog: false,
-    //   pageSelector: false,
-    //   rowSelection: true
-    // };
 
     scope.refresh = function() {
       scope.policy_id = undefined;
@@ -435,13 +380,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     };
 
     scope.showSixHours = function() {
-      var distance = 60 * 60 * 6
+      var distance = 60 * 60 * 6;
       var min = Math.floor(moment().utc().subtract(distance, 'seconds').toDate().getTime() / 1000);
       var max = Math.floor(moment().utc().toDate().getTime() / 1000);
       scope.query.start = min;
       scope.query.end = max;
       scope.updatePage();
-    }
+    };
 
     var loadPolicies = function() {
       var deferred = $q.defer();
@@ -630,18 +575,21 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       params.access_token = Auth.currentUser().api_token;
       params.location_id = scope.location.id;
       params.client_type = 'clients.list';
-      params.end_time = scope.query.end;
-      params.start_time = scope.query.start;
-      // params.meta = true;
 
       if (params.access_token === undefined || params.access_token === '') {
         deferred.reject();
         return deferred.promise;
       }
+
       ClientV2.query(params).$promise.then(function(results) {
         scope.clients = results.clients;
-        scope.connected = results.online;
-        scope.total = results.total;
+        scope.connected = 0;
+        for (var i = 0, len = scope.clients.length; i < len; i++) {
+          if (scope.clients[i].online === true) {
+            scope.connected += 1;
+          }
+        }
+        scope.total = results._links.total_entries;
         fetchBoxes().then(function() {
           deferred.resolve();
         });
@@ -657,54 +605,81 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
     };
 
     var formatMetrics = function(val) {
-      for (var i = 0, len = scope.clients.length; i < len; i++) {
-        if (scope.clients[i].client_mac === val.client_mac) {
+      for (var i = 0; i < scope.clients.length; i++) {
+        if (scope.clients[i].online !== true) {
+          continue;
+        }
+
+        for (var k = 0; k < val.length; k++) {
+          if (scope.clients[i].client_mac !== val[k].data[0].client_mac) {
+            continue;
+          }
           var tx, rx, snr;
-          var metrics = val.metrics;
-          if (metrics && metrics.length >= 0) {
-            for (var j = 0, lenn = metrics.length; j < lenn; j++) {
-              var data = metrics[j].data;
-              if (data.length !== 0) {
-                var v, key;
-                if (metrics[j].series_type === 'clients.tx' || metrics[j].series_type === 'clients.rx') {
-                  if (metrics[j].series_type === 'clients.tx') {
-                    key = 'txbitrate';
-                  } else if (metrics[j].series_type === 'clients.rx') {
-                    key = 'rxbitrate';
-                  }
-                  v = data[data.length-1].value;
-                  v = Math.round(v * 100) / 100;
-                } else if (metrics[j].series_type === 'clients.snr' || metrics[j].series_type === 'clients.mcs' || metrics[j].series_type === 'clients.signal') {
-                  if (metrics[j].series_type === 'clients.snr') {
-                    key = 'snr';
-                  } else if (metrics[j].series_type === 'clients.mcs') {
-                    key = 'mcs';
-                  } else if (metrics[j].series_type === 'clients.signal') {
-                    key = 'signal';
-                  }
-                  v = data[data.length-1].value;
-                  v = Math.round(v);
-                }
-                scope.clients[i][key] = v;
-              }
+          var metrics = val[k].data[0].data;
+
+          if (metrics && metrics.length === 0) {
+            continue;
+          }
+
+          for (var j = 0; j < metrics.length; j++) {
+            var data = metrics[j].data;
+            if (data.length === 0) {
+              continue;
             }
+
+            var v, key;
+            if (metrics[j].series_type === 'clients.tx' || metrics[j].series_type === 'clients.rx') {
+              if (metrics[j].series_type === 'clients.tx') {
+                key = 'txbitrate';
+              } else if (metrics[j].series_type === 'clients.rx') {
+                key = 'rxbitrate';
+              }
+              v = data[data.length-1].value;
+              v = Math.round(v * 100) / 100;
+            } else if (metrics[j].series_type === 'clients.snr' || metrics[j].series_type === 'clients.mcs' || metrics[j].series_type === 'clients.signal') {
+              if (metrics[j].series_type === 'clients.snr') {
+                key = 'snr';
+              } else if (metrics[j].series_type === 'clients.mcs') {
+                key = 'mcs';
+              } else if (metrics[j].series_type === 'clients.signal') {
+                key = 'signal';
+              }
+              v = data[data.length-1].value;
+              v = Math.round(v);
+            }
+            scope.clients[i][key] = v;
           }
         }
       }
     };
 
+    // if we put the interval back, you can remove this badboy
+    var distance = 600;
+    var minDateEpoch, maxDateEpoch, minDate, maxDate;
+
+    var setStartEnd = function() {
+      minDate = moment().utc().subtract(distance, 'seconds').toDate();
+      maxDate = moment().utc().toDate();
+
+      minDateEpoch = Math.floor(minDate.getTime() / 1000);
+      maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
+    };
+
     var fetchMetrics = function(val) {
+
+      setStartEnd();
+
       var deferred = $q.defer();
       var params = getParams();
+
       params.access_token = Auth.currentUser().api_token;
-      params.location_id = scope.location.id;
-      params.client_type = 'clients.metrics';
-      params.end_time = $routeParams.end;
-      params.start_time = $routeParams.start;
-      params.client_mac = val;
-      // params.meta = true;
-      ClientV2.query(params).$promise.then(function(results) {
-        formatMetrics(results);
+      params.location_id  = scope.location.id;
+      params.type         = 'clients.metrics';
+      params.end_time     = $routeParams.end || maxDateEpoch;
+      params.start_time   = $routeParams.start || minDateEpoch;
+      params.client_mac   = val;
+
+      Metric.clientstats(params).$promise.then(function(results) {
         deferred.resolve(results);
       }, function() {
         deferred.reject();
@@ -712,7 +687,13 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return deferred.promise;
     };
 
+    var done;
     var getMetrics = function() {
+      if (done) {
+        return;
+      }
+
+      done = true;
       var defer = $q.defer();
       var promises = [];
 
@@ -723,7 +704,9 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       }
 
       angular.forEach(scope.clients, function(value){
-        promises.push(fetchMetrics(value.client_mac));
+        if (value.online === true) {
+          promises.push(fetchMetrics(value.client_mac));
+        }
       });
 
       $q.all(promises).then(function(val) {
@@ -740,7 +723,7 @@ app.directive('clients', ['Client', 'ClientV2', 'Location', 'Report', 'GroupPoli
       return defer.promise;
     };
 
-    getLocation().then(initV2).then(loaded);//.then(getMetrics);
+    getLocation().then(initV2).then(loaded).then(getMetrics);
 
     // Otherwise we delay the page load //
     scope.$watch('clients',function(nv){
@@ -1318,7 +1301,6 @@ app.directive('clientDetail', ['Client', 'ClientV2', 'ClientDetails', 'Report', 
       client.name = scope.client.name;
       client.network_id = scope.client.network_id;
       client.zone_id = scope.client.zone_id;
-      client.blocked = scope.client.blocked;
       client.description = scope.client.description;
       Client.update({
         location_id: scope.location.slug,

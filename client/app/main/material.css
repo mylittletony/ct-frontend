@@ -77,12 +77,7 @@ table.table-logs > tbody > tr.table-expand {
   background-color: #ffffff;
   text-indent: -130px;
   height: 20px!important;
-  }
 }
-
-/*table.table-logs > tbody > .table-expand:nth-of-type(odd) {
-  background-color: #ffffff;
-}*/
 
 .status-icon {
   width: 10px;
@@ -462,10 +457,6 @@ img.box-image {
   padding: 0 8px;
 }
 
-/* table.md-table.md-row-select td.md-cell:nth-child(2), table.md-table.md-row-select th.md-column:nth-child(2) { */
-/*   padding: 0 0px 0 12px; */
-/* } */
-
 table.clients th {
   font-size: 0.65rem!important;
 }
@@ -486,10 +477,6 @@ table.md-table tr.muted td.md-cell {
 table.md-table td.with-padding {
   padding: 0 0 0 25px!important;
 }
-
-/* table.md-table.md-row-select th.no-padding { */
-/*     padding: 0 0px 0 10px!important; */
-/* } */
 
 table.md-table.md-row-select td.box-icon {
   padding: 2px 5px 0 0px!important;
@@ -799,12 +786,6 @@ location-boxes table {
   }
 }
 
-/* pre { */
-/*   text-space-collapse: trim-inner; */
-/* } */
-
-/*sidebar style*/
-
 .md-sidenav-left, .md-sidenav-left md-content {
   background: #37484f;
   color: #EEEEEE;
@@ -834,19 +815,9 @@ location-boxes table {
   color: #EEEEEE;
 }
 
-/*toast text style*/
-
 md-bottom-sheet .md-subheader {
   white-space: normal;
   line-height: 26px;
-}
-
-/*new ssid dialog*/
-
-@media (max-width: 600px) {
-  .emojionearea-button {
-    display: none;
-  }
 }
 
 @media (min-width: 600px) {
@@ -865,8 +836,6 @@ md-bottom-sheet .md-subheader {
   background-color: white;
 }
 
-/*home-n-stuff*/
-
 .home-stat-icon {
   display:flex;
   justify-content:center;
@@ -877,6 +846,17 @@ md-bottom-sheet .md-subheader {
   font-size: 32px;
   height:auto;
   width:auto;
+}
+
+.locked-account {
+  background-color: #ff007f;
+  margin: 7px;
+  padding: 80px 0px;
+  /* font-weight: bold; */
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
 }
 
 /*colour picker*/

@@ -123,6 +123,7 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
   var link = function(scope,element,attrs,controller) {
 
     var timer;
+    scope.period = $routeParams.period || '30d';
 
     if ($routeParams.start && $routeParams.end) {
       scope.start        = $routeParams.start;
@@ -132,7 +133,6 @@ app.directive('locationSplashReports', ['Report', '$routeParams', '$rootScope', 
       scope.start    = (Math.floor(new Date() / 1000) - 21600);
       scope.end      = Math.floor(new Date() / 1000);
     }
-
 
     Location.get({id: $routeParams.id}, function(data) {
       scope.location = data;
@@ -462,6 +462,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
 
     scope.startDate = moment().utc().subtract(6, 'days').startOf('day').toDate();
     scope.endDate = moment().utc().toDate();
+    scope.loading = true;
 
     var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
@@ -501,6 +502,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       scope.results = [];
       scope.links = undefined;
       $location.search();
+      scope.loading = undefined;
       if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
         showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
       }
@@ -514,6 +516,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.sessions;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -527,6 +530,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.emails;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -540,6 +544,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.clients;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -550,9 +555,13 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       getParams();
       Guest.get(params).$promise.then(function(data, err) {
         scope.selected = 'Guests';
+        if (data.guests[0]) {
+          scope.guest_columns = Object.keys(data.guests[0].registration_data);
+        }
         scope.results = data.guests;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -566,6 +575,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.social;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -579,6 +589,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.results = data.orders;
         scope.links = data._links;
         $location.search();
+        scope.loading = undefined;
       }, function(err) {
         console.log(err);
         clearTable();
@@ -600,6 +611,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
     };
 
     scope.updateAudit = function(selected) {
+      scope.loading = true
       switch(selected) {
         case 'Emails':
           findEmails();
@@ -756,7 +768,7 @@ app.directive('homeDashboard', ['Location', '$routeParams', '$rootScope', '$http
             goDevice(item._key);
           break;
         default:
-          console.log(item._index);
+          // console.log(item._index);
           }
         }
       }, 250);
@@ -1381,7 +1393,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -1404,12 +1416,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         name: gettextCatalog.getString('Reboot'),
         type: 'reboot',
         icon: 'autorenew'
-      });
-
-      scope.menuItems.push({
-        name: gettextCatalog.getString('Run Payload'),
-        type: 'payload',
-        icon: 'present_to_all'
       });
 
       scope.menuItems.push({
@@ -1805,19 +1811,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
     };
 
-    var assignClientCounts = function(data) {
-      scope.total_online = 0;
-      for (var i = 0, len = data.meta.length; i < len; i++) {
-        var metaObject = data.meta[i];
-        for (var j = 0, leng = scope.boxes.length; j < leng; j++) {
-          if (scope.boxes[j].calledstationid === metaObject.ap_mac) {
-            scope.boxes[j].clients_online = metaObject.clients;
-            scope.total_online += metaObject.clients;
-          }
-        }
-      }
-    };
-
     var assignDeviceChannels = function(data) {
       for (var i = 0, len = data.meta.length; i < len; i++) {
         var metaObject = data.meta[i];
@@ -1828,26 +1821,6 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         }
       }
     };
-
-    var boxMetadata = function() {
-      scope.box_macs = '';
-      for (var i = 0, len = scope.boxes.length; i < len; i++) {
-        if (scope.boxes[i].state !== 'offline' && scope.boxes[i].state !== 'new') {
-          scope.box_macs += scope.boxes[i].calledstationid;
-          scope.box_macs += ',';
-        }
-      }
-      scope.box_macs = scope.box_macs.substring(0, scope.box_macs.length-1);
-      Metric.clientstats({
-        type:         'devices.meta',
-        ap_mac:       scope.box_macs,
-        location_id:  scope.boxes[0].location_id
-      }).$promise.then(function(data) {
-        assignClientCounts(data);
-        assignDeviceChannels(data);
-      });
-    };
-
 
     var channel;
     function loadPusher() {
@@ -1885,7 +1858,26 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
       });
     };
 
+    var createCounts = function(results) {
+      scope.total_online = results._links.total_entries;
+      for (var i = 0, len = results.clients.length; i < len; i++) {
+        scope.box_counts[results.clients[i].ap_mac] += 1;
+      }
+    };
+
+    var getClientCount = function(i) {
+      Metric.clientstats({
+        type:         'device.meta',
+        ap_mac:       scope.boxes[i].calledstationid,
+        location_id:  scope.boxes[i].location_id
+      }).$promise.then(function(data) {
+        scope.boxes[i].clients_online = data.online;
+        scope.total_online = parseInt(scope.total_online) + parseInt(data.online);
+      });
+    };
+
     var init = function() {
+      scope.total_online = 0;
       scope.deferred = $q.defer();
       Box.query({
         location_id: scope.location.slug,
@@ -1894,9 +1886,11 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', '$rout
         metadata: true
       }).$promise.then(function(results) {
         scope.boxes           = results.boxes;
+        for (var i = 0, len = scope.boxes.length; i < len; i++) {
+          getClientCount(i);
+        }
         scope._links          = results._links;
         scope.loading         = undefined;
-        boxMetadata();
         scope.deferred.resolve();
       }, function(err) {
         scope.loading = undefined;
@@ -2235,22 +2229,16 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
         icon: 'security'
       });
 
-      scope.menu.push({
-        name: gettextCatalog.getString('Splash'),
-        type: 'splash',
-        icon: 'web'
-      });
+      // scope.menu.push({
+      //   name: gettextCatalog.getString('Splash'),
+      //   type: 'splash',
+      //   icon: 'web'
+      // });
 
       scope.menu.push({
         name: gettextCatalog.getString('Analytics'),
         type: 'analytics',
         icon: 'trending_up'
-      });
-
-      scope.menu.push({
-        name: gettextCatalog.getString('Transfer'),
-        type: 'transfer',
-        icon: 'transform'
       });
 
       scope.menu.push({
@@ -2270,9 +2258,6 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       switch(type) {
         case 'delete':
           destroy();
-          break;
-        case 'transfer':
-          transfer();
           break;
         case 'archive':
           archive();
@@ -2376,35 +2361,6 @@ app.directive('locationSettingsMenu', ['Location', '$location', '$routeParams', 
       });
     };
 
-    var transfer = function() {
-      $mdDialog.show({
-        templateUrl: 'components/locations/settings/_transfer.html',
-        clickOutsideToClose: true,
-        parent: angular.element(document.body),
-        controller: TransferController,
-      });
-    };
-
-    var TransferController = function($scope){
-      $scope.transfer = function(account_id) {
-        $mdDialog.cancel();
-        transferLocation(account_id);
-      };
-      $scope.close = function() {
-        $mdDialog.cancel();
-      };
-    };
-    TransferController.$inject = ['$scope'];
-
-    var transferLocation = function(accountId) {
-      Location.transfer({accountId: accountId, id: scope.location.slug}).$promise.then(function(results) {
-        $location.path('/').search('tfer=true');
-        showToast(gettextCatalog.getString('Location successfully transferred.'));
-      }, function(err) {
-        showErrors(err);
-      });
-    };
-
     var security = function() {
       window.location.href = '/#/locations/' + scope.location.slug + '/settings/security';
     };
@@ -2479,43 +2435,6 @@ app.directive('appStatus', ['statusPage', 'gettextCatalog', function(statusPage,
     },
     link: link,
     templateUrl: 'components/locations/show/_app_status.html',
-  };
-
-}]);
-
-app.directive('warnings', ['Event', 'Shortener', '$location', function(Event,Shortener,$location) {
-
-  var link = function(scope) {
-
-    scope.loading = true;
-
-    var init = function() {
-      Event.query({object: 'box', level: 2, per: 5}).$promise.then(function(results) {
-        scope.events = results.events;
-        scope.loading = undefined;
-      }, function(error) {
-        scope.loading = undefined;
-      });
-    };
-
-    scope.visitBox = function(s) {
-      Shortener.get({short: s}).$promise.then(function(results) {
-        $location.path(results.url);
-        $location.search({});
-      }, function() {
-        $location.search({});
-      });
-    };
-
-    init();
-
-  };
-
-  return {
-    scope: {
-    },
-    link: link,
-    templateUrl: 'components/locations/show/_warnings.html',
   };
 
 }]);
@@ -2679,94 +2598,6 @@ app.directive('favouritesExtended', ['Location', '$location', '$routeParams', 's
 
 }]);
 
-app.directive('boxesAlerting', ['Location', '$location', '$routeParams', 'showToast', 'showErrors', '$mdDialog', 'Box', 'menu', 'gettextCatalog', 'pagination_labels', function(Location, $location, $routeParams, showToast, showErrors, $mdDialog, Box, menu, gettextCatalog, pagination_labels) {
-
-  var link = function(scope) {
-
-    scope.loading = true;
-    scope.state = 'offline';
-    menu.isOpen = false;
-    menu.hideBurger = true;
-
-    scope.options = {
-      boundaryLinks: false,
-      largeEditDialog: false,
-      pageSelector: false,
-      rowSelection: false
-    };
-
-    scope.pagination_labels = pagination_labels;
-    scope.query = {
-      order:      'updated_at',
-      filter:     $routeParams.q,
-      limit:      $routeParams.per || 25,
-      page:       $routeParams.page || 1,
-      options:    [5,10,25,50,100],
-      direction:  $routeParams.direction || 'desc'
-    };
-
-    scope.onPaginate = function (page, limit) {
-      scope.query.page = page;
-      scope.query.limit = limit;
-      scope.blur();
-    };
-
-    // User permissions //
-    scope.allowed = true;
-
-    var init = function() {
-
-      Box.query({
-        state: scope.state,
-        q: scope.query.filter,
-        page: scope.query.page,
-        per: scope.query.limit,
-      }).$promise.then(function(results) {
-        scope.boxes           = results.boxes;
-        scope._links          = results._links;
-        scope.loading         = undefined;
-      }, function(err) {
-        scope.loading = undefined;
-      });
-    };
-
-    scope.ignore = function(box) {
-      box.ignored = !box.ignored;
-      Box.update({
-        location_id: box.location_slug,
-        id: box.slug,
-        box: {
-          ignored: box.ignored
-        }
-      }).$promise.then(function(res) {
-        var val = box.ignored ? gettextCatalog.getString('muted') : gettextCatalog.getString('unmuted');
-        showToast(gettextCatalog.getString('Box successfully {{val}}.', {val: val}));
-      }, function(errors) {
-      });
-    };
-
-    scope.blur = function() {
-      var hash = {};
-      hash.page = scope.query.page;
-      hash.per = scope.query.limit;
-      hash.q = scope.query.filter;
-      $location.search(hash);
-    };
-
-    init();
-
-  };
-
-  return {
-    scope: {
-      // loading: '='
-    },
-    link: link,
-    templateUrl: 'components/locations/index/_alerts.html'
-  };
-
-}]);
-
 app.directive('dashInventory', ['Report', 'Auth', function(Report, Auth) {
 
   var link = function(scope) {
@@ -2823,12 +2654,9 @@ app.directive('homeStatCards', ['Box', 'Report', function (Box, Report) {
     var init = function() {
 
       Report.dashboard({homeStatCards: true, v: 2}).$promise.then(function(results) {
-        Box.get({state: 'offline', per: 25, page: 1}).$promise.then(function(data) {
-          scope.stats     = results.stats;
-          scope.stats.alerts = data._links.total_entries
-          process();
-          scope.loading   = undefined;
-        })
+        scope.stats     = results.stats;
+        process();
+        scope.loading   = undefined;
       });
 
     };

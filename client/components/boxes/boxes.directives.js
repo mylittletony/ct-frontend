@@ -87,6 +87,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         });
 
         scope.menu.push({
+          name: gettextCatalog.getString('Reset'),
+          icon: 'clear',
+          type: 'reset',
+        });
+
+        scope.menu.push({
           type: 'payloads',
           name: gettextCatalog.getString('Payloads'),
           icon: 'present_to_all',
@@ -105,25 +111,17 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'transfer',
       });
 
-      if (scope.box.v === '4') {
-        scope.menu.push({
-          name: gettextCatalog.getString('Operations'),
-          icon: 'access_time',
-          type: 'operations',
-        });
-      }
+      scope.menu.push({
+        name: gettextCatalog.getString('Operations'),
+        icon: 'access_time',
+        type: 'operations',
+      });
 
       if (scope.box.is_cucumber) {
         scope.menu.push({
           name: gettextCatalog.getString('Logs'),
           icon: 'library_books',
           type: 'logging',
-        });
-
-        scope.menu.push({
-          name: gettextCatalog.getString('Reset'),
-          icon: 'clear',
-          type: 'reset',
         });
       }
 
@@ -228,16 +226,10 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           scope.resetting       = undefined;
         }
       }, function(errors) {
-        var err;
-        if (errors && errors.data && errors.data.errors && errors.data.errors.base) {
-          err = errors.data.errors.base;
-        } else {
-          err = gettextCatalog.getString('Could not reset this device, please try again');
-        }
         console.log(errors);
-        showToast(err);
         scope.box.state = 'failed';
         scope.resetting = undefined;
+        showErrors(errors);
       });
     };
 
@@ -472,6 +464,32 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       menu.toggleSelectSection(section);
     };
 
+    var connectionStatus = function() {
+      switch (scope.box.connection_status) {
+        case '9':
+          scope.box.connection_status_formatted = 'OK';
+          break;
+        case '9.1':
+          scope.box.connection_status_formatted = 'NTP failed';
+          break;
+        case '1':
+          scope.box.connection_status_formatted = 'HTTP and DNS check failed';
+          break;
+        case '4':
+          scope.box.connection_status_formatted = 'HTTP check failed';
+          break;
+        case '0':
+          scope.box.connection_status_formatted = 'Communication error';
+          break;
+        case '6':
+          scope.box.connection_status_formatted = 'DNS check failed';
+          break;
+        default:
+          scope.box.connection_status_formatted = 'Misc. Problem (' + scope.box.connection_status + ')';
+          break;
+      }
+    };
+
     var init = function() {
       var deferred = $q.defer();
       Box.get({id: $routeParams.box_id, metadata: true}).$promise.then(function(box) {
@@ -482,6 +500,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           version: box.v
         };
         scope.loading = undefined;
+        connectionStatus();
         poll();
         deferred.resolve();
       }, function() {
@@ -514,9 +533,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       menu.isOpen = false;
       scope.fs = { panel: obj.panel };
       loadCharts();
-      // $timeout(function() {
-      //   controller.$scope.$broadcast('loadClientChart', 'device');
-      // },250);
     });
 
     controller.$scope.$on('closeFullScreen', function(val,obj) {
@@ -524,29 +540,7 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
       menu.isOpen = true;
       scope.fs = undefined;
       loadCharts();
-      // $timeout(function() {
-      //   controller.$scope.$broadcast('loadClientChart', 'device');
-      // },250);
     });
-
-    var sortSsids = function() {
-      if (scope.box.metadata && scope.box.metadata.ssids && scope.box.metadata.ssids.length > 0) {
-        if (scope.box.metadata.ssids.length === 1) {
-          scope.box.ssids = scope.box.metadata.ssids[0];
-        } else {
-          var ssids = scope.box.metadata.ssids;
-          if (ssids.length > 2) {
-            var temp = ssids.slice(0,2).join(', ');
-            scope.box.all_ssids = scope.box.metadata.ssids.join(', ');
-            scope.box.ssids = temp + ' and ' + (ssids.length - 2) + ' more.';
-          } else {
-            scope.box.ssids = ssids.slice(0,2).join(' & ');
-          }
-        }
-      } else {
-        scope.box.ssids = gettextCatalog.getString('N/A');
-      }
-    };
 
     var viewOperations = function() {
       $location.path('/locations/' + scope.location.slug + '/devices/' + scope.box.slug + '/operations');
@@ -566,16 +560,12 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
     };
 
     init().then(function() {
-      // loadTput();
-      // loadCharts();
       createMenu();
-      sortSsids();
       loadPusher();
       getZones().then(function() {
         processAlertMessages();
       });
     });
-    // loadCharts();
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {
@@ -614,12 +604,7 @@ app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $rou
     };
 
     var compileTemplate = function(version) {
-      var template;
-      if (parseInt(version) === 4) {
-        template = $compile('<list-messages></list-messages>')(scope);
-      } else {
-        template = $compile('<box-payloads></box-payloads>')(scope);
-      }
+      var template = $compile('<list-messages></list-messages>')(scope);
       element.html(template);
       scope.loading = undefined;
     };
@@ -794,6 +779,9 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
           {key: 'VHT80', value: 'VHT80'},
           // {key: 'VHT160', value: 'VHT160'}
         ];
+        if (scope.box.dual_band && scope.box.ht_mode_5 !== 'VHT20' && scope.box.ht_mode_5 !== 'VHT40' && scope.box.ht_mode_5 !== 'VHT80') {
+          scope.box.ht_mode_5 = 'VHT20';
+        }
       } else {
         scope.ht_modes_5 = scope.ht_modes;
       }
@@ -827,8 +815,6 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
         scope.channels5 = vht40_channels_5;
       } else if (scope.box.ht_mode_5 === 'VHT80') {
         scope.channels5 = vht80_channels_5;
-      // } else if (scope.box.ht_mode_5 === 'VHT1600') {
-      //   scope.channels5 = vht160_channels_5;
       }
     };
 
@@ -837,7 +823,6 @@ app.directive('editBox', ['Box', '$routeParams', '$localStorage', 'showToast', '
         scope.pusherLoaded = true;
         var pusher = $pusher(client);
         channel = pusher.subscribe('private-' + scope.box.location_pubsub);
-        console.log('Binding to:', channel.name);
         channel.bind('boxes_' + scope.box.pubsub_token, function(data) {
           console.log('Message received at', new Date().getTime() / 1000);
           processNotification(data.message);
@@ -1445,6 +1430,7 @@ app.directive('upgradeBox', ['Payload', '$routeParams', '$pusher', '$rootScope',
     link: link,
     scope: {
       box: '=',
+      prompt: '=',
       ps: '@'
     },
     templateUrl: 'components/boxes/firmware/_upgrade_firmware.html'
@@ -1660,7 +1646,7 @@ app.directive('addBoxWizard', ['Box', '$routeParams', '$location', '$pusher', 'A
       scope.setup.detecting = true;
       timer = $timeout(function() {
         fetchDiscovered();
-      }, 2000);
+      }, 0);
     } else if (parseInt($routeParams.stage) === 1 || (scope.setup && scope.setup.stage === 1)) {
       scope.setup.next = true;
     }
@@ -1737,12 +1723,11 @@ app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', '
     var loadMeta = function(box) {
       load = true;
       Metric.clientstats({
-        type:         'devices.meta',
+        type:         'device.meta',
         ap_mac:       box.calledstationid,
         location_id:  box.location_id
       }).$promise.then(function(data) {
-        scope.box_data = data.meta[0];
-      }, function() {
+        scope.box_data = data;
       });
     };
 

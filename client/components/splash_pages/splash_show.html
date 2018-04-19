@@ -71,12 +71,6 @@
             <div layout="column">
               <md-list-item class="md-2-line">
                 <div class="md-list-item-text">
-                  <h3 translate>Splash Page Id</h3>
-                  <p>{{ splash.unique_id }}</p>
-                </div>
-              </md-list-item>
-              <md-list-item class="md-2-line">
-                <div class="md-list-item-text">
                   <h3 translate>Created</h3>
                   <p>{{ splash.created_at | humanTime }}</p>
                 </div>
@@ -88,10 +82,19 @@
                 </div>
               </md-list-item>
               <md-list-item class="md-2-line" ng-if="splash.vsg_host && splash.vsg_enabled">
-                <!-- <img ng-src="https://d3e9l1phmgx8f2.cloudfront.net/images/manufacturer-images/ruckus-wireless.png" class="md-avatar" /> -->
                 <div class="md-list-item-text">
                   <h3 translate>Ruckus VSZ Host</h3>
                   <p>{{ splash.vsg_host }}:{{ splash.vsg_port}}</p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" ng-if="splash.meraki_enabled">
+                <div class="md-list-item-text">
+                  <p translate><b>Meraki Enabled</b></p>
+                </div>
+              </md-list-item>
+              <md-list-item class="md-2-line" ng-if="splash.unifi_enabled">
+                <div class="md-list-item-text">
+                  <p translate><b>UniFi Enabled</b></p>
                 </div>
               </md-list-item>
             </div>
@@ -132,8 +135,9 @@
                   <span ng-if="splash.newsletter_type == 4" translate>Username and Password</span>
                   <span ng-if="splash.newsletter_type != 4" translate>Newsletter API Token</span>
                 </label>
-                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                <input ng-model="splash.newsletter_api_token" placeholder='{{ newsletter_placeholder }}' type="{{ showtoken ? 'text' : 'password' }}" ng-focus="showtoken = !showtoken" ng-blur="showtoken = !showtoken" name="newsletter_api_token" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z-_]*$/" ng-trim="false">
                 <div ng-messages="myForm.newsletter_api_token.$error" md-auto-hide="false">
+                  <div ng-message="pattern" translate>Invalid characters in key.</div>
                   <div ng-message="required">
                     <span ng-if="splash.newsletter_type == 4" translate> You must set a username and password.</span>
                     <span ng-if="splash.newsletter_type != 4" translate>You must set an API token.</span>
@@ -143,8 +147,9 @@
 
               <md-input-container class="md-block">
                 <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
-                <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)">
+                <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z-_]*$/" ng-trim="false">
                 <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
+                  <div ng-message="pattern" translate>Invalid characters in list ID.</div>
                   <div ng-message="required" translate>You must set a list ID.</div>
                 </div>
               </md-input-container>
@@ -419,6 +424,13 @@
 
               <div flex-gt-sm="100">
                 <md-input-container class="md-block">
+                  <label><translate>Unique ID</translate></label>
+                  <input ng-model="splash.unique_id" disabled="1" type='text'>
+                </md-input-container>
+              </div>
+
+              <div flex-gt-sm="100">
+                <md-input-container class="md-block">
                   <label><translate>Timezone</translate></label>
                   <md-select ng-model="splash.timezone">
                     <md-option ng-repeat="zone in timezones" value="{{zone}}">
@@ -451,12 +463,7 @@
               <span ng-show="!splash.tagged_logins" translate>Tagged Logins Disabled</span>
             </md-switch>
 
-            <md-switch class="md-accent" ng-model="splash.vsg_enabled" aria-label="vsg_enabled">
-              <span ng-show="splash.vsg_enabled" translate>Ruckus VSZ Enabled</span>
-              <span ng-show="!splash.vsg_enabled" translate>Ruckus VSZ Disabled</span>
-            </md-switch>
-
-            <md-switch class="md-accent" ng-model="splash.powered_by" aria-label="powered_by" ng-if="!white_label">
+            <md-switch class="md-accent" ng-model="splash.powered_by" aria-label="powered_by">
               <span ng-show="splash.powered_by" translate>'Powered By' Visible</span>
               <span ng-show="!splash.powered_by" translate>'Powered By' Hidden</span>
             </md-switch>

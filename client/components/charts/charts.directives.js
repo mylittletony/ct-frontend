@@ -75,7 +75,7 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
                 targetAxisIndex: 1
               },
               2: {
-                targetAxisIndex: 1
+                targetAxisIndex: 2
               }
             },
             vAxes: {
@@ -286,7 +286,6 @@ app.directive('clientsChart', ['$timeout', '$rootScope', 'gettextCatalog', '$fil
 
 app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientDetails', 'COLOURS', function(Report, Metric, $routeParams, $q, ClientDetails, COLOURS) {
 
-
   return {
     scope: {
       location: '@',
@@ -321,7 +320,7 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           orientation: 'vertical'
         },
         chartArea: {
-          left: '3%',
+          left: '6%',
           top: '3%',
           height: '84%',
           width: '90%'
@@ -379,17 +378,15 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
       var minDateEpoch, maxDateEpoch, minDate, maxDate;
 
       this.setStartEnd = function() {
-
         minDate = moment().utc().subtract(distance, 'seconds').toDate();
         maxDate = moment().utc().toDate();
 
         minDateEpoch = Math.floor(minDate.getTime() / 1000);
         maxDateEpoch = Math.floor(maxDate.getTime() / 1000);
-
       };
 
       this.v2 = function(params, deferred) {
-        Metric.clientstats({
+        var opts = {
           type:         params.metric_type || params.type,
           ap_mac:       $scope.client.ap_mac || params.ap_mac,
           client_mac:   $scope.client.client_mac,
@@ -398,7 +395,11 @@ app.directive('clientChart', ['Report', 'Metric', '$routeParams', '$q', 'ClientD
           start_time:   $routeParams.start || minDateEpoch,
           end_time:     $routeParams.end || maxDateEpoch,
           rate:         params.rate,
-        }).$promise.then(function(data) {
+        };
+
+        // Sort me
+        var t = opts.type;
+        Metric.clientstats(opts).$promise.then(function(data) {
           deferred.resolve(data);
         }, function() {
           deferred.reject();
@@ -474,7 +475,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
       if (a === undefined) {
         data = new window.google.visualization.DataTable();
         data.addColumn('datetime', gettextCatalog.getString('Date'));
-        data.addColumn('number', 'dummySeries');
+        // data.addColumn('number', 'dummySeries');
         data.addColumn('number', gettextCatalog.getString('Inbound'));
         if (json.multi) {
           data.addColumn('number', gettextCatalog.getString('Outbound'));
@@ -493,7 +494,7 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
             } else {
               outbound = 0;
             }
-            data.addRow([time, null, inbound, outbound]);
+            data.addRow([time, inbound, outbound]);
           }
         }
       }
@@ -507,26 +508,26 @@ app.directive('txChart', ['$timeout', 'Report', '$routeParams', 'gettextCatalog'
         {suffix: suffix}
       );
       formatter.format(data,2);
-      formatter.format(data,3);
+      // formatter.format(data,3);
 
       opts.colors = colours;
       opts.legend = { position: 'bottom' };
       opts.series = {
         0: {
-          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          targetAxisIndex: 0
         },
         1: {
-          targetAxisIndex: 1
+          targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
         2: {
-          targetAxisIndex: 1
+          targetAxisIndex: 2
         }
       };
       opts.vAxes = {
-        0: {
+        1: {
           textPosition: 'none'
         },
-        1: {
+        0: {
           viewWindow:{
             min: 0
           }
@@ -775,7 +776,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.usage',
+        metric_type:  'devices.tx,devices.rx',
         resource:     scope.resource
       };
       controller.getStats(params).then(function(resp) {
@@ -798,7 +799,7 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
       var opts = controller.options;
       opts.explorer = undefined;
-      opts.pieHole = 0.8
+      opts.pieHole = 0.8;
       opts.legend = { position: attrs.legend || 'bottom' };
       opts.title = 'none';
       opts.pieSliceText = 'none';
@@ -862,11 +863,13 @@ app.directive('dashUsageChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
 }]);
 
-app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, gettextCatalog) {
+app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '$compile', 'gettextCatalog', function($timeout, Report, $routeParams, COLOURS, $compile, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
     scope.loading = true;
+    scope.type = attrs.type || 'clients.caps';
+    scope.period = $routeParams.period || '7d';
     var c, timer, data, formatted;
     var colours = ['#16ac5b', '#225566'];
 
@@ -874,12 +877,39 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       drawChart();
     });
 
+    var letemplate = function(render) {
+      var a = '<div style=""><md-card>'+
+      '<md-card-header class="graph-small">'+
+      '<md-card-header-text>'+
+      '<span class="md-subhead" translate>'+attrs.name+'</span>'+
+      '</md-card-header-text>'+
+      '</md-card-header>'+
+      '<md-card-content>'+
+      '<div id="'+ render +'" class="small-chart"></div>'+
+      '<md-card-actions layout="row" layout-align="end center">'+
+      '<small>'+
+      '<span ng-if="noData && !loading" translate>No graph data</span>'+
+      '<span ng-if="loading" translate>Loading chart</span>'+
+      '</small>'+
+      '</md-card-actions>'+
+      '</md-card-content>'+
+      '</md-card>' +
+      '</div>';
+      return a;
+    };
+
+    var compileTemplate = function(render) {
+      var template;
+      template = $compile(letemplate(render))(scope);
+      element.html(template);
+      scope.loading = undefined;
+    };
+
     function chart() {
       var params = {
         type:         scope.type,
-        metric_type:  'device.caps',
         resource:     scope.resource,
-        period:       '7d' // can be removed soon when loyalty dynamic
+        period:       scope.period // can be removed soon when loyalty dynamic
       };
       controller.getStats(params).then(function(resp) {
         formatted = resp;
@@ -909,45 +939,55 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
       opts.colors = colours;
 
       if (data === undefined && formatted) {
+        var js = formatted.data[0].data;
+
         data = new window.google.visualization.DataTable();
         data.addColumn('string', gettextCatalog.getString('2.4Ghz'));
         data.addColumn('number', gettextCatalog.getString('5Ghz'));
 
-        var two, five = 0;
-        for (var i in formatted.stats) {
-          if (formatted.stats[i].key === 'two') {
-            two = formatted.stats[i].value;
-          } else if (formatted.stats[i].key === 'five') {
-            five = formatted.stats[i].value;
-          }
+        var a = 0;
+        var b = 0;
+        for (var i in js) {
+          a =  (a + js[i].value[0]);
+          b = (b + js[i].value[1]);
         }
 
-        if (two === 0 && five === 0) {
-          two = 1;
+        if (a === 0 && b === 0) {
+          a = 1;
         }
 
-        data.addRow(['2.4Ghz', two]);
-        data.addRow(['5Ghz', five]);
+        var nameA, nameB;
+        if (scope.type === 'clients.caps') {
+          nameA = '2.4Ghz';
+          nameB = '5Ghz';
+        } else {
+          nameA = 'Good';
+          nameB = 'Bad';
+        }
+        data.addRow([nameA, a]);
+        data.addRow([nameB, b]);
       }
 
       var formatter = new window.google.visualization.NumberFormat(
-        {suffix: '%', pattern: ''}
+        {suffix: '', pattern: '###,###'}
       );
 
       formatter.format(data, 1);
 
-      c = new window.google.visualization.PieChart(document.getElementById('caps-chart'));
+      c = new window.google.visualization.PieChart(document.getElementById(attrs.render));
       c.draw(data, opts);
 
       scope.noData = undefined;
       scope.loading = undefined;
     }
 
-    window.google.charts.setOnLoadCallback(chart);
+    // window.google.charts.setOnLoadCallback(chart);
+
+    compileTemplate(attrs.render);
 
     timer = setTimeout(function() {
       window.google.charts.setOnLoadCallback(chart);
-    }, 500);
+    }, 1000);
     $timeout.cancel(timer);
   };
 
@@ -956,10 +996,12 @@ app.directive('capsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'ge
     scope: {
       mac: '@',
       loc: '@',
-      version: '@'
+      version: '@',
+      render: '@',
+      type: '@'
     },
     require: '^clientChart',
-    templateUrl: 'components/charts/locations/_caps_chart.html',
+    // templateUrl: 'components/charts/locations/_caps_chart.html',
   };
 
 }]);
@@ -1078,7 +1120,6 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
 
     var c, timer, json, data;
     scope.loading = true;
-    // var colours = ['#16ac5b', '#ef562d', '#5587a2', '#d13076', '#0c4c8a', '#5c7148'];
     var colours = ['#16ac5b', '#225566', '#EF476F', '#FFD166', '#0088bb'];
 
     controller.$scope.$on('resizeClientChart', function (evt,type){
@@ -1109,11 +1150,9 @@ app.directive('healthChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', '
     function drawChart(json) {
       $timeout.cancel(timer);
       var drawChartCallback = function() {
-
         if (data === undefined) {
-          var stats = json.stats;
+          var stats = json.data[0].data;
           var len = stats.length;
-
           data = new window.google.visualization.DataTable();
           data.addColumn('string', 'state');
           data.addColumn('number', 'count');
@@ -1257,7 +1296,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
     var chart = function() {
       var params = {
-        metric_type:  'device.heartbeats',
+        metric_type: 'device.heartbeats',
         ap_mac: scope.mac,
         period: $routeParams.period || '6h'
       };
@@ -1292,7 +1331,7 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
         var end_time = Math.floor(data.end_time);
 
         for (i = 0; i < data.data.length; i++) {
-          if (data.data[i].timestamp >= start_time) {
+          if (data && data.data && data.data[i] && (data.data[i].timestamp >= start_time)) {
             break;
           }
         }
@@ -1337,13 +1376,15 @@ app.directive('heartbeatChart', ['$timeout', 'Report', '$routeParams', 'COLOURS'
 
 }]);
 
-app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails) {
+app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', '$compile', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails, $compile) {
 
   var link = function(scope,element,attrs,controller) {
 
     var a, c, timer, formatted, data;
 
-    scope.type = 'client.uniques';
+    // can be csv also if required //
+    scope.period = $routeParams.period || attrs.period || '30d';
+    scope.type = attrs.type;
     scope.loading = true;
     var colours = COLOURS.split(' ');
 
@@ -1356,26 +1397,33 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     });
 
-    function chart() {
+    var letemplate = function(render) {
+      var a = '<div style=""><md-card>'+
+      '<md-card-header class="graph-small">'+
+      '<md-card-header-text>'+
+      '<span class="md-subhead" translate>'+attrs.name+'</span>'+
+      '</md-card-header-text>'+
+      '</md-card-header>'+
+      '<md-card-content>'+
+      '<div id="'+ render +'" class="small-chart"></div>'+
+      '<md-card-actions layout="row" layout-align="end center">'+
+      '<small>'+
+      '<span ng-if="noData && !loading" translate>No graph data</span>'+
+      '<span ng-if="loading" translate>Loading chart</span>'+
+      '</small>'+
+      '</md-card-actions>'+
+      '</md-card-content>'+
+      '</md-card>' +
+      '</div>';
+      return a;
+    };
 
-      var params = {
-        type: scope.type,
-        period: '7d' // can be removed soon when loyalty dynamic
-      };
-
-      controller.getStats(params).then(function(res) {
-        if (window.google && window.google.visualization) {
-          drawChart(res);
-        } else {
-          $timeout(function () {
-            drawChart(res);
-          }, 500);
-        }
-      }, function() {
-        clearChart();
-        console.log('No data returned for query');
-      });
-    }
+    var compileTemplate = function(render) {
+      var template;
+      template = $compile(letemplate(render))(scope);
+      element.html(template);
+      scope.loading = undefined;
+    };
 
     var clearChart = function() {
       if (c) {
@@ -1385,54 +1433,37 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       scope.loading = undefined;
     };
 
-    function drawChart(resp) {
+    function chart() {
+
+      var params = {
+        type: scope.type,
+        period: scope.period
+      };
+
+      controller.getStats(params).then(function(res) {
+        drawChart(res);
+      }, function() {
+        clearChart();
+        console.log('No data returned for query');
+      });
       $timeout.cancel(timer);
+    }
+
+    function drawChart(resp) {
       if (window.google && window.google.visualization) {
         var format = gettextCatalog.getString('MMM dd, yyyy');
 
-        colours[1] = colours[0];
+        // colours[1] = colours[0];
         var opts = controller.options;
 
         opts.title = 'none';
         opts.height = '350';
-        opts.colors = ['#225566'];
+        opts.colors = [colours[0]]; //['#225566'];
+        if (attrs.bar === 'true') {
+          opts.colors = ['#4b84e0'];
+        }
         opts.curveType = 'function';
         opts.legend = { position: 'none' };
-        opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 1
-          },
-          1: {
-            targetAxisIndex: 1, lineWidth: 2.5
-          }
-        };
-        opts.vAxes = {
-          0: {
-            textPosition: 'none',
-            viewWindow:{
-              max: 10,
-              min: 0
-            }
-          },
-          1: {
-            viewWindow:{
-              min: 0
-            }
-          },
-        };
-
-        opts.hAxis = {
-          lineWidth: 4,
-          gridlines: {
-            count: 10,
-            color: '#f3f3f3',
-          },
-          minorGridlines: {
-            count: 2,
-            color: '#f3f3f3',
-          },
-          format: format
-        };
 
         opts.explorer = {
           maxZoomOut: 0,
@@ -1443,34 +1474,132 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
 
         if (data === undefined && resp && resp.data) {
 
+          a = true;
+
           data = new window.google.visualization.DataTable();
-          data.addColumn('datetime', 'Date');
-          data.addColumn('number', 'dummySeries');
-          data.addColumn('number', gettextCatalog.getString('clients'));
 
-          var len = resp.data.length;
-          for(var i = 0; i < len; i++) {
-            var time = new Date(Math.floor(resp.data[i].timestamp));
-            var count = resp.data[i].value;
-            data.addRow([time, null, count]);
+          opts.vAxes = {};
+
+          opts.enableInteractivity = true;
+          if (attrs.popular === 'true') {
+            opts.tooltip = { isHtml: true };
+            opts.bar = { groupWidth: '90%' };
+            opts.vAxes = {
+              0: {
+                textPosition: 'none',
+                viewWindow:{
+                  min: 0
+                }
+              }
+            };
+            data.addColumn('string', 'Hour');
+            data.addColumn({type: 'string', role: 'tooltip', p: { html: true }});
+          } else {
+            opts.bar = {};
+            data.addColumn('datetime', 'Date');
           }
+          data.addColumn('number', attrs.name);
 
-          var date_formatter = new window.google.visualization.DateFormat({
-            pattern: format
-          });
+          var array = [];
+          if (attrs.bar === 'true') {
 
-          date_formatter.format(data,0);
+            for(var x = 0; x < resp.data[0].data.length; x++) {
+              var val;
+              array = [];
 
-          var formatter = new window.google.visualization.NumberFormat(
-            { pattern: '0' }
-          );
-          formatter.format(data,2);
+              if (attrs.popular === 'true') {
+                val = resp.data[0].data[x].hour.toString();
+              } else {
+                val = new Date(resp.data[0].data[x].timestamp);
+              }
+
+              array.push(val);
+
+              if (attrs.popular === 'true') {
+                array.push('<div style="padding: 20px;"><h3>Popular Hours (beta)</h3><p><b>' + ("0" + val).slice(-2) + ':00 o\'clock</b></p></div>');
+              }
+
+              for(var k = 0; k < resp.data.length; k++) {
+                val = 0;
+                var d = resp.data[k].data[x];
+                if (d && d.value > 0) {
+                  val = (d.value);
+                }
+
+                array.push(val);
+              }
+              data.addRow(array);
+            }
+
+          } else {
+            opts.vAxes = {
+              0: {
+                format: '0',
+                viewWindow:{
+                  min: 0
+                }
+              }
+            };
+
+            opts.hAxis = {
+              lineWidth: 4,
+              gridlines: {
+                count: 10,
+                color: '#f3f3f3',
+              },
+              minorGridlines: {
+                count: 1,
+                color: '#f3f3f3',
+              },
+              format: format
+            };
+
+            for(x = 0; x < resp.data.length; x++) {
+              data.addColumn('number', resp.data[x].alias);
+            }
+
+            for(var y = 0; y < resp.data[0].data.length; y++) {
+              var time;
+              array = [];
+
+              time = new Date(resp.data[0].data[y].timestamp);
+              array.push(time);
+              array.push(null);
+
+              for(var k = 0; k < resp.data.length; k++) {
+                var val = 0;
+                d = resp.data[k].data[y];
+                if (d && d.value > 0) {
+                  if (scope.type === 'device.usage') {
+                    val = d.value / (1000*1000);
+                  } else {
+                    val = d.value;
+                  }
+                }
+
+                array.push(val);
+              }
+              data.addRow(array);
+            }
+          }
         }
 
-        // if (window.google && window.google.visualization) {
-        c = new window.google.visualization.LineChart(document.getElementById('dash-clients-chart'));
+        var suffix, pattern;
+        if (scope.type === 'device.usage') {
+          suffix = 'Mb';
+          pattern = '###,###';
+        }
 
-        a = true
+        a = true;
+        if (attrs.bar === 'true') {
+          c = new window.google.visualization.ColumnChart(document.getElementById(attrs.render));
+        } else {
+          var formatter = new window.google.visualization.NumberFormat(
+            {suffix: suffix, pattern: pattern}
+          );
+          formatter.format(data,2);
+          c = new window.google.visualization.LineChart(document.getElementById(attrs.render));
+        }
         c.draw(data, opts);
 
         scope.noData = undefined;
@@ -1478,9 +1607,11 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
       }
     }
 
+    compileTemplate(attrs.render);
+
     var timeout = $timeout(function() {
       window.google.charts.setOnLoadCallback(chart());
-    }, 500);
+    }, 1500);
 
   };
 
@@ -1489,10 +1620,11 @@ app.directive('dashClientsChart', ['$timeout', 'Report', '$routeParams', 'COLOUR
     scope: {
       mac: '@',
       loc: '@',
-      version: '@'
+      version: '@',
+      render: '@',
+      period: '@'
     },
     require: '^clientChart',
-    templateUrl: 'components/charts/locations/_clients_chart.html',
   };
 
 }]);
@@ -1505,13 +1637,8 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
     var c, timer, json;
     var rate = 'false';
     scope.loading = true;
-    scope.type  = 'devices.load5';
+    scope.type  = 'device.load';
     var colours = COLOURS.split(' ');
-
-    // Depreciate soon
-    if (ClientDetails.client.version === '3.0') {
-      scope.type  = 'devices.load';
-    }
     var opts = controller.options;
 
     controller.$scope.$on('resizeClientChart', function (evt, type){
@@ -1574,16 +1701,16 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         if (a === undefined) {
           data = new window.google.visualization.DataTable();
           data.addColumn('datetime', gettextCatalog.getString('Date'));
-          data.addColumn('number', 'dummySeries');
           data.addColumn('number', gettextCatalog.getString('Load Average'));
 
-          for(var i = 0; i < json.data.length; i++) {
-            time = new Date(json.data[i].timestamp*1000);
-            var load = (json.data[i].value*100);
+          for(var i = 0; i < json.data[0].data.length; i++) {
+            var d = json.data[0].data[i];
+            time = new Date(d.timestamp);
+            var load = (d.value*100);
             if (load > 100) {
               load = 100;
             }
-            data.addRow([time, null, load]);
+            data.addRow([time, load]);
           }
         }
 
@@ -1595,18 +1722,18 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         var formatter = new window.google.visualization.NumberFormat(
           {suffix: '%'}
         );
-        formatter.format(data,2);
+        formatter.format(data,1);
 
         opts.colors = colours;
         opts.vAxes = {
-          0: {
+          1: {
             textPosition: 'none',
             viewWindow:{
               max: 10,
               min: 0
             }
           },
-          1: {
+          0: {
             viewWindow:{
               min: 0
             }
@@ -1614,11 +1741,11 @@ app.directive('loadChart', ['Report', '$routeParams', '$timeout', 'gettextCatalo
         };
         opts.legend = { position: 'none' };
         opts.series = {
-          0: {
-            targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
-          },
           1: {
-            targetAxisIndex: 1
+            targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          },
+          0: {
+            targetAxisIndex: 0
           },
           2: {
             targetAxisIndex: 1
@@ -1903,10 +2030,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
       var opts = controller.options;
       opts.series = {
-        0: {
+        1: {
           targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
-        1: {
+        0: {
           targetAxisIndex: 1, lineWidth: 2.5
         }
       };
@@ -1917,14 +2044,14 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       if (type === 'interfaces.snr' || type === 'clients.snr' ) {
         suffix = 'dB';
         opts.vAxes = {
-          0: {
+          1: {
             textPosition: 'none',
             viewWindow:{
               max: 100,
               min: 0
             }
           },
-          1: {
+          0: {
             viewWindow:{
               min: 0
             }
@@ -1935,10 +2062,10 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
       opts.legend = { position: 'bottom' };
       opts.series = {
         0: {
-          targetAxisIndex: 0, visibleInLegend: false, pointSize: 0, lineWidth: 0
+          targetAxisIndex: 0
         },
         1: {
-          targetAxisIndex: 1
+          targetAxisIndex: 1, visibleInLegend: false, pointSize: 0, lineWidth: 0
         },
         2: {
           targetAxisIndex: 1
@@ -1988,6 +2115,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         axis: 'horizontal',
         actions: [ 'dragToZoom', 'rightClickToReset'],
       };
+
       if (scope.fs) {
         opts.height = 600;
       } else {
@@ -1998,17 +2126,12 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
         a = true;
 
         data = new window.google.visualization.DataTable();
-        data.addColumn('datetime', 'Date');
-        data.addColumn('number', 'dummySeries');
-
-        data = new window.google.visualization.DataTable();
         data.addColumn('datetime', gettextCatalog.getString('Date'));
-        data.addColumn('number', 'dummySeries');
+        // data.addColumn('number', 'dummySeries');
 
         for(var i = 0; i < json.data.length; i++) {
           var name;
           for (var j = 0; j < json.meta.length; j++) {
-            // console.log(json.meta[j], json.data[i].tags)
             if (json.meta[j].interface === json.data[i].tags.interface) {
               var freq = json.meta[j].freq;
               if (freq === '2') {
@@ -2032,7 +2155,7 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
 
           time = new Date(json.data[0].data[x].timestamp*1000);
           array.push(time);
-          array.push(null);
+          // array.push(null);
 
           for(var k = 0; k < json.data.length; k++) {
             var val = 0;
@@ -2085,6 +2208,52 @@ app.directive('interfaceChart', ['Report', '$routeParams', '$timeout', 'gettextC
     },
     require: '^clientChart',
     templateUrl: 'components/charts/devices/_snr_chart.html',
+  };
+
+}]);
+
+app.directive('radiusStats', ['$timeout', 'Report', '$routeParams', 'COLOURS', 'gettextCatalog', 'ClientDetails', '$compile', function($timeout, Report, $routeParams, COLOURS, gettextCatalog, ClientDetails, $compile) {
+
+  var link = function(scope,element,attrs,controller) {
+
+    var a, c, timer, formatted, data;
+
+    scope.type = 'radius.stats';
+    scope.loading = true;
+    var colours = COLOURS.split(' ');
+
+    ClientDetails.client.version = '4';
+    ClientDetails.client.ap_mac = undefined;
+
+    function chart() {
+      var params = {
+        type: scope.type,
+        period: '30d'
+      };
+
+      controller.getStats(params).then(function(res) {
+        scope.stats = res.data[0].data;
+      }, function() {
+        console.log('No data returned for query');
+      });
+    }
+
+    chart();
+    var timeout = $timeout(function() {
+      chart();
+    }, 1500);
+  };
+
+  return {
+    link: link,
+    scope: {
+      mac: '@',
+      loc: '@',
+      version: '@',
+      render: '@'
+    },
+    require: '^clientChart',
+    templateUrl: 'components/reports/_radius_stats.html',
   };
 
 }]);

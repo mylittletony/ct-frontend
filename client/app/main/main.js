@@ -14,7 +14,6 @@ var app = angular.module('myApp', [
   'angularMoment',
   'ngMaterial',
   'md.data.table',
-  'luegg.directives',
   'minicolors',
   'pusher-angular',
   'config',
@@ -262,9 +261,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/create', {
       templateUrl: 'components/registrations/create.html',
-      // controller: function($rootScope) {
-      //   $rootScope.$broadcast('intercom', {hi: 'simon'});
-      // },
       resolve: { loggedIn: loggedIn }
     }).
     when('/success', {
@@ -272,14 +268,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/create/:id', {
       templateUrl: 'components/registrations/flow.html',
-      resolve: { loggedIn: loggedIn }
-    }).
-    when('/boxes', {
-      redirectTo: '/alerts'
-    }).
-    when('/alerts', {
-      templateUrl: 'components/locations/index/alerts.html',
-      resolve: { loginRequired: loginRequired },
+      resolve: { loggedIn: loggedIn },
+      reloadOnSearch: false
     }).
     when('/distributors/:id', {
       templateUrl: 'components/distros/distro.html',
@@ -290,14 +280,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/distros/referrals.html',
       resolve: { loginRequired: loginRequired },
       reloadOnSearch: false
-    }).
-    when('/events', {
-      templateUrl: 'components/events/index.html',
-      resolve: { loginRequired: loginRequired },
-    }).
-    when('/events/:id', {
-      templateUrl: 'components/events/show.html',
-      resolve: { loginRequired: loginRequired },
     }).
     when('/locations', {
       templateUrl: 'components/locations/index/list.html',
@@ -313,6 +295,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/locations/:id', {
       templateUrl: 'components/locations/dashboard/index.html',
+      // templateUrl: 'components/locations/show/index.html',
       resolve: { loginRequired: loginRequired },
       controller: 'LocationsCtrl as lc'
     }).
@@ -415,11 +398,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/locations/:id/settings', {
       templateUrl: 'components/locations/settings/index.html',
-      controller: 'LocationsCtrl as lc',
-      resolve: { loginRequired: loginRequired }
-    }).
-    when('/locations/:id/settings/notifications', {
-      templateUrl: 'components/locations/settings/notifications.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
@@ -582,16 +560,22 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/locations/:id/dashboard-test', {
+      // DELETE
+      templateUrl: 'components/locations/dashboard/index.html',
+      resolve: { loginRequired: loginRequired },
+      controller: 'LocationsCtrl as lc'
+    }).
     when('/locations/:id/splash_reports', {
       templateUrl: 'components/locations/reports/splash.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
-    // when('/locations/:id/wireless_reports', {
-    //   templateUrl: 'components/locations/reports/wireless.html',
-    //   controller: 'LocationsCtrl as lc',
-    //   resolve: { loginRequired: loginRequired }
-    // }).
+    when('/locations/:id/wireless_reports', {
+      templateUrl: 'components/locations/reports/wireless.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/locations/:id/audit', {
       templateUrl: 'components/locations/audit/index.html',
       controller: 'LocationsCtrl as lc',
@@ -635,6 +619,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/users/:id/splash_views', {
+      templateUrl: 'components/users/splash_views/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
     when('/users/:id/billing', {
       templateUrl: 'components/users/billing/index.html',
       controller: 'UsersShowController',
@@ -671,6 +660,16 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/me/integrations', {
       templateUrl: 'components/users/integrations/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/me/billing', {
+      templateUrl: 'components/users/billing/index.html',
+      controller: 'UsersShowController',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/me/splash_views', {
+      templateUrl: 'components/users/splash_views/index.html',
       controller: 'UsersShowController',
       resolve: { loginRequired: loginRequired }
     }).
@@ -759,6 +758,7 @@ app.factory('httpRequestInterceptor', ['$q', 'AccessToken', '$rootScope', 'API_U
         var token = AccessToken.get();
         if ((token) && (apiRegExp.test(config.url))) {
           config.headers.Authorization = 'Bearer ' + token;
+          // config.headers['Access-Control-Allow-Credentials'] = true;
         }
         return config;
       },

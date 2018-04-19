@@ -129,7 +129,9 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
                 }
               }
             } else {
-              plan.upgrading = false;
+              if (plan) {
+                plan.upgrading = false;
+              }
               scope.user.subscribing = undefined;
               showErrors({data: data.message.message});
               console.log(data);
@@ -146,6 +148,13 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
         enterprise: scope.user.enterprise
       }).$promise.then(function(data) {
         scope.plans = data.plans;
+        var available_plans = [];
+        for (var i = 0; i < scope.plans.length; i++) {
+          available_plans.push(scope.plans[i].plan_id);
+        }
+        if (!available_plans.includes(scope.user.plan.id)) {
+          scope.user.grandfather_plan = true;
+        }
         subscribe(scope.user.key);
       });
     };

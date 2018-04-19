@@ -39,12 +39,6 @@
           <textarea type="text" name="billing_email" ng-model='user.billing_email' placeholder="{{ 'Add additional billing email addresses' | translate }}"></textarea>
         </md-input-container>
 
-        <div flex="100">
-          <p translate>
-            Billing Currency {{ user.currency }} ({{ user.currency === 'EUR' ? '€' : user.currency === 'USD' ? '$' : '£' }})
-          </p>
-          <small>Your currency was set automatically when your account was created. If you think it's wrong, please contact support.</small>
-        </div>
       </div>
     </md-card-content>
   </md-card>
