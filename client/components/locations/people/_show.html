@@ -13,7 +13,7 @@
   <div ng-show="!portal_request" flex="100" flex-gt-md="90" flex-gt-lg="80">
     <div layout="row" layout-wrap>
 
-      <div flex="100" flex-gt-sm="30">
+      <div flex="100" flex-gt-sm="40" flex-gt-md="30" flex-gt-lg="30">
         <div layout-gt-sm="row" layout-sm="row" layout-xs="column" layout-wrap>
 
           <div flex="100">
@@ -65,25 +65,6 @@
               </md-card-content>
             </md-card>
           </div>
-        </div>
-      </div>
-
-
-      <div flex="100" flex-gt-sm="35">
-        <div layout="row" layout-wrap>
-
-          <!-- <div flex-gt-sm="100">
-            <md-card class="b-bl">
-              <md-card-title>
-                <md-card-title-text>
-                  <span class="md-headline" translate>Visits</span>
-                </md-card-title-text>
-              </md-card-title>
-              <md-card-content layout="column" layout-gt-sm="row" id="splash" class="menu-toggle-list">
-                  <img src="https://lh6.googleusercontent.com/-07qNkcH5kiE/UY0TxGZNf9I/AAAAAAAAIdk/50SG0xnQYmk/w850-h519-no/punchcard+2.png" style="width: 100%;height: 100%;"></img>
-              </md-card-content>
-            </md-card>
-          </div> -->
 
           <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
             <md-card class="people-email b-bl">
@@ -176,12 +157,6 @@
             </md-card>
           </div>
 
-        </div>
-      </div>
-
-      <div flex="100" flex-gt-sm="35">
-        <div layout="row" layout-wrap>
-
           <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
             <md-card class="people-devices b-bl">
               <md-card-title>
@@ -248,11 +223,19 @@
             </md-card>
           </div>
 
+
+        </div>
+      </div>
+
+      <div flex="100" flex-gt-sm="60" flex-gt-md="70" flex-gt-lg="70">
+        <div layout="column" layout-wrap>
+
+          <div flex="100" class="timeline-column">
+            <person-timeline></person-timeline>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
-
-  <person-timeline></person-timeline>
 </md-content>
