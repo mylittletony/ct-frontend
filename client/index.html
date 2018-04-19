@@ -225,7 +225,7 @@
           </md-content>
         </md-sidenav>
 
-        <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-1dp"
+        <md-sidenav ng-show="user" class="site-sidenav md-sidenav-left md-whiteframe-1dp"
                     md-component-id="left"
                     aria-label="'Main Menu' | translate"
                     md-whiteframe="4"
@@ -413,6 +413,9 @@
   <script src="components/payloads/payloads.directives.js"></script>
   <script src="components/payloads/payloads.filters.js"></script>
   <script src="components/payloads/payloads.services.js"></script>
+  <script src="components/people/people.directives.js"></script>
+  <script src="components/people/people.services.js"></script>
+  <script src="components/person_timelines/person_timeline.services.js"></script>
   <script src="components/plans/plans.directives.js"></script>
   <script src="components/plans/plans.services.js"></script>
   <script src="components/port_forwards/port_forwards.controller.js"></script>
@@ -440,6 +443,7 @@
   <script src="components/services/triggers.services.js"></script>
   <script src="components/services/users.services.js"></script>
   <script src="components/services/zones.services.js"></script>
+  <script src="components/sms/sms.services.js"></script>
   <script src="components/social/social.directives.js"></script>
   <script src="components/social/social.services.js"></script>
   <script src="components/speedtests/speedtests.controller.js"></script>

@@ -189,6 +189,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       templateUrl: 'components/views/brands/theme/index.html',
       resolve: { loginRequired: loginRequired },
     }).
+    when('/timeline/:person_id', {
+      templateUrl: 'components/people/timeline.html'
+    }).
     when('/apps', {
       templateUrl: 'components/apps/index.html',
       resolve: { loginRequired: loginRequired }
@@ -578,6 +581,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     }).
     when('/locations/:id/audit', {
       templateUrl: 'components/locations/audit/index.html',
+      controller: 'LocationsCtrl as lc',
+      resolve: { loginRequired: loginRequired }
+    }).
+    when('/locations/:id/people/:person_id', {
+      templateUrl: 'components/locations/people/show.html',
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
