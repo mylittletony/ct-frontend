@@ -413,9 +413,6 @@
                 </md-input-container>
 
                 <small hide show-gt-sm ng-show="splash.newsletter_type == 3"><translate>'Internal Only' saves email in dashboard but doesn't subscribe to external service like MailChimp.</translate></small>
-                <md-switch class="md-accent" ng-model="splash.single_opt_in" aria-label="{{ 'Enabled Email Opt Out' | translate }}" ng-disabled="!splash.newsletter_active || splash.newsletter_type != 1" ng-show="splash.newsletter_type == 1">
-                  <span translate>Skip MailChimp Confirmation</span>
-                </md-switch>
 
               </md-card-content>
             </md-card>
