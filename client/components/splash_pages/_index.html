@@ -47,7 +47,7 @@
             <tr md-row>
               <th md-column md-order-by="active"><span translate>Active</span></th>
               <th hide show-gt-sm md-column md-order-by="splash_name"><span translate>Name</span></th>
-              <th md-column md-order-by="primary_access"><span translate>Type</span></th>
+              <th md-column md-order-by="primary_access"><span translate>Login Type</span></th>
               <th md-column hide show-gt-sm><span translate>Tags</span></th>
               <th hide show-gt-sm md-column><span translate>Network</span></th>
               <th hide show-gt-sm md-column md-order-by="weight"><span translate>Weight</span></th>
@@ -69,10 +69,36 @@
                 </md-tooltip>
               </td>
               <td md-cell>
-                {{ splash.primary_access | translatablePrimaryAccess}}
-                <md-tooltip hide-gt-sm>
-                  <translate>Name {{ splash.splash_name }}</translate>
-                </md-tooltip>
+                <span ng-show="splash.fb_login_on">
+                  <img class="login-type-icon" src="https://d247kqobagyqjh.cloudfront.net/api/file/WUhzu2zRTremUtlXxALC"/>
+                  <md-tooltip>
+                    <translate>Facebook</translate>
+                  </md-tooltip>
+                </span>
+                <span ng-show="splash.g_login_on">
+                  <img class="login-type-icon" src="https://d247kqobagyqjh.cloudfront.net/api/file/K3YDlqzUQzIavvIEkesC"/>
+                  <md-tooltip>
+                    <translate>Google</translate>
+                  </md-tooltip>
+                </span>
+                <span ng-show="splash.tw_login_on">
+                  <img class="login-type-icon" src="https://d247kqobagyqjh.cloudfront.net/api/file/PdwjF22TTiqOHvzQcksA"/>
+                  <md-tooltip>
+                    <translate>Twitter</translate>
+                  </md-tooltip>
+                </span>
+                <span ng-show="splash.backup_sms">
+                  <img class="login-type-icon" src="https://d247kqobagyqjh.cloudfront.net/api/file/dQGVIHdTyGo8kiBLjYQB"/>
+                  <md-tooltip>
+                    <translate>SMS</translate>
+                  </md-tooltip>
+                </span>
+                <span ng-show="splash.backup_email">
+                  <img class="login-type-icon" src="https://d247kqobagyqjh.cloudfront.net/api/file/nt0LfEXlTpWhoKVSW706"/>
+                  <md-tooltip>
+                    <translate>Email</translate>
+                  </md-tooltip>
+                </span>
               </td>
               <td hide show-gt-sm md-cell>
                 <span ng-if="splash.tags && splash.tags.length > 1">

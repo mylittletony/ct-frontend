@@ -1107,3 +1107,11 @@ img.timeline-avatar {
   width: 40px;
   border-radius: 420px;
 }
+
+/*  */
+
+.login-type-icon {
+  max-height: 30px;
+  max-width: 30px;
+  margin-right: 5px;
+}
