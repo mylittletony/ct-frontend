@@ -47,12 +47,6 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
       });
 
       scope.menu.push({
-        name: gettextCatalog.getString('Design'),
-        icon: 'format_paint',
-        type: 'design'
-      });
-
-      scope.menu.push({
         name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
@@ -787,7 +781,7 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
         splash_page: splash
       }).$promise.then(function(res) {
         scope.splash.updating = undefined;
-        showToast(gettextCatalog.getString('Layout successfully updated.'));
+        showToast(gettextCatalog.getString('Splash page successfully updated.'));
       }, function(err) {
         showErrors(err);
         scope.splash.updating = undefined;
