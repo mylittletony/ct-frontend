@@ -48,12 +48,12 @@
                     </md-checkbox>
                   </div>
                   <div flex="50">
-                    <md-checkbox ng-model="splash.backup_voucher" name="backup_voucher" type="checkbox">
+                    <md-checkbox ng-model="splash.backup_vouchers" name="backup_vouchers" type="checkbox">
                       <translate>Voucher</translate>
                     </md-checkbox>
                   </div>
                   <div flex="50">
-                    <md-checkbox ng-model="splash.backup_codes" name="backup_codes" type="checkbox">
+                    <md-checkbox ng-model="splash.backup_quick_codes" name="backup_codes" type="checkbox">
                       <translate>Quick Codes</translate>
                     </md-checkbox>
                   </div>
@@ -132,7 +132,7 @@
               </md-card-content>
             </md-card>
 
-            <md-card ng-if="splash.backup_voucher">
+            <md-card ng-if="splash.backup_vouchers">
               <md-card-title>
                 <md-card-title-text>
                   <span class="md-headline" translate>
@@ -148,12 +148,6 @@
                   <md-switch class="md-accent" ng-model="splash.shop_active" aria-label="Enable Shop">
                     <translate>Shop {{ splash.shop_active ? 'Enabled' : 'Disabled' }}</translate>
                   </md-switch>
-                  <md-switch class="md-accent" ng-model="splash.forgot_password_link" aria-label="Forgot Password" ng-disabled="!splash.shop_active">
-                    <translate>Forgot Password Link</translate>
-                  </md-switch>
-                  <md-switch class="md-accent" ng-model="splash.unified_login_code" aria-label="Unified Login">
-                    <translate>Unified Login Code</translate>
-                  </md-switch>
                 </div>
               </md-card-content>
               <md-card-actions layout="row" layout-align="end center">
@@ -161,7 +155,7 @@
               </md-card-actions>
             </md-card>
 
-            <md-card ng-if="splash.backup_codes">
+            <md-card ng-if="splash.backup_quick_codes">
               <md-card-title>
                 <md-card-title-text>
                   <span class="md-headline" translate>
@@ -456,6 +450,7 @@
                     <span ng-show="splash.powered_by" translate>'Powered By' Visible</span>
                     <span ng-show="!splash.powered_by" translate>'Powered By' Hidden</span>
                   </md-switch>
+                  <small ng-if="!splash.powered_by">By hiding this you are required to add your own terms</small>
                 </div>
               </md-card-content>
             </md-card>
@@ -530,14 +525,6 @@
                   </div>
                 </div>
                 <div flex-gt-sm="100">
-
-                  <md-switch class="md-accent" ng-model="splash.tagged_logins" aria-label="tagged logins" ng-change="updateLocation()">
-                    <span translate>Tagged Logins</span>
-                  </md-switch>
-
-                  <md-switch class="md-accent" ng-model="splash.vsg_enabled" aria-label="vsg_enabled">
-                    <span translate>Ruckus VSZ</span>
-                  </md-switch>
 
                   <md-switch class="md-accent" ng-model="splash.display_console" aria-label="debug">
                     <span translate>Debug Mode</span>
@@ -1369,16 +1356,12 @@
                   <label>
                     <translate>Terms URL</translate>
                   </label>
-                  <input ng-model="splash.terms_url" placeholder="{{ 'Terms URL' | translate }}" type='url' name="terms_url" ng-maxlength='255' required></input>
+                  <input ng-model="splash.terms_url" placeholder="{{ 'Terms URL' | translate }}" type='url' name="terms_url" ng-maxlength='255' ng-required='!splash.powered_by'></input>
                   <div ng-messages="myForm.terms_url.$error">
                     <div ng-message="md-maxlength" translate>Must be less than 250 characters.</div>
                     <div ng-message="url" translate>Must be a valid URL including http(s).</div>
                   </div>
                 </md-input-container>
-                <md-switch ng-model="splash.hide_terms" aria-label="{{'Switch 1' | translate }}" ng-false-value="true" ng-true-value="false" style="margin-top: -30px">
-                  <span ng-if="splash.hide_terms == true" translate>Terms &amp; Conditions Hidden</span>
-                  <span ng-if="splash.hide_terms == false" translate>Terms &amp; Conditions Visible</span>
-                </md-switch>
               </md-card-content>
             </md-card>
           </div>
