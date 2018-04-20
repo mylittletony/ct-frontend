@@ -510,6 +510,62 @@
   <div flex="75" hide show-gt-xs >
     <div class="designer" ng-hide="loading">
       <img class="powered-by" ng-if="splash.powered_by" src="https://d247kqobagyqjh.cloudfront.net/api/file/KflR9VnS1KUuKOCOmFAo"></img>
+      <div class="gdpr-slider" ng-show="splash.gdpr_demo">
+        <div class="gdpr-tab">
+          <img src="https://d247kqobagyqjh.cloudfront.net/api/file/8Zw1a8xJQbCqGIjVOJF6"></img>
+        </div>
+        <div class="gdpr-body">
+          <div class="row align-center">
+            <div class="small-12">
+              <form id="gdpr-form">
+                <fieldset class="gdpr-fields">
+                  <legend>You must accept the terms of service</legend>
+                  <div>
+                    <p>Read CT's full terms of service <a href="https://www.ct-networks.io/terms/users/" target="_blank">here.</a></p>
+                    <input id="ct_terms" type="checkbox" required><label for="ct_terms">I agree to the terms of service</label><br>
+                  </div>
+                </fieldset>
+                <div ng-if="!splash.newsletter_consent">
+                  <fieldset class="gdpr-fields">
+                    <legend>How would you like to hear from us?</legend>
+                    <p>{{splash.gdpr_contact_message}}</p>
+                    <div ng-if="splash.backup_email">
+                      <input id="email_consent" type="checkbox">
+                      <label for="email_consent">{{splash.gdpr_email_field}}</label>
+                      <br>
+                    </div>
+                    <div ng-if="splash.backup_sms">
+                      <input id="sms_consent" type="checkbox">
+                      <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
+                      <br>
+                    </div>
+                  </fieldset>
+                </div>
+                <div ng-if="splash.newsletter_consent">
+                  <fieldset class="gdpr-fields">
+                    <legend>Confirm that you agree to be contacted via the below methods</legend>
+                    <p>{{splash.gdpr_contact_message}}</p>
+                    <div ng-if="splash.backup_email">
+                      <input id="email_consent" type="checkbox" required>
+                      <label for="email_consent">{{splash.gdpr_email_field}}</label>
+                      <br>
+                    </div>
+                    <div ng-if="splash.backup_sms">
+                      <input id="sms_consent" type="checkbox" required>
+                      <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
+                      <br>
+                    </div>
+                  </fieldset>
+                </div>
+                <div>
+                  <button class="button btn gdpr-submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="dc design-container">
         <div class="splash-container md-padding">
           <div style="height: 150px" ng-hide="splash.header_image_name || splash.logo_file_name">
