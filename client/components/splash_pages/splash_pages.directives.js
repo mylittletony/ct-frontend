@@ -47,12 +47,6 @@ app.directive('listSplash', ['SplashPage', '$routeParams', '$location', 'showToa
       });
 
       scope.menu.push({
-        name: gettextCatalog.getString('Design'),
-        icon: 'format_paint',
-        type: 'design'
-      });
-
-      scope.menu.push({
         name: gettextCatalog.getString('Delete'),
         icon: 'delete_forever',
         type: 'delete'
@@ -597,117 +591,206 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
 
 }]);
 
-app.directive('splashDesignerForm', ['$compile', function($compile) {
+app.directive('splashDesignerForm', ['SplashPage', 'Location', '$compile', function(SplashPage, Location, $compile) {
 
   var link = function(scope,element,attrs) {
 
     var leform;
 
+    scope.splash = angular.fromJson(scope.s);
+
     var init = function() {
       switch(attrs.access) {
-      case '1':
-        leform = '<input type="password" class="design-input" placeholder="What\'s the password?">';
-        break;
-      case '2':
-        leform =
-          '<label>Enter your username</label><br>'+
-          '<input style="display:none" type="text" name="fakeinput"/>'+
-          '<input style="display:none" type="password" name="fakeinput"/>'+
-          '<input type="text" class="design-input" disabled placeholder="What\'s your username"><br>' +
-          '<label>Enter your password</label><br>'+
-          '<input type="password" class="design-input" disabled placeholder="What\'s the password"><br>' +
-          '<button class=\'btn\'>{{ btn_text }}</button>';
-          break;
-      case '3':
-        leform =
-          '<button class=\'btn\'>{{ btn_text }}</button>';
-          break;
-      case '7':
-        leform =
-          '<p class=\'btn social des-facebook\'>Facebook</p>';
-        break;
-      case '8':
-        leform =
-          '<p><small>Your other fields will show on the live page.</small></p>' +
-          '<label>Enter your username</label><br>'+
-          '<input style="display:none" type="text" name="fakeinput"/>'+
-          '<input style="display:none" type="password" name="fakeinput"/>'+
-          '<input type="text" class="design-input" disabled placeholder="What\'s your username"><br>' +
-          '<label>Enter your password</label><br>'+
-          '<input type="password" class="design-input" disabled placeholder="What\'s the password"><br>' +
-          '<button class=\'btn\'>{{ btn_text }}</button>';
-          break;
       default:
         leform =
-          '<button>{{ btn_text }}</button>';
-          // default code block
+          '<span ng-show=\'splash.fb_login_on\'><a class=\'social des-facebook\'>Continue with Facebook</a><br></span>'+
+          '<span ng-show=\'splash.g_login_on\'><a class=\'social des-google\'>Continue with Google</a><br></span>'+
+          '<span ng-show=\'splash.tw_login_on\'><a class=\'social des-twitter\'>Continue with Twitter</a><br></span>'+
+          '<span ng-show=\'splash.backup_sms\'><a class=\'social des-sms\'>Continue with SMS</a><br></span>'+
+          '<span ng-show=\'splash.backup_email\'><a class=\'social des-email\'>Continue with Email</a><br></span>'+
+          '<span ng-show=\'splash.backup_password\'><a class=\'social des-password\'>Continue with Password</a><br></span>'+
+          '<span ng-show=\'splash.backup_vouchers\'><a class=\'social des-voucher\'>Continue with Voucher</a><br></span>'+
+          '<span ng-show=\'splash.backup_quick_codes\'><a class=\'social des-codes\'>Continue with Quick Codes</a><br></span>'+
+          '<span ng-show=\'!splash.fb_login_on && !splash.g_login_on && !splash.tw_login_on && !splash.backup_sms && !splash.backup_email && !splash.backup_password && !splash.backup_vouchers && !splash.backup_quick_codes\'><button class=\'btn\'>Login Now</button></span>'
       }
       var template = $compile('<div>' + leform + '</div>')(scope);
       var compileForm = function() {};
       element.html(template);
     };
 
-    attrs.$observe('btntext', function(id) {
-      if (id !== '') {
-        scope.btn_text = attrs.btntext;
-        init();
-      }
-    });
+    init();
 
   };
 
   return {
     link: link,
-    scope: {
-      access: '@',
-      btntext: '@'
-    }
   };
 
 }]);
 
-app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$routeParams', '$q', 'menu', 'designer', '$timeout', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', function(Location, SplashPage, SplashPageForm, $routeParams, $q, menu, designer, $timeout, showToast, showErrors, $rootScope, gettextCatalog) {
+app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$route', '$routeParams', '$q', 'menu', '$location', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', '$mdDialog', 'moment', function(Location, SplashPage, SplashPageForm, $route, $routeParams, $q, menu , $location, showToast, showErrors, $rootScope, gettextCatalog, $mdDialog, moment) {
 
   var link = function(scope,element,attrs) {
 
     menu.hideToolbar = true;
     menu.isOpen = false;
-    scope.location = { slug: $routeParams.id };
     scope.splash = { id: $routeParams.splash_page_id };
+    scope.location = { slug: $routeParams.id };
+    scope.timezones = moment.tz.names();
+
+    scope.networks = function() {
+      $mdDialog.show({
+        templateUrl: 'components/splash_pages/_networks.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: NetworksController,
+        locals: {
+          splash: scope.splash
+        }
+      });
+    };
+
+    var NetworksController = function($scope, splash) {
+      $scope.loading = true;
+      $scope.splash = splash;
+      // $scope.pristine = true;
+      $scope.networks = scope.networks;
+      $scope.selected = [];
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+
+      angular.forEach(scope.splash.networks, function (active) {
+        angular.forEach($scope.networks, function (value, index) {
+          if (value.id === active) {
+            $scope.selected.push($scope.networks[index]);
+          }
+        });
+      });
+
+      $scope.loading = undefined;
+
+      $scope.update = function() {
+        $scope.splash.networks = [];
+        for (var i = 0; i < $scope.selected.length; i++) {
+          $scope.splash.networks.push($scope.selected[i].id);
+        }
+        $mdDialog.cancel();
+        updateCT();
+      };
+
+    };
+    NetworksController.$inject = ['$scope', 'splash'];
+
+    var dupSplash = function(copy_to,msg,destroy) {
+      SplashPage.duplicate({
+        location_id: scope.location.slug,
+        id: scope.splash.id,
+        copy_to: copy_to,
+        destroy: destroy
+      }).$promise.then(function(results) {
+        showToast(msg || gettextCatalog.getString('Splash Page Duplicated.'));
+        if (msg) {
+          scope.back();
+        }
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.duplicate = function() {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Duplicate Splash'))
+      .textContent(gettextCatalog.getString('Are you sure you want to duplicate this splash page?'))
+      .ariaLabel(gettextCatalog.getString('Duplicate Splash'))
+      .ok(gettextCatalog.getString('Duplicate'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        dupSplash();
+      }, function() {
+      });
+    };
+
+    var setDefaults = function() {
+      scope.uploadLogo = (scope.splash.header_image_name === null && scope.splash.logo_file_name === null);
+      scope.splash.periodic_days = [];
+      if (scope.splash.available_days === null) {
+        scope.splash.available_days = [];
+      }
+      scope.splash.userdays = [];
+      if (scope.splash.passwd_change_day === null) {
+        scope.splash.passwd_change_day = [];
+      }
+      scope.splash.periodic_days = [];
+
+      if (scope.splash.available_days === null) {
+        scope.splash.available_days = [];
+      }
+      if (scope.splash.passwd_change_day === undefined) {
+        scope.splash.passwd_change_day = [];
+      }
+      console.log(scope.splash.walled_gardens);
+      if (scope.splash.walled_gardens && scope.splash.walled_gardens.length) {
+        scope.splash.walled_gardens_array = scope.splash.walled_gardens.split(',');
+      } else {
+        scope.splash.walled_gardens_array = [];
+      }
+    };
 
     var init = function() {
       return SplashPage.query({
         location_id: scope.location.slug,
-        id: scope.splash.id,
-        designer: true
+        id: $routeParams.splash_page_id,
       }).$promise.then(function(res) {
-        scope.splash      = res.splash_page;
-        designer.splash   = scope.splash;
-        scope.uploadLogo  = (scope.splash.header_image_name === null && scope.splash.logo_file_name === null);
-        $timeout(function() {
-          menu.Designer = true;
-          scope.loading     = undefined;
-        }, 500);
+        scope.splash = res.splash_page;
+        setDefaults();
+        scope.loading = undefined;
       }, function() {
-        scope.loading     = undefined;
-        scope.errors      = true;
+        scope.loading = undefined;
+        scope.errors = true;
       });
     };
 
-    designer.save = function(splash, form) {
+    var formatWalledGardens = function(splash) {
+      return splash.walled_gardens_array.join(',');
+    };
+
+    var create = function() {
+      scope.splash.walled_gardens = formatWalledGardens(scope.splash);
+      SplashPage.create({}, {
+        location_id: scope.location.slug,
+        splash_page: scope.splash
+      }).$promise.then(function(results) {
+        $location.path('/' + $routeParams.id + '/splash_pages/' + results.splash_page.id);
+        showToast(gettextCatalog.getString('Splash created successfully'));
+        window.amplitude.getInstance().identify(identify);
+        window.amplitude.getInstance().logEvent('Created New Splash Page');
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    var save = function(splash, form) {
+      if (form) { form.$setPristine(); }
       scope.splash.updating = true;
+      splash.walled_gardens = formatWalledGardens(scope.splash);
+
       SplashPage.update({
         location_id: scope.location.slug,
         id: scope.splash.id,
         splash_page: splash
       }).$promise.then(function(res) {
         scope.splash.updating = undefined;
-        form.$setPristine();
-        showToast(gettextCatalog.getString('Layout successfully updated.'));
+        showToast(gettextCatalog.getString('Splash page successfully updated.'));
       }, function(err) {
         showErrors(err);
         scope.splash.updating = undefined;
       });
+    };
+
+    scope.save = function(splash, form) {
+      if (scope.splash.id) { save(splash, form); } else { create(); }
     };
 
     scope.setTrans = function() {
@@ -722,18 +805,6 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
       scope.update(scope.splash);
     };
 
-    // scope.align_logo = function(align) {
-    //   scope.splash.logo_position = align;
-    // };
-
-    // scope.align_container = function(align) {
-    //   scope.splash.container_float = align;
-    // };
-
-    // scope.align_text = function(align) {
-    //   scope.splash.container_text_align = align;
-    // };
-
     scope.swapToWelcome = function() {
       if (scope.welcomeEditing === undefined) {
         scope.welcomeEditing = true;
@@ -746,45 +817,164 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
       }
     };
 
-    designer.deleteBg = function(splash,form) {
+    scope.deleteBg = function(splash,form) {
       splash.background_image_name = '';
-      designer.save(splash,form);
+      scope.save(splash,form);
     };
 
-    designer.back = function() {
+    scope.deleteAd = function(splash,form) {
+      splash.popup_image = '';
+      scope.save(splash,form);
+    };
+
+    scope.back = function() {
       window.history.back();
     };
 
-    designer.preview = function() {
+    scope.preview = function() {
       window.open('http://app.my-wifi.co/'+scope.splash.unique_id+'?cmd=login&mac=FF-FF-FF-FF-FF-FF&apname='+scope.splash.preview_mac+'&vcname=instant-C6:3C:E8','winname','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1000,height=800');
-
     };
 
-    designer.toggle = function(section) {
+    scope.toggle = function(section) {
+      scope.logicTypeAccordian = undefined;
       menu.toggleSelectSection(section);
     };
 
-    designer.isOpen = function(section) {
+    scope.logicTypeAccordian = true;
+    scope.isOpen = function(section) {
       return menu.isSectionSelected(section);
     };
 
-    designer.fonts = [
-      '"Helvetica Neue",sans-serif', 'Arial, "Helvetica Neue", Helvetica, sans-serif', 'Baskerville, "Times New Roman", Times, serif', 'Century Gothic", "Apple Gothic", sans-serif"', '"Copperplate Light", "Copperplate Gothic Light", serif', '"Courier New", Courier, monospace, Futura, "Century Gothic", AppleGothic, sans-serif"', 'Garamond, "Hoefler Text", "Times New Roman", Times, serif"', 'Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif', 'Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif', 'Helvetica, Arial, sans-serif', '"Helvetica Neue", Arial, Helvetica, sans-serif', 'Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif"', '"Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif', '"Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif"', 'Verdana, Geneva, Tahoma, sans-serif', '"Deck Light"'];
+    scope.editSettings = function () {
+      window.location = window.location.href.replace('/design','');
+    };
+
+    scope.fonts = [
+      '\'Helvetica Neue\', Arial, Helvetica, sans-serif',
+      'Baskerville, "Times New Roman", Times, serif',
+      'Century Gothic", "Apple Gothic", sans-serif"',
+      '"Copperplate Light", "Copperplate Gothic Light", serif',
+      '"Courier New", Courier, monospace, Futura, "Century Gothic", AppleGothic, sans-serif"',
+      'Garamond, "Hoefler Text", "Times New Roman", Times, serif"',
+      'Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif',
+      'Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif',
+      'Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif"',
+      '"Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif',
+      '"Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif"',
+      'Verdana, Geneva, Tahoma, sans-serif',
+    ];
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       menu.hideToolbar = false;
       menu.isOpen = true;
     });
 
-    init();
+    scope.access_restrict = [{ key: gettextCatalog.getString('Off'), value: 'none'}, {key: gettextCatalog.getString('Periodic'), value: 'periodic'}, {key: gettextCatalog.getString('Data Downloaded'), value: 'data' }, {key: gettextCatalog.getString('Timed Access'), value: 'timed'}];
+    scope.integrations = [{ key: gettextCatalog.getString('Off'), value: 0 }, { key: 'MailChimp', value: 1}, {key: 'CampaignMonitor', value: 2}, {key: 'SendGrid', value: 4}, {key: gettextCatalog.getString('Internal only'), value: 3 }];
+    scope.slider = {};
+    scope.slider.download_speed = 1024;
+    scope.slider.upload_speed = 1024;
+
+    scope.updateNews = function() {
+      if ((scope.splash.newsletter_type === '0' || scope.splash.newsletter_type === 0) && scope.splash.newsletter_active === true) {
+        scope.splash.newsletter_active = false;
+      } else if ((scope.splash.newsletter_type !== '0' && scope.splash.newsletter_type !== 0) && scope.splash.newsletter_active === false) {
+        scope.splash.newsletter_active = true;
+      }
+      if (scope.splash.newsletter_type === '4') {
+        scope.newsletter_placeholder = placeholderNewsletterPass;
+      } else {
+        scope.newsletter_placeholder =  placeholderNewsletterToken;
+      }
+    };
+
+    if (!$routeParams.splash_page_id) {
+      scope.splash = {
+        'available_start': '00:00',
+        'available_end': '00:00',
+      	'primary_access_id': 20,
+      	'splash_name': 'MIMO Splash',
+      	'active': true,
+      	'passwd_change_day': [],
+        'passwd_auto_gen': false,
+        'fb_login_on': false,
+        'info': 'Welcome, please login below.',
+      	'backup_sms': false,
+      	'backup_email': true,
+      	'access_restrict': 'none',
+      	'powered_by': true,
+      	'newsletter_active': false,
+      	'newsletter_checked': true,
+      	'newsletter_type': 0,
+      	'walled_gardens': '',
+      	'design_id': 1,
+      	'logo_file_name': 'https://d247kqobagyqjh.cloudfront.net/api/file/aZgRK0aqQ1a8o8c5mCjy',
+      	'background_image_name': 'https://d247kqobagyqjh.cloudfront.net/api/file/DhOaaHbNQEu3WMnSzEIo',
+      	'header_image_type': 1,
+      	'header_text': 'Sign In Below',
+      	'container_width': '850px',
+      	'container_text_align': 'center',
+      	'body_background_colour': '#FFFFFF',
+      	'heading_text_colour': 'rgb(50, 50, 73)',
+      	'body_text_colour': 'rgb(50, 50, 73)',
+      	'border_colour': 'rgba(255, 255, 255, 0)',
+      	'link_colour': 'rgb(66, 103, 178)',
+      	'container_colour': 'rgba(255, 255, 255, 0)',
+      	'button_colour': 'rgb(50, 50, 73)',
+      	'button_radius': '8px',
+      	'button_border_colour': 'rgb(50, 50, 73)',
+      	'button_padding': '0px 16px',
+      	'button_shadow': false,
+      	'container_shadow': false,
+      	'header_colour': '#FFFFFF',
+      	'error_colour': '#ED561B',
+      	'container_transparency': 1,
+      	'container_float': 'center',
+      	'container_inner_width': '100%',
+      	'container_inner_padding': '20px',
+      	'container_inner_radius': '8px',
+      	'bg_dimension': 'full',
+      	'words_position': 'right',
+      	'logo_position': 'center',
+      	'hide_terms': false,
+        'font_family': '\'Helvetica Neue\', Arial, Helvetica, sans-serif',
+      	'body_font_size': '14px',
+      	'heading_text_size': '22px',
+      	'heading_2_text_size': '16px',
+      	'heading_2_text_colour': 'rgb(50, 50, 73)',
+      	'heading_3_text_size': '14px',
+      	'heading_3_text_colour': 'rgb(50, 50, 73)',
+      	'btn_text': 'Login Now',
+      	'btn_font_size': '18px',
+      	'btn_font_colour': 'rgba(255, 255, 255, 0.9)',
+      	'input_required_colour': '#CCC',
+      	'show_welcome': false,
+      	'input_height': '40px',
+      	'input_padding': '0px 15px',
+      	'input_border_colour': '#d0d0d0',
+      	'input_border_radius': '0px',
+      	'input_border_width': '1px',
+      	'input_background': '#FFFFFF',
+      	'input_text_colour': '#3D3D3D',
+      	'input_max_width': '400px',
+      	'footer_text_colour': '#CCC',
+      	'popup_ad': false,
+      	'popup_background_colour': 'rgb(255,255,255)',
+      	'periodic_days': [],
+      	'userdays': []
+      };
+      setDefaults();
+      scope.loading = undefined;
+    } else {
+      init();
+    }
 
   };
 
   return {
     link: link,
     scope: {
-      loading: '=',
-      fonts: '='
+      loading: '='
     },
     templateUrl: 'components/splash_pages/_designer.html'
   };
@@ -806,19 +996,12 @@ app.directive('splashDesign', [function() {
    };
 }]);
 
-app.directive('designMenu', ['designer', function(designer) {
+app.directive('designMenu', ['designer', 'gettextCatalog', 'menu', function(designer, gettextCatalog, menu) {
   return {
     link: function(scope, element, attrs) {
-      attrs.$observe('ver', function(start) {
-        if (start !== '') {
-          scope.splash = designer;
-          scope.getContentUrl = function() {
-            return 'components/splash_pages/_menu.html';
-          };
-        }
-      });
     },
-    template: '<div ng-include="getContentUrl()"></div>'
+    // template: '<div ng-include="getContentUrl()"></div>'
+    templateUrl: 'components/splash_pages/_menu.html'
    };
 }]);
 

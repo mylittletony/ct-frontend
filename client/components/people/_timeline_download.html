@@ -1,0 +1,33 @@
+<md-dialog aria-label="Subscribe to a plan">
+  <form name="myForm" ng-submit="confirm(email)">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Download Timeline Data</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; min-width:320px">
+      <md-content layout-padding>
+        <div layout="column">
+          <p>Where should we send your user data?</p>
+          <md-input-container flex="100" flex-gt-sm="100" style="margin-bottom:-12px;">
+            <label>
+              <translate>Email Address</translate>
+            </label>
+            <input ng-focus="hideOthers()" ng-model="email" name="sms_message" type="email">
+          </md-input-container>
+        </div>
+        <small class="muted">Please note that you will not be able to do this again for seven days.</small>
+      </md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button style="margin-right:20px;" ng-click="close()">
+        Cancel
+      </md-button>
+      <span flex></span>
+      <md-button style="margin-right:20px;" class="md-raised md-primary" type="submit" ng-disabled="myForm.$invalid || myForm.$pristine">
+        Confirm
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

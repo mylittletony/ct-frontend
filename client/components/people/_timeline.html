@@ -1,0 +1,98 @@
+<md-content layout="row" layout-wrap layout-align="center center">
+
+  <div ng-show="error_message">
+    {{error_message}}
+  </div>
+
+  <div flex="100" layout="row">
+    </div>
+    <md-menu ng-show="portal_request">
+      <md-button ng-click="$mdOpenMenu($event)">
+        <md-icon>more_vert</md-icon>
+      </md-button>
+      <md-menu-content width="4" >
+        <md-menu-item>
+          <md-button ng-click="confirmDownload()">
+            <md-icon>file_download</md-icon><p>Download</p>
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="confirmDestroy()">
+            <md-icon>delete</md-icon><p>Delete data</p>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+  <div flex="100">
+    <md-tabs md-dynamic-height md-border-bottom>
+
+      <md-tab id="tab1">
+        <md-tab-label>Activity</md-tab-label>
+        <md-tab-body>
+
+          <div class="timeline-top"></div>
+          <div layout="column" class="timeline-post" layout-wrap ng-repeat="timeline in timelines">
+            <div class="timeline-icon">
+              <img ng-show="timeline.event == 'sign_in_sms' || timeline.event == 'contact_sms'" src="https://d247kqobagyqjh.cloudfront.net/api/file/dQGVIHdTyGo8kiBLjYQB"></img>
+              <img ng-show="timeline.event == 'sign_in_fb'" src="https://d247kqobagyqjh.cloudfront.net/api/file/WUhzu2zRTremUtlXxALC"></img>
+              <img ng-show="timeline.event == 'sign_in_tw' || timeline.event == 'contact_twitter'" src="https://d247kqobagyqjh.cloudfront.net/api/file/PdwjF22TTiqOHvzQcksA"></img>
+              <img ng-show="timeline.event == 'sign_in_g'" src="https://d247kqobagyqjh.cloudfront.net/api/file/K3YDlqzUQzIavvIEkesC"></img>
+              <img ng-show="timeline.event == 'sign_in_email' || timeline.event == 'contact_email'" src="https://d247kqobagyqjh.cloudfront.net/api/file/nt0LfEXlTpWhoKVSW706"></img>
+            </div>
+            <md-card class="b-bl" ng-if="timeline.event == 'sign_in_sms' || timeline.event == 'sign_in_fb' || timeline.event == 'sign_in_tw' || timeline.event == 'sign_in_g' || timeline.event == 'sign_in_email'">
+              <md-card-content>
+                <md-list flex>
+                  <md-list-item class="md-2-line">
+                    <img src="{{person.profile_photo || 'https://d247kqobagyqjh.cloudfront.net/api/file/Ny9J0MsTtus0xk3e43rh'}}" class="timeline-avatar"/>
+                    <div class="md-list-item-text">
+                      <h3>
+                        <span ng-if="timeline.event == 'sign_in_sms'">Signed in with <b>SMS</b></span>
+                        <span ng-if="timeline.event == 'sign_in_fb'">Signed in with <b>Facebook</b></span>
+                        <span ng-if="timeline.event == 'sign_in_tw'">Signed in with <b>Twitter</b></span>
+                        <span ng-if="timeline.event == 'sign_in_g'">Signed in with <b>Google</b></span>
+                        <span ng-if="timeline.event == 'sign_in_email'">Signed in with <b>Email</b></span>
+                      </h3>
+                      <p>{{timeline.created_at | humanTime}}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+                <p>mac: {{timeline.client_mac}}</p>
+                <p>email: {{timeline.login_email}}</p>
+              </md-card-content>
+            </md-card>
+
+            <md-card class="b-bl" ng-if="timeline.event == 'contact_email' || timeline.event == 'contact_sms' || timeline.event == 'contact_twitter'">
+              <md-card-content>
+                <md-list flex>
+                  <md-list-item class="md-2-line">
+                    <img src="{{person.profile_photo || 'https://d247kqobagyqjh.cloudfront.net/api/file/Ny9J0MsTtus0xk3e43rh'}}" class="timeline-avatar"/>
+                    <div class="md-list-item-text">
+                      <h3>
+                        <span ng-show="timeline.event == 'contact_sms'">You sent an <b>SMS</b> to {{timeline.to}}</span>
+                        <span ng-show="timeline.event == 'contact_twitter'">You sent a <b>Tweet</b> to {{timeline.to}}</span>
+                        <span ng-show="timeline.event == 'contact_email'">You sent an <b>Email</b> to <b>{{timeline.to}}</b></span>
+                      </h3>
+                      <p>{{timeline.created_at | humanTime}}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+                <hr>
+                <div layout="row" layout-align="space-between center" layout-wrap>
+                  <p>State: {{timeline.state}}</p>
+                  <p ng-show="timeline.event == 'contact_email'">Opens: {{timeline.opens}}</p>
+                  <p ng-show="timeline.event == 'contact_email'">Clicks: {{timeline.clicks}}</p>
+                </div>
+                <hr>
+                <p ng-show="timeline.event == 'contact_email'"><b>{{timeline.subject}}</b></p>
+                <p>{{timeline.content}}</p>
+              </md-card-content>
+            </md-card>
+
+          </div>
+          <div class="timeline-bottom"></div>
+        </div>
+      </md-tab>
+    </md-tabs>
+  </div>
+</md-content>

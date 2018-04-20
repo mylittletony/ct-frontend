@@ -34,10 +34,10 @@
       <md-card>
         <md-card-content>
           <div class="md-toolbar-tools">
-            <span translate translate-n="{{links.total_entries}}" translate-plural="{{links.total_entries || 0}} {{selected}}">1 {{selected}}</span><span hide show-gt-sm ng-if="query.start" translate><span ng-if="selected == 'Emails' || selected == 'Sales' || selected == 'Guests' || selected == 'Radius Sessions'">&nbsp;created</span><span ng-if="selected == 'Social' || selected == 'Clients'">&nbsp;seen</span> between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
+            <span translate translate-n="{{links.total_entries}}" translate-plural="{{links.total_entries || 0}} {{selected}}">1 {{selected}}</span><span hide show-gt-sm ng-if="query.start" translate><span ng-if="selected == 'Emails' || selected == 'Sales' || selected == 'Guests' || selected == 'Radius Sessions'">&nbsp;created</span><span ng-if="selected == 'People' || selected == 'Clients'">&nbsp;seen</span> between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
             <div flex></div>
           </div>
-          <md-table-container>
+          <md-table-container ng-show="selected != 'people'">
             <table ng-if="results.length > 0" ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
               <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
@@ -177,8 +177,63 @@
               </tbody>
             </table>
           </md-table-container>
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+              <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th md-column><span translate>Name</span></th>
+                  <th md-column><span translate>Email</span></th>
+                  <th md-column><span translate>Last Seen</span></th>
+                  <th md-column><span translate>First Seen</span></th>
+                  <th md-column><span translate>Visits</span></th>
+                  <th md-column><span translate>Options</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row ng-repeat="person in people">
+                  <td md-cell>
+                    <a href="/#/locations/{{ location.slug }}/people/{{ person.id }}">{{ person.first_name }} {{ person.last_name }}</a>
+                  </td>
+                  <td md-cell>
+                    {{ person.email || 'NA' }}
+                  </td>
+                  <td md-cell>
+                    {{ person.last_seen | humanTimeShortest }}
+                  </td>
+                  <td md-cell>
+                    {{ person.created_at | humanTimeShortest }}
+                  </td>
+                  <td md-cell>
+                    {{ person.login_count || 1 }}
+                  </td>
+                  <td md-cell ng-show="selected != 'people'">
+                    <md-menu md-position-mode="target target">
+                      <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
+                      </md-button>
+                      <md-menu-content width="3">
+                        <md-menu-item>
+                          <md-button ng-href="/#/locations/{{ location.slug }}/people/{{ person.id}}">
+                            <md-icon md-menu-align-target style="margin: auto 3px auto 0;">pageview</md-icon>
+                            <span translate>View</span>
+                          </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                          <md-button ng-click="delete_person(person)">
+                            <md-icon md-menu-align-target style="margin: auto 3px auto 0;">delete_forever</md-icon>
+                            <span translate>Delete</span>
+                          </md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
 
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select ng-if="results.length > 0"></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select ng-show="results.length > 0"></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select ng-show="people.length > 0"></md-table-pagination>
 
         </md-card-content>
       </md-card>
