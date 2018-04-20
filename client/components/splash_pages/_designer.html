@@ -525,38 +525,40 @@
                     <input id="ct_terms" type="checkbox" required><label for="ct_terms">I agree to the terms of service</label><br>
                   </div>
                 </fieldset>
-                <div ng-if="!splash.newsletter_consent">
-                  <fieldset class="gdpr-fields">
-                    <legend>How would you like to hear from us?</legend>
-                    <p>{{splash.gdpr_contact_message}}</p>
-                    <div ng-if="splash.backup_email">
-                      <input id="email_consent" type="checkbox">
-                      <label for="email_consent">{{splash.gdpr_email_field}}</label>
-                      <br>
-                    </div>
-                    <div ng-if="splash.backup_sms">
-                      <input id="sms_consent" type="checkbox">
-                      <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
-                      <br>
-                    </div>
-                  </fieldset>
-                </div>
-                <div ng-if="splash.newsletter_consent">
-                  <fieldset class="gdpr-fields">
-                    <legend>Confirm that you agree to be contacted via the below methods</legend>
-                    <p>{{splash.gdpr_contact_message}}</p>
-                    <div ng-if="splash.backup_email">
-                      <input id="email_consent" type="checkbox" required>
-                      <label for="email_consent">{{splash.gdpr_email_field}}</label>
-                      <br>
-                    </div>
-                    <div ng-if="splash.backup_sms">
-                      <input id="sms_consent" type="checkbox" required>
-                      <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
-                      <br>
-                    </div>
-                  </fieldset>
-                </div>
+                <span ng-hide="!splash.fb_login_on && !splash.g_login_on && !splash.tw_login_on && !splash.backup_sms && !splash.backup_email && !splash.backup_password && !splash.backup_vouchers && !splash.backup_quick_codes">
+                  <div ng-if="!splash.newsletter_consent">
+                    <fieldset class="gdpr-fields">
+                      <legend>How would you like to hear from us?</legend>
+                      <p>{{splash.gdpr_contact_message}}</p>
+                      <div ng-if="splash.backup_email">
+                        <input id="email_consent" type="checkbox">
+                        <label for="email_consent">{{splash.gdpr_email_field}}</label>
+                        <br>
+                      </div>
+                      <div ng-if="splash.backup_sms">
+                        <input id="sms_consent" type="checkbox">
+                        <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
+                        <br>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div ng-if="splash.newsletter_consent">
+                    <fieldset class="gdpr-fields">
+                      <legend>Confirm that you agree to be contacted via the below methods</legend>
+                      <p>{{splash.gdpr_contact_message}}</p>
+                      <div ng-if="splash.backup_email">
+                        <input id="email_consent" type="checkbox" required>
+                        <label for="email_consent">{{splash.gdpr_email_field}}</label>
+                        <br>
+                      </div>
+                      <div ng-if="splash.backup_sms">
+                        <input id="sms_consent" type="checkbox" required>
+                        <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
+                        <br>
+                      </div>
+                    </fieldset>
+                  </div>
+                </span>
                 <div>
                   <button class="button btn gdpr-submit">Submit</button>
                 </div>
