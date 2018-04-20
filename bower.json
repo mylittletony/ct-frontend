@@ -32,6 +32,7 @@
     "emojione": "2.2.7",
     "dragula.js": "3.7.2",
     "angular-moment-picker": "moment-picker#0.1.4",
+    "angular-color-picker": "angularjs-color-picker#^3.4.8",
     "angular-emojione": "*"
   },
   "overrides": {

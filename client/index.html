@@ -32,9 +32,10 @@
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
   <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
   <link rel="stylesheet" href="bower_components/jquery-minicolors/jquery.minicolors.css" />
-  <link rel="stylesheet" href="bower_components/emojione/assets/css/emojione.css" />
+  <link rel="stylesheet" href="bower_components/emojione/extras/css/emojione.css" />
   <link rel="stylesheet" href="bower_components/dragula.js/dist/dragula.css" />
   <link rel="stylesheet" href="bower_components/angular-moment-picker/dist/angular-moment-picker.min.css" />
+  <link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,client}) app/app.css -->
@@ -269,7 +270,7 @@
               ©2018 CT.<br>Build #{{ commit }}</small>
           </div>
         </md-sidenav>
-        <md-content class="intercom-foot-pad" flex>
+        <md-content flex>
           <div ng-view autoscroll="true" ng-class="{'hidden': notFound}"></div>
           <div style="margin: 30px 40px;" ng-class="{'hidden': !notFound}">
             <h3>Weird, the resource was not found. Please try again.</h3>
@@ -280,11 +281,9 @@
 
   </div>
 
-  <md-sidenav flex-xs flex-gt-sm="20" class="design-sidebar md-sidenav-right md-whiteframe-z2" md-component-id="" md-is-locked-open="vm.menu.Designer == true">
-    <md-content layout-padding>
-      <design-menu ver="designer"></design-menu>
-    </md-content>
-  </md-sidenav>
+  <!-- <md-sidenav flex-xs flex-gt-sm="20" class="design-sidebar md-sidenav-right md-whiteframe-z2" md-component-id="" md-is-locked-open="vm.menu.Designer == true">
+    <design-menu ver="designer"></design-menu>
+  </md-sidenav> -->
 
   <!--[if lt IE 9]>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -326,6 +325,8 @@
   <script src="bower_components/emojionearea/dist/emojionearea.js"></script>
   <script src="bower_components/dragula.js/dist/dragula.js"></script>
   <script src="bower_components/angular-moment-picker/dist/angular-moment-picker.min.js"></script>
+  <script src="bower_components/tinycolor/tinycolor.js"></script>
+  <script src="bower_components/angular-color-picker/dist/angularjs-color-picker.js"></script>
   <script src="bower_components/angular-emojione/angular-emojione.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
