@@ -4,7 +4,6 @@
       <md-tab-label>Access</md-tab-label>
       <md-tab-body>
         <md-content layout-padding>
-
           <md-button class="md-no-style" ng-click="toggle('loginType')" aria-controls="theme">
             <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('loginType') ? "up" : "down" }}</md-icon>
             <translate>Login Type</translate>
@@ -21,7 +20,7 @@
                   </div>
                 </div>
               </md-card-content>
-              <md-card-content ng-show="!splash.primary_access_id == 8">
+              <md-card-content ng-show="splash.primary_access_id !== 8">
                 <div layout="row" layout-wrap>
                   <div flex="100">
                     <p style="margin-top:0px;">What login types do you want to offer?</p>
@@ -1350,13 +1349,14 @@
             </md-card>
           </div>
 
-          <md-button class="md-no-style" ng-click="toggle('terms')" aria-controls="theme">
-            <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('terms') ? "up" : "down" }}</md-icon>
-            <translate>Terms</translate>
+          <md-button class="md-no-style" ng-click="toggle('consent')" aria-controls="theme">
+            <md-icon md-font-icon="keyboard_down">keyboard_arrow_{{ isOpen('consent') ? "up" : "down" }}</md-icon>
+            <translate>Consent Form</translate>
           </md-button>
 
-          <div ng-show="isOpen('terms')" id="terms" class="menu-toggle-list" layout="column">
-            <md-card>
+          <div ng-if="isOpen('consent')" id="consent" class="menu-toggle-list" layout="column">
+
+            <md-card ng-show="!splash.powered_by">
               <md-card-content>
                 <md-input-container class="md-block">
                   <label>
@@ -1368,6 +1368,67 @@
                     <div ng-message="url" translate>Must be a valid URL including http(s).</div>
                   </div>
                 </md-input-container>
+              </md-card-content>
+            </md-card>
+
+            <md-card>
+              <md-card-title>
+                <md-card-title-text layout="row" layout-align="space-between center">
+                  <span class="md-headline" translate>GDPR Form</span>
+                  <md-button ng-click="splash.gdpr_demo = !splash.gdpr_demo" class="md-icon-button {{ splash.gdpr_demo ? 'md-accent' : '' }}">
+                    <md-icon md-font-icon="visibility">{{ splash.gdpr_demo ? 'visibility' : 'visibility_off' }}</md-icon>
+                  </md-button>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content>
+                <p>It is a legal requirement to be GDPR compliant if you run a hotspot within the EU.</p>
+                <md-input-container class="md-block" style="margin-bottom:0px;">
+                  <small class="muted label">GDPR Form</small>
+                  <md-switch ng-model="splash.gdpr_form" style="margin: 0px">
+                    <span ng-show="splash.gdpr_form" translate>Enabled</span>
+                    <span ng-show="!splash.gdpr_form" translate>Disabled</span>
+                  </md-switch>
+                </md-input-container>
+                <small ng-show="splash.gdpr_form">You are GDPR compliant.</small>
+                <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
+                <span ng-if="splash.gdpr_form">
+                  <md-input-container class="md-block" style="margin-bottom:0px;">
+                    <small class="muted label">Newsletter Consent</small>
+                    <md-switch ng-model="splash.newsletter_consent" style="margin:0px;">
+                      <span ng-show="splash.newsletter_consent" translate>Required</span>
+                      <span ng-show="!splash.newsletter_consent" translate>Optional</span>
+                    </md-switch>
+                  </md-input-container>
+                  <small ng-show="splash.newsletter_consent">Guests will have to agree to receive updates in order to access the guest WiFi.</small>
+                  <small ng-show="!splash.newsletter_consent">Guests can choose not to agree to receive updates and still access the guest WiFi.</small>
+                  <md-input-container class="md-block">
+                    <label>
+                      <translate>Newsletter Consent Text</translate>
+                    </label>
+                    <textarea ng-model="splash.gdpr_contact_message" placeholder="{{ 'Contact Message'  | translate }}" type='text' rows=2 md-maxlength='250' name="contact" required></textarea>
+                    <div ng-messages="myForm.contact.$error">
+                      <div ng-message="md-maxlength" translate>Must be less than 250 characters.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>
+                      <translate>Email Consent Text</translate>
+                    </label>
+                    <input type='text' ng-model="splash.gdpr_email_field" placeholder="{{'Email Consent'|translate}}" name="email_consent" md-maxlength='150' required></input>
+                    <div ng-messages="myForm.email_consent.$error">
+                      <div ng-message="md-maxlength" translate>Must be less than 250 characters.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block" ng-if="splash.backup_sms">
+                    <label>
+                      <translate>SMS Consent Text</translate>
+                    </label>
+                    <input type='text' ng-model="splash.gdpr_sms_field" placeholder="{{'SMS Consent'|translate}}" name="sms_consent" md-maxlength='150' required></input>
+                    <div ng-messages="myForm.sms_consent.$error">
+                      <div ng-message="md-maxlength" translate>Must be less than 250 characters.</div>
+                    </div>
+                  </md-input-container>
+                </span>
               </md-card-content>
             </md-card>
           </div>

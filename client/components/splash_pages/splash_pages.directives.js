@@ -611,7 +611,7 @@ app.directive('splashDesignerForm', ['SplashPage', 'Location', '$compile', funct
           '<span ng-show=\'splash.backup_password\'><a class=\'social des-password\'>Continue with Password</a><br></span>'+
           '<span ng-show=\'splash.backup_vouchers\'><a class=\'social des-voucher\'>Continue with Voucher</a><br></span>'+
           '<span ng-show=\'splash.backup_quick_codes\'><a class=\'social des-codes\'>Continue with Quick Codes</a><br></span>'+
-          '<span ng-show=\'!splash.fb_login_on && !splash.g_login_on && !splash.tw_login_on && !splash.backup_sms && !splash.backup_email && !splash.backup_password && !splash.backup_vouchers && !splash.backup_quick_codes\'><button class=\'btn\'>Login Now</button><br></span>'
+          '<span ng-show=\'!splash.fb_login_on && !splash.g_login_on && !splash.tw_login_on && !splash.backup_sms && !splash.backup_email && !splash.backup_password && !splash.backup_vouchers && !splash.backup_quick_codes\'><button class=\'btn\'>Login Now</button></span>'
       }
       var template = $compile('<div>' + leform + '</div>')(scope);
       var compileForm = function() {};
