@@ -12,7 +12,16 @@
 
           <div ng-if="logicTypeAccordian || isOpen('loginType')" id="loginType" class="menu-toggle-list" layout="column">
             <md-card>
-              <md-card-content>
+              <md-card-content ng-show="splash.primary_access_id == 8">
+                <div layout="row" layout-wrap>
+                  <div flex="100">
+                    <p>The Registration beta login type is being phased out. We will be replacing it with an improved custom data capture entry form.</p>
+                    <p>In the mean time your splash page will continue to work as-is but you will not be able to change the login type.</p>
+                    <p>Please create a new splash page if you want to use a different login type.</p>
+                  </div>
+                </div>
+              </md-card-content>
+              <md-card-content ng-show="!splash.primary_access_id == 8">
                 <div layout="row" layout-wrap>
                   <div flex="100">
                     <p style="margin-top:0px;">What login types do you want to offer?</p>
@@ -967,7 +976,7 @@
                       </md-input-container>
                     </div>
                   </span>
-                  <span ng-show="splash.backup_voucher">
+                  <span ng-show="splash.backup_vouchers">
                     <div flex="100" flex-gt-sm="100">
                       <md-input-container class="md-block">
                         <label>
@@ -1002,7 +1011,7 @@
                       </md-input-container>
                     </div>
                   </span>
-                  <span ng-show="splash.backup_codes">
+                  <span ng-show="splash.backup_quick_codes">
                     <div flex="100" flex-gt-sm="100">
                       <md-input-container class="md-block">
                         <label>
