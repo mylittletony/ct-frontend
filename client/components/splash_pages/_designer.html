@@ -1,5 +1,9 @@
 <style>
 
+  .intercom-foot-pad {
+    padding: 0px!important;
+  }
+
   .dc {
     font-family: {{ splash.font_family }}!important;
   }
@@ -9,6 +13,8 @@
     font-weight: normal;
     color: {{ splash.heading_text_colour}};
     font-family: {{ splash.font_family }};
+    margin-top: 8px;
+    margin-bottom: 20px;
   }
 
   .dc h2 {
@@ -33,9 +39,10 @@
     font-family: {{ splash.font_family }};
   }
 
-  a {
+  .design-container a {
     color: {{splash.link_colour}};
     font-family: {{ splash.font_family }};
+    text-decoration: none;
   }
 
   .designer .button, button {
@@ -63,6 +70,19 @@
     border-radius: {{ splash.button_radius }};
     background-color: {{splash.button_colour}};
     border-color: {{ splash.button_border_colour }};
+    border-radius: {{splash.button_radius}}!important;
+    box-shadow: {{splash.button_shadow ? '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);' : '0 0px 0px rgba(0,0,0,0.0)'}};
+  }
+
+  a.social {
+    border-radius: {{splash.button_radius}}!important;
+    box-shadow: {{splash.button_shadow ? '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);' : '0 0px 0px rgba(0,0,0,0.0)'}};
+  }
+
+  .designer .btn, .designer button {
+    min-width: 150px;
+    max-width: 400px;
+    width: 95%;
   }
 
   small, .small {
@@ -70,15 +90,15 @@
   }
 
   .design-container {
-    float: {{ splash.container_float }}!important;
-    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .splash-container {
     padding: 0px 0 0 0;
     margin: 0 auto;
     max-width: {{ splash.container_width }};
-    width: 98%;
   }
 
   .ps_inner {
@@ -87,12 +107,10 @@
     display: block;
     background-color: {{ splash.container_colour }}!important;
     opacity: {{ splash.container_transparency }};
-    padding-top: 10px;
-    padding-left: {{ splash.container_inner_padding }};
-    padding-right: {{ splash.container_inner_padding }};
+    padding: {{ splash.container_inner_padding }};
     margin: 0 auto;
-    width: 95%;
-    min-height: 400px;
+    border-radius: {{splash.container_inner_radius}};
+    box-shadow: {{splash.container_shadow ? '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);' : '0 0px 0px rgba(0,0,0,0.0)'}};
   }
 
   .banner {
@@ -115,15 +133,6 @@
     padding: 14px 0;
   }
 
-  .social {
-    margin: 10px 0 0 -5px;
-  }
-
-  .social img {
-    width: 32px;
-    height: 32px;
-  }
-
   #container-c1 {
 
   }
@@ -142,22 +151,31 @@
     margin-top: 0.2rem;
   }
 
-  input.design-input, textarea.designer-input {
+  input.design-input,
+  textarea.designer-input {
     font-family: {{ splash.font_family }}!important;
     max-width: {{ splash.input_max_width || '400px' }}!important;
-    width: 80%;
+    width: 95%;
     margin-left: -7px;
     padding: {{ splash.input_padding}}!important;
-
     border: {{ splash.input_border_width}} solid {{ splash.input_border_colour}}!important;
     border-radius: {{ splash.input_border_radius }}!important;
     box-shadow: inset 0 0px 0px rgb(255, 255, 255)!important;
-    background-color: #ffffff!important;
-
-    border-width: 1px!important;
+    background-color: {{ splash.input_background }}!important;
+    border-width: {{splash.input_border_width}}!important;
     border-color: {{ splash.input_border_width}} solid {{ splash.input_border_colour}}!important;
     margin: 0 0 0.5rem -5px!important;
-    color: #3d3d3d!important;
+    color: {{ splash.input_text_colour }}!important;
+    height: {{splash.input_height}};
+  }
+
+  input:focus {
+    outline:none;
+  }
+
+  input.design-input::placeholder,
+  textarea.designer-input::placeholder {
+    color: {{ splash.input_text_colour }}!important;
   }
 
   .designer label {
@@ -168,7 +186,8 @@
   }
 
   .designer {
-    height:100vh;
+    position: relative;
+    height: 100vh;
     padding: 0 10px 0 10px;
     margin: 0 auto;
     background-image: url({{ splash.background_image_name }} );
@@ -177,29 +196,186 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
   }
 
-  .des-facebook {
-    background-color: #3b5998;
-    min-width: 150px;
-    max-width: 200px;
-    width: 100%;
-    color: white!important;
-    font-weight: bold;
+  a.social, a.social:hover, a.social:focus {
+    color: white;
   }
+
+  .social.des-facebook {
+    background-color: #4267B2;
+    background-image: url(https://d247kqobagyqjh.cloudfront.net/api/file/b2zyjsv5R7ioRZjkywG7);
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: none;
+    padding-left: 4rem;
+  }
+
+  .social.des-facebook:hover,.social.des-facebook:focus {
+    background: #3b5998;
+    background-image: url(https://d247kqobagyqjh.cloudfront.net/api/file/b2zyjsv5R7ioRZjkywG7);
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: none;
+  }
+
+  .social.des-google {
+    background-color: #4285f4;
+    background-image: url(https://d247kqobagyqjh.cloudfront.net/api/file/1FGFU9fQxK6T7fxp5zwd);
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: none;
+    padding-left: 4rem;
+  }
+
+  .social.des-google:hover,.social.des-google:focus {
+    background-color: #2674f2;
+    background-image: url(https://d247kqobagyqjh.cloudfront.net/api/file/1FGFU9fQxK6T7fxp5zwd);
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: none;
+  }
+
+  .social.des-twitter {
+    background-color: #1DA1F2;
+    background-image: url(https://d247kqobagyqjh.cloudfront.net/api/file/GvF246oSHCmO4A4Jqm2w);
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: none;
+    padding-left: 4rem;
+  }
+
+  .social.des-twitter:hover,.social.des-twitter:focus {
+    background: #0d8bd9;
+    background-image: url(https://d247kqobagyqjh.cloudfront.net/api/file/GvF246oSHCmO4A4Jqm2w);
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: none;
+  }
+
+  .social.des-email {
+    background-color: {{splash.email_button_colour}};
+    color: {{splash.email_btn_font_colour}};
+    background-image: url({{splash.email_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/Bo1KkVPRK6xu1otggMJg' : 'https://d247kqobagyqjh.cloudfront.net/api/file/J8r124irRIahUEwwkOrw' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: 1px solid {{splash.email_button_border_colour}}!important;
+    padding-left: 4rem;
+  }
+
+  .social.des-email:hover, .social.des-email:focus {
+    /* background-color: #EEEEEE; */
+    /* color: #000; */
+    background-image: url({{splash.email_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/Bo1KkVPRK6xu1otggMJg' : 'https://d247kqobagyqjh.cloudfront.net/api/file/J8r124irRIahUEwwkOrw' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+  }
+
+  .social.des-sms {
+    background-color: {{splash.sms_button_colour}};
+    color: {{splash.sms_btn_font_colour}};
+    background-image: url({{splash.sms_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/NzycMsutRNWPdqVaGoTq' : 'https://d247kqobagyqjh.cloudfront.net/api/file/9nRSJ4QG2CLE5Lhh6qxQ' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: 1px solid {{splash.sms_button_border_colour}}!important;
+    padding-left: 4rem;
+  }
+
+  .social.des-sms:hover, .social.des-sms:focus {
+    /* background-color: #EEEEEE; */
+    /* color: #000; */
+    background-image: url({{splash.sms_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/NzycMsutRNWPdqVaGoTq' : 'https://d247kqobagyqjh.cloudfront.net/api/file/9nRSJ4QG2CLE5Lhh6qxQ' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+  }
+
+  .social.des-voucher {
+    background-color: {{splash.voucher_button_colour}};
+    color: {{splash.voucher_btn_font_colour}};
+    background-image: url({{splash.voucher_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/Pqc5UMwtQ764Brl4a9A2' : 'https://d247kqobagyqjh.cloudfront.net/api/file/oefOuGVjSeqxT3o8JUZO' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: 1px solid {{splash.voucher_button_border_colour}}!important;
+    padding-left: 4rem;
+  }
+
+  .social.des-voucher:hover, .social.des-voucher:focus {
+    /* background-color: #EEEEEE; */
+    /* color: #000; */
+    background-image: url({{splash.voucher_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/Pqc5UMwtQ764Brl4a9A2' : 'https://d247kqobagyqjh.cloudfront.net/api/file/oefOuGVjSeqxT3o8JUZO' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+  }
+
+  .social.des-password {
+    background-color: {{splash.password_button_colour}};
+    color: {{splash.password_btn_font_colour}};
+    background-image: url({{splash.password_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/UDXA7p6KRsC3eJ2Jx1ZN' : 'https://d247kqobagyqjh.cloudfront.net/api/file/anRrI4EmQJOCuq8F7aUe' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: 1px solid {{splash.password_button_border_colour}}!important;
+    padding-left: 4rem;
+  }
+
+  .social.des-password:hover, .social.des-password:focus {
+    /* background-color: #EEEEEE; */
+    /* color: #000; */
+    background-image: url({{splash.password_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/UDXA7p6KRsC3eJ2Jx1ZN' : 'https://d247kqobagyqjh.cloudfront.net/api/file/anRrI4EmQJOCuq8F7aUe' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+  }
+
+  .social.des-codes {
+    background-color: {{splash.codes_button_colour}};
+    color: {{splash.codes_btn_font_colour}};
+    background-image: url({{splash.codes_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/hsHgqCkWS2OIf8P2p23G' : 'https://d247kqobagyqjh.cloudfront.net/api/file/zbxXh1LkSiufAjkzyxai' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+    border: 1px solid {{splash.codes_button_border_colour}}!important;
+    padding-left: 4rem;
+  }
+
+  .social.des-codes:hover, .social.des-codes:focus {
+    /* background-color: #EEEEEE; */
+    /* color: #000; */
+    background-image: url({{splash.codes_button_icon ? 'https://d247kqobagyqjh.cloudfront.net/api/file/hsHgqCkWS2OIf8P2p23G' : 'https://d247kqobagyqjh.cloudfront.net/api/file/zbxXh1LkSiufAjkzyxai' }});
+    background-repeat: no-repeat;
+    background-position: {{splash.button_radius === '9001px' ? '20px' : '10px'}} 10px;
+    background-size: 30px;
+  }
+
 
   .social {
-    margin: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     border-style: solid;
     border-width: 0px;
     cursor: pointer;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-weight: normal;
     line-height: normal;
-    margin: 0 0 1.25rem;
     position: relative;
     text-decoration: none;
     text-align: center;
     -webkit-appearance: none;
-    border-radius: 0;
+    border-radius: 4px;
     display: inline-block;
     padding-top: 1rem;
     padding-right: 2rem;
@@ -210,14 +386,230 @@
     border-color: #007095;
     color: #FFFFFF;
     transition: background-color 300ms ease-out;
+    max-height: 50px;
+    min-width: 150px;
+    max-width: 400px;
+    width: 95%;
+    margin: 10px 0 0 -5px;
+  }
+
+  .social img {
+    width: 32px;
+    height: 32px;
+  }
+
+  #popup_container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%)translateX(-50%);
+  }
+
+  #popup_ad {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    z-index: 100;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    padding: 15px;
+    margin: auto;
+    background: {{splash.popup_background_colour}};
+  }
+
+  #popup_ad img {
+    max-width: 100%;
+    height: auto;
+    max-height: 75vh;
+  }
+
+  #popup_ad .button {
+    margin-bottom: 5px;
+    margin-top: 20px;
+  }
+
+  .gdpr-slider {
+    position: absolute;
+    z-index: 42;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 400ms ease-in-out;
+    bottom: 0px;
+    left: 0px;
+  }
+
+  .gdpr-slider.close {
+    bottom: 0px;
+    height: 29px;
+  }
+
+  .gdpr-tab {
+    height: 29px;
+  }
+
+  .gdpr-tab img {
+    max-height: 30px;
+    margin-bottom: -1px;
+  }
+
+  .gdpr-body {
+    background: white;
+    height: 100%;
+    padding: 20px 20px 40px 20px;
+    border-top: 20px solid white;
+    text-align: center;
+    overflow: scroll;
+  }
+
+  .gdpr-body a {
+    color: #008CBA!important;
+  }
+
+  .gdpr-body p {
+    color: rgba(0,0,0,0.8)!important;
+    font-size: 16px!important;
+  }
+
+   .gdpr-body label {
+    color: rgba(0,0,0,0.8)!important;
+   }
+
+  fieldset.gdpr-fields {
+    border: 1px solid #DDDDDD;
+    padding: 10px 10px 20px 10px;
+    margin-top: 1.125rem;
+    margin-bottom: 10px;
+  }
+
+  .gdpr-fields p {
+    margin-bottom: 0px;
+    margin-top: 10px;
+    font-size: 14px!important;
+  }
+
+  img.powered-by {
+    position: absolute;
+    bottom: 0px;
+    height: 30px;
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 42;
   }
 
 </style>
 
-<div class="designer" ng-hide="loading">
-  <div class="dc design-container">
-    <div class="splash-container md-padding">
-      <splash-design ver='{{ splash.design_id }}'></splash-design>
+<div layout="row">
+  <div flex="75" hide show-gt-xs >
+    <div class="designer" ng-hide="loading">
+      <img class="powered-by" ng-if="splash.powered_by" src="https://d247kqobagyqjh.cloudfront.net/api/file/KflR9VnS1KUuKOCOmFAo"></img>
+      <div class="gdpr-slider" ng-show="splash.gdpr_demo">
+        <div class="gdpr-tab">
+          <img src="https://d247kqobagyqjh.cloudfront.net/api/file/8Zw1a8xJQbCqGIjVOJF6"></img>
+        </div>
+        <div class="gdpr-body">
+          <div class="row align-center">
+            <div class="small-12">
+              <form id="gdpr-form">
+                <fieldset class="gdpr-fields">
+                  <legend>You must accept the terms of service</legend>
+                  <div>
+                    <p>Read CT's full terms of service <a href="https://www.ct-networks.io/terms/users/" target="_blank">here.</a></p>
+                    <input id="ct_terms" type="checkbox" required><label for="ct_terms">I agree to the terms of service</label><br>
+                  </div>
+                </fieldset>
+                <span ng-hide="!splash.fb_login_on && !splash.g_login_on && !splash.tw_login_on && !splash.backup_sms && !splash.backup_email && !splash.backup_password && !splash.backup_vouchers && !splash.backup_quick_codes">
+                  <div ng-if="!splash.newsletter_consent">
+                    <fieldset class="gdpr-fields">
+                      <legend>How would you like to hear from us?</legend>
+                      <p>{{splash.gdpr_contact_message}}</p>
+                      <div ng-if="splash.backup_email">
+                        <input id="email_consent" type="checkbox">
+                        <label for="email_consent">{{splash.gdpr_email_field}}</label>
+                        <br>
+                      </div>
+                      <div ng-if="splash.backup_sms">
+                        <input id="sms_consent" type="checkbox">
+                        <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
+                        <br>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div ng-if="splash.newsletter_consent">
+                    <fieldset class="gdpr-fields">
+                      <legend>Confirm that you agree to be contacted via the below methods</legend>
+                      <p>{{splash.gdpr_contact_message}}</p>
+                      <div ng-if="splash.backup_email">
+                        <input id="email_consent" type="checkbox" required>
+                        <label for="email_consent">{{splash.gdpr_email_field}}</label>
+                        <br>
+                      </div>
+                      <div ng-if="splash.backup_sms">
+                        <input id="sms_consent" type="checkbox" required>
+                        <label for="sms_consent">{{splash.gdpr_sms_field}}</label>
+                        <br>
+                      </div>
+                    </fieldset>
+                  </div>
+                </span>
+                <div>
+                  <button class="button btn gdpr-submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dc design-container">
+        <div class="splash-container md-padding">
+          <div style="height: 150px" ng-hide="splash.header_image_name || splash.logo_file_name">
+          </div>
+
+          <div ng-show="splash.header_image_name != undefined || splash.logo_file_name != undefined" class="" ng-class="splash.header_image_type == 1 ? 'logo location_logo' : 'banner'" ><a href="http://{{ splash.website }}"><img src="{{ splash.header_image_type == 1 ? splash.logo_file_name : splash.header_image_name }}" alt="" class=""></a></div>
+
+          <div class="ps_inner">
+            <div ng-show="splash.form_demo == true">
+              <h1>{{ splash.header_text }}</h1>
+              <h2><div ng-bind-html="splash.info | sanitize"></div></h2>
+              <p ng-bind-html="splash.info_two | sanitize"></p>
+              <input type="text" class="design-input" placeholder="Example Field">
+            </div>
+            <div ng-show="splash.welcome_demo == true">
+              <div ng-include="'components/splash_pages/_welcome.html'"></div>
+            </div>
+            <div ng-hide="splash.welcome_demo == true || splash.form_demo == true">
+              <h1>{{ splash.header_text }}</h1>
+              <h2><div ng-bind-html="splash.info | sanitize"></div></h2>
+              <p ng-bind-html="splash.info_two | sanitize"></p>
+              <splash-designer-form access="{{splash.primary_access_id}}" btntext="{{ splash.btn_text }}"></splash-designer-form>
+              <p class="small" ng-hide="splash.powered_by" translate>By logging in, you agree to our <a href="{{ splash.terms_url }}">terms of use</a></p>
+              <div class="location_address">
+                <p>{{splash.address}}</p>
+              </div>
+              <div class="social" ng-show="splash.twitter_name || splash.google_name || splash.facebook_name || splash.pinterest_name || splash.instagram_name || splash.linkedin_name">
+                <a ng-show="splash.twitter_name" href="https://twitter.com/{{splash.twitter_name}}"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/PdwjF22TTiqOHvzQcksA"></a>
+                <a ng-show="splash.google_name" href="https://plus.google.com/{{splash.google_name}}/about"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/K3YDlqzUQzIavvIEkesC"></a>
+                <a ng-show="splash.facebook_name" href="http://facebook.com/{{splash.facebook_name}}"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/WUhzu2zRTremUtlXxALC"></a>
+                <a ng-show="splash.pinterest_name" href="http://pinterest.com/{{splash.pinterest_name}}"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/LntaNNciSKKXjiMQKVLg"></a>
+                <a ng-show="splash.instagram_name" href="http://instagram.com/{{splash.instagram_name}}"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/1HF1iim8TZiWlw1lOQha"></a>
+                <a ng-show="splash.linkedin_name" href="http://linkedin.com/{{splash.linkedin_name}}"><img src="https://d247kqobagyqjh.cloudfront.net/api/file/7sYXABsjSFKJ0a4OaVKK"></a>
+              </div>
+              <p><a href="http://{{splash.website}}">{{ splash.website }}</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div flex="100" flex-gt-xs="25" class="design-sidebar" style="">
+    <design-menu ver="designer"></design-menu>
   </div>
 </div>
