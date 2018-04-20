@@ -528,14 +528,13 @@ app.directive('splashNew', ['Network', 'SplashPage', 'Auth', '$location', '$rout
           ssid: scope.splash.ssid,
           network_ids: scope.splash.network_id,
           splash_name: scope.splash.splash_name,
-          primary_access_id: scope.splash.primary_access_id,
+          primary_access_id: 20,
           powered_by: scope.splash.powered_by
         }
       }).$promise.then(function(results) {
         scope.splash = {};
         $mdDialog.cancel();
-        results.highlight = true;
-        scope.pages.push(results);
+        window.location.href = '/#/locations/' + scope.location.slug + '/splash_pages/' + results.splash_page.id;
         showToast(gettextCatalog.getString('Splash created successfully'));
       }, function(err) {
         $mdDialog.cancel();
@@ -628,7 +627,7 @@ app.directive('splashDesignerForm', ['SplashPage', 'Location', '$compile', funct
 
 }]);
 
-app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$route', '$routeParams', '$q', 'menu', '$location', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', '$mdDialog', 'moment', function(Location, SplashPage, SplashPageForm, $route, $routeParams, $q, menu , $location, showToast, showErrors, $rootScope, gettextCatalog, $mdDialog, moment) {
+app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', 'Network', '$route', '$routeParams', '$q', 'menu', '$location', 'showToast', 'showErrors', '$rootScope', 'gettextCatalog', '$mdDialog', 'moment', function(Location, SplashPage, SplashPageForm, Network, $route, $routeParams, $q, menu , $location, showToast, showErrors, $rootScope, gettextCatalog, $mdDialog, moment) {
 
   var link = function(scope,element,attrs) {
 
@@ -738,13 +737,21 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', '$r
       }
     };
 
+    var getNetworks = function() {
+      // Network.get({location_id: scope.location.slug}).$promise.then(function(results) {
+      //   scope.networks = results;
+      // }, function(error) {
+      // });
+    };
+
     var init = function() {
-      return SplashPage.query({
+      SplashPage.query({
         location_id: scope.location.slug,
         id: $routeParams.splash_page_id,
       }).$promise.then(function(res) {
         scope.splash = res.splash_page;
         setDefaults();
+        getNetworks();
         scope.loading = undefined;
       }, function() {
         scope.loading = undefined;
