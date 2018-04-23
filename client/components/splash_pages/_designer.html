@@ -521,7 +521,7 @@
                 <fieldset class="gdpr-fields">
                   <legend>You must accept the terms of service</legend>
                   <div>
-                    <p>Read CT's full terms of service <a href="https://www.ct-networks.io/terms/users/" target="_blank">here.</a></p>
+                    <p>Read {{ splash.powered_by ? 'CT\'s' : 'our'}} full terms of service <a href="{{ splash.powered_by ? 'https://www.ct-networks.io/terms/users' : splash.terms_url }}" target="_blank">here.</a></p>
                     <input id="ct_terms" type="checkbox" required><label for="ct_terms">I agree to the terms of service</label><br>
                   </div>
                 </fieldset>
@@ -590,7 +590,7 @@
               <h2><div ng-bind-html="splash.info | sanitize"></div></h2>
               <p ng-bind-html="splash.info_two | sanitize"></p>
               <splash-designer-form access="{{splash.primary_access_id}}" btntext="{{ splash.btn_text }}"></splash-designer-form>
-              <p class="small" ng-hide="splash.powered_by" translate>By logging in, you agree to our <a href="{{ splash.terms_url }}">terms of use</a></p>
+              <p class="small" ng-hide="splash.hide_terms || splash.gdpr_form" translate>By logging in, you agree to our <a href="{{ splash.powered_by ? 'https://www.ct-networks.io/terms/users' : splash.terms_url }}">terms of use</a></p>
               <div class="location_address">
                 <p>{{splash.address}}</p>
               </div>
