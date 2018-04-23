@@ -1152,6 +1152,22 @@
                       <input type="text" ng-model="splash.container_inner_padding" required>
                     </md-input-container>
                   </div>
+                  <div flex="100" flex-gt-xs="50">
+                    <md-input-container class="md-block">
+                      <label>
+                        <translate>Corner Radius</translate>
+                      </label>
+                      <input type="text" ng-model="splash.container_inner_radius" required>
+                    </md-input-container>
+                  </div>
+                  <div flex="100" flex-gt-xs="100">
+                    <md-input-container class="md-block" style="margin-top: 0px;">
+                      <md-switch ng-model="splash.container_shadow" aria-label="container_shadow" style="margin: 0px 0 20px 0">
+                        <span ng-show="splash.container_shadow == true" translate>Shadow Enabled</span>
+                        <span ng-show="splash.container_shadow == false" translate>Shadow Disabled</span>
+                      </md-switch>
+                    </md-input-container>
+                  </div>
                 </div>
                 <md-radio-group ng-model="splash.container_text_align" layout="row">
                   <md-radio-button value="left" class="md-primary"><translate>Left</translate></md-radio-button>
@@ -1356,18 +1372,19 @@
 
           <div ng-if="isOpen('consent')" id="consent" class="menu-toggle-list" layout="column">
 
-            <md-card ng-show="!splash.powered_by">
+            <md-card>
               <md-card-content>
                 <md-input-container class="md-block">
                   <label>
-                    <translate>Terms URL</translate>
+                    <translate>Custom Terms URL</translate>
                   </label>
-                  <input ng-model="splash.terms_url" placeholder="{{ 'Terms URL' | translate }}" type='url' name="terms_url" ng-maxlength='255' ng-required='!splash.powered_by'></input>
+                  <input ng-model="splash.terms_url" placeholder="{{ 'Terms URL' | translate }}" type='url' name="terms_url" ng-maxlength='255' ng-required='!splash.powered_by' ng-disabled="splash.powered_by"></input>
                   <div ng-messages="myForm.terms_url.$error">
                     <div ng-message="md-maxlength" translate>Must be less than 250 characters.</div>
                     <div ng-message="url" translate>Must be a valid URL including http(s).</div>
                   </div>
                 </md-input-container>
+                <small>Disabled if displaying Powered By CT</small>
               </md-card-content>
             </md-card>
 
