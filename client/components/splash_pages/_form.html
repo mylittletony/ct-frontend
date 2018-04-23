@@ -18,17 +18,6 @@
           <div flex="auto" layout="column" ng-hide='obj.loading'>
             <md-input-container>
               <label>
-                <translate>Access Type</translate>
-              </label>
-              <md-select ng-model="splash.primary_access_id">
-                <md-option ng-repeat="a in obj.access_types" value="{{a.id}}">
-                  {{a.id | translateAccessTypeName}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-
-            <md-input-container>
-              <label>
                 <translate>Splash Name</translate>
               </label>
               <input name="splash_name" ng-minlength="5" md-maxlength="100" ng-model="splash.splash_name" required>
