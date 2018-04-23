@@ -682,10 +682,11 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', 'Ne
     };
     NetworksController.$inject = ['$scope', 'splash'];
 
-    var dupSplash = function(copy_to,msg,destroy) {
+    var dupSplash = function(copy_to,msg,destroy,network_id) {
       SplashPage.duplicate({
         location_id: scope.location.slug,
         id: scope.splash.id,
+        network_id: network_id,
         copy_to: copy_to,
         destroy: destroy
       }).$promise.then(function(results) {
@@ -698,16 +699,37 @@ app.directive('splashDesigner', ['Location', 'SplashPage', 'SplashPageForm', 'Ne
       });
     };
 
+    var DuplicateController = function($scope, splash) {
+      $scope.loading = true;
+      $scope.splash = splash;
+      Network.get({location_id: $routeParams.id, splash: true}).$promise.then(function(results) {
+        $scope.networks = results;
+      }, function(error) {
+      });
+
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.loading = undefined;
+
+      $scope.confirm = function() {
+        dupSplash(undefined,undefined,undefined,$scope.network_id);
+        $mdDialog.cancel();
+      };
+
+    };
+    DuplicateController.$inject = ['$scope', 'splash'];
+
     scope.duplicate = function() {
-      var confirm = $mdDialog.confirm()
-      .title(gettextCatalog.getString('Duplicate Splash'))
-      .textContent(gettextCatalog.getString('Are you sure you want to duplicate this splash page?'))
-      .ariaLabel(gettextCatalog.getString('Duplicate Splash'))
-      .ok(gettextCatalog.getString('Duplicate'))
-      .cancel(gettextCatalog.getString('Cancel'));
-      $mdDialog.show(confirm).then(function() {
-        dupSplash();
-      }, function() {
+      $mdDialog.show({
+        templateUrl: 'components/splash_pages/_duplicate.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        controller: DuplicateController,
+        locals: {
+          splash: scope.splash
+        }
       });
     };
 
