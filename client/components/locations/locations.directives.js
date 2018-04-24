@@ -527,17 +527,6 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
       };
     };
 
-    var clearTable = function() {
-      scope.results = [];
-      scope.people = [];
-      scope.links = undefined;
-      $location.search();
-      scope.loading = undefined;
-      if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
-        showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
-      }
-    };
-
     var findSessions = function() {
       getParams();
       params.client_mac = scope.query.client_mac;
@@ -549,7 +538,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        clearTable();
+        scope.loading = undefined;
       });
     };
 
@@ -581,12 +570,14 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
     var findPeople = function() {
       getPeopleParams();
       People.get(params, function(data) {
+        scope.selected = 'People';
         scope.people = data.people;
         scope.links = data._links;
+        $location.search();
         scope.loading  = undefined;
       }, function(err){
         console.log(err);
-        clearTable();
+        scope.loading = undefined;
       });
     };
 
@@ -600,7 +591,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        clearTable();
+        scope.loading = undefined;
       });
     };
 
@@ -614,7 +605,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        clearTable();
+        scope.loading = undefined;
       });
     };
 
@@ -633,7 +624,10 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
     };
 
     scope.updateAudit = function(selected) {
-      scope.loading = true
+      scope.results = [];
+      scope.people = [];
+      scope.links = undefined;
+      scope.loading = true;
       switch(selected) {
         case 'Clients':
           findClients();
