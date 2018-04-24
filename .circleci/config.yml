@@ -4,9 +4,6 @@ jobs:
     working_directory: ~/circulate
     docker:
       - image: circleci/node:6.14.1
-    dependencies:
-      override:
-        - npm update
     steps:
       - checkout
       - run:
