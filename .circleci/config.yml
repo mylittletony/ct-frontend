@@ -3,12 +3,12 @@ jobs:
   build:
     working_directory: ~/circulate
     docker:
-      - image: circleci/node:6.14.1
+      - image: circleci/node:8.11.1
     steps:
       - checkout
       - run:
           name: update-npm
-          command: 'sudo npm install -g npm@latest && npm update'
+          command: 'sudo npm install -g npm@latest'
 
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
