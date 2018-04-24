@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/circulate
     docker:
-      - image: circleci/node:4.8.2
+      - image: circleci/node:6.9.1
     steps:
       - checkout
       - run:
