@@ -29,7 +29,6 @@
     "grunt-msg-init-merge": "0.0.5",
     "grunt-ng-annotate": "^2.0.1",
     "grunt-ng-constant": "^2.0.1",
-    
     "grunt-potomo": "^3.4.0",
     "grunt-rev": "^0.1.0",
     "grunt-svgmin": "^0.4.0",
