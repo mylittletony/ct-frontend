@@ -10,6 +10,10 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm@latest && npm update'
 
+      - run:
+          name: remove-nodules
+          command: 'rm -rf ./node_modules'
+
       # - restore_cache:
       #     key: dependency-cache-{{ checksum "package.json" }}
 
