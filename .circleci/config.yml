@@ -4,18 +4,17 @@ jobs:
     working_directory: ~/circulate
     docker:
       - image: circleci/node:6.14.1
+    dependencies:
+      override:
+        - npm update
     steps:
       - checkout
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@latest && npm update'
 
-      - run:
-          name: remove-nodules
-          command: 'rm -rf ./node_modules'
-
-      # - restore_cache:
-      #     key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
 
       - run:
           name: Install DEPS
