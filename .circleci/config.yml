@@ -8,14 +8,14 @@ jobs:
       - checkout
       - run:
           name: update-npm
-          command: 'sudo npm install -g npm@3.5.4'
+          command: 'sudo npm install -g npm@latest'
 
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
 
-      # - run:
-      #     name: Install DEPS
-      #     command: sudo npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
+      - run:
+          name: Install DEPS
+          command: sudo npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
 
       - run:
           name: install-npm-wee
