@@ -42,7 +42,6 @@
     "morgan": "~1.0.0",
     "passport": "^0.3.2",
     "passport-polkaspots": "1.0.5",
-    "readable-stream": "^2.3.6",
     "request": "~2.51.0",
     "serve-favicon": "*",
     "serverless": "^1.24.1",
