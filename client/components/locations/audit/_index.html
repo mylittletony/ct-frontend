@@ -21,7 +21,7 @@
         </translate>
       </md-tooltip>
     </md-button>
-    <md-button class="md-icon-button" ng-click="downloadAudit()" ng-show="results.length > 0" hide show-gt-xs>
+    <md-button class="md-icon-button" ng-click="downloadAudit()" ng-show="results.length > 0 || people.length > 0" hide show-gt-xs>
       <md-icon>file_download</md-icon>
     </md-button>
   </div>
@@ -37,7 +37,7 @@
             <span translate translate-n="{{links.total_entries}}" translate-plural="{{links.total_entries || 0}} {{selected}}">1 {{selected}}</span><span hide show-gt-sm ng-if="query.start" translate><span ng-if="selected == 'Emails' || selected == 'Sales' || selected == 'Guests' || selected == 'Radius Sessions'">&nbsp;created</span><span ng-if="selected == 'People' || selected == 'Clients'">&nbsp;seen</span> between {{ query.start | humanDate }} and {{ query.end | humanDate }}</span>
             <div flex></div>
           </div>
-          <md-table-container ng-show="selected != 'people'">
+          <md-table-container ng-show="selected != 'People'">
             <table ng-if="results.length > 0" ng-model="selected" md-row-select="options.rowSelection" multiple="false" md-table md-progress="promise">
               <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
@@ -177,7 +177,7 @@
               </tbody>
             </table>
           </md-table-container>
-          <md-table-container>
+          <md-table-container ng-show="selected == 'People'">
             <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
               <thead md-head md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
@@ -206,7 +206,7 @@
                   <td md-cell>
                     {{ person.login_count || 1 }}
                   </td>
-                  <td md-cell ng-show="selected != 'people'">
+                  <td md-cell>
                     <md-menu md-position-mode="target target">
                       <md-button aria-label="{{ 'Open Clients Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                         <md-icon md-menu-origin md-font-icon="more_black" class="s24">more_vert</md-icon>
