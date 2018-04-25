@@ -1399,15 +1399,17 @@
               </md-card-title>
               <md-card-content>
                 <p>It is a legal requirement to be GDPR compliant if you run a hotspot within the EU.</p>
-                <md-input-container class="md-block" style="margin-bottom:0px;">
-                  <small class="muted label">GDPR Form</small>
-                  <md-switch ng-model="splash.gdpr_form" style="margin: 0px">
-                    <span ng-show="splash.gdpr_form" translate>Enabled</span>
-                    <span ng-show="!splash.gdpr_form" translate>Disabled</span>
-                  </md-switch>
-                </md-input-container>
-                <small ng-show="splash.gdpr_form">You are GDPR compliant.</small>
-                <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
+                <span ng-if="!splash.is_eu">
+                  <md-input-container class="md-block" style="margin-bottom:0px;">
+                    <small class="muted label">GDPR Form</small>
+                    <md-switch ng-model="splash.gdpr_form" style="margin: 0px">
+                      <span ng-show="splash.gdpr_form" translate>Enabled</span>
+                      <span ng-show="!splash.gdpr_form" translate>Disabled</span>
+                    </md-switch>
+                  </md-input-container>
+                  <small ng-show="splash.gdpr_form">You are GDPR compliant.</small>
+                  <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
+                </span>
                 <span ng-if="splash.gdpr_form">
                   <md-input-container class="md-block" style="margin-bottom:0px;">
                     <small class="muted label">Newsletter Consent</small>
