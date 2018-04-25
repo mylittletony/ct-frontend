@@ -33,7 +33,7 @@ jobs:
   deploy:
     working_directory: ~/circulate
     docker:
-      - image: circleci/node:6.14.1
+      - image: circleci/node:latest
         environment:
           RAILS_ENV: test
 
