@@ -15,7 +15,7 @@ jobs:
 
       - run:
           name: Install DEPS
-          command: npm install -g util-deprecate process-nextick-args bower grunt grunt-cli grunt-karma karma --save-dev
+          command: npm install -g bower grunt grunt-cli grunt-karma karma --save-dev
 
       - run:
           name: install-npm-wee
