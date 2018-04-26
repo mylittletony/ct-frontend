@@ -232,8 +232,8 @@
             </table>
           </md-table-container>
 
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select ng-show="results.length > 0"></md-table-pagination>
-          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select ng-show="people.length > 0"></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select ng-show="results.length > 0  && selected != 'People'"></md-table-pagination>
+          <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{links.total_entries}}" md-label="{{pagination_labels}}" md-on-paginate="onPaginate" md-page-select ng-show="people.length > 0 && selected == 'People'"></md-table-pagination>
 
         </md-card-content>
       </md-card>
