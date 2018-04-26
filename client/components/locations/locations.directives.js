@@ -626,7 +626,6 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
     scope.updateAudit = function(selected) {
       scope.results = [];
       scope.people = [];
-      scope.links = undefined;
       scope.loading = true;
       switch(selected) {
         case 'Clients':
