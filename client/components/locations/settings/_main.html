@@ -146,10 +146,16 @@
                 </md-select>
               </md-input-container>
               <div flex="100"></div>
-              <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public Location' | translate }}">
-                <span ng-show="location.add_to_global_map" translate>Public Location</span>
-                <span ng-hide="location.add_to_global_map" translate>Private Location</span>
-              </md-switch>
+              <div layout='column'>
+                <md-switch ng-model="location.add_to_global_map" aria-label="{{ 'Public Location' | translate }}">
+                  <span ng-show="location.add_to_global_map" translate>Public Location</span>
+                  <span ng-hide="location.add_to_global_map" translate>Private Location</span>
+                </md-switch>
+                <md-switch ng-model="location.eu" aria-label="{{ 'Public Location' | translate }}">
+                  <span translate>GDPR/Canadian Reg Restrictions</span>
+                </md-switch>
+                <small ng-show="location.eu == false">Switching this off will allow you to make changes to your splash pages that aren't compliant with certain regional regulations. It is a legal requirement for users within the EU and Canada.</small>
+              </div>
             </div>
           </md-card-content>
         </md-card>
