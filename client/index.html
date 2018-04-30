@@ -69,7 +69,7 @@
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
 
   <div ng-if="user">
-    <gdpr-consent ng-if="!user.consented_at"></gdpr-consent>
+    <gdpr-consent ng-if="user.consented_at == 0"></gdpr-consent>
   </div>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
