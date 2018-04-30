@@ -6,18 +6,12 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
-        <h3>In line with new GDPR requirements, we need to update your consent to our terms of service before you can continue using MIMO.</h3>
+        <h3>We've updated our terms and conditions.</h3>
         <p>To continue using the dashboard, please confirm that you agree to our <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.</p>
-        <!-- <md-checkbox style="margin-top:16px;" ng-model="user.gdpr_consent" aria-label="gdpr" required>
-          I agree to the <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.
-        </md-checkbox>
-        <md-checkbox style="margin-top:16px;" ng-model="disagree_consent" aria-label="gdpr" required>
-          I disagree to the <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.
-        </md-checkbox> -->
         <md-radio-group ng-model="user.gdpr_consent">
           <md-radio-button ng-value="true">I agree to the <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.</md-radio-button>
           <md-radio-button ng-value="false">I disagree with the <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.</md-radio-button>
-        </md-radio-group
+        </md-radio-group>
         <p>We'd also like to occasionally send you newsletters about products & services, news & events.</p>
         <md-checkbox style="margin-top:16px;" ng-model="user.newsletter_consent" aria-label="newsletter">
           I'd like to receive newsletters via Email.
