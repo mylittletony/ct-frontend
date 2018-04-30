@@ -1671,3 +1671,42 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
   };
 
 }]);
+
+app.directive('gdprConsent', ['SplashPage', '$route', '$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(SplashPage, $route, $routeParams, $location, $rootScope, $timeout, $mdDialog, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+    var init = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/_gdpr_consent.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: false,
+        controller: DialogController,
+        locals: {
+          loading: scope.loading
+        }
+      });
+    };
+
+    var save = function() {
+
+    };
+
+    function DialogController($scope,loading) {
+      $scope.loading = loading;
+      $scope.save = function() {
+        save();
+        $mdDialog.cancel();
+      };
+    }
+
+    DialogController.$inject = ['$scope', 'loading'];
+
+    console.log('pears');
+    init();
+  };
+
+  return {
+    link: link,
+  };
+}]);

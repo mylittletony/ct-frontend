@@ -1,0 +1,25 @@
+<md-dialog aria-label="{{ 'Site Setup' | translate }}">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Terms of Service Update</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <h3>In line with new GDPR requirements, we need to update your consent to our terms of service before you can continue using MIMO.</h3>
+        <p>To continue using the dashboard, please confirm that you agree to our <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.</p>
+        <md-checkbox style="margin-top:16px;" ng-model="user.gdpr_consent" aria-label="gdpr" required>
+          I confirm that I have read and agree to the <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.
+        </md-checkbox>
+        <p>We'd also like to occasionally send you newsletters about products & services, news & events.</p>
+        <md-checkbox style="margin-top:16px;" ng-model="user.newsletter_consent" aria-label="newsletter">
+          I'd like to receive newsletters via Email.
+        </md-checkbox>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-align="end center">
+      <md-button class="md-raised md-primary" ng-click="save()" ng-disabled="!user.gdpr_consent" translate>
+        Save
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>
