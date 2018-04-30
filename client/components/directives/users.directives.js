@@ -1672,7 +1672,7 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
 
 }]);
 
-app.directive('gdprConsent', ['User', 'Auth', '$route', '$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(User, Auth, $route, $routeParams, $location, $rootScope, $timeout, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('gdprConsent', ['User', 'Auth', '$route', '$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(User, Auth, $route, $routeParams, $location, $rootScope, $timeout, $mdDialog, $localStorage, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
 
@@ -1711,6 +1711,7 @@ app.directive('gdprConsent', ['User', 'Auth', '$route', '$routeParams', '$locati
         id: user.slug,
         user: user
       }, function(data) {
+        $localStorage.user.consented_at = true;
       }, function(err) {
         showErrors(err);
       });
