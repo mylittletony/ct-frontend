@@ -1672,9 +1672,30 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
 
 }]);
 
-app.directive('gdprConsent', ['SplashPage', '$route', '$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(SplashPage, $route, $routeParams, $location, $rootScope, $timeout, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('gdprConsent', ['User', 'Auth', '$route', '$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(User, Auth, $route, $routeParams, $location, $rootScope, $timeout, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope, element, attrs) {
+
+    var save = function(user) {
+      User.update({}, {
+        id: user.slug,
+        user: user
+      }, function(data) {
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function DialogController($scope,loading) {
+      $scope.user = Auth.currentUser();
+      $scope.loading = loading;
+      $scope.save = function() {
+        save($scope.user);
+        $mdDialog.cancel();
+      };
+    }
+
+    DialogController.$inject = ['$scope', 'loading'];
 
     var init = function() {
       $mdDialog.show({
@@ -1688,21 +1709,6 @@ app.directive('gdprConsent', ['SplashPage', '$route', '$routeParams', '$location
       });
     };
 
-    var save = function() {
-
-    };
-
-    function DialogController($scope,loading) {
-      $scope.loading = loading;
-      $scope.save = function() {
-        save();
-        $mdDialog.cancel();
-      };
-    }
-
-    DialogController.$inject = ['$scope', 'loading'];
-
-    console.log('pears');
     init();
   };
 
