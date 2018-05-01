@@ -194,8 +194,11 @@
                   <td md-cell>
                     <a href="/#/locations/{{ location.slug }}/people/{{ person.id }}">{{ person.first_name }} {{ person.last_name }}</a>
                   </td>
-                  <td md-cell>
+                  <td md-cell ng-if="person.consented">
                     {{ person.email || 'NA' }}
+                  </td>
+                  <td md-cell ng-if="!person.consented">
+                    <span>unconfirmed<md-tooltip>User has not yet confirmed email address</md-tooltip></span>
                   </td>
                   <td md-cell>
                     {{ person.last_seen | humanTimeShortest }}
