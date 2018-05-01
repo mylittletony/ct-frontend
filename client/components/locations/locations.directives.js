@@ -577,6 +577,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
         scope.loading  = undefined;
       }, function(err){
         console.log(err);
+        scope.links.total_entries = 0;
         scope.loading = undefined;
       });
     };
@@ -610,12 +611,18 @@ app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Repor
     };
 
     var downloadReport = function() {
-      var params = {
-        start: scope.query.start,
-        end: scope.query.end,
-        location_id: scope.location.id,
-        type: mailerType[scope.selected]
-      };
+      if (scope.selected === 'People') {
+        getPeopleParams();
+        params.location_id = scope.location.id;
+        params.type = 'people';
+      } else {
+        params = {
+          start: scope.query.start,
+          end: scope.query.end,
+          location_id: scope.location.id,
+          type: mailerType[scope.selected]
+        };
+      }
       Report.create(params).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
       }, function(err) {
