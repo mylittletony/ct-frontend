@@ -83,8 +83,11 @@
                   </thead>
                   <tbody md-body>
                     <tr md-row ng-repeat="email in person.emails">
-                      <td md-cell>
+                      <td md-cell ng-if="email.consented">
                         {{email.email}}
+                      </td>
+                      <td md-cell ng-if="!email.consented">
+                        <span>unconfirmed<md-tooltip>User yet to confirm their email address</md-tooltip></span>
                       </td>
                       <td md-cell>
                         <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == false && email.comments">{{ email.comments }}</md-tooltip></md-icon>
