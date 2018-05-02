@@ -469,85 +469,57 @@
           <div ng-if="isOpen('advanced')" id="advanced" class="menu-toggle-list" layout="column">
             <md-card>
               <md-card-content layout="column" layout-gt-sm="row" layout-wrap>
-
-                <div flex-gt-sm="100">
-                  <div layout="column" layout-gt-xs="row" layout-wrap>
-                    <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
-                      <md-input-container class="md-block">
-                        <label for="available_start"><translate>Show After (mins)</translate></label>
-                        <input ng-model="splash.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" type='number' name="session_timeout" ng-max='43200' ng-min='10'></input>
-                        <div ng-messages="myForm.session_timeout.$error">
-                          <div ng-message="min" translate>Must be greater than 10 minutes.</div>
-                          <div ng-message="max" translate>Must be less than 43200 minutes.</div>
-                        </div>
-                      </md-input-container>
-                    </div>
-                    <div flex-gt-sm="30" ng-hide="splash.primary_access_id == 2">
-                      <md-input-container class="md-block">
-                        <label for="available_start"><translate>Idle Timeout (mins)</translate></label>
-                        <input ng-model="splash.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" type='number' name="idle_timeout" ng-max='43200' ng-min='10'></input>
-                        <div ng-messages="myForm.idle_timeout.$error">
-                          <div ng-message="min" translate>Must be greater than 10 minutes.</div>
-                          <div ng-message="max" translate>Must be less than 43200 minutes.</div>
-                        </div>
-                      </md-input-container>
-                    </div>
-                    <div flex-gt-sm="30">
-                      <md-input-container class="md-block">
-                        <label for="weight"><translate>Weight</translate></label>
-                        <input ng-model="splash.weight" placeholder="{{ 'Weight' | translate }}" type='number' name="weight" ng-min='0'></input>
-                        <div ng-messages="myForm.weight.$error">
-                          <div ng-message="min" translate>Must be greater than 0.</div>
-                        </div>
-                      </md-input-container>
-                    </div>
-
-                    <div flex-gt-sm="100">
-                      <md-input-container class="md-block">
-                        <label><translate>Timezone</translate></label>
-                        <md-select ng-model="splash.timezone">
-                          <md-option ng-repeat="zone in timezones" value="{{zone}}">
-                            {{zone}}
-                          </md-option>
-                        </md-select>
-                      </md-input-container>
-                      <p><small><translate>Set the Timezone to ensure your splash restrictions work correctly.</translate></small></p>
-                    </div>
-
-                    <div flex-gt-sm="100">
-                      <md-input-container class="md-block" flex-gt-sm="100" style="margin: 40px 0 0 0;">
-                        <label>
-                          <translate>Tags</translate>
-                        </label>
-                        <input ng-model="splash.tags" name="tags" placeholder="{{ 'Splash tags' | translate }}" type="text" ng-maxlength="255">
-                        <div ng-messages="myForm.tags.$error">
-                          <div ng-message="ng-maxlength" translate>Must be less than 255 chars.</div>
-                        </div>
-                      </md-input-container>
-                      <small translate>Filter your splash triggers and actions with tags.</small>
-                    </div>
-
+              <div flex-gt-sm="100" ng-hide="splash.primary_access_id == 2">
+                <md-input-container class="md-block">
+                  <label for="available_start"><translate>Show After (mins)</translate></label>
+                  <input ng-model="splash.session_timeout" placeholder="{{ 'Session Timeout' | translate }}" type='number' name="session_timeout" ng-max='43200' ng-min='10'></input>
+                  <div ng-messages="myForm.session_timeout.$error">
+                    <div ng-message="min" translate>Must be greater than 10 minutes.</div>
+                    <div ng-message="max" translate>Must be less than 43200 minutes.</div>
                   </div>
-                </div>
-                <div flex-gt-sm="100">
-
-                  <md-switch class="md-accent" ng-model="splash.display_console" aria-label="debug">
-                    <span translate>Debug Mode</span>
-                  </md-switch>
-
-                  <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
-                    <span translate>Bypass iOS Popup</span>
-                  </md-switch>
-
-                  <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
-                    <span translate>Bypass Android Popup</span>
-                  </md-switch>
-
-                </div>
+                </md-input-container>
+              </div>
+              <div flex-gt-sm="100" ng-hide="splash.primary_access_id == 2">
+                <md-input-container class="md-block">
+                  <label for="available_start"><translate>Idle Timeout (mins)</translate></label>
+                  <input ng-model="splash.idle_timeout" placeholder="{{ 'Idle Timeout' | translate }}" type='number' name="idle_timeout" ng-max='43200' ng-min='10'></input>
+                  <div ng-messages="myForm.idle_timeout.$error">
+                    <div ng-message="min" translate>Must be greater than 10 minutes.</div>
+                    <div ng-message="max" translate>Must be less than 43200 minutes.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div flex-gt-sm="100">
+                <md-input-container class="md-block">
+                  <label for="weight"><translate>Weight</translate></label>
+                  <input ng-model="splash.weight" placeholder="{{ 'Weight' | translate }}" type='number' name="weight" ng-min='0'></input>
+                  <div ng-messages="myForm.weight.$error">
+                    <div ng-message="min" translate>Must be greater than 0.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div flex-gt-sm="100">
+                <md-input-container class="md-block">
+                  <label><translate>Timezone</translate></label>
+                  <md-select ng-model="splash.timezone">
+                    <md-option ng-repeat="zone in timezones" value="{{zone}}">
+                      {{zone}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+                <p><small><translate>Set the Timezone to ensure your splash restrictions work correctly.</translate></small></p>
+              </div>
+              <md-switch class="md-accent" ng-model="splash.display_console" aria-label="debug">
+                <span translate>Debug Mode</span>
+              </md-switch>
+              <md-switch class="md-accent" ng-model="splash.bypass_popup_ios" aria-label="debug">
+                <span translate>Bypass iOS Popup</span>
+              </md-switch>
+              <md-switch class="md-accent" ng-model="splash.bypass_popup_android" aria-label="debug">
+                <span translate>Bypass Android Popup</span>
+              </md-switch>
             </md-card>
           </div>
-
-
         </md-content>
       </md-tab-body>
     </md-tab>
@@ -1152,6 +1124,22 @@
                       <input type="text" ng-model="splash.container_inner_padding" required>
                     </md-input-container>
                   </div>
+                  <div flex="100" flex-gt-xs="50">
+                    <md-input-container class="md-block">
+                      <label>
+                        <translate>Corner Radius</translate>
+                      </label>
+                      <input type="text" ng-model="splash.container_inner_radius" required>
+                    </md-input-container>
+                  </div>
+                  <div flex="100" flex-gt-xs="100">
+                    <md-input-container class="md-block" style="margin-top: 0px;">
+                      <md-switch ng-model="splash.container_shadow" aria-label="container_shadow" style="margin: 0px 0 20px 0">
+                        <span ng-show="splash.container_shadow == true" translate>Shadow Enabled</span>
+                        <span ng-show="splash.container_shadow == false" translate>Shadow Disabled</span>
+                      </md-switch>
+                    </md-input-container>
+                  </div>
                 </div>
                 <md-radio-group ng-model="splash.container_text_align" layout="row">
                   <md-radio-button value="left" class="md-primary"><translate>Left</translate></md-radio-button>
@@ -1356,18 +1344,19 @@
 
           <div ng-if="isOpen('consent')" id="consent" class="menu-toggle-list" layout="column">
 
-            <md-card ng-show="!splash.powered_by">
+            <md-card>
               <md-card-content>
                 <md-input-container class="md-block">
                   <label>
-                    <translate>Terms URL</translate>
+                    <translate>Custom Terms URL</translate>
                   </label>
-                  <input ng-model="splash.terms_url" placeholder="{{ 'Terms URL' | translate }}" type='url' name="terms_url" ng-maxlength='255' ng-required='!splash.powered_by'></input>
+                  <input ng-model="splash.terms_url" placeholder="{{ 'Terms URL' | translate }}" type='url' name="terms_url" ng-maxlength='255' ng-required='!splash.powered_by' ng-disabled="splash.powered_by"></input>
                   <div ng-messages="myForm.terms_url.$error">
                     <div ng-message="md-maxlength" translate>Must be less than 250 characters.</div>
                     <div ng-message="url" translate>Must be a valid URL including http(s).</div>
                   </div>
                 </md-input-container>
+                <small>Disabled if displaying Powered By CT</small>
               </md-card-content>
             </md-card>
 
@@ -1382,15 +1371,17 @@
               </md-card-title>
               <md-card-content>
                 <p>It is a legal requirement to be GDPR compliant if you run a hotspot within the EU.</p>
-                <md-input-container class="md-block" style="margin-bottom:0px;">
-                  <small class="muted label">GDPR Form</small>
-                  <md-switch ng-model="splash.gdpr_form" style="margin: 0px">
-                    <span ng-show="splash.gdpr_form" translate>Enabled</span>
-                    <span ng-show="!splash.gdpr_form" translate>Disabled</span>
-                  </md-switch>
-                </md-input-container>
-                <small ng-show="splash.gdpr_form">You are GDPR compliant.</small>
-                <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
+                <span ng-if="!splash.is_eu">
+                  <md-input-container class="md-block" style="margin-bottom:0px;">
+                    <small class="muted label">GDPR Form</small>
+                    <md-switch ng-model="splash.gdpr_form" style="margin: 0px">
+                      <span ng-show="splash.gdpr_form" translate>Enabled</span>
+                      <span ng-show="!splash.gdpr_form" translate>Disabled</span>
+                    </md-switch>
+                  </md-input-container>
+                  <small ng-show="splash.gdpr_form">You are GDPR compliant.</small>
+                  <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
+                </span>
                 <span ng-if="splash.gdpr_form">
                   <md-input-container class="md-block" style="margin-bottom:0px;">
                     <small class="muted label">Newsletter Consent</small>
@@ -1474,6 +1465,12 @@
               Networks
             </md-button>
           </md-menu-item> -->
+          <md-menu-item>
+            <md-button ng-click="preview()">
+              <md-icon md-font-icon="pageview">pageview</md-icon>
+              Preview
+            </md-button>
+          </md-menu-item>
           <md-menu-item>
             <md-button ng-click="duplicate()">
               <md-icon md-font-icon="content_copy">content_copy</md-icon>

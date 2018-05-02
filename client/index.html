@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
   <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
   <link rel="stylesheet" href="bower_components/jquery-minicolors/jquery.minicolors.css" />
-  <link rel="stylesheet" href="bower_components/emojione/assets/css/emojione.css" />
+  <link rel="stylesheet" href="bower_components/emojione/extras/css/emojione.css" />
   <link rel="stylesheet" href="bower_components/dragula.js/dist/dragula.css" />
   <link rel="stylesheet" href="bower_components/angular-moment-picker/dist/angular-moment-picker.min.css" />
   <link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.css" />
@@ -67,6 +67,10 @@
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
 
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
+
+  <div ng-if="user">
+    <gdpr-consent ng-if="user.consented_at == 0"></gdpr-consent>
+  </div>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
     <div class="locked-account" ng-show="user.locked && user.guest !== true">
