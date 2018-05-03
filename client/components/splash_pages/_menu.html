@@ -387,6 +387,7 @@
           <div ng-if="isOpen('integrations')" id="integrations" class="menu-toggle-list" layout="column">
             <md-card>
               <md-card-content>
+                <div class="warning" ng-show="splash.newsletter_error">{{splash.newsletter_error}}</div>
                 <md-input-container class="md-block">
                   <label><translate>Integration Type</translate></label>
                   <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
