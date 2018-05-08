@@ -4,7 +4,7 @@ var app = angular.module('myApp.emails.services', ['ngResource']);
 
 app.factory('Email', ['$resource', 'API_END_POINT',
   function($resource, API_END_POINT){
-    return $resource(API_END_POINT + '/emails/:id/:action',
+    return $resource(API_END_POINT + '/emails/:id',
       {
         q: '@q',
         id: '@id'
@@ -23,5 +23,13 @@ app.factory('Email', ['$resource', 'API_END_POINT',
           page: '@page'
         }
       },
+      update: {
+        method: 'PATCH',
+        isArray: false,
+        params: {
+          action: '@action',
+          code: '@code'
+        }
+      }
     });
   }]);
