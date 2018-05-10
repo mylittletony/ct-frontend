@@ -1,29 +1,26 @@
 <md-content layout="row" layout-wrap layout-align="center center">
 
-  <div ng-show="error_message">
-    {{error_message}}
-  </div>
-
-  <div flex="100" layout="row">
-    </div>
-    <md-menu ng-show="portal_request">
-      <md-button ng-click="$mdOpenMenu($event)">
-        <md-icon>more_vert</md-icon>
+  <div flex="100" layout="row" ng-show="portal_request">
+    <div flex></div>
+    <md-menu>
+      <md-button aria-label="{{ 'Open sessions menu' | translate }}" class="md-fab md-raised md-mini" ng-click="$mdOpenMenu($event)">
+        <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
       </md-button>
-      <md-menu-content width="4" >
+      <md-menu-content width="3">
         <md-menu-item>
           <md-button ng-click="confirmDownload()">
-            <md-icon>file_download</md-icon><p>Download</p>
+            <md-icon>file_download</md-icon><p flex translate>Download</p>
           </md-button>
         </md-menu-item>
         <md-menu-item>
           <md-button ng-click="confirmDestroy()">
-            <md-icon>delete</md-icon><p>Delete data</p>
+            <md-icon>delete</md-icon><p flex translate>Delete all data</p>
           </md-button>
         </md-menu-item>
       </md-menu-content>
     </md-menu>
   </div>
+
   <div flex="100">
     <md-tabs md-dynamic-height md-border-bottom>
 
@@ -32,6 +29,7 @@
         <md-tab-body>
 
           <div class="timeline-top"></div>
+
           <div layout="column" class="timeline-post" layout-wrap ng-repeat="timeline in timelines">
             <div class="timeline-icon">
               <img ng-show="timeline.event == 'sign_in_sms' || timeline.event == 'contact_sms'" src="https://d247kqobagyqjh.cloudfront.net/api/file/dQGVIHdTyGo8kiBLjYQB"></img>
@@ -47,18 +45,19 @@
                     <img src="{{person.profile_photo || 'https://d247kqobagyqjh.cloudfront.net/api/file/Ny9J0MsTtus0xk3e43rh'}}" class="timeline-avatar"/>
                     <div class="md-list-item-text">
                       <h3>
-                        <span ng-if="timeline.event == 'sign_in_sms'">Signed in with <b>SMS</b></span>
-                        <span ng-if="timeline.event == 'sign_in_fb'">Signed in with <b>Facebook</b></span>
-                        <span ng-if="timeline.event == 'sign_in_tw'">Signed in with <b>Twitter</b></span>
-                        <span ng-if="timeline.event == 'sign_in_g'">Signed in with <b>Google</b></span>
-                        <span ng-if="timeline.event == 'sign_in_email'">Signed in with <b>Email</b></span>
+                        <span ng-show="timeline.event == 'sign_in_sms'">Signed in with <b>SMS</b></span>
+                        <span ng-show="timeline.event == 'sign_in_fb'">Signed in with <b>Facebook</b></span>
+                        <span ng-show="timeline.event == 'sign_in_tw'">Signed in with <b>Twitter</b></span>
+                        <span ng-show="timeline.event == 'sign_in_g'">Signed in with <b>Google</b></span>
+                        <span ng-show="timeline.event == 'sign_in_email'">Signed in with <b>Email</b></span>
                       </h3>
                       <p>{{timeline.created_at | humanTime}}</p>
                     </div>
                   </md-list-item>
                 </md-list>
-                <p>mac: {{timeline.client_mac}}</p>
-                <p>email: {{timeline.login_email}}</p>
+                <p>Mac: {{timeline.client_mac}}</p>
+                <p ng-if="timeline.event != 'sign_in_email' || timeline.login_email">Email: {{timeline.login_email}}</p>
+                <p ng-if="timeline.event == 'sign_in_email' && !timeline.login_email && timeline.doi_confirmed == false">Email: <b>unconfirmed<md-tooltip>User has not yet confirmed email address</md-tooltip></b></p>
               </md-card-content>
             </md-card>
 
@@ -89,9 +88,64 @@
               </md-card-content>
             </md-card>
 
+            <md-card class="b-bl" ng-if="timeline.event == 'agreement_terms'">
+              <md-card-content>
+                <md-list flex>
+                  <md-list-item class="md-2-line">
+                    <img src="{{person.profile_photo || 'https://d247kqobagyqjh.cloudfront.net/api/file/Ny9J0MsTtus0xk3e43rh'}}" class="timeline-avatar"/>
+                    <div class="md-list-item-text">
+                      <h3>
+                        <span>User <b>agreed to CT terms</b></span>
+                      </h3>
+                      <p>{{timeline.created_at | humanTime}}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+                <p>Terms: <a href="https://www.ct-networks.io/terms/users/">Read here</a></p>
+                <p>Mac: {{timeline.client_mac}}</p>
+              </md-card-content>
+            </md-card>
+
+            <md-card class="b-bl" ng-if="timeline.event == 'agreement_email'">
+              <md-card-content>
+                <md-list flex>
+                  <md-list-item class="md-2-line">
+                    <img src="{{person.profile_photo || 'https://d247kqobagyqjh.cloudfront.net/api/file/Ny9J0MsTtus0xk3e43rh'}}" class="timeline-avatar"/>
+                    <div class="md-list-item-text">
+                      <h3>
+                        <span>User <b>confirmed email address</b></span>
+                      </h3>
+                      <p>{{timeline.created_at | humanTime}}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+                <p ng-if="timeline.login_email">Email: {{timeline.login_email}}</p>
+                <p ng-if="!timeline.login_email && timeline.doi_confirmed == false">Email: <b>unconfirmed<md-tooltip>User has not yet confirmed email address</md-tooltip></b></p>
+              </md-card-content>
+            </md-card>
+
+            <md-card class="b-bl" ng-if="timeline.event == 'mailchimp_subscribe' || timeline.event == 'campaign_monitor_subscribe' || timeline.event == 'sendgrid_subscribe'">
+              <md-card-content>
+                <md-list flex>
+                  <md-list-item class="md-2-line">
+                    <img src="{{person.profile_photo || 'https://d247kqobagyqjh.cloudfront.net/api/file/Ny9J0MsTtus0xk3e43rh'}}" class="timeline-avatar"/>
+                    <div class="md-list-item-text">
+                      <h3>
+                        <span>User added to <b>{{timeline.event == 'mailchimp_subscribe' ? 'MailChimp' : timeline.event == 'campaign_monitor_subscribe' ? 'Campaign Monitor' : 'SendGrid'}}</b> list</span>
+                      </h3>
+                      <p>{{timeline.created_at | humanTime}}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+                <p>List ID: {{timeline.meta.list}}</p>
+                <p ng-if="timeline.login_email">Email: {{timeline.login_email}}</p>
+                <p ng-if="!timeline.login_email && timeline.doi_confirmed == false">Email: <b>unconfirmed<md-tooltip>User has not yet confirmed email address</md-tooltip></b></p>
+              </md-card-content>
+            </md-card>
+
           </div>
           <div class="timeline-bottom"></div>
-        </div>
+        </md-tab-body>
       </md-tab>
     </md-tabs>
   </div>

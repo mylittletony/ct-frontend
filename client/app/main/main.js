@@ -589,6 +589,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
       controller: 'LocationsCtrl as lc',
       resolve: { loginRequired: loginRequired }
     }).
+    when('/doi/:email_id', {
+      templateUrl: 'components/emails/confirm.html',
+    }).
     when('/reports', {
       redirectTo: '/',
       // templateUrl: 'components/reports/wireless.html',
