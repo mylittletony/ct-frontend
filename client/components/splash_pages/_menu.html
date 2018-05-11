@@ -387,6 +387,7 @@
           <div ng-if="isOpen('integrations')" id="integrations" class="menu-toggle-list" layout="column">
             <md-card>
               <md-card-content>
+                <div class="warning" ng-show="splash.newsletter_error">{{splash.newsletter_error}}</div>
                 <md-input-container class="md-block">
                   <label><translate>Integration Type</translate></label>
                   <md-select ng-model="splash.newsletter_type" ng-change="updateNews()">
@@ -1366,32 +1367,31 @@
                   <span class="md-headline" translate>GDPR Form</span>
                   <md-button ng-click="splash.gdpr_demo = !splash.gdpr_demo" class="md-icon-button {{ splash.gdpr_demo ? 'md-accent' : '' }}">
                     <md-icon md-font-icon="visibility">{{ splash.gdpr_demo ? 'visibility' : 'visibility_off' }}</md-icon>
+                    <md-tooltip md-direction="bottom">Preview</md-tooltip>
                   </md-button>
                 </md-card-title-text>
               </md-card-title>
               <md-card-content>
                 <p>It is a legal requirement to be GDPR compliant if you run a hotspot within the EU.</p>
-                <span ng-if="!splash.is_eu">
-                  <md-input-container class="md-block" style="margin-bottom:0px;">
-                    <small class="muted label">GDPR Form</small>
-                    <md-switch ng-model="splash.gdpr_form" style="margin: 0px">
-                      <span ng-show="splash.gdpr_form" translate>Enabled</span>
-                      <span ng-show="!splash.gdpr_form" translate>Disabled</span>
-                    </md-switch>
-                  </md-input-container>
-                  <small ng-show="splash.gdpr_form">You are GDPR compliant.</small>
-                  <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
-                </span>
+                <md-input-container class="md-block" style="margin-bottom:0px;">
+                  <small class="muted label">GDPR Form</small>
+                  <md-switch ng-model="splash.gdpr_form" style="margin: 0px">
+                    <span ng-show="splash.gdpr_form" translate>Enabled</span>
+                    <span ng-show="!splash.gdpr_form" translate>Disabled</span>
+                  </md-switch>
+                </md-input-container>
+                <small ng-show="splash.gdpr_form">You are on your way to GDPR compliance.</small>
+                <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
+                <md-input-container class="md-block" style="margin-bottom:0px;">
+                  <small class="muted label">Newsletter Consent</small>
+                  <md-switch ng-model="splash.newsletter_consent" style="margin:0px;">
+                    <span ng-show="splash.newsletter_consent" translate>Required</span>
+                    <span ng-show="!splash.newsletter_consent" translate>Optional</span>
+                  </md-switch>
+                </md-input-container>
+                <small ng-show="splash.newsletter_consent">Guests will have to agree to receive updates in order to access the guest WiFi.</small>
+                <small ng-show="!splash.newsletter_consent">Guests can choose not to agree to receive updates and still access the guest WiFi.</small>
                 <span ng-if="splash.gdpr_form">
-                  <md-input-container class="md-block" style="margin-bottom:0px;">
-                    <small class="muted label">Newsletter Consent</small>
-                    <md-switch ng-model="splash.newsletter_consent" style="margin:0px;">
-                      <span ng-show="splash.newsletter_consent" translate>Required</span>
-                      <span ng-show="!splash.newsletter_consent" translate>Optional</span>
-                    </md-switch>
-                  </md-input-container>
-                  <small ng-show="splash.newsletter_consent">Guests will have to agree to receive updates in order to access the guest WiFi.</small>
-                  <small ng-show="!splash.newsletter_consent">Guests can choose not to agree to receive updates and still access the guest WiFi.</small>
                   <md-input-container class="md-block">
                     <label>
                       <translate>Newsletter Consent Text</translate>

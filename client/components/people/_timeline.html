@@ -38,7 +38,7 @@
               <img ng-show="timeline.event == 'sign_in_g'" src="https://d247kqobagyqjh.cloudfront.net/api/file/K3YDlqzUQzIavvIEkesC"></img>
               <img ng-show="timeline.event == 'sign_in_email' || timeline.event == 'contact_email'" src="https://d247kqobagyqjh.cloudfront.net/api/file/nt0LfEXlTpWhoKVSW706"></img>
             </div>
-            <md-card class="b-bl" ng-if="timeline.event == 'sign_in_sms' || timeline.event == 'sign_in_fb' || timeline.event == 'sign_in_tw' || timeline.event == 'sign_in_g' || timeline.event == 'sign_in_email'">
+            <md-card class="b-bl" ng-if="timeline.event == 'sign_in_sms' || timeline.event == 'sign_in_fb' || timeline.event == 'sign_in_tw' || timeline.event == 'sign_in_g' || timeline.event == 'sign_in_email' || timeline.event == 'sign_in_unknown'">
               <md-card-content>
                 <md-list flex>
                   <md-list-item class="md-2-line">
@@ -50,13 +50,14 @@
                         <span ng-show="timeline.event == 'sign_in_tw'">Signed in with <b>Twitter</b></span>
                         <span ng-show="timeline.event == 'sign_in_g'">Signed in with <b>Google</b></span>
                         <span ng-show="timeline.event == 'sign_in_email'">Signed in with <b>Email</b></span>
+                        <span ng-show="timeline.event == 'sign_in_unknown'">Signed in</span>
                       </h3>
                       <p>{{timeline.created_at | humanTime}}</p>
                     </div>
                   </md-list-item>
                 </md-list>
                 <p>Mac: {{timeline.client_mac}}</p>
-                <p ng-if="timeline.event != 'sign_in_email' || timeline.login_email">Email: {{timeline.login_email}}</p>
+                <p ng-if="timeline.login_email">Email: {{timeline.login_email}}</p>
                 <p ng-if="timeline.event == 'sign_in_email' && !timeline.login_email && timeline.doi_confirmed == false">Email: <b>unconfirmed<md-tooltip>User has not yet confirmed email address</md-tooltip></b></p>
               </md-card-content>
             </md-card>
