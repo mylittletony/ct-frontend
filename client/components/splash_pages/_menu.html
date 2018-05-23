@@ -1298,6 +1298,24 @@
                     <div ng-message="md-maxlength" translate>Must be less than 50 characters.</div>
                   </div>
                 </md-input-container>
+                <md-input-container class="md-block">
+                  <label>
+                    <translate>Instagram Page</translate>
+                  </label>
+                  <input type='text' ng-model="splash.instagram_name" placeholder="Instagram" name="instagram" md-maxlength='50'></input>
+                  <div ng-messages="myForm.instagram.$error">
+                    <div ng-message="md-maxlength" translate>Must be less than 50 characters.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>
+                    <translate>Pinterest Page</translate>
+                  </label>
+                  <input type='text' ng-model="splash.pinterest_name" placeholder="Pinterest" name="pinterest" md-maxlength='50'></input>
+                  <div ng-messages="myForm.pinterest.$error">
+                    <div ng-message="md-maxlength" translate>Must be less than 50 characters.</div>
+                  </div>
+                </md-input-container>
               </md-card-content>
             </md-card>
           </div>
