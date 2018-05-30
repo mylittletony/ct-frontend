@@ -18,6 +18,13 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
       options: [5,10,25,50,100],
     };
 
+    var gotoBottom = function() {
+      setTimeout(function() {
+        document.getElementById("payload-bottom").scrollTop = document.getElementById("payload-bottom").scrollHeight;
+      }, 500);
+      console.log('apples')
+    }
+
     var init = function() {
       Message.query({box_id: scope.box.slug, page: scope.query.page, per: scope.query.limit }).$promise.then(function(res) {
         scope.messages = res.messages;
@@ -26,6 +33,7 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
       }, function() {
         scope.loading = undefined;
       });
+      gotoBottom();
     };
 
     var removeFromList = function(index) {
@@ -75,6 +83,7 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
             var m = { msg: decodeURI(msg.msg), created_at: msg.created_at };
             v.replies = [];
             v.replies.push(m);
+            gotoBottom();
           }
         }
       });
@@ -107,6 +116,12 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
     scope.loading  = true;
     scope.box      = { slug: $routeParams.box_id };
 
+    var gotoBottom = function() {
+      setTimeout(function() {
+        document.getElementById("payload-bottom").scrollTop = document.getElementById("payload-bottom").scrollHeight;
+      }, 500);
+    }
+
     var banned = ['ping', 'traceroute', 'top'];
 
     scope.create = function(msg) {
@@ -119,6 +134,7 @@ app.directive('createMessage', ['Message', 'Location', '$routeParams', 'gettextC
         scope.lastMsg = scope.msg.msg;
         save(msg);
         scope.msg = {};
+        gotoBottom();
       }
     };
 
