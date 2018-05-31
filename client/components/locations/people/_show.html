@@ -67,40 +67,6 @@
           </div>
 
           <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
-            <md-card class="people-email b-bl">
-              <md-card-title>
-                <md-card-title-text>
-                  <span class="md-headline" translate>Email</span>
-                </md-card-title-text>
-              </md-card-title>
-              <md-table-container>
-                <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
-                  <thead md-head>
-                    <tr md-row>
-                      <th md-column><span translate>Email</span></th>
-                      <th md-column><span translate>Active</span></th>
-                    </tr>
-                  </thead>
-                  <tbody md-body>
-                    <tr md-row ng-repeat="email in person.emails">
-                      <td md-cell ng-if="email.consented">
-                        {{email.email}}
-                      </td>
-                      <td md-cell ng-if="!email.consented">
-                        <span>unconfirmed<md-tooltip>User yet to confirm their email address</md-tooltip></span>
-                      </td>
-                      <td md-cell>
-                        <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == false && email.comments">{{ email.comments }}</md-tooltip></md-icon>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </md-table-container>
-              <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
-            </md-card>
-          </div>
-
-          <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
             <md-card class="people-socials b-bl">
               <md-card-title>
                 <md-card-title-text>
@@ -161,6 +127,40 @@
           </div>
 
           <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
+            <md-card class="people-email b-bl">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline" translate>Email</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-table-container>
+                <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                  <thead md-head>
+                    <tr md-row>
+                      <th md-column><span translate>Email</span></th>
+                      <th md-column><span translate>Active</span></th>
+                    </tr>
+                  </thead>
+                  <tbody md-body>
+                    <tr md-row ng-repeat="email in person.emails">
+                      <td md-cell ng-if="email.consented">
+                        {{email.email}}
+                      </td>
+                      <td md-cell ng-if="!email.consented">
+                        <span>unconfirmed<md-tooltip>User yet to confirm their email address</md-tooltip></span>
+                      </td>
+                      <td md-cell>
+                        <md-icon>{{ email.active == true ? 'check' : 'close' }}<md-tooltip ng-if="email.active == false && email.comments">{{ email.comments }}</md-tooltip></md-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+              <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
+            </md-card>
+          </div>
+
+          <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
             <md-card class="people-devices b-bl">
               <md-card-title>
                 <md-card-title-text>
@@ -192,40 +192,6 @@
               <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
             </md-card>
           </div>
-
-          <div flex="100" flex-gt-xs="50" flex-gt-sm="100">
-            <md-card class="people-sms b-bl">
-              <md-card-title>
-                <md-card-title-text>
-                  <span class="md-headline" translate>SMS Numbers</span>
-                </md-card-title-text>
-              </md-card-title>
-              <md-table-container>
-                <table multiple md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
-                  <thead md-head>
-                    <tr md-row>
-                      <th md-column><span translate>Number</span></th>
-                      <th md-column><span translate>Options</span></th>
-                    </tr>
-                  </thead>
-                  <tbody md-body>
-                    <tr md-row ng-repeat="sms in person.sms">
-                      <td md-cell>
-                        {{sms.number}}
-                      </td>
-                      <td md-cell>
-                        <md-button aria-label="{{ 'Open Boxes Menu' | translate }}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                          <md-icon md-menu-origin md-font-icon="more_black" class="s48">more_vert</md-icon>
-                        </md-button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </md-table-container>
-              <md-table-pagination md-limit="query.limit" md-limit-options="query.options" md-page="query.page" md-total="{{_links.total_entries}}" md-on-paginate="onPaginate" md-label="{{pagination_labels}}" md-page-select></md-table-pagination>
-            </md-card>
-          </div>
-
 
         </div>
       </div>

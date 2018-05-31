@@ -364,23 +364,18 @@
     </md-card>
   </div>
 
-  <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" ing-if="box.state != 'new'">
-    <div flex flex-gt-sm="{{fs.panel ? 100 : 70}}" layout="column" class="clients-charts">
-      <div layout="" layout-wrap>
-        <!-- <div flex="100" flex-gt-md="{{fs.panel ? 100 : 50}}" ng-hide="fs && fs.panel != 'usage'"> -->
-        <!--   <usage-chart ></usage-chart> -->
-        <!-- </div> -->
-        <!-- <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'tx'"> -->
-        <!--   <tx-chart></tx-chart> -->
-        <!-- </div> -->
-        <!-- <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'snr'"> -->
-        <!--   <interface-chart ></interface-chart> -->
-        <!-- </div> -->
-        <div flex="100" flex-gt-md="{{fs.panel ? 100 : 100}}" ng-hide="fs && fs.panel != 'mcs'">
-          <load-chart ></load-chart>
-        </div>
+  <div flex="100" flex-gt-sm="70" layout="column" ing-if="box.state != 'new'">
+
+    <div flex="100" flex-gt-sm="70" layout="column" class="clients-charts">
+
+      <div ng-hide="fs && fs.panel != 'mcs'" class="clients-charts">
+        <load-chart ></load-chart>
       </div>
+
+      <list-messages></list-messages>
+
     </div>
+
   </div>
 
 </md-content>

@@ -1,28 +1,37 @@
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <md-button id="main" class="md-icon-button md-primary" ng-click="back()" aria-label="{{ 'Settings' | translate }}">
-      <md-icon md-font-icon="arrow-left" >arrow_back</md-icon>
-    </md-button>
-    <p translate>Back to Device</p>
-  </div>
-  <md-divider></md-divider>
-</md-toolbar>
+<md-card class="payload-card">
+  <md-card-header>
+    <md-card-header-text>
+      <span class="md-subhead" translate>
+        Payloads
+      </span>
+    </md-card-header-text>
+  </md-card-header>
+  <md-card-content layout="row" layout-wrap>
 
-<div ng-hide="messages.length > 0" class="message-notifier">
-  <h2 translate>No messages yet</h2>
-  <p translate>Send messages and commands to your devices. Run payloads remotely, your devices will reply and print the reply here.</p>
-  <p translate>Read more in the docs.</p>
-</div>
+    <div flex-gt-sm="100">
 
-<div scroll-glue>
-  <div id="msg.id" class="message-inner" ng-repeat="msg in messages">
-    <span><pre>{{ nas.hostname }}% {{ msg.msg }}</pre></span>
-    <span ng-bind-html="msg.replies[0].msg | formatter:msg.msg"></span>
-    <span class="message-small"><translate>Sent: {{ msg.created_at | humanTime }}. Delivered: {{ msg.replies[0].created_at | humanTime }}. Delivery time: {{ msg.replies[0].created_at - msg.created_at }}s.</translate> <a href="" ng-click="destroy(msg.id, $index)"><md-icon >delete</md-icon></a><md-icon>save</md-icon></span>
+      <div scroll-glue class="list-messages" id="payload-bottom">
+        <div ng-hide="messages.length > 0" class="message-notifier">
+          <h2 translate>No messages yet</h2>
+          <p translate>Send messages and commands to your devices. Run payloads remotely, your devices will reply and print the reply here.</p>
+          <p translate>Read more in the docs.</p>
+        </div>
+        <div id="msg.id" class="message-inner" ng-repeat="msg in messages">
+          <span><pre>{{ nas.hostname }}% {{ msg.msg }}</pre></span>
+          <span ng-bind-html="msg.replies[0].msg | formatter:msg.msg"></span>
+          <span class="message-small"><translate>Sent: {{ msg.created_at | humanTime }}. Delivered: {{ msg.replies[0].created_at | humanTime }}. Delivery time: {{ msg.replies[0].created_at - msg.created_at }}s.</translate> <a href="" ng-click="destroy(msg.id, $index)"><md-icon >delete</md-icon></a></span>
 
-  </div>
-</div>
+        </div>
+        <div ></div>
+      </div>
 
-<div id="message-footer">
-  <create-message messages="messages"></create-message>
-</div>
+    </div>
+
+
+  </md-card-content>
+  <md-card-actions>
+    <div id="message-footer">
+      <create-message messages="messages"></create-message>
+    </div>
+  </md-card-actions>
+</md-card>
