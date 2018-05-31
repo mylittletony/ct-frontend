@@ -22,7 +22,6 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
       setTimeout(function() {
         document.getElementById("payload-bottom").scrollTop = document.getElementById("payload-bottom").scrollHeight;
       }, 500);
-      console.log('apples')
     }
 
     var init = function() {
@@ -30,10 +29,10 @@ app.directive('listMessages', ['Message', 'Location', '$routeParams', 'gettextCa
         scope.messages = res.messages;
         scope._links = res._links;
         scope.loading = undefined;
+        gotoBottom();
       }, function() {
         scope.loading = undefined;
       });
-      gotoBottom();
     };
 
     var removeFromList = function(index) {
