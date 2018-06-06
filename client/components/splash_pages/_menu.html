@@ -1379,9 +1379,16 @@
                     <span ng-show="splash.gdpr_form" translate>Enabled</span>
                     <span ng-show="!splash.gdpr_form" translate>Disabled</span>
                   </md-switch>
+                  <small class="muted label">Email double opt-in</small>
+                  <md-switch ng-model="splash.double_opt_in" style="margin: 0px">
+                    <span ng-show="splash.double_opt_in" translate>Enabled</span>
+                    <span ng-show="!splash.double_opt_in" translate>Disabled</span>
+                  </md-switch>
                 </md-input-container>
-                <small ng-show="splash.gdpr_form">You are on your way to GDPR compliance.</small>
-                <small ng-show="!splash.gdpr_form">You are not GDPR compliant.</small>
+                <md-input-container class="md-block" style="margin-bottom:0px;">
+                </md-input-container>
+                <small ng-show="splash.gdpr_form && splash.double_opt_in">You are on your way to GDPR compliance.</small>
+                <small ng-show="!splash.gdpr_form || !splash.double_opt_in">You are not GDPR compliant.</small>
                 <md-input-container class="md-block" style="margin-bottom:0px;">
                   <small class="muted label">Newsletter Consent</small>
                   <md-switch ng-model="splash.newsletter_consent" style="margin:0px;">
