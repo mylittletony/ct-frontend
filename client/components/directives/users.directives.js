@@ -209,7 +209,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
         {views: 5000,
          cost: 25,
          type: 'big'},
-        {views: 15000,
+        {views: 50000,
          cost: 50,
          type: 'mega'}
       ],
@@ -220,7 +220,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
         {views: 5000,
          cost: 35,
          type: 'big'},
-        {views: 15000,
+        {views: 50000,
          cost: 70,
          type: 'mega'}
       ],
@@ -231,7 +231,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
         {views: 5000,
          cost: 35,
          type: 'big'},
-        {views: 15000,
+        {views: 50000,
          cost: 70,
          type: 'mega'}
       ]
