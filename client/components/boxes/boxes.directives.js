@@ -93,12 +93,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         });
 
         scope.menu.push({
-          type: 'payloads',
-          name: gettextCatalog.getString('Payloads'),
-          icon: 'present_to_all',
-        });
-
-        scope.menu.push({
           type: 'changelog',
           name: gettextCatalog.getString('Changelog'),
           icon: 'history',
