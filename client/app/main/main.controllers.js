@@ -112,7 +112,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     if ($localStorage.user && !$localStorage.user.custom) {
       vm.menuRight.push({
         name: gettextCatalog.getString('Documentation'),
-        link: 'http://docs.cucumberwifi.io',
+        link: 'http://docs.ct-networks.io',
         type: 'link',
         target: '_blank',
         icon: 'account_balance'
@@ -120,7 +120,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
       vm.menuRight.push({
         name: gettextCatalog.getString('Discussions'),
-        link: 'https://discuss.cucumberwifi.io',
+        link: 'https://discuss.ct-networks.io',
         target: '_blank',
         type: 'link',
         icon: 'forum'
