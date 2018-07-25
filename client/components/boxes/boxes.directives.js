@@ -476,7 +476,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           scope.box.connection_status_formatted = 'Communication error';
           break;
         case '6':
-          scope.box.connection_status_formatted = 'DNS check failed';
+          scope.box.connection_status_formatted = 'Ok.';
+          //scope.box.connection_status_formatted = 'DNS check failed';
           break;
         default:
           scope.box.connection_status_formatted = 'Misc. Problem (' + scope.box.connection_status + ')';
