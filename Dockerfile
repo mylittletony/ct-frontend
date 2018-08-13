@@ -2,10 +2,6 @@ FROM node:6
 
 MAINTAINER CT WiFi
 
-RUN \
-  apt-get update && \
-  apt-get install -y gettext
-
 ADD package.json /tmp/package.json
 ADD bower.json /tmp/bower.json
 
