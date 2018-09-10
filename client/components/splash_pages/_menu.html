@@ -424,9 +424,8 @@
 
                 <md-input-container class="md-block" ng-hide="splash.newsletter_type == 0 || splash.newsletter_type == 3">
                   <label for="splash.newsletter_list_id"><translate>Newsletter List ID</translate></label>
-                  <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-pattern="/^[0-9a-zA-Z-_]*$/" ng-trim="false">
+                  <input ng-model="splash.newsletter_list_id" placeholder="{{ 'Your Newsletter List ID' | translate }}" ng-focus="showpassword = !showpassword" ng-blur="showpassword = !showpassword" type="{{ showpassword ? 'text' : 'password' }}" name="newsletter_list_id" ng-maxlength='100' ng-disabled="!splash.newsletter_active || (splash.newsletter_type == 0 || splash.newsletter_type == 3)" ng-required="splash.newsletter_active && (splash.newsletter_type != 0 && splash.newsletter_type != 3)" ng-trim="false">
                   <div ng-messages="myForm.newsletter_list_id.$error" md-auto-hide="false">
-                    <div ng-message="pattern" translate>Invalid characters in list ID.</div>
                     <div ng-message="required" translate>You must set a list ID.</div>
                   </div>
                 </md-input-container>
