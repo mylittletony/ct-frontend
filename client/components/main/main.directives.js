@@ -371,7 +371,7 @@ app.directive('countrySelect', ['$parse', 'gettextCatalog', function($parse, get
 
   return {
     template:
-      '<md-select ng-model="country">'+
+      '<md-select ng-model="country" required>'+
       '<md-option ng-repeat=\'c in countries\' ng-value="c.code">'+
       '{{ c.name }}'+
       '</md-option>'+

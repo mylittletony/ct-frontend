@@ -112,7 +112,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
     if ($localStorage.user && !$localStorage.user.custom) {
       vm.menuRight.push({
         name: gettextCatalog.getString('Documentation'),
-        link: 'http://docs.cucumberwifi.io',
+        link: 'http://docs.ct-networks.io',
         type: 'link',
         target: '_blank',
         icon: 'account_balance'
@@ -120,7 +120,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
 
       vm.menuRight.push({
         name: gettextCatalog.getString('Discussions'),
-        link: 'https://discuss.cucumberwifi.io',
+        link: 'https://discuss.ct-networks.io',
         target: '_blank',
         type: 'link',
         icon: 'forum'
@@ -260,38 +260,38 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$localStorage', '$window', 
       });
     }
 
-    $scope.$on('intercom', function(args,event) {
-      if (Auth.currentUser() && Auth.currentUser().user_hash !== undefined) {
-        vm.menu.Intercom = true;
-        var user = Auth.currentUser();
-        window.intercomSettings = {
-            app_id: INTERCOM,
-            user_id: user.accountId,
-            email: user.email,
-            name: user.username,
-            locked: user.locked,
-            created_at: user.created_at,
-            user_hash: user.user_hash,
-            brand_name: user.url,
-            cname: user.cname,
-            paid_plan: user.paid_plan,
-            reseller: user.reseller,
-            customer_of_reseller: user.cor,
-            locs: user.locs,
-            hide_default_launcher: !user.chat_enabled || false
-        };
-      }
+    // $scope.$on('intercom', function(args,event) {
+    //   if (Auth.currentUser() && Auth.currentUser().user_hash !== undefined) {
+    //     vm.menu.Intercom = true;
+    //     var user = Auth.currentUser();
+    //     window.intercomSettings = {
+    //         app_id: INTERCOM,
+    //         user_id: user.accountId,
+    //         email: user.email,
+    //         name: user.username,
+    //         locked: user.locked,
+    //         created_at: user.created_at,
+    //         user_hash: user.user_hash,
+    //         brand_name: user.url,
+    //         cname: user.cname,
+    //         paid_plan: user.paid_plan,
+    //         reseller: user.reseller,
+    //         customer_of_reseller: user.cor,
+    //         locs: user.locs,
+    //         hide_default_launcher: !user.chat_enabled || false
+    //     };
+    //   }
 
-      // check for customers from reseller brands who aren't resellers
-      if ($scope.brandName && $scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
-        // check if there is a special brand intercom id, otherwise just hide it
-        if ($scope.brandName.intercom_id) {
-          window.intercomSettings.app_id = $scope.brandName.intercom_id;
-        } else {
-          window.intercomSettings.hide_default_launcher = true;
-        }
-      }
-    });
+    //   // check for customers from reseller brands who aren't resellers
+    //   if ($scope.brandName && $scope.brandName.reseller === true && Auth.currentUser().reseller !== true) {
+    //     // check if there is a special brand intercom id, otherwise just hide it
+    //     if ($scope.brandName.intercom_id) {
+    //       window.intercomSettings.app_id = $scope.brandName.intercom_id;
+    //     } else {
+    //       window.intercomSettings.hide_default_launcher = true;
+    //     }
+    //   }
+    // });
 
     function promos() {
       // put me back if we run a promos!

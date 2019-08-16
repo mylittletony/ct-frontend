@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="bower_components/emojione/assets/css/emojione.css" />
   <link rel="stylesheet" href="bower_components/dragula.js/dist/dragula.css" />
   <link rel="stylesheet" href="bower_components/angular-moment-picker/dist/angular-moment-picker.min.css" />
+  <link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,client}) app/app.css -->
@@ -66,6 +67,10 @@
 <body ng-class="{ 'login': ct_login.active  }" ng-app="myApp" layout="row" ng-controller="MainCtrl as vm" ng-cloak xx-ng-strict-di>
 
   <md-progress-linear class="login-spin-hide" ng-class="{ 'login-spin': ct_login.active  }" md-mode="query"></md-progress-linear>
+
+  <div ng-if="user">
+    <gdpr-consent ng-if="user.consented_at == 0"></gdpr-consent>
+  </div>
 
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-hide="ct_login.active">
     <div class="locked-account" ng-show="user.locked && user.guest !== true">
@@ -113,21 +118,6 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-
-          <!-- <md-menu>
-            <md-button aria-label="'Open Apps Menu' | translate" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <md-icon>assessment</md-icon>
-            </md-button>
-            <md-menu-content width="4" >
-              <md-menu-item ng-repeat="item in vm.menu.reports">
-                <md-divider ng-if="section.type == 'divider'" class="divider"></md-divider>
-                <md-button ing-if="section.type == 'link'" href='{{item.link}}' ng-click="$mdMenu.hide()">
-                  <md-icon md-menu-align-target>{{ item.icon }}</md-icon>
-                  {{ item.title }}
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu> -->
           <md-menu md-position-mode="target">
             <md-button aria-label="Open Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
               <md-icon>account_circle</md-icon>
@@ -142,20 +132,12 @@
               <md-menu-divider></md-menu-divider>
 
               <md-menu-item ng-if="user && !user.custom">
-                <md-button target="_blank" ng-href="http://docs.cucumberwifi.io" >
+                <md-button target="_blank" ng-href="http://docs.ct-networks.io" >
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">account_balance</md-icon>
                   <span translate>Documentation</span>
                 </md-button>
               </md-menu-item>
 
-              <md-menu-item ng-if="user && !user.custom">
-                <md-button target="_blank" ng-href="https://discuss.cucumberwifi.io/" >
-                  <md-icon md-menu-align-target style="margin: auto 3px auto 0;">forum</md-icon>
-                  <span translate>Discussions</span>
-                </md-button>
-              </md-menu-item>
-
-              <!-- <md-menu-divider></md-menu-divider> -->
               <md-menu-item>
                 <md-button href="/#/downloads" ng-click="$mdMenu.hide()">
                   <md-icon md-menu-align-target style="margin: auto 3px auto 0;">get_app</md-icon>
@@ -219,7 +201,7 @@
           </md-content>
         </md-sidenav>
 
-        <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-1dp"
+        <md-sidenav ng-show="user" class="site-sidenav md-sidenav-left md-whiteframe-1dp"
                     md-component-id="left"
                     aria-label="'Main Menu' | translate"
                     md-whiteframe="4"
@@ -264,7 +246,7 @@
               ©2018 CT.<br>Build #{{ commit }}</small>
           </div>
         </md-sidenav>
-        <md-content class="intercom-foot-pad" flex>
+        <md-content flex>
           <div ng-view autoscroll="true" ng-class="{'hidden': notFound}"></div>
           <div style="margin: 30px 40px;" ng-class="{'hidden': !notFound}">
             <h3>Weird, the resource was not found. Please try again.</h3>
@@ -275,11 +257,9 @@
 
   </div>
 
-  <md-sidenav flex-xs flex-gt-sm="20" class="design-sidebar md-sidenav-right md-whiteframe-z2" md-component-id="" md-is-locked-open="vm.menu.Designer == true">
-    <md-content layout-padding>
-      <design-menu ver="designer"></design-menu>
-    </md-content>
-  </md-sidenav>
+  <!-- <md-sidenav flex-xs flex-gt-sm="20" class="design-sidebar md-sidenav-right md-whiteframe-z2" md-component-id="" md-is-locked-open="vm.menu.Designer == true">
+    <design-menu ver="designer"></design-menu>
+  </md-sidenav> -->
 
   <!--[if lt IE 9]>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -321,6 +301,8 @@
   <script src="bower_components/emojionearea/dist/emojionearea.js"></script>
   <script src="bower_components/dragula.js/dist/dragula.js"></script>
   <script src="bower_components/angular-moment-picker/dist/angular-moment-picker.min.js"></script>
+  <script src="bower_components/tinycolor/tinycolor.js"></script>
+  <script src="bower_components/angular-color-picker/dist/angularjs-color-picker.js"></script>
   <script src="bower_components/angular-emojione/angular-emojione.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
@@ -407,6 +389,9 @@
   <script src="components/payloads/payloads.directives.js"></script>
   <script src="components/payloads/payloads.filters.js"></script>
   <script src="components/payloads/payloads.services.js"></script>
+  <script src="components/people/people.directives.js"></script>
+  <script src="components/people/people.services.js"></script>
+  <script src="components/person_timelines/person_timeline.services.js"></script>
   <script src="components/plans/plans.directives.js"></script>
   <script src="components/plans/plans.services.js"></script>
   <script src="components/port_forwards/port_forwards.controller.js"></script>
@@ -434,6 +419,7 @@
   <script src="components/services/triggers.services.js"></script>
   <script src="components/services/users.services.js"></script>
   <script src="components/services/zones.services.js"></script>
+  <script src="components/sms/sms.services.js"></script>
   <script src="components/social/social.directives.js"></script>
   <script src="components/social/social.services.js"></script>
   <script src="components/speedtests/speedtests.controller.js"></script>
@@ -482,11 +468,15 @@
         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KQ7WSH');</script>
 
-  <script>
-    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;
-     s.src='https://widget.intercom.io/widget/zklfhs87';
-     var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
-  </script>
+  <!-- Start of ct-networks Zendesk Widget script -->
+  <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=d346142b-c731-4444-b5dc-242f80a4717c"> </script>
+
+<!-- End of ct-networks Zendesk Widget script -->
+  <!-- <script> -->
+  <!--   (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true; -->
+  <!--    s.src='https://widget.intercom.io/widget/zklfhs87'; -->
+  <!--    var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})() -->
+  <!-- </script> -->
 
   <script>
     $( document ).ready(function() {

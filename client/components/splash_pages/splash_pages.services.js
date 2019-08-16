@@ -83,7 +83,8 @@ app.factory('SplashPage', ['$resource', 'API_END_POINT',
         params: {
           location_id: '@location_id',
           id: '@id',
-          action: 'duplicate'
+          action: 'duplicate',
+          network_id: '@network_id'
         }
       },
       create: {

@@ -454,7 +454,7 @@ app.directive('listLocations', ['Location', '$routeParams', '$rootScope', '$http
 
 }]);
 
-app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social', 'Order', 'Location', 'Report', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Client, Email, Guest, Social, Order, Location, Report, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
+app.directive('locationAudit', ['Session', 'Client', 'Order', 'Location', 'Report', 'People', '$routeParams', '$rootScope', '$location', '$timeout', '$q', '$localStorage', 'Locations', '$mdDialog', 'showToast', 'showErrors', 'gettextCatalog', function(Session, Client, Order, Location, Report, People, $routeParams, $rootScope, $location, $timeout, $q, $localStorage, Locations, $mdDialog, showToast, showErrors, gettextCatalog) {
 
   var link = function(scope,element,attrs,controller) {
 
@@ -467,14 +467,12 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
     var weekAgoEpoch = Math.floor(scope.startDate.getTime() / 1000);
     var nowEpoch = Math.floor(scope.endDate.getTime() / 1000);
 
-    scope.audit_models = ['Radius Sessions', 'Clients', 'Emails', 'Guests', 'Social', 'Sales'];
+    scope.audit_models = ['Radius Sessions', 'People', 'Clients', 'Sales'];
 
     var mailerType = {
       'Radius Sessions': 'radius',
+      'People': 'people',
       'Clients': 'client',
-      'Emails': 'email',
-      'Guests': 'guest',
-      'Social': 'social',
       'Sales': 'order'
     };
 
@@ -485,6 +483,37 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       limit: $routeParams.per || 25,
       start: $routeParams.start || weekAgoEpoch,
       end: $routeParams.end || nowEpoch
+    };
+
+    var removeFromList = function(person) {
+      for (var i = 0, len = scope.people.length; i < len; i++) {
+        if (scope.people[i].id === person.id) {
+          scope.people.splice(i, 1);
+          showToast(gettextCatalog.getString('Person successfully deleted.'));
+          break;
+        }
+      }
+    };
+
+    var destroy = function(person) {
+      People.destroy({location_id: scope.location.slug, id: person.id}).$promise.then(function(results) {
+        removeFromList(person);
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    scope.delete_person = function(person) {
+      var confirm = $mdDialog.confirm()
+      .title(gettextCatalog.getString('Delete Person'))
+      .textContent(gettextCatalog.getString('Are you sure you want to delete this person?'))
+      .ariaLabel(gettextCatalog.getString('Delete Person'))
+      .ok(gettextCatalog.getString('Delete'))
+      .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function() {
+        destroy(person);
+      }, function() {
+      });
     };
 
     var getParams = function() {
@@ -498,16 +527,6 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
       };
     };
 
-    var clearTable = function() {
-      scope.results = [];
-      scope.links = undefined;
-      $location.search();
-      scope.loading = undefined;
-      if (scope.query.end - scope.query.start > 604800 && $localStorage.user && !localStorage.user.paid_plan) {
-        showToast(gettextCatalog.getString('Please ensure you are permitted to see audits in this date range.'));
-      }
-    };
-
     var findSessions = function() {
       getParams();
       params.client_mac = scope.query.client_mac;
@@ -519,21 +538,47 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        clearTable();
+        scope.loading = undefined;
       });
     };
 
-    var findEmails = function() {
-      getParams();
-      Email.get(params).$promise.then(function(data, err) {
-        scope.selected = 'Emails';
-        scope.results = data.emails;
+    var getPeopleParams = function() {
+      params = {
+        page: scope.query.page,
+        per: scope.query.limit,
+        location_id: scope.location.slug,
+        audience: {
+          predicate_type: 'and',
+          predicates: [
+            {
+              operator: 'gte',
+              relative: false,
+              attribute: 'last_seen',
+              value: scope.query.start * 1000
+            },
+            {
+              operator: 'lte',
+              relative: false,
+              attribute: 'last_seen',
+              value: scope.query.end * 1000
+            }
+          ]
+        }
+      };
+    };
+
+    var findPeople = function() {
+      getPeopleParams();
+      People.get(params, function(data) {
+        scope.selected = 'People';
+        scope.people = data.people;
         scope.links = data._links;
         $location.search();
-        scope.loading = undefined;
-      }, function(err) {
+        scope.loading  = undefined;
+      }, function(err){
         console.log(err);
-        clearTable();
+        scope.links.total_entries = 0;
+        scope.loading = undefined;
       });
     };
 
@@ -547,38 +592,7 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        clearTable();
-      });
-    };
-
-    var findGuests = function() {
-      getParams();
-      Guest.get(params).$promise.then(function(data, err) {
-        scope.selected = 'Guests';
-        if (data.guests[0]) {
-          scope.guest_columns = Object.keys(data.guests[0].registration_data);
-        }
-        scope.results = data.guests;
-        scope.links = data._links;
-        $location.search();
         scope.loading = undefined;
-      }, function(err) {
-        console.log(err);
-        clearTable();
-      });
-    };
-
-    var findSocial = function() {
-      getParams();
-      Social.get(params).$promise.then(function(data, err) {
-        scope.selected = 'Social';
-        scope.results = data.social;
-        scope.links = data._links;
-        $location.search();
-        scope.loading = undefined;
-      }, function(err) {
-        console.log(err);
-        clearTable();
       });
     };
 
@@ -592,17 +606,23 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
         scope.loading = undefined;
       }, function(err) {
         console.log(err);
-        clearTable();
+        scope.loading = undefined;
       });
     };
 
     var downloadReport = function() {
-      var params = {
-        start: scope.query.start,
-        end: scope.query.end,
-        location_id: scope.location.id,
-        type: mailerType[scope.selected]
-      };
+      if (scope.selected === 'People') {
+        getPeopleParams();
+        params.location_id = scope.location.id;
+        params.type = 'people';
+      } else {
+        params = {
+          start: scope.query.start,
+          end: scope.query.end,
+          location_id: scope.location.id,
+          type: mailerType[scope.selected]
+        };
+      }
       Report.create(params).$promise.then(function(results) {
         showToast(gettextCatalog.getString('Your report will be emailed to you soon'));
       }, function(err) {
@@ -611,19 +631,15 @@ app.directive('locationAudit', ['Session', 'Client', 'Email', 'Guest', 'Social',
     };
 
     scope.updateAudit = function(selected) {
-      scope.loading = true
+      scope.results = [];
+      scope.people = [];
+      scope.loading = true;
       switch(selected) {
-        case 'Emails':
-          findEmails();
-          break;
         case 'Clients':
           findClients();
           break;
-        case 'Guests':
-          findGuests();
-          break;
-        case 'Social':
-          findSocial();
+        case 'People':
+          findPeople();
           break;
         case 'Sales':
           findOrders();
@@ -1393,7 +1409,7 @@ app.directive('locationMap', ['Location', 'Box', '$routeParams', '$mdDialog', 's
   };
 }]);
 
-app.directive('locationBoxes', ['Location', '$location', 'Box', 'MetricLambda', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, MetricLambda, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
+app.directive('locationBoxes', ['Location', '$location', 'Box', 'Metric', 'Client', '$routeParams', '$mdDialog', '$mdMedia', 'LocationPayload', 'showToast', 'showErrors', '$q', '$mdEditDialog', 'Zone', '$pusher', '$rootScope', 'gettextCatalog', 'pagination_labels', '$timeout', function(Location, $location, Box, Metric, Client, $routeParams, $mdDialog, $mdMedia, LocationPayload, showToast, showErrors, $q, $mdEditDialog, Zone, $pusher, $rootScope, gettextCatalog, pagination_labels, $timeout) {
 
   var link = function( scope, element, attrs ) {
     scope.selected = [];
@@ -1866,8 +1882,8 @@ app.directive('locationBoxes', ['Location', '$location', 'Box', 'MetricLambda', 
     };
 
     var getClientCount = function(i) {
-      MetricLambda.clientstats({
-        type:         'devices.meta',
+      Metric.clientstats({
+        type:         'device.meta',
         ap_mac:       scope.boxes[i].calledstationid,
         location_id:  scope.boxes[i].location_id
       }).$promise.then(function(data) {

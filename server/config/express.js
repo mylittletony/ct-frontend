@@ -20,9 +20,6 @@ var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
-console.log('-----------------')
-console.log(config);
-console.log('-----------------')
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -126,7 +123,9 @@ module.exports = function(app) {
   };
 
   if (env === 'production' || env === 'beta') {
-    app.use(forceSsl);
+    if (process.env.NO_SSL === undefined || process.env.NO_SSL === null || process.env.NO_SSL === '') {
+      app.use(forceSsl);
+    }
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
     app.set('appPath', config.root + '/public');

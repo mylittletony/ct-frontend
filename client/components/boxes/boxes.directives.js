@@ -93,12 +93,6 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         });
 
         scope.menu.push({
-          type: 'payloads',
-          name: gettextCatalog.getString('Payloads'),
-          icon: 'present_to_all',
-        });
-
-        scope.menu.push({
           type: 'changelog',
           name: gettextCatalog.getString('Changelog'),
           icon: 'history',
@@ -111,13 +105,11 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
         type: 'transfer',
       });
 
-      if (scope.box.v === '4') {
-        scope.menu.push({
-          name: gettextCatalog.getString('Operations'),
-          icon: 'access_time',
-          type: 'operations',
-        });
-      }
+      scope.menu.push({
+        name: gettextCatalog.getString('Operations'),
+        icon: 'access_time',
+        type: 'operations',
+      });
 
       if (scope.box.is_cucumber) {
         scope.menu.push({
@@ -484,7 +476,8 @@ app.directive('showBox', ['Box', '$routeParams', 'Auth', '$pusher', '$location',
           scope.box.connection_status_formatted = 'Communication error';
           break;
         case '6':
-          scope.box.connection_status_formatted = 'DNS check failed';
+          scope.box.connection_status_formatted = 'Ok.';
+          //scope.box.connection_status_formatted = 'DNS check failed';
           break;
         default:
           scope.box.connection_status_formatted = 'Misc. Problem (' + scope.box.connection_status + ')';
@@ -606,12 +599,7 @@ app.directive('fetchBox', ['Box', '$routeParams', '$compile', function(Box, $rou
     };
 
     var compileTemplate = function(version) {
-      var template;
-      if (parseInt(version) === 4) {
-        template = $compile('<list-messages></list-messages>')(scope);
-      } else {
-        template = $compile('<box-payloads></box-payloads>')(scope);
-      }
+      var template = $compile('<list-messages></list-messages>')(scope);
       element.html(template);
       scope.loading = undefined;
     };
@@ -1722,15 +1710,15 @@ app.directive('widgetBody', ['$compile', function($compile) {
 
 }]);
 
-app.directive('deviceMeta', ['MetricLambda', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(MetricLambda, showErrors, showToast, Speedtest, gettextCatalog) {
+app.directive('deviceMeta', ['Metric', 'showErrors', 'showToast', 'Speedtest', 'gettextCatalog', function(Metric, showErrors, showToast, Speedtest, gettextCatalog) {
 
   var link = function(scope, element,attrs) {
     var load;
 
     var loadMeta = function(box) {
       load = true;
-      MetricLambda.clientstats({
-        type:         'devices.meta',
+      Metric.clientstats({
+        type:         'device.meta',
         ap_mac:       box.calledstationid,
         location_id:  box.location_id
       }).$promise.then(function(data) {

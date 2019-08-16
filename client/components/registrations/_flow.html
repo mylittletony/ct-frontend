@@ -1,4 +1,4 @@
-<div flex="100" layout="column" class="layout-column flex" ng-cloak style="padding-top: 14%;">
+<div flex="100" layout="column" class="layout-column flex" ng-cloak>
   <form name="myForm" class="flow">
     <md-content class="md-padding" layout="column" layout-gt-sm='column'>
       <div layout="row" layout-align="center center">
@@ -62,6 +62,19 @@
                   <input type="number" placeholder="In case you lose your details" name="phone" ng-minlength="5" ng-model="holding.phone" md-minlength=8>
                   <md-icon>phone</md-icon>
                 </md-input-container>
+                <small>To finish your account creation, please confirm that you agree to our <a href="https://www.ct-networks.io/terms" target="_blank">terms of service</a>.</small>
+                <md-input-container layout="row" flex class="md-block">
+                  <md-checkbox ng-model="holding.gdpr_consent" aria-label="gdpr" required>
+                    I confirm that I have read and agree to the terms of service.
+                  </md-checkbox>
+                </md-input-container>
+                <small>We'd also like to occasionally send you newsletters about products & services, news & events.</small>
+                <md-input-container layout="row" flex class="md-block">
+                  <md-checkbox ng-model="holding.newsletter_consent" aria-label="newsletter">
+                    I'd like to receive newsletters via Email.
+                  </md-checkbox>
+                </md-input-container>
+
               </div>
             </md-card-content>
             <md-divider ng-show="!finalised"></md-divider>

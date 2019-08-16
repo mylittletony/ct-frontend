@@ -1,0 +1,41 @@
+<md-dialog aria-label="{{ 'Health Check' | translate }}"  ng-cloak>
+  <form name="myForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Duplicate Splash Page</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="duplicate-form">
+      <div class="md-dialog-content" layout="column">
+        <div flex layout="column">
+          <p translate>Select SSID for the new Splash Page:</p>
+        </div>
+        <div flex layout="column">
+          <md-input-container>
+            <label>
+              <translate>Networks</translate>
+            </label>
+            <md-select ng-model="network_id" required>
+              <md-option ng-repeat="network in networks" value="{{network.id}}">
+                {{network.ssid}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+        <translate>
+          Close
+        </translate>
+      </md-button>
+      <md-button class="md-raised" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="confirm()">
+        <translate>
+          CONFIRM
+        </translate>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

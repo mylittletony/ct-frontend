@@ -209,7 +209,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
         {views: 5000,
          cost: 25,
          type: 'big'},
-        {views: 15000,
+        {views: 50000,
          cost: 50,
          type: 'mega'}
       ],
@@ -220,7 +220,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
         {views: 5000,
          cost: 35,
          type: 'big'},
-        {views: 15000,
+        {views: 50000,
          cost: 70,
          type: 'mega'}
       ],
@@ -231,7 +231,7 @@ app.directive('userSplashViews', ['User', '$routeParams', '$location', 'Auth', '
         {views: 5000,
          cost: 35,
          type: 'big'},
-        {views: 15000,
+        {views: 50000,
          cost: 70,
          type: 'mega'}
       ]
@@ -306,8 +306,6 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
 
     var id;
 
-    scope.currencies = { 'US Dollars' : 'USD', 'UK Pounds': 'GBP', 'EUR': 'Euros' };
-
     if ($location.path() === '/me/billing' || Auth.currentUser().slug === $routeParams.id) {
       id = Auth.currentUser().slug;
     } else {
@@ -318,7 +316,7 @@ app.directive('userBilling', ['User', '$routeParams', '$location', 'Auth', 'show
       if (scope.user && scope.user.plan) {
         switch(scope.user.plan.currency) {
           case 'GBP':
-            scope.user.plan.currency_symbol = '$';
+            scope.user.plan.currency_symbol = '£';
             break;
           case 'EUR':
             scope.user.plan.currency_symbol = '€';
@@ -1672,4 +1670,86 @@ app.directive('inventory', ['Inventory', '$routeParams', '$location', 'menu', '$
     templateUrl: 'components/users/inventories/_index.html'
   };
 
+}]);
+
+app.directive('gdprConsent', ['User', 'Auth', '$route', '$routeParams', '$location', '$rootScope', '$timeout', '$mdDialog', '$localStorage', 'showToast', 'showErrors', 'gettextCatalog', function(User, Auth, $route, $routeParams, $location, $rootScope, $timeout, $mdDialog, $localStorage, showToast, showErrors, gettextCatalog) {
+
+  var link = function(scope, element, attrs) {
+
+    scope.confirmDelete = function(email, user) {
+      User.destroy({id: user.slug, email: email}).$promise.then(function() {
+        Auth.logout();
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function DeleteController($scope, user) {
+      $scope.delete = function(email) {
+        scope.confirmDelete(email, user);
+        $mdDialog.cancel();
+      };
+      $scope.close = function() {
+        $mdDialog.cancel();
+      };
+    }
+    DeleteController.$inject = ['$scope', 'user'];
+
+    var deleteAccount = function(user) {
+      $mdDialog.show({
+        templateUrl: 'components/users/show/_delete_account.html',
+        parent: angular.element(document.body),
+        controller: DeleteController,
+        locals: {
+          user: user
+        }
+      });
+    };
+
+    var save = function(user) {
+      User.update({}, {
+        id: user.slug,
+        user: user
+      }, function(data) {
+        $localStorage.user.consented_at = true;
+      }, function(err) {
+        showErrors(err);
+      });
+    };
+
+    function DialogController($scope,loading) {
+      $scope.user = Auth.currentUser();
+      $scope.user.gdpr_consent = undefined;
+      $scope.loading = loading;
+      $scope.save = function() {
+        save($scope.user);
+        $mdDialog.cancel();
+      };
+
+      $scope.delete_account = function() {
+        deleteAccount($scope.user);
+        $mdDialog.cancel();
+      };
+    }
+
+    DialogController.$inject = ['$scope', 'loading'];
+
+    var init = function() {
+      $mdDialog.show({
+        templateUrl: 'components/users/_gdpr_consent.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: false,
+        controller: DialogController,
+        locals: {
+          loading: scope.loading
+        }
+      });
+    };
+
+    init();
+  };
+
+  return {
+    link: link,
+  };
 }]);
