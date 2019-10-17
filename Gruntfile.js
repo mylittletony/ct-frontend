@@ -605,6 +605,7 @@ module.exports = function (grunt) {
           branch: 'master'
         }
       },
+      // not in use anymore
       usa: {
         options: {
           remote: 'git@heroku.com:limitless-brook-11104.git', // the main repo

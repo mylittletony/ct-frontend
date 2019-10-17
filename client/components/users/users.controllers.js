@@ -66,13 +66,13 @@ app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$rout
         active: isActive('invoices')
       });
 
-      // menu.sections.push({
-      //   name: gettextCatalog.getString('Reseller'),
-      //   type: 'link',
-      //   link: '/#/users/' + id + '/reseller',
-      //   icon: 'all_inclusive',
-      //   active: isActive('reseller')
-      // });
+      menu.sections.push({
+        name: gettextCatalog.getString('Reseller'),
+        type: 'link',
+        link: '/#/users/' + id + '/reseller',
+        icon: 'all_inclusive',
+        active: isActive('reseller')
+      });
     }
 
     menu.sections.push({
