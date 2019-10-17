@@ -76,16 +76,18 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     DialogController.$inject = ['$scope', 'plan_id'];
 
     scope.upgrade = function(p) {
-      plan = p;
-      $mdDialog.show({
-        locals: {
-          plan: plan,
-          currency: scope.curr
-        },
-        templateUrl: 'components/users/billing/_upgrade.html',
-        controller: UpgradeController,
-        clickOutsideToClose: true
-      });
+      upgrade(p.id);
+      // alert(123);
+      // plan = p;
+      // $mdDialog.show({
+      //   locals: {
+      //     plan: plan,
+      //     currency: scope.curr
+      //   },
+      //   templateUrl: 'components/users/billing/_upgrade.html',
+      //   controller: UpgradeController,
+      //   clickOutsideToClose: true
+      // });
     };
 
     function UpgradeController($scope, plan, currency) {
