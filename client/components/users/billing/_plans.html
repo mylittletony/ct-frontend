@@ -35,7 +35,7 @@
             </td>
             <td md-cell>
               <md-button disabled="true" ng-if="plan.plan_id === user.plan_id"><translate>YOUR PLAN</translate></md-button>
-              <md-button ng-disabled="!user.stripe_id" ng-click="upgrade(plan)" ng-if="(plan.plan_id != user.plan_id) && plan.upgrading != true && !plan.free">
+              <md-button iing-disabled="!user.stripe_id" ng-click="upgrade(plan)" ng-if="(plan.plan_id != user.plan_id) && plan.upgrading != true && !plan.free">
                 <translate>UPGRADE</translate>
               </md-button>
               <span ng-if="plan.upgrading">

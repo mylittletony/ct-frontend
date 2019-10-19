@@ -30,12 +30,11 @@
                   <p ng-if="user.reseller == false" translate> Disabled</p>
                 </div>
               </md-list-item>
-              <p ng-show="user.reseller == true"><span ng-show="new_reseller"><b>Success! We have activated your account</b>!</span> Please ensure you have subscribed to the reseller plan in the <a href="/#/users/{{ user.slug }}/billing">billing section</a>.</p>
             </div>
           </md-card-content>
         </md-card>
 
-        <md-card ng-show="user.reseller == false && user.credit_card_last4">
+        <md-card ng-show="user.reseller == false">
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline" >
@@ -68,21 +67,7 @@
           </md-card-title>
           <md-card-content>
             <div layout="row" layout-wrap>
-              <p>There's a one-off charge of $500 to access the platform and reseller features. After joining, you will have access to the reseller features plus you'll get a discount on the per AP costs. Here's how it works:</p>
-
-              <md-list-item class="md-3-line md-long-text" ng-show="!user.credit_card_last4">
-                <div class="md-list-item-text">
-                  <h3>First, add a card to your account</h3>
-                  <p>You'll need to add a card to your account before you sign-up. <a href="/#/users/{{ user.slug }}/billing">Do that here</a>.</p>
-                </div>
-              </md-list-item>
-
-              <md-list-item class="md-3-line md-long-text">
-                <div class="md-list-item-text">
-                  <h3>Pay One-off Joining Fee</h3>
-                  <p>Pay the joining fee using the form below. This is paid just once and gives you access to the reseller features and discounted rates.</p>
-                </div>
-              </md-list-item>
+              <p>There's a one-off charge of $1000 to access the platform and reseller features. After joining, you will have access to the reseller features plus you'll get a discount on the per AP costs. Here's how it works:</p>
 
               <md-list-item class="md-3-line md-long-text">
                 <div class="md-list-item-text">
