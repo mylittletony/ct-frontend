@@ -10,7 +10,6 @@ var app = angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'ngAnimate',
-  'angularPayments',
   'angularMoment',
   'ngMaterial',
   'md.data.table',
