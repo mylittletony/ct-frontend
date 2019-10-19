@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.plans.directives', []);
 
-app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$q', '$pusher', 'Subscription', 'showToast', '$rootScope', 'showErrors', function(Plan, $routeParams, $location, $mdDialog, $q, $pusher, Subscription, showToast, $rootScope, showErrors) {
+app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$q', '$pusher', 'Subscription', 'showToast', '$rootScope', 'showErrors', 'STRIPE_KEY', function(Plan, $routeParams, $location, $mdDialog, $q, $pusher, Subscription, showToast, $rootScope, showErrors, STRIPE_KEY) {
 
   function link(scope) {
 
@@ -46,6 +46,17 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
       return deferred.promise;
     };
 
+    let updateModal = () => {
+      const confirm = $mdDialog.confirm()
+        .title('Account Updating')
+        .textContent('We\'re updating your account, this might take a moment or two.')
+        .ariaLabel('Unsaved')
+        .ok('Cool');
+      $mdDialog.show(confirm).then(function() {
+        // n = undefined;
+      });
+    }
+
     scope.viewPlan = function(id) {
       $mdDialog.show({
         locals: {
@@ -76,18 +87,16 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     DialogController.$inject = ['$scope', 'plan_id'];
 
     scope.upgrade = function(p) {
-      upgrade(p.id);
-      // alert(123);
-      // plan = p;
-      // $mdDialog.show({
-      //   locals: {
-      //     plan: plan,
-      //     currency: scope.curr
-      //   },
-      //   templateUrl: 'components/users/billing/_upgrade.html',
-      //   controller: UpgradeController,
-      //   clickOutsideToClose: true
-      // });
+      plan = p;
+      $mdDialog.show({
+        locals: {
+          plan: plan,
+          currency: scope.curr
+        },
+        templateUrl: 'components/users/billing/_upgrade.html',
+        controller: UpgradeController,
+        clickOutsideToClose: true
+      });
     };
 
     function UpgradeController($scope, plan, currency) {
@@ -107,6 +116,19 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
     var upgrade = function(id) {
       scope.user.subscribing = true;
       Subscription.create({plan_id: id}).$promise.then(function(data) {
+        if (data && data.upgrade) {
+          updateModal();
+          return;
+        }
+
+        let stripe = Stripe(STRIPE_KEY);
+        stripe.redirectToCheckout({
+          sessionId: data.session_id
+        }).then(function (result) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer
+          // using `result.error.message`.
+        });
       }, function(err) {
         scope.user.subscribing = undefined;
         scope.user.errors = err.data.message;
@@ -160,6 +182,11 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
         subscribe(scope.user.key);
       });
     };
+
+    if ($routeParams && $routeParams.ps) {
+      $location.search({});
+      updateModal()
+    }
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (channel) {

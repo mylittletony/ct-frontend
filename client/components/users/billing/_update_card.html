@@ -2,9 +2,8 @@
   <p translate>Updating, please wait.</p>
   <md-progress-linear md-mode="query"></md-progress-linear>
 </div>
-<div ng-if="!user.subscribing">
+<div ng-if="!user.subscribing && user.stripe_id">
   <md-button class="{{ user.credit_card_last4 ? '' : 'md-raised md-primary' }}" ng-disabled="" ng-click="addCard()">
-    <span ng-if="user.credit_card_last4" translate>UPDATE CARD</span>
-    <span ng-if="!user.credit_card_last4" translate>ADD CARD</span>
+    <span translate>UPDATE CARD</span>
   </md-button>
 </div>
