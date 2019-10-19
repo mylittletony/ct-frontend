@@ -46,7 +46,7 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
       return deferred.promise;
     };
 
-    let updateModal = () => {
+    var updateModal = () => {
       const confirm = $mdDialog.confirm()
         .title('Account Updating')
         .textContent('We\'re updating your account, this might take a moment or two.')
@@ -121,7 +121,7 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
           return;
         }
 
-        let stripe = Stripe(STRIPE_KEY);
+        var stripe = Stripe(STRIPE_KEY);
         stripe.redirectToCheckout({
           sessionId: data.session_id
         }).then(function (result) {

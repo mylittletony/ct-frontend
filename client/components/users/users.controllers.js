@@ -2,8 +2,8 @@
 
 var app = angular.module('myApp.users.controller', []);
 
-app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$routeParams', 'User', '$location', 'Auth', 'STRIPE_KEY', '$route', 'locationHelper', 'AUTH_URL', 'menu', '$cookies', 'gettextCatalog',
-  function($rootScope, $window, $scope, $routeParams, User, $location, Auth, STRIPE_KEY, $route, locationHelper, AUTH_URL, menu, $cookies, gettextCatalog) {
+app.controller('UsersShowController', ['$rootScope', '$window', '$scope', '$routeParams', 'User', '$location', 'Auth', '$route', 'locationHelper', 'AUTH_URL', 'menu', '$cookies', 'gettextCatalog',
+  function($rootScope, $window, $scope, $routeParams, User, $location, Auth, $route, locationHelper, AUTH_URL, menu, $cookies, gettextCatalog) {
 
     $scope.loading = true;
 

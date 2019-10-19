@@ -125,7 +125,7 @@ app.directive('userReseller', ['User', '$routeParams', '$location', 'Auth', 'sho
     var upgrade = function() {
       scope.user.subscribing = true;
       Subscription.create({reseller: true}).$promise.then(function(data) {
-        let stripe = Stripe(STRIPE_KEY);
+        var stripe = Stripe(STRIPE_KEY);
         stripe.redirectToCheckout({
           sessionId: data.session_id
         }).then(function (result) {
@@ -485,7 +485,7 @@ app.directive('userCreditCard', ['User', '$routeParams', 'showToast', 'showError
     var card = function(id) {
       scope.user.subscribing = true;
       Subscription.create({card: true}).$promise.then(function(data) {
-        let stripe = Stripe(STRIPE_KEY);
+        var stripe = Stripe(STRIPE_KEY);
         stripe.redirectToCheckout({
           sessionId: data.session_id
         }).then(function (result) {
