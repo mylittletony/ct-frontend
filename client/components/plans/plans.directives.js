@@ -46,7 +46,7 @@ app.directive('userPlans', ['Plan', '$routeParams', '$location', '$mdDialog', '$
       return deferred.promise;
     };
 
-    var updateModal = () => {
+    var updateModal = function() {
       const confirm = $mdDialog.confirm()
         .title('Account Updating')
         .textContent('We\'re updating your account, this might take a moment or two.')
