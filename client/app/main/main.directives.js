@@ -233,22 +233,3 @@ app.directive('confirmOnExit', ['$mdDialog', '$location','gettextCatalog', funct
     }
   };
 }]);
-
-app.directive('cardForm', [function() {
-
-  function link(scope,element,attrs) {
-
-  }
-
-  return {
-    link: link,
-    scope: {
-      form: '=',
-      card: '='
-    },
-    template:
-      '<div>'+
-      '</div>'
-  };
-
-}]);
