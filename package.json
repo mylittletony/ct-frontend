@@ -41,7 +41,7 @@
     "lodash": "^4.17.15",
     "method-override": "~1.0.0",
     "morgan": "^1.9.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "passport": "^0.3.2",
     "passport-polkaspots": "1.0.5",
     "readable-stream": "^2.3.6",
